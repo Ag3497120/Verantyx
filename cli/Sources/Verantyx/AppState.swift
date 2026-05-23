@@ -291,6 +291,27 @@ final class AppState: ObservableObject {
     @Published var ollamaEndpoint: String = "http://localhost:11434" {
         didSet { UserDefaults.standard.set(ollamaEndpoint, forKey: "ollama_endpoint") }
     }
+    
+    // ── Exo Cluster ──
+    @Published var exoEnabled: Bool = {
+        let v = UserDefaults.standard.bool(forKey: "exo_enabled")
+        return v
+    }() {
+        didSet {
+            UserDefaults.standard.set(exoEnabled, forKey: "exo_enabled")
+            if exoEnabled {
+                Task { @MainActor in ExoEngine.shared.start() }
+            } else {
+                Task { @MainActor in ExoEngine.shared.stop() }
+            }
+        }
+    }
+    @Published var exoEndpoint: String = {
+        UserDefaults.standard.string(forKey: "exo_endpoint") ?? ""
+    }() {
+        didSet { UserDefaults.standard.set(exoEndpoint, forKey: "exo_endpoint") }
+    }
+
     @Published var systemPrompt: String = "You are Verantyx, an expert AI coding assistant running on Apple Silicon. Be concise and precise. Prefer code over prose." {
         didSet { UserDefaults.standard.set(systemPrompt, forKey: "system_prompt") }
     }

@@ -278,7 +278,9 @@ final class OllamaNEREngineManager: ObservableObject {
     func refresh() async {
         status = .checking
         do {
-            let url = URL(string: "http://localhost:11434/api/tags")!
+            let base = AppState.shared?.exoEnabled == true && !(AppState.shared?.exoEndpoint.isEmpty ?? true)
+                ? AppState.shared!.exoEndpoint : "http://localhost:11434"
+            let url = URL(string: "\(base)/api/tags")!
             let (data, _) = try await URLSession.shared.data(from: url)
 
             struct TagsResp: Decodable {
@@ -291,7 +293,7 @@ final class OllamaNEREngineManager: ObservableObject {
             // NER 向け最適モデルを自動選択
             let preferred = pickBestNERModel(from: names)
             selectedModel = preferred
-            engine = OllamaNEREngine(preferredModel: preferred)
+            engine = OllamaNEREngine(baseURL: base, preferredModel: preferred)
 
             status = .ready(model: preferred, allModels: names)
         } catch {

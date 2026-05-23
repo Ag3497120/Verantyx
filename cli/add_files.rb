@@ -14,7 +14,9 @@ files_to_add = [
     'Sources/Verantyx/Engine/LanguageManager.swift',
     'Sources/Verantyx/Engine/WorkspaceFileSystem.swift',
     'Sources/Verantyx/Views/ExtensionWebView.swift',
-    'Sources/Verantyx/Engine/ExtensionUIManager.swift'
+    'Sources/Verantyx/Engine/ExtensionUIManager.swift',
+    'Sources/Verantyx/Engine/ExoEngine.swift',
+    'Sources/Verantyx/Engine/ThunderboltDetector.swift'
 ]
 
 files_to_add.each do |file_path|

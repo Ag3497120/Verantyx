@@ -386,9 +386,12 @@ final class PolymorphicJCrossTranspiler: ObservableObject {
 
         if !GatekeeperModeState.shared.useOllamaNER { return ruleBasedRestored }
 
-        let endpoint = GatekeeperModeState.shared.commanderModel.isEmpty
-            ? "http://127.0.0.1:11434"
-            : (AppState.shared?.ollamaEndpoint ?? "http://127.0.0.1:11434")
+        var endpoint = "http://127.0.0.1:11434"
+        if AppState.shared?.exoEnabled == true && !(AppState.shared?.exoEndpoint.isEmpty ?? true) {
+            endpoint = AppState.shared!.exoEndpoint
+        } else if !GatekeeperModeState.shared.commanderModel.isEmpty {
+            endpoint = AppState.shared?.ollamaEndpoint ?? endpoint
+        }
         let endpointFixed = endpoint.replacingOccurrences(of: "localhost", with: "127.0.0.1")
         let model = GatekeeperModeState.shared.commanderModel
 

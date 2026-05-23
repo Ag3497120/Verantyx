@@ -31,7 +31,14 @@ public enum StopReason: String, Sendable {
 public actor OllamaClient {
 
     public static let shared = OllamaClient()
-    private let baseURL = "http://127.0.0.1:11434"
+    private func getBaseURL() async -> String {
+        return await MainActor.run {
+            if let state = AppState.shared, state.exoEnabled, !state.exoEndpoint.isEmpty {
+                return state.exoEndpoint
+            }
+            return AppState.shared?.ollamaEndpoint ?? "http://127.0.0.1:11434"
+        }
+    }
     private var _available: Bool? = nil
     private var _availableTime: Date? = nil
 
@@ -56,6 +63,7 @@ public actor OllamaClient {
     }
 
     private func probe() async -> Bool {
+        let baseURL = await getBaseURL()
         guard let url = URL(string: "\(baseURL)/api/tags") else { return false }
         var req = URLRequest(url: url)
         req.timeoutInterval = 1.5
@@ -72,6 +80,7 @@ public actor OllamaClient {
     // keep_alive: "-1" は「永続」を意味する (Ollama v0.1.24+)。
 
     public func keepModelWarm(model: String) async {
+        let baseURL = await getBaseURL()
         guard let url = URL(string: "\(baseURL)/api/chat") else { return }
         var req = URLRequest(url: url)
         req.httpMethod  = "POST"
@@ -97,6 +106,7 @@ public actor OllamaClient {
     // Works on Ollama v0.1.24+.
 
     public func unloadModel(_ model: String) async -> Bool {
+        let baseURL = await getBaseURL()
         guard let url = URL(string: "\(baseURL)/api/chat") else { return false }
         var req = URLRequest(url: url)
         req.httpMethod = "POST"
@@ -134,6 +144,7 @@ public actor OllamaClient {
     }
 
     public func loadedModels() async -> [RunningModel] {
+        let baseURL = await getBaseURL()
         guard let url = URL(string: "\(baseURL)/api/ps") else { return [] }
         do {
             let (data, _) = try await URLSession.shared.data(from: url)
@@ -150,6 +161,7 @@ public actor OllamaClient {
     // MARK: - Model list
 
     public func listModels() async -> [String] {
+        let baseURL = await getBaseURL()
         guard let url = URL(string: "\(baseURL)/api/tags") else { return [] }
         do {
             let (data, _) = try await URLSession.shared.data(from: url)
@@ -173,9 +185,9 @@ public actor OllamaClient {
     }
 
     nonisolated public func pullModel(name: String) -> AsyncThrowingStream<PullProgress, Error> {
-        let baseURL = self.baseURL
         return AsyncThrowingStream { continuation in
             Task {
+                let baseURL = await self.getBaseURL()
                 guard let url = URL(string: "\(baseURL)/api/pull") else {
                     continuation.finish()
                     return
@@ -329,6 +341,7 @@ public actor OllamaClient {
         onToken: (@Sendable (String) -> Void)? = nil,
         onError: (@Sendable (String) -> Void)?
     ) async -> String? {
+        let baseURL = await getBaseURL()
         guard let url = URL(string: "\(baseURL)/api/chat") else { return nil }
         var req = URLRequest(url: url)
         req.httpMethod = "POST"
@@ -430,9 +443,9 @@ public actor OllamaClient {
         maxTokens: Int = 2048,
         temperature: Double = 0.7
     ) -> AsyncThrowingStream<LLMStreamEvent, Error> {
-        let baseURL = self.baseURL
         return AsyncThrowingStream { continuation in
             Task {
+                let baseURL = await self.getBaseURL()
                 guard let url = URL(string: "\(baseURL)/api/chat") else {
                     continuation.finish(); return
                 }
