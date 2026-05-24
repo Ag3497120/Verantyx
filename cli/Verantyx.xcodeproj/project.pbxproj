@@ -48,6 +48,7 @@
 		4EDE4C47715B4E11A8E0F09C /* GlobalTaskSupervisor.swift in Sources */ = {isa = PBXBuildFile; fileRef = E565BF43EF70484781440C36 /* GlobalTaskSupervisor.swift */; };
 		4F74BBA8D8892CF5A08BFEAC /* AgentLoop.swift in Sources */ = {isa = PBXBuildFile; fileRef = ABE4F19CD033EC88CE775297 /* AgentLoop.swift */; };
 		506021C3BDB86670D434BBE7 /* CloudAPIClient.swift in Sources */ = {isa = PBXBuildFile; fileRef = CCB5E227D30DCFCF698F28FD /* CloudAPIClient.swift */; };
+		5231AFC1179A3364742EE15D /* ExtensionWebView.swift in Sources */ = {isa = PBXBuildFile; fileRef = EE9D8CBB5F0538AB8060F025 /* ExtensionWebView.swift */; };
 		525874995CEE5ACAA12F838A /* SyntaxHighlighter.swift in Sources */ = {isa = PBXBuildFile; fileRef = F44C7CACCD10CB9F7836B4A7 /* SyntaxHighlighter.swift */; };
 		5501BBD59DC8AA6357BA1F92 /* MCPView.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA5721938F21F94496234B39 /* MCPView.swift */; };
 		5569CAB30AF2182A310F2EEC /* VSIXPackageManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 37801484CD89AA2C31BB003B /* VSIXPackageManager.swift */; };
@@ -296,6 +297,7 @@
 		E971F2B1D5DB17E123A1D707 /* ProjectSearchEngine.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProjectSearchEngine.swift; sourceTree = "<group>"; };
 		E9A706F7BAC4CFDA999E202D /* MLXRunner.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MLXRunner.swift; sourceTree = "<group>"; };
 		EDA3819E2975C008C2AB74CA /* PreflightSearchEngine.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PreflightSearchEngine.swift; sourceTree = "<group>"; };
+		EE9D8CBB5F0538AB8060F025 /* ExtensionWebView.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = ExtensionWebView.swift; sourceTree = "<group>"; };
 		EFD1C95353C3772E36EF6170 /* OllamaNEREngine.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OllamaNEREngine.swift; sourceTree = "<group>"; };
 		F1B37910C6FAB77189D61D18 /* HallucinationDetector.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HallucinationDetector.swift; sourceTree = "<group>"; };
 		F44C7CACCD10CB9F7836B4A7 /* SyntaxHighlighter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SyntaxHighlighter.swift; sourceTree = "<group>"; };
@@ -539,6 +541,7 @@
 				C801F7BC0A711368DE98915B /* VideoClipManager.swift */,
 				BD3F941245A5DACE7514F504 /* ExoEngine.swift */,
 				5C76D316B1FF4162563BE0BD /* ThunderboltDetector.swift */,
+				EE9D8CBB5F0538AB8060F025 /* ExtensionWebView.swift */,
 			);
 			path = Engine;
 			sourceTree = "<group>";
@@ -793,6 +796,7 @@
 				BDA3395893352F98E06E14CB /* VideoClipManager.swift in Sources */,
 				E8B46EBE657B7E557CE2606D /* ExoEngine.swift in Sources */,
 				D8B0126D6BCAC582CA47EAB6 /* ThunderboltDetector.swift in Sources */,
+				5231AFC1179A3364742EE15D /* ExtensionWebView.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

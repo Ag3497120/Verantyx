@@ -187,5 +187,5 @@ fi
 
 echo ""
 echo "📌 GitHub Release に添付:"
-echo "   gh release create v${VERSION} dist/${DMG_NAME}.dmg --repo Ag3497120/verantyx"
+echo "   gh release create v${VERSION} dist/${DMG_NAME}.dmg --repo Ag3497120/Verantyx"
 echo "================================================"
