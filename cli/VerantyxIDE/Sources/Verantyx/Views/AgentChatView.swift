@@ -222,10 +222,8 @@ struct AgentChatView: View {
             
             if app.isGenerating {
                 HStack(spacing: 8) {
-                    if let url = URL(string: "file:///Users/motonishikoudai/verantyx-cli/VerantyxIDE/Sources/Verantyx/Views/mp_.mp4") {
-                        VideoSpinnerView(videoURL: url, speed: 2.7)
-                            .frame(width: 18, height: 18)
-                    }
+                    ProgressView()
+                        .controlSize(.small)
                     Text("Generating...")
                         .font(.system(size: 11, weight: .bold, design: .monospaced))
                         .foregroundStyle(Color(red: 0.35, green: 0.85, blue: 0.80))
@@ -1048,11 +1046,8 @@ struct AgentThinkingView: View {
                         }
                     }
 
-                    // 新しい動画スピナー（2.7倍速でピンポンループ再生・青い部分を丸く切り出し）
-                    if let url = URL(string: "file:///Users/motonishikoudai/verantyx-cli/VerantyxIDE/Sources/Verantyx/Views/mp_.mp4") {
-                        VideoSpinnerView(videoURL: url, speed: 2.7)
-                            .frame(width: 16, height: 16)
-                    }
+                    ProgressView()
+                        .controlSize(.small)
                 }
                 .padding(8)
                 .background(Color(red: 0.12, green: 0.22, blue: 0.22).opacity(0.6), in: RoundedRectangle(cornerRadius: 6))

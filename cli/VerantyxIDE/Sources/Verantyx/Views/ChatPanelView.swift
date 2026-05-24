@@ -214,11 +214,7 @@ struct LiveThinkingBubble: View {
                     }
                 } label: {
                     HStack(spacing: 8) {
-                        // 新しい動画スピナー（2.7倍速でピンポンループ再生・青い部分を丸く切り出し）
-                        if let url = URL(string: "file:///Users/motonishikoudai/verantyx-cli/VerantyxIDE/Sources/Verantyx/Views/mp_.mp4") {
-                            VideoSpinnerView(videoURL: url, speed: 2.7)
-                                .frame(width: 20, height: 20)
-                        }
+                        ProgressView()
 
                         Text("Thinking…")
                             .font(.caption)
@@ -422,12 +418,9 @@ struct ThinkingBubble: View {
                 .foregroundStyle(Color.accentColor)
                 .frame(width: 28, height: 28)
                 .background(Color.accentColor.opacity(0.12), in: Circle())
-            if let url = URL(string: "file:///Users/motonishikoudai/verantyx-cli/VerantyxIDE/Sources/Verantyx/Views/mp_.mp4") {
-                VideoSpinnerView(videoURL: url, speed: 2.7)
-                    .frame(width: 24, height: 24)
-                    .padding(.horizontal, 14).padding(.vertical, 12)
-                    .background(Color(nsColor: .controlBackgroundColor), in: RoundedRectangle(cornerRadius: 16))
-            }
+            ProgressView()
+                .controlSize(.small)
+                .padding(.horizontal, 14).padding(.vertical, 12)
         }
     }
 }

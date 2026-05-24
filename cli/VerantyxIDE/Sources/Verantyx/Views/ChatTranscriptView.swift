@@ -300,9 +300,7 @@ final class SpinnerAttachment: NSTextAttachment {
 final class SpinnerAttachmentViewProvider: NSTextAttachmentViewProvider {
     // Shared view to ensure continuous playback across NSAttributedString rebuilds
     static let sharedSpinnerView: NSHostingView<AnyView>? = {
-        guard let url = URL(string: "file:///Users/motonishikoudai/verantyx-cli/VerantyxIDE/Sources/Verantyx/Views/mp_.mp4") else { return nil }
-        let spinner = VideoSpinnerView(videoURL: url, speed: 2.7)
-            .frame(width: 16, height: 16)
+        let spinner = ProgressView().controlSize(.small)
         let hostingView = NSHostingView(rootView: AnyView(spinner))
         hostingView.frame = NSRect(x: 0, y: 0, width: 16, height: 16)
         return hostingView
