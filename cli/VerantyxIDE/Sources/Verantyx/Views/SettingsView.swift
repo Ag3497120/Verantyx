@@ -699,7 +699,7 @@ struct SettingsView: View {
                         rowLabel("Exo Endpoint") {
                             Text(app.exoEndpoint.isEmpty ? "Starting / Connecting..." : app.exoEndpoint)
                                 .font(.system(size: 11, design: .monospaced))
-                                .foregroundStyle(app.exoEndpoint.isEmpty ? .secondary : .green)
+                                .foregroundStyle(app.exoEndpoint.isEmpty ? Color.gray : Color.green)
                         }
                     }
                 }
