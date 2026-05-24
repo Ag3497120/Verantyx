@@ -667,6 +667,44 @@ struct SettingsView: View {
                 }
             }
 
+            sectionHeader("Exo Distributed Cluster", icon: "bolt.horizontal.circle.fill")
+
+            settingsCard {
+                VStack(alignment: .leading, spacing: 14) {
+                    Toggle(isOn: Binding(
+                        get: { app.exoEnabled },
+                        set: { newValue in
+                            app.exoEnabled = newValue
+                            if newValue {
+                                ExoEngine.shared.start()
+                            } else {
+                                ExoEngine.shared.stop()
+                            }
+                        }
+                    )) {
+                        VStack(alignment: .leading, spacing: 4) {
+                            Text("Enable Exo Cluster (Thunderbolt)")
+                                .font(.system(size: 13, weight: .semibold))
+                                .foregroundStyle(.white)
+                            Text("Automatically detects Thunderbolt peers to share inference workload across multiple Macs.")
+                                .font(.system(size: 11))
+                                .foregroundStyle(.secondary)
+                        }
+                    }
+                    .toggleStyle(.switch)
+                    .tint(Color(red: 0.4, green: 0.8, blue: 0.5))
+
+                    if app.exoEnabled {
+                        Divider().opacity(0.2)
+                        rowLabel("Exo Endpoint") {
+                            Text(app.exoEndpoint.isEmpty ? "Starting / Connecting..." : app.exoEndpoint)
+                                .font(.system(size: 11, design: .monospaced))
+                                .foregroundStyle(app.exoEndpoint.isEmpty ? .secondary : .green)
+                        }
+                    }
+                }
+            }
+
             sectionHeader("System Prompt", icon: "text.bubble")
 
             settingsCard {
