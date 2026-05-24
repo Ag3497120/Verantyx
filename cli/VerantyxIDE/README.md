@@ -203,7 +203,7 @@ open Verantyx.xcodeproj
 現在、`Control` キーを3回押すことで **Verantyx Agent** を起動することができます。
 
 <p align="center">
-  <img src="assets/verantyx_agent.png" alt="Verantyx Agent Interface" width="600" style="border-radius: 8px; box-shadow: 0 4px 12px rgba(0,0,0,0.1);">
+  <img src="assets/verantyx_agent_v2.png" alt="Verantyx Agent Interface" width="600" style="border-radius: 8px; box-shadow: 0 4px 12px rgba(0,0,0,0.1);">
 </p>
 
 こちらはメイン機能ではありませんが、以前IDEでモードを切り替えられるようにしていた際に、実際のニーズを考えた時に不要として削除したものを全てまとめたものです。いわばこのプロジェクトの**実験的かつサブでありながら、集大成のような位置付けを持っている機能**です。

