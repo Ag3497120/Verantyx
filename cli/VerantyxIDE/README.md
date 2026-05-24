@@ -118,9 +118,10 @@ GemmaやClaudeなどのLLMは世界中のソースコードを学習して賢く
 
 ## 📽️ デモ動画とコード変換の実際
 
-### スキル自動生成デモ (Autonomous Skill Generation)
-エージェントが組み込みのツールを持っていない要求を受けた際に、DOMベースのツールロジックをオンザフライで書き、それをシームレスに実行するデモです。
-<video src="https://github.com/verantyx/verantyx/releases/download/v1.2.5/demo_skill_generation.mov" controls="controls" muted="muted" style="max-width: 100%; border-radius: 8px;"></video>
+<p align="center">
+  <img src="demo.gif" alt="Verantyx Gatekeeper Demo" width="49%" style="border-radius: 8px;">
+  <video src="https://github.com/verantyx/verantyx/releases/download/v1.2.5/demo_skill_generation.mov" controls="controls" muted="muted" width="49%" style="border-radius: 8px;"></video>
+</p>
 
 ### Before & After: 難読化の実際
 
@@ -173,24 +174,24 @@ FINAL_REPORT = "/Users/motonishikoudai/verantyx-cli/benchmarks/LongMemEval/offic
 
 ---
 
-## 💻 インストール方法 (Building from Source)
+## 💻 インストール方法 (ソースからのビルド)
 
-**Prerequisites:**
-- macOS 14.0+ (Apple Silicon highly recommended)
-- Xcode 15.0+
+**必須要件:**
+- macOS 14.0以降 (Apple Siliconを強く推奨)
+- Xcode 15.0以降
 
 ```bash
-git clone https://github.com/verantyx/verantyx.git
-cd verantyx/VerantyxIDE
+git clone https://github.com/Ag3497120/Verantyx.git
+cd Verantyx/cli/VerantyxIDE
 open Verantyx.xcodeproj
-# Select the Verantyx scheme and hit Cmd+R
+# Verantyxのスキームを選択し、Cmd+Rを押してビルド・実行します
 ```
 
-*Note: A Windows/Linux port (Rust core + llama.cpp) is on our long-term roadmap, but we are laser-focused on perfecting the native macOS/MLX architecture first.*
+*注意: Windows / Linuxへの移植（Rustコア + llama.cpp）は長期的なロードマップにありますが、現在はネイティブなmacOS / MLXアーキテクチャの完成に極度に注力しています。*
 
 ---
 
-## 🔧 Repository Setup & History
+## 🔧 リポジトリの設定と履歴について
 
-**Git Configuration Note:**
-Early commits in this repository were made under the local Git name `kofdai` (derived from the developer's macOS username). As of May 24, 2026, this has been corrected and all commits are properly attributed to `@Ag3497120`. This is a normal development setup issue, not related to bots or automation. All future contributions will be under the correct author.
+**Git設定に関するお知らせ:**
+このリポジトリの初期のコミットは、開発者のmacOSのユーザー名に由来する `kofdai` というローカルのGit名で行われていました。2026年5月24日をもってこの問題は修正され、現在すべてのコミットは正しく `@Ag3497120` に帰属するように設定されています。これは開発環境のセットアップにおける一般的な問題であり、ボットや自動化ツールによるものではありません。今後のすべての貢献は正しい作者名で記録されます。
