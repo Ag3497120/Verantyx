@@ -33,12 +33,12 @@ jobs:
           fi
           bash package_dmg.sh "$VERSION"
           
-        - name: Upload Artifact (for manual runs)
+      - name: Upload Artifact (for manual runs)
         uses: actions/upload-artifact@v4
         with:
           name: VerantyxIDE-macOS-App
           path: cli/dist/*.dmg
-
+          
       - name: Upload Release Asset
         uses: softprops/action-gh-release@v2
         if: startsWith(github.ref, 'refs/tags/')
