@@ -42,6 +42,7 @@ FILES = [
     ("ExoSetupWizard.swift",        False),
     ("ExoSetupSheet.swift",         True),
     ("VerantyxExpertEngine.swift",  False),
+    ("ExpertBotFloatingView.swift", True),
 ]
 
 # ── Find stable anchors ─────────────────────────────────────────────────────

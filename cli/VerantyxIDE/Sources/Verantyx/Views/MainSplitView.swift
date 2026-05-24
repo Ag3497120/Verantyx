@@ -95,6 +95,10 @@ struct MainSplitView: View {
             ExtensionUIPanelView()
                 .zIndex(105)
                 
+            // ── Floating Action Button (Expert Bot) ───────────────────────
+            ExpertBotFloatingView()
+                .zIndex(200)
+                
             // Removed Mode Selector Overlay
         }
         .toolbar { toolbarContent }

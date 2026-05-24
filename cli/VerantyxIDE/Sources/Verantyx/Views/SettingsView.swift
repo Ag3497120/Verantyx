@@ -719,36 +719,6 @@ struct SettingsView: View {
                                 .foregroundStyle(app.exoEndpoint.isEmpty ? Color.gray : Color.green)
                         }
                     }
-                    
-                    // Support Chatbot Inline UI
-                    Divider().opacity(0.2)
-                    VStack(alignment: .leading, spacing: 8) {
-                        Text("🤖 Verantyx System Support")
-                            .font(.system(size: 12, weight: .bold))
-                            .foregroundStyle(Color.blue)
-                        
-                        Text("設定方法やコマンドについて何でも聞いてください。")
-                            .font(.system(size: 11))
-                            .foregroundStyle(.secondary)
-                        
-                        HStack {
-                            TextField("Ask about Exo, Setup, CLI...", text: .constant(""))
-                                .textFieldStyle(.plain)
-                                .font(.system(size: 12))
-                                .padding(8)
-                                .background(Color.black.opacity(0.3))
-                                .cornerRadius(6)
-                            
-                            Button(action: {
-                                // Trigger Expert Engine
-                            }) {
-                                Image(systemName: "arrow.up.circle.fill")
-                                    .foregroundStyle(.blue)
-                            }
-                            .buttonStyle(.plain)
-                        }
-                    }
-                    .padding(.top, 4)
                 }
             }
 
