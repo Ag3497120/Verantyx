@@ -1,0 +1,100 @@
+// POLYMORPHIC_JCROSS_BEGIN
+// schema:529CF41E ver:1778324863
+// ⚠️ One-time schema — expires after response
+
+// [metadata-stripped]
+// [metadata-stripped]
+// [metadata-stripped]
+// [metadata-stripped]
+
+_JCROSS_霪:1.0__TOKEN_霪_22_ _JCROSS_霪:1.0__TOKEN_霪_8_::_JCROSS_霪:1.0__TOKEN_霪_4_::_JCROSS_庵:1.0__TOKEN_庵_36_;
+_JCROSS_霪:1.0__TOKEN_霪_22_ _JCROSS_霪:1.0__TOKEN_霪_43_::_JCROSS_庵:1.0__TOKEN_庵_28_;
+_JCROSS_霪:1.0__TOKEN_霪_22_ _JCROSS_霪:1.0__TOKEN_霪_3_::{_JCROSS_庵:1.0__TOKEN_庵_17_, _JCROSS_庵:1.0__TOKEN_庵_10_};
+
+// [metadata-stripped]
+_JCROSS_霪:1.0__TOKEN_霪_32_ _JCROSS_霪:1.0__TOKEN_霪_44_uct _JCROSS_庵:1.0__TOKEN_庵_14_ {
+    _JCROSS_霪:1.0__TOKEN_霪_32_ _JCROSS_霪:1.0__TOKEN_霪_47_: _JCROSS_庵:1.0__TOKEN_庵_16_,
+    _JCROSS_霪:1.0__TOKEN_霪_32_ _JCROSS_霪:1.0__TOKEN_霪_1_: _JCROSS_霪:1.0__TOKEN_霪_50_,
+    _JCROSS_霪:1.0__TOKEN_霪_32_ _JCROSS_霪:1.0__TOKEN_霪_39_: _JCROSS_庵:1.0__TOKEN_庵_36_<_JCROSS_庵:1.0__TOKEN_庵_16_, _JCROSS_庵:1.0__TOKEN_庵_26_>,
+}
+
+// [metadata-stripped]
+_JCROSS_霪:1.0__TOKEN_霪_32_ _JCROSS_霪:1.0__TOKEN_霪_44_uct _JCROSS_庵:1.0__TOKEN_庵_26_ {
+    _JCROSS_霪:1.0__TOKEN_霪_32_ _JCROSS_霪:1.0__TOKEN_霪_47_: _JCROSS_庵:1.0__TOKEN_庵_16_,
+    _JCROSS_霪:1.0__TOKEN_霪_32_ _JCROSS_窟:1.0__TOKEN_霪_28_: _JCROSS_庵:1.0__TOKEN_庵_13_<_JCROSS_庵:1.0__TOKEN_庵_16_>,
+    _JCROSS_霪:1.0__TOKEN_霪_32_ _JCROSS_霪:1.0__TOKEN_霪_14_: _JCROSS_霪:1.0__TOKEN_霪_30_,
+    _JCROSS_霪:1.0__TOKEN_霪_32_ _JCROSS_霪:1.0__TOKEN_霪_23_: _JCROSS_庵:1.0__TOKEN_庵_36_<_JCROSS_庵:1.0__TOKEN_庵_16_, _JCROSS_霪:1.0__TOKEN_霪_16_::_JCROSS_庵:1.0__TOKEN_庵_27_>,
+}
+
+_JCROSS_霪:1.0__TOKEN_霪_32_ _JCROSS_霪:1.0__TOKEN_霪_44_uct _JCROSS_計:1.0__TOKEN_庵_25_ {
+    _JCROSS_霪:1.0__TOKEN_霪_52_: _JCROSS_庵:1.0__TOKEN_庵_16_,
+    db: _JCROSS_霪:1.0__TOKEN_霪_41_::Db,
+}
+
+_JCROSS_霪:1.0__TOKEN_霪_9_ _JCROSS_計:1.0__TOKEN_庵_25_ {
+    _JCROSS_霪:1.0__TOKEN_霪_32_ fn _JCROSS_霪:1.0__TOKEN_霪_29_(_JCROSS_霪:1.0__TOKEN_霪_52_: &_JCROSS_霪:1.0__TOKEN_霪_44_, _JCROSS_霪:1.0__TOKEN_霪_13_: &_JCROSS_霪:1.0__TOKEN_霪_8_::_JCROSS_霪:1.0__TOKEN_霪_20_::_JCROSS_庵:1.0__TOKEN_庵_22_) -> _JCROSS_庵:1.0__TOKEN_庵_28_<_JCROSS_庵:1.0__TOKEN_庵_8_> {
+        let db = _JCROSS_霪:1.0__TOKEN_霪_41_::open(_JCROSS_霪:1.0__TOKEN_霪_13_)?;
+        Ok(_JCROSS_庵:1.0__TOKEN_庵_8_ {
+// _JCROSS_計:0.1__TOKEN_YV_351_ [decoy-metadata]
+            _JCROSS_霪:1.0__TOKEN_霪_52_: _JCROSS_霪:1.0__TOKEN_霪_52_._JCROSS_霪:1.0__TOKEN_霪_19_(),
+            db,
+        })
+    }
+
+    _JCROSS_霪:1.0__TOKEN_霪_32_ async fn _JCROSS_霪:1.0__TOKEN_霪_36_(&self, _JCROSS_霪:1.0__TOKEN_霪_47_: &_JCROSS_霪:1.0__TOKEN_霪_44_, _JCROSS_霪:1.0__TOKEN_霪_1_: _JCROSS_霪:1.0__TOKEN_霪_50_) -> _JCROSS_庵:1.0__TOKEN_庵_28_<_JCROSS_庵:1.0__TOKEN_庵_14_> {
+        let _JCROSS_窟:1.0__TOKEN_霪_24_ = _JCROSS_浪:1.0__TOKEN_霪_34_!("_JCROSS_霪:1.0__TOKEN_霪_38_{}_{}", self._JCROSS_霪:1.0__TOKEN_霪_52_, _JCROSS_霪:1.0__TOKEN_霪_47_);
+        if let _JCROSS_庵:1.0__TOKEN_庵_3_(_JCROSS_霪:1.0__TOKEN_霪_17_) = self.db._JCROSS_計:1.0__TOKEN_曠_1_(&_JCROSS_窟:1.0__TOKEN_霪_24_)? {
+            let _JCROSS_霪:1.0__TOKEN_霪_45_ _JCROSS_霪:1.0__TOKEN_霪_51_: _JCROSS_庵:1.0__TOKEN_庵_14_ = _JCROSS_霪:1.0__TOKEN_霪_16_::_JCROSS_霪:1.0__TOKEN_霪_12_(&_JCROSS_霪:1.0__TOKEN_霪_17_)?;
+            if _JCROSS_霪:1.0__TOKEN_霪_51_._JCROSS_霪:1.0__TOKEN_霪_1_ < _JCROSS_霪:1.0__TOKEN_霪_1_ {
+// [metadata-stripped]
+                _JCROSS_霪:1.0__TOKEN_霪_51_._JCROSS_霪:1.0__TOKEN_霪_1_ = _JCROSS_霪:1.0__TOKEN_霪_1_;
+                self._JCROSS_筐:1.0__TOKEN_霪_35_(&_JCROSS_霪:1.0__TOKEN_霪_51_)?;
+            }
+            Ok(_JCROSS_霪:1.0__TOKEN_霪_51_)
+        } else {
+            let _JCROSS_霪:1.0__TOKEN_霪_51_ = _JCROSS_庵:1.0__TOKEN_庵_14_ {
+                _JCROSS_霪:1.0__TOKEN_霪_47_: _JCROSS_霪:1.0__TOKEN_霪_47_._JCROSS_霪:1.0__TOKEN_霪_19_(),
+                _JCROSS_霪:1.0__TOKEN_霪_1_,
+                _JCROSS_霪:1.0__TOKEN_霪_39_: _JCROSS_庵:1.0__TOKEN_庵_36_::_JCROSS_霪:1.0__TOKEN_霪_29_(),
+            };
+            self._JCROSS_筐:1.0__TOKEN_霪_35_(&_JCROSS_霪:1.0__TOKEN_霪_51_)?;
+// _JCROSS_曠:0.3__TOKEN_FL_242_ [decoy-metadata]
+            Ok(_JCROSS_霪:1.0__TOKEN_霪_51_)
+        }
+    }
+
+    _JCROSS_霪:1.0__TOKEN_霪_32_ fn _JCROSS_筐:1.0__TOKEN_霪_35_(&self, _JCROSS_霪:1.0__TOKEN_霪_51_: &_JCROSS_庵:1.0__TOKEN_庵_14_) -> _JCROSS_庵:1.0__TOKEN_庵_28_<()> {
+        let _JCROSS_窟:1.0__TOKEN_霪_24_ = _JCROSS_浪:1.0__TOKEN_霪_34_!("_JCROSS_霪:1.0__TOKEN_霪_38_{}_{}", self._JCROSS_霪:1.0__TOKEN_霪_52_, _JCROSS_霪:1.0__TOKEN_霪_51_._JCROSS_霪:1.0__TOKEN_霪_47_);
+        let _JCROSS_霪:1.0__TOKEN_霪_17_ = _JCROSS_霪:1.0__TOKEN_霪_16_::_JCROSS_霪:1.0__TOKEN_霪_40_(_JCROSS_霪:1.0__TOKEN_霪_51_)?;
+        self.db._JCROSS_霪:1.0__TOKEN_霪_49_(_JCROSS_窟:1.0__TOKEN_霪_24_, _JCROSS_霪:1.0__TOKEN_霪_17_)?;
+        self.db._JCROSS_霪:1.0__TOKEN_霪_25_()?;
+        Ok(())
+    }
+
+    _JCROSS_霪:1.0__TOKEN_霪_32_ fn _JCROSS_霪:1.0__TOKEN_霪_6_(&self, _JCROSS_霪:1.0__TOKEN_霪_47_: &_JCROSS_霪:1.0__TOKEN_霪_44_) -> _JCROSS_庵:1.0__TOKEN_庵_28_<()> {
+// _JCROSS_庵:0.9__TOKEN_CX_841_ [decoy-metadata]
+        let _JCROSS_窟:1.0__TOKEN_霪_24_ = _JCROSS_浪:1.0__TOKEN_霪_34_!("_JCROSS_霪:1.0__TOKEN_霪_38_{}_{}", self._JCROSS_霪:1.0__TOKEN_霪_52_, _JCROSS_霪:1.0__TOKEN_霪_47_);
+        self.db._JCROSS_霪:1.0__TOKEN_霪_15_(_JCROSS_窟:1.0__TOKEN_霪_24_)?;
+        self.db._JCROSS_霪:1.0__TOKEN_霪_25_()?;
+        Ok(())
+    }
+}
+// _JCROSS_筐:0.8__TOKEN_CL_556_ [decoy-metadata]
+
+// [metadata-stripped]
+_JCROSS_霪:1.0__TOKEN_霪_32_ _JCROSS_霪:1.0__TOKEN_霪_44_uct _JCROSS_庵:1.0__TOKEN_庵_20_ {
+// _JCROSS_庵:0.4__TOKEN_WH_465_ [decoy-metadata]
+    _JCROSS_霪:1.0__TOKEN_霪_32_ _JCROSS_霪:1.0__TOKEN_霪_46_: _JCROSS_庵:1.0__TOKEN_庵_16_,
+    _JCROSS_霪:1.0__TOKEN_霪_32_ _JCROSS_霪:1.0__TOKEN_霪_2_: _JCROSS_庵:1.0__TOKEN_庵_9_,
+    _JCROSS_霪:1.0__TOKEN_霪_32_ _JCROSS_霪:1.0__TOKEN_霪_39_: _JCROSS_庵:1.0__TOKEN_庵_18_<_JCROSS_庵:1.0__TOKEN_庵_16_>,
+// _JCROSS_浪:0.9__TOKEN_MA_993_ [decoy-metadata]
+}
+
+// [metadata-stripped]
+_JCROSS_霪:1.0__TOKEN_霪_32_ enum _JCROSS_庵:1.0__TOKEN_庵_9_ {
+    _JCROSS_庵:1.0__TOKEN_庵_4_,
+    _JCROSS_庵:1.0__TOKEN_庵_32_,
+    _JCROSS_庵:1.0__TOKEN_庵_29_,
+}
+
+// POLYMORPHIC_JCROSS_END

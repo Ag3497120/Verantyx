@@ -1,0 +1,103 @@
+// POLYMORPHIC_JCROSS_BEGIN
+// schema:31DD4F07 ver:1778323701
+// ⚠️ One-time schema — expires after response
+// __node_廡:0.1___ASTNODE_MG_562_ [decoy-metadata]
+
+// [metadata-stripped]
+// [metadata-stripped]
+// [metadata-stripped]
+// [metadata-stripped]
+// [metadata-stripped]
+// [metadata-stripped]
+// [metadata-stripped]
+
+__node_沫:1.0___ASTNODE_沫_42_ __node_沫:1.0___ASTNODE_沫_13_::__node_沫:1.0___ASTNODE_沫_8_::__node_廡:1.0___ASTNODE_廡_57_;
+
+// [metadata-stripped]
+// [metadata-stripped]
+__node_沫:1.0___ASTNODE_沫_56_ enum __node_廡:1.0___ASTNODE_廡_20_ { __node_廡:1.0___ASTNODE_廡_47_, __node_廡:1.0___ASTNODE_廡_3_, __node_廡:1.0___ASTNODE_廡_23_, __node_廡:1.0___ASTNODE_廡_13_ }
+
+// [metadata-stripped]
+// [metadata-stripped]
+__node_沫:1.0___ASTNODE_沫_56_ enum __node_廡:1.0___ASTNODE_廡_26_ { __node_廡:1.0___ASTNODE_廡_37_, __node_廡:1.0___ASTNODE_廡_61_, __node_廡:1.0___ASTNODE_廡_15_, __node_廡:1.0___ASTNODE_廡_44_ }
+
+// [metadata-stripped]
+// [metadata-stripped]
+__node_沫:1.0___ASTNODE_沫_56_ struct __node_廡:1.0___ASTNODE_廡_2_ {
+// __node_碑:0.9___ASTNODE_XB_759_ [decoy-metadata]
+    __node_沫:1.0___ASTNODE_沫_56_ __node_沫:1.0___ASTNODE_沫_91_: __node_廡:1.0___ASTNODE_廡_20_,
+    __node_沫:1.0___ASTNODE_沫_56_ __node_沫:1.0___ASTNODE_沫_80_: __node_廡:1.0___ASTNODE_廡_26_,
+    __node_沫:1.0___ASTNODE_沫_56_ __node_濫:1.0___ASTNODE_沫_2_: u8,
+    __node_沫:1.0___ASTNODE_沫_56_ __node_処:1.0___ASTNODE_沫_77_: u8,
+}
+
+__node_沫:1.0___ASTNODE_沫_14_ __node_廡:1.0___ASTNODE_廡_46_ for __node_廡:1.0___ASTNODE_廡_2_ {
+    fn __node_沫:1.0___ASTNODE_沫_24_() -> __node_廡:1.0___ASTNODE_廡_22_ {
+        __node_廡:1.0___ASTNODE_廡_22_ {
+            __node_沫:1.0___ASTNODE_沫_91_: __node_廡:1.0___ASTNODE_廡_20_::__node_廡:1.0___ASTNODE_廡_47_,
+            __node_沫:1.0___ASTNODE_沫_80_: __node_廡:1.0___ASTNODE_廡_26_::__node_廡:1.0___ASTNODE_廡_37_,
+// __node_匯:0.4___ASTNODE_ZD_265_ [decoy-metadata]
+            __node_濫:1.0___ASTNODE_沫_2_: 2,
+            __node_処:1.0___ASTNODE_沫_77_: 2,
+// __node_匯:0.4___ASTNODE_LE_225_ [decoy-metadata]
+        }
+    }
+}
+
+// [metadata-stripped]
+__node_沫:1.0___ASTNODE_沫_56_ struct __node_廡:1.0___ASTNODE_廡_48_ {
+    __node_沫:1.0___ASTNODE_沫_56_ __node_沫:1.0___ASTNODE_沫_35_: __node_廡:1.0___ASTNODE_廡_57_<__node_沫:1.0___ASTNODE_沫_92_, __node_廡:1.0___ASTNODE_廡_2_>,
+    __node_沫:1.0___ASTNODE_沫_56_ __node_沫:1.0___ASTNODE_沫_52_: __node_沫:1.0___ASTNODE_沫_92_,
+}
+
+__node_沫:1.0___ASTNODE_沫_14_ __node_廡:1.0___ASTNODE_廡_48_ {
+    __node_沫:1.0___ASTNODE_沫_56_ fn __node_沫:1.0___ASTNODE_沫_51_() -> __node_廡:1.0___ASTNODE_廡_22_ {
+        __node_廡:1.0___ASTNODE_廡_22_ {
+            __node_沫:1.0___ASTNODE_沫_35_: __node_廡:1.0___ASTNODE_廡_57_::__node_沫:1.0___ASTNODE_沫_51_(),
+            __node_沫:1.0___ASTNODE_沫_52_: 0,
+        }
+    }
+
+    __node_沫:1.0___ASTNODE_沫_56_ fn __node_処:1.0___ASTNODE_碑_2_(&__node_沫:1.0___ASTNODE_沫_79_ self, __node_沫:1.0___ASTNODE_沫_87_: __node_沫:1.0___ASTNODE_沫_92_, __node_沫:1.0___ASTNODE_沫_29_: __node_廡:1.0___ASTNODE_廡_2_) {
+        if __node_沫:1.0___ASTNODE_沫_29_.__node_沫:1.0___ASTNODE_沫_91_ == __node_廡:1.0___ASTNODE_廡_20_::__node_廡:1.0___ASTNODE_廡_23_ || __node_沫:1.0___ASTNODE_沫_29_.__node_沫:1.0___ASTNODE_沫_91_ == __node_廡:1.0___ASTNODE_廡_20_::__node_廡:1.0___ASTNODE_廡_13_ {
+            self.__node_沫:1.0___ASTNODE_沫_52_ += 1;
+        }
+        self.__node_沫:1.0___ASTNODE_沫_35_.__node_沫:1.0___ASTNODE_沫_89_(__node_沫:1.0___ASTNODE_沫_87_, __node_沫:1.0___ASTNODE_沫_29_);
+    }
+
+// [metadata-stripped]
+// [metadata-stripped]
+// [metadata-stripped]
+    __node_沫:1.0___ASTNODE_沫_56_ fn __node_沫:1.0___ASTNODE_沫_81_(&self, __node_沫:1.0___ASTNODE_沫_87_: __node_沫:1.0___ASTNODE_沫_92_) -> __node_沫:1.0___ASTNODE_沫_53_ {
+        if let __node_廡:1.0___ASTNODE_廡_9_(__node_沫:1.0___ASTNODE_沫_60_) = self.__node_沫:1.0___ASTNODE_沫_35_.__node_処:1.0___ASTNODE_碑_1_(&__node_沫:1.0___ASTNODE_沫_87_) {
+            return __node_沫:1.0___ASTNODE_沫_60_.__node_沫:1.0___ASTNODE_沫_91_ == __node_廡:1.0___ASTNODE_廡_20_::__node_廡:1.0___ASTNODE_廡_23_ || __node_沫:1.0___ASTNODE_沫_60_.__node_沫:1.0___ASTNODE_沫_91_ == __node_廡:1.0___ASTNODE_廡_20_::__node_廡:1.0___ASTNODE_廡_13_;
+        }
+// __node_処:0.2___ASTNODE_KV_940_ [decoy-metadata]
+// __node_濫:0.5___ASTNODE_YM_213_ [decoy-metadata]
+        false
+    }
+    
+// [metadata-stripped]
+    __node_沫:1.0___ASTNODE_沫_56_ fn __node_沫:1.0___ASTNODE_沫_43_(&self, __node_沫:1.0___ASTNODE_沫_87_: __node_沫:1.0___ASTNODE_沫_92_, __node_沫:1.0___ASTNODE_沫_69_: __node_沫:1.0___ASTNODE_沫_53_) -> __node_沫:1.0___ASTNODE_沫_53_ {
+        if let __node_廡:1.0___ASTNODE_廡_9_(__node_沫:1.0___ASTNODE_沫_60_) = self.__node_沫:1.0___ASTNODE_沫_35_.__node_処:1.0___ASTNODE_碑_1_(&__node_沫:1.0___ASTNODE_沫_87_) {
+            __node_沫:1.0___ASTNODE_沫_94_ __node_沫:1.0___ASTNODE_沫_60_.__node_沫:1.0___ASTNODE_沫_80_ {
+                __node_廡:1.0___ASTNODE_廡_26_::__node_廡:1.0___ASTNODE_廡_44_ => return __node_沫:1.0___ASTNODE_沫_69_, // __node_廡:1.0___ASTNODE_廡_7_ __node_沫:1.0___ASTNODE_沫_1_ __node_沫:1.0___ASTNODE_沫_76_ __node_沫:1.0___ASTNODE_沫_90_-__node_沫:1.0___ASTNODE_沫_64_ __node_沫:1.0___ASTNODE_沫_46_ __node_沫:1.0___ASTNODE_沫_9_
+                __node_廡:1.0___ASTNODE_廡_26_::__node_廡:1.0___ASTNODE_廡_15_ => return !__node_沫:1.0___ASTNODE_沫_69_,
+                _ => return false,
+            }
+        }
+        false
+    }
+
+// [metadata-stripped]
+    __node_沫:1.0___ASTNODE_沫_56_ fn __node_濫:1.0___ASTNODE_沫_3_(&self, __node_沫:1.0___ASTNODE_沫_87_: __node_沫:1.0___ASTNODE_沫_92_) -> __node_廡:1.0___ASTNODE_廡_34_ {
+        if let __node_廡:1.0___ASTNODE_廡_9_(__node_沫:1.0___ASTNODE_沫_60_) = self.__node_沫:1.0___ASTNODE_沫_35_.__node_処:1.0___ASTNODE_碑_1_(&__node_沫:1.0___ASTNODE_沫_87_) {
+            __node_濫:1.0___ASTNODE_沫_58_!("🖋️ __node_廡:1.0___ASTNODE_廡_21_ __node_廡:1.0___ASTNODE_廡_54_ 4 (__node_廡:1.0___ASTNODE_廡_5_ #{}): __node_廡:1.0___ASTNODE_廡_47_ __node_廡:1.0___ASTNODE_廡_36_: {:?} | __node_廡:1.0___ASTNODE_廡_42_ __node_廡:1.0___ASTNODE_廡_31_: {:?} | __node_廡:1.0___ASTNODE_廡_39_ __node_廡:1.0___ASTNODE_廡_53_: {}/{} | __node_廡:1.0___ASTNODE_廡_18_ __node_廡:1.0___ASTNODE_廡_8_ __node_廡:1.0___ASTNODE_廡_38_: {}", 
+                __node_沫:1.0___ASTNODE_沫_87_, __node_沫:1.0___ASTNODE_沫_60_.__node_沫:1.0___ASTNODE_沫_91_, __node_沫:1.0___ASTNODE_沫_60_.__node_沫:1.0___ASTNODE_沫_80_, __node_沫:1.0___ASTNODE_沫_60_.__node_濫:1.0___ASTNODE_沫_2_, __node_沫:1.0___ASTNODE_沫_60_.__node_処:1.0___ASTNODE_沫_77_, self.__node_沫:1.0___ASTNODE_沫_52_)
+        } else {
+            __node_濫:1.0___ASTNODE_沫_58_!("__node_廡:1.0___ASTNODE_廡_5_ #{} __node_沫:1.0___ASTNODE_沫_95_ __node_沫:1.0___ASTNODE_沫_41_ __node_沫:1.0___ASTNODE_沫_75_ __node_沫:1.0___ASTNODE_沫_63_-break __node_沫:1.0___ASTNODE_沫_4_ __node_沫:1.0___ASTNODE_沫_70_", __node_沫:1.0___ASTNODE_沫_87_)
+        }
+    }
+}
+
+// POLYMORPHIC_JCROSS_END

@@ -1,0 +1,13 @@
+[package]
+name = "vx-render"
+version.workspace = true
+edition.workspace = true
+
+[dependencies]
+vx-dom    = { path = "../vx-dom" }
+vx-layout = { path = "../vx-layout" }
+vx-spatial = { path = "../vx-spatial" }
+crossterm = "0.28"
+anyhow.workspace = true
+serde.workspace = true
+serde_json.workspace = true

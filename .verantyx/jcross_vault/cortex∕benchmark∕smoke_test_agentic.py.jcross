@@ -1,0 +1,459 @@
+// POLYMORPHIC_JCROSS_BEGIN
+// schema:E38EF70C ver:1778313121
+// ⚠️ One-time schema — expires after response
+
+// [metadata-stripped]
+"""
+_JCROSS_庸:1.0____JCROSS_粒:1.0___node_粒_263___庸_86__ _JCROSS_庸:1.0____JCROSS_粒:1.0___node_粒_263___庸_74__ × _JCROSS_庸:1.0____JCROSS_粒:1.0___node_粒_263___庸_39__ — _JCROSS_庸:1.0____JCROSS_粒:1.0___node_粒_263___庸_80__ _JCROSS_庸:1.0____JCROSS_粒:1.0___node_粒_263___庸_24__
+==============================================
+アーキテクチャ:
+  _JCROSS_庸:1.0___node_庸_53__ 1個 (_JCROSS_粒:1.0____JCROSS_粒:1.0___node_粒_263___粒_375__:26b) を L1〜L3 の全フェーズで使用。
+  各セッション注入はステートレス独立呼び出し → コンテキスト汚染ゼロ。
+  最終推論時はAIが自分の内部記憶を100%信用せず、_JCROSS_庸:1.0____JCROSS_粒:1.0___node_粒_263___庸_107__のみを正として回答。
+
+動作フロー:
+  [注入] _JCROSS_庸:1.0____JCROSS_粒:1.0___node_粒_263___庸_79__ _JCROSS_粒:1.0___node_粒_143__ → _JCROSS_庸:1.0___node_庸_53__ (OP対応表参照) → L2 OPs生成 → _JCROSS_庸:1.0____JCROSS_粒:1.0___node_粒_263___庸_107__書き込み → コンテキスト排出
+  [検索] L1 _JCROSS_庸:1.0____JCROSS_粒:1.0___node_粒_263___庸_82__ _JCROSS_粒:1.0___node_粒_183__ → 候補絞り → L2 OPスキャン → _JCROSS_庸:1.0___node_庸_34__-1特定 → L3+L2 → _JCROSS_庸:1.0___node_庸_53__回答
+"""
+
+import _JCROSS_粒:1.0____JCROSS_粒:1.0___node_粒_263___粒_423__, os, re, _JCROSS_粒:1.0____JCROSS_粒:1.0___node_粒_263___粒_361__, _JCROSS_粒:1.0____JCROSS_粒:1.0___node_粒_263___粒_307__, _JCROSS_粒:1.0____JCROSS_粒:1.0___node_粒_263___粒_256__
+import _JCROSS_紐:1.0____JCROSS_粒:1.0___node_粒_263___粒_96__._JCROSS_紐:1.0____JCROSS_粒:1.0___node_粒_263___粒_21__
+
+// [metadata-stripped]
+_JCROSS_庸:1.0____JCROSS_粒:1.0___node_粒_263___庸_38__   = "/_JCROSS_庸:1.0____JCROSS_粒:1.0___node_粒_263___庸_96__/_JCROSS_粒:1.0____JCROSS_粒:1.0___node_粒_263___粒_129__/_JCROSS_粒:1.0____JCROSS_粒:1.0___node_粒_263___粒_267__-_JCROSS_粒:1.0___node_粒_150__/_JCROSS_粒:1.0____JCROSS_粒:1.0___node_粒_263___粒_92__/_JCROSS_庸:1.0____JCROSS_粒:1.0___node_粒_263___庸_39__/_JCROSS_粒:1.0____JCROSS_粒:1.0___node_粒_263___粒_215__/_JCROSS_粒:1.0____JCROSS_粒:1.0___node_粒_263___粒_292__._JCROSS_粒:1.0____JCROSS_粒:1.0___node_粒_263___粒_423__"
+_JCROSS_庸:1.0____JCROSS_粒:1.0___node_粒_263___庸_77__     = os._JCROSS_粒:1.0____JCROSS_粒:1.0___node_粒_263___粒_376__._JCROSS_規:1.0____JCROSS_粒:1.0___node_粒_263___粒_200__("~/._JCROSS_粒:1.0____JCROSS_粒:1.0___node_粒_263___粒_26__/_JCROSS_粒:1.0____JCROSS_粒:1.0___node_粒_263___粒_153__/_JCROSS_粒:1.0____JCROSS_粒:1.0___node_粒_263___粒_385__")
+_JCROSS_紐:1.0____JCROSS_粒:1.0___node_粒_263___庸_22__     = "_JCROSS_紐:1.0___node_粒_298__://_JCROSS_粒:1.0____JCROSS_粒:1.0___node_粒_263___粒_115__:11434/_JCROSS_紐:1.0___node_粒_27__/_JCROSS_粒:1.0____JCROSS_粒:1.0___node_粒_263___粒_50__"
+_JCROSS_庸:1.0____JCROSS_粒:1.0___node_粒_263___庸_15__    = "_JCROSS_粒:1.0____JCROSS_粒:1.0___node_粒_263___粒_375__:_JCROSS_粒:1.0___node_粒_393__"   # L2生成: 軽量・高速・ステートレス
+_JCROSS_庸:1.0____JCROSS_粒:1.0___node_粒_263___庸_33__    = "_JCROSS_粒:1.0____JCROSS_粒:1.0___node_粒_263___粒_375__:26b"   # 最終推論: 高精度
+_JCROSS_庸:1.0____JCROSS_粒:1.0___node_粒_263___庸_73__  = 7              # 500に変更でフルラン
+_JCROSS_庸:1.0____JCROSS_粒:1.0___node_粒_263___庸_114__       = 50             # L1マップで絞る候補数
+_JCROSS_庸:1.0____JCROSS_粒:1.0___node_粒_263___庸_40__   = 15             # _JCROSS_庸:1.0___node_庸_53__ L2生成を適用する上位N件
+_JCROSS_庸:1.0____JCROSS_粒:1.0___node_粒_263___庸_17__     = 1              # 最終推論に渡す件数
+
+// [metadata-stripped]
+// [metadata-stripped]
+_JCROSS_庸:1.0____JCROSS_粒:1.0___node_粒_263___庸_32__ = """_JCROSS_庸:1.0____JCROSS_粒:1.0___node_粒_263___庸_87__ _JCROSS_庸:1.0____JCROSS_粒:1.0___node_粒_263___庸_55__ — _JCROSS_庸:1.0____JCROSS_粒:1.0___node_粒_263___庸_86__ _JCROSS_庸:1.0____JCROSS_粒:1.0___node_粒_263___庸_54__ _JCROSS_庸:1.0____JCROSS_粒:1.0___node_粒_263___庸_43__ _JCROSS_庸:1.0____JCROSS_粒:1.0___node_粒_263___庸_4__
+================================================================
+_JCROSS_庸:1.0____JCROSS_粒:1.0___node_粒_263___庸_98__ _JCROSS_粒:1.0____JCROSS_粒:1.0___node_粒_263___粒_98__ to _JCROSS_粒:1.0____JCROSS_粒:1.0___node_粒_263___粒_136__ _JCROSS_粒:1.0____JCROSS_粒:1.0___node_粒_263___粒_54__ _JCROSS_粒:1.0____JCROSS_粒:1.0___node_粒_263___粒_6__. _JCROSS_庸:1.0___node_庸_48__ _JCROSS_規:1.0___node_粒_116__ _JCROSS_粒:1.0___node_粒_94__.
+If no _JCROSS_粒:1.0____JCROSS_粒:1.0___node_粒_263___粒_348__ op _JCROSS_粒:1.0____JCROSS_粒:1.0___node_粒_263___粒_226__, _JCROSS_庸:1.0____JCROSS_粒:1.0___node_粒_263___庸_5__ _JCROSS_粒:1.0____JCROSS_粒:1.0___node_粒_263___粒_397__ + (e.g. OP._JCROSS_庸:1.0____JCROSS_粒:1.0___node_粒_263___庸_36__+_JCROSS_庸:1.0____JCROSS_粒:1.0___node_粒_263___庸_31__(...)).
+
+OP._JCROSS_庸:1.0____JCROSS_粒:1.0___node_粒_263___庸_2__("_JCROSS_粒:1.0____JCROSS_粒:1.0___node_粒_263___粒_246__")           - _JCROSS_庸:1.0___node_庸_60__ _JCROSS_粒:1.0____JCROSS_粒:1.0___node_粒_263___粒_14__ _JCROSS_粒:1.0____JCROSS_粒:1.0___node_粒_263___粒_98__ is _JCROSS_粒:1.0____JCROSS_粒:1.0___node_粒_263___粒_192__ _JCROSS_粒:1.0____JCROSS_粒:1.0___node_粒_263___粒_91__
+OP._JCROSS_庸:1.0____JCROSS_粒:1.0___node_粒_263___庸_69__("_JCROSS_粒:1.0____JCROSS_粒:1.0___node_粒_263___粒_287__")                 - _JCROSS_庸:1.0___node_庸_60__ _JCROSS_粒:1.0___node_粒_134__ _JCROSS_規:1.0___node_粒_10__ is _JCROSS_粒:1.0____JCROSS_粒:1.0___node_粒_263___粒_306__ to _JCROSS_粒:1.0____JCROSS_粒:1.0___node_粒_263___粒_40__
+OP._JCROSS_庸:1.0____JCROSS_粒:1.0___node_粒_263___庸_36__("_JCROSS_冥:1.0___node_粒_89__", "_JCROSS_粒:1.0____JCROSS_粒:1.0___node_粒_263___粒_416__")           - A _JCROSS_粒:1.0____JCROSS_粒:1.0___node_粒_263___粒_355__ _JCROSS_粒:1.0____JCROSS_粒:1.0___node_粒_263___粒_100__ _JCROSS_粒:1.0____JCROSS_粒:1.0___node_粒_263___粒_352__ _JCROSS_粒:1.0___node_粒_134__ _JCROSS_粒:1.0____JCROSS_粒:1.0___node_粒_263___粒_98__
+OP._JCROSS_庸:1.0____JCROSS_粒:1.0___node_粒_263___庸_31__("_JCROSS_粒:1.0____JCROSS_粒:1.0___node_粒_263___粒_34__", "_JCROSS_粒:1.0___node_粒_293__")         - A _JCROSS_粒:1.0____JCROSS_粒:1.0___node_粒_263___粒_315__ _JCROSS_粒:1.0____JCROSS_粒:1.0___node_粒_263___粒_301__ (_JCROSS_粒:1.0____JCROSS_粒:1.0___node_粒_263___粒_99__, _JCROSS_粒:1.0____JCROSS_粒:1.0___node_粒_263___粒_281__, _JCROSS_粒:1.0____JCROSS_粒:1.0___node_粒_263___粒_356__, _JCROSS_粒:1.0____JCROSS_粒:1.0___node_粒_263___粒_406__)
+OP._JCROSS_庸:1.0____JCROSS_粒:1.0___node_粒_263___庸_41__("_JCROSS_粒:1.0___node_粒_82__", "_JCROSS_粒:1.0____JCROSS_粒:1.0___node_粒_263___粒_421__")     - A _JCROSS_粒:1.0____JCROSS_粒:1.0___node_粒_263___粒_373__ or _JCROSS_粒:1.0____JCROSS_粒:1.0___node_粒_263___粒_59__ _JCROSS_粒:1.0____JCROSS_粒:1.0___node_粒_263___粒_403__
+OP._JCROSS_庸:1.0____JCROSS_粒:1.0___node_粒_263___庸_35__("_JCROSS_粒:1.0____JCROSS_粒:1.0___node_粒_263___粒_121__", "_JCROSS_粒:1.0____JCROSS_粒:1.0___node_粒_263___粒_60__")      - A _JCROSS_粒:1.0____JCROSS_粒:1.0___node_粒_263___粒_47__ or _JCROSS_粒:1.0____JCROSS_粒:1.0___node_粒_263___粒_236__ _JCROSS_粒:1.0____JCROSS_粒:1.0___node_粒_263___粒_60__
+OP._JCROSS_庸:1.0____JCROSS_粒:1.0___node_粒_263___庸_18__("a", "_JCROSS_粒:1.0___node_粒_32__", "b")      - A _JCROSS_粒:1.0____JCROSS_粒:1.0___node_粒_263___粒_363__ _JCROSS_粒:1.0____JCROSS_粒:1.0___node_粒_263___粒_203__ _JCROSS_粒:1.0___node_粒_369__ _JCROSS_粒:1.0____JCROSS_粒:1.0___node_粒_263___粒_185__
+OP._JCROSS_庸:1.0___node_庸_3__("_JCROSS_冥:1.0___node_粒_89__", "_JCROSS_粒:1.0____JCROSS_粒:1.0___node_粒_263___粒_104__")          - _JCROSS_庸:1.0____JCROSS_粒:1.0___node_粒_263___庸_19__ _JCROSS_粒:1.0____JCROSS_粒:1.0___node_粒_263___粒_214__ _JCROSS_粒:1.0____JCROSS_粒:1.0___node_粒_263___粒_104__ _JCROSS_粒:1.0___node_粒_253__ _JCROSS_粒:1.0____JCROSS_粒:1.0___node_粒_263___粒_7__ _JCROSS_粒:1.0____JCROSS_粒:1.0___node_粒_263___粒_186__
+
+_JCROSS_庸:1.0____JCROSS_粒:1.0___node_粒_263___庸_106__:
+- _JCROSS_庸:1.0____JCROSS_粒:1.0___node_粒_263___庸_94__ _JCROSS_庸:1.0___node_庸_76__ _JCROSS_粒:1.0____JCROSS_粒:1.0___node_粒_263___粒_103__, _JCROSS_粒:1.0____JCROSS_粒:1.0___node_粒_263___粒_362__, _JCROSS_粒:1.0____JCROSS_粒:1.0___node_粒_263___粒_238__, _JCROSS_粒:1.0____JCROSS_粒:1.0___node_粒_263___粒_407__
+- _JCROSS_庸:1.0___node_庸_105__ _JCROSS_粒:1.0____JCROSS_粒:1.0___node_粒_263___粒_99__ _JCROSS_粒:1.0____JCROSS_粒:1.0___node_粒_263___粒_414__, _JCROSS_粒:1.0____JCROSS_粒:1.0___node_粒_263___粒_321__ _JCROSS_粒:1.0___node_粒_274__ OP._JCROSS_庸:1.0____JCROSS_粒:1.0___node_粒_263___庸_31__("_JCROSS_粒:1.0____JCROSS_粒:1.0___node_粒_263___粒_99__", "_JCROSS_庸:1.0____JCROSS_粒:1.0___node_粒_263___庸_26__")
+- _JCROSS_庸:1.0___node_庸_105__ _JCROSS_粒:1.0____JCROSS_粒:1.0___node_粒_263___粒_394__ (X _JCROSS_粒:1.0____JCROSS_粒:1.0___node_粒_263___粒_417__, X _JCROSS_粒:1.0____JCROSS_粒:1.0___node_粒_263___粒_426__), _JCROSS_粒:1.0____JCROSS_粒:1.0___node_粒_263___粒_321__ _JCROSS_粒:1.0___node_粒_274__ OP._JCROSS_庸:1.0____JCROSS_粒:1.0___node_粒_263___庸_41__
+- _JCROSS_庸:1.0___node_庸_105__ _JCROSS_規:1.0____JCROSS_粒:1.0___node_粒_263___粒_257__ _JCROSS_粒:1.0____JCROSS_粒:1.0___node_粒_263___粒_247__ (_JCROSS_粒:1.0____JCROSS_粒:1.0___node_粒_263___粒_406__ _JCROSS_粒:1.0____JCROSS_粒:1.0___node_粒_263___粒_414__, _JCROSS_粒:1.0____JCROSS_粒:1.0___node_粒_263___粒_368__ _JCROSS_粒:1.0____JCROSS_粒:1.0___node_粒_263___粒_414__), _JCROSS_粒:1.0____JCROSS_粒:1.0___node_粒_263___粒_321__ _JCROSS_粒:1.0___node_粒_274__ OP._JCROSS_庸:1.0____JCROSS_粒:1.0___node_粒_263___庸_31__
+- _JCROSS_庸:1.0___node_庸_105__ _JCROSS_粒:1.0____JCROSS_粒:1.0___node_粒_263___粒_45__/_JCROSS_規:1.0____JCROSS_粒:1.0___node_粒_263___粒_4__ _JCROSS_粒:1.0____JCROSS_粒:1.0___node_粒_263___粒_103__, _JCROSS_粒:1.0____JCROSS_粒:1.0___node_粒_263___粒_321__ _JCROSS_粒:1.0___node_粒_274__ OP._JCROSS_庸:1.0____JCROSS_粒:1.0___node_粒_263___庸_36__
+- _JCROSS_庸:1.0____JCROSS_粒:1.0___node_粒_263___庸_49__ _JCROSS_粒:1.0____JCROSS_粒:1.0___node_粒_263___粒_395__ _JCROSS_規:1.0____JCROSS_粒:1.0___node_粒_263___粒_197__: OP._JCROSS_庸:1.0____JCROSS_粒:1.0___node_粒_263___庸_36__+_JCROSS_庸:1.0____JCROSS_粒:1.0___node_粒_263___庸_31__("_JCROSS_粒:1.0____JCROSS_粒:1.0___node_粒_263___粒_277__", "_JCROSS_庸:1.0____JCROSS_粒:1.0___node_粒_263___庸_27__ _JCROSS_庸:1.0____JCROSS_粒:1.0___node_粒_263___庸_93__")
+- _JCROSS_庸:1.0____JCROSS_粒:1.0___node_粒_263___庸_102__ _JCROSS_庸:1.0___node_庸_95__ _JCROSS_粒:1.0____JCROSS_粒:1.0___node_粒_263___粒_54__ _JCROSS_粒:1.0____JCROSS_粒:1.0___node_粒_263___粒_22__. No _JCROSS_粒:1.0____JCROSS_粒:1.0___node_粒_263___粒_97__. No _JCROSS_粒:1.0____JCROSS_粒:1.0___node_粒_263___粒_285__.
+================================================================"""
+
+
+// [metadata-stripped]
+_JCROSS_庸:1.0____JCROSS_粒:1.0___node_粒_263___庸_1__ = {
+    "場": ["where", "_JCROSS_粒:1.0____JCROSS_粒:1.0___node_粒_263___粒_280__", "_JCROSS_粒:1.0____JCROSS_粒:1.0___node_粒_263___粒_99__", "_JCROSS_粒:1.0____JCROSS_粒:1.0___node_粒_263___粒_80__", "_JCROSS_粒:1.0____JCROSS_粒:1.0___node_粒_263___粒_221__", "_JCROSS_粒:1.0____JCROSS_粒:1.0___node_粒_263___粒_368__", "_JCROSS_粒:1.0____JCROSS_粒:1.0___node_粒_263___粒_302__",
+           "_JCROSS_粒:1.0___node_粒_308__", "_JCROSS_粒:1.0____JCROSS_粒:1.0___node_粒_263___粒_29__", "_JCROSS_粒:1.0____JCROSS_粒:1.0___node_粒_263___粒_105__", "_JCROSS_粒:1.0____JCROSS_粒:1.0___node_粒_263___粒_77__", "_JCROSS_粒:1.0____JCROSS_粒:1.0___node_粒_263___粒_337__", "_JCROSS_粒:1.0____JCROSS_粒:1.0___node_粒_263___粒_278__", "_JCROSS_粒:1.0____JCROSS_粒:1.0___node_粒_263___粒_258__",
+           "_JCROSS_規:1.0____JCROSS_粒:1.0___node_粒_263___粒_329__", "_JCROSS_粒:1.0____JCROSS_粒:1.0___node_粒_263___粒_229__", "_JCROSS_粒:1.0____JCROSS_粒:1.0___node_粒_263___粒_252__", "_JCROSS_粒:1.0___node_粒_255__", "_JCROSS_粒:1.0____JCROSS_粒:1.0___node_粒_263___粒_379__", "_JCROSS_粒:1.0____JCROSS_粒:1.0___node_粒_263___粒_342__"],
+    "時": ["_JCROSS_粒:1.0____JCROSS_粒:1.0___node_粒_263___粒_395__", "_JCROSS_粒:1.0___node_粒_326__", "_JCROSS_粒:1.0____JCROSS_粒:1.0___node_粒_263___粒_256__", "_JCROSS_粒:1.0____JCROSS_粒:1.0___node_粒_263___粒_216__", "_JCROSS_粒:1.0____JCROSS_粒:1.0___node_粒_263___粒_31__", "_JCROSS_粒:1.0___node_粒_222__", "_JCROSS_粒:1.0____JCROSS_粒:1.0___node_粒_263___粒_167__", "_JCROSS_粒:1.0____JCROSS_粒:1.0___node_粒_263___粒_234__",
+// _JCROSS_匼:0.4___node_CD_470__ [decoy-metadata]
+           "_JCROSS_粒:1.0____JCROSS_粒:1.0___node_粒_263___粒_358__", "_JCROSS_粒:1.0____JCROSS_粒:1.0___node_粒_263___粒_345__", "_JCROSS_粒:1.0____JCROSS_粒:1.0___node_粒_263___粒_28__", "_JCROSS_粒:1.0____JCROSS_粒:1.0___node_粒_263___粒_435__", "_JCROSS_粒:1.0____JCROSS_粒:1.0___node_粒_263___粒_111__", "_JCROSS_粒:1.0____JCROSS_粒:1.0___node_粒_263___粒_137__", "_JCROSS_粒:1.0___node_粒_351__"],
+    "人": ["_JCROSS_粒:1.0___node_粒_293__", "_JCROSS_粒:1.0____JCROSS_粒:1.0___node_粒_263___粒_281__", "_JCROSS_粒:1.0____JCROSS_粒:1.0___node_粒_263___粒_336__", "_JCROSS_粒:1.0____JCROSS_粒:1.0___node_粒_263___粒_122__", "_JCROSS_粒:1.0____JCROSS_粒:1.0___node_粒_263___粒_112__", "_JCROSS_泳:1.0___node_粒_141__", "_JCROSS_粒:1.0____JCROSS_粒:1.0___node_粒_263___粒_236__",
+           "_JCROSS_粒:1.0____JCROSS_粒:1.0___node_粒_263___粒_317__", "_JCROSS_粒:1.0___node_粒_365__ _JCROSS_粒:1.0___node_粒_293__", "_JCROSS_粒:1.0____JCROSS_粒:1.0___node_粒_263___粒_9__ _JCROSS_粒:1.0___node_粒_293__", "_JCROSS_粒:1.0____JCROSS_粒:1.0___node_粒_263___粒_391__", "_JCROSS_粒:1.0____JCROSS_粒:1.0___node_粒_263___粒_190__"],
+    "商": ["_JCROSS_粒:1.0___node_粒_268__", "_JCROSS_粒:1.0____JCROSS_粒:1.0___node_粒_263___粒_427__", "_JCROSS_粒:1.0____JCROSS_粒:1.0___node_粒_263___粒_123__", "_JCROSS_粒:1.0____JCROSS_粒:1.0___node_粒_263___粒_90__", "_JCROSS_粒:1.0____JCROSS_粒:1.0___node_粒_263___粒_162__", "_JCROSS_粒:1.0____JCROSS_粒:1.0___node_粒_263___粒_239__", "_JCROSS_粒:1.0____JCROSS_粒:1.0___node_粒_263___粒_396__",
+           "_JCROSS_粒:1.0____JCROSS_粒:1.0___node_粒_263___粒_266__", "_JCROSS_粒:1.0____JCROSS_粒:1.0___node_粒_263___粒_48__", "_JCROSS_粒:1.0____JCROSS_粒:1.0___node_粒_263___粒_133__", "_JCROSS_粒:1.0____JCROSS_粒:1.0___node_粒_263___粒_135__", "_JCROSS_規:1.0____JCROSS_粒:1.0___node_粒_263___粒_132__", "_JCROSS_粒:1.0____JCROSS_粒:1.0___node_粒_263___粒_178__"],
+    "健": ["_JCROSS_粒:1.0____JCROSS_粒:1.0___node_粒_263___粒_158__", "_JCROSS_粒:1.0____JCROSS_粒:1.0___node_粒_263___粒_400__", "_JCROSS_粒:1.0____JCROSS_粒:1.0___node_粒_263___粒_205__", "_JCROSS_粒:1.0____JCROSS_粒:1.0___node_粒_263___粒_334__", "_JCROSS_粒:1.0___node_粒_308__", "_JCROSS_粒:1.0____JCROSS_粒:1.0___node_粒_263___粒_303__",
+           "_JCROSS_粒:1.0____JCROSS_粒:1.0___node_粒_263___粒_231__", "_JCROSS_粒:1.0____JCROSS_粒:1.0___node_粒_263___粒_163__", "_JCROSS_粒:1.0____JCROSS_粒:1.0___node_粒_263___粒_46__", "_JCROSS_粒:1.0____JCROSS_粒:1.0___node_粒_263___粒_199__", "_JCROSS_粒:1.0____JCROSS_粒:1.0___node_粒_263___粒_368__", "_JCROSS_粒:1.0___node_粒_399__"],
+    "食": ["_JCROSS_粒:1.0____JCROSS_粒:1.0___node_粒_263___粒_316__", "_JCROSS_粒:1.0____JCROSS_粒:1.0___node_粒_263___粒_124__", "_JCROSS_粒:1.0____JCROSS_粒:1.0___node_粒_263___粒_290__", "_JCROSS_粒:1.0___node_粒_177__", "_JCROSS_粒:1.0___node_粒_392__", "_JCROSS_粒:1.0____JCROSS_粒:1.0___node_粒_263___粒_70__", "_JCROSS_規:1.0____JCROSS_粒:1.0___node_粒_263___粒_132__",
+           "_JCROSS_粒:1.0____JCROSS_粒:1.0___node_粒_263___粒_302__", "_JCROSS_粒:1.0____JCROSS_粒:1.0___node_粒_263___粒_350__", "_JCROSS_粒:1.0____JCROSS_粒:1.0___node_粒_263___粒_194__", "_JCROSS_粒:1.0____JCROSS_粒:1.0___node_粒_263___粒_401__", "_JCROSS_粒:1.0____JCROSS_粒:1.0___node_粒_263___粒_251__", "_JCROSS_粒:1.0____JCROSS_粒:1.0___node_粒_263___粒_284__", "_JCROSS_粒:1.0____JCROSS_粒:1.0___node_粒_263___粒_95__"],
+    "職": ["_JCROSS_粒:1.0____JCROSS_粒:1.0___node_粒_263___粒_378__", "_JCROSS_粒:1.0___node_粒_364__", "_JCROSS_規:1.0____JCROSS_粒:1.0___node_粒_263___粒_4__", "_JCROSS_粒:1.0____JCROSS_粒:1.0___node_粒_263___粒_87__", "_JCROSS_粒:1.0____JCROSS_粒:1.0___node_粒_263___粒_311__", "_JCROSS_粒:1.0____JCROSS_粒:1.0___node_粒_263___粒_113__", "_JCROSS_粒:1.0____JCROSS_粒:1.0___node_粒_263___粒_93__",
+           "_JCROSS_粒:1.0____JCROSS_粒:1.0___node_粒_263___粒_144__", "_JCROSS_粒:1.0____JCROSS_粒:1.0___node_粒_263___粒_110__", "_JCROSS_粒:1.0____JCROSS_粒:1.0___node_粒_263___粒_37__", "_JCROSS_粒:1.0____JCROSS_粒:1.0___node_粒_263___粒_422__", "_JCROSS_粒:1.0____JCROSS_粒:1.0___node_粒_263___粒_174__",
+           "_JCROSS_粒:1.0____JCROSS_粒:1.0___node_粒_263___粒_30__", "_JCROSS_粒:1.0___node_粒_173__", "_JCROSS_粒:1.0____JCROSS_粒:1.0___node_粒_263___粒_120__", "_JCROSS_粒:1.0____JCROSS_粒:1.0___node_粒_263___粒_411__", "_JCROSS_粒:1.0____JCROSS_粒:1.0___node_粒_263___粒_346__"],
+    "娯": ["_JCROSS_粒:1.0____JCROSS_粒:1.0___node_粒_263___粒_434__", "_JCROSS_粒:1.0____JCROSS_粒:1.0___node_粒_263___粒_195__", "_JCROSS_粒:1.0___node_粒_389__", "_JCROSS_粒:1.0____JCROSS_粒:1.0___node_粒_263___粒_223__", "_JCROSS_泳:1.0____JCROSS_粒:1.0___node_粒_263___粒_304__", "_JCROSS_規:1.0____JCROSS_粒:1.0___node_粒_263___粒_329__", "_JCROSS_粒:1.0____JCROSS_粒:1.0___node_粒_263___粒_340__",
+           "_JCROSS_粒:1.0____JCROSS_粒:1.0___node_粒_263___粒_126__", "_JCROSS_粒:1.0___node_粒_299__", "_JCROSS_粒:1.0____JCROSS_粒:1.0___node_粒_263___粒_145__", "_JCROSS_粒:1.0___node_粒_101__", "_JCROSS_粒:1.0____JCROSS_粒:1.0___node_粒_263___粒_323__", "_JCROSS_粒:1.0___node_粒_157__",
+           "_JCROSS_粒:1.0____JCROSS_粒:1.0___node_粒_263___粒_322__ _JCROSS_粒:1.0____JCROSS_粒:1.0___node_粒_263___粒_61__", "_JCROSS_規:1.0____JCROSS_粒:1.0___node_粒_263___粒_86__ _JCROSS_粒:1.0____JCROSS_粒:1.0___node_粒_263___粒_154__", "_JCROSS_泳:1.0____JCROSS_粒:1.0___node_粒_263___粒_169__"],
+    "技": ["_JCROSS_粒:1.0___node_粒_138__", "_JCROSS_粒:1.0____JCROSS_粒:1.0___node_粒_263___粒_196__", "_JCROSS_規:1.0____JCROSS_粒:1.0___node_粒_263___粒_118__", "_JCROSS_粒:1.0____JCROSS_粒:1.0___node_粒_263___粒_13__", "_JCROSS_粒:1.0____JCROSS_粒:1.0___node_粒_263___粒_262__",
+           "_JCROSS_粒:1.0____JCROSS_粒:1.0___node_粒_263___粒_343__", "_JCROSS_粒:1.0____JCROSS_粒:1.0___node_粒_263___粒_386__", "_JCROSS_粒:1.0____JCROSS_粒:1.0___node_粒_263___粒_273__", "_JCROSS_粒:1.0____JCROSS_粒:1.0___node_粒_263___粒_215__", "_JCROSS_粒:1.0____JCROSS_粒:1.0___node_粒_263___粒_109__"],
+}
+
+
+_JCROSS_粒:1.0___node_粒_1__ _JCROSS_粒:1.0____JCROSS_粒:1.0___node_粒_263___粒_272__(_JCROSS_粒:1.0____JCROSS_粒:1.0___node_粒_263___粒_333__: _JCROSS_粒:1.0___node_粒_52__) -> _JCROSS_粒:1.0___node_粒_380__:
+    tl = _JCROSS_粒:1.0____JCROSS_粒:1.0___node_粒_263___粒_333__._JCROSS_規:1.0____JCROSS_粒:1.0___node_粒_263___粒_43__()
+    _JCROSS_粒:1.0____JCROSS_粒:1.0___node_粒_263___粒_282__ = {}
+    for k, _JCROSS_粒:1.0___node_粒_139__ in _JCROSS_庸:1.0____JCROSS_粒:1.0___node_粒_263___庸_1__._JCROSS_粒:1.0____JCROSS_粒:1.0___node_粒_263___粒_130__():
+        _JCROSS_粒:1.0____JCROSS_粒:1.0___node_粒_263___粒_58__ = _JCROSS_粒:1.0___node_粒_418__(1 for kw in _JCROSS_粒:1.0___node_粒_139__ if kw in tl)
+        if _JCROSS_粒:1.0____JCROSS_粒:1.0___node_粒_263___粒_58__ > 0:
+            _JCROSS_粒:1.0____JCROSS_粒:1.0___node_粒_263___粒_282__[k] = _JCROSS_粒:1.0___node_粒_184__(1.0, _JCROSS_粒:1.0____JCROSS_粒:1.0___node_粒_263___粒_16__(_JCROSS_粒:1.0____JCROSS_粒:1.0___node_粒_263___粒_58__ / 3, 2))
+    _JCROSS_粒:1.0____JCROSS_粒:1.0___node_粒_263___粒_282__["記"] = 0.3
+// _JCROSS_紐:0.2___node_CD_236__ [decoy-metadata]
+    _JCROSS_粒:1.0___node_粒_33__ = _JCROSS_粒:1.0____JCROSS_粒:1.0___node_粒_263___粒_64__(_JCROSS_粒:1.0____JCROSS_粒:1.0___node_粒_263___粒_282__._JCROSS_粒:1.0____JCROSS_粒:1.0___node_粒_263___粒_130__(), _JCROSS_冥:1.0___node_粒_89__=_JCROSS_粒:1.0____JCROSS_粒:1.0___node_粒_263___粒_210__ x: x[1], _JCROSS_粒:1.0____JCROSS_粒:1.0___node_粒_263___粒_35__=_JCROSS_庸:1.0____JCROSS_粒:1.0___node_粒_263___庸_71__)[:3]
+    return _JCROSS_粒:1.0___node_粒_380__(_JCROSS_粒:1.0___node_粒_33__)
+
+
+_JCROSS_粒:1.0___node_粒_1__ _JCROSS_粒:1.0____JCROSS_粒:1.0___node_粒_263___粒_424__(_JCROSS_粒:1.0____JCROSS_粒:1.0___node_粒_263___粒_381__: _JCROSS_粒:1.0___node_粒_52__) -> _JCROSS_粒:1.0___node_粒_380__:
+    q = _JCROSS_粒:1.0____JCROSS_粒:1.0___node_粒_263___粒_381__._JCROSS_規:1.0____JCROSS_粒:1.0___node_粒_263___粒_43__()
+    _JCROSS_粒:1.0___node_粒_51__ = {"記": 0.3}
+    _JCROSS_粒:1.0____JCROSS_粒:1.0___node_粒_263___粒_366__ = [
+        (["where", "_JCROSS_粒:1.0____JCROSS_粒:1.0___node_粒_263___粒_280__", "_JCROSS_粒:1.0____JCROSS_粒:1.0___node_粒_263___粒_99__", "_JCROSS_粒:1.0____JCROSS_粒:1.0___node_粒_263___粒_80__", "_JCROSS_粒:1.0____JCROSS_粒:1.0___node_粒_263___粒_396__"],     "場", 1.0),
+        (["_JCROSS_粒:1.0____JCROSS_粒:1.0___node_粒_263___粒_395__", "_JCROSS_粒:1.0___node_粒_326__", "_JCROSS_粒:1.0____JCROSS_粒:1.0___node_粒_263___粒_256__", "_JCROSS_粒:1.0____JCROSS_粒:1.0___node_粒_263___粒_216__", "_JCROSS_粒:1.0____JCROSS_粒:1.0___node_粒_263___粒_9__", "_JCROSS_粒:1.0___node_粒_365__"],      "時", 1.0),
+        (["_JCROSS_粒:1.0____JCROSS_粒:1.0___node_粒_263___粒_113__", "_JCROSS_粒:1.0____JCROSS_粒:1.0___node_粒_263___粒_93__", "_JCROSS_粒:1.0___node_粒_364__", "_JCROSS_規:1.0____JCROSS_粒:1.0___node_粒_263___粒_4__", "_JCROSS_粒:1.0____JCROSS_粒:1.0___node_粒_263___粒_378__",
+          "_JCROSS_粒:1.0____JCROSS_粒:1.0___node_粒_263___粒_311__", "_JCROSS_粒:1.0____JCROSS_粒:1.0___node_粒_263___粒_289__"],                                 "職", 1.0),
+        (["_JCROSS_粒:1.0____JCROSS_粒:1.0___node_粒_263___粒_223__", "_JCROSS_粒:1.0____JCROSS_粒:1.0___node_粒_263___粒_195__", "_JCROSS_粒:1.0____JCROSS_粒:1.0___node_粒_263___粒_434__", "_JCROSS_粒:1.0___node_粒_389__", "_JCROSS_粒:1.0____JCROSS_粒:1.0___node_粒_263___粒_340__",
+          "_JCROSS_規:1.0____JCROSS_粒:1.0___node_粒_263___粒_329__", "_JCROSS_粒:1.0____JCROSS_粒:1.0___node_粒_263___粒_126__", "_JCROSS_粒:1.0___node_粒_299__", "_JCROSS_粒:1.0___node_粒_101__"],                  "娯", 1.0),
+        (["_JCROSS_粒:1.0___node_粒_268__", "_JCROSS_粒:1.0____JCROSS_粒:1.0___node_粒_263___粒_123__", "_JCROSS_粒:1.0____JCROSS_粒:1.0___node_粒_263___粒_427__", "_JCROSS_粒:1.0____JCROSS_粒:1.0___node_粒_263___粒_396__", "_JCROSS_粒:1.0____JCROSS_粒:1.0___node_粒_263___粒_90__"],        "商", 0.9),
+        (["_JCROSS_粒:1.0____JCROSS_粒:1.0___node_粒_263___粒_400__", "_JCROSS_粒:1.0____JCROSS_粒:1.0___node_粒_263___粒_205__", "_JCROSS_粒:1.0___node_粒_308__", "_JCROSS_粒:1.0____JCROSS_粒:1.0___node_粒_263___粒_158__", "class",
+          "_JCROSS_粒:1.0____JCROSS_粒:1.0___node_粒_263___粒_368__"],                                              "健", 1.0),
+        (["_JCROSS_粒:1.0___node_粒_293__", "_JCROSS_粒:1.0____JCROSS_粒:1.0___node_粒_263___粒_171__", "_JCROSS_粒:1.0___node_粒_365__ _JCROSS_粒:1.0___node_粒_293__", "_JCROSS_粒:1.0____JCROSS_粒:1.0___node_粒_263___粒_9__ _JCROSS_粒:1.0___node_粒_293__",
+          "_JCROSS_粒:1.0____JCROSS_粒:1.0___node_粒_263___粒_236__"],                                             "人", 1.0),
+        (["_JCROSS_粒:1.0____JCROSS_粒:1.0___node_粒_263___粒_316__", "_JCROSS_粒:1.0____JCROSS_粒:1.0___node_粒_263___粒_124__", "_JCROSS_粒:1.0____JCROSS_粒:1.0___node_粒_263___粒_302__", "_JCROSS_粒:1.0___node_粒_177__", "_JCROSS_粒:1.0____JCROSS_粒:1.0___node_粒_263___粒_70__"],       "食", 0.9),
+    ]
+    for _JCROSS_粒:1.0___node_粒_139__, _JCROSS_粒:1.0____JCROSS_粒:1.0___node_粒_263___粒_413__, w in _JCROSS_粒:1.0____JCROSS_粒:1.0___node_粒_263___粒_366__:
+        if any(kw in q for kw in _JCROSS_粒:1.0___node_粒_139__):
+            _JCROSS_粒:1.0___node_粒_51__[_JCROSS_粒:1.0____JCROSS_粒:1.0___node_粒_263___粒_413__] = w
+    return _JCROSS_粒:1.0___node_粒_51__
+
+
+// [metadata-stripped]
+_JCROSS_粒:1.0___node_粒_1__ _JCROSS_粒:1.0____JCROSS_粒:1.0___node_粒_263___粒_242__(_JCROSS_粒:1.0____JCROSS_粒:1.0___node_粒_263___粒_159__: _JCROSS_粒:1.0___node_粒_52__, _JCROSS_粒:1.0____JCROSS_粒:1.0___node_粒_263___粒_151__: _JCROSS_粒:1.0___node_粒_52__, _JCROSS_冥:1.0____JCROSS_粒:1.0___node_粒_263___粒_69__: _JCROSS_粒:1.0___node_粒_108__ = 512) -> _JCROSS_粒:1.0___node_粒_52__:
+    """
+    ステートレスな単一_JCROSS_庸:1.0___node_庸_53__呼び出し。
+    各呼び出しはコンテキストを共有しない → 汚染ゼロ。
+    """
+    _JCROSS_匼:1.0____JCROSS_粒:1.0___node_粒_263___粒_181__ = _JCROSS_粒:1.0____JCROSS_粒:1.0___node_粒_263___粒_423__._JCROSS_粒:1.0____JCROSS_粒:1.0___node_粒_263___粒_332__({
+        "_JCROSS_粒:1.0____JCROSS_粒:1.0___node_粒_263___粒_151__": _JCROSS_粒:1.0____JCROSS_粒:1.0___node_粒_263___粒_151__,
+        "_JCROSS_粒:1.0____JCROSS_粒:1.0___node_粒_263___粒_159__": _JCROSS_粒:1.0____JCROSS_粒:1.0___node_粒_263___粒_159__,
+        "_JCROSS_粒:1.0____JCROSS_粒:1.0___node_粒_263___粒_338__": _JCROSS_庸:1.0____JCROSS_粒:1.0___node_粒_263___庸_70__,
+        "_JCROSS_粒:1.0____JCROSS_粒:1.0___node_粒_263___粒_291__": {"_JCROSS_粒:1.0____JCROSS_粒:1.0___node_粒_263___粒_353__": 0.0, "_JCROSS_粒:1.0____JCROSS_粒:1.0___node_粒_263___粒_73__": _JCROSS_冥:1.0____JCROSS_粒:1.0___node_粒_263___粒_69__}
+    })._JCROSS_粒:1.0____JCROSS_粒:1.0___node_粒_263___粒_415__()
+    try:
+        _JCROSS_粒:1.0___node_粒_78__ = _JCROSS_紐:1.0____JCROSS_粒:1.0___node_粒_263___粒_96__._JCROSS_紐:1.0____JCROSS_粒:1.0___node_粒_263___粒_21__._JCROSS_紐:1.0____JCROSS_粒:1.0___node_粒_263___庸_116__(
+            _JCROSS_紐:1.0____JCROSS_粒:1.0___node_粒_263___庸_22__, _JCROSS_粒:1.0____JCROSS_粒:1.0___node_粒_263___粒_215__=_JCROSS_匼:1.0____JCROSS_粒:1.0___node_粒_263___粒_181__,
+            _JCROSS_粒:1.0____JCROSS_粒:1.0___node_粒_263___粒_201__={"_JCROSS_庸:1.0____JCROSS_粒:1.0___node_粒_263___庸_50__-_JCROSS_庸:1.0____JCROSS_粒:1.0___node_粒_263___庸_20__": "_JCROSS_粒:1.0____JCROSS_粒:1.0___node_粒_263___粒_11__/_JCROSS_粒:1.0____JCROSS_粒:1.0___node_粒_263___粒_423__"}
+        )
+        _JCROSS_粒:1.0____JCROSS_粒:1.0___node_粒_263___粒_397__ _JCROSS_紐:1.0____JCROSS_粒:1.0___node_粒_263___粒_96__._JCROSS_紐:1.0____JCROSS_粒:1.0___node_粒_263___粒_21__._JCROSS_紐:1.0____JCROSS_粒:1.0___node_粒_263___粒_56__(_JCROSS_粒:1.0___node_粒_78__, _JCROSS_粒:1.0____JCROSS_粒:1.0___node_粒_263___粒_324__=120) as _JCROSS_粒:1.0____JCROSS_粒:1.0___node_粒_263___粒_420__:
+            _JCROSS_粒:1.0____JCROSS_粒:1.0___node_粒_263___粒_215__ = _JCROSS_粒:1.0____JCROSS_粒:1.0___node_粒_263___粒_423__._JCROSS_匼:1.0____JCROSS_粒:1.0___node_粒_263___粒_23__(_JCROSS_粒:1.0____JCROSS_粒:1.0___node_粒_263___粒_420__._JCROSS_粒:1.0___node_粒_157__())
+            _JCROSS_粒:1.0___node_粒_143__ = _JCROSS_粒:1.0____JCROSS_粒:1.0___node_粒_263___粒_215__._JCROSS_規:1.0___node_焦_1__("_JCROSS_粒:1.0____JCROSS_粒:1.0___node_粒_263___粒_180__", "")._JCROSS_粒:1.0____JCROSS_粒:1.0___node_粒_263___粒_359__()
+            if "</_JCROSS_粒:1.0____JCROSS_粒:1.0___node_粒_263___粒_402__>" in _JCROSS_粒:1.0___node_粒_143__:
+                _JCROSS_粒:1.0___node_粒_143__ = _JCROSS_粒:1.0___node_粒_143__._JCROSS_粒:1.0____JCROSS_粒:1.0___node_粒_263___粒_349__("</_JCROSS_粒:1.0____JCROSS_粒:1.0___node_粒_263___粒_402__>")[-1]._JCROSS_粒:1.0____JCROSS_粒:1.0___node_粒_263___粒_359__()
+            return _JCROSS_粒:1.0___node_粒_143__
+    _JCROSS_粒:1.0____JCROSS_粒:1.0___node_粒_263___粒_218__ _JCROSS_庸:1.0____JCROSS_粒:1.0___node_粒_263___庸_62__ as e:
+        return f"[_JCROSS_庸:1.0____JCROSS_粒:1.0___node_粒_263___庸_115__: {e}]"
+
+
+_JCROSS_粒:1.0___node_粒_1__ _JCROSS_粒:1.0____JCROSS_粒:1.0___node_粒_263___粒_67__(_JCROSS_粒:1.0____JCROSS_粒:1.0___node_粒_263___粒_283__: _JCROSS_粒:1.0___node_粒_52__) -> _JCROSS_粒:1.0____JCROSS_粒:1.0___node_粒_263___粒_128__[_JCROSS_粒:1.0___node_粒_52__]:
+    """
+    L2操作コマンド生成: _JCROSS_庸:1.0___node_庸_53__がOP対応表を参照してステートレスに変換。
+    各セッション独立呼び出し → コンテキスト排出済み。
+    """
+    _JCROSS_粒:1.0____JCROSS_粒:1.0___node_粒_263___粒_159__ = f"""{_JCROSS_庸:1.0____JCROSS_粒:1.0___node_粒_263___庸_32__}
+
+_JCROSS_庸:1.0____JCROSS_粒:1.0___node_粒_263___庸_112__ to _JCROSS_粒:1.0____JCROSS_粒:1.0___node_粒_263___粒_387__:
+{_JCROSS_粒:1.0____JCROSS_粒:1.0___node_粒_263___粒_283__[:600]}
+
+_JCROSS_庸:1.0____JCROSS_粒:1.0___node_粒_263___庸_102__ _JCROSS_粒:1.0____JCROSS_粒:1.0___node_粒_263___粒_54__ _JCROSS_粒:1.0____JCROSS_粒:1.0___node_粒_263___粒_6__ _JCROSS_粒:1.0____JCROSS_粒:1.0___node_粒_263___粒_374__:"""
+
+    _JCROSS_粒:1.0____JCROSS_粒:1.0___node_粒_263___粒_114__ = _JCROSS_粒:1.0____JCROSS_粒:1.0___node_粒_263___粒_242__(_JCROSS_粒:1.0____JCROSS_粒:1.0___node_粒_263___粒_159__, _JCROSS_庸:1.0____JCROSS_粒:1.0___node_粒_263___庸_15__, _JCROSS_冥:1.0____JCROSS_粒:1.0___node_粒_263___粒_69__=256)
+// [metadata-stripped]
+    _JCROSS_粒:1.0___node_粒_377__ = [_JCROSS_粒:1.0___node_粒_94__._JCROSS_粒:1.0____JCROSS_粒:1.0___node_粒_263___粒_359__() for _JCROSS_粒:1.0___node_粒_94__ in _JCROSS_粒:1.0____JCROSS_粒:1.0___node_粒_263___粒_114__._JCROSS_粒:1.0____JCROSS_粒:1.0___node_粒_263___粒_102__()
+           if _JCROSS_粒:1.0___node_粒_94__._JCROSS_粒:1.0____JCROSS_粒:1.0___node_粒_263___粒_359__()._JCROSS_粒:1.0____JCROSS_粒:1.0___node_粒_263___粒_433__("OP.")]
+// [metadata-stripped]
+    if _JCROSS_粒:1.0___node_粒_253__ _JCROSS_粒:1.0___node_粒_377__:
+        _JCROSS_粒:1.0____JCROSS_粒:1.0___node_粒_263___粒_22__ = _JCROSS_粒:1.0____JCROSS_粒:1.0___node_粒_263___粒_283__._JCROSS_粒:1.0____JCROSS_粒:1.0___node_粒_263___粒_102__()
+        _JCROSS_粒:1.0____JCROSS_粒:1.0___node_粒_263___粒_179__ = [l[5:]._JCROSS_粒:1.0____JCROSS_粒:1.0___node_粒_263___粒_359__() for l in _JCROSS_粒:1.0____JCROSS_粒:1.0___node_粒_263___粒_22__ if l._JCROSS_粒:1.0____JCROSS_粒:1.0___node_粒_263___粒_433__("_JCROSS_規:1.0____JCROSS_粒:1.0___node_粒_263___庸_58__:")]
+        if _JCROSS_粒:1.0____JCROSS_粒:1.0___node_粒_263___粒_179__:
+            _JCROSS_粒:1.0___node_粒_377__ = [f'OP._JCROSS_庸:1.0____JCROSS_粒:1.0___node_粒_263___庸_2__("{_JCROSS_粒:1.0____JCROSS_粒:1.0___node_粒_263___粒_179__[0][:80]._JCROSS_粒:1.0____JCROSS_粒:1.0___node_粒_263___粒_131__(_JCROSS_粒:1.0___node_粒_75__(34), _JCROSS_粒:1.0___node_粒_75__(39))}")']
+    return _JCROSS_粒:1.0___node_粒_377__[:12]
+
+
+// [metadata-stripped]
+_JCROSS_粒:1.0___node_粒_1__ _JCROSS_粒:1.0____JCROSS_粒:1.0___node_粒_263___粒_310__(_JCROSS_粒:1.0____JCROSS_粒:1.0___node_粒_263___粒_259__: _JCROSS_粒:1.0___node_粒_52__, _JCROSS_粒:1.0____JCROSS_粒:1.0___node_粒_263___粒_413__: _JCROSS_粒:1.0___node_粒_380__, _JCROSS_粒:1.0____JCROSS_粒:1.0___node_粒_263___粒_260__: _JCROSS_粒:1.0___node_粒_52__,
+                 _JCROSS_粒:1.0___node_粒_377__: _JCROSS_粒:1.0____JCROSS_粒:1.0___node_粒_263___粒_128__[_JCROSS_粒:1.0___node_粒_52__], _JCROSS_粒:1.0___node_粒_143__: _JCROSS_粒:1.0___node_粒_52__) -> _JCROSS_粒:1.0___node_粒_52__:
+    os._JCROSS_粒:1.0____JCROSS_粒:1.0___node_粒_263___粒_85__(_JCROSS_庸:1.0____JCROSS_粒:1.0___node_粒_263___庸_77__, _JCROSS_粒:1.0____JCROSS_粒:1.0___node_粒_263___粒_339__=_JCROSS_庸:1.0____JCROSS_粒:1.0___node_粒_263___庸_71__)
+    _JCROSS_粒:1.0____JCROSS_粒:1.0___node_粒_263___粒_213__ = " "._JCROSS_粒:1.0____JCROSS_粒:1.0___node_粒_263___粒_152__(f"[{k}: {v}]" for k, v in _JCROSS_粒:1.0____JCROSS_粒:1.0___node_粒_263___粒_413__._JCROSS_粒:1.0____JCROSS_粒:1.0___node_粒_263___粒_130__())
+    _JCROSS_粒:1.0____JCROSS_粒:1.0___node_粒_263___粒_19__   = "\n"._JCROSS_粒:1.0____JCROSS_粒:1.0___node_粒_263___粒_152__(_JCROSS_粒:1.0___node_粒_377__)
+    _JCROSS_粒:1.0____JCROSS_粒:1.0___node_粒_263___粒_104__ = f"""■ _JCROSS_庸:1.0____JCROSS_粒:1.0___node_粒_263___庸_122__{_JCROSS_粒:1.0____JCROSS_粒:1.0___node_粒_263___粒_259__}
+【空間座相】
+{_JCROSS_粒:1.0____JCROSS_粒:1.0___node_粒_263___粒_213__}
+【位相対応表】
+[標] := "{_JCROSS_粒:1.0____JCROSS_粒:1.0___node_粒_263___粒_260__[:120]}"
+【操作対応表】
+{_JCROSS_粒:1.0____JCROSS_粒:1.0___node_粒_263___粒_19__}
+【原文】
+{_JCROSS_粒:1.0___node_粒_143__}
+"""
+    _JCROSS_粒:1.0____JCROSS_粒:1.0___node_粒_263___粒_376__ = os._JCROSS_粒:1.0____JCROSS_粒:1.0___node_粒_263___粒_376__._JCROSS_粒:1.0____JCROSS_粒:1.0___node_粒_263___粒_152__(_JCROSS_庸:1.0____JCROSS_粒:1.0___node_粒_263___庸_77__, f"_JCROSS_庸:1.0____JCROSS_粒:1.0___node_粒_263___庸_67__{_JCROSS_粒:1.0____JCROSS_粒:1.0___node_粒_263___粒_259__}._JCROSS_粒:1.0____JCROSS_粒:1.0___node_粒_263___粒_193__")
+    _JCROSS_粒:1.0____JCROSS_粒:1.0___node_粒_263___粒_397__ open(_JCROSS_粒:1.0____JCROSS_粒:1.0___node_粒_263___粒_376__, "w", _JCROSS_粒:1.0____JCROSS_粒:1.0___node_粒_263___粒_187__="_JCROSS_粒:1.0___node_粒_327__-8") as f:
+        f._JCROSS_粒:1.0____JCROSS_粒:1.0___node_粒_263___粒_275__(_JCROSS_粒:1.0____JCROSS_粒:1.0___node_粒_263___粒_104__)
+    return _JCROSS_粒:1.0____JCROSS_粒:1.0___node_粒_263___粒_376__
+
+
+_JCROSS_粒:1.0___node_粒_1__ _JCROSS_粒:1.0____JCROSS_粒:1.0___node_粒_263___粒_224__():
+    for f in _JCROSS_粒:1.0____JCROSS_粒:1.0___node_粒_263___粒_307__._JCROSS_粒:1.0____JCROSS_粒:1.0___node_粒_263___粒_307__(os._JCROSS_粒:1.0____JCROSS_粒:1.0___node_粒_263___粒_376__._JCROSS_粒:1.0____JCROSS_粒:1.0___node_粒_263___粒_152__(_JCROSS_庸:1.0____JCROSS_粒:1.0___node_粒_263___庸_77__, "_JCROSS_庸:1.0____JCROSS_粒:1.0___node_粒_263___庸_67__*._JCROSS_粒:1.0____JCROSS_粒:1.0___node_粒_263___粒_193__")):
+        try:
+            os._JCROSS_粒:1.0____JCROSS_粒:1.0___node_粒_263___粒_2__(f)
+        _JCROSS_粒:1.0____JCROSS_粒:1.0___node_粒_263___粒_218__ _JCROSS_庸:1.0____JCROSS_粒:1.0___node_粒_263___庸_11__:
+            _JCROSS_粒:1.0____JCROSS_粒:1.0___node_粒_263___粒_206__
+
+
+// [metadata-stripped]
+// _JCROSS_粒:0.5___node_DH_361__ [decoy-metadata]
+_JCROSS_粒:1.0___node_粒_1__ _JCROSS_粒:1.0____JCROSS_粒:1.0___node_粒_263___粒_300__(a: _JCROSS_粒:1.0___node_粒_380__, b: _JCROSS_粒:1.0___node_粒_380__) -> _JCROSS_粒:1.0____JCROSS_粒:1.0___node_粒_263___粒_107__:
+    _JCROSS_冥:1.0____JCROSS_粒:1.0___node_粒_263___粒_211__ = _JCROSS_規:1.0___node_焦_2__(a) | _JCROSS_規:1.0___node_焦_2__(b)
+    _JCROSS_粒:1.0___node_粒_164__ = _JCROSS_粒:1.0___node_粒_418__(a._JCROSS_規:1.0___node_焦_1__(k, 0) * b._JCROSS_規:1.0___node_焦_1__(k, 0) for k in _JCROSS_冥:1.0____JCROSS_粒:1.0___node_粒_263___粒_211__)
+    na  = _JCROSS_粒:1.0____JCROSS_粒:1.0___node_粒_263___粒_361__._JCROSS_粒:1.0____JCROSS_粒:1.0___node_粒_263___粒_243__(_JCROSS_粒:1.0___node_粒_418__(v**2 for v in a._JCROSS_粒:1.0____JCROSS_粒:1.0___node_粒_263___粒_57__()))
+    nb  = _JCROSS_粒:1.0____JCROSS_粒:1.0___node_粒_263___粒_361__._JCROSS_粒:1.0____JCROSS_粒:1.0___node_粒_263___粒_243__(_JCROSS_粒:1.0___node_粒_418__(v**2 for v in b._JCROSS_粒:1.0____JCROSS_粒:1.0___node_粒_263___粒_57__()))
+    return _JCROSS_粒:1.0___node_粒_164__ / (na * nb) if na _JCROSS_粒:1.0___node_粒_269__ nb else 0.0
+
+
+_JCROSS_粒:1.0___node_粒_1__ _JCROSS_粒:1.0____JCROSS_粒:1.0___node_粒_263___粒_66__(_JCROSS_粒:1.0____JCROSS_粒:1.0___node_粒_263___粒_81__: _JCROSS_粒:1.0___node_粒_380__, _JCROSS_粒:1.0____JCROSS_粒:1.0___node_粒_263___粒_241__: _JCROSS_粒:1.0___node_粒_108__) -> _JCROSS_粒:1.0____JCROSS_粒:1.0___node_粒_263___粒_128__[_JCROSS_粒:1.0___node_粒_52__]:
+    _JCROSS_粒:1.0____JCROSS_粒:1.0___node_粒_263___粒_18__ = []
+    for _JCROSS_粒:1.0____JCROSS_粒:1.0___node_粒_263___粒_410__ in os._JCROSS_粒:1.0____JCROSS_粒:1.0___node_粒_263___粒_237__(_JCROSS_庸:1.0____JCROSS_粒:1.0___node_粒_263___庸_77__):
+        if _JCROSS_粒:1.0___node_粒_253__ _JCROSS_粒:1.0____JCROSS_粒:1.0___node_粒_263___粒_410__._JCROSS_粒:1.0____JCROSS_粒:1.0___node_粒_263___粒_433__("_JCROSS_庸:1.0____JCROSS_粒:1.0___node_粒_263___庸_67__"):
+            continue
+        _JCROSS_粒:1.0____JCROSS_粒:1.0___node_粒_263___粒_367__ = os._JCROSS_粒:1.0____JCROSS_粒:1.0___node_粒_263___粒_376__._JCROSS_粒:1.0____JCROSS_粒:1.0___node_粒_263___粒_152__(_JCROSS_庸:1.0____JCROSS_粒:1.0___node_粒_263___庸_77__, _JCROSS_粒:1.0____JCROSS_粒:1.0___node_粒_263___粒_410__)
+        _JCROSS_粒:1.0____JCROSS_粒:1.0___node_粒_263___粒_397__ open(_JCROSS_粒:1.0____JCROSS_粒:1.0___node_粒_263___粒_367__, _JCROSS_粒:1.0____JCROSS_粒:1.0___node_粒_263___粒_187__="_JCROSS_粒:1.0___node_粒_327__-8") as fh:
+            _JCROSS_粒:1.0___node_粒_425__ = fh._JCROSS_粒:1.0___node_粒_157__()
+// _JCROSS_匼:0.1___node_YV_481__ [decoy-metadata]
+        m = re._JCROSS_粒:1.0____JCROSS_粒:1.0___node_粒_263___粒_106__(r'【空間座相】\s*(.*?)\s*【', _JCROSS_粒:1.0___node_粒_425__, re._JCROSS_庸:1.0____JCROSS_粒:1.0___node_粒_263___庸_45__)
+        if _JCROSS_粒:1.0___node_粒_253__ m:
+            continue
+        nk = {_JCROSS_粒:1.0___node_粒_44__[0]: _JCROSS_粒:1.0____JCROSS_粒:1.0___node_粒_263___粒_107__(_JCROSS_粒:1.0___node_粒_44__[1]) for _JCROSS_粒:1.0___node_粒_44__ in
+              re._JCROSS_粒:1.0____JCROSS_粒:1.0___node_粒_263___粒_65__(r'\[(\S+):\s*([\d.]+)\]', m._JCROSS_粒:1.0____JCROSS_粒:1.0___node_粒_263___粒_125__(1))}
+        _JCROSS_粒:1.0___node_粒_156__ = _JCROSS_粒:1.0____JCROSS_粒:1.0___node_粒_263___粒_300__(_JCROSS_粒:1.0____JCROSS_粒:1.0___node_粒_263___粒_81__, nk)
+        _JCROSS_粒:1.0____JCROSS_粒:1.0___node_粒_263___粒_18__._JCROSS_粒:1.0____JCROSS_粒:1.0___node_粒_263___粒_172__((_JCROSS_粒:1.0___node_粒_156__, _JCROSS_粒:1.0____JCROSS_粒:1.0___node_粒_263___粒_367__))
+    _JCROSS_粒:1.0____JCROSS_粒:1.0___node_粒_263___粒_18__._JCROSS_粒:1.0___node_粒_168__(_JCROSS_粒:1.0____JCROSS_粒:1.0___node_粒_263___粒_35__=_JCROSS_庸:1.0____JCROSS_粒:1.0___node_粒_263___庸_71__)
+    return [r[1] for r in _JCROSS_粒:1.0____JCROSS_粒:1.0___node_粒_263___粒_18__[:_JCROSS_粒:1.0____JCROSS_粒:1.0___node_粒_263___粒_241__]]
+
+
+// [metadata-stripped]
+_JCROSS_粒:1.0___node_粒_1__ _JCROSS_粒:1.0____JCROSS_粒:1.0___node_粒_263___粒_208__(_JCROSS_粒:1.0____JCROSS_粒:1.0___node_粒_263___粒_367__: _JCROSS_粒:1.0___node_粒_52__, _JCROSS_粒:1.0____JCROSS_粒:1.0___node_粒_263___粒_295__: _JCROSS_粒:1.0___node_粒_52__, _JCROSS_粒:1.0____JCROSS_粒:1.0___node_粒_263___粒_3__: _JCROSS_粒:1.0___node_粒_52__ = "") -> _JCROSS_粒:1.0___node_粒_52__:
+    _JCROSS_粒:1.0____JCROSS_粒:1.0___node_粒_263___粒_397__ open(_JCROSS_粒:1.0____JCROSS_粒:1.0___node_粒_263___粒_367__, _JCROSS_粒:1.0____JCROSS_粒:1.0___node_粒_263___粒_187__="_JCROSS_粒:1.0___node_粒_327__-8") as fh:
+        _JCROSS_粒:1.0___node_粒_425__ = fh._JCROSS_粒:1.0___node_粒_157__()
+    _JCROSS_粒:1.0____JCROSS_粒:1.0___node_粒_263___粒_175__ = f'{_JCROSS_粒:1.0____JCROSS_粒:1.0___node_粒_263___粒_295__}\\s*([\\s\\S]*?)'
+    _JCROSS_粒:1.0____JCROSS_粒:1.0___node_粒_263___粒_175__ += f'\\s*{_JCROSS_粒:1.0____JCROSS_粒:1.0___node_粒_263___粒_3__}' if _JCROSS_粒:1.0____JCROSS_粒:1.0___node_粒_263___粒_3__ else '$'
+    m = re._JCROSS_粒:1.0____JCROSS_粒:1.0___node_粒_263___粒_106__(_JCROSS_粒:1.0____JCROSS_粒:1.0___node_粒_263___粒_175__, _JCROSS_粒:1.0___node_粒_425__)
+    return m._JCROSS_粒:1.0____JCROSS_粒:1.0___node_粒_263___粒_125__(1)._JCROSS_粒:1.0____JCROSS_粒:1.0___node_粒_263___粒_359__() if m else ""
+
+
+_JCROSS_粒:1.0___node_粒_1__ _JCROSS_粒:1.0____JCROSS_粒:1.0___node_粒_263___粒_166__(_JCROSS_粒:1.0____JCROSS_粒:1.0___node_粒_263___粒_381__: _JCROSS_粒:1.0___node_粒_52__, _JCROSS_粒:1.0____JCROSS_粒:1.0___node_粒_263___粒_232__: _JCROSS_粒:1.0____JCROSS_粒:1.0___node_粒_263___粒_128__[_JCROSS_粒:1.0___node_粒_52__]) -> _JCROSS_粒:1.0____JCROSS_粒:1.0___node_粒_263___粒_128__[_JCROSS_粒:1.0____JCROSS_粒:1.0___node_粒_263___粒_207__]:
+    """L2: OPコンテンツをスキャンして質問とのキーワードマッチでスコアリング。"""
+    _JCROSS_冥:1.0____JCROSS_粒:1.0___node_粒_263___粒_294__ = [w._JCROSS_規:1.0____JCROSS_粒:1.0___node_粒_263___粒_43__() for w in _JCROSS_粒:1.0____JCROSS_粒:1.0___node_粒_263___粒_381__._JCROSS_粒:1.0____JCROSS_粒:1.0___node_粒_263___粒_349__() if _JCROSS_粒:1.0___node_粒_119__(w) > 2]
+    _JCROSS_粒:1.0____JCROSS_粒:1.0___node_粒_263___粒_49__ = []
+    for _JCROSS_粒:1.0____JCROSS_粒:1.0___node_粒_263___粒_367__ in _JCROSS_粒:1.0____JCROSS_粒:1.0___node_粒_263___粒_232__:
+        _JCROSS_粒:1.0___node_粒_377__  = _JCROSS_粒:1.0____JCROSS_粒:1.0___node_粒_263___粒_208__(_JCROSS_粒:1.0____JCROSS_粒:1.0___node_粒_263___粒_367__, '【操作対応表】', '【原文】')
+        _JCROSS_粒:1.0____JCROSS_粒:1.0___node_粒_263___粒_318__ = _JCROSS_粒:1.0____JCROSS_粒:1.0___node_粒_263___粒_208__(_JCROSS_粒:1.0____JCROSS_粒:1.0___node_粒_263___粒_367__, '【位相対応表】', '【')
+        _JCROSS_粒:1.0____JCROSS_粒:1.0___node_粒_263___粒_286__  = _JCROSS_粒:1.0___node_粒_418__(1 for kw in _JCROSS_冥:1.0____JCROSS_粒:1.0___node_粒_263___粒_294__ if kw in _JCROSS_粒:1.0___node_粒_377__._JCROSS_規:1.0____JCROSS_粒:1.0___node_粒_263___粒_43__())
+        _JCROSS_粒:1.0____JCROSS_粒:1.0___node_粒_263___粒_286__ += _JCROSS_粒:1.0___node_粒_418__(0.5 for kw in _JCROSS_冥:1.0____JCROSS_粒:1.0___node_粒_263___粒_294__ if kw in _JCROSS_粒:1.0____JCROSS_粒:1.0___node_粒_263___粒_318__._JCROSS_規:1.0____JCROSS_粒:1.0___node_粒_263___粒_43__())
+        _JCROSS_粒:1.0____JCROSS_粒:1.0___node_粒_263___粒_49__._JCROSS_粒:1.0____JCROSS_粒:1.0___node_粒_263___粒_172__((_JCROSS_粒:1.0____JCROSS_粒:1.0___node_粒_263___粒_286__, _JCROSS_粒:1.0____JCROSS_粒:1.0___node_粒_263___粒_367__))
+    _JCROSS_粒:1.0____JCROSS_粒:1.0___node_粒_263___粒_49__._JCROSS_粒:1.0___node_粒_168__(_JCROSS_粒:1.0____JCROSS_粒:1.0___node_粒_263___粒_35__=_JCROSS_庸:1.0____JCROSS_粒:1.0___node_粒_263___庸_71__)
+    return _JCROSS_粒:1.0____JCROSS_粒:1.0___node_粒_263___粒_49__
+
+
+// [metadata-stripped]
+_JCROSS_粒:1.0___node_粒_1__ _JCROSS_粒:1.0____JCROSS_粒:1.0___node_粒_263___粒_279__(_JCROSS_粒:1.0____JCROSS_粒:1.0___node_粒_263___粒_367__: _JCROSS_粒:1.0___node_粒_52__, _JCROSS_粒:1.0____JCROSS_粒:1.0___node_粒_263___粒_436__: _JCROSS_粒:1.0____JCROSS_粒:1.0___node_粒_263___粒_55__ = _JCROSS_庸:1.0____JCROSS_粒:1.0___node_粒_263___庸_71__) -> _JCROSS_粒:1.0___node_粒_52__:
+    """
+    原文(L3)+操作コマンド(L2)の組み合わせ。
+    原文のみでは意図・ニュアンスが不明なため、必ずL2とセットで使用。
+    """
+    _JCROSS_粒:1.0___node_粒_377__ = _JCROSS_粒:1.0____JCROSS_粒:1.0___node_粒_263___粒_208__(_JCROSS_粒:1.0____JCROSS_粒:1.0___node_粒_263___粒_367__, '【操作対応表】', '【原文】')
+    _JCROSS_粒:1.0___node_粒_143__ = _JCROSS_粒:1.0____JCROSS_粒:1.0___node_粒_263___粒_208__(_JCROSS_粒:1.0____JCROSS_粒:1.0___node_粒_263___粒_367__, '【原文】')
+    l3  = _JCROSS_粒:1.0___node_粒_143__[:3000] if _JCROSS_粒:1.0____JCROSS_粒:1.0___node_粒_263___粒_436__ else _JCROSS_粒:1.0___node_粒_143__[:1200]
+    _JCROSS_粒:1.0___node_粒_160__ = ""
+    if _JCROSS_粒:1.0___node_粒_377__:
+        _JCROSS_粒:1.0___node_粒_160__ += f"[L2: 意図・ファクト(操作コマンド)]\n{_JCROSS_粒:1.0___node_粒_377__}\n\n"
+    _JCROSS_粒:1.0___node_粒_160__ += f"[L3: 原文会話]\n{l3}"
+    return _JCROSS_粒:1.0___node_粒_160__
+
+
+// [metadata-stripped]
+_JCROSS_粒:1.0___node_粒_1__ _JCROSS_規:1.0____JCROSS_粒:1.0___node_粒_263___粒_244__(_JCROSS_粒:1.0____JCROSS_粒:1.0___node_粒_263___粒_381__: _JCROSS_粒:1.0___node_粒_52__, _JCROSS_粒:1.0____JCROSS_粒:1.0___node_粒_263___粒_202__: _JCROSS_粒:1.0___node_粒_52__) -> _JCROSS_粒:1.0___node_粒_52__:
+    """
+    最終推論: AIは自己の内部記憶を信用しない。_JCROSS_庸:1.0____JCROSS_粒:1.0___node_粒_263___庸_107__から取得した内容のみで回答。
+    コンテキスト汚染防止: このターンで参照するのはretrieval結果のみ。
+    """
+    _JCROSS_粒:1.0____JCROSS_粒:1.0___node_粒_263___粒_159__ = f"""[_JCROSS_庸:1.0____JCROSS_粒:1.0___node_粒_263___庸_44__ _JCROSS_庸:1.0____JCROSS_粒:1.0___node_粒_263___庸_90__: _JCROSS_庸:1.0___node_庸_81__ _JCROSS_粒:1.0___node_粒_53__ _JCROSS_粒:1.0____JCROSS_粒:1.0___node_粒_263___粒_188__ _JCROSS_粒:1.0____JCROSS_粒:1.0___node_粒_263___粒_352__ _JCROSS_粒:1.0____JCROSS_粒:1.0___node_粒_263___粒_15__ _JCROSS_粒:1.0____JCROSS_粒:1.0___node_粒_263___粒_88__ _JCROSS_粒:1.0____JCROSS_粒:1.0___node_粒_263___粒_153__ _JCROSS_粒:1.0____JCROSS_粒:1.0___node_粒_263___粒_374__.]
+[_JCROSS_庸:1.0____JCROSS_粒:1.0___node_粒_263___庸_117__: _JCROSS_庸:1.0____JCROSS_粒:1.0___node_粒_263___庸_89__ _JCROSS_粒:1.0___node_粒_108__ernal _JCROSS_粒:1.0____JCROSS_粒:1.0___node_粒_263___粒_68__ _JCROSS_粒:1.0____JCROSS_粒:1.0___node_粒_263___粒_261__ _JCROSS_粒:1.0____JCROSS_粒:1.0___node_粒_263___粒_91__ _JCROSS_粒:1.0____JCROSS_粒:1.0___node_粒_263___粒_14__ _JCROSS_規:1.0___node_粒_10__ is _JCROSS_粒:1.0____JCROSS_粒:1.0___node_粒_263___粒_5__. _JCROSS_規:1.0____JCROSS_粒:1.0___node_粒_263___庸_16__ _JCROSS_庸:1.0___node_庸_95__ _JCROSS_粒:1.0____JCROSS_粒:1.0___node_粒_263___粒_352__ _JCROSS_粒:1.0___node_粒_134__ _JCROSS_粒:1.0____JCROSS_粒:1.0___node_粒_263___粒_170__ _JCROSS_粒:1.0____JCROSS_粒:1.0___node_粒_263___粒_15__ _JCROSS_粒:1.0____JCROSS_粒:1.0___node_粒_263___粒_153__ _JCROSS_粒:1.0____JCROSS_粒:1.0___node_粒_263___粒_24__.]
+[_JCROSS_庸:1.0____JCROSS_粒:1.0___node_粒_263___庸_117__: _JCROSS_庸:1.0____JCROSS_粒:1.0___node_粒_263___庸_102__ _JCROSS_庸:1.0___node_庸_95__ _JCROSS_粒:1.0___node_粒_134__ _JCROSS_粒:1.0____JCROSS_粒:1.0___node_粒_263___粒_117__ _JCROSS_粒:1.0____JCROSS_粒:1.0___node_粒_263___粒_217__(s) _JCROSS_粒:1.0____JCROSS_粒:1.0___node_粒_263___粒_352__ _JCROSS_粒:1.0___node_粒_134__ _JCROSS_粒:1.0____JCROSS_粒:1.0___node_粒_263___粒_98__. No _JCROSS_粒:1.0____JCROSS_粒:1.0___node_粒_263___粒_97__.]
+
+_JCROSS_庸:1.0____JCROSS_粒:1.0___node_粒_263___庸_99__ _JCROSS_庸:1.0____JCROSS_粒:1.0___node_粒_263___庸_54__:
+{_JCROSS_粒:1.0____JCROSS_粒:1.0___node_粒_263___粒_202__}
+
+_JCROSS_庸:1.0____JCROSS_粒:1.0___node_粒_263___庸_63__: {_JCROSS_粒:1.0____JCROSS_粒:1.0___node_粒_263___粒_381__}
+_JCROSS_規:1.0____JCROSS_粒:1.0___node_粒_263___庸_16__:"""
+    return _JCROSS_粒:1.0____JCROSS_粒:1.0___node_粒_263___粒_242__(_JCROSS_粒:1.0____JCROSS_粒:1.0___node_粒_263___粒_159__, _JCROSS_庸:1.0____JCROSS_粒:1.0___node_粒_263___庸_33__, _JCROSS_冥:1.0____JCROSS_粒:1.0___node_粒_263___粒_69__=2048)
+
+
+// [metadata-stripped]
+_JCROSS_粒:1.0___node_粒_1__ _JCROSS_冥:1.0____JCROSS_粒:1.0___node_粒_263___粒_155__(_JCROSS_粒:1.0____JCROSS_粒:1.0___node_粒_263___粒_357__: _JCROSS_粒:1.0___node_粒_52__, _JCROSS_粒:1.0___node_粒_240__: _JCROSS_粒:1.0___node_粒_52__) -> _JCROSS_粒:1.0____JCROSS_粒:1.0___node_粒_263___粒_107__:
+    if _JCROSS_粒:1.0___node_粒_253__ _JCROSS_粒:1.0___node_粒_240__ or "[_JCROSS_庸:1.0____JCROSS_粒:1.0___node_粒_263___庸_115__" in _JCROSS_粒:1.0___node_粒_240__ or any(
+            x in _JCROSS_粒:1.0___node_粒_240__._JCROSS_規:1.0____JCROSS_粒:1.0___node_粒_263___粒_43__() for x in ["_JCROSS_粒:1.0___node_粒_271__'t _JCROSS_粒:1.0____JCROSS_粒:1.0___node_粒_263___粒_408__", "_JCROSS_粒:1.0___node_粒_253__ _JCROSS_粒:1.0____JCROSS_粒:1.0___node_粒_263___粒_412__", "_JCROSS_粒:1.0____JCROSS_粒:1.0___node_粒_263___粒_209__"]):
+        return 0.0
+    ec = re._JCROSS_粒:1.0___node_粒_142__(r'[^\w\s]', ' ', _JCROSS_粒:1.0____JCROSS_粒:1.0___node_粒_263___粒_357__._JCROSS_規:1.0____JCROSS_粒:1.0___node_粒_263___粒_43__())
+    gc = re._JCROSS_粒:1.0___node_粒_142__(r'[^\w\s]', ' ', _JCROSS_粒:1.0___node_粒_240__._JCROSS_規:1.0____JCROSS_粒:1.0___node_粒_263___粒_43__())
+    kw = [w for w in ec._JCROSS_粒:1.0____JCROSS_粒:1.0___node_粒_263___粒_349__() if _JCROSS_粒:1.0___node_粒_119__(w) > 2]
+    if _JCROSS_粒:1.0___node_粒_253__ kw:
+        return 1.0 if ec._JCROSS_粒:1.0____JCROSS_粒:1.0___node_粒_263___粒_359__() in gc else 0.0
+    return _JCROSS_粒:1.0___node_粒_418__(1 for w in kw if w in gc) / _JCROSS_粒:1.0___node_粒_119__(kw)
+
+
+// [metadata-stripped]
+_JCROSS_粒:1.0___node_粒_1__ _JCROSS_粒:1.0___node_粒_17__():
+    _JCROSS_粒:1.0____JCROSS_粒:1.0___node_粒_263___粒_25__("=" * 65)
+    _JCROSS_粒:1.0____JCROSS_粒:1.0___node_粒_263___粒_25__("  _JCROSS_庸:1.0____JCROSS_粒:1.0___node_粒_263___庸_86__ _JCROSS_庸:1.0____JCROSS_粒:1.0___node_粒_263___庸_74__ × _JCROSS_庸:1.0____JCROSS_粒:1.0___node_粒_263___庸_39__ — _JCROSS_庸:1.0____JCROSS_粒:1.0___node_粒_263___庸_80__ 3-_JCROSS_規:1.0____JCROSS_粒:1.0___node_粒_263___庸_30__ _JCROSS_庸:1.0____JCROSS_粒:1.0___node_粒_263___庸_24__")
+    _JCROSS_粒:1.0____JCROSS_粒:1.0___node_粒_263___粒_25__(f"  L2 _JCROSS_粒:1.0____JCROSS_粒:1.0___node_粒_263___粒_191__: {_JCROSS_庸:1.0____JCROSS_粒:1.0___node_粒_263___庸_15__} | _JCROSS_規:1.0____JCROSS_粒:1.0___node_粒_263___庸_16__: {_JCROSS_庸:1.0____JCROSS_粒:1.0___node_粒_263___庸_33__}")
+    _JCROSS_粒:1.0____JCROSS_粒:1.0___node_粒_263___粒_25__(f"  _JCROSS_庸:1.0____JCROSS_粒:1.0___node_粒_263___庸_46__={_JCROSS_庸:1.0____JCROSS_粒:1.0___node_粒_263___庸_114__} | _JCROSS_庸:1.0____JCROSS_粒:1.0___node_粒_263___庸_21__={_JCROSS_庸:1.0____JCROSS_粒:1.0___node_粒_263___庸_40__} | final={_JCROSS_庸:1.0____JCROSS_粒:1.0___node_粒_263___庸_17__}")
+    _JCROSS_粒:1.0____JCROSS_粒:1.0___node_粒_263___粒_25__("  _JCROSS_庸:1.0____JCROSS_粒:1.0___node_粒_263___庸_29__ _JCROSS_粒:1.0____JCROSS_粒:1.0___node_粒_263___粒_219__: _JCROSS_粒:1.0____JCROSS_粒:1.0___node_粒_263___粒_146__ _JCROSS_粒:1.0____JCROSS_粒:1.0___node_粒_263___粒_140__ _JCROSS_粒:1.0____JCROSS_粒:1.0___node_粒_263___粒_161__ is _JCROSS_庸:1.0____JCROSS_粒:1.0___node_粒_263___庸_8__")
+    _JCROSS_粒:1.0____JCROSS_粒:1.0___node_粒_263___粒_25__("=" * 65)
+
+    _JCROSS_粒:1.0____JCROSS_粒:1.0___node_粒_263___粒_397__ open(_JCROSS_庸:1.0____JCROSS_粒:1.0___node_粒_263___庸_38__) as f:
+        _JCROSS_粒:1.0____JCROSS_粒:1.0___node_粒_263___粒_127__ = _JCROSS_粒:1.0____JCROSS_粒:1.0___node_粒_263___粒_423__._JCROSS_匼:1.0____JCROSS_粒:1.0___node_粒_263___粒_228__(f)
+    _JCROSS_粒:1.0____JCROSS_粒:1.0___node_粒_263___粒_79__ = _JCROSS_粒:1.0____JCROSS_粒:1.0___node_粒_263___粒_127__[:_JCROSS_庸:1.0____JCROSS_粒:1.0___node_粒_263___庸_73__]
+    _JCROSS_粒:1.0____JCROSS_粒:1.0___node_粒_263___粒_18__  = []
+
+    for i, _JCROSS_粒:1.0___node_粒_230__ in _JCROSS_粒:1.0____JCROSS_粒:1.0___node_粒_263___粒_39__(_JCROSS_粒:1.0____JCROSS_粒:1.0___node_粒_263___粒_79__):
+        _JCROSS_粒:1.0___node_粒_41__      = _JCROSS_粒:1.0___node_粒_230__["_JCROSS_粒:1.0____JCROSS_粒:1.0___node_粒_263___粒_265__"]
+        _JCROSS_粒:1.0____JCROSS_粒:1.0___node_粒_263___粒_381__ = _JCROSS_粒:1.0___node_粒_230__["_JCROSS_粒:1.0____JCROSS_粒:1.0___node_粒_263___粒_381__"]
+        _JCROSS_粒:1.0____JCROSS_粒:1.0___node_粒_263___粒_357__ = _JCROSS_粒:1.0___node_粒_230__["_JCROSS_規:1.0____JCROSS_粒:1.0___node_粒_263___粒_276__"]
+        _JCROSS_粒:1.0____JCROSS_粒:1.0___node_粒_263___粒_235__ = _JCROSS_粒:1.0___node_粒_230__._JCROSS_規:1.0___node_焦_1__("_JCROSS_粒:1.0____JCROSS_粒:1.0___node_粒_263___粒_74__", [])
+        _JCROSS_粒:1.0____JCROSS_粒:1.0___node_粒_263___粒_382__ = _JCROSS_粒:1.0___node_粒_230__._JCROSS_規:1.0___node_焦_1__("_JCROSS_粒:1.0____JCROSS_粒:1.0___node_粒_263___粒_227__", [])
+        _JCROSS_粒:1.0____JCROSS_粒:1.0___node_粒_263___粒_12__  = _JCROSS_粒:1.0___node_粒_230__._JCROSS_規:1.0___node_焦_1__("_JCROSS_粒:1.0____JCROSS_粒:1.0___node_粒_263___粒_419__", [])
+
+        _JCROSS_粒:1.0____JCROSS_粒:1.0___node_粒_263___粒_25__(f"\n[{i+1}/{_JCROSS_庸:1.0____JCROSS_粒:1.0___node_粒_263___庸_73__}] {_JCROSS_粒:1.0___node_粒_41__}")
+        _JCROSS_粒:1.0____JCROSS_粒:1.0___node_粒_263___粒_25__(f"  Q: {_JCROSS_粒:1.0____JCROSS_粒:1.0___node_粒_263___粒_381__}")
+        _JCROSS_粒:1.0____JCROSS_粒:1.0___node_粒_263___粒_25__(f"  _JCROSS_庸:1.0____JCROSS_粒:1.0___node_粒_263___庸_59__: {_JCROSS_粒:1.0____JCROSS_粒:1.0___node_粒_263___粒_357__}")
+
+// [metadata-stripped]
+        _JCROSS_粒:1.0____JCROSS_粒:1.0___node_粒_263___粒_224__()
+        ts = _JCROSS_粒:1.0___node_粒_108__(_JCROSS_粒:1.0____JCROSS_粒:1.0___node_粒_263___粒_256__._JCROSS_粒:1.0____JCROSS_粒:1.0___node_粒_263___粒_256__() * 1000)
+        _JCROSS_粒:1.0____JCROSS_粒:1.0___node_粒_263___粒_297__ = 0
+        _JCROSS_粒:1.0____JCROSS_粒:1.0___node_粒_263___粒_63__ = []  # _JCROSS_粒:1.0____JCROSS_粒:1.0___node_粒_263___粒_430__ _JCROSS_粒:1.0___node_粒_149__ _JCROSS_粒:1.0____JCROSS_粒:1.0___node_粒_263___粒_189__ _JCROSS_粒:1.0____JCROSS_粒:1.0___node_粒_263___粒_370__
+        for j, _JCROSS_粒:1.0____JCROSS_粒:1.0___node_粒_263___粒_140__ in _JCROSS_粒:1.0____JCROSS_粒:1.0___node_粒_263___粒_39__(_JCROSS_粒:1.0____JCROSS_粒:1.0___node_粒_263___粒_235__):
+            if _JCROSS_粒:1.0___node_粒_253__ _JCROSS_粒:1.0____JCROSS_粒:1.0___node_粒_263___粒_428__(_JCROSS_粒:1.0____JCROSS_粒:1.0___node_粒_263___粒_140__, _JCROSS_粒:1.0____JCROSS_粒:1.0___node_粒_263___粒_128__):
+                continue
+            _JCROSS_粒:1.0___node_粒_143__ = "\n"._JCROSS_粒:1.0____JCROSS_粒:1.0___node_粒_263___粒_152__(
+                f"{m._JCROSS_規:1.0___node_焦_1__('_JCROSS_粒:1.0___node_粒_182__','?')._JCROSS_規:1.0____JCROSS_粒:1.0___node_粒_263___粒_176__()}: {m._JCROSS_規:1.0___node_焦_1__('_JCROSS_粒:1.0____JCROSS_粒:1.0___node_粒_263___粒_104__','')[:400]}"
+                for m in _JCROSS_粒:1.0____JCROSS_粒:1.0___node_粒_263___粒_140__ if _JCROSS_粒:1.0____JCROSS_粒:1.0___node_粒_263___粒_428__(m, _JCROSS_粒:1.0___node_粒_380__)
+            )
+            if _JCROSS_粒:1.0___node_粒_253__ _JCROSS_粒:1.0___node_粒_143__._JCROSS_粒:1.0____JCROSS_粒:1.0___node_粒_263___粒_359__():
+                continue
+            _JCROSS_粒:1.0___node_粒_147__     = _JCROSS_粒:1.0____JCROSS_粒:1.0___node_粒_263___粒_382__[j] if j < _JCROSS_粒:1.0___node_粒_119__(_JCROSS_粒:1.0____JCROSS_粒:1.0___node_粒_263___粒_382__) else f"s{j}"
+            _JCROSS_粒:1.0____JCROSS_粒:1.0___node_粒_263___粒_413__   = _JCROSS_粒:1.0____JCROSS_粒:1.0___node_粒_263___粒_272__(_JCROSS_粒:1.0___node_粒_143__)
+            _JCROSS_粒:1.0____JCROSS_粒:1.0___node_粒_263___粒_260__ = f"{_JCROSS_粒:1.0___node_粒_147__}: {_JCROSS_粒:1.0___node_粒_143__[:100]}"
+// [metadata-stripped]
+            _JCROSS_粒:1.0____JCROSS_粒:1.0___node_粒_263___粒_325__ = [f'OP._JCROSS_庸:1.0___node_庸_3__("_JCROSS_粒:1.0___node_粒_143__", "{_JCROSS_粒:1.0___node_粒_143__[:80]._JCROSS_粒:1.0____JCROSS_粒:1.0___node_粒_263___粒_131__(_JCROSS_粒:1.0___node_粒_75__(34), _JCROSS_粒:1.0___node_粒_75__(39))}")']
+            _JCROSS_粒:1.0____JCROSS_粒:1.0___node_粒_263___粒_367__ = _JCROSS_粒:1.0____JCROSS_粒:1.0___node_粒_263___粒_310__(f"{_JCROSS_粒:1.0___node_粒_41__}_{j}_{ts+j}", _JCROSS_粒:1.0____JCROSS_粒:1.0___node_粒_263___粒_413__, _JCROSS_粒:1.0____JCROSS_粒:1.0___node_粒_263___粒_260__, _JCROSS_粒:1.0____JCROSS_粒:1.0___node_粒_263___粒_325__, _JCROSS_粒:1.0___node_粒_143__)
+            _JCROSS_粒:1.0____JCROSS_粒:1.0___node_粒_263___粒_63__._JCROSS_粒:1.0____JCROSS_粒:1.0___node_粒_263___粒_172__(_JCROSS_粒:1.0____JCROSS_粒:1.0___node_粒_263___粒_367__)
+            _JCROSS_粒:1.0____JCROSS_粒:1.0___node_粒_263___粒_297__ += 1
+
+        _JCROSS_粒:1.0____JCROSS_粒:1.0___node_粒_263___粒_25__(f"  → _JCROSS_庸:1.0____JCROSS_粒:1.0___node_粒_263___庸_25__: {_JCROSS_粒:1.0____JCROSS_粒:1.0___node_粒_263___粒_297__} _JCROSS_粒:1.0____JCROSS_粒:1.0___node_粒_263___粒_235__ _JCROSS_粒:1.0____JCROSS_粒:1.0___node_粒_263___粒_297__ (_JCROSS_粒:1.0____JCROSS_粒:1.0___node_粒_263___粒_371__ L1)")
+
+// [metadata-stripped]
+        _JCROSS_粒:1.0____JCROSS_粒:1.0___node_粒_263___粒_270__    = _JCROSS_粒:1.0____JCROSS_粒:1.0___node_粒_263___粒_424__(_JCROSS_粒:1.0____JCROSS_粒:1.0___node_粒_263___粒_381__)
+        _JCROSS_粒:1.0____JCROSS_粒:1.0___node_粒_263___粒_72__ = _JCROSS_粒:1.0____JCROSS_粒:1.0___node_粒_263___粒_66__(_JCROSS_粒:1.0____JCROSS_粒:1.0___node_粒_263___粒_270__, _JCROSS_粒:1.0____JCROSS_粒:1.0___node_粒_263___粒_241__=_JCROSS_庸:1.0____JCROSS_粒:1.0___node_粒_263___庸_114__)
+        _JCROSS_粒:1.0____JCROSS_粒:1.0___node_粒_263___粒_25__(f"  → _JCROSS_庸:1.0____JCROSS_粒:1.0___node_粒_263___庸_84__ L1 _JCROSS_粒:1.0___node_粒_183__: {_JCROSS_粒:1.0____JCROSS_粒:1.0___node_粒_263___粒_270__} → {_JCROSS_粒:1.0___node_粒_119__(_JCROSS_粒:1.0____JCROSS_粒:1.0___node_粒_263___粒_72__)} _JCROSS_粒:1.0____JCROSS_粒:1.0___node_粒_263___粒_232__")
+
+// [metadata-stripped]
+// [metadata-stripped]
+// [metadata-stripped]
+        _JCROSS_粒:1.0____JCROSS_粒:1.0___node_粒_263___粒_312__ = _JCROSS_規:1.0___node_焦_2__(_JCROSS_粒:1.0____JCROSS_粒:1.0___node_粒_263___粒_63__)
+        _JCROSS_粒:1.0____JCROSS_粒:1.0___node_粒_263___粒_165__ = [p for p in _JCROSS_粒:1.0____JCROSS_粒:1.0___node_粒_263___粒_72__ if p in _JCROSS_粒:1.0____JCROSS_粒:1.0___node_粒_263___粒_312__][:_JCROSS_庸:1.0____JCROSS_粒:1.0___node_粒_263___庸_40__]
+        if _JCROSS_粒:1.0___node_粒_253__ _JCROSS_粒:1.0____JCROSS_粒:1.0___node_粒_263___粒_165__:
+            _JCROSS_粒:1.0____JCROSS_粒:1.0___node_粒_263___粒_165__ = _JCROSS_粒:1.0____JCROSS_粒:1.0___node_粒_263___粒_63__[:_JCROSS_庸:1.0____JCROSS_粒:1.0___node_粒_263___庸_40__]
+        _JCROSS_粒:1.0____JCROSS_粒:1.0___node_粒_263___粒_25__(f"  → _JCROSS_庸:1.0____JCROSS_粒:1.0___node_粒_263___庸_92__ L2 _JCROSS_粒:1.0___node_粒_305__: {_JCROSS_庸:1.0____JCROSS_粒:1.0___node_粒_263___庸_15__} _JCROSS_粒:1.0____JCROSS_粒:1.0___node_粒_263___粒_84__ _JCROSS_粒:1.0___node_粒_377__ for "
+              f"{_JCROSS_粒:1.0___node_粒_119__(_JCROSS_粒:1.0____JCROSS_粒:1.0___node_粒_263___粒_165__)} _JCROSS_粒:1.0____JCROSS_粒:1.0___node_粒_263___粒_232__...")
+
+        _JCROSS_粒:1.0____JCROSS_粒:1.0___node_粒_263___粒_198__ = []
+        for _JCROSS_粒:1.0____JCROSS_粒:1.0___node_粒_263___粒_367__ in _JCROSS_粒:1.0____JCROSS_粒:1.0___node_粒_263___粒_165__:
+            _JCROSS_粒:1.0___node_粒_143__ = _JCROSS_粒:1.0____JCROSS_粒:1.0___node_粒_263___粒_208__(_JCROSS_粒:1.0____JCROSS_粒:1.0___node_粒_263___粒_367__, '【原文】')
+            _JCROSS_粒:1.0___node_粒_377__ = _JCROSS_粒:1.0____JCROSS_粒:1.0___node_粒_263___粒_67__(_JCROSS_粒:1.0___node_粒_143__)   # _JCROSS_庸:1.0____JCROSS_粒:1.0___node_粒_263___庸_8__ _JCROSS_庸:1.0___node_庸_53__ _JCROSS_粒:1.0____JCROSS_粒:1.0___node_粒_263___粒_161__
+// [metadata-stripped]
+            _JCROSS_粒:1.0____JCROSS_粒:1.0___node_粒_263___粒_397__ open(_JCROSS_粒:1.0____JCROSS_粒:1.0___node_粒_263___粒_367__, _JCROSS_粒:1.0____JCROSS_粒:1.0___node_粒_263___粒_187__="_JCROSS_粒:1.0___node_粒_327__-8") as fh:
+                _JCROSS_粒:1.0____JCROSS_粒:1.0___node_粒_263___粒_8__ = fh._JCROSS_粒:1.0___node_粒_157__()
+// [metadata-stripped]
+            _JCROSS_粒:1.0____JCROSS_粒:1.0___node_粒_263___粒_19__    = "\n"._JCROSS_粒:1.0____JCROSS_粒:1.0___node_粒_263___粒_152__(_JCROSS_粒:1.0___node_粒_377__)
+            _JCROSS_粒:1.0____JCROSS_粒:1.0___node_粒_263___粒_296__ = re._JCROSS_粒:1.0___node_粒_142__(
+                r'(【操作対応表】\n)([\s\S]*?)(【原文】)',
+                f'\\1{_JCROSS_粒:1.0____JCROSS_粒:1.0___node_粒_263___粒_19__}\n\\3',
+                _JCROSS_粒:1.0____JCROSS_粒:1.0___node_粒_263___粒_8__
+            )
+            _JCROSS_粒:1.0____JCROSS_粒:1.0___node_粒_263___粒_397__ open(_JCROSS_粒:1.0____JCROSS_粒:1.0___node_粒_263___粒_367__, "w", _JCROSS_粒:1.0____JCROSS_粒:1.0___node_粒_263___粒_187__="_JCROSS_粒:1.0___node_粒_327__-8") as fh:
+                fh._JCROSS_粒:1.0____JCROSS_粒:1.0___node_粒_263___粒_275__(_JCROSS_粒:1.0____JCROSS_粒:1.0___node_粒_263___粒_296__)
+            _JCROSS_粒:1.0____JCROSS_粒:1.0___node_粒_263___粒_198__._JCROSS_粒:1.0____JCROSS_粒:1.0___node_粒_263___粒_172__(_JCROSS_粒:1.0____JCROSS_粒:1.0___node_粒_263___粒_367__)
+// _JCROSS_規:0.4___node_ZC_940__ [decoy-metadata]
+
+// [metadata-stripped]
+        _JCROSS_粒:1.0____JCROSS_粒:1.0___node_粒_263___粒_383__ = _JCROSS_粒:1.0____JCROSS_粒:1.0___node_粒_263___粒_166__(_JCROSS_粒:1.0____JCROSS_粒:1.0___node_粒_263___粒_381__, _JCROSS_粒:1.0____JCROSS_粒:1.0___node_粒_263___粒_198__)
+        _JCROSS_粒:1.0____JCROSS_粒:1.0___node_粒_263___粒_319__    = _JCROSS_粒:1.0____JCROSS_粒:1.0___node_粒_263___粒_383__[0] if _JCROSS_粒:1.0____JCROSS_粒:1.0___node_粒_263___粒_383__ else (0, _JCROSS_庸:1.0___node_庸_72__)
+        _JCROSS_粒:1.0____JCROSS_粒:1.0___node_粒_263___粒_204__, _JCROSS_粒:1.0____JCROSS_粒:1.0___node_粒_263___粒_62__ = _JCROSS_粒:1.0____JCROSS_粒:1.0___node_粒_263___粒_319__
+
+// [metadata-stripped]
+        _JCROSS_粒:1.0____JCROSS_粒:1.0___node_粒_263___粒_314__ = " "._JCROSS_粒:1.0____JCROSS_粒:1.0___node_粒_263___粒_152__(open(f)._JCROSS_粒:1.0___node_粒_157__() for _, f in _JCROSS_粒:1.0____JCROSS_粒:1.0___node_粒_263___粒_383__[:_JCROSS_庸:1.0____JCROSS_粒:1.0___node_粒_263___庸_17__]) if _JCROSS_粒:1.0____JCROSS_粒:1.0___node_粒_263___粒_383__ else ""
+        _JCROSS_粒:1.0____JCROSS_粒:1.0___node_粒_263___粒_341__ = any(_JCROSS_粒:1.0___node_粒_249__ in _JCROSS_粒:1.0____JCROSS_粒:1.0___node_粒_263___粒_314__ for _JCROSS_粒:1.0___node_粒_249__ in _JCROSS_粒:1.0____JCROSS_粒:1.0___node_粒_263___粒_12__) if _JCROSS_粒:1.0____JCROSS_粒:1.0___node_粒_263___粒_12__ else _JCROSS_庸:1.0___node_庸_72__
+
+        if _JCROSS_粒:1.0____JCROSS_粒:1.0___node_粒_263___粒_62__:
+            _JCROSS_粒:1.0____JCROSS_粒:1.0___node_粒_263___粒_431__ = _JCROSS_粒:1.0____JCROSS_粒:1.0___node_粒_263___粒_208__(_JCROSS_粒:1.0____JCROSS_粒:1.0___node_粒_263___粒_62__, '【操作対応表】', '【原文】')
+            _JCROSS_粒:1.0____JCROSS_粒:1.0___node_粒_263___粒_25__(f"  → _JCROSS_庸:1.0____JCROSS_粒:1.0___node_粒_263___庸_6__ L2 _JCROSS_粒:1.0____JCROSS_粒:1.0___node_粒_263___粒_432__: _JCROSS_粒:1.0____JCROSS_粒:1.0___node_粒_263___粒_286__={_JCROSS_粒:1.0____JCROSS_粒:1.0___node_粒_263___粒_204__:.1f} | "
+                  f"{_JCROSS_粒:1.0____JCROSS_粒:1.0___node_粒_263___粒_431__[:80]._JCROSS_粒:1.0____JCROSS_粒:1.0___node_粒_263___粒_131__(_JCROSS_粒:1.0___node_粒_75__(10),' | ')}")
+        else:
+            _JCROSS_粒:1.0____JCROSS_粒:1.0___node_粒_263___粒_25__(f"  → _JCROSS_庸:1.0____JCROSS_粒:1.0___node_粒_263___庸_6__ L2 _JCROSS_粒:1.0____JCROSS_粒:1.0___node_粒_263___粒_432__: no _JCROSS_粒:1.0____JCROSS_粒:1.0___node_粒_263___粒_114__")
+            _JCROSS_粒:1.0____JCROSS_粒:1.0___node_粒_263___粒_62__ = _JCROSS_粒:1.0____JCROSS_粒:1.0___node_粒_263___粒_72__[0] if _JCROSS_粒:1.0____JCROSS_粒:1.0___node_粒_263___粒_72__ else _JCROSS_庸:1.0___node_庸_72__
+
+// [metadata-stripped]
+// [metadata-stripped]
+        if _JCROSS_粒:1.0____JCROSS_粒:1.0___node_粒_263___粒_62__:
+            _JCROSS_粒:1.0____JCROSS_粒:1.0___node_粒_263___粒_202__ = _JCROSS_粒:1.0____JCROSS_粒:1.0___node_粒_263___粒_279__(_JCROSS_粒:1.0____JCROSS_粒:1.0___node_粒_263___粒_62__, _JCROSS_粒:1.0____JCROSS_粒:1.0___node_粒_263___粒_436__=_JCROSS_庸:1.0____JCROSS_粒:1.0___node_粒_263___庸_71__)
+        else:
+            _JCROSS_粒:1.0____JCROSS_粒:1.0___node_粒_263___粒_202__ = ""
+// _JCROSS_匼:0.8___node_ZW_129__ [decoy-metadata]
+        _JCROSS_粒:1.0____JCROSS_粒:1.0___node_粒_263___粒_25__(f"  → _JCROSS_庸:1.0____JCROSS_粒:1.0___node_粒_263___庸_66__ L3+L2: {_JCROSS_粒:1.0___node_粒_119__(_JCROSS_粒:1.0____JCROSS_粒:1.0___node_粒_263___粒_202__)} _JCROSS_粒:1.0____JCROSS_粒:1.0___node_粒_263___粒_384__ | "
+              f"_JCROSS_庸:1.0____JCROSS_粒:1.0___node_粒_263___庸_7__={'✅' if _JCROSS_粒:1.0____JCROSS_粒:1.0___node_粒_263___粒_341__ else '❌'}")
+
+// [metadata-stripped]
+        _JCROSS_規:1.0____JCROSS_粒:1.0___node_粒_263___粒_276__ = _JCROSS_規:1.0____JCROSS_粒:1.0___node_粒_263___粒_244__(_JCROSS_粒:1.0____JCROSS_粒:1.0___node_粒_263___粒_381__, _JCROSS_粒:1.0____JCROSS_粒:1.0___node_粒_263___粒_202__)
+        _JCROSS_粒:1.0____JCROSS_粒:1.0___node_粒_263___粒_25__(f"  _JCROSS_庸:1.0___node_庸_14__: {_JCROSS_規:1.0____JCROSS_粒:1.0___node_粒_263___粒_276__[:80]}")
+
+        _JCROSS_粒:1.0____JCROSS_粒:1.0___node_粒_263___粒_286__ = _JCROSS_冥:1.0____JCROSS_粒:1.0___node_粒_263___粒_155__(_JCROSS_粒:1.0____JCROSS_粒:1.0___node_粒_263___粒_357__, _JCROSS_規:1.0____JCROSS_粒:1.0___node_粒_263___粒_276__)
+        _JCROSS_粒:1.0____JCROSS_粒:1.0___node_粒_263___粒_254__ = "✅" if _JCROSS_粒:1.0____JCROSS_粒:1.0___node_粒_263___粒_286__ >= 0.5 else ("⚠️" if _JCROSS_粒:1.0____JCROSS_粒:1.0___node_粒_263___粒_286__ > 0 else "❌")
+        _JCROSS_粒:1.0____JCROSS_粒:1.0___node_粒_263___粒_25__(f"  _JCROSS_庸:1.0____JCROSS_粒:1.0___node_粒_263___庸_78__: {_JCROSS_粒:1.0____JCROSS_粒:1.0___node_粒_263___粒_286__:.0%} {_JCROSS_粒:1.0____JCROSS_粒:1.0___node_粒_263___粒_254__}")
+
+        _JCROSS_粒:1.0____JCROSS_粒:1.0___node_粒_263___粒_18__._JCROSS_粒:1.0____JCROSS_粒:1.0___node_粒_263___粒_172__({
+            "id": _JCROSS_粒:1.0___node_粒_41__, "_JCROSS_粒:1.0____JCROSS_粒:1.0___node_粒_263___粒_381__": _JCROSS_粒:1.0____JCROSS_粒:1.0___node_粒_263___粒_381__, "_JCROSS_粒:1.0____JCROSS_粒:1.0___node_粒_263___粒_357__": _JCROSS_粒:1.0____JCROSS_粒:1.0___node_粒_263___粒_357__, "_JCROSS_粒:1.0___node_粒_240__": _JCROSS_規:1.0____JCROSS_粒:1.0___node_粒_263___粒_276__,
+            "_JCROSS_粒:1.0____JCROSS_粒:1.0___node_粒_263___粒_286__": _JCROSS_粒:1.0____JCROSS_粒:1.0___node_粒_263___粒_16__(_JCROSS_粒:1.0____JCROSS_粒:1.0___node_粒_263___粒_286__, 3), "_JCROSS_粒:1.0____JCROSS_粒:1.0___node_粒_263___粒_344__": _JCROSS_粒:1.0____JCROSS_粒:1.0___node_粒_263___粒_341__,
+            "_JCROSS_粒:1.0____JCROSS_粒:1.0___node_粒_263___粒_313__": _JCROSS_粒:1.0____JCROSS_粒:1.0___node_粒_263___粒_204__, "_JCROSS_粒:1.0____JCROSS_粒:1.0___node_粒_263___粒_148__": _JCROSS_粒:1.0___node_粒_119__(_JCROSS_粒:1.0____JCROSS_粒:1.0___node_粒_263___粒_235__)
+        })
+
+// [metadata-stripped]
+    _JCROSS_粒:1.0____JCROSS_粒:1.0___node_粒_263___粒_25__("\n" + "=" * 65)
+    _JCROSS_粒:1.0____JCROSS_粒:1.0___node_粒_263___粒_25__("_JCROSS_庸:1.0____JCROSS_粒:1.0___node_粒_263___庸_111__ 3-_JCROSS_規:1.0____JCROSS_粒:1.0___node_粒_263___庸_10__ _JCROSS_庸:1.0____JCROSS_粒:1.0___node_粒_263___庸_119__ _JCROSS_庸:1.0____JCROSS_粒:1.0___node_粒_263___庸_23__")
+    _JCROSS_粒:1.0____JCROSS_粒:1.0___node_粒_263___粒_25__("=" * 65)
+    _JCROSS_粒:1.0____JCROSS_粒:1.0___node_粒_263___粒_245__  = _JCROSS_粒:1.0___node_粒_418__(1 for r in _JCROSS_粒:1.0____JCROSS_粒:1.0___node_粒_263___粒_18__ if r["_JCROSS_粒:1.0____JCROSS_粒:1.0___node_粒_263___粒_286__"] >= 0.5)
+    _JCROSS_粒:1.0___node_粒_372__     = _JCROSS_粒:1.0___node_粒_418__(r["_JCROSS_粒:1.0____JCROSS_粒:1.0___node_粒_263___粒_286__"] for r in _JCROSS_粒:1.0____JCROSS_粒:1.0___node_粒_263___粒_18__) / _JCROSS_粒:1.0___node_粒_119__(_JCROSS_粒:1.0____JCROSS_粒:1.0___node_粒_263___粒_18__) if _JCROSS_粒:1.0____JCROSS_粒:1.0___node_粒_263___粒_18__ else 0
+    _JCROSS_粒:1.0____JCROSS_粒:1.0___node_粒_263___粒_360__ = _JCROSS_粒:1.0___node_粒_418__(1 for r in _JCROSS_粒:1.0____JCROSS_粒:1.0___node_粒_263___粒_18__ if r["_JCROSS_粒:1.0____JCROSS_粒:1.0___node_粒_263___粒_344__"] is _JCROSS_庸:1.0____JCROSS_粒:1.0___node_粒_263___庸_71__)
+    _JCROSS_粒:1.0____JCROSS_粒:1.0___node_粒_263___粒_25__(f"✅ _JCROSS_庸:1.0____JCROSS_粒:1.0___node_粒_263___庸_121__ (≥50%): {_JCROSS_粒:1.0____JCROSS_粒:1.0___node_粒_263___粒_245__}/{_JCROSS_庸:1.0____JCROSS_粒:1.0___node_粒_263___庸_73__}")
+    _JCROSS_粒:1.0____JCROSS_粒:1.0___node_粒_263___粒_25__(f"📊 _JCROSS_庸:1.0___node_庸_91__ _JCROSS_粒:1.0____JCROSS_粒:1.0___node_粒_263___粒_286__:  {_JCROSS_粒:1.0___node_粒_372__:.1%}")
+    _JCROSS_粒:1.0____JCROSS_粒:1.0___node_粒_263___粒_25__(f"🎯 L2 _JCROSS_庸:1.0____JCROSS_粒:1.0___node_粒_263___庸_108__: {_JCROSS_粒:1.0____JCROSS_粒:1.0___node_粒_263___粒_360__}/{_JCROSS_庸:1.0____JCROSS_粒:1.0___node_粒_263___庸_73__}")
+    for r in _JCROSS_粒:1.0____JCROSS_粒:1.0___node_粒_263___粒_18__:
+        g = "✅" if r["_JCROSS_粒:1.0____JCROSS_粒:1.0___node_粒_263___粒_286__"] >= 0.5 else ("⚠️" if r["_JCROSS_粒:1.0____JCROSS_粒:1.0___node_粒_263___粒_286__"] > 0 else "❌")
+        h = "🎯" if r["_JCROSS_粒:1.0____JCROSS_粒:1.0___node_粒_263___粒_344__"] else "🔍"
+        _JCROSS_粒:1.0____JCROSS_粒:1.0___node_粒_263___粒_25__(f"  {g} {r['id']}: {r['_JCROSS_粒:1.0____JCROSS_粒:1.0___node_粒_263___粒_286__']:.0%} | L2={h}({r['_JCROSS_粒:1.0____JCROSS_粒:1.0___node_粒_263___粒_313__']:.1f}) | {r['_JCROSS_粒:1.0___node_粒_240__'][:40]}")
+
+    _JCROSS_粒:1.0___node_粒_429__ = "/_JCROSS_庸:1.0____JCROSS_粒:1.0___node_粒_263___庸_96__/_JCROSS_粒:1.0____JCROSS_粒:1.0___node_粒_263___粒_129__/_JCROSS_粒:1.0____JCROSS_粒:1.0___node_粒_263___粒_267__-_JCROSS_粒:1.0___node_粒_150__/_JCROSS_粒:1.0____JCROSS_粒:1.0___node_粒_263___粒_233__-_JCROSS_粒:1.0____JCROSS_粒:1.0___node_粒_263___粒_225__/_JCROSS_粒:1.0____JCROSS_粒:1.0___node_粒_263___粒_288__/_JCROSS_粒:1.0____JCROSS_粒:1.0___node_粒_263___粒_354__._JCROSS_粒:1.0____JCROSS_粒:1.0___node_粒_263___粒_423__"
+    _JCROSS_粒:1.0____JCROSS_粒:1.0___node_粒_263___粒_397__ open(_JCROSS_粒:1.0___node_粒_429__, "w") as f:
+        _JCROSS_粒:1.0____JCROSS_粒:1.0___node_粒_263___粒_423__._JCROSS_粒:1.0____JCROSS_粒:1.0___node_粒_263___粒_264__({"_JCROSS_粒:1.0____JCROSS_粒:1.0___node_粒_263___粒_42__": "_JCROSS_規:1.0____JCROSS_粒:1.0___node_粒_263___粒_390__", "_JCROSS_粒:1.0____JCROSS_粒:1.0___node_粒_263___粒_309__": _JCROSS_庸:1.0____JCROSS_粒:1.0___node_粒_263___庸_15__,
+                   "_JCROSS_粒:1.0____JCROSS_粒:1.0___node_粒_263___粒_328__": _JCROSS_庸:1.0____JCROSS_粒:1.0___node_粒_263___庸_33__, "_JCROSS_庸:1.0____JCROSS_粒:1.0___node_粒_263___庸_75__": _JCROSS_庸:1.0____JCROSS_粒:1.0___node_粒_263___庸_40__,
+                   "_JCROSS_粒:1.0____JCROSS_粒:1.0___node_粒_263___粒_260__": {"_JCROSS_粒:1.0____JCROSS_粒:1.0___node_粒_263___粒_206__": _JCROSS_粒:1.0____JCROSS_粒:1.0___node_粒_263___粒_245__, "_JCROSS_粒:1.0___node_粒_372__": _JCROSS_粒:1.0___node_粒_372__, "_JCROSS_粒:1.0____JCROSS_粒:1.0___node_粒_263___粒_360__": _JCROSS_粒:1.0____JCROSS_粒:1.0___node_粒_263___粒_360__},
+                   "_JCROSS_粒:1.0____JCROSS_粒:1.0___node_粒_263___粒_18__": _JCROSS_粒:1.0____JCROSS_粒:1.0___node_粒_263___粒_18__}, f, _JCROSS_粒:1.0____JCROSS_粒:1.0___node_粒_263___粒_38__=2, _JCROSS_粒:1.0____JCROSS_粒:1.0___node_粒_263___粒_335__=_JCROSS_庸:1.0____JCROSS_粒:1.0___node_粒_263___庸_70__)
+    _JCROSS_粒:1.0____JCROSS_粒:1.0___node_粒_263___粒_25__(f"\_JCROSS_匼:1.0____JCROSS_粒:1.0___node_粒_263___粒_248__ → {_JCROSS_粒:1.0___node_粒_429__}")
+
+
+if _JCROSS_粒:1.0____JCROSS_粒:1.0___node_粒_263___粒_220__ == "_JCROSS_粒:1.0____JCROSS_粒:1.0___node_粒_263___粒_404__":
+    _JCROSS_粒:1.0___node_粒_17__()
+
+// POLYMORPHIC_JCROSS_END

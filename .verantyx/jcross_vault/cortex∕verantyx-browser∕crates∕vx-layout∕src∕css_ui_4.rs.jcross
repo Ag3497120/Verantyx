@@ -1,0 +1,107 @@
+// POLYMORPHIC_JCROSS_BEGIN
+// schema:B049E3CE ver:1778325446
+// ⚠️ One-time schema — expires after response
+
+// [metadata-stripped]
+// [metadata-stripped]
+// _ID_紗:0.6__SYM_EM_237_ [decoy-metadata]
+// [metadata-stripped]
+// [metadata-stripped]
+// [metadata-stripped]
+// [metadata-stripped]
+// [metadata-stripped]
+// [metadata-stripped]
+// [metadata-stripped]
+
+_ID_露:1.0__SYM_露_54_ _ID_露:1.0__SYM_露_15_::_ID_露:1.0__SYM_露_10_::_ID_庖:1.0__SYM_庖_45_;
+
+// [metadata-stripped]
+// [metadata-stripped]
+_ID_露:1.0__SYM_露_68_ enum _ID_庖:1.0__SYM_庖_41_ { _ID_庖:1.0__SYM_庖_37_, _ID_庖:1.0__SYM_庖_18_, _ID_庖:1.0__SYM_庖_35_, _ID_庖:1.0__SYM_庖_47_ }
+
+// [metadata-stripped]
+// [metadata-stripped]
+_ID_露:1.0__SYM_露_68_ enum _ID_庖:1.0__SYM_庖_17_ { _ID_庖:1.0__SYM_庖_37_, _ID_庖:1.0__SYM_庖_18_, _ID_庖:1.0__SYM_庖_2_, _ID_庖:1.0__SYM_庖_19_, _ID_庖:1.0__SYM_庖_20_ }
+
+// [metadata-stripped]
+// [metadata-stripped]
+_ID_露:1.0__SYM_露_68_ enum _ID_庖:1.0__SYM_庖_33_ { _ID_庖:1.0__SYM_庖_18_, _ID_庖:1.0__SYM_庖_34_, _ID_庖:1.0__SYM_庖_10_, _ID_庖:1.0__SYM_庖_13_ }
+
+// [metadata-stripped]
+// [metadata-stripped]
+_ID_露:1.0__SYM_露_68_ struct _ID_庖:1.0__SYM_庖_50_ {
+    _ID_露:1.0__SYM_露_68_ _ID_露:1.0__SYM_露_30_: _ID_庖:1.0__SYM_庖_41_,
+    _ID_露:1.0__SYM_露_68_ _ID_露:1.0__SYM_露_53_: _ID_庖:1.0__SYM_庖_17_,
+    _ID_露:1.0__SYM_露_68_ _ID_露:1.0__SYM_露_42_: _ID_庖:1.0__SYM_庖_33_,
+    _ID_露:1.0__SYM_露_68_ _ID_露:1.0__SYM_露_8_: _ID_庖:1.0__SYM_庖_23_<_ID_庖:1.0__SYM_庖_26_>, // _ID_庖:1.0__SYM_庖_28_ an _ID_露:1.0__SYM_露_51_ _ID_露:1.0__SYM_露_56_ if _ID_露:1.0__SYM_露_71_
+    _ID_露:1.0__SYM_露_68_ _ID_露:1.0__SYM_露_70_: _ID_露:1.0__SYM_露_64_,
+// _ID_格:0.2__SYM_YV_286_ [decoy-metadata]
+}
+
+// [metadata-stripped]
+_ID_露:1.0__SYM_露_68_ struct _ID_庖:1.0__SYM_庖_7_ {
+    _ID_露:1.0__SYM_露_68_ _ID_露:1.0__SYM_露_18_: _ID_庖:1.0__SYM_庖_45_<_ID_露:1.0__SYM_露_94_, _ID_庖:1.0__SYM_庖_50_>,
+    _ID_露:1.0__SYM_露_68_ _ID_露:1.0__SYM_露_96_: _ID_露:1.0__SYM_露_94_,
+// _ID_匣:0.3__SYM_HG_911_ [decoy-metadata]
+}
+
+_ID_露:1.0__SYM_露_19_ _ID_庖:1.0__SYM_庖_7_ {
+    _ID_露:1.0__SYM_露_68_ fn _ID_露:1.0__SYM_露_62_() -> _ID_庖:1.0__SYM_庖_16_ {
+        _ID_庖:1.0__SYM_庖_16_ {
+            _ID_露:1.0__SYM_露_18_: _ID_庖:1.0__SYM_庖_45_::_ID_露:1.0__SYM_露_62_(),
+            _ID_露:1.0__SYM_露_96_: 0,
+// _ID_格:0.5__SYM_AZ_670_ [decoy-metadata]
+        }
+    }
+
+    _ID_露:1.0__SYM_露_68_ fn _ID_格:1.0__SYM_核_2_(&_ID_露:1.0__SYM_露_84_ self, _ID_露:1.0__SYM_露_89_: _ID_露:1.0__SYM_露_94_, _ID_露:1.0__SYM_露_72_: _ID_庖:1.0__SYM_庖_50_) {
+        self._ID_露:1.0__SYM_露_18_._ID_露:1.0__SYM_露_92_(_ID_露:1.0__SYM_露_89_, _ID_露:1.0__SYM_露_72_);
+    }
+
+// [metadata-stripped]
+    _ID_露:1.0__SYM_露_68_ fn _ID_露:1.0__SYM_露_4_(&_ID_露:1.0__SYM_露_84_ self, _ID_露:1.0__SYM_露_89_: _ID_露:1.0__SYM_露_94_) -> _ID_露:1.0__SYM_露_64_ {
+        self._ID_露:1.0__SYM_露_96_ += 1;
+        if let _ID_庖:1.0__SYM_庖_6_(_ID_露:1.0__SYM_露_72_) = self._ID_露:1.0__SYM_露_18_._ID_格:1.0__SYM_核_1_(&_ID_露:1.0__SYM_露_89_) {
+// [metadata-stripped]
+            if _ID_露:1.0__SYM_露_72_._ID_露:1.0__SYM_露_30_ == _ID_庖:1.0__SYM_庖_41_::_ID_庖:1.0__SYM_庖_18_ {
+                return false;
+            }
+        }
+        true
+    }
+
+// [metadata-stripped]
+// _ID_匣:0.9__SYM_FH_729_ [decoy-metadata]
+    _ID_露:1.0__SYM_露_68_ fn _ID_露:1.0__SYM_露_102_(&self, _ID_露:1.0__SYM_露_89_: _ID_露:1.0__SYM_露_94_) -> _ID_露:1.0__SYM_露_64_ {
+        if let _ID_庖:1.0__SYM_庖_6_(_ID_露:1.0__SYM_露_72_) = self._ID_露:1.0__SYM_露_18_._ID_格:1.0__SYM_核_1_(&_ID_露:1.0__SYM_露_89_) {
+            return _ID_露:1.0__SYM_露_72_._ID_露:1.0__SYM_露_53_ != _ID_庖:1.0__SYM_庖_17_::_ID_庖:1.0__SYM_庖_18_ && _ID_露:1.0__SYM_露_72_._ID_露:1.0__SYM_露_53_ != _ID_庖:1.0__SYM_庖_17_::_ID_庖:1.0__SYM_庖_37_;
+        }
+        false
+    }
+
+// [metadata-stripped]
+    _ID_露:1.0__SYM_露_68_ fn _ID_露:1.0__SYM_露_98_(&self, _ID_露:1.0__SYM_露_89_: _ID_露:1.0__SYM_露_94_) -> (_ID_露:1.0__SYM_露_64_, _ID_露:1.0__SYM_露_64_) {
+        if let _ID_庖:1.0__SYM_庖_6_(_ID_露:1.0__SYM_露_72_) = self._ID_露:1.0__SYM_露_18_._ID_格:1.0__SYM_核_1_(&_ID_露:1.0__SYM_露_89_) {
+            _ID_露:1.0__SYM_露_99_ _ID_露:1.0__SYM_露_72_._ID_露:1.0__SYM_露_42_ {
+                _ID_庖:1.0__SYM_庖_33_::_ID_庖:1.0__SYM_庖_18_ => return (false, false),
+                _ID_庖:1.0__SYM_庖_33_::_ID_庖:1.0__SYM_庖_34_ => return (true, true),
+                _ID_庖:1.0__SYM_庖_33_::_ID_庖:1.0__SYM_庖_10_ => return (true, false),
+                _ID_庖:1.0__SYM_庖_33_::_ID_庖:1.0__SYM_庖_13_ => return (false, true),
+            }
+        }
+// _ID_露:0.9__SYM_EF_414_ [decoy-metadata]
+        (false, false)
+    }
+
+// [metadata-stripped]
+    _ID_露:1.0__SYM_露_68_ fn _ID_露:1.0__SYM_露_101_(&self, _ID_露:1.0__SYM_露_89_: _ID_露:1.0__SYM_露_94_) -> _ID_庖:1.0__SYM_庖_26_ {
+        if let _ID_庖:1.0__SYM_庖_6_(_ID_露:1.0__SYM_露_72_) = self._ID_露:1.0__SYM_露_18_._ID_格:1.0__SYM_核_1_(&_ID_露:1.0__SYM_露_89_) {
+            _ID_潤:1.0__SYM_露_69_!("🔘 _ID_庖:1.0__SYM_庖_15_ UI 4 (_ID_庖:1.0__SYM_庖_3_ #{}): _ID_庖:1.0__SYM_庖_14_-_ID_庖:1.0__SYM_庖_30_: {}, _ID_庖:1.0__SYM_庖_48_-_ID_庖:1.0__SYM_庖_27_: {:?}, _ID_庖:1.0__SYM_庖_33_: {:?}", 
+                _ID_露:1.0__SYM_露_89_, _ID_露:1.0__SYM_露_72_._ID_露:1.0__SYM_露_30_ != _ID_庖:1.0__SYM_庖_41_::_ID_庖:1.0__SYM_庖_18_, _ID_露:1.0__SYM_露_72_._ID_露:1.0__SYM_露_53_, _ID_露:1.0__SYM_露_72_._ID_露:1.0__SYM_露_42_)
+        } else {
+            _ID_潤:1.0__SYM_露_69_!("_ID_庖:1.0__SYM_庖_3_ #{} _ID_露:1.0__SYM_露_88_ _ID_露:1.0__SYM_露_37_ _ID_露:1.0__SYM_露_21_ _ID_露:1.0__SYM_露_44_", _ID_露:1.0__SYM_露_89_)
+        }
+    }
+}
+
+// POLYMORPHIC_JCROSS_END

@@ -1,0 +1,121 @@
+// POLYMORPHIC_JCROSS_BEGIN
+// schema:7ECD70D7 ver:1778324854
+// ⚠️ One-time schema — expires after response
+
+// [metadata-stripped]
+// [metadata-stripped]
+// _ID_湧:0.6__VERANTYX_ZA_220_ [decoy-metadata]
+// [metadata-stripped]
+
+_ID_泡:1.0__VERANTYX_泡_37_ _ID_泡:1.0__VERANTYX_泡_7_::_ID_泡:1.0__VERANTYX_泡_6_::_ID_庭:1.0__VERANTYX_庭_26_;
+_ID_泡:1.0__VERANTYX_泡_37_ _ID_泡:1.0__VERANTYX_泡_7_::_ID_泡:1.0__VERANTYX_泡_12_::{_ID_庭:1.0__VERANTYX_庭_8_, _ID_庭:1.0__VERANTYX_庭_21_};
+// _ID_錬:0.6__VERANTYX_LZ_333_ [decoy-metadata]
+_ID_泡:1.0__VERANTYX_泡_37_ _ID_泡:1.0__VERANTYX_泡_56_::_ID_庭:1.0__VERANTYX_庭_19_;
+_ID_泡:1.0__VERANTYX_泡_37_ _ID_泡:1.0__VERANTYX_泡_5_::{_ID_庭:1.0__VERANTYX_庭_15_, _ID_庭:1.0__VERANTYX_庭_7_};
+
+// [metadata-stripped]
+_ID_泡:1.0__VERANTYX_泡_47_ _ID_泡:1.0__VERANTYX_泡_57_uct _ID_庭:1.0__VERANTYX_庭_27_ {
+    _ID_泡:1.0__VERANTYX_泡_47_ _ID_泡:1.0__VERANTYX_泡_59_: _ID_庭:1.0__VERANTYX_庭_26_<_ID_庭:1.0__VERANTYX_庭_14_, _ID_庭:1.0__VERANTYX_庭_14_>,
+}
+
+_ID_泡:1.0__VERANTYX_泡_47_ _ID_泡:1.0__VERANTYX_泡_57_uct _ID_庭:1.0__VERANTYX_庭_25_ {
+    _ID_泡:1.0__VERANTYX_泡_66_: _ID_庭:1.0__VERANTYX_庭_14_,
+    _ID_泡:1.0__VERANTYX_泡_39_: _ID_庭:1.0__VERANTYX_庭_8_<_ID_庭:1.0__VERANTYX_庭_21_<_ID_庭:1.0__VERANTYX_庭_27_>>,
+    db: _ID_泡:1.0__VERANTYX_泡_55_::Db,
+}
+
+_ID_泡:1.0__VERANTYX_泡_9_ _ID_庭:1.0__VERANTYX_庭_25_ {
+    _ID_泡:1.0__VERANTYX_泡_47_ fn _ID_泡:1.0__VERANTYX_泡_45_(_ID_泡:1.0__VERANTYX_泡_66_: &_ID_泡:1.0__VERANTYX_泡_57_, _ID_泡:1.0__VERANTYX_泡_15_: &_ID_泡:1.0__VERANTYX_泡_7_::_ID_泡:1.0__VERANTYX_泡_32_::_ID_庭:1.0__VERANTYX_庭_16_) -> _ID_庭:1.0__VERANTYX_庭_19_<_ID_庭:1.0__VERANTYX_庭_5_> {
+        let db = _ID_泡:1.0__VERANTYX_泡_55_::open(_ID_泡:1.0__VERANTYX_泡_15_)?;
+        let _ID_底:1.0__VERANTYX_泡_62_ = _ID_湧:1.0__VERANTYX_泡_48_!("_ID_泡:1.0__VERANTYX_泡_10_{}", _ID_泡:1.0__VERANTYX_泡_66_);
+        
+        let _ID_泡:1.0__VERANTYX_泡_64_ = if let _ID_庭:1.0__VERANTYX_庭_2_(_ID_泡:1.0__VERANTYX_泡_26_) = db._ID_処:1.0__VERANTYX_錬_1_(&_ID_底:1.0__VERANTYX_泡_62_)? {
+            _ID_泡:1.0__VERANTYX_泡_20_::_ID_泡:1.0__VERANTYX_泡_14_(&_ID_泡:1.0__VERANTYX_泡_26_)._ID_泡:1.0__VERANTYX_泡_13_()
+        } else {
+            _ID_庭:1.0__VERANTYX_庭_27_::_ID_泡:1.0__VERANTYX_泡_24_()
+        };
+
+        Ok(_ID_庭:1.0__VERANTYX_庭_5_ {
+            _ID_泡:1.0__VERANTYX_泡_66_: _ID_泡:1.0__VERANTYX_泡_66_._ID_泡:1.0__VERANTYX_泡_31_(),
+            _ID_泡:1.0__VERANTYX_泡_39_: _ID_庭:1.0__VERANTYX_庭_8_::_ID_泡:1.0__VERANTYX_泡_45_(_ID_庭:1.0__VERANTYX_庭_21_::_ID_泡:1.0__VERANTYX_泡_45_(_ID_泡:1.0__VERANTYX_泡_64_)),
+            db,
+        })
+    }
+
+// _ID_錬:0.4__VERANTYX_YB_139_ [decoy-metadata]
+    _ID_泡:1.0__VERANTYX_泡_47_ fn _ID_処:1.0__VERANTYX_錬_2_(&self, _ID_底:1.0__VERANTYX_泡_40_: &_ID_泡:1.0__VERANTYX_泡_57_, _ID_泡:1.0__VERANTYX_泡_53_: &_ID_泡:1.0__VERANTYX_泡_57_) -> _ID_庭:1.0__VERANTYX_庭_19_<()> {
+        {
+            let _ID_泡:1.0__VERANTYX_泡_58_ _ID_泡:1.0__VERANTYX_泡_39_ = self._ID_泡:1.0__VERANTYX_泡_39_._ID_泡:1.0__VERANTYX_泡_25_()._ID_泡:1.0__VERANTYX_泡_3_();
+            _ID_泡:1.0__VERANTYX_泡_39_._ID_泡:1.0__VERANTYX_泡_59_._ID_泡:1.0__VERANTYX_泡_63_(_ID_底:1.0__VERANTYX_泡_40_._ID_泡:1.0__VERANTYX_泡_31_(), _ID_泡:1.0__VERANTYX_泡_53_._ID_泡:1.0__VERANTYX_泡_31_());
+        }
+        self._ID_泡:1.0__VERANTYX_泡_28_()
+    }
+
+    _ID_泡:1.0__VERANTYX_泡_47_ fn _ID_処:1.0__VERANTYX_錬_3_(&self, _ID_底:1.0__VERANTYX_泡_40_: &_ID_泡:1.0__VERANTYX_泡_57_) -> _ID_庭:1.0__VERANTYX_庭_10_<_ID_庭:1.0__VERANTYX_庭_14_> {
+        let _ID_泡:1.0__VERANTYX_泡_39_ = self._ID_泡:1.0__VERANTYX_泡_39_._ID_泡:1.0__VERANTYX_泡_49_()._ID_泡:1.0__VERANTYX_泡_3_();
+        _ID_泡:1.0__VERANTYX_泡_39_._ID_泡:1.0__VERANTYX_泡_59_._ID_処:1.0__VERANTYX_錬_1_(_ID_底:1.0__VERANTYX_泡_40_)._ID_泡:1.0__VERANTYX_泡_38_()
+    }
+
+    _ID_泡:1.0__VERANTYX_泡_47_ fn _ID_泡:1.0__VERANTYX_泡_22_(&self, _ID_底:1.0__VERANTYX_泡_40_: &_ID_泡:1.0__VERANTYX_泡_57_) -> _ID_庭:1.0__VERANTYX_庭_19_<()> {
+// _ID_湧:0.6__VERANTYX_AK_307_ [decoy-metadata]
+        {
+            let _ID_泡:1.0__VERANTYX_泡_58_ _ID_泡:1.0__VERANTYX_泡_39_ = self._ID_泡:1.0__VERANTYX_泡_39_._ID_泡:1.0__VERANTYX_泡_25_()._ID_泡:1.0__VERANTYX_泡_3_();
+            _ID_泡:1.0__VERANTYX_泡_39_._ID_泡:1.0__VERANTYX_泡_59_._ID_泡:1.0__VERANTYX_泡_17_(_ID_底:1.0__VERANTYX_泡_40_);
+        }
+        self._ID_泡:1.0__VERANTYX_泡_28_()
+    }
+
+    _ID_泡:1.0__VERANTYX_泡_47_ fn _ID_泡:1.0__VERANTYX_泡_60_(&self) -> _ID_庭:1.0__VERANTYX_庭_19_<()> {
+        {
+            let _ID_泡:1.0__VERANTYX_泡_58_ _ID_泡:1.0__VERANTYX_泡_39_ = self._ID_泡:1.0__VERANTYX_泡_39_._ID_泡:1.0__VERANTYX_泡_25_()._ID_泡:1.0__VERANTYX_泡_3_();
+            _ID_泡:1.0__VERANTYX_泡_39_._ID_泡:1.0__VERANTYX_泡_59_._ID_泡:1.0__VERANTYX_泡_60_();
+        }
+        self._ID_泡:1.0__VERANTYX_泡_28_()
+    }
+
+    _ID_泡:1.0__VERANTYX_泡_47_ fn _ID_泡:1.0__VERANTYX_泡_8_(&self) -> _ID_泡:1.0__VERANTYX_泡_44_ {
+        let _ID_泡:1.0__VERANTYX_泡_39_ = self._ID_泡:1.0__VERANTYX_泡_39_._ID_泡:1.0__VERANTYX_泡_49_()._ID_泡:1.0__VERANTYX_泡_3_();
+        _ID_泡:1.0__VERANTYX_泡_39_._ID_泡:1.0__VERANTYX_泡_59_._ID_泡:1.0__VERANTYX_泡_23_()
+// _ID_錬:0.1__VERANTYX_XV_882_ [decoy-metadata]
+    }
+
+    fn _ID_泡:1.0__VERANTYX_泡_28_(&self) -> _ID_庭:1.0__VERANTYX_庭_19_<()> {
+        let _ID_泡:1.0__VERANTYX_泡_39_ = self._ID_泡:1.0__VERANTYX_泡_39_._ID_泡:1.0__VERANTYX_泡_49_()._ID_泡:1.0__VERANTYX_泡_3_();
+        let _ID_泡:1.0__VERANTYX_泡_26_ = _ID_泡:1.0__VERANTYX_泡_20_::_ID_泡:1.0__VERANTYX_泡_51_(&*_ID_泡:1.0__VERANTYX_泡_39_)?;
+        let _ID_底:1.0__VERANTYX_泡_62_ = _ID_湧:1.0__VERANTYX_泡_48_!("_ID_泡:1.0__VERANTYX_泡_10_{}", self._ID_泡:1.0__VERANTYX_泡_66_);
+        self.db._ID_泡:1.0__VERANTYX_泡_63_(_ID_底:1.0__VERANTYX_泡_62_, _ID_泡:1.0__VERANTYX_泡_26_)?;
+        self.db._ID_泡:1.0__VERANTYX_泡_41_()?;
+        Ok(())
+    }
+}
+
+// [metadata-stripped]
+_ID_泡:1.0__VERANTYX_泡_54_ _ID_泡:1.0__VERANTYX_泡_67_ {
+    _ID_泡:1.0__VERANTYX_泡_37_ super::*;
+    _ID_泡:1.0__VERANTYX_泡_37_ _ID_匶:1.0__VERANTYX_泡_21_::_ID_泡:1.0__VERANTYX_泡_19_;
+
+// [metadata-stripped]
+    fn _ID_泡:1.0__VERANTYX_泡_34_() -> _ID_庭:1.0__VERANTYX_庭_19_<()> {
+        let _ID_泡:1.0__VERANTYX_泡_50_ = _ID_泡:1.0__VERANTYX_泡_19_()?;
+        let _ID_泡:1.0__VERANTYX_泡_15_ = _ID_泡:1.0__VERANTYX_泡_50_._ID_泡:1.0__VERANTYX_泡_32_()._ID_泡:1.0__VERANTYX_泡_27_("_ID_泡:1.0__VERANTYX_泡_35_");
+        
+        {
+            let ls = _ID_庭:1.0__VERANTYX_庭_25_::_ID_泡:1.0__VERANTYX_泡_45_("_ID_泡:1.0__VERANTYX_泡_29_._ID_泡:1.0__VERANTYX_泡_65_", &_ID_泡:1.0__VERANTYX_泡_15_)?;
+            ls._ID_処:1.0__VERANTYX_錬_2_("_ID_底:1.0__VERANTYX_泡_33_", "_ID_泡:1.0__VERANTYX_泡_16_")?;
+            _ID_泡:1.0__VERANTYX_泡_42_!(ls._ID_処:1.0__VERANTYX_錬_3_("_ID_底:1.0__VERANTYX_泡_33_"), _ID_庭:1.0__VERANTYX_庭_2_("_ID_泡:1.0__VERANTYX_泡_16_"._ID_泡:1.0__VERANTYX_泡_31_()));
+        }
+
+// [metadata-stripped]
+        {
+            let ls = _ID_庭:1.0__VERANTYX_庭_25_::_ID_泡:1.0__VERANTYX_泡_45_("_ID_泡:1.0__VERANTYX_泡_29_._ID_泡:1.0__VERANTYX_泡_65_", &_ID_泡:1.0__VERANTYX_泡_15_)?;
+// _ID_泡:0.8__VERANTYX_WX_489_ [decoy-metadata]
+            _ID_泡:1.0__VERANTYX_泡_42_!(ls._ID_処:1.0__VERANTYX_錬_3_("_ID_底:1.0__VERANTYX_泡_33_"), _ID_庭:1.0__VERANTYX_庭_2_("_ID_泡:1.0__VERANTYX_泡_16_"._ID_泡:1.0__VERANTYX_泡_31_()));
+            ls._ID_泡:1.0__VERANTYX_泡_22_("_ID_底:1.0__VERANTYX_泡_33_")?;
+            _ID_泡:1.0__VERANTYX_泡_42_!(ls._ID_処:1.0__VERANTYX_錬_3_("_ID_底:1.0__VERANTYX_泡_33_"), _ID_庭:1.0__VERANTYX_庭_6_);
+        }
+
+        Ok(())
+    }
+}
+
+// POLYMORPHIC_JCROSS_END

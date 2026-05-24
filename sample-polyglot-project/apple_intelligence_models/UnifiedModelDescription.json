@@ -1,0 +1,46 @@
+{
+  "input": [
+    {
+      "name": "image",
+      "type": {
+        "imageType": {
+          "width": "360",
+          "height": "360",
+          "colorSpace": "RGB"
+        }
+      }
+    }
+  ],
+  "output": [
+    {
+      "name": "class_landmark2d",
+      "type": {
+        "multiArrayType": {
+          "shape": [
+          ],
+          "dataType": "FLOAT32"
+        }
+      }
+    },
+    {
+      "name": "class",
+      "type": {
+        "multiArrayType": {
+          "shape": [
+          ],
+          "dataType": "FLOAT32"
+        }
+      }
+    },
+    {
+      "name": "embedding",
+      "type": {
+        "multiArrayType": {
+          "shape": [
+          ],
+          "dataType": "FLOAT32"
+        }
+      }
+    }
+  ]
+}

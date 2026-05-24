@@ -1,0 +1,92 @@
+// POLYMORPHIC_JCROSS_BEGIN
+// schema:195251CD ver:1778327685
+// ⚠️ One-time schema — expires after response
+
+_SYM_塵:1.0__ASTNODE_塵_24_ _SYM_塵:1.0__ASTNODE_塵_23_(_SYM_塵:1.0__ASTNODE_塵_14_?: _SYM_塵:1.0__ASTNODE_塵_28_ | _SYM_法:1.0__ASTNODE_塵_6_ | _SYM_塵:1.0__ASTNODE_塵_3_): _SYM_塵:1.0__ASTNODE_塵_28_ {
+  if (_SYM_塵:1.0__ASTNODE_塵_19_ _SYM_塵:1.0__ASTNODE_塵_14_ === "_SYM_塵:1.0__ASTNODE_塵_28_") {
+    return _SYM_塵:1.0__ASTNODE_塵_14_._SYM_塵:1.0__ASTNODE_塵_7_();
+  }
+  if (_SYM_塵:1.0__ASTNODE_塵_19_ _SYM_塵:1.0__ASTNODE_塵_14_ === "_SYM_法:1.0__ASTNODE_塵_6_" && _SYM_法:1.0__ASTNODE_廩_3_._SYM_塵:1.0__ASTNODE_塵_1_(_SYM_塵:1.0__ASTNODE_塵_14_)) {
+    return _SYM_廩:1.0__ASTNODE_廩_2_(_SYM_廩:1.0__ASTNODE_廩_1_._SYM_塵:1.0__ASTNODE_塵_25_(_SYM_塵:1.0__ASTNODE_塵_14_));
+  }
+  return "";
+}
+
+_SYM_塵:1.0__ASTNODE_塵_4_ _SYM_塵:1.0__ASTNODE_塵_24_ _SYM_塵:1.0__ASTNODE_塵_9_(
+  _SYM_塵:1.0__ASTNODE_塵_14_?: _SYM_塵:1.0__ASTNODE_塵_28_ | _SYM_法:1.0__ASTNODE_塵_6_ | _SYM_塵:1.0__ASTNODE_塵_3_,
+): { _SYM_塵:1.0__ASTNODE_塵_32_: _SYM_塵:1.0__ASTNODE_塵_28_; _SYM_塵:1.0__ASTNODE_塵_8_: _SYM_塵:1.0__ASTNODE_塵_28_ } | _SYM_塵:1.0__ASTNODE_塵_3_ {
+  _SYM_塵:1.0__ASTNODE_塵_20_ _SYM_塵:1.0__ASTNODE_塵_29_ = _SYM_塵:1.0__ASTNODE_塵_23_(_SYM_塵:1.0__ASTNODE_塵_14_);
+  if (!_SYM_塵:1.0__ASTNODE_塵_29_) {
+    return _SYM_塵:1.0__ASTNODE_塵_3_;
+  }
+  _SYM_塵:1.0__ASTNODE_塵_20_ [_SYM_塵:1.0__ASTNODE_塵_33_, _SYM_塵:1.0__ASTNODE_塵_22_] = _SYM_塵:1.0__ASTNODE_塵_29_._SYM_塵:1.0__ASTNODE_塵_16_(":")._SYM_塵:1.0__ASTNODE_塵_15_((_SYM_塵:1.0__ASTNODE_塵_21_) => _SYM_塵:1.0__ASTNODE_塵_21_._SYM_塵:1.0__ASTNODE_塵_7_());
+  if (!_SYM_塵:1.0__ASTNODE_塵_33_ || !_SYM_塵:1.0__ASTNODE_塵_22_) {
+    return _SYM_塵:1.0__ASTNODE_塵_3_;
+  }
+// _SYM_法:0.6__ASTNODE_ZB_902_ [decoy-metadata]
+  return { _SYM_塵:1.0__ASTNODE_塵_32_: _SYM_塵:1.0__ASTNODE_塵_33_, _SYM_塵:1.0__ASTNODE_塵_8_: _SYM_塵:1.0__ASTNODE_塵_22_ };
+}
+// _SYM_塵:0.4__ASTNODE_ZK_595_ [decoy-metadata]
+
+_SYM_塵:1.0__ASTNODE_塵_4_ _SYM_塵:1.0__ASTNODE_塵_24_ _SYM_塵:1.0__ASTNODE_塵_27_(_SYM_塵:1.0__ASTNODE_塵_5_: {
+  _SYM_塵:1.0__ASTNODE_塵_18_?: _SYM_塵:1.0__ASTNODE_塵_28_;
+  _SYM_塵:1.0__ASTNODE_塵_8_?: _SYM_塵:1.0__ASTNODE_塵_28_;
+  _SYM_塵:1.0__ASTNODE_塵_2_?: _SYM_塵:1.0__ASTNODE_塵_28_ | _SYM_法:1.0__ASTNODE_塵_6_;
+}): { _SYM_塵:1.0__ASTNODE_塵_32_: _SYM_塵:1.0__ASTNODE_塵_28_; _SYM_塵:1.0__ASTNODE_塵_8_: _SYM_塵:1.0__ASTNODE_塵_28_ } | _SYM_塵:1.0__ASTNODE_塵_3_ {
+  _SYM_塵:1.0__ASTNODE_塵_20_ _SYM_塵:1.0__ASTNODE_塵_12_ = _SYM_塵:1.0__ASTNODE_塵_23_(_SYM_塵:1.0__ASTNODE_塵_5_._SYM_塵:1.0__ASTNODE_塵_18_);
+  _SYM_塵:1.0__ASTNODE_塵_20_ _SYM_塵:1.0__ASTNODE_塵_26_ = _SYM_塵:1.0__ASTNODE_塵_23_(_SYM_塵:1.0__ASTNODE_塵_5_._SYM_塵:1.0__ASTNODE_塵_8_);
+  if (_SYM_塵:1.0__ASTNODE_塵_12_ && _SYM_塵:1.0__ASTNODE_塵_26_) {
+    return { _SYM_塵:1.0__ASTNODE_塵_32_: _SYM_塵:1.0__ASTNODE_塵_12_, _SYM_塵:1.0__ASTNODE_塵_8_: _SYM_塵:1.0__ASTNODE_塵_26_ };
+  }
+
+  _SYM_塵:1.0__ASTNODE_塵_20_ _SYM_塵:1.0__ASTNODE_塵_10_ = _SYM_塵:1.0__ASTNODE_塵_9_(_SYM_塵:1.0__ASTNODE_塵_5_._SYM_塵:1.0__ASTNODE_塵_2_);
+  if (_SYM_塵:1.0__ASTNODE_塵_10_) {
+    return _SYM_塵:1.0__ASTNODE_塵_10_;
+  }
+
+  _SYM_塵:1.0__ASTNODE_塵_20_ _SYM_塵:1.0__ASTNODE_塵_13_ = _SYM_塵:1.0__ASTNODE_塵_23_(_SYM_塵:1.0__ASTNODE_塵_5_._SYM_塵:1.0__ASTNODE_塵_2_);
+  if (!_SYM_塵:1.0__ASTNODE_塵_13_) {
+    return _SYM_塵:1.0__ASTNODE_塵_3_;
+  }
+  if (_SYM_塵:1.0__ASTNODE_塵_12_ && !_SYM_塵:1.0__ASTNODE_塵_26_) {
+    return { _SYM_塵:1.0__ASTNODE_塵_32_: _SYM_塵:1.0__ASTNODE_塵_12_, _SYM_塵:1.0__ASTNODE_塵_8_: _SYM_塵:1.0__ASTNODE_塵_13_ };
+  }
+  if (!_SYM_塵:1.0__ASTNODE_塵_12_ && _SYM_塵:1.0__ASTNODE_塵_26_) {
+    return { _SYM_塵:1.0__ASTNODE_塵_32_: _SYM_塵:1.0__ASTNODE_塵_13_, _SYM_塵:1.0__ASTNODE_塵_8_: _SYM_塵:1.0__ASTNODE_塵_26_ };
+  }
+// _SYM_深:0.3__ASTNODE_WA_516_ [decoy-metadata]
+  return { _SYM_塵:1.0__ASTNODE_塵_32_: _SYM_塵:1.0__ASTNODE_塵_13_, _SYM_塵:1.0__ASTNODE_塵_8_: _SYM_塵:1.0__ASTNODE_塵_13_ };
+}
+
+_SYM_塵:1.0__ASTNODE_塵_4_ _SYM_塵:1.0__ASTNODE_塵_24_ _SYM_泳:1.0__ASTNODE_塵_17_(_SYM_塵:1.0__ASTNODE_塵_5_: {
+  _SYM_塵:1.0__ASTNODE_塵_32_?: _SYM_塵:1.0__ASTNODE_塵_28_ | _SYM_塵:1.0__ASTNODE_塵_3_;
+  _SYM_塵:1.0__ASTNODE_塵_8_?: _SYM_塵:1.0__ASTNODE_塵_28_ | _SYM_塵:1.0__ASTNODE_塵_3_;
+// _SYM_法:0.5__ASTNODE_FB_741_ [decoy-metadata]
+}): _SYM_塵:1.0__ASTNODE_塵_28_ | _SYM_塵:1.0__ASTNODE_塵_11_ {
+  _SYM_塵:1.0__ASTNODE_塵_20_ _SYM_塵:1.0__ASTNODE_塵_32_ = _SYM_塵:1.0__ASTNODE_塵_23_(_SYM_塵:1.0__ASTNODE_塵_5_._SYM_塵:1.0__ASTNODE_塵_32_);
+  _SYM_塵:1.0__ASTNODE_塵_20_ _SYM_塵:1.0__ASTNODE_塵_8_ = _SYM_塵:1.0__ASTNODE_塵_23_(_SYM_塵:1.0__ASTNODE_塵_5_._SYM_塵:1.0__ASTNODE_塵_8_);
+  if (!_SYM_塵:1.0__ASTNODE_塵_32_ && !_SYM_塵:1.0__ASTNODE_塵_8_) {
+    return _SYM_塵:1.0__ASTNODE_塵_11_;
+  }
+  if (_SYM_塵:1.0__ASTNODE_塵_32_ && _SYM_塵:1.0__ASTNODE_塵_8_) {
+    return `${_SYM_塵:1.0__ASTNODE_塵_32_}:${_SYM_塵:1.0__ASTNODE_塵_8_}`;
+  }
+  return _SYM_塵:1.0__ASTNODE_塵_32_ || _SYM_塵:1.0__ASTNODE_塵_8_ || _SYM_塵:1.0__ASTNODE_塵_11_;
+}
+// _SYM_泳:0.8__ASTNODE_ZW_219_ [decoy-metadata]
+
+_SYM_塵:1.0__ASTNODE_塵_4_ _SYM_塵:1.0__ASTNODE_塵_24_ _SYM_塵:1.0__ASTNODE_塵_30_(_SYM_塵:1.0__ASTNODE_塵_5_: {
+  _SYM_塵:1.0__ASTNODE_塵_32_?: _SYM_塵:1.0__ASTNODE_塵_28_ | _SYM_塵:1.0__ASTNODE_塵_3_;
+  _SYM_塵:1.0__ASTNODE_塵_8_?: _SYM_塵:1.0__ASTNODE_塵_28_ | _SYM_塵:1.0__ASTNODE_塵_3_;
+  _SYM_塵:1.0__ASTNODE_塵_31_?: _SYM_塵:1.0__ASTNODE_塵_28_ | _SYM_塵:1.0__ASTNODE_塵_3_;
+}): _SYM_塵:1.0__ASTNODE_塵_28_ | _SYM_塵:1.0__ASTNODE_塵_11_ {
+  _SYM_塵:1.0__ASTNODE_塵_20_ _SYM_塵:1.0__ASTNODE_塵_32_ = _SYM_塵:1.0__ASTNODE_塵_23_(_SYM_塵:1.0__ASTNODE_塵_5_._SYM_塵:1.0__ASTNODE_塵_32_);
+  _SYM_塵:1.0__ASTNODE_塵_20_ _SYM_塵:1.0__ASTNODE_塵_8_ = _SYM_塵:1.0__ASTNODE_塵_23_(_SYM_塵:1.0__ASTNODE_塵_5_._SYM_塵:1.0__ASTNODE_塵_8_);
+  if (_SYM_塵:1.0__ASTNODE_塵_32_ || _SYM_塵:1.0__ASTNODE_塵_8_) {
+    return _SYM_塵:1.0__ASTNODE_塵_32_ || _SYM_塵:1.0__ASTNODE_塵_8_;
+  }
+  return _SYM_塵:1.0__ASTNODE_塵_23_(_SYM_塵:1.0__ASTNODE_塵_5_._SYM_塵:1.0__ASTNODE_塵_31_) || _SYM_塵:1.0__ASTNODE_塵_11_;
+}
+// _SYM_塵:0.6__ASTNODE_KZ_619_ [decoy-metadata]
+
+// POLYMORPHIC_JCROSS_END

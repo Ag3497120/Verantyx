@@ -1,0 +1,41 @@
+[package]
+name = "ronin-hive"
+version.workspace = true
+edition.workspace = true
+license.workspace = true
+authors.workspace = true
+
+[dependencies]
+anyhow.workspace = true
+async-trait = "0.1.89"
+base64 = "0.22.1"
+chrono = "0.4.44"
+console = "0.16.3"
+dialoguer = "0.11.0"
+enigo = "0.6.1"
+html2md = "0.2.15"
+ignore = "0.4.22"
+indicatif = "0.18.4"
+lazy_static = "1.4.0"
+notify = "6.1.1"
+rand = "0.8.5"
+regex = "1.12.3"
+reqwest = { version = "0.13.2", features = ["json"] }
+ronin-coder = { version = "0.1.0", path = "../ronin-coder" }
+ronin-core = { version = "0.1.0", path = "../ronin-core" }
+ronin-rag = { version = "0.1.0", path = "../ronin-rag" }
+ronin-sandbox = { version = "0.1.0", path = "../ronin-sandbox" }
+serde.workspace = true
+serde_json.workspace = true
+thiserror.workspace = true
+tokio = { workspace = true, features = ["rt", "rt-multi-thread", "macros", "sync"] }
+tracing = "0.1.44"
+urlencoding = "2.1.3"
+uuid = { version = "1.23.0", features = ["serde", "v4"] }
+vx-dom = { version = "0.1.0", path = "../vx-dom" }
+vx-layout = { version = "0.1.0", path = "../vx-layout" }
+vx-render = { version = "0.1.0", path = "../vx-render" }
+
+[dev-dependencies]
+tokio = { workspace = true, features = ["macros", "rt-multi-thread"] }
+tracing-subscriber = "0.3.23"

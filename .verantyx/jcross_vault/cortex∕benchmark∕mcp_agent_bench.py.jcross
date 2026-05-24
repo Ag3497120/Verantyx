@@ -1,0 +1,527 @@
+// POLYMORPHIC_JCROSS_BEGIN
+// schema:17AC02C7 ver:1778311424
+// ⚠️ One-time schema — expires after response
+
+// [metadata-stripped]
+"""
+_JCROSS_廊:1.0__TOKEN_廊_39_ _JCROSS_廊:1.0__TOKEN_廊_34_ _JCROSS_廊:1.0__TOKEN_廊_37_ _JCROSS_廊:1.0__TOKEN_廊_11_ — _JCROSS_廊:1.0__TOKEN_廊_101_ _JCROSS_廊:1.0__TOKEN_廊_80_ × _JCROSS_廊:1.0__TOKEN_廊_88_
+
+通常の_JCROSS_廊:1.0__TOKEN_廊_86_ヒューリスティック方式と異なり、
+_JCROSS_廊:1.0__TOKEN_廊_101_ _JCROSS_廊:1.0__TOKEN_廊_80_ に _JCROSS_廊:1.0__TOKEN_廊_34_ ツールを _JCROSS_露:1.0__TOKEN_露_113_ _JCROSS_露:1.0__TOKEN_露_221_ で渡し、
+エージェントとして自律的に記憶を検索・回答させる。
+
+_JCROSS_廊:1.0__TOKEN_廊_94_ _JCROSS_図:1.0__TOKEN_露_304_ _JCROSS_露:1.0__TOKEN_露_271_:
+  _JCROSS_廊:1.0__TOKEN_廊_101_ _JCROSS_廊:1.0__TOKEN_廊_80_
+    → _JCROSS_露:1.0__TOKEN_露_253_()       でメモリ全体を俯瞰
+    → _JCROSS_露:1.0__TOKEN_露_279_() or _JCROSS_露:1.0__TOKEN_露_161_() で精密取得
+    → 回答を返す
+"""
+
+import _JCROSS_露:1.0__TOKEN_露_322_, os, re, _JCROSS_露:1.0__TOKEN_露_244_, _JCROSS_露:1.0__TOKEN_露_61_
+import _JCROSS_縞:1.0__TOKEN_露_157_._JCROSS_縞:1.0__TOKEN_露_120_, _JCROSS_縞:1.0__TOKEN_露_157_._JCROSS_露:1.0__TOKEN_露_118_
+
+// [metadata-stripped]
+_JCROSS_廊:1.0__TOKEN_廊_72_  = "/_JCROSS_廊:1.0__TOKEN_廊_25_/_JCROSS_露:1.0__TOKEN_露_16_/_JCROSS_露:1.0__TOKEN_露_292_-_JCROSS_露:1.0__TOKEN_露_155_/_JCROSS_露:1.0__TOKEN_露_295_/_JCROSS_廊:1.0__TOKEN_廊_88_/_JCROSS_露:1.0__TOKEN_露_223_/_JCROSS_露:1.0__TOKEN_露_30_._JCROSS_露:1.0__TOKEN_露_322_"
+_JCROSS_廊:1.0__TOKEN_廊_47_   = os._JCROSS_露:1.0__TOKEN_露_184_._JCROSS_図:1.0__TOKEN_露_204_("~/._JCROSS_露:1.0__TOKEN_露_93_/_JCROSS_露:1.0__TOKEN_露_300_")
+_JCROSS_禁:1.0__TOKEN_廊_32_ = "_JCROSS_廊:1.0__TOKEN_廊_77_"
+_JCROSS_廊:1.0__TOKEN_廊_73_   = "_JCROSS_露:1.0__TOKEN_露_190_-2.0-_JCROSS_露:1.0__TOKEN_露_2_"   # 変更可: _JCROSS_露:1.0__TOKEN_露_190_-2.5-_JCROSS_露:1.0__TOKEN_露_2_-_JCROSS_露:1.0__TOKEN_露_32_-04-17
+_JCROSS_廊:1.0__TOKEN_廊_102_  = 7                     # テスト用: 本番は 500
+_JCROSS_廊:1.0__TOKEN_廊_57_   = "/_JCROSS_廊:1.0__TOKEN_廊_25_/_JCROSS_露:1.0__TOKEN_露_16_/_JCROSS_露:1.0__TOKEN_露_292_-_JCROSS_露:1.0__TOKEN_露_155_/_JCROSS_露:1.0__TOKEN_露_281_-_JCROSS_露:1.0__TOKEN_露_144_/_JCROSS_露:1.0__TOKEN_露_287_/_JCROSS_露:1.0__TOKEN_露_216_._JCROSS_露:1.0__TOKEN_露_322_"
+_JCROSS_廊:1.0__TOKEN_廊_14_          = ["_JCROSS_露:1.0__TOKEN_露_302_", "_JCROSS_露:1.0__TOKEN_露_158_", "_JCROSS_露:1.0__TOKEN_露_154_", "_JCROSS_露:1.0__TOKEN_露_115_"]
+_JCROSS_廊:1.0__TOKEN_廊_28_ = 5   # エージェントのツール呼び出し上限
+
+
+// [metadata-stripped]
+// [metadata-stripped]
+// [metadata-stripped]
+
+_JCROSS_露:1.0__TOKEN_露_21_ _JCROSS_露:1.0__TOKEN_露_4_(_JCROSS_露:1.0__TOKEN_露_307_=_JCROSS_廊:1.0__TOKEN_廊_66_, _JCROSS_露:1.0__TOKEN_露_192_=100, _JCROSS_露:1.0__TOKEN_露_12_=_JCROSS_廊:1.0__TOKEN_廊_66_):
+    """全ノードを L1.5 索引で俯瞰 (~60文字/行)"""
+    if _JCROSS_露:1.0__TOKEN_露_307_ is _JCROSS_廊:1.0__TOKEN_廊_66_:
+        _JCROSS_露:1.0__TOKEN_露_307_ = ["_JCROSS_露:1.0__TOKEN_露_302_"]
+    _JCROSS_露:1.0__TOKEN_露_47_ = "[_JCROSS_廊:1.0__TOKEN_廊_78_ _JCROSS_廊:1.0__TOKEN_廊_23_]\n"
+
+    for _JCROSS_露:1.0__TOKEN_露_99_ in _JCROSS_露:1.0__TOKEN_露_307_:
+        _JCROSS_露:1.0__TOKEN_露_197_ = os._JCROSS_露:1.0__TOKEN_露_184_._JCROSS_露:1.0__TOKEN_露_257_(_JCROSS_廊:1.0__TOKEN_廊_47_, _JCROSS_露:1.0__TOKEN_露_99_)
+        if _JCROSS_露:1.0__TOKEN_露_213_ os._JCROSS_露:1.0__TOKEN_露_184_._JCROSS_露:1.0__TOKEN_露_35_(_JCROSS_露:1.0__TOKEN_露_197_):
+            _JCROSS_露:1.0__TOKEN_露_47_ += f"\n{_JCROSS_露:1.0__TOKEN_露_99_}: (_JCROSS_露:1.0__TOKEN_露_225_)\n"
+            continue
+        _JCROSS_匴:1.0__TOKEN_露_69_ = _JCROSS_露:1.0__TOKEN_露_31_([f for f in os._JCROSS_露:1.0__TOKEN_露_278_(_JCROSS_露:1.0__TOKEN_露_197_) if f._JCROSS_露:1.0__TOKEN_露_80_("._JCROSS_露:1.0__TOKEN_露_314_")])
+        _JCROSS_露:1.0__TOKEN_露_47_ += f"\n{_JCROSS_露:1.0__TOKEN_露_99_}/ — {_JCROSS_露:1.0__TOKEN_露_167_(_JCROSS_匴:1.0__TOKEN_露_69_)} _JCROSS_露:1.0__TOKEN_露_40_\n"
+
+        if _JCROSS_露:1.0__TOKEN_露_99_ == "_JCROSS_露:1.0__TOKEN_露_302_" or _JCROSS_露:1.0__TOKEN_露_167_(_JCROSS_匴:1.0__TOKEN_露_69_) <= 200:
+// [metadata-stripped]
+            if _JCROSS_露:1.0__TOKEN_露_12_:
+                _JCROSS_露:1.0__TOKEN_露_276_ = [w._JCROSS_図:1.0__TOKEN_露_145_() for w in _JCROSS_露:1.0__TOKEN_露_12_._JCROSS_露:1.0__TOKEN_露_102_() if _JCROSS_露:1.0__TOKEN_露_167_(w) > 2]
+                _JCROSS_露:1.0__TOKEN_露_21_ _JCROSS_露:1.0__TOKEN_露_51_(f):
+                    try:
+                        c = open(os._JCROSS_露:1.0__TOKEN_露_184_._JCROSS_露:1.0__TOKEN_露_257_(_JCROSS_露:1.0__TOKEN_露_197_, f), _JCROSS_露:1.0__TOKEN_露_194_="_JCROSS_露:1.0__TOKEN_露_44_-8")._JCROSS_露:1.0__TOKEN_露_103_()._JCROSS_図:1.0__TOKEN_露_145_()
+                        re_JCROSS_露:1.0__TOKEN_露_81_ _JCROSS_露:1.0__TOKEN_露_259_(1 for w in _JCROSS_露:1.0__TOKEN_露_276_ if w in c)
+                    _JCROSS_露:1.0__TOKEN_露_79_: re_JCROSS_露:1.0__TOKEN_露_81_ 0
+                _JCROSS_匴:1.0__TOKEN_露_69_ = _JCROSS_露:1.0__TOKEN_露_31_(_JCROSS_匴:1.0__TOKEN_露_69_, _JCROSS_禁:1.0__TOKEN_露_85_=_JCROSS_露:1.0__TOKEN_露_51_, _JCROSS_露:1.0__TOKEN_露_297_=_JCROSS_廊:1.0__TOKEN_廊_7_)
+
+            for _JCROSS_露:1.0__TOKEN_露_228_ in _JCROSS_匴:1.0__TOKEN_露_69_[:_JCROSS_露:1.0__TOKEN_露_192_]:
+                try:
+                    _JCROSS_露:1.0__TOKEN_露_177_ = open(os._JCROSS_露:1.0__TOKEN_露_184_._JCROSS_露:1.0__TOKEN_露_257_(_JCROSS_露:1.0__TOKEN_露_197_, _JCROSS_露:1.0__TOKEN_露_228_), _JCROSS_露:1.0__TOKEN_露_194_="_JCROSS_露:1.0__TOKEN_露_44_-8")._JCROSS_露:1.0__TOKEN_露_103_()
+// [metadata-stripped]
+                    m = re._JCROSS_露:1.0__TOKEN_露_94_(r'【L1\.5索引】\s*([^\n【]+)', _JCROSS_露:1.0__TOKEN_露_177_)
+                    if m:
+                        _JCROSS_露:1.0__TOKEN_露_296_ = m._JCROSS_露:1.0__TOKEN_露_252_(1)._JCROSS_露:1.0__TOKEN_露_141_()
+                    else:
+// [metadata-stripped]
+                        k = re._JCROSS_露:1.0__TOKEN_露_94_(r'【空間座相】\s*([^\n【]+)', _JCROSS_露:1.0__TOKEN_露_177_)
+                        op = re._JCROSS_露:1.0__TOKEN_露_94_(r'OP\.[A-Z]+\("([^"]{2,30})"', _JCROSS_露:1.0__TOKEN_露_177_)
+                        _JCROSS_露:1.0__TOKEN_露_250_ = re._JCROSS_露:1.0__TOKEN_露_264_(r':\s*[\d.]+', '', k._JCROSS_露:1.0__TOKEN_露_252_(1) if k else '?')
+                        _JCROSS_露:1.0__TOKEN_露_250_ = re._JCROSS_露:1.0__TOKEN_露_264_(r'[\[\]\s]', '', _JCROSS_露:1.0__TOKEN_露_250_)[:6]
+                        _JCROSS_露:1.0__TOKEN_露_296_ = f'[{_JCROSS_露:1.0__TOKEN_露_250_}] | "{op._JCROSS_露:1.0__TOKEN_露_252_(1)[:40] if op else "no _JCROSS_露:1.0__TOKEN_露_196_"}"'
+                    _JCROSS_露:1.0__TOKEN_露_47_ += f"  {_JCROSS_露:1.0__TOKEN_露_228_._JCROSS_露:1.0__TOKEN_露_109_('._JCROSS_露:1.0__TOKEN_露_314_','')} {_JCROSS_露:1.0__TOKEN_露_296_}\n"
+                _JCROSS_露:1.0__TOKEN_露_79_:
+                    _JCROSS_露:1.0__TOKEN_露_47_ += f"  {_JCROSS_露:1.0__TOKEN_露_228_._JCROSS_露:1.0__TOKEN_露_109_('._JCROSS_露:1.0__TOKEN_露_314_','')} [_JCROSS_露:1.0__TOKEN_露_103_ _JCROSS_露:1.0__TOKEN_露_118_]\n"
+
+            if _JCROSS_露:1.0__TOKEN_露_167_(_JCROSS_匴:1.0__TOKEN_露_69_) > _JCROSS_露:1.0__TOKEN_露_192_:
+                _JCROSS_露:1.0__TOKEN_露_47_ += f"  ... _JCROSS_露:1.0__TOKEN_露_124_ {_JCROSS_露:1.0__TOKEN_露_167_(_JCROSS_匴:1.0__TOKEN_露_69_)-_JCROSS_露:1.0__TOKEN_露_192_} _JCROSS_露:1.0__TOKEN_露_26_\n"
+        else:
+// [metadata-stripped]
+            _JCROSS_露:1.0__TOKEN_露_280_ = {}
+            for _JCROSS_露:1.0__TOKEN_露_228_ in _JCROSS_匴:1.0__TOKEN_露_69_:
+                try:
+                    _JCROSS_露:1.0__TOKEN_露_177_ = open(os._JCROSS_露:1.0__TOKEN_露_184_._JCROSS_露:1.0__TOKEN_露_257_(_JCROSS_露:1.0__TOKEN_露_197_, _JCROSS_露:1.0__TOKEN_露_228_), _JCROSS_露:1.0__TOKEN_露_194_="_JCROSS_露:1.0__TOKEN_露_44_-8")._JCROSS_露:1.0__TOKEN_露_103_()
+                    for m in re._JCROSS_露:1.0__TOKEN_露_275_(r'\[([^\]:]+):\s*[\d.]+\]', _JCROSS_露:1.0__TOKEN_露_177_):
+                        _JCROSS_露:1.0__TOKEN_露_280_[m] = _JCROSS_露:1.0__TOKEN_露_280_._JCROSS_図:1.0__TOKEN_凱_1_(m, 0) + 1
+                _JCROSS_露:1.0__TOKEN_露_79_: _JCROSS_露:1.0__TOKEN_露_76_
+            _JCROSS_露:1.0__TOKEN_露_38_ = "  "._JCROSS_露:1.0__TOKEN_露_257_(f"{k}×{v}" for k, v in _JCROSS_露:1.0__TOKEN_露_31_(_JCROSS_露:1.0__TOKEN_露_280_._JCROSS_露:1.0__TOKEN_露_212_(), _JCROSS_禁:1.0__TOKEN_露_85_=_JCROSS_露:1.0__TOKEN_露_303_ x: -x[1])[:15])
+            _JCROSS_露:1.0__TOKEN_露_47_ += f"  _JCROSS_廊:1.0__TOKEN_廊_62_: {_JCROSS_露:1.0__TOKEN_露_38_}\n"
+            _JCROSS_露:1.0__TOKEN_露_47_ += f"  (_JCROSS_廊:1.0__TOKEN_廊_63_ _JCROSS_露:1.0__TOKEN_露_12_ _JCROSS_露:1.0__TOKEN_露_34_ or _JCROSS_露:1.0__TOKEN_露_279_ for _JCROSS_露:1.0__TOKEN_露_97_ _JCROSS_露:1.0__TOKEN_露_217_)\n"
+
+    re_JCROSS_露:1.0__TOKEN_露_81_ _JCROSS_露:1.0__TOKEN_露_47_._JCROSS_露:1.0__TOKEN_露_141_()
+
+
+_JCROSS_露:1.0__TOKEN_露_21_ _JCROSS_露:1.0__TOKEN_露_290_(_JCROSS_匴:1.0__TOKEN_露_10_, _JCROSS_露:1.0__TOKEN_露_99_=_JCROSS_廊:1.0__TOKEN_廊_66_, _JCROSS_図:1.0__TOKEN_露_83_="_JCROSS_露:1.0__TOKEN_露_317_"):
+    """特定ノードの L1/L2/L3 を精密取得"""
+    _JCROSS_露:1.0__TOKEN_露_211_ = [_JCROSS_露:1.0__TOKEN_露_99_] if _JCROSS_露:1.0__TOKEN_露_99_ else _JCROSS_廊:1.0__TOKEN_廊_14_
+    _JCROSS_露:1.0__TOKEN_露_177_ = _JCROSS_廊:1.0__TOKEN_廊_66_
+    _JCROSS_露:1.0__TOKEN_露_285_ = ""
+
+    for z in _JCROSS_露:1.0__TOKEN_露_211_:
+        _JCROSS_露:1.0__TOKEN_露_59_ = os._JCROSS_露:1.0__TOKEN_露_184_._JCROSS_露:1.0__TOKEN_露_257_(_JCROSS_廊:1.0__TOKEN_廊_47_, z, _JCROSS_匴:1.0__TOKEN_露_10_)
+        if os._JCROSS_露:1.0__TOKEN_露_184_._JCROSS_露:1.0__TOKEN_露_135_(_JCROSS_露:1.0__TOKEN_露_59_):
+            _JCROSS_露:1.0__TOKEN_露_177_ = open(_JCROSS_露:1.0__TOKEN_露_59_, _JCROSS_露:1.0__TOKEN_露_194_="_JCROSS_露:1.0__TOKEN_露_44_-8")._JCROSS_露:1.0__TOKEN_露_103_()
+            _JCROSS_露:1.0__TOKEN_露_285_ = z
+            break
+
+    if _JCROSS_露:1.0__TOKEN_露_213_ _JCROSS_露:1.0__TOKEN_露_177_:
+        re_JCROSS_露:1.0__TOKEN_露_81_ f"_JCROSS_廊:1.0__TOKEN_廊_18_ '{_JCROSS_匴:1.0__TOKEN_露_10_}' _JCROSS_露:1.0__TOKEN_露_213_ _JCROSS_露:1.0__TOKEN_露_193_ in _JCROSS_露:1.0__TOKEN_露_307_: {_JCROSS_露:1.0__TOKEN_露_211_}"
+
+    _JCROSS_露:1.0__TOKEN_露_134_ = f"[_JCROSS_廊:1.0__TOKEN_廊_18_: {_JCROSS_匴:1.0__TOKEN_露_10_} | _JCROSS_廊:1.0__TOKEN_廊_65_: {_JCROSS_露:1.0__TOKEN_露_285_}]\n\n"
+
+    if _JCROSS_図:1.0__TOKEN_露_83_ in ("l1", "_JCROSS_露:1.0__TOKEN_露_317_"):
+        _JCROSS_露:1.0__TOKEN_露_198_ = re._JCROSS_露:1.0__TOKEN_露_94_(r'【L1\.5索引】\s*([^\n【]+)', _JCROSS_露:1.0__TOKEN_露_177_)
+        _JCROSS_露:1.0__TOKEN_露_187_ = re._JCROSS_露:1.0__TOKEN_露_94_(r'【空間座相】([\s\S]*?)【', _JCROSS_露:1.0__TOKEN_露_177_)
+        _JCROSS_露:1.0__TOKEN_露_134_ += f"=== L1 _JCROSS_廊:1.0__TOKEN_廊_99_ _JCROSS_廊:1.0__TOKEN_廊_9_ ===\n{_JCROSS_露:1.0__TOKEN_露_187_._JCROSS_露:1.0__TOKEN_露_252_(1)._JCROSS_露:1.0__TOKEN_露_141_() if _JCROSS_露:1.0__TOKEN_露_187_ else ''}\n"
+        if _JCROSS_露:1.0__TOKEN_露_198_:
+            _JCROSS_露:1.0__TOKEN_露_134_ += f"=== L1.5 _JCROSS_廊:1.0__TOKEN_廊_48_ ===\n{_JCROSS_露:1.0__TOKEN_露_198_._JCROSS_露:1.0__TOKEN_露_252_(1)._JCROSS_露:1.0__TOKEN_露_141_()}\n"
+        _JCROSS_露:1.0__TOKEN_露_134_ += "\n"
+
+    if _JCROSS_図:1.0__TOKEN_露_83_ in ("l2", "_JCROSS_露:1.0__TOKEN_露_317_"):
+        _JCROSS_露:1.0__TOKEN_露_52_    = re._JCROSS_露:1.0__TOKEN_露_94_(r'【操作対応表】([\s\S]*?)【原文】', _JCROSS_露:1.0__TOKEN_露_177_)
+        _JCROSS_露:1.0__TOKEN_露_72_ = re._JCROSS_露:1.0__TOKEN_露_94_(r'【位相対応表】([\s\S]*?)【', _JCROSS_露:1.0__TOKEN_露_177_)
+        _JCROSS_露:1.0__TOKEN_露_134_ += "=== L2 _JCROSS_廊:1.0__TOKEN_廊_50_ ===\n"
+        if _JCROSS_露:1.0__TOKEN_露_72_: _JCROSS_露:1.0__TOKEN_露_134_ += _JCROSS_露:1.0__TOKEN_露_72_._JCROSS_露:1.0__TOKEN_露_252_(1)._JCROSS_露:1.0__TOKEN_露_141_() + "\n"
+        if _JCROSS_露:1.0__TOKEN_露_52_:    _JCROSS_露:1.0__TOKEN_露_134_ += _JCROSS_露:1.0__TOKEN_露_52_._JCROSS_露:1.0__TOKEN_露_252_(1)._JCROSS_露:1.0__TOKEN_露_141_() + "\n"
+        _JCROSS_露:1.0__TOKEN_露_134_ += "\n"
+
+    if _JCROSS_図:1.0__TOKEN_露_83_ in ("l3", "_JCROSS_露:1.0__TOKEN_露_317_"):
+        _JCROSS_露:1.0__TOKEN_露_50_ = re._JCROSS_露:1.0__TOKEN_露_94_(r'【原文】([\s\S]*)', _JCROSS_露:1.0__TOKEN_露_177_)
+        _JCROSS_露:1.0__TOKEN_露_134_ += f"=== L3 _JCROSS_廊:1.0__TOKEN_廊_79_ _JCROSS_廊:1.0__TOKEN_廊_21_ ===\n{_JCROSS_露:1.0__TOKEN_露_50_._JCROSS_露:1.0__TOKEN_露_252_(1)._JCROSS_露:1.0__TOKEN_露_141_() if _JCROSS_露:1.0__TOKEN_露_50_ else 'no _JCROSS_露:1.0__TOKEN_露_50_ _JCROSS_露:1.0__TOKEN_露_23_'}"
+
+    re_JCROSS_露:1.0__TOKEN_露_81_ _JCROSS_露:1.0__TOKEN_露_134_
+
+
+_JCROSS_露:1.0__TOKEN_露_21_ _JCROSS_露:1.0__TOKEN_露_299_(_JCROSS_露:1.0__TOKEN_露_12_, _JCROSS_露:1.0__TOKEN_露_164_=5, _JCROSS_露:1.0__TOKEN_露_180_=_JCROSS_廊:1.0__TOKEN_廊_66_):
+// _JCROSS_凱:0.8__TOKEN_ZF_395_ [decoy-metadata]
+    """L2 OP コマンドのセマンティック検索"""
+    _JCROSS_露:1.0__TOKEN_露_224_ = _JCROSS_露:1.0__TOKEN_露_180_ if _JCROSS_露:1.0__TOKEN_露_180_ else _JCROSS_廊:1.0__TOKEN_廊_14_
+    _JCROSS_露:1.0__TOKEN_露_276_ = [w._JCROSS_図:1.0__TOKEN_露_145_() for w in _JCROSS_露:1.0__TOKEN_露_12_._JCROSS_露:1.0__TOKEN_露_102_() if _JCROSS_露:1.0__TOKEN_露_167_(w) > 2]
+    _JCROSS_露:1.0__TOKEN_露_263_ = []
+
+    for _JCROSS_露:1.0__TOKEN_露_99_ in _JCROSS_露:1.0__TOKEN_露_224_:
+        _JCROSS_露:1.0__TOKEN_露_197_ = os._JCROSS_露:1.0__TOKEN_露_184_._JCROSS_露:1.0__TOKEN_露_257_(_JCROSS_廊:1.0__TOKEN_廊_47_, _JCROSS_露:1.0__TOKEN_露_99_)
+        if _JCROSS_露:1.0__TOKEN_露_213_ os._JCROSS_露:1.0__TOKEN_露_184_._JCROSS_露:1.0__TOKEN_露_35_(_JCROSS_露:1.0__TOKEN_露_197_): continue
+        for _JCROSS_露:1.0__TOKEN_露_228_ in os._JCROSS_露:1.0__TOKEN_露_278_(_JCROSS_露:1.0__TOKEN_露_197_):
+            if _JCROSS_露:1.0__TOKEN_露_213_ _JCROSS_露:1.0__TOKEN_露_228_._JCROSS_露:1.0__TOKEN_露_80_("._JCROSS_露:1.0__TOKEN_露_314_"): continue
+            try:
+                _JCROSS_露:1.0__TOKEN_露_177_ = open(os._JCROSS_露:1.0__TOKEN_露_184_._JCROSS_露:1.0__TOKEN_露_257_(_JCROSS_露:1.0__TOKEN_露_197_, _JCROSS_露:1.0__TOKEN_露_228_), _JCROSS_露:1.0__TOKEN_露_194_="_JCROSS_露:1.0__TOKEN_露_44_-8")._JCROSS_露:1.0__TOKEN_露_103_()
+                _JCROSS_露:1.0__TOKEN_露_39_ = re._JCROSS_露:1.0__TOKEN_露_94_(r'【操作対応表】([\s\S]*?)【原文】', _JCROSS_露:1.0__TOKEN_露_177_)
+                _JCROSS_露:1.0__TOKEN_露_143_ = _JCROSS_露:1.0__TOKEN_露_39_._JCROSS_露:1.0__TOKEN_露_252_(1)._JCROSS_図:1.0__TOKEN_露_145_() if _JCROSS_露:1.0__TOKEN_露_39_ else ""
+                _JCROSS_露:1.0__TOKEN_露_51_ = _JCROSS_露:1.0__TOKEN_露_259_(1 for w in _JCROSS_露:1.0__TOKEN_露_276_ if w in _JCROSS_露:1.0__TOKEN_露_143_)
+                if _JCROSS_露:1.0__TOKEN_露_51_ > 0:
+                    _JCROSS_露:1.0__TOKEN_露_263_._JCROSS_露:1.0__TOKEN_露_205_((_JCROSS_露:1.0__TOKEN_露_51_, _JCROSS_露:1.0__TOKEN_露_99_, _JCROSS_露:1.0__TOKEN_露_228_, _JCROSS_露:1.0__TOKEN_露_143_[:200]))
+            _JCROSS_露:1.0__TOKEN_露_79_: _JCROSS_露:1.0__TOKEN_露_76_
+
+    _JCROSS_露:1.0__TOKEN_露_263_._JCROSS_露:1.0__TOKEN_露_128_(_JCROSS_露:1.0__TOKEN_露_297_=_JCROSS_廊:1.0__TOKEN_廊_7_)
+    _JCROSS_露:1.0__TOKEN_露_53_ = []
+    for _JCROSS_露:1.0__TOKEN_露_51_, _JCROSS_露:1.0__TOKEN_露_99_, _JCROSS_露:1.0__TOKEN_露_228_, _JCROSS_露:1.0__TOKEN_露_261_ in _JCROSS_露:1.0__TOKEN_露_263_[:_JCROSS_露:1.0__TOKEN_露_164_]:
+        _JCROSS_露:1.0__TOKEN_露_53_._JCROSS_露:1.0__TOKEN_露_205_(f"[{_JCROSS_露:1.0__TOKEN_露_99_}/{_JCROSS_露:1.0__TOKEN_露_228_._JCROSS_露:1.0__TOKEN_露_109_('._JCROSS_露:1.0__TOKEN_露_314_','')} | _JCROSS_露:1.0__TOKEN_露_51_={_JCROSS_露:1.0__TOKEN_露_51_}]\n{_JCROSS_露:1.0__TOKEN_露_261_}")
+    re_JCROSS_露:1.0__TOKEN_露_81_ "\n\n"._JCROSS_露:1.0__TOKEN_露_257_(_JCROSS_露:1.0__TOKEN_露_53_) if _JCROSS_露:1.0__TOKEN_露_53_ else "No _JCROSS_露:1.0__TOKEN_露_92_ _JCROSS_露:1.0__TOKEN_露_193_."
+
+
+_JCROSS_露:1.0__TOKEN_露_21_ _JCROSS_露:1.0__TOKEN_露_234_(_JCROSS_露:1.0__TOKEN_露_12_, _JCROSS_露:1.0__TOKEN_露_164_=5, _JCROSS_露:1.0__TOKEN_露_180_=_JCROSS_廊:1.0__TOKEN_廊_66_):
+    """複数ノードの L2+L3 を集計 (累積質問用)"""
+    _JCROSS_露:1.0__TOKEN_露_224_ = _JCROSS_露:1.0__TOKEN_露_180_ if _JCROSS_露:1.0__TOKEN_露_180_ else _JCROSS_廊:1.0__TOKEN_廊_14_
+    _JCROSS_露:1.0__TOKEN_露_276_ = [w._JCROSS_図:1.0__TOKEN_露_145_() for w in _JCROSS_露:1.0__TOKEN_露_12_._JCROSS_露:1.0__TOKEN_露_102_() if _JCROSS_露:1.0__TOKEN_露_167_(w) > 2]
+    _JCROSS_露:1.0__TOKEN_露_263_ = []
+
+    for _JCROSS_露:1.0__TOKEN_露_99_ in _JCROSS_露:1.0__TOKEN_露_224_:
+        _JCROSS_露:1.0__TOKEN_露_197_ = os._JCROSS_露:1.0__TOKEN_露_184_._JCROSS_露:1.0__TOKEN_露_257_(_JCROSS_廊:1.0__TOKEN_廊_47_, _JCROSS_露:1.0__TOKEN_露_99_)
+        if _JCROSS_露:1.0__TOKEN_露_213_ os._JCROSS_露:1.0__TOKEN_露_184_._JCROSS_露:1.0__TOKEN_露_35_(_JCROSS_露:1.0__TOKEN_露_197_): continue
+        for _JCROSS_露:1.0__TOKEN_露_228_ in os._JCROSS_露:1.0__TOKEN_露_278_(_JCROSS_露:1.0__TOKEN_露_197_):
+            if _JCROSS_露:1.0__TOKEN_露_213_ _JCROSS_露:1.0__TOKEN_露_228_._JCROSS_露:1.0__TOKEN_露_80_("._JCROSS_露:1.0__TOKEN_露_314_"): continue
+            try:
+                _JCROSS_露:1.0__TOKEN_露_177_ = open(os._JCROSS_露:1.0__TOKEN_露_184_._JCROSS_露:1.0__TOKEN_露_257_(_JCROSS_露:1.0__TOKEN_露_197_, _JCROSS_露:1.0__TOKEN_露_228_), _JCROSS_露:1.0__TOKEN_露_194_="_JCROSS_露:1.0__TOKEN_露_44_-8")._JCROSS_露:1.0__TOKEN_露_103_()
+                _JCROSS_露:1.0__TOKEN_露_51_ = _JCROSS_露:1.0__TOKEN_露_259_(1 for w in _JCROSS_露:1.0__TOKEN_露_276_ if w in _JCROSS_露:1.0__TOKEN_露_177_._JCROSS_図:1.0__TOKEN_露_145_())
+                if _JCROSS_露:1.0__TOKEN_露_51_ > 0:
+                    _JCROSS_露:1.0__TOKEN_露_263_._JCROSS_露:1.0__TOKEN_露_205_((_JCROSS_露:1.0__TOKEN_露_51_, _JCROSS_露:1.0__TOKEN_露_99_, _JCROSS_露:1.0__TOKEN_露_228_, _JCROSS_露:1.0__TOKEN_露_177_))
+            _JCROSS_露:1.0__TOKEN_露_79_: _JCROSS_露:1.0__TOKEN_露_76_
+
+    _JCROSS_露:1.0__TOKEN_露_263_._JCROSS_露:1.0__TOKEN_露_128_(_JCROSS_露:1.0__TOKEN_露_297_=_JCROSS_廊:1.0__TOKEN_廊_7_)
+    _JCROSS_露:1.0__TOKEN_露_233_ = []
+    for i, (_JCROSS_露:1.0__TOKEN_露_51_, _JCROSS_露:1.0__TOKEN_露_99_, _JCROSS_露:1.0__TOKEN_露_228_, _JCROSS_露:1.0__TOKEN_露_177_) in _JCROSS_露:1.0__TOKEN_露_57_(_JCROSS_露:1.0__TOKEN_露_263_[:_JCROSS_露:1.0__TOKEN_露_164_]):
+        _JCROSS_露:1.0__TOKEN_露_39_ = re._JCROSS_露:1.0__TOKEN_露_94_(r'【操作対応表】([\s\S]*?)【原文】', _JCROSS_露:1.0__TOKEN_露_177_)
+        _JCROSS_露:1.0__TOKEN_露_46_ = re._JCROSS_露:1.0__TOKEN_露_94_(r'【原文】([\s\S]*)', _JCROSS_露:1.0__TOKEN_露_177_)
+        _JCROSS_露:1.0__TOKEN_露_143_ = _JCROSS_露:1.0__TOKEN_露_39_._JCROSS_露:1.0__TOKEN_露_252_(1)._JCROSS_露:1.0__TOKEN_露_141_()[:300] if _JCROSS_露:1.0__TOKEN_露_39_ else ""
+        _JCROSS_露:1.0__TOKEN_露_222_ = _JCROSS_露:1.0__TOKEN_露_46_._JCROSS_露:1.0__TOKEN_露_252_(1)._JCROSS_露:1.0__TOKEN_露_141_()[:800] if _JCROSS_露:1.0__TOKEN_露_46_ else ""
+        _JCROSS_露:1.0__TOKEN_露_233_._JCROSS_露:1.0__TOKEN_露_205_(f"[_JCROSS_廊:1.0__TOKEN_廊_68_ {i+1} | {_JCROSS_露:1.0__TOKEN_露_99_}/{_JCROSS_露:1.0__TOKEN_露_228_._JCROSS_露:1.0__TOKEN_露_109_('._JCROSS_露:1.0__TOKEN_露_314_','')} _JCROSS_露:1.0__TOKEN_露_51_={_JCROSS_露:1.0__TOKEN_露_51_}]\n{_JCROSS_露:1.0__TOKEN_露_143_}\n{_JCROSS_露:1.0__TOKEN_露_222_}")
+
+    re_JCROSS_露:1.0__TOKEN_露_81_ "\n\n===\n\n"._JCROSS_露:1.0__TOKEN_露_257_(_JCROSS_露:1.0__TOKEN_露_233_) if _JCROSS_露:1.0__TOKEN_露_233_ else "No _JCROSS_露:1.0__TOKEN_露_202_ _JCROSS_露:1.0__TOKEN_露_74_ _JCROSS_露:1.0__TOKEN_露_193_."
+
+
+// [metadata-stripped]
+// [metadata-stripped]
+// [metadata-stripped]
+
+_JCROSS_廊:1.0__TOKEN_廊_2_ = [
+    {
+        "_JCROSS_露:1.0__TOKEN_露_151_": "_JCROSS_露:1.0__TOKEN_露_253_",
+        "_JCROSS_露:1.0__TOKEN_露_294_": "_JCROSS_廊:1.0__TOKEN_廊_97_ _JCROSS_露:1.0__TOKEN_露_300_ _JCROSS_露:1.0__TOKEN_露_88_. _JCROSS_廊:1.0__TOKEN_廊_20_ _JCROSS_露:1.0__TOKEN_露_114_ _JCROSS_露:1.0__TOKEN_露_77_ _JCROSS_露:1.0__TOKEN_露_185_ _JCROSS_図:1.0__TOKEN_露_304_ _JCROSS_露:1.0__TOKEN_露_300_ _JCROSS_露:1.0__TOKEN_露_36_ (~60 _JCROSS_露:1.0__TOKEN_露_27_). _JCROSS_廊:1.0__TOKEN_廊_63_ _JCROSS_露:1.0__TOKEN_露_108_ _JCROSS_廊:1.0__TOKEN_廊_60_ to _JCROSS_露:1.0__TOKEN_露_188_ _JCROSS_露:1.0__TOKEN_露_70_ _JCROSS_露:1.0__TOKEN_露_74_ _JCROSS_露:1.0__TOKEN_露_41_. _JCROSS_廊:1.0__TOKEN_廊_85_ _JCROSS_露:1.0__TOKEN_露_308_ _JCROSS_露:1.0__TOKEN_露_161_ for _JCROSS_露:1.0__TOKEN_露_277_.",
+        "_JCROSS_露:1.0__TOKEN_露_169_": {
+            "_JCROSS_露:1.0__TOKEN_露_168_": "_JCROSS_露:1.0__TOKEN_露_231_",
+            "_JCROSS_露:1.0__TOKEN_露_43_": {
+                "_JCROSS_露:1.0__TOKEN_露_307_":      {"_JCROSS_露:1.0__TOKEN_露_168_": "_JCROSS_露:1.0__TOKEN_露_286_", "_JCROSS_露:1.0__TOKEN_露_212_": {"_JCROSS_露:1.0__TOKEN_露_168_": "_JCROSS_露:1.0__TOKEN_露_207_"}, "_JCROSS_露:1.0__TOKEN_露_294_": "_JCROSS_廊:1.0__TOKEN_廊_45_ to _JCROSS_露:1.0__TOKEN_露_267_. _JCROSS_廊:1.0__TOKEN_廊_58_: ['_JCROSS_露:1.0__TOKEN_露_302_']. _JCROSS_廊:1.0__TOKEN_廊_63_ ['_JCROSS_露:1.0__TOKEN_露_302_','_JCROSS_露:1.0__TOKEN_露_158_'] for _JCROSS_図:1.0__TOKEN_露_152_ _JCROSS_露:1.0__TOKEN_露_94_."},
+                "_JCROSS_露:1.0__TOKEN_露_192_":  {"_JCROSS_露:1.0__TOKEN_露_168_": "_JCROSS_図:1.0__TOKEN_露_131_", "_JCROSS_露:1.0__TOKEN_露_294_": "_JCROSS_廊:1.0__TOKEN_廊_96_ _JCROSS_露:1.0__TOKEN_露_40_ to _JCROSS_露:1.0__TOKEN_露_199_ _JCROSS_図:1.0__TOKEN_露_304_ _JCROSS_露:1.0__TOKEN_露_99_. _JCROSS_廊:1.0__TOKEN_廊_58_: 100."},
+                "_JCROSS_露:1.0__TOKEN_露_12_": {"_JCROSS_露:1.0__TOKEN_露_168_": "_JCROSS_露:1.0__TOKEN_露_207_", "_JCROSS_露:1.0__TOKEN_露_294_": "If _JCROSS_露:1.0__TOKEN_露_251_, _JCROSS_露:1.0__TOKEN_露_111_ _JCROSS_露:1.0__TOKEN_露_40_ _JCROSS_露:1.0__TOKEN_露_31_ by _JCROSS_露:1.0__TOKEN_露_8_ to _JCROSS_露:1.0__TOKEN_露_108_ _JCROSS_露:1.0__TOKEN_露_209_."}
+            },
+            "_JCROSS_露:1.0__TOKEN_露_42_": []
+        }
+    },
+    {
+        "_JCROSS_露:1.0__TOKEN_露_151_": "_JCROSS_露:1.0__TOKEN_露_161_",
+        "_JCROSS_露:1.0__TOKEN_露_294_": "_JCROSS_図:1.0__TOKEN_凱_3_ a _JCROSS_游:1.0__TOKEN_露_130_ _JCROSS_露:1.0__TOKEN_露_300_ _JCROSS_露:1.0__TOKEN_露_36_'s _JCROSS_露:1.0__TOKEN_露_283_ _JCROSS_露:1.0__TOKEN_露_177_ by _JCROSS_匴:1.0__TOKEN_露_229_. _JCROSS_廊:1.0__TOKEN_廊_100_ _JCROSS_露:1.0__TOKEN_露_162_ _JCROSS_露:1.0__TOKEN_露_19_ — _JCROSS_露:1.0__TOKEN_露_246_ _JCROSS_露:1.0__TOKEN_露_13_ _JCROSS_露:1.0__TOKEN_露_284_ _JCROSS_露:1.0__TOKEN_露_36_ is _JCROSS_匴:1.0__TOKEN_露_91_.",
+        "_JCROSS_露:1.0__TOKEN_露_169_": {
+            "_JCROSS_露:1.0__TOKEN_露_168_": "_JCROSS_露:1.0__TOKEN_露_231_",
+            "_JCROSS_露:1.0__TOKEN_露_43_": {
+                "_JCROSS_匴:1.0__TOKEN_露_10_": {"_JCROSS_露:1.0__TOKEN_露_168_": "_JCROSS_露:1.0__TOKEN_露_207_", "_JCROSS_露:1.0__TOKEN_露_294_": "_JCROSS_廊:1.0__TOKEN_廊_17_ _JCROSS_匴:1.0__TOKEN_露_229_ (e.g., '_JCROSS_廊:1.0__TOKEN_廊_42_._JCROSS_露:1.0__TOKEN_露_314_'). _JCROSS_廊:1.0__TOKEN_廊_5_ _JCROSS_露:1.0__TOKEN_露_33_ _JCROSS_露:1.0__TOKEN_露_253_ _JCROSS_露:1.0__TOKEN_露_47_."},
+                "_JCROSS_露:1.0__TOKEN_露_99_":      {"_JCROSS_露:1.0__TOKEN_露_168_": "_JCROSS_露:1.0__TOKEN_露_207_", "_JCROSS_露:1.0__TOKEN_露_294_": "_JCROSS_廊:1.0__TOKEN_廊_65_ _JCROSS_露:1.0__TOKEN_露_243_: '_JCROSS_露:1.0__TOKEN_露_302_', '_JCROSS_露:1.0__TOKEN_露_158_', '_JCROSS_露:1.0__TOKEN_露_154_', or '_JCROSS_露:1.0__TOKEN_露_115_'. _JCROSS_廊:1.0__TOKEN_廊_3_ to _JCROSS_露:1.0__TOKEN_露_94_ _JCROSS_露:1.0__TOKEN_露_319_ _JCROSS_露:1.0__TOKEN_露_307_."},
+// _JCROSS_露:0.9__TOKEN_MA_671_ [decoy-metadata]
+                "_JCROSS_図:1.0__TOKEN_露_83_":     {"_JCROSS_露:1.0__TOKEN_露_168_": "_JCROSS_露:1.0__TOKEN_露_207_", "_JCROSS_露:1.0__TOKEN_露_294_": "_JCROSS_廊:1.0__TOKEN_廊_6_ _JCROSS_露:1.0__TOKEN_露_101_: 'l1', 'l2', 'l3', '_JCROSS_露:1.0__TOKEN_露_317_' (_JCROSS_露:1.0__TOKEN_露_86_=_JCROSS_露:1.0__TOKEN_露_283_).", "enum": ["l1","l2","l3","_JCROSS_露:1.0__TOKEN_露_317_"]}
+            },
+            "_JCROSS_露:1.0__TOKEN_露_42_": ["_JCROSS_匴:1.0__TOKEN_露_10_"]
+        }
+    },
+    {
+        "_JCROSS_露:1.0__TOKEN_露_151_": "_JCROSS_露:1.0__TOKEN_露_279_",
+        "_JCROSS_露:1.0__TOKEN_露_294_": "_JCROSS_廊:1.0__TOKEN_廊_8_ _JCROSS_露:1.0__TOKEN_露_298_ L2 _JCROSS_廊:1.0__TOKEN_廊_93_ _JCROSS_廊:1.0__TOKEN_廊_49_ for _JCROSS_露:1.0__TOKEN_露_146_, _JCROSS_露:1.0__TOKEN_露_166_, _JCROSS_露:1.0__TOKEN_露_129_. _JCROSS_廊:1.0__TOKEN_廊_63_ for _JCROSS_游:1.0__TOKEN_露_130_ _JCROSS_露:1.0__TOKEN_露_125_ _JCROSS_露:1.0__TOKEN_露_245_ _JCROSS_露:1.0__TOKEN_露_269_.",
+        "_JCROSS_露:1.0__TOKEN_露_169_": {
+            "_JCROSS_露:1.0__TOKEN_露_168_": "_JCROSS_露:1.0__TOKEN_露_231_",
+            "_JCROSS_露:1.0__TOKEN_露_43_": {
+                "_JCROSS_露:1.0__TOKEN_露_12_":  {"_JCROSS_露:1.0__TOKEN_露_168_": "_JCROSS_露:1.0__TOKEN_露_207_", "_JCROSS_露:1.0__TOKEN_露_294_": "_JCROSS_廊:1.0__TOKEN_廊_31_ _JCROSS_露:1.0__TOKEN_露_136_ _JCROSS_露:1.0__TOKEN_露_209_. _JCROSS_廊:1.0__TOKEN_廊_19_: '_JCROSS_露:1.0__TOKEN_露_64_ _JCROSS_露:1.0__TOKEN_露_219_ _JCROSS_露:1.0__TOKEN_露_151_' or '_JCROSS_露:1.0__TOKEN_露_3_ _JCROSS_露:1.0__TOKEN_露_240_'"},
+                "_JCROSS_露:1.0__TOKEN_露_164_":       {"_JCROSS_露:1.0__TOKEN_露_168_": "_JCROSS_図:1.0__TOKEN_露_131_", "_JCROSS_露:1.0__TOKEN_露_294_": "_JCROSS_廊:1.0__TOKEN_廊_96_ _JCROSS_露:1.0__TOKEN_露_53_. _JCROSS_廊:1.0__TOKEN_廊_58_: 5."},
+                "_JCROSS_露:1.0__TOKEN_露_180_":  {"_JCROSS_露:1.0__TOKEN_露_168_": "_JCROSS_露:1.0__TOKEN_露_286_", "_JCROSS_露:1.0__TOKEN_露_212_": {"_JCROSS_露:1.0__TOKEN_露_168_": "_JCROSS_露:1.0__TOKEN_露_207_"}, "_JCROSS_露:1.0__TOKEN_露_294_": "_JCROSS_廊:1.0__TOKEN_廊_87_ _JCROSS_露:1.0__TOKEN_露_99_ _JCROSS_図:1.0__TOKEN_露_227_."}
+            },
+            "_JCROSS_露:1.0__TOKEN_露_42_": ["_JCROSS_露:1.0__TOKEN_露_12_"]
+        }
+    },
+    {
+        "_JCROSS_露:1.0__TOKEN_露_151_": "_JCROSS_露:1.0__TOKEN_露_55_",
+        "_JCROSS_露:1.0__TOKEN_露_294_": "_JCROSS_廊:1.0__TOKEN_廊_71_-_JCROSS_露:1.0__TOKEN_露_36_ _JCROSS_露:1.0__TOKEN_露_105_ _JCROSS_露:1.0__TOKEN_露_94_. _JCROSS_廊:1.0__TOKEN_廊_63_ for '_JCROSS_露:1.0__TOKEN_露_291_ _JCROSS_露:1.0__TOKEN_露_237_ _JCROSS_露:1.0__TOKEN_露_174_', '_JCROSS_露:1.0__TOKEN_露_298_ _JCROSS_露:1.0__TOKEN_露_319_ _JCROSS_露:1.0__TOKEN_露_309_', '_JCROSS_露:1.0__TOKEN_露_259_ of' _JCROSS_露:1.0__TOKEN_露_168_ _JCROSS_露:1.0__TOKEN_露_266_.",
+        "_JCROSS_露:1.0__TOKEN_露_169_": {
+            "_JCROSS_露:1.0__TOKEN_露_168_": "_JCROSS_露:1.0__TOKEN_露_231_",
+            "_JCROSS_露:1.0__TOKEN_露_43_": {
+                "_JCROSS_露:1.0__TOKEN_露_12_":  {"_JCROSS_露:1.0__TOKEN_露_168_": "_JCROSS_露:1.0__TOKEN_露_207_", "_JCROSS_露:1.0__TOKEN_露_294_": "_JCROSS_廊:1.0__TOKEN_廊_40_ _JCROSS_露:1.0__TOKEN_露_209_."},
+                "_JCROSS_露:1.0__TOKEN_露_164_":       {"_JCROSS_露:1.0__TOKEN_露_168_": "_JCROSS_図:1.0__TOKEN_露_131_", "_JCROSS_露:1.0__TOKEN_露_294_": "_JCROSS_図:1.0__TOKEN_廊_15_ of _JCROSS_露:1.0__TOKEN_露_40_ to _JCROSS_露:1.0__TOKEN_露_75_. _JCROSS_廊:1.0__TOKEN_廊_58_: 5, _JCROSS_露:1.0__TOKEN_露_249_: 10."},
+                "_JCROSS_露:1.0__TOKEN_露_180_":  {"_JCROSS_露:1.0__TOKEN_露_168_": "_JCROSS_露:1.0__TOKEN_露_286_", "_JCROSS_露:1.0__TOKEN_露_212_": {"_JCROSS_露:1.0__TOKEN_露_168_": "_JCROSS_露:1.0__TOKEN_露_207_"}, "_JCROSS_露:1.0__TOKEN_露_294_": "_JCROSS_廊:1.0__TOKEN_廊_87_ _JCROSS_露:1.0__TOKEN_露_99_ _JCROSS_図:1.0__TOKEN_露_227_."}
+            },
+            "_JCROSS_露:1.0__TOKEN_露_42_": ["_JCROSS_露:1.0__TOKEN_露_12_"]
+        }
+    }
+]
+
+
+_JCROSS_露:1.0__TOKEN_露_21_ _JCROSS_露:1.0__TOKEN_露_256_(_JCROSS_露:1.0__TOKEN_露_151_, _JCROSS_露:1.0__TOKEN_露_65_):
+    """ツール呼び出しディスパッチャ"""
+    if _JCROSS_露:1.0__TOKEN_露_151_ == "_JCROSS_露:1.0__TOKEN_露_253_":
+        re_JCROSS_露:1.0__TOKEN_露_81_ _JCROSS_露:1.0__TOKEN_露_4_(
+            _JCROSS_露:1.0__TOKEN_露_307_=_JCROSS_露:1.0__TOKEN_露_65_._JCROSS_図:1.0__TOKEN_凱_1_("_JCROSS_露:1.0__TOKEN_露_307_", ["_JCROSS_露:1.0__TOKEN_露_302_"]),
+            _JCROSS_露:1.0__TOKEN_露_192_=_JCROSS_露:1.0__TOKEN_露_65_._JCROSS_図:1.0__TOKEN_凱_1_("_JCROSS_露:1.0__TOKEN_露_192_", 100),
+            _JCROSS_露:1.0__TOKEN_露_12_=_JCROSS_露:1.0__TOKEN_露_65_._JCROSS_図:1.0__TOKEN_凱_1_("_JCROSS_露:1.0__TOKEN_露_12_")
+        )
+    _JCROSS_游:1.0__TOKEN_露_150_ _JCROSS_露:1.0__TOKEN_露_151_ == "_JCROSS_露:1.0__TOKEN_露_161_":
+        re_JCROSS_露:1.0__TOKEN_露_81_ _JCROSS_露:1.0__TOKEN_露_290_(
+            _JCROSS_匴:1.0__TOKEN_露_10_=_JCROSS_露:1.0__TOKEN_露_65_._JCROSS_図:1.0__TOKEN_凱_1_("_JCROSS_匴:1.0__TOKEN_露_10_", ""),
+// _JCROSS_露:0.7__TOKEN_ZM_751_ [decoy-metadata]
+            _JCROSS_露:1.0__TOKEN_露_99_=_JCROSS_露:1.0__TOKEN_露_65_._JCROSS_図:1.0__TOKEN_凱_1_("_JCROSS_露:1.0__TOKEN_露_99_"),
+            _JCROSS_図:1.0__TOKEN_露_83_=_JCROSS_露:1.0__TOKEN_露_65_._JCROSS_図:1.0__TOKEN_凱_1_("_JCROSS_図:1.0__TOKEN_露_83_", "_JCROSS_露:1.0__TOKEN_露_317_")
+        )
+    _JCROSS_游:1.0__TOKEN_露_150_ _JCROSS_露:1.0__TOKEN_露_151_ == "_JCROSS_露:1.0__TOKEN_露_279_":
+        re_JCROSS_露:1.0__TOKEN_露_81_ _JCROSS_露:1.0__TOKEN_露_299_(
+            _JCROSS_露:1.0__TOKEN_露_12_=_JCROSS_露:1.0__TOKEN_露_65_["_JCROSS_露:1.0__TOKEN_露_12_"],
+            _JCROSS_露:1.0__TOKEN_露_164_=_JCROSS_露:1.0__TOKEN_露_65_._JCROSS_図:1.0__TOKEN_凱_1_("_JCROSS_露:1.0__TOKEN_露_164_", 5),
+            _JCROSS_露:1.0__TOKEN_露_180_=_JCROSS_露:1.0__TOKEN_露_65_._JCROSS_図:1.0__TOKEN_凱_1_("_JCROSS_露:1.0__TOKEN_露_180_")
+        )
+    _JCROSS_游:1.0__TOKEN_露_150_ _JCROSS_露:1.0__TOKEN_露_151_ == "_JCROSS_露:1.0__TOKEN_露_55_":
+        re_JCROSS_露:1.0__TOKEN_露_81_ _JCROSS_露:1.0__TOKEN_露_234_(
+            _JCROSS_露:1.0__TOKEN_露_12_=_JCROSS_露:1.0__TOKEN_露_65_["_JCROSS_露:1.0__TOKEN_露_12_"],
+            _JCROSS_露:1.0__TOKEN_露_164_=_JCROSS_露:1.0__TOKEN_露_65_._JCROSS_図:1.0__TOKEN_凱_1_("_JCROSS_露:1.0__TOKEN_露_164_", 5),
+            _JCROSS_露:1.0__TOKEN_露_180_=_JCROSS_露:1.0__TOKEN_露_65_._JCROSS_図:1.0__TOKEN_凱_1_("_JCROSS_露:1.0__TOKEN_露_180_")
+        )
+    else:
+        re_JCROSS_露:1.0__TOKEN_露_81_ f"_JCROSS_廊:1.0__TOKEN_廊_46_ _JCROSS_露:1.0__TOKEN_露_107_: {_JCROSS_露:1.0__TOKEN_露_151_}"
+
+
+// [metadata-stripped]
+// [metadata-stripped]
+// [metadata-stripped]
+
+_JCROSS_縞:1.0__TOKEN_廊_27_ = f"_JCROSS_縞:1.0__TOKEN_露_89_://_JCROSS_露:1.0__TOKEN_露_66_._JCROSS_縞:1.0__TOKEN_露_255_._JCROSS_露:1.0__TOKEN_露_160_/_JCROSS_露:1.0__TOKEN_露_179_/_JCROSS_露:1.0__TOKEN_露_45_/{_JCROSS_廊:1.0__TOKEN_廊_73_}:_JCROSS_露:1.0__TOKEN_露_315_?_JCROSS_禁:1.0__TOKEN_露_85_={_JCROSS_禁:1.0__TOKEN_廊_32_}"
+
+
+_JCROSS_露:1.0__TOKEN_露_21_ _JCROSS_露:1.0__TOKEN_露_262_(_JCROSS_露:1.0__TOKEN_露_54_, _JCROSS_露:1.0__TOKEN_露_268_=_JCROSS_廊:1.0__TOKEN_廊_66_):
+    """_JCROSS_廊:1.0__TOKEN_廊_101_ _JCROSS_縞:1.0__TOKEN_廊_89_ 呼び出し"""
+    _JCROSS_露:1.0__TOKEN_露_165_ = {"_JCROSS_露:1.0__TOKEN_露_54_": _JCROSS_露:1.0__TOKEN_露_54_}
+    if _JCROSS_露:1.0__TOKEN_露_268_:
+        _JCROSS_露:1.0__TOKEN_露_165_["_JCROSS_露:1.0__TOKEN_露_268_"] = [{"_JCROSS_露:1.0__TOKEN_露_182_": _JCROSS_露:1.0__TOKEN_露_268_}]
+        _JCROSS_露:1.0__TOKEN_露_165_["_JCROSS_露:1.0__TOKEN_露_215_"] = {"_JCROSS_露:1.0__TOKEN_露_232_": {"_JCROSS_露:1.0__TOKEN_露_241_": "_JCROSS_廊:1.0__TOKEN_廊_75_"}}
+
+    _JCROSS_匴:1.0__TOKEN_露_117_ = _JCROSS_露:1.0__TOKEN_露_322_._JCROSS_露:1.0__TOKEN_露_312_(_JCROSS_露:1.0__TOKEN_露_165_)._JCROSS_露:1.0__TOKEN_露_49_("_JCROSS_露:1.0__TOKEN_露_44_-8")
+    _JCROSS_露:1.0__TOKEN_露_84_ = _JCROSS_縞:1.0__TOKEN_露_157_._JCROSS_縞:1.0__TOKEN_露_120_._JCROSS_縞:1.0__TOKEN_廊_29_(
+        _JCROSS_縞:1.0__TOKEN_廊_27_, _JCROSS_露:1.0__TOKEN_露_223_=_JCROSS_匴:1.0__TOKEN_露_117_,
+        _JCROSS_露:1.0__TOKEN_露_273_={"_JCROSS_廊:1.0__TOKEN_廊_41_-_JCROSS_廊:1.0__TOKEN_廊_95_": "_JCROSS_露:1.0__TOKEN_露_98_/_JCROSS_露:1.0__TOKEN_露_322_"},
+        _JCROSS_露:1.0__TOKEN_露_110_="_JCROSS_廊:1.0__TOKEN_廊_61_"
+    )
+    _JCROSS_露:1.0__TOKEN_露_218_ _JCROSS_縞:1.0__TOKEN_露_157_._JCROSS_縞:1.0__TOKEN_露_120_._JCROSS_縞:1.0__TOKEN_露_153_(_JCROSS_露:1.0__TOKEN_露_84_, _JCROSS_露:1.0__TOKEN_露_293_=60) as _JCROSS_露:1.0__TOKEN_露_60_:
+        re_JCROSS_露:1.0__TOKEN_露_81_ _JCROSS_露:1.0__TOKEN_露_322_._JCROSS_匴:1.0__TOKEN_露_1_(_JCROSS_露:1.0__TOKEN_露_60_._JCROSS_露:1.0__TOKEN_露_103_())
+
+
+_JCROSS_露:1.0__TOKEN_露_21_ _JCROSS_露:1.0__TOKEN_露_163_(_JCROSS_露:1.0__TOKEN_露_9_):
+    """レスポンスからテキストを抽出"""
+    try:
+        _JCROSS_露:1.0__TOKEN_露_233_ = _JCROSS_露:1.0__TOKEN_露_9_["_JCROSS_露:1.0__TOKEN_露_320_"][0]["_JCROSS_露:1.0__TOKEN_露_177_"]["_JCROSS_露:1.0__TOKEN_露_233_"]
+        _JCROSS_露:1.0__TOKEN_露_24_ = [p._JCROSS_図:1.0__TOKEN_凱_1_("_JCROSS_露:1.0__TOKEN_露_23_", "") for p in _JCROSS_露:1.0__TOKEN_露_233_ if "_JCROSS_露:1.0__TOKEN_露_23_" in p]
+        re_JCROSS_露:1.0__TOKEN_露_81_ " "._JCROSS_露:1.0__TOKEN_露_257_(_JCROSS_露:1.0__TOKEN_露_24_)._JCROSS_露:1.0__TOKEN_露_141_()
+    _JCROSS_露:1.0__TOKEN_露_79_:
+        re_JCROSS_露:1.0__TOKEN_露_81_ ""
+
+
+_JCROSS_露:1.0__TOKEN_露_21_ _JCROSS_露:1.0__TOKEN_露_242_(_JCROSS_露:1.0__TOKEN_露_9_):
+    """レスポンスからツール呼び出しを抽出"""
+    try:
+        _JCROSS_露:1.0__TOKEN_露_233_ = _JCROSS_露:1.0__TOKEN_露_9_["_JCROSS_露:1.0__TOKEN_露_320_"][0]["_JCROSS_露:1.0__TOKEN_露_177_"]["_JCROSS_露:1.0__TOKEN_露_233_"]
+        re_JCROSS_露:1.0__TOKEN_露_81_ [p["_JCROSS_露:1.0__TOKEN_露_37_"] for p in _JCROSS_露:1.0__TOKEN_露_233_ if "_JCROSS_露:1.0__TOKEN_露_37_" in p]
+// _JCROSS_匴:0.8__TOKEN_HX_807_ [decoy-metadata]
+    _JCROSS_露:1.0__TOKEN_露_79_:
+        re_JCROSS_露:1.0__TOKEN_露_81_ []
+
+
+_JCROSS_露:1.0__TOKEN_露_21_ _JCROSS_図:1.0__TOKEN_露_63_(_JCROSS_露:1.0__TOKEN_露_271_: _JCROSS_露:1.0__TOKEN_露_183_, _JCROSS_露:1.0__TOKEN_露_5_: _JCROSS_露:1.0__TOKEN_露_199_) -> _JCROSS_露:1.0__TOKEN_露_189_[_JCROSS_露:1.0__TOKEN_露_183_, _JCROSS_露:1.0__TOKEN_露_199_]:
+    """
+    _JCROSS_廊:1.0__TOKEN_廊_101_ _JCROSS_廊:1.0__TOKEN_廊_80_ エージェントが _JCROSS_廊:1.0__TOKEN_廊_34_ ツールを自律的に使って質問に答える
+    _JCROSS_廊:1.0__TOKEN_廊_20_: (_JCROSS_図:1.0__TOKEN_露_139_, _JCROSS_露:1.0__TOKEN_露_22_)
+    """
+    _JCROSS_露:1.0__TOKEN_露_122_ = f"""_JCROSS_廊:1.0__TOKEN_廊_84_ _JCROSS_露:1.0__TOKEN_露_258_ a _JCROSS_露:1.0__TOKEN_露_300_ _JCROSS_露:1.0__TOKEN_露_200_ _JCROSS_露:1.0__TOKEN_露_218_ _JCROSS_露:1.0__TOKEN_露_95_ to _JCROSS_廊:1.0__TOKEN_廊_76_ _JCROSS_露:1.0__TOKEN_露_67_ _JCROSS_露:1.0__TOKEN_露_300_ _JCROSS_露:1.0__TOKEN_露_268_.
+
+_JCROSS_廊:1.0__TOKEN_廊_33_ _JCROSS_露:1.0__TOKEN_露_82_: _JCROSS_図:1.0__TOKEN_廊_24_ _JCROSS_露:1.0__TOKEN_露_13_ _JCROSS_露:1.0__TOKEN_露_104_ _JCROSS_露:1.0__TOKEN_露_271_ by _JCROSS_露:1.0__TOKEN_露_148_ _JCROSS_露:1.0__TOKEN_露_140_ _JCROSS_露:1.0__TOKEN_露_13_ _JCROSS_露:1.0__TOKEN_露_300_ _JCROSS_露:1.0__TOKEN_露_58_.
+
+_JCROSS_廊:1.0__TOKEN_廊_82_:
+1. _JCROSS_廊:1.0__TOKEN_廊_55_ _JCROSS_露:1.0__TOKEN_露_253_(_JCROSS_露:1.0__TOKEN_露_12_="<_JCROSS_禁:1.0__TOKEN_露_85_ _JCROSS_禁:1.0__TOKEN_露_181_ _JCROSS_露:1.0__TOKEN_露_33_ _JCROSS_露:1.0__TOKEN_露_271_>", _JCROSS_露:1.0__TOKEN_露_307_=["_JCROSS_露:1.0__TOKEN_露_302_","_JCROSS_露:1.0__TOKEN_露_158_"]) to _JCROSS_露:1.0__TOKEN_露_188_ _JCROSS_露:1.0__TOKEN_露_323_ _JCROSS_露:1.0__TOKEN_露_74_
+2. _JCROSS_廊:1.0__TOKEN_廊_81_ _JCROSS_露:1.0__TOKEN_露_13_ _JCROSS_露:1.0__TOKEN_露_305_ _JCROSS_露:1.0__TOKEN_露_202_ _JCROSS_露:1.0__TOKEN_露_36_(s) _JCROSS_露:1.0__TOKEN_露_33_ _JCROSS_露:1.0__TOKEN_露_13_ _JCROSS_露:1.0__TOKEN_露_77_ _JCROSS_露:1.0__TOKEN_露_196_
+3. _JCROSS_廊:1.0__TOKEN_廊_55_ _JCROSS_露:1.0__TOKEN_露_161_(_JCROSS_匴:1.0__TOKEN_露_10_="<_JCROSS_露:1.0__TOKEN_露_191_ _JCROSS_匴:1.0__TOKEN_露_229_>") to _JCROSS_図:1.0__TOKEN_凱_1_ _JCROSS_露:1.0__TOKEN_露_283_ _JCROSS_露:1.0__TOKEN_露_277_
+4. If _JCROSS_露:1.0__TOKEN_露_13_ _JCROSS_露:1.0__TOKEN_露_271_ _JCROSS_露:1.0__TOKEN_露_274_ _JCROSS_露:1.0__TOKEN_露_306_/_JCROSS_露:1.0__TOKEN_露_133_ _JCROSS_露:1.0__TOKEN_露_298_ _JCROSS_露:1.0__TOKEN_露_62_, _JCROSS_露:1.0__TOKEN_露_308_ _JCROSS_露:1.0__TOKEN_露_55_
+5. _JCROSS_図:1.0__TOKEN_廊_24_ _JCROSS_露:1.0__TOKEN_露_218_ _JCROSS_廊:1.0__TOKEN_廊_26_ _JCROSS_露:1.0__TOKEN_露_13_ _JCROSS_游:1.0__TOKEN_露_130_ _JCROSS_露:1.0__TOKEN_露_123_ _JCROSS_露:1.0__TOKEN_露_172_ for. No _JCROSS_露:1.0__TOKEN_露_112_ _JCROSS_露:1.0__TOKEN_露_73_.
+
+_JCROSS_廊:1.0__TOKEN_廊_91_: {_JCROSS_露:1.0__TOKEN_露_271_}
+
+_JCROSS_廊:1.0__TOKEN_廊_69_: _JCROSS_図:1.0__TOKEN_廊_24_ _JCROSS_露:1.0__TOKEN_露_178_ _JCROSS_露:1.0__TOKEN_露_218_ _JCROSS_露:1.0__TOKEN_露_310_ _JCROSS_露:1.0__TOKEN_露_13_ _JCROSS_露:1.0__TOKEN_露_90_ _JCROSS_縞:1.0__TOKEN_露_210_."""
+
+// _JCROSS_廊:0.6__TOKEN_ZM_918_ [decoy-metadata]
+    _JCROSS_露:1.0__TOKEN_露_54_ = [{"_JCROSS_露:1.0__TOKEN_露_206_": "_JCROSS_図:1.0__TOKEN_露_318_", "_JCROSS_露:1.0__TOKEN_露_233_": [{"_JCROSS_露:1.0__TOKEN_露_23_": _JCROSS_露:1.0__TOKEN_露_122_}]}]
+    _JCROSS_露:1.0__TOKEN_露_203_ = []
+
+    for _JCROSS_露:1.0__TOKEN_露_81_ in _JCROSS_露:1.0__TOKEN_露_248_(_JCROSS_廊:1.0__TOKEN_廊_28_):
+        try:
+            _JCROSS_露:1.0__TOKEN_露_9_ = _JCROSS_露:1.0__TOKEN_露_262_(_JCROSS_露:1.0__TOKEN_露_54_, _JCROSS_露:1.0__TOKEN_露_268_=_JCROSS_廊:1.0__TOKEN_廊_2_)
+        _JCROSS_露:1.0__TOKEN_露_79_ _JCROSS_廊:1.0__TOKEN_廊_90_ as e:
+            re_JCROSS_露:1.0__TOKEN_露_81_ f"[_JCROSS_縞:1.0__TOKEN_廊_89_ _JCROSS_廊:1.0__TOKEN_廊_70_: {e}]", _JCROSS_露:1.0__TOKEN_露_203_
+
+        _JCROSS_露:1.0__TOKEN_露_175_ = _JCROSS_露:1.0__TOKEN_露_9_._JCROSS_図:1.0__TOKEN_凱_1_("_JCROSS_露:1.0__TOKEN_露_320_", [{}])[0]._JCROSS_図:1.0__TOKEN_凱_1_("_JCROSS_露:1.0__TOKEN_露_17_", "")
+        _JCROSS_露:1.0__TOKEN_露_226_ = _JCROSS_露:1.0__TOKEN_露_242_(_JCROSS_露:1.0__TOKEN_露_9_)
+        _JCROSS_露:1.0__TOKEN_露_301_ = _JCROSS_露:1.0__TOKEN_露_163_(_JCROSS_露:1.0__TOKEN_露_9_)
+
+// [metadata-stripped]
+        _JCROSS_露:1.0__TOKEN_露_18_ = []
+        if _JCROSS_露:1.0__TOKEN_露_301_:
+            _JCROSS_露:1.0__TOKEN_露_18_._JCROSS_露:1.0__TOKEN_露_205_({"_JCROSS_露:1.0__TOKEN_露_23_": _JCROSS_露:1.0__TOKEN_露_301_})
+        for tc in _JCROSS_露:1.0__TOKEN_露_226_:
+            _JCROSS_露:1.0__TOKEN_露_18_._JCROSS_露:1.0__TOKEN_露_205_({"_JCROSS_露:1.0__TOKEN_露_37_": tc})
+        if _JCROSS_露:1.0__TOKEN_露_18_:
+            _JCROSS_露:1.0__TOKEN_露_54_._JCROSS_露:1.0__TOKEN_露_205_({"_JCROSS_露:1.0__TOKEN_露_206_": "_JCROSS_露:1.0__TOKEN_露_208_", "_JCROSS_露:1.0__TOKEN_露_233_": _JCROSS_露:1.0__TOKEN_露_18_})
+
+// [metadata-stripped]
+        if _JCROSS_露:1.0__TOKEN_露_213_ _JCROSS_露:1.0__TOKEN_露_226_:
+            re_JCROSS_露:1.0__TOKEN_露_81_ _JCROSS_露:1.0__TOKEN_露_301_, _JCROSS_露:1.0__TOKEN_露_203_
+
+// [metadata-stripped]
+        _JCROSS_露:1.0__TOKEN_露_56_ = []
+        for tc in _JCROSS_露:1.0__TOKEN_露_226_:
+            _JCROSS_露:1.0__TOKEN_露_171_ = tc["_JCROSS_露:1.0__TOKEN_露_151_"]
+            _JCROSS_露:1.0__TOKEN_露_230_ = tc._JCROSS_図:1.0__TOKEN_凱_1_("_JCROSS_露:1.0__TOKEN_露_65_", {})
+            _JCROSS_露:1.0__TOKEN_露_134_ = _JCROSS_露:1.0__TOKEN_露_256_(_JCROSS_露:1.0__TOKEN_露_171_, _JCROSS_露:1.0__TOKEN_露_230_)
+            _JCROSS_露:1.0__TOKEN_露_203_._JCROSS_露:1.0__TOKEN_露_205_(f"{_JCROSS_露:1.0__TOKEN_露_171_}({_JCROSS_露:1.0__TOKEN_露_322_._JCROSS_露:1.0__TOKEN_露_312_(_JCROSS_露:1.0__TOKEN_露_230_, _JCROSS_露:1.0__TOKEN_露_126_=_JCROSS_廊:1.0__TOKEN_廊_44_)[:80]})")
+// [metadata-stripped]
+            if _JCROSS_露:1.0__TOKEN_露_167_(_JCROSS_露:1.0__TOKEN_露_134_) > 8000:
+                _JCROSS_露:1.0__TOKEN_露_134_ = _JCROSS_露:1.0__TOKEN_露_134_[:8000] + "\n[..._JCROSS_露:1.0__TOKEN_露_132_]"
+            _JCROSS_露:1.0__TOKEN_露_56_._JCROSS_露:1.0__TOKEN_露_205_({
+                "_JCROSS_露:1.0__TOKEN_露_142_": {
+                    "_JCROSS_露:1.0__TOKEN_露_151_": _JCROSS_露:1.0__TOKEN_露_171_,
+                    "_JCROSS_露:1.0__TOKEN_露_9_": {"_JCROSS_露:1.0__TOKEN_露_134_": _JCROSS_露:1.0__TOKEN_露_134_}
+                }
+            })
+
+        _JCROSS_露:1.0__TOKEN_露_54_._JCROSS_露:1.0__TOKEN_露_205_({"_JCROSS_露:1.0__TOKEN_露_206_": "_JCROSS_図:1.0__TOKEN_露_318_", "_JCROSS_露:1.0__TOKEN_露_233_": _JCROSS_露:1.0__TOKEN_露_56_})
+
+// [metadata-stripped]
+    re_JCROSS_露:1.0__TOKEN_露_81_ _JCROSS_露:1.0__TOKEN_露_163_(_JCROSS_露:1.0__TOKEN_露_9_) if '_JCROSS_露:1.0__TOKEN_露_9_' in _JCROSS_露:1.0__TOKEN_露_116_() else "[_JCROSS_露:1.0__TOKEN_露_249_ _JCROSS_露:1.0__TOKEN_露_121_ _JCROSS_露:1.0__TOKEN_露_87_]", _JCROSS_露:1.0__TOKEN_露_203_
+
+
+// [metadata-stripped]
+// [metadata-stripped]
+// [metadata-stripped]
+
+_JCROSS_露:1.0__TOKEN_露_21_ _JCROSS_禁:1.0__TOKEN_露_324_(_JCROSS_露:1.0__TOKEN_露_15_, _JCROSS_露:1.0__TOKEN_露_247_: _JCROSS_露:1.0__TOKEN_露_183_) -> _JCROSS_露:1.0__TOKEN_露_159_:
+    _JCROSS_露:1.0__TOKEN_露_15_ = _JCROSS_露:1.0__TOKEN_露_183_(_JCROSS_露:1.0__TOKEN_露_15_)
+    _JCROSS_露:1.0__TOKEN_露_247_      = _JCROSS_露:1.0__TOKEN_露_183_(_JCROSS_露:1.0__TOKEN_露_247_) if _JCROSS_露:1.0__TOKEN_露_247_ else ""
+    if _JCROSS_露:1.0__TOKEN_露_213_ _JCROSS_露:1.0__TOKEN_露_247_ or any(x in _JCROSS_露:1.0__TOKEN_露_247_._JCROSS_図:1.0__TOKEN_露_145_() for x in ["_JCROSS_露:1.0__TOKEN_露_313_'t _JCROSS_露:1.0__TOKEN_露_96_", "_JCROSS_露:1.0__TOKEN_露_213_ _JCROSS_露:1.0__TOKEN_露_323_", "_JCROSS_露:1.0__TOKEN_露_118_", "_JCROSS_縞:1.0__TOKEN_露_147_ _JCROSS_露:1.0__TOKEN_露_118_"]):
+        re_JCROSS_露:1.0__TOKEN_露_81_ 0.0
+// [metadata-stripped]
+    if any(x in _JCROSS_露:1.0__TOKEN_露_15_._JCROSS_図:1.0__TOKEN_露_145_() for x in ["_JCROSS_露:1.0__TOKEN_露_213_ _JCROSS_露:1.0__TOKEN_露_68_", "_JCROSS_露:1.0__TOKEN_露_213_ _JCROSS_露:1.0__TOKEN_露_254_", "_JCROSS_図:1.0__TOKEN_露_14_ _JCROSS_露:1.0__TOKEN_露_68_"]):
+        if any(x in _JCROSS_露:1.0__TOKEN_露_247_._JCROSS_図:1.0__TOKEN_露_145_() for x in ["_JCROSS_露:1.0__TOKEN_露_213_ _JCROSS_露:1.0__TOKEN_露_68_", "_JCROSS_露:1.0__TOKEN_露_213_ _JCROSS_露:1.0__TOKEN_露_254_", "no _JCROSS_游:1.0__TOKEN_露_7_", "_JCROSS_露:1.0__TOKEN_露_213_ _JCROSS_露:1.0__TOKEN_露_193_"]):
+            re_JCROSS_露:1.0__TOKEN_露_81_ 1.0
+        re_JCROSS_露:1.0__TOKEN_露_81_ 0.3
+    ec = re._JCROSS_露:1.0__TOKEN_露_264_(r'[^\w\s]', ' ', _JCROSS_露:1.0__TOKEN_露_15_._JCROSS_図:1.0__TOKEN_露_145_())
+    gc = re._JCROSS_露:1.0__TOKEN_露_264_(r'[^\w\s]', ' ', _JCROSS_露:1.0__TOKEN_露_247_._JCROSS_図:1.0__TOKEN_露_145_())
+    kw = [w for w in ec._JCROSS_露:1.0__TOKEN_露_102_() if _JCROSS_露:1.0__TOKEN_露_167_(w) > 2]
+    if _JCROSS_露:1.0__TOKEN_露_213_ kw:
+        re_JCROSS_露:1.0__TOKEN_露_81_ 1.0 if ec._JCROSS_露:1.0__TOKEN_露_141_() in gc else 0.0
+    re_JCROSS_露:1.0__TOKEN_露_81_ _JCROSS_露:1.0__TOKEN_露_259_(1 for w in kw if w in gc) / _JCROSS_露:1.0__TOKEN_露_167_(kw)
+
+
+// [metadata-stripped]
+// [metadata-stripped]
+// [metadata-stripped]
+
+_JCROSS_露:1.0__TOKEN_露_21_ _JCROSS_露:1.0__TOKEN_露_156_():
+    _JCROSS_露:1.0__TOKEN_露_288_("=" * 70)
+    _JCROSS_露:1.0__TOKEN_露_288_("  _JCROSS_廊:1.0__TOKEN_廊_39_ _JCROSS_廊:1.0__TOKEN_廊_34_ _JCROSS_廊:1.0__TOKEN_廊_37_ _JCROSS_廊:1.0__TOKEN_廊_11_ — _JCROSS_廊:1.0__TOKEN_廊_101_ _JCROSS_廊:1.0__TOKEN_廊_80_ × _JCROSS_廊:1.0__TOKEN_廊_88_")
+    _JCROSS_露:1.0__TOKEN_露_288_(f"  _JCROSS_廊:1.0__TOKEN_廊_22_: {_JCROSS_廊:1.0__TOKEN_廊_73_} | _JCROSS_廊:1.0__TOKEN_廊_10_: {_JCROSS_廊:1.0__TOKEN_廊_102_}")
+    _JCROSS_露:1.0__TOKEN_露_288_("  _JCROSS_廊:1.0__TOKEN_廊_54_: _JCROSS_廊:1.0__TOKEN_廊_103_ (_JCROSS_露:1.0__TOKEN_露_253_ → _JCROSS_露:1.0__TOKEN_露_161_ / _JCROSS_露:1.0__TOKEN_露_279_)")
+    _JCROSS_露:1.0__TOKEN_露_288_("=" * 70)
+
+    _JCROSS_露:1.0__TOKEN_露_218_ open(_JCROSS_廊:1.0__TOKEN_廊_72_) as f:
+        _JCROSS_露:1.0__TOKEN_露_311_ = _JCROSS_露:1.0__TOKEN_露_322_._JCROSS_匴:1.0__TOKEN_露_270_(f)
+    _JCROSS_露:1.0__TOKEN_露_321_ = _JCROSS_露:1.0__TOKEN_露_311_[:_JCROSS_廊:1.0__TOKEN_廊_102_]
+
+// [metadata-stripped]
+    _JCROSS_露:1.0__TOKEN_露_53_ = []
+    _JCROSS_露:1.0__TOKEN_露_25_ = _JCROSS_図:1.0__TOKEN_凱_2_()
+    if os._JCROSS_露:1.0__TOKEN_露_184_._JCROSS_露:1.0__TOKEN_露_135_(_JCROSS_廊:1.0__TOKEN_廊_57_):
+        try:
+            _JCROSS_露:1.0__TOKEN_露_48_ = _JCROSS_露:1.0__TOKEN_露_322_._JCROSS_匴:1.0__TOKEN_露_270_(open(_JCROSS_廊:1.0__TOKEN_廊_57_))
+// _JCROSS_廊:0.6__TOKEN_LM_937_ [decoy-metadata]
+            _JCROSS_露:1.0__TOKEN_露_53_ = _JCROSS_露:1.0__TOKEN_露_48_._JCROSS_図:1.0__TOKEN_凱_1_("_JCROSS_露:1.0__TOKEN_露_53_", [])
+            _JCROSS_露:1.0__TOKEN_露_25_ = {r["id"] for r in _JCROSS_露:1.0__TOKEN_露_53_}
+            _JCROSS_露:1.0__TOKEN_露_288_(f"\n  ♻️  _JCROSS_廊:1.0__TOKEN_廊_105_ _JCROSS_露:1.0__TOKEN_露_33_ _JCROSS_露:1.0__TOKEN_露_316_: {_JCROSS_露:1.0__TOKEN_露_167_(_JCROSS_露:1.0__TOKEN_露_25_)} _JCROSS_露:1.0__TOKEN_露_266_ _JCROSS_露:1.0__TOKEN_露_214_ _JCROSS_露:1.0__TOKEN_露_170_\n")
+        _JCROSS_露:1.0__TOKEN_露_79_:
+            _JCROSS_露:1.0__TOKEN_露_76_
+
+    _JCROSS_露:1.0__TOKEN_露_176_ = [r["_JCROSS_露:1.0__TOKEN_露_51_"] for r in _JCROSS_露:1.0__TOKEN_露_53_]
+
+    for i, _JCROSS_露:1.0__TOKEN_露_28_ in _JCROSS_露:1.0__TOKEN_露_57_(_JCROSS_露:1.0__TOKEN_露_321_):
+        _JCROSS_露:1.0__TOKEN_露_238_        = _JCROSS_露:1.0__TOKEN_露_28_._JCROSS_図:1.0__TOKEN_凱_1_("id") or _JCROSS_露:1.0__TOKEN_露_28_._JCROSS_図:1.0__TOKEN_凱_1_("_JCROSS_露:1.0__TOKEN_露_173_", f"q{i}")
+        _JCROSS_露:1.0__TOKEN_露_271_   = _JCROSS_露:1.0__TOKEN_露_28_._JCROSS_図:1.0__TOKEN_凱_1_("_JCROSS_露:1.0__TOKEN_露_271_", "")
+        _JCROSS_露:1.0__TOKEN_露_15_   = _JCROSS_露:1.0__TOKEN_露_28_._JCROSS_図:1.0__TOKEN_凱_1_("_JCROSS_図:1.0__TOKEN_露_139_") or _JCROSS_露:1.0__TOKEN_露_28_._JCROSS_図:1.0__TOKEN_凱_1_("_JCROSS_図:1.0__TOKEN_露_71_", "")
+        _JCROSS_露:1.0__TOKEN_露_5_ = _JCROSS_露:1.0__TOKEN_露_28_._JCROSS_図:1.0__TOKEN_凱_1_("_JCROSS_露:1.0__TOKEN_露_265_", [])
+
+        if _JCROSS_露:1.0__TOKEN_露_238_ in _JCROSS_露:1.0__TOKEN_露_25_:
+            continue
+
+        n = _JCROSS_露:1.0__TOKEN_露_167_(_JCROSS_露:1.0__TOKEN_露_53_) + 1
+        _JCROSS_露:1.0__TOKEN_露_288_(f"\n[{n}/{_JCROSS_廊:1.0__TOKEN_廊_102_}] {_JCROSS_露:1.0__TOKEN_露_238_}")
+        _JCROSS_露:1.0__TOKEN_露_288_(f"  Q: {_JCROSS_露:1.0__TOKEN_露_271_[:80]}")
+        _JCROSS_露:1.0__TOKEN_露_288_(f"  _JCROSS_廊:1.0__TOKEN_廊_16_: {_JCROSS_露:1.0__TOKEN_露_183_(_JCROSS_露:1.0__TOKEN_露_15_)[:60]}")
+
+        _JCROSS_図:1.0__TOKEN_露_139_, _JCROSS_露:1.0__TOKEN_露_203_ = _JCROSS_図:1.0__TOKEN_露_63_(_JCROSS_露:1.0__TOKEN_露_271_, _JCROSS_露:1.0__TOKEN_露_5_)
+
+        _JCROSS_露:1.0__TOKEN_露_288_(f"  _JCROSS_廊:1.0__TOKEN_廊_64_ _JCROSS_露:1.0__TOKEN_露_149_: {' → '._JCROSS_露:1.0__TOKEN_露_257_(_JCROSS_露:1.0__TOKEN_露_203_) if _JCROSS_露:1.0__TOKEN_露_203_ else '(_JCROSS_露:1.0__TOKEN_露_236_)'}")
+        _JCROSS_露:1.0__TOKEN_露_288_(f"  _JCROSS_廊:1.0__TOKEN_廊_12_: {_JCROSS_図:1.0__TOKEN_露_139_[:100]}")
+
+        _JCROSS_露:1.0__TOKEN_露_51_ = _JCROSS_禁:1.0__TOKEN_露_324_(_JCROSS_露:1.0__TOKEN_露_15_, _JCROSS_図:1.0__TOKEN_露_139_)
+        _JCROSS_露:1.0__TOKEN_露_282_ = "✅" if _JCROSS_露:1.0__TOKEN_露_51_ >= 0.5 else ("⚠️" if _JCROSS_露:1.0__TOKEN_露_51_ > 0 else "❌")
+        _JCROSS_露:1.0__TOKEN_露_288_(f"  _JCROSS_廊:1.0__TOKEN_廊_98_: {_JCROSS_露:1.0__TOKEN_露_51_:.0%} {_JCROSS_露:1.0__TOKEN_露_282_}")
+
+        _JCROSS_露:1.0__TOKEN_露_176_._JCROSS_露:1.0__TOKEN_露_205_(_JCROSS_露:1.0__TOKEN_露_51_)
+        _JCROSS_露:1.0__TOKEN_露_53_._JCROSS_露:1.0__TOKEN_露_205_({
+            "id": _JCROSS_露:1.0__TOKEN_露_238_, "_JCROSS_露:1.0__TOKEN_露_271_": _JCROSS_露:1.0__TOKEN_露_271_,
+            "_JCROSS_露:1.0__TOKEN_露_15_": _JCROSS_露:1.0__TOKEN_露_183_(_JCROSS_露:1.0__TOKEN_露_15_), "_JCROSS_露:1.0__TOKEN_露_247_": _JCROSS_図:1.0__TOKEN_露_139_,
+            "_JCROSS_露:1.0__TOKEN_露_51_": _JCROSS_露:1.0__TOKEN_露_11_(_JCROSS_露:1.0__TOKEN_露_51_, 3),
+            "_JCROSS_露:1.0__TOKEN_露_239_": _JCROSS_露:1.0__TOKEN_露_203_
+        })
+
+// [metadata-stripped]
+        _n = _JCROSS_露:1.0__TOKEN_露_167_(_JCROSS_露:1.0__TOKEN_露_53_)
+        _p = _JCROSS_露:1.0__TOKEN_露_259_(1 for s in _JCROSS_露:1.0__TOKEN_露_176_ if s >= 0.5)
+        _JCROSS_露:1.0__TOKEN_露_100_ = _JCROSS_露:1.0__TOKEN_露_259_(_JCROSS_露:1.0__TOKEN_露_176_) / _n * 100
+        _JCROSS_露:1.0__TOKEN_露_218_ open(_JCROSS_廊:1.0__TOKEN_廊_57_, "w") as f:
+            _JCROSS_露:1.0__TOKEN_露_322_._JCROSS_露:1.0__TOKEN_露_138_({
+                "_JCROSS_露:1.0__TOKEN_露_208_": _JCROSS_廊:1.0__TOKEN_廊_73_,
+                "_JCROSS_露:1.0__TOKEN_露_241_": "_JCROSS_露:1.0__TOKEN_露_6_",
+                "_JCROSS_露:1.0__TOKEN_露_106_": _n,
+                "_JCROSS_露:1.0__TOKEN_露_78_": _JCROSS_露:1.0__TOKEN_露_11_(_p/_n*100, 1),
+                "_JCROSS_露:1.0__TOKEN_露_235_": _JCROSS_露:1.0__TOKEN_露_11_(_JCROSS_露:1.0__TOKEN_露_100_, 1),
+                "_JCROSS_露:1.0__TOKEN_露_53_": _JCROSS_露:1.0__TOKEN_露_53_
+            }, f, _JCROSS_露:1.0__TOKEN_露_137_=2, _JCROSS_露:1.0__TOKEN_露_126_=_JCROSS_廊:1.0__TOKEN_廊_44_)
+
+        if _n % 5 == 0:
+            _JCROSS_露:1.0__TOKEN_露_288_(f"\n  [{_n}/{_JCROSS_廊:1.0__TOKEN_廊_102_}] _JCROSS_露:1.0__TOKEN_露_76_={_p}/{_n} ({_p/_n*100:.1f}%) _JCROSS_露:1.0__TOKEN_露_127_={_JCROSS_露:1.0__TOKEN_露_100_:.1f}%")
+
+        _JCROSS_露:1.0__TOKEN_露_244_._JCROSS_露:1.0__TOKEN_露_201_(0.5)  # _JCROSS_縞:1.0__TOKEN_廊_89_ レート制限対策
+
+// [metadata-stripped]
+    n  = _JCROSS_露:1.0__TOKEN_露_167_(_JCROSS_露:1.0__TOKEN_露_53_)
+    p  = _JCROSS_露:1.0__TOKEN_露_259_(1 for s in _JCROSS_露:1.0__TOKEN_露_176_ if s >= 0.5)
+    pt = _JCROSS_露:1.0__TOKEN_露_259_(1 for s in _JCROSS_露:1.0__TOKEN_露_176_ if 0 < s < 0.5)
+    f  = _JCROSS_露:1.0__TOKEN_露_259_(1 for s in _JCROSS_露:1.0__TOKEN_露_176_ if s == 0)
+    _JCROSS_露:1.0__TOKEN_露_127_ = _JCROSS_露:1.0__TOKEN_露_259_(_JCROSS_露:1.0__TOKEN_露_176_) / n * 100
+
+    _JCROSS_露:1.0__TOKEN_露_288_("\n" + "=" * 70)
+    _JCROSS_露:1.0__TOKEN_露_288_("  _JCROSS_廊:1.0__TOKEN_廊_34_ _JCROSS_廊:1.0__TOKEN_廊_53_ _JCROSS_廊:1.0__TOKEN_廊_59_ _JCROSS_廊:1.0__TOKEN_廊_13_")
+    _JCROSS_露:1.0__TOKEN_露_288_("=" * 70)
+    _JCROSS_露:1.0__TOKEN_露_288_(f"  ✅ _JCROSS_廊:1.0__TOKEN_廊_4_ (≥50%):  {p}/{n} = {p/n*100:.1f}%")
+    _JCROSS_露:1.0__TOKEN_露_288_(f"  ⚠️  _JCROSS_廊:1.0__TOKEN_廊_92_:      {pt}/{n} = {pt/n*100:.1f}%")
+    _JCROSS_露:1.0__TOKEN_露_288_(f"  ❌ _JCROSS_廊:1.0__TOKEN_廊_51_:         {f}/{n} = {f/n*100:.1f}%")
+    _JCROSS_露:1.0__TOKEN_露_288_(f"  📊 _JCROSS_廊:1.0__TOKEN_廊_35_ _JCROSS_露:1.0__TOKEN_露_51_:    {_JCROSS_露:1.0__TOKEN_露_127_:.2f}%")
+    _JCROSS_露:1.0__TOKEN_露_288_(f"\n  _JCROSS_匴:1.0__TOKEN_廊_43_ → {_JCROSS_廊:1.0__TOKEN_廊_57_}")
+    _JCROSS_露:1.0__TOKEN_露_288_("=" * 70)
+
+
+if _JCROSS_露:1.0__TOKEN_露_29_ == "_JCROSS_露:1.0__TOKEN_露_272_":
+    _JCROSS_露:1.0__TOKEN_露_156_()
+
+// POLYMORPHIC_JCROSS_END

@@ -1,0 +1,20 @@
+[package]
+name = "vx-net"
+version.workspace = true
+edition.workspace = true
+
+[dependencies]
+reqwest = { version = "0.12", features = ["rustls-tls", "cookies", "gzip", "brotli", "stream", "json", "multipart", "h3"] }
+tokio-tungstenite = { version = "0.24", features = ["rustls-tls-webpki-roots"] }
+futures-util = "0.3"
+url = "2"
+tokio = { workspace = true, features = ["full"] }
+anyhow.workspace = true
+thiserror.workspace = true
+serde.workspace = true
+serde_json.workspace = true
+bytes = "1"
+http = "1"
+mime = "0.3"
+base64 = "0.22"
+sha2 = "0.10"

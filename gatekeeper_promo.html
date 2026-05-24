@@ -1,0 +1,201 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Verantyx Gatekeeper Mode</title>
+    <style>
+        body, html {
+            margin: 0;
+            padding: 0;
+            width: 100%;
+            height: 100%;
+            background-color: #0d1117;
+            color: #c9d1d9;
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, Arial, sans-serif;
+            overflow: hidden;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .slide-container {
+            position: relative;
+            width: 800px;
+            height: 450px;
+            background: linear-gradient(135deg, #161b22 0%, #0d1117 100%);
+            border-radius: 12px;
+            box-shadow: 0 0 30px rgba(0, 0, 0, 0.8), 0 0 0 1px rgba(255, 255, 255, 0.1);
+            overflow: hidden;
+        }
+
+        .slide {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            opacity: 0;
+            transition: opacity 1s ease-in-out, transform 1s ease-in-out;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            padding: 40px;
+            box-sizing: border-box;
+            transform: scale(0.95);
+        }
+
+        .slide.active {
+            opacity: 1;
+            transform: scale(1);
+        }
+
+        h1 {
+            font-size: 42px;
+            background: -webkit-linear-gradient(45deg, #58a6ff, #bc8cff);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            margin-bottom: 20px;
+        }
+
+        h2 {
+            font-size: 32px;
+            color: #ff7b72;
+            margin-bottom: 20px;
+        }
+
+        p {
+            font-size: 22px;
+            line-height: 1.5;
+            color: #8b949e;
+        }
+
+        .diagram {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            width: 100%;
+            margin-top: 30px;
+        }
+
+        .box {
+            background: #21262d;
+            border: 1px solid #30363d;
+            border-radius: 8px;
+            padding: 20px;
+            width: 25%;
+            font-weight: bold;
+            color: #e6edf3;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.5);
+        }
+
+        .box.highlight {
+            border-color: #58a6ff;
+            box-shadow: 0 0 15px rgba(88, 166, 255, 0.4);
+        }
+
+        .arrow {
+            font-size: 30px;
+            color: #58a6ff;
+            animation: pulse 1.5s infinite;
+        }
+
+        @keyframes pulse {
+            0% { transform: scale(1); opacity: 0.5; }
+            50% { transform: scale(1.2); opacity: 1; }
+            100% { transform: scale(1); opacity: 0.5; }
+        }
+
+        .code-block {
+            background: #0d1117;
+            padding: 15px;
+            border-radius: 6px;
+            font-family: monospace;
+            text-align: left;
+            font-size: 14px;
+            border: 1px solid #30363d;
+            margin-top: 20px;
+            width: 80%;
+            color: #a5d6ff;
+        }
+
+        .shield {
+            font-size: 60px;
+            margin-bottom: 20px;
+            filter: drop-shadow(0 0 10px rgba(88, 166, 255, 0.8));
+        }
+
+    </style>
+</head>
+<body>
+
+    <div class="slide-container">
+        <!-- Slide 1 -->
+        <div class="slide active" id="slide-1">
+            <div class="shield">🛡️</div>
+            <h1>Verantyx: Gatekeeper Mode</h1>
+            <p>A macOS-exclusive Zero-Knowledge Proxy IDE.</p>
+            <p style="font-size: 18px; margin-top: 30px; color: #58a6ff;">(Initializing Secure Environment...)</p>
+        </div>
+
+        <!-- Slide 2 -->
+        <div class="slide" id="slide-2">
+            <h2>The Enterprise Dilemma</h2>
+            <p>You want the power of <b>DeepSeek-V4</b> and <b>Claude</b>.<br>But sending proprietary source code to the cloud is a severe security risk.</p>
+            <div style="font-size: 50px; margin-top: 20px;">☁️ 🔓 🛑</div>
+        </div>
+
+        <!-- Slide 3 -->
+        <div class="slide" id="slide-3">
+            <h1 style="font-size: 36px;">The Solution: Semantic Air-Gapping</h1>
+            <p>Gatekeeper Mode converts your code into an opaque topology graph.<br>No variable names. No business logic. Just pure structure.</p>
+            <div class="code-block">
+// JCROSS_6AXIS_BEGIN<br>
+CROSS runtime_topology {<br>
+&nbsp;&nbsp;&nbsp;&nbsp;AXIS DOWN {<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;NODE[0xCA3D27CB]: { op:"error_npe", time:1778, in:0 }<br>
+&nbsp;&nbsp;&nbsp;&nbsp;}<br>
+}
+            </div>
+        </div>
+
+        <!-- Slide 4 -->
+        <div class="slide" id="slide-4">
+            <h1 style="font-size: 32px;">Zero-Leakage Transpilation Pipeline</h1>
+            <div class="diagram">
+                <div class="box">Raw Code<br><span style="font-size:12px; color:#ff7b72;">(Your Mac)</span></div>
+                <div class="arrow">➡️</div>
+                <div class="box highlight">Local SLM<br><span style="font-size:12px; color:#58a6ff;">(JCross Obfuscation)</span></div>
+                <div class="arrow">➡️</div>
+                <div class="box">Cloud LLM<br><span style="font-size:12px; color:#a5d6ff;">(Structural Fixes)</span></div>
+            </div>
+            <p style="font-size: 18px; margin-top: 30px;">Your actual code <b>never</b> leaves your machine.</p>
+        </div>
+
+        <!-- Slide 5 -->
+        <div class="slide" id="slide-5">
+            <div class="shield" style="font-size: 80px;">🚀</div>
+            <h1>Ready for Enterprise</h1>
+            <p>Audit the future of AI development today.</p>
+            <p style="font-size: 24px; font-weight: bold; color: #58a6ff;">github.com/Ag3497120/Verantyx</p>
+        </div>
+    </div>
+
+    <script>
+        const slides = document.querySelectorAll('.slide');
+        let currentSlide = 0;
+
+        function nextSlide() {
+            slides[currentSlide].classList.remove('active');
+            currentSlide = (currentSlide + 1) % slides.length;
+            slides[currentSlide].classList.add('active');
+        }
+
+        // Advance slide every 4 seconds
+        setInterval(nextSlide, 4000);
+    </script>
+
+</body>
+</html>

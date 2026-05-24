@@ -1,0 +1,54 @@
+[package]
+name = "ronin-cli"
+version.workspace = true
+edition.workspace = true
+license.workspace = true
+authors.workspace = true
+
+[[bin]]
+name = "ronin"
+path = "src/main.rs"
+
+[dependencies]
+# Ronin crates
+ronin-core    = { path = "../ronin-core" }
+ronin-diff-ux = { path = "../ronin-diff-ux" }
+ronin-synapse  = { path = "../ronin-synapse" }
+ronin-sandbox  = { path = "../ronin-sandbox" }
+
+# CLI framework
+clap = { version = "4", features = ["derive", "color", "env", "wrap_help"] }
+
+# Async runtime
+tokio = { workspace = true, features = ["full"] }
+
+# Serialization
+serde = { workspace = true, features = ["derive"] }
+serde_json.workspace = true
+toml = "0.8"
+reqwest = { version = "0.13", features = ["json", "rustls"] }
+
+# Terminal UX
+console = "0.16"
+indicatif = "0.18"
+dialoguer = "0.11"
+
+# Error handling
+anyhow.workspace = true
+thiserror.workspace = true
+
+# Logging
+tracing = "0.1"
+tracing-subscriber = { version = "0.3", features = ["env-filter", "fmt"] }
+
+# Misc
+chrono = { version = "0.4", features = ["serde"] }
+uuid = { version = "1", features = ["v4", "serde"] }
+dirs = "6"
+ronin-repomap = { version = "0.1.0", path = "../ronin-repomap" }
+ronin-coder = { version = "0.1.0", path = "../ronin-coder" }
+ronin-vfs-gatekeeper = { version = "0.1.0", path = "../ronin-vfs-gatekeeper" }
+ronin-git = { version = "0.1.0", path = "../ronin-git" }
+ronin-telemetry = { version = "0.1.0", path = "../ronin-telemetry" }
+ronin-warden = { version = "0.1.0", path = "../ronin-warden" }
+ronin-hive = { version = "0.1.0", path = "../ronin-hive" }

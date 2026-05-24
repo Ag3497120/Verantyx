@@ -1,0 +1,34 @@
+--- VerantyxIDE/Sources/Verantyx/Engine/SelfUpdater.swift
++++ VerantyxIDE/Sources/Verantyx/Engine/SelfUpdater.swift
+@@ -81,9 +81,27 @@
+                 do {
+                     try FileManager.default.moveItem(at: localURL, to: destination)
+-                    // Open the DMG
+-                    NSWorkspace.shared.open(destination)
+                     
+-                    // Terminate ourself to let the installer work
++                    let script = """
++                    #!/bin/bash
++                    while kill -0 \(ProcessInfo.processInfo.processIdentifier) 2>/dev/null; do
++                        sleep 0.5
++                    done
++                    MOUNT_INFO=$(hdiutil attach "\(destination.path)" -nobrowse)
++                    MOUNT_POINT=$(echo "$MOUNT_INFO" | grep "/Volumes/" | awk -F '\t' '{print $3}')
++                    if [ -n "$MOUNT_POINT" ]; then
++                        rm -rf /Applications/Verantyx.app
++                        cp -R "$MOUNT_POINT/Verantyx.app" /Applications/
++                        hdiutil detach "$MOUNT_POINT"
++                        open /Applications/Verantyx.app
++                    fi
++                    """
++                    let scriptURL = URL(fileURLWithPath: NSTemporaryDirectory()).appendingPathComponent("verantyx_update.sh")
++                    try script.write(to: scriptURL, atomically: true, encoding: .utf8)
++                    try FileManager.default.setAttributes([.posixPermissions: 0o755], ofItemAtPath: scriptURL.path)
++                    
++                    let process = Process()
++                    process.executableURL = URL(fileURLWithPath: "/bin/bash")
++                    process.arguments = ["-c", "nohup \(scriptURL.path) >/dev/null 2>&1 &"]
++                    try process.run()
++                    
+                     DispatchQueue.main.asyncAfter(deadline: .now() + 1.0) {
+                         NSApplication.shared.terminate(nil)

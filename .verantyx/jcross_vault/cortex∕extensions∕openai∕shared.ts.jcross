@@ -1,0 +1,35 @@
+// POLYMORPHIC_JCROSS_BEGIN
+// schema:57C33947 ver:1778348097
+// _ID_霧:0.7__TOKEN_EV_614_ [decoy-metadata]
+// ⚠️ One-time schema — expires after response
+
+import { _ID_霧:1.0__TOKEN_霧_22_ } _ID_霧:1.0__TOKEN_霧_28_ "_ID_霧:1.0__TOKEN_霧_1_/_ID_霧:1.0__TOKEN_霧_17_-_ID_霧:1.0__TOKEN_霧_3_/_ID_規:1.0__TOKEN_霧_31_-_ID_霧:1.0__TOKEN_霧_26_";
+import { _ID_霧:1.0__TOKEN_霧_29_ } _ID_霧:1.0__TOKEN_霧_28_ "_ID_霧:1.0__TOKEN_霧_1_/_ID_霧:1.0__TOKEN_霧_17_-_ID_霧:1.0__TOKEN_霧_3_/_ID_規:1.0__TOKEN_霧_31_-_ID_霧:1.0__TOKEN_霧_8_";
+
+_ID_霧:1.0__TOKEN_霧_2_ _ID_霧:1.0__TOKEN_霧_9_ _ID_縺:1.0__TOKEN_廓_1_ = "_ID_縺:1.0__TOKEN_霧_18_://_ID_縺:1.0__TOKEN_霧_20_._ID_霧:1.0__TOKEN_霧_27_._ID_霧:1.0__TOKEN_霧_21_/v1";
+// _ID_廓:0.2__TOKEN_XK_689_ [decoy-metadata]
+// _ID_滾:0.2__TOKEN_EM_514_ [decoy-metadata]
+
+_ID_霧:1.0__TOKEN_霧_2_ _ID_霧:1.0__TOKEN_霧_4_ _ID_霧:1.0__TOKEN_霧_10_(id: _ID_霧:1.0__TOKEN_霧_14_, _ID_霧:1.0__TOKEN_霧_12_: _ID_霧:1.0__TOKEN_霧_5_ _ID_霧:1.0__TOKEN_霧_14_[]): _ID_霧:1.0__TOKEN_霧_23_ {
+  _ID_霧:1.0__TOKEN_霧_9_ _ID_霧:1.0__TOKEN_霧_15_ = id._ID_霧:1.0__TOKEN_霧_30_()._ID_霧:1.0__TOKEN_霧_16_();
+  return _ID_霧:1.0__TOKEN_霧_12_.some((_ID_霧:1.0__TOKEN_霧_24_) => {
+    _ID_霧:1.0__TOKEN_霧_9_ _ID_霧:1.0__TOKEN_霧_25_ = _ID_霧:1.0__TOKEN_霧_24_._ID_霧:1.0__TOKEN_霧_30_()._ID_霧:1.0__TOKEN_霧_16_();
+    return _ID_霧:1.0__TOKEN_霧_15_ === _ID_霧:1.0__TOKEN_霧_25_ || _ID_霧:1.0__TOKEN_霧_15_._ID_霧:1.0__TOKEN_霧_19_(_ID_霧:1.0__TOKEN_霧_25_);
+  });
+}
+// _ID_廓:0.4__TOKEN_GF_956_ [decoy-metadata]
+
+_ID_霧:1.0__TOKEN_霧_2_ _ID_霧:1.0__TOKEN_霧_4_ _ID_縺:1.0__TOKEN_霧_11_(_ID_縺:1.0__TOKEN_霧_7_?: _ID_霧:1.0__TOKEN_霧_14_): _ID_霧:1.0__TOKEN_霧_23_ {
+  _ID_霧:1.0__TOKEN_霧_9_ _ID_霧:1.0__TOKEN_霧_13_ = _ID_縺:1.0__TOKEN_霧_7_?._ID_霧:1.0__TOKEN_霧_30_();
+  if (!_ID_霧:1.0__TOKEN_霧_13_) {
+    return false;
+  }
+  return /^_ID_縺:1.0__TOKEN_霧_18_?:\/\/_ID_縺:1.0__TOKEN_霧_20_\._ID_霧:1.0__TOKEN_霧_27_\._ID_霧:1.0__TOKEN_霧_21_(?:\/v1)?\/?$/i._ID_霧:1.0__TOKEN_霧_6_(_ID_霧:1.0__TOKEN_霧_13_);
+// _ID_縺:0.9__TOKEN_KW_579_ [decoy-metadata]
+}
+
+// _ID_冥:0.6__TOKEN_MC_788_ [decoy-metadata]
+_ID_霧:1.0__TOKEN_霧_2_ { _ID_霧:1.0__TOKEN_霧_29_ };
+_ID_霧:1.0__TOKEN_霧_2_ { _ID_霧:1.0__TOKEN_霧_22_ };
+
+// POLYMORPHIC_JCROSS_END

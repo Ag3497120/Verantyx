@@ -1,0 +1,89 @@
+// POLYMORPHIC_JCROSS_BEGIN
+// schema:E573C83D ver:1778325167
+// ⚠️ One-time schema — expires after response
+
+// [metadata-stripped]
+// [metadata-stripped]
+// [metadata-stripped]
+// [metadata-stripped]
+// [metadata-stripped]
+// [metadata-stripped]
+// [metadata-stripped]
+// [metadata-stripped]
+// [metadata-stripped]
+
+_OPAQUE_滴:1.0__TOKEN_滴_46_ _OPAQUE_滴:1.0__TOKEN_滴_11_::_OPAQUE_滴:1.0__TOKEN_滴_8_::_OPAQUE_礎:1.0__TOKEN_礎_33_;
+
+// _OPAQUE_濫:0.9__TOKEN_BM_109_ [decoy-metadata]
+// [metadata-stripped]
+// [metadata-stripped]
+_OPAQUE_滴:1.0__TOKEN_滴_58_ enum _OPAQUE_礎:1.0__TOKEN_礎_39_ { _OPAQUE_礎:1.0__TOKEN_礎_17_, _OPAQUE_礎:1.0__TOKEN_礎_34_, _OPAQUE_礎:1.0__TOKEN_礎_37_ }
+// _OPAQUE_濫:0.1__TOKEN_GC_312_ [decoy-metadata]
+
+// [metadata-stripped]
+// [metadata-stripped]
+_OPAQUE_滴:1.0__TOKEN_滴_58_ struct _OPAQUE_礎:1.0__TOKEN_礎_35_ {
+    _OPAQUE_滴:1.0__TOKEN_滴_58_ _OPAQUE_滴:1.0__TOKEN_滴_77_: _OPAQUE_滴:1.0__TOKEN_滴_80_,
+// [metadata-stripped]
+    _OPAQUE_滴:1.0__TOKEN_滴_58_ _OPAQUE_滴:1.0__TOKEN_滴_19_: [_OPAQUE_滴:1.0__TOKEN_滴_81_; 4],
+    _OPAQUE_滴:1.0__TOKEN_滴_58_ _OPAQUE_道:1.0__TOKEN_滴_26_: [_OPAQUE_滴:1.0__TOKEN_滴_81_; 4],
+    _OPAQUE_滴:1.0__TOKEN_滴_58_ _OPAQUE_滴:1.0__TOKEN_滴_53_: [_OPAQUE_滴:1.0__TOKEN_滴_81_; 4],
+    _OPAQUE_滴:1.0__TOKEN_滴_58_ _OPAQUE_滴:1.0__TOKEN_滴_21_: _OPAQUE_滴:1.0__TOKEN_滴_81_,
+    _OPAQUE_滴:1.0__TOKEN_滴_58_ _OPAQUE_滴:1.0__TOKEN_滴_65_: _OPAQUE_滴:1.0__TOKEN_滴_81_,
+    _OPAQUE_滴:1.0__TOKEN_滴_58_ _OPAQUE_滴:1.0__TOKEN_滴_29_: _OPAQUE_礎:1.0__TOKEN_礎_39_,
+}
+
+_OPAQUE_滴:1.0__TOKEN_滴_13_ _OPAQUE_礎:1.0__TOKEN_礎_35_ {
+// [metadata-stripped]
+// _OPAQUE_緋:0.8__TOKEN_EE_830_ [decoy-metadata]
+    _OPAQUE_滴:1.0__TOKEN_滴_58_ fn _OPAQUE_滴:1.0__TOKEN_滴_22_(&self) -> _OPAQUE_滴:1.0__TOKEN_滴_81_ {
+        self._OPAQUE_滴:1.0__TOKEN_滴_19_[1] + self._OPAQUE_道:1.0__TOKEN_滴_26_[1] + self._OPAQUE_滴:1.0__TOKEN_滴_53_[1] + self._OPAQUE_滴:1.0__TOKEN_滴_21_ + self._OPAQUE_滴:1.0__TOKEN_滴_53_[3] + self._OPAQUE_道:1.0__TOKEN_滴_26_[3] + self._OPAQUE_滴:1.0__TOKEN_滴_19_[3]
+    }
+}
+
+// [metadata-stripped]
+_OPAQUE_滴:1.0__TOKEN_滴_58_ struct _OPAQUE_礎:1.0__TOKEN_礎_27_ {
+    _OPAQUE_滴:1.0__TOKEN_滴_58_ _OPAQUE_滴:1.0__TOKEN_滴_47_: _OPAQUE_礎:1.0__TOKEN_礎_33_<_OPAQUE_滴:1.0__TOKEN_滴_80_, _OPAQUE_礎:1.0__TOKEN_礎_35_>,
+}
+
+_OPAQUE_滴:1.0__TOKEN_滴_13_ _OPAQUE_礎:1.0__TOKEN_礎_27_ {
+    _OPAQUE_滴:1.0__TOKEN_滴_58_ fn _OPAQUE_滴:1.0__TOKEN_滴_52_() -> _OPAQUE_礎:1.0__TOKEN_礎_15_ {
+        _OPAQUE_礎:1.0__TOKEN_礎_15_ { _OPAQUE_滴:1.0__TOKEN_滴_47_: _OPAQUE_礎:1.0__TOKEN_礎_33_::_OPAQUE_滴:1.0__TOKEN_滴_52_() }
+    }
+
+    _OPAQUE_滴:1.0__TOKEN_滴_58_ fn _OPAQUE_道:1.0__TOKEN_焦_2_(&_OPAQUE_滴:1.0__TOKEN_滴_72_ self, _OPAQUE_滴:1.0__TOKEN_滴_77_: _OPAQUE_滴:1.0__TOKEN_滴_80_, b: _OPAQUE_礎:1.0__TOKEN_礎_35_) {
+        self._OPAQUE_滴:1.0__TOKEN_滴_47_._OPAQUE_滴:1.0__TOKEN_滴_79_(_OPAQUE_滴:1.0__TOKEN_滴_77_, b);
+    }
+
+// [metadata-stripped]
+    _OPAQUE_滴:1.0__TOKEN_滴_58_ fn _OPAQUE_道:1.0__TOKEN_焦_4_(&self, m1: _OPAQUE_滴:1.0__TOKEN_滴_81_, m2: _OPAQUE_滴:1.0__TOKEN_滴_81_) -> _OPAQUE_滴:1.0__TOKEN_滴_81_ {
+// [metadata-stripped]
+        if m1 > 0.0 && m2 > 0.0 {
+            m1._OPAQUE_滴:1.0__TOKEN_滴_38_(m2)
+        } else if m1 < 0.0 && m2 < 0.0 {
+            m1._OPAQUE_滴:1.0__TOKEN_滴_37_(m2)
+        } else {
+            m1 + m2
+        }
+    }
+
+// _OPAQUE_滴:0.8__TOKEN_FF_610_ [decoy-metadata]
+// _OPAQUE_匷:0.6__TOKEN_DY_687_ [decoy-metadata]
+// [metadata-stripped]
+    _OPAQUE_滴:1.0__TOKEN_滴_58_ fn _OPAQUE_滴:1.0__TOKEN_滴_49_(&_OPAQUE_滴:1.0__TOKEN_滴_72_ self, _OPAQUE_滴:1.0__TOKEN_滴_70_: _OPAQUE_滴:1.0__TOKEN_滴_80_) {
+// _OPAQUE_秘:0.8__TOKEN_CL_227_ [decoy-metadata]
+// [metadata-stripped]
+    }
+
+// [metadata-stripped]
+    _OPAQUE_滴:1.0__TOKEN_滴_58_ fn _OPAQUE_滴:1.0__TOKEN_滴_28_(&self, _OPAQUE_滴:1.0__TOKEN_滴_77_: _OPAQUE_滴:1.0__TOKEN_滴_80_) -> _OPAQUE_礎:1.0__TOKEN_礎_25_ {
+        if let _OPAQUE_礎:1.0__TOKEN_礎_5_(b) = self._OPAQUE_滴:1.0__TOKEN_滴_47_._OPAQUE_道:1.0__TOKEN_焦_1_(&_OPAQUE_滴:1.0__TOKEN_滴_77_) {
+            _OPAQUE_濫:1.0__TOKEN_滴_59_!("📦 _OPAQUE_礎:1.0__TOKEN_礎_10_ _OPAQUE_礎:1.0__TOKEN_礎_1_ (_OPAQUE_礎:1.0__TOKEN_礎_2_ #{}): _OPAQUE_礎:1.0__TOKEN_礎_40_({}×{}), _OPAQUE_礎:1.0__TOKEN_礎_21_:{:?}, _OPAQUE_礎:1.0__TOKEN_礎_31_: {:.1}", 
+                _OPAQUE_滴:1.0__TOKEN_滴_77_, b._OPAQUE_滴:1.0__TOKEN_滴_21_, b._OPAQUE_滴:1.0__TOKEN_滴_65_, b._OPAQUE_滴:1.0__TOKEN_滴_29_, b._OPAQUE_滴:1.0__TOKEN_滴_22_())
+        } else {
+            _OPAQUE_濫:1.0__TOKEN_滴_59_!("_OPAQUE_礎:1.0__TOKEN_礎_2_ #{} _OPAQUE_滴:1.0__TOKEN_滴_33_ no _OPAQUE_滴:1.0__TOKEN_滴_17_ _OPAQUE_滴:1.0__TOKEN_滴_50_ _OPAQUE_滴:1.0__TOKEN_滴_55_", _OPAQUE_滴:1.0__TOKEN_滴_77_)
+        }
+    }
+}
+
+// POLYMORPHIC_JCROSS_END

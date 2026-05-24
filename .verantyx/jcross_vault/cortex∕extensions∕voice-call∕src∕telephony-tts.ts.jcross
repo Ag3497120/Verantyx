@@ -1,0 +1,94 @@
+// POLYMORPHIC_JCROSS_BEGIN
+// schema:2C665BAD ver:1778348699
+// ⚠️ One-time schema — expires after response
+
+import _ASTNODE_霜:1.0__ID_霜_22_ { _ASTNODE_廷:1.0__ID_廷_2_ } _ASTNODE_霜:1.0__ID_霜_11_ "./_ASTNODE_霜:1.0__ID_霜_15_.js";
+import _ASTNODE_霜:1.0__ID_霜_22_ { _ASTNODE_廷:1.0__ID_廷_3_ } _ASTNODE_霜:1.0__ID_霜_11_ "./_ASTNODE_霜:1.0__ID_霜_37_-_ASTNODE_霜:1.0__ID_霜_31_.js";
+import { _ASTNODE_霜:1.0__ID_霜_4_ } _ASTNODE_霜:1.0__ID_霜_11_ "./_ASTNODE_霜:1.0__ID_霜_3_-_ASTNODE_霜:1.0__ID_霜_18_.js";
+import { _ASTNODE_霜:1.0__ID_霜_39_ } _ASTNODE_霜:1.0__ID_霜_11_ "./_ASTNODE_霜:1.0__ID_霜_13_-_ASTNODE_霜:1.0__ID_霜_35_.js";
+
+_ASTNODE_霜:1.0__ID_霜_6_ _ASTNODE_霜:1.0__ID_霜_22_ _ASTNODE_廷:1.0__ID_廷_4_ = {
+  _ASTNODE_霜:1.0__ID_霜_38_: (_ASTNODE_霜:1.0__ID_霜_7_: {
+    _ASTNODE_霜:1.0__ID_霜_21_: _ASTNODE_霜:1.0__ID_霜_36_;
+    _ASTNODE_霜:1.0__ID_霜_8_: _ASTNODE_廷:1.0__ID_廷_3_;
+    _ASTNODE_霜:1.0__ID_霜_23_?: _ASTNODE_霜:1.0__ID_霜_36_;
+  }) => _ASTNODE_廷:1.0__ID_廷_1_<{
+    _ASTNODE_霜:1.0__ID_霜_34_: _ASTNODE_霜:1.0__ID_霜_24_;
+    _ASTNODE_謀:1.0__ID_霜_1_?: _ASTNODE_謀:1.0__ID_廷_6_;
+    _ASTNODE_霜:1.0__ID_霜_42_?: _ASTNODE_謀:1.0__ID_霜_10_;
+    _ASTNODE_謀:1.0__ID_霜_19_?: _ASTNODE_霜:1.0__ID_霜_36_;
+    _ASTNODE_霜:1.0__ID_霜_14_?: _ASTNODE_霜:1.0__ID_霜_36_;
+  }>;
+};
+
+_ASTNODE_霜:1.0__ID_霜_6_ _ASTNODE_霜:1.0__ID_霜_22_ _ASTNODE_謀:1.0__ID_廷_7_ = {
+  _ASTNODE_浮:1.0__ID_霜_30_: (_ASTNODE_霜:1.0__ID_霜_21_: _ASTNODE_霜:1.0__ID_霜_36_) => _ASTNODE_廷:1.0__ID_廷_1_<_ASTNODE_謀:1.0__ID_廷_6_>;
+};
+
+_ASTNODE_霜:1.0__ID_霜_6_ _ASTNODE_霜:1.0__ID_霜_29_ _ASTNODE_謀:1.0__ID_霜_17_(_ASTNODE_霜:1.0__ID_霜_7_: {
+  _ASTNODE_霜:1.0__ID_霜_45_: _ASTNODE_廷:1.0__ID_廷_3_;
+  _ASTNODE_霜:1.0__ID_霜_40_?: _ASTNODE_廷:1.0__ID_廷_2_;
+  _ASTNODE_霜:1.0__ID_霜_9_: _ASTNODE_廷:1.0__ID_廷_4_;
+}): _ASTNODE_謀:1.0__ID_廷_7_ {
+  _ASTNODE_霜:1.0__ID_霜_26_ { _ASTNODE_霜:1.0__ID_霜_45_, _ASTNODE_霜:1.0__ID_霜_40_, _ASTNODE_霜:1.0__ID_霜_9_ } = _ASTNODE_霜:1.0__ID_霜_7_;
+  _ASTNODE_霜:1.0__ID_霜_26_ _ASTNODE_霜:1.0__ID_霜_2_ = _ASTNODE_霜:1.0__ID_霜_43_(_ASTNODE_霜:1.0__ID_霜_45_, _ASTNODE_霜:1.0__ID_霜_40_);
+
+  return {
+    _ASTNODE_浮:1.0__ID_霜_30_: async (_ASTNODE_霜:1.0__ID_霜_21_: _ASTNODE_霜:1.0__ID_霜_36_) => {
+      _ASTNODE_霜:1.0__ID_霜_26_ _ASTNODE_霜:1.0__ID_霜_41_ = await _ASTNODE_霜:1.0__ID_霜_9_._ASTNODE_霜:1.0__ID_霜_38_({
+        _ASTNODE_霜:1.0__ID_霜_21_,
+        _ASTNODE_霜:1.0__ID_霜_8_: _ASTNODE_霜:1.0__ID_霜_2_,
+// _ASTNODE_伏:0.4__ID_EM_493_ [decoy-metadata]
+      });
+
+      if (!_ASTNODE_霜:1.0__ID_霜_41_._ASTNODE_霜:1.0__ID_霜_34_ || !_ASTNODE_霜:1.0__ID_霜_41_._ASTNODE_謀:1.0__ID_霜_1_ || !_ASTNODE_霜:1.0__ID_霜_41_._ASTNODE_霜:1.0__ID_霜_42_) {
+        _ASTNODE_霜:1.0__ID_霜_12_ _ASTNODE_霜:1.0__ID_霜_32_ _ASTNODE_廷:1.0__ID_廷_8_(_ASTNODE_霜:1.0__ID_霜_41_._ASTNODE_霜:1.0__ID_霜_14_ ?? "_ASTNODE_廷:1.0__ID_廷_5_ _ASTNODE_霜:1.0__ID_霜_20_ _ASTNODE_霜:1.0__ID_霜_25_");
+      }
+
+      return _ASTNODE_霜:1.0__ID_霜_39_(_ASTNODE_霜:1.0__ID_霜_41_._ASTNODE_謀:1.0__ID_霜_1_, _ASTNODE_霜:1.0__ID_霜_41_._ASTNODE_霜:1.0__ID_霜_42_);
+    },
+  };
+}
+
+// _ASTNODE_謀:0.4__ID_MM_369_ [decoy-metadata]
+_ASTNODE_霜:1.0__ID_霜_29_ _ASTNODE_霜:1.0__ID_霜_43_(_ASTNODE_霜:1.0__ID_霜_45_: _ASTNODE_廷:1.0__ID_廷_3_, override?: _ASTNODE_廷:1.0__ID_廷_2_): _ASTNODE_廷:1.0__ID_廷_3_ {
+  if (!override) {
+    return _ASTNODE_霜:1.0__ID_霜_45_;
+  }
+
+// _ASTNODE_伏:0.7__ID_CL_836_ [decoy-metadata]
+  _ASTNODE_霜:1.0__ID_霜_26_ _ASTNODE_霜:1.0__ID_霜_5_ = _ASTNODE_霜:1.0__ID_霜_45_._ASTNODE_霜:1.0__ID_霜_27_?._ASTNODE_霜:1.0__ID_霜_28_;
+// _ASTNODE_霜:0.7__ID_ZV_732_ [decoy-metadata]
+  _ASTNODE_霜:1.0__ID_霜_26_ _ASTNODE_霜:1.0__ID_霜_33_ = _ASTNODE_霜:1.0__ID_霜_44_(_ASTNODE_霜:1.0__ID_霜_5_, override);
+  if (!_ASTNODE_霜:1.0__ID_霜_33_) {
+    return _ASTNODE_霜:1.0__ID_霜_45_;
+  }
+
+  return {
+    ..._ASTNODE_霜:1.0__ID_霜_45_,
+    _ASTNODE_霜:1.0__ID_霜_27_: {
+      ..._ASTNODE_霜:1.0__ID_霜_45_._ASTNODE_霜:1.0__ID_霜_27_,
+      _ASTNODE_霜:1.0__ID_霜_28_: _ASTNODE_霜:1.0__ID_霜_33_,
+// _ASTNODE_廷:0.3__ID_WD_219_ [decoy-metadata]
+    },
+  };
+}
+
+_ASTNODE_霜:1.0__ID_霜_29_ _ASTNODE_霜:1.0__ID_霜_44_(
+  _ASTNODE_霜:1.0__ID_霜_5_?: _ASTNODE_廷:1.0__ID_廷_2_,
+  override?: _ASTNODE_廷:1.0__ID_廷_2_,
+): _ASTNODE_廷:1.0__ID_廷_2_ | _ASTNODE_霜:1.0__ID_霜_16_ {
+  if (!_ASTNODE_霜:1.0__ID_霜_5_ && !override) {
+    return _ASTNODE_霜:1.0__ID_霜_16_;
+  }
+  if (!override) {
+// _ASTNODE_箱:0.5__ID_CM_575_ [decoy-metadata]
+    return _ASTNODE_霜:1.0__ID_霜_5_;
+  }
+  if (!_ASTNODE_霜:1.0__ID_霜_5_) {
+    return override;
+  }
+  return _ASTNODE_霜:1.0__ID_霜_4_(_ASTNODE_霜:1.0__ID_霜_5_, override) as _ASTNODE_廷:1.0__ID_廷_2_;
+}
+
+// POLYMORPHIC_JCROSS_END

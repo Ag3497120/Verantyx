@@ -1,0 +1,88 @@
+// POLYMORPHIC_JCROSS_BEGIN
+// schema:97DEA4F6 ver:1778320408
+// ⚠️ One-time schema — expires after response
+
+import * as p _OPAQUE_沫:1.0__ID_沫_18_ "@_OPAQUE_沫:1.0__ID_沫_46_/_OPAQUE_沫:1.0__ID_沫_3_";
+import { _OPAQUE_匱:1.0__ID_沫_31_, _OPAQUE_沫:1.0__ID_沫_25_, _OPAQUE_沫:1.0__ID_沫_15_ } _OPAQUE_沫:1.0__ID_沫_18_ "fs";
+import { _OPAQUE_沫:1.0__ID_沫_14_ } _OPAQUE_沫:1.0__ID_沫_18_ "_OPAQUE_沫:1.0__ID_沫_36_";
+import { _OPAQUE_匱:1.0__ID_沫_41_, _OPAQUE_廟:1.0__ID_廟_18_ } _OPAQUE_沫:1.0__ID_沫_18_ "../../_OPAQUE_沫:1.0__ID_沫_19_.js";
+
+_OPAQUE_沫:1.0__ID_沫_6_ async _OPAQUE_沫:1.0__ID_沫_44_ _OPAQUE_沫:1.0__ID_沫_62_() {
+  _OPAQUE_沫:1.0__ID_沫_47_._OPAQUE_沫:1.0__ID_沫_2_();
+  
+  p._OPAQUE_沫:1.0__ID_沫_42_(`◇  _OPAQUE_廟:1.0__ID_廟_25_ to _OPAQUE_廟:1.0__ID_廟_12_ _OPAQUE_廟:1.0__ID_廟_5_ _OPAQUE_廟:1.0__ID_廟_16_`);
+
+// [metadata-stripped]
+  _OPAQUE_沫:1.0__ID_沫_35_ _OPAQUE_沫:1.0__ID_沫_48_ = await p._OPAQUE_沫:1.0__ID_沫_52_({
+    _OPAQUE_沫:1.0__ID_沫_55_: "_OPAQUE_廟:1.0__ID_廟_29_ _OPAQUE_沫:1.0__ID_沫_23_ _OPAQUE_沫:1.0__ID_沫_20_ / 言語を選択してください:",
+    _OPAQUE_沫:1.0__ID_沫_54_: [
+      { _OPAQUE_沫:1.0__ID_沫_26_: "en", _OPAQUE_沫:1.0__ID_沫_24_: "_OPAQUE_廟:1.0__ID_廟_15_" },
+      { _OPAQUE_沫:1.0__ID_沫_26_: "ja", _OPAQUE_沫:1.0__ID_沫_24_: "日本語" }
+    ],
+  });
+
+  if (p._OPAQUE_沫:1.0__ID_沫_30_(_OPAQUE_沫:1.0__ID_沫_48_)) {
+    p._OPAQUE_沫:1.0__ID_沫_8_("_OPAQUE_策:1.0__ID_傑_1_ _OPAQUE_沫:1.0__ID_沫_59_.");
+    _OPAQUE_沫:1.0__ID_沫_27_._OPAQUE_沫:1.0__ID_沫_1_(0);
+// _OPAQUE_紗:0.2__ID_BF_117_ [decoy-metadata]
+  }
+
+  _OPAQUE_沫:1.0__ID_沫_35_ _OPAQUE_沫:1.0__ID_沫_12_ = _OPAQUE_沫:1.0__ID_沫_48_ === "en";
+
+// _OPAQUE_沫:0.9__ID_CL_195_ [decoy-metadata]
+// [metadata-stripped]
+  _OPAQUE_沫:1.0__ID_沫_35_ _OPAQUE_沫:1.0__ID_沫_38_ = await p._OPAQUE_沫:1.0__ID_沫_52_({
+    _OPAQUE_沫:1.0__ID_沫_55_: _OPAQUE_沫:1.0__ID_沫_12_ 
+      ? "_OPAQUE_廟:1.0__ID_廟_19_ _OPAQUE_沫:1.0__ID_沫_23_ _OPAQUE_沫:1.0__ID_沫_53_ _OPAQUE_沫:1.0__ID_沫_49_ _OPAQUE_沫:1.0__ID_沫_56_ _OPAQUE_沫:1.0__ID_沫_38_:" 
+      : "クラウド推論を使用する際のモードを選択してください:",
+    _OPAQUE_沫:1.0__ID_沫_54_: [
+      { 
+        _OPAQUE_沫:1.0__ID_沫_26_: "_OPAQUE_沫:1.0__ID_沫_13_", 
+        _OPAQUE_沫:1.0__ID_沫_24_: _OPAQUE_沫:1.0__ID_沫_12_ 
+// _OPAQUE_傑:0.2__ID_AV_750_ [decoy-metadata]
+// _OPAQUE_紗:0.2__ID_YW_640_ [decoy-metadata]
+          ? "_OPAQUE_策:1.0__ID_廟_26_ _OPAQUE_廟:1.0__ID_廟_23_ (_OPAQUE_廟:1.0__ID_廟_9_ & _OPAQUE_廟:1.0__ID_廟_27_) — _OPAQUE_廟:1.0__ID_廟_14_ _OPAQUE_沫:1.0__ID_沫_21_ _OPAQUE_廟:1.0__ID_廟_4_ UI to _OPAQUE_沫:1.0__ID_沫_11_ _OPAQUE_沫:1.0__ID_沫_28_. No _OPAQUE_紗:1.0__ID_廟_2_ _OPAQUE_沫:1.0__ID_沫_58_." 
+          : "ブラウザリレーモード (無料＆ステルス) — ブラウザを裏で開いて無料で推論を利用します。" 
+      },
+      { 
+        _OPAQUE_沫:1.0__ID_沫_26_: "_OPAQUE_紗:1.0__ID_沫_5_", 
+        _OPAQUE_沫:1.0__ID_沫_24_: _OPAQUE_沫:1.0__ID_沫_12_ 
+          ? "_OPAQUE_紗:1.0__ID_廟_2_ _OPAQUE_廟:1.0__ID_廟_6_ (_OPAQUE_廟:1.0__ID_廟_8_ & _OPAQUE_廟:1.0__ID_廟_11_) — _OPAQUE_廟:1.0__ID_廟_22_ _OPAQUE_沫:1.0__ID_沫_39_ _OPAQUE_廟:1.0__ID_廟_17_/_OPAQUE_廟:1.0__ID_廟_20_ _OPAQUE_紗:1.0__ID_廟_2_ _OPAQUE_沫:1.0__ID_沫_40_."
+          : "_OPAQUE_紗:1.0__ID_廟_2_モード (有料＆高速) — 従来の_OPAQUE_紗:1.0__ID_廟_2_接続を利用する標準的なモードです。" 
+      }
+    ],
+  });
+
+  if (p._OPAQUE_沫:1.0__ID_沫_30_(_OPAQUE_沫:1.0__ID_沫_38_)) {
+    p._OPAQUE_沫:1.0__ID_沫_8_(_OPAQUE_沫:1.0__ID_沫_12_ ? "_OPAQUE_策:1.0__ID_傑_1_ _OPAQUE_沫:1.0__ID_沫_59_." : "セットアップをキャンセルしました。");
+    _OPAQUE_沫:1.0__ID_沫_27_._OPAQUE_沫:1.0__ID_沫_1_(0);
+  }
+
+// [metadata-stripped]
+  _OPAQUE_沫:1.0__ID_沫_35_ _OPAQUE_沫:1.0__ID_沫_19_ = _OPAQUE_匱:1.0__ID_沫_41_();
+  
+  _OPAQUE_沫:1.0__ID_沫_19_._OPAQUE_沫:1.0__ID_沫_34_._OPAQUE_沫:1.0__ID_沫_29_ = _OPAQUE_沫:1.0__ID_沫_48_ as "en" | "ja";
+  _OPAQUE_沫:1.0__ID_沫_19_._OPAQUE_沫:1.0__ID_沫_34_._OPAQUE_沫:1.0__ID_沫_43_ = _OPAQUE_沫:1.0__ID_沫_38_ as "_OPAQUE_紗:1.0__ID_沫_5_" | "_OPAQUE_沫:1.0__ID_沫_13_";
+
+// [metadata-stripped]
+  _OPAQUE_沫:1.0__ID_沫_35_ _OPAQUE_沫:1.0__ID_沫_45_ = _OPAQUE_沫:1.0__ID_沫_14_(_OPAQUE_沫:1.0__ID_沫_27_._OPAQUE_沫:1.0__ID_沫_60_._OPAQUE_廟:1.0__ID_廟_3_ || "", "._OPAQUE_沫:1.0__ID_沫_22_");
+  if (!_OPAQUE_沫:1.0__ID_沫_25_(_OPAQUE_沫:1.0__ID_沫_45_)) {
+    _OPAQUE_沫:1.0__ID_沫_15_(_OPAQUE_沫:1.0__ID_沫_45_, { _OPAQUE_沫:1.0__ID_沫_16_: true });
+// _OPAQUE_沫:0.4__ID_CK_890_ [decoy-metadata]
+  }
+
+  _OPAQUE_匱:1.0__ID_沫_31_(
+    _OPAQUE_沫:1.0__ID_沫_14_(_OPAQUE_沫:1.0__ID_沫_45_, "_OPAQUE_沫:1.0__ID_沫_19_._OPAQUE_沫:1.0__ID_沫_32_"),
+// _OPAQUE_沫:0.2__ID_XZ_907_ [decoy-metadata]
+    _OPAQUE_廟:1.0__ID_廟_21_._OPAQUE_浸:1.0__ID_沫_33_(_OPAQUE_沫:1.0__ID_沫_19_, _OPAQUE_沫:1.0__ID_沫_4_, 2),
+    "_OPAQUE_沫:1.0__ID_沫_17_-8"
+  );
+
+  p._OPAQUE_沫:1.0__ID_沫_61_(
+    _OPAQUE_沫:1.0__ID_沫_12_ 
+      ? `◇  _OPAQUE_策:1.0__ID_傑_1_ _OPAQUE_沫:1.0__ID_沫_7_! _OPAQUE_廟:1.0__ID_廟_7_ _OPAQUE_匱:1.0__ID_沫_37_ to ${_OPAQUE_沫:1.0__ID_沫_14_(_OPAQUE_沫:1.0__ID_沫_45_, "_OPAQUE_沫:1.0__ID_沫_19_._OPAQUE_沫:1.0__ID_沫_32_")}\n   _OPAQUE_廟:1.0__ID_廟_30_ _OPAQUE_沫:1.0__ID_沫_50_ _OPAQUE_沫:1.0__ID_沫_51_ to _OPAQUE_沫:1.0__ID_沫_57_.`
+      : `◇  セットアップ完了！設定は ${_OPAQUE_沫:1.0__ID_沫_14_(_OPAQUE_沫:1.0__ID_沫_45_, "_OPAQUE_沫:1.0__ID_沫_19_._OPAQUE_沫:1.0__ID_沫_32_")} に保存されました。\n   浪人、出陣の準備が整いました。`
+  );
+}
+
+// POLYMORPHIC_JCROSS_END

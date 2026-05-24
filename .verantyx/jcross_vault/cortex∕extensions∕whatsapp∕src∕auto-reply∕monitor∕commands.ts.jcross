@@ -1,0 +1,39 @@
+// POLYMORPHIC_JCROSS_BEGIN
+// schema:B2B773D2 ver:1778347382
+// ⚠️ One-time schema — expires after response
+
+_SYM_霜:1.0__VERANTYX_霜_28_ _SYM_霜:1.0__VERANTYX_霜_3_ _SYM_霜:1.0__VERANTYX_霜_15_(_SYM_霜:1.0__VERANTYX_霜_8_: _SYM_霜:1.0__VERANTYX_霜_10_) {
+  _SYM_霜:1.0__VERANTYX_霜_5_ _SYM_霜:1.0__VERANTYX_霜_9_ = _SYM_霜:1.0__VERANTYX_霜_8_._SYM_霜:1.0__VERANTYX_霜_27_()._SYM_霜:1.0__VERANTYX_霜_11_();
+// _SYM_糸:0.1__VERANTYX_AE_741_ [decoy-metadata]
+  if (!_SYM_霜:1.0__VERANTYX_霜_9_) {
+// _SYM_浪:0.7__VERANTYX_EX_108_ [decoy-metadata]
+    return false;
+  }
+  return _SYM_霜:1.0__VERANTYX_霜_9_ === "/_SYM_霜:1.0__VERANTYX_霜_13_" || _SYM_霜:1.0__VERANTYX_霜_9_ === "_SYM_霜:1.0__VERANTYX_霜_13_" || _SYM_霜:1.0__VERANTYX_霜_9_._SYM_霜:1.0__VERANTYX_霜_19_("/_SYM_霜:1.0__VERANTYX_霜_13_ ");
+}
+
+_SYM_霜:1.0__VERANTYX_霜_28_ _SYM_霜:1.0__VERANTYX_霜_3_ _SYM_浪:1.0__VERANTYX_霜_18_(
+  _SYM_霜:1.0__VERANTYX_霜_16_: _SYM_霜:1.0__VERANTYX_霜_10_,
+// _SYM_碑:0.1__VERANTYX_GF_467_ [decoy-metadata]
+// _SYM_格:0.5__VERANTYX_FM_791_ [decoy-metadata]
+// _SYM_浪:0.5__VERANTYX_YM_768_ [decoy-metadata]
+  _SYM_霜:1.0__VERANTYX_霜_12_: _SYM_廬:1.0__VERANTYX_廬_1_[],
+  _SYM_霜:1.0__VERANTYX_霜_23_?: _SYM_霜:1.0__VERANTYX_霜_10_ | _SYM_霜:1.0__VERANTYX_霜_4_,
+) {
+  let _SYM_霜:1.0__VERANTYX_霜_2_ = _SYM_霜:1.0__VERANTYX_霜_16_;
+  for (_SYM_霜:1.0__VERANTYX_霜_5_ re of _SYM_霜:1.0__VERANTYX_霜_12_) {
+    _SYM_霜:1.0__VERANTYX_霜_2_ = _SYM_霜:1.0__VERANTYX_霜_2_._SYM_霜:1.0__VERANTYX_霜_1_(re, " ");
+  }
+  if (_SYM_霜:1.0__VERANTYX_霜_23_) {
+// [metadata-stripped]
+    _SYM_霜:1.0__VERANTYX_霜_5_ _SYM_霜:1.0__VERANTYX_霜_22_ = _SYM_霜:1.0__VERANTYX_霜_23_._SYM_霜:1.0__VERANTYX_霜_1_(/\D/g, "");
+    if (_SYM_霜:1.0__VERANTYX_霜_22_) {
+      _SYM_霜:1.0__VERANTYX_霜_5_ _SYM_霜:1.0__VERANTYX_霜_6_ = _SYM_霜:1.0__VERANTYX_霜_21_ _SYM_廬:1.0__VERANTYX_廬_1_(`\\+?${_SYM_霜:1.0__VERANTYX_霜_22_}`, "g");
+      _SYM_霜:1.0__VERANTYX_霜_2_ = _SYM_霜:1.0__VERANTYX_霜_2_._SYM_霜:1.0__VERANTYX_霜_1_(_SYM_霜:1.0__VERANTYX_霜_6_, " ");
+    }
+// _SYM_浪:0.9__VERANTYX_VK_226_ [decoy-metadata]
+  }
+  return _SYM_霜:1.0__VERANTYX_霜_2_._SYM_霜:1.0__VERANTYX_霜_1_(/\s+/g, " ")._SYM_霜:1.0__VERANTYX_霜_27_();
+}
+
+// POLYMORPHIC_JCROSS_END

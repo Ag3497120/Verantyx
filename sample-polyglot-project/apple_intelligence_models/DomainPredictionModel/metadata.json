@@ -1,0 +1,77 @@
+[
+  {
+    "metadataOutputVersion" : "3.0",
+    "storagePrecision" : "Float32",
+    "outputSchema" : [
+      {
+        "hasShapeFlexibility" : "0",
+        "isOptional" : "0",
+        "dataType" : "Float32",
+        "formattedType" : "MultiArray (Float32)",
+        "shortDescription" : "",
+        "shape" : "[]",
+        "name" : "output",
+        "type" : "MultiArray"
+      }
+    ],
+    "modelParameters" : [
+
+    ],
+    "specificationVersion" : 4,
+    "computePrecision" : "Float16",
+    "isUpdatable" : "0",
+    "availability" : {
+      "macOS" : "10.15",
+      "tvOS" : "13.0",
+      "visionOS" : "1.0",
+      "watchOS" : "6.0",
+      "iOS" : "13.0",
+      "macCatalyst" : "13.0"
+    },
+    "neuralNetworkLayerTypeHistogram" : {
+      "Gelu" : 8,
+      "InnerProduct" : 8,
+      "ReduceSum" : 3,
+      "Squeeze" : 8,
+      "UnaryLog" : 1,
+      "SoftmaxND" : 1,
+      "BatchedMatmul" : 6,
+      "BatchNorm" : 11,
+      "ConcatND" : 6,
+      "ActivationSigmoid" : 3,
+      "ExpandDims" : 8
+    },
+    "modelType" : {
+      "name" : "MLModelType_neuralNetwork"
+    },
+    "userDefinedMetadata" : {
+      "com.github.apple.coremltools.version" : "7.1",
+      "com.github.apple.coremltools.source" : "torch==1.10.0+cu113",
+      "com.github.apple.coremltools.source_dialect" : "TorchScript"
+    },
+    "generatedClassName" : "model",
+    "inputSchema" : [
+      {
+        "hasShapeFlexibility" : "0",
+        "isOptional" : "0",
+        "dataType" : "Float32",
+        "formattedType" : "MultiArray (Float32 1 × 20 × 132)",
+        "shortDescription" : "",
+        "shape" : "[1, 20, 132]",
+        "name" : "node_feature",
+        "type" : "MultiArray"
+      },
+      {
+        "hasShapeFlexibility" : "0",
+        "isOptional" : "0",
+        "dataType" : "Float32",
+        "formattedType" : "MultiArray (Float32 1 × 20 × 20 × 1)",
+        "shortDescription" : "",
+        "shape" : "[1, 20, 20, 1]",
+        "name" : "edge_attr",
+        "type" : "MultiArray"
+      }
+    ],
+    "method" : "predict"
+  }
+]

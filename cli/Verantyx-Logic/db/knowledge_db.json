@@ -1,0 +1,103 @@
+{
+  "domains": ["modal_logic", "order_theory", "group_theory", "set_theory"],
+  "lexicon": {
+    "assumptions": {
+      "assume:transitive": {
+        "positive": ["transitive", "推移的", "推移性", "推移律", "連鎖的"],
+        "negative": ["not transitive", "non-transitive", "反推移", "推移的ではない"],
+        "description": "R is transitive: (wRv and vRu) => wRu"
+      },
+      "assume:reflexive": {
+        "positive": ["reflexive", "反射的", "反射性", "自己到達", "wRw"],
+        "negative": ["not reflexive", "non-reflexive", "反射的ではない"],
+        "description": "R is reflexive: for all w, wRw"
+      },
+      "assume:symmetric": {
+        "positive": ["symmetric", "対称的", "対称性", "双方向"],
+        "negative": ["not symmetric", "non-symmetric", "非対称"],
+        "description": "R is symmetric: wRv => vRw"
+      },
+      "assume:euclidean": {
+        "positive": ["euclidean", "ユークリッド的", "ユークリッド性"],
+        "negative": ["not euclidean", "non-euclidean"],
+        "description": "R is euclidean: wRv and wRu => vRu"
+      },
+      "assume:antisymmetric": {
+        "positive": ["antisymmetric", "反対称的", "反対称性"],
+        "negative": ["not antisymmetric"],
+        "description": "xRy and yRx => x=y"
+      },
+      "assume:associative": {
+        "positive": ["associative", "結合的", "結合律"],
+        "negative": ["not associative", "非結合的"],
+        "description": "(a * b) * c = a * (b * c)"
+      },
+      "assume:commutative": {
+        "positive": ["commutative", "可換", "交換法則"],
+        "negative": ["not commutative", "非可換"],
+        "description": "a * b = b * a"
+      }
+    }
+  },
+  "correspondence": {
+    "axioms": {
+      "axiom:T": {
+        "requires": ["assume:reflexive"],
+        "schema": "[]P -> P",
+        "description": "Reflexivity corresponds to Axiom T."
+      },
+      "axiom:4": {
+        "requires": ["assume:transitive"],
+        "schema": "[]P -> [][]P",
+        "description": "Transitivity corresponds to Axiom 4."
+      },
+      "axiom:5": {
+        "requires": ["assume:euclidean"],
+        "schema": "<>P -> []<>P",
+        "description": "Euclidean property corresponds to Axiom 5."
+      },
+      "axiom:B": {
+        "requires": ["assume:symmetric"],
+        "schema": "P -> []<>P",
+        "description": "Symmetry corresponds to Axiom B."
+      },
+      "axiom:group_identity": {
+        "requires": ["assume:group_structure"],
+        "schema": "e * x = x",
+        "description": "Identity element existence."
+      }
+    },
+    "schemas": {
+      "[]p->p": { "explain": "T-axiom (Reflexivity)", "supports": ["axiom:T"] },
+      "[]p->[][]p": { "explain": "4-axiom (Transitivity)", "supports": ["axiom:4"] },
+      "<>p->[]<>p": { "explain": "5-axiom (Euclidean)", "supports": ["axiom:5"] },
+      "p->[]<>p": { "explain": "B-axiom (Symmetry)", "supports": ["axiom:B"] }
+    },
+    "missing_assumption_hints": {
+      "[]p->p": ["assume:reflexive"],
+      "[]p->[][]p": ["assume:transitive"],
+      "<>p->[]<>p": ["assume:euclidean"],
+      "p->[]<>p": ["assume:symmetric"]
+    }
+  },
+  "structures": {
+    "order:partial_order": {
+      "name": "Partial Order",
+      "assumptions": ["assume:reflexive", "assume:antisymmetric", "assume:transitive"],
+      "intuition": "A set with a hierarchy where not all elements need to be comparable."
+    },
+    "algebra:group": {
+      "name": "Group",
+      "assumptions": ["assume:associative", "assume:has_identity", "assume:has_inverse"],
+      "intuition": "A set with an operation that allows symmetry and reversibility."
+    }
+  },
+  "counterexample_notes": {
+    "missing_reflexive_breaks_T": {
+      "explain": "反射性が無いと wRw が保証されないため、□P が真（到達先がない）でも P が偽になる世界が存在しうる。"
+    },
+    "missing_transitive_breaks_4": {
+      "explain": "推移性が無いと、2歩先の到達点が見えないため、□P から □□P が導けない。"
+    }
+  }
+}

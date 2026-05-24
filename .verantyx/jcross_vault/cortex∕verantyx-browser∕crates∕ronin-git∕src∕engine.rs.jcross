@@ -1,0 +1,79 @@
+// POLYMORPHIC_JCROSS_BEGIN
+// schema:7012111C ver:1778322792
+// ⚠️ One-time schema — expires after response
+
+__ast_霩:1.0____jcross_霩_34__ __ast_霩:1.0____jcross_霩_11__::{__ast_礎:1.0____jcross_礎_27__, __ast_礎:1.0____jcross_礎_20__, __ast_礎:1.0____jcross_礎_17__, __ast_礎:1.0____jcross_礎_22__};
+__ast_霩:1.0____jcross_霩_34__ __ast_霩:1.0____jcross_霩_9__::__ast_霩:1.0____jcross_霩_28__::__ast_礎:1.0____jcross_礎_14__;
+__ast_霩:1.0____jcross_霩_34__ __ast_霩:1.0____jcross_霩_24__::{__ast_霩:1.0____jcross_霩_18__, __ast_霩:1.0____jcross_霩_32__};
+// __ast_匳:0.6____jcross_WY_770__ [decoy-metadata]
+
+__ast_霩:1.0____jcross_霩_40__ __ast_霩:1.0____jcross_霩_53__uct __ast_礎:1.0____jcross_礎_6__ {
+// __ast_弧:0.5____jcross_YG_246__ [decoy-metadata]
+    __ast_霩:1.0____jcross_霩_36__: __ast_礎:1.0____jcross_礎_27__,
+}
+
+__ast_霩:1.0____jcross_霩_10__ __ast_礎:1.0____jcross_礎_6__ {
+// __ast_弧:0.1____jcross_BM_919__ [decoy-metadata]
+    __ast_霩:1.0____jcross_霩_40__ fn __ast_霩:1.0____jcross_霩_37__(__ast_霩:1.0____jcross_霩_15__: __ast_霩:1.0____jcross_霩_10__ __ast_礎:1.0____jcross_礎_2__<__ast_礎:1.0____jcross_礎_14__>) -> __ast_霩:1.0____jcross_霩_48__::__ast_礎:1.0____jcross_礎_19__<__ast_礎:1.0____jcross_礎_8__> {
+        let __ast_霩:1.0____jcross_霩_36__ = __ast_礎:1.0____jcross_礎_27__::open(__ast_霩:1.0____jcross_霩_15__)?;
+        Ok(__ast_礎:1.0____jcross_礎_8__ { __ast_霩:1.0____jcross_霩_36__ })
+    }
+
+// [metadata-stripped]
+    __ast_霩:1.0____jcross_霩_40__ fn __ast_霩:1.0____jcross_霩_8__(&self, __ast_霩:1.0____jcross_霩_64__: &__ast_霩:1.0____jcross_霩_53__) -> __ast_霩:1.0____jcross_霩_48__::__ast_礎:1.0____jcross_礎_19__<()> {
+        let __ast_霩:1.0____jcross_霩_16__ = self.__ast_霩:1.0____jcross_霩_36__.__ast_霩:1.0____jcross_霩_16__()?.__ast_霩:1.0____jcross_霩_59__()?;
+        
+        let __ast_霩:1.0____jcross_霩_60__ = __ast_霩:1.0____jcross_霩_68__ self.__ast_霩:1.0____jcross_霩_36__.__ast_霩:1.0____jcross_霩_56__(__ast_霩:1.0____jcross_霩_64__, __ast_霩:1.0____jcross_霩_11__::__ast_礎:1.0____jcross_礎_11__::__ast_礎:1.0____jcross_礎_3__) {
+            Ok(b) => b,
+            __ast_礎:1.0____jcross_礎_15__(_) => self.__ast_霩:1.0____jcross_霩_36__.__ast_霩:1.0____jcross_霩_60__(__ast_霩:1.0____jcross_霩_64__, &__ast_霩:1.0____jcross_霩_16__, false)?,
+        };
+
+        let __ast_霩:1.0____jcross_霩_58__ = __ast_霩:1.0____jcross_霩_60__.__ast_律:1.0____jcross_弧_1__().__ast_霩:1.0____jcross_霩_23__(__ast_霩:1.0____jcross_霩_11__::__ast_礎:1.0____jcross_礎_13__::__ast_礎:1.0____jcross_礎_24__)?;
+        self.__ast_霩:1.0____jcross_霩_36__.__ast_霩:1.0____jcross_霩_45__(&__ast_霩:1.0____jcross_霩_58__, __ast_礎:1.0____jcross_礎_9__)?;
+        self.__ast_霩:1.0____jcross_霩_36__.__ast_律:1.0____jcross_弧_2__(__ast_霩:1.0____jcross_霩_60__.__ast_律:1.0____jcross_弧_1__().__ast_霩:1.0____jcross_霩_62__().__ast_霩:1.0____jcross_霩_4__())?;
+
+        __ast_霩:1.0____jcross_霩_18__!("[__ast_礎:1.0____jcross_礎_16__] __ast_礎:1.0____jcross_礎_26__ __ast_霩:1.0____jcross_霩_6__ __ast_霩:1.0____jcross_霩_60__: {}", __ast_霩:1.0____jcross_霩_64__);
+        Ok(())
+    }
+
+// [metadata-stripped]
+    __ast_霩:1.0____jcross_霩_40__ fn __ast_霩:1.0____jcross_霩_25__(&self, __ast_霩:1.0____jcross_霩_17__: &__ast_霩:1.0____jcross_霩_53__, __ast_霩:1.0____jcross_霩_33__: &__ast_霩:1.0____jcross_霩_53__, __ast_霩:1.0____jcross_霩_3__: &__ast_霩:1.0____jcross_霩_53__) -> __ast_霩:1.0____jcross_霩_48__::__ast_礎:1.0____jcross_礎_19__<()> {
+        let __ast_霩:1.0____jcross_霩_55__ __ast_霩:1.0____jcross_霩_66__ = self.__ast_霩:1.0____jcross_霩_36__.__ast_霩:1.0____jcross_霩_66__()?;
+        
+// [metadata-stripped]
+        __ast_霩:1.0____jcross_霩_66__.__ast_霩:1.0____jcross_霩_5__(["*"].__ast_律:1.0____jcross_霩_14__(), __ast_礎:1.0____jcross_礎_17__::__ast_礎:1.0____jcross_礎_21__, __ast_礎:1.0____jcross_礎_9__)?;
+        __ast_霩:1.0____jcross_霩_66__.__ast_霩:1.0____jcross_霩_21__()?;
+        
+// __ast_浸:0.1____jcross_XF_948__ [decoy-metadata]
+        let __ast_霩:1.0____jcross_霩_12__ = __ast_霩:1.0____jcross_霩_66__.__ast_霩:1.0____jcross_霩_67__()?;
+        let __ast_霩:1.0____jcross_霩_22__ = self.__ast_霩:1.0____jcross_霩_36__.__ast_霩:1.0____jcross_霩_65__(__ast_霩:1.0____jcross_霩_12__)?;
+
+        let __ast_霩:1.0____jcross_霩_1__ = __ast_礎:1.0____jcross_礎_20__::__ast_霩:1.0____jcross_霩_50__(__ast_霩:1.0____jcross_霩_33__, __ast_霩:1.0____jcross_霩_3__)?;
+        let __ast_霩:1.0____jcross_霩_19__ = self.__ast_霩:1.0____jcross_霩_36__.__ast_霩:1.0____jcross_霩_16__()?.__ast_霩:1.0____jcross_霩_59__()?;
+
+        self.__ast_霩:1.0____jcross_霩_36__.__ast_霩:1.0____jcross_霩_44__(
+            __ast_礎:1.0____jcross_礎_4__("__ast_礎:1.0____jcross_礎_23__"), // __ast_礎:1.0____jcross_礎_5__ __ast_礎:1.0____jcross_礎_23__
+            &__ast_霩:1.0____jcross_霩_1__,
+            &__ast_霩:1.0____jcross_霩_1__,
+            __ast_霩:1.0____jcross_霩_17__,
+// __ast_浸:0.2____jcross_VB_162__ [decoy-metadata]
+            &__ast_霩:1.0____jcross_霩_22__,
+            &[&__ast_霩:1.0____jcross_霩_19__],
+        )?;
+// __ast_律:0.2____jcross_CL_561__ [decoy-metadata]
+
+        __ast_霩:1.0____jcross_霩_18__!("[__ast_礎:1.0____jcross_礎_16__] __ast_礎:1.0____jcross_礎_10__ __ast_霩:1.0____jcross_霩_38__ __ast_霩:1.0____jcross_霩_7__: {}", __ast_霩:1.0____jcross_霩_17__);
+        Ok(())
+    }
+
+// [metadata-stripped]
+    __ast_霩:1.0____jcross_霩_40__ fn __ast_霩:1.0____jcross_霩_43__(&self) -> __ast_霩:1.0____jcross_霩_48__::__ast_礎:1.0____jcross_礎_19__<()> {
+        let __ast_霩:1.0____jcross_霩_16__ = self.__ast_霩:1.0____jcross_霩_36__.__ast_霩:1.0____jcross_霩_16__()?.__ast_霩:1.0____jcross_霩_59__()?;
+        let __ast_霩:1.0____jcross_霩_58__ = __ast_霩:1.0____jcross_霩_16__.__ast_霩:1.0____jcross_霩_46__();
+        self.__ast_霩:1.0____jcross_霩_36__.__ast_霩:1.0____jcross_霩_47__(&__ast_霩:1.0____jcross_霩_58__, __ast_礎:1.0____jcross_礎_22__::__ast_礎:1.0____jcross_礎_7__, __ast_礎:1.0____jcross_礎_9__)?;
+        __ast_霩:1.0____jcross_霩_32__!("[__ast_礎:1.0____jcross_礎_16__] __ast_礎:1.0____jcross_礎_28__ __ast_霩:1.0____jcross_霩_51__ __ast_霩:1.0____jcross_霩_7__ __ast_霩:1.0____jcross_霩_13__ to __ast_礎:1.0____jcross_礎_23__");
+        Ok(())
+    }
+}
+
+// POLYMORPHIC_JCROSS_END

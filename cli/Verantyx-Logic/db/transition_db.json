@@ -1,0 +1,26 @@
+{
+  "rules": [
+    {
+      "id": "task_find_counterexample_modal",
+      "if_any": ["diff:proof_gap"],
+      "domain": "modal_logic",
+      "effects": [
+        { "task": "task:try_small_models", "priority": 10, "note": "Try generating small Kripke models (size 2-4)." }
+      ]
+    },
+    {
+      "id": "task_strengthen_assumption",
+      "if_any": ["diff:counterexample_found"],
+      "effects": [
+        { "task": "task:try_strengthen_assumption", "priority": 8, "note": "Add missing frame properties (e.g. reflexive)." }
+      ]
+    },
+    {
+      "id": "task_mine_unknown",
+      "if_any": ["diff:unknown_concept"],
+      "effects": [
+        { "task": "task:mine_knowledge", "priority": 5, "note": "Search for definition of unknown concept." }
+      ]
+    }
+  ]
+}

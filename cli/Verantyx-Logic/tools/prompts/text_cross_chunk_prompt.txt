@@ -1,0 +1,17 @@
+You are generating a JSONL dataset.
+Output exactly {{N}} lines.
+Each line must be a JSON object with keys "id" and "text".
+The id must be formatted as seed_XXXXXX (6 digits, zero-padded).
+The range is: {{START}} to {{END}}.
+
+Rules:
+- "text" must contain exactly one quoted formula using double quotes "..."
+- Use mixed Japanese and English templates.
+- Use propositional / modal / linear algebra formulas.
+
+Examples:
+{"id":"seed_000001","text":"命題論理で次は恒真か？ \"((A -> B) & A) -> B\""}
+{"id":"seed_000002","text":"In modal logic, is this valid? \"[]p -> [][]p\""}
+{"id":"seed_000003","text":"実n次対称行列の次元は？ \"dim Sym(n,R)\""}
+
+Now generate the dataset.

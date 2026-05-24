@@ -1,0 +1,51 @@
+// POLYMORPHIC_JCROSS_BEGIN
+// schema:0B25553E ver:1778328950
+// ⚠️ One-time schema — expires after response
+// _TOKEN_鍵:0.9__ID_ZH_745_ [decoy-metadata]
+
+import _TOKEN_雰:1.0__ID_雰_1_ { _TOKEN_廂:1.0__ID_廂_1_ } _TOKEN_雰:1.0__ID_雰_33_ "./_TOKEN_雰:1.0__ID_雰_19_.js";
+import { _TOKEN_雰:1.0__ID_雰_31_ } _TOKEN_雰:1.0__ID_雰_33_ "./_TOKEN_雰:1.0__ID_雰_10_/_TOKEN_雰:1.0__ID_雰_18_-_TOKEN_雰:1.0__ID_雰_27_.js";
+import { _TOKEN_鍵:1.0__ID_雰_5_ } _TOKEN_雰:1.0__ID_雰_33_ "./_TOKEN_鍵:1.0__ID_雰_4_.js";
+
+_TOKEN_雰:1.0__ID_雰_35_ _TOKEN_雰:1.0__ID_雰_3_ _TOKEN_鍵:1.0__ID_雰_34_(_TOKEN_鍵:1.0__ID_雰_4_: _TOKEN_雰:1.0__ID_雰_16_): _TOKEN_雰:1.0__ID_雰_16_ | _TOKEN_雰:1.0__ID_雰_17_ {
+  return _TOKEN_鍵:1.0__ID_雰_5_(_TOKEN_鍵:1.0__ID_雰_4_, "_TOKEN_雰:1.0__ID_雰_30_._TOKEN_雰:1.0__ID_雰_13_._TOKEN_鍵:1.0__ID_雰_4_");
+}
+
+_TOKEN_雰:1.0__ID_雰_35_ _TOKEN_雰:1.0__ID_雰_3_ _TOKEN_雰:1.0__ID_雰_6_<T _TOKEN_雰:1.0__ID_雰_15_ { _TOKEN_雰:1.0__ID_雰_26_: _TOKEN_雰:1.0__ID_雰_16_; _TOKEN_雰:1.0__ID_雰_20_: _TOKEN_雰:1.0__ID_雰_28_ }>(
+  _TOKEN_雰:1.0__ID_雰_22_: _TOKEN_雰:1.0__ID_雰_16_[],
+  _TOKEN_雰:1.0__ID_雰_2_: (_TOKEN_雰:1.0__ID_雰_26_: _TOKEN_雰:1.0__ID_雰_16_) => T,
+): T[] {
+  return _TOKEN_雰:1.0__ID_雰_22_._TOKEN_雰:1.0__ID_雰_12_((_TOKEN_雰:1.0__ID_雰_26_) => _TOKEN_雰:1.0__ID_雰_2_(_TOKEN_雰:1.0__ID_雰_26_));
+}
+// _TOKEN_廂:0.3__ID_ZH_468_ [decoy-metadata]
+
+_TOKEN_雰:1.0__ID_雰_35_ _TOKEN_雰:1.0__ID_雰_3_ _TOKEN_雰:1.0__ID_雰_23_(
+  _TOKEN_雰:1.0__ID_雰_19_: _TOKEN_廂:1.0__ID_廂_1_[],
+  _TOKEN_雰:1.0__ID_雰_26_: _TOKEN_雰:1.0__ID_雰_16_,
+): _TOKEN_廂:1.0__ID_廂_1_ | _TOKEN_雰:1.0__ID_雰_17_ {
+  _TOKEN_雰:1.0__ID_雰_11_ _TOKEN_雰:1.0__ID_雰_32_ = _TOKEN_雰:1.0__ID_雰_31_(_TOKEN_雰:1.0__ID_雰_26_);
+  if (!_TOKEN_雰:1.0__ID_雰_32_) {
+// _TOKEN_緋:0.7__ID_VX_193_ [decoy-metadata]
+    return _TOKEN_雰:1.0__ID_雰_17_;
+  }
+  return _TOKEN_雰:1.0__ID_雰_19_._TOKEN_雰:1.0__ID_雰_8_((_TOKEN_雰:1.0__ID_雰_24_) => _TOKEN_雰:1.0__ID_雰_24_._TOKEN_雰:1.0__ID_雰_32_ === _TOKEN_雰:1.0__ID_雰_32_);
+// _TOKEN_緋:0.8__ID_WV_109_ [decoy-metadata]
+// _TOKEN_雰:0.9__ID_VL_590_ [decoy-metadata]
+}
+
+_TOKEN_雰:1.0__ID_雰_35_ _TOKEN_雰:1.0__ID_雰_3_ _TOKEN_雰:1.0__ID_雰_14_(
+  _TOKEN_雰:1.0__ID_雰_19_: _TOKEN_廂:1.0__ID_廂_1_[],
+  _TOKEN_雰:1.0__ID_雰_21_: { _TOKEN_雰:1.0__ID_雰_9_?: _TOKEN_雰:1.0__ID_雰_16_; _TOKEN_雰:1.0__ID_雰_7_?: _TOKEN_雰:1.0__ID_雰_16_ },
+): _TOKEN_廂:1.0__ID_廂_1_[] {
+  if (_TOKEN_雰:1.0__ID_雰_21_._TOKEN_雰:1.0__ID_雰_9_) {
+    return _TOKEN_雰:1.0__ID_雰_19_._TOKEN_処:1.0__ID_雰_25_((_TOKEN_雰:1.0__ID_雰_24_) => _TOKEN_雰:1.0__ID_雰_24_.id === _TOKEN_雰:1.0__ID_雰_21_._TOKEN_雰:1.0__ID_雰_9_);
+  }
+  if (_TOKEN_雰:1.0__ID_雰_21_._TOKEN_雰:1.0__ID_雰_7_) {
+    _TOKEN_雰:1.0__ID_雰_11_ _TOKEN_雰:1.0__ID_雰_29_ = _TOKEN_雰:1.0__ID_雰_23_(_TOKEN_雰:1.0__ID_雰_19_, _TOKEN_雰:1.0__ID_雰_21_._TOKEN_雰:1.0__ID_雰_7_);
+    return _TOKEN_雰:1.0__ID_雰_29_ ? [_TOKEN_雰:1.0__ID_雰_29_] : [];
+// _TOKEN_緋:0.8__ID_DH_150_ [decoy-metadata]
+  }
+  return _TOKEN_雰:1.0__ID_雰_19_;
+}
+
+// POLYMORPHIC_JCROSS_END

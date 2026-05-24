@@ -1,0 +1,74 @@
+# ============================================================
+# Verantyx Cortex — .gitignore
+# This repo contains ONLY the MCP server (_verantyx-cortex)
+# Everything else is explicitly excluded.
+# ============================================================
+
+# ── Node.js ─────────────────────────────────────────────────
+node_modules/
+dist/
+.npm/
+*.tsbuildinfo
+
+# ── Runtime / OS ────────────────────────────────────────────
+.DS_Store
+*.log
+*.pid
+.env
+.env.*
+!.env.example
+
+# ── Non-cortex project directories ──────────────────────────
+# (came in via merge — explicitly excluded)
+apps/
+ui/
+verantyx/
+extensions/
+VerantyxMobileBench/
+_verantyx-cortex_backup/
+
+# ── Config/tooling files from merged monorepo ────────────────
+.agent/
+.agents/
+.pi/
+.ronin/
+.openclaw/
+.vscode/
+vitest.*.ts
+vitest.*.mjs
+*.test.ts
+*.spec.ts
+zizmor.yml
+.detect-secrets.cfg
+.dockerignore
+.jscpd.json
+.mailmap
+.markdownlint-cli2.jsonc
+.npmrc
+.oxfmtrc.jsonc
+.oxlintrc.json
+.pre-commit-config.yaml
+.prettierignore
+.secrets.baseline
+.shellcheckrc
+.swiftformat
+.swiftlint.yml
+.npmignore
+appcast.xml
+Dockerfile
+Dockerfile.*
+
+# ── Memory runtime data (never commit live memory) ──────────
+~/.openclaw/
+calibrate-*.sh
+
+# ── Python cache ────────────────────────────────────────────
+__pycache__/
+*.pyc
+*.pyo
+.pytest_cache/
+
+# ── IDE ─────────────────────────────────────────────────────
+.idea/
+*.swp
+*.swo

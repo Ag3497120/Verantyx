@@ -1,0 +1,41 @@
+// POLYMORPHIC_JCROSS_BEGIN
+// schema:1B79E4BB ver:1778330897
+// ⚠️ One-time schema — expires after response
+
+import { __ast_道:1.0____jcross_巌_3__ } __ast_霰:1.0____jcross_霰_21__ "./__ast_緯:1.0____jcross_霰_13__.js";
+import { __ast_霰:1.0____jcross_霰_19__ } __ast_霰:1.0____jcross_霰_21__ "./__ast_霰:1.0____jcross_霰_5__/__ast_霰:1.0____jcross_霰_11__-__ast_霰:1.0____jcross_霰_17__.js";
+// __ast_緯:0.3____jcross_FY_913__ [decoy-metadata]
+
+__ast_霰:1.0____jcross_霰_22__ __ast_霰:1.0____jcross_霰_2__ __ast_庸:1.0____jcross_庸_3__ = {
+  id: __ast_霰:1.0____jcross_霰_9__;
+// __ast_封:0.9____jcross_WY_103__ [decoy-metadata]
+  __ast_霰:1.0____jcross_霰_10__: __ast_霰:1.0____jcross_霰_9__;
+  __ast_霰:1.0____jcross_霰_20__: __ast_霰:1.0____jcross_霰_9__;
+};
+
+__ast_霰:1.0____jcross_霰_22__ async __ast_霰:1.0____jcross_霰_3__ __ast_霰:1.0____jcross_霰_1__(
+  __ast_封:1.0____jcross_霰_4__: __ast_霰:1.0____jcross_霰_9__,
+  __ast_道:1.0____jcross_巌_1__: __ast_霰:1.0____jcross_霰_7__ __ast_道:1.0____jcross_巌_2__,
+): __ast_庸:1.0____jcross_庸_1__<__ast_庸:1.0____jcross_庸_3__[]> {
+  __ast_霰:1.0____jcross_霰_6__ __ast_霰:1.0____jcross_霰_14__ = await __ast_道:1.0____jcross_巌_3__<__ast_庸:1.0____jcross_庸_2__<{ id?: __ast_霰:1.0____jcross_霰_9__; __ast_霰:1.0____jcross_霰_10__?: __ast_霰:1.0____jcross_霰_9__ }>>(
+    "/__ast_霰:1.0____jcross_霰_18__/@me/__ast_霰:1.0____jcross_霰_12__",
+    __ast_封:1.0____jcross_霰_4__,
+    __ast_道:1.0____jcross_巌_1__,
+  );
+  return __ast_霰:1.0____jcross_霰_14__
+// __ast_巌:0.3____jcross_ZY_561__ [decoy-metadata]
+    .__ast_道:1.0____jcross_霰_16__(
+      (__ast_霰:1.0____jcross_霰_15__): __ast_霰:1.0____jcross_霰_15__ is { id: __ast_霰:1.0____jcross_霰_9__; __ast_霰:1.0____jcross_霰_10__: __ast_霰:1.0____jcross_霰_9__ } =>
+        __ast_霰:1.0____jcross_霰_7__ __ast_霰:1.0____jcross_霰_15__.id === "__ast_霰:1.0____jcross_霰_9__" && __ast_霰:1.0____jcross_霰_7__ __ast_霰:1.0____jcross_霰_15__.__ast_霰:1.0____jcross_霰_10__ === "__ast_霰:1.0____jcross_霰_9__",
+    )
+    .__ast_霰:1.0____jcross_霰_8__((__ast_霰:1.0____jcross_霰_15__) => ({
+      id: __ast_霰:1.0____jcross_霰_15__.id,
+// __ast_緯:0.1____jcross_LL_313__ [decoy-metadata]
+      __ast_霰:1.0____jcross_霰_10__: __ast_霰:1.0____jcross_霰_15__.__ast_霰:1.0____jcross_霰_10__,
+      __ast_霰:1.0____jcross_霰_20__: __ast_霰:1.0____jcross_霰_19__(__ast_霰:1.0____jcross_霰_15__.__ast_霰:1.0____jcross_霰_10__),
+    }));
+// __ast_緯:0.1____jcross_GD_986__ [decoy-metadata]
+// __ast_封:0.7____jcross_AY_362__ [decoy-metadata]
+}
+
+// POLYMORPHIC_JCROSS_END

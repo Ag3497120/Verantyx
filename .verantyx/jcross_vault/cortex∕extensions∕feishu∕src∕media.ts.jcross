@@ -1,0 +1,611 @@
+// POLYMORPHIC_JCROSS_BEGIN
+// schema:E739587A ver:1778333766
+// ⚠️ One-time schema — expires after response
+
+import fs __ast_霮:1.0___OPAQUE_霮_9_ "fs";
+import __ast_霮:1.0___OPAQUE_霮_94_ __ast_霮:1.0___OPAQUE_霮_9_ "__ast_霮:1.0___OPAQUE_霮_94_";
+import { __ast_庵:1.0___OPAQUE_庵_21_ } __ast_霮:1.0___OPAQUE_霮_9_ "__ast_霮:1.0___OPAQUE_霮_278_";
+import { __ast_霮:1.0___OPAQUE_霮_48_ } __ast_霮:1.0___OPAQUE_霮_9_ "__ast_霮:1.0___OPAQUE_霮_170_/__ast_霮:1.0___OPAQUE_霮_134_-__ast_霮:1.0___OPAQUE_霮_92_/__ast_霮:1.0___OPAQUE_霮_109_-__ast_霮:1.0___OPAQUE_霮_51_";
+import { __ast_匷:1.0___OPAQUE_霮_231_, __ast_霮:1.0___OPAQUE_霮_184_ __ast_庵:1.0___OPAQUE_庵_24_ } __ast_霮:1.0___OPAQUE_霮_9_ "../__ast_霮:1.0___OPAQUE_霮_51_-__ast_繍:1.0___OPAQUE_霮_201_.js";
+import { __ast_霮:1.0___OPAQUE_霮_175_ } __ast_霮:1.0___OPAQUE_霮_9_ "./__ast_霮:1.0___OPAQUE_霮_90_.js";
+import { __ast_霮:1.0___OPAQUE_霮_123_ } __ast_霮:1.0___OPAQUE_霮_9_ "./__ast_霮:1.0___OPAQUE_霮_178_.js";
+import { __ast_窟:1.0___OPAQUE_霮_53_ } __ast_霮:1.0___OPAQUE_霮_9_ "./__ast_霮:1.0___OPAQUE_霮_161_-__ast_窟:1.0___OPAQUE_霮_32_.js";
+import { __ast_策:1.0___OPAQUE_縁_3_ } __ast_霮:1.0___OPAQUE_霮_9_ "./__ast_霮:1.0___OPAQUE_霮_51_.js";
+import { __ast_繍:1.0___OPAQUE_霮_35_, __ast_霮:1.0___OPAQUE_霮_20_ } __ast_霮:1.0___OPAQUE_霮_9_ "./__ast_霮:1.0___OPAQUE_霮_19_-__ast_霮:1.0___OPAQUE_霮_280_.js";
+import { __ast_霮:1.0___OPAQUE_霮_249_ } __ast_霮:1.0___OPAQUE_霮_9_ "./__ast_霮:1.0___OPAQUE_霮_19_-__ast_霮:1.0___OPAQUE_霮_15_.js";
+
+__ast_霮:1.0___OPAQUE_霮_165_ __ast_繍:1.0___OPAQUE_庵_17_ = 120_000;
+
+__ast_霮:1.0___OPAQUE_霮_27_ __ast_霮:1.0___OPAQUE_霮_184_ __ast_匷:1.0___OPAQUE_庵_36_ = {
+  __ast_策:1.0___OPAQUE_霮_251_: __ast_策:1.0___OPAQUE_庵_41_;
+  __ast_霮:1.0___OPAQUE_霮_135_?: __ast_霮:1.0___OPAQUE_霮_64_;
+};
+
+__ast_霮:1.0___OPAQUE_霮_27_ __ast_霮:1.0___OPAQUE_霮_184_ __ast_匷:1.0___OPAQUE_庵_12_ = {
+  __ast_策:1.0___OPAQUE_霮_251_: __ast_策:1.0___OPAQUE_庵_41_;
+  __ast_霮:1.0___OPAQUE_霮_135_?: __ast_霮:1.0___OPAQUE_霮_64_;
+  __ast_匷:1.0___OPAQUE_霮_213_?: __ast_霮:1.0___OPAQUE_霮_64_;
+};
+
+__ast_霮:1.0___OPAQUE_霮_75_ __ast_霮:1.0___OPAQUE_霮_83_(__ast_霮:1.0___OPAQUE_霮_29_: { __ast_霮:1.0___OPAQUE_霮_169_: __ast_庵:1.0___OPAQUE_庵_24_; __ast_霮:1.0___OPAQUE_霮_125_?: __ast_霮:1.0___OPAQUE_霮_64_ }): {
+  __ast_霮:1.0___OPAQUE_霮_180_: __ast_庵:1.0___OPAQUE_庵_7_<__ast_霮:1.0___OPAQUE_霮_269_ __ast_霮:1.0___OPAQUE_霮_175_>;
+  __ast_霮:1.0___OPAQUE_霮_178_: __ast_庵:1.0___OPAQUE_庵_7_<__ast_霮:1.0___OPAQUE_霮_269_ __ast_霮:1.0___OPAQUE_霮_123_>;
+} {
+  __ast_霮:1.0___OPAQUE_霮_165_ __ast_霮:1.0___OPAQUE_霮_180_ = __ast_霮:1.0___OPAQUE_霮_175_({ __ast_霮:1.0___OPAQUE_霮_169_: __ast_霮:1.0___OPAQUE_霮_29_.__ast_霮:1.0___OPAQUE_霮_169_, __ast_霮:1.0___OPAQUE_霮_125_: __ast_霮:1.0___OPAQUE_霮_29_.__ast_霮:1.0___OPAQUE_霮_125_ });
+  if (!__ast_霮:1.0___OPAQUE_霮_180_.__ast_霮:1.0___OPAQUE_霮_189_) {
+    __ast_霮:1.0___OPAQUE_霮_242_ __ast_霮:1.0___OPAQUE_霮_79_ __ast_庵:1.0___OPAQUE_庵_22_(`__ast_庵:1.0___OPAQUE_庵_19_ __ast_霮:1.0___OPAQUE_霮_180_ "${__ast_霮:1.0___OPAQUE_霮_180_.__ast_霮:1.0___OPAQUE_霮_125_}" __ast_霮:1.0___OPAQUE_霮_279_ __ast_霮:1.0___OPAQUE_霮_189_`);
+  }
+
+  return {
+    __ast_霮:1.0___OPAQUE_霮_180_,
+    __ast_霮:1.0___OPAQUE_霮_178_: __ast_霮:1.0___OPAQUE_霮_123_({
+      ...__ast_霮:1.0___OPAQUE_霮_180_,
+      __ast_繍:1.0___OPAQUE_霮_12_: __ast_繍:1.0___OPAQUE_庵_17_,
+    }),
+  };
+}
+
+__ast_霮:1.0___OPAQUE_霮_75_ __ast_窟:1.0___OPAQUE_霮_272_(
+  __ast_霮:1.0___OPAQUE_霮_258_: __ast_霮:1.0___OPAQUE_霮_191_,
+  __ast_霮:1.0___OPAQUE_霮_29_: {
+    __ast_窟:1.0___OPAQUE_霮_126_: "__ast_窟:1.0___OPAQUE_霮_220_" | "__ast_窟:1.0___OPAQUE_霮_226_";
+    __ast_霮:1.0___OPAQUE_霮_33_: __ast_霮:1.0___OPAQUE_霮_64_;
+  },
+): __ast_霮:1.0___OPAQUE_霮_64_ {
+// [metadata-stripped]
+// [metadata-stripped]
+  __ast_霮:1.0___OPAQUE_霮_165_ __ast_霮:1.0___OPAQUE_霮_31_ = __ast_霮:1.0___OPAQUE_霮_258_ as any;
+  if (__ast_霮:1.0___OPAQUE_霮_31_.__ast_霮:1.0___OPAQUE_霮_80_ !== __ast_霮:1.0___OPAQUE_霮_232_ && __ast_霮:1.0___OPAQUE_霮_31_.__ast_霮:1.0___OPAQUE_霮_80_ !== 0) {
+    __ast_霮:1.0___OPAQUE_霮_242_ __ast_霮:1.0___OPAQUE_霮_79_ __ast_庵:1.0___OPAQUE_庵_22_(`${__ast_霮:1.0___OPAQUE_霮_29_.__ast_霮:1.0___OPAQUE_霮_33_}: ${__ast_霮:1.0___OPAQUE_霮_31_.__ast_霮:1.0___OPAQUE_霮_104_ || `__ast_霮:1.0___OPAQUE_霮_80_ ${__ast_霮:1.0___OPAQUE_霮_31_.__ast_霮:1.0___OPAQUE_霮_80_}`}`);
+  }
+
+// __ast_策:0.8___OPAQUE_XA_762_ [decoy-metadata]
+  __ast_霮:1.0___OPAQUE_霮_165_ __ast_窟:1.0___OPAQUE_霮_126_ = __ast_霮:1.0___OPAQUE_霮_31_[__ast_霮:1.0___OPAQUE_霮_29_.__ast_窟:1.0___OPAQUE_霮_126_] ?? __ast_霮:1.0___OPAQUE_霮_31_.__ast_霮:1.0___OPAQUE_霮_245_?.[__ast_霮:1.0___OPAQUE_霮_29_.__ast_窟:1.0___OPAQUE_霮_126_];
+  if (!__ast_窟:1.0___OPAQUE_霮_126_) {
+    __ast_霮:1.0___OPAQUE_霮_242_ __ast_霮:1.0___OPAQUE_霮_79_ __ast_庵:1.0___OPAQUE_庵_22_(`${__ast_霮:1.0___OPAQUE_霮_29_.__ast_霮:1.0___OPAQUE_霮_33_}: no ${__ast_霮:1.0___OPAQUE_霮_29_.__ast_窟:1.0___OPAQUE_霮_126_} __ast_霮:1.0___OPAQUE_霮_214_`);
+  }
+  return __ast_窟:1.0___OPAQUE_霮_126_;
+}
+
+__ast_霮:1.0___OPAQUE_霮_75_ __ast_霮:1.0___OPAQUE_霮_10_(
+  __ast_霮:1.0___OPAQUE_霮_26_: __ast_庵:1.0___OPAQUE_庵_11_<__ast_霮:1.0___OPAQUE_霮_64_, __ast_霮:1.0___OPAQUE_霮_191_> | __ast_霮:1.0___OPAQUE_霮_232_,
+  __ast_霮:1.0___OPAQUE_霮_216_: __ast_霮:1.0___OPAQUE_霮_64_,
+): __ast_霮:1.0___OPAQUE_霮_64_ | __ast_霮:1.0___OPAQUE_霮_232_ {
+  if (!__ast_霮:1.0___OPAQUE_霮_26_) {
+    return __ast_霮:1.0___OPAQUE_霮_232_;
+  }
+  __ast_霮:1.0___OPAQUE_霮_165_ __ast_霮:1.0___OPAQUE_霮_15_ = __ast_霮:1.0___OPAQUE_霮_216_.__ast_霮:1.0___OPAQUE_霮_100_();
+  for (__ast_霮:1.0___OPAQUE_霮_165_ [__ast_窟:1.0___OPAQUE_霮_126_, __ast_霮:1.0___OPAQUE_霮_30_] of __ast_庵:1.0___OPAQUE_庵_44_.__ast_霮:1.0___OPAQUE_霮_76_(__ast_霮:1.0___OPAQUE_霮_26_)) {
+    if (__ast_窟:1.0___OPAQUE_霮_126_.__ast_霮:1.0___OPAQUE_霮_100_() !== __ast_霮:1.0___OPAQUE_霮_15_) {
+      continue;
+    }
+    if (__ast_霮:1.0___OPAQUE_霮_269_ __ast_霮:1.0___OPAQUE_霮_30_ === "__ast_霮:1.0___OPAQUE_霮_64_" && __ast_霮:1.0___OPAQUE_霮_30_.__ast_霮:1.0___OPAQUE_霮_131_()) {
+      return __ast_霮:1.0___OPAQUE_霮_30_.__ast_霮:1.0___OPAQUE_霮_131_();
+    }
+    if (__ast_庵:1.0___OPAQUE_庵_53_.__ast_霮:1.0___OPAQUE_霮_68_(__ast_霮:1.0___OPAQUE_霮_30_)) {
+      __ast_霮:1.0___OPAQUE_霮_165_ __ast_霮:1.0___OPAQUE_霮_136_ = __ast_霮:1.0___OPAQUE_霮_30_.__ast_霮:1.0___OPAQUE_霮_159_((__ast_霮:1.0___OPAQUE_霮_52_) => __ast_霮:1.0___OPAQUE_霮_269_ __ast_霮:1.0___OPAQUE_霮_52_ === "__ast_霮:1.0___OPAQUE_霮_64_" && __ast_霮:1.0___OPAQUE_霮_52_.__ast_霮:1.0___OPAQUE_霮_131_());
+      if (__ast_霮:1.0___OPAQUE_霮_269_ __ast_霮:1.0___OPAQUE_霮_136_ === "__ast_霮:1.0___OPAQUE_霮_64_") {
+        return __ast_霮:1.0___OPAQUE_霮_136_.__ast_霮:1.0___OPAQUE_霮_131_();
+      }
+    }
+  }
+  return __ast_霮:1.0___OPAQUE_霮_232_;
+}
+
+// __ast_漕:0.8___OPAQUE_VW_982_ [decoy-metadata]
+__ast_霮:1.0___OPAQUE_霮_75_ __ast_匷:1.0___OPAQUE_霮_244_(__ast_霮:1.0___OPAQUE_霮_30_: __ast_霮:1.0___OPAQUE_霮_64_): __ast_霮:1.0___OPAQUE_霮_64_ | __ast_霮:1.0___OPAQUE_霮_232_ {
+  __ast_霮:1.0___OPAQUE_霮_165_ __ast_霮:1.0___OPAQUE_霮_39_ = __ast_霮:1.0___OPAQUE_霮_30_.__ast_霮:1.0___OPAQUE_霮_21_(/__ast_匷:1.0___OPAQUE_霮_212_\*=__ast_庵:1.0___OPAQUE_庵_15_-8''([^;]+)/i);
+  if (__ast_霮:1.0___OPAQUE_霮_39_?.[1]) {
+    try {
+      return __ast_霮:1.0___OPAQUE_霮_177_(__ast_霮:1.0___OPAQUE_霮_39_[1].__ast_霮:1.0___OPAQUE_霮_131_().__ast_霮:1.0___OPAQUE_霮_132_(/^"(.*)"$/, "$1"));
+    } catch {
+      return __ast_霮:1.0___OPAQUE_霮_39_[1].__ast_霮:1.0___OPAQUE_霮_131_().__ast_霮:1.0___OPAQUE_霮_132_(/^"(.*)"$/, "$1");
+    }
+  }
+
+  __ast_霮:1.0___OPAQUE_霮_165_ __ast_霮:1.0___OPAQUE_霮_265_ = __ast_霮:1.0___OPAQUE_霮_30_.__ast_霮:1.0___OPAQUE_霮_21_(/__ast_匷:1.0___OPAQUE_霮_212_="?([^";]+)"?/i);
+  return __ast_霮:1.0___OPAQUE_霮_265_?.[1]?.__ast_霮:1.0___OPAQUE_霮_131_();
+}
+
+__ast_霮:1.0___OPAQUE_霮_75_ __ast_匷:1.0___OPAQUE_霮_124_(__ast_霮:1.0___OPAQUE_霮_258_: __ast_霮:1.0___OPAQUE_霮_191_): {
+  __ast_霮:1.0___OPAQUE_霮_135_?: __ast_霮:1.0___OPAQUE_霮_64_;
+  __ast_匷:1.0___OPAQUE_霮_213_?: __ast_霮:1.0___OPAQUE_霮_64_;
+} {
+// [metadata-stripped]
+  __ast_霮:1.0___OPAQUE_霮_165_ __ast_霮:1.0___OPAQUE_霮_31_ = __ast_霮:1.0___OPAQUE_霮_258_ as any;
+  __ast_霮:1.0___OPAQUE_霮_165_ __ast_霮:1.0___OPAQUE_霮_26_ =
+    (__ast_霮:1.0___OPAQUE_霮_31_.__ast_霮:1.0___OPAQUE_霮_26_ as __ast_庵:1.0___OPAQUE_庵_11_<__ast_霮:1.0___OPAQUE_霮_64_, __ast_霮:1.0___OPAQUE_霮_191_> | __ast_霮:1.0___OPAQUE_霮_232_) ??
+    (__ast_霮:1.0___OPAQUE_霮_31_.__ast_策:1.0___OPAQUE_霮_50_ as __ast_庵:1.0___OPAQUE_庵_11_<__ast_霮:1.0___OPAQUE_霮_64_, __ast_霮:1.0___OPAQUE_霮_191_> | __ast_霮:1.0___OPAQUE_霮_232_);
+
+  __ast_霮:1.0___OPAQUE_霮_165_ __ast_霮:1.0___OPAQUE_霮_135_ =
+// __ast_繍:0.5___OPAQUE_CB_744_ [decoy-metadata]
+    __ast_霮:1.0___OPAQUE_霮_10_(__ast_霮:1.0___OPAQUE_霮_26_, "__ast_霮:1.0___OPAQUE_霮_114_-__ast_霮:1.0___OPAQUE_霮_184_") ??
+    (__ast_霮:1.0___OPAQUE_霮_269_ __ast_霮:1.0___OPAQUE_霮_31_.__ast_霮:1.0___OPAQUE_霮_135_ === "__ast_霮:1.0___OPAQUE_霮_64_" ? __ast_霮:1.0___OPAQUE_霮_31_.__ast_霮:1.0___OPAQUE_霮_135_ : __ast_霮:1.0___OPAQUE_霮_232_) ??
+    (__ast_霮:1.0___OPAQUE_霮_269_ __ast_霮:1.0___OPAQUE_霮_31_.__ast_霮:1.0___OPAQUE_霮_13_ === "__ast_霮:1.0___OPAQUE_霮_64_" ? __ast_霮:1.0___OPAQUE_霮_31_.__ast_霮:1.0___OPAQUE_霮_13_ : __ast_霮:1.0___OPAQUE_霮_232_) ??
+    (__ast_霮:1.0___OPAQUE_霮_269_ __ast_霮:1.0___OPAQUE_霮_31_.__ast_霮:1.0___OPAQUE_霮_245_?.__ast_霮:1.0___OPAQUE_霮_135_ === "__ast_霮:1.0___OPAQUE_霮_64_"
+      ? __ast_霮:1.0___OPAQUE_霮_31_.__ast_霮:1.0___OPAQUE_霮_245_.__ast_霮:1.0___OPAQUE_霮_135_
+      : __ast_霮:1.0___OPAQUE_霮_232_) ??
+    (__ast_霮:1.0___OPAQUE_霮_269_ __ast_霮:1.0___OPAQUE_霮_31_.__ast_霮:1.0___OPAQUE_霮_245_?.__ast_霮:1.0___OPAQUE_霮_13_ === "__ast_霮:1.0___OPAQUE_霮_64_" ? __ast_霮:1.0___OPAQUE_霮_31_.__ast_霮:1.0___OPAQUE_霮_245_.__ast_霮:1.0___OPAQUE_霮_13_ : __ast_霮:1.0___OPAQUE_霮_232_);
+
+  __ast_霮:1.0___OPAQUE_霮_165_ __ast_霮:1.0___OPAQUE_霮_151_ = __ast_霮:1.0___OPAQUE_霮_10_(__ast_霮:1.0___OPAQUE_霮_26_, "__ast_霮:1.0___OPAQUE_霮_114_-__ast_霮:1.0___OPAQUE_霮_151_");
+  __ast_霮:1.0___OPAQUE_霮_165_ __ast_匷:1.0___OPAQUE_霮_213_ =
+    (__ast_霮:1.0___OPAQUE_霮_151_ ? __ast_匷:1.0___OPAQUE_霮_244_(__ast_霮:1.0___OPAQUE_霮_151_) : __ast_霮:1.0___OPAQUE_霮_232_) ??
+    (__ast_霮:1.0___OPAQUE_霮_269_ __ast_霮:1.0___OPAQUE_霮_31_.__ast_匷:1.0___OPAQUE_霮_219_ === "__ast_霮:1.0___OPAQUE_霮_64_" ? __ast_霮:1.0___OPAQUE_霮_31_.__ast_匷:1.0___OPAQUE_霮_219_ : __ast_霮:1.0___OPAQUE_霮_232_) ??
+    (__ast_霮:1.0___OPAQUE_霮_269_ __ast_霮:1.0___OPAQUE_霮_31_.__ast_匷:1.0___OPAQUE_霮_213_ === "__ast_霮:1.0___OPAQUE_霮_64_" ? __ast_霮:1.0___OPAQUE_霮_31_.__ast_匷:1.0___OPAQUE_霮_213_ : __ast_霮:1.0___OPAQUE_霮_232_) ??
+    (__ast_霮:1.0___OPAQUE_霮_269_ __ast_霮:1.0___OPAQUE_霮_31_.__ast_霮:1.0___OPAQUE_霮_245_?.__ast_匷:1.0___OPAQUE_霮_219_ === "__ast_霮:1.0___OPAQUE_霮_64_" ? __ast_霮:1.0___OPAQUE_霮_31_.__ast_霮:1.0___OPAQUE_霮_245_.__ast_匷:1.0___OPAQUE_霮_219_ : __ast_霮:1.0___OPAQUE_霮_232_) ??
+    (__ast_霮:1.0___OPAQUE_霮_269_ __ast_霮:1.0___OPAQUE_霮_31_.__ast_霮:1.0___OPAQUE_霮_245_?.__ast_匷:1.0___OPAQUE_霮_213_ === "__ast_霮:1.0___OPAQUE_霮_64_" ? __ast_霮:1.0___OPAQUE_霮_31_.__ast_霮:1.0___OPAQUE_霮_245_.__ast_匷:1.0___OPAQUE_霮_213_ : __ast_霮:1.0___OPAQUE_霮_232_);
+
+  return { __ast_霮:1.0___OPAQUE_霮_135_, __ast_匷:1.0___OPAQUE_霮_213_ };
+}
+
+async __ast_霮:1.0___OPAQUE_霮_75_ __ast_策:1.0___OPAQUE_霮_42_(__ast_霮:1.0___OPAQUE_霮_29_: {
+  __ast_霮:1.0___OPAQUE_霮_258_: __ast_霮:1.0___OPAQUE_霮_191_;
+  __ast_霮:1.0___OPAQUE_霮_71_: __ast_霮:1.0___OPAQUE_霮_64_;
+  __ast_霮:1.0___OPAQUE_霮_33_: __ast_霮:1.0___OPAQUE_霮_64_;
+}): __ast_庵:1.0___OPAQUE_庵_29_<__ast_策:1.0___OPAQUE_庵_41_> {
+  __ast_霮:1.0___OPAQUE_霮_165_ { __ast_霮:1.0___OPAQUE_霮_258_ } = __ast_霮:1.0___OPAQUE_霮_29_;
+// [metadata-stripped]
+  __ast_霮:1.0___OPAQUE_霮_165_ __ast_霮:1.0___OPAQUE_霮_31_ = __ast_霮:1.0___OPAQUE_霮_258_ as any;
+  if (__ast_霮:1.0___OPAQUE_霮_31_.__ast_霮:1.0___OPAQUE_霮_80_ !== __ast_霮:1.0___OPAQUE_霮_232_ && __ast_霮:1.0___OPAQUE_霮_31_.__ast_霮:1.0___OPAQUE_霮_80_ !== 0) {
+    __ast_霮:1.0___OPAQUE_霮_242_ __ast_霮:1.0___OPAQUE_霮_79_ __ast_庵:1.0___OPAQUE_庵_22_(`${__ast_霮:1.0___OPAQUE_霮_29_.__ast_霮:1.0___OPAQUE_霮_33_}: ${__ast_霮:1.0___OPAQUE_霮_31_.__ast_霮:1.0___OPAQUE_霮_104_ || `__ast_霮:1.0___OPAQUE_霮_80_ ${__ast_霮:1.0___OPAQUE_霮_31_.__ast_霮:1.0___OPAQUE_霮_80_}`}`);
+  }
+
+  if (__ast_策:1.0___OPAQUE_庵_41_.__ast_策:1.0___OPAQUE_霮_5_(__ast_霮:1.0___OPAQUE_霮_258_)) {
+    return __ast_霮:1.0___OPAQUE_霮_258_;
+  }
+  if (__ast_霮:1.0___OPAQUE_霮_258_ __ast_霮:1.0___OPAQUE_霮_1_ __ast_策:1.0___OPAQUE_庵_10_) {
+    return __ast_策:1.0___OPAQUE_庵_41_.__ast_霮:1.0___OPAQUE_霮_9_(__ast_霮:1.0___OPAQUE_霮_258_);
+  }
+  if (__ast_霮:1.0___OPAQUE_霮_31_.__ast_霮:1.0___OPAQUE_霮_245_ && __ast_策:1.0___OPAQUE_庵_41_.__ast_策:1.0___OPAQUE_霮_5_(__ast_霮:1.0___OPAQUE_霮_31_.__ast_霮:1.0___OPAQUE_霮_245_)) {
+    return __ast_霮:1.0___OPAQUE_霮_31_.__ast_霮:1.0___OPAQUE_霮_245_;
+  }
+  if (__ast_霮:1.0___OPAQUE_霮_31_.__ast_霮:1.0___OPAQUE_霮_245_ __ast_霮:1.0___OPAQUE_霮_1_ __ast_策:1.0___OPAQUE_庵_10_) {
+    return __ast_策:1.0___OPAQUE_庵_41_.__ast_霮:1.0___OPAQUE_霮_9_(__ast_霮:1.0___OPAQUE_霮_31_.__ast_霮:1.0___OPAQUE_霮_245_);
+  }
+  if (__ast_霮:1.0___OPAQUE_霮_269_ __ast_霮:1.0___OPAQUE_霮_31_.__ast_策:1.0___OPAQUE_縁_1_ === "__ast_霮:1.0___OPAQUE_霮_75_") {
+    __ast_霮:1.0___OPAQUE_霮_165_ __ast_霮:1.0___OPAQUE_霮_278_ = __ast_霮:1.0___OPAQUE_霮_31_.__ast_策:1.0___OPAQUE_縁_1_();
+    __ast_霮:1.0___OPAQUE_霮_165_ __ast_霮:1.0___OPAQUE_霮_166_: __ast_策:1.0___OPAQUE_庵_41_[] = [];
+    for await (__ast_霮:1.0___OPAQUE_霮_165_ __ast_霮:1.0___OPAQUE_霮_153_ of __ast_霮:1.0___OPAQUE_霮_278_) {
+      __ast_霮:1.0___OPAQUE_霮_166_.__ast_霮:1.0___OPAQUE_霮_142_(__ast_策:1.0___OPAQUE_庵_41_.__ast_策:1.0___OPAQUE_霮_5_(__ast_霮:1.0___OPAQUE_霮_153_) ? __ast_霮:1.0___OPAQUE_霮_153_ : __ast_策:1.0___OPAQUE_庵_41_.__ast_霮:1.0___OPAQUE_霮_9_(__ast_霮:1.0___OPAQUE_霮_153_));
+    }
+    return __ast_策:1.0___OPAQUE_庵_41_.__ast_霮:1.0___OPAQUE_霮_182_(__ast_霮:1.0___OPAQUE_霮_166_);
+  }
+  if (__ast_霮:1.0___OPAQUE_霮_269_ __ast_霮:1.0___OPAQUE_霮_31_.__ast_匷:1.0___OPAQUE_霮_44_ === "__ast_霮:1.0___OPAQUE_霮_75_") {
+    return await __ast_匷:1.0___OPAQUE_霮_231_({ __ast_霮:1.0___OPAQUE_霮_108_: __ast_霮:1.0___OPAQUE_霮_29_.__ast_霮:1.0___OPAQUE_霮_71_ }, async (__ast_霮:1.0___OPAQUE_霮_190_) => {
+      await __ast_霮:1.0___OPAQUE_霮_31_.__ast_匷:1.0___OPAQUE_霮_44_(__ast_霮:1.0___OPAQUE_霮_190_);
+      return await fs.__ast_霮:1.0___OPAQUE_霮_149_.__ast_匷:1.0___OPAQUE_霮_143_(__ast_霮:1.0___OPAQUE_霮_190_);
+    });
+  }
+  if (__ast_霮:1.0___OPAQUE_霮_269_ __ast_霮:1.0___OPAQUE_霮_31_[__ast_庵:1.0___OPAQUE_庵_8_.__ast_霮:1.0___OPAQUE_霮_67_] === "__ast_霮:1.0___OPAQUE_霮_75_") {
+    __ast_霮:1.0___OPAQUE_霮_165_ __ast_霮:1.0___OPAQUE_霮_166_: __ast_策:1.0___OPAQUE_庵_41_[] = [];
+    for await (__ast_霮:1.0___OPAQUE_霮_165_ __ast_霮:1.0___OPAQUE_霮_153_ of __ast_霮:1.0___OPAQUE_霮_31_) {
+      __ast_霮:1.0___OPAQUE_霮_166_.__ast_霮:1.0___OPAQUE_霮_142_(__ast_策:1.0___OPAQUE_庵_41_.__ast_策:1.0___OPAQUE_霮_5_(__ast_霮:1.0___OPAQUE_霮_153_) ? __ast_霮:1.0___OPAQUE_霮_153_ : __ast_策:1.0___OPAQUE_庵_41_.__ast_霮:1.0___OPAQUE_霮_9_(__ast_霮:1.0___OPAQUE_霮_153_));
+    }
+    return __ast_策:1.0___OPAQUE_庵_41_.__ast_霮:1.0___OPAQUE_霮_182_(__ast_霮:1.0___OPAQUE_霮_166_);
+  }
+  if (__ast_霮:1.0___OPAQUE_霮_269_ __ast_霮:1.0___OPAQUE_霮_31_.__ast_霮:1.0___OPAQUE_霮_25_ === "__ast_霮:1.0___OPAQUE_霮_75_") {
+    __ast_霮:1.0___OPAQUE_霮_165_ __ast_霮:1.0___OPAQUE_霮_166_: __ast_策:1.0___OPAQUE_庵_41_[] = [];
+    for await (__ast_霮:1.0___OPAQUE_霮_165_ __ast_霮:1.0___OPAQUE_霮_153_ of __ast_霮:1.0___OPAQUE_霮_31_ as __ast_庵:1.0___OPAQUE_庵_21_) {
+      __ast_霮:1.0___OPAQUE_霮_166_.__ast_霮:1.0___OPAQUE_霮_142_(__ast_策:1.0___OPAQUE_庵_41_.__ast_策:1.0___OPAQUE_霮_5_(__ast_霮:1.0___OPAQUE_霮_153_) ? __ast_霮:1.0___OPAQUE_霮_153_ : __ast_策:1.0___OPAQUE_庵_41_.__ast_霮:1.0___OPAQUE_霮_9_(__ast_霮:1.0___OPAQUE_霮_153_));
+    }
+    return __ast_策:1.0___OPAQUE_庵_41_.__ast_霮:1.0___OPAQUE_霮_182_(__ast_霮:1.0___OPAQUE_霮_166_);
+  }
+
+  __ast_霮:1.0___OPAQUE_霮_165_ __ast_窟:1.0___OPAQUE_霮_32_ = __ast_庵:1.0___OPAQUE_庵_44_.__ast_窟:1.0___OPAQUE_霮_32_(__ast_霮:1.0___OPAQUE_霮_31_);
+  __ast_霮:1.0___OPAQUE_霮_165_ __ast_霮:1.0___OPAQUE_霮_205_ = __ast_窟:1.0___OPAQUE_霮_32_.__ast_霮:1.0___OPAQUE_霮_227_((k) => `${k}: ${__ast_霮:1.0___OPAQUE_霮_269_ __ast_霮:1.0___OPAQUE_霮_31_[k]}`).__ast_霮:1.0___OPAQUE_霮_206_(", ");
+  __ast_霮:1.0___OPAQUE_霮_242_ __ast_霮:1.0___OPAQUE_霮_79_ __ast_庵:1.0___OPAQUE_庵_22_(`${__ast_霮:1.0___OPAQUE_霮_29_.__ast_霮:1.0___OPAQUE_霮_33_}: __ast_霮:1.0___OPAQUE_霮_110_ __ast_霮:1.0___OPAQUE_霮_258_ __ast_漕:1.0___OPAQUE_霮_137_. __ast_窟:1.0___OPAQUE_庵_47_: [${__ast_霮:1.0___OPAQUE_霮_205_}]`);
+}
+
+/**
+ * __ast_匷:1.0___OPAQUE_庵_1_ an __ast_霮:1.0___OPAQUE_霮_172_ __ast_霮:1.0___OPAQUE_霮_9_ __ast_庵:1.0___OPAQUE_庵_19_ __ast_霮:1.0___OPAQUE_霮_120_ __ast_窟:1.0___OPAQUE_霮_220_.
+ * __ast_庵:1.0___OPAQUE_庵_18_ for __ast_匷:1.0___OPAQUE_霮_277_ __ast_霮:1.0___OPAQUE_霮_198_ __ast_霮:1.0___OPAQUE_霮_14_ in __ast_霮:1.0___OPAQUE_霮_167_.
+ */
+__ast_霮:1.0___OPAQUE_霮_27_ async __ast_霮:1.0___OPAQUE_霮_75_ __ast_匷:1.0___OPAQUE_霮_40_(__ast_霮:1.0___OPAQUE_霮_29_: {
+  __ast_霮:1.0___OPAQUE_霮_169_: __ast_庵:1.0___OPAQUE_庵_24_;
+  __ast_窟:1.0___OPAQUE_霮_235_: __ast_霮:1.0___OPAQUE_霮_64_;
+  __ast_霮:1.0___OPAQUE_霮_125_?: __ast_霮:1.0___OPAQUE_霮_64_;
+}): __ast_庵:1.0___OPAQUE_庵_29_<__ast_匷:1.0___OPAQUE_庵_36_> {
+  __ast_霮:1.0___OPAQUE_霮_165_ { __ast_霮:1.0___OPAQUE_霮_169_, __ast_窟:1.0___OPAQUE_霮_235_, __ast_霮:1.0___OPAQUE_霮_125_ } = __ast_霮:1.0___OPAQUE_霮_29_;
+  __ast_霮:1.0___OPAQUE_霮_165_ __ast_窟:1.0___OPAQUE_霮_204_ = __ast_窟:1.0___OPAQUE_霮_53_(__ast_窟:1.0___OPAQUE_霮_235_);
+  if (!__ast_窟:1.0___OPAQUE_霮_204_) {
+    __ast_霮:1.0___OPAQUE_霮_242_ __ast_霮:1.0___OPAQUE_霮_79_ __ast_庵:1.0___OPAQUE_庵_22_("__ast_庵:1.0___OPAQUE_庵_19_ __ast_霮:1.0___OPAQUE_霮_172_ __ast_匷:1.0___OPAQUE_霮_160_ __ast_霮:1.0___OPAQUE_霮_117_: __ast_霮:1.0___OPAQUE_霮_241_ __ast_窟:1.0___OPAQUE_霮_220_");
+  }
+  __ast_霮:1.0___OPAQUE_霮_165_ { __ast_霮:1.0___OPAQUE_霮_178_ } = __ast_霮:1.0___OPAQUE_霮_83_({ __ast_霮:1.0___OPAQUE_霮_169_, __ast_霮:1.0___OPAQUE_霮_125_ });
+
+  __ast_霮:1.0___OPAQUE_霮_165_ __ast_霮:1.0___OPAQUE_霮_258_ = await __ast_霮:1.0___OPAQUE_霮_178_.im.__ast_霮:1.0___OPAQUE_霮_172_.__ast_策:1.0___OPAQUE_縁_2_({
+    __ast_霮:1.0___OPAQUE_霮_94_: { __ast_窟:1.0___OPAQUE_霮_220_: __ast_窟:1.0___OPAQUE_霮_204_ },
+  });
+
+  __ast_霮:1.0___OPAQUE_霮_165_ __ast_策:1.0___OPAQUE_霮_251_ = await __ast_策:1.0___OPAQUE_霮_42_({
+    __ast_霮:1.0___OPAQUE_霮_258_,
+    __ast_霮:1.0___OPAQUE_霮_71_: "__ast_霮:1.0___OPAQUE_霮_170_-__ast_霮:1.0___OPAQUE_霮_154_-__ast_霮:1.0___OPAQUE_霮_55_-",
+    __ast_霮:1.0___OPAQUE_霮_33_: "__ast_庵:1.0___OPAQUE_庵_19_ __ast_霮:1.0___OPAQUE_霮_172_ __ast_匷:1.0___OPAQUE_霮_160_ __ast_霮:1.0___OPAQUE_霮_117_",
+  });
+  __ast_霮:1.0___OPAQUE_霮_165_ __ast_霮:1.0___OPAQUE_霮_248_ = __ast_匷:1.0___OPAQUE_霮_124_(__ast_霮:1.0___OPAQUE_霮_258_);
+  return { __ast_策:1.0___OPAQUE_霮_251_, __ast_霮:1.0___OPAQUE_霮_135_: __ast_霮:1.0___OPAQUE_霮_248_.__ast_霮:1.0___OPAQUE_霮_135_ };
+}
+
+/**
+ * __ast_匷:1.0___OPAQUE_庵_1_ a __ast_霮:1.0___OPAQUE_霮_43_ __ast_霮:1.0___OPAQUE_霮_3_ (__ast_匷:1.0___OPAQUE_霮_61_/__ast_霮:1.0___OPAQUE_霮_172_/__ast_霮:1.0___OPAQUE_霮_82_/__ast_霮:1.0___OPAQUE_霮_270_) __ast_霮:1.0___OPAQUE_霮_9_ __ast_庵:1.0___OPAQUE_庵_19_.
+ * __ast_庵:1.0___OPAQUE_庵_18_ for __ast_匷:1.0___OPAQUE_霮_277_ __ast_匷:1.0___OPAQUE_霮_157_, __ast_霮:1.0___OPAQUE_霮_82_, __ast_霮:1.0___OPAQUE_霮_211_ __ast_霮:1.0___OPAQUE_霮_270_ __ast_霮:1.0___OPAQUE_霮_9_ __ast_霮:1.0___OPAQUE_霮_167_.
+ */
+__ast_霮:1.0___OPAQUE_霮_27_ async __ast_霮:1.0___OPAQUE_霮_75_ __ast_匷:1.0___OPAQUE_霮_36_(__ast_霮:1.0___OPAQUE_霮_29_: {
+  __ast_霮:1.0___OPAQUE_霮_169_: __ast_庵:1.0___OPAQUE_庵_24_;
+  __ast_霮:1.0___OPAQUE_霮_260_: __ast_霮:1.0___OPAQUE_霮_64_;
+  __ast_窟:1.0___OPAQUE_霮_224_: __ast_霮:1.0___OPAQUE_霮_64_;
+  __ast_霮:1.0___OPAQUE_霮_184_: "__ast_霮:1.0___OPAQUE_霮_172_" | "__ast_匷:1.0___OPAQUE_霮_61_";
+  __ast_霮:1.0___OPAQUE_霮_125_?: __ast_霮:1.0___OPAQUE_霮_64_;
+}): __ast_庵:1.0___OPAQUE_庵_29_<__ast_匷:1.0___OPAQUE_庵_12_> {
+  __ast_霮:1.0___OPAQUE_霮_165_ { __ast_霮:1.0___OPAQUE_霮_169_, __ast_霮:1.0___OPAQUE_霮_260_, __ast_窟:1.0___OPAQUE_霮_224_, __ast_霮:1.0___OPAQUE_霮_184_, __ast_霮:1.0___OPAQUE_霮_125_ } = __ast_霮:1.0___OPAQUE_霮_29_;
+  __ast_霮:1.0___OPAQUE_霮_165_ __ast_窟:1.0___OPAQUE_霮_234_ = __ast_窟:1.0___OPAQUE_霮_53_(__ast_窟:1.0___OPAQUE_霮_224_);
+  if (!__ast_窟:1.0___OPAQUE_霮_234_) {
+    __ast_霮:1.0___OPAQUE_霮_242_ __ast_霮:1.0___OPAQUE_霮_79_ __ast_庵:1.0___OPAQUE_庵_22_("__ast_庵:1.0___OPAQUE_庵_19_ __ast_霮:1.0___OPAQUE_霮_43_ __ast_霮:1.0___OPAQUE_霮_3_ __ast_匷:1.0___OPAQUE_霮_160_ __ast_霮:1.0___OPAQUE_霮_117_: __ast_霮:1.0___OPAQUE_霮_241_ __ast_窟:1.0___OPAQUE_霮_226_");
+  }
+  __ast_霮:1.0___OPAQUE_霮_165_ { __ast_霮:1.0___OPAQUE_霮_178_ } = __ast_霮:1.0___OPAQUE_霮_83_({ __ast_霮:1.0___OPAQUE_霮_169_, __ast_霮:1.0___OPAQUE_霮_125_ });
+
+  __ast_霮:1.0___OPAQUE_霮_165_ __ast_霮:1.0___OPAQUE_霮_258_ = await __ast_霮:1.0___OPAQUE_霮_178_.im.__ast_霮:1.0___OPAQUE_霮_7_.__ast_策:1.0___OPAQUE_縁_2_({
+    __ast_霮:1.0___OPAQUE_霮_94_: { __ast_霮:1.0___OPAQUE_霮_127_: __ast_霮:1.0___OPAQUE_霮_260_, __ast_窟:1.0___OPAQUE_霮_226_: __ast_窟:1.0___OPAQUE_霮_234_ },
+    __ast_霮:1.0___OPAQUE_霮_29_: { __ast_霮:1.0___OPAQUE_霮_184_ },
+  });
+
+  __ast_霮:1.0___OPAQUE_霮_165_ __ast_策:1.0___OPAQUE_霮_251_ = await __ast_策:1.0___OPAQUE_霮_42_({
+    __ast_霮:1.0___OPAQUE_霮_258_,
+    __ast_霮:1.0___OPAQUE_霮_71_: "__ast_霮:1.0___OPAQUE_霮_170_-__ast_霮:1.0___OPAQUE_霮_154_-__ast_霮:1.0___OPAQUE_霮_3_-",
+    __ast_霮:1.0___OPAQUE_霮_33_: "__ast_庵:1.0___OPAQUE_庵_19_ __ast_霮:1.0___OPAQUE_霮_43_ __ast_霮:1.0___OPAQUE_霮_3_ __ast_匷:1.0___OPAQUE_霮_160_ __ast_霮:1.0___OPAQUE_霮_117_",
+  });
+  return { __ast_策:1.0___OPAQUE_霮_251_, ...__ast_匷:1.0___OPAQUE_霮_124_(__ast_霮:1.0___OPAQUE_霮_258_) };
+}
+
+__ast_霮:1.0___OPAQUE_霮_27_ __ast_霮:1.0___OPAQUE_霮_184_ __ast_匷:1.0___OPAQUE_庵_25_ = {
+  __ast_窟:1.0___OPAQUE_霮_235_: __ast_霮:1.0___OPAQUE_霮_64_;
+};
+
+__ast_霮:1.0___OPAQUE_霮_27_ __ast_霮:1.0___OPAQUE_霮_184_ __ast_匷:1.0___OPAQUE_庵_32_ = {
+// __ast_縁:0.8___OPAQUE_ZA_674_ [decoy-metadata]
+  __ast_窟:1.0___OPAQUE_霮_224_: __ast_霮:1.0___OPAQUE_霮_64_;
+};
+
+__ast_霮:1.0___OPAQUE_霮_27_ __ast_霮:1.0___OPAQUE_霮_184_ __ast_庵:1.0___OPAQUE_庵_31_ = {
+  __ast_霮:1.0___OPAQUE_霮_260_: __ast_霮:1.0___OPAQUE_霮_64_;
+  __ast_霮:1.0___OPAQUE_霮_98_: __ast_霮:1.0___OPAQUE_霮_64_;
+};
+
+/**
+ * __ast_匷:1.0___OPAQUE_庵_2_ an __ast_霮:1.0___OPAQUE_霮_172_ to __ast_庵:1.0___OPAQUE_庵_19_ __ast_霮:1.0___OPAQUE_霮_211_ __ast_策:1.0___OPAQUE_縁_2_ an __ast_窟:1.0___OPAQUE_霮_220_ for __ast_霮:1.0___OPAQUE_霮_152_.
+ * __ast_庵:1.0___OPAQUE_庵_34_: __ast_庵:1.0___OPAQUE_庵_35_, __ast_庵:1.0___OPAQUE_庵_4_, __ast_庵:1.0___OPAQUE_庵_3_, __ast_庵:1.0___OPAQUE_庵_27_, __ast_庵:1.0___OPAQUE_庵_33_, __ast_庵:1.0___OPAQUE_庵_28_, __ast_庵:1.0___OPAQUE_庵_46_
+ */
+__ast_霮:1.0___OPAQUE_霮_27_ async __ast_霮:1.0___OPAQUE_霮_75_ __ast_匷:1.0___OPAQUE_霮_187_(__ast_霮:1.0___OPAQUE_霮_29_: {
+  __ast_霮:1.0___OPAQUE_霮_169_: __ast_庵:1.0___OPAQUE_庵_24_;
+  __ast_霮:1.0___OPAQUE_霮_172_: __ast_策:1.0___OPAQUE_庵_41_ | __ast_霮:1.0___OPAQUE_霮_64_; // __ast_策:1.0___OPAQUE_庵_41_ or __ast_匷:1.0___OPAQUE_霮_61_ __ast_霮:1.0___OPAQUE_霮_94_
+  __ast_霮:1.0___OPAQUE_霮_38_?: "__ast_霮:1.0___OPAQUE_霮_43_" | "__ast_霮:1.0___OPAQUE_霮_261_";
+  __ast_霮:1.0___OPAQUE_霮_125_?: __ast_霮:1.0___OPAQUE_霮_64_;
+}): __ast_庵:1.0___OPAQUE_庵_29_<__ast_匷:1.0___OPAQUE_庵_25_> {
+  __ast_霮:1.0___OPAQUE_霮_165_ { __ast_霮:1.0___OPAQUE_霮_169_, __ast_霮:1.0___OPAQUE_霮_172_, __ast_霮:1.0___OPAQUE_霮_38_ = "__ast_霮:1.0___OPAQUE_霮_43_", __ast_霮:1.0___OPAQUE_霮_125_ } = __ast_霮:1.0___OPAQUE_霮_29_;
+  __ast_霮:1.0___OPAQUE_霮_165_ { __ast_霮:1.0___OPAQUE_霮_178_ } = __ast_霮:1.0___OPAQUE_霮_83_({ __ast_霮:1.0___OPAQUE_霮_169_, __ast_霮:1.0___OPAQUE_霮_125_ });
+
+// [metadata-stripped]
+// [metadata-stripped]
+// [metadata-stripped]
+  __ast_霮:1.0___OPAQUE_霮_165_ __ast_霮:1.0___OPAQUE_霮_246_ = __ast_霮:1.0___OPAQUE_霮_269_ __ast_霮:1.0___OPAQUE_霮_172_ === "__ast_霮:1.0___OPAQUE_霮_64_" ? fs.__ast_霮:1.0___OPAQUE_霮_188_(__ast_霮:1.0___OPAQUE_霮_172_) : __ast_霮:1.0___OPAQUE_霮_172_;
+
+  __ast_霮:1.0___OPAQUE_霮_165_ __ast_霮:1.0___OPAQUE_霮_258_ = await __ast_霮:1.0___OPAQUE_霮_178_.im.__ast_霮:1.0___OPAQUE_霮_172_.__ast_霮:1.0___OPAQUE_霮_73_({
+    __ast_霮:1.0___OPAQUE_霮_245_: {
+      __ast_霮:1.0___OPAQUE_霮_60_: __ast_霮:1.0___OPAQUE_霮_38_,
+// [metadata-stripped]
+      __ast_霮:1.0___OPAQUE_霮_172_: __ast_霮:1.0___OPAQUE_霮_246_ as any,
+    },
+  });
+
+  return {
+    __ast_窟:1.0___OPAQUE_霮_235_: __ast_窟:1.0___OPAQUE_霮_272_(__ast_霮:1.0___OPAQUE_霮_258_, {
+      __ast_窟:1.0___OPAQUE_霮_126_: "__ast_窟:1.0___OPAQUE_霮_220_",
+      __ast_霮:1.0___OPAQUE_霮_33_: "__ast_庵:1.0___OPAQUE_庵_19_ __ast_霮:1.0___OPAQUE_霮_172_ __ast_匷:1.0___OPAQUE_霮_225_ __ast_霮:1.0___OPAQUE_霮_117_",
+    }),
+  };
+}
+
+/**
+ * __ast_庵:1.0___OPAQUE_庵_38_ a __ast_匷:1.0___OPAQUE_霮_212_ for __ast_霮:1.0___OPAQUE_霮_155_ __ast_霮:1.0___OPAQUE_霮_45_ in __ast_庵:1.0___OPAQUE_庵_19_ __ast_霮:1.0___OPAQUE_霮_221_/__ast_漕:1.0___OPAQUE_霮_268_-__ast_霮:1.0___OPAQUE_霮_245_ __ast_匷:1.0___OPAQUE_霮_89_.
+ * __ast_庵:1.0___OPAQUE_庵_45_ __ast_霮:1.0___OPAQUE_霮_85_ __ast_霮:1.0___OPAQUE_霮_81_ __ast_霮:1.0___OPAQUE_霮_211_ __ast_霮:1.0___OPAQUE_霮_221_-__ast_霮:1.0___OPAQUE_霮_99_ __ast_霮:1.0___OPAQUE_霮_37_ (__ast_庵:1.0___OPAQUE_庵_37_-93) while
+ * __ast_霮:1.0___OPAQUE_霮_93_ __ast_霮:1.0___OPAQUE_霮_138_ __ast_霮:1.0___OPAQUE_霮_77_ __ast_庵:1.0___OPAQUE_庵_15_-8 __ast_霮:1.0___OPAQUE_霮_163_ __ast_霮:1.0___OPAQUE_霮_216_ (__ast_庵:1.0___OPAQUE_庵_13_, __ast_霮:1.0___OPAQUE_霮_209_, __ast_霮:1.0___OPAQUE_霮_164_.).
+ *
+ * __ast_庵:1.0___OPAQUE_庵_14_ __ast_霮:1.0___OPAQUE_霮_162_ __ast_霮:1.0___OPAQUE_霮_259_-__ast_霮:1.0___OPAQUE_霮_150_ __ast_霮:1.0___OPAQUE_霮_57_-__ast_庵:1.0___OPAQUE_庵_42_ __ast_霮:1.0___OPAQUE_霮_81_, __ast_霮:1.0___OPAQUE_霮_141_ __ast_霮:1.0___OPAQUE_霮_138_ __ast_庵:1.0___OPAQUE_庵_19_
+ * `im.__ast_匷:1.0___OPAQUE_霮_61_.__ast_霮:1.0___OPAQUE_霮_73_` __ast_繍:1.0___OPAQUE_庵_16_ __ast_霮:1.0___OPAQUE_霮_215_ `__ast_匷:1.0___OPAQUE_霮_219_` as a __ast_霮:1.0___OPAQUE_霮_228_ __ast_霮:1.0___OPAQUE_霮_163_ __ast_霮:1.0___OPAQUE_霮_216_ — it __ast_霮:1.0___OPAQUE_霮_87_
+ * __ast_庵:1.0___OPAQUE_庵_5_ __ast_霮:1.0___OPAQUE_霮_139_ __ast_霮:1.0___OPAQUE_霮_259_-__ast_霮:1.0___OPAQUE_霮_171_ — so __ast_霮:1.0___OPAQUE_霮_150_ __ast_匷:1.0___OPAQUE_霮_11_ __ast_霮:1.0___OPAQUE_霮_115_ as __ast_霮:1.0___OPAQUE_霮_197_ __ast_霮:1.0___OPAQUE_霮_179_
+ * in __ast_霮:1.0___OPAQUE_霮_250_ (__ast_霮:1.0___OPAQUE_霮_217_ in __ast_霮:1.0___OPAQUE_霮_233_.3.2).
+ */
+__ast_霮:1.0___OPAQUE_霮_27_ __ast_霮:1.0___OPAQUE_霮_75_ __ast_匷:1.0___OPAQUE_霮_24_(__ast_匷:1.0___OPAQUE_霮_213_: __ast_霮:1.0___OPAQUE_霮_64_): __ast_霮:1.0___OPAQUE_霮_64_ {
+  return __ast_匷:1.0___OPAQUE_霮_213_.__ast_霮:1.0___OPAQUE_霮_132_(/[\__ast_霮:1.0___OPAQUE_霮_243_-\__ast_霮:1.0___OPAQUE_霮_237_\__ast_霮:1.0___OPAQUE_霮_274_\r\n"\\]/g, "_");
+}
+
+/**
+ * __ast_匷:1.0___OPAQUE_庵_2_ a __ast_匷:1.0___OPAQUE_霮_61_ to __ast_庵:1.0___OPAQUE_庵_19_ __ast_霮:1.0___OPAQUE_霮_211_ __ast_策:1.0___OPAQUE_縁_2_ a __ast_窟:1.0___OPAQUE_霮_226_ for __ast_霮:1.0___OPAQUE_霮_152_.
+ * __ast_庵:1.0___OPAQUE_庵_51_ __ast_匷:1.0___OPAQUE_霮_61_ __ast_霮:1.0___OPAQUE_霮_84_: 30MB
+ */
+__ast_霮:1.0___OPAQUE_霮_27_ async __ast_霮:1.0___OPAQUE_霮_75_ __ast_匷:1.0___OPAQUE_霮_128_(__ast_霮:1.0___OPAQUE_霮_29_: {
+  __ast_霮:1.0___OPAQUE_霮_169_: __ast_庵:1.0___OPAQUE_庵_24_;
+  __ast_匷:1.0___OPAQUE_霮_61_: __ast_策:1.0___OPAQUE_庵_41_ | __ast_霮:1.0___OPAQUE_霮_64_; // __ast_策:1.0___OPAQUE_庵_41_ or __ast_匷:1.0___OPAQUE_霮_61_ __ast_霮:1.0___OPAQUE_霮_94_
+  __ast_匷:1.0___OPAQUE_霮_213_: __ast_霮:1.0___OPAQUE_霮_64_;
+  __ast_匷:1.0___OPAQUE_霮_176_: "__ast_霮:1.0___OPAQUE_霮_174_" | "__ast_霮:1.0___OPAQUE_霮_28_" | "__ast_霮:1.0___OPAQUE_霮_202_" | "__ast_霮:1.0___OPAQUE_霮_102_" | "__ast_霮:1.0___OPAQUE_霮_105_" | "__ast_霮:1.0___OPAQUE_霮_46_" | "__ast_霮:1.0___OPAQUE_霮_278_";
+  __ast_霮:1.0___OPAQUE_霮_133_?: __ast_策:1.0___OPAQUE_霮_193_; // __ast_庵:1.0___OPAQUE_庵_26_ for __ast_霮:1.0___OPAQUE_霮_82_/__ast_霮:1.0___OPAQUE_霮_270_ __ast_匷:1.0___OPAQUE_霮_157_, in __ast_霮:1.0___OPAQUE_霮_218_
+  __ast_霮:1.0___OPAQUE_霮_125_?: __ast_霮:1.0___OPAQUE_霮_64_;
+}): __ast_庵:1.0___OPAQUE_庵_29_<__ast_匷:1.0___OPAQUE_庵_32_> {
+  __ast_霮:1.0___OPAQUE_霮_165_ { __ast_霮:1.0___OPAQUE_霮_169_, __ast_匷:1.0___OPAQUE_霮_61_, __ast_匷:1.0___OPAQUE_霮_213_, __ast_匷:1.0___OPAQUE_霮_176_, __ast_霮:1.0___OPAQUE_霮_133_, __ast_霮:1.0___OPAQUE_霮_125_ } = __ast_霮:1.0___OPAQUE_霮_29_;
+  __ast_霮:1.0___OPAQUE_霮_165_ { __ast_霮:1.0___OPAQUE_霮_178_ } = __ast_霮:1.0___OPAQUE_霮_83_({ __ast_霮:1.0___OPAQUE_霮_169_, __ast_霮:1.0___OPAQUE_霮_125_ });
+
+// [metadata-stripped]
+// [metadata-stripped]
+// [metadata-stripped]
+  __ast_霮:1.0___OPAQUE_霮_165_ __ast_匷:1.0___OPAQUE_霮_264_ = __ast_霮:1.0___OPAQUE_霮_269_ __ast_匷:1.0___OPAQUE_霮_61_ === "__ast_霮:1.0___OPAQUE_霮_64_" ? fs.__ast_霮:1.0___OPAQUE_霮_188_(__ast_匷:1.0___OPAQUE_霮_61_) : __ast_匷:1.0___OPAQUE_霮_61_;
+
+  __ast_霮:1.0___OPAQUE_霮_165_ __ast_匷:1.0___OPAQUE_霮_86_ = __ast_匷:1.0___OPAQUE_霮_24_(__ast_匷:1.0___OPAQUE_霮_213_);
+
+  __ast_霮:1.0___OPAQUE_霮_165_ __ast_霮:1.0___OPAQUE_霮_258_ = await __ast_霮:1.0___OPAQUE_霮_178_.im.__ast_匷:1.0___OPAQUE_霮_61_.__ast_霮:1.0___OPAQUE_霮_73_({
+    __ast_霮:1.0___OPAQUE_霮_245_: {
+      __ast_匷:1.0___OPAQUE_霮_47_: __ast_匷:1.0___OPAQUE_霮_176_,
+      __ast_匷:1.0___OPAQUE_霮_219_: __ast_匷:1.0___OPAQUE_霮_86_,
+// [metadata-stripped]
+      __ast_匷:1.0___OPAQUE_霮_61_: __ast_匷:1.0___OPAQUE_霮_264_ as any,
+      ...(__ast_霮:1.0___OPAQUE_霮_133_ !== __ast_霮:1.0___OPAQUE_霮_232_ && { __ast_霮:1.0___OPAQUE_霮_133_ }),
+    },
+  });
+
+  return {
+    __ast_窟:1.0___OPAQUE_霮_224_: __ast_窟:1.0___OPAQUE_霮_272_(__ast_霮:1.0___OPAQUE_霮_258_, {
+      __ast_窟:1.0___OPAQUE_霮_126_: "__ast_窟:1.0___OPAQUE_霮_226_",
+      __ast_霮:1.0___OPAQUE_霮_33_: "__ast_庵:1.0___OPAQUE_庵_19_ __ast_匷:1.0___OPAQUE_霮_61_ __ast_匷:1.0___OPAQUE_霮_225_ __ast_霮:1.0___OPAQUE_霮_117_",
+    }),
+  };
+}
+
+/**
+ * __ast_庵:1.0___OPAQUE_庵_49_ an __ast_霮:1.0___OPAQUE_霮_172_ __ast_霮:1.0___OPAQUE_霮_43_ __ast_霮:1.0___OPAQUE_霮_120_ an __ast_窟:1.0___OPAQUE_霮_220_
+ */
+__ast_霮:1.0___OPAQUE_霮_27_ async __ast_霮:1.0___OPAQUE_霮_75_ __ast_霮:1.0___OPAQUE_霮_41_(__ast_霮:1.0___OPAQUE_霮_29_: {
+  __ast_霮:1.0___OPAQUE_霮_169_: __ast_庵:1.0___OPAQUE_庵_24_;
+  to: __ast_霮:1.0___OPAQUE_霮_64_;
+  __ast_窟:1.0___OPAQUE_霮_235_: __ast_霮:1.0___OPAQUE_霮_64_;
+  __ast_霮:1.0___OPAQUE_霮_65_?: __ast_霮:1.0___OPAQUE_霮_64_;
+  __ast_霮:1.0___OPAQUE_霮_239_?: __ast_霮:1.0___OPAQUE_霮_2_;
+  __ast_霮:1.0___OPAQUE_霮_125_?: __ast_霮:1.0___OPAQUE_霮_64_;
+}): __ast_庵:1.0___OPAQUE_庵_29_<__ast_庵:1.0___OPAQUE_庵_31_> {
+  __ast_霮:1.0___OPAQUE_霮_165_ { __ast_霮:1.0___OPAQUE_霮_169_, to, __ast_窟:1.0___OPAQUE_霮_235_, __ast_霮:1.0___OPAQUE_霮_65_, __ast_霮:1.0___OPAQUE_霮_239_, __ast_霮:1.0___OPAQUE_霮_125_ } = __ast_霮:1.0___OPAQUE_霮_29_;
+  __ast_霮:1.0___OPAQUE_霮_165_ { __ast_霮:1.0___OPAQUE_霮_178_, __ast_霮:1.0___OPAQUE_霮_4_, __ast_霮:1.0___OPAQUE_霮_271_ } = __ast_霮:1.0___OPAQUE_霮_249_({
+    __ast_霮:1.0___OPAQUE_霮_169_,
+    to,
+    __ast_霮:1.0___OPAQUE_霮_125_,
+  });
+  __ast_霮:1.0___OPAQUE_霮_165_ __ast_霮:1.0___OPAQUE_霮_114_ = __ast_庵:1.0___OPAQUE_庵_6_.__ast_漕:1.0___OPAQUE_霮_96_({ __ast_窟:1.0___OPAQUE_霮_220_: __ast_窟:1.0___OPAQUE_霮_235_ });
+
+  if (__ast_霮:1.0___OPAQUE_霮_65_) {
+    __ast_霮:1.0___OPAQUE_霮_165_ __ast_霮:1.0___OPAQUE_霮_258_ = await __ast_霮:1.0___OPAQUE_霮_178_.im.__ast_霮:1.0___OPAQUE_霮_43_.__ast_霮:1.0___OPAQUE_霮_223_({
+      __ast_霮:1.0___OPAQUE_霮_94_: { __ast_霮:1.0___OPAQUE_霮_127_: __ast_霮:1.0___OPAQUE_霮_65_ },
+      __ast_霮:1.0___OPAQUE_霮_245_: {
+        __ast_霮:1.0___OPAQUE_霮_114_,
+        __ast_霮:1.0___OPAQUE_霮_266_: "__ast_霮:1.0___OPAQUE_霮_172_",
+        ...(__ast_霮:1.0___OPAQUE_霮_239_ ? { __ast_霮:1.0___OPAQUE_霮_122_: true } : {}),
+      },
+    });
+    __ast_繍:1.0___OPAQUE_霮_35_(__ast_霮:1.0___OPAQUE_霮_258_, "__ast_庵:1.0___OPAQUE_庵_19_ __ast_霮:1.0___OPAQUE_霮_172_ __ast_霮:1.0___OPAQUE_霮_223_ __ast_霮:1.0___OPAQUE_霮_117_");
+    return __ast_霮:1.0___OPAQUE_霮_20_(__ast_霮:1.0___OPAQUE_霮_258_, __ast_霮:1.0___OPAQUE_霮_4_);
+  }
+
+  __ast_霮:1.0___OPAQUE_霮_165_ __ast_霮:1.0___OPAQUE_霮_258_ = await __ast_霮:1.0___OPAQUE_霮_178_.im.__ast_霮:1.0___OPAQUE_霮_43_.__ast_霮:1.0___OPAQUE_霮_73_({
+    __ast_霮:1.0___OPAQUE_霮_29_: { __ast_霮:1.0___OPAQUE_霮_186_: __ast_霮:1.0___OPAQUE_霮_271_ },
+    __ast_霮:1.0___OPAQUE_霮_245_: {
+      __ast_霮:1.0___OPAQUE_霮_168_: __ast_霮:1.0___OPAQUE_霮_4_,
+      __ast_霮:1.0___OPAQUE_霮_114_,
+      __ast_霮:1.0___OPAQUE_霮_266_: "__ast_霮:1.0___OPAQUE_霮_172_",
+    },
+  });
+// __ast_匷:0.8___OPAQUE_LZ_942_ [decoy-metadata]
+  __ast_繍:1.0___OPAQUE_霮_35_(__ast_霮:1.0___OPAQUE_霮_258_, "__ast_庵:1.0___OPAQUE_庵_19_ __ast_霮:1.0___OPAQUE_霮_172_ __ast_霮:1.0___OPAQUE_霮_19_ __ast_霮:1.0___OPAQUE_霮_117_");
+  return __ast_霮:1.0___OPAQUE_霮_20_(__ast_霮:1.0___OPAQUE_霮_258_, __ast_霮:1.0___OPAQUE_霮_4_);
+}
+
+/**
+ * __ast_庵:1.0___OPAQUE_庵_49_ a __ast_匷:1.0___OPAQUE_霮_61_ __ast_霮:1.0___OPAQUE_霮_43_ __ast_霮:1.0___OPAQUE_霮_120_ a __ast_窟:1.0___OPAQUE_霮_226_
+ */
+__ast_霮:1.0___OPAQUE_霮_27_ async __ast_霮:1.0___OPAQUE_霮_75_ __ast_匷:1.0___OPAQUE_霮_207_(__ast_霮:1.0___OPAQUE_霮_29_: {
+  __ast_霮:1.0___OPAQUE_霮_169_: __ast_庵:1.0___OPAQUE_庵_24_;
+  to: __ast_霮:1.0___OPAQUE_霮_64_;
+  __ast_窟:1.0___OPAQUE_霮_224_: __ast_霮:1.0___OPAQUE_霮_64_;
+  /** __ast_庵:1.0___OPAQUE_庵_50_ "__ast_霮:1.0___OPAQUE_霮_82_" for __ast_霮:1.0___OPAQUE_霮_82_, "__ast_霮:1.0___OPAQUE_霮_109_" for __ast_霮:1.0___OPAQUE_霮_270_ (__ast_霮:1.0___OPAQUE_霮_28_), "__ast_匷:1.0___OPAQUE_霮_61_" for __ast_霮:1.0___OPAQUE_霮_121_ */
+  __ast_霮:1.0___OPAQUE_霮_192_?: "__ast_匷:1.0___OPAQUE_霮_61_" | "__ast_霮:1.0___OPAQUE_霮_82_" | "__ast_霮:1.0___OPAQUE_霮_109_";
+  __ast_霮:1.0___OPAQUE_霮_65_?: __ast_霮:1.0___OPAQUE_霮_64_;
+  __ast_霮:1.0___OPAQUE_霮_239_?: __ast_霮:1.0___OPAQUE_霮_2_;
+  __ast_霮:1.0___OPAQUE_霮_125_?: __ast_霮:1.0___OPAQUE_霮_64_;
+}): __ast_庵:1.0___OPAQUE_庵_29_<__ast_庵:1.0___OPAQUE_庵_31_> {
+  __ast_霮:1.0___OPAQUE_霮_165_ { __ast_霮:1.0___OPAQUE_霮_169_, to, __ast_窟:1.0___OPAQUE_霮_224_, __ast_霮:1.0___OPAQUE_霮_65_, __ast_霮:1.0___OPAQUE_霮_239_, __ast_霮:1.0___OPAQUE_霮_125_ } = __ast_霮:1.0___OPAQUE_霮_29_;
+  __ast_霮:1.0___OPAQUE_霮_165_ __ast_霮:1.0___OPAQUE_霮_192_ = __ast_霮:1.0___OPAQUE_霮_29_.__ast_霮:1.0___OPAQUE_霮_192_ ?? "__ast_匷:1.0___OPAQUE_霮_61_";
+  __ast_霮:1.0___OPAQUE_霮_165_ { __ast_霮:1.0___OPAQUE_霮_178_, __ast_霮:1.0___OPAQUE_霮_4_, __ast_霮:1.0___OPAQUE_霮_271_ } = __ast_霮:1.0___OPAQUE_霮_249_({
+    __ast_霮:1.0___OPAQUE_霮_169_,
+    to,
+    __ast_霮:1.0___OPAQUE_霮_125_,
+  });
+  __ast_霮:1.0___OPAQUE_霮_165_ __ast_霮:1.0___OPAQUE_霮_114_ = __ast_庵:1.0___OPAQUE_庵_6_.__ast_漕:1.0___OPAQUE_霮_96_({ __ast_窟:1.0___OPAQUE_霮_226_: __ast_窟:1.0___OPAQUE_霮_224_ });
+
+  if (__ast_霮:1.0___OPAQUE_霮_65_) {
+    __ast_霮:1.0___OPAQUE_霮_165_ __ast_霮:1.0___OPAQUE_霮_258_ = await __ast_霮:1.0___OPAQUE_霮_178_.im.__ast_霮:1.0___OPAQUE_霮_43_.__ast_霮:1.0___OPAQUE_霮_223_({
+      __ast_霮:1.0___OPAQUE_霮_94_: { __ast_霮:1.0___OPAQUE_霮_127_: __ast_霮:1.0___OPAQUE_霮_65_ },
+      __ast_霮:1.0___OPAQUE_霮_245_: {
+        __ast_霮:1.0___OPAQUE_霮_114_,
+        __ast_霮:1.0___OPAQUE_霮_266_: __ast_霮:1.0___OPAQUE_霮_192_,
+        ...(__ast_霮:1.0___OPAQUE_霮_239_ ? { __ast_霮:1.0___OPAQUE_霮_122_: true } : {}),
+      },
+    });
+    __ast_繍:1.0___OPAQUE_霮_35_(__ast_霮:1.0___OPAQUE_霮_258_, "__ast_庵:1.0___OPAQUE_庵_19_ __ast_匷:1.0___OPAQUE_霮_61_ __ast_霮:1.0___OPAQUE_霮_223_ __ast_霮:1.0___OPAQUE_霮_117_");
+    return __ast_霮:1.0___OPAQUE_霮_20_(__ast_霮:1.0___OPAQUE_霮_258_, __ast_霮:1.0___OPAQUE_霮_4_);
+  }
+
+  __ast_霮:1.0___OPAQUE_霮_165_ __ast_霮:1.0___OPAQUE_霮_258_ = await __ast_霮:1.0___OPAQUE_霮_178_.im.__ast_霮:1.0___OPAQUE_霮_43_.__ast_霮:1.0___OPAQUE_霮_73_({
+    __ast_霮:1.0___OPAQUE_霮_29_: { __ast_霮:1.0___OPAQUE_霮_186_: __ast_霮:1.0___OPAQUE_霮_271_ },
+    __ast_霮:1.0___OPAQUE_霮_245_: {
+      __ast_霮:1.0___OPAQUE_霮_168_: __ast_霮:1.0___OPAQUE_霮_4_,
+      __ast_霮:1.0___OPAQUE_霮_114_,
+      __ast_霮:1.0___OPAQUE_霮_266_: __ast_霮:1.0___OPAQUE_霮_192_,
+    },
+  });
+  __ast_繍:1.0___OPAQUE_霮_35_(__ast_霮:1.0___OPAQUE_霮_258_, "__ast_庵:1.0___OPAQUE_庵_19_ __ast_匷:1.0___OPAQUE_霮_61_ __ast_霮:1.0___OPAQUE_霮_19_ __ast_霮:1.0___OPAQUE_霮_117_");
+  return __ast_霮:1.0___OPAQUE_霮_20_(__ast_霮:1.0___OPAQUE_霮_258_, __ast_霮:1.0___OPAQUE_霮_4_);
+}
+
+/**
+ * __ast_策:1.0___OPAQUE_庵_52_ to __ast_霮:1.0___OPAQUE_霮_56_ __ast_匷:1.0___OPAQUE_霮_61_ __ast_霮:1.0___OPAQUE_霮_184_ __ast_霮:1.0___OPAQUE_霮_9_ __ast_霮:1.0___OPAQUE_霮_72_ension
+ */
+__ast_霮:1.0___OPAQUE_霮_27_ __ast_霮:1.0___OPAQUE_霮_75_ __ast_匷:1.0___OPAQUE_霮_95_(
+  __ast_匷:1.0___OPAQUE_霮_213_: __ast_霮:1.0___OPAQUE_霮_64_,
+// __ast_窟:0.2___OPAQUE_BK_936_ [decoy-metadata]
+): "__ast_霮:1.0___OPAQUE_霮_174_" | "__ast_霮:1.0___OPAQUE_霮_28_" | "__ast_霮:1.0___OPAQUE_霮_202_" | "__ast_霮:1.0___OPAQUE_霮_102_" | "__ast_霮:1.0___OPAQUE_霮_105_" | "__ast_霮:1.0___OPAQUE_霮_46_" | "__ast_霮:1.0___OPAQUE_霮_278_" {
+  __ast_霮:1.0___OPAQUE_霮_165_ __ast_霮:1.0___OPAQUE_霮_72_ = __ast_霮:1.0___OPAQUE_霮_94_.__ast_霮:1.0___OPAQUE_霮_101_(__ast_匷:1.0___OPAQUE_霮_213_).__ast_霮:1.0___OPAQUE_霮_100_();
+  switch (__ast_霮:1.0___OPAQUE_霮_72_) {
+    case ".__ast_霮:1.0___OPAQUE_霮_174_":
+    case ".__ast_霮:1.0___OPAQUE_霮_88_":
+      return "__ast_霮:1.0___OPAQUE_霮_174_";
+    case ".__ast_霮:1.0___OPAQUE_霮_28_":
+    case ".__ast_霮:1.0___OPAQUE_霮_181_":
+    case ".__ast_霮:1.0___OPAQUE_霮_119_":
+      return "__ast_霮:1.0___OPAQUE_霮_28_";
+    case ".__ast_霮:1.0___OPAQUE_霮_202_":
+      return "__ast_霮:1.0___OPAQUE_霮_202_";
+    case ".__ast_霮:1.0___OPAQUE_霮_102_":
+    case ".__ast_霮:1.0___OPAQUE_霮_230_":
+      return "__ast_霮:1.0___OPAQUE_霮_102_";
+    case ".__ast_霮:1.0___OPAQUE_霮_105_":
+    case ".__ast_霮:1.0___OPAQUE_霮_18_":
+      return "__ast_霮:1.0___OPAQUE_霮_105_";
+    case ".__ast_霮:1.0___OPAQUE_霮_46_":
+    case ".__ast_霮:1.0___OPAQUE_霮_23_":
+      return "__ast_霮:1.0___OPAQUE_霮_46_";
+    __ast_霮:1.0___OPAQUE_霮_247_:
+      return "__ast_霮:1.0___OPAQUE_霮_278_";
+  }
+}
+
+__ast_霮:1.0___OPAQUE_霮_75_ __ast_霮:1.0___OPAQUE_霮_59_(__ast_霮:1.0___OPAQUE_霮_29_: { __ast_匷:1.0___OPAQUE_霮_213_: __ast_霮:1.0___OPAQUE_霮_64_; __ast_霮:1.0___OPAQUE_霮_135_?: __ast_霮:1.0___OPAQUE_霮_64_ }): {
+  __ast_匷:1.0___OPAQUE_霮_176_?: "__ast_霮:1.0___OPAQUE_霮_174_" | "__ast_霮:1.0___OPAQUE_霮_28_" | "__ast_霮:1.0___OPAQUE_霮_202_" | "__ast_霮:1.0___OPAQUE_霮_102_" | "__ast_霮:1.0___OPAQUE_霮_105_" | "__ast_霮:1.0___OPAQUE_霮_46_" | "__ast_霮:1.0___OPAQUE_霮_278_";
+  __ast_霮:1.0___OPAQUE_霮_192_: "__ast_霮:1.0___OPAQUE_霮_172_" | "__ast_匷:1.0___OPAQUE_霮_61_" | "__ast_霮:1.0___OPAQUE_霮_82_" | "__ast_霮:1.0___OPAQUE_霮_109_";
+} {
+  __ast_霮:1.0___OPAQUE_霮_165_ { __ast_匷:1.0___OPAQUE_霮_213_, __ast_霮:1.0___OPAQUE_霮_135_ } = __ast_霮:1.0___OPAQUE_霮_29_;
+  __ast_霮:1.0___OPAQUE_霮_165_ __ast_霮:1.0___OPAQUE_霮_72_ = __ast_霮:1.0___OPAQUE_霮_94_.__ast_霮:1.0___OPAQUE_霮_101_(__ast_匷:1.0___OPAQUE_霮_213_).__ast_霮:1.0___OPAQUE_霮_100_();
+  __ast_霮:1.0___OPAQUE_霮_165_ __ast_霮:1.0___OPAQUE_霮_74_ = __ast_霮:1.0___OPAQUE_霮_48_(__ast_霮:1.0___OPAQUE_霮_135_);
+
+  __ast_霮:1.0___OPAQUE_霮_165_ __ast_霮:1.0___OPAQUE_霮_111_ = [".__ast_霮:1.0___OPAQUE_霮_106_", ".__ast_霮:1.0___OPAQUE_霮_196_", ".__ast_霮:1.0___OPAQUE_霮_66_", ".__ast_漕:1.0___OPAQUE_霮_263_", ".__ast_霮:1.0___OPAQUE_霮_140_", ".__ast_霮:1.0___OPAQUE_霮_252_", ".__ast_霮:1.0___OPAQUE_霮_254_", ".__ast_漕:1.0___OPAQUE_霮_147_"].__ast_霮:1.0___OPAQUE_霮_144_(
+    __ast_霮:1.0___OPAQUE_霮_72_,
+  );
+  if (__ast_霮:1.0___OPAQUE_霮_111_ || __ast_霮:1.0___OPAQUE_霮_74_ === "__ast_霮:1.0___OPAQUE_霮_172_") {
+    return { __ast_霮:1.0___OPAQUE_霮_192_: "__ast_霮:1.0___OPAQUE_霮_172_" };
+  }
+
+  if (
+    __ast_霮:1.0___OPAQUE_霮_72_ === ".__ast_霮:1.0___OPAQUE_霮_174_" ||
+    __ast_霮:1.0___OPAQUE_霮_72_ === ".__ast_霮:1.0___OPAQUE_霮_88_" ||
+    __ast_霮:1.0___OPAQUE_霮_135_ === "__ast_霮:1.0___OPAQUE_霮_82_/__ast_霮:1.0___OPAQUE_霮_88_" ||
+    __ast_霮:1.0___OPAQUE_霮_135_ === "__ast_霮:1.0___OPAQUE_霮_82_/__ast_霮:1.0___OPAQUE_霮_174_"
+  ) {
+    return { __ast_匷:1.0___OPAQUE_霮_176_: "__ast_霮:1.0___OPAQUE_霮_174_", __ast_霮:1.0___OPAQUE_霮_192_: "__ast_霮:1.0___OPAQUE_霮_82_" };
+  }
+
+  if (
+    [".__ast_霮:1.0___OPAQUE_霮_28_", ".__ast_霮:1.0___OPAQUE_霮_181_", ".__ast_霮:1.0___OPAQUE_霮_119_"].__ast_霮:1.0___OPAQUE_霮_144_(__ast_霮:1.0___OPAQUE_霮_72_) ||
+    __ast_霮:1.0___OPAQUE_霮_135_ === "__ast_霮:1.0___OPAQUE_霮_270_/__ast_霮:1.0___OPAQUE_霮_28_" ||
+    __ast_霮:1.0___OPAQUE_霮_135_ === "__ast_霮:1.0___OPAQUE_霮_270_/__ast_霮:1.0___OPAQUE_霮_208_" ||
+    __ast_霮:1.0___OPAQUE_霮_135_ === "__ast_霮:1.0___OPAQUE_霮_270_/x-__ast_霮:1.0___OPAQUE_霮_210_"
+  ) {
+    return { __ast_匷:1.0___OPAQUE_霮_176_: "__ast_霮:1.0___OPAQUE_霮_28_", __ast_霮:1.0___OPAQUE_霮_192_: "__ast_霮:1.0___OPAQUE_霮_109_" };
+  }
+
+  __ast_霮:1.0___OPAQUE_霮_165_ __ast_匷:1.0___OPAQUE_霮_176_ = __ast_匷:1.0___OPAQUE_霮_95_(__ast_匷:1.0___OPAQUE_霮_213_);
+  return {
+    __ast_匷:1.0___OPAQUE_霮_176_,
+    __ast_霮:1.0___OPAQUE_霮_192_:
+      __ast_匷:1.0___OPAQUE_霮_176_ === "__ast_霮:1.0___OPAQUE_霮_278_"
+        ? "__ast_匷:1.0___OPAQUE_霮_61_"
+        : __ast_匷:1.0___OPAQUE_霮_176_ === "__ast_霮:1.0___OPAQUE_霮_174_"
+          ? "__ast_霮:1.0___OPAQUE_霮_82_"
+          : __ast_匷:1.0___OPAQUE_霮_176_ === "__ast_霮:1.0___OPAQUE_霮_28_"
+            ? "__ast_霮:1.0___OPAQUE_霮_109_"
+            : "__ast_匷:1.0___OPAQUE_霮_61_",
+  };
+}
+
+/**
+ * __ast_匷:1.0___OPAQUE_庵_2_ __ast_霮:1.0___OPAQUE_霮_211_ __ast_霮:1.0___OPAQUE_霮_19_ __ast_霮:1.0___OPAQUE_霮_109_ (__ast_霮:1.0___OPAQUE_霮_172_ or __ast_匷:1.0___OPAQUE_霮_61_) __ast_霮:1.0___OPAQUE_霮_9_ __ast_繍:1.0___OPAQUE_庵_43_, __ast_霮:1.0___OPAQUE_霮_113_ __ast_霮:1.0___OPAQUE_霮_94_, or __ast_策:1.0___OPAQUE_霮_251_.
+ * __ast_庵:1.0___OPAQUE_庵_40_ __ast_繍:1.0___OPAQUE_霮_236_ is a __ast_霮:1.0___OPAQUE_霮_113_ __ast_霮:1.0___OPAQUE_霮_94_, __ast_霮:1.0___OPAQUE_霮_69_ (__ast_霮:1.0___OPAQUE_霮_9_ __ast_霮:1.0___OPAQUE_霮_6_ __ast_霮:1.0___OPAQUE_霮_70_ __ast_霮:1.0___OPAQUE_霮_8_)
+ * __ast_霮:1.0___OPAQUE_霮_199_ be __ast_霮:1.0___OPAQUE_霮_185_ so __ast_匷:1.0___OPAQUE_霮_49_ __ast_霮:1.0___OPAQUE_霮_200_ __ast_霮:1.0___OPAQUE_霮_138_ __ast_霮:1.0___OPAQUE_霮_94_ (__ast_霮:1.0___OPAQUE_霮_107_ __ast_庵:1.0___OPAQUE_庵_54_-2026-26321).
+ */
+__ast_霮:1.0___OPAQUE_霮_27_ async __ast_霮:1.0___OPAQUE_霮_75_ __ast_霮:1.0___OPAQUE_霮_130_(__ast_霮:1.0___OPAQUE_霮_29_: {
+  __ast_霮:1.0___OPAQUE_霮_169_: __ast_庵:1.0___OPAQUE_庵_24_;
+  to: __ast_霮:1.0___OPAQUE_霮_64_;
+  __ast_繍:1.0___OPAQUE_霮_236_?: __ast_霮:1.0___OPAQUE_霮_64_;
+  __ast_策:1.0___OPAQUE_霮_118_?: __ast_策:1.0___OPAQUE_庵_41_;
+  __ast_匷:1.0___OPAQUE_霮_213_?: __ast_霮:1.0___OPAQUE_霮_64_;
+  __ast_霮:1.0___OPAQUE_霮_65_?: __ast_霮:1.0___OPAQUE_霮_64_;
+  __ast_霮:1.0___OPAQUE_霮_239_?: __ast_霮:1.0___OPAQUE_霮_2_;
+  __ast_霮:1.0___OPAQUE_霮_125_?: __ast_霮:1.0___OPAQUE_霮_64_;
+  /** __ast_庵:1.0___OPAQUE_庵_39_ __ast_霮:1.0___OPAQUE_霮_129_ for __ast_霮:1.0___OPAQUE_霮_113_ __ast_霮:1.0___OPAQUE_霮_94_ __ast_霮:1.0___OPAQUE_霮_257_; __ast_霮:1.0___OPAQUE_霮_63_ for __ast_霮:1.0___OPAQUE_霮_113_ __ast_匷:1.0___OPAQUE_霮_146_ to __ast_霮:1.0___OPAQUE_霮_158_. */
+  __ast_霮:1.0___OPAQUE_霮_69_?: __ast_霮:1.0___OPAQUE_霮_34_ __ast_霮:1.0___OPAQUE_霮_64_[];
+}): __ast_庵:1.0___OPAQUE_庵_29_<__ast_庵:1.0___OPAQUE_庵_31_> {
+  __ast_霮:1.0___OPAQUE_霮_165_ {
+    __ast_霮:1.0___OPAQUE_霮_169_,
+    to,
+    __ast_繍:1.0___OPAQUE_霮_236_,
+    __ast_策:1.0___OPAQUE_霮_118_,
+    __ast_匷:1.0___OPAQUE_霮_213_,
+    __ast_霮:1.0___OPAQUE_霮_65_,
+    __ast_霮:1.0___OPAQUE_霮_239_,
+    __ast_霮:1.0___OPAQUE_霮_125_,
+    __ast_霮:1.0___OPAQUE_霮_69_,
+  } = __ast_霮:1.0___OPAQUE_霮_29_;
+  __ast_霮:1.0___OPAQUE_霮_165_ __ast_霮:1.0___OPAQUE_霮_180_ = __ast_霮:1.0___OPAQUE_霮_175_({ __ast_霮:1.0___OPAQUE_霮_169_, __ast_霮:1.0___OPAQUE_霮_125_ });
+  if (!__ast_霮:1.0___OPAQUE_霮_180_.__ast_霮:1.0___OPAQUE_霮_189_) {
+    __ast_霮:1.0___OPAQUE_霮_242_ __ast_霮:1.0___OPAQUE_霮_79_ __ast_庵:1.0___OPAQUE_庵_22_(`__ast_庵:1.0___OPAQUE_庵_19_ __ast_霮:1.0___OPAQUE_霮_180_ "${__ast_霮:1.0___OPAQUE_霮_180_.__ast_霮:1.0___OPAQUE_霮_125_}" __ast_霮:1.0___OPAQUE_霮_279_ __ast_霮:1.0___OPAQUE_霮_189_`);
+  }
+  __ast_霮:1.0___OPAQUE_霮_165_ __ast_霮:1.0___OPAQUE_霮_62_ = (__ast_霮:1.0___OPAQUE_霮_180_.__ast_霮:1.0___OPAQUE_霮_156_?.__ast_霮:1.0___OPAQUE_霮_148_ ?? 30) * 1024 * 1024;
+
+  let __ast_策:1.0___OPAQUE_霮_251_: __ast_策:1.0___OPAQUE_庵_41_;
+  let __ast_霮:1.0___OPAQUE_霮_216_: __ast_霮:1.0___OPAQUE_霮_64_;
+  let __ast_霮:1.0___OPAQUE_霮_135_: __ast_霮:1.0___OPAQUE_霮_64_ | __ast_霮:1.0___OPAQUE_霮_232_;
+
+  if (__ast_策:1.0___OPAQUE_霮_118_) {
+    __ast_策:1.0___OPAQUE_霮_251_ = __ast_策:1.0___OPAQUE_霮_118_;
+    __ast_霮:1.0___OPAQUE_霮_216_ = __ast_匷:1.0___OPAQUE_霮_213_ ?? "__ast_匷:1.0___OPAQUE_霮_61_";
+  } else if (__ast_繍:1.0___OPAQUE_霮_236_) {
+    __ast_霮:1.0___OPAQUE_霮_165_ __ast_匷:1.0___OPAQUE_霮_116_ = await __ast_策:1.0___OPAQUE_縁_3_().__ast_霮:1.0___OPAQUE_霮_109_.__ast_匷:1.0___OPAQUE_霮_49_(__ast_繍:1.0___OPAQUE_霮_236_, {
+      __ast_霮:1.0___OPAQUE_霮_54_: __ast_霮:1.0___OPAQUE_霮_62_,
+      __ast_霮:1.0___OPAQUE_霮_240_: false,
+      __ast_霮:1.0___OPAQUE_霮_97_: __ast_霮:1.0___OPAQUE_霮_69_?.__ast_霮:1.0___OPAQUE_霮_262_ ? __ast_霮:1.0___OPAQUE_霮_69_ : __ast_霮:1.0___OPAQUE_霮_232_,
+    });
+    __ast_策:1.0___OPAQUE_霮_251_ = __ast_匷:1.0___OPAQUE_霮_116_.__ast_策:1.0___OPAQUE_霮_251_;
+    __ast_霮:1.0___OPAQUE_霮_216_ = __ast_匷:1.0___OPAQUE_霮_213_ ?? __ast_匷:1.0___OPAQUE_霮_116_.__ast_匷:1.0___OPAQUE_霮_213_ ?? "__ast_匷:1.0___OPAQUE_霮_61_";
+    __ast_霮:1.0___OPAQUE_霮_135_ = __ast_匷:1.0___OPAQUE_霮_116_.__ast_霮:1.0___OPAQUE_霮_135_;
+  } else {
+    __ast_霮:1.0___OPAQUE_霮_242_ __ast_霮:1.0___OPAQUE_霮_79_ __ast_庵:1.0___OPAQUE_庵_22_("__ast_策:1.0___OPAQUE_庵_30_ __ast_繍:1.0___OPAQUE_霮_236_ or __ast_策:1.0___OPAQUE_霮_118_ __ast_霮:1.0___OPAQUE_霮_199_ be __ast_霮:1.0___OPAQUE_霮_58_");
+  }
+
+  __ast_霮:1.0___OPAQUE_霮_165_ __ast_霮:1.0___OPAQUE_霮_256_ = __ast_霮:1.0___OPAQUE_霮_59_({ __ast_匷:1.0___OPAQUE_霮_213_: __ast_霮:1.0___OPAQUE_霮_216_, __ast_霮:1.0___OPAQUE_霮_135_ });
+
+  if (__ast_霮:1.0___OPAQUE_霮_256_.__ast_霮:1.0___OPAQUE_霮_192_ === "__ast_霮:1.0___OPAQUE_霮_172_") {
+    __ast_霮:1.0___OPAQUE_霮_165_ { __ast_窟:1.0___OPAQUE_霮_235_ } = await __ast_匷:1.0___OPAQUE_霮_187_({ __ast_霮:1.0___OPAQUE_霮_169_, __ast_霮:1.0___OPAQUE_霮_172_: __ast_策:1.0___OPAQUE_霮_251_, __ast_霮:1.0___OPAQUE_霮_125_ });
+    return __ast_霮:1.0___OPAQUE_霮_41_({ __ast_霮:1.0___OPAQUE_霮_169_, to, __ast_窟:1.0___OPAQUE_霮_235_, __ast_霮:1.0___OPAQUE_霮_65_, __ast_霮:1.0___OPAQUE_霮_239_, __ast_霮:1.0___OPAQUE_霮_125_ });
+  } else {
+    __ast_霮:1.0___OPAQUE_霮_165_ { __ast_窟:1.0___OPAQUE_霮_224_ } = await __ast_匷:1.0___OPAQUE_霮_128_({
+      __ast_霮:1.0___OPAQUE_霮_169_,
+      __ast_匷:1.0___OPAQUE_霮_61_: __ast_策:1.0___OPAQUE_霮_251_,
+      __ast_匷:1.0___OPAQUE_霮_213_: __ast_霮:1.0___OPAQUE_霮_216_,
+      __ast_匷:1.0___OPAQUE_霮_176_: __ast_霮:1.0___OPAQUE_霮_256_.__ast_匷:1.0___OPAQUE_霮_176_ ?? "__ast_霮:1.0___OPAQUE_霮_278_",
+      __ast_霮:1.0___OPAQUE_霮_125_,
+    });
+    return __ast_匷:1.0___OPAQUE_霮_207_({
+      __ast_霮:1.0___OPAQUE_霮_169_,
+      to,
+      __ast_窟:1.0___OPAQUE_霮_224_,
+      __ast_霮:1.0___OPAQUE_霮_192_: __ast_霮:1.0___OPAQUE_霮_256_.__ast_霮:1.0___OPAQUE_霮_192_,
+      __ast_霮:1.0___OPAQUE_霮_65_,
+      __ast_霮:1.0___OPAQUE_霮_239_,
+      __ast_霮:1.0___OPAQUE_霮_125_,
+    });
+  }
+}
+
+// POLYMORPHIC_JCROSS_END

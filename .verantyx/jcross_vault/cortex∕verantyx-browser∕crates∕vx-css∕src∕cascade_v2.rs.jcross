@@ -1,0 +1,668 @@
+// POLYMORPHIC_JCROSS_BEGIN
+// schema:7D8DF218 ver:1778323645
+// ⚠️ One-time schema — expires after response
+
+// [metadata-stripped]
+// [metadata-stripped]
+// [metadata-stripped]
+// [metadata-stripped]
+// [metadata-stripped]
+// [metadata-stripped]
+// [metadata-stripped]
+// [metadata-stripped]
+// [metadata-stripped]
+// [metadata-stripped]
+// [metadata-stripped]
+// [metadata-stripped]
+// [metadata-stripped]
+
+_OPAQUE_塵:1.0__SYM_塵_7_ _OPAQUE_塵:1.0__SYM_塵_191_::_OPAQUE_塵:1.0__SYM_塵_433_::_OPAQUE_廓:1.0__SYM_廓_50_;
+
+// [metadata-stripped]
+// [metadata-stripped]
+_OPAQUE_塵:1.0__SYM_塵_251_ enum _OPAQUE_廓:1.0__SYM_廓_33_ {
+    _OPAQUE_廓:1.0__SYM_廓_14_       = 0,  // _OPAQUE_律:1.0__SYM_廓_42_ _OPAQUE_塵:1.0__SYM_塵_294_ _OPAQUE_塵:1.0__SYM_塵_209_
+    _OPAQUE_廓:1.0__SYM_廓_67_ = 1,
+    _OPAQUE_律:1.0__SYM_廓_80_            = 2,  // _OPAQUE_律:1.0__SYM_廓_80_ _OPAQUE_塵:1.0__SYM_塵_209_ (_OPAQUE_塵:1.0__SYM_塵_186_ _OPAQUE_塵:1.0__SYM_塵_128_)
+    _OPAQUE_廓:1.0__SYM_廓_11_   = 3,
+    _OPAQUE_廓:1.0__SYM_廓_85_    = 4,  // _OPAQUE_廓:1.0__SYM_廓_47_ _OPAQUE_塵:1.0__SYM_塵_3_ _OPAQUE_塵:1.0__SYM_塵_159_ (_OPAQUE_塵:1.0__SYM_塵_272_)
+    _OPAQUE_廓:1.0__SYM_廓_48_      = 5,  // _OPAQUE_廓:1.0__SYM_廓_39_ _OPAQUE_廓:1.0__SYM_廓_48_ (_OPAQUE_塵:1.0__SYM_塵_376_ _OPAQUE_塵:1.0__SYM_塵_157_ _OPAQUE_塵:1.0__SYM_塵_272_ _OPAQUE_塵:1.0__SYM_塵_324_ !_OPAQUE_塵:1.0__SYM_塵_47_)
+    _OPAQUE_廓:1.0__SYM_廓_18_ = 6,  // !_OPAQUE_塵:1.0__SYM_塵_47_ in _OPAQUE_塵:1.0__SYM_塵_236_ _OPAQUE_塵:1.0__SYM_塵_3_ _OPAQUE_塵:1.0__SYM_塵_159_
+    _OPAQUE_廓:1.0__SYM_廓_72_     = 7,  // _OPAQUE_廓:1.0__SYM_廓_39_ _OPAQUE_廓:1.0__SYM_廓_72_ (_OPAQUE_塵:1.0__SYM_塵_200_ _OPAQUE_塵:1.0__SYM_塵_226_ for _OPAQUE_塵:1.0__SYM_塵_24_ _OPAQUE_塵:1.0__SYM_塵_424_)
+    _OPAQUE_廓:1.0__SYM_廓_26_ = 8, // !_OPAQUE_塵:1.0__SYM_塵_47_ _OPAQUE_律:1.0__SYM_塵_21_ _OPAQUE_塵:1.0__SYM_塵_336_ _OPAQUE_塵:1.0__SYM_塵_256_ !_OPAQUE_塵:1.0__SYM_塵_47_ _OPAQUE_塵:1.0__SYM_塵_157_ _OPAQUE_塵:1.0__SYM_塵_336_
+}
+
+_OPAQUE_塵:1.0__SYM_塵_9_ _OPAQUE_廓:1.0__SYM_廓_33_ {
+// [metadata-stripped]
+    _OPAQUE_塵:1.0__SYM_塵_251_ fn _OPAQUE_塵:1.0__SYM_塵_230_(_OPAQUE_塵:1.0__SYM_塵_264_: _OPAQUE_廓:1.0__SYM_廓_1_, _OPAQUE_塵:1.0__SYM_塵_47_: _OPAQUE_塵:1.0__SYM_塵_95_) -> _OPAQUE_廓:1.0__SYM_廓_28_ {
+        _OPAQUE_塵:1.0__SYM_塵_245_ (_OPAQUE_塵:1.0__SYM_塵_264_, _OPAQUE_塵:1.0__SYM_塵_47_) {
+            (_OPAQUE_廓:1.0__SYM_廓_1_::_OPAQUE_廓:1.0__SYM_廓_14_, false) => _OPAQUE_廓:1.0__SYM_廓_28_::_OPAQUE_廓:1.0__SYM_廓_14_,
+            (_OPAQUE_廓:1.0__SYM_廓_1_::_OPAQUE_廓:1.0__SYM_廓_14_, true) => _OPAQUE_廓:1.0__SYM_廓_28_::_OPAQUE_廓:1.0__SYM_廓_67_,
+            (_OPAQUE_廓:1.0__SYM_廓_1_::_OPAQUE_律:1.0__SYM_廓_80_, false) => _OPAQUE_廓:1.0__SYM_廓_28_::_OPAQUE_律:1.0__SYM_廓_80_,
+            (_OPAQUE_廓:1.0__SYM_廓_1_::_OPAQUE_律:1.0__SYM_廓_80_, true) => _OPAQUE_廓:1.0__SYM_廓_28_::_OPAQUE_廓:1.0__SYM_廓_26_,
+            (_OPAQUE_廓:1.0__SYM_廓_1_::_OPAQUE_廓:1.0__SYM_廓_23_, false) => _OPAQUE_廓:1.0__SYM_廓_28_::_OPAQUE_廓:1.0__SYM_廓_85_,
+            (_OPAQUE_廓:1.0__SYM_廓_1_::_OPAQUE_廓:1.0__SYM_廓_23_, true) => _OPAQUE_廓:1.0__SYM_廓_28_::_OPAQUE_廓:1.0__SYM_廓_18_,
+        }
+    }
+}
+
+// [metadata-stripped]
+_OPAQUE_塵:1.0__SYM_塵_251_ enum _OPAQUE_廓:1.0__SYM_廓_1_ {
+    _OPAQUE_廓:1.0__SYM_廓_14_,
+    _OPAQUE_律:1.0__SYM_廓_80_,
+    _OPAQUE_廓:1.0__SYM_廓_23_,
+}
+
+// [metadata-stripped]
+// [metadata-stripped]
+_OPAQUE_塵:1.0__SYM_塵_251_ _OPAQUE_塵:1.0__SYM_塵_263_uct _OPAQUE_律:1.0__SYM_廓_63_ {
+// [metadata-stripped]
+    _OPAQUE_塵:1.0__SYM_塵_251_ _OPAQUE_塵:1.0__SYM_塵_40_: _OPAQUE_廓:1.0__SYM_廓_3_,
+// [metadata-stripped]
+    _OPAQUE_塵:1.0__SYM_塵_251_ _OPAQUE_律:1.0__SYM_塵_4_: _OPAQUE_塵:1.0__SYM_塵_80_,
+}
+
+// [metadata-stripped]
+// [metadata-stripped]
+_OPAQUE_塵:1.0__SYM_塵_251_ _OPAQUE_塵:1.0__SYM_塵_263_uct _OPAQUE_廓:1.0__SYM_廓_22_ {
+    _OPAQUE_塵:1.0__SYM_塵_251_ _OPAQUE_塵:1.0__SYM_塵_311_: _OPAQUE_廓:1.0__SYM_廓_3_,
+    _OPAQUE_塵:1.0__SYM_塵_251_ _OPAQUE_塵:1.0__SYM_塵_66_: _OPAQUE_廓:1.0__SYM_廓_3_,
+    _OPAQUE_塵:1.0__SYM_塵_251_ _OPAQUE_塵:1.0__SYM_塵_47_: _OPAQUE_塵:1.0__SYM_塵_95_,
+    _OPAQUE_塵:1.0__SYM_塵_251_ _OPAQUE_塵:1.0__SYM_塵_264_: _OPAQUE_廓:1.0__SYM_廓_1_,
+// [metadata-stripped]
+    _OPAQUE_塵:1.0__SYM_塵_251_ _OPAQUE_律:1.0__SYM_塵_302_: _OPAQUE_廓:1.0__SYM_廓_68_<_OPAQUE_律:1.0__SYM_廓_63_>,
+// [metadata-stripped]
+    _OPAQUE_塵:1.0__SYM_塵_251_ _OPAQUE_浸:1.0__SYM_塵_298_: (_OPAQUE_塵:1.0__SYM_塵_80_, _OPAQUE_塵:1.0__SYM_塵_80_, _OPAQUE_塵:1.0__SYM_塵_80_),
+// [metadata-stripped]
+    _OPAQUE_塵:1.0__SYM_塵_251_ _OPAQUE_律:1.0__SYM_塵_125_: _OPAQUE_塵:1.0__SYM_塵_80_,
+// [metadata-stripped]
+    _OPAQUE_塵:1.0__SYM_塵_251_ _OPAQUE_塵:1.0__SYM_塵_255_: _OPAQUE_廓:1.0__SYM_廓_3_,
+}
+
+_OPAQUE_塵:1.0__SYM_塵_9_ _OPAQUE_廓:1.0__SYM_廓_22_ {
+// [metadata-stripped]
+// [metadata-stripped]
+    _OPAQUE_塵:1.0__SYM_塵_251_ fn _OPAQUE_律:1.0__SYM_塵_6_(&_OPAQUE_塵:1.0__SYM_塵_434_f, _OPAQUE_律:1.0__SYM_塵_387_: &_OPAQUE_廓:1.0__SYM_廓_22_) -> _OPAQUE_塵:1.0__SYM_塵_95_ {
+        let _OPAQUE_塵:1.0__SYM_塵_30_ = _OPAQUE_廓:1.0__SYM_廓_33_::_OPAQUE_塵:1.0__SYM_塵_230_(_OPAQUE_塵:1.0__SYM_塵_434_f._OPAQUE_塵:1.0__SYM_塵_264_, _OPAQUE_塵:1.0__SYM_塵_434_f._OPAQUE_塵:1.0__SYM_塵_47_);
+        let _OPAQUE_塵:1.0__SYM_塵_160_ = _OPAQUE_廓:1.0__SYM_廓_33_::_OPAQUE_塵:1.0__SYM_塵_230_(_OPAQUE_律:1.0__SYM_塵_387_._OPAQUE_塵:1.0__SYM_塵_264_, _OPAQUE_律:1.0__SYM_塵_387_._OPAQUE_塵:1.0__SYM_塵_47_);
+        
+        if _OPAQUE_塵:1.0__SYM_塵_30_ != _OPAQUE_塵:1.0__SYM_塵_160_ {
+            return _OPAQUE_塵:1.0__SYM_塵_30_ > _OPAQUE_塵:1.0__SYM_塵_160_;
+        }
+        
+// [metadata-stripped]
+// [metadata-stripped]
+        _OPAQUE_塵:1.0__SYM_塵_245_ (&_OPAQUE_塵:1.0__SYM_塵_434_f._OPAQUE_律:1.0__SYM_塵_302_, &_OPAQUE_律:1.0__SYM_塵_387_._OPAQUE_律:1.0__SYM_塵_302_) {
+            (_OPAQUE_廓:1.0__SYM_廓_2_, _OPAQUE_廓:1.0__SYM_廓_45_(_)) => return true,    // _OPAQUE_廓:1.0__SYM_廓_78_ _OPAQUE_塵:1.0__SYM_塵_42_ _OPAQUE_律:1.0__SYM_塵_358_ _OPAQUE_塵:1.0__SYM_塵_172_
+            (_OPAQUE_廓:1.0__SYM_廓_45_(_), _OPAQUE_廓:1.0__SYM_廓_2_) => return false,   // _OPAQUE_廓:1.0__SYM_廓_53_ _OPAQUE_塵:1.0__SYM_塵_105_ to _OPAQUE_塵:1.0__SYM_塵_417_
+            (_OPAQUE_廓:1.0__SYM_廓_45_(sl), _OPAQUE_廓:1.0__SYM_廓_45_(ol)) => {
+                if sl._OPAQUE_律:1.0__SYM_塵_4_ != ol._OPAQUE_律:1.0__SYM_塵_4_ {
+// [metadata-stripped]
+                    return if _OPAQUE_塵:1.0__SYM_塵_434_f._OPAQUE_塵:1.0__SYM_塵_47_ {
+                        sl._OPAQUE_律:1.0__SYM_塵_4_ < ol._OPAQUE_律:1.0__SYM_塵_4_
+// _OPAQUE_匼:0.4__SYM_WB_543_ [decoy-metadata]
+                    } else {
+                        sl._OPAQUE_律:1.0__SYM_塵_4_ > ol._OPAQUE_律:1.0__SYM_塵_4_
+                    };
+                }
+            }
+            (_OPAQUE_廓:1.0__SYM_廓_2_, _OPAQUE_廓:1.0__SYM_廓_2_) => {} // _OPAQUE_廓:1.0__SYM_廓_82_ _OPAQUE_塵:1.0__SYM_塵_417_, continue to _OPAQUE_浸:1.0__SYM_塵_298_
+        }
+        
+// [metadata-stripped]
+        let _OPAQUE_塵:1.0__SYM_塵_432_ = _OPAQUE_塵:1.0__SYM_塵_434_f._OPAQUE_浸:1.0__SYM_塵_298_;
+        let _OPAQUE_塵:1.0__SYM_塵_165_ = _OPAQUE_律:1.0__SYM_塵_387_._OPAQUE_浸:1.0__SYM_塵_298_;
+        
+        if _OPAQUE_塵:1.0__SYM_塵_432_ != _OPAQUE_塵:1.0__SYM_塵_165_ {
+            return _OPAQUE_塵:1.0__SYM_塵_432_ > _OPAQUE_塵:1.0__SYM_塵_165_;
+        }
+        
+// [metadata-stripped]
+        _OPAQUE_塵:1.0__SYM_塵_434_f._OPAQUE_律:1.0__SYM_塵_125_ > _OPAQUE_律:1.0__SYM_塵_387_._OPAQUE_律:1.0__SYM_塵_125_
+    }
+}
+
+// [metadata-stripped]
+_OPAQUE_塵:1.0__SYM_塵_251_ _OPAQUE_塵:1.0__SYM_塵_317_ _OPAQUE_廓:1.0__SYM_廓_15_ = _OPAQUE_廓:1.0__SYM_廓_50_<_OPAQUE_廓:1.0__SYM_廓_3_, _OPAQUE_廓:1.0__SYM_廓_22_>;
+
+// [metadata-stripped]
+_OPAQUE_塵:1.0__SYM_塵_251_ fn _OPAQUE_塵:1.0__SYM_塵_72_(_OPAQUE_塵:1.0__SYM_塵_74_: _OPAQUE_廓:1.0__SYM_廓_81_<_OPAQUE_廓:1.0__SYM_廓_22_>) -> _OPAQUE_廓:1.0__SYM_廓_15_ {
+    let _OPAQUE_塵:1.0__SYM_塵_248_ _OPAQUE_律:1.0__SYM_塵_292_: _OPAQUE_廓:1.0__SYM_廓_50_<_OPAQUE_廓:1.0__SYM_廓_3_, _OPAQUE_廓:1.0__SYM_廓_22_> = _OPAQUE_廓:1.0__SYM_廓_50_::_OPAQUE_塵:1.0__SYM_塵_342_();
+    
+    for _OPAQUE_塵:1.0__SYM_塵_57_ in _OPAQUE_塵:1.0__SYM_塵_74_ {
+        let _OPAQUE_塵:1.0__SYM_塵_311_ = _OPAQUE_塵:1.0__SYM_塵_57_._OPAQUE_塵:1.0__SYM_塵_311_._OPAQUE_塵:1.0__SYM_塵_53_();
+        
+        let _OPAQUE_塵:1.0__SYM_塵_233_ = _OPAQUE_塵:1.0__SYM_塵_245_ _OPAQUE_律:1.0__SYM_塵_292_._OPAQUE_律:1.0__SYM_弧_3_(&_OPAQUE_塵:1.0__SYM_塵_311_) {
+            _OPAQUE_廓:1.0__SYM_廓_2_ => true,
+            _OPAQUE_廓:1.0__SYM_廓_45_(_OPAQUE_塵:1.0__SYM_塵_68_) => _OPAQUE_塵:1.0__SYM_塵_57_._OPAQUE_律:1.0__SYM_塵_6_(_OPAQUE_塵:1.0__SYM_塵_68_),
+        };
+        
+        if _OPAQUE_塵:1.0__SYM_塵_233_ {
+            _OPAQUE_律:1.0__SYM_塵_292_._OPAQUE_塵:1.0__SYM_塵_368_(_OPAQUE_塵:1.0__SYM_塵_311_, _OPAQUE_塵:1.0__SYM_塵_57_);
+        }
+    }
+    
+    _OPAQUE_律:1.0__SYM_塵_292_
+}
+
+// [metadata-stripped]
+// [metadata-stripped]
+_OPAQUE_塵:1.0__SYM_塵_251_ enum _OPAQUE_廓:1.0__SYM_廓_70_ {
+// [metadata-stripped]
+    _OPAQUE_廓:1.0__SYM_廓_13_,
+// [metadata-stripped]
+    _OPAQUE_廓:1.0__SYM_廓_41_,
+}
+
+// [metadata-stripped]
+_OPAQUE_塵:1.0__SYM_塵_251_ _OPAQUE_塵:1.0__SYM_塵_263_uct _OPAQUE_廓:1.0__SYM_廓_17_;
+
+_OPAQUE_塵:1.0__SYM_塵_9_ _OPAQUE_廓:1.0__SYM_廓_17_ {
+// [metadata-stripped]
+    _OPAQUE_塵:1.0__SYM_塵_251_ fn _OPAQUE_塵:1.0__SYM_塵_148_(_OPAQUE_塵:1.0__SYM_塵_311_: &_OPAQUE_塵:1.0__SYM_塵_263_) -> _OPAQUE_塵:1.0__SYM_塵_95_ {
+        _OPAQUE_塵:1.0__SYM_塵_31_!(_OPAQUE_塵:1.0__SYM_塵_311_,
+// [metadata-stripped]
+            "_OPAQUE_塵:1.0__SYM_塵_219_" | "_OPAQUE_塵:1.0__SYM_塵_219_-_OPAQUE_塵:1.0__SYM_塵_84_" | "_OPAQUE_塵:1.0__SYM_塵_219_-_OPAQUE_塵:1.0__SYM_塵_198_" | "_OPAQUE_塵:1.0__SYM_塵_219_-_OPAQUE_塵:1.0__SYM_塵_307_" | "_OPAQUE_塵:1.0__SYM_塵_219_-_OPAQUE_塵:1.0__SYM_塵_61_" |
+            "_OPAQUE_塵:1.0__SYM_塵_219_-_OPAQUE_塵:1.0__SYM_塵_194_" | "_OPAQUE_塵:1.0__SYM_塵_219_-_OPAQUE_塵:1.0__SYM_塵_349_" | "_OPAQUE_塵:1.0__SYM_塵_219_-_OPAQUE_塵:1.0__SYM_塵_385_-_OPAQUE_律:1.0__SYM_弧_1_" |
+            "_OPAQUE_塵:1.0__SYM_塵_219_-_OPAQUE_塵:1.0__SYM_塵_99_" | "_OPAQUE_塵:1.0__SYM_塵_219_-_OPAQUE_塵:1.0__SYM_塵_250_-_OPAQUE_律:1.0__SYM_塵_358_ride" | "_OPAQUE_塵:1.0__SYM_塵_219_-_OPAQUE_塵:1.0__SYM_塵_277_-_OPAQUE_塵:1.0__SYM_塵_398_" |
+            "_OPAQUE_塵:1.0__SYM_塵_219_-_OPAQUE_塵:1.0__SYM_塵_198_-_OPAQUE_塵:1.0__SYM_塵_397_" | "_OPAQUE_塵:1.0__SYM_塵_219_-_OPAQUE_塵:1.0__SYM_塵_218_" | "_OPAQUE_塵:1.0__SYM_塵_219_-_OPAQUE_塵:1.0__SYM_塵_61_-_OPAQUE_塵:1.0__SYM_塵_412_" |
+            "_OPAQUE_塵:1.0__SYM_塵_219_-_OPAQUE_塵:1.0__SYM_塵_61_-_OPAQUE_塵:1.0__SYM_塵_360_" | "_OPAQUE_塵:1.0__SYM_塵_219_-_OPAQUE_塵:1.0__SYM_塵_61_-_OPAQUE_塵:1.0__SYM_塵_158_-_OPAQUE_塵:1.0__SYM_塵_330_" | "_OPAQUE_塵:1.0__SYM_塵_219_-_OPAQUE_塵:1.0__SYM_塵_61_-_OPAQUE_塵:1.0__SYM_塵_41_" |
+            "_OPAQUE_塵:1.0__SYM_塵_219_-_OPAQUE_塵:1.0__SYM_塵_61_-_OPAQUE_塵:1.0__SYM_塵_154_" | "_OPAQUE_塵:1.0__SYM_塵_219_-_OPAQUE_塵:1.0__SYM_塵_309_-_OPAQUE_律:1.0__SYM_弧_1_" |
+// [metadata-stripped]
+            "_OPAQUE_塵:1.0__SYM_塵_237_" | "_OPAQUE_塵:1.0__SYM_塵_8_" | "_OPAQUE_律:1.0__SYM_塵_244_-_OPAQUE_塵:1.0__SYM_塵_241_" | "_OPAQUE_塵:1.0__SYM_塵_155_-_OPAQUE_塵:1.0__SYM_塵_175_" | "_OPAQUE_塵:1.0__SYM_塵_367_" |
+            "_OPAQUE_塵:1.0__SYM_塵_357_-_OPAQUE_塵:1.0__SYM_塵_198_" | "_OPAQUE_塵:1.0__SYM_塵_262_-_OPAQUE_塵:1.0__SYM_塵_28_" | "_OPAQUE_塵:1.0__SYM_塵_262_-_OPAQUE_塵:1.0__SYM_塵_28_-_OPAQUE_塵:1.0__SYM_塵_35_" | "_OPAQUE_塵:1.0__SYM_塵_262_-_OPAQUE_塵:1.0__SYM_塵_384_-_OPAQUE_塵:1.0__SYM_塵_207_-_OPAQUE_塵:1.0__SYM_塵_144_" |
+            "_OPAQUE_塵:1.0__SYM_塵_262_-_OPAQUE_塵:1.0__SYM_塵_422_" | "_OPAQUE_塵:1.0__SYM_塵_262_-_OPAQUE_塵:1.0__SYM_塵_422_-_OPAQUE_塵:1.0__SYM_塵_237_" | "_OPAQUE_塵:1.0__SYM_塵_262_-_OPAQUE_塵:1.0__SYM_塵_422_-_OPAQUE_塵:1.0__SYM_塵_305_" |
+            "_OPAQUE_塵:1.0__SYM_塵_262_-_OPAQUE_塵:1.0__SYM_塵_422_-_OPAQUE_塵:1.0__SYM_塵_307_" | "_OPAQUE_塵:1.0__SYM_塵_262_-_OPAQUE_塵:1.0__SYM_塵_130_" | "_OPAQUE_塵:1.0__SYM_塵_262_-_OPAQUE_浸:1.0__SYM_塵_240_" | "_OPAQUE_塵:1.0__SYM_塵_262_-_OPAQUE_塵:1.0__SYM_塵_431_" |
+// _OPAQUE_律:0.6__SYM_EX_576_ [decoy-metadata]
+            "_OPAQUE_塵:1.0__SYM_塵_262_-_OPAQUE_塵:1.0__SYM_塵_313_" | "_OPAQUE_塵:1.0__SYM_塵_262_-_OPAQUE_塵:1.0__SYM_塵_16_" | "_OPAQUE_塵:1.0__SYM_塵_262_-_OPAQUE_塵:1.0__SYM_塵_198_-_OPAQUE_塵:1.0__SYM_塵_397_" | "_OPAQUE_塵:1.0__SYM_塵_262_-_OPAQUE_浸:1.0__SYM_塵_321_" |
+            "_OPAQUE_塵:1.0__SYM_塵_262_-_OPAQUE_塵:1.0__SYM_塵_388_-_OPAQUE_塵:1.0__SYM_塵_429_" | "_OPAQUE_塵:1.0__SYM_塵_262_-_OPAQUE_塵:1.0__SYM_塵_388_-_OPAQUE_塵:1.0__SYM_塵_305_" |
+            "_OPAQUE_塵:1.0__SYM_塵_77_-_OPAQUE_塵:1.0__SYM_塵_188_" | "_OPAQUE_塵:1.0__SYM_塵_12_-break" | "_OPAQUE_塵:1.0__SYM_塵_12_-_OPAQUE_塵:1.0__SYM_塵_241_" | "_OPAQUE_塵:1.0__SYM_塵_12_-_OPAQUE_塵:1.0__SYM_塵_220_" |
+            "_OPAQUE_塵:1.0__SYM_塵_15_-_OPAQUE_塵:1.0__SYM_塵_220_" | "_OPAQUE_塵:1.0__SYM_塵_211_-_OPAQUE_塵:1.0__SYM_塵_333_" |
+// [metadata-stripped]
+            "_OPAQUE_塵:1.0__SYM_塵_259_-_OPAQUE_塵:1.0__SYM_塵_307_" | "_OPAQUE_塵:1.0__SYM_塵_259_-_OPAQUE_塵:1.0__SYM_塵_307_-_OPAQUE_塵:1.0__SYM_塵_67_" | "_OPAQUE_塵:1.0__SYM_塵_259_-_OPAQUE_塵:1.0__SYM_塵_307_-_OPAQUE_塵:1.0__SYM_塵_305_" | "_OPAQUE_塵:1.0__SYM_塵_259_-_OPAQUE_塵:1.0__SYM_塵_307_-_OPAQUE_塵:1.0__SYM_塵_317_" |
+// [metadata-stripped]
+            "_OPAQUE_律:1.0__SYM_塵_430_-_OPAQUE_塵:1.0__SYM_塵_323_" | "_OPAQUE_律:1.0__SYM_塵_430_-_OPAQUE_塵:1.0__SYM_塵_241_" | "_OPAQUE_塵:1.0__SYM_塵_45_-_OPAQUE_塵:1.0__SYM_塵_375_" | "_OPAQUE_塵:1.0__SYM_塵_131_-_OPAQUE_塵:1.0__SYM_塵_283_" |
+// [metadata-stripped]
+            "_OPAQUE_塵:1.0__SYM_塵_288_" | "_OPAQUE_律:1.0__SYM_塵_382_-_OPAQUE_塵:1.0__SYM_塵_257_" | "_OPAQUE_塵:1.0__SYM_塵_346_" |
+// [metadata-stripped]
+            "_OPAQUE_塵:1.0__SYM_塵_67_-_OPAQUE_塵:1.0__SYM_塵_313_" | "_OPAQUE_塵:1.0__SYM_塵_108_" | "_OPAQUE_塵:1.0__SYM_塵_69_" | "_OPAQUE_塵:1.0__SYM_塵_268_-_OPAQUE_塵:1.0__SYM_塵_306_" |
+            "_OPAQUE_塵:1.0__SYM_塵_60_-_OPAQUE_塵:1.0__SYM_塵_269_" | "_OPAQUE_塵:1.0__SYM_塵_96_" | "_OPAQUE_塵:1.0__SYM_塵_184_" |
+// [metadata-stripped]
+            "-_OPAQUE_塵:1.0__SYM_塵_58_-_OPAQUE_塵:1.0__SYM_塵_262_-_OPAQUE_塵:1.0__SYM_塵_201_-_OPAQUE_塵:1.0__SYM_塵_237_" | "-_OPAQUE_塵:1.0__SYM_塵_58_-_OPAQUE_塵:1.0__SYM_塵_262_-_OPAQUE_塵:1.0__SYM_塵_64_"
+        )
+    }
+    
+// [metadata-stripped]
+    _OPAQUE_塵:1.0__SYM_塵_251_ fn _OPAQUE_塵:1.0__SYM_塵_124_(_OPAQUE_塵:1.0__SYM_塵_311_: &_OPAQUE_塵:1.0__SYM_塵_263_) -> &'static _OPAQUE_塵:1.0__SYM_塵_263_ {
+        _OPAQUE_塵:1.0__SYM_塵_245_ _OPAQUE_塵:1.0__SYM_塵_311_ {
+            "_OPAQUE_塵:1.0__SYM_塵_91_" => "_OPAQUE_塵:1.0__SYM_塵_97_",
+            "_OPAQUE_塵:1.0__SYM_塵_305_" => "static",
+            "_OPAQUE_塵:1.0__SYM_塵_270_" | "_OPAQUE_塵:1.0__SYM_塵_88_" | "_OPAQUE_塵:1.0__SYM_塵_152_" | "_OPAQUE_塵:1.0__SYM_塵_26_" => "_OPAQUE_塵:1.0__SYM_塵_78_",
+            "z-_OPAQUE_塵:1.0__SYM_塵_147_" => "_OPAQUE_塵:1.0__SYM_塵_78_",
+            "_OPAQUE_塵:1.0__SYM_塵_20_" => "_OPAQUE_塵:1.0__SYM_塵_52_",
+            "_OPAQUE_塵:1.0__SYM_塵_181_" => "_OPAQUE_塵:1.0__SYM_塵_52_",
+            "_OPAQUE_塵:1.0__SYM_塵_15_" | "_OPAQUE_塵:1.0__SYM_塵_15_-x" | "_OPAQUE_塵:1.0__SYM_塵_15_-y" => "_OPAQUE_塵:1.0__SYM_塵_359_",
+            "_OPAQUE_塵:1.0__SYM_塵_346_" => "_OPAQUE_塵:1.0__SYM_塵_359_",
+            "_OPAQUE_塵:1.0__SYM_塵_37_" => "1",
+            "_OPAQUE_塵:1.0__SYM_塵_237_" => "_OPAQUE_塵:1.0__SYM_塵_27_",
+            "_OPAQUE_塵:1.0__SYM_塵_29_-_OPAQUE_塵:1.0__SYM_塵_237_" => "_OPAQUE_塵:1.0__SYM_塵_351_",
+            "_OPAQUE_塵:1.0__SYM_塵_29_-_OPAQUE_塵:1.0__SYM_塵_67_" => "_OPAQUE_塵:1.0__SYM_塵_52_",
+            "_OPAQUE_塵:1.0__SYM_塵_29_-_OPAQUE_塵:1.0__SYM_塵_305_" => "0% 0%",
+            "_OPAQUE_塵:1.0__SYM_塵_29_-_OPAQUE_塵:1.0__SYM_塵_198_" => "_OPAQUE_塵:1.0__SYM_塵_78_ _OPAQUE_塵:1.0__SYM_塵_78_",
+            "_OPAQUE_塵:1.0__SYM_塵_29_-_OPAQUE_塵:1.0__SYM_塵_252_" => "_OPAQUE_塵:1.0__SYM_塵_252_",
+            "_OPAQUE_塵:1.0__SYM_塵_29_-_OPAQUE_塵:1.0__SYM_塵_275_" => "_OPAQUE_塵:1.0__SYM_塵_135_",
+            "_OPAQUE_塵:1.0__SYM_塵_29_-_OPAQUE_塵:1.0__SYM_塵_1_" => "_OPAQUE_律:1.0__SYM_塵_430_-_OPAQUE_塵:1.0__SYM_塵_403_",
+            "_OPAQUE_塵:1.0__SYM_塵_29_-_OPAQUE_塵:1.0__SYM_塵_264_" => "_OPAQUE_塵:1.0__SYM_塵_423_-_OPAQUE_塵:1.0__SYM_塵_403_",
+            "_OPAQUE_律:1.0__SYM_塵_430_-_OPAQUE_塵:1.0__SYM_塵_85_" => "_OPAQUE_塵:1.0__SYM_塵_364_",
+            "_OPAQUE_律:1.0__SYM_塵_430_-_OPAQUE_塵:1.0__SYM_塵_307_" => "_OPAQUE_塵:1.0__SYM_塵_52_",
+            "_OPAQUE_律:1.0__SYM_塵_430_-_OPAQUE_塵:1.0__SYM_塵_237_" => "_OPAQUE_塵:1.0__SYM_塵_19_",
+            "_OPAQUE_律:1.0__SYM_塵_430_-_OPAQUE_塵:1.0__SYM_塵_208_" => "0",
+            "_OPAQUE_塵:1.0__SYM_塵_332_" => "_OPAQUE_塵:1.0__SYM_塵_52_",
+            "_OPAQUE_塵:1.0__SYM_塵_332_-_OPAQUE_塵:1.0__SYM_塵_85_" => "_OPAQUE_塵:1.0__SYM_塵_364_",
+            "_OPAQUE_塵:1.0__SYM_塵_332_-_OPAQUE_塵:1.0__SYM_塵_307_" => "_OPAQUE_塵:1.0__SYM_塵_52_",
+            "_OPAQUE_塵:1.0__SYM_塵_332_-_OPAQUE_塵:1.0__SYM_塵_429_" => "0",
+            "_OPAQUE_塵:1.0__SYM_塵_14_" | "_OPAQUE_塵:1.0__SYM_塵_14_-_OPAQUE_塵:1.0__SYM_塵_270_" | "_OPAQUE_塵:1.0__SYM_塵_14_-_OPAQUE_塵:1.0__SYM_塵_88_" | "_OPAQUE_塵:1.0__SYM_塵_14_-_OPAQUE_塵:1.0__SYM_塵_152_" | "_OPAQUE_塵:1.0__SYM_塵_14_-_OPAQUE_塵:1.0__SYM_塵_26_" => "0",
+            "_OPAQUE_塵:1.0__SYM_塵_423_" | "_OPAQUE_塵:1.0__SYM_塵_423_-_OPAQUE_塵:1.0__SYM_塵_270_" | "_OPAQUE_塵:1.0__SYM_塵_423_-_OPAQUE_塵:1.0__SYM_塵_88_" | "_OPAQUE_塵:1.0__SYM_塵_423_-_OPAQUE_塵:1.0__SYM_塵_152_" | "_OPAQUE_塵:1.0__SYM_塵_423_-_OPAQUE_塵:1.0__SYM_塵_26_" => "0",
+            "_OPAQUE_塵:1.0__SYM_塵_85_" | "_OPAQUE_塵:1.0__SYM_塵_175_" => "_OPAQUE_塵:1.0__SYM_塵_78_",
+            "_OPAQUE_塵:1.0__SYM_塵_217_-_OPAQUE_塵:1.0__SYM_塵_85_" | "_OPAQUE_塵:1.0__SYM_塵_217_-_OPAQUE_塵:1.0__SYM_塵_175_" => "_OPAQUE_塵:1.0__SYM_塵_78_",
+            "_OPAQUE_塵:1.0__SYM_塵_223_-_OPAQUE_塵:1.0__SYM_塵_85_" | "_OPAQUE_塵:1.0__SYM_塵_223_-_OPAQUE_塵:1.0__SYM_塵_175_" => "_OPAQUE_塵:1.0__SYM_塵_52_",
+            "_OPAQUE_塵:1.0__SYM_塵_403_-_OPAQUE_塵:1.0__SYM_塵_398_" => "_OPAQUE_塵:1.0__SYM_塵_195_-_OPAQUE_塵:1.0__SYM_塵_403_",
+            "_OPAQUE_塵:1.0__SYM_塵_219_-_OPAQUE_塵:1.0__SYM_塵_198_" => "_OPAQUE_塵:1.0__SYM_塵_364_",
+            "_OPAQUE_塵:1.0__SYM_塵_219_-_OPAQUE_塵:1.0__SYM_塵_194_" => "_OPAQUE_塵:1.0__SYM_塵_272_",
+            "_OPAQUE_塵:1.0__SYM_塵_219_-_OPAQUE_塵:1.0__SYM_塵_307_" => "_OPAQUE_塵:1.0__SYM_塵_272_",
+            "_OPAQUE_塵:1.0__SYM_塵_219_-_OPAQUE_塵:1.0__SYM_塵_84_" => "_OPAQUE_浸:1.0__SYM_塵_193_",
+            "_OPAQUE_塵:1.0__SYM_塵_219_-_OPAQUE_塵:1.0__SYM_塵_61_" => "_OPAQUE_塵:1.0__SYM_塵_272_",
+            "_OPAQUE_塵:1.0__SYM_塵_155_-_OPAQUE_塵:1.0__SYM_塵_175_" => "_OPAQUE_塵:1.0__SYM_塵_272_",
+            "_OPAQUE_律:1.0__SYM_塵_244_-_OPAQUE_塵:1.0__SYM_塵_241_" => "_OPAQUE_塵:1.0__SYM_塵_272_",
+            "_OPAQUE_塵:1.0__SYM_塵_12_-_OPAQUE_塵:1.0__SYM_塵_241_" => "_OPAQUE_塵:1.0__SYM_塵_272_",
+            "_OPAQUE_塵:1.0__SYM_塵_262_-_OPAQUE_塵:1.0__SYM_塵_28_" => "_OPAQUE_塵:1.0__SYM_塵_410_",
+            "_OPAQUE_塵:1.0__SYM_塵_262_-_OPAQUE_塵:1.0__SYM_塵_384_" => "_OPAQUE_塵:1.0__SYM_塵_52_",
+            "_OPAQUE_塵:1.0__SYM_塵_262_-_OPAQUE_浸:1.0__SYM_塵_321_" => "_OPAQUE_塵:1.0__SYM_塵_52_",
+            "_OPAQUE_塵:1.0__SYM_塵_262_-_OPAQUE_塵:1.0__SYM_塵_130_" => "0",
+            "_OPAQUE_塵:1.0__SYM_塵_77_-_OPAQUE_塵:1.0__SYM_塵_188_" => "_OPAQUE_塵:1.0__SYM_塵_272_",
+            "_OPAQUE_塵:1.0__SYM_塵_12_-break" => "_OPAQUE_塵:1.0__SYM_塵_272_",
+            "_OPAQUE_塵:1.0__SYM_塵_15_-_OPAQUE_塵:1.0__SYM_塵_220_" => "_OPAQUE_塵:1.0__SYM_塵_272_",
+            "_OPAQUE_塵:1.0__SYM_塵_259_-_OPAQUE_塵:1.0__SYM_塵_307_-_OPAQUE_塵:1.0__SYM_塵_317_" => "_OPAQUE_塵:1.0__SYM_塵_273_",
+            "_OPAQUE_塵:1.0__SYM_塵_259_-_OPAQUE_塵:1.0__SYM_塵_307_-_OPAQUE_塵:1.0__SYM_塵_305_" => "_OPAQUE_塵:1.0__SYM_塵_113_",
+            "_OPAQUE_塵:1.0__SYM_塵_259_-_OPAQUE_塵:1.0__SYM_塵_307_-_OPAQUE_塵:1.0__SYM_塵_67_" => "_OPAQUE_塵:1.0__SYM_塵_52_",
+            "_OPAQUE_塵:1.0__SYM_塵_288_" => "_OPAQUE_塵:1.0__SYM_塵_78_",
+            "_OPAQUE_律:1.0__SYM_塵_382_-_OPAQUE_塵:1.0__SYM_塵_257_" => "_OPAQUE_塵:1.0__SYM_塵_78_",
+            "_OPAQUE_塵:1.0__SYM_塵_195_" => "_OPAQUE_塵:1.0__SYM_塵_272_",
+            "_OPAQUE_浸:1.0__SYM_塵_321_" => "_OPAQUE_塵:1.0__SYM_塵_52_",
+            "_OPAQUE_浸:1.0__SYM_塵_321_-_OPAQUE_塵:1.0__SYM_塵_264_" => "50% 50%",
+            "_OPAQUE_塵:1.0__SYM_塵_10_" => "_OPAQUE_塵:1.0__SYM_塵_52_",
+            "_OPAQUE_塵:1.0__SYM_塵_73_" => "_OPAQUE_塵:1.0__SYM_塵_52_",
+            "_OPAQUE_塵:1.0__SYM_塵_301_" => "0 1 _OPAQUE_塵:1.0__SYM_塵_78_",
+            "_OPAQUE_塵:1.0__SYM_塵_301_-_OPAQUE_塵:1.0__SYM_塵_8_" => "_OPAQUE_塵:1.0__SYM_塵_82_",
+            "_OPAQUE_塵:1.0__SYM_塵_301_-_OPAQUE_塵:1.0__SYM_塵_220_" => "_OPAQUE_塵:1.0__SYM_塵_343_",
+            "_OPAQUE_塵:1.0__SYM_塵_301_-_OPAQUE_塵:1.0__SYM_塵_354_" => "0",
+            "_OPAQUE_塵:1.0__SYM_塵_301_-_OPAQUE_塵:1.0__SYM_塵_419_" => "1",
+            "_OPAQUE_塵:1.0__SYM_塵_301_-_OPAQUE_塵:1.0__SYM_塵_140_" => "_OPAQUE_塵:1.0__SYM_塵_78_",
+            "_OPAQUE_塵:1.0__SYM_塵_28_-_OPAQUE_塵:1.0__SYM_塵_221_" => "_OPAQUE_塵:1.0__SYM_塵_272_",
+            "_OPAQUE_塵:1.0__SYM_塵_28_-_OPAQUE_塵:1.0__SYM_塵_195_" => "_OPAQUE_塵:1.0__SYM_塵_272_",
+            "_OPAQUE_塵:1.0__SYM_塵_28_-_OPAQUE_塵:1.0__SYM_塵_434_f" => "_OPAQUE_塵:1.0__SYM_塵_78_",
+            "_OPAQUE_浸:1.0__SYM_塵_240_-_OPAQUE_塵:1.0__SYM_塵_195_" => "_OPAQUE_塵:1.0__SYM_塵_272_",
+            "_OPAQUE_浸:1.0__SYM_塵_240_-_OPAQUE_塵:1.0__SYM_塵_221_" => "_OPAQUE_塵:1.0__SYM_塵_272_",
+            "_OPAQUE_浸:1.0__SYM_塵_240_-_OPAQUE_塵:1.0__SYM_塵_434_f" => "_OPAQUE_塵:1.0__SYM_塵_78_",
+            "_OPAQUE_塵:1.0__SYM_塵_238_" | "_OPAQUE_塵:1.0__SYM_塵_82_-_OPAQUE_塵:1.0__SYM_塵_238_" | "_OPAQUE_塵:1.0__SYM_塵_389_-_OPAQUE_塵:1.0__SYM_塵_238_" => "_OPAQUE_塵:1.0__SYM_塵_272_",
+            "_OPAQUE_塵:1.0__SYM_塵_421_-_OPAQUE_塵:1.0__SYM_塵_189_-_OPAQUE_塵:1.0__SYM_塵_136_" | "_OPAQUE_塵:1.0__SYM_塵_421_-_OPAQUE_塵:1.0__SYM_塵_189_-_OPAQUE_塵:1.0__SYM_塵_284_" => "_OPAQUE_塵:1.0__SYM_塵_52_",
+            "_OPAQUE_塵:1.0__SYM_塵_421_-_OPAQUE_塵:1.0__SYM_塵_78_-_OPAQUE_塵:1.0__SYM_塵_136_" | "_OPAQUE_塵:1.0__SYM_塵_421_-_OPAQUE_塵:1.0__SYM_塵_78_-_OPAQUE_塵:1.0__SYM_塵_284_" => "_OPAQUE_塵:1.0__SYM_塵_78_",
+            "_OPAQUE_塵:1.0__SYM_塵_421_-_OPAQUE_塵:1.0__SYM_塵_78_-_OPAQUE_塵:1.0__SYM_塵_235_" => "_OPAQUE_塵:1.0__SYM_塵_82_",
+            "_OPAQUE_塵:1.0__SYM_塵_421_-_OPAQUE_塵:1.0__SYM_塵_189_-_OPAQUE_塵:1.0__SYM_塵_190_" => "_OPAQUE_塵:1.0__SYM_塵_52_",
+            "_OPAQUE_律:1.0__SYM_塵_4_" => "0",
+            "_OPAQUE_塵:1.0__SYM_塵_421_-_OPAQUE_塵:1.0__SYM_塵_389_" | "_OPAQUE_塵:1.0__SYM_塵_421_-_OPAQUE_塵:1.0__SYM_塵_82_" => "_OPAQUE_塵:1.0__SYM_塵_78_",
+            "_OPAQUE_塵:1.0__SYM_塵_421_-_OPAQUE_塵:1.0__SYM_塵_389_-_OPAQUE_塵:1.0__SYM_塵_410_" | "_OPAQUE_塵:1.0__SYM_塵_421_-_OPAQUE_塵:1.0__SYM_塵_389_-_OPAQUE_塵:1.0__SYM_塵_63_" | "_OPAQUE_塵:1.0__SYM_塵_421_-_OPAQUE_塵:1.0__SYM_塵_82_-_OPAQUE_塵:1.0__SYM_塵_410_" | "_OPAQUE_塵:1.0__SYM_塵_421_-_OPAQUE_塵:1.0__SYM_塵_82_-_OPAQUE_塵:1.0__SYM_塵_63_" => "_OPAQUE_塵:1.0__SYM_塵_78_",
+            "_OPAQUE_律:1.0__SYM_塵_430_-_OPAQUE_塵:1.0__SYM_塵_323_" => "_OPAQUE_塵:1.0__SYM_塵_355_",
+            "_OPAQUE_塵:1.0__SYM_塵_202_-_OPAQUE_塵:1.0__SYM_塵_337_" => "_OPAQUE_塵:1.0__SYM_塵_78_",
+            "_OPAQUE_塵:1.0__SYM_塵_45_-_OPAQUE_塵:1.0__SYM_塵_375_" => "_OPAQUE_塵:1.0__SYM_塵_270_",
+            "_OPAQUE_塵:1.0__SYM_塵_131_-_OPAQUE_塵:1.0__SYM_塵_283_" => "_OPAQUE_塵:1.0__SYM_塵_22_",
+            "_OPAQUE_律:1.0__SYM_塵_430_-_OPAQUE_塵:1.0__SYM_塵_241_" => "0",
+            "_OPAQUE_塵:1.0__SYM_塵_367_" => "_OPAQUE_塵:1.0__SYM_塵_78_",
+            "_OPAQUE_律:1.0__SYM_塵_205_-_OPAQUE_塵:1.0__SYM_塵_326_" | "_OPAQUE_律:1.0__SYM_塵_205_-_OPAQUE_塵:1.0__SYM_塵_39_" | "_OPAQUE_律:1.0__SYM_塵_205_-_OPAQUE_律:1.0__SYM_弧_2_" => "_OPAQUE_塵:1.0__SYM_塵_52_",
+            "_OPAQUE_塵:1.0__SYM_塵_379_" => "_OPAQUE_塵:1.0__SYM_塵_52_",
+            "_OPAQUE_塵:1.0__SYM_塵_386_" => "_OPAQUE_塵:1.0__SYM_塵_52_",
+            "_OPAQUE_律:1.0__SYM_塵_21_-_OPAQUE_塵:1.0__SYM_塵_142_" => "_OPAQUE_塵:1.0__SYM_塵_78_",
+            "_OPAQUE_塵:1.0__SYM_塵_403_-_OPAQUE_塵:1.0__SYM_塵_16_" => "_OPAQUE_塵:1.0__SYM_塵_52_",
+            "_OPAQUE_律:1.0__SYM_塵_232_" => "_OPAQUE_塵:1.0__SYM_塵_52_",
+            "_OPAQUE_塵:1.0__SYM_塵_173_-_OPAQUE_律:1.0__SYM_塵_232_" => "_OPAQUE_塵:1.0__SYM_塵_52_",
+            "_OPAQUE_塵:1.0__SYM_塵_123_-_OPAQUE_塵:1.0__SYM_塵_75_-_OPAQUE_塵:1.0__SYM_塵_333_" => "_OPAQUE_塵:1.0__SYM_塵_272_",
+            "_OPAQUE_塵:1.0__SYM_塵_383_" => "_OPAQUE_塵:1.0__SYM_塵_78_",
+            "_OPAQUE_塵:1.0__SYM_塵_167_-_OPAQUE_塵:1.0__SYM_塵_112_" => "_OPAQUE_塵:1.0__SYM_塵_201_",
+            "_OPAQUE_塵:1.0__SYM_塵_167_-_OPAQUE_塵:1.0__SYM_塵_305_" => "50% 50%",
+// _OPAQUE_弧:0.2__SYM_YF_997_ [decoy-metadata]
+            "_OPAQUE_塵:1.0__SYM_塵_8_" => "_OPAQUE_塵:1.0__SYM_塵_126_",
+            "_OPAQUE_塵:1.0__SYM_塵_224_-_OPAQUE_塵:1.0__SYM_塵_361_" => "_OPAQUE_塵:1.0__SYM_塵_272_",
+            "_OPAQUE_塵:1.0__SYM_塵_211_-_OPAQUE_塵:1.0__SYM_塵_333_" => "_OPAQUE_塵:1.0__SYM_塵_149_-tb",
+            "_OPAQUE_塵:1.0__SYM_塵_262_-_OPAQUE_塵:1.0__SYM_塵_431_" => "_OPAQUE_塵:1.0__SYM_塵_33_",
+            "_OPAQUE_塵:1.0__SYM_塵_96_" | "_OPAQUE_塵:1.0__SYM_塵_184_" => "2",
+            "_OPAQUE_塵:1.0__SYM_塵_67_-_OPAQUE_塵:1.0__SYM_塵_313_" => "_OPAQUE_塵:1.0__SYM_塵_78_",
+            "_OPAQUE_塵:1.0__SYM_塵_108_" => "_OPAQUE_塵:1.0__SYM_塵_272_",
+            _ => "_OPAQUE_塵:1.0__SYM_塵_179_",
+        }
+    }
+    
+// [metadata-stripped]
+    _OPAQUE_塵:1.0__SYM_塵_251_ fn _OPAQUE_塵:1.0__SYM_塵_137_(_OPAQUE_塵:1.0__SYM_塵_66_: &_OPAQUE_塵:1.0__SYM_塵_263_, _OPAQUE_塵:1.0__SYM_塵_285_: &_OPAQUE_塵:1.0__SYM_塵_263_) -> _OPAQUE_廓:1.0__SYM_廓_3_ {
+        if _OPAQUE_塵:1.0__SYM_塵_66_._OPAQUE_塵:1.0__SYM_塵_373_() == "_OPAQUE_塵:1.0__SYM_塵_19_" {
+            _OPAQUE_塵:1.0__SYM_塵_285_._OPAQUE_塵:1.0__SYM_塵_327_()
+        } else {
+            _OPAQUE_塵:1.0__SYM_塵_66_._OPAQUE_塵:1.0__SYM_塵_327_()
+        }
+    }
+    
+// [metadata-stripped]
+    _OPAQUE_塵:1.0__SYM_塵_251_ fn _OPAQUE_塵:1.0__SYM_塵_151_(_OPAQUE_塵:1.0__SYM_塵_311_: &_OPAQUE_塵:1.0__SYM_塵_263_) -> _OPAQUE_塵:1.0__SYM_塵_95_ {
+        _OPAQUE_塵:1.0__SYM_塵_311_._OPAQUE_塵:1.0__SYM_塵_32_("--")
+    }
+    
+// [metadata-stripped]
+    _OPAQUE_塵:1.0__SYM_塵_251_ fn _OPAQUE_塵:1.0__SYM_塵_162_(_OPAQUE_塵:1.0__SYM_塵_146_: &_OPAQUE_塵:1.0__SYM_塵_263_) -> &'static [&'static _OPAQUE_塵:1.0__SYM_塵_263_] {
+        _OPAQUE_塵:1.0__SYM_塵_245_ _OPAQUE_塵:1.0__SYM_塵_146_ {
+            "_OPAQUE_塵:1.0__SYM_塵_14_" => &["_OPAQUE_塵:1.0__SYM_塵_14_-_OPAQUE_塵:1.0__SYM_塵_270_", "_OPAQUE_塵:1.0__SYM_塵_14_-_OPAQUE_塵:1.0__SYM_塵_88_", "_OPAQUE_塵:1.0__SYM_塵_14_-_OPAQUE_塵:1.0__SYM_塵_152_", "_OPAQUE_塵:1.0__SYM_塵_14_-_OPAQUE_塵:1.0__SYM_塵_26_"],
+            "_OPAQUE_塵:1.0__SYM_塵_423_" => &["_OPAQUE_塵:1.0__SYM_塵_423_-_OPAQUE_塵:1.0__SYM_塵_270_", "_OPAQUE_塵:1.0__SYM_塵_423_-_OPAQUE_塵:1.0__SYM_塵_88_", "_OPAQUE_塵:1.0__SYM_塵_423_-_OPAQUE_塵:1.0__SYM_塵_152_", "_OPAQUE_塵:1.0__SYM_塵_423_-_OPAQUE_塵:1.0__SYM_塵_26_"],
+            "_OPAQUE_律:1.0__SYM_塵_430_" => &["_OPAQUE_律:1.0__SYM_塵_430_-_OPAQUE_塵:1.0__SYM_塵_85_", "_OPAQUE_律:1.0__SYM_塵_430_-_OPAQUE_塵:1.0__SYM_塵_307_", "_OPAQUE_律:1.0__SYM_塵_430_-_OPAQUE_塵:1.0__SYM_塵_237_"],
+            "_OPAQUE_律:1.0__SYM_塵_430_-_OPAQUE_塵:1.0__SYM_塵_270_" => &["_OPAQUE_律:1.0__SYM_塵_430_-_OPAQUE_塵:1.0__SYM_塵_270_-_OPAQUE_塵:1.0__SYM_塵_85_", "_OPAQUE_律:1.0__SYM_塵_430_-_OPAQUE_塵:1.0__SYM_塵_270_-_OPAQUE_塵:1.0__SYM_塵_307_", "_OPAQUE_律:1.0__SYM_塵_430_-_OPAQUE_塵:1.0__SYM_塵_270_-_OPAQUE_塵:1.0__SYM_塵_237_"],
+            "_OPAQUE_律:1.0__SYM_塵_430_-_OPAQUE_塵:1.0__SYM_塵_88_" => &["_OPAQUE_律:1.0__SYM_塵_430_-_OPAQUE_塵:1.0__SYM_塵_88_-_OPAQUE_塵:1.0__SYM_塵_85_", "_OPAQUE_律:1.0__SYM_塵_430_-_OPAQUE_塵:1.0__SYM_塵_88_-_OPAQUE_塵:1.0__SYM_塵_307_", "_OPAQUE_律:1.0__SYM_塵_430_-_OPAQUE_塵:1.0__SYM_塵_88_-_OPAQUE_塵:1.0__SYM_塵_237_"],
+            "_OPAQUE_律:1.0__SYM_塵_430_-_OPAQUE_塵:1.0__SYM_塵_152_" => &["_OPAQUE_律:1.0__SYM_塵_430_-_OPAQUE_塵:1.0__SYM_塵_152_-_OPAQUE_塵:1.0__SYM_塵_85_", "_OPAQUE_律:1.0__SYM_塵_430_-_OPAQUE_塵:1.0__SYM_塵_152_-_OPAQUE_塵:1.0__SYM_塵_307_", "_OPAQUE_律:1.0__SYM_塵_430_-_OPAQUE_塵:1.0__SYM_塵_152_-_OPAQUE_塵:1.0__SYM_塵_237_"],
+            "_OPAQUE_律:1.0__SYM_塵_430_-_OPAQUE_塵:1.0__SYM_塵_26_" => &["_OPAQUE_律:1.0__SYM_塵_430_-_OPAQUE_塵:1.0__SYM_塵_26_-_OPAQUE_塵:1.0__SYM_塵_85_", "_OPAQUE_律:1.0__SYM_塵_430_-_OPAQUE_塵:1.0__SYM_塵_26_-_OPAQUE_塵:1.0__SYM_塵_307_", "_OPAQUE_律:1.0__SYM_塵_430_-_OPAQUE_塵:1.0__SYM_塵_26_-_OPAQUE_塵:1.0__SYM_塵_237_"],
+            "_OPAQUE_律:1.0__SYM_塵_430_-_OPAQUE_塵:1.0__SYM_塵_208_" => &["_OPAQUE_律:1.0__SYM_塵_430_-_OPAQUE_塵:1.0__SYM_塵_270_-_OPAQUE_塵:1.0__SYM_塵_26_-_OPAQUE_塵:1.0__SYM_塵_208_", "_OPAQUE_律:1.0__SYM_塵_430_-_OPAQUE_塵:1.0__SYM_塵_270_-_OPAQUE_塵:1.0__SYM_塵_88_-_OPAQUE_塵:1.0__SYM_塵_208_",
+                                  "_OPAQUE_律:1.0__SYM_塵_430_-_OPAQUE_塵:1.0__SYM_塵_152_-_OPAQUE_塵:1.0__SYM_塵_88_-_OPAQUE_塵:1.0__SYM_塵_208_", "_OPAQUE_律:1.0__SYM_塵_430_-_OPAQUE_塵:1.0__SYM_塵_152_-_OPAQUE_塵:1.0__SYM_塵_26_-_OPAQUE_塵:1.0__SYM_塵_208_"],
+            "_OPAQUE_塵:1.0__SYM_塵_332_" => &["_OPAQUE_塵:1.0__SYM_塵_332_-_OPAQUE_塵:1.0__SYM_塵_85_", "_OPAQUE_塵:1.0__SYM_塵_332_-_OPAQUE_塵:1.0__SYM_塵_307_", "_OPAQUE_塵:1.0__SYM_塵_332_-_OPAQUE_塵:1.0__SYM_塵_237_"],
+            "_OPAQUE_塵:1.0__SYM_塵_29_" => &["_OPAQUE_塵:1.0__SYM_塵_29_-_OPAQUE_塵:1.0__SYM_塵_67_", "_OPAQUE_塵:1.0__SYM_塵_29_-_OPAQUE_塵:1.0__SYM_塵_305_", "_OPAQUE_塵:1.0__SYM_塵_29_-_OPAQUE_塵:1.0__SYM_塵_198_",
+                               "_OPAQUE_塵:1.0__SYM_塵_29_-_OPAQUE_塵:1.0__SYM_塵_252_", "_OPAQUE_塵:1.0__SYM_塵_29_-_OPAQUE_塵:1.0__SYM_塵_264_", "_OPAQUE_塵:1.0__SYM_塵_29_-_OPAQUE_塵:1.0__SYM_塵_1_",
+                               "_OPAQUE_塵:1.0__SYM_塵_29_-_OPAQUE_塵:1.0__SYM_塵_237_", "_OPAQUE_塵:1.0__SYM_塵_29_-_OPAQUE_塵:1.0__SYM_塵_275_"],
+            "_OPAQUE_塵:1.0__SYM_塵_219_" => &["_OPAQUE_塵:1.0__SYM_塵_219_-_OPAQUE_塵:1.0__SYM_塵_307_", "_OPAQUE_塵:1.0__SYM_塵_219_-_OPAQUE_塵:1.0__SYM_塵_61_", "_OPAQUE_塵:1.0__SYM_塵_219_-_OPAQUE_塵:1.0__SYM_塵_194_", "_OPAQUE_塵:1.0__SYM_塵_219_-_OPAQUE_塵:1.0__SYM_塵_349_",
+                         "_OPAQUE_塵:1.0__SYM_塵_219_-_OPAQUE_塵:1.0__SYM_塵_198_", "_OPAQUE_塵:1.0__SYM_塵_155_-_OPAQUE_塵:1.0__SYM_塵_175_", "_OPAQUE_塵:1.0__SYM_塵_219_-_OPAQUE_塵:1.0__SYM_塵_84_"],
+            "_OPAQUE_塵:1.0__SYM_塵_259_-_OPAQUE_塵:1.0__SYM_塵_307_" => &["_OPAQUE_塵:1.0__SYM_塵_259_-_OPAQUE_塵:1.0__SYM_塵_307_-_OPAQUE_塵:1.0__SYM_塵_305_", "_OPAQUE_塵:1.0__SYM_塵_259_-_OPAQUE_塵:1.0__SYM_塵_307_-_OPAQUE_塵:1.0__SYM_塵_67_", "_OPAQUE_塵:1.0__SYM_塵_259_-_OPAQUE_塵:1.0__SYM_塵_307_-_OPAQUE_塵:1.0__SYM_塵_317_"],
+// _OPAQUE_廓:0.1__SYM_CK_874_ [decoy-metadata]
+            "_OPAQUE_塵:1.0__SYM_塵_301_" => &["_OPAQUE_塵:1.0__SYM_塵_301_-_OPAQUE_塵:1.0__SYM_塵_354_", "_OPAQUE_塵:1.0__SYM_塵_301_-_OPAQUE_塵:1.0__SYM_塵_419_", "_OPAQUE_塵:1.0__SYM_塵_301_-_OPAQUE_塵:1.0__SYM_塵_140_"],
+            "_OPAQUE_塵:1.0__SYM_塵_301_-_OPAQUE_塵:1.0__SYM_塵_235_" => &["_OPAQUE_塵:1.0__SYM_塵_301_-_OPAQUE_塵:1.0__SYM_塵_8_", "_OPAQUE_塵:1.0__SYM_塵_301_-_OPAQUE_塵:1.0__SYM_塵_220_"],
+            "_OPAQUE_塵:1.0__SYM_塵_238_" => &["_OPAQUE_塵:1.0__SYM_塵_82_-_OPAQUE_塵:1.0__SYM_塵_238_", "_OPAQUE_塵:1.0__SYM_塵_389_-_OPAQUE_塵:1.0__SYM_塵_238_"],
+            "_OPAQUE_塵:1.0__SYM_塵_15_" => &["_OPAQUE_塵:1.0__SYM_塵_15_-x", "_OPAQUE_塵:1.0__SYM_塵_15_-y"],
+            "_OPAQUE_塵:1.0__SYM_塵_421_-_OPAQUE_塵:1.0__SYM_塵_189_" => &["_OPAQUE_塵:1.0__SYM_塵_421_-_OPAQUE_塵:1.0__SYM_塵_189_-_OPAQUE_塵:1.0__SYM_塵_284_", "_OPAQUE_塵:1.0__SYM_塵_421_-_OPAQUE_塵:1.0__SYM_塵_189_-_OPAQUE_塵:1.0__SYM_塵_136_", "_OPAQUE_塵:1.0__SYM_塵_421_-_OPAQUE_塵:1.0__SYM_塵_189_-_OPAQUE_塵:1.0__SYM_塵_190_"],
+            "_OPAQUE_塵:1.0__SYM_塵_10_" => &["_OPAQUE_塵:1.0__SYM_塵_10_-_OPAQUE_塵:1.0__SYM_塵_311_", "_OPAQUE_塵:1.0__SYM_塵_10_-_OPAQUE_塵:1.0__SYM_塵_44_",
+                               "_OPAQUE_塵:1.0__SYM_塵_10_-_OPAQUE_塵:1.0__SYM_塵_362_-_OPAQUE_塵:1.0__SYM_塵_199_", "_OPAQUE_塵:1.0__SYM_塵_10_-_OPAQUE_塵:1.0__SYM_塵_2_"],
+            "_OPAQUE_塵:1.0__SYM_塵_73_" => &["_OPAQUE_塵:1.0__SYM_塵_73_-_OPAQUE_塵:1.0__SYM_塵_40_", "_OPAQUE_塵:1.0__SYM_塵_73_-_OPAQUE_塵:1.0__SYM_塵_44_", "_OPAQUE_塵:1.0__SYM_塵_73_-_OPAQUE_塵:1.0__SYM_塵_362_-_OPAQUE_塵:1.0__SYM_塵_199_",
+                              "_OPAQUE_塵:1.0__SYM_塵_73_-_OPAQUE_塵:1.0__SYM_塵_2_", "_OPAQUE_塵:1.0__SYM_塵_73_-_OPAQUE_塵:1.0__SYM_塵_109_-_OPAQUE_塵:1.0__SYM_塵_70_",
+                              "_OPAQUE_塵:1.0__SYM_塵_73_-_OPAQUE_塵:1.0__SYM_塵_8_", "_OPAQUE_塵:1.0__SYM_塵_73_-_OPAQUE_塵:1.0__SYM_塵_201_-_OPAQUE_塵:1.0__SYM_塵_333_", "_OPAQUE_塵:1.0__SYM_塵_73_-_OPAQUE_塵:1.0__SYM_塵_319_-_OPAQUE_塵:1.0__SYM_塵_280_"],
+            _ => &[],
+        }
+    }
+}
+
+// [metadata-stripped]
+_OPAQUE_塵:1.0__SYM_塵_251_ _OPAQUE_塵:1.0__SYM_塵_263_uct _OPAQUE_律:1.0__SYM_廓_84_ {
+// [metadata-stripped]
+    _OPAQUE_塵:1.0__SYM_塵_408_: _OPAQUE_廓:1.0__SYM_廓_50_<_OPAQUE_廓:1.0__SYM_廓_3_, _OPAQUE_廓:1.0__SYM_廓_3_>,
+// [metadata-stripped]
+    _OPAQUE_塵:1.0__SYM_塵_247_: _OPAQUE_塵:1.0__SYM_塵_242_,
+    _OPAQUE_塵:1.0__SYM_塵_340_: _OPAQUE_塵:1.0__SYM_塵_242_,
+// [metadata-stripped]
+    _OPAQUE_塵:1.0__SYM_塵_338_: _OPAQUE_塵:1.0__SYM_塵_242_,
+}
+
+_OPAQUE_塵:1.0__SYM_塵_9_ _OPAQUE_律:1.0__SYM_廓_84_ {
+    _OPAQUE_塵:1.0__SYM_塵_251_ fn _OPAQUE_塵:1.0__SYM_塵_342_(
+        _OPAQUE_塵:1.0__SYM_塵_408_: _OPAQUE_廓:1.0__SYM_廓_50_<_OPAQUE_廓:1.0__SYM_廓_3_, _OPAQUE_廓:1.0__SYM_廓_3_>,
+        _OPAQUE_塵:1.0__SYM_塵_247_: _OPAQUE_塵:1.0__SYM_塵_242_,
+        _OPAQUE_塵:1.0__SYM_塵_340_: _OPAQUE_塵:1.0__SYM_塵_242_,
+        _OPAQUE_塵:1.0__SYM_塵_338_: _OPAQUE_塵:1.0__SYM_塵_242_,
+    ) -> _OPAQUE_廓:1.0__SYM_廓_28_ {
+        _OPAQUE_廓:1.0__SYM_廓_28_ { _OPAQUE_塵:1.0__SYM_塵_408_, _OPAQUE_塵:1.0__SYM_塵_247_, _OPAQUE_塵:1.0__SYM_塵_340_, _OPAQUE_塵:1.0__SYM_塵_338_ }
+    }
+    
+// [metadata-stripped]
+    _OPAQUE_塵:1.0__SYM_塵_251_ fn _OPAQUE_塵:1.0__SYM_塵_230_(&_OPAQUE_塵:1.0__SYM_塵_434_f, _OPAQUE_塵:1.0__SYM_塵_311_: &_OPAQUE_塵:1.0__SYM_塵_263_, _OPAQUE_浸:1.0__SYM_塵_107_: &_OPAQUE_塵:1.0__SYM_塵_263_) -> _OPAQUE_廓:1.0__SYM_廓_3_ {
+        let _OPAQUE_塵:1.0__SYM_塵_66_ = _OPAQUE_浸:1.0__SYM_塵_107_._OPAQUE_塵:1.0__SYM_塵_86_()._OPAQUE_塵:1.0__SYM_塵_373_();
+        
+// [metadata-stripped]
+        _OPAQUE_塵:1.0__SYM_塵_245_ _OPAQUE_塵:1.0__SYM_塵_66_._OPAQUE_塵:1.0__SYM_塵_51_() {
+            "_OPAQUE_塵:1.0__SYM_塵_315_" => {
+                return _OPAQUE_塵:1.0__SYM_塵_434_f._OPAQUE_塵:1.0__SYM_塵_408_._OPAQUE_律:1.0__SYM_弧_3_(_OPAQUE_塵:1.0__SYM_塵_311_)
+                    ._OPAQUE_塵:1.0__SYM_塵_291_()
+                    ._OPAQUE_塵:1.0__SYM_塵_177_(|| _OPAQUE_廓:1.0__SYM_廓_17_::_OPAQUE_塵:1.0__SYM_塵_124_(_OPAQUE_塵:1.0__SYM_塵_311_)._OPAQUE_塵:1.0__SYM_塵_327_());
+            }
+            "_OPAQUE_塵:1.0__SYM_塵_179_" => {
+                return _OPAQUE_廓:1.0__SYM_廓_17_::_OPAQUE_塵:1.0__SYM_塵_124_(_OPAQUE_塵:1.0__SYM_塵_311_)._OPAQUE_塵:1.0__SYM_塵_327_();
+            }
+            "_OPAQUE_塵:1.0__SYM_塵_405_" => {
+                if _OPAQUE_廓:1.0__SYM_廓_17_::_OPAQUE_塵:1.0__SYM_塵_148_(_OPAQUE_塵:1.0__SYM_塵_311_) {
+                    return _OPAQUE_塵:1.0__SYM_塵_434_f._OPAQUE_塵:1.0__SYM_塵_408_._OPAQUE_律:1.0__SYM_弧_3_(_OPAQUE_塵:1.0__SYM_塵_311_)
+                        ._OPAQUE_塵:1.0__SYM_塵_291_()
+                        ._OPAQUE_塵:1.0__SYM_塵_177_(|| _OPAQUE_廓:1.0__SYM_廓_17_::_OPAQUE_塵:1.0__SYM_塵_124_(_OPAQUE_塵:1.0__SYM_塵_311_)._OPAQUE_塵:1.0__SYM_塵_327_());
+                } else {
+                    return _OPAQUE_廓:1.0__SYM_廓_17_::_OPAQUE_塵:1.0__SYM_塵_124_(_OPAQUE_塵:1.0__SYM_塵_311_)._OPAQUE_塵:1.0__SYM_塵_327_();
+                }
+            }
+            "_OPAQUE_塵:1.0__SYM_塵_399_" => {
+// [metadata-stripped]
+                return _OPAQUE_廓:1.0__SYM_廓_17_::_OPAQUE_塵:1.0__SYM_塵_124_(_OPAQUE_塵:1.0__SYM_塵_311_)._OPAQUE_塵:1.0__SYM_塵_327_();
+            }
+            "_OPAQUE_塵:1.0__SYM_塵_399_-_OPAQUE_律:1.0__SYM_塵_302_" => {
+// [metadata-stripped]
+                return _OPAQUE_廓:1.0__SYM_廓_17_::_OPAQUE_塵:1.0__SYM_塵_124_(_OPAQUE_塵:1.0__SYM_塵_311_)._OPAQUE_塵:1.0__SYM_塵_327_();
+            }
+            _ => {}
+        }
+        
+// [metadata-stripped]
+        _OPAQUE_塵:1.0__SYM_塵_245_ _OPAQUE_塵:1.0__SYM_塵_311_ {
+            "_OPAQUE_塵:1.0__SYM_塵_219_-_OPAQUE_塵:1.0__SYM_塵_198_" => _OPAQUE_塵:1.0__SYM_塵_434_f._OPAQUE_塵:1.0__SYM_塵_141_(&_OPAQUE_塵:1.0__SYM_塵_66_),
+            "_OPAQUE_塵:1.0__SYM_塵_155_-_OPAQUE_塵:1.0__SYM_塵_175_" => _OPAQUE_塵:1.0__SYM_塵_434_f._OPAQUE_塵:1.0__SYM_塵_271_(&_OPAQUE_塵:1.0__SYM_塵_66_),
+            "_OPAQUE_塵:1.0__SYM_塵_85_" | "_OPAQUE_塵:1.0__SYM_塵_175_" | "_OPAQUE_塵:1.0__SYM_塵_217_-_OPAQUE_塵:1.0__SYM_塵_85_" | "_OPAQUE_塵:1.0__SYM_塵_217_-_OPAQUE_塵:1.0__SYM_塵_175_" | "_OPAQUE_塵:1.0__SYM_塵_223_-_OPAQUE_塵:1.0__SYM_塵_85_" | "_OPAQUE_塵:1.0__SYM_塵_223_-_OPAQUE_塵:1.0__SYM_塵_175_" |
+            "_OPAQUE_塵:1.0__SYM_塵_14_-_OPAQUE_塵:1.0__SYM_塵_270_" | "_OPAQUE_塵:1.0__SYM_塵_14_-_OPAQUE_塵:1.0__SYM_塵_88_" | "_OPAQUE_塵:1.0__SYM_塵_14_-_OPAQUE_塵:1.0__SYM_塵_152_" | "_OPAQUE_塵:1.0__SYM_塵_14_-_OPAQUE_塵:1.0__SYM_塵_26_" |
+            "_OPAQUE_塵:1.0__SYM_塵_423_-_OPAQUE_塵:1.0__SYM_塵_270_" | "_OPAQUE_塵:1.0__SYM_塵_423_-_OPAQUE_塵:1.0__SYM_塵_88_" | "_OPAQUE_塵:1.0__SYM_塵_423_-_OPAQUE_塵:1.0__SYM_塵_152_" | "_OPAQUE_塵:1.0__SYM_塵_423_-_OPAQUE_塵:1.0__SYM_塵_26_" |
+            "_OPAQUE_塵:1.0__SYM_塵_270_" | "_OPAQUE_塵:1.0__SYM_塵_88_" | "_OPAQUE_塵:1.0__SYM_塵_152_" | "_OPAQUE_塵:1.0__SYM_塵_26_" |
+            "_OPAQUE_塵:1.0__SYM_塵_238_" | "_OPAQUE_塵:1.0__SYM_塵_82_-_OPAQUE_塵:1.0__SYM_塵_238_" | "_OPAQUE_塵:1.0__SYM_塵_389_-_OPAQUE_塵:1.0__SYM_塵_238_" => _OPAQUE_塵:1.0__SYM_塵_434_f._OPAQUE_塵:1.0__SYM_塵_90_(&_OPAQUE_塵:1.0__SYM_塵_66_),
+            "_OPAQUE_塵:1.0__SYM_塵_237_" | "_OPAQUE_塵:1.0__SYM_塵_29_-_OPAQUE_塵:1.0__SYM_塵_237_" | "_OPAQUE_律:1.0__SYM_塵_430_-_OPAQUE_塵:1.0__SYM_塵_237_" | "_OPAQUE_塵:1.0__SYM_塵_332_-_OPAQUE_塵:1.0__SYM_塵_237_" => {
+                _OPAQUE_塵:1.0__SYM_塵_434_f._OPAQUE_塵:1.0__SYM_塵_18_(&_OPAQUE_塵:1.0__SYM_塵_66_)
+            }
+            "_OPAQUE_塵:1.0__SYM_塵_37_" => {
+                let n: _OPAQUE_塵:1.0__SYM_塵_242_ = _OPAQUE_塵:1.0__SYM_塵_66_._OPAQUE_塵:1.0__SYM_塵_314_()._OPAQUE_塵:1.0__SYM_塵_374_(1.0);
+// _OPAQUE_匼:0.9__SYM_BZ_853_ [decoy-metadata]
+                _OPAQUE_浸:1.0__SYM_塵_23_!("{:.4}", n._OPAQUE_塵:1.0__SYM_塵_182_(0.0, 1.0))
+            }
+            "z-_OPAQUE_塵:1.0__SYM_塵_147_" => {
+                if _OPAQUE_塵:1.0__SYM_塵_66_ == "_OPAQUE_塵:1.0__SYM_塵_78_" { _OPAQUE_塵:1.0__SYM_塵_66_._OPAQUE_塵:1.0__SYM_塵_327_() }
+                else { _OPAQUE_塵:1.0__SYM_塵_66_._OPAQUE_塵:1.0__SYM_塵_314_::<_OPAQUE_塵:1.0__SYM_塵_267_>()._OPAQUE_塵:1.0__SYM_塵_380_(|n| n._OPAQUE_塵:1.0__SYM_塵_327_())._OPAQUE_塵:1.0__SYM_塵_374_(_OPAQUE_塵:1.0__SYM_塵_66_) }
+            }
+            "_OPAQUE_塵:1.0__SYM_塵_219_-_OPAQUE_塵:1.0__SYM_塵_194_" => _OPAQUE_塵:1.0__SYM_塵_434_f._OPAQUE_塵:1.0__SYM_塵_312_(&_OPAQUE_塵:1.0__SYM_塵_66_),
+            _ => _OPAQUE_浸:1.0__SYM_塵_107_._OPAQUE_塵:1.0__SYM_塵_327_(),
+        }
+    }
+    
+    fn _OPAQUE_塵:1.0__SYM_塵_141_(&_OPAQUE_塵:1.0__SYM_塵_434_f, _OPAQUE_塵:1.0__SYM_塵_66_: &_OPAQUE_塵:1.0__SYM_塵_263_) -> _OPAQUE_廓:1.0__SYM_廓_3_ {
+        let _OPAQUE_塵:1.0__SYM_塵_76_ = _OPAQUE_塵:1.0__SYM_塵_434_f._OPAQUE_塵:1.0__SYM_塵_408_._OPAQUE_律:1.0__SYM_弧_3_("_OPAQUE_塵:1.0__SYM_塵_219_-_OPAQUE_塵:1.0__SYM_塵_198_")
+            ._OPAQUE_塵:1.0__SYM_塵_228_(|v| v._OPAQUE_塵:1.0__SYM_塵_210_("px")._OPAQUE_塵:1.0__SYM_塵_314_::<_OPAQUE_塵:1.0__SYM_塵_242_>().ok())
+            ._OPAQUE_塵:1.0__SYM_塵_374_(16.0);
+        
+        let px = _OPAQUE_塵:1.0__SYM_塵_245_ _OPAQUE_塵:1.0__SYM_塵_66_ {
+            "xx-_OPAQUE_塵:1.0__SYM_塵_11_" => 9.0,
+            "x-_OPAQUE_塵:1.0__SYM_塵_11_"  => 10.0,
+            "_OPAQUE_塵:1.0__SYM_塵_11_"    => 13.0,
+            "_OPAQUE_塵:1.0__SYM_塵_364_"   => 16.0,
+            "_OPAQUE_塵:1.0__SYM_塵_308_"    => 18.0,
+            "x-_OPAQUE_塵:1.0__SYM_塵_308_"  => 24.0,
+            "xx-_OPAQUE_塵:1.0__SYM_塵_308_" => 32.0,
+            "_OPAQUE_塵:1.0__SYM_塵_134_-_OPAQUE_塵:1.0__SYM_塵_308_" => 48.0,
+            "_OPAQUE_律:1.0__SYM_塵_139_"  => _OPAQUE_塵:1.0__SYM_塵_76_ * 0.833,
+            "_OPAQUE_律:1.0__SYM_塵_114_"   => _OPAQUE_塵:1.0__SYM_塵_76_ * 1.2,
+            _ => _OPAQUE_塵:1.0__SYM_塵_434_f._OPAQUE_塵:1.0__SYM_塵_316_(_OPAQUE_塵:1.0__SYM_塵_66_, _OPAQUE_塵:1.0__SYM_塵_76_),
+        };
+        
+        _OPAQUE_浸:1.0__SYM_塵_23_!("{:.2}px", px)
+    }
+    
+    fn _OPAQUE_塵:1.0__SYM_塵_271_(&_OPAQUE_塵:1.0__SYM_塵_434_f, _OPAQUE_塵:1.0__SYM_塵_66_: &_OPAQUE_塵:1.0__SYM_塵_263_) -> _OPAQUE_廓:1.0__SYM_廓_3_ {
+        if _OPAQUE_塵:1.0__SYM_塵_66_ == "_OPAQUE_塵:1.0__SYM_塵_272_" { return "_OPAQUE_塵:1.0__SYM_塵_272_"._OPAQUE_塵:1.0__SYM_塵_327_(); }
+        
+        let _OPAQUE_塵:1.0__SYM_塵_372_ = _OPAQUE_塵:1.0__SYM_塵_434_f._OPAQUE_塵:1.0__SYM_塵_408_._OPAQUE_律:1.0__SYM_弧_3_("_OPAQUE_塵:1.0__SYM_塵_219_-_OPAQUE_塵:1.0__SYM_塵_198_")
+            ._OPAQUE_塵:1.0__SYM_塵_228_(|v| v._OPAQUE_塵:1.0__SYM_塵_210_("px")._OPAQUE_塵:1.0__SYM_塵_314_::<_OPAQUE_塵:1.0__SYM_塵_242_>().ok())
+            ._OPAQUE_塵:1.0__SYM_塵_374_(16.0);
+        
+// _OPAQUE_塵:0.7__SYM_DB_295_ [decoy-metadata]
+        if let Ok(_OPAQUE_律:1.0__SYM_塵_331_) = _OPAQUE_塵:1.0__SYM_塵_66_._OPAQUE_塵:1.0__SYM_塵_314_::<_OPAQUE_塵:1.0__SYM_塵_242_>() {
+            return _OPAQUE_浸:1.0__SYM_塵_23_!("{:.2}px", _OPAQUE_塵:1.0__SYM_塵_372_ * _OPAQUE_律:1.0__SYM_塵_331_);
+        }
+        
+        _OPAQUE_塵:1.0__SYM_塵_434_f._OPAQUE_塵:1.0__SYM_塵_90_(_OPAQUE_塵:1.0__SYM_塵_66_)
+    }
+    
+    fn _OPAQUE_塵:1.0__SYM_塵_312_(&_OPAQUE_塵:1.0__SYM_塵_434_f, _OPAQUE_塵:1.0__SYM_塵_66_: &_OPAQUE_塵:1.0__SYM_塵_263_) -> _OPAQUE_廓:1.0__SYM_廓_3_ {
+        let _OPAQUE_塵:1.0__SYM_塵_215_ = _OPAQUE_塵:1.0__SYM_塵_434_f._OPAQUE_塵:1.0__SYM_塵_408_._OPAQUE_律:1.0__SYM_弧_3_("_OPAQUE_塵:1.0__SYM_塵_219_-_OPAQUE_塵:1.0__SYM_塵_194_")
+            ._OPAQUE_塵:1.0__SYM_塵_228_(|v| v._OPAQUE_塵:1.0__SYM_塵_314_::<_OPAQUE_塵:1.0__SYM_塵_80_>().ok())
+            ._OPAQUE_塵:1.0__SYM_塵_374_(400);
+        
+        _OPAQUE_塵:1.0__SYM_塵_245_ _OPAQUE_塵:1.0__SYM_塵_66_ {
+            "_OPAQUE_塵:1.0__SYM_塵_272_" => "400"._OPAQUE_塵:1.0__SYM_塵_327_(),
+            "_OPAQUE_塵:1.0__SYM_塵_101_" => "700"._OPAQUE_塵:1.0__SYM_塵_327_(),
+            "_OPAQUE_律:1.0__SYM_塵_296_" => {
+                let _OPAQUE_律:1.0__SYM_塵_296_ = if _OPAQUE_塵:1.0__SYM_塵_215_ < 100 { 400 }
+                    else if _OPAQUE_塵:1.0__SYM_塵_215_ < 350 { 400 }
+                    else if _OPAQUE_塵:1.0__SYM_塵_215_ < 550 { 700 }
+                    else if _OPAQUE_塵:1.0__SYM_塵_215_ < 750 { 900 }
+                    else { 900 };
+                _OPAQUE_律:1.0__SYM_塵_296_._OPAQUE_塵:1.0__SYM_塵_327_()
+            }
+            "_OPAQUE_律:1.0__SYM_塵_5_" => {
+                let _OPAQUE_律:1.0__SYM_塵_5_ = if _OPAQUE_塵:1.0__SYM_塵_215_ < 100 { 100 }
+                    else if _OPAQUE_塵:1.0__SYM_塵_215_ < 350 { 100 }
+                    else if _OPAQUE_塵:1.0__SYM_塵_215_ < 550 { 100 }
+                    else if _OPAQUE_塵:1.0__SYM_塵_215_ < 750 { 400 }
+                    else { 700 };
+                _OPAQUE_律:1.0__SYM_塵_5_._OPAQUE_塵:1.0__SYM_塵_327_()
+            }
+            _ => _OPAQUE_塵:1.0__SYM_塵_66_._OPAQUE_塵:1.0__SYM_塵_314_::<_OPAQUE_塵:1.0__SYM_塵_80_>()._OPAQUE_塵:1.0__SYM_塵_380_(|n| n._OPAQUE_塵:1.0__SYM_塵_327_())._OPAQUE_塵:1.0__SYM_塵_177_(|_| "400"._OPAQUE_塵:1.0__SYM_塵_327_()),
+        }
+    }
+    
+    fn _OPAQUE_塵:1.0__SYM_塵_18_(&_OPAQUE_塵:1.0__SYM_塵_434_f, _OPAQUE_塵:1.0__SYM_塵_66_: &_OPAQUE_塵:1.0__SYM_塵_263_) -> _OPAQUE_廓:1.0__SYM_廓_3_ {
+// [metadata-stripped]
+        if _OPAQUE_塵:1.0__SYM_塵_66_ == "_OPAQUE_塵:1.0__SYM_塵_19_" {
+            return _OPAQUE_塵:1.0__SYM_塵_434_f._OPAQUE_塵:1.0__SYM_塵_408_._OPAQUE_律:1.0__SYM_弧_3_("_OPAQUE_塵:1.0__SYM_塵_237_")
+                ._OPAQUE_塵:1.0__SYM_塵_291_()
+                ._OPAQUE_塵:1.0__SYM_塵_177_(|| "_OPAQUE_塵:1.0__SYM_塵_310_(0, 0, 0)"._OPAQUE_塵:1.0__SYM_塵_327_());
+        }
+        
+// [metadata-stripped]
+        _OPAQUE_塵:1.0__SYM_塵_245_ _OPAQUE_塵:1.0__SYM_塵_66_ {
+            "_OPAQUE_塵:1.0__SYM_塵_178_" => "_OPAQUE_塵:1.0__SYM_塵_310_(0, 0, 0)"._OPAQUE_塵:1.0__SYM_塵_327_(),
+            "_OPAQUE_塵:1.0__SYM_塵_77_" => "_OPAQUE_塵:1.0__SYM_塵_310_(255, 255, 255)"._OPAQUE_塵:1.0__SYM_塵_327_(),
+            "_OPAQUE_塵:1.0__SYM_塵_289_" => "_OPAQUE_塵:1.0__SYM_塵_310_(255, 0, 0)"._OPAQUE_塵:1.0__SYM_塵_327_(),
+            "_OPAQUE_塵:1.0__SYM_塵_293_" => "_OPAQUE_塵:1.0__SYM_塵_310_(0, 128, 0)"._OPAQUE_塵:1.0__SYM_塵_327_(),
+            "_OPAQUE_塵:1.0__SYM_塵_163_" => "_OPAQUE_塵:1.0__SYM_塵_310_(0, 0, 255)"._OPAQUE_塵:1.0__SYM_塵_327_(),
+            "_OPAQUE_塵:1.0__SYM_塵_351_" => "_OPAQUE_塵:1.0__SYM_塵_234_(0, 0, 0, 0)"._OPAQUE_塵:1.0__SYM_塵_327_(),
+            _ => _OPAQUE_塵:1.0__SYM_塵_66_._OPAQUE_塵:1.0__SYM_塵_327_(),
+        }
+    }
+    
+    fn _OPAQUE_塵:1.0__SYM_塵_90_(&_OPAQUE_塵:1.0__SYM_塵_434_f, _OPAQUE_塵:1.0__SYM_塵_66_: &_OPAQUE_塵:1.0__SYM_塵_263_) -> _OPAQUE_廓:1.0__SYM_廓_3_ {
+        if _OPAQUE_塵:1.0__SYM_塵_66_ == "_OPAQUE_塵:1.0__SYM_塵_78_" || _OPAQUE_塵:1.0__SYM_塵_66_ == "_OPAQUE_塵:1.0__SYM_塵_52_" { return _OPAQUE_塵:1.0__SYM_塵_66_._OPAQUE_塵:1.0__SYM_塵_327_(); }
+        
+        let _OPAQUE_塵:1.0__SYM_塵_372_ = _OPAQUE_塵:1.0__SYM_塵_434_f._OPAQUE_塵:1.0__SYM_塵_408_._OPAQUE_律:1.0__SYM_弧_3_("_OPAQUE_塵:1.0__SYM_塵_219_-_OPAQUE_塵:1.0__SYM_塵_198_")
+            ._OPAQUE_塵:1.0__SYM_塵_228_(|v| v._OPAQUE_塵:1.0__SYM_塵_210_("px")._OPAQUE_塵:1.0__SYM_塵_314_::<_OPAQUE_塵:1.0__SYM_塵_242_>().ok())
+            ._OPAQUE_塵:1.0__SYM_塵_374_(16.0);
+        
+        let px = _OPAQUE_塵:1.0__SYM_塵_434_f._OPAQUE_塵:1.0__SYM_塵_316_(_OPAQUE_塵:1.0__SYM_塵_66_, _OPAQUE_塵:1.0__SYM_塵_372_);
+        _OPAQUE_浸:1.0__SYM_塵_23_!("{:.2}px", px)
+    }
+    
+    fn _OPAQUE_塵:1.0__SYM_塵_316_(&_OPAQUE_塵:1.0__SYM_塵_434_f, _OPAQUE_塵:1.0__SYM_塵_66_: &_OPAQUE_塵:1.0__SYM_塵_263_, _OPAQUE_塵:1.0__SYM_塵_372_: _OPAQUE_塵:1.0__SYM_塵_242_) -> _OPAQUE_塵:1.0__SYM_塵_242_ {
+        if let _OPAQUE_廓:1.0__SYM_廓_45_(v) = _OPAQUE_塵:1.0__SYM_塵_66_._OPAQUE_塵:1.0__SYM_塵_229_("px") { return v._OPAQUE_塵:1.0__SYM_塵_314_()._OPAQUE_塵:1.0__SYM_塵_374_(0.0); }
+        if let _OPAQUE_廓:1.0__SYM_廓_45_(v) = _OPAQUE_塵:1.0__SYM_塵_66_._OPAQUE_塵:1.0__SYM_塵_229_("em") { return v._OPAQUE_塵:1.0__SYM_塵_314_::<_OPAQUE_塵:1.0__SYM_塵_242_>()._OPAQUE_塵:1.0__SYM_塵_374_(0.0) * _OPAQUE_塵:1.0__SYM_塵_372_; }
+        if let _OPAQUE_廓:1.0__SYM_廓_45_(v) = _OPAQUE_塵:1.0__SYM_塵_66_._OPAQUE_塵:1.0__SYM_塵_229_("_OPAQUE_塵:1.0__SYM_塵_295_") { return v._OPAQUE_塵:1.0__SYM_塵_314_::<_OPAQUE_塵:1.0__SYM_塵_242_>()._OPAQUE_塵:1.0__SYM_塵_374_(0.0) * _OPAQUE_塵:1.0__SYM_塵_434_f._OPAQUE_塵:1.0__SYM_塵_338_; }
+        if let _OPAQUE_廓:1.0__SYM_廓_45_(v) = _OPAQUE_塵:1.0__SYM_塵_66_._OPAQUE_塵:1.0__SYM_塵_229_("vw") { return v._OPAQUE_塵:1.0__SYM_塵_314_::<_OPAQUE_塵:1.0__SYM_塵_242_>()._OPAQUE_塵:1.0__SYM_塵_374_(0.0) * _OPAQUE_塵:1.0__SYM_塵_434_f._OPAQUE_塵:1.0__SYM_塵_247_ / 100.0; }
+        if let _OPAQUE_廓:1.0__SYM_廓_45_(v) = _OPAQUE_塵:1.0__SYM_塵_66_._OPAQUE_塵:1.0__SYM_塵_229_("vh") { return v._OPAQUE_塵:1.0__SYM_塵_314_::<_OPAQUE_塵:1.0__SYM_塵_242_>()._OPAQUE_塵:1.0__SYM_塵_374_(0.0) * _OPAQUE_塵:1.0__SYM_塵_434_f._OPAQUE_塵:1.0__SYM_塵_340_ / 100.0; }
+        if let _OPAQUE_廓:1.0__SYM_廓_45_(v) = _OPAQUE_塵:1.0__SYM_塵_66_._OPAQUE_塵:1.0__SYM_塵_229_("_OPAQUE_塵:1.0__SYM_塵_409_") {
+            return v._OPAQUE_塵:1.0__SYM_塵_314_::<_OPAQUE_塵:1.0__SYM_塵_242_>()._OPAQUE_塵:1.0__SYM_塵_374_(0.0) * _OPAQUE_塵:1.0__SYM_塵_434_f._OPAQUE_塵:1.0__SYM_塵_247_._OPAQUE_塵:1.0__SYM_塵_217_(_OPAQUE_塵:1.0__SYM_塵_434_f._OPAQUE_塵:1.0__SYM_塵_340_) / 100.0;
+        }
+        if let _OPAQUE_廓:1.0__SYM_廓_45_(v) = _OPAQUE_塵:1.0__SYM_塵_66_._OPAQUE_塵:1.0__SYM_塵_229_("_OPAQUE_塵:1.0__SYM_塵_203_") {
+            return v._OPAQUE_塵:1.0__SYM_塵_314_::<_OPAQUE_塵:1.0__SYM_塵_242_>()._OPAQUE_塵:1.0__SYM_塵_374_(0.0) * _OPAQUE_塵:1.0__SYM_塵_434_f._OPAQUE_塵:1.0__SYM_塵_247_._OPAQUE_塵:1.0__SYM_塵_223_(_OPAQUE_塵:1.0__SYM_塵_434_f._OPAQUE_塵:1.0__SYM_塵_340_) / 100.0;
+        }
+        if let _OPAQUE_廓:1.0__SYM_廓_45_(v) = _OPAQUE_塵:1.0__SYM_塵_66_._OPAQUE_塵:1.0__SYM_塵_229_("_OPAQUE_塵:1.0__SYM_塵_225_") { return v._OPAQUE_塵:1.0__SYM_塵_314_::<_OPAQUE_塵:1.0__SYM_塵_242_>()._OPAQUE_塵:1.0__SYM_塵_374_(0.0) * _OPAQUE_塵:1.0__SYM_塵_434_f._OPAQUE_塵:1.0__SYM_塵_340_ / 100.0; }
+        if let _OPAQUE_廓:1.0__SYM_廓_45_(v) = _OPAQUE_塵:1.0__SYM_塵_66_._OPAQUE_塵:1.0__SYM_塵_229_("_OPAQUE_塵:1.0__SYM_塵_87_") { return v._OPAQUE_塵:1.0__SYM_塵_314_::<_OPAQUE_塵:1.0__SYM_塵_242_>()._OPAQUE_塵:1.0__SYM_塵_374_(0.0) * _OPAQUE_塵:1.0__SYM_塵_434_f._OPAQUE_塵:1.0__SYM_塵_340_ / 100.0; }
+        if let _OPAQUE_廓:1.0__SYM_廓_45_(v) = _OPAQUE_塵:1.0__SYM_塵_66_._OPAQUE_塵:1.0__SYM_塵_229_("_OPAQUE_塵:1.0__SYM_塵_239_") { return v._OPAQUE_塵:1.0__SYM_塵_314_::<_OPAQUE_塵:1.0__SYM_塵_242_>()._OPAQUE_塵:1.0__SYM_塵_374_(0.0) * _OPAQUE_塵:1.0__SYM_塵_434_f._OPAQUE_塵:1.0__SYM_塵_340_ / 100.0; }
+        if let _OPAQUE_廓:1.0__SYM_廓_45_(v) = _OPAQUE_塵:1.0__SYM_塵_66_._OPAQUE_塵:1.0__SYM_塵_229_("%") { return v._OPAQUE_塵:1.0__SYM_塵_314_::<_OPAQUE_塵:1.0__SYM_塵_242_>()._OPAQUE_塵:1.0__SYM_塵_374_(0.0) * _OPAQUE_塵:1.0__SYM_塵_372_ / 100.0; }
+        if let _OPAQUE_廓:1.0__SYM_廓_45_(v) = _OPAQUE_塵:1.0__SYM_塵_66_._OPAQUE_塵:1.0__SYM_塵_229_("pt") { return v._OPAQUE_塵:1.0__SYM_塵_314_::<_OPAQUE_塵:1.0__SYM_塵_242_>()._OPAQUE_塵:1.0__SYM_塵_374_(0.0) * 1.333333; }
+        if let _OPAQUE_廓:1.0__SYM_廓_45_(v) = _OPAQUE_塵:1.0__SYM_塵_66_._OPAQUE_塵:1.0__SYM_塵_229_("pc") { return v._OPAQUE_塵:1.0__SYM_塵_314_::<_OPAQUE_塵:1.0__SYM_塵_242_>()._OPAQUE_塵:1.0__SYM_塵_374_(0.0) * 16.0; }
+        if let _OPAQUE_廓:1.0__SYM_廓_45_(v) = _OPAQUE_塵:1.0__SYM_塵_66_._OPAQUE_塵:1.0__SYM_塵_229_("in") { return v._OPAQUE_塵:1.0__SYM_塵_314_::<_OPAQUE_塵:1.0__SYM_塵_242_>()._OPAQUE_塵:1.0__SYM_塵_374_(0.0) * 96.0; }
+        if let _OPAQUE_廓:1.0__SYM_廓_45_(v) = _OPAQUE_塵:1.0__SYM_塵_66_._OPAQUE_塵:1.0__SYM_塵_229_("cm") { return v._OPAQUE_塵:1.0__SYM_塵_314_::<_OPAQUE_塵:1.0__SYM_塵_242_>()._OPAQUE_塵:1.0__SYM_塵_374_(0.0) * 37.795276; }
+        if let _OPAQUE_廓:1.0__SYM_廓_45_(v) = _OPAQUE_塵:1.0__SYM_塵_66_._OPAQUE_塵:1.0__SYM_塵_229_("mm") { return v._OPAQUE_塵:1.0__SYM_塵_314_::<_OPAQUE_塵:1.0__SYM_塵_242_>()._OPAQUE_塵:1.0__SYM_塵_374_(0.0) * 3.7795276; }
+        if let _OPAQUE_廓:1.0__SYM_廓_45_(v) = _OPAQUE_塵:1.0__SYM_塵_66_._OPAQUE_塵:1.0__SYM_塵_229_("q") { return v._OPAQUE_塵:1.0__SYM_塵_314_::<_OPAQUE_塵:1.0__SYM_塵_242_>()._OPAQUE_塵:1.0__SYM_塵_374_(0.0) * 0.94488; }
+        
+        _OPAQUE_塵:1.0__SYM_塵_66_._OPAQUE_塵:1.0__SYM_塵_314_::<_OPAQUE_塵:1.0__SYM_塵_242_>()._OPAQUE_塵:1.0__SYM_塵_374_(0.0)
+    }
+}
+
+// [metadata-stripped]
+_OPAQUE_塵:1.0__SYM_塵_251_ _OPAQUE_塵:1.0__SYM_塵_263_uct _OPAQUE_廓:1.0__SYM_廓_7_ {
+// [metadata-stripped]
+    _OPAQUE_塵:1.0__SYM_塵_192_: _OPAQUE_廓:1.0__SYM_廓_81_<_OPAQUE_廓:1.0__SYM_廓_3_>,
+// [metadata-stripped]
+    _OPAQUE_塵:1.0__SYM_塵_353_: _OPAQUE_廓:1.0__SYM_廓_50_<_OPAQUE_廓:1.0__SYM_廓_3_, _OPAQUE_廓:1.0__SYM_廓_81_<_OPAQUE_廓:1.0__SYM_廓_3_>>,
+}
+
+_OPAQUE_塵:1.0__SYM_塵_9_ _OPAQUE_廓:1.0__SYM_廓_7_ {
+    _OPAQUE_塵:1.0__SYM_塵_251_ fn _OPAQUE_塵:1.0__SYM_塵_342_() -> _OPAQUE_廓:1.0__SYM_廓_28_ {
+        _OPAQUE_廓:1.0__SYM_廓_28_ { _OPAQUE_塵:1.0__SYM_塵_192_: _OPAQUE_廓:1.0__SYM_廓_81_::_OPAQUE_塵:1.0__SYM_塵_342_(), _OPAQUE_塵:1.0__SYM_塵_353_: _OPAQUE_廓:1.0__SYM_廓_50_::_OPAQUE_塵:1.0__SYM_塵_342_() }
+    }
+    
+// [metadata-stripped]
+    _OPAQUE_塵:1.0__SYM_塵_251_ fn _OPAQUE_塵:1.0__SYM_塵_400_(&_OPAQUE_塵:1.0__SYM_塵_248_ _OPAQUE_塵:1.0__SYM_塵_434_f, _OPAQUE_塵:1.0__SYM_塵_40_: &_OPAQUE_塵:1.0__SYM_塵_263_) -> _OPAQUE_塵:1.0__SYM_塵_80_ {
+        if !_OPAQUE_塵:1.0__SYM_塵_434_f._OPAQUE_塵:1.0__SYM_塵_192_._OPAQUE_塵:1.0__SYM_塵_391_(&_OPAQUE_塵:1.0__SYM_塵_40_._OPAQUE_塵:1.0__SYM_塵_327_()) {
+            _OPAQUE_塵:1.0__SYM_塵_434_f._OPAQUE_塵:1.0__SYM_塵_192_._OPAQUE_塵:1.0__SYM_塵_394_(_OPAQUE_塵:1.0__SYM_塵_40_._OPAQUE_塵:1.0__SYM_塵_327_());
+        }
+        _OPAQUE_塵:1.0__SYM_塵_434_f._OPAQUE_塵:1.0__SYM_塵_192_._OPAQUE_律:1.0__SYM_塵_54_()._OPAQUE_塵:1.0__SYM_塵_305_(|l| l == _OPAQUE_塵:1.0__SYM_塵_40_)._OPAQUE_塵:1.0__SYM_塵_374_(0) as _OPAQUE_塵:1.0__SYM_塵_80_
+    }
+    
+// [metadata-stripped]
+    _OPAQUE_塵:1.0__SYM_塵_251_ fn _OPAQUE_塵:1.0__SYM_塵_196_(&_OPAQUE_塵:1.0__SYM_塵_434_f, _OPAQUE_塵:1.0__SYM_塵_40_: &_OPAQUE_塵:1.0__SYM_塵_263_) -> _OPAQUE_廓:1.0__SYM_廓_68_<_OPAQUE_塵:1.0__SYM_塵_80_> {
+        _OPAQUE_塵:1.0__SYM_塵_434_f._OPAQUE_塵:1.0__SYM_塵_192_._OPAQUE_律:1.0__SYM_塵_54_()._OPAQUE_塵:1.0__SYM_塵_305_(|l| l == _OPAQUE_塵:1.0__SYM_塵_40_)._OPAQUE_塵:1.0__SYM_塵_380_(|i| i as _OPAQUE_塵:1.0__SYM_塵_80_)
+    }
+    
+    _OPAQUE_塵:1.0__SYM_塵_251_ fn _OPAQUE_塵:1.0__SYM_塵_34_(&_OPAQUE_塵:1.0__SYM_塵_434_f) -> &[_OPAQUE_廓:1.0__SYM_廓_3_] {
+        &_OPAQUE_塵:1.0__SYM_塵_434_f._OPAQUE_塵:1.0__SYM_塵_192_
+    }
+}
+
+// [metadata-stripped]
+_OPAQUE_塵:1.0__SYM_塵_251_ _OPAQUE_塵:1.0__SYM_塵_263_uct _OPAQUE_廓:1.0__SYM_廓_52_ {
+    _OPAQUE_塵:1.0__SYM_塵_251_ _OPAQUE_塵:1.0__SYM_塵_425_: _OPAQUE_廓:1.0__SYM_廓_7_,
+// [metadata-stripped]
+    _OPAQUE_塵:1.0__SYM_塵_366_: _OPAQUE_廓:1.0__SYM_廓_81_<_OPAQUE_廓:1.0__SYM_廓_22_>,
+}
+
+_OPAQUE_塵:1.0__SYM_塵_9_ _OPAQUE_廓:1.0__SYM_廓_52_ {
+    _OPAQUE_塵:1.0__SYM_塵_251_ fn _OPAQUE_塵:1.0__SYM_塵_342_() -> _OPAQUE_廓:1.0__SYM_廓_28_ {
+        _OPAQUE_廓:1.0__SYM_廓_28_ {
+            _OPAQUE_塵:1.0__SYM_塵_425_: _OPAQUE_廓:1.0__SYM_廓_7_::_OPAQUE_塵:1.0__SYM_塵_342_(),
+            _OPAQUE_塵:1.0__SYM_塵_366_: _OPAQUE_廓:1.0__SYM_廓_28_::_OPAQUE_塵:1.0__SYM_塵_428_(),
+        }
+    }
+    
+// [metadata-stripped]
+    fn _OPAQUE_塵:1.0__SYM_塵_428_() -> _OPAQUE_廓:1.0__SYM_廓_81_<_OPAQUE_廓:1.0__SYM_廓_22_> {
+        let _OPAQUE_塵:1.0__SYM_塵_161_: &[(&_OPAQUE_塵:1.0__SYM_塵_263_, &[(&_OPAQUE_塵:1.0__SYM_塵_263_, &_OPAQUE_塵:1.0__SYM_塵_263_)])] = &[
+            ("_OPAQUE_塵:1.0__SYM_塵_363_, _OPAQUE_塵:1.0__SYM_塵_93_", &[("_OPAQUE_塵:1.0__SYM_塵_91_", "_OPAQUE_塵:1.0__SYM_塵_222_"), ("_OPAQUE_塵:1.0__SYM_塵_14_", "0")]),
+            ("_OPAQUE_塵:1.0__SYM_塵_94_, p, _OPAQUE_塵:1.0__SYM_塵_127_, _OPAQUE_塵:1.0__SYM_塵_297_, _OPAQUE_塵:1.0__SYM_塵_46_, _OPAQUE_塵:1.0__SYM_塵_180_, _OPAQUE_律:1.0__SYM_塵_38_, _OPAQUE_律:1.0__SYM_塵_395_, _OPAQUE_塵:1.0__SYM_塵_133_", &[("_OPAQUE_塵:1.0__SYM_塵_91_", "_OPAQUE_塵:1.0__SYM_塵_222_")]),
+            ("_OPAQUE_塵:1.0__SYM_塵_390_, _OPAQUE_塵:1.0__SYM_塵_176_, _OPAQUE_塵:1.0__SYM_塵_307_, _OPAQUE_塵:1.0__SYM_塵_415_, _OPAQUE_塵:1.0__SYM_塵_304_", &[("_OPAQUE_塵:1.0__SYM_塵_91_", "_OPAQUE_塵:1.0__SYM_塵_52_")]),
+            ("a", &[("_OPAQUE_塵:1.0__SYM_塵_237_", "_OPAQUE_塵:1.0__SYM_塵_197_"), ("_OPAQUE_塵:1.0__SYM_塵_262_-_OPAQUE_塵:1.0__SYM_塵_384_", "_OPAQUE_塵:1.0__SYM_塵_388_"), ("_OPAQUE_塵:1.0__SYM_塵_288_", "_OPAQUE_律:1.0__SYM_塵_382_")]),
+            ("b, _OPAQUE_塵:1.0__SYM_塵_156_", &[("_OPAQUE_塵:1.0__SYM_塵_219_-_OPAQUE_塵:1.0__SYM_塵_194_", "_OPAQUE_塵:1.0__SYM_塵_101_")]),
+            ("i, em", &[("_OPAQUE_塵:1.0__SYM_塵_219_-_OPAQUE_塵:1.0__SYM_塵_307_", "_OPAQUE_塵:1.0__SYM_塵_71_")]),
+            ("h1", &[("_OPAQUE_塵:1.0__SYM_塵_219_-_OPAQUE_塵:1.0__SYM_塵_198_", "2em"), ("_OPAQUE_塵:1.0__SYM_塵_219_-_OPAQUE_塵:1.0__SYM_塵_194_", "_OPAQUE_塵:1.0__SYM_塵_101_"), ("_OPAQUE_塵:1.0__SYM_塵_91_", "_OPAQUE_塵:1.0__SYM_塵_222_"), ("_OPAQUE_塵:1.0__SYM_塵_14_", "0.67em 0")]),
+            ("h2", &[("_OPAQUE_塵:1.0__SYM_塵_219_-_OPAQUE_塵:1.0__SYM_塵_198_", "1.5em"), ("_OPAQUE_塵:1.0__SYM_塵_219_-_OPAQUE_塵:1.0__SYM_塵_194_", "_OPAQUE_塵:1.0__SYM_塵_101_"), ("_OPAQUE_塵:1.0__SYM_塵_91_", "_OPAQUE_塵:1.0__SYM_塵_222_"), ("_OPAQUE_塵:1.0__SYM_塵_14_", "0.83em 0")]),
+            ("h3", &[("_OPAQUE_塵:1.0__SYM_塵_219_-_OPAQUE_塵:1.0__SYM_塵_198_", "1.17em"), ("_OPAQUE_塵:1.0__SYM_塵_219_-_OPAQUE_塵:1.0__SYM_塵_194_", "_OPAQUE_塵:1.0__SYM_塵_101_"), ("_OPAQUE_塵:1.0__SYM_塵_91_", "_OPAQUE_塵:1.0__SYM_塵_222_"), ("_OPAQUE_塵:1.0__SYM_塵_14_", "1em 0")]),
+            ("h4", &[("_OPAQUE_塵:1.0__SYM_塵_219_-_OPAQUE_塵:1.0__SYM_塵_198_", "1em"), ("_OPAQUE_塵:1.0__SYM_塵_219_-_OPAQUE_塵:1.0__SYM_塵_194_", "_OPAQUE_塵:1.0__SYM_塵_101_"), ("_OPAQUE_塵:1.0__SYM_塵_91_", "_OPAQUE_塵:1.0__SYM_塵_222_"), ("_OPAQUE_塵:1.0__SYM_塵_14_", "1.33em 0")]),
+            ("h5", &[("_OPAQUE_塵:1.0__SYM_塵_219_-_OPAQUE_塵:1.0__SYM_塵_198_", "0.83em"), ("_OPAQUE_塵:1.0__SYM_塵_219_-_OPAQUE_塵:1.0__SYM_塵_194_", "_OPAQUE_塵:1.0__SYM_塵_101_"), ("_OPAQUE_塵:1.0__SYM_塵_91_", "_OPAQUE_塵:1.0__SYM_塵_222_"), ("_OPAQUE_塵:1.0__SYM_塵_14_", "1.67em 0")]),
+            ("h6", &[("_OPAQUE_塵:1.0__SYM_塵_219_-_OPAQUE_塵:1.0__SYM_塵_198_", "0.67em"), ("_OPAQUE_塵:1.0__SYM_塵_219_-_OPAQUE_塵:1.0__SYM_塵_194_", "_OPAQUE_塵:1.0__SYM_塵_101_"), ("_OPAQUE_塵:1.0__SYM_塵_91_", "_OPAQUE_塵:1.0__SYM_塵_222_"), ("_OPAQUE_塵:1.0__SYM_塵_14_", "2.33em 0")]),
+            ("ul, ol", &[("_OPAQUE_塵:1.0__SYM_塵_91_", "_OPAQUE_塵:1.0__SYM_塵_222_"), ("_OPAQUE_塵:1.0__SYM_塵_259_-_OPAQUE_塵:1.0__SYM_塵_307_-_OPAQUE_塵:1.0__SYM_塵_317_", "_OPAQUE_塵:1.0__SYM_塵_273_"), ("_OPAQUE_塵:1.0__SYM_塵_14_", "1em 0"), ("_OPAQUE_塵:1.0__SYM_塵_423_-_OPAQUE_塵:1.0__SYM_塵_26_", "40px")]),
+            ("li", &[("_OPAQUE_塵:1.0__SYM_塵_91_", "_OPAQUE_塵:1.0__SYM_塵_259_-_OPAQUE_塵:1.0__SYM_塵_171_")]),
+            ("_OPAQUE_塵:1.0__SYM_塵_202_", &[("_OPAQUE_塵:1.0__SYM_塵_91_", "_OPAQUE_塵:1.0__SYM_塵_202_"), ("_OPAQUE_律:1.0__SYM_塵_430_-_OPAQUE_塵:1.0__SYM_塵_323_", "_OPAQUE_塵:1.0__SYM_塵_355_"), ("_OPAQUE_律:1.0__SYM_塵_430_-_OPAQUE_塵:1.0__SYM_塵_241_", "2px")]),
+            ("_OPAQUE_塵:1.0__SYM_塵_260_, _OPAQUE_塵:1.0__SYM_塵_56_, _OPAQUE_塵:1.0__SYM_塵_174_", &[("_OPAQUE_塵:1.0__SYM_塵_91_", "_OPAQUE_塵:1.0__SYM_塵_202_-_OPAQUE_塵:1.0__SYM_塵_82_-_OPAQUE_塵:1.0__SYM_塵_98_")]),
+            ("tr", &[("_OPAQUE_塵:1.0__SYM_塵_91_", "_OPAQUE_塵:1.0__SYM_塵_202_-_OPAQUE_塵:1.0__SYM_塵_82_")]),
+            ("th, td", &[("_OPAQUE_塵:1.0__SYM_塵_91_", "_OPAQUE_塵:1.0__SYM_塵_202_-_OPAQUE_塵:1.0__SYM_塵_329_"), ("_OPAQUE_塵:1.0__SYM_塵_423_", "1px"), ("_OPAQUE_塵:1.0__SYM_塵_345_-_OPAQUE_塵:1.0__SYM_塵_28_", "_OPAQUE_塵:1.0__SYM_塵_315_")]),
+            ("th", &[("_OPAQUE_塵:1.0__SYM_塵_219_-_OPAQUE_塵:1.0__SYM_塵_194_", "_OPAQUE_塵:1.0__SYM_塵_101_"), ("_OPAQUE_塵:1.0__SYM_塵_262_-_OPAQUE_塵:1.0__SYM_塵_28_", "_OPAQUE_律:1.0__SYM_塵_341_")]),
+            ("_OPAQUE_塵:1.0__SYM_塵_45_", &[("_OPAQUE_塵:1.0__SYM_塵_91_", "_OPAQUE_塵:1.0__SYM_塵_202_-_OPAQUE_塵:1.0__SYM_塵_45_"), ("_OPAQUE_塵:1.0__SYM_塵_262_-_OPAQUE_塵:1.0__SYM_塵_28_", "_OPAQUE_律:1.0__SYM_塵_341_")]),
+            ("_OPAQUE_塵:1.0__SYM_塵_279_, _OPAQUE_塵:1.0__SYM_塵_49_, _OPAQUE_塵:1.0__SYM_塵_142_, _OPAQUE_塵:1.0__SYM_塵_265_", &[("_OPAQUE_塵:1.0__SYM_塵_91_", "_OPAQUE_塵:1.0__SYM_塵_97_-_OPAQUE_塵:1.0__SYM_塵_222_")]),
+            ("_OPAQUE_塵:1.0__SYM_塵_265_", &[("_OPAQUE_塵:1.0__SYM_塵_288_", "_OPAQUE_律:1.0__SYM_塵_382_")]),
+            ("_OPAQUE_塵:1.0__SYM_塵_62_", &[("_OPAQUE_塵:1.0__SYM_塵_91_", "_OPAQUE_塵:1.0__SYM_塵_97_")]),
+            ("_OPAQUE_塵:1.0__SYM_塵_335_, _OPAQUE_塵:1.0__SYM_塵_365_, _OPAQUE_塵:1.0__SYM_塵_103_, _OPAQUE_塵:1.0__SYM_塵_204_, tt", &[("_OPAQUE_塵:1.0__SYM_塵_219_-_OPAQUE_塵:1.0__SYM_塵_84_", "_OPAQUE_塵:1.0__SYM_塵_121_")]),
+            ("_OPAQUE_塵:1.0__SYM_塵_335_", &[("_OPAQUE_塵:1.0__SYM_塵_91_", "_OPAQUE_塵:1.0__SYM_塵_222_"), ("_OPAQUE_塵:1.0__SYM_塵_77_-_OPAQUE_塵:1.0__SYM_塵_188_", "_OPAQUE_塵:1.0__SYM_塵_335_"), ("_OPAQUE_塵:1.0__SYM_塵_14_", "1em 0")]),
+            ("_OPAQUE_塵:1.0__SYM_塵_59_", &[("_OPAQUE_塵:1.0__SYM_塵_91_", "_OPAQUE_塵:1.0__SYM_塵_222_"), ("_OPAQUE_塵:1.0__SYM_塵_14_", "1em 40px")]),
+            ("hr", &[("_OPAQUE_塵:1.0__SYM_塵_91_", "_OPAQUE_塵:1.0__SYM_塵_222_"), ("_OPAQUE_塵:1.0__SYM_塵_175_", "1px"), ("_OPAQUE_律:1.0__SYM_塵_430_", "1px _OPAQUE_塵:1.0__SYM_塵_290_"), ("_OPAQUE_塵:1.0__SYM_塵_14_", "0.5em _OPAQUE_塵:1.0__SYM_塵_78_")]),
+        ];
+        
+        let _OPAQUE_塵:1.0__SYM_塵_248_ _OPAQUE_塵:1.0__SYM_塵_117_ = _OPAQUE_廓:1.0__SYM_廓_81_::_OPAQUE_塵:1.0__SYM_塵_342_();
+        let _OPAQUE_塵:1.0__SYM_塵_248_ _OPAQUE_律:1.0__SYM_塵_4_ = 0_OPAQUE_塵:1.0__SYM_塵_80_;
+        
+        for (_OPAQUE_塵:1.0__SYM_塵_50_, _OPAQUE_塵:1.0__SYM_塵_43_) in _OPAQUE_塵:1.0__SYM_塵_161_ {
+            for (_OPAQUE_塵:1.0__SYM_塵_311_, _OPAQUE_塵:1.0__SYM_塵_66_) in *_OPAQUE_塵:1.0__SYM_塵_43_ {
+                _OPAQUE_塵:1.0__SYM_塵_117_._OPAQUE_塵:1.0__SYM_塵_394_(_OPAQUE_廓:1.0__SYM_廓_22_ {
+                    _OPAQUE_塵:1.0__SYM_塵_311_: _OPAQUE_塵:1.0__SYM_塵_311_._OPAQUE_塵:1.0__SYM_塵_327_(),
+                    _OPAQUE_塵:1.0__SYM_塵_66_: _OPAQUE_塵:1.0__SYM_塵_66_._OPAQUE_塵:1.0__SYM_塵_327_(),
+                    _OPAQUE_塵:1.0__SYM_塵_47_: false,
+                    _OPAQUE_塵:1.0__SYM_塵_264_: _OPAQUE_廓:1.0__SYM_廓_1_::_OPAQUE_廓:1.0__SYM_廓_14_,
+                    _OPAQUE_律:1.0__SYM_塵_302_: _OPAQUE_廓:1.0__SYM_廓_2_,
+                    _OPAQUE_浸:1.0__SYM_塵_298_: (0, 0, 0),
+                    _OPAQUE_律:1.0__SYM_塵_125_: _OPAQUE_律:1.0__SYM_塵_4_,
+                    _OPAQUE_塵:1.0__SYM_塵_255_: _OPAQUE_塵:1.0__SYM_塵_50_._OPAQUE_塵:1.0__SYM_塵_327_(),
+                });
+                _OPAQUE_律:1.0__SYM_塵_4_ += 1;
+            }
+        }
+        
+        _OPAQUE_塵:1.0__SYM_塵_117_
+    }
+    
+    _OPAQUE_塵:1.0__SYM_塵_251_ fn _OPAQUE_浸:1.0__SYM_塵_246_(&_OPAQUE_塵:1.0__SYM_塵_434_f, _OPAQUE_塵:1.0__SYM_塵_169_: &_OPAQUE_塵:1.0__SYM_塵_263_) -> _OPAQUE_廓:1.0__SYM_廓_81_<&_OPAQUE_廓:1.0__SYM_廓_22_> {
+        _OPAQUE_塵:1.0__SYM_塵_434_f._OPAQUE_塵:1.0__SYM_塵_366_._OPAQUE_律:1.0__SYM_塵_54_()
+            ._OPAQUE_律:1.0__SYM_塵_232_(|d| {
+                d._OPAQUE_塵:1.0__SYM_塵_255_._OPAQUE_塵:1.0__SYM_塵_143_(',')
+                    .any(|_OPAQUE_塵:1.0__SYM_塵_434_| _OPAQUE_塵:1.0__SYM_塵_434_._OPAQUE_塵:1.0__SYM_塵_86_() == _OPAQUE_塵:1.0__SYM_塵_169_ || 
+                         _OPAQUE_塵:1.0__SYM_塵_434_._OPAQUE_塵:1.0__SYM_塵_86_()._OPAQUE_塵:1.0__SYM_塵_396_().any(|_OPAQUE_塵:1.0__SYM_塵_249_| _OPAQUE_塵:1.0__SYM_塵_249_ == _OPAQUE_塵:1.0__SYM_塵_169_))
+            })
+            ._OPAQUE_塵:1.0__SYM_塵_102_()
+    }
+}
+
+// POLYMORPHIC_JCROSS_END

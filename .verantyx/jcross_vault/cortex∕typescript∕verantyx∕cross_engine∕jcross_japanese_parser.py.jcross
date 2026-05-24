@@ -1,0 +1,982 @@
+// POLYMORPHIC_JCROSS_BEGIN
+// schema:35DD2B78 ver:1778320535
+// ⚠️ One-time schema — expires after response
+
+// [metadata-stripped]
+"""
+._ASTNODE_沫:1.0__OPAQUE_沫_23_ _ASTNODE_庠:1.0__OPAQUE_庠_39_ _ASTNODE_策:1.0__OPAQUE_庠_38_ (_ASTNODE_庠:1.0__OPAQUE_庠_35_ 2.5)
+完全日本語サポートのパーサー
+
+日本語キーワード:
+- 関数 (_ASTNODE_庠:1.0__OPAQUE_庠_41_)
+- 返す (_ASTNODE_庠:1.0__OPAQUE_庠_44_)
+- もし (IF)
+- そうでなければ (_ASTNODE_庠:1.0__OPAQUE_庠_4_)
+- 各〜IN (_ASTNODE_庠:1.0__OPAQUE_庠_37_〜IN)
+- 繰り返し (_ASTNODE_庠:1.0__OPAQUE_庠_18_)
+- 中断 (_ASTNODE_庠:1.0__OPAQUE_庠_46_)
+- 表示 (_ASTNODE_庠:1.0__OPAQUE_庠_14_)
+"""
+
+import re
+import _ASTNODE_沫:1.0__OPAQUE_沫_22_
+_ASTNODE_沫:1.0__OPAQUE_沫_74_ _ASTNODE_沫:1.0__OPAQUE_沫_76_ import _ASTNODE_庠:1.0__OPAQUE_庠_9_
+_ASTNODE_沫:1.0__OPAQUE_沫_74_ _ASTNODE_沫:1.0__OPAQUE_沫_49_ import _ASTNODE_庠:1.0__OPAQUE_庠_10_, _ASTNODE_庠:1.0__OPAQUE_庠_7_, _ASTNODE_庠:1.0__OPAQUE_庠_32_, _ASTNODE_庠:1.0__OPAQUE_庠_16_
+
+
+class _ASTNODE_策:1.0__OPAQUE_庠_11_:
+    """完全日本語対応._ASTNODE_沫:1.0__OPAQUE_沫_23_パーサー"""
+
+    _ASTNODE_沫:1.0__OPAQUE_沫_161_ _ASTNODE_沫:1.0__OPAQUE_沫_87_(self):
+        self._ASTNODE_沫:1.0__OPAQUE_沫_163_ = {}
+        self._ASTNODE_沫:1.0__OPAQUE_沫_105_ = {}
+        self._ASTNODE_沫:1.0__OPAQUE_沫_59_ = _ASTNODE_庠:1.0__OPAQUE_庠_28_
+        self._ASTNODE_沫:1.0__OPAQUE_沫_72_ = _ASTNODE_庠:1.0__OPAQUE_庠_22_
+        self._ASTNODE_沫:1.0__OPAQUE_沫_109_ = _ASTNODE_庠:1.0__OPAQUE_庠_22_
+        self._ASTNODE_庫:1.0__OPAQUE_沫_69_ = _ASTNODE_庠:1.0__OPAQUE_庠_28_
+        self._ASTNODE_沫:1.0__OPAQUE_沫_167_()
+
+    _ASTNODE_沫:1.0__OPAQUE_沫_161_ _ASTNODE_沫:1.0__OPAQUE_沫_167_(self):
+        """日本語組み込み関数を初期化"""
+        import _ASTNODE_沫:1.0__OPAQUE_沫_139_
+        import _ASTNODE_沫:1.0__OPAQUE_沫_129_
+
+// [metadata-stripped]
+        _ASTNODE_沫:1.0__OPAQUE_沫_16_ = {
+// [metadata-stripped]
+            '長さ': _ASTNODE_沫:1.0__OPAQUE_沫_85_ _ASTNODE_沫:1.0__OPAQUE_沫_48_: _ASTNODE_沫:1.0__OPAQUE_沫_25_(_ASTNODE_沫:1.0__OPAQUE_沫_48_[0]) if _ASTNODE_沫:1.0__OPAQUE_沫_48_ else 0,
+            '絶対値': _ASTNODE_沫:1.0__OPAQUE_沫_85_ _ASTNODE_沫:1.0__OPAQUE_沫_48_: _ASTNODE_沫:1.0__OPAQUE_沫_171_(_ASTNODE_沫:1.0__OPAQUE_沫_48_[0]) if _ASTNODE_沫:1.0__OPAQUE_沫_48_ else 0,
+            '現在時刻': _ASTNODE_沫:1.0__OPAQUE_沫_85_ _ASTNODE_沫:1.0__OPAQUE_沫_48_: _ASTNODE_沫:1.0__OPAQUE_沫_98_(_ASTNODE_沫:1.0__OPAQUE_沫_139_._ASTNODE_沫:1.0__OPAQUE_沫_139_()),
+            '含む': _ASTNODE_沫:1.0__OPAQUE_沫_85_ _ASTNODE_沫:1.0__OPAQUE_沫_48_: (_ASTNODE_沫:1.0__OPAQUE_沫_48_[1] in _ASTNODE_沫:1.0__OPAQUE_沫_48_[0]) if _ASTNODE_沫:1.0__OPAQUE_沫_25_(_ASTNODE_沫:1.0__OPAQUE_沫_48_) >= 2 else _ASTNODE_庠:1.0__OPAQUE_庠_22_,
+            '大文字': _ASTNODE_沫:1.0__OPAQUE_沫_85_ _ASTNODE_沫:1.0__OPAQUE_沫_48_: _ASTNODE_沫:1.0__OPAQUE_沫_48_[0]._ASTNODE_策:1.0__OPAQUE_沫_97_() if _ASTNODE_沫:1.0__OPAQUE_沫_48_ _ASTNODE_沫:1.0__OPAQUE_沫_103_ _ASTNODE_沫:1.0__OPAQUE_沫_9_(_ASTNODE_沫:1.0__OPAQUE_沫_48_[0], _ASTNODE_沫:1.0__OPAQUE_沫_68_) else "",
+            '小文字': _ASTNODE_沫:1.0__OPAQUE_沫_85_ _ASTNODE_沫:1.0__OPAQUE_沫_48_: _ASTNODE_沫:1.0__OPAQUE_沫_48_[0]._ASTNODE_策:1.0__OPAQUE_沫_175_() if _ASTNODE_沫:1.0__OPAQUE_沫_48_ _ASTNODE_沫:1.0__OPAQUE_沫_103_ _ASTNODE_沫:1.0__OPAQUE_沫_9_(_ASTNODE_沫:1.0__OPAQUE_沫_48_[0], _ASTNODE_沫:1.0__OPAQUE_沫_68_) else "",
+            '分割': _ASTNODE_沫:1.0__OPAQUE_沫_85_ _ASTNODE_沫:1.0__OPAQUE_沫_48_: _ASTNODE_沫:1.0__OPAQUE_沫_48_[0]._ASTNODE_沫:1.0__OPAQUE_沫_165_(_ASTNODE_沫:1.0__OPAQUE_沫_48_[1]) if _ASTNODE_沫:1.0__OPAQUE_沫_25_(_ASTNODE_沫:1.0__OPAQUE_沫_48_) >= 2 _ASTNODE_沫:1.0__OPAQUE_沫_103_ _ASTNODE_沫:1.0__OPAQUE_沫_9_(_ASTNODE_沫:1.0__OPAQUE_沫_48_[0], _ASTNODE_沫:1.0__OPAQUE_沫_68_) else [],
+            '結合': _ASTNODE_沫:1.0__OPAQUE_沫_85_ _ASTNODE_沫:1.0__OPAQUE_沫_48_: _ASTNODE_沫:1.0__OPAQUE_沫_48_[1]._ASTNODE_沫:1.0__OPAQUE_沫_20_(_ASTNODE_沫:1.0__OPAQUE_沫_48_[0]) if _ASTNODE_沫:1.0__OPAQUE_沫_25_(_ASTNODE_沫:1.0__OPAQUE_沫_48_) >= 2 _ASTNODE_沫:1.0__OPAQUE_沫_103_ _ASTNODE_沫:1.0__OPAQUE_沫_9_(_ASTNODE_沫:1.0__OPAQUE_沫_48_[0], _ASTNODE_沫:1.0__OPAQUE_沫_46_) else "",
+            '最小': _ASTNODE_沫:1.0__OPAQUE_沫_85_ _ASTNODE_沫:1.0__OPAQUE_沫_48_: _ASTNODE_沫:1.0__OPAQUE_沫_106_(_ASTNODE_沫:1.0__OPAQUE_沫_48_) if _ASTNODE_沫:1.0__OPAQUE_沫_25_(_ASTNODE_沫:1.0__OPAQUE_沫_48_) > 1 else (_ASTNODE_沫:1.0__OPAQUE_沫_106_(_ASTNODE_沫:1.0__OPAQUE_沫_48_[0]) if _ASTNODE_沫:1.0__OPAQUE_沫_48_ _ASTNODE_沫:1.0__OPAQUE_沫_103_ _ASTNODE_沫:1.0__OPAQUE_沫_9_(_ASTNODE_沫:1.0__OPAQUE_沫_48_[0], _ASTNODE_沫:1.0__OPAQUE_沫_46_) else 0),
+            '最大': _ASTNODE_沫:1.0__OPAQUE_沫_85_ _ASTNODE_沫:1.0__OPAQUE_沫_48_: _ASTNODE_沫:1.0__OPAQUE_沫_70_(_ASTNODE_沫:1.0__OPAQUE_沫_48_) if _ASTNODE_沫:1.0__OPAQUE_沫_25_(_ASTNODE_沫:1.0__OPAQUE_沫_48_) > 1 else (_ASTNODE_沫:1.0__OPAQUE_沫_70_(_ASTNODE_沫:1.0__OPAQUE_沫_48_[0]) if _ASTNODE_沫:1.0__OPAQUE_沫_48_ _ASTNODE_沫:1.0__OPAQUE_沫_103_ _ASTNODE_沫:1.0__OPAQUE_沫_9_(_ASTNODE_沫:1.0__OPAQUE_沫_48_[0], _ASTNODE_沫:1.0__OPAQUE_沫_46_) else 0),
+            '合計': _ASTNODE_沫:1.0__OPAQUE_沫_85_ _ASTNODE_沫:1.0__OPAQUE_沫_48_: _ASTNODE_沫:1.0__OPAQUE_沫_81_(_ASTNODE_沫:1.0__OPAQUE_沫_48_[0]) if _ASTNODE_沫:1.0__OPAQUE_沫_48_ _ASTNODE_沫:1.0__OPAQUE_沫_103_ _ASTNODE_沫:1.0__OPAQUE_沫_9_(_ASTNODE_沫:1.0__OPAQUE_沫_48_[0], _ASTNODE_沫:1.0__OPAQUE_沫_46_) else 0,
+            '文字列': _ASTNODE_沫:1.0__OPAQUE_沫_85_ _ASTNODE_沫:1.0__OPAQUE_沫_48_: _ASTNODE_沫:1.0__OPAQUE_沫_68_(_ASTNODE_沫:1.0__OPAQUE_沫_48_[0]) if _ASTNODE_沫:1.0__OPAQUE_沫_48_ else "",
+            '整数': _ASTNODE_沫:1.0__OPAQUE_沫_85_ _ASTNODE_沫:1.0__OPAQUE_沫_48_: _ASTNODE_沫:1.0__OPAQUE_沫_98_(_ASTNODE_沫:1.0__OPAQUE_沫_48_[0]) if _ASTNODE_沫:1.0__OPAQUE_沫_48_ else 0,
+            '浮動小数': _ASTNODE_沫:1.0__OPAQUE_沫_85_ _ASTNODE_沫:1.0__OPAQUE_沫_48_: _ASTNODE_沫:1.0__OPAQUE_沫_99_(_ASTNODE_沫:1.0__OPAQUE_沫_48_[0]) if _ASTNODE_沫:1.0__OPAQUE_沫_48_ else 0.0,
+            '平方根': _ASTNODE_沫:1.0__OPAQUE_沫_85_ _ASTNODE_沫:1.0__OPAQUE_沫_48_: _ASTNODE_沫:1.0__OPAQUE_沫_129_._ASTNODE_沫:1.0__OPAQUE_沫_148_(_ASTNODE_沫:1.0__OPAQUE_沫_48_[0]) if _ASTNODE_沫:1.0__OPAQUE_沫_48_ else 0,
+            '四捨五入': _ASTNODE_沫:1.0__OPAQUE_沫_85_ _ASTNODE_沫:1.0__OPAQUE_沫_48_: _ASTNODE_沫:1.0__OPAQUE_沫_84_(_ASTNODE_沫:1.0__OPAQUE_沫_48_[0], _ASTNODE_沫:1.0__OPAQUE_沫_48_[1]) if _ASTNODE_沫:1.0__OPAQUE_沫_25_(_ASTNODE_沫:1.0__OPAQUE_沫_48_) >= 2 else _ASTNODE_沫:1.0__OPAQUE_沫_84_(_ASTNODE_沫:1.0__OPAQUE_沫_48_[0]) if _ASTNODE_沫:1.0__OPAQUE_沫_48_ else 0,
+            '表示': _ASTNODE_沫:1.0__OPAQUE_沫_85_ _ASTNODE_沫:1.0__OPAQUE_沫_48_: _ASTNODE_沫:1.0__OPAQUE_沫_159_(_ASTNODE_沫:1.0__OPAQUE_沫_48_[0]) if _ASTNODE_沫:1.0__OPAQUE_沫_48_ else _ASTNODE_庠:1.0__OPAQUE_庠_28_,
+
+// [metadata-stripped]
+            '経路探索': _ASTNODE_沫:1.0__OPAQUE_沫_85_ _ASTNODE_沫:1.0__OPAQUE_沫_48_: _ASTNODE_沫:1.0__OPAQUE_沫_136_('_ASTNODE_策:1.0__OPAQUE_沫_39_')._ASTNODE_策:1.0__OPAQUE_庠_29_(self._ASTNODE_沫:1.0__OPAQUE_沫_163_._ASTNODE_策:1.0__OPAQUE_礎_1_('_ASTNODE_庠:1.0__OPAQUE_庠_12_._ASTNODE_沫:1.0__OPAQUE_沫_199_', []))._ASTNODE_策:1.0__OPAQUE_礎_2_(
+                self._ASTNODE_沫:1.0__OPAQUE_沫_163_._ASTNODE_策:1.0__OPAQUE_礎_1_('_ASTNODE_策:1.0__OPAQUE_庠_23_', []),
+                _ASTNODE_沫:1.0__OPAQUE_沫_48_[0] if _ASTNODE_沫:1.0__OPAQUE_沫_25_(_ASTNODE_沫:1.0__OPAQUE_沫_48_) > 0 else [],
+                _ASTNODE_沫:1.0__OPAQUE_沫_48_[1] if _ASTNODE_沫:1.0__OPAQUE_沫_25_(_ASTNODE_沫:1.0__OPAQUE_沫_48_) > 1 else []
+            ),
+            '位置検索': _ASTNODE_沫:1.0__OPAQUE_沫_85_ _ASTNODE_沫:1.0__OPAQUE_沫_48_: _ASTNODE_沫:1.0__OPAQUE_沫_11_(([r, c] for r, _ASTNODE_沫:1.0__OPAQUE_沫_100_ in _ASTNODE_沫:1.0__OPAQUE_沫_91_(self._ASTNODE_沫:1.0__OPAQUE_沫_163_._ASTNODE_策:1.0__OPAQUE_礎_1_('_ASTNODE_庠:1.0__OPAQUE_庠_12_._ASTNODE_沫:1.0__OPAQUE_沫_199_', [])) for c, _ASTNODE_沫:1.0__OPAQUE_沫_61_ in _ASTNODE_沫:1.0__OPAQUE_沫_91_(_ASTNODE_沫:1.0__OPAQUE_沫_100_) if _ASTNODE_沫:1.0__OPAQUE_沫_61_ == _ASTNODE_沫:1.0__OPAQUE_沫_48_[0]), []),
+
+// [metadata-stripped]
+            '_ASTNODE_庠:1.0__OPAQUE_庠_47_': _ASTNODE_沫:1.0__OPAQUE_沫_85_ _ASTNODE_沫:1.0__OPAQUE_沫_48_: _ASTNODE_沫:1.0__OPAQUE_沫_25_(_ASTNODE_沫:1.0__OPAQUE_沫_48_[0]) if _ASTNODE_沫:1.0__OPAQUE_沫_48_ else 0,
+            '_ASTNODE_沫:1.0__OPAQUE_沫_25_': _ASTNODE_沫:1.0__OPAQUE_沫_85_ _ASTNODE_沫:1.0__OPAQUE_沫_48_: _ASTNODE_沫:1.0__OPAQUE_沫_25_(_ASTNODE_沫:1.0__OPAQUE_沫_48_[0]) if _ASTNODE_沫:1.0__OPAQUE_沫_48_ else 0,
+            '_ASTNODE_庠:1.0__OPAQUE_庠_1_': _ASTNODE_沫:1.0__OPAQUE_沫_85_ _ASTNODE_沫:1.0__OPAQUE_沫_48_: _ASTNODE_沫:1.0__OPAQUE_沫_171_(_ASTNODE_沫:1.0__OPAQUE_沫_48_[0]) if _ASTNODE_沫:1.0__OPAQUE_沫_48_ else 0,
+            '_ASTNODE_庠:1.0__OPAQUE_庠_8_': _ASTNODE_沫:1.0__OPAQUE_沫_85_ _ASTNODE_沫:1.0__OPAQUE_沫_48_: _ASTNODE_沫:1.0__OPAQUE_沫_98_(_ASTNODE_沫:1.0__OPAQUE_沫_139_._ASTNODE_沫:1.0__OPAQUE_沫_139_()),
+            '_ASTNODE_庠:1.0__OPAQUE_庠_24_': _ASTNODE_沫:1.0__OPAQUE_沫_85_ _ASTNODE_沫:1.0__OPAQUE_沫_48_: (_ASTNODE_沫:1.0__OPAQUE_沫_48_[1] in _ASTNODE_沫:1.0__OPAQUE_沫_48_[0]) if _ASTNODE_沫:1.0__OPAQUE_沫_25_(_ASTNODE_沫:1.0__OPAQUE_沫_48_) >= 2 else _ASTNODE_庠:1.0__OPAQUE_庠_22_,
+            '_ASTNODE_策:1.0__OPAQUE_庠_34_': _ASTNODE_沫:1.0__OPAQUE_沫_85_ _ASTNODE_沫:1.0__OPAQUE_沫_48_: _ASTNODE_沫:1.0__OPAQUE_沫_48_[0]._ASTNODE_策:1.0__OPAQUE_沫_97_() if _ASTNODE_沫:1.0__OPAQUE_沫_48_ _ASTNODE_沫:1.0__OPAQUE_沫_103_ _ASTNODE_沫:1.0__OPAQUE_沫_9_(_ASTNODE_沫:1.0__OPAQUE_沫_48_[0], _ASTNODE_沫:1.0__OPAQUE_沫_68_) else "",
+            '_ASTNODE_策:1.0__OPAQUE_庠_51_': _ASTNODE_沫:1.0__OPAQUE_沫_85_ _ASTNODE_沫:1.0__OPAQUE_沫_48_: _ASTNODE_沫:1.0__OPAQUE_沫_48_[0]._ASTNODE_策:1.0__OPAQUE_沫_175_() if _ASTNODE_沫:1.0__OPAQUE_沫_48_ _ASTNODE_沫:1.0__OPAQUE_沫_103_ _ASTNODE_沫:1.0__OPAQUE_沫_9_(_ASTNODE_沫:1.0__OPAQUE_沫_48_[0], _ASTNODE_沫:1.0__OPAQUE_沫_68_) else "",
+            '_ASTNODE_庠:1.0__OPAQUE_庠_49_': _ASTNODE_沫:1.0__OPAQUE_沫_85_ _ASTNODE_沫:1.0__OPAQUE_沫_48_: _ASTNODE_沫:1.0__OPAQUE_沫_48_[0]._ASTNODE_沫:1.0__OPAQUE_沫_165_(_ASTNODE_沫:1.0__OPAQUE_沫_48_[1]) if _ASTNODE_沫:1.0__OPAQUE_沫_25_(_ASTNODE_沫:1.0__OPAQUE_沫_48_) >= 2 _ASTNODE_沫:1.0__OPAQUE_沫_103_ _ASTNODE_沫:1.0__OPAQUE_沫_9_(_ASTNODE_沫:1.0__OPAQUE_沫_48_[0], _ASTNODE_沫:1.0__OPAQUE_沫_68_) else [],
+            '_ASTNODE_庠:1.0__OPAQUE_庠_26_': _ASTNODE_沫:1.0__OPAQUE_沫_85_ _ASTNODE_沫:1.0__OPAQUE_沫_48_: _ASTNODE_沫:1.0__OPAQUE_沫_68_(_ASTNODE_沫:1.0__OPAQUE_沫_48_[0]) if _ASTNODE_沫:1.0__OPAQUE_沫_48_ else "",
+            '_ASTNODE_庠:1.0__OPAQUE_庠_31_': _ASTNODE_沫:1.0__OPAQUE_沫_85_ _ASTNODE_沫:1.0__OPAQUE_沫_48_: _ASTNODE_沫:1.0__OPAQUE_沫_98_(_ASTNODE_沫:1.0__OPAQUE_沫_48_[0]) if _ASTNODE_沫:1.0__OPAQUE_沫_48_ else 0,
+            '_ASTNODE_庠:1.0__OPAQUE_庠_15_': _ASTNODE_沫:1.0__OPAQUE_沫_85_ _ASTNODE_沫:1.0__OPAQUE_沫_48_: _ASTNODE_沫:1.0__OPAQUE_沫_99_(_ASTNODE_沫:1.0__OPAQUE_沫_48_[0]) if _ASTNODE_沫:1.0__OPAQUE_沫_48_ else 0.0,
+            '_ASTNODE_庠:1.0__OPAQUE_庠_21_': _ASTNODE_沫:1.0__OPAQUE_沫_85_ _ASTNODE_沫:1.0__OPAQUE_沫_48_: _ASTNODE_沫:1.0__OPAQUE_沫_129_._ASTNODE_沫:1.0__OPAQUE_沫_148_(_ASTNODE_沫:1.0__OPAQUE_沫_48_[0]) if _ASTNODE_沫:1.0__OPAQUE_沫_48_ else 0,
+            '_ASTNODE_庠:1.0__OPAQUE_庠_27_': _ASTNODE_沫:1.0__OPAQUE_沫_85_ _ASTNODE_沫:1.0__OPAQUE_沫_48_: _ASTNODE_沫:1.0__OPAQUE_沫_84_(_ASTNODE_沫:1.0__OPAQUE_沫_48_[0], _ASTNODE_沫:1.0__OPAQUE_沫_48_[1]) if _ASTNODE_沫:1.0__OPAQUE_沫_25_(_ASTNODE_沫:1.0__OPAQUE_沫_48_) >= 2 else _ASTNODE_沫:1.0__OPAQUE_沫_84_(_ASTNODE_沫:1.0__OPAQUE_沫_48_[0]) if _ASTNODE_沫:1.0__OPAQUE_沫_48_ else 0,
+            '_ASTNODE_庠:1.0__OPAQUE_庠_45_._ASTNODE_庫:1.0__OPAQUE_沫_36_': _ASTNODE_沫:1.0__OPAQUE_沫_85_ _ASTNODE_沫:1.0__OPAQUE_沫_48_: self._ASTNODE_庫:1.0__OPAQUE_沫_36_(),
+        }
+
+        self._ASTNODE_沫:1.0__OPAQUE_沫_104_ = _ASTNODE_沫:1.0__OPAQUE_沫_16_
+
+    _ASTNODE_沫:1.0__OPAQUE_沫_161_ _ASTNODE_庫:1.0__OPAQUE_沫_58_(self, _ASTNODE_庫:1.0__OPAQUE_沫_118_: _ASTNODE_沫:1.0__OPAQUE_沫_68_) -> _ASTNODE_庠:1.0__OPAQUE_庠_32_:
+        """
+        ._ASTNODE_沫:1.0__OPAQUE_沫_23_ファイルを実行
+
+        _ASTNODE_庠:1.0__OPAQUE_庠_36_:
+            _ASTNODE_庫:1.0__OPAQUE_沫_118_: ._ASTNODE_沫:1.0__OPAQUE_沫_23_ファイルのパス
+
+        _ASTNODE_庠:1.0__OPAQUE_庠_20_:
+            実行結果
+        """
+        _ASTNODE_沫:1.0__OPAQUE_沫_159_(f"🚀 日本語._ASTNODE_沫:1.0__OPAQUE_沫_23_実行: {_ASTNODE_庫:1.0__OPAQUE_沫_118_}")
+
+        self._ASTNODE_庫:1.0__OPAQUE_沫_69_ = _ASTNODE_庫:1.0__OPAQUE_沫_118_
+        _ASTNODE_沫:1.0__OPAQUE_沫_198_ open(_ASTNODE_庫:1.0__OPAQUE_沫_118_, 'r', _ASTNODE_沫:1.0__OPAQUE_沫_145_='_ASTNODE_沫:1.0__OPAQUE_沫_195_-8') as f:
+            _ASTNODE_沫:1.0__OPAQUE_沫_146_ = f._ASTNODE_沫:1.0__OPAQUE_沫_50_()
+
+// [metadata-stripped]
+        try:
+            _ASTNODE_沫:1.0__OPAQUE_沫_128_ = self._ASTNODE_沫:1.0__OPAQUE_沫_177_(_ASTNODE_沫:1.0__OPAQUE_沫_146_)
+            _ASTNODE_沫:1.0__OPAQUE_沫_159_("✅ 実行完了")
+            return _ASTNODE_沫:1.0__OPAQUE_沫_128_
+        _ASTNODE_沫:1.0__OPAQUE_沫_60_ _ASTNODE_庠:1.0__OPAQUE_庠_42_ as e:
+            _ASTNODE_沫:1.0__OPAQUE_沫_159_(f"❌ エラー: {e}")
+            import _ASTNODE_沫:1.0__OPAQUE_沫_201_
+            _ASTNODE_沫:1.0__OPAQUE_沫_201_._ASTNODE_沫:1.0__OPAQUE_沫_24_()
+            return _ASTNODE_庠:1.0__OPAQUE_庠_28_
+
+    _ASTNODE_沫:1.0__OPAQUE_沫_161_ _ASTNODE_沫:1.0__OPAQUE_沫_177_(self, _ASTNODE_沫:1.0__OPAQUE_沫_146_: _ASTNODE_沫:1.0__OPAQUE_沫_68_) -> _ASTNODE_庠:1.0__OPAQUE_庠_32_:
+        """ソースコードを実行"""
+        _ASTNODE_沫:1.0__OPAQUE_沫_147_ = _ASTNODE_沫:1.0__OPAQUE_沫_146_._ASTNODE_沫:1.0__OPAQUE_沫_165_('\n')
+        _ASTNODE_沫:1.0__OPAQUE_沫_75_ = []
+
+// [metadata-stripped]
+        for _ASTNODE_沫:1.0__OPAQUE_沫_14_ in _ASTNODE_沫:1.0__OPAQUE_沫_147_:
+            _ASTNODE_沫:1.0__OPAQUE_沫_140_ = _ASTNODE_沫:1.0__OPAQUE_沫_14_._ASTNODE_沫:1.0__OPAQUE_沫_57_()
+            if _ASTNODE_沫:1.0__OPAQUE_沫_173_ _ASTNODE_沫:1.0__OPAQUE_沫_140_ or _ASTNODE_沫:1.0__OPAQUE_沫_140_._ASTNODE_沫:1.0__OPAQUE_沫_4_('//'):
+                _ASTNODE_沫:1.0__OPAQUE_沫_75_._ASTNODE_沫:1.0__OPAQUE_沫_52_(_ASTNODE_沫:1.0__OPAQUE_沫_140_)
+                continue
+                
+// [metadata-stripped]
+            if (_ASTNODE_沫:1.0__OPAQUE_沫_140_._ASTNODE_沫:1.0__OPAQUE_沫_4_('関数 ') or _ASTNODE_沫:1.0__OPAQUE_沫_140_._ASTNODE_沫:1.0__OPAQUE_沫_4_('_ASTNODE_庠:1.0__OPAQUE_庠_19_ ') or _ASTNODE_沫:1.0__OPAQUE_沫_140_._ASTNODE_沫:1.0__OPAQUE_沫_4_('_ASTNODE_庠:1.0__OPAQUE_庠_41_ ')) _ASTNODE_沫:1.0__OPAQUE_沫_103_ _ASTNODE_沫:1.0__OPAQUE_沫_140_._ASTNODE_沫:1.0__OPAQUE_沫_174_('}') _ASTNODE_沫:1.0__OPAQUE_沫_103_ '{' in _ASTNODE_沫:1.0__OPAQUE_沫_140_:
+                import re
+// _ASTNODE_沫:0.2__OPAQUE_HZ_232_ [decoy-metadata]
+                _ASTNODE_沫:1.0__OPAQUE_沫_142_ = re._ASTNODE_沫:1.0__OPAQUE_沫_142_(r'\{\s*(もし|IF|各|繰り返し|返す|_ASTNODE_庠:1.0__OPAQUE_庠_44_)', r'{\n\1', _ASTNODE_沫:1.0__OPAQUE_沫_140_)
+                _ASTNODE_沫:1.0__OPAQUE_沫_142_ = re._ASTNODE_沫:1.0__OPAQUE_沫_142_(r'\}\s*(もし|IF|各|繰り返し|返す|_ASTNODE_庠:1.0__OPAQUE_庠_44_|そうでなければ)', r'}\n\1', _ASTNODE_沫:1.0__OPAQUE_沫_142_)
+                _ASTNODE_沫:1.0__OPAQUE_沫_142_ = re._ASTNODE_沫:1.0__OPAQUE_沫_142_(r'(?:返す|_ASTNODE_庠:1.0__OPAQUE_庠_44_)\s+([^}]+?)\s*\}', r'返す \1\n}', _ASTNODE_沫:1.0__OPAQUE_沫_142_)
+                _ASTNODE_沫:1.0__OPAQUE_沫_142_ = re._ASTNODE_沫:1.0__OPAQUE_沫_142_(r'\s*\}\s*\}', r'\n}\n}', _ASTNODE_沫:1.0__OPAQUE_沫_142_)
+                
+                for _ASTNODE_沫:1.0__OPAQUE_沫_19_ in _ASTNODE_沫:1.0__OPAQUE_沫_142_._ASTNODE_沫:1.0__OPAQUE_沫_165_('\n'):
+                    if _ASTNODE_沫:1.0__OPAQUE_沫_19_._ASTNODE_沫:1.0__OPAQUE_沫_57_():
+                        _ASTNODE_沫:1.0__OPAQUE_沫_75_._ASTNODE_沫:1.0__OPAQUE_沫_52_(_ASTNODE_沫:1.0__OPAQUE_沫_19_._ASTNODE_沫:1.0__OPAQUE_沫_57_())
+                continue
+                
+            _ASTNODE_沫:1.0__OPAQUE_沫_75_._ASTNODE_沫:1.0__OPAQUE_沫_52_(_ASTNODE_沫:1.0__OPAQUE_沫_140_)
+
+        i = 0
+        while i < _ASTNODE_沫:1.0__OPAQUE_沫_25_(_ASTNODE_沫:1.0__OPAQUE_沫_75_):
+            _ASTNODE_沫:1.0__OPAQUE_沫_14_ = _ASTNODE_沫:1.0__OPAQUE_沫_75_[i]._ASTNODE_沫:1.0__OPAQUE_沫_57_()
+
+// [metadata-stripped]
+            if _ASTNODE_沫:1.0__OPAQUE_沫_173_ _ASTNODE_沫:1.0__OPAQUE_沫_14_ or _ASTNODE_沫:1.0__OPAQUE_沫_14_._ASTNODE_沫:1.0__OPAQUE_沫_4_('//'):
+                i += 1
+                continue
+
+// [metadata-stripped]
+            i = self._ASTNODE_沫:1.0__OPAQUE_沫_8_(_ASTNODE_沫:1.0__OPAQUE_沫_75_, i)
+
+            if self._ASTNODE_沫:1.0__OPAQUE_沫_72_:
+                break
+
+        return self._ASTNODE_沫:1.0__OPAQUE_沫_59_
+
+// _ASTNODE_礎:0.6__OPAQUE_LL_573_ [decoy-metadata]
+    _ASTNODE_沫:1.0__OPAQUE_沫_161_ _ASTNODE_沫:1.0__OPAQUE_沫_8_(self, _ASTNODE_沫:1.0__OPAQUE_沫_75_: _ASTNODE_庠:1.0__OPAQUE_庠_7_[_ASTNODE_沫:1.0__OPAQUE_沫_68_], _ASTNODE_沫:1.0__OPAQUE_沫_33_: _ASTNODE_沫:1.0__OPAQUE_沫_98_) -> _ASTNODE_沫:1.0__OPAQUE_沫_98_:
+        """文を実行し、次の行番号を返す"""
+        _ASTNODE_沫:1.0__OPAQUE_沫_14_ = _ASTNODE_沫:1.0__OPAQUE_沫_75_[_ASTNODE_沫:1.0__OPAQUE_沫_33_]._ASTNODE_沫:1.0__OPAQUE_沫_57_()
+
+// [metadata-stripped]
+        if _ASTNODE_沫:1.0__OPAQUE_沫_14_._ASTNODE_沫:1.0__OPAQUE_沫_4_('表示('):
+            self._ASTNODE_沫:1.0__OPAQUE_沫_192_(_ASTNODE_沫:1.0__OPAQUE_沫_14_)
+            return _ASTNODE_沫:1.0__OPAQUE_沫_33_ + 1
+
+// [metadata-stripped]
+        if _ASTNODE_沫:1.0__OPAQUE_沫_14_._ASTNODE_沫:1.0__OPAQUE_沫_4_('_ASTNODE_庠:1.0__OPAQUE_庠_17_ ') _ASTNODE_沫:1.0__OPAQUE_沫_103_ _ASTNODE_沫:1.0__OPAQUE_沫_14_._ASTNODE_沫:1.0__OPAQUE_沫_174_('{'):
+            return self._ASTNODE_沫:1.0__OPAQUE_沫_188_(_ASTNODE_沫:1.0__OPAQUE_沫_75_, _ASTNODE_沫:1.0__OPAQUE_沫_33_)
+        if _ASTNODE_沫:1.0__OPAQUE_沫_14_._ASTNODE_沫:1.0__OPAQUE_沫_4_('_ASTNODE_庠:1.0__OPAQUE_庠_43_ ') _ASTNODE_沫:1.0__OPAQUE_沫_103_ _ASTNODE_沫:1.0__OPAQUE_沫_14_._ASTNODE_沫:1.0__OPAQUE_沫_174_('{'):
+            return self._ASTNODE_沫:1.0__OPAQUE_沫_89_(_ASTNODE_沫:1.0__OPAQUE_沫_75_, _ASTNODE_沫:1.0__OPAQUE_沫_33_)
+// [metadata-stripped]
+        if _ASTNODE_沫:1.0__OPAQUE_沫_14_._ASTNODE_沫:1.0__OPAQUE_沫_4_('_ASTNODE_庠:1.0__OPAQUE_庠_33_ ') _ASTNODE_沫:1.0__OPAQUE_沫_103_ _ASTNODE_沫:1.0__OPAQUE_沫_14_._ASTNODE_沫:1.0__OPAQUE_沫_174_('{'):
+            return self._ASTNODE_沫:1.0__OPAQUE_沫_66_(_ASTNODE_沫:1.0__OPAQUE_沫_75_, _ASTNODE_沫:1.0__OPAQUE_沫_33_)
+// [metadata-stripped]
+        if _ASTNODE_沫:1.0__OPAQUE_沫_14_._ASTNODE_沫:1.0__OPAQUE_沫_4_('関数 ') or _ASTNODE_沫:1.0__OPAQUE_沫_14_._ASTNODE_沫:1.0__OPAQUE_沫_4_('_ASTNODE_庠:1.0__OPAQUE_庠_19_ ') or _ASTNODE_沫:1.0__OPAQUE_沫_14_._ASTNODE_沫:1.0__OPAQUE_沫_4_('_ASTNODE_庠:1.0__OPAQUE_庠_41_ '):
+            return self._ASTNODE_沫:1.0__OPAQUE_沫_10_(_ASTNODE_沫:1.0__OPAQUE_沫_75_, _ASTNODE_沫:1.0__OPAQUE_沫_33_)
+
+// [metadata-stripped]
+        if _ASTNODE_沫:1.0__OPAQUE_沫_14_._ASTNODE_沫:1.0__OPAQUE_沫_4_('もし ') or _ASTNODE_沫:1.0__OPAQUE_沫_14_._ASTNODE_沫:1.0__OPAQUE_沫_4_('IF '):
+            return self._ASTNODE_浪:1.0__OPAQUE_沫_124_(_ASTNODE_沫:1.0__OPAQUE_沫_75_, _ASTNODE_沫:1.0__OPAQUE_沫_33_)
+
+// [metadata-stripped]
+        if _ASTNODE_沫:1.0__OPAQUE_沫_14_ == '繰り返し {':
+            return self._ASTNODE_浪:1.0__OPAQUE_沫_156_(_ASTNODE_沫:1.0__OPAQUE_沫_75_, _ASTNODE_沫:1.0__OPAQUE_沫_33_)
+
+// [metadata-stripped]
+        if _ASTNODE_沫:1.0__OPAQUE_沫_14_._ASTNODE_沫:1.0__OPAQUE_沫_4_('各') _ASTNODE_沫:1.0__OPAQUE_沫_103_ ' IN ' in _ASTNODE_沫:1.0__OPAQUE_沫_14_:
+            return self._ASTNODE_浪:1.0__OPAQUE_沫_43_(_ASTNODE_沫:1.0__OPAQUE_沫_75_, _ASTNODE_沫:1.0__OPAQUE_沫_33_)
+
+// [metadata-stripped]
+        if _ASTNODE_沫:1.0__OPAQUE_沫_14_._ASTNODE_沫:1.0__OPAQUE_沫_4_('返す ') or _ASTNODE_沫:1.0__OPAQUE_沫_14_._ASTNODE_沫:1.0__OPAQUE_沫_4_('_ASTNODE_庠:1.0__OPAQUE_庠_44_ '):
+            self._ASTNODE_沫:1.0__OPAQUE_沫_187_(_ASTNODE_沫:1.0__OPAQUE_沫_14_)
+            return _ASTNODE_沫:1.0__OPAQUE_沫_33_ + 1
+
+// [metadata-stripped]
+        if _ASTNODE_沫:1.0__OPAQUE_沫_14_ == '中断':
+            self._ASTNODE_沫:1.0__OPAQUE_沫_109_ = _ASTNODE_庠:1.0__OPAQUE_庠_50_
+            return _ASTNODE_沫:1.0__OPAQUE_沫_33_ + 1
+
+// [metadata-stripped]
+        import re as _ASTNODE_沫:1.0__OPAQUE_沫_64_
+        _ASTNODE_沫:1.0__OPAQUE_沫_26_ = _ASTNODE_沫:1.0__OPAQUE_沫_64_._ASTNODE_沫:1.0__OPAQUE_沫_41_(r'(.+?)\s+に\s+追加\((.+)\)', _ASTNODE_沫:1.0__OPAQUE_沫_14_)
+        if _ASTNODE_沫:1.0__OPAQUE_沫_26_:
+            _ASTNODE_沫:1.0__OPAQUE_沫_155_ = _ASTNODE_沫:1.0__OPAQUE_沫_26_._ASTNODE_沫:1.0__OPAQUE_沫_178_(1)._ASTNODE_沫:1.0__OPAQUE_沫_57_()
+            _ASTNODE_沫:1.0__OPAQUE_沫_93_ = _ASTNODE_沫:1.0__OPAQUE_沫_26_._ASTNODE_沫:1.0__OPAQUE_沫_178_(2)._ASTNODE_沫:1.0__OPAQUE_沫_57_()
+            _ASTNODE_沫:1.0__OPAQUE_沫_160_ = self._ASTNODE_沫:1.0__OPAQUE_沫_92_(_ASTNODE_沫:1.0__OPAQUE_沫_93_)
+            _ASTNODE_沫:1.0__OPAQUE_沫_182_ = self._ASTNODE_沫:1.0__OPAQUE_沫_163_._ASTNODE_策:1.0__OPAQUE_礎_1_(_ASTNODE_沫:1.0__OPAQUE_沫_155_)
+            if _ASTNODE_沫:1.0__OPAQUE_沫_9_(_ASTNODE_沫:1.0__OPAQUE_沫_182_, _ASTNODE_沫:1.0__OPAQUE_沫_46_):
+                _ASTNODE_沫:1.0__OPAQUE_沫_182_._ASTNODE_沫:1.0__OPAQUE_沫_52_(_ASTNODE_沫:1.0__OPAQUE_沫_160_)
+            return _ASTNODE_沫:1.0__OPAQUE_沫_33_ + 1
+
+// [metadata-stripped]
+        if '=' in _ASTNODE_沫:1.0__OPAQUE_沫_14_ _ASTNODE_沫:1.0__OPAQUE_沫_103_ _ASTNODE_沫:1.0__OPAQUE_沫_173_ any(op in _ASTNODE_沫:1.0__OPAQUE_沫_14_ for op in ['==', '!=', '>=', '<=', '>',' <']):
+            self._ASTNODE_沫:1.0__OPAQUE_沫_83_(_ASTNODE_沫:1.0__OPAQUE_沫_14_)
+            return _ASTNODE_沫:1.0__OPAQUE_沫_33_ + 1
+
+// [metadata-stripped]
+        self._ASTNODE_沫:1.0__OPAQUE_沫_92_(_ASTNODE_沫:1.0__OPAQUE_沫_14_)
+        return _ASTNODE_沫:1.0__OPAQUE_沫_33_ + 1
+
+    _ASTNODE_沫:1.0__OPAQUE_沫_161_ _ASTNODE_沫:1.0__OPAQUE_沫_192_(self, _ASTNODE_沫:1.0__OPAQUE_沫_14_: _ASTNODE_沫:1.0__OPAQUE_沫_68_):
+        """表示文を実行"""
+// [metadata-stripped]
+        _ASTNODE_沫:1.0__OPAQUE_沫_41_ = re._ASTNODE_沫:1.0__OPAQUE_沫_41_(r'表示\((.*)\)', _ASTNODE_沫:1.0__OPAQUE_沫_14_)
+        if _ASTNODE_沫:1.0__OPAQUE_沫_41_:
+            _ASTNODE_沫:1.0__OPAQUE_沫_164_ = _ASTNODE_沫:1.0__OPAQUE_沫_41_._ASTNODE_沫:1.0__OPAQUE_沫_178_(1)
+            _ASTNODE_沫:1.0__OPAQUE_沫_160_ = self._ASTNODE_沫:1.0__OPAQUE_沫_92_(_ASTNODE_沫:1.0__OPAQUE_沫_164_)
+            _ASTNODE_沫:1.0__OPAQUE_沫_159_(_ASTNODE_沫:1.0__OPAQUE_沫_160_)
+
+    _ASTNODE_沫:1.0__OPAQUE_沫_161_ _ASTNODE_沫:1.0__OPAQUE_沫_83_(self, _ASTNODE_沫:1.0__OPAQUE_沫_14_: _ASTNODE_沫:1.0__OPAQUE_沫_68_):
+        """代入を実行"""
+// [metadata-stripped]
+        if '.' in _ASTNODE_沫:1.0__OPAQUE_沫_14_._ASTNODE_沫:1.0__OPAQUE_沫_165_('=')[0]:
+            _ASTNODE_沫:1.0__OPAQUE_沫_113_ = _ASTNODE_沫:1.0__OPAQUE_沫_14_._ASTNODE_沫:1.0__OPAQUE_沫_165_('=', 1)
+            _ASTNODE_沫:1.0__OPAQUE_沫_180_ = _ASTNODE_沫:1.0__OPAQUE_沫_113_[0]._ASTNODE_沫:1.0__OPAQUE_沫_57_()
+            _ASTNODE_沫:1.0__OPAQUE_沫_102_ = _ASTNODE_沫:1.0__OPAQUE_沫_113_[1]._ASTNODE_沫:1.0__OPAQUE_沫_57_()
+
+// [metadata-stripped]
+            _ASTNODE_沫:1.0__OPAQUE_沫_111_ = _ASTNODE_沫:1.0__OPAQUE_沫_180_._ASTNODE_沫:1.0__OPAQUE_沫_165_('.')
+            _ASTNODE_沫:1.0__OPAQUE_沫_82_ = _ASTNODE_沫:1.0__OPAQUE_沫_111_[0]
+
+            if _ASTNODE_沫:1.0__OPAQUE_沫_82_ _ASTNODE_沫:1.0__OPAQUE_沫_173_ in self._ASTNODE_沫:1.0__OPAQUE_沫_163_:
+                return
+// _ASTNODE_庫:0.6__OPAQUE_HL_258_ [decoy-metadata]
+
+            _ASTNODE_沫:1.0__OPAQUE_沫_63_ = self._ASTNODE_沫:1.0__OPAQUE_沫_163_[_ASTNODE_沫:1.0__OPAQUE_沫_82_]
+
+// [metadata-stripped]
+            for _ASTNODE_沫:1.0__OPAQUE_沫_157_ in _ASTNODE_沫:1.0__OPAQUE_沫_111_[1:-1]:
+                if _ASTNODE_沫:1.0__OPAQUE_沫_9_(_ASTNODE_沫:1.0__OPAQUE_沫_63_, _ASTNODE_沫:1.0__OPAQUE_沫_151_) _ASTNODE_沫:1.0__OPAQUE_沫_103_ _ASTNODE_沫:1.0__OPAQUE_沫_157_ in _ASTNODE_沫:1.0__OPAQUE_沫_63_:
+                    _ASTNODE_沫:1.0__OPAQUE_沫_63_ = _ASTNODE_沫:1.0__OPAQUE_沫_63_[_ASTNODE_沫:1.0__OPAQUE_沫_157_]
+                else:
+                    return
+
+// [metadata-stripped]
+            _ASTNODE_沫:1.0__OPAQUE_沫_130_ = _ASTNODE_沫:1.0__OPAQUE_沫_111_[-1]
+            _ASTNODE_沫:1.0__OPAQUE_沫_160_ = self._ASTNODE_沫:1.0__OPAQUE_沫_92_(_ASTNODE_沫:1.0__OPAQUE_沫_102_)
+
+            if _ASTNODE_沫:1.0__OPAQUE_沫_9_(_ASTNODE_沫:1.0__OPAQUE_沫_63_, _ASTNODE_沫:1.0__OPAQUE_沫_151_):
+                _ASTNODE_沫:1.0__OPAQUE_沫_63_[_ASTNODE_沫:1.0__OPAQUE_沫_130_] = _ASTNODE_沫:1.0__OPAQUE_沫_160_
+        else:
+// [metadata-stripped]
+            _ASTNODE_沫:1.0__OPAQUE_沫_113_ = _ASTNODE_沫:1.0__OPAQUE_沫_14_._ASTNODE_沫:1.0__OPAQUE_沫_165_('=', 1)
+            _ASTNODE_沫:1.0__OPAQUE_沫_96_ = _ASTNODE_沫:1.0__OPAQUE_沫_113_[0]._ASTNODE_沫:1.0__OPAQUE_沫_57_()
+            _ASTNODE_沫:1.0__OPAQUE_沫_93_ = _ASTNODE_沫:1.0__OPAQUE_沫_113_[1]._ASTNODE_沫:1.0__OPAQUE_沫_57_()
+            _ASTNODE_沫:1.0__OPAQUE_沫_160_ = self._ASTNODE_沫:1.0__OPAQUE_沫_92_(_ASTNODE_沫:1.0__OPAQUE_沫_93_)
+            self._ASTNODE_沫:1.0__OPAQUE_沫_163_[_ASTNODE_沫:1.0__OPAQUE_沫_96_] = _ASTNODE_沫:1.0__OPAQUE_沫_160_
+
+    _ASTNODE_沫:1.0__OPAQUE_沫_161_ _ASTNODE_沫:1.0__OPAQUE_沫_10_(self, _ASTNODE_沫:1.0__OPAQUE_沫_75_: _ASTNODE_庠:1.0__OPAQUE_庠_7_[_ASTNODE_沫:1.0__OPAQUE_沫_68_], _ASTNODE_沫:1.0__OPAQUE_沫_33_: _ASTNODE_沫:1.0__OPAQUE_沫_98_) -> _ASTNODE_沫:1.0__OPAQUE_沫_98_:
+        """関数定義を実行"""
+        _ASTNODE_沫:1.0__OPAQUE_沫_14_ = _ASTNODE_沫:1.0__OPAQUE_沫_75_[_ASTNODE_沫:1.0__OPAQUE_沫_33_]._ASTNODE_沫:1.0__OPAQUE_沫_57_()
+
+// [metadata-stripped]
+        _ASTNODE_沫:1.0__OPAQUE_沫_41_ = re._ASTNODE_沫:1.0__OPAQUE_沫_41_(r'(?:関数|_ASTNODE_庠:1.0__OPAQUE_庠_19_|_ASTNODE_庠:1.0__OPAQUE_庠_41_)\s+(\w+)\((.*?)\)\s*{', _ASTNODE_沫:1.0__OPAQUE_沫_14_)
+        if _ASTNODE_沫:1.0__OPAQUE_沫_173_ _ASTNODE_沫:1.0__OPAQUE_沫_41_:
+            return _ASTNODE_沫:1.0__OPAQUE_沫_33_ + 1
+
+        _ASTNODE_沫:1.0__OPAQUE_沫_123_ = _ASTNODE_沫:1.0__OPAQUE_沫_41_._ASTNODE_沫:1.0__OPAQUE_沫_178_(1)
+        _ASTNODE_沫:1.0__OPAQUE_沫_5_ = _ASTNODE_沫:1.0__OPAQUE_沫_41_._ASTNODE_沫:1.0__OPAQUE_沫_178_(2)
+        _ASTNODE_沫:1.0__OPAQUE_沫_150_ = [p._ASTNODE_沫:1.0__OPAQUE_沫_57_() for p in _ASTNODE_沫:1.0__OPAQUE_沫_5_._ASTNODE_沫:1.0__OPAQUE_沫_165_(',') if p._ASTNODE_沫:1.0__OPAQUE_沫_57_()]
+
+// [metadata-stripped]
+        _ASTNODE_沫:1.0__OPAQUE_沫_94_ = _ASTNODE_沫:1.0__OPAQUE_沫_33_ + 1
+        _ASTNODE_沫:1.0__OPAQUE_沫_21_ = self._ASTNODE_沫:1.0__OPAQUE_沫_55_(_ASTNODE_沫:1.0__OPAQUE_沫_75_, _ASTNODE_沫:1.0__OPAQUE_沫_33_)
+
+// [metadata-stripped]
+        self._ASTNODE_沫:1.0__OPAQUE_沫_105_[_ASTNODE_沫:1.0__OPAQUE_沫_123_] = {
+            '_ASTNODE_沫:1.0__OPAQUE_沫_150_': _ASTNODE_沫:1.0__OPAQUE_沫_150_,
+            '_ASTNODE_沫:1.0__OPAQUE_沫_181_': _ASTNODE_沫:1.0__OPAQUE_沫_75_[_ASTNODE_沫:1.0__OPAQUE_沫_94_:_ASTNODE_沫:1.0__OPAQUE_沫_21_],
+            '_ASTNODE_沫:1.0__OPAQUE_沫_162_': _ASTNODE_沫:1.0__OPAQUE_沫_94_,
+            '_ASTNODE_沫:1.0__OPAQUE_沫_62_': _ASTNODE_沫:1.0__OPAQUE_沫_21_
+        }
+
+// [metadata-stripped]
+        _ASTNODE_沫:1.0__OPAQUE_沫_161_ _ASTNODE_沫:1.0__OPAQUE_沫_144_(_ASTNODE_沫:1.0__OPAQUE_沫_114_, _ASTNODE_沫:1.0__OPAQUE_沫_126_, _ASTNODE_沫:1.0__OPAQUE_沫_172_):
+            _ASTNODE_沫:1.0__OPAQUE_沫_161_ func(_ASTNODE_沫:1.0__OPAQUE_沫_48_):
+// [metadata-stripped]
+                _ASTNODE_沫:1.0__OPAQUE_沫_190_ = _ASTNODE_沫:1.0__OPAQUE_沫_151_(self._ASTNODE_沫:1.0__OPAQUE_沫_163_)  # グローバル変数をコピー
+                for i, _ASTNODE_沫:1.0__OPAQUE_沫_79_ in _ASTNODE_沫:1.0__OPAQUE_沫_91_(_ASTNODE_沫:1.0__OPAQUE_沫_126_):
+                    if i < _ASTNODE_沫:1.0__OPAQUE_沫_25_(_ASTNODE_沫:1.0__OPAQUE_沫_48_):
+                        _ASTNODE_沫:1.0__OPAQUE_沫_190_[_ASTNODE_沫:1.0__OPAQUE_沫_79_] = _ASTNODE_沫:1.0__OPAQUE_沫_48_[i]
+
+// [metadata-stripped]
+                _ASTNODE_沫:1.0__OPAQUE_沫_134_ = self._ASTNODE_沫:1.0__OPAQUE_沫_163_
+                self._ASTNODE_沫:1.0__OPAQUE_沫_163_ = _ASTNODE_沫:1.0__OPAQUE_沫_190_
+
+// [metadata-stripped]
+                _ASTNODE_沫:1.0__OPAQUE_沫_131_ = self._ASTNODE_沫:1.0__OPAQUE_沫_72_
+                _ASTNODE_沫:1.0__OPAQUE_沫_135_ = self._ASTNODE_沫:1.0__OPAQUE_沫_59_
+                self._ASTNODE_沫:1.0__OPAQUE_沫_72_ = _ASTNODE_庠:1.0__OPAQUE_庠_22_
+                self._ASTNODE_沫:1.0__OPAQUE_沫_59_ = _ASTNODE_庠:1.0__OPAQUE_庠_28_
+
+// [metadata-stripped]
+                i = 0
+                while i < _ASTNODE_沫:1.0__OPAQUE_沫_25_(_ASTNODE_沫:1.0__OPAQUE_沫_172_):
+                    if self._ASTNODE_沫:1.0__OPAQUE_沫_72_:
+                        break
+                    i = self._ASTNODE_沫:1.0__OPAQUE_沫_8_(_ASTNODE_沫:1.0__OPAQUE_沫_172_, i)
+
+                _ASTNODE_沫:1.0__OPAQUE_沫_128_ = self._ASTNODE_沫:1.0__OPAQUE_沫_59_
+
+// [metadata-stripped]
+                self._ASTNODE_沫:1.0__OPAQUE_沫_163_ = _ASTNODE_沫:1.0__OPAQUE_沫_134_
+                self._ASTNODE_沫:1.0__OPAQUE_沫_72_ = _ASTNODE_沫:1.0__OPAQUE_沫_131_
+                self._ASTNODE_沫:1.0__OPAQUE_沫_59_ = _ASTNODE_沫:1.0__OPAQUE_沫_135_
+
+                return _ASTNODE_沫:1.0__OPAQUE_沫_128_
+
+            return func
+
+// [metadata-stripped]
+        self._ASTNODE_沫:1.0__OPAQUE_沫_163_[_ASTNODE_沫:1.0__OPAQUE_沫_123_] = _ASTNODE_沫:1.0__OPAQUE_沫_144_(_ASTNODE_沫:1.0__OPAQUE_沫_123_, _ASTNODE_沫:1.0__OPAQUE_沫_150_, _ASTNODE_沫:1.0__OPAQUE_沫_75_[_ASTNODE_沫:1.0__OPAQUE_沫_94_:_ASTNODE_沫:1.0__OPAQUE_沫_21_])
+
+        return _ASTNODE_沫:1.0__OPAQUE_沫_21_ + 1
+
+    _ASTNODE_沫:1.0__OPAQUE_沫_161_ _ASTNODE_浪:1.0__OPAQUE_沫_124_(self, _ASTNODE_沫:1.0__OPAQUE_沫_75_: _ASTNODE_庠:1.0__OPAQUE_庠_7_[_ASTNODE_沫:1.0__OPAQUE_沫_68_], _ASTNODE_沫:1.0__OPAQUE_沫_33_: _ASTNODE_沫:1.0__OPAQUE_沫_98_) -> _ASTNODE_沫:1.0__OPAQUE_沫_98_:
+        """もし文を実行"""
+        _ASTNODE_沫:1.0__OPAQUE_沫_14_ = _ASTNODE_沫:1.0__OPAQUE_沫_75_[_ASTNODE_沫:1.0__OPAQUE_沫_33_]._ASTNODE_沫:1.0__OPAQUE_沫_57_()
+
+// [metadata-stripped]
+        _ASTNODE_沫:1.0__OPAQUE_沫_41_ = re._ASTNODE_沫:1.0__OPAQUE_沫_41_(r'(?:もし|IF)\s+(.+?)\s*{', _ASTNODE_沫:1.0__OPAQUE_沫_14_)
+        if _ASTNODE_沫:1.0__OPAQUE_沫_173_ _ASTNODE_沫:1.0__OPAQUE_沫_41_:
+            return _ASTNODE_沫:1.0__OPAQUE_沫_33_ + 1
+
+        _ASTNODE_沫:1.0__OPAQUE_沫_120_ = _ASTNODE_沫:1.0__OPAQUE_沫_41_._ASTNODE_沫:1.0__OPAQUE_沫_178_(1)
+        _ASTNODE_沫:1.0__OPAQUE_沫_1_ = self._ASTNODE_沫:1.0__OPAQUE_沫_92_(_ASTNODE_沫:1.0__OPAQUE_沫_120_)
+
+// [metadata-stripped]
+        _ASTNODE_浪:1.0__OPAQUE_沫_189_ = self._ASTNODE_沫:1.0__OPAQUE_沫_55_(_ASTNODE_沫:1.0__OPAQUE_沫_75_, _ASTNODE_沫:1.0__OPAQUE_沫_33_)
+
+// [metadata-stripped]
+        _ASTNODE_沫:1.0__OPAQUE_沫_197_ = _ASTNODE_庠:1.0__OPAQUE_庠_28_
+        if _ASTNODE_浪:1.0__OPAQUE_沫_189_ < _ASTNODE_沫:1.0__OPAQUE_沫_25_(_ASTNODE_沫:1.0__OPAQUE_沫_75_) _ASTNODE_沫:1.0__OPAQUE_沫_103_ _ASTNODE_沫:1.0__OPAQUE_沫_75_[_ASTNODE_浪:1.0__OPAQUE_沫_189_]._ASTNODE_沫:1.0__OPAQUE_沫_57_()._ASTNODE_沫:1.0__OPAQUE_沫_4_('} そうでなければ'):
+            _ASTNODE_沫:1.0__OPAQUE_沫_197_ = _ASTNODE_浪:1.0__OPAQUE_沫_189_
+// [metadata-stripped]
+            if _ASTNODE_沫:1.0__OPAQUE_沫_75_[_ASTNODE_沫:1.0__OPAQUE_沫_197_]._ASTNODE_沫:1.0__OPAQUE_沫_57_() == '} そうでなければ {':
+                _ASTNODE_沫:1.0__OPAQUE_沫_37_ = self._ASTNODE_沫:1.0__OPAQUE_沫_55_(_ASTNODE_沫:1.0__OPAQUE_沫_75_, _ASTNODE_沫:1.0__OPAQUE_沫_197_)
+            else:
+                _ASTNODE_沫:1.0__OPAQUE_沫_37_ = _ASTNODE_沫:1.0__OPAQUE_沫_197_ + 1
+
+        if _ASTNODE_沫:1.0__OPAQUE_沫_1_:
+// [metadata-stripped]
+            i = _ASTNODE_沫:1.0__OPAQUE_沫_33_ + 1
+            while i < _ASTNODE_浪:1.0__OPAQUE_沫_189_:
+                if self._ASTNODE_沫:1.0__OPAQUE_沫_72_ or self._ASTNODE_沫:1.0__OPAQUE_沫_109_:
+                    break
+                i = self._ASTNODE_沫:1.0__OPAQUE_沫_8_(_ASTNODE_沫:1.0__OPAQUE_沫_75_, i)
+            return _ASTNODE_沫:1.0__OPAQUE_沫_37_ + 1 if _ASTNODE_沫:1.0__OPAQUE_沫_197_ else _ASTNODE_浪:1.0__OPAQUE_沫_189_ + 1
+        else:
+// [metadata-stripped]
+            if _ASTNODE_沫:1.0__OPAQUE_沫_197_:
+                i = _ASTNODE_沫:1.0__OPAQUE_沫_197_ + 1
+                while i < _ASTNODE_沫:1.0__OPAQUE_沫_37_:
+                    if self._ASTNODE_沫:1.0__OPAQUE_沫_72_ or self._ASTNODE_沫:1.0__OPAQUE_沫_109_:
+                        break
+                    i = self._ASTNODE_沫:1.0__OPAQUE_沫_8_(_ASTNODE_沫:1.0__OPAQUE_沫_75_, i)
+                return _ASTNODE_沫:1.0__OPAQUE_沫_37_ + 1
+            return _ASTNODE_浪:1.0__OPAQUE_沫_189_ + 1
+
+    _ASTNODE_沫:1.0__OPAQUE_沫_161_ _ASTNODE_浪:1.0__OPAQUE_沫_156_(self, _ASTNODE_沫:1.0__OPAQUE_沫_75_: _ASTNODE_庠:1.0__OPAQUE_庠_7_[_ASTNODE_沫:1.0__OPAQUE_沫_68_], _ASTNODE_沫:1.0__OPAQUE_沫_33_: _ASTNODE_沫:1.0__OPAQUE_沫_98_) -> _ASTNODE_沫:1.0__OPAQUE_沫_98_:
+        """繰り返し文を実行"""
+        _ASTNODE_沫:1.0__OPAQUE_沫_116_ = self._ASTNODE_沫:1.0__OPAQUE_沫_55_(_ASTNODE_沫:1.0__OPAQUE_沫_75_, _ASTNODE_沫:1.0__OPAQUE_沫_33_)
+
+        while _ASTNODE_庠:1.0__OPAQUE_庠_50_:
+            if self._ASTNODE_沫:1.0__OPAQUE_沫_72_:
+                break
+
+// [metadata-stripped]
+            i = _ASTNODE_沫:1.0__OPAQUE_沫_33_ + 1
+            while i < _ASTNODE_沫:1.0__OPAQUE_沫_116_:
+                if self._ASTNODE_沫:1.0__OPAQUE_沫_72_ or self._ASTNODE_沫:1.0__OPAQUE_沫_109_:
+                    break
+                i = self._ASTNODE_沫:1.0__OPAQUE_沫_8_(_ASTNODE_沫:1.0__OPAQUE_沫_75_, i)
+
+            if self._ASTNODE_沫:1.0__OPAQUE_沫_109_:
+                self._ASTNODE_沫:1.0__OPAQUE_沫_109_ = _ASTNODE_庠:1.0__OPAQUE_庠_22_
+                break
+
+        return _ASTNODE_沫:1.0__OPAQUE_沫_116_ + 1
+
+    _ASTNODE_沫:1.0__OPAQUE_沫_161_ _ASTNODE_浪:1.0__OPAQUE_沫_43_(self, _ASTNODE_沫:1.0__OPAQUE_沫_75_: _ASTNODE_庠:1.0__OPAQUE_庠_7_[_ASTNODE_沫:1.0__OPAQUE_沫_68_], _ASTNODE_沫:1.0__OPAQUE_沫_33_: _ASTNODE_沫:1.0__OPAQUE_沫_98_) -> _ASTNODE_沫:1.0__OPAQUE_沫_98_:
+        """各〜IN文を実行"""
+        _ASTNODE_沫:1.0__OPAQUE_沫_14_ = _ASTNODE_沫:1.0__OPAQUE_沫_75_[_ASTNODE_沫:1.0__OPAQUE_沫_33_]._ASTNODE_沫:1.0__OPAQUE_沫_57_()
+
+// [metadata-stripped]
+        _ASTNODE_沫:1.0__OPAQUE_沫_41_ = re._ASTNODE_沫:1.0__OPAQUE_沫_41_(r'各(\S+)\s+IN\s+(.+?)\s*{', _ASTNODE_沫:1.0__OPAQUE_沫_14_)
+        if _ASTNODE_沫:1.0__OPAQUE_沫_173_ _ASTNODE_沫:1.0__OPAQUE_沫_41_:
+            return _ASTNODE_沫:1.0__OPAQUE_沫_33_ + 1
+
+        _ASTNODE_沫:1.0__OPAQUE_沫_176_ = _ASTNODE_沫:1.0__OPAQUE_沫_41_._ASTNODE_沫:1.0__OPAQUE_沫_178_(1)
+        _ASTNODE_沫:1.0__OPAQUE_沫_194_ = _ASTNODE_沫:1.0__OPAQUE_沫_41_._ASTNODE_沫:1.0__OPAQUE_沫_178_(2)
+        _ASTNODE_沫:1.0__OPAQUE_沫_29_ = self._ASTNODE_沫:1.0__OPAQUE_沫_92_(_ASTNODE_沫:1.0__OPAQUE_沫_194_)
+
+        _ASTNODE_沫:1.0__OPAQUE_沫_116_ = self._ASTNODE_沫:1.0__OPAQUE_沫_55_(_ASTNODE_沫:1.0__OPAQUE_沫_75_, _ASTNODE_沫:1.0__OPAQUE_沫_33_)
+
+        if _ASTNODE_沫:1.0__OPAQUE_沫_9_(_ASTNODE_沫:1.0__OPAQUE_沫_29_, _ASTNODE_沫:1.0__OPAQUE_沫_46_):
+            for _ASTNODE_沫:1.0__OPAQUE_沫_88_ in _ASTNODE_沫:1.0__OPAQUE_沫_29_:
+                if self._ASTNODE_沫:1.0__OPAQUE_沫_72_ or self._ASTNODE_沫:1.0__OPAQUE_沫_109_:
+                    break
+
+                self._ASTNODE_沫:1.0__OPAQUE_沫_163_[_ASTNODE_沫:1.0__OPAQUE_沫_176_] = _ASTNODE_沫:1.0__OPAQUE_沫_88_
+
+// [metadata-stripped]
+                i = _ASTNODE_沫:1.0__OPAQUE_沫_33_ + 1
+                while i < _ASTNODE_沫:1.0__OPAQUE_沫_116_:
+                    if self._ASTNODE_沫:1.0__OPAQUE_沫_72_ or self._ASTNODE_沫:1.0__OPAQUE_沫_109_:
+                        break
+                    i = self._ASTNODE_沫:1.0__OPAQUE_沫_8_(_ASTNODE_沫:1.0__OPAQUE_沫_75_, i)
+
+        if self._ASTNODE_沫:1.0__OPAQUE_沫_109_:
+            self._ASTNODE_沫:1.0__OPAQUE_沫_109_ = _ASTNODE_庠:1.0__OPAQUE_庠_22_
+
+        return _ASTNODE_沫:1.0__OPAQUE_沫_116_ + 1
+
+    _ASTNODE_沫:1.0__OPAQUE_沫_161_ _ASTNODE_沫:1.0__OPAQUE_沫_187_(self, _ASTNODE_沫:1.0__OPAQUE_沫_14_: _ASTNODE_沫:1.0__OPAQUE_沫_68_):
+        """返す文を実行"""
+        _ASTNODE_沫:1.0__OPAQUE_沫_41_ = re._ASTNODE_沫:1.0__OPAQUE_沫_41_(r'(?:返す|_ASTNODE_庠:1.0__OPAQUE_庠_44_)\s+(.+)', _ASTNODE_沫:1.0__OPAQUE_沫_14_)
+        if _ASTNODE_沫:1.0__OPAQUE_沫_41_:
+            _ASTNODE_沫:1.0__OPAQUE_沫_164_ = _ASTNODE_沫:1.0__OPAQUE_沫_41_._ASTNODE_沫:1.0__OPAQUE_沫_178_(1)
+            self._ASTNODE_沫:1.0__OPAQUE_沫_59_ = self._ASTNODE_沫:1.0__OPAQUE_沫_92_(_ASTNODE_沫:1.0__OPAQUE_沫_164_)
+            self._ASTNODE_沫:1.0__OPAQUE_沫_72_ = _ASTNODE_庠:1.0__OPAQUE_庠_50_
+
+    _ASTNODE_沫:1.0__OPAQUE_沫_161_ _ASTNODE_沫:1.0__OPAQUE_沫_92_(self, _ASTNODE_沫:1.0__OPAQUE_沫_164_: _ASTNODE_沫:1.0__OPAQUE_沫_68_) -> _ASTNODE_庠:1.0__OPAQUE_庠_32_:
+        """式を評価"""
+        _ASTNODE_沫:1.0__OPAQUE_沫_164_ = _ASTNODE_沫:1.0__OPAQUE_沫_164_._ASTNODE_沫:1.0__OPAQUE_沫_57_()
+
+// [metadata-stripped]
+        if _ASTNODE_沫:1.0__OPAQUE_沫_164_._ASTNODE_沫:1.0__OPAQUE_沫_4_('(') _ASTNODE_沫:1.0__OPAQUE_沫_103_ _ASTNODE_沫:1.0__OPAQUE_沫_164_._ASTNODE_沫:1.0__OPAQUE_沫_174_(')') _ASTNODE_沫:1.0__OPAQUE_沫_103_ '(' _ASTNODE_沫:1.0__OPAQUE_沫_173_ in _ASTNODE_沫:1.0__OPAQUE_沫_164_[1:-1]:
+            return self._ASTNODE_沫:1.0__OPAQUE_沫_92_(_ASTNODE_沫:1.0__OPAQUE_沫_164_[1:-1])
+
+// [metadata-stripped]
+        if _ASTNODE_沫:1.0__OPAQUE_沫_164_._ASTNODE_沫:1.0__OPAQUE_沫_4_('"') _ASTNODE_沫:1.0__OPAQUE_沫_103_ _ASTNODE_沫:1.0__OPAQUE_沫_164_._ASTNODE_沫:1.0__OPAQUE_沫_174_('"'):
+            return _ASTNODE_沫:1.0__OPAQUE_沫_164_[1:-1]
+
+// [metadata-stripped]
+        try:
+            if '.' in _ASTNODE_沫:1.0__OPAQUE_沫_164_:
+                return _ASTNODE_沫:1.0__OPAQUE_沫_99_(_ASTNODE_沫:1.0__OPAQUE_沫_164_)
+            return _ASTNODE_沫:1.0__OPAQUE_沫_98_(_ASTNODE_沫:1.0__OPAQUE_沫_164_)
+        _ASTNODE_沫:1.0__OPAQUE_沫_60_ _ASTNODE_庠:1.0__OPAQUE_庠_13_:
+            _ASTNODE_沫:1.0__OPAQUE_沫_200_
+
+// [metadata-stripped]
+        if _ASTNODE_沫:1.0__OPAQUE_沫_164_ == '真':
+            return _ASTNODE_庠:1.0__OPAQUE_庠_50_
+        if _ASTNODE_沫:1.0__OPAQUE_沫_164_ == '偽':
+            return _ASTNODE_庠:1.0__OPAQUE_庠_22_
+
+// [metadata-stripped]
+        if _ASTNODE_沫:1.0__OPAQUE_沫_164_._ASTNODE_沫:1.0__OPAQUE_沫_4_('[') _ASTNODE_沫:1.0__OPAQUE_沫_103_ _ASTNODE_沫:1.0__OPAQUE_沫_164_._ASTNODE_沫:1.0__OPAQUE_沫_174_(']'):
+            return self._ASTNODE_沫:1.0__OPAQUE_沫_112_(_ASTNODE_沫:1.0__OPAQUE_沫_164_)
+
+// [metadata-stripped]
+        if _ASTNODE_沫:1.0__OPAQUE_沫_164_._ASTNODE_沫:1.0__OPAQUE_沫_4_('{') _ASTNODE_沫:1.0__OPAQUE_沫_103_ _ASTNODE_沫:1.0__OPAQUE_沫_164_._ASTNODE_沫:1.0__OPAQUE_沫_174_('}'):
+            return self._ASTNODE_沫:1.0__OPAQUE_沫_30_(_ASTNODE_沫:1.0__OPAQUE_沫_164_)
+
+// [metadata-stripped]
+        if '(' in _ASTNODE_沫:1.0__OPAQUE_沫_164_ _ASTNODE_沫:1.0__OPAQUE_沫_103_ ')' in _ASTNODE_沫:1.0__OPAQUE_沫_164_:
+// [metadata-stripped]
+            import re as _ASTNODE_沫:1.0__OPAQUE_沫_196_
+            if _ASTNODE_沫:1.0__OPAQUE_沫_196_._ASTNODE_沫:1.0__OPAQUE_沫_41_(r'[\w\_ASTNODE_沫:1.0__OPAQUE_沫_95_-\_ASTNODE_沫:1.0__OPAQUE_沫_152_]+\(', _ASTNODE_沫:1.0__OPAQUE_沫_164_):
+                _ASTNODE_沫:1.0__OPAQUE_沫_128_ = self._ASTNODE_沫:1.0__OPAQUE_沫_141_(_ASTNODE_沫:1.0__OPAQUE_沫_164_)
+                if _ASTNODE_沫:1.0__OPAQUE_沫_128_ is _ASTNODE_沫:1.0__OPAQUE_沫_173_ _ASTNODE_庠:1.0__OPAQUE_庠_28_:
+                    return _ASTNODE_沫:1.0__OPAQUE_沫_128_
+// [metadata-stripped]
+
+// [metadata-stripped]
+        for op in [' または ', ' OR ']:
+            if op in _ASTNODE_沫:1.0__OPAQUE_沫_164_:
+                _ASTNODE_沫:1.0__OPAQUE_沫_113_ = _ASTNODE_沫:1.0__OPAQUE_沫_164_._ASTNODE_沫:1.0__OPAQUE_沫_165_(op, 1)
+                return self._ASTNODE_沫:1.0__OPAQUE_沫_92_(_ASTNODE_沫:1.0__OPAQUE_沫_113_[0]._ASTNODE_沫:1.0__OPAQUE_沫_57_()) or self._ASTNODE_沫:1.0__OPAQUE_沫_92_(_ASTNODE_沫:1.0__OPAQUE_沫_113_[1]._ASTNODE_沫:1.0__OPAQUE_沫_57_())
+
+// [metadata-stripped]
+        for op in [' そして ', ' かつ ', ' _ASTNODE_庠:1.0__OPAQUE_庠_2_ ']:
+            if op in _ASTNODE_沫:1.0__OPAQUE_沫_164_:
+                _ASTNODE_沫:1.0__OPAQUE_沫_113_ = _ASTNODE_沫:1.0__OPAQUE_沫_164_._ASTNODE_沫:1.0__OPAQUE_沫_165_(op, 1)
+                _ASTNODE_沫:1.0__OPAQUE_沫_51_ = self._ASTNODE_沫:1.0__OPAQUE_沫_92_(_ASTNODE_沫:1.0__OPAQUE_沫_113_[0]._ASTNODE_沫:1.0__OPAQUE_沫_57_())
+                if _ASTNODE_沫:1.0__OPAQUE_沫_173_ _ASTNODE_沫:1.0__OPAQUE_沫_51_:
+                    return _ASTNODE_庠:1.0__OPAQUE_庠_22_
+                return _ASTNODE_沫:1.0__OPAQUE_沫_3_(self._ASTNODE_沫:1.0__OPAQUE_沫_92_(_ASTNODE_沫:1.0__OPAQUE_沫_113_[1]._ASTNODE_沫:1.0__OPAQUE_沫_57_()))
+
+// [metadata-stripped]
+        for op in ['>=', '<=', '==', '!=']:
+            if op in _ASTNODE_沫:1.0__OPAQUE_沫_164_:
+                return self._ASTNODE_沫:1.0__OPAQUE_沫_2_(_ASTNODE_沫:1.0__OPAQUE_沫_164_, op)
+
+// [metadata-stripped]
+        for op in ['>', '<']:
+            if op in _ASTNODE_沫:1.0__OPAQUE_沫_164_ _ASTNODE_沫:1.0__OPAQUE_沫_103_ '>=' _ASTNODE_沫:1.0__OPAQUE_沫_173_ in _ASTNODE_沫:1.0__OPAQUE_沫_164_ _ASTNODE_沫:1.0__OPAQUE_沫_103_ '<=' _ASTNODE_沫:1.0__OPAQUE_沫_173_ in _ASTNODE_沫:1.0__OPAQUE_沫_164_:
+                return self._ASTNODE_沫:1.0__OPAQUE_沫_2_(_ASTNODE_沫:1.0__OPAQUE_沫_164_, op)
+
+// [metadata-stripped]
+        for op in ['%', '+', '-', '*', '/']:
+            if op in _ASTNODE_沫:1.0__OPAQUE_沫_164_ _ASTNODE_沫:1.0__OPAQUE_沫_103_ self._ASTNODE_沫:1.0__OPAQUE_沫_13_(_ASTNODE_沫:1.0__OPAQUE_沫_164_, op):
+                return self._ASTNODE_沫:1.0__OPAQUE_沫_2_(_ASTNODE_沫:1.0__OPAQUE_沫_164_, op)
+
+// [metadata-stripped]
+        if '[' in _ASTNODE_沫:1.0__OPAQUE_沫_164_ _ASTNODE_沫:1.0__OPAQUE_沫_103_ _ASTNODE_沫:1.0__OPAQUE_沫_164_._ASTNODE_沫:1.0__OPAQUE_沫_174_(']'):
+            import re
+            _ASTNODE_沫:1.0__OPAQUE_沫_41_ = re._ASTNODE_沫:1.0__OPAQUE_沫_41_(r'^(.*)\[([^\[\]]+)\]$', _ASTNODE_沫:1.0__OPAQUE_沫_164_)
+            if _ASTNODE_沫:1.0__OPAQUE_沫_41_:
+                _ASTNODE_沫:1.0__OPAQUE_沫_107_ = _ASTNODE_沫:1.0__OPAQUE_沫_41_._ASTNODE_沫:1.0__OPAQUE_沫_178_(1)._ASTNODE_沫:1.0__OPAQUE_沫_57_()
+                _ASTNODE_沫:1.0__OPAQUE_沫_34_ = _ASTNODE_沫:1.0__OPAQUE_沫_41_._ASTNODE_沫:1.0__OPAQUE_沫_178_(2)._ASTNODE_沫:1.0__OPAQUE_沫_57_()
+
+                _ASTNODE_沫:1.0__OPAQUE_沫_63_ = self._ASTNODE_沫:1.0__OPAQUE_沫_92_(_ASTNODE_沫:1.0__OPAQUE_沫_107_)
+                _ASTNODE_沫:1.0__OPAQUE_沫_86_ = self._ASTNODE_沫:1.0__OPAQUE_沫_92_(_ASTNODE_沫:1.0__OPAQUE_沫_34_)
+
+                if _ASTNODE_沫:1.0__OPAQUE_沫_9_(_ASTNODE_沫:1.0__OPAQUE_沫_63_, (_ASTNODE_沫:1.0__OPAQUE_沫_46_, _ASTNODE_沫:1.0__OPAQUE_沫_151_)):
+                    try:
+                        return _ASTNODE_沫:1.0__OPAQUE_沫_63_[_ASTNODE_沫:1.0__OPAQUE_沫_86_]
+                    _ASTNODE_沫:1.0__OPAQUE_沫_60_ (_ASTNODE_淵:1.0__OPAQUE_庠_48_, _ASTNODE_庠:1.0__OPAQUE_庠_25_, _ASTNODE_庠:1.0__OPAQUE_庠_40_):
+                        return _ASTNODE_庠:1.0__OPAQUE_庠_28_
+
+// [metadata-stripped]
+        if _ASTNODE_沫:1.0__OPAQUE_沫_164_ in self._ASTNODE_沫:1.0__OPAQUE_沫_163_:
+            return self._ASTNODE_沫:1.0__OPAQUE_沫_163_[_ASTNODE_沫:1.0__OPAQUE_沫_164_]
+
+// [metadata-stripped]
+        if '.' in _ASTNODE_沫:1.0__OPAQUE_沫_164_ _ASTNODE_沫:1.0__OPAQUE_沫_103_ _ASTNODE_沫:1.0__OPAQUE_沫_173_ _ASTNODE_沫:1.0__OPAQUE_沫_164_._ASTNODE_沫:1.0__OPAQUE_沫_4_('"'):
+            _ASTNODE_沫:1.0__OPAQUE_沫_113_ = _ASTNODE_沫:1.0__OPAQUE_沫_164_._ASTNODE_沫:1.0__OPAQUE_沫_165_('.')
+            _ASTNODE_沫:1.0__OPAQUE_沫_63_ = self._ASTNODE_沫:1.0__OPAQUE_沫_163_._ASTNODE_策:1.0__OPAQUE_礎_1_(_ASTNODE_沫:1.0__OPAQUE_沫_113_[0])
+
+            for _ASTNODE_沫:1.0__OPAQUE_沫_157_ in _ASTNODE_沫:1.0__OPAQUE_沫_113_[1:]:
+                if _ASTNODE_沫:1.0__OPAQUE_沫_9_(_ASTNODE_沫:1.0__OPAQUE_沫_63_, _ASTNODE_沫:1.0__OPAQUE_沫_151_):
+                    _ASTNODE_沫:1.0__OPAQUE_沫_63_ = _ASTNODE_沫:1.0__OPAQUE_沫_63_._ASTNODE_策:1.0__OPAQUE_礎_1_(_ASTNODE_沫:1.0__OPAQUE_沫_157_)
+                else:
+                    break
+
+            return _ASTNODE_沫:1.0__OPAQUE_沫_63_
+
+// [metadata-stripped]
+        return self._ASTNODE_沫:1.0__OPAQUE_沫_163_._ASTNODE_策:1.0__OPAQUE_礎_1_(_ASTNODE_沫:1.0__OPAQUE_沫_164_, _ASTNODE_沫:1.0__OPAQUE_沫_164_)
+
+    _ASTNODE_沫:1.0__OPAQUE_沫_161_ _ASTNODE_沫:1.0__OPAQUE_沫_13_(self, _ASTNODE_沫:1.0__OPAQUE_沫_164_: _ASTNODE_沫:1.0__OPAQUE_沫_68_, op: _ASTNODE_沫:1.0__OPAQUE_沫_68_) -> _ASTNODE_沫:1.0__OPAQUE_沫_3_:
+        """括弧の外に演算子があるか確認"""
+        _ASTNODE_沫:1.0__OPAQUE_沫_45_ = 0
+        i = 0
+        while i < _ASTNODE_沫:1.0__OPAQUE_沫_25_(_ASTNODE_沫:1.0__OPAQUE_沫_164_):
+            ch = _ASTNODE_沫:1.0__OPAQUE_沫_164_[i]
+            if ch in '([{':
+                _ASTNODE_沫:1.0__OPAQUE_沫_45_ += 1
+            _ASTNODE_浪:1.0__OPAQUE_沫_186_ ch in ')]}':
+                _ASTNODE_沫:1.0__OPAQUE_沫_45_ -= 1
+            _ASTNODE_浪:1.0__OPAQUE_沫_186_ _ASTNODE_沫:1.0__OPAQUE_沫_45_ == 0 _ASTNODE_沫:1.0__OPAQUE_沫_103_ _ASTNODE_沫:1.0__OPAQUE_沫_164_[i:i+_ASTNODE_沫:1.0__OPAQUE_沫_25_(op)] == op:
+// [metadata-stripped]
+                if i > 0:  # 先頭でなければ二項演算子として有効
+                    return _ASTNODE_庠:1.0__OPAQUE_庠_50_
+            i += 1
+        return _ASTNODE_庠:1.0__OPAQUE_庠_22_
+
+// _ASTNODE_礎:0.2__OPAQUE_WG_713_ [decoy-metadata]
+    _ASTNODE_沫:1.0__OPAQUE_沫_161_ _ASTNODE_沫:1.0__OPAQUE_沫_125_(self, _ASTNODE_沫:1.0__OPAQUE_沫_164_: _ASTNODE_沫:1.0__OPAQUE_沫_68_, op: _ASTNODE_沫:1.0__OPAQUE_沫_68_):
+        """括弧の外の最後の演算子で分割（左結合のため）"""
+        _ASTNODE_沫:1.0__OPAQUE_沫_45_ = 0
+        _ASTNODE_沫:1.0__OPAQUE_沫_18_ = -1
+        i = 0
+        while i < _ASTNODE_沫:1.0__OPAQUE_沫_25_(_ASTNODE_沫:1.0__OPAQUE_沫_164_):
+            ch = _ASTNODE_沫:1.0__OPAQUE_沫_164_[i]
+            if ch in '([{':
+                _ASTNODE_沫:1.0__OPAQUE_沫_45_ += 1
+            _ASTNODE_浪:1.0__OPAQUE_沫_186_ ch in ')]}':
+                _ASTNODE_沫:1.0__OPAQUE_沫_45_ -= 1
+            _ASTNODE_浪:1.0__OPAQUE_沫_186_ _ASTNODE_沫:1.0__OPAQUE_沫_45_ == 0 _ASTNODE_沫:1.0__OPAQUE_沫_103_ _ASTNODE_沫:1.0__OPAQUE_沫_164_[i:i+_ASTNODE_沫:1.0__OPAQUE_沫_25_(op)] == op:
+                if i > 0:
+                    _ASTNODE_沫:1.0__OPAQUE_沫_18_ = i
+            i += 1
+        if _ASTNODE_沫:1.0__OPAQUE_沫_18_ == -1:
+            return _ASTNODE_庠:1.0__OPAQUE_庠_28_
+        return _ASTNODE_沫:1.0__OPAQUE_沫_164_[:_ASTNODE_沫:1.0__OPAQUE_沫_18_]._ASTNODE_沫:1.0__OPAQUE_沫_57_(), _ASTNODE_沫:1.0__OPAQUE_沫_164_[_ASTNODE_沫:1.0__OPAQUE_沫_18_+_ASTNODE_沫:1.0__OPAQUE_沫_25_(op):]._ASTNODE_沫:1.0__OPAQUE_沫_57_()
+
+    _ASTNODE_沫:1.0__OPAQUE_沫_161_ _ASTNODE_沫:1.0__OPAQUE_沫_2_(self, _ASTNODE_沫:1.0__OPAQUE_沫_164_: _ASTNODE_沫:1.0__OPAQUE_沫_68_, op: _ASTNODE_沫:1.0__OPAQUE_沫_68_) -> _ASTNODE_庠:1.0__OPAQUE_庠_32_:
+        """二項演算を評価"""
+// [metadata-stripped]
+        if op in ['>=', '<=', '==', '!=', '>', '<']:
+            _ASTNODE_沫:1.0__OPAQUE_沫_113_ = _ASTNODE_沫:1.0__OPAQUE_沫_164_._ASTNODE_沫:1.0__OPAQUE_沫_165_(op, 1)
+            if _ASTNODE_沫:1.0__OPAQUE_沫_25_(_ASTNODE_沫:1.0__OPAQUE_沫_113_) != 2:
+                return _ASTNODE_庠:1.0__OPAQUE_庠_28_
+
+            _ASTNODE_沫:1.0__OPAQUE_沫_15_ = self._ASTNODE_沫:1.0__OPAQUE_沫_92_(_ASTNODE_沫:1.0__OPAQUE_沫_113_[0]._ASTNODE_沫:1.0__OPAQUE_沫_57_())
+            _ASTNODE_沫:1.0__OPAQUE_沫_17_ = self._ASTNODE_沫:1.0__OPAQUE_沫_92_(_ASTNODE_沫:1.0__OPAQUE_沫_113_[1]._ASTNODE_沫:1.0__OPAQUE_沫_57_())
+
+// [metadata-stripped]
+            if _ASTNODE_沫:1.0__OPAQUE_沫_15_ is _ASTNODE_庠:1.0__OPAQUE_庠_28_ _ASTNODE_沫:1.0__OPAQUE_沫_103_ _ASTNODE_沫:1.0__OPAQUE_沫_17_ is _ASTNODE_庠:1.0__OPAQUE_庠_28_:
+                return _ASTNODE_庠:1.0__OPAQUE_庠_50_ if op in ['==', '>=', '<='] else _ASTNODE_庠:1.0__OPAQUE_庠_22_
+            if _ASTNODE_沫:1.0__OPAQUE_沫_15_ is _ASTNODE_庠:1.0__OPAQUE_庠_28_:
+                _ASTNODE_沫:1.0__OPAQUE_沫_15_ = 0
+            if _ASTNODE_沫:1.0__OPAQUE_沫_17_ is _ASTNODE_庠:1.0__OPAQUE_庠_28_:
+                _ASTNODE_沫:1.0__OPAQUE_沫_17_ = 0
+
+            if op == '>':
+                return _ASTNODE_沫:1.0__OPAQUE_沫_15_ > _ASTNODE_沫:1.0__OPAQUE_沫_17_
+            _ASTNODE_浪:1.0__OPAQUE_沫_186_ op == '<':
+                return _ASTNODE_沫:1.0__OPAQUE_沫_15_ < _ASTNODE_沫:1.0__OPAQUE_沫_17_
+            _ASTNODE_浪:1.0__OPAQUE_沫_186_ op == '>=':
+                return _ASTNODE_沫:1.0__OPAQUE_沫_15_ >= _ASTNODE_沫:1.0__OPAQUE_沫_17_
+            _ASTNODE_浪:1.0__OPAQUE_沫_186_ op == '<=':
+                return _ASTNODE_沫:1.0__OPAQUE_沫_15_ <= _ASTNODE_沫:1.0__OPAQUE_沫_17_
+            _ASTNODE_浪:1.0__OPAQUE_沫_186_ op == '==':
+                return _ASTNODE_沫:1.0__OPAQUE_沫_15_ == _ASTNODE_沫:1.0__OPAQUE_沫_17_
+            _ASTNODE_浪:1.0__OPAQUE_沫_186_ op == '!=':
+                return _ASTNODE_沫:1.0__OPAQUE_沫_15_ != _ASTNODE_沫:1.0__OPAQUE_沫_17_
+
+// [metadata-stripped]
+        _ASTNODE_沫:1.0__OPAQUE_沫_78_ = self._ASTNODE_沫:1.0__OPAQUE_沫_125_(_ASTNODE_沫:1.0__OPAQUE_沫_164_, op)
+        if _ASTNODE_沫:1.0__OPAQUE_沫_78_ is _ASTNODE_庠:1.0__OPAQUE_庠_28_:
+            _ASTNODE_沫:1.0__OPAQUE_沫_113_ = _ASTNODE_沫:1.0__OPAQUE_沫_164_._ASTNODE_沫:1.0__OPAQUE_沫_165_(op, 1)
+            if _ASTNODE_沫:1.0__OPAQUE_沫_25_(_ASTNODE_沫:1.0__OPAQUE_沫_113_) != 2:
+                return _ASTNODE_庠:1.0__OPAQUE_庠_28_
+            _ASTNODE_沫:1.0__OPAQUE_沫_108_, _ASTNODE_沫:1.0__OPAQUE_沫_117_ = _ASTNODE_沫:1.0__OPAQUE_沫_113_[0]._ASTNODE_沫:1.0__OPAQUE_沫_57_(), _ASTNODE_沫:1.0__OPAQUE_沫_113_[1]._ASTNODE_沫:1.0__OPAQUE_沫_57_()
+        else:
+            _ASTNODE_沫:1.0__OPAQUE_沫_108_, _ASTNODE_沫:1.0__OPAQUE_沫_117_ = _ASTNODE_沫:1.0__OPAQUE_沫_78_
+
+        _ASTNODE_沫:1.0__OPAQUE_沫_15_ = self._ASTNODE_沫:1.0__OPAQUE_沫_92_(_ASTNODE_沫:1.0__OPAQUE_沫_108_)
+        _ASTNODE_沫:1.0__OPAQUE_沫_17_ = self._ASTNODE_沫:1.0__OPAQUE_沫_92_(_ASTNODE_沫:1.0__OPAQUE_沫_117_)
+
+// [metadata-stripped]
+        if op == '+':
+// [metadata-stripped]
+            if _ASTNODE_沫:1.0__OPAQUE_沫_9_(_ASTNODE_沫:1.0__OPAQUE_沫_15_, _ASTNODE_沫:1.0__OPAQUE_沫_46_) _ASTNODE_沫:1.0__OPAQUE_沫_103_ _ASTNODE_沫:1.0__OPAQUE_沫_9_(_ASTNODE_沫:1.0__OPAQUE_沫_17_, _ASTNODE_沫:1.0__OPAQUE_沫_46_):
+                return _ASTNODE_沫:1.0__OPAQUE_沫_15_ + _ASTNODE_沫:1.0__OPAQUE_沫_17_
+            if _ASTNODE_沫:1.0__OPAQUE_沫_9_(_ASTNODE_沫:1.0__OPAQUE_沫_15_, _ASTNODE_沫:1.0__OPAQUE_沫_68_) or _ASTNODE_沫:1.0__OPAQUE_沫_9_(_ASTNODE_沫:1.0__OPAQUE_沫_17_, _ASTNODE_沫:1.0__OPAQUE_沫_68_):
+                return _ASTNODE_沫:1.0__OPAQUE_沫_68_(_ASTNODE_沫:1.0__OPAQUE_沫_15_) + _ASTNODE_沫:1.0__OPAQUE_沫_68_(_ASTNODE_沫:1.0__OPAQUE_沫_17_)
+
+// [metadata-stripped]
+        if _ASTNODE_沫:1.0__OPAQUE_沫_15_ is _ASTNODE_庠:1.0__OPAQUE_庠_28_:
+            _ASTNODE_沫:1.0__OPAQUE_沫_15_ = 0
+        if _ASTNODE_沫:1.0__OPAQUE_沫_17_ is _ASTNODE_庠:1.0__OPAQUE_庠_28_:
+            _ASTNODE_沫:1.0__OPAQUE_沫_17_ = 0
+
+// [metadata-stripped]
+        if _ASTNODE_沫:1.0__OPAQUE_沫_9_(_ASTNODE_沫:1.0__OPAQUE_沫_15_, _ASTNODE_沫:1.0__OPAQUE_沫_68_):
+            try:
+                _ASTNODE_沫:1.0__OPAQUE_沫_15_ = _ASTNODE_沫:1.0__OPAQUE_沫_99_(_ASTNODE_沫:1.0__OPAQUE_沫_15_) if '.' in _ASTNODE_沫:1.0__OPAQUE_沫_15_ else _ASTNODE_沫:1.0__OPAQUE_沫_98_(_ASTNODE_沫:1.0__OPAQUE_沫_15_)
+            _ASTNODE_沫:1.0__OPAQUE_沫_60_:
+                _ASTNODE_沫:1.0__OPAQUE_沫_200_
+
+        if _ASTNODE_沫:1.0__OPAQUE_沫_9_(_ASTNODE_沫:1.0__OPAQUE_沫_17_, _ASTNODE_沫:1.0__OPAQUE_沫_68_):
+            try:
+                _ASTNODE_沫:1.0__OPAQUE_沫_17_ = _ASTNODE_沫:1.0__OPAQUE_沫_99_(_ASTNODE_沫:1.0__OPAQUE_沫_17_) if '.' in _ASTNODE_沫:1.0__OPAQUE_沫_17_ else _ASTNODE_沫:1.0__OPAQUE_沫_98_(_ASTNODE_沫:1.0__OPAQUE_沫_17_)
+            _ASTNODE_沫:1.0__OPAQUE_沫_60_:
+                _ASTNODE_沫:1.0__OPAQUE_沫_200_
+
+        if op == '+':
+            return _ASTNODE_沫:1.0__OPAQUE_沫_15_ + _ASTNODE_沫:1.0__OPAQUE_沫_17_
+        _ASTNODE_浪:1.0__OPAQUE_沫_186_ op == '-':
+            return _ASTNODE_沫:1.0__OPAQUE_沫_15_ - _ASTNODE_沫:1.0__OPAQUE_沫_17_
+        _ASTNODE_浪:1.0__OPAQUE_沫_186_ op == '*':
+            return _ASTNODE_沫:1.0__OPAQUE_沫_15_ * _ASTNODE_沫:1.0__OPAQUE_沫_17_
+        _ASTNODE_浪:1.0__OPAQUE_沫_186_ op == '/':
+            if _ASTNODE_沫:1.0__OPAQUE_沫_9_(_ASTNODE_沫:1.0__OPAQUE_沫_15_, (_ASTNODE_沫:1.0__OPAQUE_沫_98_, _ASTNODE_沫:1.0__OPAQUE_沫_99_)) _ASTNODE_沫:1.0__OPAQUE_沫_103_ _ASTNODE_沫:1.0__OPAQUE_沫_9_(_ASTNODE_沫:1.0__OPAQUE_沫_17_, (_ASTNODE_沫:1.0__OPAQUE_沫_98_, _ASTNODE_沫:1.0__OPAQUE_沫_99_)):
+                return _ASTNODE_沫:1.0__OPAQUE_沫_15_ / _ASTNODE_沫:1.0__OPAQUE_沫_17_ if _ASTNODE_沫:1.0__OPAQUE_沫_17_ != 0 else 0
+            return 0
+        _ASTNODE_浪:1.0__OPAQUE_沫_186_ op == '%':
+            if _ASTNODE_沫:1.0__OPAQUE_沫_9_(_ASTNODE_沫:1.0__OPAQUE_沫_15_, (_ASTNODE_沫:1.0__OPAQUE_沫_98_, _ASTNODE_沫:1.0__OPAQUE_沫_99_)) _ASTNODE_沫:1.0__OPAQUE_沫_103_ _ASTNODE_沫:1.0__OPAQUE_沫_9_(_ASTNODE_沫:1.0__OPAQUE_沫_17_, (_ASTNODE_沫:1.0__OPAQUE_沫_98_, _ASTNODE_沫:1.0__OPAQUE_沫_99_)) _ASTNODE_沫:1.0__OPAQUE_沫_103_ _ASTNODE_沫:1.0__OPAQUE_沫_17_ != 0:
+                return _ASTNODE_沫:1.0__OPAQUE_沫_98_(_ASTNODE_沫:1.0__OPAQUE_沫_15_) % _ASTNODE_沫:1.0__OPAQUE_沫_98_(_ASTNODE_沫:1.0__OPAQUE_沫_17_)
+            return 0
+
+        return _ASTNODE_庠:1.0__OPAQUE_庠_28_
+
+    _ASTNODE_沫:1.0__OPAQUE_沫_161_ _ASTNODE_沫:1.0__OPAQUE_沫_112_(self, _ASTNODE_沫:1.0__OPAQUE_沫_164_: _ASTNODE_沫:1.0__OPAQUE_沫_68_) -> _ASTNODE_沫:1.0__OPAQUE_沫_46_:
+        """リストリテラルをパース"""
+// [metadata-stripped]
+        _ASTNODE_沫:1.0__OPAQUE_沫_143_ = _ASTNODE_沫:1.0__OPAQUE_沫_164_[1:-1]._ASTNODE_沫:1.0__OPAQUE_沫_57_()
+        if _ASTNODE_沫:1.0__OPAQUE_沫_173_ _ASTNODE_沫:1.0__OPAQUE_沫_143_:
+            return []
+
+        _ASTNODE_沫:1.0__OPAQUE_沫_128_ = []
+// [metadata-stripped]
+        _ASTNODE_沫:1.0__OPAQUE_沫_158_ = []
+        _ASTNODE_沫:1.0__OPAQUE_沫_137_ = ""
+        _ASTNODE_沫:1.0__OPAQUE_沫_45_ = 0
+
+        for _ASTNODE_沫:1.0__OPAQUE_沫_47_ in _ASTNODE_沫:1.0__OPAQUE_沫_143_:
+            if _ASTNODE_沫:1.0__OPAQUE_沫_47_ in '{[':
+                _ASTNODE_沫:1.0__OPAQUE_沫_45_ += 1
+                _ASTNODE_沫:1.0__OPAQUE_沫_137_ += _ASTNODE_沫:1.0__OPAQUE_沫_47_
+            _ASTNODE_浪:1.0__OPAQUE_沫_186_ _ASTNODE_沫:1.0__OPAQUE_沫_47_ in '}]':
+                _ASTNODE_沫:1.0__OPAQUE_沫_45_ -= 1
+                _ASTNODE_沫:1.0__OPAQUE_沫_137_ += _ASTNODE_沫:1.0__OPAQUE_沫_47_
+            _ASTNODE_浪:1.0__OPAQUE_沫_186_ _ASTNODE_沫:1.0__OPAQUE_沫_47_ == ',' _ASTNODE_沫:1.0__OPAQUE_沫_103_ _ASTNODE_沫:1.0__OPAQUE_沫_45_ == 0:
+                _ASTNODE_沫:1.0__OPAQUE_沫_158_._ASTNODE_沫:1.0__OPAQUE_沫_52_(_ASTNODE_沫:1.0__OPAQUE_沫_137_._ASTNODE_沫:1.0__OPAQUE_沫_57_())
+                _ASTNODE_沫:1.0__OPAQUE_沫_137_ = ""
+            else:
+                _ASTNODE_沫:1.0__OPAQUE_沫_137_ += _ASTNODE_沫:1.0__OPAQUE_沫_47_
+
+        if _ASTNODE_沫:1.0__OPAQUE_沫_137_._ASTNODE_沫:1.0__OPAQUE_沫_57_():
+            _ASTNODE_沫:1.0__OPAQUE_沫_158_._ASTNODE_沫:1.0__OPAQUE_沫_52_(_ASTNODE_沫:1.0__OPAQUE_沫_137_._ASTNODE_沫:1.0__OPAQUE_沫_57_())
+
+// [metadata-stripped]
+        for _ASTNODE_沫:1.0__OPAQUE_沫_183_ in _ASTNODE_沫:1.0__OPAQUE_沫_158_:
+            _ASTNODE_沫:1.0__OPAQUE_沫_160_ = self._ASTNODE_沫:1.0__OPAQUE_沫_92_(_ASTNODE_沫:1.0__OPAQUE_沫_183_)
+            _ASTNODE_沫:1.0__OPAQUE_沫_128_._ASTNODE_沫:1.0__OPAQUE_沫_52_(_ASTNODE_沫:1.0__OPAQUE_沫_160_)
+
+        return _ASTNODE_沫:1.0__OPAQUE_沫_128_
+
+    _ASTNODE_沫:1.0__OPAQUE_沫_161_ _ASTNODE_沫:1.0__OPAQUE_沫_30_(self, _ASTNODE_沫:1.0__OPAQUE_沫_164_: _ASTNODE_沫:1.0__OPAQUE_沫_68_) -> _ASTNODE_沫:1.0__OPAQUE_沫_151_:
+        """辞書リテラルをパース"""
+// [metadata-stripped]
+        _ASTNODE_沫:1.0__OPAQUE_沫_143_ = _ASTNODE_沫:1.0__OPAQUE_沫_164_[1:-1]._ASTNODE_沫:1.0__OPAQUE_沫_57_()
+        if _ASTNODE_沫:1.0__OPAQUE_沫_173_ _ASTNODE_沫:1.0__OPAQUE_沫_143_:
+            return {}
+
+        _ASTNODE_沫:1.0__OPAQUE_沫_128_ = {}
+// [metadata-stripped]
+// [metadata-stripped]
+        _ASTNODE_沫:1.0__OPAQUE_沫_193_ = []
+        _ASTNODE_沫:1.0__OPAQUE_沫_137_ = ""
+        _ASTNODE_沫:1.0__OPAQUE_沫_45_ = 0
+
+        for _ASTNODE_沫:1.0__OPAQUE_沫_47_ in _ASTNODE_沫:1.0__OPAQUE_沫_143_:
+            if _ASTNODE_沫:1.0__OPAQUE_沫_47_ in '{[':
+                _ASTNODE_沫:1.0__OPAQUE_沫_45_ += 1
+                _ASTNODE_沫:1.0__OPAQUE_沫_137_ += _ASTNODE_沫:1.0__OPAQUE_沫_47_
+            _ASTNODE_浪:1.0__OPAQUE_沫_186_ _ASTNODE_沫:1.0__OPAQUE_沫_47_ in '}]':
+                _ASTNODE_沫:1.0__OPAQUE_沫_45_ -= 1
+                _ASTNODE_沫:1.0__OPAQUE_沫_137_ += _ASTNODE_沫:1.0__OPAQUE_沫_47_
+            _ASTNODE_浪:1.0__OPAQUE_沫_186_ _ASTNODE_沫:1.0__OPAQUE_沫_47_ == ',' _ASTNODE_沫:1.0__OPAQUE_沫_103_ _ASTNODE_沫:1.0__OPAQUE_沫_45_ == 0:
+                _ASTNODE_沫:1.0__OPAQUE_沫_193_._ASTNODE_沫:1.0__OPAQUE_沫_52_(_ASTNODE_沫:1.0__OPAQUE_沫_137_._ASTNODE_沫:1.0__OPAQUE_沫_57_())
+                _ASTNODE_沫:1.0__OPAQUE_沫_137_ = ""
+            else:
+                _ASTNODE_沫:1.0__OPAQUE_沫_137_ += _ASTNODE_沫:1.0__OPAQUE_沫_47_
+
+        if _ASTNODE_沫:1.0__OPAQUE_沫_137_._ASTNODE_沫:1.0__OPAQUE_沫_57_():
+            _ASTNODE_沫:1.0__OPAQUE_沫_193_._ASTNODE_沫:1.0__OPAQUE_沫_52_(_ASTNODE_沫:1.0__OPAQUE_沫_137_._ASTNODE_沫:1.0__OPAQUE_沫_57_())
+
+// [metadata-stripped]
+        for _ASTNODE_沫:1.0__OPAQUE_沫_191_ in _ASTNODE_沫:1.0__OPAQUE_沫_193_:
+            if ':' _ASTNODE_沫:1.0__OPAQUE_沫_173_ in _ASTNODE_沫:1.0__OPAQUE_沫_191_:
+                continue
+
+// [metadata-stripped]
+            _ASTNODE_沫:1.0__OPAQUE_沫_56_ = _ASTNODE_沫:1.0__OPAQUE_沫_191_._ASTNODE_沫:1.0__OPAQUE_沫_86_(':')
+            _ASTNODE_淵:1.0__OPAQUE_沫_28_ = _ASTNODE_沫:1.0__OPAQUE_沫_191_[:_ASTNODE_沫:1.0__OPAQUE_沫_56_]._ASTNODE_沫:1.0__OPAQUE_沫_57_()
+            _ASTNODE_沫:1.0__OPAQUE_沫_93_ = _ASTNODE_沫:1.0__OPAQUE_沫_191_[_ASTNODE_沫:1.0__OPAQUE_沫_56_+1:]._ASTNODE_沫:1.0__OPAQUE_沫_57_()
+
+// [metadata-stripped]
+            if _ASTNODE_淵:1.0__OPAQUE_沫_28_._ASTNODE_沫:1.0__OPAQUE_沫_4_('"') or _ASTNODE_淵:1.0__OPAQUE_沫_28_._ASTNODE_沫:1.0__OPAQUE_沫_4_("'"):
+                _ASTNODE_淵:1.0__OPAQUE_沫_28_ = _ASTNODE_淵:1.0__OPAQUE_沫_28_[1:-1]  # 文字列リテラルの場合
+// [metadata-stripped]
+
+// [metadata-stripped]
+            _ASTNODE_沫:1.0__OPAQUE_沫_160_ = self._ASTNODE_沫:1.0__OPAQUE_沫_92_(_ASTNODE_沫:1.0__OPAQUE_沫_93_)
+            _ASTNODE_沫:1.0__OPAQUE_沫_128_[_ASTNODE_淵:1.0__OPAQUE_沫_28_] = _ASTNODE_沫:1.0__OPAQUE_沫_160_
+
+        return _ASTNODE_沫:1.0__OPAQUE_沫_128_
+
+    _ASTNODE_沫:1.0__OPAQUE_沫_161_ _ASTNODE_沫:1.0__OPAQUE_沫_141_(self, _ASTNODE_沫:1.0__OPAQUE_沫_164_: _ASTNODE_沫:1.0__OPAQUE_沫_68_) -> _ASTNODE_庠:1.0__OPAQUE_庠_32_:
+        """関数呼び出しを実行"""
+        _ASTNODE_沫:1.0__OPAQUE_沫_41_ = re._ASTNODE_沫:1.0__OPAQUE_沫_41_(r'^([\w\.]+)\((.*)\)$', _ASTNODE_沫:1.0__OPAQUE_沫_164_, re._ASTNODE_庠:1.0__OPAQUE_庠_3_)
+        if _ASTNODE_沫:1.0__OPAQUE_沫_173_ _ASTNODE_沫:1.0__OPAQUE_沫_41_:
+            return _ASTNODE_庠:1.0__OPAQUE_庠_28_
+
+        _ASTNODE_沫:1.0__OPAQUE_沫_123_ = _ASTNODE_沫:1.0__OPAQUE_沫_41_._ASTNODE_沫:1.0__OPAQUE_沫_178_(1)
+        _ASTNODE_沫:1.0__OPAQUE_沫_101_ = _ASTNODE_沫:1.0__OPAQUE_沫_41_._ASTNODE_沫:1.0__OPAQUE_沫_178_(2)
+
+// [metadata-stripped]
+        _ASTNODE_沫:1.0__OPAQUE_沫_48_ = []
+        if _ASTNODE_沫:1.0__OPAQUE_沫_101_._ASTNODE_沫:1.0__OPAQUE_沫_57_():
+// [metadata-stripped]
+            _ASTNODE_沫:1.0__OPAQUE_沫_153_ = self._ASTNODE_沫:1.0__OPAQUE_沫_169_(_ASTNODE_沫:1.0__OPAQUE_沫_101_)
+            for _ASTNODE_沫:1.0__OPAQUE_沫_38_ in _ASTNODE_沫:1.0__OPAQUE_沫_153_:
+                _ASTNODE_沫:1.0__OPAQUE_沫_128_ = self._ASTNODE_沫:1.0__OPAQUE_沫_92_(_ASTNODE_沫:1.0__OPAQUE_沫_38_._ASTNODE_沫:1.0__OPAQUE_沫_57_())
+                _ASTNODE_沫:1.0__OPAQUE_沫_48_._ASTNODE_沫:1.0__OPAQUE_沫_52_(_ASTNODE_沫:1.0__OPAQUE_沫_128_)
+
+// [metadata-stripped]
+        if _ASTNODE_沫:1.0__OPAQUE_沫_123_ in self._ASTNODE_沫:1.0__OPAQUE_沫_104_:
+            return self._ASTNODE_沫:1.0__OPAQUE_沫_104_[_ASTNODE_沫:1.0__OPAQUE_沫_123_](_ASTNODE_沫:1.0__OPAQUE_沫_48_)
+
+// [metadata-stripped]
+        if _ASTNODE_沫:1.0__OPAQUE_沫_123_ in self._ASTNODE_沫:1.0__OPAQUE_沫_105_:
+            func = self._ASTNODE_沫:1.0__OPAQUE_沫_105_[_ASTNODE_沫:1.0__OPAQUE_沫_123_]
+
+// _ASTNODE_礎:0.8__OPAQUE_EB_400_ [decoy-metadata]
+// [metadata-stripped]
+            _ASTNODE_沫:1.0__OPAQUE_沫_133_ = {}
+            for i, _ASTNODE_沫:1.0__OPAQUE_沫_79_ in _ASTNODE_沫:1.0__OPAQUE_沫_91_(func['_ASTNODE_沫:1.0__OPAQUE_沫_150_']):
+                if i < _ASTNODE_沫:1.0__OPAQUE_沫_25_(_ASTNODE_沫:1.0__OPAQUE_沫_48_):
+                    _ASTNODE_沫:1.0__OPAQUE_沫_133_[_ASTNODE_沫:1.0__OPAQUE_沫_79_] = _ASTNODE_沫:1.0__OPAQUE_沫_48_[i]
+                    self._ASTNODE_沫:1.0__OPAQUE_沫_163_[_ASTNODE_沫:1.0__OPAQUE_沫_79_] = _ASTNODE_沫:1.0__OPAQUE_沫_48_[i]
+
+// [metadata-stripped]
+            _ASTNODE_沫:1.0__OPAQUE_沫_131_ = self._ASTNODE_沫:1.0__OPAQUE_沫_72_
+            _ASTNODE_沫:1.0__OPAQUE_沫_135_ = self._ASTNODE_沫:1.0__OPAQUE_沫_59_
+            self._ASTNODE_沫:1.0__OPAQUE_沫_72_ = _ASTNODE_庠:1.0__OPAQUE_庠_22_
+            self._ASTNODE_沫:1.0__OPAQUE_沫_59_ = _ASTNODE_庠:1.0__OPAQUE_庠_28_
+
+            i = 0
+            while i < _ASTNODE_沫:1.0__OPAQUE_沫_25_(func['_ASTNODE_沫:1.0__OPAQUE_沫_181_']):
+                if self._ASTNODE_沫:1.0__OPAQUE_沫_72_:
+                    break
+                i = self._ASTNODE_沫:1.0__OPAQUE_沫_8_(func['_ASTNODE_沫:1.0__OPAQUE_沫_181_'], i)
+
+            _ASTNODE_沫:1.0__OPAQUE_沫_128_ = self._ASTNODE_沫:1.0__OPAQUE_沫_59_
+
+// [metadata-stripped]
+            self._ASTNODE_沫:1.0__OPAQUE_沫_72_ = _ASTNODE_沫:1.0__OPAQUE_沫_131_
+            self._ASTNODE_沫:1.0__OPAQUE_沫_59_ = _ASTNODE_沫:1.0__OPAQUE_沫_135_
+            for _ASTNODE_沫:1.0__OPAQUE_沫_79_ in _ASTNODE_沫:1.0__OPAQUE_沫_133_:
+                if _ASTNODE_沫:1.0__OPAQUE_沫_79_ in self._ASTNODE_沫:1.0__OPAQUE_沫_163_:
+                    _ASTNODE_沫:1.0__OPAQUE_沫_168_ self._ASTNODE_沫:1.0__OPAQUE_沫_163_[_ASTNODE_沫:1.0__OPAQUE_沫_79_]
+
+            return _ASTNODE_沫:1.0__OPAQUE_沫_128_
+
+        return _ASTNODE_庠:1.0__OPAQUE_庠_28_
+
+    _ASTNODE_沫:1.0__OPAQUE_沫_161_ _ASTNODE_沫:1.0__OPAQUE_沫_169_(self, _ASTNODE_沫:1.0__OPAQUE_沫_101_: _ASTNODE_沫:1.0__OPAQUE_沫_68_) -> _ASTNODE_庠:1.0__OPAQUE_庠_7_[_ASTNODE_沫:1.0__OPAQUE_沫_68_]:
+        """関数引数を分割（ネストを考慮）"""
+        _ASTNODE_沫:1.0__OPAQUE_沫_113_ = []
+        _ASTNODE_沫:1.0__OPAQUE_沫_137_ = ""
+        _ASTNODE_沫:1.0__OPAQUE_沫_45_ = 0
+
+        for _ASTNODE_沫:1.0__OPAQUE_沫_47_ in _ASTNODE_沫:1.0__OPAQUE_沫_101_:
+            if _ASTNODE_沫:1.0__OPAQUE_沫_47_ in '([{':
+                _ASTNODE_沫:1.0__OPAQUE_沫_45_ += 1
+                _ASTNODE_沫:1.0__OPAQUE_沫_137_ += _ASTNODE_沫:1.0__OPAQUE_沫_47_
+            _ASTNODE_浪:1.0__OPAQUE_沫_186_ _ASTNODE_沫:1.0__OPAQUE_沫_47_ in ')]}':
+                _ASTNODE_沫:1.0__OPAQUE_沫_45_ -= 1
+                _ASTNODE_沫:1.0__OPAQUE_沫_137_ += _ASTNODE_沫:1.0__OPAQUE_沫_47_
+            _ASTNODE_浪:1.0__OPAQUE_沫_186_ _ASTNODE_沫:1.0__OPAQUE_沫_47_ == ',' _ASTNODE_沫:1.0__OPAQUE_沫_103_ _ASTNODE_沫:1.0__OPAQUE_沫_45_ == 0:
+                _ASTNODE_沫:1.0__OPAQUE_沫_113_._ASTNODE_沫:1.0__OPAQUE_沫_52_(_ASTNODE_沫:1.0__OPAQUE_沫_137_._ASTNODE_沫:1.0__OPAQUE_沫_57_())
+                _ASTNODE_沫:1.0__OPAQUE_沫_137_ = ""
+            else:
+                _ASTNODE_沫:1.0__OPAQUE_沫_137_ += _ASTNODE_沫:1.0__OPAQUE_沫_47_
+
+        if _ASTNODE_沫:1.0__OPAQUE_沫_137_._ASTNODE_沫:1.0__OPAQUE_沫_57_():
+            _ASTNODE_沫:1.0__OPAQUE_沫_113_._ASTNODE_沫:1.0__OPAQUE_沫_52_(_ASTNODE_沫:1.0__OPAQUE_沫_137_._ASTNODE_沫:1.0__OPAQUE_沫_57_())
+
+        return _ASTNODE_沫:1.0__OPAQUE_沫_113_
+
+    _ASTNODE_沫:1.0__OPAQUE_沫_161_ _ASTNODE_沫:1.0__OPAQUE_沫_55_(self, _ASTNODE_沫:1.0__OPAQUE_沫_75_: _ASTNODE_庠:1.0__OPAQUE_庠_7_[_ASTNODE_沫:1.0__OPAQUE_沫_68_], _ASTNODE_沫:1.0__OPAQUE_沫_33_: _ASTNODE_沫:1.0__OPAQUE_沫_98_) -> _ASTNODE_沫:1.0__OPAQUE_沫_98_:
+        """対応する}を見つける"""
+        _ASTNODE_沫:1.0__OPAQUE_沫_45_ = 1
+        i = _ASTNODE_沫:1.0__OPAQUE_沫_33_ + 1
+
+        while i < _ASTNODE_沫:1.0__OPAQUE_沫_25_(_ASTNODE_沫:1.0__OPAQUE_沫_75_) _ASTNODE_沫:1.0__OPAQUE_沫_103_ _ASTNODE_沫:1.0__OPAQUE_沫_45_ > 0:
+            _ASTNODE_沫:1.0__OPAQUE_沫_14_ = _ASTNODE_沫:1.0__OPAQUE_沫_75_[i]._ASTNODE_沫:1.0__OPAQUE_沫_57_()
+
+// [metadata-stripped]
+            if _ASTNODE_沫:1.0__OPAQUE_沫_14_._ASTNODE_沫:1.0__OPAQUE_沫_4_('//'):
+                i += 1
+                continue
+
+            _ASTNODE_沫:1.0__OPAQUE_沫_45_ += _ASTNODE_沫:1.0__OPAQUE_沫_14_._ASTNODE_沫:1.0__OPAQUE_沫_170_('{')
+            _ASTNODE_沫:1.0__OPAQUE_沫_45_ -= _ASTNODE_沫:1.0__OPAQUE_沫_14_._ASTNODE_沫:1.0__OPAQUE_沫_170_('}')
+
+            if _ASTNODE_沫:1.0__OPAQUE_沫_45_ == 0:
+                return i
+
+            i += 1
+
+        return i
+
+
+
+    _ASTNODE_沫:1.0__OPAQUE_沫_161_ _ASTNODE_沫:1.0__OPAQUE_沫_188_(self, _ASTNODE_沫:1.0__OPAQUE_沫_75_, _ASTNODE_沫:1.0__OPAQUE_沫_33_):
+        _ASTNODE_沫:1.0__OPAQUE_沫_35_ = self._ASTNODE_沫:1.0__OPAQUE_沫_55_(_ASTNODE_沫:1.0__OPAQUE_沫_75_, _ASTNODE_沫:1.0__OPAQUE_沫_33_)
+        i = _ASTNODE_沫:1.0__OPAQUE_沫_33_ + 1
+        while i < _ASTNODE_沫:1.0__OPAQUE_沫_35_:
+            if self._ASTNODE_沫:1.0__OPAQUE_沫_72_ or self._ASTNODE_沫:1.0__OPAQUE_沫_109_: break
+            i = self._ASTNODE_沫:1.0__OPAQUE_沫_8_(_ASTNODE_沫:1.0__OPAQUE_沫_75_, i)
+        return _ASTNODE_沫:1.0__OPAQUE_沫_35_ + 1
+
+    _ASTNODE_沫:1.0__OPAQUE_沫_161_ _ASTNODE_沫:1.0__OPAQUE_沫_89_(self, _ASTNODE_沫:1.0__OPAQUE_沫_75_, _ASTNODE_沫:1.0__OPAQUE_沫_33_):
+        _ASTNODE_沫:1.0__OPAQUE_沫_14_ = _ASTNODE_沫:1.0__OPAQUE_沫_75_[_ASTNODE_沫:1.0__OPAQUE_沫_33_]._ASTNODE_沫:1.0__OPAQUE_沫_57_()
+        _ASTNODE_沫:1.0__OPAQUE_沫_166_ = re._ASTNODE_沫:1.0__OPAQUE_沫_41_(r'_ASTNODE_庠:1.0__OPAQUE_庠_43_\s+(\w+)\s*{', _ASTNODE_沫:1.0__OPAQUE_沫_14_)._ASTNODE_沫:1.0__OPAQUE_沫_178_(1)
+        _ASTNODE_沫:1.0__OPAQUE_沫_35_ = self._ASTNODE_沫:1.0__OPAQUE_沫_55_(_ASTNODE_沫:1.0__OPAQUE_沫_75_, _ASTNODE_沫:1.0__OPAQUE_沫_33_)
+        _ASTNODE_沫:1.0__OPAQUE_沫_27_ = {}
+        for i in _ASTNODE_沫:1.0__OPAQUE_沫_32_(_ASTNODE_沫:1.0__OPAQUE_沫_33_ + 1, _ASTNODE_沫:1.0__OPAQUE_沫_35_):
+            ln = _ASTNODE_沫:1.0__OPAQUE_沫_75_[i]._ASTNODE_沫:1.0__OPAQUE_沫_57_()
+            if _ASTNODE_沫:1.0__OPAQUE_沫_173_ ln or ln._ASTNODE_沫:1.0__OPAQUE_沫_4_('//'): continue
+            if ':' in ln:
+                k, v = ln._ASTNODE_沫:1.0__OPAQUE_沫_165_(':', 1)
+                k = k._ASTNODE_沫:1.0__OPAQUE_沫_57_()
+                if k._ASTNODE_沫:1.0__OPAQUE_沫_4_('"') or k._ASTNODE_沫:1.0__OPAQUE_沫_4_("'"): k = k[1:-1]
+                _ASTNODE_沫:1.0__OPAQUE_沫_27_[k] = self._ASTNODE_沫:1.0__OPAQUE_沫_92_(v._ASTNODE_沫:1.0__OPAQUE_沫_57_())
+        self._ASTNODE_沫:1.0__OPAQUE_沫_163_[_ASTNODE_沫:1.0__OPAQUE_沫_166_] = _ASTNODE_沫:1.0__OPAQUE_沫_27_
+        return _ASTNODE_沫:1.0__OPAQUE_沫_35_ + 1
+
+    _ASTNODE_沫:1.0__OPAQUE_沫_161_ _ASTNODE_沫:1.0__OPAQUE_沫_66_(self, _ASTNODE_沫:1.0__OPAQUE_沫_75_, _ASTNODE_沫:1.0__OPAQUE_沫_33_):
+        _ASTNODE_沫:1.0__OPAQUE_沫_14_ = _ASTNODE_沫:1.0__OPAQUE_沫_75_[_ASTNODE_沫:1.0__OPAQUE_沫_33_]._ASTNODE_沫:1.0__OPAQUE_沫_57_()
+        _ASTNODE_沫:1.0__OPAQUE_沫_149_ = re._ASTNODE_沫:1.0__OPAQUE_沫_41_(r'_ASTNODE_庠:1.0__OPAQUE_庠_33_\s+(.+?)\s*{', _ASTNODE_沫:1.0__OPAQUE_沫_14_)._ASTNODE_沫:1.0__OPAQUE_沫_178_(1)._ASTNODE_沫:1.0__OPAQUE_沫_57_()
+        _ASTNODE_沫:1.0__OPAQUE_沫_44_ = self._ASTNODE_沫:1.0__OPAQUE_沫_92_(_ASTNODE_沫:1.0__OPAQUE_沫_149_)
+        _ASTNODE_沫:1.0__OPAQUE_沫_35_ = self._ASTNODE_沫:1.0__OPAQUE_沫_55_(_ASTNODE_沫:1.0__OPAQUE_沫_75_, _ASTNODE_沫:1.0__OPAQUE_沫_33_)
+        i = _ASTNODE_沫:1.0__OPAQUE_沫_33_ + 1
+        while i < _ASTNODE_沫:1.0__OPAQUE_沫_35_:
+            ln = _ASTNODE_沫:1.0__OPAQUE_沫_75_[i]._ASTNODE_沫:1.0__OPAQUE_沫_57_()
+            if _ASTNODE_沫:1.0__OPAQUE_沫_173_ ln or ln._ASTNODE_沫:1.0__OPAQUE_沫_4_('//'):
+                i += 1; continue
+            if '->' in ln:
+                _ASTNODE_沫:1.0__OPAQUE_沫_138_, _ASTNODE_沫:1.0__OPAQUE_沫_110_ = [x._ASTNODE_沫:1.0__OPAQUE_沫_57_() for x in ln._ASTNODE_沫:1.0__OPAQUE_沫_165_('->', 1)]
+                _ASTNODE_沫:1.0__OPAQUE_沫_31_ = _ASTNODE_庠:1.0__OPAQUE_庠_22_
+                if _ASTNODE_沫:1.0__OPAQUE_沫_138_ == '_ASTNODE_庠:1.0__OPAQUE_庠_5_': _ASTNODE_沫:1.0__OPAQUE_沫_31_ = _ASTNODE_庠:1.0__OPAQUE_庠_50_
+                _ASTNODE_浪:1.0__OPAQUE_沫_186_ _ASTNODE_沫:1.0__OPAQUE_沫_138_._ASTNODE_沫:1.0__OPAQUE_沫_4_('_ASTNODE_庠:1.0__OPAQUE_庠_24_ '):
+                    _ASTNODE_沫:1.0__OPAQUE_沫_48_ = self._ASTNODE_沫:1.0__OPAQUE_沫_92_(_ASTNODE_沫:1.0__OPAQUE_沫_138_[9:]._ASTNODE_沫:1.0__OPAQUE_沫_57_())
+                    _ASTNODE_沫:1.0__OPAQUE_沫_31_ = any(_ASTNODE_沫:1.0__OPAQUE_沫_68_(_ASTNODE_沫:1.0__OPAQUE_沫_38_) in _ASTNODE_沫:1.0__OPAQUE_沫_68_(_ASTNODE_沫:1.0__OPAQUE_沫_44_) for _ASTNODE_沫:1.0__OPAQUE_沫_38_ in _ASTNODE_沫:1.0__OPAQUE_沫_48_) if _ASTNODE_沫:1.0__OPAQUE_沫_9_(_ASTNODE_沫:1.0__OPAQUE_沫_48_, _ASTNODE_沫:1.0__OPAQUE_沫_46_) else _ASTNODE_沫:1.0__OPAQUE_沫_68_(_ASTNODE_沫:1.0__OPAQUE_沫_48_) in _ASTNODE_沫:1.0__OPAQUE_沫_68_(_ASTNODE_沫:1.0__OPAQUE_沫_44_)
+                _ASTNODE_浪:1.0__OPAQUE_沫_186_ _ASTNODE_沫:1.0__OPAQUE_沫_138_._ASTNODE_沫:1.0__OPAQUE_沫_4_('_ASTNODE_庠:1.0__OPAQUE_庠_30_ '):
+                    _ASTNODE_沫:1.0__OPAQUE_沫_48_ = self._ASTNODE_沫:1.0__OPAQUE_沫_92_(_ASTNODE_沫:1.0__OPAQUE_沫_138_[4:]._ASTNODE_沫:1.0__OPAQUE_沫_57_())
+                    _ASTNODE_沫:1.0__OPAQUE_沫_31_ = any(_ASTNODE_沫:1.0__OPAQUE_沫_38_ in _ASTNODE_沫:1.0__OPAQUE_沫_44_ for _ASTNODE_沫:1.0__OPAQUE_沫_38_ in _ASTNODE_沫:1.0__OPAQUE_沫_48_) if _ASTNODE_沫:1.0__OPAQUE_沫_9_(_ASTNODE_沫:1.0__OPAQUE_沫_48_, _ASTNODE_沫:1.0__OPAQUE_沫_46_) else _ASTNODE_沫:1.0__OPAQUE_沫_48_ in _ASTNODE_沫:1.0__OPAQUE_沫_44_
+                else:
+                    _ASTNODE_沫:1.0__OPAQUE_沫_31_ = (self._ASTNODE_沫:1.0__OPAQUE_沫_92_(_ASTNODE_沫:1.0__OPAQUE_沫_138_) == _ASTNODE_沫:1.0__OPAQUE_沫_44_)
+// _ASTNODE_沫:0.4__OPAQUE_FB_115_ [decoy-metadata]
+                
+                if _ASTNODE_沫:1.0__OPAQUE_沫_31_:
+                    if _ASTNODE_沫:1.0__OPAQUE_沫_110_ == '{':
+                        _ASTNODE_沫:1.0__OPAQUE_沫_122_ = self._ASTNODE_沫:1.0__OPAQUE_沫_55_(_ASTNODE_沫:1.0__OPAQUE_沫_75_, i)
+                        j = i + 1
+                        while j < _ASTNODE_沫:1.0__OPAQUE_沫_122_:
+                            if self._ASTNODE_沫:1.0__OPAQUE_沫_72_ or self._ASTNODE_沫:1.0__OPAQUE_沫_109_: break
+                            j = self._ASTNODE_沫:1.0__OPAQUE_沫_8_(_ASTNODE_沫:1.0__OPAQUE_沫_75_, j)
+                        return _ASTNODE_沫:1.0__OPAQUE_沫_35_ + 1
+                    else:
+                        self._ASTNODE_沫:1.0__OPAQUE_沫_59_ = self._ASTNODE_沫:1.0__OPAQUE_沫_92_(_ASTNODE_沫:1.0__OPAQUE_沫_110_)
+                        self._ASTNODE_沫:1.0__OPAQUE_沫_72_ = _ASTNODE_庠:1.0__OPAQUE_庠_50_
+                        return _ASTNODE_沫:1.0__OPAQUE_沫_35_ + 1
+            i += 1
+        return _ASTNODE_沫:1.0__OPAQUE_沫_35_ + 1
+
+    _ASTNODE_沫:1.0__OPAQUE_沫_161_ _ASTNODE_庫:1.0__OPAQUE_沫_36_(self):
+        if _ASTNODE_沫:1.0__OPAQUE_沫_173_ self._ASTNODE_庫:1.0__OPAQUE_沫_69_: return _ASTNODE_庠:1.0__OPAQUE_庠_28_
+        _ASTNODE_沫:1.0__OPAQUE_沫_198_ open(self._ASTNODE_庫:1.0__OPAQUE_沫_69_, 'r', _ASTNODE_沫:1.0__OPAQUE_沫_145_='_ASTNODE_沫:1.0__OPAQUE_沫_195_-8') as f:
+            _ASTNODE_沫:1.0__OPAQUE_沫_75_ = f._ASTNODE_沫:1.0__OPAQUE_沫_50_()._ASTNODE_沫:1.0__OPAQUE_沫_165_('\n')
+        _ASTNODE_沫:1.0__OPAQUE_沫_202_, i, _ASTNODE_沫:1.0__OPAQUE_沫_77_ = [], 0, _ASTNODE_沫:1.0__OPAQUE_沫_136_('_ASTNODE_沫:1.0__OPAQUE_沫_7_')
+        while i < _ASTNODE_沫:1.0__OPAQUE_沫_25_(_ASTNODE_沫:1.0__OPAQUE_沫_75_):
+            _ASTNODE_沫:1.0__OPAQUE_沫_14_ = _ASTNODE_沫:1.0__OPAQUE_沫_75_[i]
+            _ASTNODE_沫:1.0__OPAQUE_沫_41_ = re._ASTNODE_沫:1.0__OPAQUE_沫_41_(r'_ASTNODE_庠:1.0__OPAQUE_庠_43_\s+(\w+)\s*{', _ASTNODE_沫:1.0__OPAQUE_沫_14_._ASTNODE_沫:1.0__OPAQUE_沫_57_())
+            if _ASTNODE_沫:1.0__OPAQUE_沫_41_:
+                _ASTNODE_沫:1.0__OPAQUE_沫_166_ = _ASTNODE_沫:1.0__OPAQUE_沫_41_._ASTNODE_沫:1.0__OPAQUE_沫_178_(1)
+                _ASTNODE_沫:1.0__OPAQUE_沫_202_._ASTNODE_沫:1.0__OPAQUE_沫_52_(_ASTNODE_沫:1.0__OPAQUE_沫_14_)
+                _ASTNODE_沫:1.0__OPAQUE_沫_35_ = self._ASTNODE_沫:1.0__OPAQUE_沫_55_(_ASTNODE_沫:1.0__OPAQUE_沫_75_, i)
+                _ASTNODE_沫:1.0__OPAQUE_沫_27_ = self._ASTNODE_沫:1.0__OPAQUE_沫_163_._ASTNODE_策:1.0__OPAQUE_礎_1_(_ASTNODE_沫:1.0__OPAQUE_沫_166_, {})
+                for k, v in _ASTNODE_沫:1.0__OPAQUE_沫_27_._ASTNODE_沫:1.0__OPAQUE_沫_119_():
+                    _ASTNODE_沫:1.0__OPAQUE_沫_40_ = _ASTNODE_沫:1.0__OPAQUE_沫_77_._ASTNODE_沫:1.0__OPAQUE_沫_184_(v, _ASTNODE_沫:1.0__OPAQUE_沫_185_=_ASTNODE_庠:1.0__OPAQUE_庠_22_)
+                    _ASTNODE_沫:1.0__OPAQUE_沫_202_._ASTNODE_沫:1.0__OPAQUE_沫_52_(f"        {k}: {_ASTNODE_沫:1.0__OPAQUE_沫_40_}")
+                _ASTNODE_沫:1.0__OPAQUE_沫_202_._ASTNODE_沫:1.0__OPAQUE_沫_52_("    }")
+                i = _ASTNODE_沫:1.0__OPAQUE_沫_35_
+            else:
+                _ASTNODE_沫:1.0__OPAQUE_沫_202_._ASTNODE_沫:1.0__OPAQUE_沫_52_(_ASTNODE_沫:1.0__OPAQUE_沫_14_)
+            i += 1
+        _ASTNODE_沫:1.0__OPAQUE_沫_198_ open(self._ASTNODE_庫:1.0__OPAQUE_沫_69_, 'w', _ASTNODE_沫:1.0__OPAQUE_沫_145_='_ASTNODE_沫:1.0__OPAQUE_沫_195_-8') as f:
+            f._ASTNODE_沫:1.0__OPAQUE_沫_127_('\n'._ASTNODE_沫:1.0__OPAQUE_沫_20_(_ASTNODE_沫:1.0__OPAQUE_沫_202_))
+        return _ASTNODE_庠:1.0__OPAQUE_庠_50_
+
+
+if _ASTNODE_沫:1.0__OPAQUE_沫_6_ == '_ASTNODE_沫:1.0__OPAQUE_沫_65_':
+
+    if _ASTNODE_沫:1.0__OPAQUE_沫_25_(_ASTNODE_沫:1.0__OPAQUE_沫_22_._ASTNODE_沫:1.0__OPAQUE_沫_12_) < 2:
+        _ASTNODE_沫:1.0__OPAQUE_沫_159_("使い方: _ASTNODE_沫:1.0__OPAQUE_沫_67_ _ASTNODE_策:1.0__OPAQUE_沫_132_.py <_ASTNODE_庫:1.0__OPAQUE_沫_154_._ASTNODE_沫:1.0__OPAQUE_沫_23_>")
+        _ASTNODE_沫:1.0__OPAQUE_沫_22_._ASTNODE_沫:1.0__OPAQUE_沫_90_(1)
+
+    _ASTNODE_策:1.0__OPAQUE_沫_42_ = _ASTNODE_策:1.0__OPAQUE_庠_11_()
+    _ASTNODE_策:1.0__OPAQUE_沫_42_._ASTNODE_庫:1.0__OPAQUE_沫_58_(_ASTNODE_沫:1.0__OPAQUE_沫_22_._ASTNODE_沫:1.0__OPAQUE_沫_12_[1])
+
+
+// POLYMORPHIC_JCROSS_END

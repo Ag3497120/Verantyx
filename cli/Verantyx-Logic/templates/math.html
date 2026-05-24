@@ -1,0 +1,532 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AVH-Math Sovereign | V28.4</title>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.9.1/gsap.min.js"></script>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;700&display=swap" rel="stylesheet">
+    <style>
+        :root { --neon: #00f3ff; --purple: #8800ff; --gold: #ffcc00; --bg: #010205; --pink: #ff0055; --dark: #050a10; --line: #1a3a4a; }
+        body { background: var(--bg); color: #c0d0d0; font-family: 'JetBrains Mono', monospace; margin: 0; display: flex; height: 100vh; overflow: hidden; }
+        
+        /* Custom Scrollbar */
+        ::-webkit-scrollbar { width: 6px; height: 6px; }
+        ::-webkit-scrollbar-track { background: var(--dark); }
+        ::-webkit-scrollbar-thumb { background: var(--line); border-radius: 3px; }
+        ::-webkit-scrollbar-thumb:hover { background: var(--neon); }
+
+        .glass { background: rgba(5, 10, 16, 0.85); backdrop-filter: blur(8px); border: 1px solid var(--line); }
+        .neon-text { text-shadow: 0 0 5px rgba(0, 243, 255, 0.5); }
+        .neon-border { box-shadow: 0 0 10px rgba(0, 243, 255, 0.2); border-color: var(--neon); }
+        
+        .cand-row:hover { background: rgba(0, 243, 255, 0.1); cursor: pointer; }
+        .cand-row.active { background: rgba(0, 243, 255, 0.2); border-left: 2px solid var(--neon); }
+        
+        /* Mining Modal Animation */
+        @keyframes modalPop { from { transform: translate(-50%, -60%) scale(0.9); opacity: 0; } to { transform: translate(-50%, -50%) scale(1); opacity: 1; } } 
+        .modal-anim { animation: modalPop 0.3s cubic-bezier(0.34, 1.56, 0.64, 1) forwards; }
+
+        /* Loader */
+        .loader { width: 48px; height: 48px; border: 5px solid #FFF; border-bottom-color: var(--neon); border-radius: 50%; display: inline-block; box-sizing: border-box; animation: rotation 1s linear infinite; }
+        @keyframes rotation { 0% { transform: rotate(0deg); } 100% { transform: rotate(360deg); } }
+    </style>
+</head>
+<body class="selection:bg-[#00f3ff] selection:text-black">
+
+    <!-- Sidebar: Control & Input -->
+    <div id="sidebar" class="w-[400px] bg-[#050a10] border-r border-[#1a3a4a] flex flex-col z-20 flex-shrink-0 shadow-xl relative">
+        <!-- Header -->
+        <div class="p-5 border-b border-[#1a3a4a] bg-gradient-to-r from-[#050a10] to-[#0a1420]">
+            <h1 class="text-xl font-bold text-[#00f3ff] tracking-tighter neon-text">AVH-MATH <span class="text-white">Sovereign</span></h1>
+            <div class="flex justify-between items-end mt-1">
+                <span class="text-[10px] text-[#8800ff] font-bold tracking-widest">PHASE 28.4 // REAL VERIFIER</span>
+                <div id="statusPill" class="text-[10px] px-2 py-0.5 rounded border border-[#333] text-gray-400 bg-black transition-colors">STANDBY</div>
+            </div>
+        </div>
+        
+        <!-- Controls -->
+        <div class="p-4 flex flex-col gap-4 overflow-y-auto flex-1">
+            <!-- Input Box -->
+            <div class="group relative">
+                <div class="absolute -top-2 left-2 bg-[#050a10] px-1 text-[10px] text-[#00f3ff]">QUERY_INPUT</div>
+                <div class="mb-2 text-[10px] text-gray-500">
+                    入力ルール: 式は "..." で囲ってください。例: "[]p -> [][]p"
+                </div>
+                <textarea id="inputText" class="w-full h-40 bg-[#0b121e] border border-[#1a3a4a] rounded p-3 text-xs text-gray-300 focus:border-[#00f3ff] focus:outline-none transition-colors resize-none leading-relaxed placeholder-gray-700" spellcheck="false">クリプキ・フレーム ⟨W, R⟩ において、到達関係 R は 推移的（transitive）であると仮定する。ただし 反射的・対称的・ユークリッド的であるとは仮定しない。
+このとき、常に妥当となる式はどれか。
+
+A. □A -> A
+B. □A -> □□A
+C. A -> □◊A</textarea>
+                <div class="mt-2 text-[10px] text-gray-500">
+                    Modal tips: use <span class="text-[#00f3ff]">[]p</span> / <span class="text-[#00f3ff]">[][]p</span> (no spaces after []), or use □p / □□p.
+                </div>
+            </div>
+
+            <!-- Settings & Action -->
+            <div class="flex gap-2 items-center">
+                <div class="relative w-20">
+                    <div class="absolute -top-2 left-2 bg-[#050a10] px-1 text-[10px] text-[#00f3ff]">DEPTH</div>
+                    <input id="maxWorlds" type="number" min="1" max="5" value="3" class="w-full bg-[#0b121e] border border-[#1a3a4a] rounded py-2 px-3 text-right text-sm text-white focus:border-[#00f3ff] outline-none">
+                </div>
+                <button id="runBtn" class="flex-1 bg-[#00f3ff] text-black font-bold py-2 rounded text-xs tracking-wider hover:bg-[#8800ff] hover:text-white transition-all shadow-[0_0_15px_rgba(0,243,255,0.3)] h-[38px]">
+                    EXECUTE VERIFICATION
+                </button>
+            </div>
+
+            <!-- Candidate Matrix -->
+            <div class="flex-1 flex flex-col border border-[#1a3a4a] rounded bg-[#0b121e] min-h-[200px] overflow-hidden">
+                <div class="px-3 py-2 border-b border-[#1a3a4a] flex justify-between items-center bg-[#0f1a2a]">
+                    <span class="text-[10px] text-[#8800ff] font-bold">CANDIDATE_MATRIX</span>
+                    <span class="text-[10px] text-gray-500" id="candCount">0 ITEMS</span>
+                </div>
+                <div class="overflow-y-auto flex-1 relative">
+                    <table class="w-full text-xs" id="candTable">
+                        <thead class="text-gray-500 bg-[#050a10] sticky top-0 z-10">
+                            <tr><th class="p-2 text-left w-8">#</th><th class="p-2 text-left">FORMULA</th><th class="p-2 text-right w-16">STATUS</th></tr>
+                        </thead>
+                        <tbody class="divide-y divide-[#1a3a4a/50] text-gray-400"></tbody>
+                    </table>
+                    <div id="loader" class="absolute inset-0 bg-black/80 flex items-center justify-center hidden z-20">
+                        <span class="loader"></span>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="text-[10px] text-gray-500 border-t border-[#1a3a4a] pt-2 truncate">
+                ASSUMPTIONS: <span id="assumptionsView" class="text-[#ffcc00]">NONE</span>
+            </div>
+        </div>
+    </div>
+
+    <!-- Main Display -->
+    <div class="flex-1 relative bg-black flex flex-col overflow-hidden">
+        
+        <!-- 3D Background -->
+        <div class="absolute inset-0 z-0 bg-[url('https://www.transparenttextures.com/patterns/cubes.png')] opacity-20 pointer-events-none"></div>
+        
+        <!-- 3D Visualizer Container -->
+        <div id="visualizer" class="relative w-full h-[50%] bg-[#02050a] border-b border-[#1a3a4a]">
+            <!-- Three.js Canvas will be appended here -->
+            <div class="absolute top-4 left-4 z-10">
+                <div class="text-[10px] text-[#00f3ff] font-bold bg-black/50 px-2 py-1 rounded border border-[#00f3ff]/30">VISUALIZER: <span id="selectedCand" class="text-white">NONE</span></div>
+            </div>
+            <div id="cmMessage" class="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 text-[#8800ff] font-bold text-sm hidden pointer-events-none">NO MODEL</div>
+        </div>
+
+        <!-- Bottom Panel: Details & Logs -->
+        <div class="flex-1 flex overflow-hidden">
+            <!-- Left: Logic Details -->
+            <div class="flex-1 p-4 overflow-y-auto border-r border-[#1a3a4a] bg-[#050a10]/50 backdrop-blur-sm">
+                <div id="dynamicPanels" class="space-y-3">
+                    <div class="text-center text-gray-600 text-xs mt-10">SELECT A CANDIDATE TO INSPECT</div>
+                </div>
+            </div>
+
+            <!-- Right: Audit Log & Trace -->
+            <div class="w-[350px] flex flex-col bg-[#020508] border-l border-[#1a3a4a]">
+                <div class="p-2 border-b border-[#1a3a4a] text-[10px] text-[#ffcc00] font-bold bg-[#0a1420]">SYSTEM_AUDIT_LOG</div>
+                <div id="auditLog" class="flex-1 p-3 text-[10px] text-gray-400 font-mono whitespace-pre-wrap overflow-y-auto leading-tight"></div>
+                
+                <div class="p-2 border-t border-[#1a3a4a] bg-[#0a1420]">
+                    <div class="text-[10px] text-[#a78bfa] font-bold mb-1">EVIDENCE_TRACE</div>
+                    <div id="evidenceList" class="flex flex-wrap gap-1"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Mining Modal -->
+    <div id="minePanel" style="display:none;" class="fixed top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-[500px] glass border-[#f59e0b] shadow-[0_0_50px_rgba(245,158,11,0.2)] z-50 p-6 rounded-lg modal-anim">
+        <div class="text-[#f59e0b] font-bold text-sm mb-4 flex items-center gap-2">
+            <span class="w-2 h-2 bg-[#f59e0b] rounded-full animate-pulse"></span>
+            KNOWLEDGE GAP DETECTED
+        </div>
+        <div class="mb-4">
+            <div class="text-[10px] text-gray-500 mb-1">UNKNOWN TERM</div>
+            <div id="unknownTermDisplay" class="text-lg font-bold text-white bg-black/50 p-2 rounded border border-[#333]"></div>
+        </div>
+        <div class="mono text-[10px] text-gray-400 bg-black/50 p-3 rounded h-32 overflow-y-auto border border-[#333] mb-4 font-mono whitespace-pre-wrap" id="minedResult"></div>
+        
+        <div class="flex gap-2 justify-end">
+            <button id="mineBtn" class="bg-[#f59e0b] text-black px-4 py-2 rounded text-xs font-bold hover:bg-[#d97706] transition-colors">MINE DEFINITION</button>
+            <div id="approveRow" style="display:none;">
+                <button id="approveBtn" class="bg-[#22c55e] text-black px-4 py-2 rounded text-xs font-bold hover:bg-[#16a34a] transition-colors">APPROVE & COMMIT</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Highlight Overlay (Hidden logic) -->
+    <div id="renderedText" style="display:none;"></div>
+
+<script>
+// --- Three.js Setup ---
+let scene, camera, renderer, nodesGroup, edgesGroup;
+let animationId;
+
+function init3D() {
+    const container = document.getElementById('visualizer');
+    scene = new THREE.Scene();
+    
+    // Camera
+    camera = new THREE.PerspectiveCamera(45, container.clientWidth / container.clientHeight, 0.1, 1000);
+    camera.position.set(0, 0, 20);
+    
+    // Renderer
+    renderer = new THREE.WebGLRenderer({ antialias: true, alpha: true });
+    renderer.setSize(container.clientWidth, container.clientHeight);
+    renderer.setPixelRatio(window.devicePixelRatio);
+    container.appendChild(renderer.domElement);
+
+    // Lights
+    const ambLight = new THREE.AmbientLight(0x404040, 2);
+    scene.add(ambLight);
+    const pointLight = new THREE.PointLight(0x00f3ff, 1, 100);
+    pointLight.position.set(10, 10, 10);
+    scene.add(pointLight);
+
+    // Groups
+    nodesGroup = new THREE.Group();
+    edgesGroup = new THREE.Group();
+    scene.add(edgesGroup); // Edges behind nodes
+    scene.add(nodesGroup);
+
+    // Grid (Cyberpunk style)
+    const grid = new THREE.GridHelper(100, 50, 0x1a3a4a, 0x05101a);
+    grid.rotation.x = Math.PI / 2;
+    grid.position.z = -5;
+    scene.add(grid);
+
+    // Resize Handler
+    window.addEventListener('resize', () => {
+        if (!container.clientWidth) return;
+        camera.aspect = container.clientWidth / container.clientHeight;
+        camera.updateProjectionMatrix();
+        renderer.setSize(container.clientWidth, container.clientHeight);
+    });
+
+    animate();
+}
+
+function animate() {
+    animationId = requestAnimationFrame(animate);
+    if(nodesGroup) nodesGroup.rotation.z += 0.001; // Slow spin
+    if(edgesGroup) edgesGroup.rotation.z += 0.001;
+    renderer.render(scene, camera);
+}
+
+function clearScene() {
+    while(nodesGroup.children.length > 0){ 
+        const obj = nodesGroup.children[0];
+        nodesGroup.remove(obj);
+        if(obj.geometry) obj.geometry.dispose();
+        if(obj.material) obj.material.dispose();
+    }
+    while(edgesGroup.children.length > 0){
+        const obj = edgesGroup.children[0];
+        edgesGroup.remove(obj);
+        if(obj.geometry) obj.geometry.dispose();
+        if(obj.material) obj.material.dispose();
+    }
+    nodesGroup.rotation.set(0,0,0);
+    edgesGroup.rotation.set(0,0,0);
+    document.getElementById("cmMessage").style.display = "none";
+}
+
+function renderKripkeModel3D(cm) {
+    clearScene();
+    
+    if (!cm) {
+        document.getElementById("cmMessage").style.display = "block";
+        document.getElementById("cmMessage").innerText = "NO MODEL FOUND / VALID";
+        return;
+    }
+
+    document.getElementById("cmMessage").style.display = "none";
+
+    const n = cm.n_worlds;
+    const edges = cm.relation;
+    const root = cm.root_world;
+    const radius = 5;
+    
+    // Create Nodes
+    const positions = [];
+    for(let i=0; i<n; i++) {
+        const ang = (2 * Math.PI * i) / n;
+        const x = radius * Math.cos(ang);
+        const y = radius * Math.sin(ang);
+        const z = 0;
+        positions.push(new THREE.Vector3(x, y, z));
+
+        const geometry = new THREE.SphereGeometry(0.5, 32, 32);
+        const color = (i === root) ? 0xff0055 : 0x00f3ff;
+        const material = new THREE.MeshStandardMaterial({ 
+            color: color, 
+            emissive: color, 
+            emissiveIntensity: 0.5,
+            roughness: 0.2,
+            metalness: 0.8
+        });
+        const sphere = new THREE.Mesh(geometry, material);
+        sphere.position.set(x, y, z);
+        nodesGroup.add(sphere);
+        
+        // Label (Simulated with simple geometry or just rely on color)
+        // For advanced text, we'd need FontLoader, but skipping for simplicity/performance
+    }
+
+    // Create Edges
+    const lineMat = new THREE.LineBasicMaterial({ color: 0x8800ff, transparent: true, opacity: 0.6 });
+    edges.forEach(([u, v]) => {
+        const p1 = positions[u];
+        const p2 = positions[v];
+        
+        if (u === v) {
+            // Self loop (Torus)
+            const loopGeo = new THREE.TorusGeometry(0.8, 0.05, 8, 20);
+            const loop = new THREE.Mesh(loopGeo, new THREE.MeshBasicMaterial({ color: 0x8800ff }));
+            loop.position.copy(p1);
+            loop.position.z += 0.5;
+            edgesGroup.add(loop);
+        } else {
+            const points = [];
+            points.push(p1);
+            // Curve slightly? For now straight lines
+            points.push(p2);
+            const geo = new THREE.BufferGeometry().setFromPoints(points);
+            const line = new THREE.Line(geo, lineMat);
+            edgesGroup.add(line);
+            
+            // Arrowhead
+            const dir = new THREE.Vector3().subVectors(p2, p1).normalize();
+            const arrow = new THREE.ArrowHelper(dir, p1, p1.distanceTo(p2) - 0.6, 0x8800ff, 0.5, 0.3);
+            edgesGroup.add(arrow);
+        }
+    });
+}
+
+// --- Logic & UI Interactivity ---
+
+const runBtn = document.getElementById("runBtn");
+const inputText = document.getElementById("inputText");
+const maxWorlds = document.getElementById("maxWorlds");
+const statusPill = document.getElementById("statusPill");
+const assumptionsView = document.getElementById("assumptionsView");
+const candTbody = document.querySelector("#candTable tbody");
+const auditLog = document.getElementById("auditLog");
+const selectedCand = document.getElementById("selectedCand");
+const loader = document.getElementById("loader");
+
+// Mining
+const minePanel = document.getElementById("minePanel");
+const unknownTermDisplay = document.getElementById("unknownTermDisplay");
+const mineBtn = document.getElementById("mineBtn");
+const minedResult = document.getElementById("minedResult");
+const approveRow = document.getElementById("approveRow");
+const approveBtn = document.getElementById("approveBtn");
+let lastPendingId = null;
+
+// Dynamic Panel Helper
+function createPanel(title, content, colorClass="border-gray-700") {
+    const box = document.createElement("div");
+    box.className = `p-3 rounded border ${colorClass} bg-black/40 backdrop-blur-sm`;
+    box.innerHTML = `
+        <div class="text-[10px] font-bold mb-2 opacity-80 tracking-wider">${title}</div>
+        <div class="text-xs text-gray-300 space-y-1 leading-relaxed">${content}</div>
+    `;
+    return box;
+}
+
+function normalizeModalFormula(s) {
+    if(!s) return s;
+    s = s.replace(/□/g, "[]").replace(/◇/g, "<>");
+    s = s.replace(/\bbox\b/gi, "[]").replace(/\bdiamond\b/gi, "<>");
+    s = s.replace(/\[\]\s+(?=[A-Za-z(~\[])/g, "[]");
+    s = s.replace(/<>\s+(?=[A-Za-z(~\[])/g, "<>");
+    s = s.replace(/\[\]\s+\[\]\s*/g, "[][]");
+    s = s.replace(/<>\s+<>\s*/g, "<><>");
+    return s;
+}
+
+function normalizeInputText(raw) {
+    if(!raw) return raw;
+    const lines = raw.split(/\r?\n/);
+    let out = [];
+    let inFormulaLine = false;
+    for (const line of lines) {
+        if (/^\s*Formula\s*:/i.test(line)) {
+            inFormulaLine = true;
+            const parts = line.split(/:(.+)/);
+            const prefix = parts[0];
+            const rest = parts[1] || "";
+            out.push(prefix + ":" + " " + normalizeModalFormula(rest));
+            continue;
+        }
+        out.push(inFormulaLine ? normalizeModalFormula(line) : line);
+    }
+    return out.join("\n");
+}
+
+function renderDetails(c) {
+    const container = document.getElementById("dynamicPanels");
+    container.innerHTML = "";
+
+    // 1. Proof Sketch
+    if(c.proof_sketch && c.proof_sketch.status === "sketch_available") {
+        const steps = (c.proof_sketch.reasoning_steps || []).map(s => `<li>${s}</li>`).join("");
+        container.appendChild(createPanel(
+            "PROOF SKETCH", 
+            `<div class="font-bold text-[#60a5fa] mb-1">${c.proof_sketch.claim}</div><ol class="list-decimal pl-4 space-y-1 text-gray-400">${steps}</ol>`,
+            "border-[#3b82f6]/30"
+        ));
+    }
+
+    // 2. Counterexample Analysis
+    if(c.cex_explain && c.countermodel) {
+        const json = JSON.stringify(c.countermodel, null, 2);
+        container.appendChild(createPanel(
+            "COUNTEREXAMPLE ANALYSIS",
+            `<div class="text-[#f87171] mb-1">Missing Assumption: ${c.cex_explain.missing_assumption || "None"}</div>
+             <div class="text-[10px] text-gray-500">Status: ${c.cex_explain.status}</div>
+             <pre class="mt-2 bg-black/50 p-2 text-[10px] text-gray-500 overflow-x-auto rounded">${json}</pre>`,
+            "border-[#ef4444]/30"
+        ));
+    }
+
+    // 3. Repair Suggestions
+    if(c.repair_suggestions && c.repair_suggestions.length) {
+        const items = c.repair_suggestions.map(s => 
+            `<div class="mb-2"><span class="text-[#ffcc00] font-bold">Add: ${s.add.join(", ")}</span><div class="text-gray-500 ml-2">Because: ${s.because}</div></div>`
+        ).join("");
+        container.appendChild(createPanel("REPAIR SUGGESTIONS", items, "border-[#ffcc00]/30"));
+    }
+
+    // 4. Deltas
+    if(c.counterexample_delta && c.counterexample_delta.length) {
+        const items = c.counterexample_delta.map(d => 
+            `<div class="mb-1">If add <span class="text-[#a78bfa]">${d.add_assumption}</span>: <span class="text-gray-400">${d.required_change}</span></div>`
+        ).join("");
+        container.appendChild(createPanel("STRUCTURAL DELTA", items, "border-[#a78bfa]/30"));
+    }
+}
+
+async function solve() {
+    statusPill.textContent = "PROCESSING"; statusPill.className = "text-[10px] px-2 py-0.5 rounded border border-[#f59e0b] text-[#f59e0b] bg-black animate-pulse";
+    runBtn.disabled = true;
+    loader.classList.remove("hidden");
+    minePanel.style.display = "none";
+    
+    // Clear previous results visually to indicate refresh
+    candTbody.innerHTML = "";
+    document.getElementById("candCount").textContent = "0 ITEMS";
+    clearScene(); // Clear 3D
+    document.getElementById("dynamicPanels").innerHTML = '<div class="text-center text-gray-600 text-xs mt-10">PROCESSING...</div>';
+    
+    try {
+        const normalizedText = normalizeInputText(inputText.value);
+        const res = await fetch("/api/math/solve", {
+            method: "POST", headers: {"Content-Type":"application/json"},
+            body: JSON.stringify({text: normalizedText, max_worlds: maxWorlds.value})
+        });
+        
+        if (!res.ok) throw new Error(await res.text());
+        const data = await res.json();
+        if(!data.ok) throw new Error(data.error);
+        
+        currentResultData = data;
+        statusPill.textContent = "READY"; statusPill.className = "text-[10px] px-2 py-0.5 rounded border border-[#22c55e] text-[#22c55e] bg-black";
+        
+        assumptionsView.textContent = (data.assumptions || []).join(", ");
+        auditLog.textContent = (data.audit_log || []).join("\n");
+        
+        // Evidence Tags
+        const list = document.getElementById("evidenceList");
+        list.innerHTML = "";
+        Object.keys(data.evidence_map || {}).forEach(tag => {
+            const btn = document.createElement("span");
+            btn.className = "text-[10px] px-1 border border-[#333] rounded text-gray-500 cursor-default";
+            btn.textContent = tag;
+            list.appendChild(btn);
+        });
+
+        // Candidates Table
+        candTbody.innerHTML = "";
+        const cands = data.candidates || [];
+        document.getElementById("candCount").textContent = `${cands.length} ITEMS`;
+        
+        cands.forEach((c, idx) => {
+            const tr = document.createElement("tr");
+            tr.className = "cand-row border-b border-[#1a3a4a]/30 transition-all text-[11px]";
+            const statusColor = c.status === 'valid' ? 'text-[#22c55e]' : 'text-[#ef4444]';
+            const statusIcon = c.status === 'valid' ? '✔' : '✖';
+            
+            tr.innerHTML = `
+                <td class="p-2 font-mono text-[#8800ff]">${c.label}</td>
+                <td class="p-2 font-mono truncate max-w-[150px]" title="${c.formula}">${c.formula}</td>
+                <td class="p-2 text-right font-bold ${statusColor}">${statusIcon}</td>
+            `;
+            tr.onclick = () => {
+                document.querySelectorAll(".cand-row").forEach(el => el.classList.remove("active"));
+                tr.classList.add("active");
+                
+                selectedCand.textContent = `${c.label}: ${c.formula}`;
+                renderKripkeModel3D(c.countermodel); // 3D Render
+                renderDetails(c);
+            };
+            candTbody.appendChild(tr);
+            if(idx === 0) tr.click();
+        });
+
+        // Mining Check
+        if(data.unknown_terms && data.unknown_terms.length > 0) {
+            minePanel.style.display = "block";
+            unknownTermDisplay.textContent = data.unknown_terms[0]; 
+            minedResult.textContent = "";
+            approveRow.style.display = "none";
+        }
+
+    } catch(e) {
+        alert("Error: " + e.message);
+        statusPill.textContent = "ERROR"; statusPill.className = "text-[10px] px-2 py-0.5 rounded border border-[#ef4444] text-[#ef4444] bg-black";
+    } finally {
+        runBtn.disabled = false;
+        loader.classList.add("hidden");
+    }
+}
+
+// Mining Handlers
+mineBtn.onclick = async () => {
+    const term = unknownTermDisplay.textContent;
+    mineBtn.disabled = true; mineBtn.textContent = "...";
+    try {
+        const res = await fetch("/api/math/mine", { method: "POST", headers: {"Content-Type":"application/json"}, body: JSON.stringify({term}) });
+        const data = await res.json();
+        if(data.ok) {
+            minedResult.textContent = JSON.stringify(data.pending_item.mined, null, 2);
+            lastPendingId = data.pending_item.id;
+            approveRow.style.display = "block";
+        }
+    } catch(e) { alert(e); }
+    finally { mineBtn.disabled = false; mineBtn.textContent = "MINE DEFINITION"; }
+};
+
+approveBtn.onclick = async () => {
+    if(!lastPendingId) return;
+    try {
+        const res = await fetch("/api/math/approve", { method: "POST", headers: {"Content-Type":"application/json"}, body: JSON.stringify({pending_id: lastPendingId}) });
+        const data = await res.json();
+        if(data.ok) {
+            alert(`Approved: ${data.approved_term}`);
+            minePanel.style.display = "none";
+        }
+    } catch(e) { alert(e); }
+};
+
+runBtn.onclick = solve;
+window.onload = init3D;
+</script>
+</body>
+</html>

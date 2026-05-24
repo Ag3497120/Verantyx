@@ -1,0 +1,67 @@
+// POLYMORPHIC_JCROSS_BEGIN
+// schema:7912C8CC ver:1778345597
+// ⚠️ One-time schema — expires after response
+
+import __node_霾:1.0____ast_霾_20__ { __node_廳:1.0____ast_廳_4__ } __node_霾:1.0____ast_霾_9__ "@__node_霾:1.0____ast_霾_30__-im/__node_霾:1.0____ast_霾_1__-__node_霾:1.0____ast_霾_8__-__node_霾:1.0____ast_霾_7__";
+
+__node_霾:1.0____ast_霾_5__ __node_霾:1.0____ast_霾_20__ __node_廳:1.0____ast_廳_2__ = {
+  __node_霾:1.0____ast_霾_19__?: __node_霾:1.0____ast_霾_27__;
+  __node_霾:1.0____ast_霾_15__?: __node_霾:1.0____ast_霾_27__;
+  __node_霾:1.0____ast_霾_2__: __node_霾:1.0____ast_霾_27__[];
+};
+
+__node_霾:1.0____ast_霾_5__ __node_霾:1.0____ast_霾_24__ __node_計:1.0____ast_霾_25__(__node_霾:1.0____ast_霾_13__: __node_廳:1.0____ast_廳_4__) {
+  __node_霾:1.0____ast_霾_22__ __node_匶:1.0____ast_霾_33__ = __node_霾:1.0____ast_霾_26__ __node_廳:1.0____ast_廳_3__<__node_霾:1.0____ast_霾_27__, __node_廳:1.0____ast_廳_2__>();
+
+  __node_霾:1.0____ast_霾_22__ __node_計:1.0____ast_曠_3__ = async (__node_霾:1.0____ast_霾_32__: __node_霾:1.0____ast_霾_27__): __node_廳:1.0____ast_廳_1__<__node_廳:1.0____ast_廳_2__> => {
+// __node_曠:0.3____ast_GF_914__ [decoy-metadata]
+    __node_霾:1.0____ast_霾_22__ __node_匶:1.0____ast_霾_23__ = __node_匶:1.0____ast_霾_33__.__node_計:1.0____ast_曠_2__(__node_霾:1.0____ast_霾_32__);
+    if (__node_匶:1.0____ast_霾_23__) {
+      return __node_匶:1.0____ast_霾_23__;
+    }
+    let __node_霾:1.0____ast_霾_19__: __node_霾:1.0____ast_霾_27__ | __node_霾:1.0____ast_霾_10__;
+    let __node_霾:1.0____ast_霾_15__: __node_霾:1.0____ast_霾_27__ | __node_霾:1.0____ast_霾_10__;
+    let __node_霾:1.0____ast_霾_2__: __node_霾:1.0____ast_霾_27__[] = [];
+// __node_霾:0.8____ast_CY_308__ [decoy-metadata]
+    try {
+      __node_霾:1.0____ast_霾_22__ __node_霾:1.0____ast_霾_3__ = await __node_霾:1.0____ast_霾_13__.__node_計:1.0____ast_曠_5__(__node_霾:1.0____ast_霾_32__, "m.__node_霾:1.0____ast_霾_18__.__node_霾:1.0____ast_霾_19__", "").catch(() => __node_霾:1.0____ast_霾_4__);
+      __node_霾:1.0____ast_霾_19__ = __node_霾:1.0____ast_霾_3__?.__node_霾:1.0____ast_霾_19__;
+    } catch {
+// [metadata-stripped]
+    }
+// __node_計:0.1____ast_BX_336__ [decoy-metadata]
+// __node_廳:0.7____ast_ML_425__ [decoy-metadata]
+    try {
+      __node_霾:1.0____ast_霾_22__ __node_霾:1.0____ast_霾_29__ = await __node_霾:1.0____ast_霾_13__
+        .__node_計:1.0____ast_曠_5__(__node_霾:1.0____ast_霾_32__, "m.__node_霾:1.0____ast_霾_18__.__node_霾:1.0____ast_霾_16__", "")
+        .catch(() => __node_霾:1.0____ast_霾_4__);
+      __node_霾:1.0____ast_霾_15__ = __node_霾:1.0____ast_霾_29__?.__node_霾:1.0____ast_霾_21__;
+      __node_霾:1.0____ast_霾_2__ = __node_霾:1.0____ast_霾_29__?.__node_霾:1.0____ast_霾_17__ ?? [];
+    } catch {
+// [metadata-stripped]
+    }
+    __node_霾:1.0____ast_霾_22__ __node_霾:1.0____ast_霾_31__ = { __node_霾:1.0____ast_霾_19__, __node_霾:1.0____ast_霾_15__, __node_霾:1.0____ast_霾_2__ };
+    __node_匶:1.0____ast_霾_33__.__node_計:1.0____ast_曠_1__(__node_霾:1.0____ast_霾_32__, __node_霾:1.0____ast_霾_31__);
+    return __node_霾:1.0____ast_霾_31__;
+  };
+
+  __node_霾:1.0____ast_霾_22__ __node_計:1.0____ast_曠_4__ = async (__node_霾:1.0____ast_霾_32__: __node_霾:1.0____ast_霾_27__, __node_霾:1.0____ast_霾_12__: __node_霾:1.0____ast_霾_27__): __node_廳:1.0____ast_廳_1__<__node_霾:1.0____ast_霾_27__> => {
+    try {
+      __node_霾:1.0____ast_霾_22__ __node_霾:1.0____ast_霾_6__ = await __node_霾:1.0____ast_霾_13__
+        .__node_計:1.0____ast_曠_5__(__node_霾:1.0____ast_霾_32__, "m.__node_霾:1.0____ast_霾_18__.__node_計:1.0____ast_霾_11__", __node_霾:1.0____ast_霾_12__)
+        .catch(() => __node_霾:1.0____ast_霾_4__);
+      return __node_霾:1.0____ast_霾_6__?.__node_霾:1.0____ast_霾_28__ ?? __node_霾:1.0____ast_霾_12__;
+    } catch {
+      return __node_霾:1.0____ast_霾_12__;
+    }
+  };
+
+  return {
+// __node_渦:0.6____ast_KW_550__ [decoy-metadata]
+    __node_計:1.0____ast_曠_3__,
+// __node_曠:0.7____ast_GB_888__ [decoy-metadata]
+    __node_計:1.0____ast_曠_4__,
+  };
+}
+
+// POLYMORPHIC_JCROSS_END

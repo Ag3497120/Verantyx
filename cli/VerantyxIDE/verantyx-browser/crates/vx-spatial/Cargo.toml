@@ -1,0 +1,13 @@
+[package]
+name = "vx-spatial"
+version.workspace = true
+edition.workspace = true
+
+[dependencies]
+vx-dom = { path = "../vx-dom" }
+vx-layout = { path = "../vx-layout" }
+serde.workspace = true
+serde_json.workspace = true
+chrono = { version = "0.4", features = ["serde"] }
+anyhow.workspace = true
+thiserror.workspace = true

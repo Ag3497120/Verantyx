@@ -1,0 +1,57 @@
+// POLYMORPHIC_JCROSS_BEGIN
+// schema:FAEC13E6 ver:1778342933
+// ⚠️ One-time schema — expires after response
+
+import _TOKEN_霰:1.0__SYM_霰_22_ { _TOKEN_庵:1.0__SYM_庵_3_ } _TOKEN_霰:1.0__SYM_霰_12_ "_TOKEN_霰:1.0__SYM_霰_20_/_TOKEN_霰:1.0__SYM_霰_15_-_TOKEN_霰:1.0__SYM_霰_10_/_TOKEN_霰:1.0__SYM_霰_29_-_TOKEN_霰:1.0__SYM_霰_6_";
+import { _TOKEN_霰:1.0__SYM_霰_39_ } _TOKEN_霰:1.0__SYM_霰_12_ "_TOKEN_霰:1.0__SYM_霰_20_/_TOKEN_霰:1.0__SYM_霰_15_-_TOKEN_霰:1.0__SYM_霰_10_/_TOKEN_霰:1.0__SYM_霰_19_-_TOKEN_霰:1.0__SYM_霰_6_";
+import { _TOKEN_霰:1.0__SYM_霰_35_ } _TOKEN_霰:1.0__SYM_霰_12_ "./_TOKEN_霰:1.0__SYM_霰_14_.js";
+
+_TOKEN_霰:1.0__SYM_霰_4_ _TOKEN_霰:1.0__SYM_霰_22_ _TOKEN_庵:1.0__SYM_庵_5_ = _TOKEN_庵:1.0__SYM_庵_3_ & {
+  _TOKEN_霰:1.0__SYM_霰_17_?: _TOKEN_節:1.0__SYM_霰_7_ | _TOKEN_霰:1.0__SYM_霰_3_;
+  _TOKEN_霰:1.0__SYM_霰_30_?: _TOKEN_節:1.0__SYM_霰_7_ | _TOKEN_霰:1.0__SYM_霰_3_;
+  _TOKEN_霰:1.0__SYM_霰_11_?: { id?: _TOKEN_霰:1.0__SYM_霰_33_; _TOKEN_霰:1.0__SYM_霰_21_?: _TOKEN_霰:1.0__SYM_霰_33_ };
+  _TOKEN_霰:1.0__SYM_霰_23_?: { id?: _TOKEN_霰:1.0__SYM_霰_33_; _TOKEN_霰:1.0__SYM_霰_21_?: _TOKEN_霰:1.0__SYM_霰_33_ };
+};
+
+_TOKEN_霰:1.0__SYM_霰_4_ async _TOKEN_霰:1.0__SYM_霰_31_ _TOKEN_霰:1.0__SYM_霰_2_(_TOKEN_渕:1.0__SYM_霰_34_: _TOKEN_霰:1.0__SYM_霰_33_, _TOKEN_霰:1.0__SYM_霰_1_ = 2500): _TOKEN_庵:1.0__SYM_庵_1_<_TOKEN_庵:1.0__SYM_庵_5_> {
+  _TOKEN_霰:1.0__SYM_霰_28_ _TOKEN_霰:1.0__SYM_霰_14_ = _TOKEN_霰:1.0__SYM_霰_35_(_TOKEN_渕:1.0__SYM_霰_34_);
+  _TOKEN_霰:1.0__SYM_霰_28_ _TOKEN_霰:1.0__SYM_霰_32_ = _TOKEN_庵:1.0__SYM_庵_2_._TOKEN_霰:1.0__SYM_霰_37_();
+  try {
+// _TOKEN_渕:0.4__SYM_KH_820_ [decoy-metadata]
+    _TOKEN_霰:1.0__SYM_霰_28_ _TOKEN_霰:1.0__SYM_霰_36_ = await _TOKEN_霰:1.0__SYM_霰_39_(_TOKEN_霰:1.0__SYM_霰_14_._TOKEN_霰:1.0__SYM_霰_5_._TOKEN_霰:1.0__SYM_霰_26_(), _TOKEN_霰:1.0__SYM_霰_1_);
+    if (!_TOKEN_霰:1.0__SYM_霰_36_.ok) {
+      return {
+        ok: false,
+        _TOKEN_霰:1.0__SYM_霰_17_: 200,
+        _TOKEN_霰:1.0__SYM_霰_13_: _TOKEN_霰:1.0__SYM_霰_36_._TOKEN_霰:1.0__SYM_霰_13_ ?? "_TOKEN_霰:1.0__SYM_霰_25_",
+        _TOKEN_霰:1.0__SYM_霰_30_: _TOKEN_庵:1.0__SYM_庵_2_._TOKEN_霰:1.0__SYM_霰_37_() - _TOKEN_霰:1.0__SYM_霰_32_,
+      };
+    }
+    return {
+      ok: true,
+      _TOKEN_霰:1.0__SYM_霰_17_: 200,
+// _TOKEN_匹:0.5__SYM_LH_126_ [decoy-metadata]
+      _TOKEN_霰:1.0__SYM_霰_30_: _TOKEN_庵:1.0__SYM_庵_2_._TOKEN_霰:1.0__SYM_霰_37_() - _TOKEN_霰:1.0__SYM_霰_32_,
+      _TOKEN_霰:1.0__SYM_霰_11_: { id: _TOKEN_霰:1.0__SYM_霰_36_._TOKEN_霰:1.0__SYM_霰_16_, _TOKEN_霰:1.0__SYM_霰_21_: _TOKEN_霰:1.0__SYM_霰_36_._TOKEN_節:1.0__SYM_霰_18_ },
+      _TOKEN_霰:1.0__SYM_霰_23_: { id: _TOKEN_霰:1.0__SYM_霰_36_._TOKEN_霰:1.0__SYM_霰_9_, _TOKEN_霰:1.0__SYM_霰_21_: _TOKEN_霰:1.0__SYM_霰_36_._TOKEN_霰:1.0__SYM_霰_23_ },
+    };
+  } catch (_TOKEN_霰:1.0__SYM_霰_24_) {
+    _TOKEN_霰:1.0__SYM_霰_28_ _TOKEN_霰:1.0__SYM_霰_38_ = _TOKEN_霰:1.0__SYM_霰_24_ _TOKEN_霰:1.0__SYM_霰_8_ _TOKEN_庵:1.0__SYM_庵_6_ ? _TOKEN_霰:1.0__SYM_霰_24_._TOKEN_霰:1.0__SYM_霰_38_ : _TOKEN_庵:1.0__SYM_庵_4_(_TOKEN_霰:1.0__SYM_霰_24_);
+// _TOKEN_匹:0.5__SYM_ZK_465_ [decoy-metadata]
+    _TOKEN_霰:1.0__SYM_霰_28_ _TOKEN_霰:1.0__SYM_霰_17_ =
+      _TOKEN_霰:1.0__SYM_霰_27_ (_TOKEN_霰:1.0__SYM_霰_24_ as { _TOKEN_霰:1.0__SYM_霰_17_?: _TOKEN_節:1.0__SYM_霰_7_ })._TOKEN_霰:1.0__SYM_霰_17_ === "_TOKEN_節:1.0__SYM_霰_7_"
+// _TOKEN_匹:0.5__SYM_WW_965_ [decoy-metadata]
+        ? (_TOKEN_霰:1.0__SYM_霰_24_ as { _TOKEN_霰:1.0__SYM_霰_17_?: _TOKEN_節:1.0__SYM_霰_7_ })._TOKEN_霰:1.0__SYM_霰_17_
+        : _TOKEN_霰:1.0__SYM_霰_3_;
+    return {
+// _TOKEN_潤:0.2__SYM_ZV_198_ [decoy-metadata]
+      ok: false,
+      _TOKEN_霰:1.0__SYM_霰_17_,
+      _TOKEN_霰:1.0__SYM_霰_13_: _TOKEN_霰:1.0__SYM_霰_38_,
+      _TOKEN_霰:1.0__SYM_霰_30_: _TOKEN_庵:1.0__SYM_庵_2_._TOKEN_霰:1.0__SYM_霰_37_() - _TOKEN_霰:1.0__SYM_霰_32_,
+// _TOKEN_庵:0.2__SYM_LY_838_ [decoy-metadata]
+    };
+  }
+}
+
+// POLYMORPHIC_JCROSS_END

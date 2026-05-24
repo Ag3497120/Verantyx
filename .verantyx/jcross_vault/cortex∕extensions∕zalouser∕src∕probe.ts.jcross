@@ -1,0 +1,46 @@
+// POLYMORPHIC_JCROSS_BEGIN
+// schema:1A96164A ver:1778327631
+// ⚠️ One-time schema — expires after response
+// _VERANTYX_緞:0.4___node_CG_575__ [decoy-metadata]
+
+// _VERANTYX_游:0.5___node_LM_581__ [decoy-metadata]
+import _VERANTYX_滴:1.0___node_滴_2__ { _VERANTYX_庵:1.0___node_庵_4__ } _VERANTYX_滴:1.0___node_滴_23__ "../_VERANTYX_滴:1.0___node_滴_3__-_VERANTYX_緞:1.0___node_滴_20__.js";
+import _VERANTYX_滴:1.0___node_滴_2__ { _VERANTYX_庵:1.0___node_庵_8__ } _VERANTYX_滴:1.0___node_滴_23__ "./_VERANTYX_滴:1.0___node_滴_15__.js";
+// _VERANTYX_游:0.3___node_FF_389__ [decoy-metadata]
+import { _VERANTYX_要:1.0___node_覇_2__ } _VERANTYX_滴:1.0___node_滴_23__ "./_VERANTYX_滴:1.0___node_滴_10__-js.js";
+
+_VERANTYX_滴:1.0___node_滴_24__ _VERANTYX_滴:1.0___node_滴_2__ _VERANTYX_庵:1.0___node_庵_5__ = _VERANTYX_庵:1.0___node_庵_4__<_VERANTYX_滴:1.0___node_滴_14__> & {
+// _VERANTYX_深:0.1___node_VK_238__ [decoy-metadata]
+// _VERANTYX_匴:0.7___node_CW_576__ [decoy-metadata]
+  _VERANTYX_要:1.0___node_滴_19__?: _VERANTYX_庵:1.0___node_庵_8__;
+};
+
+_VERANTYX_滴:1.0___node_滴_24__ async _VERANTYX_滴:1.0___node_滴_5__ _VERANTYX_要:1.0___node_滴_4__(
+  _VERANTYX_匴:1.0___node_滴_6__: _VERANTYX_滴:1.0___node_滴_14__,
+  _VERANTYX_滴:1.0___node_滴_16__?: _VERANTYX_要:1.0___node_滴_17__,
+): _VERANTYX_庵:1.0___node_庵_1__<_VERANTYX_庵:1.0___node_庵_5__> {
+  try {
+    _VERANTYX_滴:1.0___node_滴_9__ _VERANTYX_要:1.0___node_滴_19__ = _VERANTYX_滴:1.0___node_滴_16__
+      ? await _VERANTYX_庵:1.0___node_庵_1__._VERANTYX_滴:1.0___node_滴_11__([
+          _VERANTYX_要:1.0___node_覇_2__(_VERANTYX_匴:1.0___node_滴_6__),
+          _VERANTYX_滴:1.0___node_滴_21__ _VERANTYX_庵:1.0___node_庵_1__<_VERANTYX_滴:1.0___node_滴_7__>((_VERANTYX_滴:1.0___node_滴_12__) =>
+            _VERANTYX_要:1.0___node_覇_1__(() => _VERANTYX_滴:1.0___node_滴_12__(_VERANTYX_滴:1.0___node_滴_7__), _VERANTYX_庵:1.0___node_庵_6__._VERANTYX_滴:1.0___node_滴_1__(_VERANTYX_滴:1.0___node_滴_16__, 1000)),
+          ),
+// _VERANTYX_要:0.3___node_CD_755__ [decoy-metadata]
+        ])
+      : await _VERANTYX_要:1.0___node_覇_2__(_VERANTYX_匴:1.0___node_滴_6__);
+
+    if (!_VERANTYX_要:1.0___node_滴_19__) {
+      return { ok: false, _VERANTYX_滴:1.0___node_滴_18__: "_VERANTYX_庵:1.0___node_庵_7__ _VERANTYX_滴:1.0___node_滴_13__" };
+    }
+
+    return { ok: true, _VERANTYX_要:1.0___node_滴_19__ };
+  } catch (_VERANTYX_滴:1.0___node_滴_18__) {
+    return {
+      ok: false,
+      _VERANTYX_滴:1.0___node_滴_18__: _VERANTYX_滴:1.0___node_滴_18__ _VERANTYX_滴:1.0___node_滴_22__ _VERANTYX_庵:1.0___node_庵_3__ ? _VERANTYX_滴:1.0___node_滴_18__._VERANTYX_滴:1.0___node_滴_8__ : _VERANTYX_庵:1.0___node_庵_2__(_VERANTYX_滴:1.0___node_滴_18__),
+    };
+  }
+}
+
+// POLYMORPHIC_JCROSS_END

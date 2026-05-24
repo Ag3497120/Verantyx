@@ -1,0 +1,32 @@
+[workspace]
+resolver = "2"
+members = [
+    "crates/vx-net",
+    "crates/vx-dom",
+    "crates/vx-js",
+    "crates/vx-render",
+    "crates/vx-input",
+    "crates/vx-browser",
+    "crates/vx-layout",
+    "crates/vx-css",
+    "crates/vx-security",
+    "crates/vx-a11y",
+    "crates/vx-media",
+    "crates/vx-storage",
+    "crates/ronin-rag",
+    "crates/ronin-hive",
+    "ronin-ide/src-tauri"
+]
+
+[workspace.package]
+version = "0.1.0"
+edition = "2021"
+license = "MIT"
+authors = ["Kodai Motonishi"]
+
+[workspace.dependencies]
+tokio = { version = "1", features = ["full"] }
+anyhow = "1"
+thiserror = "2"
+serde = { version = "1", features = ["derive"] }
+serde_json = "1"

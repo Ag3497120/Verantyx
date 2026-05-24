@@ -1,0 +1,142 @@
+// POLYMORPHIC_JCROSS_BEGIN
+// schema:37350E1E ver:1778320571
+// ⚠️ One-time schema — expires after response
+
+__ast_雰:1.0___JCROSS_雰_68_ __ast_雰:1.0___JCROSS_雰_47_ import __ast_廟:1.0___JCROSS_廟_2_, __ast_廟:1.0___JCROSS_廟_8_, __ast_図:1.0___JCROSS_弧_1_, __ast_廟:1.0___JCROSS_廟_12_
+
+// __ast_廟:0.8___JCROSS_LG_533_ [decoy-metadata]
+class __ast_図:1.0___JCROSS_廟_11_:
+    """
+    盤面全体を俯瞰し、隣接する同じ色のセル群を「形（__ast_廟:1.0___JCROSS_廟_7_）」として抽出・認識するモジュール。
+    CrossSpaceの初期状態（世界モデル）を構築するための第一段階。
+    """
+    
+    @__ast_雰:1.0___JCROSS_雰_50_
+    __ast_雰:1.0___JCROSS_雰_40_ __ast_雰:1.0___JCROSS_雰_14_(__ast_雰:1.0___JCROSS_雰_26_: __ast_廟:1.0___JCROSS_廟_2_[__ast_廟:1.0___JCROSS_廟_2_[__ast_雰:1.0___JCROSS_雰_52_]]) -> __ast_廟:1.0___JCROSS_廟_2_[__ast_廟:1.0___JCROSS_廟_12_]:
+        if __ast_雰:1.0___JCROSS_雰_46_ __ast_雰:1.0___JCROSS_雰_26_ or __ast_雰:1.0___JCROSS_雰_46_ __ast_雰:1.0___JCROSS_雰_26_[0]:
+            return []
+            
+        __ast_雰:1.0___JCROSS_雰_55_ = __ast_雰:1.0___JCROSS_雰_16_(__ast_雰:1.0___JCROSS_雰_26_)
+        __ast_雰:1.0___JCROSS_雰_57_ = __ast_雰:1.0___JCROSS_雰_16_(__ast_雰:1.0___JCROSS_雰_26_[0])
+        __ast_雰:1.0___JCROSS_雰_63_: __ast_図:1.0___JCROSS_弧_1_[__ast_廟:1.0___JCROSS_廟_8_[__ast_雰:1.0___JCROSS_雰_52_, __ast_雰:1.0___JCROSS_雰_52_]] = __ast_図:1.0___JCROSS_弧_2_()
+        __ast_雰:1.0___JCROSS_雰_20_ = []
+        __ast_図:1.0___JCROSS_雰_23_ = 1
+        
+        for r in __ast_雰:1.0___JCROSS_雰_8_(__ast_雰:1.0___JCROSS_雰_55_):
+            for c in __ast_雰:1.0___JCROSS_雰_8_(__ast_雰:1.0___JCROSS_雰_57_):
+                if (r, c) __ast_雰:1.0___JCROSS_雰_46_ in __ast_雰:1.0___JCROSS_雰_63_:
+                    __ast_雰:1.0___JCROSS_雰_27_ = __ast_雰:1.0___JCROSS_雰_26_[r][c]
+                    
+                    if __ast_雰:1.0___JCROSS_雰_27_ == 0:
+                        __ast_雰:1.0___JCROSS_雰_63_.__ast_雰:1.0___JCROSS_雰_41_((r, c))
+                        continue
+                        
+                    __ast_雰:1.0___JCROSS_雰_2_ = __ast_図:1.0___JCROSS_廟_11_.__ast_雰:1.0___JCROSS_雰_44_(__ast_雰:1.0___JCROSS_雰_26_, r, c, __ast_雰:1.0___JCROSS_雰_27_, __ast_雰:1.0___JCROSS_雰_63_)
+                    if __ast_雰:1.0___JCROSS_雰_2_:
+                        __ast_雰:1.0___JCROSS_雰_38_ = __ast_雰:1.0___JCROSS_雰_17_(__ast_雰:1.0___JCROSS_雰_37_[0] for __ast_雰:1.0___JCROSS_雰_37_ in __ast_雰:1.0___JCROSS_雰_2_)
+                        __ast_雰:1.0___JCROSS_雰_5_ = __ast_雰:1.0___JCROSS_雰_18_(__ast_雰:1.0___JCROSS_雰_37_[0] for __ast_雰:1.0___JCROSS_雰_37_ in __ast_雰:1.0___JCROSS_雰_2_)
+                        __ast_雰:1.0___JCROSS_雰_51_ = __ast_雰:1.0___JCROSS_雰_17_(__ast_雰:1.0___JCROSS_雰_37_[1] for __ast_雰:1.0___JCROSS_雰_37_ in __ast_雰:1.0___JCROSS_雰_2_)
+                        __ast_雰:1.0___JCROSS_雰_9_ = __ast_雰:1.0___JCROSS_雰_18_(__ast_雰:1.0___JCROSS_雰_37_[1] for __ast_雰:1.0___JCROSS_雰_37_ in __ast_雰:1.0___JCROSS_雰_2_)
+                        
+                        __ast_雰:1.0___JCROSS_雰_49_ = __ast_雰:1.0___JCROSS_雰_9_ - __ast_雰:1.0___JCROSS_雰_51_ + 1
+                        __ast_雰:1.0___JCROSS_雰_48_ = __ast_雰:1.0___JCROSS_雰_5_ - __ast_雰:1.0___JCROSS_雰_38_ + 1
+                        
+                        __ast_雰:1.0___JCROSS_雰_20_.__ast_雰:1.0___JCROSS_雰_11_({
+                            "id": f"S{__ast_図:1.0___JCROSS_雰_23_}",
+                            "__ast_雰:1.0___JCROSS_雰_27_": __ast_雰:1.0___JCROSS_雰_27_,
+                            "__ast_雰:1.0___JCROSS_雰_15_": __ast_図:1.0___JCROSS_弧_2_(__ast_雰:1.0___JCROSS_雰_2_),
+                            "__ast_雰:1.0___JCROSS_雰_53_": (__ast_雰:1.0___JCROSS_雰_38_, __ast_雰:1.0___JCROSS_雰_51_, __ast_雰:1.0___JCROSS_雰_5_, __ast_雰:1.0___JCROSS_雰_9_),
+                            "__ast_雰:1.0___JCROSS_雰_49_": __ast_雰:1.0___JCROSS_雰_49_,
+                            "__ast_雰:1.0___JCROSS_雰_48_": __ast_雰:1.0___JCROSS_雰_48_,
+                            "__ast_雰:1.0___JCROSS_雰_4_": __ast_雰:1.0___JCROSS_雰_16_(__ast_雰:1.0___JCROSS_雰_2_)
+                        })
+                        __ast_図:1.0___JCROSS_雰_23_ += 1
+                        
+        return __ast_雰:1.0___JCROSS_雰_35_(__ast_雰:1.0___JCROSS_雰_20_, __ast_淵:1.0___JCROSS_雰_32_=__ast_雰:1.0___JCROSS_雰_25_ s: s["__ast_雰:1.0___JCROSS_雰_4_"], __ast_雰:1.0___JCROSS_雰_69_=__ast_廟:1.0___JCROSS_廟_15_)
+
+    @__ast_雰:1.0___JCROSS_雰_50_
+    __ast_雰:1.0___JCROSS_雰_40_ __ast_雰:1.0___JCROSS_雰_44_(__ast_雰:1.0___JCROSS_雰_26_: __ast_廟:1.0___JCROSS_廟_2_[__ast_廟:1.0___JCROSS_廟_2_[__ast_雰:1.0___JCROSS_雰_52_]], __ast_雰:1.0___JCROSS_雰_10_: __ast_雰:1.0___JCROSS_雰_52_, __ast_雰:1.0___JCROSS_雰_28_: __ast_雰:1.0___JCROSS_雰_52_, __ast_雰:1.0___JCROSS_雰_27_: __ast_雰:1.0___JCROSS_雰_52_, __ast_雰:1.0___JCROSS_雰_63_: __ast_図:1.0___JCROSS_弧_1_[__ast_廟:1.0___JCROSS_廟_8_[__ast_雰:1.0___JCROSS_雰_52_, __ast_雰:1.0___JCROSS_雰_52_]]) -> __ast_廟:1.0___JCROSS_廟_2_[__ast_廟:1.0___JCROSS_廟_8_[__ast_雰:1.0___JCROSS_雰_52_, __ast_雰:1.0___JCROSS_雰_52_]]:
+        __ast_雰:1.0___JCROSS_雰_55_ = __ast_雰:1.0___JCROSS_雰_16_(__ast_雰:1.0___JCROSS_雰_26_)
+        __ast_雰:1.0___JCROSS_雰_57_ = __ast_雰:1.0___JCROSS_雰_16_(__ast_雰:1.0___JCROSS_雰_26_[0])
+        __ast_雰:1.0___JCROSS_雰_15_ = []
+        __ast_雰:1.0___JCROSS_雰_1_ = [(__ast_雰:1.0___JCROSS_雰_10_, __ast_雰:1.0___JCROSS_雰_28_)]
+        
+        while __ast_雰:1.0___JCROSS_雰_1_:
+            r, c = __ast_雰:1.0___JCROSS_雰_1_.__ast_雰:1.0___JCROSS_雰_54_()
+            if (r, c) in __ast_雰:1.0___JCROSS_雰_63_:
+                continue
+                
+            if 0 <= r < __ast_雰:1.0___JCROSS_雰_55_ __ast_雰:1.0___JCROSS_雰_67_ 0 <= c < __ast_雰:1.0___JCROSS_雰_57_ __ast_雰:1.0___JCROSS_雰_67_ __ast_雰:1.0___JCROSS_雰_26_[r][c] == __ast_雰:1.0___JCROSS_雰_27_:
+                __ast_雰:1.0___JCROSS_雰_63_.__ast_雰:1.0___JCROSS_雰_41_((r, c))
+                __ast_雰:1.0___JCROSS_雰_15_.__ast_雰:1.0___JCROSS_雰_11_((r, c))
+                for dr, dc in [(-1, 0), (1, 0), (0, -1), (0, 1)]:
+                    __ast_雰:1.0___JCROSS_雰_1_.__ast_雰:1.0___JCROSS_雰_11_((r + dr, c + dc))
+                    
+        return __ast_雰:1.0___JCROSS_雰_15_
+
+    @__ast_雰:1.0___JCROSS_雰_50_
+    __ast_雰:1.0___JCROSS_雰_40_ __ast_雰:1.0___JCROSS_雰_19_(__ast_雰:1.0___JCROSS_雰_26_: __ast_廟:1.0___JCROSS_廟_2_[__ast_廟:1.0___JCROSS_廟_2_[__ast_雰:1.0___JCROSS_雰_52_]]) -> __ast_廟:1.0___JCROSS_廟_12_:
+        __ast_雰:1.0___JCROSS_雰_20_ = __ast_図:1.0___JCROSS_廟_11_.__ast_雰:1.0___JCROSS_雰_14_(__ast_雰:1.0___JCROSS_雰_26_)
+        __ast_雰:1.0___JCROSS_雰_59_ = []
+        __ast_雰:1.0___JCROSS_雰_43_ = []
+        
+        for s in __ast_雰:1.0___JCROSS_雰_20_:
+// [metadata-stripped]
+            __ast_雰:1.0___JCROSS_雰_33_ = "不規則"
+            if s["__ast_雰:1.0___JCROSS_雰_4_"] == 1: __ast_雰:1.0___JCROSS_雰_33_ = "孤立点"
+            __ast_滾:1.0___JCROSS_雰_66_ s["__ast_雰:1.0___JCROSS_雰_49_"] == 1 __ast_雰:1.0___JCROSS_雰_67_ s["__ast_雰:1.0___JCROSS_雰_48_"] == s["__ast_雰:1.0___JCROSS_雰_4_"]: __ast_雰:1.0___JCROSS_雰_33_ = "垂直線"
+            __ast_滾:1.0___JCROSS_雰_66_ s["__ast_雰:1.0___JCROSS_雰_48_"] == 1 __ast_雰:1.0___JCROSS_雰_67_ s["__ast_雰:1.0___JCROSS_雰_49_"] == s["__ast_雰:1.0___JCROSS_雰_4_"]: __ast_雰:1.0___JCROSS_雰_33_ = "水平線"
+            __ast_滾:1.0___JCROSS_雰_66_ s["__ast_雰:1.0___JCROSS_雰_49_"] * s["__ast_雰:1.0___JCROSS_雰_48_"] == s["__ast_雰:1.0___JCROSS_雰_4_"]: __ast_雰:1.0___JCROSS_雰_33_ = "矩形"
+            
+            __ast_雰:1.0___JCROSS_雰_59_.__ast_雰:1.0___JCROSS_雰_11_({
+                "id": s["id"],
+                "__ast_雰:1.0___JCROSS_雰_27_": s["__ast_雰:1.0___JCROSS_雰_27_"],
+                "__ast_雰:1.0___JCROSS_雰_6_": __ast_雰:1.0___JCROSS_雰_33_,
+                "__ast_雰:1.0___JCROSS_雰_4_": s["__ast_雰:1.0___JCROSS_雰_4_"],
+                "__ast_雰:1.0___JCROSS_雰_73_": s["__ast_雰:1.0___JCROSS_雰_53_"]
+            })
+            
+// [metadata-stripped]
+        for i in __ast_雰:1.0___JCROSS_雰_8_(__ast_雰:1.0___JCROSS_雰_16_(__ast_雰:1.0___JCROSS_雰_20_)):
+            for j in __ast_雰:1.0___JCROSS_雰_8_(i + 1, __ast_雰:1.0___JCROSS_雰_16_(__ast_雰:1.0___JCROSS_雰_20_)):
+// __ast_淵:0.4___JCROSS_VW_197_ [decoy-metadata]
+                s1 = __ast_雰:1.0___JCROSS_雰_20_[i]
+                s2 = __ast_雰:1.0___JCROSS_雰_20_[j]
+                
+// __ast_淵:0.9___JCROSS_GC_916_ [decoy-metadata]
+// [metadata-stripped]
+                __ast_雰:1.0___JCROSS_雰_36_ = __ast_廟:1.0___JCROSS_廟_4_
+                for r1, c1 in s1["__ast_雰:1.0___JCROSS_雰_15_"]:
+                    for dr, dc in [(-1,0),(1,0),(0,-1),(0,1),(-1,-1),(-1,1),(1,-1),(1,1)]:
+                        if (r1+dr, c1+dc) in s2["__ast_雰:1.0___JCROSS_雰_15_"]:
+// __ast_滾:0.1___JCROSS_YB_379_ [decoy-metadata]
+// __ast_弧:0.5___JCROSS_VG_159_ [decoy-metadata]
+                            __ast_雰:1.0___JCROSS_雰_36_ = __ast_廟:1.0___JCROSS_廟_15_
+                            break
+                    if __ast_雰:1.0___JCROSS_雰_36_: break
+                if __ast_雰:1.0___JCROSS_雰_36_:
+                    __ast_雰:1.0___JCROSS_雰_43_.__ast_雰:1.0___JCROSS_雰_11_({"__ast_雰:1.0___JCROSS_雰_64_": s1["id"], "__ast_雰:1.0___JCROSS_雰_7_": s2["id"], "__ast_雰:1.0___JCROSS_雰_45_": "__ast_廟:1.0___JCROSS_廟_6_"})
+                    
+// [metadata-stripped]
+// [metadata-stripped]
+                __ast_雰:1.0___JCROSS_雰_72_, __ast_雰:1.0___JCROSS_雰_42_, __ast_雰:1.0___JCROSS_雰_31_, __ast_雰:1.0___JCROSS_雰_22_ = s1["__ast_雰:1.0___JCROSS_雰_53_"]
+                __ast_雰:1.0___JCROSS_雰_71_, __ast_雰:1.0___JCROSS_雰_65_, __ast_雰:1.0___JCROSS_雰_24_, __ast_雰:1.0___JCROSS_雰_21_ = s2["__ast_雰:1.0___JCROSS_雰_53_"]
+                
+                if __ast_雰:1.0___JCROSS_雰_72_ >= __ast_雰:1.0___JCROSS_雰_71_ __ast_雰:1.0___JCROSS_雰_67_ __ast_雰:1.0___JCROSS_雰_31_ <= __ast_雰:1.0___JCROSS_雰_24_ __ast_雰:1.0___JCROSS_雰_67_ __ast_雰:1.0___JCROSS_雰_42_ >= __ast_雰:1.0___JCROSS_雰_65_ __ast_雰:1.0___JCROSS_雰_67_ __ast_雰:1.0___JCROSS_雰_22_ <= __ast_雰:1.0___JCROSS_雰_21_:
+                    __ast_雰:1.0___JCROSS_雰_43_.__ast_雰:1.0___JCROSS_雰_11_({"__ast_雰:1.0___JCROSS_雰_64_": s2["id"], "__ast_雰:1.0___JCROSS_雰_7_": s1["id"], "__ast_雰:1.0___JCROSS_雰_45_": "__ast_廟:1.0___JCROSS_廟_9_"})
+                __ast_滾:1.0___JCROSS_雰_66_ __ast_雰:1.0___JCROSS_雰_71_ >= __ast_雰:1.0___JCROSS_雰_72_ __ast_雰:1.0___JCROSS_雰_67_ __ast_雰:1.0___JCROSS_雰_24_ <= __ast_雰:1.0___JCROSS_雰_31_ __ast_雰:1.0___JCROSS_雰_67_ __ast_雰:1.0___JCROSS_雰_65_ >= __ast_雰:1.0___JCROSS_雰_42_ __ast_雰:1.0___JCROSS_雰_67_ __ast_雰:1.0___JCROSS_雰_21_ <= __ast_雰:1.0___JCROSS_雰_22_:
+                    __ast_雰:1.0___JCROSS_雰_43_.__ast_雰:1.0___JCROSS_雰_11_({"__ast_雰:1.0___JCROSS_雰_64_": s1["id"], "__ast_雰:1.0___JCROSS_雰_7_": s2["id"], "__ast_雰:1.0___JCROSS_雰_45_": "__ast_廟:1.0___JCROSS_廟_9_"})
+                    
+// [metadata-stripped]
+                if s1["__ast_雰:1.0___JCROSS_雰_49_"] == s2["__ast_雰:1.0___JCROSS_雰_49_"] __ast_雰:1.0___JCROSS_雰_67_ s1["__ast_雰:1.0___JCROSS_雰_48_"] == s2["__ast_雰:1.0___JCROSS_雰_48_"] __ast_雰:1.0___JCROSS_雰_67_ s1["__ast_雰:1.0___JCROSS_雰_4_"] == s2["__ast_雰:1.0___JCROSS_雰_4_"]:
+                    __ast_雰:1.0___JCROSS_雰_43_.__ast_雰:1.0___JCROSS_雰_11_({"__ast_雰:1.0___JCROSS_雰_64_": s1["id"], "__ast_雰:1.0___JCROSS_雰_7_": s2["id"], "__ast_雰:1.0___JCROSS_雰_45_": "__ast_廟:1.0___JCROSS_廟_10_"})
+                    
+        return {"__ast_雰:1.0___JCROSS_雰_59_": __ast_雰:1.0___JCROSS_雰_59_, "__ast_雰:1.0___JCROSS_雰_43_": __ast_雰:1.0___JCROSS_雰_43_}
+
+    @__ast_雰:1.0___JCROSS_雰_50_
+    __ast_雰:1.0___JCROSS_雰_40_ __ast_滾:1.0___JCROSS_雰_39_(__ast_雰:1.0___JCROSS_雰_20_: __ast_廟:1.0___JCROSS_廟_2_[__ast_廟:1.0___JCROSS_廟_12_]) -> __ast_廟:1.0___JCROSS_廟_2_[__ast_雰:1.0___JCROSS_雰_62_]:
+// [metadata-stripped]
+        return []
+// __ast_雰:0.8___JCROSS_YC_913_ [decoy-metadata]
+
+// POLYMORPHIC_JCROSS_END

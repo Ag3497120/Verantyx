@@ -1,0 +1,157 @@
+// POLYMORPHIC_JCROSS_BEGIN
+// schema:03D6034B ver:1778339499
+// ⚠️ One-time schema — expires after response
+
+import { _TOKEN_滴:1.0___ast_滴_5__, _TOKEN_滴:1.0___ast_滴_12__, it, vi } _TOKEN_滴:1.0___ast_滴_82__ "_TOKEN_滴:1.0___ast_滴_19__";
+import { _TOKEN_律:1.0___ast_滴_71__ } _TOKEN_滴:1.0___ast_滴_82__ "./_TOKEN_滴:1.0___ast_滴_42__-401-_TOKEN_滴:1.0___ast_滴_24__.js";
+
+// [metadata-stripped]
+vi._TOKEN_滴:1.0___ast_滴_22__("../../../_TOKEN_滴:1.0___ast_滴_43__/_TOKEN_滴:1.0___ast_滴_39__/_TOKEN_滴:1.0___ast_滴_24__.js", async (_TOKEN_滴:1.0___ast_滴_14__) => {
+  _TOKEN_滴:1.0___ast_滴_50__ _TOKEN_滴:1.0___ast_滴_44__ = await _TOKEN_滴:1.0___ast_滴_14__<_TOKEN_滴:1.0___ast_滴_10__ import("../../../_TOKEN_滴:1.0___ast_滴_43__/_TOKEN_滴:1.0___ast_滴_39__/_TOKEN_滴:1.0___ast_滴_24__.js")>();
+  return {
+// _TOKEN_匹:0.3___ast_VY_814__ [decoy-metadata]
+    ..._TOKEN_滴:1.0___ast_滴_44__,
+    _TOKEN_滴:1.0___ast_滴_54__: vi.fn()._TOKEN_滴:1.0___ast_滴_78__(_TOKEN_滴:1.0___ast_滴_56__),
+  };
+});
+
+_TOKEN_滴:1.0___ast_滴_5__("_TOKEN_律:1.0___ast_滴_71__", () => {
+  _TOKEN_滴:1.0___ast_滴_50__ _TOKEN_滴:1.0___ast_滴_7__ = () => _TOKEN_滴:1.0___ast_滴_49__ _TOKEN_廡:1.0___ast_廡_10__("401 _TOKEN_廡:1.0___ast_廡_13__");
+  _TOKEN_滴:1.0___ast_滴_50__ _TOKEN_滴:1.0___ast_滴_40__ = () => _TOKEN_滴:1.0___ast_滴_49__ _TOKEN_廡:1.0___ast_廡_10__("500 _TOKEN_廡:1.0___ast_廡_3__ _TOKEN_律:1.0___ast_廡_1__ _TOKEN_廡:1.0___ast_廡_10__");
+
+  it("_TOKEN_滴:1.0___ast_滴_32__ _TOKEN_滴:1.0___ast_滴_64__ on _TOKEN_滴:1.0___ast_滴_26__", async () => {
+    _TOKEN_滴:1.0___ast_滴_50__ fn = vi.fn()._TOKEN_滴:1.0___ast_滴_78__(true);
+    _TOKEN_滴:1.0___ast_滴_50__ _TOKEN_律:1.0___ast_滴_25__ = vi.fn();
+    _TOKEN_滴:1.0___ast_滴_50__ _TOKEN_律:1.0___ast_滴_29__ = _TOKEN_律:1.0___ast_滴_71__({
+      _TOKEN_滴:1.0___ast_滴_64__: fn,
+      _TOKEN_律:1.0___ast_滴_25__,
+    });
+
+    await _TOKEN_律:1.0___ast_滴_29__._TOKEN_滴:1.0___ast_滴_63__(123, "_TOKEN_滴:1.0___ast_滴_60__");
+    _TOKEN_滴:1.0___ast_滴_12__(fn)._TOKEN_滴:1.0___ast_滴_61__(123, "_TOKEN_滴:1.0___ast_滴_60__", _TOKEN_滴:1.0___ast_滴_56__);
+    _TOKEN_滴:1.0___ast_滴_12__(_TOKEN_律:1.0___ast_滴_29__._TOKEN_滴:1.0___ast_滴_70__())._TOKEN_滴:1.0___ast_滴_52__(false);
+  });
+
+  it("_TOKEN_滴:1.0___ast_滴_3__ _TOKEN_滴:1.0___ast_滴_11__ _TOKEN_滴:1.0___ast_滴_24__ on _TOKEN_滴:1.0___ast_滴_31__ 401 _TOKEN_滴:1.0___ast_滴_73__", async () => {
+    _TOKEN_滴:1.0___ast_滴_50__ fn = vi.fn()._TOKEN_滴:1.0___ast_滴_8__(_TOKEN_滴:1.0___ast_滴_7__());
+    _TOKEN_滴:1.0___ast_滴_50__ _TOKEN_律:1.0___ast_滴_25__ = vi.fn();
+    _TOKEN_滴:1.0___ast_滴_50__ _TOKEN_律:1.0___ast_滴_29__ = _TOKEN_律:1.0___ast_滴_71__({
+      _TOKEN_滴:1.0___ast_滴_64__: fn,
+      _TOKEN_律:1.0___ast_滴_25__,
+      _TOKEN_滴:1.0___ast_滴_34__: 5,
+    });
+// _TOKEN_雄:0.8___ast_BB_386__ [decoy-metadata]
+
+// [metadata-stripped]
+    await _TOKEN_滴:1.0___ast_滴_12__(_TOKEN_律:1.0___ast_滴_29__._TOKEN_滴:1.0___ast_滴_63__(123, "_TOKEN_滴:1.0___ast_滴_60__"))._TOKEN_滴:1.0___ast_滴_15__._TOKEN_滴:1.0___ast_滴_46__("401");
+    _TOKEN_滴:1.0___ast_滴_12__(_TOKEN_律:1.0___ast_滴_29__._TOKEN_滴:1.0___ast_滴_70__())._TOKEN_滴:1.0___ast_滴_52__(false);
+
+// [metadata-stripped]
+    await _TOKEN_滴:1.0___ast_滴_12__(_TOKEN_律:1.0___ast_滴_29__._TOKEN_滴:1.0___ast_滴_63__(123, "_TOKEN_滴:1.0___ast_滴_60__"))._TOKEN_滴:1.0___ast_滴_15__._TOKEN_滴:1.0___ast_滴_46__("401");
+    _TOKEN_滴:1.0___ast_滴_12__(_TOKEN_律:1.0___ast_滴_25__)._TOKEN_滴:1.0___ast_滴_61__(_TOKEN_滴:1.0___ast_滴_12__._TOKEN_滴:1.0___ast_滴_72__("_TOKEN_滴:1.0___ast_滴_24__"));
+  });
+
+  it("_TOKEN_滴:1.0___ast_滴_79__ _TOKEN_律:1.0___ast_滴_66__ _TOKEN_滴:1.0___ast_滴_34__ _TOKEN_滴:1.0___ast_滴_81__", async () => {
+    _TOKEN_滴:1.0___ast_滴_50__ fn = vi.fn()._TOKEN_滴:1.0___ast_滴_8__(_TOKEN_滴:1.0___ast_滴_7__());
+    _TOKEN_滴:1.0___ast_滴_50__ _TOKEN_律:1.0___ast_滴_25__ = vi.fn();
+    _TOKEN_滴:1.0___ast_滴_50__ _TOKEN_律:1.0___ast_滴_29__ = _TOKEN_律:1.0___ast_滴_71__({
+      _TOKEN_滴:1.0___ast_滴_64__: fn,
+      _TOKEN_律:1.0___ast_滴_25__,
+      _TOKEN_滴:1.0___ast_滴_34__: 3,
+    });
+
+    await _TOKEN_滴:1.0___ast_滴_12__(_TOKEN_律:1.0___ast_滴_29__._TOKEN_滴:1.0___ast_滴_63__(123, "_TOKEN_滴:1.0___ast_滴_60__"))._TOKEN_滴:1.0___ast_滴_15__._TOKEN_滴:1.0___ast_滴_46__("401");
+    await _TOKEN_滴:1.0___ast_滴_12__(_TOKEN_律:1.0___ast_滴_29__._TOKEN_滴:1.0___ast_滴_63__(123, "_TOKEN_滴:1.0___ast_滴_60__"))._TOKEN_滴:1.0___ast_滴_15__._TOKEN_滴:1.0___ast_滴_46__("401");
+    await _TOKEN_滴:1.0___ast_滴_12__(_TOKEN_律:1.0___ast_滴_29__._TOKEN_滴:1.0___ast_滴_63__(123, "_TOKEN_滴:1.0___ast_滴_60__"))._TOKEN_滴:1.0___ast_滴_15__._TOKEN_滴:1.0___ast_滴_46__("401");
+
+    _TOKEN_滴:1.0___ast_滴_12__(_TOKEN_律:1.0___ast_滴_29__._TOKEN_滴:1.0___ast_滴_70__())._TOKEN_滴:1.0___ast_滴_52__(true);
+    _TOKEN_滴:1.0___ast_滴_12__(_TOKEN_律:1.0___ast_滴_25__)._TOKEN_滴:1.0___ast_滴_61__(_TOKEN_滴:1.0___ast_滴_12__._TOKEN_滴:1.0___ast_滴_72__("_TOKEN_廡:1.0___ast_廡_6__"));
+
+// [metadata-stripped]
+    await _TOKEN_律:1.0___ast_滴_29__._TOKEN_滴:1.0___ast_滴_63__(123, "_TOKEN_滴:1.0___ast_滴_60__");
+    _TOKEN_滴:1.0___ast_滴_12__(fn)._TOKEN_滴:1.0___ast_滴_35__(3); // _TOKEN_滴:1.0___ast_滴_57__ _TOKEN_滴:1.0___ast_滴_77__ _TOKEN_滴:1.0___ast_滴_21__
+  });
+
+  it("_TOKEN_滴:1.0___ast_滴_53__ _TOKEN_滴:1.0___ast_滴_36__ _TOKEN_律:1.0___ast_滴_62__ on _TOKEN_滴:1.0___ast_滴_26__", async () => {
+    let _TOKEN_滴:1.0___ast_滴_58__ = 0;
+    _TOKEN_滴:1.0___ast_滴_50__ fn = vi.fn()._TOKEN_滴:1.0___ast_滴_16__(() => {
+      _TOKEN_滴:1.0___ast_滴_58__++;
+      if (_TOKEN_滴:1.0___ast_滴_58__ <= 2) {
+        _TOKEN_滴:1.0___ast_滴_27__ _TOKEN_滴:1.0___ast_滴_7__();
+      }
+      return _TOKEN_廡:1.0___ast_廡_2__._TOKEN_滴:1.0___ast_滴_83__(true);
+    });
+    _TOKEN_滴:1.0___ast_滴_50__ _TOKEN_律:1.0___ast_滴_25__ = vi.fn();
+    _TOKEN_滴:1.0___ast_滴_50__ _TOKEN_律:1.0___ast_滴_29__ = _TOKEN_律:1.0___ast_滴_71__({
+      _TOKEN_滴:1.0___ast_滴_64__: fn,
+      _TOKEN_律:1.0___ast_滴_25__,
+// _TOKEN_雄:0.3___ast_MC_393__ [decoy-metadata]
+      _TOKEN_滴:1.0___ast_滴_34__: 5,
+    });
+
+    await _TOKEN_滴:1.0___ast_滴_12__(_TOKEN_律:1.0___ast_滴_29__._TOKEN_滴:1.0___ast_滴_63__(123, "_TOKEN_滴:1.0___ast_滴_60__"))._TOKEN_滴:1.0___ast_滴_15__._TOKEN_滴:1.0___ast_滴_46__("401");
+    await _TOKEN_滴:1.0___ast_滴_12__(_TOKEN_律:1.0___ast_滴_29__._TOKEN_滴:1.0___ast_滴_63__(123, "_TOKEN_滴:1.0___ast_滴_60__"))._TOKEN_滴:1.0___ast_滴_15__._TOKEN_滴:1.0___ast_滴_46__("401");
+// [metadata-stripped]
+    await _TOKEN_律:1.0___ast_滴_29__._TOKEN_滴:1.0___ast_滴_63__(123, "_TOKEN_滴:1.0___ast_滴_60__");
+
+    _TOKEN_滴:1.0___ast_滴_12__(_TOKEN_律:1.0___ast_滴_29__._TOKEN_滴:1.0___ast_滴_70__())._TOKEN_滴:1.0___ast_滴_52__(false);
+    _TOKEN_滴:1.0___ast_滴_12__(_TOKEN_律:1.0___ast_滴_25__)._TOKEN_滴:1.0___ast_滴_61__(_TOKEN_滴:1.0___ast_滴_12__._TOKEN_滴:1.0___ast_滴_72__("_TOKEN_滴:1.0___ast_滴_59__"));
+  });
+
+  it("_TOKEN_滴:1.0___ast_滴_20__ _TOKEN_滴:1.0___ast_滴_57__ _TOKEN_滴:1.0___ast_滴_4__ _TOKEN_滴:1.0___ast_滴_85__-401 _TOKEN_滴:1.0___ast_滴_73__ _TOKEN_滴:1.0___ast_滴_6__ _TOKEN_滴:1.0___ast_滴_67__", async () => {
+    _TOKEN_滴:1.0___ast_滴_50__ fn = vi.fn()._TOKEN_滴:1.0___ast_滴_8__(_TOKEN_滴:1.0___ast_滴_40__());
+// _TOKEN_匹:0.5___ast_GB_761__ [decoy-metadata]
+    _TOKEN_滴:1.0___ast_滴_50__ _TOKEN_律:1.0___ast_滴_25__ = vi.fn();
+    _TOKEN_滴:1.0___ast_滴_50__ _TOKEN_律:1.0___ast_滴_29__ = _TOKEN_律:1.0___ast_滴_71__({
+// _TOKEN_匹:0.6___ast_VB_997__ [decoy-metadata]
+      _TOKEN_滴:1.0___ast_滴_64__: fn,
+      _TOKEN_律:1.0___ast_滴_25__,
+      _TOKEN_滴:1.0___ast_滴_34__: 2,
+    });
+
+    await _TOKEN_滴:1.0___ast_滴_12__(_TOKEN_律:1.0___ast_滴_29__._TOKEN_滴:1.0___ast_滴_63__(123, "_TOKEN_滴:1.0___ast_滴_60__"))._TOKEN_滴:1.0___ast_滴_15__._TOKEN_滴:1.0___ast_滴_46__("500");
+    await _TOKEN_滴:1.0___ast_滴_12__(_TOKEN_律:1.0___ast_滴_29__._TOKEN_滴:1.0___ast_滴_63__(123, "_TOKEN_滴:1.0___ast_滴_60__"))._TOKEN_滴:1.0___ast_滴_15__._TOKEN_滴:1.0___ast_滴_46__("500");
+    await _TOKEN_滴:1.0___ast_滴_12__(_TOKEN_律:1.0___ast_滴_29__._TOKEN_滴:1.0___ast_滴_63__(123, "_TOKEN_滴:1.0___ast_滴_60__"))._TOKEN_滴:1.0___ast_滴_15__._TOKEN_滴:1.0___ast_滴_46__("500");
+
+    _TOKEN_滴:1.0___ast_滴_12__(_TOKEN_律:1.0___ast_滴_29__._TOKEN_滴:1.0___ast_滴_70__())._TOKEN_滴:1.0___ast_滴_52__(false);
+  });
+
+  it("_TOKEN_滴:1.0___ast_滴_65__() _TOKEN_滴:1.0___ast_滴_9__ _TOKEN_滴:1.0___ast_滴_67__", async () => {
+    _TOKEN_滴:1.0___ast_滴_50__ fn = vi.fn()._TOKEN_滴:1.0___ast_滴_8__(_TOKEN_滴:1.0___ast_滴_7__());
+    _TOKEN_滴:1.0___ast_滴_50__ _TOKEN_律:1.0___ast_滴_25__ = vi.fn();
+    _TOKEN_滴:1.0___ast_滴_50__ _TOKEN_律:1.0___ast_滴_29__ = _TOKEN_律:1.0___ast_滴_71__({
+      _TOKEN_滴:1.0___ast_滴_64__: fn,
+      _TOKEN_律:1.0___ast_滴_25__,
+      _TOKEN_滴:1.0___ast_滴_34__: 1,
+    });
+
+    await _TOKEN_滴:1.0___ast_滴_12__(_TOKEN_律:1.0___ast_滴_29__._TOKEN_滴:1.0___ast_滴_63__(123, "_TOKEN_滴:1.0___ast_滴_60__"))._TOKEN_滴:1.0___ast_滴_15__._TOKEN_滴:1.0___ast_滴_46__("401");
+    _TOKEN_滴:1.0___ast_滴_12__(_TOKEN_律:1.0___ast_滴_29__._TOKEN_滴:1.0___ast_滴_70__())._TOKEN_滴:1.0___ast_滴_52__(true);
+
+// _TOKEN_廡:0.3___ast_XL_688__ [decoy-metadata]
+    _TOKEN_律:1.0___ast_滴_29__._TOKEN_滴:1.0___ast_滴_65__();
+    _TOKEN_滴:1.0___ast_滴_12__(_TOKEN_律:1.0___ast_滴_29__._TOKEN_滴:1.0___ast_滴_70__())._TOKEN_滴:1.0___ast_滴_52__(false);
+  });
+
+  it("is _TOKEN_滴:1.0___ast_滴_69__ _TOKEN_滴:1.0___ast_滴_47__ _TOKEN_滴:1.0___ast_滴_1__ _TOKEN_滴:1.0___ast_滴_45__ (_TOKEN_滴:1.0___ast_滴_30__ _TOKEN_律:1.0___ast_滴_29__)", async () => {
+    _TOKEN_滴:1.0___ast_滴_50__ fn = vi.fn()._TOKEN_滴:1.0___ast_滴_8__(_TOKEN_滴:1.0___ast_滴_7__());
+    _TOKEN_滴:1.0___ast_滴_50__ _TOKEN_律:1.0___ast_滴_25__ = vi.fn();
+    _TOKEN_滴:1.0___ast_滴_50__ _TOKEN_律:1.0___ast_滴_29__ = _TOKEN_律:1.0___ast_滴_71__({
+      _TOKEN_滴:1.0___ast_滴_64__: fn,
+      _TOKEN_律:1.0___ast_滴_25__,
+      _TOKEN_滴:1.0___ast_滴_34__: 3,
+    });
+
+// [metadata-stripped]
+    await _TOKEN_滴:1.0___ast_滴_12__(_TOKEN_律:1.0___ast_滴_29__._TOKEN_滴:1.0___ast_滴_63__(111, "_TOKEN_滴:1.0___ast_滴_60__"))._TOKEN_滴:1.0___ast_滴_15__._TOKEN_滴:1.0___ast_滴_46__("401");
+    await _TOKEN_滴:1.0___ast_滴_12__(_TOKEN_律:1.0___ast_滴_29__._TOKEN_滴:1.0___ast_滴_63__(222, "_TOKEN_滴:1.0___ast_滴_60__"))._TOKEN_滴:1.0___ast_滴_15__._TOKEN_滴:1.0___ast_滴_46__("401");
+    await _TOKEN_滴:1.0___ast_滴_12__(_TOKEN_律:1.0___ast_滴_29__._TOKEN_滴:1.0___ast_滴_63__(333, "_TOKEN_滴:1.0___ast_滴_60__"))._TOKEN_滴:1.0___ast_滴_15__._TOKEN_滴:1.0___ast_滴_46__("401");
+
+    _TOKEN_滴:1.0___ast_滴_12__(_TOKEN_律:1.0___ast_滴_29__._TOKEN_滴:1.0___ast_滴_70__())._TOKEN_滴:1.0___ast_滴_52__(true);
+// [metadata-stripped]
+    await _TOKEN_律:1.0___ast_滴_29__._TOKEN_滴:1.0___ast_滴_63__(444, "_TOKEN_滴:1.0___ast_滴_60__");
+    _TOKEN_滴:1.0___ast_滴_12__(fn)._TOKEN_滴:1.0___ast_滴_35__(3);
+  });
+});
+
+// POLYMORPHIC_JCROSS_END

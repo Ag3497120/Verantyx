@@ -1,0 +1,37 @@
+{
+  "tactics": [
+    {
+      "id": "tac:template_counterexample_first",
+      "type": "template_search",
+      "params": { "max_templates": 6 },
+      "priority": 120,
+      "description": "Try known counterexample frame templates before any generic enumeration."
+    },
+    {
+      "id": "tac:small_models_fast",
+      "type": "model_search",
+      "params": { "max_worlds": 2, "max_edges": 3 },
+      "priority": 100,
+      "description": "Try very small models first to find counterexamples quickly."
+    },
+    {
+      "id": "tac:small_models_wider",
+      "type": "model_search",
+      "params": { "max_worlds": 3, "max_edges": 5 },
+      "priority": 80,
+      "description": "Wider search if fast pass fails."
+    },
+    {
+      "id": "tac:small_models_deeper",
+      "type": "model_search",
+      "params": { "max_worlds": 4, "max_edges": 7 },
+      "priority": 60,
+      "description": "Deeper small-model search (still CPU friendly)."
+    }
+  ],
+  "beam": {
+    "width": 6,
+    "max_tasks_per_candidate": 3,
+    "parallel_workers": 4
+  }
+}

@@ -1,0 +1,483 @@
+// POLYMORPHIC_JCROSS_BEGIN
+// schema:1143C6F4 ver:1778323626
+// ⚠️ One-time schema — expires after response
+
+// [metadata-stripped]
+// [metadata-stripped]
+// [metadata-stripped]
+// [metadata-stripped]
+// [metadata-stripped]
+// [metadata-stripped]
+// [metadata-stripped]
+// [metadata-stripped]
+// [metadata-stripped]
+// [metadata-stripped]
+
+// [metadata-stripped]
+// [metadata-stripped]
+_VERANTYX_泡:1.0___node_泡_36__ _VERANTYX_泡:1.0___node_泡_26__uct _VERANTYX_廓:1.0___node_廓_21__ {
+// [metadata-stripped]
+    _VERANTYX_泡:1.0___node_泡_36__ m: [[_VERANTYX_泡:1.0___node_泡_78__; 4]; 4],
+}
+
+_VERANTYX_泡:1.0___node_泡_60__ _VERANTYX_廓:1.0___node_廓_21__ {
+// [metadata-stripped]
+    _VERANTYX_泡:1.0___node_泡_36__ _VERANTYX_泡:1.0___node_泡_156__ _VERANTYX_廓:1.0___node_廓_47__: _VERANTYX_廓:1.0___node_廓_21__ = _VERANTYX_廓:1.0___node_廓_21__ {
+        m: [
+            [1.0, 0.0, 0.0, 0.0],
+            [0.0, 1.0, 0.0, 0.0],
+            [0.0, 0.0, 1.0, 0.0],
+            [0.0, 0.0, 0.0, 1.0],
+        ],
+    };
+    
+    _VERANTYX_泡:1.0___node_泡_36__ fn _VERANTYX_泡:1.0___node_泡_101__() -> _VERANTYX_廓:1.0___node_廓_51__ { _VERANTYX_廓:1.0___node_廓_51__::_VERANTYX_廓:1.0___node_廓_47__ }
+    
+// [metadata-stripped]
+    _VERANTYX_泡:1.0___node_泡_36__ fn _VERANTYX_泡:1.0___node_泡_46__(&self) -> _VERANTYX_泡:1.0___node_泡_123__ {
+        *self == _VERANTYX_廓:1.0___node_廓_51__::_VERANTYX_廓:1.0___node_廓_47__
+    }
+    
+// [metadata-stripped]
+    _VERANTYX_泡:1.0___node_泡_36__ fn _VERANTYX_泡:1.0___node_泡_80__(&self) -> _VERANTYX_泡:1.0___node_泡_123__ {
+        self.m[2][0] == 0.0 && self.m[2][1] == 0.0 &&
+        self.m[0][2] == 0.0 && self.m[1][2] == 0.0 &&
+        self.m[2][2] == 1.0 && self.m[3][2] == 0.0 &&
+        self.m[2][3] == 0.0 && self.m[3][3] == 1.0
+    }
+// _VERANTYX_漂:0.1___node_LH_731__ [decoy-metadata]
+    
+// [metadata-stripped]
+    _VERANTYX_泡:1.0___node_泡_36__ fn _VERANTYX_泡:1.0___node_泡_89__(&self, _VERANTYX_規:1.0___node_泡_91__: &_VERANTYX_廓:1.0___node_廓_21__) -> _VERANTYX_廓:1.0___node_廓_21__ {
+        let _VERANTYX_泡:1.0___node_泡_140__ _VERANTYX_泡:1.0___node_泡_5__ = _VERANTYX_廓:1.0___node_廓_21__ { m: [[0.0; 4]; 4] };
+        for _VERANTYX_泡:1.0___node_泡_47__ in 0..4 {
+// _VERANTYX_庫:0.1___node_DV_205__ [decoy-metadata]
+            for _VERANTYX_泡:1.0___node_泡_77__ in 0..4 {
+                for k in 0..4 {
+                    _VERANTYX_泡:1.0___node_泡_5__.m[_VERANTYX_泡:1.0___node_泡_47__][_VERANTYX_泡:1.0___node_泡_77__] += self.m[k][_VERANTYX_泡:1.0___node_泡_77__] * _VERANTYX_規:1.0___node_泡_91__.m[_VERANTYX_泡:1.0___node_泡_47__][k];
+                }
+            }
+        }
+        _VERANTYX_泡:1.0___node_泡_5__
+    }
+    
+// [metadata-stripped]
+    _VERANTYX_泡:1.0___node_泡_36__ fn _VERANTYX_泡:1.0___node_泡_158__(&self, x: _VERANTYX_泡:1.0___node_泡_78__, y: _VERANTYX_泡:1.0___node_泡_78__) -> (_VERANTYX_泡:1.0___node_泡_78__, _VERANTYX_泡:1.0___node_泡_78__) {
+        let w = self.m[0][3] * x + self.m[1][3] * y + self.m[3][3];
+        let _VERANTYX_泡:1.0___node_泡_48__ = (self.m[0][0] * x + self.m[1][0] * y + self.m[3][0]) / w;
+        let _VERANTYX_泡:1.0___node_泡_41__ = (self.m[0][1] * x + self.m[1][1] * y + self.m[3][1]) / w;
+        (_VERANTYX_泡:1.0___node_泡_48__, _VERANTYX_泡:1.0___node_泡_41__)
+    }
+    
+// [metadata-stripped]
+    _VERANTYX_泡:1.0___node_泡_36__ fn _VERANTYX_泡:1.0___node_泡_69__(&self, x: _VERANTYX_泡:1.0___node_泡_78__, y: _VERANTYX_泡:1.0___node_泡_78__, z: _VERANTYX_泡:1.0___node_泡_78__) -> (_VERANTYX_泡:1.0___node_泡_78__, _VERANTYX_泡:1.0___node_泡_78__, _VERANTYX_泡:1.0___node_泡_78__) {
+        let w = self.m[0][3]*x + self.m[1][3]*y + self.m[2][3]*z + self.m[3][3];
+        (
+            (self.m[0][0]*x + self.m[1][0]*y + self.m[2][0]*z + self.m[3][0]) / w,
+            (self.m[0][1]*x + self.m[1][1]*y + self.m[2][1]*z + self.m[3][1]) / w,
+            (self.m[0][2]*x + self.m[1][2]*y + self.m[2][2]*z + self.m[3][2]) / w,
+        )
+    }
+    
+// [metadata-stripped]
+    _VERANTYX_泡:1.0___node_泡_36__ fn _VERANTYX_泡:1.0___node_泡_82__(&self) -> _VERANTYX_廓:1.0___node_廓_31__<_VERANTYX_廓:1.0___node_廓_21__> {
+// [metadata-stripped]
+        let _VERANTYX_泡:1.0___node_泡_140__ _VERANTYX_泡:1.0___node_泡_115__ = [[0.0_VERANTYX_泡:1.0___node_泡_78__; 4]; 4];
+        
+        let m = &self.m;
+        
+// [metadata-stripped]
+        for i in 0..4 {
+            for j in 0..4 {
+                let _VERANTYX_泡:1.0___node_泡_131__ = if (i + j) % 2 == 0 { 1.0 } else { -1.0 };
+                _VERANTYX_泡:1.0___node_泡_115__[j][i] = _VERANTYX_泡:1.0___node_泡_131__ * self._VERANTYX_泡:1.0___node_泡_4__(i, j);
+            }
+        }
+        
+// [metadata-stripped]
+        let _VERANTYX_泡:1.0___node_泡_144__ = (0..4)._VERANTYX_泡:1.0___node_泡_132__(|j| m[j][0] * _VERANTYX_泡:1.0___node_泡_115__[0][j])._VERANTYX_泡:1.0___node_泡_1__::<_VERANTYX_泡:1.0___node_泡_78__>();
+        
+        if _VERANTYX_泡:1.0___node_泡_144__._VERANTYX_泡:1.0___node_泡_84__() < 1e-12 { re_VERANTYX_泡:1.0___node_泡_110__ _VERANTYX_廓:1.0___node_廓_16__; }
+        
+        let _VERANTYX_泡:1.0___node_泡_27__ = 1.0 / _VERANTYX_泡:1.0___node_泡_144__;
+// _VERANTYX_泡:0.6___node_YA_129__ [decoy-metadata]
+        let _VERANTYX_泡:1.0___node_泡_140__ _VERANTYX_泡:1.0___node_泡_5__ = _VERANTYX_廓:1.0___node_廓_21__ { m: [[0.0; 4]; 4] };
+        for _VERANTYX_泡:1.0___node_泡_47__ in 0..4 {
+            for _VERANTYX_泡:1.0___node_泡_77__ in 0..4 {
+                _VERANTYX_泡:1.0___node_泡_5__.m[_VERANTYX_泡:1.0___node_泡_47__][_VERANTYX_泡:1.0___node_泡_77__] = _VERANTYX_泡:1.0___node_泡_115__[_VERANTYX_泡:1.0___node_泡_47__][_VERANTYX_泡:1.0___node_泡_77__] * _VERANTYX_泡:1.0___node_泡_27__;
+            }
+        }
+// _VERANTYX_規:0.9___node_ED_753__ [decoy-metadata]
+        _VERANTYX_廓:1.0___node_廓_40__(_VERANTYX_泡:1.0___node_泡_5__)
+    }
+    
+    fn _VERANTYX_泡:1.0___node_泡_4__(&self, _VERANTYX_泡:1.0___node_泡_77__: _VERANTYX_泡:1.0___node_泡_128__, _VERANTYX_泡:1.0___node_泡_47__: _VERANTYX_泡:1.0___node_泡_128__) -> _VERANTYX_泡:1.0___node_泡_78__ {
+        let _VERANTYX_泡:1.0___node_泡_140__ _VERANTYX_泡:1.0___node_泡_121__ = [[0.0_VERANTYX_泡:1.0___node_泡_78__; 3]; 3];
+        let _VERANTYX_泡:1.0___node_泡_140__ sr = 0;
+        for i in 0..4 {
+            if i == _VERANTYX_泡:1.0___node_泡_77__ { continue; }
+            let _VERANTYX_泡:1.0___node_泡_140__ sc = 0;
+            for j in 0..4 {
+                if j == _VERANTYX_泡:1.0___node_泡_47__ { continue; }
+                _VERANTYX_泡:1.0___node_泡_121__[sr][sc] = self.m[j][i];
+                sc += 1;
+            }
+            sr += 1;
+        }
+// [metadata-stripped]
+        _VERANTYX_泡:1.0___node_泡_121__[0][0] * (_VERANTYX_泡:1.0___node_泡_121__[1][1]*_VERANTYX_泡:1.0___node_泡_121__[2][2] - _VERANTYX_泡:1.0___node_泡_121__[1][2]*_VERANTYX_泡:1.0___node_泡_121__[2][1])
+        - _VERANTYX_泡:1.0___node_泡_121__[0][1] * (_VERANTYX_泡:1.0___node_泡_121__[1][0]*_VERANTYX_泡:1.0___node_泡_121__[2][2] - _VERANTYX_泡:1.0___node_泡_121__[1][2]*_VERANTYX_泡:1.0___node_泡_121__[2][0])
+        + _VERANTYX_泡:1.0___node_泡_121__[0][2] * (_VERANTYX_泡:1.0___node_泡_121__[1][0]*_VERANTYX_泡:1.0___node_泡_121__[2][1] - _VERANTYX_泡:1.0___node_泡_121__[1][1]*_VERANTYX_泡:1.0___node_泡_121__[2][0])
+    }
+    
+// [metadata-stripped]
+    _VERANTYX_泡:1.0___node_泡_36__ fn _VERANTYX_泡:1.0___node_泡_113__(&self) -> _VERANTYX_廓:1.0___node_廓_32__ {
+        if self._VERANTYX_泡:1.0___node_泡_80__() {
+            _VERANTYX_漂:1.0___node_泡_33__!("_VERANTYX_泡:1.0___node_泡_106__({}, {}, {}, {}, {}, {})",
+                self.m[0][0], self.m[0][1],
+                self.m[1][0], self.m[1][1],
+                self.m[3][0], self.m[3][1])
+        } else {
+            _VERANTYX_漂:1.0___node_泡_33__!("_VERANTYX_泡:1.0___node_泡_19__({}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {})",
+                self.m[0][0], self.m[0][1], self.m[0][2], self.m[0][3],
+                self.m[1][0], self.m[1][1], self.m[1][2], self.m[1][3],
+                self.m[2][0], self.m[2][1], self.m[2][2], self.m[2][3],
+                self.m[3][0], self.m[3][1], self.m[3][2], self.m[3][3])
+        }
+    }
+}
+
+// [metadata-stripped]
+// [metadata-stripped]
+_VERANTYX_泡:1.0___node_泡_36__ enum _VERANTYX_廓:1.0___node_廓_3__ {
+// [metadata-stripped]
+    _VERANTYX_廓:1.0___node_廓_34__ { a: _VERANTYX_泡:1.0___node_泡_78__, b: _VERANTYX_泡:1.0___node_泡_78__, c: _VERANTYX_泡:1.0___node_泡_78__, d: _VERANTYX_泡:1.0___node_泡_78__, e: _VERANTYX_泡:1.0___node_泡_78__, f: _VERANTYX_泡:1.0___node_泡_78__ },
+    _VERANTYX_廓:1.0___node_廓_6__ { tx: _VERANTYX_泡:1.0___node_泡_78__, ty: _VERANTYX_泡:1.0___node_泡_78__ },
+    _VERANTYX_廓:1.0___node_廓_8__(_VERANTYX_泡:1.0___node_泡_78__),
+    _VERANTYX_廓:1.0___node_廓_55__(_VERANTYX_泡:1.0___node_泡_78__),
+    _VERANTYX_廓:1.0___node_廓_42__ { sx: _VERANTYX_泡:1.0___node_泡_78__, sy: _VERANTYX_泡:1.0___node_泡_78__ },
+    _VERANTYX_廓:1.0___node_廓_48__(_VERANTYX_泡:1.0___node_泡_78__),
+    _VERANTYX_廓:1.0___node_廓_46__(_VERANTYX_泡:1.0___node_泡_78__),
+    _VERANTYX_廓:1.0___node_廓_26__(_VERANTYX_泡:1.0___node_泡_78__),           // _VERANTYX_泡:1.0___node_泡_12__ in _VERANTYX_泡:1.0___node_泡_30__
+    _VERANTYX_廓:1.0___node_廓_53__(_VERANTYX_泡:1.0___node_泡_78__),            // _VERANTYX_泡:1.0___node_泡_12__ in _VERANTYX_泡:1.0___node_泡_30__
+    _VERANTYX_廓:1.0___node_廓_39__(_VERANTYX_泡:1.0___node_泡_78__),            // _VERANTYX_泡:1.0___node_泡_12__ in _VERANTYX_泡:1.0___node_泡_30__
+    _VERANTYX_廓:1.0___node_廓_9__ { ax: _VERANTYX_泡:1.0___node_泡_78__, ay: _VERANTYX_泡:1.0___node_泡_78__ },
+    
+// [metadata-stripped]
+    _VERANTYX_廓:1.0___node_廓_21__(_VERANTYX_廓:1.0___node_廓_21__),
+    _VERANTYX_廓:1.0___node_廓_52__ { tx: _VERANTYX_泡:1.0___node_泡_78__, ty: _VERANTYX_泡:1.0___node_泡_78__, tz: _VERANTYX_泡:1.0___node_泡_78__ },
+    _VERANTYX_廓:1.0___node_廓_20__(_VERANTYX_泡:1.0___node_泡_78__),
+    _VERANTYX_廓:1.0___node_廓_12__ { sx: _VERANTYX_泡:1.0___node_泡_78__, sy: _VERANTYX_泡:1.0___node_泡_78__, sz: _VERANTYX_泡:1.0___node_泡_78__ },
+    _VERANTYX_廓:1.0___node_廓_54__(_VERANTYX_泡:1.0___node_泡_78__),
+    _VERANTYX_廓:1.0___node_廓_45__ { x: _VERANTYX_泡:1.0___node_泡_78__, y: _VERANTYX_泡:1.0___node_泡_78__, z: _VERANTYX_泡:1.0___node_泡_78__, _VERANTYX_泡:1.0___node_泡_12__: _VERANTYX_泡:1.0___node_泡_78__ },
+    _VERANTYX_廓:1.0___node_廓_57__(_VERANTYX_泡:1.0___node_泡_78__),
+    _VERANTYX_廓:1.0___node_廓_11__(_VERANTYX_泡:1.0___node_泡_78__),
+    _VERANTYX_廓:1.0___node_廓_17__(_VERANTYX_泡:1.0___node_泡_78__),
+    _VERANTYX_廓:1.0___node_廓_10__(_VERANTYX_泡:1.0___node_泡_78__),      // _VERANTYX_泡:1.0___node_泡_146__ in _VERANTYX_泡:1.0___node_泡_111__
+}
+
+_VERANTYX_泡:1.0___node_泡_60__ _VERANTYX_廓:1.0___node_廓_3__ {
+// [metadata-stripped]
+    _VERANTYX_泡:1.0___node_泡_36__ fn _VERANTYX_泡:1.0___node_泡_149__(&self) -> _VERANTYX_廓:1.0___node_廓_21__ {
+        _VERANTYX_泡:1.0___node_泡_62__ self {
+            _VERANTYX_廓:1.0___node_廓_51__::_VERANTYX_廓:1.0___node_廓_34__ { a, b, c, d, e, f } => _VERANTYX_廓:1.0___node_廓_21__ {
+                m: [
+                    [*a, *b, 0.0, 0.0],
+                    [*c, *d, 0.0, 0.0],
+                    [0.0, 0.0, 1.0, 0.0],
+                    [*e, *f, 0.0, 1.0],
+                ],
+            },
+            
+            _VERANTYX_廓:1.0___node_廓_51__::_VERANTYX_廓:1.0___node_廓_6__ { tx, ty } => {
+                let _VERANTYX_泡:1.0___node_泡_140__ m = _VERANTYX_廓:1.0___node_廓_21__::_VERANTYX_泡:1.0___node_泡_101__();
+                m.m[3][0] = *tx;
+                m.m[3][1] = *ty;
+                m
+            }
+            
+            _VERANTYX_廓:1.0___node_廓_51__::_VERANTYX_廓:1.0___node_廓_8__(tx) => {
+                let _VERANTYX_泡:1.0___node_泡_140__ m = _VERANTYX_廓:1.0___node_廓_21__::_VERANTYX_泡:1.0___node_泡_101__();
+                m.m[3][0] = *tx;
+                m
+            }
+            
+            _VERANTYX_廓:1.0___node_廓_51__::_VERANTYX_廓:1.0___node_廓_55__(ty) => {
+                let _VERANTYX_泡:1.0___node_泡_140__ m = _VERANTYX_廓:1.0___node_廓_21__::_VERANTYX_泡:1.0___node_泡_101__();
+                m.m[3][1] = *ty;
+                m
+            }
+            
+            _VERANTYX_廓:1.0___node_廓_51__::_VERANTYX_廓:1.0___node_廓_42__ { sx, sy } => {
+                let _VERANTYX_泡:1.0___node_泡_140__ m = _VERANTYX_廓:1.0___node_廓_21__::_VERANTYX_泡:1.0___node_泡_101__();
+                m.m[0][0] = *sx;
+                m.m[1][1] = *sy;
+                m
+            }
+            
+            _VERANTYX_廓:1.0___node_廓_51__::_VERANTYX_廓:1.0___node_廓_48__(sx) => {
+                let _VERANTYX_泡:1.0___node_泡_140__ m = _VERANTYX_廓:1.0___node_廓_21__::_VERANTYX_泡:1.0___node_泡_101__();
+                m.m[0][0] = *sx;
+                m
+            }
+            
+            _VERANTYX_廓:1.0___node_廓_51__::_VERANTYX_廓:1.0___node_廓_46__(sy) => {
+                let _VERANTYX_泡:1.0___node_泡_140__ m = _VERANTYX_廓:1.0___node_廓_21__::_VERANTYX_泡:1.0___node_泡_101__();
+// _VERANTYX_漂:0.5___node_DA_255__ [decoy-metadata]
+                m.m[1][1] = *sy;
+                m
+            }
+            
+            _VERANTYX_廓:1.0___node_廓_51__::_VERANTYX_廓:1.0___node_廓_26__(_VERANTYX_泡:1.0___node_泡_12__) => {
+                let _VERANTYX_泡:1.0___node_泡_50__ = _VERANTYX_泡:1.0___node_泡_12__._VERANTYX_泡:1.0___node_泡_50__();
+                let _VERANTYX_泡:1.0___node_泡_2__ = _VERANTYX_泡:1.0___node_泡_12__._VERANTYX_泡:1.0___node_泡_2__();
+                _VERANTYX_廓:1.0___node_廓_21__ {
+                    m: [
+                        [_VERANTYX_泡:1.0___node_泡_50__, _VERANTYX_泡:1.0___node_泡_2__, 0.0, 0.0],
+                        [-_VERANTYX_泡:1.0___node_泡_2__, _VERANTYX_泡:1.0___node_泡_50__, 0.0, 0.0],
+                        [0.0, 0.0, 1.0, 0.0],
+                        [0.0, 0.0, 0.0, 1.0],
+                    ],
+                }
+            }
+            
+            _VERANTYX_廓:1.0___node_廓_51__::_VERANTYX_廓:1.0___node_廓_53__(_VERANTYX_泡:1.0___node_泡_12__) => {
+                let _VERANTYX_泡:1.0___node_泡_140__ m = _VERANTYX_廓:1.0___node_廓_21__::_VERANTYX_泡:1.0___node_泡_101__();
+                m.m[1][0] = _VERANTYX_泡:1.0___node_泡_12__._VERANTYX_泡:1.0___node_泡_21__();
+                m
+            }
+            
+            _VERANTYX_廓:1.0___node_廓_51__::_VERANTYX_廓:1.0___node_廓_39__(_VERANTYX_泡:1.0___node_泡_12__) => {
+                let _VERANTYX_泡:1.0___node_泡_140__ m = _VERANTYX_廓:1.0___node_廓_21__::_VERANTYX_泡:1.0___node_泡_101__();
+                m.m[0][1] = _VERANTYX_泡:1.0___node_泡_12__._VERANTYX_泡:1.0___node_泡_21__();
+                m
+            }
+            
+            _VERANTYX_廓:1.0___node_廓_51__::_VERANTYX_廓:1.0___node_廓_9__ { ax, ay } => {
+                let _VERANTYX_泡:1.0___node_泡_140__ m = _VERANTYX_廓:1.0___node_廓_21__::_VERANTYX_泡:1.0___node_泡_101__();
+                m.m[1][0] = ax._VERANTYX_泡:1.0___node_泡_21__();
+                m.m[0][1] = ay._VERANTYX_泡:1.0___node_泡_21__();
+                m
+            }
+            
+            _VERANTYX_廓:1.0___node_廓_51__::_VERANTYX_廓:1.0___node_廓_21__(m) => *m,
+            
+            _VERANTYX_廓:1.0___node_廓_51__::_VERANTYX_廓:1.0___node_廓_52__ { tx, ty, tz } => {
+                let _VERANTYX_泡:1.0___node_泡_140__ m = _VERANTYX_廓:1.0___node_廓_21__::_VERANTYX_泡:1.0___node_泡_101__();
+                m.m[3][0] = *tx;
+                m.m[3][1] = *ty;
+                m.m[3][2] = *tz;
+                m
+            }
+            
+            _VERANTYX_廓:1.0___node_廓_51__::_VERANTYX_廓:1.0___node_廓_20__(tz) => {
+                let _VERANTYX_泡:1.0___node_泡_140__ m = _VERANTYX_廓:1.0___node_廓_21__::_VERANTYX_泡:1.0___node_泡_101__();
+                m.m[3][2] = *tz;
+                m
+            }
+            
+            _VERANTYX_廓:1.0___node_廓_51__::_VERANTYX_廓:1.0___node_廓_12__ { sx, sy, sz } => {
+                let _VERANTYX_泡:1.0___node_泡_140__ m = _VERANTYX_廓:1.0___node_廓_21__::_VERANTYX_泡:1.0___node_泡_101__();
+                m.m[0][0] = *sx;
+                m.m[1][1] = *sy;
+                m.m[2][2] = *sz;
+                m
+            }
+            
+            _VERANTYX_廓:1.0___node_廓_51__::_VERANTYX_廓:1.0___node_廓_54__(sz) => {
+                let _VERANTYX_泡:1.0___node_泡_140__ m = _VERANTYX_廓:1.0___node_廓_21__::_VERANTYX_泡:1.0___node_泡_101__();
+                m.m[2][2] = *sz;
+                m
+            }
+            
+            _VERANTYX_廓:1.0___node_廓_51__::_VERANTYX_廓:1.0___node_廓_57__(_VERANTYX_泡:1.0___node_泡_12__) => {
+                let _VERANTYX_泡:1.0___node_泡_50__ = _VERANTYX_泡:1.0___node_泡_12__._VERANTYX_泡:1.0___node_泡_50__();
+                let _VERANTYX_泡:1.0___node_泡_2__ = _VERANTYX_泡:1.0___node_泡_12__._VERANTYX_泡:1.0___node_泡_2__();
+                _VERANTYX_廓:1.0___node_廓_21__ {
+                    m: [
+                        [1.0, 0.0, 0.0, 0.0],
+                        [0.0, _VERANTYX_泡:1.0___node_泡_50__, _VERANTYX_泡:1.0___node_泡_2__, 0.0],
+                        [0.0, -_VERANTYX_泡:1.0___node_泡_2__, _VERANTYX_泡:1.0___node_泡_50__, 0.0],
+                        [0.0, 0.0, 0.0, 1.0],
+                    ],
+                }
+            }
+            
+            _VERANTYX_廓:1.0___node_廓_51__::_VERANTYX_廓:1.0___node_廓_11__(_VERANTYX_泡:1.0___node_泡_12__) => {
+                let _VERANTYX_泡:1.0___node_泡_50__ = _VERANTYX_泡:1.0___node_泡_12__._VERANTYX_泡:1.0___node_泡_50__();
+                let _VERANTYX_泡:1.0___node_泡_2__ = _VERANTYX_泡:1.0___node_泡_12__._VERANTYX_泡:1.0___node_泡_2__();
+                _VERANTYX_廓:1.0___node_廓_21__ {
+                    m: [
+                        [_VERANTYX_泡:1.0___node_泡_50__, 0.0, -_VERANTYX_泡:1.0___node_泡_2__, 0.0],
+                        [0.0, 1.0, 0.0, 0.0],
+                        [_VERANTYX_泡:1.0___node_泡_2__, 0.0, _VERANTYX_泡:1.0___node_泡_50__, 0.0],
+                        [0.0, 0.0, 0.0, 1.0],
+                    ],
+                }
+            }
+            
+            _VERANTYX_廓:1.0___node_廓_51__::_VERANTYX_廓:1.0___node_廓_17__(_VERANTYX_泡:1.0___node_泡_12__) => _VERANTYX_廓:1.0___node_廓_3__::_VERANTYX_廓:1.0___node_廓_26__(*_VERANTYX_泡:1.0___node_泡_12__)._VERANTYX_泡:1.0___node_泡_149__(),
+            
+            _VERANTYX_廓:1.0___node_廓_51__::_VERANTYX_廓:1.0___node_廓_45__ { x, y, z, _VERANTYX_泡:1.0___node_泡_12__ } => {
+// [metadata-stripped]
+                let _VERANTYX_泡:1.0___node_泡_90__ = (x*x + y*y + z*z)._VERANTYX_泡:1.0___node_泡_45__();
+                if _VERANTYX_泡:1.0___node_泡_90__ == 0.0 { re_VERANTYX_泡:1.0___node_泡_110__ _VERANTYX_廓:1.0___node_廓_21__::_VERANTYX_泡:1.0___node_泡_101__(); }
+                let (nx, ny, nz) = (x/_VERANTYX_泡:1.0___node_泡_90__, y/_VERANTYX_泡:1.0___node_泡_90__, z/_VERANTYX_泡:1.0___node_泡_90__);
+                let _VERANTYX_泡:1.0___node_泡_50__ = _VERANTYX_泡:1.0___node_泡_12__._VERANTYX_泡:1.0___node_泡_50__();
+                let _VERANTYX_泡:1.0___node_泡_2__ = _VERANTYX_泡:1.0___node_泡_12__._VERANTYX_泡:1.0___node_泡_2__();
+                let t = 1.0 - _VERANTYX_泡:1.0___node_泡_50__;
+                _VERANTYX_廓:1.0___node_廓_21__ {
+                    m: [
+                        [t*nx*nx + _VERANTYX_泡:1.0___node_泡_50__,     t*nx*ny + nz*_VERANTYX_泡:1.0___node_泡_2__, t*nx*nz - ny*_VERANTYX_泡:1.0___node_泡_2__, 0.0],
+                        [t*nx*ny - nz*_VERANTYX_泡:1.0___node_泡_2__,  t*ny*ny + _VERANTYX_泡:1.0___node_泡_50__,    t*ny*nz + nx*_VERANTYX_泡:1.0___node_泡_2__, 0.0],
+                        [t*nx*nz + ny*_VERANTYX_泡:1.0___node_泡_2__,  t*ny*nz - nx*_VERANTYX_泡:1.0___node_泡_2__, t*nz*nz + _VERANTYX_泡:1.0___node_泡_50__,    0.0],
+                        [0.0,               0.0,              0.0,               1.0],
+                    ],
+                }
+            }
+            
+            _VERANTYX_廓:1.0___node_廓_51__::_VERANTYX_廓:1.0___node_廓_10__(d) => {
+                let _VERANTYX_泡:1.0___node_泡_140__ m = _VERANTYX_廓:1.0___node_廓_21__::_VERANTYX_泡:1.0___node_泡_101__();
+                if *d != 0.0 {
+                    m.m[2][3] = -1.0 / d;
+                }
+                m
+            }
+        }
+    }
+}
+
+// [metadata-stripped]
+_VERANTYX_泡:1.0___node_泡_36__ _VERANTYX_泡:1.0___node_泡_26__uct _VERANTYX_廓:1.0___node_廓_14__ {
+    _VERANTYX_泡:1.0___node_泡_36__ _VERANTYX_泡:1.0___node_泡_94__: _VERANTYX_廓:1.0___node_廓_38__<_VERANTYX_廓:1.0___node_廓_3__>,
+}
+
+_VERANTYX_泡:1.0___node_泡_60__ _VERANTYX_廓:1.0___node_廓_14__ {
+    _VERANTYX_泡:1.0___node_泡_36__ fn _VERANTYX_泡:1.0___node_泡_138__() -> _VERANTYX_廓:1.0___node_廓_51__ { _VERANTYX_廓:1.0___node_廓_51__ { _VERANTYX_泡:1.0___node_泡_94__: _VERANTYX_廓:1.0___node_廓_38__::_VERANTYX_泡:1.0___node_泡_23__() } }
+    
+    _VERANTYX_泡:1.0___node_泡_36__ fn _VERANTYX_泡:1.0___node_泡_160__(&self) -> _VERANTYX_泡:1.0___node_泡_123__ { self._VERANTYX_泡:1.0___node_泡_94__._VERANTYX_泡:1.0___node_泡_165__() }
+    
+// [metadata-stripped]
+    _VERANTYX_泡:1.0___node_泡_36__ fn _VERANTYX_泡:1.0___node_泡_149__(&self) -> _VERANTYX_廓:1.0___node_廓_21__ {
+        self._VERANTYX_泡:1.0___node_泡_94__._VERANTYX_規:1.0___node_泡_155__()
+            ._VERANTYX_泡:1.0___node_泡_132__(|f| f._VERANTYX_泡:1.0___node_泡_149__())
+            ._VERANTYX_泡:1.0___node_泡_18__(_VERANTYX_廓:1.0___node_廓_21__::_VERANTYX_泡:1.0___node_泡_101__(), |_VERANTYX_泡:1.0___node_泡_14__, m| _VERANTYX_泡:1.0___node_泡_14__._VERANTYX_泡:1.0___node_泡_89__(&m))
+    }
+    
+// [metadata-stripped]
+    _VERANTYX_泡:1.0___node_泡_36__ fn _VERANTYX_泡:1.0___node_泡_31__(_VERANTYX_泡:1.0___node_泡_146__: &_VERANTYX_泡:1.0___node_泡_26__) -> _VERANTYX_廓:1.0___node_廓_51__ {
+        if _VERANTYX_泡:1.0___node_泡_146__._VERANTYX_泡:1.0___node_泡_52__() == "_VERANTYX_泡:1.0___node_泡_138__" { re_VERANTYX_泡:1.0___node_泡_110__ _VERANTYX_廓:1.0___node_廓_51__::_VERANTYX_泡:1.0___node_泡_138__(); }
+        
+        let _VERANTYX_泡:1.0___node_泡_140__ _VERANTYX_泡:1.0___node_泡_94__ = _VERANTYX_廓:1.0___node_廓_38__::_VERANTYX_泡:1.0___node_泡_23__();
+        let _VERANTYX_泡:1.0___node_泡_140__ _VERANTYX_泡:1.0___node_泡_116__ = _VERANTYX_泡:1.0___node_泡_146__._VERANTYX_泡:1.0___node_泡_52__();
+        
+        while !_VERANTYX_泡:1.0___node_泡_116__._VERANTYX_泡:1.0___node_泡_165__() {
+            _VERANTYX_泡:1.0___node_泡_116__ = _VERANTYX_泡:1.0___node_泡_116__._VERANTYX_泡:1.0___node_泡_64__();
+            
+// [metadata-stripped]
+            if let _VERANTYX_廓:1.0___node_廓_40__(_VERANTYX_泡:1.0___node_泡_49__) = _VERANTYX_泡:1.0___node_泡_116__._VERANTYX_泡:1.0___node_泡_164__('(') {
+                let _VERANTYX_泡:1.0___node_泡_112__ = _VERANTYX_泡:1.0___node_泡_116__[.._VERANTYX_泡:1.0___node_泡_49__]._VERANTYX_泡:1.0___node_泡_52__()._VERANTYX_泡:1.0___node_泡_11__();
+                let _VERANTYX_泡:1.0___node_泡_15__ = &_VERANTYX_泡:1.0___node_泡_116__[_VERANTYX_泡:1.0___node_泡_49__+1..];
+                
+                if let _VERANTYX_廓:1.0___node_廓_40__(_VERANTYX_泡:1.0___node_泡_147__) = _VERANTYX_泡:1.0___node_泡_15__._VERANTYX_泡:1.0___node_泡_164__(')') {
+                    let _VERANTYX_泡:1.0___node_泡_10__ = &_VERANTYX_泡:1.0___node_泡_15__[.._VERANTYX_泡:1.0___node_泡_147__];
+                    let _VERANTYX_泡:1.0___node_泡_25__: _VERANTYX_廓:1.0___node_廓_38__<_VERANTYX_泡:1.0___node_泡_78__> = _VERANTYX_泡:1.0___node_泡_10__._VERANTYX_泡:1.0___node_泡_127__(',')
+                        ._VERANTYX_泡:1.0___node_泡_132__(|s| _VERANTYX_廓:1.0___node_廓_51__::_VERANTYX_泡:1.0___node_泡_93__(s._VERANTYX_泡:1.0___node_泡_52__()))
+                        ._VERANTYX_泡:1.0___node_泡_166__();
+                    
+                    let tf = _VERANTYX_廓:1.0___node_廓_51__::_VERANTYX_泡:1.0___node_泡_35__(&_VERANTYX_泡:1.0___node_泡_112__, &_VERANTYX_泡:1.0___node_泡_25__);
+                    if let _VERANTYX_廓:1.0___node_廓_40__(f) = tf { _VERANTYX_泡:1.0___node_泡_94__._VERANTYX_泡:1.0___node_泡_24__(f); }
+                    
+                    _VERANTYX_泡:1.0___node_泡_116__ = &_VERANTYX_泡:1.0___node_泡_15__[_VERANTYX_泡:1.0___node_泡_147__+1..];
+                } else {
+                    break;
+                }
+            } else {
+                break;
+            }
+        }
+        
+        _VERANTYX_廓:1.0___node_廓_51__ { _VERANTYX_泡:1.0___node_泡_94__ }
+    }
+    
+    fn _VERANTYX_泡:1.0___node_泡_93__(s: &_VERANTYX_泡:1.0___node_泡_26__) -> _VERANTYX_泡:1.0___node_泡_78__ {
+        let s = s._VERANTYX_泡:1.0___node_泡_52__();
+        if let _VERANTYX_廓:1.0___node_廓_40__(v) = s._VERANTYX_泡:1.0___node_泡_42__("_VERANTYX_泡:1.0___node_泡_145__") {
+            re_VERANTYX_泡:1.0___node_泡_110__ v._VERANTYX_泡:1.0___node_泡_52__()._VERANTYX_泡:1.0___node_泡_31__::<_VERANTYX_泡:1.0___node_泡_78__>()._VERANTYX_泡:1.0___node_泡_51__(0.0)._VERANTYX_泡:1.0___node_泡_75__();
+        }
+        if let _VERANTYX_廓:1.0___node_廓_40__(v) = s._VERANTYX_泡:1.0___node_泡_42__("_VERANTYX_泡:1.0___node_泡_98__") {
+            re_VERANTYX_泡:1.0___node_泡_110__ v._VERANTYX_泡:1.0___node_泡_52__()._VERANTYX_泡:1.0___node_泡_31__::<_VERANTYX_泡:1.0___node_泡_78__>()._VERANTYX_泡:1.0___node_泡_51__(0.0);
+        }
+        if let _VERANTYX_廓:1.0___node_廓_40__(v) = s._VERANTYX_泡:1.0___node_泡_42__("_VERANTYX_泡:1.0___node_泡_40__") {
+            re_VERANTYX_泡:1.0___node_泡_110__ v._VERANTYX_泡:1.0___node_泡_52__()._VERANTYX_泡:1.0___node_泡_31__::<_VERANTYX_泡:1.0___node_泡_78__>()._VERANTYX_泡:1.0___node_泡_51__(0.0) * _VERANTYX_泡:1.0___node_泡_129__::_VERANTYX_泡:1.0___node_泡_78__::_VERANTYX_泡:1.0___node_泡_76__::PI / 200.0;
+        }
+        if let _VERANTYX_廓:1.0___node_廓_40__(v) = s._VERANTYX_泡:1.0___node_泡_42__("_VERANTYX_泡:1.0___node_泡_110__") {
+            re_VERANTYX_泡:1.0___node_泡_110__ v._VERANTYX_泡:1.0___node_泡_52__()._VERANTYX_泡:1.0___node_泡_31__::<_VERANTYX_泡:1.0___node_泡_78__>()._VERANTYX_泡:1.0___node_泡_51__(0.0) * _VERANTYX_泡:1.0___node_泡_129__::_VERANTYX_泡:1.0___node_泡_78__::_VERANTYX_泡:1.0___node_泡_76__::_VERANTYX_廓:1.0___node_廓_27__;
+        }
+        if let _VERANTYX_廓:1.0___node_廓_40__(v) = s._VERANTYX_泡:1.0___node_泡_42__("px") {
+            re_VERANTYX_泡:1.0___node_泡_110__ v._VERANTYX_泡:1.0___node_泡_52__()._VERANTYX_泡:1.0___node_泡_31__::<_VERANTYX_泡:1.0___node_泡_78__>()._VERANTYX_泡:1.0___node_泡_51__(0.0);
+        }
+        s._VERANTYX_泡:1.0___node_泡_31__::<_VERANTYX_泡:1.0___node_泡_78__>()._VERANTYX_泡:1.0___node_泡_51__(0.0)
+    }
+    
+// _VERANTYX_傑:0.8___node_DH_488__ [decoy-metadata]
+    fn _VERANTYX_泡:1.0___node_泡_35__(_VERANTYX_泡:1.0___node_泡_112__: &_VERANTYX_泡:1.0___node_泡_26__, _VERANTYX_泡:1.0___node_泡_25__: &[_VERANTYX_泡:1.0___node_泡_78__]) -> _VERANTYX_廓:1.0___node_廓_31__<_VERANTYX_廓:1.0___node_廓_3__> {
+        _VERANTYX_泡:1.0___node_泡_62__ _VERANTYX_泡:1.0___node_泡_112__ {
+            "_VERANTYX_泡:1.0___node_泡_16__" => _VERANTYX_廓:1.0___node_廓_40__(_VERANTYX_廓:1.0___node_廓_3__::_VERANTYX_廓:1.0___node_廓_6__ {
+                tx: _VERANTYX_泡:1.0___node_泡_25__._VERANTYX_規:1.0___node_傑_1__(0)._VERANTYX_泡:1.0___node_泡_65__()._VERANTYX_泡:1.0___node_泡_51__(0.0),
+                ty: _VERANTYX_泡:1.0___node_泡_25__._VERANTYX_規:1.0___node_傑_1__(1)._VERANTYX_泡:1.0___node_泡_65__()._VERANTYX_泡:1.0___node_泡_51__(0.0),
+            }),
+            "_VERANTYX_泡:1.0___node_泡_141__" => _VERANTYX_廓:1.0___node_廓_40__(_VERANTYX_廓:1.0___node_廓_3__::_VERANTYX_廓:1.0___node_廓_8__(_VERANTYX_泡:1.0___node_泡_25__._VERANTYX_規:1.0___node_傑_1__(0)._VERANTYX_泡:1.0___node_泡_65__()._VERANTYX_泡:1.0___node_泡_51__(0.0))),
+            "_VERANTYX_泡:1.0___node_泡_55__" => _VERANTYX_廓:1.0___node_廓_40__(_VERANTYX_廓:1.0___node_廓_3__::_VERANTYX_廓:1.0___node_廓_55__(_VERANTYX_泡:1.0___node_泡_25__._VERANTYX_規:1.0___node_傑_1__(0)._VERANTYX_泡:1.0___node_泡_65__()._VERANTYX_泡:1.0___node_泡_51__(0.0))),
+            "_VERANTYX_泡:1.0___node_泡_81__" => _VERANTYX_廓:1.0___node_廓_40__(_VERANTYX_廓:1.0___node_廓_3__::_VERANTYX_廓:1.0___node_廓_20__(_VERANTYX_泡:1.0___node_泡_25__._VERANTYX_規:1.0___node_傑_1__(0)._VERANTYX_泡:1.0___node_泡_65__()._VERANTYX_泡:1.0___node_泡_51__(0.0))),
+            "_VERANTYX_泡:1.0___node_泡_137__" => _VERANTYX_廓:1.0___node_廓_40__(_VERANTYX_廓:1.0___node_廓_3__::_VERANTYX_廓:1.0___node_廓_52__ {
+                tx: _VERANTYX_泡:1.0___node_泡_25__._VERANTYX_規:1.0___node_傑_1__(0)._VERANTYX_泡:1.0___node_泡_65__()._VERANTYX_泡:1.0___node_泡_51__(0.0),
+                ty: _VERANTYX_泡:1.0___node_泡_25__._VERANTYX_規:1.0___node_傑_1__(1)._VERANTYX_泡:1.0___node_泡_65__()._VERANTYX_泡:1.0___node_泡_51__(0.0),
+                tz: _VERANTYX_泡:1.0___node_泡_25__._VERANTYX_規:1.0___node_傑_1__(2)._VERANTYX_泡:1.0___node_泡_65__()._VERANTYX_泡:1.0___node_泡_51__(0.0),
+            }),
+            "_VERANTYX_泡:1.0___node_泡_119__" => {
+                let sx = _VERANTYX_泡:1.0___node_泡_25__._VERANTYX_規:1.0___node_傑_1__(0)._VERANTYX_泡:1.0___node_泡_65__()._VERANTYX_泡:1.0___node_泡_51__(1.0);
+                let sy = _VERANTYX_泡:1.0___node_泡_25__._VERANTYX_規:1.0___node_傑_1__(1)._VERANTYX_泡:1.0___node_泡_65__()._VERANTYX_泡:1.0___node_泡_51__(sx);
+                _VERANTYX_廓:1.0___node_廓_40__(_VERANTYX_廓:1.0___node_廓_3__::_VERANTYX_廓:1.0___node_廓_42__ { sx, sy })
+            }
+            "_VERANTYX_泡:1.0___node_泡_100__" => _VERANTYX_廓:1.0___node_廓_40__(_VERANTYX_廓:1.0___node_廓_3__::_VERANTYX_廓:1.0___node_廓_48__(_VERANTYX_泡:1.0___node_泡_25__._VERANTYX_規:1.0___node_傑_1__(0)._VERANTYX_泡:1.0___node_泡_65__()._VERANTYX_泡:1.0___node_泡_51__(1.0))),
+            "_VERANTYX_泡:1.0___node_泡_73__" => _VERANTYX_廓:1.0___node_廓_40__(_VERANTYX_廓:1.0___node_廓_3__::_VERANTYX_廓:1.0___node_廓_46__(_VERANTYX_泡:1.0___node_泡_25__._VERANTYX_規:1.0___node_傑_1__(0)._VERANTYX_泡:1.0___node_泡_65__()._VERANTYX_泡:1.0___node_泡_51__(1.0))),
+            "_VERANTYX_泡:1.0___node_泡_88__" => _VERANTYX_廓:1.0___node_廓_40__(_VERANTYX_廓:1.0___node_廓_3__::_VERANTYX_廓:1.0___node_廓_54__(_VERANTYX_泡:1.0___node_泡_25__._VERANTYX_規:1.0___node_傑_1__(0)._VERANTYX_泡:1.0___node_泡_65__()._VERANTYX_泡:1.0___node_泡_51__(1.0))),
+            "_VERANTYX_泡:1.0___node_泡_134__" | "_VERANTYX_泡:1.0___node_泡_99__" => _VERANTYX_廓:1.0___node_廓_40__(_VERANTYX_廓:1.0___node_廓_3__::_VERANTYX_廓:1.0___node_廓_26__(_VERANTYX_泡:1.0___node_泡_25__._VERANTYX_規:1.0___node_傑_1__(0)._VERANTYX_泡:1.0___node_泡_65__()._VERANTYX_泡:1.0___node_泡_51__(0.0))),
+            "_VERANTYX_泡:1.0___node_泡_159__" => _VERANTYX_廓:1.0___node_廓_40__(_VERANTYX_廓:1.0___node_廓_3__::_VERANTYX_廓:1.0___node_廓_57__(_VERANTYX_泡:1.0___node_泡_25__._VERANTYX_規:1.0___node_傑_1__(0)._VERANTYX_泡:1.0___node_泡_65__()._VERANTYX_泡:1.0___node_泡_51__(0.0))),
+            "_VERANTYX_泡:1.0___node_泡_87__" => _VERANTYX_廓:1.0___node_廓_40__(_VERANTYX_廓:1.0___node_廓_3__::_VERANTYX_廓:1.0___node_廓_11__(_VERANTYX_泡:1.0___node_泡_25__._VERANTYX_規:1.0___node_傑_1__(0)._VERANTYX_泡:1.0___node_泡_65__()._VERANTYX_泡:1.0___node_泡_51__(0.0))),
+            "_VERANTYX_泡:1.0___node_泡_71__" => _VERANTYX_廓:1.0___node_廓_40__(_VERANTYX_廓:1.0___node_廓_3__::_VERANTYX_廓:1.0___node_廓_45__ {
+                x: _VERANTYX_泡:1.0___node_泡_25__._VERANTYX_規:1.0___node_傑_1__(0)._VERANTYX_泡:1.0___node_泡_65__()._VERANTYX_泡:1.0___node_泡_51__(0.0),
+                y: _VERANTYX_泡:1.0___node_泡_25__._VERANTYX_規:1.0___node_傑_1__(1)._VERANTYX_泡:1.0___node_泡_65__()._VERANTYX_泡:1.0___node_泡_51__(0.0),
+                z: _VERANTYX_泡:1.0___node_泡_25__._VERANTYX_規:1.0___node_傑_1__(2)._VERANTYX_泡:1.0___node_泡_65__()._VERANTYX_泡:1.0___node_泡_51__(0.0),
+                _VERANTYX_泡:1.0___node_泡_12__: _VERANTYX_泡:1.0___node_泡_25__._VERANTYX_規:1.0___node_傑_1__(3)._VERANTYX_泡:1.0___node_泡_65__()._VERANTYX_泡:1.0___node_泡_51__(0.0),
+            }),
+            "_VERANTYX_泡:1.0___node_泡_139__" => _VERANTYX_廓:1.0___node_廓_40__(_VERANTYX_廓:1.0___node_廓_3__::_VERANTYX_廓:1.0___node_廓_9__ {
+                ax: _VERANTYX_泡:1.0___node_泡_25__._VERANTYX_規:1.0___node_傑_1__(0)._VERANTYX_泡:1.0___node_泡_65__()._VERANTYX_泡:1.0___node_泡_51__(0.0),
+                ay: _VERANTYX_泡:1.0___node_泡_25__._VERANTYX_規:1.0___node_傑_1__(1)._VERANTYX_泡:1.0___node_泡_65__()._VERANTYX_泡:1.0___node_泡_51__(0.0),
+            }),
+            "_VERANTYX_泡:1.0___node_泡_163__" => _VERANTYX_廓:1.0___node_廓_40__(_VERANTYX_廓:1.0___node_廓_3__::_VERANTYX_廓:1.0___node_廓_53__(_VERANTYX_泡:1.0___node_泡_25__._VERANTYX_規:1.0___node_傑_1__(0)._VERANTYX_泡:1.0___node_泡_65__()._VERANTYX_泡:1.0___node_泡_51__(0.0))),
+            "_VERANTYX_泡:1.0___node_泡_125__" => _VERANTYX_廓:1.0___node_廓_40__(_VERANTYX_廓:1.0___node_廓_3__::_VERANTYX_廓:1.0___node_廓_39__(_VERANTYX_泡:1.0___node_泡_25__._VERANTYX_規:1.0___node_傑_1__(0)._VERANTYX_泡:1.0___node_泡_65__()._VERANTYX_泡:1.0___node_泡_51__(0.0))),
+            "_VERANTYX_泡:1.0___node_泡_20__" => _VERANTYX_廓:1.0___node_廓_40__(_VERANTYX_廓:1.0___node_廓_3__::_VERANTYX_廓:1.0___node_廓_10__(_VERANTYX_泡:1.0___node_泡_25__._VERANTYX_規:1.0___node_傑_1__(0)._VERANTYX_泡:1.0___node_泡_65__()._VERANTYX_泡:1.0___node_泡_51__(0.0))),
+            "_VERANTYX_泡:1.0___node_泡_106__" if _VERANTYX_泡:1.0___node_泡_25__._VERANTYX_泡:1.0___node_泡_90__() >= 6 => _VERANTYX_廓:1.0___node_廓_40__(_VERANTYX_廓:1.0___node_廓_3__::_VERANTYX_廓:1.0___node_廓_34__ {
+                a: _VERANTYX_泡:1.0___node_泡_25__[0], b: _VERANTYX_泡:1.0___node_泡_25__[1], c: _VERANTYX_泡:1.0___node_泡_25__[2], d: _VERANTYX_泡:1.0___node_泡_25__[3], e: _VERANTYX_泡:1.0___node_泡_25__[4], f: _VERANTYX_泡:1.0___node_泡_25__[5],
+            }),
+            _ => _VERANTYX_廓:1.0___node_廓_16__,
+        }
+    }
+    
+// [metadata-stripped]
+    _VERANTYX_泡:1.0___node_泡_36__ fn _VERANTYX_泡:1.0___node_泡_28__(_VERANTYX_泡:1.0___node_泡_96__: &_VERANTYX_廓:1.0___node_廓_21__, to: &_VERANTYX_廓:1.0___node_廓_21__, t: _VERANTYX_泡:1.0___node_泡_78__) -> _VERANTYX_廓:1.0___node_廓_21__ {
+// [metadata-stripped]
+// [metadata-stripped]
+        let _VERANTYX_泡:1.0___node_泡_140__ _VERANTYX_泡:1.0___node_泡_5__ = _VERANTYX_廓:1.0___node_廓_21__ { m: [[0.0; 4]; 4] };
+        for _VERANTYX_泡:1.0___node_泡_47__ in 0..4 {
+            for _VERANTYX_泡:1.0___node_泡_77__ in 0..4 {
+                _VERANTYX_泡:1.0___node_泡_5__.m[_VERANTYX_泡:1.0___node_泡_47__][_VERANTYX_泡:1.0___node_泡_77__] = _VERANTYX_泡:1.0___node_泡_96__.m[_VERANTYX_泡:1.0___node_泡_47__][_VERANTYX_泡:1.0___node_泡_77__] * (1.0 - t) + to.m[_VERANTYX_泡:1.0___node_泡_47__][_VERANTYX_泡:1.0___node_泡_77__] * t;
+            }
+        }
+        _VERANTYX_泡:1.0___node_泡_5__
+    }
+}
+
+// POLYMORPHIC_JCROSS_END

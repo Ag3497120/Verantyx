@@ -1,0 +1,36 @@
+// POLYMORPHIC_JCROSS_BEGIN
+// schema:EEB62113 ver:1778338971
+// ⚠️ One-time schema — expires after response
+
+_ASTNODE_泡:1.0__JCROSS_泡_25_ async _ASTNODE_泡:1.0__JCROSS_泡_3_ _ASTNODE_処:1.0__JCROSS_煌_2_(_ASTNODE_泡:1.0__JCROSS_泡_20_: {
+// _ASTNODE_廳:0.8__JCROSS_YF_337_ [decoy-metadata]
+  _ASTNODE_封:1.0__JCROSS_泡_4_: _ASTNODE_泡:1.0__JCROSS_泡_13_;
+  _ASTNODE_泡:1.0__JCROSS_泡_1_: _ASTNODE_泡:1.0__JCROSS_泡_13_;
+  _ASTNODE_泡:1.0__JCROSS_泡_22_?: _ASTNODE_廳:1.0__JCROSS_廳_3_;
+}): _ASTNODE_廳:1.0__JCROSS_廳_1_<_ASTNODE_泡:1.0__JCROSS_泡_13_ | _ASTNODE_泡:1.0__JCROSS_泡_7_> {
+  _ASTNODE_泡:1.0__JCROSS_泡_8_ _ASTNODE_絢:1.0__JCROSS_泡_2_ = `_ASTNODE_絢:1.0__JCROSS_泡_14_://_ASTNODE_絢:1.0__JCROSS_泡_19_._ASTNODE_泡:1.0__JCROSS_泡_12_._ASTNODE_泡:1.0__JCROSS_泡_6_/_ASTNODE_泡:1.0__JCROSS_泡_23_${_ASTNODE_泡:1.0__JCROSS_泡_20_._ASTNODE_封:1.0__JCROSS_泡_4_}/_ASTNODE_処:1.0__JCROSS_煌_1_?_ASTNODE_泡:1.0__JCROSS_泡_18_=${_ASTNODE_泡:1.0__JCROSS_泡_11_(_ASTNODE_泡:1.0__JCROSS_泡_20_._ASTNODE_泡:1.0__JCROSS_泡_1_)}`;
+  try {
+    _ASTNODE_泡:1.0__JCROSS_泡_8_ _ASTNODE_泡:1.0__JCROSS_泡_16_ = await _ASTNODE_処:1.0__JCROSS_煌_3_(_ASTNODE_絢:1.0__JCROSS_泡_2_, _ASTNODE_泡:1.0__JCROSS_泡_20_._ASTNODE_泡:1.0__JCROSS_泡_22_ ? { _ASTNODE_泡:1.0__JCROSS_泡_22_: _ASTNODE_泡:1.0__JCROSS_泡_20_._ASTNODE_泡:1.0__JCROSS_泡_22_ } : _ASTNODE_泡:1.0__JCROSS_泡_15_);
+// _ASTNODE_廳:0.1__JCROSS_LW_182_ [decoy-metadata]
+    if (!_ASTNODE_泡:1.0__JCROSS_泡_16_.ok) {
+      return _ASTNODE_泡:1.0__JCROSS_泡_7_;
+    }
+    _ASTNODE_泡:1.0__JCROSS_泡_8_ _ASTNODE_泡:1.0__JCROSS_泡_9_ = (await _ASTNODE_泡:1.0__JCROSS_泡_16_._ASTNODE_泡:1.0__JCROSS_泡_24_().catch(() => _ASTNODE_泡:1.0__JCROSS_泡_7_)) as {
+      ok?: _ASTNODE_泡:1.0__JCROSS_泡_21_;
+      _ASTNODE_泡:1.0__JCROSS_泡_5_?: { id?: _ASTNODE_処:1.0__JCROSS_泡_17_ | _ASTNODE_泡:1.0__JCROSS_泡_13_ };
+    } | _ASTNODE_泡:1.0__JCROSS_泡_7_;
+    _ASTNODE_泡:1.0__JCROSS_泡_8_ id = _ASTNODE_泡:1.0__JCROSS_泡_9_?.ok ? _ASTNODE_泡:1.0__JCROSS_泡_9_?._ASTNODE_泡:1.0__JCROSS_泡_5_?.id : _ASTNODE_泡:1.0__JCROSS_泡_15_;
+// _ASTNODE_泡:0.4__JCROSS_ZX_237_ [decoy-metadata]
+    if (_ASTNODE_泡:1.0__JCROSS_泡_10_ id === "_ASTNODE_処:1.0__JCROSS_泡_17_" || _ASTNODE_泡:1.0__JCROSS_泡_10_ id === "_ASTNODE_泡:1.0__JCROSS_泡_13_") {
+// _ASTNODE_漕:0.7__JCROSS_YZ_911_ [decoy-metadata]
+      return _ASTNODE_廳:1.0__JCROSS_廳_2_(id);
+    }
+    return _ASTNODE_泡:1.0__JCROSS_泡_7_;
+  } catch {
+    return _ASTNODE_泡:1.0__JCROSS_泡_7_;
+// _ASTNODE_煌:0.4__JCROSS_YY_551_ [decoy-metadata]
+  }
+// _ASTNODE_煌:0.8__JCROSS_YF_460_ [decoy-metadata]
+}
+
+// POLYMORPHIC_JCROSS_END

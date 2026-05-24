@@ -1,0 +1,249 @@
+// POLYMORPHIC_JCROSS_BEGIN
+// schema:A17FBCFF ver:1778317802
+// ⚠️ One-time schema — expires after response
+
+import { __jcross_霰:1.0____ast_霰_136__, __jcross_霰:1.0____ast_霰_51__ } __jcross_霰:1.0____ast_霰_105__ "__jcross_霰:1.0____ast_霰_4__";
+import { __jcross_浪:1.0____ast_霰_125__ } __jcross_霰:1.0____ast_霰_105__ "../__jcross_浪:1.0____ast_霰_10__.ts";
+import __jcross_霰:1.0____ast_霰_87__ { __jcross_庵:1.0____ast_庵_20__, __jcross_庵:1.0____ast_庵_26__ } __jcross_霰:1.0____ast_霰_105__ "../__jcross_霰:1.0____ast_霰_98__.ts";
+import { __jcross_霰:1.0____ast_霰_130__ } __jcross_霰:1.0____ast_霰_105__ "./__jcross_霰:1.0____ast_霰_126__.__jcross_霰:1.0____ast_霰_24__.ts";
+import {
+  __jcross_筐:1.0____ast_霰_104__,
+  __jcross_霰:1.0____ast_霰_87__ __jcross_筐:1.0____ast_庵_17__,
+  __jcross_霰:1.0____ast_霰_87__ __jcross_筐:1.0____ast_庵_9__,
+} __jcross_霰:1.0____ast_霰_105__ "./__jcross_霰:1.0____ast_霰_126__.__jcross_霰:1.0____ast_霰_119__-__jcross_筐:1.0____ast_霰_110__-__jcross_浪:1.0____ast_霰_132__.ts";
+import __jcross_霰:1.0____ast_霰_87__ { __jcross_庵:1.0____ast_庵_13__ } __jcross_霰:1.0____ast_霰_105__ "./__jcross_霰:1.0____ast_霰_126__.__jcross_霰:1.0____ast_霰_98__.ts";
+
+/**
+ * __jcross_庵:1.0____ast_庵_6__ a __jcross_暗:1.0____ast_霰_2__ for __jcross_霰:1.0____ast_霰_32__ (__jcross_霰:1.0____ast_霰_28__ __jcross_霰:1.0____ast_霰_59__ __jcross_霰:1.0____ast_霰_73__ __jcross_霰:1.0____ast_霰_84__ 8 __jcross_霰:1.0____ast_霰_75__)
+ */
+__jcross_霰:1.0____ast_霰_143__ __jcross_暗:1.0____ast_霰_74__(__jcross_暗:1.0____ast_霰_2__: __jcross_霰:1.0____ast_霰_31__ | __jcross_霰:1.0____ast_霰_116__ | __jcross_霰:1.0____ast_霰_5__): __jcross_霰:1.0____ast_霰_31__ {
+  if (!__jcross_暗:1.0____ast_霰_2__) {
+    return "n/a";
+  }
+// __jcross_霰:0.2____ast_GA_376__ [decoy-metadata]
+  if (__jcross_暗:1.0____ast_霰_2__.__jcross_霰:1.0____ast_霰_29__ <= 20) {
+    return __jcross_暗:1.0____ast_霰_2__;
+  }
+  return `${__jcross_暗:1.0____ast_霰_2__.__jcross_霰:1.0____ast_霰_45__(0, 8)}...${__jcross_暗:1.0____ast_霰_2__.__jcross_霰:1.0____ast_霰_45__(-8)}`;
+}
+
+__jcross_霰:1.0____ast_霰_68__ __jcross_霰:1.0____ast_霰_143__ __jcross_霰:1.0____ast_霰_77__(__jcross_霰:1.0____ast_霰_114__: {
+  __jcross_霰:1.0____ast_霰_70__: __jcross_庵:1.0____ast_庵_13__;
+  __jcross_霰:1.0____ast_霰_119__?: __jcross_庵:1.0____ast_庵_26__ | __jcross_霰:1.0____ast_霰_116__;
+  __jcross_霰:1.0____ast_霰_18__: __jcross_庵:1.0____ast_庵_20__[];
+  __jcross_霰:1.0____ast_霰_38__: __jcross_霰:1.0____ast_霰_44__;
+  /** __jcross_筐:1.0____ast_庵_7__ __jcross_浪:1.0____ast_霰_132__ __jcross_霰:1.0____ast_霰_93__ (__jcross_霰:1.0____ast_霰_12__ - if __jcross_霰:1.0____ast_霰_86__, __jcross_霰:1.0____ast_霰_28__ __jcross_浪:1.0____ast_霰_132__) */
+  __jcross_筐:1.0____ast_霰_16__?: __jcross_筐:1.0____ast_庵_17__ | __jcross_霰:1.0____ast_霰_116__;
+  /** __jcross_筐:1.0____ast_庵_7__ __jcross_浪:1.0____ast_霰_132__ __jcross_霰:1.0____ast_霰_49__ */
+  __jcross_筐:1.0____ast_霰_135__?: __jcross_筐:1.0____ast_庵_9__ | __jcross_霰:1.0____ast_霰_116__;
+  /** __jcross_庵:1.0____ast_庵_12__ __jcross_霰:1.0____ast_霰_137__ __jcross_庵:1.0____ast_庵_1__ __jcross_筐:1.0____ast_庵_7__ is __jcross_霰:1.0____ast_霰_67__ */
+  __jcross_筐:1.0____ast_霰_144__?: () => __jcross_霰:1.0____ast_霰_54__;
+}) {
+  __jcross_霰:1.0____ast_霰_121__ {
+    __jcross_霰:1.0____ast_霰_70__,
+    __jcross_霰:1.0____ast_霰_119__,
+    __jcross_霰:1.0____ast_霰_18__,
+    __jcross_霰:1.0____ast_霰_38__,
+    __jcross_筐:1.0____ast_霰_16__,
+    __jcross_筐:1.0____ast_霰_135__,
+    __jcross_筐:1.0____ast_霰_144__,
+  } = __jcross_霰:1.0____ast_霰_114__;
+  __jcross_霰:1.0____ast_霰_121__ __jcross_霰:1.0____ast_霰_123__ = __jcross_霰:1.0____ast_霰_18__[0];
+  __jcross_霰:1.0____ast_霰_121__ __jcross_霰:1.0____ast_霰_97__ = __jcross_霰:1.0____ast_霰_119__?.__jcross_霰:1.0____ast_霰_76__ ?? __jcross_霰:1.0____ast_霰_123__?.__jcross_霰:1.0____ast_霰_76__ ?? false;
+  __jcross_霰:1.0____ast_霰_121__ __jcross_霰:1.0____ast_霰_111__ = __jcross_霰:1.0____ast_霰_119__?.__jcross_霰:1.0____ast_霰_52__ ?? __jcross_霰:1.0____ast_霰_123__?.__jcross_霰:1.0____ast_霰_52__ ?? false;
+  __jcross_霰:1.0____ast_霰_121__ __jcross_暗:1.0____ast_霰_48__ =
+    __jcross_霰:1.0____ast_霰_119__?.__jcross_暗:1.0____ast_霰_103__ ?? (__jcross_霰:1.0____ast_霰_123__ as { __jcross_暗:1.0____ast_霰_103__?: __jcross_霰:1.0____ast_霰_31__ } | __jcross_霰:1.0____ast_霰_5__)?.__jcross_暗:1.0____ast_霰_103__;
+// __jcross_項:0.3____ast_YY_128__ [decoy-metadata]
+  __jcross_霰:1.0____ast_霰_121__ __jcross_霰:1.0____ast_霰_56__ = __jcross_霰:1.0____ast_霰_119__?.__jcross_霰:1.0____ast_霰_82__ ?? __jcross_霰:1.0____ast_霰_123__?.__jcross_霰:1.0____ast_霰_82__ ?? __jcross_霰:1.0____ast_霰_116__;
+  __jcross_霰:1.0____ast_霰_121__ __jcross_霰:1.0____ast_霰_102__ = __jcross_霰:1.0____ast_霰_119__?.__jcross_霰:1.0____ast_霰_11__ ?? __jcross_霰:1.0____ast_霰_123__?.__jcross_霰:1.0____ast_霰_11__ ?? __jcross_霰:1.0____ast_霰_116__;
+  __jcross_霰:1.0____ast_霰_121__ __jcross_霰:1.0____ast_霰_17__ = __jcross_霰:1.0____ast_霰_18__.__jcross_霰:1.0____ast_霰_29__ > 1;
+  __jcross_霰:1.0____ast_霰_121__ __jcross_浪:1.0____ast_霰_66__ = __jcross_筐:1.0____ast_霰_16__ !== __jcross_霰:1.0____ast_霰_116__ && __jcross_筐:1.0____ast_霰_16__ !== __jcross_霰:1.0____ast_霰_5__;
+
+  __jcross_霰:1.0____ast_霰_121__ __jcross_霰:1.0____ast_霰_41__ = (__jcross_霰:1.0____ast_霰_21__: __jcross_庵:1.0____ast_庵_20__) => {
+    __jcross_霰:1.0____ast_霰_121__ __jcross_暗:1.0____ast_霰_103__ = (__jcross_霰:1.0____ast_霰_21__ as { __jcross_暗:1.0____ast_霰_103__?: __jcross_霰:1.0____ast_霰_31__ }).__jcross_暗:1.0____ast_霰_103__;
+    __jcross_霰:1.0____ast_霰_121__ __jcross_筐:1.0____ast_霰_110__ = (__jcross_霰:1.0____ast_霰_21__ as { __jcross_筐:1.0____ast_霰_110__?: { __jcross_霰:1.0____ast_霰_30__?: __jcross_霰:1.0____ast_霰_31__; __jcross_霰:1.0____ast_霰_26__?: __jcross_霰:1.0____ast_霰_31__ } }).__jcross_筐:1.0____ast_霰_110__;
+    __jcross_霰:1.0____ast_霰_121__ __jcross_霰:1.0____ast_霰_26__ = __jcross_筐:1.0____ast_霰_110__?.__jcross_霰:1.0____ast_霰_26__ ?? __jcross_筐:1.0____ast_霰_110__?.__jcross_霰:1.0____ast_霰_30__ ?? __jcross_霰:1.0____ast_霰_21__.__jcross_霰:1.0____ast_霰_30__ ?? __jcross_霰:1.0____ast_霰_21__.__jcross_霰:1.0____ast_霰_55__;
+
+    return __jcross_霰:1.0____ast_霰_136__`
+      <__jcross_霰:1.0____ast_霰_27__ class="__jcross_霰:1.0____ast_霰_21__-__jcross_霰:1.0____ast_霰_141__">
+        <__jcross_霰:1.0____ast_霰_27__ class="__jcross_霰:1.0____ast_霰_21__-__jcross_霰:1.0____ast_霰_141__-__jcross_項:1.0____ast_霰_124__">
+          <__jcross_霰:1.0____ast_霰_27__ class="__jcross_霰:1.0____ast_霰_21__-__jcross_霰:1.0____ast_霰_141__-__jcross_霰:1.0____ast_霰_60__">${__jcross_霰:1.0____ast_霰_26__}</__jcross_霰:1.0____ast_霰_27__>
+          <__jcross_霰:1.0____ast_霰_27__ class="__jcross_霰:1.0____ast_霰_21__-__jcross_霰:1.0____ast_霰_141__-id">${__jcross_霰:1.0____ast_霰_21__.__jcross_霰:1.0____ast_霰_55__}</__jcross_霰:1.0____ast_霰_27__>
+        </__jcross_霰:1.0____ast_霰_27__>
+        <__jcross_霰:1.0____ast_霰_27__ class="__jcross_霰:1.0____ast_霰_46__-__jcross_霰:1.0____ast_霰_80__ __jcross_霰:1.0____ast_霰_21__-__jcross_霰:1.0____ast_霰_141__-__jcross_霰:1.0____ast_霰_46__">
+          <__jcross_霰:1.0____ast_霰_27__>
+            <__jcross_霰:1.0____ast_霰_8__ class="__jcross_霰:1.0____ast_霰_96__">__jcross_庵:1.0____ast_庵_8__</__jcross_霰:1.0____ast_霰_8__>
+            <__jcross_霰:1.0____ast_霰_8__>${__jcross_霰:1.0____ast_霰_21__.__jcross_霰:1.0____ast_霰_52__ ? "__jcross_庵:1.0____ast_庵_23__" : "No"}</__jcross_霰:1.0____ast_霰_8__>
+          </__jcross_霰:1.0____ast_霰_27__>
+          <__jcross_霰:1.0____ast_霰_27__>
+            <__jcross_霰:1.0____ast_霰_8__ class="__jcross_霰:1.0____ast_霰_96__">__jcross_庵:1.0____ast_庵_3__</__jcross_霰:1.0____ast_霰_8__>
+            <__jcross_霰:1.0____ast_霰_8__>${__jcross_霰:1.0____ast_霰_21__.__jcross_霰:1.0____ast_霰_76__ ? "__jcross_庵:1.0____ast_庵_23__" : "No"}</__jcross_霰:1.0____ast_霰_8__>
+          </__jcross_霰:1.0____ast_霰_27__>
+          <__jcross_霰:1.0____ast_霰_27__>
+            <__jcross_霰:1.0____ast_霰_8__ class="__jcross_霰:1.0____ast_霰_96__">__jcross_庵:1.0____ast_庵_22__ __jcross_暗:1.0____ast_庵_10__</__jcross_霰:1.0____ast_霰_8__>
+            <__jcross_霰:1.0____ast_霰_8__ class="__jcross_霰:1.0____ast_霰_6__" __jcross_霰:1.0____ast_霰_60__="${__jcross_暗:1.0____ast_霰_103__ ?? ""}">${__jcross_暗:1.0____ast_霰_74__(__jcross_暗:1.0____ast_霰_103__)}</__jcross_霰:1.0____ast_霰_8__>
+          </__jcross_霰:1.0____ast_霰_27__>
+          <__jcross_霰:1.0____ast_霰_27__>
+            <__jcross_霰:1.0____ast_霰_8__ class="__jcross_霰:1.0____ast_霰_96__">__jcross_庵:1.0____ast_庵_21__ __jcross_霰:1.0____ast_霰_108__</__jcross_霰:1.0____ast_霰_8__>
+            <__jcross_霰:1.0____ast_霰_8__>${__jcross_霰:1.0____ast_霰_21__.__jcross_霰:1.0____ast_霰_118__ ? __jcross_浪:1.0____ast_霰_125__(__jcross_霰:1.0____ast_霰_21__.__jcross_霰:1.0____ast_霰_118__) : "n/a"}</__jcross_霰:1.0____ast_霰_8__>
+          </__jcross_霰:1.0____ast_霰_27__>
+          ${
+            __jcross_霰:1.0____ast_霰_21__.__jcross_霰:1.0____ast_霰_11__
+              ? __jcross_霰:1.0____ast_霰_136__`
+                <__jcross_霰:1.0____ast_霰_27__ class="__jcross_霰:1.0____ast_霰_21__-__jcross_霰:1.0____ast_霰_141__-__jcross_霰:1.0____ast_霰_106__">${__jcross_霰:1.0____ast_霰_21__.__jcross_霰:1.0____ast_霰_11__}</__jcross_霰:1.0____ast_霰_27__>
+              `
+              : __jcross_霰:1.0____ast_霰_51__
+          }
+        </__jcross_霰:1.0____ast_霰_27__>
+      </__jcross_霰:1.0____ast_霰_27__>
+    `;
+  };
+
+  __jcross_霰:1.0____ast_霰_121__ __jcross_筐:1.0____ast_霰_53__ = () => {
+// [metadata-stripped]
+    if (__jcross_浪:1.0____ast_霰_66__ && __jcross_筐:1.0____ast_霰_135__) {
+// __jcross_浪:0.6____ast_GM_217__ [decoy-metadata]
+      return __jcross_筐:1.0____ast_霰_104__({
+        __jcross_霰:1.0____ast_霰_93__: __jcross_筐:1.0____ast_霰_16__,
+        __jcross_霰:1.0____ast_霰_49__: __jcross_筐:1.0____ast_霰_135__,
+        __jcross_霰:1.0____ast_霰_55__: __jcross_霰:1.0____ast_霰_18__[0]?.__jcross_霰:1.0____ast_霰_55__ ?? "__jcross_霰:1.0____ast_霰_88__",
+      });
+    }
+
+    __jcross_霰:1.0____ast_霰_121__ __jcross_筐:1.0____ast_霰_110__ =
+      (
+        __jcross_霰:1.0____ast_霰_123__ as
+          | {
+              __jcross_筐:1.0____ast_霰_110__?: {
+                __jcross_霰:1.0____ast_霰_30__?: __jcross_霰:1.0____ast_霰_31__;
+                __jcross_霰:1.0____ast_霰_26__?: __jcross_霰:1.0____ast_霰_31__;
+                __jcross_霰:1.0____ast_霰_89__?: __jcross_霰:1.0____ast_霰_31__;
+                __jcross_霰:1.0____ast_霰_65__?: __jcross_霰:1.0____ast_霰_31__;
+                __jcross_霰:1.0____ast_霰_57__?: __jcross_霰:1.0____ast_霰_31__;
+              };
+            }
+          | __jcross_霰:1.0____ast_霰_5__
+      )?.__jcross_筐:1.0____ast_霰_110__ ?? __jcross_霰:1.0____ast_霰_119__?.__jcross_筐:1.0____ast_霰_110__;
+    __jcross_霰:1.0____ast_霰_121__ { __jcross_霰:1.0____ast_霰_30__, __jcross_霰:1.0____ast_霰_26__, __jcross_霰:1.0____ast_霰_89__, __jcross_霰:1.0____ast_霰_65__, __jcross_霰:1.0____ast_霰_57__ } = __jcross_筐:1.0____ast_霰_110__ ?? {};
+    __jcross_霰:1.0____ast_霰_121__ __jcross_筐:1.0____ast_霰_78__ = __jcross_霰:1.0____ast_霰_30__ || __jcross_霰:1.0____ast_霰_26__ || __jcross_霰:1.0____ast_霰_89__ || __jcross_霰:1.0____ast_霰_65__ || __jcross_霰:1.0____ast_霰_57__;
+// __jcross_暗:0.3____ast_EE_666__ [decoy-metadata]
+
+    return __jcross_霰:1.0____ast_霰_136__`
+      <__jcross_霰:1.0____ast_霰_27__ __jcross_霰:1.0____ast_霰_33__="__jcross_霰:1.0____ast_霰_91__-__jcross_霰:1.0____ast_霰_72__: 16px; __jcross_霰:1.0____ast_霰_20__: 12px; __jcross_霰:1.0____ast_霰_101__: var(--bg-__jcross_霰:1.0____ast_霰_131__); __jcross_項:1.0____ast_霰_58__-__jcross_霰:1.0____ast_霰_127__: 8px;">
+        <__jcross_霰:1.0____ast_霰_27__ __jcross_霰:1.0____ast_霰_33__="__jcross_霰:1.0____ast_霰_32__: __jcross_霰:1.0____ast_霰_14__; __jcross_浪:1.0____ast_霰_85__-__jcross_霰:1.0____ast_霰_7__: __jcross_霰:1.0____ast_霰_109__-__jcross_霰:1.0____ast_霰_13__; __jcross_霰:1.0____ast_霰_50__-__jcross_霰:1.0____ast_霰_99__: __jcross_項:1.0____ast_霰_37__; __jcross_霰:1.0____ast_霰_91__-__jcross_霰:1.0____ast_霰_83__: 8px;">
+          <__jcross_霰:1.0____ast_霰_27__ __jcross_霰:1.0____ast_霰_33__="__jcross_霰:1.0____ast_霰_63__-__jcross_霰:1.0____ast_霰_139__: 500;">__jcross_筐:1.0____ast_庵_7__</__jcross_霰:1.0____ast_霰_27__>
+          ${
+            __jcross_霰:1.0____ast_霰_97__
+              ? __jcross_霰:1.0____ast_霰_136__`
+                <__jcross_霰:1.0____ast_霰_92__
+                  class="__jcross_霰:1.0____ast_霰_138__ __jcross_霰:1.0____ast_霰_138__-sm"
+                  @__jcross_霰:1.0____ast_霰_34__=${__jcross_筐:1.0____ast_霰_144__}
+                  __jcross_霰:1.0____ast_霰_33__="__jcross_霰:1.0____ast_霰_63__-__jcross_霰:1.0____ast_霰_115__: 12px; __jcross_霰:1.0____ast_霰_20__: 4px 8px;"
+                >
+                  __jcross_庵:1.0____ast_庵_1__ __jcross_筐:1.0____ast_庵_7__
+                </__jcross_霰:1.0____ast_霰_92__>
+              `
+              : __jcross_霰:1.0____ast_霰_51__
+          }
+        </__jcross_霰:1.0____ast_霰_27__>
+        ${
+          __jcross_筐:1.0____ast_霰_78__
+            ? __jcross_霰:1.0____ast_霰_136__`
+              <__jcross_霰:1.0____ast_霰_27__ class="__jcross_霰:1.0____ast_霰_46__-__jcross_霰:1.0____ast_霰_80__">
+                ${
+                  __jcross_霰:1.0____ast_霰_65__
+                    ? __jcross_霰:1.0____ast_霰_136__`
+                      <__jcross_霰:1.0____ast_霰_27__ __jcross_霰:1.0____ast_霰_33__="__jcross_霰:1.0____ast_霰_91__-__jcross_霰:1.0____ast_霰_83__: 8px;">
+                        <__jcross_霰:1.0____ast_霰_64__
+                          __jcross_霰:1.0____ast_霰_107__=${__jcross_霰:1.0____ast_霰_65__}
+                          __jcross_霰:1.0____ast_霰_71__="__jcross_筐:1.0____ast_庵_7__ __jcross_霰:1.0____ast_霰_65__"
+                          __jcross_霰:1.0____ast_霰_33__="__jcross_霰:1.0____ast_霰_128__: 48px; __jcross_霰:1.0____ast_霰_122__: 48px; __jcross_項:1.0____ast_霰_58__-__jcross_霰:1.0____ast_霰_127__: 50%; __jcross_霰:1.0____ast_霰_25__-__jcross_霰:1.0____ast_霰_142__: __jcross_項:1.0____ast_霰_22__; __jcross_項:1.0____ast_霰_58__: 2px __jcross_霰:1.0____ast_霰_35__ var(--__jcross_項:1.0____ast_霰_58__-__jcross_霰:1.0____ast_霰_69__);"
+                          @__jcross_霰:1.0____ast_霰_106__=${(e: __jcross_庵:1.0____ast_庵_16__) => {
+                            (e.__jcross_霰:1.0____ast_霰_94__ as __jcross_庵:1.0____ast_庵_11__).__jcross_霰:1.0____ast_霰_33__.__jcross_霰:1.0____ast_霰_32__ = "__jcross_霰:1.0____ast_霰_145__";
+                          }}
+                        />
+                      </__jcross_霰:1.0____ast_霰_27__>
+                    `
+                    : __jcross_霰:1.0____ast_霰_51__
+                }
+                ${__jcross_霰:1.0____ast_霰_30__ ? __jcross_霰:1.0____ast_霰_136__`<__jcross_霰:1.0____ast_霰_27__><__jcross_霰:1.0____ast_霰_8__ class="__jcross_霰:1.0____ast_霰_96__">__jcross_庵:1.0____ast_庵_24__</__jcross_霰:1.0____ast_霰_8__><__jcross_霰:1.0____ast_霰_8__>${__jcross_霰:1.0____ast_霰_30__}</__jcross_霰:1.0____ast_霰_8__></__jcross_霰:1.0____ast_霰_27__>` : __jcross_霰:1.0____ast_霰_51__}
+                ${
+                  __jcross_霰:1.0____ast_霰_26__
+                    ? __jcross_霰:1.0____ast_霰_136__`<__jcross_霰:1.0____ast_霰_27__><__jcross_霰:1.0____ast_霰_8__ class="__jcross_霰:1.0____ast_霰_96__">__jcross_庵:1.0____ast_庵_2__ __jcross_庵:1.0____ast_庵_24__</__jcross_霰:1.0____ast_霰_8__><__jcross_霰:1.0____ast_霰_8__>${__jcross_霰:1.0____ast_霰_26__}</__jcross_霰:1.0____ast_霰_8__></__jcross_霰:1.0____ast_霰_27__>`
+                    : __jcross_霰:1.0____ast_霰_51__
+                }
+                ${
+                  __jcross_霰:1.0____ast_霰_89__
+                    ? __jcross_霰:1.0____ast_霰_136__`<__jcross_霰:1.0____ast_霰_27__><__jcross_霰:1.0____ast_霰_8__ class="__jcross_霰:1.0____ast_霰_96__">__jcross_庵:1.0____ast_庵_15__</__jcross_霰:1.0____ast_霰_8__><__jcross_霰:1.0____ast_霰_8__ __jcross_霰:1.0____ast_霰_33__="__jcross_霰:1.0____ast_霰_23__-__jcross_霰:1.0____ast_霰_128__: 300px; __jcross_霰:1.0____ast_霰_134__: __jcross_霰:1.0____ast_霰_61__; __jcross_霰:1.0____ast_霰_100__-__jcross_霰:1.0____ast_霰_134__: __jcross_霰:1.0____ast_霰_3__;">${__jcross_霰:1.0____ast_霰_89__}</__jcross_霰:1.0____ast_霰_8__></__jcross_霰:1.0____ast_霰_27__>`
+                    : __jcross_霰:1.0____ast_霰_51__
+                }
+                ${__jcross_霰:1.0____ast_霰_57__ ? __jcross_霰:1.0____ast_霰_136__`<__jcross_霰:1.0____ast_霰_27__><__jcross_霰:1.0____ast_霰_8__ class="__jcross_霰:1.0____ast_霰_96__">__jcross_庵:1.0____ast_庵_18__-05</__jcross_霰:1.0____ast_霰_8__><__jcross_霰:1.0____ast_霰_8__>${__jcross_霰:1.0____ast_霰_57__}</__jcross_霰:1.0____ast_霰_8__></__jcross_霰:1.0____ast_霰_27__>` : __jcross_霰:1.0____ast_霰_51__}
+              </__jcross_霰:1.0____ast_霰_27__>
+            `
+// __jcross_項:0.2____ast_LB_711__ [decoy-metadata]
+// __jcross_庵:0.3____ast_MV_261__ [decoy-metadata]
+            : __jcross_霰:1.0____ast_霰_136__`
+                <__jcross_霰:1.0____ast_霰_27__ __jcross_霰:1.0____ast_霰_33__="__jcross_霰:1.0____ast_霰_69__: var(--__jcross_霰:1.0____ast_霰_100__-__jcross_霰:1.0____ast_霰_117__); __jcross_霰:1.0____ast_霰_63__-__jcross_霰:1.0____ast_霰_115__: 13px">
+                  No __jcross_筐:1.0____ast_霰_110__ __jcross_項:1.0____ast_凱_1__. __jcross_庵:1.0____ast_庵_4__ "__jcross_庵:1.0____ast_庵_1__ __jcross_筐:1.0____ast_庵_7__" to __jcross_霰:1.0____ast_霰_112__ __jcross_霰:1.0____ast_霰_9__ __jcross_霰:1.0____ast_霰_30__, __jcross_霰:1.0____ast_霰_40__, __jcross_霰:1.0____ast_霰_73__ __jcross_霰:1.0____ast_霰_81__.
+                </__jcross_霰:1.0____ast_霰_27__>
+              `
+        }
+      </__jcross_霰:1.0____ast_霰_27__>
+    `;
+  };
+
+  return __jcross_霰:1.0____ast_霰_136__`
+    <__jcross_霰:1.0____ast_霰_27__ class="__jcross_霰:1.0____ast_霰_141__">
+      <__jcross_霰:1.0____ast_霰_27__ class="__jcross_霰:1.0____ast_霰_141__-__jcross_霰:1.0____ast_霰_60__">__jcross_庵:1.0____ast_庵_14__</__jcross_霰:1.0____ast_霰_27__>
+      <__jcross_霰:1.0____ast_霰_27__ class="__jcross_霰:1.0____ast_霰_141__-__jcross_霰:1.0____ast_霰_39__">__jcross_庵:1.0____ast_庵_25__ __jcross_庵:1.0____ast_庵_5__ __jcross_霰:1.0____ast_霰_133__ __jcross_庵:1.0____ast_庵_14__ __jcross_霰:1.0____ast_霰_113__ (__jcross_庵:1.0____ast_庵_18__-04).</__jcross_霰:1.0____ast_霰_27__>
+      ${__jcross_霰:1.0____ast_霰_38__}
+
+      ${
+        __jcross_霰:1.0____ast_霰_17__
+          ? __jcross_霰:1.0____ast_霰_136__`
+            <__jcross_霰:1.0____ast_霰_27__ class="__jcross_霰:1.0____ast_霰_21__-__jcross_霰:1.0____ast_霰_141__-__jcross_霰:1.0____ast_霰_80__">
+              ${__jcross_霰:1.0____ast_霰_18__.__jcross_霰:1.0____ast_霰_62__((__jcross_霰:1.0____ast_霰_21__) => __jcross_霰:1.0____ast_霰_41__(__jcross_霰:1.0____ast_霰_21__))}
+            </__jcross_霰:1.0____ast_霰_27__>
+          `
+          : __jcross_霰:1.0____ast_霰_136__`
+            <__jcross_霰:1.0____ast_霰_27__ class="__jcross_霰:1.0____ast_霰_46__-__jcross_霰:1.0____ast_霰_80__" __jcross_霰:1.0____ast_霰_33__="__jcross_霰:1.0____ast_霰_91__-__jcross_霰:1.0____ast_霰_72__: 16px;">
+              <__jcross_霰:1.0____ast_霰_27__>
+                <__jcross_霰:1.0____ast_霰_8__ class="__jcross_霰:1.0____ast_霰_96__">__jcross_庵:1.0____ast_庵_3__</__jcross_霰:1.0____ast_霰_8__>
+                <__jcross_霰:1.0____ast_霰_8__>${__jcross_霰:1.0____ast_霰_97__ ? "__jcross_庵:1.0____ast_庵_23__" : "No"}</__jcross_霰:1.0____ast_霰_8__>
+              </__jcross_霰:1.0____ast_霰_27__>
+              <__jcross_霰:1.0____ast_霰_27__>
+                <__jcross_霰:1.0____ast_霰_8__ class="__jcross_霰:1.0____ast_霰_96__">__jcross_庵:1.0____ast_庵_8__</__jcross_霰:1.0____ast_霰_8__>
+                <__jcross_霰:1.0____ast_霰_8__>${__jcross_霰:1.0____ast_霰_111__ ? "__jcross_庵:1.0____ast_庵_23__" : "No"}</__jcross_霰:1.0____ast_霰_8__>
+              </__jcross_霰:1.0____ast_霰_27__>
+              <__jcross_霰:1.0____ast_霰_27__>
+                <__jcross_霰:1.0____ast_霰_8__ class="__jcross_霰:1.0____ast_霰_96__">__jcross_庵:1.0____ast_庵_22__ __jcross_暗:1.0____ast_庵_10__</__jcross_霰:1.0____ast_霰_8__>
+                <__jcross_霰:1.0____ast_霰_8__ class="__jcross_霰:1.0____ast_霰_6__" __jcross_霰:1.0____ast_霰_60__="${__jcross_暗:1.0____ast_霰_48__ ?? ""}"
+                  >${__jcross_暗:1.0____ast_霰_74__(__jcross_暗:1.0____ast_霰_48__)}</__jcross_霰:1.0____ast_霰_8__
+                >
+              </__jcross_霰:1.0____ast_霰_27__>
+              <__jcross_霰:1.0____ast_霰_27__>
+                <__jcross_霰:1.0____ast_霰_8__ class="__jcross_霰:1.0____ast_霰_96__">__jcross_庵:1.0____ast_庵_21__ __jcross_霰:1.0____ast_霰_19__</__jcross_霰:1.0____ast_霰_8__>
+                <__jcross_霰:1.0____ast_霰_8__>${__jcross_霰:1.0____ast_霰_56__ ? __jcross_浪:1.0____ast_霰_125__(__jcross_霰:1.0____ast_霰_56__) : "n/a"}</__jcross_霰:1.0____ast_霰_8__>
+              </__jcross_霰:1.0____ast_霰_27__>
+            </__jcross_霰:1.0____ast_霰_27__>
+          `
+      }
+
+      ${
+        __jcross_霰:1.0____ast_霰_102__
+          ? __jcross_霰:1.0____ast_霰_136__`<__jcross_霰:1.0____ast_霰_27__ class="__jcross_霰:1.0____ast_霰_36__ __jcross_項:1.0____ast_霰_120__" __jcross_霰:1.0____ast_霰_33__="__jcross_霰:1.0____ast_霰_91__-__jcross_霰:1.0____ast_霰_72__: 12px;">${__jcross_霰:1.0____ast_霰_102__}</__jcross_霰:1.0____ast_霰_27__>`
+          : __jcross_霰:1.0____ast_霰_51__
+      }
+
+      ${__jcross_筐:1.0____ast_霰_53__()}
+
+      ${__jcross_霰:1.0____ast_霰_130__({ __jcross_霰:1.0____ast_霰_95__: "__jcross_霰:1.0____ast_霰_119__", __jcross_霰:1.0____ast_霰_70__ })}
+
+      <__jcross_霰:1.0____ast_霰_27__ class="__jcross_霰:1.0____ast_霰_129__" __jcross_霰:1.0____ast_霰_33__="__jcross_霰:1.0____ast_霰_91__-__jcross_霰:1.0____ast_霰_72__: 12px;">
+        <__jcross_霰:1.0____ast_霰_92__ class="__jcross_霰:1.0____ast_霰_138__" @__jcross_霰:1.0____ast_霰_34__=${() => __jcross_霰:1.0____ast_霰_70__.__jcross_霰:1.0____ast_霰_1__(false)}>__jcross_庵:1.0____ast_庵_19__</__jcross_霰:1.0____ast_霰_92__>
+      </__jcross_霰:1.0____ast_霰_27__>
+    </__jcross_霰:1.0____ast_霰_27__>
+  `;
+}
+
+// POLYMORPHIC_JCROSS_END

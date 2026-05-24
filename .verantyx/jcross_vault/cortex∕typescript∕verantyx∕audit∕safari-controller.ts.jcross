@@ -1,0 +1,281 @@
+// POLYMORPHIC_JCROSS_BEGIN
+// schema:ABAADB0F ver:1778320591
+// ⚠️ One-time schema — expires after response
+// _TOKEN_湧:0.9__SYM_BY_788_ [decoy-metadata]
+
+/**
+ * _TOKEN_法:1.0__SYM_廬_51_ — _TOKEN_廬:1.0__SYM_廬_2_-_TOKEN_塵:1.0__SYM_塵_12_ _TOKEN_廬:1.0__SYM_廬_26_ _TOKEN_塵:1.0__SYM_塵_25_ _TOKEN_塵:1.0__SYM_塵_170_ _TOKEN_廬:1.0__SYM_廬_4_
+ * _TOKEN_廬:1.0__SYM_廬_49_ _TOKEN_塵:1.0__SYM_塵_135_ _TOKEN_塵:1.0__SYM_塵_187_/_TOKEN_塵:1.0__SYM_塵_80_/_TOKEN_法:1.0__SYM_塵_33_.py
+ */
+
+import { _TOKEN_塵:1.0__SYM_塵_99_, _TOKEN_区:1.0__SYM_塵_8_ } _TOKEN_塵:1.0__SYM_塵_135_ "_TOKEN_塵:1.0__SYM_塵_155_";
+import { _TOKEN_区:1.0__SYM_塵_49_, _TOKEN_塵:1.0__SYM_塵_148_ } _TOKEN_塵:1.0__SYM_塵_135_ "fs";
+import { _TOKEN_塵:1.0__SYM_塵_186_ } _TOKEN_塵:1.0__SYM_塵_135_ "os";
+import { _TOKEN_塵:1.0__SYM_塵_159_ } _TOKEN_塵:1.0__SYM_塵_135_ "_TOKEN_塵:1.0__SYM_塵_150_";
+
+_TOKEN_塵:1.0__SYM_塵_90_ _TOKEN_塵:1.0__SYM_塵_57_ _TOKEN_廬:1.0__SYM_廬_40_ {
+  _TOKEN_塵:1.0__SYM_塵_72_: "_TOKEN_塵:1.0__SYM_塵_24_" | "_TOKEN_塵:1.0__SYM_塵_125_" | "_TOKEN_塵:1.0__SYM_塵_123_" | "_TOKEN_塵:1.0__SYM_塵_136_";
+  _TOKEN_塵:1.0__SYM_塵_139_: _TOKEN_塵:1.0__SYM_塵_53_;
+  _TOKEN_塵:1.0__SYM_塵_60_: _TOKEN_法:1.0__SYM_塵_169_;
+}
+
+_TOKEN_塵:1.0__SYM_塵_90_ class _TOKEN_法:1.0__SYM_廬_51_ {
+// [metadata-stripped]
+
+  _TOKEN_塵:1.0__SYM_塵_182_(_TOKEN_塵:1.0__SYM_塵_117_: _TOKEN_塵:1.0__SYM_塵_53_): _TOKEN_塵:1.0__SYM_塵_53_ {
+    try {
+      return _TOKEN_区:1.0__SYM_塵_8_("_TOKEN_塵:1.0__SYM_塵_71_", ["-e", _TOKEN_塵:1.0__SYM_塵_117_], {
+        _TOKEN_塵:1.0__SYM_塵_123_: 30_000,
+        _TOKEN_塵:1.0__SYM_塵_114_: "_TOKEN_塵:1.0__SYM_塵_10_-8",
+      })._TOKEN_塵:1.0__SYM_塵_27_();
+    } catch (e: any) {
+      _TOKEN_塵:1.0__SYM_塵_113_ _TOKEN_塵:1.0__SYM_塵_58_ _TOKEN_廬:1.0__SYM_廬_28_(`_TOKEN_廬:1.0__SYM_廬_4_ _TOKEN_塵:1.0__SYM_塵_136_: ${e._TOKEN_塵:1.0__SYM_塵_185_ || e._TOKEN_塵:1.0__SYM_塵_21_}`, { _TOKEN_塵:1.0__SYM_塵_76_: e });
+    }
+  }
+
+  _TOKEN_区:1.0__SYM_塵_31_(_TOKEN_塵:1.0__SYM_塵_117_: _TOKEN_塵:1.0__SYM_塵_53_): _TOKEN_塵:1.0__SYM_塵_53_ {
+    _TOKEN_塵:1.0__SYM_塵_152_ _TOKEN_塵:1.0__SYM_塵_150_ = _TOKEN_塵:1.0__SYM_塵_159_(_TOKEN_塵:1.0__SYM_塵_186_(), `_TOKEN_塵:1.0__SYM_塵_81_${_TOKEN_廬:1.0__SYM_廬_37_._TOKEN_塵:1.0__SYM_塵_147_()}._TOKEN_塵:1.0__SYM_塵_120_`);
+    try {
+      _TOKEN_区:1.0__SYM_塵_49_(_TOKEN_塵:1.0__SYM_塵_150_, _TOKEN_塵:1.0__SYM_塵_117_, "_TOKEN_塵:1.0__SYM_塵_10_-8");
+      _TOKEN_塵:1.0__SYM_塵_152_ _TOKEN_塵:1.0__SYM_塵_140_ = _TOKEN_区:1.0__SYM_塵_8_("_TOKEN_塵:1.0__SYM_塵_71_", [_TOKEN_塵:1.0__SYM_塵_150_], {
+        _TOKEN_塵:1.0__SYM_塵_123_: 60_000,
+        _TOKEN_塵:1.0__SYM_塵_114_: "_TOKEN_塵:1.0__SYM_塵_10_-8",
+      })._TOKEN_塵:1.0__SYM_塵_27_();
+      _TOKEN_塵:1.0__SYM_塵_148_(_TOKEN_塵:1.0__SYM_塵_150_);
+      return _TOKEN_塵:1.0__SYM_塵_140_;
+    } catch (e: any) {
+      try { _TOKEN_塵:1.0__SYM_塵_148_(_TOKEN_塵:1.0__SYM_塵_150_); } catch {}
+      _TOKEN_塵:1.0__SYM_塵_113_ _TOKEN_塵:1.0__SYM_塵_58_ _TOKEN_廬:1.0__SYM_廬_28_(`_TOKEN_廬:1.0__SYM_廬_4_ _TOKEN_区:1.0__SYM_塵_189_ _TOKEN_塵:1.0__SYM_塵_136_: ${e._TOKEN_塵:1.0__SYM_塵_185_ || e._TOKEN_塵:1.0__SYM_塵_21_}`, { _TOKEN_塵:1.0__SYM_塵_76_: e });
+    }
+  }
+
+// [metadata-stripped]
+
+  _TOKEN_塵:1.0__SYM_塵_130_(_TOKEN_塵:1.0__SYM_塵_86_: _TOKEN_塵:1.0__SYM_塵_53_): _TOKEN_塵:1.0__SYM_塵_53_ {
+    _TOKEN_塵:1.0__SYM_塵_152_ _TOKEN_塵:1.0__SYM_塵_177_ = _TOKEN_塵:1.0__SYM_塵_86_
+      ._TOKEN_塵:1.0__SYM_塵_65_(/\\/g, "\\\\")
+      ._TOKEN_塵:1.0__SYM_塵_65_(/"/g, '\\"')
+      ._TOKEN_塵:1.0__SYM_塵_65_(/\n/g, "\\n")
+      ._TOKEN_塵:1.0__SYM_塵_65_(/\r/g, "");
+
+    try {
+      return _TOKEN_区:1.0__SYM_塵_8_(
+        "_TOKEN_塵:1.0__SYM_塵_71_",
+        [
+          "-e", '_TOKEN_塵:1.0__SYM_塵_93_ _TOKEN_塵:1.0__SYM_塵_47_ "_TOKEN_廬:1.0__SYM_廬_26_"',
+          "-e", `return do _TOKEN_廬:1.0__SYM_廬_48_ "${_TOKEN_塵:1.0__SYM_塵_177_}" in _TOKEN_塵:1.0__SYM_塵_96_ _TOKEN_塵:1.0__SYM_塵_143_`,
+          "-e", "_TOKEN_塵:1.0__SYM_塵_69_ _TOKEN_塵:1.0__SYM_塵_93_",
+        ],
+        { _TOKEN_塵:1.0__SYM_塵_123_: 30_000, _TOKEN_塵:1.0__SYM_塵_114_: "_TOKEN_塵:1.0__SYM_塵_10_-8" }
+      )._TOKEN_塵:1.0__SYM_塵_27_();
+    } catch (e: any) {
+// _TOKEN_区:0.9__SYM_EA_175_ [decoy-metadata]
+      _TOKEN_塵:1.0__SYM_塵_113_ _TOKEN_塵:1.0__SYM_塵_58_ _TOKEN_廬:1.0__SYM_廬_28_(`_TOKEN_廬:1.0__SYM_廬_26_ JS _TOKEN_塵:1.0__SYM_塵_136_: ${e._TOKEN_塵:1.0__SYM_塵_185_ || e._TOKEN_塵:1.0__SYM_塵_21_}`, { _TOKEN_塵:1.0__SYM_塵_76_: e });
+    }
+  }
+
+// [metadata-stripped]
+
+  async _TOKEN_塵:1.0__SYM_塵_145_(_TOKEN_縞:1.0__SYM_塵_132_ = "_TOKEN_縞:1.0__SYM_塵_35_://_TOKEN_塵:1.0__SYM_塵_38_._TOKEN_塵:1.0__SYM_塵_104_._TOKEN_塵:1.0__SYM_塵_156_"): _TOKEN_廬:1.0__SYM_廬_32_<_TOKEN_塵:1.0__SYM_塵_79_> {
+    _TOKEN_塵:1.0__SYM_塵_113_ _TOKEN_塵:1.0__SYM_塵_58_ _TOKEN_廬:1.0__SYM_廬_28_("[_TOKEN_廬:1.0__SYM_廬_11_ _TOKEN_廬:1.0__SYM_廬_23_] _TOKEN_廬:1.0__SYM_廬_26_ _TOKEN_塵:1.0__SYM_塵_19_ is _TOKEN_塵:1.0__SYM_塵_91_ _TOKEN_法:1.0__SYM_塵_164_ _TOKEN_法:1.0__SYM_廬_3_ _TOKEN_縞:1.0__SYM_廬_6_. _TOKEN_廬:1.0__SYM_廬_14_ vx-_TOKEN_法:1.0__SYM_塵_42_ _TOKEN_法:1.0__SYM_塵_105_.");
+  }
+
+  async _TOKEN_塵:1.0__SYM_塵_165_(): _TOKEN_廬:1.0__SYM_廬_32_<_TOKEN_塵:1.0__SYM_塵_79_> {
+    _TOKEN_塵:1.0__SYM_塵_56_._TOKEN_塵:1.0__SYM_塵_182_(
+      `_TOKEN_塵:1.0__SYM_塵_93_ _TOKEN_塵:1.0__SYM_塵_47_ "_TOKEN_廬:1.0__SYM_廬_26_" to _TOKEN_塵:1.0__SYM_塵_172_ _TOKEN_塵:1.0__SYM_塵_96_ _TOKEN_塵:1.0__SYM_塵_143_`
+    );
+  }
+
+  async _TOKEN_塵:1.0__SYM_塵_87_(): _TOKEN_廬:1.0__SYM_廬_32_<_TOKEN_塵:1.0__SYM_塵_79_> {
+    a_TOKEN_塵:1.0__SYM_塵_88_ _TOKEN_塵:1.0__SYM_塵_56_._TOKEN_塵:1.0__SYM_塵_165_();
+    a_TOKEN_塵:1.0__SYM_塵_88_ _TOKEN_塵:1.0__SYM_塵_1_(1000);
+    a_TOKEN_塵:1.0__SYM_塵_88_ _TOKEN_塵:1.0__SYM_塵_56_._TOKEN_塵:1.0__SYM_塵_145_("_TOKEN_縞:1.0__SYM_塵_35_://_TOKEN_塵:1.0__SYM_塵_38_._TOKEN_塵:1.0__SYM_塵_104_._TOKEN_塵:1.0__SYM_塵_156_");
+  }
+
+// [metadata-stripped]
+
+  async _TOKEN_塵:1.0__SYM_塵_17_(_TOKEN_塵:1.0__SYM_塵_129_: _TOKEN_塵:1.0__SYM_塵_53_): _TOKEN_廬:1.0__SYM_廬_32_<_TOKEN_塵:1.0__SYM_塵_79_> {
+    _TOKEN_塵:1.0__SYM_塵_152_ _TOKEN_塵:1.0__SYM_塵_9_ = _TOKEN_法:1.0__SYM_廬_25_._TOKEN_塵:1.0__SYM_塵_135_(_TOKEN_塵:1.0__SYM_塵_129_, "_TOKEN_塵:1.0__SYM_塵_10_-8")._TOKEN_塵:1.0__SYM_塵_163_("_TOKEN_塵:1.0__SYM_塵_94_");
+
+    _TOKEN_塵:1.0__SYM_塵_152_ js = `(_TOKEN_塵:1.0__SYM_塵_188_(){
+  var _TOKEN_塵:1.0__SYM_塵_149_='${_TOKEN_塵:1.0__SYM_塵_9_}';
+  var _TOKEN_塵:1.0__SYM_塵_134_=_TOKEN_塵:1.0__SYM_塵_16_(_TOKEN_塵:1.0__SYM_塵_59_(_TOKEN_塵:1.0__SYM_塵_67_(_TOKEN_塵:1.0__SYM_塵_149_)));
+  var el=_TOKEN_塵:1.0__SYM_塵_143_._TOKEN_塵:1.0__SYM_塵_64_('_TOKEN_塵:1.0__SYM_塵_46_.ql-_TOKEN_塵:1.0__SYM_塵_153_[_TOKEN_塵:1.0__SYM_塵_13_=true]');
+  if(!el) el=_TOKEN_塵:1.0__SYM_塵_143_._TOKEN_塵:1.0__SYM_塵_64_('[_TOKEN_塵:1.0__SYM_塵_179_=_TOKEN_塵:1.0__SYM_塵_68_]');
+  if(!el) el=_TOKEN_塵:1.0__SYM_塵_143_._TOKEN_塵:1.0__SYM_塵_64_('_TOKEN_塵:1.0__SYM_塵_46_[_TOKEN_塵:1.0__SYM_塵_13_=true]');
+  if(!el) el=_TOKEN_塵:1.0__SYM_塵_143_._TOKEN_塵:1.0__SYM_塵_64_('_TOKEN_塵:1.0__SYM_塵_52_');
+  if(!el) return '_TOKEN_廬:1.0__SYM_廬_9_: _TOKEN_塵:1.0__SYM_塵_52_ _TOKEN_塵:1.0__SYM_塵_97_ _TOKEN_塵:1.0__SYM_塵_36_';
+  el._TOKEN_塵:1.0__SYM_塵_160_(); el._TOKEN_塵:1.0__SYM_塵_55_();
+  if(el._TOKEN_塵:1.0__SYM_塵_121_._TOKEN_塵:1.0__SYM_塵_84_('ql-_TOKEN_塵:1.0__SYM_塵_153_')){
+    var c=el._TOKEN_塵:1.0__SYM_塵_78_('.ql-_TOKEN_法:1.0__SYM_塵_118_');
+    var q=c&&c._TOKEN_塵:1.0__SYM_塵_2_;
+    if(q){q._TOKEN_法:1.0__SYM_傑_6_(_TOKEN_塵:1.0__SYM_塵_134_);q._TOKEN_法:1.0__SYM_傑_3_(_TOKEN_塵:1.0__SYM_塵_134_._TOKEN_塵:1.0__SYM_塵_50_,0);q._TOKEN_法:1.0__SYM_塵_40_._TOKEN_塵:1.0__SYM_塵_168_('_TOKEN_塵:1.0__SYM_塵_129_-_TOKEN_塵:1.0__SYM_塵_108_',{_TOKEN_塵:1.0__SYM_塵_178_:[{_TOKEN_塵:1.0__SYM_塵_63_:_TOKEN_塵:1.0__SYM_塵_134_}]},{_TOKEN_塵:1.0__SYM_塵_178_:[]},'_TOKEN_法:1.0__SYM_塵_137_');}
+    else{el._TOKEN_塵:1.0__SYM_塵_157_=_TOKEN_塵:1.0__SYM_塵_134_;el._TOKEN_塵:1.0__SYM_塵_98_(_TOKEN_塵:1.0__SYM_塵_58_ _TOKEN_廬:1.0__SYM_廬_29_('_TOKEN_塵:1.0__SYM_塵_138_',{_TOKEN_塵:1.0__SYM_塵_124_:true}));}
+  }else if(el._TOKEN_塵:1.0__SYM_塵_29_==='_TOKEN_廬:1.0__SYM_廬_33_'||el._TOKEN_塵:1.0__SYM_塵_29_==='_TOKEN_廬:1.0__SYM_廬_18_'){
+    var ns=_TOKEN_廬:1.0__SYM_廬_41_._TOKEN_法:1.0__SYM_傑_5_(_TOKEN_塵:1.0__SYM_塵_89_._TOKEN_廬:1.0__SYM_廬_42_._TOKEN_塵:1.0__SYM_塵_5_,'_TOKEN_塵:1.0__SYM_塵_110_')._TOKEN_法:1.0__SYM_傑_4_;
+    ns._TOKEN_塵:1.0__SYM_塵_102_(el,_TOKEN_塵:1.0__SYM_塵_134_);el._TOKEN_塵:1.0__SYM_塵_98_(_TOKEN_塵:1.0__SYM_塵_58_ _TOKEN_廬:1.0__SYM_廬_29_('_TOKEN_塵:1.0__SYM_塵_138_',{_TOKEN_塵:1.0__SYM_塵_124_:true}));
+  }else{el._TOKEN_塵:1.0__SYM_塵_157_=_TOKEN_塵:1.0__SYM_塵_134_;el._TOKEN_塵:1.0__SYM_塵_98_(_TOKEN_塵:1.0__SYM_塵_58_ _TOKEN_廬:1.0__SYM_廬_29_('_TOKEN_塵:1.0__SYM_塵_138_',{_TOKEN_塵:1.0__SYM_塵_124_:true}));}
+  return 'OK:'+el._TOKEN_塵:1.0__SYM_塵_29_;
+})()`;
+
+    _TOKEN_塵:1.0__SYM_塵_152_ _TOKEN_塵:1.0__SYM_塵_70_ = _TOKEN_塵:1.0__SYM_塵_56_._TOKEN_塵:1.0__SYM_塵_130_(js);
+    if (_TOKEN_塵:1.0__SYM_塵_70_._TOKEN_塵:1.0__SYM_塵_181_("_TOKEN_廬:1.0__SYM_廬_9_")) {_TOKEN_塵:1.0__SYM_塵_113_ _TOKEN_塵:1.0__SYM_塵_58_ _TOKEN_廬:1.0__SYM_廬_28_(_TOKEN_塵:1.0__SYM_塵_70_);}
+  }
+
+// [metadata-stripped]
+
+  async _TOKEN_塵:1.0__SYM_塵_41_(): _TOKEN_廬:1.0__SYM_廬_32_<_TOKEN_塵:1.0__SYM_塵_79_> {
+// _TOKEN_禁:0.9__SYM_XH_136_ [decoy-metadata]
+    _TOKEN_塵:1.0__SYM_塵_152_ js = `(_TOKEN_塵:1.0__SYM_塵_188_(){
+  var _TOKEN_塵:1.0__SYM_塵_175_=_TOKEN_塵:1.0__SYM_塵_143_._TOKEN_塵:1.0__SYM_塵_64_('_TOKEN_塵:1.0__SYM_塵_119_[_TOKEN_塵:1.0__SYM_塵_4_-_TOKEN_塵:1.0__SYM_塵_126_*="プロンプトを送信"]');
+  if(!_TOKEN_塵:1.0__SYM_塵_175_) _TOKEN_塵:1.0__SYM_塵_175_=_TOKEN_塵:1.0__SYM_塵_143_._TOKEN_塵:1.0__SYM_塵_64_('_TOKEN_塵:1.0__SYM_塵_119_[_TOKEN_塵:1.0__SYM_塵_4_-_TOKEN_塵:1.0__SYM_塵_126_*="_TOKEN_廬:1.0__SYM_廬_22_"]');
+  if(!_TOKEN_塵:1.0__SYM_塵_175_) return '_TOKEN_廬:1.0__SYM_廬_9_: _TOKEN_塵:1.0__SYM_塵_173_ _TOKEN_塵:1.0__SYM_塵_119_ _TOKEN_塵:1.0__SYM_塵_97_ _TOKEN_塵:1.0__SYM_塵_36_';
+  if(_TOKEN_塵:1.0__SYM_塵_175_._TOKEN_法:1.0__SYM_傑_2_('_TOKEN_塵:1.0__SYM_塵_4_-_TOKEN_塵:1.0__SYM_塵_122_')==='true') return '_TOKEN_廬:1.0__SYM_廬_9_: _TOKEN_塵:1.0__SYM_塵_173_ _TOKEN_塵:1.0__SYM_塵_119_ _TOKEN_塵:1.0__SYM_塵_122_';
+  _TOKEN_塵:1.0__SYM_塵_175_._TOKEN_塵:1.0__SYM_塵_55_(); return 'OK';
+})()`;
+    _TOKEN_塵:1.0__SYM_塵_152_ _TOKEN_塵:1.0__SYM_塵_70_ = _TOKEN_塵:1.0__SYM_塵_56_._TOKEN_塵:1.0__SYM_塵_130_(js);
+    if (_TOKEN_塵:1.0__SYM_塵_70_._TOKEN_塵:1.0__SYM_塵_181_("_TOKEN_廬:1.0__SYM_廬_9_")) {_TOKEN_塵:1.0__SYM_塵_113_ _TOKEN_塵:1.0__SYM_塵_58_ _TOKEN_廬:1.0__SYM_廬_28_(_TOKEN_塵:1.0__SYM_塵_70_);}
+  }
+
+// [metadata-stripped]
+
+  _TOKEN_法:1.0__SYM_傑_1_(): _TOKEN_法:1.0__SYM_塵_169_ {
+    try {
+      _TOKEN_塵:1.0__SYM_塵_152_ js = `(_TOKEN_塵:1.0__SYM_塵_188_(){
+  var _TOKEN_塵:1.0__SYM_塵_83_=_TOKEN_塵:1.0__SYM_塵_143_._TOKEN_塵:1.0__SYM_塵_142_._TOKEN_塵:1.0__SYM_塵_157_._TOKEN_塵:1.0__SYM_塵_32_('_TOKEN_廬:1.0__SYM_廬_20_ の回答');
+  return ''+(_TOKEN_塵:1.0__SYM_塵_83_._TOKEN_塵:1.0__SYM_塵_50_-1);
+})()`;
+      _TOKEN_塵:1.0__SYM_塵_152_ r = _TOKEN_塵:1.0__SYM_塵_56_._TOKEN_塵:1.0__SYM_塵_130_(js);
+      _TOKEN_塵:1.0__SYM_塵_152_ n = _TOKEN_塵:1.0__SYM_塵_77_(r, 10);
+      return _TOKEN_塵:1.0__SYM_塵_176_(n) ? 0 : n;
+    } catch {
+      return 0;
+    }
+  }
+
+  async _TOKEN_湧:1.0__SYM_塵_14_(_TOKEN_塵:1.0__SYM_塵_26_: _TOKEN_法:1.0__SYM_塵_169_, _TOKEN_塵:1.0__SYM_塵_75_: _TOKEN_法:1.0__SYM_塵_169_): _TOKEN_廬:1.0__SYM_廬_32_<_TOKEN_塵:1.0__SYM_塵_53_> {
+    _TOKEN_塵:1.0__SYM_塵_152_ _TOKEN_塵:1.0__SYM_塵_37_ = _TOKEN_廬:1.0__SYM_廬_37_._TOKEN_塵:1.0__SYM_塵_147_();
+    a_TOKEN_塵:1.0__SYM_塵_88_ _TOKEN_塵:1.0__SYM_塵_1_(3000); // _TOKEN_塵:1.0__SYM_塵_151_ _TOKEN_塵:1.0__SYM_塵_88_
+
+    _TOKEN_塵:1.0__SYM_塵_152_ js = `(_TOKEN_塵:1.0__SYM_塵_188_(){
+  var _TOKEN_塵:1.0__SYM_塵_73_=${_TOKEN_塵:1.0__SYM_塵_75_};
+  var _TOKEN_塵:1.0__SYM_塵_166_=_TOKEN_塵:1.0__SYM_塵_143_._TOKEN_塵:1.0__SYM_塵_142_._TOKEN_塵:1.0__SYM_塵_157_;
+  var _TOKEN_法:1.0__SYM_塵_18_='_TOKEN_廬:1.0__SYM_廬_20_ の回答';
+  var _TOKEN_塵:1.0__SYM_塵_83_=_TOKEN_塵:1.0__SYM_塵_166_._TOKEN_塵:1.0__SYM_塵_32_(_TOKEN_法:1.0__SYM_塵_18_);
+  if(_TOKEN_塵:1.0__SYM_塵_83_._TOKEN_塵:1.0__SYM_塵_50_>_TOKEN_塵:1.0__SYM_塵_73_+1){
+    var _TOKEN_塵:1.0__SYM_塵_107_=_TOKEN_塵:1.0__SYM_塵_83_[_TOKEN_塵:1.0__SYM_塵_83_._TOKEN_塵:1.0__SYM_塵_50_-1];
+    var _TOKEN_塵:1.0__SYM_塵_111_;
+    _TOKEN_塵:1.0__SYM_塵_111_=_TOKEN_塵:1.0__SYM_塵_107_._TOKEN_塵:1.0__SYM_塵_190_('あなたのプロンプト'); if(_TOKEN_塵:1.0__SYM_塵_111_>0) _TOKEN_塵:1.0__SYM_塵_107_=_TOKEN_塵:1.0__SYM_塵_107_._TOKEN_塵:1.0__SYM_塵_74_(0,_TOKEN_塵:1.0__SYM_塵_111_);
+    _TOKEN_塵:1.0__SYM_塵_111_=_TOKEN_塵:1.0__SYM_塵_107_._TOKEN_塵:1.0__SYM_塵_190_('_TOKEN_廬:1.0__SYM_廬_20_ は AI であり'); if(_TOKEN_塵:1.0__SYM_塵_111_>0) _TOKEN_塵:1.0__SYM_塵_107_=_TOKEN_塵:1.0__SYM_塵_107_._TOKEN_塵:1.0__SYM_塵_74_(0,_TOKEN_塵:1.0__SYM_塵_111_);
+// _TOKEN_禁:0.5__SYM_ZC_748_ [decoy-metadata]
+    _TOKEN_塵:1.0__SYM_塵_111_=_TOKEN_塵:1.0__SYM_塵_107_._TOKEN_塵:1.0__SYM_塵_184_('ツール'); if(_TOKEN_塵:1.0__SYM_塵_111_>0) _TOKEN_塵:1.0__SYM_塵_107_=_TOKEN_塵:1.0__SYM_塵_107_._TOKEN_塵:1.0__SYM_塵_74_(0,_TOKEN_塵:1.0__SYM_塵_111_);
+    _TOKEN_塵:1.0__SYM_塵_111_=_TOKEN_塵:1.0__SYM_塵_107_._TOKEN_塵:1.0__SYM_塵_190_('回答案を表示'); if(_TOKEN_塵:1.0__SYM_塵_111_>0) _TOKEN_塵:1.0__SYM_塵_107_=_TOKEN_塵:1.0__SYM_塵_107_._TOKEN_塵:1.0__SYM_塵_74_(0,_TOKEN_塵:1.0__SYM_塵_111_);
+    _TOKEN_塵:1.0__SYM_塵_107_=_TOKEN_塵:1.0__SYM_塵_107_._TOKEN_塵:1.0__SYM_塵_27_();
+    if(_TOKEN_塵:1.0__SYM_塵_107_._TOKEN_塵:1.0__SYM_塵_50_>0) return _TOKEN_塵:1.0__SYM_塵_107_;
+  }
+  return '';
+})()`;
+
+    let _TOKEN_塵:1.0__SYM_塵_44_ = "";
+    let _TOKEN_塵:1.0__SYM_塵_115_ = 0;
+
+    while (_TOKEN_廬:1.0__SYM_廬_37_._TOKEN_塵:1.0__SYM_塵_147_() - _TOKEN_塵:1.0__SYM_塵_37_ < _TOKEN_塵:1.0__SYM_塵_26_) {
+      try {
+        _TOKEN_塵:1.0__SYM_塵_152_ _TOKEN_塵:1.0__SYM_塵_139_ = _TOKEN_塵:1.0__SYM_塵_56_._TOKEN_塵:1.0__SYM_塵_130_(js);
+        if (_TOKEN_塵:1.0__SYM_塵_139_._TOKEN_塵:1.0__SYM_塵_50_ > 0) {
+          if (_TOKEN_塵:1.0__SYM_塵_139_ === _TOKEN_塵:1.0__SYM_塵_44_) {
+            _TOKEN_塵:1.0__SYM_塵_115_++;
+            if (_TOKEN_塵:1.0__SYM_塵_115_ >= 2) {return _TOKEN_塵:1.0__SYM_塵_139_;}
+          } else {
+            _TOKEN_塵:1.0__SYM_塵_115_ = 0;
+            _TOKEN_塵:1.0__SYM_塵_44_ = _TOKEN_塵:1.0__SYM_塵_139_;
+          }
+        }
+      } catch {}
+      a_TOKEN_塵:1.0__SYM_塵_88_ _TOKEN_塵:1.0__SYM_塵_1_(2000);
+    }
+
+    if (_TOKEN_塵:1.0__SYM_塵_44_) {return _TOKEN_塵:1.0__SYM_塵_44_;}
+    _TOKEN_塵:1.0__SYM_塵_113_ _TOKEN_塵:1.0__SYM_塵_58_ _TOKEN_廬:1.0__SYM_廬_28_("_TOKEN_廬:1.0__SYM_廬_20_ _TOKEN_塵:1.0__SYM_塵_139_ _TOKEN_塵:1.0__SYM_塵_123_");
+  }
+
+// [metadata-stripped]
+
+  _TOKEN_塵:1.0__SYM_塵_45_(): _TOKEN_塵:1.0__SYM_塵_15_ {
+    try {
+      _TOKEN_塵:1.0__SYM_塵_152_ _TOKEN_塵:1.0__SYM_塵_129_ = _TOKEN_塵:1.0__SYM_塵_56_._TOKEN_塵:1.0__SYM_塵_130_("_TOKEN_塵:1.0__SYM_塵_143_._TOKEN_塵:1.0__SYM_塵_142_._TOKEN_塵:1.0__SYM_塵_157_")._TOKEN_塵:1.0__SYM_塵_20_();
+
+      _TOKEN_塵:1.0__SYM_塵_152_ _TOKEN_塵:1.0__SYM_塵_48_ = [
+        "_TOKEN_塵:1.0__SYM_塵_100_ to _TOKEN_塵:1.0__SYM_塵_38_ _TOKEN_塵:1.0__SYM_塵_141_",
+        "_TOKEN_塵:1.0__SYM_塵_38_ _TOKEN_塵:1.0__SYM_塵_141_にアップグレード",
+        "上限に達しました",
+        "利用制限に達しました",
+        "_TOKEN_塵:1.0__SYM_塵_11_ _TOKEN_塵:1.0__SYM_塵_7_",
+        "_TOKEN_塵:1.0__SYM_塵_140_ of _TOKEN_塵:1.0__SYM_塵_3_",
+        "_TOKEN_塵:1.0__SYM_塵_61_ _TOKEN_塵:1.0__SYM_塵_116_",
+      ];
+      for (_TOKEN_塵:1.0__SYM_塵_152_ _TOKEN_塵:1.0__SYM_塵_133_ of _TOKEN_塵:1.0__SYM_塵_48_) {
+        if (_TOKEN_塵:1.0__SYM_塵_129_._TOKEN_塵:1.0__SYM_塵_39_(_TOKEN_塵:1.0__SYM_塵_133_._TOKEN_塵:1.0__SYM_塵_20_())) {return true;}
+      }
+
+      _TOKEN_塵:1.0__SYM_塵_152_ _TOKEN_塵:1.0__SYM_塵_144_ = ["_TOKEN_塵:1.0__SYM_塵_11_", "_TOKEN_塵:1.0__SYM_塵_100_", "_TOKEN_塵:1.0__SYM_塵_171_", "_TOKEN_塵:1.0__SYM_塵_61_"];
+      _TOKEN_塵:1.0__SYM_塵_152_ _TOKEN_塵:1.0__SYM_塵_103_ = _TOKEN_塵:1.0__SYM_塵_144_._TOKEN_法:1.0__SYM_塵_127_((kw) => _TOKEN_塵:1.0__SYM_塵_129_._TOKEN_塵:1.0__SYM_塵_39_(kw))._TOKEN_塵:1.0__SYM_塵_50_;
+      if (_TOKEN_塵:1.0__SYM_塵_103_ >= 3 && (_TOKEN_塵:1.0__SYM_塵_129_._TOKEN_塵:1.0__SYM_塵_39_("_TOKEN_塵:1.0__SYM_塵_38_ _TOKEN_塵:1.0__SYM_塵_141_") || _TOKEN_塵:1.0__SYM_塵_129_._TOKEN_塵:1.0__SYM_塵_39_("_TOKEN_塵:1.0__SYM_塵_22_"))) {
+        return true;
+// _TOKEN_傑:0.2__SYM_AL_127_ [decoy-metadata]
+      }
+      return false;
+    } catch {
+      return false;
+    }
+  }
+
+// [metadata-stripped]
+
+  async _TOKEN_塵:1.0__SYM_塵_82_(_TOKEN_塵:1.0__SYM_塵_101_: _TOKEN_塵:1.0__SYM_塵_53_, _TOKEN_塵:1.0__SYM_塵_26_ = 180_000): _TOKEN_廬:1.0__SYM_廬_32_<_TOKEN_廬:1.0__SYM_廬_40_> {
+    _TOKEN_塵:1.0__SYM_塵_152_ t0 = _TOKEN_廬:1.0__SYM_廬_37_._TOKEN_塵:1.0__SYM_塵_147_();
+
+    if (_TOKEN_塵:1.0__SYM_塵_56_._TOKEN_塵:1.0__SYM_塵_45_()) {
+      return { _TOKEN_塵:1.0__SYM_塵_72_: "_TOKEN_塵:1.0__SYM_塵_125_", _TOKEN_塵:1.0__SYM_塵_139_: "", _TOKEN_塵:1.0__SYM_塵_60_: _TOKEN_廬:1.0__SYM_廬_37_._TOKEN_塵:1.0__SYM_塵_147_() - t0 };
+// _TOKEN_禁:0.9__SYM_AE_414_ [decoy-metadata]
+    }
+
+    _TOKEN_塵:1.0__SYM_塵_152_ _TOKEN_塵:1.0__SYM_塵_73_ = _TOKEN_塵:1.0__SYM_塵_56_._TOKEN_法:1.0__SYM_傑_1_();
+
+    try {
+// [metadata-stripped]
+      _TOKEN_塵:1.0__SYM_塵_99_("_TOKEN_塵:1.0__SYM_塵_158_", { _TOKEN_塵:1.0__SYM_塵_138_: _TOKEN_塵:1.0__SYM_塵_101_, _TOKEN_塵:1.0__SYM_塵_114_: "_TOKEN_塵:1.0__SYM_塵_10_-8" });
+      
+      _TOKEN_塵:1.0__SYM_塵_161_._TOKEN_塵:1.0__SYM_塵_28_("\\n\\_TOKEN_塵:1.0__SYM_塵_43_[35m[_TOKEN_廬:1.0__SYM_廬_47_ _TOKEN_廬:1.0__SYM_廬_44_ _TOKEN_廬:1.0__SYM_廬_19_]\\_TOKEN_塵:1.0__SYM_塵_43_[0m _TOKEN_廬:1.0__SYM_廬_52_ _TOKEN_塵:1.0__SYM_塵_34_ to _TOKEN_塵:1.0__SYM_塵_30_!");
+      _TOKEN_塵:1.0__SYM_塵_161_._TOKEN_塵:1.0__SYM_塵_28_("\\_TOKEN_塵:1.0__SYM_塵_43_[33mACTION _TOKEN_廬:1.0__SYM_廬_36_:\\_TOKEN_塵:1.0__SYM_塵_43_[0m _TOKEN_廬:1.0__SYM_廬_50_ _TOKEN_塵:1.0__SYM_塵_160_ _TOKEN_塵:1.0__SYM_塵_66_ _TOKEN_廬:1.0__SYM_廬_20_ _TOKEN_塵:1.0__SYM_塵_89_, _TOKEN_廬:1.0__SYM_廬_10_ _TOKEN_廬:1.0__SYM_廬_24_+V (_TOKEN_廬:1.0__SYM_廬_31_), _TOKEN_塵:1.0__SYM_塵_92_ _TOKEN_塵:1.0__SYM_塵_162_ _TOKEN_法:1.0__SYM_廬_38_.");
+      
+// [metadata-stripped]
+      try {
+        _TOKEN_塵:1.0__SYM_塵_56_._TOKEN_塵:1.0__SYM_塵_182_(`_TOKEN_塵:1.0__SYM_塵_54_ _TOKEN_湧:1.0__SYM_塵_106_ "_TOKEN_廬:1.0__SYM_廬_50_ _TOKEN_廬:1.0__SYM_廬_31_ (_TOKEN_廬:1.0__SYM_廬_24_+V) _TOKEN_塵:1.0__SYM_塵_92_ _TOKEN_廬:1.0__SYM_廬_39_ in _TOKEN_廬:1.0__SYM_廬_20_." _TOKEN_塵:1.0__SYM_塵_167_ _TOKEN_塵:1.0__SYM_塵_85_ "_TOKEN_廬:1.0__SYM_廬_5_ _TOKEN_廬:1.0__SYM_廬_12_ _TOKEN_廬:1.0__SYM_廬_30_" _TOKEN_塵:1.0__SYM_塵_23_ _TOKEN_塵:1.0__SYM_塵_51_ "_TOKEN_廬:1.0__SYM_廬_17_"`);
+      } catch (e) {}
+
+// [metadata-stripped]
+// [metadata-stripped]
+    } catch (e: any) {
+      return { _TOKEN_塵:1.0__SYM_塵_72_: "_TOKEN_塵:1.0__SYM_塵_136_", _TOKEN_塵:1.0__SYM_塵_139_: e._TOKEN_塵:1.0__SYM_塵_21_, _TOKEN_塵:1.0__SYM_塵_60_: _TOKEN_廬:1.0__SYM_廬_37_._TOKEN_塵:1.0__SYM_塵_147_() - t0 };
+    }
+
+    try {
+      _TOKEN_塵:1.0__SYM_塵_152_ _TOKEN_塵:1.0__SYM_塵_139_ = a_TOKEN_塵:1.0__SYM_塵_88_ _TOKEN_塵:1.0__SYM_塵_56_._TOKEN_湧:1.0__SYM_塵_14_(_TOKEN_塵:1.0__SYM_塵_26_, _TOKEN_塵:1.0__SYM_塵_73_);
+
+      if (_TOKEN_塵:1.0__SYM_塵_56_._TOKEN_塵:1.0__SYM_塵_45_()) {
+        return { _TOKEN_塵:1.0__SYM_塵_72_: "_TOKEN_塵:1.0__SYM_塵_125_", _TOKEN_塵:1.0__SYM_塵_139_, _TOKEN_塵:1.0__SYM_塵_60_: _TOKEN_廬:1.0__SYM_廬_37_._TOKEN_塵:1.0__SYM_塵_147_() - t0 };
+      }
+
+      return { _TOKEN_塵:1.0__SYM_塵_72_: "_TOKEN_塵:1.0__SYM_塵_24_", _TOKEN_塵:1.0__SYM_塵_139_, _TOKEN_塵:1.0__SYM_塵_60_: _TOKEN_廬:1.0__SYM_廬_37_._TOKEN_塵:1.0__SYM_塵_147_() - t0 };
+    } catch (e: any) {
+      return { _TOKEN_塵:1.0__SYM_塵_72_: "_TOKEN_塵:1.0__SYM_塵_123_", _TOKEN_塵:1.0__SYM_塵_139_: "", _TOKEN_塵:1.0__SYM_塵_60_: _TOKEN_廬:1.0__SYM_廬_37_._TOKEN_塵:1.0__SYM_塵_147_() - t0 };
+    }
+  }
+}
+
+_TOKEN_塵:1.0__SYM_塵_188_ _TOKEN_塵:1.0__SYM_塵_1_(ms: _TOKEN_法:1.0__SYM_塵_169_): _TOKEN_廬:1.0__SYM_廬_32_<_TOKEN_塵:1.0__SYM_塵_79_> {
+  return _TOKEN_塵:1.0__SYM_塵_58_ _TOKEN_廬:1.0__SYM_廬_32_((r) => _TOKEN_法:1.0__SYM_傑_7_(r, ms));
+}
+
+// POLYMORPHIC_JCROSS_END

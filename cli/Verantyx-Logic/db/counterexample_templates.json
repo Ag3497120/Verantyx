@@ -1,0 +1,42 @@
+{
+  "templates": [
+    {
+      "id": "tpl:single_isolated",
+      "worlds": 1,
+      "edges": [],
+      "notes": "One isolated world (useful to break A -> □◊A etc.)"
+    },
+    {
+      "id": "tpl:chain_2",
+      "worlds": 2,
+      "edges": [[0, 1]],
+      "notes": "w0 -> w1 chain length 2"
+    },
+    {
+      "id": "tpl:chain_3",
+      "worlds": 3,
+      "edges": [[0, 1], [1, 2]],
+      "notes": "w0 -> w1 -> w2"
+    },
+    {
+      "id": "tpl:fork_3",
+      "worlds": 3,
+      "edges": [[0, 1], [0, 2]],
+      "notes": "branching from root"
+    },
+    {
+      "id": "tpl:non_reflexive_chain",
+      "worlds": 2,
+      "edges": [[0, 1]],
+      "constraints": ["not:reflexive"],
+      "notes": "Useful to refute □A -> A when reflexive is not assumed"
+    },
+    {
+      "id": "tpl:reflexive_single",
+      "worlds": 1,
+      "edges": [[0, 0]],
+      "constraints": ["assume:reflexive"],
+      "notes": "Use when reflexive is assumed"
+    }
+  ]
+}

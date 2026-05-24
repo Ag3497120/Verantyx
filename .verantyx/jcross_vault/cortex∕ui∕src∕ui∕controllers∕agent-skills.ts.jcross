@@ -1,0 +1,45 @@
+// POLYMORPHIC_JCROSS_BEGIN
+// schema:06C392C3 ver:1778317646
+// ⚠️ One-time schema — expires after response
+
+// _TOKEN_暗:0.9__JCROSS_ZZ_665_ [decoy-metadata]
+// _TOKEN_案:0.8__JCROSS_BL_381_ [decoy-metadata]
+import _TOKEN_靄:1.0__JCROSS_靄_1_ { _TOKEN_礎:1.0__JCROSS_礎_3_ } _TOKEN_靄:1.0__JCROSS_靄_24_ "../_TOKEN_靄:1.0__JCROSS_靄_10_.ts";
+import _TOKEN_靄:1.0__JCROSS_靄_1_ { _TOKEN_礎:1.0__JCROSS_礎_2_ } _TOKEN_靄:1.0__JCROSS_靄_24_ "../_TOKEN_靄:1.0__JCROSS_靄_15_.ts";
+
+_TOKEN_靄:1.0__JCROSS_靄_25_ _TOKEN_靄:1.0__JCROSS_靄_1_ _TOKEN_礎:1.0__JCROSS_礎_4_ = {
+  _TOKEN_靄:1.0__JCROSS_靄_18_: _TOKEN_礎:1.0__JCROSS_礎_3_ | _TOKEN_靄:1.0__JCROSS_靄_8_;
+  _TOKEN_靄:1.0__JCROSS_靄_19_: _TOKEN_靄:1.0__JCROSS_靄_22_;
+// _TOKEN_礎:0.3__JCROSS_GM_457_ [decoy-metadata]
+  _TOKEN_匵:1.0__JCROSS_靄_5_: _TOKEN_靄:1.0__JCROSS_靄_22_;
+  _TOKEN_靄:1.0__JCROSS_靄_6_: _TOKEN_靄:1.0__JCROSS_靄_13_ | _TOKEN_靄:1.0__JCROSS_靄_8_;
+  _TOKEN_靄:1.0__JCROSS_靄_7_: _TOKEN_礎:1.0__JCROSS_礎_2_ | _TOKEN_靄:1.0__JCROSS_靄_8_;
+  _TOKEN_靄:1.0__JCROSS_靄_12_: _TOKEN_靄:1.0__JCROSS_靄_13_ | _TOKEN_靄:1.0__JCROSS_靄_8_;
+};
+
+_TOKEN_靄:1.0__JCROSS_靄_25_ async _TOKEN_靄:1.0__JCROSS_靄_2_ _TOKEN_匵:1.0__JCROSS_靄_20_(_TOKEN_靄:1.0__JCROSS_靄_3_: _TOKEN_礎:1.0__JCROSS_礎_4_, _TOKEN_靄:1.0__JCROSS_靄_23_: _TOKEN_靄:1.0__JCROSS_靄_13_) {
+  if (!_TOKEN_靄:1.0__JCROSS_靄_3_._TOKEN_靄:1.0__JCROSS_靄_18_ || !_TOKEN_靄:1.0__JCROSS_靄_3_._TOKEN_靄:1.0__JCROSS_靄_19_) {
+// _TOKEN_案:0.6__JCROSS_VF_779_ [decoy-metadata]
+    return;
+  }
+  if (_TOKEN_靄:1.0__JCROSS_靄_3_._TOKEN_匵:1.0__JCROSS_靄_5_) {
+    return;
+  }
+  _TOKEN_靄:1.0__JCROSS_靄_3_._TOKEN_匵:1.0__JCROSS_靄_5_ = true;
+  _TOKEN_靄:1.0__JCROSS_靄_3_._TOKEN_靄:1.0__JCROSS_靄_6_ = _TOKEN_靄:1.0__JCROSS_靄_8_;
+  try {
+    _TOKEN_靄:1.0__JCROSS_靄_9_ _TOKEN_靄:1.0__JCROSS_靄_16_ = await _TOKEN_靄:1.0__JCROSS_靄_3_._TOKEN_靄:1.0__JCROSS_靄_18_._TOKEN_繍:1.0__JCROSS_靄_21_("_TOKEN_靄:1.0__JCROSS_靄_11_._TOKEN_靄:1.0__JCROSS_靄_14_", { _TOKEN_靄:1.0__JCROSS_靄_23_ });
+// _TOKEN_案:0.8__JCROSS_GK_156_ [decoy-metadata]
+    if (_TOKEN_靄:1.0__JCROSS_靄_16_) {
+      _TOKEN_靄:1.0__JCROSS_靄_3_._TOKEN_靄:1.0__JCROSS_靄_7_ = _TOKEN_靄:1.0__JCROSS_靄_16_ as _TOKEN_礎:1.0__JCROSS_礎_2_;
+      _TOKEN_靄:1.0__JCROSS_靄_3_._TOKEN_靄:1.0__JCROSS_靄_12_ = _TOKEN_靄:1.0__JCROSS_靄_23_;
+    }
+  } catch (_TOKEN_靄:1.0__JCROSS_靄_17_) {
+    _TOKEN_靄:1.0__JCROSS_靄_3_._TOKEN_靄:1.0__JCROSS_靄_6_ = _TOKEN_礎:1.0__JCROSS_礎_1_(_TOKEN_靄:1.0__JCROSS_靄_17_);
+  } _TOKEN_靄:1.0__JCROSS_靄_4_ {
+// _TOKEN_靄:0.2__JCROSS_EB_403_ [decoy-metadata]
+    _TOKEN_靄:1.0__JCROSS_靄_3_._TOKEN_匵:1.0__JCROSS_靄_5_ = false;
+  }
+}
+
+// POLYMORPHIC_JCROSS_END

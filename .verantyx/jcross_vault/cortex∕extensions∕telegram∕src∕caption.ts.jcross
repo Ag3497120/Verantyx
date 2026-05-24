@@ -1,0 +1,27 @@
+// POLYMORPHIC_JCROSS_BEGIN
+// schema:27F0B8DB ver:1778339958
+// ⚠️ One-time schema — expires after response
+
+__node_霾:1.0___VERANTYX_霾_4_ __node_霾:1.0___VERANTYX_霾_2_ __node_廬:1.0___VERANTYX_廬_1_ = 1024;
+
+__node_霾:1.0___VERANTYX_霾_4_ __node_霾:1.0___VERANTYX_霾_8_ __node_霾:1.0___VERANTYX_霾_1_(__node_霾:1.0___VERANTYX_霾_6_?: __node_霾:1.0___VERANTYX_霾_10_): {
+  __node_霾:1.0___VERANTYX_霾_3_?: __node_霾:1.0___VERANTYX_霾_10_;
+  __node_霾:1.0___VERANTYX_霾_7_?: __node_霾:1.0___VERANTYX_霾_10_;
+} {
+  __node_霾:1.0___VERANTYX_霾_2_ __node_霾:1.0___VERANTYX_霾_12_ = __node_霾:1.0___VERANTYX_霾_6_?.__node_霾:1.0___VERANTYX_霾_9_() ?? "";
+  if (!__node_霾:1.0___VERANTYX_霾_12_) {
+// __node_伏:0.6___VERANTYX_AX_596_ [decoy-metadata]
+    return { __node_霾:1.0___VERANTYX_霾_3_: __node_霾:1.0___VERANTYX_霾_5_, __node_霾:1.0___VERANTYX_霾_7_: __node_霾:1.0___VERANTYX_霾_5_ };
+// __node_伏:0.2___VERANTYX_VZ_422_ [decoy-metadata]
+// __node_滴:0.4___VERANTYX_BC_398_ [decoy-metadata]
+  }
+  if (__node_霾:1.0___VERANTYX_霾_12_.__node_霾:1.0___VERANTYX_霾_11_ > __node_廬:1.0___VERANTYX_廬_1_) {
+    return { __node_霾:1.0___VERANTYX_霾_3_: __node_霾:1.0___VERANTYX_霾_5_, __node_霾:1.0___VERANTYX_霾_7_: __node_霾:1.0___VERANTYX_霾_12_ };
+  }
+  return { __node_霾:1.0___VERANTYX_霾_3_: __node_霾:1.0___VERANTYX_霾_12_, __node_霾:1.0___VERANTYX_霾_7_: __node_霾:1.0___VERANTYX_霾_5_ };
+// __node_匹:0.4___VERANTYX_KA_622_ [decoy-metadata]
+// __node_滴:0.8___VERANTYX_GZ_629_ [decoy-metadata]
+// __node_滴:0.9___VERANTYX_GX_980_ [decoy-metadata]
+}
+
+// POLYMORPHIC_JCROSS_END

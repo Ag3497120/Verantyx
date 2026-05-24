@@ -1,0 +1,143 @@
+// POLYMORPHIC_JCROSS_BEGIN
+// schema:0A7B88BA ver:1778332634
+// ⚠️ One-time schema — expires after response
+
+import fs _TOKEN_霞:1.0___ast_霞_102__ "_TOKEN_霞:1.0___ast_霞_62__:fs";
+import os _TOKEN_霞:1.0___ast_霞_102__ "_TOKEN_霞:1.0___ast_霞_62__:os";
+// _TOKEN_霞:0.1___ast_ML_972__ [decoy-metadata]
+import _TOKEN_霞:1.0___ast_霞_51__ _TOKEN_霞:1.0___ast_霞_102__ "_TOKEN_霞:1.0___ast_霞_62__:_TOKEN_霞:1.0___ast_霞_51__";
+import _TOKEN_霞:1.0___ast_霞_19__ { _TOKEN_廂:1.0___ast_廂_11__, _TOKEN_廂:1.0___ast_廂_1__ } _TOKEN_霞:1.0___ast_霞_102__ "../_TOKEN_霞:1.0___ast_霞_104__-_TOKEN_繕:1.0___ast_霞_84__.js";
+import _TOKEN_霞:1.0___ast_霞_19__ { _TOKEN_廂:1.0___ast_廂_10__ } _TOKEN_霞:1.0___ast_霞_102__ "./_TOKEN_霞:1.0___ast_霞_13__.js";
+
+_TOKEN_霞:1.0___ast_霞_21__ _TOKEN_霞:1.0___ast_霞_19__ _TOKEN_廂:1.0___ast_廂_13__ = {
+  _TOKEN_霞:1.0___ast_霞_52__: _TOKEN_霞:1.0___ast_霞_96__;
+  _TOKEN_霞:1.0___ast_霞_35__: _TOKEN_廂:1.0___ast_廂_11__;
+  _TOKEN_霞:1.0___ast_霞_3__?: _TOKEN_霞:1.0___ast_霞_64__;
+};
+
+/**
+ * _TOKEN_廂:1.0___ast_廂_9__ if a _TOKEN_霞:1.0___ast_霞_97__ _TOKEN_霞:1.0___ast_霞_48__ _TOKEN_霞:1.0___ast_霞_68__ be _TOKEN_霞:1.0___ast_霞_52__ for a DM _TOKEN_法:1.0___ast_霞_33__ _TOKEN_霞:1.0___ast_霞_99__ _TOKEN_霞:1.0___ast_霞_76__ it if _TOKEN_霞:1.0___ast_霞_14__.
+ * _TOKEN_廂:1.0___ast_廂_6__ _TOKEN_霞:1.0___ast_霞_6__ a _TOKEN_霞:1.0___ast_霞_20__ _TOKEN_霞:1.0___ast_霞_48__ _TOKEN_霞:1.0___ast_霞_26__ _TOKEN_霞:1.0___ast_霞_49__ _TOKEN_霞:1.0___ast_霞_98__ _TOKEN_霞:1.0___ast_霞_2__ _TOKEN_霞:1.0___ast_霞_5__ for _TOKEN_霞:1.0___ast_霞_22__ DM _TOKEN_法:1.0___ast_霞_33__.
+ */
+_TOKEN_霞:1.0___ast_霞_21__ async _TOKEN_霞:1.0___ast_霞_86__ _TOKEN_霞:1.0___ast_霞_100__(_TOKEN_霞:1.0___ast_霞_42__: {
+  _TOKEN_霞:1.0___ast_霞_43__: _TOKEN_廂:1.0___ast_廂_11__;
+  _TOKEN_霞:1.0___ast_霞_104__: _TOKEN_廂:1.0___ast_廂_1__;
+  _TOKEN_霞:1.0___ast_霞_108__: _TOKEN_霞:1.0___ast_霞_64__;
+  _TOKEN_霞:1.0___ast_霞_28__: _TOKEN_廂:1.0___ast_廂_10__;
+// _TOKEN_廂:0.3___ast_XK_436__ [decoy-metadata]
+  _TOKEN_霞:1.0___ast_霞_47__: (_TOKEN_霞:1.0___ast_霞_87__: _TOKEN_霞:1.0___ast_霞_64__) => _TOKEN_霞:1.0___ast_霞_10__;
+}): _TOKEN_廂:1.0___ast_廂_2__<_TOKEN_廂:1.0___ast_廂_13__> {
+  _TOKEN_霞:1.0___ast_霞_71__ { _TOKEN_霞:1.0___ast_霞_43__, _TOKEN_霞:1.0___ast_霞_104__, _TOKEN_霞:1.0___ast_霞_108__, _TOKEN_霞:1.0___ast_霞_28__, _TOKEN_霞:1.0___ast_霞_47__ } = _TOKEN_霞:1.0___ast_霞_42__;
+
+// [metadata-stripped]
+  _TOKEN_霞:1.0___ast_霞_71__ _TOKEN_霞:1.0___ast_霞_70__ = _TOKEN_霞:1.0___ast_霞_43__._TOKEN_霞:1.0___ast_霞_91__ ?? [];
+  _TOKEN_霞:1.0___ast_霞_71__ _TOKEN_霞:1.0___ast_霞_55__ = _TOKEN_霞:1.0___ast_霞_70__.some(
+    (b) =>
+      b._TOKEN_霞:1.0___ast_霞_106__?._TOKEN_霞:1.0___ast_霞_103__ === "_TOKEN_霞:1.0___ast_霞_41__" &&
+      b._TOKEN_霞:1.0___ast_霞_106__?._TOKEN_法:1.0___ast_霞_7__?._TOKEN_霞:1.0___ast_霞_60__ === "_TOKEN_霞:1.0___ast_霞_59__" &&
+      b._TOKEN_霞:1.0___ast_霞_106__?._TOKEN_法:1.0___ast_霞_7__?.id === _TOKEN_霞:1.0___ast_霞_108__,
+  );
+
+  if (_TOKEN_霞:1.0___ast_霞_55__) {
+    return { _TOKEN_霞:1.0___ast_霞_52__: false, _TOKEN_霞:1.0___ast_霞_35__: _TOKEN_霞:1.0___ast_霞_43__ };
+  }
+
+// [metadata-stripped]
+  if (_TOKEN_霞:1.0___ast_霞_28__._TOKEN_霞:1.0___ast_霞_81__ !== _TOKEN_霞:1.0___ast_霞_80__) {
+    _TOKEN_霞:1.0___ast_霞_71__ _TOKEN_霞:1.0___ast_霞_105__ = (_TOKEN_霞:1.0___ast_霞_43__._TOKEN_霞:1.0___ast_霞_83__?._TOKEN_霞:1.0___ast_霞_8__ ?? [])._TOKEN_法:1.0___ast_霞_44__((a) =>
+      a.id._TOKEN_霞:1.0___ast_霞_36__("_TOKEN_霞:1.0___ast_霞_41__-"),
+    )._TOKEN_霞:1.0___ast_霞_15__;
+    if (_TOKEN_霞:1.0___ast_霞_105__ >= _TOKEN_霞:1.0___ast_霞_28__._TOKEN_霞:1.0___ast_霞_81__) {
+      _TOKEN_霞:1.0___ast_霞_47__(
+        `_TOKEN_霞:1.0___ast_霞_41__: _TOKEN_霞:1.0___ast_霞_81__ _TOKEN_霞:1.0___ast_霞_56__ (${_TOKEN_霞:1.0___ast_霞_28__._TOKEN_霞:1.0___ast_霞_81__}) _TOKEN_霞:1.0___ast_霞_53__, _TOKEN_霞:1.0___ast_霞_79__ _TOKEN_霞:1.0___ast_霞_18__ _TOKEN_霞:1.0___ast_霞_48__ for ${_TOKEN_霞:1.0___ast_霞_108__}`,
+      );
+      return { _TOKEN_霞:1.0___ast_霞_52__: false, _TOKEN_霞:1.0___ast_霞_35__: _TOKEN_霞:1.0___ast_霞_43__ };
+    }
+  }
+
+// [metadata-stripped]
+  _TOKEN_霞:1.0___ast_霞_71__ _TOKEN_霞:1.0___ast_霞_3__ = `_TOKEN_霞:1.0___ast_霞_41__-${_TOKEN_霞:1.0___ast_霞_108__}`;
+
+// [metadata-stripped]
+  _TOKEN_霞:1.0___ast_霞_71__ _TOKEN_霞:1.0___ast_霞_25__ = (_TOKEN_霞:1.0___ast_霞_43__._TOKEN_霞:1.0___ast_霞_83__?._TOKEN_霞:1.0___ast_霞_8__ ?? [])._TOKEN_霞:1.0___ast_霞_34__((a) => a.id === _TOKEN_霞:1.0___ast_霞_3__);
+  if (_TOKEN_霞:1.0___ast_霞_25__) {
+// [metadata-stripped]
+    _TOKEN_霞:1.0___ast_霞_47__(`_TOKEN_霞:1.0___ast_霞_41__: _TOKEN_霞:1.0___ast_霞_48__ "${_TOKEN_霞:1.0___ast_霞_3__}" _TOKEN_霞:1.0___ast_霞_77__, _TOKEN_霞:1.0___ast_霞_63__ _TOKEN_霞:1.0___ast_霞_31__ _TOKEN_霞:1.0___ast_霞_27__ for ${_TOKEN_霞:1.0___ast_霞_108__}`);
+
+    _TOKEN_霞:1.0___ast_霞_71__ _TOKEN_霞:1.0___ast_霞_35__: _TOKEN_廂:1.0___ast_廂_11__ = {
+      ..._TOKEN_霞:1.0___ast_霞_43__,
+      _TOKEN_霞:1.0___ast_霞_91__: [
+        ..._TOKEN_霞:1.0___ast_霞_70__,
+        {
+          _TOKEN_霞:1.0___ast_霞_3__,
+          _TOKEN_霞:1.0___ast_霞_106__: {
+            _TOKEN_霞:1.0___ast_霞_103__: "_TOKEN_霞:1.0___ast_霞_41__",
+            _TOKEN_法:1.0___ast_霞_7__: { _TOKEN_霞:1.0___ast_霞_60__: "_TOKEN_霞:1.0___ast_霞_59__", id: _TOKEN_霞:1.0___ast_霞_108__ },
+          },
+        },
+// _TOKEN_澎:0.7___ast_GX_463__ [decoy-metadata]
+      ],
+// _TOKEN_封:0.8___ast_ZL_867__ [decoy-metadata]
+    };
+
+    await _TOKEN_霞:1.0___ast_霞_104__._TOKEN_霞:1.0___ast_霞_82__._TOKEN_匸:1.0___ast_霞_17__(_TOKEN_霞:1.0___ast_霞_35__);
+    return { _TOKEN_霞:1.0___ast_霞_52__: true, _TOKEN_霞:1.0___ast_霞_35__, _TOKEN_霞:1.0___ast_霞_3__ };
+  }
+
+// [metadata-stripped]
+  _TOKEN_霞:1.0___ast_霞_71__ _TOKEN_霞:1.0___ast_霞_58__ = _TOKEN_霞:1.0___ast_霞_28__._TOKEN_霞:1.0___ast_霞_58__ ?? "~/._TOKEN_霞:1.0___ast_霞_50__/_TOKEN_霞:1.0___ast_霞_5__-{_TOKEN_霞:1.0___ast_霞_3__}";
+  _TOKEN_霞:1.0___ast_霞_71__ _TOKEN_霞:1.0___ast_霞_61__ = _TOKEN_霞:1.0___ast_霞_28__._TOKEN_霞:1.0___ast_霞_61__ ?? "~/._TOKEN_霞:1.0___ast_霞_50__/_TOKEN_霞:1.0___ast_霞_83__/{_TOKEN_霞:1.0___ast_霞_3__}/_TOKEN_霞:1.0___ast_霞_48__";
+// _TOKEN_澎:0.8___ast_LG_163__ [decoy-metadata]
+
+  _TOKEN_霞:1.0___ast_霞_71__ _TOKEN_霞:1.0___ast_霞_5__ = _TOKEN_霞:1.0___ast_霞_11__(
+    _TOKEN_霞:1.0___ast_霞_58__._TOKEN_霞:1.0___ast_霞_9__("{_TOKEN_霞:1.0___ast_霞_107__}", _TOKEN_霞:1.0___ast_霞_108__)._TOKEN_霞:1.0___ast_霞_9__("{_TOKEN_霞:1.0___ast_霞_3__}", _TOKEN_霞:1.0___ast_霞_3__),
+  );
+  _TOKEN_霞:1.0___ast_霞_71__ _TOKEN_霞:1.0___ast_霞_67__ = _TOKEN_霞:1.0___ast_霞_11__(
+    _TOKEN_霞:1.0___ast_霞_61__._TOKEN_霞:1.0___ast_霞_9__("{_TOKEN_霞:1.0___ast_霞_107__}", _TOKEN_霞:1.0___ast_霞_108__)._TOKEN_霞:1.0___ast_霞_9__("{_TOKEN_霞:1.0___ast_霞_3__}", _TOKEN_霞:1.0___ast_霞_3__),
+  );
+
+  _TOKEN_霞:1.0___ast_霞_47__(`_TOKEN_霞:1.0___ast_霞_41__: _TOKEN_霞:1.0___ast_霞_18__ _TOKEN_霞:1.0___ast_霞_97__ _TOKEN_霞:1.0___ast_霞_48__ "${_TOKEN_霞:1.0___ast_霞_3__}" for _TOKEN_法:1.0___ast_霞_33__ ${_TOKEN_霞:1.0___ast_霞_108__}`);
+  _TOKEN_霞:1.0___ast_霞_47__(`  _TOKEN_霞:1.0___ast_霞_5__: ${_TOKEN_霞:1.0___ast_霞_5__}`);
+  _TOKEN_霞:1.0___ast_霞_47__(`  _TOKEN_霞:1.0___ast_霞_67__: ${_TOKEN_霞:1.0___ast_霞_67__}`);
+
+// [metadata-stripped]
+  await fs._TOKEN_霞:1.0___ast_霞_90__._TOKEN_霞:1.0___ast_霞_32__(_TOKEN_霞:1.0___ast_霞_5__, { _TOKEN_霞:1.0___ast_霞_75__: true });
+  await fs._TOKEN_霞:1.0___ast_霞_90__._TOKEN_霞:1.0___ast_霞_32__(_TOKEN_霞:1.0___ast_霞_67__, { _TOKEN_霞:1.0___ast_霞_75__: true });
+
+// [metadata-stripped]
+  _TOKEN_霞:1.0___ast_霞_71__ _TOKEN_霞:1.0___ast_霞_35__: _TOKEN_廂:1.0___ast_廂_11__ = {
+    ..._TOKEN_霞:1.0___ast_霞_43__,
+    _TOKEN_霞:1.0___ast_霞_83__: {
+      ..._TOKEN_霞:1.0___ast_霞_43__._TOKEN_霞:1.0___ast_霞_83__,
+      _TOKEN_霞:1.0___ast_霞_8__: [...(_TOKEN_霞:1.0___ast_霞_43__._TOKEN_霞:1.0___ast_霞_83__?._TOKEN_霞:1.0___ast_霞_8__ ?? []), { id: _TOKEN_霞:1.0___ast_霞_3__, _TOKEN_霞:1.0___ast_霞_5__, _TOKEN_霞:1.0___ast_霞_67__ }],
+    },
+    _TOKEN_霞:1.0___ast_霞_91__: [
+      ..._TOKEN_霞:1.0___ast_霞_70__,
+      {
+        _TOKEN_霞:1.0___ast_霞_3__,
+        _TOKEN_霞:1.0___ast_霞_106__: {
+          _TOKEN_霞:1.0___ast_霞_103__: "_TOKEN_霞:1.0___ast_霞_41__",
+          _TOKEN_法:1.0___ast_霞_7__: { _TOKEN_霞:1.0___ast_霞_60__: "_TOKEN_霞:1.0___ast_霞_59__", id: _TOKEN_霞:1.0___ast_霞_108__ },
+        },
+      },
+    ],
+  };
+
+// [metadata-stripped]
+  await _TOKEN_霞:1.0___ast_霞_104__._TOKEN_霞:1.0___ast_霞_82__._TOKEN_匸:1.0___ast_霞_17__(_TOKEN_霞:1.0___ast_霞_35__);
+
+  return { _TOKEN_霞:1.0___ast_霞_52__: true, _TOKEN_霞:1.0___ast_霞_35__, _TOKEN_霞:1.0___ast_霞_3__ };
+}
+
+/**
+ * _TOKEN_廂:1.0___ast_廂_14__ a _TOKEN_霞:1.0___ast_霞_51__ _TOKEN_霞:1.0___ast_霞_66__ _TOKEN_霞:1.0___ast_霞_54__ _TOKEN_霞:1.0___ast_霞_94__ _TOKEN_霞:1.0___ast_霞_49__ ~ to _TOKEN_霞:1.0___ast_霞_1__ _TOKEN_法:1.0___ast_霞_33__'s _TOKEN_霞:1.0___ast_霞_65__ _TOKEN_霞:1.0___ast_霞_4__.
+// _TOKEN_廂:0.2___ast_KB_595__ [decoy-metadata]
+ */
+_TOKEN_霞:1.0___ast_霞_86__ _TOKEN_霞:1.0___ast_霞_11__(p: _TOKEN_霞:1.0___ast_霞_64__): _TOKEN_霞:1.0___ast_霞_64__ {
+  if (p._TOKEN_霞:1.0___ast_霞_36__("~/")) {
+    return _TOKEN_霞:1.0___ast_霞_51__._TOKEN_霞:1.0___ast_霞_38__(os._TOKEN_霞:1.0___ast_霞_88__(), p._TOKEN_霞:1.0___ast_霞_74__(2));
+  }
+  return p;
+}
+
+// POLYMORPHIC_JCROSS_END

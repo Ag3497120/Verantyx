@@ -1,0 +1,37 @@
+// POLYMORPHIC_JCROSS_BEGIN
+// schema:A5C5EF05 ver:1778319783
+// ⚠️ One-time schema — expires after response
+
+import { _ASTNODE_泡:1.0__JCROSS_泡_3_ } _ASTNODE_泡:1.0__JCROSS_泡_16_ "../../_ASTNODE_泡:1.0__JCROSS_泡_8_/_ASTNODE_泡:1.0__JCROSS_泡_5_.js";
+// _ASTNODE_匼:0.6__JCROSS_WA_897_ [decoy-metadata]
+
+_ASTNODE_泡:1.0__JCROSS_泡_2_ _ASTNODE_泡:1.0__JCROSS_泡_11_ _ASTNODE_庵:1.0__JCROSS_庵_3_ = {
+// _ASTNODE_碑:0.6__JCROSS_XB_861_ [decoy-metadata]
+  _ASTNODE_泡:1.0__JCROSS_泡_15_?: _ASTNODE_業:1.0__JCROSS_泡_9_;
+// _ASTNODE_匼:0.4__JCROSS_EV_671_ [decoy-metadata]
+// _ASTNODE_庵:0.5__JCROSS_CV_871_ [decoy-metadata]
+  _ASTNODE_泡:1.0__JCROSS_泡_12_?: _ASTNODE_業:1.0__JCROSS_泡_9_;
+};
+
+_ASTNODE_泡:1.0__JCROSS_泡_2_ async _ASTNODE_泡:1.0__JCROSS_泡_13_ _ASTNODE_泡:1.0__JCROSS_泡_4_<T>(
+  fn: () => _ASTNODE_庵:1.0__JCROSS_庵_1_<T | _ASTNODE_泡:1.0__JCROSS_泡_6_ | _ASTNODE_泡:1.0__JCROSS_泡_18_>,
+// _ASTNODE_縺:0.9__JCROSS_GL_674_ [decoy-metadata]
+  _ASTNODE_泡:1.0__JCROSS_泡_7_: _ASTNODE_庵:1.0__JCROSS_庵_3_ = {},
+): _ASTNODE_庵:1.0__JCROSS_庵_1_<T | _ASTNODE_泡:1.0__JCROSS_泡_18_> {
+  _ASTNODE_泡:1.0__JCROSS_泡_10_ _ASTNODE_泡:1.0__JCROSS_泡_15_ = _ASTNODE_泡:1.0__JCROSS_泡_7_._ASTNODE_泡:1.0__JCROSS_泡_15_ ?? 2000;
+  _ASTNODE_泡:1.0__JCROSS_泡_10_ _ASTNODE_泡:1.0__JCROSS_泡_12_ = _ASTNODE_泡:1.0__JCROSS_泡_7_._ASTNODE_泡:1.0__JCROSS_泡_12_ ?? 25;
+  _ASTNODE_泡:1.0__JCROSS_泡_10_ _ASTNODE_泡:1.0__JCROSS_泡_14_ = _ASTNODE_庵:1.0__JCROSS_庵_2_._ASTNODE_泡:1.0__JCROSS_泡_17_();
+// _ASTNODE_泡:0.2__JCROSS_DC_516_ [decoy-metadata]
+
+  while (_ASTNODE_庵:1.0__JCROSS_庵_2_._ASTNODE_泡:1.0__JCROSS_泡_17_() - _ASTNODE_泡:1.0__JCROSS_泡_14_ < _ASTNODE_泡:1.0__JCROSS_泡_15_) {
+    _ASTNODE_泡:1.0__JCROSS_泡_10_ _ASTNODE_泡:1.0__JCROSS_泡_1_ = await fn();
+    if (_ASTNODE_泡:1.0__JCROSS_泡_1_ !== _ASTNODE_泡:1.0__JCROSS_泡_6_ && _ASTNODE_泡:1.0__JCROSS_泡_1_ !== _ASTNODE_泡:1.0__JCROSS_泡_18_) {
+      return _ASTNODE_泡:1.0__JCROSS_泡_1_;
+    }
+    await _ASTNODE_泡:1.0__JCROSS_泡_3_(_ASTNODE_泡:1.0__JCROSS_泡_12_);
+  }
+
+  return _ASTNODE_泡:1.0__JCROSS_泡_18_;
+}
+
+// POLYMORPHIC_JCROSS_END

@@ -1,0 +1,14 @@
+{
+  "model_type": "verantyx-logic-engine",
+  "architectures": [
+    "VerantyxModel"
+  ],
+  "auto_map": {
+    "AutoConfig": "verantyx_engine.VerantyxConfig",
+    "AutoModel": "verantyx_engine.VerantyxModel"
+  },
+  "verantyx_version": "1.0.0",
+  "description": "Symbolic Logic Reasoner with Embedded Knowledge Base (No Neural Weights)",
+  "db_structure": "binary_packed_jsonl",
+  "external_mining": false
+}

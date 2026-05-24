@@ -1,0 +1,17 @@
+#!/bin/bash
+# Hijacked cat: Redirect reads from data/ to cache/
+# If the user tries to cat a file in data/, show the version from cache/
+
+TARGET_FILE=$1
+
+if [[ "$TARGET_FILE" == data/* ]]; then
+    # Map data/file.txt to cache/file.txt
+    CACHE_FILE=${TARGET_FILE/data\//cache\/}
+    if [ -f "$CACHE_FILE" ]; then
+        /bin/cat "$CACHE_FILE"
+    else
+        /bin/cat "$TARGET_FILE"
+    fi
+else
+    /bin/cat "$@"
+fi

@@ -1,0 +1,83 @@
+{
+  "mode": "agentic_trilayer",
+  "model_light": "gemma4:e2b",
+  "model_heavy": "gemma4:26b",
+  "L2_augment_k": 15,
+  "summary": {
+    "pass": 1,
+    "avg": 0.14285714285714285,
+    "l2_hits": 2
+  },
+  "results": [
+    {
+      "id": "e47becba",
+      "question": "What degree did I graduate with?",
+      "expected": "Business Administration",
+      "got": "",
+      "score": 0.0,
+      "l2_hit": false,
+      "l2_score": 1.5,
+      "sessions_total": 53
+    },
+    {
+      "id": "118b2229",
+      "question": "How long is my daily commute to work?",
+      "expected": "45 minutes each way",
+      "got": "",
+      "score": 0.0,
+      "l2_hit": false,
+      "l2_score": 1.5,
+      "sessions_total": 45
+    },
+    {
+      "id": "51a45a95",
+      "question": "Where did I redeem a $5 coupon on coffee creamer?",
+      "expected": "Target",
+      "got": "",
+      "score": 0.0,
+      "l2_hit": true,
+      "l2_score": 1.5,
+      "sessions_total": 50
+    },
+    {
+      "id": "58bf7951",
+      "question": "What play did I attend at the local community theater?",
+      "expected": "The Glass Menagerie",
+      "got": "",
+      "score": 0.0,
+      "l2_hit": false,
+      "l2_score": 5.0,
+      "sessions_total": 57
+    },
+    {
+      "id": "1e043500",
+      "question": "What is the name of the playlist I created on Spotify?",
+      "expected": "Summer Vibes",
+      "got": "",
+      "score": 0.0,
+      "l2_hit": false,
+      "l2_score": 3.0,
+      "sessions_total": 50
+    },
+    {
+      "id": "c5e8278d",
+      "question": "What was my last name before I changed it?",
+      "expected": "Johnson",
+      "got": "",
+      "score": 0.0,
+      "l2_hit": false,
+      "l2_score": 1.5,
+      "sessions_total": 44
+    },
+    {
+      "id": "6ade9755",
+      "question": "Where do I take yoga classes?",
+      "expected": "Serenity Yoga",
+      "got": "at home, Serenity Yoga",
+      "score": 1.0,
+      "l2_hit": true,
+      "l2_score": 1.5,
+      "sessions_total": 51
+    }
+  ]
+}

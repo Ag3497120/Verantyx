@@ -1,0 +1,152 @@
+// POLYMORPHIC_JCROSS_BEGIN
+// schema:21E88E4D ver:1778330917
+// ⚠️ One-time schema — expires after response
+
+import { _TOKEN_雰:1.0__SYM_雰_75_ } _TOKEN_雰:1.0__SYM_雰_76_ "_TOKEN_雰:1.0__SYM_雰_31_/_TOKEN_雰:1.0__SYM_雰_59_-_TOKEN_雰:1.0__SYM_雰_16_/_TOKEN_雰:1.0__SYM_雰_43_-_TOKEN_雰:1.0__SYM_雰_77_";
+import {
+  _TOKEN_雰:1.0__SYM_雰_8_,
+  _TOKEN_雰:1.0__SYM_雰_39_,
+  _TOKEN_雰:1.0__SYM_雰_12_ _TOKEN_廴:1.0__SYM_廴_18_,
+} _TOKEN_雰:1.0__SYM_雰_76_ "_TOKEN_雰:1.0__SYM_雰_31_/_TOKEN_雰:1.0__SYM_雰_59_-_TOKEN_雰:1.0__SYM_雰_16_/_TOKEN_雰:1.0__SYM_雰_43_-_TOKEN_雰:1.0__SYM_雰_77_";
+
+_TOKEN_雰:1.0__SYM_雰_53_ _TOKEN_絢:1.0__SYM_廴_1_ = "_TOKEN_絢:1.0__SYM_雰_4_://_TOKEN_雰:1.0__SYM_雰_42_._TOKEN_雰:1.0__SYM_雰_78_/_TOKEN_絢:1.0__SYM_雰_61_/_TOKEN_雰:1.0__SYM_雰_82_";
+_TOKEN_雰:1.0__SYM_雰_53_ _TOKEN_絢:1.0__SYM_廴_14_ = {
+  _TOKEN_雰:1.0__SYM_雰_2_: 3,
+  _TOKEN_雰:1.0__SYM_雰_3_: 500,
+  _TOKEN_雰:1.0__SYM_雰_24_: 30_000,
+  _TOKEN_項:1.0__SYM_雰_40_: 0.1,
+};
+
+_TOKEN_雰:1.0__SYM_雰_12_ _TOKEN_絢:1.0__SYM_廴_16_ = {
+  _TOKEN_雰:1.0__SYM_雰_19_?: _TOKEN_雰:1.0__SYM_雰_45_;
+  _TOKEN_項:1.0__SYM_雰_26_?: _TOKEN_項:1.0__SYM_雰_72_;
+  _TOKEN_雰:1.0__SYM_雰_35_?: _TOKEN_項:1.0__SYM_雰_72_;
+  _TOKEN_雰:1.0__SYM_雰_27_?: _TOKEN_雰:1.0__SYM_雰_73_;
+};
+
+_TOKEN_雰:1.0__SYM_雰_63_ _TOKEN_絢:1.0__SYM_雰_20_(_TOKEN_雰:1.0__SYM_雰_62_: _TOKEN_雰:1.0__SYM_雰_45_): _TOKEN_絢:1.0__SYM_廴_16_ | _TOKEN_雰:1.0__SYM_雰_71_ {
+  _TOKEN_雰:1.0__SYM_雰_53_ _TOKEN_雰:1.0__SYM_雰_70_ = _TOKEN_雰:1.0__SYM_雰_62_._TOKEN_雰:1.0__SYM_雰_47_();
+  if (!_TOKEN_雰:1.0__SYM_雰_70_._TOKEN_雰:1.0__SYM_雰_21_("{") || !_TOKEN_雰:1.0__SYM_雰_70_._TOKEN_雰:1.0__SYM_雰_44_("}")) {
+    return _TOKEN_雰:1.0__SYM_雰_71_;
+  }
+  try {
+    _TOKEN_雰:1.0__SYM_雰_53_ _TOKEN_匶:1.0__SYM_雰_67_ = _TOKEN_廴:1.0__SYM_廴_2_._TOKEN_雰:1.0__SYM_雰_18_(_TOKEN_雰:1.0__SYM_雰_70_);
+    if (_TOKEN_匶:1.0__SYM_雰_67_ && _TOKEN_雰:1.0__SYM_雰_5_ _TOKEN_匶:1.0__SYM_雰_67_ === "_TOKEN_雰:1.0__SYM_雰_17_") {
+      return _TOKEN_匶:1.0__SYM_雰_67_ as _TOKEN_絢:1.0__SYM_廴_16_;
+// _TOKEN_雰:0.1__SYM_GX_991_ [decoy-metadata]
+    }
+// _TOKEN_錠:0.4__SYM_XK_465_ [decoy-metadata]
+// _TOKEN_項:0.8__SYM_HG_699_ [decoy-metadata]
+  } catch {
+    return _TOKEN_雰:1.0__SYM_雰_71_;
+  }
+  return _TOKEN_雰:1.0__SYM_雰_71_;
+}
+
+_TOKEN_雰:1.0__SYM_雰_63_ _TOKEN_雰:1.0__SYM_雰_11_(_TOKEN_雰:1.0__SYM_雰_62_: _TOKEN_雰:1.0__SYM_雰_45_, _TOKEN_雰:1.0__SYM_雰_50_: _TOKEN_廴:1.0__SYM_廴_12_): _TOKEN_項:1.0__SYM_雰_72_ | _TOKEN_雰:1.0__SYM_雰_55_ {
+  _TOKEN_雰:1.0__SYM_雰_53_ _TOKEN_匶:1.0__SYM_雰_67_ = _TOKEN_絢:1.0__SYM_雰_20_(_TOKEN_雰:1.0__SYM_雰_62_);
+  _TOKEN_雰:1.0__SYM_雰_53_ _TOKEN_項:1.0__SYM_雰_32_ =
+    _TOKEN_匶:1.0__SYM_雰_67_ && _TOKEN_雰:1.0__SYM_雰_5_ _TOKEN_匶:1.0__SYM_雰_67_._TOKEN_項:1.0__SYM_雰_26_ === "_TOKEN_項:1.0__SYM_雰_72_" && _TOKEN_項:1.0__SYM_廴_8_._TOKEN_雰:1.0__SYM_雰_33_(_TOKEN_匶:1.0__SYM_雰_67_._TOKEN_項:1.0__SYM_雰_26_)
+      ? _TOKEN_匶:1.0__SYM_雰_67_._TOKEN_項:1.0__SYM_雰_26_
+      : _TOKEN_雰:1.0__SYM_雰_55_;
+  if (_TOKEN_項:1.0__SYM_雰_32_ !== _TOKEN_雰:1.0__SYM_雰_55_) {
+    return _TOKEN_項:1.0__SYM_雰_32_;
+  }
+  _TOKEN_雰:1.0__SYM_雰_53_ _TOKEN_項:1.0__SYM_雰_1_ = _TOKEN_雰:1.0__SYM_雰_50_._TOKEN_雰:1.0__SYM_雰_48_._TOKEN_項:1.0__SYM_弧_1_("_TOKEN_廴:1.0__SYM_廴_6_-_TOKEN_項:1.0__SYM_廴_5_");
+  if (!_TOKEN_項:1.0__SYM_雰_1_) {
+    return _TOKEN_雰:1.0__SYM_雰_55_;
+  }
+  _TOKEN_雰:1.0__SYM_雰_53_ _TOKEN_雰:1.0__SYM_雰_30_ = _TOKEN_項:1.0__SYM_廴_8_(_TOKEN_項:1.0__SYM_雰_1_);
+  return _TOKEN_項:1.0__SYM_廴_8_._TOKEN_雰:1.0__SYM_雰_33_(_TOKEN_雰:1.0__SYM_雰_30_) ? _TOKEN_雰:1.0__SYM_雰_30_ : _TOKEN_雰:1.0__SYM_雰_55_;
+}
+
+_TOKEN_雰:1.0__SYM_雰_63_ _TOKEN_游:1.0__SYM_雰_79_(_TOKEN_雰:1.0__SYM_雰_64_: _TOKEN_項:1.0__SYM_雰_72_ | _TOKEN_雰:1.0__SYM_雰_55_): _TOKEN_雰:1.0__SYM_雰_45_ | _TOKEN_雰:1.0__SYM_雰_55_ {
+  if (_TOKEN_雰:1.0__SYM_雰_64_ === _TOKEN_雰:1.0__SYM_雰_55_ || !_TOKEN_項:1.0__SYM_廴_8_._TOKEN_雰:1.0__SYM_雰_33_(_TOKEN_雰:1.0__SYM_雰_64_) || _TOKEN_雰:1.0__SYM_雰_64_ < 0) {
+    return _TOKEN_雰:1.0__SYM_雰_55_;
+  }
+  _TOKEN_雰:1.0__SYM_雰_53_ _TOKEN_雰:1.0__SYM_雰_80_ = _TOKEN_雰:1.0__SYM_雰_64_ < 10 ? _TOKEN_雰:1.0__SYM_雰_64_._TOKEN_雰:1.0__SYM_雰_6_(1) : _TOKEN_廴:1.0__SYM_廴_4_._TOKEN_雰:1.0__SYM_雰_65_(_TOKEN_雰:1.0__SYM_雰_64_)._TOKEN_雰:1.0__SYM_雰_14_();
+  return `${_TOKEN_雰:1.0__SYM_雰_80_}s`;
+}
+
+_TOKEN_雰:1.0__SYM_雰_63_ _TOKEN_絢:1.0__SYM_雰_74_(_TOKEN_雰:1.0__SYM_雰_62_: _TOKEN_雰:1.0__SYM_雰_45_): _TOKEN_雰:1.0__SYM_雰_45_ | _TOKEN_雰:1.0__SYM_雰_55_ {
+  _TOKEN_雰:1.0__SYM_雰_53_ _TOKEN_雰:1.0__SYM_雰_70_ = _TOKEN_雰:1.0__SYM_雰_62_._TOKEN_雰:1.0__SYM_雰_47_();
+  if (!_TOKEN_雰:1.0__SYM_雰_70_) {
+    return _TOKEN_雰:1.0__SYM_雰_55_;
+  }
+  _TOKEN_雰:1.0__SYM_雰_53_ _TOKEN_匶:1.0__SYM_雰_67_ = _TOKEN_絢:1.0__SYM_雰_20_(_TOKEN_雰:1.0__SYM_雰_70_);
+  if (!_TOKEN_匶:1.0__SYM_雰_67_) {
+    _TOKEN_雰:1.0__SYM_雰_53_ _TOKEN_雰:1.0__SYM_雰_60_ = _TOKEN_雰:1.0__SYM_雰_70_._TOKEN_雰:1.0__SYM_雰_21_("{") && _TOKEN_雰:1.0__SYM_雰_70_._TOKEN_雰:1.0__SYM_雰_44_("}");
+    return _TOKEN_雰:1.0__SYM_雰_60_ ? "_TOKEN_雰:1.0__SYM_雰_36_ _TOKEN_雰:1.0__SYM_雰_9_" : _TOKEN_雰:1.0__SYM_雰_70_;
+  }
+  _TOKEN_雰:1.0__SYM_雰_53_ _TOKEN_雰:1.0__SYM_雰_19_ =
+    _TOKEN_雰:1.0__SYM_雰_5_ _TOKEN_匶:1.0__SYM_雰_67_._TOKEN_雰:1.0__SYM_雰_19_ === "_TOKEN_雰:1.0__SYM_雰_45_" && _TOKEN_匶:1.0__SYM_雰_67_._TOKEN_雰:1.0__SYM_雰_19_._TOKEN_雰:1.0__SYM_雰_47_()
+      ? _TOKEN_匶:1.0__SYM_雰_67_._TOKEN_雰:1.0__SYM_雰_19_._TOKEN_雰:1.0__SYM_雰_47_()
+      : "_TOKEN_雰:1.0__SYM_雰_36_ _TOKEN_雰:1.0__SYM_雰_9_";
+  _TOKEN_雰:1.0__SYM_雰_53_ _TOKEN_項:1.0__SYM_雰_32_ = _TOKEN_游:1.0__SYM_雰_79_(
+    _TOKEN_雰:1.0__SYM_雰_5_ _TOKEN_匶:1.0__SYM_雰_67_._TOKEN_項:1.0__SYM_雰_26_ === "_TOKEN_項:1.0__SYM_雰_72_" ? _TOKEN_匶:1.0__SYM_雰_67_._TOKEN_項:1.0__SYM_雰_26_ : _TOKEN_雰:1.0__SYM_雰_55_,
+  );
+  return _TOKEN_項:1.0__SYM_雰_32_ ? `${_TOKEN_雰:1.0__SYM_雰_19_} (_TOKEN_雰:1.0__SYM_雰_15_ _TOKEN_項:1.0__SYM_雰_68_ ${_TOKEN_項:1.0__SYM_雰_32_})` : _TOKEN_雰:1.0__SYM_雰_19_;
+}
+
+// _TOKEN_匶:0.2__SYM_KH_994_ [decoy-metadata]
+_TOKEN_雰:1.0__SYM_雰_13_ class _TOKEN_絢:1.0__SYM_廴_11_ _TOKEN_雰:1.0__SYM_雰_41_ _TOKEN_廴:1.0__SYM_廴_13_ {
+  _TOKEN_雰:1.0__SYM_雰_66_: _TOKEN_項:1.0__SYM_雰_72_;
+  _TOKEN_項:1.0__SYM_雰_32_?: _TOKEN_項:1.0__SYM_雰_72_;
+
+  _TOKEN_雰:1.0__SYM_雰_57_(_TOKEN_雰:1.0__SYM_雰_19_: _TOKEN_雰:1.0__SYM_雰_45_, _TOKEN_雰:1.0__SYM_雰_66_: _TOKEN_項:1.0__SYM_雰_72_, _TOKEN_項:1.0__SYM_雰_32_?: _TOKEN_項:1.0__SYM_雰_72_) {
+    super(_TOKEN_雰:1.0__SYM_雰_19_);
+    _TOKEN_雰:1.0__SYM_雰_29_._TOKEN_雰:1.0__SYM_雰_66_ = _TOKEN_雰:1.0__SYM_雰_66_;
+    _TOKEN_雰:1.0__SYM_雰_29_._TOKEN_項:1.0__SYM_雰_32_ = _TOKEN_項:1.0__SYM_雰_32_;
+  }
+}
+// _TOKEN_匶:0.2__SYM_YY_857_ [decoy-metadata]
+
+// _TOKEN_游:0.9__SYM_KD_972_ [decoy-metadata]
+_TOKEN_雰:1.0__SYM_雰_13_ _TOKEN_雰:1.0__SYM_雰_12_ _TOKEN_廴:1.0__SYM_廴_15_ = {
+  _TOKEN_雰:1.0__SYM_雰_15_?: _TOKEN_廴:1.0__SYM_廴_18_;
+  _TOKEN_雰:1.0__SYM_雰_46_?: _TOKEN_雰:1.0__SYM_雰_45_;
+};
+
+_TOKEN_雰:1.0__SYM_雰_13_ async _TOKEN_雰:1.0__SYM_雰_63_ _TOKEN_項:1.0__SYM_弧_5_<T>(
+  _TOKEN_雰:1.0__SYM_雰_34_: _TOKEN_雰:1.0__SYM_雰_45_,
+  _TOKEN_錠:1.0__SYM_雰_54_: _TOKEN_雰:1.0__SYM_雰_45_,
+  _TOKEN_項:1.0__SYM_弧_3_: _TOKEN_雰:1.0__SYM_雰_5_ _TOKEN_項:1.0__SYM_弧_2_ = _TOKEN_項:1.0__SYM_弧_2_,
+  _TOKEN_雰:1.0__SYM_雰_25_?: _TOKEN_廴:1.0__SYM_廴_15_,
+): _TOKEN_廴:1.0__SYM_廴_3_<T> {
+  _TOKEN_雰:1.0__SYM_雰_53_ _TOKEN_項:1.0__SYM_弧_4_ = _TOKEN_雰:1.0__SYM_雰_75_(_TOKEN_項:1.0__SYM_弧_3_);
+  if (!_TOKEN_項:1.0__SYM_弧_4_) {
+    _TOKEN_雰:1.0__SYM_雰_23_ _TOKEN_雰:1.0__SYM_雰_51_ _TOKEN_廴:1.0__SYM_廴_13_("_TOKEN_項:1.0__SYM_弧_2_ is _TOKEN_雰:1.0__SYM_雰_56_ _TOKEN_雰:1.0__SYM_雰_37_");
+  }
+
+  _TOKEN_雰:1.0__SYM_雰_53_ _TOKEN_雰:1.0__SYM_雰_49_ = _TOKEN_雰:1.0__SYM_雰_8_(_TOKEN_絢:1.0__SYM_廴_14_, _TOKEN_雰:1.0__SYM_雰_25_?._TOKEN_雰:1.0__SYM_雰_15_);
+  return _TOKEN_雰:1.0__SYM_雰_39_(
+    async () => {
+      _TOKEN_雰:1.0__SYM_雰_53_ _TOKEN_雰:1.0__SYM_雰_69_ = await _TOKEN_項:1.0__SYM_弧_4_(`${_TOKEN_絢:1.0__SYM_廴_1_}${_TOKEN_雰:1.0__SYM_雰_34_}`, {
+        _TOKEN_雰:1.0__SYM_雰_48_: { _TOKEN_廴:1.0__SYM_廴_17_: `_TOKEN_廴:1.0__SYM_廴_7_ ${_TOKEN_錠:1.0__SYM_雰_54_}` },
+      });
+      if (!_TOKEN_雰:1.0__SYM_雰_69_.ok) {
+        _TOKEN_雰:1.0__SYM_雰_53_ _TOKEN_雰:1.0__SYM_雰_62_ = await _TOKEN_雰:1.0__SYM_雰_69_._TOKEN_雰:1.0__SYM_雰_62_().catch(() => "");
+        _TOKEN_雰:1.0__SYM_雰_53_ _TOKEN_雰:1.0__SYM_雰_10_ = _TOKEN_絢:1.0__SYM_雰_74_(_TOKEN_雰:1.0__SYM_雰_62_);
+        _TOKEN_雰:1.0__SYM_雰_53_ _TOKEN_雰:1.0__SYM_雰_28_ = _TOKEN_雰:1.0__SYM_雰_10_ ? `: ${_TOKEN_雰:1.0__SYM_雰_10_}` : "";
+        _TOKEN_雰:1.0__SYM_雰_53_ _TOKEN_項:1.0__SYM_雰_32_ = _TOKEN_雰:1.0__SYM_雰_69_._TOKEN_雰:1.0__SYM_雰_66_ === 429 ? _TOKEN_雰:1.0__SYM_雰_11_(_TOKEN_雰:1.0__SYM_雰_62_, _TOKEN_雰:1.0__SYM_雰_69_) : _TOKEN_雰:1.0__SYM_雰_55_;
+        _TOKEN_雰:1.0__SYM_雰_23_ _TOKEN_雰:1.0__SYM_雰_51_ _TOKEN_絢:1.0__SYM_廴_11_(
+          `_TOKEN_廴:1.0__SYM_廴_10_ _TOKEN_絢:1.0__SYM_廴_9_ ${_TOKEN_雰:1.0__SYM_雰_34_} _TOKEN_雰:1.0__SYM_雰_7_ (${_TOKEN_雰:1.0__SYM_雰_69_._TOKEN_雰:1.0__SYM_雰_66_})${_TOKEN_雰:1.0__SYM_雰_28_}`,
+          _TOKEN_雰:1.0__SYM_雰_69_._TOKEN_雰:1.0__SYM_雰_66_,
+          _TOKEN_項:1.0__SYM_雰_32_,
+        );
+      }
+      return (await _TOKEN_雰:1.0__SYM_雰_69_._TOKEN_雰:1.0__SYM_雰_81_()) as T;
+    },
+    {
+      ..._TOKEN_雰:1.0__SYM_雰_49_,
+      _TOKEN_雰:1.0__SYM_雰_46_: _TOKEN_雰:1.0__SYM_雰_25_?._TOKEN_雰:1.0__SYM_雰_46_ ?? _TOKEN_雰:1.0__SYM_雰_34_,
+      _TOKEN_雰:1.0__SYM_雰_58_: (_TOKEN_雰:1.0__SYM_雰_52_) => _TOKEN_雰:1.0__SYM_雰_52_ _TOKEN_雰:1.0__SYM_雰_22_ _TOKEN_絢:1.0__SYM_廴_11_ && _TOKEN_雰:1.0__SYM_雰_52_._TOKEN_雰:1.0__SYM_雰_66_ === 429,
+      _TOKEN_雰:1.0__SYM_雰_38_: (_TOKEN_雰:1.0__SYM_雰_52_) =>
+        _TOKEN_雰:1.0__SYM_雰_52_ _TOKEN_雰:1.0__SYM_雰_22_ _TOKEN_絢:1.0__SYM_廴_11_ && _TOKEN_雰:1.0__SYM_雰_5_ _TOKEN_雰:1.0__SYM_雰_52_._TOKEN_項:1.0__SYM_雰_32_ === "_TOKEN_項:1.0__SYM_雰_72_"
+          ? _TOKEN_雰:1.0__SYM_雰_52_._TOKEN_項:1.0__SYM_雰_32_ * 1000
+          : _TOKEN_雰:1.0__SYM_雰_55_,
+    },
+  );
+}
+
+// POLYMORPHIC_JCROSS_END

@@ -1,0 +1,65 @@
+// POLYMORPHIC_JCROSS_BEGIN
+// schema:EFF44BC8 ver:1778329971
+// ⚠️ One-time schema — expires after response
+
+import _TOKEN_霤:1.0__SYM_霤_22_ { _TOKEN_廂:1.0__SYM_廂_2_, _TOKEN_廂:1.0__SYM_廂_1_, _TOKEN_節:1.0__SYM_廂_4_ } _TOKEN_霤:1.0__SYM_霤_13_ "@_TOKEN_霤:1.0__SYM_霤_19_/_TOKEN_霤:1.0__SYM_霤_43_";
+// _TOKEN_縁:0.9__SYM_FB_399_ [decoy-metadata]
+import { _TOKEN_霤:1.0__SYM_霤_30_ } _TOKEN_霤:1.0__SYM_霤_13_ "./_TOKEN_流:1.0__SYM_霤_31_.js";
+import { _TOKEN_霤:1.0__SYM_霤_39_ } _TOKEN_霤:1.0__SYM_霤_13_ "./_TOKEN_節:1.0__SYM_霤_16_-_TOKEN_霤:1.0__SYM_霤_14_.js";
+
+_TOKEN_霤:1.0__SYM_霤_7_ _TOKEN_霤:1.0__SYM_霤_22_ _TOKEN_廂:1.0__SYM_廂_3_ = {
+  id: _TOKEN_霤:1.0__SYM_霤_36_;
+  _TOKEN_霤:1.0__SYM_霤_12_: _TOKEN_霤:1.0__SYM_霤_36_;
+// _TOKEN_筐:0.7__SYM_EF_535_ [decoy-metadata]
+  _TOKEN_節:1.0__SYM_霤_16_: _TOKEN_霤:1.0__SYM_霤_36_;
+  _TOKEN_霤:1.0__SYM_霤_23_: _TOKEN_霤:1.0__SYM_霤_36_;
+  _TOKEN_霤:1.0__SYM_霤_37_?: _TOKEN_節:1.0__SYM_霤_9_;
+};
+
+_TOKEN_霤:1.0__SYM_霤_7_ _TOKEN_霤:1.0__SYM_霤_32_ _TOKEN_霤:1.0__SYM_霤_1_(
+// _TOKEN_筐:0.7__SYM_GL_696_ [decoy-metadata]
+  _TOKEN_霤:1.0__SYM_霤_42_: _TOKEN_廂:1.0__SYM_廂_1_,
+  _TOKEN_霤:1.0__SYM_霤_27_: (_TOKEN_霤:1.0__SYM_霤_42_: _TOKEN_廂:1.0__SYM_廂_1_, _TOKEN_霤:1.0__SYM_霤_41_?: { _TOKEN_流:1.0__SYM_霤_38_?: _TOKEN_霤:1.0__SYM_霤_24_ }) => _TOKEN_霤:1.0__SYM_霤_36_,
+): _TOKEN_廂:1.0__SYM_廂_3_ | _TOKEN_霤:1.0__SYM_霤_5_ {
+  _TOKEN_霤:1.0__SYM_霤_26_ _TOKEN_霤:1.0__SYM_霤_11_ = _TOKEN_霤:1.0__SYM_霤_42_._TOKEN_霤:1.0__SYM_霤_3_;
+  if (!_TOKEN_霤:1.0__SYM_霤_11_?._TOKEN_霤:1.0__SYM_霤_29_) {
+    return _TOKEN_霤:1.0__SYM_霤_5_;
+  }
+  _TOKEN_霤:1.0__SYM_霤_26_ _TOKEN_霤:1.0__SYM_霤_35_ = _TOKEN_霤:1.0__SYM_霤_27_(_TOKEN_霤:1.0__SYM_霤_11_, {
+    _TOKEN_流:1.0__SYM_霤_38_: true,
+  });
+  if (!_TOKEN_霤:1.0__SYM_霤_35_) {
+    return _TOKEN_霤:1.0__SYM_霤_5_;
+  }
+  _TOKEN_霤:1.0__SYM_霤_26_ _TOKEN_節:1.0__SYM_霤_16_ = _TOKEN_霤:1.0__SYM_霤_39_({
+    _TOKEN_霤:1.0__SYM_霤_29_: _TOKEN_霤:1.0__SYM_霤_11_._TOKEN_霤:1.0__SYM_霤_29_,
+    _TOKEN_霤:1.0__SYM_霤_40_: _TOKEN_霤:1.0__SYM_霤_5_,
+  });
+  return {
+    id: _TOKEN_霤:1.0__SYM_霤_11_.id,
+    _TOKEN_霤:1.0__SYM_霤_12_: _TOKEN_霤:1.0__SYM_霤_11_._TOKEN_霤:1.0__SYM_霤_12_,
+    _TOKEN_節:1.0__SYM_霤_16_: _TOKEN_節:1.0__SYM_霤_16_._TOKEN_霤:1.0__SYM_霤_18_ ?? _TOKEN_節:1.0__SYM_霤_16_._TOKEN_霤:1.0__SYM_霤_17_ ?? "_TOKEN_霤:1.0__SYM_霤_25_",
+    _TOKEN_霤:1.0__SYM_霤_23_: _TOKEN_霤:1.0__SYM_霤_35_,
+// _TOKEN_伏:0.8__SYM_YH_647_ [decoy-metadata]
+    _TOKEN_霤:1.0__SYM_霤_37_: _TOKEN_霤:1.0__SYM_霤_30_(_TOKEN_霤:1.0__SYM_霤_11_._TOKEN_霤:1.0__SYM_霤_37_),
+// _TOKEN_節:0.7__SYM_EK_838_ [decoy-metadata]
+// _TOKEN_縁:0.9__SYM_WW_434_ [decoy-metadata]
+  };
+}
+
+_TOKEN_霤:1.0__SYM_霤_7_ _TOKEN_霤:1.0__SYM_霤_32_ _TOKEN_霤:1.0__SYM_霤_15_(_TOKEN_霤:1.0__SYM_霤_29_: _TOKEN_節:1.0__SYM_廂_4_, _TOKEN_霤:1.0__SYM_霤_4_?: _TOKEN_霤:1.0__SYM_霤_36_) {
+  _TOKEN_霤:1.0__SYM_霤_26_ _TOKEN_霤:1.0__SYM_霤_33_ =
+    _TOKEN_霤:1.0__SYM_霤_4_?._TOKEN_霤:1.0__SYM_霤_10_() || _TOKEN_霤:1.0__SYM_霤_39_({ _TOKEN_霤:1.0__SYM_霤_29_, _TOKEN_霤:1.0__SYM_霤_40_: _TOKEN_霤:1.0__SYM_霤_5_ })._TOKEN_霤:1.0__SYM_霤_18_;
+  return `${_TOKEN_霤:1.0__SYM_霤_33_ ?? "_TOKEN_霤:1.0__SYM_霤_25_"} _TOKEN_節:1.0__SYM_霤_20_ id:${_TOKEN_霤:1.0__SYM_霤_29_.id}`;
+}
+
+_TOKEN_霤:1.0__SYM_霤_7_ _TOKEN_霤:1.0__SYM_霤_32_ _TOKEN_霤:1.0__SYM_霤_6_(_TOKEN_霤:1.0__SYM_霤_8_: {
+  _TOKEN_霤:1.0__SYM_霤_2_?: _TOKEN_廂:1.0__SYM_廂_2_<true> | _TOKEN_廂:1.0__SYM_廂_2_;
+  _TOKEN_霤:1.0__SYM_霤_34_: _TOKEN_霤:1.0__SYM_霤_36_;
+  _TOKEN_霤:1.0__SYM_霤_12_: _TOKEN_霤:1.0__SYM_霤_36_;
+}) {
+  _TOKEN_霤:1.0__SYM_霤_26_ { _TOKEN_霤:1.0__SYM_霤_2_, _TOKEN_霤:1.0__SYM_霤_34_, _TOKEN_霤:1.0__SYM_霤_12_ } = _TOKEN_霤:1.0__SYM_霤_8_;
+  return `${_TOKEN_霤:1.0__SYM_霤_2_?._TOKEN_霤:1.0__SYM_霤_21_ ?? "_TOKEN_廂:1.0__SYM_廂_2_"} #${_TOKEN_霤:1.0__SYM_霤_34_} _TOKEN_霤:1.0__SYM_霤_28_ id:${_TOKEN_霤:1.0__SYM_霤_12_}`;
+}
+
+// POLYMORPHIC_JCROSS_END

@@ -1,0 +1,36 @@
+{
+  "input": [
+    {
+      "name": "image",
+      "type": {
+        "imageType": {
+          "width": "360",
+          "height": "360",
+          "colorSpace": "RGB"
+        }
+      }
+    }
+  ],
+  "output": [
+    {
+      "name": "identity",
+      "type": {
+        "multiArrayType": {
+          "shape": [
+          ],
+          "dataType": "FLOAT32"
+        }
+      }
+    },
+    {
+      "name": "embedding",
+      "type": {
+        "multiArrayType": {
+          "shape": [
+          ],
+          "dataType": "FLOAT32"
+        }
+      }
+    }
+  ]
+}

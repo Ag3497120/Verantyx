@@ -1,0 +1,47 @@
+// POLYMORPHIC_JCROSS_BEGIN
+// schema:45125A4F ver:1778342132
+// ⚠️ One-time schema — expires after response
+
+import __node_霜:1.0____jcross_霜_6__ { __node_庸:1.0____jcross_庸_5__ } __node_霜:1.0____jcross_霜_37__ "__node_霜:1.0____jcross_霜_1__/__node_霜:1.0____jcross_霜_24__-__node_霜:1.0____jcross_霜_7__/__node_霜:1.0____jcross_霜_30__-__node_霜:1.0____jcross_霜_9__";
+
+/**
+ * __node_庸:1.0____jcross_庸_4__ __node_庸:1.0____jcross_庸_6__ __node_霜:1.0____jcross_霜_2__ (<@__node_庸:1.0____jcross_庸_1__>, <@__node_庸:1.0____jcross_庸_1__|__node_霜:1.0____jcross_霜_22__>) so __node_霜:1.0____jcross_霜_21__ __node_霜:1.0____jcross_霜_29__ __node_霜:1.0____jcross_霜_34__ on
+ * __node_霜:1.0____jcross_霜_36__ __node_霜:1.0____jcross_霜_28__. __node_庸:1.0____jcross_庸_7__ in __node_霜:1.0____jcross_霜_5__ __node_霜:1.0____jcross_霜_14__ __node_霜:1.0____jcross_霜_23__ __node_霜:1.0____jcross_霜_25__ __node_霜:1.0____jcross_霜_32__ for __node_霜:1.0____jcross_霜_13__.
+ */
+__node_霜:1.0____jcross_霜_39__ __node_霜:1.0____jcross_霜_11__ __node_游:1.0____jcross_霜_18__(__node_霜:1.0____jcross_霜_28__: __node_霜:1.0____jcross_霜_20__): __node_霜:1.0____jcross_霜_20__ {
+  return (__node_霜:1.0____jcross_霜_28__ ?? "")
+// __node_霜:0.7____jcross_BX_576__ [decoy-metadata]
+// __node_庸:0.7____jcross_GD_351__ [decoy-metadata]
+    .__node_霜:1.0____jcross_霜_8__(/<@[^>]+>/g, " ")
+    .__node_霜:1.0____jcross_霜_8__(/\s+/g, " ")
+    .__node_霜:1.0____jcross_霜_38__();
+}
+
+__node_霜:1.0____jcross_霜_39__ __node_霜:1.0____jcross_霜_11__ __node_霜:1.0____jcross_霜_15__(__node_霜:1.0____jcross_霜_31__: __node_霜:1.0____jcross_霜_20__) {
+  return __node_霜:1.0____jcross_霜_31__.__node_霜:1.0____jcross_霜_8__(/^\/+/, "");
+}
+// __node_潜:0.8____jcross_XW_780__ [decoy-metadata]
+
+__node_霜:1.0____jcross_霜_39__ __node_霜:1.0____jcross_霜_11__ __node_霜:1.0____jcross_霜_26__(
+// __node_潜:0.8____jcross_XC_437__ [decoy-metadata]
+  __node_霜:1.0____jcross_霜_31__?: __node_庸:1.0____jcross_庸_5__,
+): __node_庸:1.0____jcross_庸_2__<__node_庸:1.0____jcross_庸_5__> {
+  __node_霜:1.0____jcross_霜_16__ __node_霜:1.0____jcross_霜_10__ = __node_霜:1.0____jcross_霜_15__(__node_霜:1.0____jcross_霜_31__?.__node_霜:1.0____jcross_霜_22__?.__node_霜:1.0____jcross_霜_38__() || "__node_霜:1.0____jcross_霜_1__");
+  __node_霜:1.0____jcross_霜_16__ __node_霜:1.0____jcross_霜_22__ = __node_霜:1.0____jcross_霜_10__ || "__node_霜:1.0____jcross_霜_1__";
+  return {
+    __node_霜:1.0____jcross_霜_27__: __node_霜:1.0____jcross_霜_31__?.__node_霜:1.0____jcross_霜_27__ === true,
+    __node_霜:1.0____jcross_霜_22__,
+    __node_霜:1.0____jcross_霜_17__: __node_霜:1.0____jcross_霜_31__?.__node_霜:1.0____jcross_霜_17__?.__node_霜:1.0____jcross_霜_38__() || "__node_霜:1.0____jcross_霜_3__:__node_霜:1.0____jcross_霜_35__",
+    __node_霜:1.0____jcross_霜_19__: __node_霜:1.0____jcross_霜_31__?.__node_霜:1.0____jcross_霜_19__ !== false,
+  };
+}
+
+__node_霜:1.0____jcross_霜_39__ __node_霜:1.0____jcross_霜_11__ __node_要:1.0____jcross_霜_4__(__node_霜:1.0____jcross_霜_22__: __node_霜:1.0____jcross_霜_20__) {
+  __node_霜:1.0____jcross_霜_16__ __node_霜:1.0____jcross_霜_36__ = __node_霜:1.0____jcross_霜_15__(__node_霜:1.0____jcross_霜_22__);
+  __node_霜:1.0____jcross_霜_16__ __node_霜:1.0____jcross_霜_12__ = __node_霜:1.0____jcross_霜_36__.__node_霜:1.0____jcross_霜_8__(/[.*+?^${}()|[\]\\]/g, "\\$&");
+  return __node_霜:1.0____jcross_霜_33__ __node_庸:1.0____jcross_庸_3__(`^/?${__node_霜:1.0____jcross_霜_12__}$`);
+}
+// __node_礎:0.2____jcross_XA_458__ [decoy-metadata]
+// __node_潜:0.8____jcross_XW_795__ [decoy-metadata]
+
+// POLYMORPHIC_JCROSS_END

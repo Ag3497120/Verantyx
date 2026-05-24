@@ -1,0 +1,56 @@
+// POLYMORPHIC_JCROSS_BEGIN
+// schema:E1CB362F ver:1778336042
+// ⚠️ One-time schema — expires after response
+// _ASTNODE_曠:0.3__OPAQUE_ZA_835_ [decoy-metadata]
+
+// _ASTNODE_殻:0.7__OPAQUE_CZ_515_ [decoy-metadata]
+import fs _ASTNODE_霩:1.0__OPAQUE_霩_31_ "_ASTNODE_霩:1.0__OPAQUE_霩_1_:fs";
+import { _ASTNODE_匳:1.0__OPAQUE_霩_18_, _ASTNODE_匳:1.0__OPAQUE_霩_10_ } _ASTNODE_霩:1.0__OPAQUE_霩_31_ "../_ASTNODE_霩:1.0__OPAQUE_霩_4_-_ASTNODE_絵:1.0__OPAQUE_霩_25_.js";
+import { _ASTNODE_匳:1.0__OPAQUE_霩_3_ as _ASTNODE_霩:1.0__OPAQUE_霩_5_ } _ASTNODE_霩:1.0__OPAQUE_霩_31_ "./_ASTNODE_匳:1.0__OPAQUE_霩_21_-_ASTNODE_霩:1.0__OPAQUE_霩_24_.js";
+
+_ASTNODE_霩:1.0__OPAQUE_霩_14_ _ASTNODE_殻:1.0__OPAQUE_殻_2_ = {
+// _ASTNODE_霩:0.2__OPAQUE_LE_125_ [decoy-metadata]
+// _ASTNODE_匳:0.5__OPAQUE_CZ_418_ [decoy-metadata]
+  _ASTNODE_霩:1.0__OPAQUE_霩_20_: {
+    _ASTNODE_霩:1.0__OPAQUE_霩_20_: 10,
+    _ASTNODE_霩:1.0__OPAQUE_霩_28_: 2,
+// _ASTNODE_絵:0.5__OPAQUE_EB_672_ [decoy-metadata]
+    _ASTNODE_霩:1.0__OPAQUE_霩_11_: 100,
+    _ASTNODE_霩:1.0__OPAQUE_霩_16_: 10_000,
+    _ASTNODE_霩:1.0__OPAQUE_霩_7_: true,
+  },
+  _ASTNODE_霩:1.0__OPAQUE_霩_12_: 30_000,
+} as _ASTNODE_霩:1.0__OPAQUE_霩_14_;
+
+_ASTNODE_霩:1.0__OPAQUE_霩_32_ async _ASTNODE_霩:1.0__OPAQUE_霩_8_ _ASTNODE_匳:1.0__OPAQUE_霩_15_<T>(
+  _ASTNODE_匳:1.0__OPAQUE_霩_30_: _ASTNODE_霩:1.0__OPAQUE_霩_19_,
+  _ASTNODE_霩:1.0__OPAQUE_霩_6_: T,
+// _ASTNODE_浪:0.5__OPAQUE_WA_667_ [decoy-metadata]
+): _ASTNODE_殻:1.0__OPAQUE_殻_1_<{ _ASTNODE_霩:1.0__OPAQUE_霩_29_: T; _ASTNODE_霩:1.0__OPAQUE_霩_13_: _ASTNODE_霩:1.0__OPAQUE_霩_27_ }> {
+  return await _ASTNODE_匳:1.0__OPAQUE_霩_18_(_ASTNODE_匳:1.0__OPAQUE_霩_30_, _ASTNODE_霩:1.0__OPAQUE_霩_6_);
+}
+
+_ASTNODE_霩:1.0__OPAQUE_霩_32_ async _ASTNODE_霩:1.0__OPAQUE_霩_8_ _ASTNODE_匳:1.0__OPAQUE_霩_2_(_ASTNODE_匳:1.0__OPAQUE_霩_30_: _ASTNODE_霩:1.0__OPAQUE_霩_19_, _ASTNODE_霩:1.0__OPAQUE_霩_29_: _ASTNODE_霩:1.0__OPAQUE_霩_23_): _ASTNODE_殻:1.0__OPAQUE_殻_1_<_ASTNODE_霩:1.0__OPAQUE_霩_22_> {
+  await _ASTNODE_匳:1.0__OPAQUE_霩_10_(_ASTNODE_匳:1.0__OPAQUE_霩_30_, _ASTNODE_霩:1.0__OPAQUE_霩_29_);
+}
+
+async _ASTNODE_霩:1.0__OPAQUE_霩_8_ _ASTNODE_匳:1.0__OPAQUE_霩_9_(_ASTNODE_匳:1.0__OPAQUE_霩_30_: _ASTNODE_霩:1.0__OPAQUE_霩_19_, _ASTNODE_霩:1.0__OPAQUE_霩_6_: _ASTNODE_霩:1.0__OPAQUE_霩_23_) {
+  try {
+    await fs._ASTNODE_霩:1.0__OPAQUE_霩_17_._ASTNODE_霩:1.0__OPAQUE_霩_26_(_ASTNODE_匳:1.0__OPAQUE_霩_30_);
+  } catch {
+    await _ASTNODE_匳:1.0__OPAQUE_霩_2_(_ASTNODE_匳:1.0__OPAQUE_霩_30_, _ASTNODE_霩:1.0__OPAQUE_霩_6_);
+  }
+}
+
+_ASTNODE_霩:1.0__OPAQUE_霩_32_ async _ASTNODE_霩:1.0__OPAQUE_霩_8_ _ASTNODE_匳:1.0__OPAQUE_霩_3_<T>(
+  _ASTNODE_匳:1.0__OPAQUE_霩_30_: _ASTNODE_霩:1.0__OPAQUE_霩_19_,
+  _ASTNODE_霩:1.0__OPAQUE_霩_6_: _ASTNODE_霩:1.0__OPAQUE_霩_23_,
+  fn: () => _ASTNODE_殻:1.0__OPAQUE_殻_1_<T>,
+): _ASTNODE_殻:1.0__OPAQUE_殻_1_<T> {
+  await _ASTNODE_匳:1.0__OPAQUE_霩_9_(_ASTNODE_匳:1.0__OPAQUE_霩_30_, _ASTNODE_霩:1.0__OPAQUE_霩_6_);
+  return await _ASTNODE_霩:1.0__OPAQUE_霩_5_(_ASTNODE_匳:1.0__OPAQUE_霩_30_, _ASTNODE_殻:1.0__OPAQUE_殻_2_, async () => {
+    return await fn();
+  });
+}
+
+// POLYMORPHIC_JCROSS_END

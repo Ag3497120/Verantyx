@@ -1,0 +1,13 @@
+[package]
+name = "ronin-vfs-gatekeeper"
+version.workspace = true
+edition.workspace = true
+license.workspace = true
+authors.workspace = true
+
+[dependencies]
+anyhow.workspace = true
+serde.workspace = true
+serde_json.workspace = true
+tracing = "0.1.44"
+uuid = { version = "1.23.0", features = ["v4"] }

@@ -1,0 +1,18 @@
+[package]
+name = "ronin-diff-ux"
+version.workspace = true
+edition.workspace = true
+license.workspace = true
+authors.workspace = true
+
+[dependencies]
+anyhow.workspace = true
+chrono = { version = "0.4.44", features = ["serde"] }
+console = "0.16.3"
+indicatif = "0.18.4"
+serde = { workspace = true, features = ["derive"] }
+serde_json.workspace = true
+similar = "3.0.0"
+thiserror.workspace = true
+tracing = "0.1.44"
+uuid = { version = "1.23.0", features = ["v4", "serde"] }

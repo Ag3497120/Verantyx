@@ -1,0 +1,2 @@
+CREATE DATABASE IF NOT EXISTS `py23db`;
+USE `py23db`;

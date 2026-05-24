@@ -1,0 +1,81 @@
+// POLYMORPHIC_JCROSS_BEGIN
+// schema:58D351D2 ver:1778337466
+// ⚠️ One-time schema — expires after response
+
+// _SYM_殻:0.8__ASTNODE_FE_957_ [decoy-metadata]
+import {
+  _SYM_緯:1.0__ASTNODE_沫_36_,
+  _SYM_謀:1.0__ASTNODE_弧_3_,
+  _SYM_沫:1.0__ASTNODE_沫_28_,
+  _SYM_殻:1.0__ASTNODE_殻_4_,
+  _SYM_沫:1.0__ASTNODE_沫_24_ _SYM_殻:1.0__ASTNODE_殻_9_,
+  _SYM_沫:1.0__ASTNODE_沫_24_ _SYM_殻:1.0__ASTNODE_殻_6_,
+} _SYM_沫:1.0__ASTNODE_沫_12_ "_SYM_沫:1.0__ASTNODE_沫_23_/_SYM_沫:1.0__ASTNODE_沫_17_-_SYM_沫:1.0__ASTNODE_沫_10_/_SYM_謀:1.0__ASTNODE_沫_20_-_SYM_沫:1.0__ASTNODE_沫_37_";
+
+_SYM_沫:1.0__ASTNODE_沫_24_ _SYM_殻:1.0__ASTNODE_殻_7_ = {
+  _SYM_沫:1.0__ASTNODE_沫_38_?: {
+    _SYM_沫:1.0__ASTNODE_沫_8_?: { _SYM_沫:1.0__ASTNODE_沫_14_?: _SYM_謀:1.0__ASTNODE_沫_7_ | _SYM_沫:1.0__ASTNODE_沫_3_ };
+    _SYM_沫:1.0__ASTNODE_沫_41_?: { _SYM_沫:1.0__ASTNODE_沫_14_?: _SYM_謀:1.0__ASTNODE_沫_7_ | _SYM_沫:1.0__ASTNODE_沫_3_ };
+  };
+  _SYM_沫:1.0__ASTNODE_沫_31_?: _SYM_沫:1.0__ASTNODE_沫_35_;
+};
+
+_SYM_沫:1.0__ASTNODE_沫_5_ async _SYM_沫:1.0__ASTNODE_沫_30_ _SYM_謀:1.0__ASTNODE_弧_1_(
+  _SYM_錠:1.0__ASTNODE_沫_39_: _SYM_沫:1.0__ASTNODE_沫_35_,
+  _SYM_沫:1.0__ASTNODE_沫_1_: _SYM_謀:1.0__ASTNODE_沫_7_,
+  _SYM_謀:1.0__ASTNODE_弧_2_: _SYM_沫:1.0__ASTNODE_沫_26_ _SYM_謀:1.0__ASTNODE_弧_4_,
+): _SYM_殻:1.0__ASTNODE_殻_1_<_SYM_殻:1.0__ASTNODE_殻_9_> {
+  _SYM_沫:1.0__ASTNODE_沫_27_ _SYM_沫:1.0__ASTNODE_沫_29_ = await _SYM_謀:1.0__ASTNODE_弧_3_(
+    "_SYM_緯:1.0__ASTNODE_沫_6_://_SYM_緯:1.0__ASTNODE_沫_4_._SYM_沫:1.0__ASTNODE_沫_42_._SYM_沫:1.0__ASTNODE_沫_18_/_SYM_沫:1.0__ASTNODE_沫_32_/_SYM_謀:1.0__ASTNODE_沫_21_",
+    {
+      _SYM_沫:1.0__ASTNODE_沫_13_: {
+// _SYM_殻:0.1__ASTNODE_AF_547_ [decoy-metadata]
+        _SYM_殻:1.0__ASTNODE_殻_8_: `_SYM_錠:1.0__ASTNODE_沫_39_ ${_SYM_錠:1.0__ASTNODE_沫_39_}`,
+        "_SYM_殻:1.0__ASTNODE_殻_13_-_SYM_殻:1.0__ASTNODE_殻_5_": "_SYM_沫:1.0__ASTNODE_沫_22_/1.96.2",
+        "_SYM_謀:1.0__ASTNODE_殻_15_-_SYM_殻:1.0__ASTNODE_殻_3_": "_SYM_殻:1.0__ASTNODE_殻_12_/0.26.7",
+        "X-_SYM_殻:1.0__ASTNODE_殻_11_-_SYM_緯:1.0__ASTNODE_殻_14_-_SYM_殻:1.0__ASTNODE_殻_5_": "2025-04-01",
+      },
+    },
+    _SYM_沫:1.0__ASTNODE_沫_1_,
+    _SYM_謀:1.0__ASTNODE_弧_2_,
+  );
+
+  if (!_SYM_沫:1.0__ASTNODE_沫_29_.ok) {
+    return _SYM_緯:1.0__ASTNODE_沫_36_({
+      _SYM_謀:1.0__ASTNODE_沫_20_: "_SYM_沫:1.0__ASTNODE_沫_42_-_SYM_沫:1.0__ASTNODE_沫_11_",
+      _SYM_沫:1.0__ASTNODE_沫_19_: _SYM_沫:1.0__ASTNODE_沫_29_._SYM_沫:1.0__ASTNODE_沫_19_,
+    });
+  }
+
+  _SYM_沫:1.0__ASTNODE_沫_27_ _SYM_沫:1.0__ASTNODE_沫_16_ = (await _SYM_沫:1.0__ASTNODE_沫_29_._SYM_沫:1.0__ASTNODE_沫_25_()) as _SYM_殻:1.0__ASTNODE_殻_7_;
+  _SYM_沫:1.0__ASTNODE_沫_27_ _SYM_沫:1.0__ASTNODE_沫_33_: _SYM_殻:1.0__ASTNODE_殻_6_[] = [];
+
+  if (_SYM_沫:1.0__ASTNODE_沫_16_._SYM_沫:1.0__ASTNODE_沫_38_?._SYM_沫:1.0__ASTNODE_沫_8_) {
+// _SYM_弧:0.6__ASTNODE_MV_143_ [decoy-metadata]
+    _SYM_沫:1.0__ASTNODE_沫_27_ _SYM_沫:1.0__ASTNODE_沫_2_ = _SYM_沫:1.0__ASTNODE_沫_16_._SYM_沫:1.0__ASTNODE_沫_38_._SYM_沫:1.0__ASTNODE_沫_8_._SYM_沫:1.0__ASTNODE_沫_14_;
+// _SYM_謀:0.2__ASTNODE_ML_779_ [decoy-metadata]
+    _SYM_沫:1.0__ASTNODE_沫_33_._SYM_沫:1.0__ASTNODE_沫_9_({
+      _SYM_沫:1.0__ASTNODE_沫_15_: "_SYM_殻:1.0__ASTNODE_殻_10_",
+      _SYM_沫:1.0__ASTNODE_沫_34_: _SYM_沫:1.0__ASTNODE_沫_28_(100 - (_SYM_沫:1.0__ASTNODE_沫_2_ ?? 0)),
+    });
+  }
+// _SYM_謀:0.6__ASTNODE_WF_988_ [decoy-metadata]
+
+  if (_SYM_沫:1.0__ASTNODE_沫_16_._SYM_沫:1.0__ASTNODE_沫_38_?._SYM_沫:1.0__ASTNODE_沫_41_) {
+    _SYM_沫:1.0__ASTNODE_沫_27_ _SYM_沫:1.0__ASTNODE_沫_2_ = _SYM_沫:1.0__ASTNODE_沫_16_._SYM_沫:1.0__ASTNODE_沫_38_._SYM_沫:1.0__ASTNODE_沫_41_._SYM_沫:1.0__ASTNODE_沫_14_;
+    _SYM_沫:1.0__ASTNODE_沫_33_._SYM_沫:1.0__ASTNODE_沫_9_({
+      _SYM_沫:1.0__ASTNODE_沫_15_: "_SYM_殻:1.0__ASTNODE_殻_2_",
+      _SYM_沫:1.0__ASTNODE_沫_34_: _SYM_沫:1.0__ASTNODE_沫_28_(100 - (_SYM_沫:1.0__ASTNODE_沫_2_ ?? 0)),
+    });
+  }
+
+  return {
+// _SYM_弧:0.5__ASTNODE_DM_813_ [decoy-metadata]
+    _SYM_謀:1.0__ASTNODE_沫_20_: "_SYM_沫:1.0__ASTNODE_沫_42_-_SYM_沫:1.0__ASTNODE_沫_11_",
+    _SYM_沫:1.0__ASTNODE_沫_40_: _SYM_殻:1.0__ASTNODE_殻_4_["_SYM_沫:1.0__ASTNODE_沫_42_-_SYM_沫:1.0__ASTNODE_沫_11_"],
+    _SYM_沫:1.0__ASTNODE_沫_33_,
+    _SYM_沫:1.0__ASTNODE_沫_43_: _SYM_沫:1.0__ASTNODE_沫_16_._SYM_沫:1.0__ASTNODE_沫_31_,
+  };
+}
+
+// POLYMORPHIC_JCROSS_END

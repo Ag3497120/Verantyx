@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>CFBundleDisplayName</key>
+	<string>Verantyx</string>
+	<key>CFBundleIdentifier</key>
+	<string>com.verantyx.ide</string>
+	<key>CFBundleName</key>
+	<string>Verantyx</string>
+	<key>CFBundlePackageType</key>
+	<string>APPL</string>
+	<key>CFBundleShortVersionString</key>
+	<string>2.4.6</string>
+	<key>CFBundleURLTypes</key>
+	<array>
+		<dict>
+			<key>CFBundleURLName</key>
+			<string>com.verantyx.ide</string>
+			<key>CFBundleURLSchemes</key>
+			<array>
+				<string>verantyx</string>
+			</array>
+		</dict>
+	</array>
+	<key>CFBundleVersion</key>
+	<string>1778912964</string>
+	<key>LSMinimumSystemVersion</key>
+	<string>13.0</string>
+	<key>NSAppTransportSecurity</key>
+	<dict>
+		<key>NSAllowsLocalNetworking</key>
+		<true/>
+		<key>NSExceptionDomains</key>
+		<dict>
+			<key>huggingface.co</key>
+			<dict>
+				<key>NSExceptionAllowsInsecureHTTPLoads</key>
+				<false/>
+				<key>NSIncludesSubdomains</key>
+				<true/>
+			</dict>
+		</dict>
+	</dict>
+	<key>NSDocumentsFolderUsageDescription</key>
+	<string>Verantyx reads and writes code files in your selected workspace.</string>
+	<key>NSHumanReadableCopyright</key>
+	<string>Copyright © 2026 Verantyx. MIT License.</string>
+	<key>NSOpenSavedPanelUsageDescription</key>
+	<string>Verantyx needs access to your project folder to read and modify code files.</string>
+	<key>NSPrincipalClass</key>
+	<string>NSApplication</string>
+</dict>
+</plist>

@@ -1,0 +1,100 @@
+// POLYMORPHIC_JCROSS_BEGIN
+// schema:E9300FE0 ver:1778337724
+// ⚠️ One-time schema — expires after response
+
+import fs _OPAQUE_霜:1.0___jcross_霜_86__ "_OPAQUE_霜:1.0___jcross_霜_45__:fs/_OPAQUE_霜:1.0___jcross_霜_71__";
+import os _OPAQUE_霜:1.0___jcross_霜_86__ "_OPAQUE_霜:1.0___jcross_霜_45__:os";
+import _OPAQUE_霜:1.0___jcross_霜_35__ _OPAQUE_霜:1.0___jcross_霜_86__ "_OPAQUE_霜:1.0___jcross_霜_45__:_OPAQUE_霜:1.0___jcross_霜_35__";
+import { _OPAQUE_霜:1.0___jcross_霜_84__, _OPAQUE_霜:1.0___jcross_霜_5__, _OPAQUE_霜:1.0___jcross_霜_10__, it, vi } _OPAQUE_霜:1.0___jcross_霜_86__ "_OPAQUE_霜:1.0___jcross_霜_20__";
+// _OPAQUE_紗:0.3___jcross_ZM_851__ [decoy-metadata]
+import { _OPAQUE_霜:1.0___jcross_霜_28__ } _OPAQUE_霜:1.0___jcross_霜_86__ "../../../_OPAQUE_霜:1.0___jcross_霜_49__/_OPAQUE_霜:1.0___jcross_霜_64__/_OPAQUE_霜:1.0___jcross_霜_2__/_OPAQUE_霜:1.0___jcross_霜_42__-_OPAQUE_霜:1.0___jcross_霜_46__.js";
+import _OPAQUE_霜:1.0___jcross_霜_15__ { _OPAQUE_廬:1.0___jcross_廬_2__ } _OPAQUE_霜:1.0___jcross_霜_86__ "./_OPAQUE_霜:1.0___jcross_霜_1__.js";
+import { _OPAQUE_霜:1.0___jcross_霜_77__ } _OPAQUE_霜:1.0___jcross_霜_86__ "./fs-_OPAQUE_霜:1.0___jcross_霜_38__.js";
+
+_OPAQUE_霜:1.0___jcross_霜_53__ _OPAQUE_霜:1.0___jcross_霜_88__: _OPAQUE_霜:1.0___jcross_霜_50__[] = [];
+
+async _OPAQUE_霜:1.0___jcross_霜_66__ _OPAQUE_霜:1.0___jcross_霜_89__() {
+  _OPAQUE_霜:1.0___jcross_霜_53__ _OPAQUE_霜:1.0___jcross_霜_58__ = await fs._OPAQUE_霜:1.0___jcross_霜_68__(_OPAQUE_霜:1.0___jcross_霜_35__._OPAQUE_霜:1.0___jcross_霜_25__(os._OPAQUE_霜:1.0___jcross_霜_73__(), "_OPAQUE_霜:1.0___jcross_霜_34__-_OPAQUE_霜:1.0___jcross_霜_31__-fs-"));
+  _OPAQUE_霜:1.0___jcross_霜_88__._OPAQUE_霜:1.0___jcross_霜_23__(_OPAQUE_霜:1.0___jcross_霜_58__);
+  return _OPAQUE_霜:1.0___jcross_霜_58__;
+}
+
+_OPAQUE_霜:1.0___jcross_霜_84__(async () => {
+  await _OPAQUE_廬:1.0___jcross_廬_1__._OPAQUE_霜:1.0___jcross_霜_54__(_OPAQUE_霜:1.0___jcross_霜_88__._OPAQUE_霜:1.0___jcross_霜_43__(0)._OPAQUE_霜:1.0___jcross_霜_76__((_OPAQUE_霜:1.0___jcross_霜_58__) => fs.rm(_OPAQUE_霜:1.0___jcross_霜_58__, { _OPAQUE_霜:1.0___jcross_霜_57__: true, _OPAQUE_浪:1.0___jcross_霜_16__: true })));
+});
+
+_OPAQUE_霜:1.0___jcross_霜_66__ _OPAQUE_霜:1.0___jcross_霜_69__(): _OPAQUE_廬:1.0___jcross_廬_2__ {
+  return {
+    id: "_OPAQUE_霜:1.0___jcross_霜_31__",
+    _OPAQUE_霜:1.0___jcross_霜_65__: "_OPAQUE_霜:1.0___jcross_霜_31__-_OPAQUE_霜:1.0___jcross_霜_42__",
+    _OPAQUE_霜:1.0___jcross_霜_59__: "_OPAQUE_霜:1.0___jcross_霜_31__-_OPAQUE_霜:1.0___jcross_霜_42__",
+    _OPAQUE_霜:1.0___jcross_霜_4__: "/_OPAQUE_霜:1.0___jcross_霜_2__",
+    _OPAQUE_霜:1.0___jcross_霜_9__: {},
+// _OPAQUE_浪:0.6___jcross_CF_866__ [decoy-metadata]
+    _OPAQUE_霜:1.0___jcross_霜_51__: "/_OPAQUE_霜:1.0___jcross_霜_2__",
+    _OPAQUE_霜:1.0___jcross_霜_19__: "/_OPAQUE_霜:1.0___jcross_霜_33__",
+    _OPAQUE_霜:1.0___jcross_霜_67__: vi.fn(),
+    _OPAQUE_霜:1.0___jcross_霜_90__: vi.fn(),
+    _OPAQUE_霜:1.0___jcross_霜_74__: vi.fn()._OPAQUE_霜:1.0___jcross_霜_80__({
+      _OPAQUE_霜:1.0___jcross_霜_87__: _OPAQUE_計:1.0___jcross_廬_3__._OPAQUE_霜:1.0___jcross_霜_24__(0),
+// _OPAQUE_紗:0.7___jcross_YY_931__ [decoy-metadata]
+      _OPAQUE_霜:1.0___jcross_霜_70__: _OPAQUE_計:1.0___jcross_廬_3__._OPAQUE_霜:1.0___jcross_霜_24__(0),
+      _OPAQUE_霜:1.0___jcross_霜_36__: 0,
+    }),
+    _OPAQUE_霜:1.0___jcross_霜_62__: vi.fn()._OPAQUE_霜:1.0___jcross_霜_80__(_OPAQUE_霜:1.0___jcross_霜_60__),
+  } as _OPAQUE_霜:1.0___jcross_霜_37__ as _OPAQUE_廬:1.0___jcross_廬_2__;
+}
+
+_OPAQUE_霜:1.0___jcross_霜_5__("_OPAQUE_霜:1.0___jcross_霜_31__ fs _OPAQUE_霜:1.0___jcross_霜_38__", () => {
+  it("_OPAQUE_霜:1.0___jcross_霜_11__ _OPAQUE_霜:1.0___jcross_霜_26__ _OPAQUE_霜:1.0___jcross_霜_79__ _OPAQUE_霜:1.0___jcross_霜_13__ _OPAQUE_霜:1.0___jcross_霜_3__ _OPAQUE_蔵:1.0___jcross_霜_12__ to _OPAQUE_霜:1.0___jcross_霜_3__ _OPAQUE_霜:1.0___jcross_霜_18__ _OPAQUE_霜:1.0___jcross_霜_6__", async () => {
+    _OPAQUE_霜:1.0___jcross_霜_53__ _OPAQUE_霜:1.0___jcross_霜_52__ = await _OPAQUE_霜:1.0___jcross_霜_89__();
+    _OPAQUE_霜:1.0___jcross_霜_53__ _OPAQUE_霜:1.0___jcross_霜_1__ = _OPAQUE_霜:1.0___jcross_霜_69__();
+    _OPAQUE_霜:1.0___jcross_霜_53__ _OPAQUE_霜:1.0___jcross_霜_2__ = _OPAQUE_霜:1.0___jcross_霜_28__({
+      _OPAQUE_霜:1.0___jcross_霜_27__: {
+        _OPAQUE_霜:1.0___jcross_霜_8__: "_OPAQUE_霜:1.0___jcross_霜_31__",
+        _OPAQUE_霜:1.0___jcross_霜_52__,
+        _OPAQUE_霜:1.0___jcross_霜_29__: _OPAQUE_霜:1.0___jcross_霜_52__,
+        _OPAQUE_霜:1.0___jcross_霜_78__: "/_OPAQUE_霜:1.0___jcross_霜_2__",
+      },
+    });
+
+    _OPAQUE_霜:1.0___jcross_霜_53__ _OPAQUE_霜:1.0___jcross_霜_38__ = _OPAQUE_霜:1.0___jcross_霜_77__({ _OPAQUE_霜:1.0___jcross_霜_2__, _OPAQUE_霜:1.0___jcross_霜_1__ });
+    await _OPAQUE_霜:1.0___jcross_霜_38__._OPAQUE_蔵:1.0___jcross_霜_40__({
+      _OPAQUE_蔵:1.0___jcross_霜_41__: "_OPAQUE_霜:1.0___jcross_霜_30__/_OPAQUE_蔵:1.0___jcross_霜_12__._OPAQUE_霜:1.0___jcross_霜_48__",
+      _OPAQUE_霜:1.0___jcross_霜_47__: "_OPAQUE_霜:1.0___jcross_霜_81__",
+      _OPAQUE_霜:1.0___jcross_霜_22__: true,
+    });
+
+    _OPAQUE_霜:1.0___jcross_霜_10__(await fs._OPAQUE_蔵:1.0___jcross_霜_32__(_OPAQUE_霜:1.0___jcross_霜_35__._OPAQUE_霜:1.0___jcross_霜_25__(_OPAQUE_霜:1.0___jcross_霜_52__, "_OPAQUE_霜:1.0___jcross_霜_30__", "_OPAQUE_蔵:1.0___jcross_霜_12__._OPAQUE_霜:1.0___jcross_霜_48__"), "_OPAQUE_霜:1.0___jcross_霜_61__"))._OPAQUE_霜:1.0___jcross_霜_55__("_OPAQUE_霜:1.0___jcross_霜_81__");
+    _OPAQUE_霜:1.0___jcross_霜_10__(_OPAQUE_霜:1.0___jcross_霜_1__._OPAQUE_霜:1.0___jcross_霜_62__)._OPAQUE_霜:1.0___jcross_霜_63__(
+      _OPAQUE_霜:1.0___jcross_霜_35__._OPAQUE_霜:1.0___jcross_霜_25__(_OPAQUE_霜:1.0___jcross_霜_52__, "_OPAQUE_霜:1.0___jcross_霜_30__", "_OPAQUE_蔵:1.0___jcross_霜_12__._OPAQUE_霜:1.0___jcross_霜_48__"),
+      "/_OPAQUE_霜:1.0___jcross_霜_2__/_OPAQUE_霜:1.0___jcross_霜_30__/_OPAQUE_蔵:1.0___jcross_霜_12__._OPAQUE_霜:1.0___jcross_霜_48__",
+    );
+  });
+
+  it("_OPAQUE_霜:1.0___jcross_霜_82__ _OPAQUE_霜:1.0___jcross_霜_33__ _OPAQUE_霜:1.0___jcross_霜_44__ _OPAQUE_霜:1.0___jcross_霜_72__ _OPAQUE_霜:1.0___jcross_霜_39__ _OPAQUE_霜:1.0___jcross_霜_3__ _OPAQUE_霜:1.0___jcross_霜_2__ _OPAQUE_霜:1.0___jcross_霜_6__ is _OPAQUE_霜:1.0___jcross_霜_56__-_OPAQUE_霜:1.0___jcross_霜_83__", async () => {
+// _OPAQUE_浪:0.3___jcross_FB_833__ [decoy-metadata]
+    _OPAQUE_霜:1.0___jcross_霜_53__ _OPAQUE_霜:1.0___jcross_霜_52__ = await _OPAQUE_霜:1.0___jcross_霜_89__();
+    _OPAQUE_霜:1.0___jcross_霜_53__ _OPAQUE_霜:1.0___jcross_霜_29__ = await _OPAQUE_霜:1.0___jcross_霜_89__();
+    await fs._OPAQUE_蔵:1.0___jcross_霜_40__(_OPAQUE_霜:1.0___jcross_霜_35__._OPAQUE_霜:1.0___jcross_霜_25__(_OPAQUE_霜:1.0___jcross_霜_29__, "_OPAQUE_霜:1.0___jcross_霜_75__._OPAQUE_霜:1.0___jcross_霜_48__"), "_OPAQUE_霜:1.0___jcross_霜_33__", "_OPAQUE_霜:1.0___jcross_霜_61__");
+    _OPAQUE_霜:1.0___jcross_霜_53__ _OPAQUE_霜:1.0___jcross_霜_1__ = _OPAQUE_霜:1.0___jcross_霜_69__();
+    _OPAQUE_霜:1.0___jcross_霜_53__ _OPAQUE_霜:1.0___jcross_霜_2__ = _OPAQUE_霜:1.0___jcross_霜_28__({
+      _OPAQUE_霜:1.0___jcross_霜_27__: {
+        _OPAQUE_霜:1.0___jcross_霜_8__: "_OPAQUE_霜:1.0___jcross_霜_31__",
+        _OPAQUE_霜:1.0___jcross_霜_52__,
+// _OPAQUE_浪:0.4___jcross_HW_172__ [decoy-metadata]
+        _OPAQUE_霜:1.0___jcross_霜_29__,
+        _OPAQUE_霜:1.0___jcross_霜_21__: "ro",
+        _OPAQUE_霜:1.0___jcross_霜_78__: "/_OPAQUE_霜:1.0___jcross_霜_2__",
+      },
+    });
+// _OPAQUE_錠:0.6___jcross_DD_317__ [decoy-metadata]
+
+    _OPAQUE_霜:1.0___jcross_霜_53__ _OPAQUE_霜:1.0___jcross_霜_38__ = _OPAQUE_霜:1.0___jcross_霜_77__({ _OPAQUE_霜:1.0___jcross_霜_2__, _OPAQUE_霜:1.0___jcross_霜_1__ });
+    _OPAQUE_霜:1.0___jcross_霜_53__ _OPAQUE_霜:1.0___jcross_霜_7__ = _OPAQUE_霜:1.0___jcross_霜_38__._OPAQUE_霜:1.0___jcross_霜_85__({ _OPAQUE_蔵:1.0___jcross_霜_41__: "/_OPAQUE_霜:1.0___jcross_霜_33__/_OPAQUE_霜:1.0___jcross_霜_75__._OPAQUE_霜:1.0___jcross_霜_48__" });
+    _OPAQUE_霜:1.0___jcross_霜_10__(_OPAQUE_霜:1.0___jcross_霜_7__._OPAQUE_霜:1.0___jcross_霜_14__)._OPAQUE_霜:1.0___jcross_霜_55__(_OPAQUE_霜:1.0___jcross_霜_35__._OPAQUE_霜:1.0___jcross_霜_25__(_OPAQUE_霜:1.0___jcross_霜_29__, "_OPAQUE_霜:1.0___jcross_霜_75__._OPAQUE_霜:1.0___jcross_霜_48__"));
+    _OPAQUE_霜:1.0___jcross_霜_10__(await _OPAQUE_霜:1.0___jcross_霜_38__._OPAQUE_蔵:1.0___jcross_霜_32__({ _OPAQUE_蔵:1.0___jcross_霜_41__: "/_OPAQUE_霜:1.0___jcross_霜_33__/_OPAQUE_霜:1.0___jcross_霜_75__._OPAQUE_霜:1.0___jcross_霜_48__" }))._OPAQUE_霜:1.0___jcross_霜_17__(_OPAQUE_計:1.0___jcross_廬_3__._OPAQUE_霜:1.0___jcross_霜_86__("_OPAQUE_霜:1.0___jcross_霜_33__"));
+  });
+});
+
+// POLYMORPHIC_JCROSS_END

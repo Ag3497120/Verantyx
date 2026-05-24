@@ -1,0 +1,82 @@
+// POLYMORPHIC_JCROSS_BEGIN
+// schema:1DBE1233 ver:1778321823
+// ⚠️ One-time schema — expires after response
+
+// [metadata-stripped]
+// [metadata-stripped]
+// [metadata-stripped]
+// [metadata-stripped]
+
+__ast_霧:1.0___TOKEN_霧_21_ __ast_霧:1.0___TOKEN_霧_29_::__ast_霧:1.0___TOKEN_霧_33_::__ast_廳:1.0___TOKEN_廳_7_;
+// __ast_規:0.4___TOKEN_LE_822_ [decoy-metadata]
+__ast_霧:1.0___TOKEN_霧_21_ __ast_霧:1.0___TOKEN_霧_29_::__ast_霧:1.0___TOKEN_霧_13_::{__ast_廳:1.0___TOKEN_廳_11_, __ast_廳:1.0___TOKEN_廳_14_};
+
+__ast_霧:1.0___TOKEN_霧_20_ struct __ast_廳:1.0___TOKEN_廳_8_ {
+// [metadata-stripped]
+    __ast_霧:1.0___TOKEN_霧_19_: __ast_廳:1.0___TOKEN_廳_11_<__ast_廳:1.0___TOKEN_廳_14_<__ast_廳:1.0___TOKEN_廳_7_<__ast_廳:1.0___TOKEN_廳_10_, __ast_霧:1.0___TOKEN_霧_27_::__ast_廳:1.0___TOKEN_廳_18_>>>,
+// __ast_規:0.3___TOKEN_MZ_328_ [decoy-metadata]
+}
+// __ast_廳:0.4___TOKEN_KZ_351_ [decoy-metadata]
+
+__ast_霧:1.0___TOKEN_霧_24_ __ast_廳:1.0___TOKEN_廳_8_ {
+    __ast_霧:1.0___TOKEN_霧_20_ fn __ast_霧:1.0___TOKEN_霧_31_() -> __ast_廳:1.0___TOKEN_廳_2_ {
+        __ast_廳:1.0___TOKEN_廳_2_ {
+            __ast_霧:1.0___TOKEN_霧_19_: __ast_廳:1.0___TOKEN_廳_11_::__ast_霧:1.0___TOKEN_霧_31_(__ast_廳:1.0___TOKEN_廳_14_::__ast_霧:1.0___TOKEN_霧_31_(__ast_廳:1.0___TOKEN_廳_7_::__ast_霧:1.0___TOKEN_霧_31_())),
+        }
+    }
+
+    __ast_霧:1.0___TOKEN_霧_20_ fn __ast_規:1.0___TOKEN_礎_2_(&self, __ast_蔽:1.0___TOKEN_霧_23_: __ast_廳:1.0___TOKEN_廳_9_<__ast_廳:1.0___TOKEN_廳_12_<__ast_廳:1.0___TOKEN_廳_10_>>) -> __ast_廳:1.0___TOKEN_廳_7_<__ast_廳:1.0___TOKEN_廳_10_, __ast_霧:1.0___TOKEN_霧_27_::__ast_廳:1.0___TOKEN_廳_18_> {
+        let __ast_霧:1.0___TOKEN_霧_12_ = self.__ast_霧:1.0___TOKEN_霧_19_.__ast_霧:1.0___TOKEN_霧_1_().__ast_霧:1.0___TOKEN_霧_6_();
+        if let __ast_廳:1.0___TOKEN_廳_3_(__ast_蔽:1.0___TOKEN_霧_23_) = __ast_蔽:1.0___TOKEN_霧_23_ {
+            let __ast_霧:1.0___TOKEN_霧_10_ __ast_霧:1.0___TOKEN_霧_39_ = __ast_廳:1.0___TOKEN_廳_7_::__ast_霧:1.0___TOKEN_霧_31_();
+            for k in __ast_蔽:1.0___TOKEN_霧_23_ {
+                if let __ast_廳:1.0___TOKEN_廳_3_(v) = __ast_霧:1.0___TOKEN_霧_12_.__ast_規:1.0___TOKEN_礎_2_(&k) {
+                    __ast_霧:1.0___TOKEN_霧_39_.__ast_霧:1.0___TOKEN_霧_18_(k.__ast_霧:1.0___TOKEN_霧_34_(), v.__ast_霧:1.0___TOKEN_霧_34_());
+                }
+            }
+            __ast_霧:1.0___TOKEN_霧_39_
+// __ast_緋:0.9___TOKEN_YA_555_ [decoy-metadata]
+        } else {
+            __ast_霧:1.0___TOKEN_霧_12_.__ast_霧:1.0___TOKEN_霧_34_()
+        }
+    }
+
+    __ast_霧:1.0___TOKEN_霧_20_ fn __ast_規:1.0___TOKEN_礎_1_(&self, __ast_霧:1.0___TOKEN_霧_36_: __ast_廳:1.0___TOKEN_廳_7_<__ast_廳:1.0___TOKEN_廳_10_, __ast_霧:1.0___TOKEN_霧_27_::__ast_廳:1.0___TOKEN_廳_18_>) {
+        let __ast_霧:1.0___TOKEN_霧_10_ __ast_霧:1.0___TOKEN_霧_12_ = self.__ast_霧:1.0___TOKEN_霧_19_.__ast_霧:1.0___TOKEN_霧_5_().__ast_霧:1.0___TOKEN_霧_6_();
+        for (k, v) in __ast_霧:1.0___TOKEN_霧_36_ {
+            __ast_霧:1.0___TOKEN_霧_12_.__ast_霧:1.0___TOKEN_霧_18_(k, v);
+        }
+    }
+
+    __ast_霧:1.0___TOKEN_霧_20_ fn __ast_霧:1.0___TOKEN_霧_8_(&self, __ast_蔽:1.0___TOKEN_霧_23_: __ast_廳:1.0___TOKEN_廳_12_<__ast_廳:1.0___TOKEN_廳_10_>) {
+        let __ast_霧:1.0___TOKEN_霧_10_ __ast_霧:1.0___TOKEN_霧_12_ = self.__ast_霧:1.0___TOKEN_霧_19_.__ast_霧:1.0___TOKEN_霧_5_().__ast_霧:1.0___TOKEN_霧_6_();
+// __ast_匯:0.1___TOKEN_BF_598_ [decoy-metadata]
+        for k in __ast_蔽:1.0___TOKEN_霧_23_ {
+            __ast_霧:1.0___TOKEN_霧_12_.__ast_霧:1.0___TOKEN_霧_8_(&k);
+        }
+    }
+
+    __ast_霧:1.0___TOKEN_霧_20_ fn __ast_霧:1.0___TOKEN_霧_4_(&self) {
+        let __ast_霧:1.0___TOKEN_霧_10_ __ast_霧:1.0___TOKEN_霧_12_ = self.__ast_霧:1.0___TOKEN_霧_19_.__ast_霧:1.0___TOKEN_霧_5_().__ast_霧:1.0___TOKEN_霧_6_();
+        __ast_霧:1.0___TOKEN_霧_12_.__ast_霧:1.0___TOKEN_霧_4_();
+    }
+}
+
+// __ast_規:0.1___TOKEN_AA_385_ [decoy-metadata]
+__ast_霧:1.0___TOKEN_霧_20_ struct __ast_緋:1.0___TOKEN_廳_13_ {
+    __ast_霧:1.0___TOKEN_霧_20_ __ast_霧:1.0___TOKEN_霧_14_: __ast_廳:1.0___TOKEN_廳_8_,
+    __ast_霧:1.0___TOKEN_霧_20_ __ast_霧:1.0___TOKEN_霧_13_: __ast_廳:1.0___TOKEN_廳_8_,
+    __ast_霧:1.0___TOKEN_霧_20_ __ast_霧:1.0___TOKEN_霧_16_: __ast_廳:1.0___TOKEN_廳_8_,
+}
+
+__ast_霧:1.0___TOKEN_霧_24_ __ast_廳:1.0___TOKEN_廳_4_ for __ast_緋:1.0___TOKEN_廳_13_ {
+    fn __ast_霧:1.0___TOKEN_霧_22_() -> __ast_廳:1.0___TOKEN_廳_2_ {
+        __ast_廳:1.0___TOKEN_廳_2_ {
+            __ast_霧:1.0___TOKEN_霧_14_: __ast_廳:1.0___TOKEN_廳_8_::__ast_霧:1.0___TOKEN_霧_31_(),
+            __ast_霧:1.0___TOKEN_霧_13_: __ast_廳:1.0___TOKEN_廳_8_::__ast_霧:1.0___TOKEN_霧_31_(),
+            __ast_霧:1.0___TOKEN_霧_16_: __ast_廳:1.0___TOKEN_廳_8_::__ast_霧:1.0___TOKEN_霧_31_(),
+        }
+    }
+}
+
+// POLYMORPHIC_JCROSS_END

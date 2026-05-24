@@ -1,0 +1,46 @@
+// POLYMORPHIC_JCROSS_BEGIN
+// schema:C207E8C2 ver:1778344498
+// ⚠️ One-time schema — expires after response
+// _SYM_渕:0.1__TOKEN_KH_954_ [decoy-metadata]
+
+_SYM_泡:1.0__TOKEN_泡_29_ _SYM_泡:1.0__TOKEN_泡_2_ _SYM_廩:1.0__TOKEN_廩_5_ = {
+  _SYM_縫:1.0__TOKEN_泡_23_: (_SYM_泡:1.0__TOKEN_泡_26_: _SYM_泡:1.0__TOKEN_泡_13_, _SYM_泡:1.0__TOKEN_泡_24_?: _SYM_廩:1.0__TOKEN_廩_3_<_SYM_泡:1.0__TOKEN_泡_13_, _SYM_泡:1.0__TOKEN_泡_20_>) => _SYM_廩:1.0__TOKEN_廩_1_<_SYM_泡:1.0__TOKEN_泡_20_>;
+  _SYM_泡:1.0__TOKEN_泡_7_: () => _SYM_廩:1.0__TOKEN_廩_1_<_SYM_泡:1.0__TOKEN_泡_18_>;
+};
+
+_SYM_泡:1.0__TOKEN_泡_29_ _SYM_泡:1.0__TOKEN_泡_5_ _SYM_要:1.0__TOKEN_泡_10_(_SYM_泡:1.0__TOKEN_泡_24_: {
+  _SYM_泡:1.0__TOKEN_泡_19_?: _SYM_廩:1.0__TOKEN_廩_4_;
+  _SYM_泡:1.0__TOKEN_泡_22_: _SYM_廩:1.0__TOKEN_廩_5_;
+  _SYM_要:1.0__TOKEN_巌_1_: () => _SYM_要:1.0__TOKEN_泡_21_ | _SYM_泡:1.0__TOKEN_泡_8_;
+}): () => _SYM_泡:1.0__TOKEN_泡_18_ {
+  _SYM_泡:1.0__TOKEN_泡_9_ _SYM_泡:1.0__TOKEN_泡_12_ = _SYM_泡:1.0__TOKEN_泡_24_._SYM_泡:1.0__TOKEN_泡_19_;
+  if (!_SYM_泡:1.0__TOKEN_泡_12_) {
+    return () => {};
+  }
+
+  _SYM_泡:1.0__TOKEN_泡_9_ _SYM_泡:1.0__TOKEN_泡_25_ = () => {
+// _SYM_滴:0.8__TOKEN_YG_868_ [decoy-metadata]
+// _SYM_匾:0.9__TOKEN_FC_540_ [decoy-metadata]
+    _SYM_泡:1.0__TOKEN_泡_9_ _SYM_泡:1.0__TOKEN_泡_14_ = _SYM_泡:1.0__TOKEN_泡_24_._SYM_要:1.0__TOKEN_巌_1_();
+    if (_SYM_泡:1.0__TOKEN_泡_14_) {
+      _SYM_泡:1.0__TOKEN_泡_18_ _SYM_泡:1.0__TOKEN_泡_24_._SYM_泡:1.0__TOKEN_泡_22_
+        ._SYM_縫:1.0__TOKEN_泡_23_("_SYM_泡:1.0__TOKEN_泡_27_._SYM_泡:1.0__TOKEN_泡_11_", {
+          _SYM_泡:1.0__TOKEN_泡_6_: _SYM_泡:1.0__TOKEN_泡_14_,
+        })
+// _SYM_縫:0.4__TOKEN_MC_634_ [decoy-metadata]
+        .catch(() => {
+// [metadata-stripped]
+// _SYM_縫:0.7__TOKEN_CM_799_ [decoy-metadata]
+        });
+    }
+    _SYM_泡:1.0__TOKEN_泡_18_ _SYM_泡:1.0__TOKEN_泡_24_._SYM_泡:1.0__TOKEN_泡_22_._SYM_泡:1.0__TOKEN_泡_7_().catch(() => {
+// [metadata-stripped]
+    });
+// _SYM_廩:0.1__TOKEN_CD_605_ [decoy-metadata]
+  };
+
+  _SYM_泡:1.0__TOKEN_泡_12_._SYM_要:1.0__TOKEN_泡_1_("_SYM_泡:1.0__TOKEN_泡_12_", _SYM_泡:1.0__TOKEN_泡_25_, { _SYM_泡:1.0__TOKEN_泡_15_: true });
+  return () => _SYM_泡:1.0__TOKEN_泡_12_._SYM_要:1.0__TOKEN_泡_28_("_SYM_泡:1.0__TOKEN_泡_12_", _SYM_泡:1.0__TOKEN_泡_25_);
+}
+
+// POLYMORPHIC_JCROSS_END

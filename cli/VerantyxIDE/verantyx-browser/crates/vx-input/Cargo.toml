@@ -1,0 +1,13 @@
+[package]
+name = "vx-input"
+version.workspace = true
+edition.workspace = true
+
+[dependencies]
+vx-dom = { path = "../vx-dom" }
+vx-render = { path = "../vx-render" }
+vx-net = { path = "../vx-net" }
+anyhow.workspace = true
+serde.workspace = true
+serde_json.workspace = true
+url = "2"

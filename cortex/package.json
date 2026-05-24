@@ -1,0 +1,36 @@
+{
+  "name": "verantyx-cortex",
+  "version": "3.1.0",
+  "description": "Verantyx Cortex: Tri-Layer JCross Spatial Memory Engine with MCP Interface",
+  "type": "module",
+  "main": "src/mcp/server.ts",
+  "scripts": {
+    "start": "node --import tsx src/mcp/server.ts",
+    "dev": "tsx watch src/mcp/server.ts",
+    "calibrate": "node --import tsx src/cli/calibrate.ts",
+    "calibrate:sync": "node --import tsx src/cli/calibrate.ts --sync",
+    "calibrate:json": "node --import tsx src/cli/calibrate.ts --output json",
+    "setup": "node --import tsx src/cli/setup.ts"
+  },
+  "keywords": [
+    "mcp",
+    "memory",
+    "ai",
+    "jcross",
+    "spatial-memory",
+    "verantyx"
+  ],
+  "license": "MIT",
+  "dependencies": {
+    "@modelcontextprotocol/sdk": "^1.27.1",
+    "tsx": "^4.19.4"
+  },
+  "devDependencies": {
+    "@types/node": "^22.15.3",
+    "typescript": "^5.8.3"
+  },
+  "bin": {
+    "verantyx-calibrate": "src/cli/calibrate.ts",
+    "verantyx-setup": "src/cli/setup.ts"
+  }
+}

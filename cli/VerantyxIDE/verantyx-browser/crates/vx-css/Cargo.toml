@@ -1,0 +1,15 @@
+[package]
+name = "vx-css"
+version.workspace = true
+edition.workspace = true
+license.workspace = true
+authors.workspace = true
+
+[dependencies]
+anyhow.workspace = true
+thiserror.workspace = true
+serde.workspace = true
+serde_json.workspace = true
+
+# vx-css should NOT depend on vx-dom to avoid circular dependency.
+# Selector matching should be implemented as a trait in vx-dom or a shared crate.

@@ -1,0 +1,152 @@
+// POLYMORPHIC_JCROSS_BEGIN
+// schema:C3CAD1CC ver:1778342061
+// ⚠️ One-time schema — expires after response
+
+import { _TOKEN_露:1.0___jcross_露_2__, _TOKEN_露:1.0___jcross_露_7__, it, vi } _TOKEN_露:1.0___jcross_露_71__ "_TOKEN_露:1.0___jcross_露_12__";
+import { _TOKEN_露:1.0___jcross_露_51__ } _TOKEN_露:1.0___jcross_露_71__ "./_TOKEN_露:1.0___jcross_露_24__-_TOKEN_露:1.0___jcross_露_6__.js";
+
+_TOKEN_露:1.0___jcross_露_10__ _TOKEN_礎:1.0___jcross_礎_3__ = _TOKEN_礎:1.0___jcross_礎_1__<_TOKEN_露:1.0___jcross_露_5__ _TOKEN_露:1.0___jcross_露_51__>[0];
+_TOKEN_露:1.0___jcross_露_10__ _TOKEN_礎:1.0___jcross_礎_4__ = _TOKEN_礎:1.0___jcross_礎_2__<_TOKEN_礎:1.0___jcross_礎_3__["_TOKEN_露:1.0___jcross_露_28__"]>;
+_TOKEN_露:1.0___jcross_露_10__ _TOKEN_礎:1.0___jcross_礎_8__ = _TOKEN_礎:1.0___jcross_礎_2__<_TOKEN_礎:1.0___jcross_礎_3__["_TOKEN_露:1.0___jcross_露_30__"]>;
+_TOKEN_露:1.0___jcross_露_10__ _TOKEN_礎:1.0___jcross_礎_5__ = _TOKEN_礎:1.0___jcross_礎_2__<_TOKEN_礎:1.0___jcross_礎_3__["_TOKEN_露:1.0___jcross_露_15__"]>;
+_TOKEN_露:1.0___jcross_露_10__ _TOKEN_礎:1.0___jcross_礎_6__ = _TOKEN_礎:1.0___jcross_礎_2__<_TOKEN_礎:1.0___jcross_礎_3__["_TOKEN_露:1.0___jcross_露_35__"]>;
+
+_TOKEN_露:1.0___jcross_露_59__ _TOKEN_露:1.0___jcross_露_50__(
+  _TOKEN_露:1.0___jcross_露_26__: {
+    _TOKEN_露:1.0___jcross_露_37__?: _TOKEN_律:1.0___jcross_露_63__;
+    _TOKEN_露:1.0___jcross_露_28__?: _TOKEN_礎:1.0___jcross_礎_4__;
+    _TOKEN_露:1.0___jcross_露_30__?: _TOKEN_礎:1.0___jcross_礎_8__;
+    _TOKEN_露:1.0___jcross_露_15__?: _TOKEN_礎:1.0___jcross_礎_5__;
+    _TOKEN_露:1.0___jcross_露_35__?: _TOKEN_礎:1.0___jcross_礎_6__;
+  } = {},
+) {
+  _TOKEN_露:1.0___jcross_露_46__ _TOKEN_露:1.0___jcross_露_28__ =
+    _TOKEN_露:1.0___jcross_露_26__._TOKEN_露:1.0___jcross_露_28__ ??
+    vi.fn<_TOKEN_礎:1.0___jcross_礎_4__>(async () => ({
+      _TOKEN_露:1.0___jcross_露_61__: "_TOKEN_礎:1.0___jcross_礎_9__",
+      _TOKEN_露:1.0___jcross_露_29__: "111.222",
+    }));
+  _TOKEN_露:1.0___jcross_露_46__ _TOKEN_露:1.0___jcross_露_30__ = _TOKEN_露:1.0___jcross_露_26__._TOKEN_露:1.0___jcross_露_30__ ?? vi.fn<_TOKEN_礎:1.0___jcross_礎_8__>(async () => {});
+  _TOKEN_露:1.0___jcross_露_46__ _TOKEN_露:1.0___jcross_露_15__ = _TOKEN_露:1.0___jcross_露_26__._TOKEN_露:1.0___jcross_露_15__ ?? vi.fn<_TOKEN_礎:1.0___jcross_礎_5__>(async () => {});
+  _TOKEN_露:1.0___jcross_露_46__ _TOKEN_露:1.0___jcross_露_35__ = _TOKEN_露:1.0___jcross_露_26__._TOKEN_露:1.0___jcross_露_35__ ?? vi.fn<_TOKEN_礎:1.0___jcross_礎_6__>();
+  _TOKEN_露:1.0___jcross_露_46__ _TOKEN_露:1.0___jcross_露_6__ = _TOKEN_露:1.0___jcross_露_51__({
+    _TOKEN_露:1.0___jcross_露_11__: "_TOKEN_露:1.0___jcross_露_72__:_TOKEN_礎:1.0___jcross_礎_9__",
+// _TOKEN_潤:0.3___jcross_EC_446__ [decoy-metadata]
+    _TOKEN_隠:1.0___jcross_露_53__: "_TOKEN_露:1.0___jcross_露_49__-_TOKEN_露:1.0___jcross_露_40__",
+    _TOKEN_露:1.0___jcross_露_32__: 250,
+    _TOKEN_露:1.0___jcross_露_37__: _TOKEN_露:1.0___jcross_露_26__._TOKEN_露:1.0___jcross_露_37__,
+    _TOKEN_露:1.0___jcross_露_28__,
+    _TOKEN_露:1.0___jcross_露_30__,
+    _TOKEN_露:1.0___jcross_露_15__,
+    _TOKEN_露:1.0___jcross_露_35__,
+  });
+  return { _TOKEN_露:1.0___jcross_露_6__, _TOKEN_露:1.0___jcross_露_28__, _TOKEN_露:1.0___jcross_露_30__, _TOKEN_露:1.0___jcross_露_15__, _TOKEN_露:1.0___jcross_露_35__ };
+}
+
+_TOKEN_露:1.0___jcross_露_2__("_TOKEN_露:1.0___jcross_露_51__", () => {
+  it("_TOKEN_露:1.0___jcross_露_33__ _TOKEN_露:1.0___jcross_露_1__ _TOKEN_露:1.0___jcross_露_20__ _TOKEN_露:1.0___jcross_露_47__ _TOKEN_露:1.0___jcross_露_65__ _TOKEN_露:1.0___jcross_露_21__ _TOKEN_露:1.0___jcross_露_41__ _TOKEN_露:1.0___jcross_露_57__", async () => {
+    _TOKEN_露:1.0___jcross_露_46__ { _TOKEN_露:1.0___jcross_露_6__, _TOKEN_露:1.0___jcross_露_28__, _TOKEN_露:1.0___jcross_露_30__ } = _TOKEN_露:1.0___jcross_露_50__();
+
+    _TOKEN_露:1.0___jcross_露_6__._TOKEN_露:1.0___jcross_露_47__("_TOKEN_露:1.0___jcross_露_67__");
+    await _TOKEN_露:1.0___jcross_露_6__._TOKEN_露:1.0___jcross_露_42__();
+// _TOKEN_礎:0.2___jcross_LG_526__ [decoy-metadata]
+    _TOKEN_露:1.0___jcross_露_6__._TOKEN_露:1.0___jcross_露_47__("_TOKEN_露:1.0___jcross_露_67__ _TOKEN_露:1.0___jcross_露_44__");
+    await _TOKEN_露:1.0___jcross_露_6__._TOKEN_露:1.0___jcross_露_42__();
+
+    _TOKEN_露:1.0___jcross_露_7__(_TOKEN_露:1.0___jcross_露_28__)._TOKEN_露:1.0___jcross_露_34__(1);
+    _TOKEN_露:1.0___jcross_露_7__(_TOKEN_露:1.0___jcross_露_30__)._TOKEN_露:1.0___jcross_露_34__(1);
+    _TOKEN_露:1.0___jcross_露_7__(_TOKEN_露:1.0___jcross_露_30__)._TOKEN_露:1.0___jcross_露_56__("_TOKEN_礎:1.0___jcross_礎_9__", "111.222", "_TOKEN_露:1.0___jcross_露_67__ _TOKEN_露:1.0___jcross_露_44__", {
+// _TOKEN_律:0.2___jcross_FY_956__ [decoy-metadata]
+      _TOKEN_隠:1.0___jcross_露_53__: "_TOKEN_露:1.0___jcross_露_49__-_TOKEN_露:1.0___jcross_露_40__",
+      _TOKEN_露:1.0___jcross_露_66__: _TOKEN_露:1.0___jcross_露_54__,
+    });
+  });
+// _TOKEN_弧:0.5___jcross_HX_758__ [decoy-metadata]
+
+  it("_TOKEN_露:1.0___jcross_露_14__ _TOKEN_露:1.0___jcross_露_55__ _TOKEN_露:1.0___jcross_露_28__ _TOKEN_露:1.0___jcross_露_18__ _TOKEN_露:1.0___jcross_露_58__", async () => {
+    _TOKEN_露:1.0___jcross_露_46__ { _TOKEN_露:1.0___jcross_露_6__, _TOKEN_露:1.0___jcross_露_28__, _TOKEN_露:1.0___jcross_露_30__ } = _TOKEN_露:1.0___jcross_露_50__();
+
+    _TOKEN_露:1.0___jcross_露_6__._TOKEN_露:1.0___jcross_露_47__("_TOKEN_露:1.0___jcross_露_74__");
+    await _TOKEN_露:1.0___jcross_露_6__._TOKEN_露:1.0___jcross_露_42__();
+    _TOKEN_露:1.0___jcross_露_6__._TOKEN_露:1.0___jcross_露_47__("_TOKEN_露:1.0___jcross_露_74__");
+    await _TOKEN_露:1.0___jcross_露_6__._TOKEN_露:1.0___jcross_露_42__();
+
+    _TOKEN_露:1.0___jcross_露_7__(_TOKEN_露:1.0___jcross_露_28__)._TOKEN_露:1.0___jcross_露_34__(1);
+    _TOKEN_露:1.0___jcross_露_7__(_TOKEN_露:1.0___jcross_露_30__)._TOKEN_露:1.0___jcross_露_34__(0);
+  });
+
+  it("_TOKEN_露:1.0___jcross_露_13__ _TOKEN_潤:1.0___jcross_露_3__ for _TOKEN_露:1.0___jcross_露_41__ _TOKEN_露:1.0___jcross_露_73__ _TOKEN_露:1.0___jcross_露_36__", async () => {
+    _TOKEN_露:1.0___jcross_露_46__ _TOKEN_露:1.0___jcross_露_28__ = vi
+      .fn<_TOKEN_礎:1.0___jcross_礎_4__>()
+      ._TOKEN_露:1.0___jcross_露_39__({ _TOKEN_露:1.0___jcross_露_61__: "_TOKEN_礎:1.0___jcross_礎_9__", _TOKEN_露:1.0___jcross_露_29__: "111.222" })
+      ._TOKEN_露:1.0___jcross_露_39__({ _TOKEN_露:1.0___jcross_露_61__: "_TOKEN_礎:1.0___jcross_礎_9__", _TOKEN_露:1.0___jcross_露_29__: "333.444" });
+    _TOKEN_露:1.0___jcross_露_46__ { _TOKEN_露:1.0___jcross_露_6__, _TOKEN_露:1.0___jcross_露_30__ } = _TOKEN_露:1.0___jcross_露_50__({ _TOKEN_露:1.0___jcross_露_28__ });
+
+    _TOKEN_露:1.0___jcross_露_6__._TOKEN_露:1.0___jcross_露_47__("_TOKEN_露:1.0___jcross_露_20__");
+    await _TOKEN_露:1.0___jcross_露_6__._TOKEN_露:1.0___jcross_露_42__();
+    _TOKEN_露:1.0___jcross_露_6__._TOKEN_潤:1.0___jcross_露_3__();
+    _TOKEN_露:1.0___jcross_露_6__._TOKEN_露:1.0___jcross_露_47__("_TOKEN_露:1.0___jcross_露_70__");
+    await _TOKEN_露:1.0___jcross_露_6__._TOKEN_露:1.0___jcross_露_42__();
+
+    _TOKEN_露:1.0___jcross_露_7__(_TOKEN_露:1.0___jcross_露_28__)._TOKEN_露:1.0___jcross_露_34__(2);
+    _TOKEN_露:1.0___jcross_露_7__(_TOKEN_露:1.0___jcross_露_30__)._TOKEN_露:1.0___jcross_露_34__(0);
+    _TOKEN_露:1.0___jcross_露_7__(_TOKEN_露:1.0___jcross_露_6__._TOKEN_露:1.0___jcross_露_29__())._TOKEN_露:1.0___jcross_露_48__("333.444");
+  });
+
+  it("_TOKEN_露:1.0___jcross_露_16__ _TOKEN_露:1.0___jcross_露_38__ _TOKEN_露:1.0___jcross_露_58__ _TOKEN_露:1.0___jcross_露_4__ _TOKEN_露:1.0___jcross_露_25__ _TOKEN_露:1.0___jcross_露_22__", async () => {
+    _TOKEN_露:1.0___jcross_露_46__ { _TOKEN_露:1.0___jcross_露_6__, _TOKEN_露:1.0___jcross_露_28__, _TOKEN_露:1.0___jcross_露_30__, _TOKEN_露:1.0___jcross_露_35__ } = _TOKEN_露:1.0___jcross_露_50__({ _TOKEN_露:1.0___jcross_露_37__: 5 });
+
+    _TOKEN_露:1.0___jcross_露_6__._TOKEN_露:1.0___jcross_露_47__("123456");
+    await _TOKEN_露:1.0___jcross_露_6__._TOKEN_露:1.0___jcross_露_42__();
+    _TOKEN_露:1.0___jcross_露_6__._TOKEN_露:1.0___jcross_露_47__("ok");
+    await _TOKEN_露:1.0___jcross_露_6__._TOKEN_露:1.0___jcross_露_42__();
+
+    _TOKEN_露:1.0___jcross_露_7__(_TOKEN_露:1.0___jcross_露_28__)._TOKEN_露:1.0___jcross_露_55__._TOKEN_露:1.0___jcross_露_68__();
+    _TOKEN_露:1.0___jcross_露_7__(_TOKEN_露:1.0___jcross_露_30__)._TOKEN_露:1.0___jcross_露_55__._TOKEN_露:1.0___jcross_露_68__();
+    _TOKEN_露:1.0___jcross_露_7__(_TOKEN_露:1.0___jcross_露_35__)._TOKEN_露:1.0___jcross_露_34__(1);
+  });
+
+  it("_TOKEN_露:1.0___jcross_露_64__ _TOKEN_露:1.0___jcross_露_27__ _TOKEN_露:1.0___jcross_露_19__ _TOKEN_露:1.0___jcross_露_17__ _TOKEN_露:1.0___jcross_露_38__ _TOKEN_露:1.0___jcross_露_31__ _TOKEN_露:1.0___jcross_露_52__", async () => {
+    _TOKEN_露:1.0___jcross_露_46__ { _TOKEN_露:1.0___jcross_露_6__, _TOKEN_露:1.0___jcross_露_15__ } = _TOKEN_露:1.0___jcross_露_50__();
+
+    _TOKEN_露:1.0___jcross_露_6__._TOKEN_露:1.0___jcross_露_47__("_TOKEN_露:1.0___jcross_露_67__");
+    await _TOKEN_露:1.0___jcross_露_6__._TOKEN_露:1.0___jcross_露_42__();
+    await _TOKEN_露:1.0___jcross_露_6__._TOKEN_露:1.0___jcross_露_64__();
+
+    _TOKEN_露:1.0___jcross_露_7__(_TOKEN_露:1.0___jcross_露_15__)._TOKEN_露:1.0___jcross_露_34__(1);
+    _TOKEN_露:1.0___jcross_露_7__(_TOKEN_露:1.0___jcross_露_15__)._TOKEN_露:1.0___jcross_露_56__("_TOKEN_礎:1.0___jcross_礎_9__", "111.222", {
+      _TOKEN_隠:1.0___jcross_露_53__: "_TOKEN_露:1.0___jcross_露_49__-_TOKEN_露:1.0___jcross_露_40__",
+      _TOKEN_露:1.0___jcross_露_66__: _TOKEN_露:1.0___jcross_露_54__,
+    });
+    _TOKEN_露:1.0___jcross_露_7__(_TOKEN_露:1.0___jcross_露_6__._TOKEN_露:1.0___jcross_露_29__())._TOKEN_露:1.0___jcross_露_62__();
+    _TOKEN_露:1.0___jcross_露_7__(_TOKEN_露:1.0___jcross_露_6__._TOKEN_露:1.0___jcross_露_61__())._TOKEN_露:1.0___jcross_露_62__();
+  });
+
+  it("_TOKEN_露:1.0___jcross_露_64__ is a no-op _TOKEN_露:1.0___jcross_露_38__ no _TOKEN_露:1.0___jcross_露_19__ _TOKEN_露:1.0___jcross_露_17__ _TOKEN_露:1.0___jcross_露_52__", async () => {
+    _TOKEN_露:1.0___jcross_露_46__ { _TOKEN_露:1.0___jcross_露_6__, _TOKEN_露:1.0___jcross_露_15__ } = _TOKEN_露:1.0___jcross_露_50__();
+
+    await _TOKEN_露:1.0___jcross_露_6__._TOKEN_露:1.0___jcross_露_64__();
+
+    _TOKEN_露:1.0___jcross_露_7__(_TOKEN_露:1.0___jcross_露_15__)._TOKEN_露:1.0___jcross_露_55__._TOKEN_露:1.0___jcross_露_68__();
+  });
+
+  it("_TOKEN_露:1.0___jcross_露_64__ _TOKEN_露:1.0___jcross_露_69__ _TOKEN_露:1.0___jcross_露_38__ _TOKEN_露:1.0___jcross_露_60__ _TOKEN_露:1.0___jcross_露_8__", async () => {
+    _TOKEN_露:1.0___jcross_露_46__ _TOKEN_露:1.0___jcross_露_15__ = vi.fn<_TOKEN_礎:1.0___jcross_礎_5__>(async () => {
+      _TOKEN_露:1.0___jcross_露_23__ _TOKEN_露:1.0___jcross_露_43__ _TOKEN_礎:1.0___jcross_礎_7__("_TOKEN_露:1.0___jcross_露_60__ _TOKEN_露:1.0___jcross_露_9__");
+    });
+    _TOKEN_露:1.0___jcross_露_46__ _TOKEN_露:1.0___jcross_露_35__ = vi.fn<_TOKEN_礎:1.0___jcross_礎_6__>();
+// _TOKEN_律:0.8___jcross_WG_143__ [decoy-metadata]
+    _TOKEN_露:1.0___jcross_露_46__ { _TOKEN_露:1.0___jcross_露_6__ } = _TOKEN_露:1.0___jcross_露_50__({ _TOKEN_露:1.0___jcross_露_15__, _TOKEN_露:1.0___jcross_露_35__ });
+
+    _TOKEN_露:1.0___jcross_露_6__._TOKEN_露:1.0___jcross_露_47__("_TOKEN_露:1.0___jcross_露_67__");
+    await _TOKEN_露:1.0___jcross_露_6__._TOKEN_露:1.0___jcross_露_42__();
+    await _TOKEN_露:1.0___jcross_露_6__._TOKEN_露:1.0___jcross_露_64__();
+
+    _TOKEN_露:1.0___jcross_露_7__(_TOKEN_露:1.0___jcross_露_35__)._TOKEN_露:1.0___jcross_露_56__("_TOKEN_露:1.0___jcross_露_45__ _TOKEN_露:1.0___jcross_露_6__ _TOKEN_露:1.0___jcross_露_19__ _TOKEN_露:1.0___jcross_露_60__ _TOKEN_露:1.0___jcross_露_9__: _TOKEN_露:1.0___jcross_露_60__ _TOKEN_露:1.0___jcross_露_9__");
+    _TOKEN_露:1.0___jcross_露_7__(_TOKEN_露:1.0___jcross_露_6__._TOKEN_露:1.0___jcross_露_29__())._TOKEN_露:1.0___jcross_露_62__();
+    _TOKEN_露:1.0___jcross_露_7__(_TOKEN_露:1.0___jcross_露_6__._TOKEN_露:1.0___jcross_露_61__())._TOKEN_露:1.0___jcross_露_62__();
+  });
+});
+// _TOKEN_露:0.9___jcross_XY_508__ [decoy-metadata]
+
+// POLYMORPHIC_JCROSS_END

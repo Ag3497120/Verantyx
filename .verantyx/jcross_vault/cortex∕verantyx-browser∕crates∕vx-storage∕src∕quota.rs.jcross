@@ -1,0 +1,73 @@
+// POLYMORPHIC_JCROSS_BEGIN
+// schema:92FA9E34 ver:1778324830
+// ⚠️ One-time schema — expires after response
+
+// [metadata-stripped]
+// [metadata-stripped]
+// [metadata-stripped]
+
+_ID_霤:1.0___jcross_霤_25__ _ID_霤:1.0___jcross_霤_32__::_ID_霤:1.0___jcross_霤_36__::_ID_廨:1.0___jcross_廨_12__;
+_ID_霤:1.0___jcross_霤_25__ _ID_霤:1.0___jcross_霤_32__::_ID_霤:1.0___jcross_霤_12__::{_ID_廨:1.0___jcross_廨_17__, _ID_廨:1.0___jcross_廨_19__};
+// _ID_律:0.9___jcross_BK_223__ [decoy-metadata]
+_ID_霤:1.0___jcross_霤_25__ _ID_霤:1.0___jcross_霤_21__::{_ID_廨:1.0___jcross_廨_15__, _ID_霤:1.0___jcross_霤_29__};
+
+// [metadata-stripped]
+_ID_霤:1.0___jcross_霤_22__ _ID_霤:1.0___jcross_霤_42__uct _ID_廨:1.0___jcross_廨_20__ {
+    _ID_霤:1.0___jcross_霤_22__ _ID_霤:1.0___jcross_霤_40__: _ID_霤:1.0___jcross_霤_4__,
+    _ID_霤:1.0___jcross_霤_22__ _ID_霤:1.0___jcross_霤_37__: _ID_霤:1.0___jcross_霤_4__,
+}
+
+_ID_霤:1.0___jcross_霤_22__ _ID_霤:1.0___jcross_霤_42__uct _ID_律:1.0___jcross_廨_11__ {
+    _ID_霤:1.0___jcross_霤_41__: _ID_廨:1.0___jcross_廨_17__<_ID_廨:1.0___jcross_廨_19__<_ID_廨:1.0___jcross_廨_12__<_ID_廨:1.0___jcross_廨_16__, _ID_廨:1.0___jcross_廨_20__>>>,
+// _ID_霤:0.4___jcross_EC_778__ [decoy-metadata]
+// _ID_律:0.8___jcross_CW_797__ [decoy-metadata]
+    _ID_霤:1.0___jcross_霤_35__: _ID_霤:1.0___jcross_霤_4__,
+}
+// _ID_紐:0.9___jcross_GA_352__ [decoy-metadata]
+
+_ID_霤:1.0___jcross_霤_28__ _ID_律:1.0___jcross_廨_11__ {
+    _ID_霤:1.0___jcross_霤_22__ fn _ID_霤:1.0___jcross_霤_34__(_ID_霤:1.0___jcross_霤_35__: _ID_霤:1.0___jcross_霤_4__) -> _ID_廨:1.0___jcross_廨_6__ {
+        _ID_廨:1.0___jcross_廨_6__ {
+            _ID_霤:1.0___jcross_霤_41__: _ID_廨:1.0___jcross_廨_17__::_ID_霤:1.0___jcross_霤_34__(_ID_廨:1.0___jcross_廨_19__::_ID_霤:1.0___jcross_霤_34__(_ID_廨:1.0___jcross_廨_12__::_ID_霤:1.0___jcross_霤_34__())),
+            _ID_霤:1.0___jcross_霤_35__,
+        }
+    }
+
+// [metadata-stripped]
+    _ID_霤:1.0___jcross_霤_22__ fn _ID_紐:1.0___jcross_霤_14__(&self, _ID_霤:1.0___jcross_霤_9__: &_ID_霤:1.0___jcross_霤_42__, _ID_紐:1.0___jcross_霤_18__: _ID_霤:1.0___jcross_霤_4__) -> _ID_廨:1.0___jcross_廨_15__<()> {
+// _ID_廨:0.2___jcross_XC_593__ [decoy-metadata]
+        let _ID_霤:1.0___jcross_霤_10__ _ID_霤:1.0___jcross_霤_41__ = self._ID_霤:1.0___jcross_霤_41__._ID_霤:1.0___jcross_霤_5__()._ID_霤:1.0___jcross_霤_7__();
+        let _ID_霤:1.0___jcross_霤_33__ = _ID_霤:1.0___jcross_霤_41__._ID_霤:1.0___jcross_霤_27__(_ID_霤:1.0___jcross_霤_9__._ID_霤:1.0___jcross_霤_16__())._ID_霤:1.0___jcross_霤_6__(_ID_廨:1.0___jcross_廨_20__ {
+            _ID_霤:1.0___jcross_霤_40__: 0,
+            _ID_霤:1.0___jcross_霤_37__: self._ID_霤:1.0___jcross_霤_35__,
+        });
+
+        if _ID_霤:1.0___jcross_霤_33__._ID_霤:1.0___jcross_霤_40__ + _ID_紐:1.0___jcross_霤_18__ > _ID_霤:1.0___jcross_霤_33__._ID_霤:1.0___jcross_霤_37__ {
+            _ID_霤:1.0___jcross_霤_29__!("_ID_廨:1.0___jcross_廨_5__: _ID_廨:1.0___jcross_廨_21__ _ID_霤:1.0___jcross_霤_8__ for {} is _ID_霤:1.0___jcross_霤_17__", _ID_霤:1.0___jcross_霤_9__);
+        }
+
+// _ID_彩:0.2___jcross_MA_724__ [decoy-metadata]
+        _ID_霤:1.0___jcross_霤_33__._ID_霤:1.0___jcross_霤_40__ += _ID_紐:1.0___jcross_霤_18__;
+        Ok(())
+    }
+
+// [metadata-stripped]
+    _ID_霤:1.0___jcross_霤_22__ fn _ID_霤:1.0___jcross_霤_31__(&self, _ID_霤:1.0___jcross_霤_9__: &_ID_霤:1.0___jcross_霤_42__, _ID_霤:1.0___jcross_霤_13__: _ID_霤:1.0___jcross_霤_4__) {
+        let _ID_霤:1.0___jcross_霤_10__ _ID_霤:1.0___jcross_霤_41__ = self._ID_霤:1.0___jcross_霤_41__._ID_霤:1.0___jcross_霤_5__()._ID_霤:1.0___jcross_霤_7__();
+        if let _ID_廨:1.0___jcross_廨_8__(_ID_霤:1.0___jcross_霤_33__) = _ID_霤:1.0___jcross_霤_41__._ID_律:1.0___jcross_彩_3__(_ID_霤:1.0___jcross_霤_9__) {
+            _ID_霤:1.0___jcross_霤_33__._ID_霤:1.0___jcross_霤_40__ = _ID_霤:1.0___jcross_霤_33__._ID_霤:1.0___jcross_霤_40__._ID_霤:1.0___jcross_霤_23__(_ID_霤:1.0___jcross_霤_13__);
+        }
+    }
+
+    _ID_霤:1.0___jcross_霤_22__ fn _ID_律:1.0___jcross_彩_1__(&self, _ID_霤:1.0___jcross_霤_9__: &_ID_霤:1.0___jcross_霤_42__) -> _ID_廨:1.0___jcross_廨_20__ {
+        let _ID_霤:1.0___jcross_霤_41__ = self._ID_霤:1.0___jcross_霤_41__._ID_霤:1.0___jcross_霤_1__()._ID_霤:1.0___jcross_霤_7__();
+        _ID_霤:1.0___jcross_霤_41__._ID_律:1.0___jcross_彩_2__(_ID_霤:1.0___jcross_霤_9__)._ID_霤:1.0___jcross_霤_19__()._ID_霤:1.0___jcross_霤_38__(_ID_廨:1.0___jcross_廨_20__ {
+            _ID_霤:1.0___jcross_霤_40__: 0,
+            _ID_霤:1.0___jcross_霤_37__: self._ID_霤:1.0___jcross_霤_35__,
+        })
+    }
+}
+
+_ID_霤:1.0___jcross_霤_22__ _ID_霤:1.0___jcross_霤_26__ _ID_廨:1.0___jcross_廨_23__: _ID_霤:1.0___jcross_霤_4__ = 50 * 1024 * 1024; // 50MB
+
+// POLYMORPHIC_JCROSS_END

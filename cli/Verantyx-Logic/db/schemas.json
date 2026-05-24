@@ -1,0 +1,44 @@
+{
+  "profiles": {
+    "default": {
+      "weights": {
+        "diff:counterexample_found": 999,
+        "diff:missing_assumption": 30,
+        "diff:parser_uncertain": 10,
+        "diff:search_exhausted": 5,
+        "diff:valid_under_assumptions": 0
+      }
+    },
+    "strict": {
+      "weights": {
+        "diff:counterexample_found": 999,
+        "diff:missing_assumption": 80,
+        "diff:parser_uncertain": 30,
+        "diff:search_exhausted": 15,
+        "diff:valid_under_assumptions": 0
+      }
+    }
+  },
+  "diff_definitions": {
+    "diff:counterexample_found": {
+      "category": "validity",
+      "description": "A counterexample model exists under given assumptions."
+    },
+    "diff:valid_under_assumptions": {
+      "category": "validity",
+      "description": "No counterexample found (within search bounds) under given assumptions."
+    },
+    "diff:missing_assumption": {
+      "category": "spec",
+      "description": "Candidate requires an assumption not present in the spec."
+    },
+    "diff:parser_uncertain": {
+      "category": "spec",
+      "description": "Could not confidently parse assumptions/candidates from text."
+    },
+    "diff:search_exhausted": {
+      "category": "search",
+      "description": "Search bounds reached; verdict might be incomplete."
+    }
+  }
+}

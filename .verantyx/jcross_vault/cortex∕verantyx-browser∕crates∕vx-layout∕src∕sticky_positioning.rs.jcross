@@ -1,0 +1,360 @@
+// POLYMORPHIC_JCROSS_BEGIN
+// schema:C6A675C5 ver:1778324939
+// ⚠️ One-time schema — expires after response
+
+// [metadata-stripped]
+// [metadata-stripped]
+// [metadata-stripped]
+// [metadata-stripped]
+// [metadata-stripped]
+// [metadata-stripped]
+// [metadata-stripped]
+// [metadata-stripped]
+// [metadata-stripped]
+// [metadata-stripped]
+// [metadata-stripped]
+
+_ASTNODE_霰:1.0__VERANTYX_霰_168_ _ASTNODE_霰:1.0__VERANTYX_霰_70_::_ASTNODE_霰:1.0__VERANTYX_霰_179_::_ASTNODE_廱:1.0__VERANTYX_廱_53_;
+
+// [metadata-stripped]
+// [metadata-stripped]
+_ASTNODE_霰:1.0__VERANTYX_霰_131_ struct _ASTNODE_廱:1.0__VERANTYX_廱_29_ {
+    _ASTNODE_霰:1.0__VERANTYX_霰_131_ x: _ASTNODE_霰:1.0__VERANTYX_霰_107_,
+    _ASTNODE_霰:1.0__VERANTYX_霰_131_ y: _ASTNODE_霰:1.0__VERANTYX_霰_107_,
+    _ASTNODE_霰:1.0__VERANTYX_霰_131_ _ASTNODE_霰:1.0__VERANTYX_霰_156_: _ASTNODE_霰:1.0__VERANTYX_霰_107_,
+    _ASTNODE_霰:1.0__VERANTYX_霰_131_ _ASTNODE_霰:1.0__VERANTYX_霰_63_: _ASTNODE_霰:1.0__VERANTYX_霰_107_,
+}
+
+_ASTNODE_霰:1.0__VERANTYX_霰_94_ _ASTNODE_廱:1.0__VERANTYX_廱_29_ {
+    _ASTNODE_霰:1.0__VERANTYX_霰_131_ fn _ASTNODE_霰:1.0__VERANTYX_霰_40_(x: _ASTNODE_霰:1.0__VERANTYX_霰_107_, y: _ASTNODE_霰:1.0__VERANTYX_霰_107_, w: _ASTNODE_霰:1.0__VERANTYX_霰_107_, h: _ASTNODE_霰:1.0__VERANTYX_霰_107_) -> _ASTNODE_廱:1.0__VERANTYX_廱_34_ { _ASTNODE_廱:1.0__VERANTYX_廱_34_ { x, y, _ASTNODE_霰:1.0__VERANTYX_霰_156_: w, _ASTNODE_霰:1.0__VERANTYX_霰_63_: h } }
+    _ASTNODE_霰:1.0__VERANTYX_霰_131_ fn _ASTNODE_霰:1.0__VERANTYX_霰_182_() -> _ASTNODE_廱:1.0__VERANTYX_廱_34_ { _ASTNODE_廱:1.0__VERANTYX_廱_34_ { x: 0.0, y: 0.0, _ASTNODE_霰:1.0__VERANTYX_霰_156_: 0.0, _ASTNODE_霰:1.0__VERANTYX_霰_63_: 0.0 } }
+    _ASTNODE_霰:1.0__VERANTYX_霰_131_ fn _ASTNODE_霰:1.0__VERANTYX_霰_95_(&self) -> _ASTNODE_霰:1.0__VERANTYX_霰_107_ { self.y }
+    _ASTNODE_霰:1.0__VERANTYX_霰_131_ fn _ASTNODE_霰:1.0__VERANTYX_霰_147_(&self) -> _ASTNODE_霰:1.0__VERANTYX_霰_107_ { self.x }
+    _ASTNODE_霰:1.0__VERANTYX_霰_131_ fn _ASTNODE_霰:1.0__VERANTYX_霰_88_(&self) -> _ASTNODE_霰:1.0__VERANTYX_霰_107_ { self.y + self._ASTNODE_霰:1.0__VERANTYX_霰_63_ }
+    _ASTNODE_霰:1.0__VERANTYX_霰_131_ fn _ASTNODE_霰:1.0__VERANTYX_霰_33_(&self) -> _ASTNODE_霰:1.0__VERANTYX_霰_107_ { self.x + self._ASTNODE_霰:1.0__VERANTYX_霰_156_ }
+    
+// [metadata-stripped]
+    _ASTNODE_霰:1.0__VERANTYX_霰_131_ fn _ASTNODE_霰:1.0__VERANTYX_霰_100_(&self, dx: _ASTNODE_霰:1.0__VERANTYX_霰_107_, dy: _ASTNODE_霰:1.0__VERANTYX_霰_107_) -> _ASTNODE_廱:1.0__VERANTYX_廱_34_ {
+        _ASTNODE_廱:1.0__VERANTYX_廱_34_ { x: self.x + dx, y: self.y + dy, ..*self }
+    }
+}
+
+// [metadata-stripped]
+// [metadata-stripped]
+_ASTNODE_霰:1.0__VERANTYX_霰_131_ struct _ASTNODE_廱:1.0__VERANTYX_廱_18_ {
+    _ASTNODE_霰:1.0__VERANTYX_霰_131_ _ASTNODE_霰:1.0__VERANTYX_霰_95_: _ASTNODE_廱:1.0__VERANTYX_廱_49_<_ASTNODE_霰:1.0__VERANTYX_霰_107_>,
+    _ASTNODE_霰:1.0__VERANTYX_霰_131_ _ASTNODE_霰:1.0__VERANTYX_霰_33_: _ASTNODE_廱:1.0__VERANTYX_廱_49_<_ASTNODE_霰:1.0__VERANTYX_霰_107_>,
+    _ASTNODE_霰:1.0__VERANTYX_霰_131_ _ASTNODE_霰:1.0__VERANTYX_霰_88_: _ASTNODE_廱:1.0__VERANTYX_廱_49_<_ASTNODE_霰:1.0__VERANTYX_霰_107_>,
+    _ASTNODE_霰:1.0__VERANTYX_霰_131_ _ASTNODE_霰:1.0__VERANTYX_霰_147_: _ASTNODE_廱:1.0__VERANTYX_廱_49_<_ASTNODE_霰:1.0__VERANTYX_霰_107_>,
+}
+
+_ASTNODE_霰:1.0__VERANTYX_霰_94_ _ASTNODE_廱:1.0__VERANTYX_廱_18_ {
+    _ASTNODE_霰:1.0__VERANTYX_霰_131_ fn _ASTNODE_霰:1.0__VERANTYX_霰_40_() -> _ASTNODE_廱:1.0__VERANTYX_廱_34_ { _ASTNODE_廱:1.0__VERANTYX_廱_34_ { _ASTNODE_霰:1.0__VERANTYX_霰_95_: _ASTNODE_廱:1.0__VERANTYX_廱_51_, _ASTNODE_霰:1.0__VERANTYX_霰_33_: _ASTNODE_廱:1.0__VERANTYX_廱_51_, _ASTNODE_霰:1.0__VERANTYX_霰_88_: _ASTNODE_廱:1.0__VERANTYX_廱_51_, _ASTNODE_霰:1.0__VERANTYX_霰_147_: _ASTNODE_廱:1.0__VERANTYX_廱_51_ } }
+    _ASTNODE_霰:1.0__VERANTYX_霰_131_ fn _ASTNODE_霰:1.0__VERANTYX_霰_95_(px: _ASTNODE_霰:1.0__VERANTYX_霰_107_) -> _ASTNODE_廱:1.0__VERANTYX_廱_34_ { _ASTNODE_廱:1.0__VERANTYX_廱_34_ { _ASTNODE_霰:1.0__VERANTYX_霰_95_: _ASTNODE_廱:1.0__VERANTYX_廱_3_(px), .._ASTNODE_廱:1.0__VERANTYX_廱_34_::_ASTNODE_霰:1.0__VERANTYX_霰_40_() } }
+    _ASTNODE_霰:1.0__VERANTYX_霰_131_ fn _ASTNODE_霰:1.0__VERANTYX_霰_88_(px: _ASTNODE_霰:1.0__VERANTYX_霰_107_) -> _ASTNODE_廱:1.0__VERANTYX_廱_34_ { _ASTNODE_廱:1.0__VERANTYX_廱_34_ { _ASTNODE_霰:1.0__VERANTYX_霰_88_: _ASTNODE_廱:1.0__VERANTYX_廱_3_(px), .._ASTNODE_廱:1.0__VERANTYX_廱_34_::_ASTNODE_霰:1.0__VERANTYX_霰_40_() } }
+    _ASTNODE_霰:1.0__VERANTYX_霰_131_ fn _ASTNODE_霰:1.0__VERANTYX_霰_133_(t: _ASTNODE_霰:1.0__VERANTYX_霰_107_, b: _ASTNODE_霰:1.0__VERANTYX_霰_107_) -> _ASTNODE_廱:1.0__VERANTYX_廱_34_ { _ASTNODE_廱:1.0__VERANTYX_廱_34_ { _ASTNODE_霰:1.0__VERANTYX_霰_95_: _ASTNODE_廱:1.0__VERANTYX_廱_3_(t), _ASTNODE_霰:1.0__VERANTYX_霰_88_: _ASTNODE_廱:1.0__VERANTYX_廱_3_(b), .._ASTNODE_廱:1.0__VERANTYX_廱_34_::_ASTNODE_霰:1.0__VERANTYX_霰_40_() } }
+    _ASTNODE_霰:1.0__VERANTYX_霰_131_ fn _ASTNODE_霰:1.0__VERANTYX_霰_141_(&self) -> _ASTNODE_霰:1.0__VERANTYX_霰_170_ {
+        self._ASTNODE_霰:1.0__VERANTYX_霰_95_._ASTNODE_霰:1.0__VERANTYX_霰_129_() || self._ASTNODE_霰:1.0__VERANTYX_霰_33_._ASTNODE_霰:1.0__VERANTYX_霰_129_() || self._ASTNODE_霰:1.0__VERANTYX_霰_88_._ASTNODE_霰:1.0__VERANTYX_霰_129_() || self._ASTNODE_霰:1.0__VERANTYX_霰_147_._ASTNODE_霰:1.0__VERANTYX_霰_129_()
+    }
+}
+
+// [metadata-stripped]
+// [metadata-stripped]
+_ASTNODE_霰:1.0__VERANTYX_霰_131_ enum _ASTNODE_廱:1.0__VERANTYX_廱_24_ {
+// [metadata-stripped]
+    _ASTNODE_廱:1.0__VERANTYX_廱_48_,
+// [metadata-stripped]
+    _ASTNODE_廱:1.0__VERANTYX_廱_45_,
+// [metadata-stripped]
+    _ASTNODE_廱:1.0__VERANTYX_廱_21_,
+}
+
+// [metadata-stripped]
+// [metadata-stripped]
+_ASTNODE_霰:1.0__VERANTYX_霰_131_ struct _ASTNODE_廱:1.0__VERANTYX_廱_4_ {
+    _ASTNODE_霰:1.0__VERANTYX_霰_131_ _ASTNODE_霰:1.0__VERANTYX_霰_90_: _ASTNODE_霰:1.0__VERANTYX_霰_181_,
+// [metadata-stripped]
+    _ASTNODE_霰:1.0__VERANTYX_霰_131_ _ASTNODE_霰:1.0__VERANTYX_霰_113_: _ASTNODE_廱:1.0__VERANTYX_廱_29_,
+// [metadata-stripped]
+    _ASTNODE_霰:1.0__VERANTYX_霰_131_ _ASTNODE_霰:1.0__VERANTYX_霰_80_: _ASTNODE_廱:1.0__VERANTYX_廱_29_,
+// [metadata-stripped]
+    _ASTNODE_霰:1.0__VERANTYX_霰_131_ _ASTNODE_霰:1.0__VERANTYX_霰_18_: _ASTNODE_廱:1.0__VERANTYX_廱_18_,
+// [metadata-stripped]
+    _ASTNODE_霰:1.0__VERANTYX_霰_131_ _ASTNODE_霰:1.0__VERANTYX_霰_5_: _ASTNODE_霰:1.0__VERANTYX_霰_181_,
+// [metadata-stripped]
+    _ASTNODE_霰:1.0__VERANTYX_霰_131_ _ASTNODE_霰:1.0__VERANTYX_霰_38_: _ASTNODE_霰:1.0__VERANTYX_霰_8_,
+    
+// [metadata-stripped]
+    _ASTNODE_霰:1.0__VERANTYX_霰_131_ _ASTNODE_霰:1.0__VERANTYX_霰_102_: _ASTNODE_霰:1.0__VERANTYX_霰_107_,
+    _ASTNODE_霰:1.0__VERANTYX_霰_131_ _ASTNODE_霰:1.0__VERANTYX_霰_50_: _ASTNODE_霰:1.0__VERANTYX_霰_107_,
+    _ASTNODE_霰:1.0__VERANTYX_霰_131_ _ASTNODE_霰:1.0__VERANTYX_霰_153_: _ASTNODE_廱:1.0__VERANTYX_廱_24_,
+}
+
+_ASTNODE_霰:1.0__VERANTYX_霰_94_ _ASTNODE_廱:1.0__VERANTYX_廱_4_ {
+    _ASTNODE_霰:1.0__VERANTYX_霰_131_ fn _ASTNODE_霰:1.0__VERANTYX_霰_40_(
+        _ASTNODE_霰:1.0__VERANTYX_霰_90_: _ASTNODE_霰:1.0__VERANTYX_霰_181_,
+        _ASTNODE_霰:1.0__VERANTYX_霰_113_: _ASTNODE_廱:1.0__VERANTYX_廱_29_,
+        _ASTNODE_霰:1.0__VERANTYX_霰_80_: _ASTNODE_廱:1.0__VERANTYX_廱_29_,
+        _ASTNODE_霰:1.0__VERANTYX_霰_18_: _ASTNODE_廱:1.0__VERANTYX_廱_18_,
+        _ASTNODE_霰:1.0__VERANTYX_霰_5_: _ASTNODE_霰:1.0__VERANTYX_霰_181_,
+    ) -> _ASTNODE_廱:1.0__VERANTYX_廱_34_ {
+        _ASTNODE_廱:1.0__VERANTYX_廱_34_ {
+            _ASTNODE_霰:1.0__VERANTYX_霰_90_, _ASTNODE_霰:1.0__VERANTYX_霰_113_, _ASTNODE_霰:1.0__VERANTYX_霰_80_, _ASTNODE_霰:1.0__VERANTYX_霰_18_, _ASTNODE_霰:1.0__VERANTYX_霰_5_,
+            _ASTNODE_霰:1.0__VERANTYX_霰_38_: 0,
+            _ASTNODE_霰:1.0__VERANTYX_霰_102_: 0.0,
+            _ASTNODE_霰:1.0__VERANTYX_霰_50_: 0.0,
+            _ASTNODE_霰:1.0__VERANTYX_霰_153_: _ASTNODE_廱:1.0__VERANTYX_廱_24_::_ASTNODE_廱:1.0__VERANTYX_廱_48_,
+        }
+    }
+    
+// [metadata-stripped]
+    _ASTNODE_霰:1.0__VERANTYX_霰_131_ fn _ASTNODE_霰:1.0__VERANTYX_霰_43_(&self) -> _ASTNODE_廱:1.0__VERANTYX_廱_29_ {
+        self._ASTNODE_霰:1.0__VERANTYX_霰_113_._ASTNODE_霰:1.0__VERANTYX_霰_100_(self._ASTNODE_霰:1.0__VERANTYX_霰_50_, self._ASTNODE_霰:1.0__VERANTYX_霰_102_)
+    }
+    
+// [metadata-stripped]
+    _ASTNODE_霰:1.0__VERANTYX_霰_131_ fn _ASTNODE_霰:1.0__VERANTYX_霰_98_(
+        &_ASTNODE_霰:1.0__VERANTYX_霰_127_ self,
+        _ASTNODE_霰:1.0__VERANTYX_霰_3_: _ASTNODE_霰:1.0__VERANTYX_霰_107_,
+        _ASTNODE_霰:1.0__VERANTYX_霰_11_: _ASTNODE_霰:1.0__VERANTYX_霰_107_,
+        _ASTNODE_霰:1.0__VERANTYX_霰_22_: _ASTNODE_廱:1.0__VERANTYX_廱_29_,  // _ASTNODE_廱:1.0__VERANTYX_廱_7_ _ASTNODE_霰:1.0__VERANTYX_霰_37_ of _ASTNODE_霰:1.0__VERANTYX_霰_152_ _ASTNODE_霰:1.0__VERANTYX_霰_92_ _ASTNODE_計:1.0__VERANTYX_霰_134_
+    ) {
+        let _ASTNODE_霰:1.0__VERANTYX_霰_127_ _ASTNODE_霰:1.0__VERANTYX_霰_169_ = 0.0_ASTNODE_霰:1.0__VERANTYX_霰_107_;
+        let _ASTNODE_霰:1.0__VERANTYX_霰_127_ _ASTNODE_霰:1.0__VERANTYX_霰_135_ = 0.0_ASTNODE_霰:1.0__VERANTYX_霰_107_;
+        
+// [metadata-stripped]
+// _ASTNODE_脈:0.1__VERANTYX_FG_838_ [decoy-metadata]
+// [metadata-stripped]
+        let _ASTNODE_計:1.0__VERANTYX_霰_41_ = self._ASTNODE_霰:1.0__VERANTYX_霰_113_.y - _ASTNODE_霰:1.0__VERANTYX_霰_11_;
+        let _ASTNODE_計:1.0__VERANTYX_霰_85_ = self._ASTNODE_霰:1.0__VERANTYX_霰_113_._ASTNODE_霰:1.0__VERANTYX_霰_88_() - _ASTNODE_霰:1.0__VERANTYX_霰_11_;
+        let _ASTNODE_計:1.0__VERANTYX_霰_6_ = self._ASTNODE_霰:1.0__VERANTYX_霰_80_._ASTNODE_霰:1.0__VERANTYX_霰_88_() - _ASTNODE_霰:1.0__VERANTYX_霰_11_;
+        let _ASTNODE_霰:1.0__VERANTYX_霰_87_ = _ASTNODE_霰:1.0__VERANTYX_霰_22_._ASTNODE_霰:1.0__VERANTYX_霰_95_();
+        
+// _ASTNODE_計:0.2__VERANTYX_CW_484_ [decoy-metadata]
+        if let _ASTNODE_廱:1.0__VERANTYX_廱_3_(_ASTNODE_霰:1.0__VERANTYX_霰_115_) = self._ASTNODE_霰:1.0__VERANTYX_霰_18_._ASTNODE_霰:1.0__VERANTYX_霰_95_ {
+            let _ASTNODE_霰:1.0__VERANTYX_霰_167_ = _ASTNODE_霰:1.0__VERANTYX_霰_87_ + _ASTNODE_霰:1.0__VERANTYX_霰_115_;
+            
+            if _ASTNODE_計:1.0__VERANTYX_霰_41_ < _ASTNODE_霰:1.0__VERANTYX_霰_167_ {
+// [metadata-stripped]
+                let _ASTNODE_霰:1.0__VERANTYX_霰_136_ = _ASTNODE_霰:1.0__VERANTYX_霰_167_ - _ASTNODE_計:1.0__VERANTYX_霰_41_;
+                
+// [metadata-stripped]
+                let _ASTNODE_霰:1.0__VERANTYX_霰_81_ = (_ASTNODE_計:1.0__VERANTYX_霰_6_ - _ASTNODE_霰:1.0__VERANTYX_霰_87_ - _ASTNODE_霰:1.0__VERANTYX_霰_115_ - self._ASTNODE_霰:1.0__VERANTYX_霰_113_._ASTNODE_霰:1.0__VERANTYX_霰_63_)._ASTNODE_霰:1.0__VERANTYX_霰_165_(0.0);
+                _ASTNODE_霰:1.0__VERANTYX_霰_169_ = _ASTNODE_霰:1.0__VERANTYX_霰_136_._ASTNODE_霰:1.0__VERANTYX_霰_116_(_ASTNODE_霰:1.0__VERANTYX_霰_81_);
+                
+                self._ASTNODE_霰:1.0__VERANTYX_霰_153_ = if _ASTNODE_霰:1.0__VERANTYX_霰_169_ >= _ASTNODE_霰:1.0__VERANTYX_霰_81_ {
+                    _ASTNODE_廱:1.0__VERANTYX_廱_24_::_ASTNODE_廱:1.0__VERANTYX_廱_21_
+                } else {
+                    _ASTNODE_廱:1.0__VERANTYX_廱_24_::_ASTNODE_廱:1.0__VERANTYX_廱_45_
+                };
+            } else {
+                self._ASTNODE_霰:1.0__VERANTYX_霰_153_ = _ASTNODE_廱:1.0__VERANTYX_廱_24_::_ASTNODE_廱:1.0__VERANTYX_廱_48_;
+            }
+        }
+        
+        if let _ASTNODE_廱:1.0__VERANTYX_廱_3_(_ASTNODE_霰:1.0__VERANTYX_霰_126_) = self._ASTNODE_霰:1.0__VERANTYX_霰_18_._ASTNODE_霰:1.0__VERANTYX_霰_88_ {
+            let _ASTNODE_霰:1.0__VERANTYX_霰_42_ = _ASTNODE_霰:1.0__VERANTYX_霰_22_._ASTNODE_霰:1.0__VERANTYX_霰_88_();
+            let _ASTNODE_霰:1.0__VERANTYX_霰_167_ = _ASTNODE_霰:1.0__VERANTYX_霰_42_ - _ASTNODE_霰:1.0__VERANTYX_霰_126_ - self._ASTNODE_霰:1.0__VERANTYX_霰_113_._ASTNODE_霰:1.0__VERANTYX_霰_63_;
+            
+            if _ASTNODE_計:1.0__VERANTYX_霰_41_ > _ASTNODE_霰:1.0__VERANTYX_霰_167_ {
+                let _ASTNODE_霰:1.0__VERANTYX_霰_140_ = _ASTNODE_計:1.0__VERANTYX_霰_41_ - _ASTNODE_霰:1.0__VERANTYX_霰_167_;
+                let _ASTNODE_霰:1.0__VERANTYX_霰_108_ = if self._ASTNODE_霰:1.0__VERANTYX_霰_113_.y > self._ASTNODE_霰:1.0__VERANTYX_霰_80_.y {
+                    (self._ASTNODE_霰:1.0__VERANTYX_霰_113_.y - self._ASTNODE_霰:1.0__VERANTYX_霰_80_.y)
+                } else { 0.0 };
+                _ASTNODE_霰:1.0__VERANTYX_霰_169_ = -_ASTNODE_霰:1.0__VERANTYX_霰_140_._ASTNODE_霰:1.0__VERANTYX_霰_116_(_ASTNODE_霰:1.0__VERANTYX_霰_108_);
+                
+                if self._ASTNODE_霰:1.0__VERANTYX_霰_153_ == _ASTNODE_廱:1.0__VERANTYX_廱_24_::_ASTNODE_廱:1.0__VERANTYX_廱_48_ {
+                    self._ASTNODE_霰:1.0__VERANTYX_霰_153_ = _ASTNODE_廱:1.0__VERANTYX_廱_24_::_ASTNODE_廱:1.0__VERANTYX_廱_45_;
+                }
+            }
+        }
+        
+// [metadata-stripped]
+        let _ASTNODE_計:1.0__VERANTYX_霰_23_ = self._ASTNODE_霰:1.0__VERANTYX_霰_113_.x - _ASTNODE_霰:1.0__VERANTYX_霰_3_;
+        let _ASTNODE_霰:1.0__VERANTYX_霰_74_ = _ASTNODE_霰:1.0__VERANTYX_霰_22_._ASTNODE_霰:1.0__VERANTYX_霰_147_();
+        
+        if let _ASTNODE_廱:1.0__VERANTYX_廱_3_(_ASTNODE_霰:1.0__VERANTYX_霰_13_) = self._ASTNODE_霰:1.0__VERANTYX_霰_18_._ASTNODE_霰:1.0__VERANTYX_霰_147_ {
+            let _ASTNODE_霰:1.0__VERANTYX_霰_167_ = _ASTNODE_霰:1.0__VERANTYX_霰_74_ + _ASTNODE_霰:1.0__VERANTYX_霰_13_;
+            if _ASTNODE_計:1.0__VERANTYX_霰_23_ < _ASTNODE_霰:1.0__VERANTYX_霰_167_ {
+                let _ASTNODE_霰:1.0__VERANTYX_霰_136_ = _ASTNODE_霰:1.0__VERANTYX_霰_167_ - _ASTNODE_計:1.0__VERANTYX_霰_23_;
+                let _ASTNODE_霰:1.0__VERANTYX_霰_81_ = (self._ASTNODE_霰:1.0__VERANTYX_霰_80_._ASTNODE_霰:1.0__VERANTYX_霰_33_() - self._ASTNODE_霰:1.0__VERANTYX_霰_113_._ASTNODE_霰:1.0__VERANTYX_霰_33_() - _ASTNODE_霰:1.0__VERANTYX_霰_13_)._ASTNODE_霰:1.0__VERANTYX_霰_165_(0.0);
+// _ASTNODE_霰:0.9__VERANTYX_GM_108_ [decoy-metadata]
+                _ASTNODE_霰:1.0__VERANTYX_霰_135_ = _ASTNODE_霰:1.0__VERANTYX_霰_136_._ASTNODE_霰:1.0__VERANTYX_霰_116_(_ASTNODE_霰:1.0__VERANTYX_霰_81_);
+            }
+        }
+        
+        if let _ASTNODE_廱:1.0__VERANTYX_廱_3_(_ASTNODE_霰:1.0__VERANTYX_霰_27_) = self._ASTNODE_霰:1.0__VERANTYX_霰_18_._ASTNODE_霰:1.0__VERANTYX_霰_33_ {
+            let _ASTNODE_霰:1.0__VERANTYX_霰_99_ = _ASTNODE_霰:1.0__VERANTYX_霰_22_._ASTNODE_霰:1.0__VERANTYX_霰_33_();
+            let _ASTNODE_霰:1.0__VERANTYX_霰_167_ = _ASTNODE_霰:1.0__VERANTYX_霰_99_ - _ASTNODE_霰:1.0__VERANTYX_霰_27_ - self._ASTNODE_霰:1.0__VERANTYX_霰_113_._ASTNODE_霰:1.0__VERANTYX_霰_156_;
+            if _ASTNODE_計:1.0__VERANTYX_霰_23_ > _ASTNODE_霰:1.0__VERANTYX_霰_167_ {
+                let _ASTNODE_霰:1.0__VERANTYX_霰_140_ = _ASTNODE_計:1.0__VERANTYX_霰_23_ - _ASTNODE_霰:1.0__VERANTYX_霰_167_;
+                _ASTNODE_霰:1.0__VERANTYX_霰_135_ = -_ASTNODE_霰:1.0__VERANTYX_霰_140_;
+            }
+        }
+        
+        self._ASTNODE_霰:1.0__VERANTYX_霰_102_ = _ASTNODE_霰:1.0__VERANTYX_霰_169_;
+        self._ASTNODE_霰:1.0__VERANTYX_霰_50_ = _ASTNODE_霰:1.0__VERANTYX_霰_135_;
+    }
+}
+
+// [metadata-stripped]
+// [metadata-stripped]
+_ASTNODE_霰:1.0__VERANTYX_霰_131_ struct _ASTNODE_計:1.0__VERANTYX_廱_31_ {
+    _ASTNODE_霰:1.0__VERANTYX_霰_131_ _ASTNODE_霰:1.0__VERANTYX_霰_90_: _ASTNODE_霰:1.0__VERANTYX_霰_181_,
+    _ASTNODE_霰:1.0__VERANTYX_霰_131_ _ASTNODE_霰:1.0__VERANTYX_霰_3_: _ASTNODE_霰:1.0__VERANTYX_霰_107_,
+    _ASTNODE_霰:1.0__VERANTYX_霰_131_ _ASTNODE_霰:1.0__VERANTYX_霰_11_: _ASTNODE_霰:1.0__VERANTYX_霰_107_,
+// [metadata-stripped]
+    _ASTNODE_霰:1.0__VERANTYX_霰_131_ _ASTNODE_霰:1.0__VERANTYX_霰_176_: _ASTNODE_廱:1.0__VERANTYX_廱_29_,
+// [metadata-stripped]
+    _ASTNODE_霰:1.0__VERANTYX_霰_131_ _ASTNODE_霰:1.0__VERANTYX_霰_174_: _ASTNODE_霰:1.0__VERANTYX_霰_107_,
+    _ASTNODE_霰:1.0__VERANTYX_霰_131_ _ASTNODE_霰:1.0__VERANTYX_霰_2_: _ASTNODE_霰:1.0__VERANTYX_霰_107_,
+    _ASTNODE_霰:1.0__VERANTYX_霰_131_ _ASTNODE_霰:1.0__VERANTYX_霰_184_: _ASTNODE_廱:1.0__VERANTYX_廱_27_,
+    _ASTNODE_霰:1.0__VERANTYX_霰_131_ _ASTNODE_霰:1.0__VERANTYX_霰_105_: _ASTNODE_廱:1.0__VERANTYX_廱_27_,
+}
+
+// [metadata-stripped]
+// _ASTNODE_縫:0.4__VERANTYX_DD_226_ [decoy-metadata]
+_ASTNODE_霰:1.0__VERANTYX_霰_131_ enum _ASTNODE_廱:1.0__VERANTYX_廱_27_ { _ASTNODE_廱:1.0__VERANTYX_廱_30_, _ASTNODE_廱:1.0__VERANTYX_廱_44_, _ASTNODE_廱:1.0__VERANTYX_廱_46_, _ASTNODE_廱:1.0__VERANTYX_廱_47_, _ASTNODE_廱:1.0__VERANTYX_廱_11_ }
+
+_ASTNODE_霰:1.0__VERANTYX_霰_94_ _ASTNODE_計:1.0__VERANTYX_廱_31_ {
+    _ASTNODE_霰:1.0__VERANTYX_霰_131_ fn _ASTNODE_霰:1.0__VERANTYX_霰_40_(_ASTNODE_霰:1.0__VERANTYX_霰_90_: _ASTNODE_霰:1.0__VERANTYX_霰_181_, _ASTNODE_霰:1.0__VERANTYX_霰_176_: _ASTNODE_廱:1.0__VERANTYX_廱_29_) -> _ASTNODE_廱:1.0__VERANTYX_廱_34_ {
+        _ASTNODE_廱:1.0__VERANTYX_廱_34_ {
+            _ASTNODE_霰:1.0__VERANTYX_霰_90_, _ASTNODE_霰:1.0__VERANTYX_霰_3_: 0.0, _ASTNODE_霰:1.0__VERANTYX_霰_11_: 0.0,
+            _ASTNODE_霰:1.0__VERANTYX_霰_176_,
+            _ASTNODE_霰:1.0__VERANTYX_霰_174_: _ASTNODE_霰:1.0__VERANTYX_霰_176_._ASTNODE_霰:1.0__VERANTYX_霰_156_,
+            _ASTNODE_霰:1.0__VERANTYX_霰_2_: _ASTNODE_霰:1.0__VERANTYX_霰_176_._ASTNODE_霰:1.0__VERANTYX_霰_63_,
+            _ASTNODE_霰:1.0__VERANTYX_霰_184_: _ASTNODE_廱:1.0__VERANTYX_廱_27_::_ASTNODE_廱:1.0__VERANTYX_廱_47_,
+            _ASTNODE_霰:1.0__VERANTYX_霰_105_: _ASTNODE_廱:1.0__VERANTYX_廱_27_::_ASTNODE_廱:1.0__VERANTYX_廱_47_,
+        }
+    }
+    
+    _ASTNODE_霰:1.0__VERANTYX_霰_131_ fn _ASTNODE_霰:1.0__VERANTYX_霰_77_(&self) -> _ASTNODE_霰:1.0__VERANTYX_霰_170_ { _ASTNODE_霰:1.0__VERANTYX_霰_171_!(self._ASTNODE_霰:1.0__VERANTYX_霰_184_, _ASTNODE_廱:1.0__VERANTYX_廱_27_::_ASTNODE_廱:1.0__VERANTYX_廱_46_ | _ASTNODE_廱:1.0__VERANTYX_廱_27_::_ASTNODE_廱:1.0__VERANTYX_廱_47_) }
+    _ASTNODE_霰:1.0__VERANTYX_霰_131_ fn _ASTNODE_霰:1.0__VERANTYX_霰_91_(&self) -> _ASTNODE_霰:1.0__VERANTYX_霰_170_ { _ASTNODE_霰:1.0__VERANTYX_霰_171_!(self._ASTNODE_霰:1.0__VERANTYX_霰_105_, _ASTNODE_廱:1.0__VERANTYX_廱_27_::_ASTNODE_廱:1.0__VERANTYX_廱_46_ | _ASTNODE_廱:1.0__VERANTYX_廱_27_::_ASTNODE_廱:1.0__VERANTYX_廱_47_) }
+    
+    _ASTNODE_霰:1.0__VERANTYX_霰_131_ fn _ASTNODE_霰:1.0__VERANTYX_霰_146_(&self) -> _ASTNODE_霰:1.0__VERANTYX_霰_107_ { (self._ASTNODE_霰:1.0__VERANTYX_霰_174_ - self._ASTNODE_霰:1.0__VERANTYX_霰_176_._ASTNODE_霰:1.0__VERANTYX_霰_156_)._ASTNODE_霰:1.0__VERANTYX_霰_165_(0.0) }
+    _ASTNODE_霰:1.0__VERANTYX_霰_131_ fn _ASTNODE_霰:1.0__VERANTYX_霰_30_(&self) -> _ASTNODE_霰:1.0__VERANTYX_霰_107_ { (self._ASTNODE_霰:1.0__VERANTYX_霰_2_ - self._ASTNODE_霰:1.0__VERANTYX_霰_176_._ASTNODE_霰:1.0__VERANTYX_霰_63_)._ASTNODE_霰:1.0__VERANTYX_霰_165_(0.0) }
+    
+// [metadata-stripped]
+    _ASTNODE_霰:1.0__VERANTYX_霰_131_ fn _ASTNODE_霰:1.0__VERANTYX_霰_48_(&_ASTNODE_霰:1.0__VERANTYX_霰_127_ self, x: _ASTNODE_霰:1.0__VERANTYX_霰_107_, y: _ASTNODE_霰:1.0__VERANTYX_霰_107_) {
+        if self._ASTNODE_霰:1.0__VERANTYX_霰_77_() { self._ASTNODE_霰:1.0__VERANTYX_霰_3_ = x._ASTNODE_霰:1.0__VERANTYX_霰_49_(0.0, self._ASTNODE_霰:1.0__VERANTYX_霰_146_()); }
+// _ASTNODE_縫:0.9__VERANTYX_GA_209_ [decoy-metadata]
+        if self._ASTNODE_霰:1.0__VERANTYX_霰_91_() { self._ASTNODE_霰:1.0__VERANTYX_霰_11_ = y._ASTNODE_霰:1.0__VERANTYX_霰_49_(0.0, self._ASTNODE_霰:1.0__VERANTYX_霰_30_()); }
+    }
+    
+    _ASTNODE_霰:1.0__VERANTYX_霰_131_ fn _ASTNODE_霰:1.0__VERANTYX_霰_16_(&_ASTNODE_霰:1.0__VERANTYX_霰_127_ self, dx: _ASTNODE_霰:1.0__VERANTYX_霰_107_, dy: _ASTNODE_霰:1.0__VERANTYX_霰_107_) {
+        self._ASTNODE_霰:1.0__VERANTYX_霰_48_(self._ASTNODE_霰:1.0__VERANTYX_霰_3_ + dx, self._ASTNODE_霰:1.0__VERANTYX_霰_11_ + dy);
+    }
+    
+    _ASTNODE_霰:1.0__VERANTYX_霰_131_ fn _ASTNODE_霰:1.0__VERANTYX_霰_65_(&self) -> _ASTNODE_霰:1.0__VERANTYX_霰_107_ {
+        let _ASTNODE_霰:1.0__VERANTYX_霰_165_ = self._ASTNODE_霰:1.0__VERANTYX_霰_30_();
+        if _ASTNODE_霰:1.0__VERANTYX_霰_165_ == 0.0 { 0.0 } else { self._ASTNODE_霰:1.0__VERANTYX_霰_11_ / _ASTNODE_霰:1.0__VERANTYX_霰_165_ }
+    }
+}
+
+// [metadata-stripped]
+_ASTNODE_霰:1.0__VERANTYX_霰_131_ struct _ASTNODE_廱:1.0__VERANTYX_廱_39_ {
+    _ASTNODE_霰:1.0__VERANTYX_霰_131_ _ASTNODE_霰:1.0__VERANTYX_霰_117_: _ASTNODE_廱:1.0__VERANTYX_廱_53_<_ASTNODE_霰:1.0__VERANTYX_霰_181_, _ASTNODE_計:1.0__VERANTYX_廱_31_>,
+    _ASTNODE_霰:1.0__VERANTYX_霰_131_ _ASTNODE_霰:1.0__VERANTYX_霰_103_: _ASTNODE_廱:1.0__VERANTYX_廱_42_<_ASTNODE_廱:1.0__VERANTYX_廱_4_>,
+}
+
+_ASTNODE_霰:1.0__VERANTYX_霰_94_ _ASTNODE_廱:1.0__VERANTYX_廱_39_ {
+    _ASTNODE_霰:1.0__VERANTYX_霰_131_ fn _ASTNODE_霰:1.0__VERANTYX_霰_40_() -> _ASTNODE_廱:1.0__VERANTYX_廱_34_ {
+        _ASTNODE_廱:1.0__VERANTYX_廱_34_ { _ASTNODE_霰:1.0__VERANTYX_霰_117_: _ASTNODE_廱:1.0__VERANTYX_廱_53_::_ASTNODE_霰:1.0__VERANTYX_霰_40_(), _ASTNODE_霰:1.0__VERANTYX_霰_103_: _ASTNODE_廱:1.0__VERANTYX_廱_42_::_ASTNODE_霰:1.0__VERANTYX_霰_40_() }
+    }
+    
+// [metadata-stripped]
+    _ASTNODE_霰:1.0__VERANTYX_霰_131_ fn _ASTNODE_計:1.0__VERANTYX_霰_7_(&_ASTNODE_霰:1.0__VERANTYX_霰_127_ self, _ASTNODE_計:1.0__VERANTYX_霰_134_: _ASTNODE_計:1.0__VERANTYX_廱_31_) {
+        self._ASTNODE_霰:1.0__VERANTYX_霰_117_._ASTNODE_霰:1.0__VERANTYX_霰_78_(_ASTNODE_計:1.0__VERANTYX_霰_134_._ASTNODE_霰:1.0__VERANTYX_霰_90_, _ASTNODE_計:1.0__VERANTYX_霰_134_);
+    }
+    
+// [metadata-stripped]
+    _ASTNODE_霰:1.0__VERANTYX_霰_131_ fn _ASTNODE_霰:1.0__VERANTYX_霰_71_(&_ASTNODE_霰:1.0__VERANTYX_霰_127_ self, _ASTNODE_霰:1.0__VERANTYX_霰_26_: _ASTNODE_廱:1.0__VERANTYX_廱_4_) {
+        self._ASTNODE_霰:1.0__VERANTYX_霰_103_._ASTNODE_霰:1.0__VERANTYX_霰_136_(_ASTNODE_霰:1.0__VERANTYX_霰_26_);
+    }
+    
+// [metadata-stripped]
+    _ASTNODE_霰:1.0__VERANTYX_霰_131_ fn _ASTNODE_霰:1.0__VERANTYX_霰_31_(&_ASTNODE_霰:1.0__VERANTYX_霰_127_ self, _ASTNODE_霰:1.0__VERANTYX_霰_187_: _ASTNODE_霰:1.0__VERANTYX_霰_181_, _ASTNODE_霰:1.0__VERANTYX_霰_3_: _ASTNODE_霰:1.0__VERANTYX_霰_107_, _ASTNODE_霰:1.0__VERANTYX_霰_11_: _ASTNODE_霰:1.0__VERANTYX_霰_107_) {
+        if let _ASTNODE_廱:1.0__VERANTYX_廱_3_(_ASTNODE_計:1.0__VERANTYX_霰_134_) = self._ASTNODE_霰:1.0__VERANTYX_霰_117_._ASTNODE_計:1.0__VERANTYX_弧_1_(&_ASTNODE_霰:1.0__VERANTYX_霰_187_) {
+            _ASTNODE_計:1.0__VERANTYX_霰_134_._ASTNODE_霰:1.0__VERANTYX_霰_48_(_ASTNODE_霰:1.0__VERANTYX_霰_3_, _ASTNODE_霰:1.0__VERANTYX_霰_11_);
+        }
+        
+        self._ASTNODE_脈:1.0__VERANTYX_霰_110_(_ASTNODE_霰:1.0__VERANTYX_霰_187_);
+    }
+    
+// [metadata-stripped]
+    _ASTNODE_霰:1.0__VERANTYX_霰_131_ fn _ASTNODE_脈:1.0__VERANTYX_霰_110_(&_ASTNODE_霰:1.0__VERANTYX_霰_127_ self, _ASTNODE_霰:1.0__VERANTYX_霰_187_: _ASTNODE_霰:1.0__VERANTYX_霰_181_) {
+        let (_ASTNODE_霰:1.0__VERANTYX_霰_3_, _ASTNODE_霰:1.0__VERANTYX_霰_11_, _ASTNODE_霰:1.0__VERANTYX_霰_176_) = {
+            let c = _ASTNODE_霰:1.0__VERANTYX_霰_148_ self._ASTNODE_霰:1.0__VERANTYX_霰_117_._ASTNODE_計:1.0__VERANTYX_弧_2_(&_ASTNODE_霰:1.0__VERANTYX_霰_187_) {
+                _ASTNODE_廱:1.0__VERANTYX_廱_3_(c) => c,
+                _ASTNODE_廱:1.0__VERANTYX_廱_51_ => return,
+            };
+            (c._ASTNODE_霰:1.0__VERANTYX_霰_3_, c._ASTNODE_霰:1.0__VERANTYX_霰_11_, c._ASTNODE_霰:1.0__VERANTYX_霰_176_)
+        };
+        
+        for _ASTNODE_霰:1.0__VERANTYX_霰_26_ in &_ASTNODE_霰:1.0__VERANTYX_霰_127_ self._ASTNODE_霰:1.0__VERANTYX_霰_103_ {
+            if _ASTNODE_霰:1.0__VERANTYX_霰_26_._ASTNODE_霰:1.0__VERANTYX_霰_5_ == _ASTNODE_霰:1.0__VERANTYX_霰_187_ {
+                _ASTNODE_霰:1.0__VERANTYX_霰_26_._ASTNODE_霰:1.0__VERANTYX_霰_98_(_ASTNODE_霰:1.0__VERANTYX_霰_3_, _ASTNODE_霰:1.0__VERANTYX_霰_11_, _ASTNODE_霰:1.0__VERANTYX_霰_176_);
+            }
+        }
+    }
+    
+// [metadata-stripped]
+    _ASTNODE_霰:1.0__VERANTYX_霰_131_ fn _ASTNODE_霰:1.0__VERANTYX_霰_46_(&_ASTNODE_霰:1.0__VERANTYX_霰_127_ self) {
+        let _ASTNODE_霰:1.0__VERANTYX_霰_72_: _ASTNODE_廱:1.0__VERANTYX_廱_42_<(_ASTNODE_霰:1.0__VERANTYX_霰_181_, _ASTNODE_霰:1.0__VERANTYX_霰_107_, _ASTNODE_霰:1.0__VERANTYX_霰_107_, _ASTNODE_廱:1.0__VERANTYX_廱_29_)> = self._ASTNODE_霰:1.0__VERANTYX_霰_117_._ASTNODE_霰:1.0__VERANTYX_霰_75_()
+            ._ASTNODE_霰:1.0__VERANTYX_霰_60_(|c| (c._ASTNODE_霰:1.0__VERANTYX_霰_90_, c._ASTNODE_霰:1.0__VERANTYX_霰_3_, c._ASTNODE_霰:1.0__VERANTYX_霰_11_, c._ASTNODE_霰:1.0__VERANTYX_霰_176_))
+            ._ASTNODE_霰:1.0__VERANTYX_霰_59_();
+        
+        for (_ASTNODE_霰:1.0__VERANTYX_霰_45_, sx, sy, _ASTNODE_霰:1.0__VERANTYX_霰_37_) in _ASTNODE_霰:1.0__VERANTYX_霰_72_ {
+            for _ASTNODE_霰:1.0__VERANTYX_霰_26_ in &_ASTNODE_霰:1.0__VERANTYX_霰_127_ self._ASTNODE_霰:1.0__VERANTYX_霰_103_ {
+                if _ASTNODE_霰:1.0__VERANTYX_霰_26_._ASTNODE_霰:1.0__VERANTYX_霰_5_ == _ASTNODE_霰:1.0__VERANTYX_霰_45_ {
+                    _ASTNODE_霰:1.0__VERANTYX_霰_26_._ASTNODE_霰:1.0__VERANTYX_霰_98_(sx, sy, _ASTNODE_霰:1.0__VERANTYX_霰_37_);
+                }
+            }
+        }
+    }
+    
+// [metadata-stripped]
+    _ASTNODE_霰:1.0__VERANTYX_霰_131_ fn _ASTNODE_霰:1.0__VERANTYX_霰_43_(&self, _ASTNODE_霰:1.0__VERANTYX_霰_90_: _ASTNODE_霰:1.0__VERANTYX_霰_181_) -> _ASTNODE_廱:1.0__VERANTYX_廱_49_<_ASTNODE_廱:1.0__VERANTYX_廱_29_> {
+        self._ASTNODE_霰:1.0__VERANTYX_霰_103_._ASTNODE_計:1.0__VERANTYX_霰_79_()
+            ._ASTNODE_霰:1.0__VERANTYX_霰_139_(|e| e._ASTNODE_霰:1.0__VERANTYX_霰_90_ == _ASTNODE_霰:1.0__VERANTYX_霰_90_)
+            ._ASTNODE_霰:1.0__VERANTYX_霰_60_(|e| e._ASTNODE_霰:1.0__VERANTYX_霰_43_())
+    }
+    
+// [metadata-stripped]
+    _ASTNODE_霰:1.0__VERANTYX_霰_131_ fn _ASTNODE_霰:1.0__VERANTYX_霰_69_(&self, _ASTNODE_霰:1.0__VERANTYX_霰_90_: _ASTNODE_霰:1.0__VERANTYX_霰_181_) -> _ASTNODE_廱:1.0__VERANTYX_廱_24_ {
+        self._ASTNODE_霰:1.0__VERANTYX_霰_103_._ASTNODE_計:1.0__VERANTYX_霰_79_()
+            ._ASTNODE_霰:1.0__VERANTYX_霰_139_(|e| e._ASTNODE_霰:1.0__VERANTYX_霰_90_ == _ASTNODE_霰:1.0__VERANTYX_霰_90_)
+            ._ASTNODE_霰:1.0__VERANTYX_霰_60_(|e| e._ASTNODE_霰:1.0__VERANTYX_霰_153_)
+            ._ASTNODE_霰:1.0__VERANTYX_霰_144_(_ASTNODE_廱:1.0__VERANTYX_廱_24_::_ASTNODE_廱:1.0__VERANTYX_廱_48_)
+    }
+// _ASTNODE_計:0.1__VERANTYX_DY_859_ [decoy-metadata]
+    
+// [metadata-stripped]
+    _ASTNODE_霰:1.0__VERANTYX_霰_131_ fn _ASTNODE_霰:1.0__VERANTYX_霰_151_(&self) -> _ASTNODE_廱:1.0__VERANTYX_廱_8_ {
+        let _ASTNODE_霰:1.0__VERANTYX_霰_127_ _ASTNODE_霰:1.0__VERANTYX_霰_82_ = _ASTNODE_廱:1.0__VERANTYX_廱_42_::_ASTNODE_霰:1.0__VERANTYX_霰_40_();
+        
+        for _ASTNODE_計:1.0__VERANTYX_霰_134_ in self._ASTNODE_霰:1.0__VERANTYX_霰_117_._ASTNODE_霰:1.0__VERANTYX_霰_75_() {
+            let _ASTNODE_霰:1.0__VERANTYX_霰_29_ = (_ASTNODE_計:1.0__VERANTYX_霰_134_._ASTNODE_霰:1.0__VERANTYX_霰_65_() * 100.0) as _ASTNODE_霰:1.0__VERANTYX_霰_111_;
+            _ASTNODE_霰:1.0__VERANTYX_霰_82_._ASTNODE_霰:1.0__VERANTYX_霰_136_(_ASTNODE_脈:1.0__VERANTYX_霰_180_!(
+                "📜 _ASTNODE_計:1.0__VERANTYX_廱_31_ #{}: {:.0}px/{:.0}px ({_ASTNODE_霰:1.0__VERANTYX_霰_29_}% _ASTNODE_霰:1.0__VERANTYX_霰_44_)",
+                _ASTNODE_計:1.0__VERANTYX_霰_134_._ASTNODE_霰:1.0__VERANTYX_霰_90_, _ASTNODE_計:1.0__VERANTYX_霰_134_._ASTNODE_霰:1.0__VERANTYX_霰_11_, _ASTNODE_計:1.0__VERANTYX_霰_134_._ASTNODE_霰:1.0__VERANTYX_霰_30_()
+            ));
+        }
+        
+        let _ASTNODE_霰:1.0__VERANTYX_霰_163_: _ASTNODE_廱:1.0__VERANTYX_廱_42_<&_ASTNODE_廱:1.0__VERANTYX_廱_4_> = self._ASTNODE_霰:1.0__VERANTYX_霰_103_._ASTNODE_計:1.0__VERANTYX_霰_79_()
+            ._ASTNODE_計:1.0__VERANTYX_霰_32_(|e| e._ASTNODE_霰:1.0__VERANTYX_霰_153_ == _ASTNODE_廱:1.0__VERANTYX_廱_24_::_ASTNODE_廱:1.0__VERANTYX_廱_45_)
+            ._ASTNODE_霰:1.0__VERANTYX_霰_59_();
+        
+        if !_ASTNODE_霰:1.0__VERANTYX_霰_163_._ASTNODE_霰:1.0__VERANTYX_霰_155_() {
+            _ASTNODE_霰:1.0__VERANTYX_霰_82_._ASTNODE_霰:1.0__VERANTYX_霰_136_(_ASTNODE_脈:1.0__VERANTYX_霰_180_!("📌 _ASTNODE_廱:1.0__VERANTYX_廱_45_ _ASTNODE_霰:1.0__VERANTYX_霰_9_ _ASTNODE_霰:1.0__VERANTYX_霰_55_ ({}):", _ASTNODE_霰:1.0__VERANTYX_霰_163_._ASTNODE_霰:1.0__VERANTYX_霰_39_()));
+            for e in _ASTNODE_霰:1.0__VERANTYX_霰_163_ {
+                let r = e._ASTNODE_霰:1.0__VERANTYX_霰_43_();
+                _ASTNODE_霰:1.0__VERANTYX_霰_82_._ASTNODE_霰:1.0__VERANTYX_霰_136_(_ASTNODE_脈:1.0__VERANTYX_霰_180_!("  _ASTNODE_霰:1.0__VERANTYX_霰_52_#{} at ({:.0},{:.0})", e._ASTNODE_霰:1.0__VERANTYX_霰_90_, r.x, r.y));
+            }
+        }
+        
+        _ASTNODE_霰:1.0__VERANTYX_霰_82_._ASTNODE_霰:1.0__VERANTYX_霰_76_("\n")
+    }
+}
+
+// POLYMORPHIC_JCROSS_END

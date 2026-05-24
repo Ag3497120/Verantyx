@@ -1,0 +1,82 @@
+[
+  {
+    "metadataOutputVersion" : "3.0",
+    "storagePrecision" : "Mixed (Float16, Float32, Int8)",
+    "outputSchema" : [
+      {
+        "hasShapeFlexibility" : "0",
+        "isOptional" : "0",
+        "dataType" : "Float32",
+        "formattedType" : "MultiArray (Float32)",
+        "shortDescription" : "",
+        "shape" : "[]",
+        "name" : "identity",
+        "type" : "MultiArray"
+      },
+      {
+        "hasShapeFlexibility" : "0",
+        "isOptional" : "0",
+        "dataType" : "Float32",
+        "formattedType" : "MultiArray (Float32)",
+        "shortDescription" : "",
+        "shape" : "[]",
+        "name" : "embedding",
+        "type" : "MultiArray"
+      }
+    ],
+    "modelParameters" : [
+
+    ],
+    "specificationVersion" : 4,
+    "computePrecision" : "Float16",
+    "isUpdatable" : "0",
+    "availability" : {
+      "macOS" : "10.15",
+      "tvOS" : "13.0",
+      "watchOS" : "6.0",
+      "iOS" : "13.0",
+      "macCatalyst" : "13.0"
+    },
+    "neuralNetworkLayerTypeHistogram" : {
+      "DivideBroadcastable" : 1,
+      "InnerProduct" : 2,
+      "UnaryPower" : 1,
+      "Convolution" : 63,
+      "UnarySqrt" : 1,
+      "UnaryThreshold" : 28,
+      "ReshapeStatic" : 1,
+      "LoadConstantND" : 1,
+      "PaddingConstant" : 5,
+      "ReduceSum" : 1,
+      "Add" : 31,
+      "Multiply" : 58,
+      "SoftmaxND" : 1,
+      "ActivationLinear" : 58,
+      "ActivationReLU" : 48,
+      "PoolingAverage" : 9
+    },
+    "modelType" : {
+      "name" : "MLModelType_neuralNetwork"
+    },
+    "userDefinedMetadata" : {
+      "com.github.apple.coremltools.version" : "6.2.1",
+      "com.github.apple.coremltools.source" : "torch==1.12.0"
+    },
+    "generatedClassName" : "signs_and_symbols_nic8v72m9a_8bits_leafnode",
+    "inputSchema" : [
+      {
+        "height" : "360",
+        "colorspace" : "RGB",
+        "isOptional" : "0",
+        "width" : "360",
+        "isColor" : "1",
+        "formattedType" : "Image (Color 360 × 360)",
+        "hasSizeFlexibility" : "0",
+        "type" : "Image",
+        "shortDescription" : "",
+        "name" : "image"
+      }
+    ],
+    "method" : "predict"
+  }
+]

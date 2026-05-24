@@ -1,0 +1,89 @@
+// POLYMORPHIC_JCROSS_BEGIN
+// schema:FF79F877 ver:1778325226
+// ⚠️ One-time schema — expires after response
+
+// [metadata-stripped]
+// [metadata-stripped]
+// [metadata-stripped]
+// [metadata-stripped]
+// [metadata-stripped]
+// [metadata-stripped]
+// [metadata-stripped]
+// [metadata-stripped]
+// [metadata-stripped]
+// [metadata-stripped]
+// _ID_道:0.4__OPAQUE_ZG_586_ [decoy-metadata]
+
+_ID_泡:1.0__OPAQUE_泡_37_ _ID_泡:1.0__OPAQUE_泡_10_::_ID_泡:1.0__OPAQUE_泡_8_::_ID_墟:1.0__OPAQUE_墟_38_;
+
+// [metadata-stripped]
+// [metadata-stripped]
+_ID_泡:1.0__OPAQUE_泡_47_ enum _ID_墟:1.0__OPAQUE_墟_21_ { _ID_墟:1.0__OPAQUE_墟_1_, _ID_墟:1.0__OPAQUE_墟_11_, _ID_墟:1.0__OPAQUE_墟_15_, _ID_墟:1.0__OPAQUE_墟_27_, _ID_墟:1.0__OPAQUE_墟_7_, _ID_墟:1.0__OPAQUE_墟_28_, _ID_墟:1.0__OPAQUE_墟_41_ }
+
+// _ID_緯:0.9__OPAQUE_EF_926_ [decoy-metadata]
+// [metadata-stripped]
+// _ID_墟:0.6__OPAQUE_FG_530_ [decoy-metadata]
+_ID_泡:1.0__OPAQUE_泡_47_ struct _ID_墟:1.0__OPAQUE_墟_24_ {
+    _ID_泡:1.0__OPAQUE_泡_47_ _ID_泡:1.0__OPAQUE_泡_72_: _ID_泡:1.0__OPAQUE_泡_73_,
+    _ID_泡:1.0__OPAQUE_泡_47_ _ID_泡:1.0__OPAQUE_泡_70_: _ID_墟:1.0__OPAQUE_墟_21_,
+    _ID_泡:1.0__OPAQUE_泡_47_ _ID_泡:1.0__OPAQUE_泡_52_: _ID_泡:1.0__OPAQUE_泡_74_,
+    _ID_泡:1.0__OPAQUE_泡_47_ _ID_泡:1.0__OPAQUE_泡_51_: _ID_泡:1.0__OPAQUE_泡_74_,
+    _ID_泡:1.0__OPAQUE_泡_47_ _ID_泡:1.0__OPAQUE_泡_39_: _ID_泡:1.0__OPAQUE_泡_43_,
+}
+
+// [metadata-stripped]
+_ID_泡:1.0__OPAQUE_泡_47_ struct _ID_墟:1.0__OPAQUE_墟_9_ {
+    _ID_泡:1.0__OPAQUE_泡_47_ _ID_泡:1.0__OPAQUE_泡_35_: _ID_墟:1.0__OPAQUE_墟_22_<_ID_墟:1.0__OPAQUE_墟_24_>,
+    _ID_泡:1.0__OPAQUE_泡_47_ _ID_泡:1.0__OPAQUE_泡_50_: _ID_墟:1.0__OPAQUE_墟_38_<_ID_泡:1.0__OPAQUE_泡_43_, (_ID_泡:1.0__OPAQUE_泡_74_, _ID_泡:1.0__OPAQUE_泡_74_)>, // _ID_泡:1.0__OPAQUE_泡_6_ -> (_ID_泡:1.0__OPAQUE_泡_3_, _ID_泡:1.0__OPAQUE_泡_44_)
+}
+
+// _ID_緯:0.6__OPAQUE_WC_776_ [decoy-metadata]
+_ID_泡:1.0__OPAQUE_泡_11_ _ID_墟:1.0__OPAQUE_墟_9_ {
+    _ID_泡:1.0__OPAQUE_泡_47_ fn _ID_泡:1.0__OPAQUE_泡_45_() -> _ID_墟:1.0__OPAQUE_墟_14_ {
+        _ID_墟:1.0__OPAQUE_墟_14_ {
+            _ID_泡:1.0__OPAQUE_泡_35_: _ID_墟:1.0__OPAQUE_墟_22_::_ID_泡:1.0__OPAQUE_泡_45_(),
+            _ID_泡:1.0__OPAQUE_泡_50_: _ID_墟:1.0__OPAQUE_墟_38_::_ID_泡:1.0__OPAQUE_泡_45_(),
+        }
+    }
+
+// [metadata-stripped]
+// _ID_泡:0.7__OPAQUE_YA_156_ [decoy-metadata]
+    _ID_泡:1.0__OPAQUE_泡_47_ fn _ID_泡:1.0__OPAQUE_泡_75_(&_ID_泡:1.0__OPAQUE_泡_65_ self, _ID_泡:1.0__OPAQUE_泡_72_: _ID_泡:1.0__OPAQUE_泡_73_, _ID_泡:1.0__OPAQUE_泡_70_: _ID_墟:1.0__OPAQUE_墟_21_, w: _ID_泡:1.0__OPAQUE_泡_74_, h: _ID_泡:1.0__OPAQUE_泡_74_, _ID_泡:1.0__OPAQUE_泡_6_: _ID_泡:1.0__OPAQUE_泡_43_) {
+        let (_ID_泡:1.0__OPAQUE_泡_25_, _ID_泡:1.0__OPAQUE_泡_18_) = self._ID_泡:1.0__OPAQUE_泡_50_._ID_泡:1.0__OPAQUE_泡_64_(_ID_泡:1.0__OPAQUE_泡_6_)._ID_泡:1.0__OPAQUE_泡_68_((0.0, 0.0));
+        
+        let _y = _ID_泡:1.0__OPAQUE_泡_76_ _ID_泡:1.0__OPAQUE_泡_70_ {
+            _ID_墟:1.0__OPAQUE_墟_21_::_ID_墟:1.0__OPAQUE_墟_1_ => {
+                let y = *_ID_泡:1.0__OPAQUE_泡_25_;
+                *_ID_泡:1.0__OPAQUE_泡_25_ += h;
+                y
+            }
+            _ID_墟:1.0__OPAQUE_墟_21_::_ID_墟:1.0__OPAQUE_墟_11_ => {
+                let y = *_ID_泡:1.0__OPAQUE_泡_18_;
+                *_ID_泡:1.0__OPAQUE_泡_18_ += h;
+                y
+            }
+            _ => 0.0,
+        };
+
+        self._ID_泡:1.0__OPAQUE_泡_35_._ID_泡:1.0__OPAQUE_泡_21_(_ID_墟:1.0__OPAQUE_墟_24_ {
+            _ID_泡:1.0__OPAQUE_泡_72_,
+            _ID_泡:1.0__OPAQUE_泡_70_,
+            _ID_泡:1.0__OPAQUE_泡_52_: w,
+            _ID_泡:1.0__OPAQUE_泡_51_: h,
+            _ID_泡:1.0__OPAQUE_泡_39_: _ID_泡:1.0__OPAQUE_泡_6_,
+        });
+// _ID_道:0.5__OPAQUE_EW_896_ [decoy-metadata]
+    }
+
+// [metadata-stripped]
+    _ID_泡:1.0__OPAQUE_泡_47_ fn _ID_泡:1.0__OPAQUE_泡_38_(&self) -> _ID_墟:1.0__OPAQUE_墟_20_ {
+        let _ID_泡:1.0__OPAQUE_泡_65_ _ID_泡:1.0__OPAQUE_泡_22_ = _ID_泡:1.0__OPAQUE_泡_57_![_ID_澎:1.0__OPAQUE_泡_49_!("📑 _ID_墟:1.0__OPAQUE_墟_15_ _ID_墟:1.0__OPAQUE_墟_16_ _ID_墟:1.0__OPAQUE_墟_30_ (_ID_墟:1.0__OPAQUE_墟_32_: {}):", self._ID_泡:1.0__OPAQUE_泡_35_._ID_泡:1.0__OPAQUE_泡_24_())];
+        for f in &self._ID_泡:1.0__OPAQUE_泡_35_ {
+            _ID_泡:1.0__OPAQUE_泡_22_._ID_泡:1.0__OPAQUE_泡_21_(_ID_澎:1.0__OPAQUE_泡_49_!("  - _ID_墟:1.0__OPAQUE_墟_2_ #{}: {:?} on _ID_墟:1.0__OPAQUE_墟_15_ {} ({}×{})", 
+                f._ID_泡:1.0__OPAQUE_泡_72_, f._ID_泡:1.0__OPAQUE_泡_70_, f._ID_泡:1.0__OPAQUE_泡_39_, f._ID_泡:1.0__OPAQUE_泡_52_, f._ID_泡:1.0__OPAQUE_泡_51_));
+        }
+        _ID_泡:1.0__OPAQUE_泡_22_._ID_泡:1.0__OPAQUE_泡_29_("\n")
+    }
+}
+
+// POLYMORPHIC_JCROSS_END

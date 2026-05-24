@@ -1,0 +1,287 @@
+// POLYMORPHIC_JCROSS_BEGIN
+// schema:027B15F1 ver:1778339527
+// ⚠️ One-time schema — expires after response
+
+import { __node_霞:1.0___TOKEN_霞_63_, __node_霞:1.0___TOKEN_霞_77_ __node_殻:1.0___TOKEN_殻_5_, __node_霞:1.0___TOKEN_霞_83_, __node_霞:1.0___TOKEN_霞_7_, it, vi } __node_霞:1.0___TOKEN_霞_90_ "__node_霞:1.0___TOKEN_霞_40_";
+import { __node_霞:1.0___TOKEN_霞_84_ } __node_霞:1.0___TOKEN_霞_90_ "../../../__node_霞:1.0___TOKEN_霞_55_/__node_霞:1.0___TOKEN_霞_50_/__node_霞:1.0___TOKEN_霞_70_/__node_規:1.0___TOKEN_巌_3_-__node_霞:1.0___TOKEN_霞_113_.js";
+import { __node_霞:1.0___TOKEN_霞_94_, __node_区:1.0___TOKEN_霞_26_ } __node_霞:1.0___TOKEN_霞_90_ "./__node_霞:1.0___TOKEN_霞_67_.js";
+
+__node_霞:1.0___TOKEN_霞_97_ __node_霞:1.0___TOKEN_霞_78_ = vi.__node_霞:1.0___TOKEN_霞_12_(() => vi.fn());
+__node_霞:1.0___TOKEN_霞_97_ __node_霞:1.0___TOKEN_霞_95_ = vi.__node_霞:1.0___TOKEN_霞_12_(() => vi.fn());
+
+// __node_殻:0.3___TOKEN_AZ_995_ [decoy-metadata]
+vi.__node_霞:1.0___TOKEN_霞_113_("./__node_規:1.0___TOKEN_巌_3_.js", () => ({
+  __node_霞:1.0___TOKEN_霞_78_,
+}));
+
+vi.__node_霞:1.0___TOKEN_霞_113_("./__node_霞:1.0___TOKEN_霞_39_.js", () => ({
+  __node_霞:1.0___TOKEN_霞_95_,
+}));
+
+__node_霞:1.0___TOKEN_霞_83_("__node_霞:1.0___TOKEN_霞_94_ __node_霞:1.0___TOKEN_霞_21_ __node_霞:1.0___TOKEN_霞_86_", () => {
+  __node_霞:1.0___TOKEN_霞_97_ __node_奥:1.0___TOKEN_霞_116_ = "__node_霞:1.0___TOKEN_霞_55_-__node_奥:1.0___TOKEN_霞_116_";
+  __node_霞:1.0___TOKEN_霞_97_ __node_霞:1.0___TOKEN_霞_18_ = 5000;
+  __node_霞:1.0___TOKEN_霞_97_ __node_霞:1.0___TOKEN_霞_117_ = __node_霞:1.0___TOKEN_霞_29_.__node_規:1.0___TOKEN_巌_3_;
+// __node_霞:0.5___TOKEN_CM_667_ [decoy-metadata]
+
+  __node_霞:1.0___TOKEN_霞_97_ __node_霞:1.0___TOKEN_霞_68_ = (): __node_殻:1.0___TOKEN_殻_5_ => {
+    __node_霞:1.0___TOKEN_霞_97_ __node_規:1.0___TOKEN_巌_4_ = vi.fn();
+    __node_霞:1.0___TOKEN_霞_29_.__node_規:1.0___TOKEN_巌_3_ = __node_霞:1.0___TOKEN_霞_84_(__node_規:1.0___TOKEN_巌_4_);
+    __node_霞:1.0___TOKEN_霞_78_.__node_霞:1.0___TOKEN_霞_56_((__node_霞:1.0___TOKEN_霞_31_?: __node_霞:1.0___TOKEN_霞_41_ __node_規:1.0___TOKEN_巌_3_) => __node_霞:1.0___TOKEN_霞_31_ ?? __node_規:1.0___TOKEN_巌_3_);
+    __node_霞:1.0___TOKEN_霞_95_.__node_霞:1.0___TOKEN_霞_56_(() => __node_規:1.0___TOKEN_巌_4_ as __node_霞:1.0___TOKEN_霞_52_ as __node_霞:1.0___TOKEN_霞_41_ __node_規:1.0___TOKEN_巌_3_);
+    return __node_規:1.0___TOKEN_巌_4_;
+  };
+// __node_縁:0.3___TOKEN_FD_445_ [decoy-metadata]
+
+  __node_霞:1.0___TOKEN_霞_121_ __node_霞:1.0___TOKEN_霞_112_(__node_規:1.0___TOKEN_巌_4_: __node_殻:1.0___TOKEN_殻_5_) {
+    __node_規:1.0___TOKEN_巌_4_.__node_霞:1.0___TOKEN_霞_71_({
+      ok: true,
+      __node_霞:1.0___TOKEN_霞_6_: vi.fn().__node_霞:1.0___TOKEN_霞_30_({
+        ok: true,
+        __node_霞:1.0___TOKEN_霞_51_: { id: 123, __node_霞:1.0___TOKEN_霞_62_: "__node_霞:1.0___TOKEN_霞_106_" },
+      }),
+    });
+  }
+
+  __node_霞:1.0___TOKEN_霞_121_ __node_霞:1.0___TOKEN_霞_22_(__node_規:1.0___TOKEN_巌_4_: __node_殻:1.0___TOKEN_殻_5_) {
+    __node_規:1.0___TOKEN_巌_4_.__node_霞:1.0___TOKEN_霞_71_({
+      ok: true,
+      __node_霞:1.0___TOKEN_霞_6_: vi.fn().__node_霞:1.0___TOKEN_霞_30_({ ok: true, __node_霞:1.0___TOKEN_霞_51_: { __node_縁:1.0___TOKEN_霞_85_: "" } }),
+    });
+  }
+
+  async __node_霞:1.0___TOKEN_霞_121_ __node_霞:1.0___TOKEN_霞_124_(__node_規:1.0___TOKEN_巌_4_: __node_殻:1.0___TOKEN_殻_5_, __node_霞:1.0___TOKEN_霞_14_: __node_規:1.0___TOKEN_霞_108_, __node_霞:1.0___TOKEN_霞_61_ = 0) {
+    __node_霞:1.0___TOKEN_霞_97_ __node_霞:1.0___TOKEN_霞_38_ = __node_霞:1.0___TOKEN_霞_94_(__node_奥:1.0___TOKEN_霞_116_, __node_霞:1.0___TOKEN_霞_18_);
+    if (__node_霞:1.0___TOKEN_霞_61_ > 0) {
+      await vi.__node_霞:1.0___TOKEN_霞_111_(__node_霞:1.0___TOKEN_霞_61_ * 1000);
+    }
+
+    __node_霞:1.0___TOKEN_霞_97_ __node_霞:1.0___TOKEN_霞_51_ = await __node_霞:1.0___TOKEN_霞_38_;
+    __node_霞:1.0___TOKEN_霞_7_(__node_霞:1.0___TOKEN_霞_51_.ok).__node_霞:1.0___TOKEN_霞_64_(true);
+    __node_霞:1.0___TOKEN_霞_7_(__node_規:1.0___TOKEN_巌_4_).__node_霞:1.0___TOKEN_霞_36_(__node_霞:1.0___TOKEN_霞_14_);
+    __node_霞:1.0___TOKEN_霞_7_(__node_霞:1.0___TOKEN_霞_51_.__node_霞:1.0___TOKEN_霞_104_?.__node_霞:1.0___TOKEN_霞_62_).__node_霞:1.0___TOKEN_霞_64_("__node_霞:1.0___TOKEN_霞_106_");
+  }
+
+  __node_霞:1.0___TOKEN_霞_63_(() => {
+    __node_区:1.0___TOKEN_霞_26_();
+    __node_霞:1.0___TOKEN_霞_78_.__node_霞:1.0___TOKEN_霞_60_();
+    __node_霞:1.0___TOKEN_霞_95_.__node_霞:1.0___TOKEN_霞_60_();
+    vi.__node_霞:1.0___TOKEN_霞_99_();
+    vi.__node_霞:1.0___TOKEN_霞_120_();
+    if (__node_霞:1.0___TOKEN_霞_117_) {
+      __node_霞:1.0___TOKEN_霞_29_.__node_規:1.0___TOKEN_巌_3_ = __node_霞:1.0___TOKEN_霞_117_;
+    } else {
+      __node_霞:1.0___TOKEN_霞_92_ (__node_霞:1.0___TOKEN_霞_44_ as { __node_規:1.0___TOKEN_巌_3_?: __node_霞:1.0___TOKEN_霞_41_ __node_規:1.0___TOKEN_巌_3_ }).__node_規:1.0___TOKEN_巌_3_;
+    }
+  });
+
+  it.__node_霞:1.0___TOKEN_霞_115_([
+    {
+      __node_霞:1.0___TOKEN_霞_100_: [],
+      __node_霞:1.0___TOKEN_霞_14_: 2,
+      __node_霞:1.0___TOKEN_霞_61_: 0,
+    },
+    {
+      __node_霞:1.0___TOKEN_霞_100_: ["__node_殻:1.0___TOKEN_殻_8_ __node_霞:1.0___TOKEN_霞_81_"],
+      __node_霞:1.0___TOKEN_霞_14_: 3,
+      __node_霞:1.0___TOKEN_霞_61_: 1,
+    },
+    {
+// __node_殻:0.6___TOKEN_DL_835_ [decoy-metadata]
+      __node_霞:1.0___TOKEN_霞_100_: ["__node_殻:1.0___TOKEN_殻_8_ __node_霞:1.0___TOKEN_霞_91_ 1", "__node_殻:1.0___TOKEN_殻_8_ __node_霞:1.0___TOKEN_霞_91_ 2"],
+      __node_霞:1.0___TOKEN_霞_14_: 4,
+      __node_霞:1.0___TOKEN_霞_61_: 2,
+    },
+  ])("__node_霞:1.0___TOKEN_霞_87_ __node_規:1.0___TOKEN_霞_33_ __node_霞:1.0___TOKEN_霞_21_ __node_霞:1.0___TOKEN_霞_34_ %#", async ({ __node_霞:1.0___TOKEN_霞_100_, __node_霞:1.0___TOKEN_霞_14_, __node_霞:1.0___TOKEN_霞_61_ }) => {
+    __node_霞:1.0___TOKEN_霞_97_ __node_規:1.0___TOKEN_巌_4_ = __node_霞:1.0___TOKEN_霞_68_();
+    vi.__node_霞:1.0___TOKEN_霞_123_();
+    try {
+// __node_漂:0.8___TOKEN_BE_975_ [decoy-metadata]
+      for (__node_霞:1.0___TOKEN_霞_97_ __node_霞:1.0___TOKEN_霞_15_ of __node_霞:1.0___TOKEN_霞_100_) {
+        __node_規:1.0___TOKEN_巌_4_.__node_霞:1.0___TOKEN_霞_65_(__node_霞:1.0___TOKEN_霞_45_ __node_殻:1.0___TOKEN_殻_11_(__node_霞:1.0___TOKEN_霞_15_));
+      }
+
+      __node_霞:1.0___TOKEN_霞_112_(__node_規:1.0___TOKEN_巌_4_);
+      __node_霞:1.0___TOKEN_霞_22_(__node_規:1.0___TOKEN_巌_4_);
+      await __node_霞:1.0___TOKEN_霞_124_(__node_規:1.0___TOKEN_巌_4_, __node_霞:1.0___TOKEN_霞_14_, __node_霞:1.0___TOKEN_霞_61_);
+    } __node_霞:1.0___TOKEN_霞_80_ {
+      vi.__node_霞:1.0___TOKEN_霞_9_();
+    }
+  });
+
+  it("__node_霞:1.0___TOKEN_霞_75_ __node_霞:1.0___TOKEN_霞_114_ __node_規:1.0___TOKEN_霞_33_ 3 __node_霞:1.0___TOKEN_霞_103_ __node_霞:1.0___TOKEN_霞_82_", async () => {
+    __node_霞:1.0___TOKEN_霞_97_ __node_規:1.0___TOKEN_巌_4_ = __node_霞:1.0___TOKEN_霞_68_();
+    vi.__node_霞:1.0___TOKEN_霞_123_();
+    __node_霞:1.0___TOKEN_霞_97_ __node_霞:1.0___TOKEN_霞_79_ = "__node_殻:1.0___TOKEN_殻_6_ __node_霞:1.0___TOKEN_霞_24_ __node_霞:1.0___TOKEN_霞_91_";
+    try {
+      __node_規:1.0___TOKEN_巌_4_.__node_霞:1.0___TOKEN_霞_96_(__node_霞:1.0___TOKEN_霞_45_ __node_殻:1.0___TOKEN_殻_11_(__node_霞:1.0___TOKEN_霞_79_));
+
+      __node_霞:1.0___TOKEN_霞_97_ __node_霞:1.0___TOKEN_霞_38_ = __node_霞:1.0___TOKEN_霞_94_(__node_奥:1.0___TOKEN_霞_116_, __node_霞:1.0___TOKEN_霞_18_);
+
+// [metadata-stripped]
+      await vi.__node_霞:1.0___TOKEN_霞_111_(2000);
+
+      __node_霞:1.0___TOKEN_霞_97_ __node_霞:1.0___TOKEN_霞_51_ = await __node_霞:1.0___TOKEN_霞_38_;
+
+      __node_霞:1.0___TOKEN_霞_7_(__node_霞:1.0___TOKEN_霞_51_.ok).__node_霞:1.0___TOKEN_霞_64_(false);
+      __node_霞:1.0___TOKEN_霞_7_(__node_霞:1.0___TOKEN_霞_51_.__node_霞:1.0___TOKEN_霞_91_).__node_霞:1.0___TOKEN_霞_64_(__node_霞:1.0___TOKEN_霞_79_);
+      __node_霞:1.0___TOKEN_霞_7_(__node_規:1.0___TOKEN_巌_4_).__node_霞:1.0___TOKEN_霞_36_(3); // 3 __node_霞:1.0___TOKEN_霞_82_ at __node_規:1.0___TOKEN_巌_1_
+    } __node_霞:1.0___TOKEN_霞_80_ {
+      vi.__node_霞:1.0___TOKEN_霞_9_();
+    }
+  });
+
+  it("__node_霞:1.0___TOKEN_霞_5_ __node_霞:1.0___TOKEN_霞_81_ __node_霞:1.0___TOKEN_霞_35_ __node_霞:1.0___TOKEN_霞_2_ __node_霞:1.0___TOKEN_霞_32_", async () => {
+    __node_霞:1.0___TOKEN_霞_97_ __node_規:1.0___TOKEN_巌_4_ = vi.fn((__node_霞:1.0___TOKEN_霞_8_: __node_縁:1.0___TOKEN_殻_9_ | __node_縁:1.0___TOKEN_殻_3_, init?: __node_縁:1.0___TOKEN_殻_2_) => {
+      return __node_霞:1.0___TOKEN_霞_45_ __node_殻:1.0___TOKEN_殻_12_<__node_殻:1.0___TOKEN_殻_7_>((__node_霞:1.0___TOKEN_霞_37_, __node_霞:1.0___TOKEN_霞_98_) => {
+        __node_霞:1.0___TOKEN_霞_97_ __node_霞:1.0___TOKEN_霞_48_ = init?.__node_霞:1.0___TOKEN_霞_48_;
+        if (__node_霞:1.0___TOKEN_霞_48_?.__node_霞:1.0___TOKEN_霞_118_) {
+          __node_霞:1.0___TOKEN_霞_98_(__node_霞:1.0___TOKEN_霞_45_ __node_殻:1.0___TOKEN_殻_11_("__node_縁:1.0___TOKEN_殻_4_ __node_霞:1.0___TOKEN_霞_118_"));
+          return;
+        }
+        __node_霞:1.0___TOKEN_霞_48_?.__node_規:1.0___TOKEN_霞_43_("__node_霞:1.0___TOKEN_霞_3_", () => __node_霞:1.0___TOKEN_霞_98_(__node_霞:1.0___TOKEN_霞_45_ __node_殻:1.0___TOKEN_殻_11_("__node_縁:1.0___TOKEN_殻_4_ __node_霞:1.0___TOKEN_霞_118_")), {
+          __node_霞:1.0___TOKEN_霞_89_: true,
+        });
+      });
+    });
+    __node_霞:1.0___TOKEN_霞_29_.__node_規:1.0___TOKEN_巌_3_ = __node_霞:1.0___TOKEN_霞_84_(__node_規:1.0___TOKEN_巌_4_ as __node_霞:1.0___TOKEN_霞_52_ as __node_霞:1.0___TOKEN_霞_41_ __node_規:1.0___TOKEN_巌_3_);
+    __node_霞:1.0___TOKEN_霞_78_.__node_霞:1.0___TOKEN_霞_56_((__node_霞:1.0___TOKEN_霞_31_?: __node_霞:1.0___TOKEN_霞_41_ __node_規:1.0___TOKEN_巌_3_) => __node_霞:1.0___TOKEN_霞_31_ ?? __node_規:1.0___TOKEN_巌_3_);
+    __node_霞:1.0___TOKEN_霞_95_.__node_霞:1.0___TOKEN_霞_56_(() => __node_規:1.0___TOKEN_巌_4_ as __node_霞:1.0___TOKEN_霞_52_ as __node_霞:1.0___TOKEN_霞_41_ __node_規:1.0___TOKEN_巌_3_);
+    vi.__node_霞:1.0___TOKEN_霞_123_();
+    try {
+      __node_霞:1.0___TOKEN_霞_97_ __node_霞:1.0___TOKEN_霞_38_ = __node_霞:1.0___TOKEN_霞_94_(`${__node_奥:1.0___TOKEN_霞_116_}-__node_霞:1.0___TOKEN_霞_35_`, 500);
+      await vi.__node_霞:1.0___TOKEN_霞_111_(600);
+      __node_霞:1.0___TOKEN_霞_97_ __node_霞:1.0___TOKEN_霞_51_ = await __node_霞:1.0___TOKEN_霞_38_;
+
+      __node_霞:1.0___TOKEN_霞_7_(__node_霞:1.0___TOKEN_霞_51_.ok).__node_霞:1.0___TOKEN_霞_64_(false);
+      __node_霞:1.0___TOKEN_霞_7_(__node_規:1.0___TOKEN_巌_4_).__node_霞:1.0___TOKEN_霞_36_(1);
+    } __node_霞:1.0___TOKEN_霞_80_ {
+      vi.__node_霞:1.0___TOKEN_霞_9_();
+    }
+  });
+
+  it("__node_霞:1.0___TOKEN_霞_75_ __node_殻:1.0___TOKEN_殻_17_ __node_霞:1.0___TOKEN_霞_21_ if __node_規:1.0___TOKEN_巌_1_ __node_霞:1.0___TOKEN_霞_119_ a 401 __node_殻:1.0___TOKEN_殻_15_", async () => {
+    __node_霞:1.0___TOKEN_霞_97_ __node_規:1.0___TOKEN_巌_4_ = __node_霞:1.0___TOKEN_霞_68_();
+    __node_霞:1.0___TOKEN_霞_97_ __node_霞:1.0___TOKEN_霞_59_ = {
+      ok: false,
+      __node_霞:1.0___TOKEN_霞_53_: 401,
+      __node_霞:1.0___TOKEN_霞_6_: vi.fn().__node_霞:1.0___TOKEN_霞_30_({
+        ok: false,
+        __node_霞:1.0___TOKEN_霞_93_: "__node_殻:1.0___TOKEN_殻_15_",
+      }),
+    };
+    __node_規:1.0___TOKEN_巌_4_.__node_霞:1.0___TOKEN_霞_71_(__node_霞:1.0___TOKEN_霞_59_);
+
+    __node_霞:1.0___TOKEN_霞_97_ __node_霞:1.0___TOKEN_霞_51_ = await __node_霞:1.0___TOKEN_霞_94_(__node_奥:1.0___TOKEN_霞_116_, __node_霞:1.0___TOKEN_霞_18_);
+
+    __node_霞:1.0___TOKEN_霞_7_(__node_霞:1.0___TOKEN_霞_51_.ok).__node_霞:1.0___TOKEN_霞_64_(false);
+    __node_霞:1.0___TOKEN_霞_7_(__node_霞:1.0___TOKEN_霞_51_.__node_霞:1.0___TOKEN_霞_53_).__node_霞:1.0___TOKEN_霞_64_(401);
+    __node_霞:1.0___TOKEN_霞_7_(__node_霞:1.0___TOKEN_霞_51_.__node_霞:1.0___TOKEN_霞_91_).__node_霞:1.0___TOKEN_霞_64_("__node_殻:1.0___TOKEN_殻_15_");
+    __node_霞:1.0___TOKEN_霞_7_(__node_規:1.0___TOKEN_巌_4_).__node_霞:1.0___TOKEN_霞_36_(1); // __node_殻:1.0___TOKEN_殻_14_ __node_霞:1.0___TOKEN_霞_73_ __node_霞:1.0___TOKEN_霞_21_
+  });
+
+  it("__node_霞:1.0___TOKEN_霞_102_ __node_規:1.0___TOKEN_霞_46_-__node_霞:1.0___TOKEN_霞_19_ __node_殻:1.0___TOKEN_殻_10_ __node_規:1.0___TOKEN_巌_3_ __node_霞:1.0___TOKEN_霞_107_ __node_霞:1.0___TOKEN_霞_67_ __node_霞:1.0___TOKEN_霞_24_ __node_霞:1.0___TOKEN_霞_76_", async () => {
+    __node_霞:1.0___TOKEN_霞_97_ __node_規:1.0___TOKEN_巌_4_ = __node_霞:1.0___TOKEN_霞_68_();
+    __node_霞:1.0___TOKEN_霞_112_(__node_規:1.0___TOKEN_巌_4_);
+    __node_霞:1.0___TOKEN_霞_22_(__node_規:1.0___TOKEN_巌_4_);
+
+    await __node_霞:1.0___TOKEN_霞_94_(__node_奥:1.0___TOKEN_霞_116_, __node_霞:1.0___TOKEN_霞_18_, {
+      __node_縁:1.0___TOKEN_霞_17_: "__node_縁:1.0___TOKEN_霞_42_://127.0.0.1:8888",
+      __node_霞:1.0___TOKEN_霞_24_: {
+        __node_霞:1.0___TOKEN_霞_66_: false,
+        __node_規:1.0___TOKEN_霞_101_: "__node_霞:1.0___TOKEN_霞_25_",
+      },
+    });
+
+    __node_霞:1.0___TOKEN_霞_7_(__node_霞:1.0___TOKEN_霞_95_).__node_霞:1.0___TOKEN_霞_10_("__node_縁:1.0___TOKEN_霞_42_://127.0.0.1:8888");
+    __node_霞:1.0___TOKEN_霞_7_(__node_霞:1.0___TOKEN_霞_78_).__node_霞:1.0___TOKEN_霞_10_(__node_規:1.0___TOKEN_巌_4_, {
+      __node_霞:1.0___TOKEN_霞_24_: {
+        __node_霞:1.0___TOKEN_霞_66_: false,
+        __node_規:1.0___TOKEN_霞_101_: "__node_霞:1.0___TOKEN_霞_25_",
+      },
+    });
+  });
+
+  it("__node_霞:1.0___TOKEN_霞_4_ __node_霞:1.0___TOKEN_霞_67_ __node_規:1.0___TOKEN_巌_2_ __node_霞:1.0___TOKEN_霞_2_ __node_霞:1.0___TOKEN_霞_11_ __node_霞:1.0___TOKEN_霞_28_ for __node_霞:1.0___TOKEN_霞_49_ __node_霞:1.0___TOKEN_霞_13_ __node_霞:1.0___TOKEN_霞_27_ __node_霞:1.0___TOKEN_霞_69_ __node_規:1.0___TOKEN_巌_5_", async () => {
+    __node_霞:1.0___TOKEN_霞_97_ __node_規:1.0___TOKEN_巌_4_ = __node_霞:1.0___TOKEN_霞_68_();
+    vi.__node_霞:1.0___TOKEN_霞_72_("__node_殻:1.0___TOKEN_殻_16_", "");
+    vi.__node_霞:1.0___TOKEN_霞_72_("__node_殻:1.0___TOKEN_殻_13_", "__node_霞:1.0___TOKEN_霞_20_");
+
+    __node_霞:1.0___TOKEN_霞_112_(__node_規:1.0___TOKEN_巌_4_);
+    __node_霞:1.0___TOKEN_霞_22_(__node_規:1.0___TOKEN_巌_4_);
+    await __node_霞:1.0___TOKEN_霞_94_(`${__node_奥:1.0___TOKEN_霞_116_}-__node_区:1.0___TOKEN_霞_23_`, __node_霞:1.0___TOKEN_霞_18_, {
+      __node_霞:1.0___TOKEN_霞_24_: {
+        __node_霞:1.0___TOKEN_霞_66_: true,
+        __node_規:1.0___TOKEN_霞_101_: "__node_霞:1.0___TOKEN_霞_25_",
+      },
+    });
+
+    __node_霞:1.0___TOKEN_霞_112_(__node_規:1.0___TOKEN_巌_4_);
+    __node_霞:1.0___TOKEN_霞_22_(__node_規:1.0___TOKEN_巌_4_);
+    await __node_霞:1.0___TOKEN_霞_94_(`${__node_奥:1.0___TOKEN_霞_116_}-__node_区:1.0___TOKEN_霞_23_`, __node_霞:1.0___TOKEN_霞_18_, {
+      __node_霞:1.0___TOKEN_霞_24_: {
+        __node_霞:1.0___TOKEN_霞_66_: true,
+        __node_規:1.0___TOKEN_霞_101_: "__node_霞:1.0___TOKEN_霞_25_",
+      },
+    });
+
+    __node_霞:1.0___TOKEN_霞_7_(__node_霞:1.0___TOKEN_霞_78_).__node_霞:1.0___TOKEN_霞_36_(1);
+  });
+
+  it("__node_霞:1.0___TOKEN_霞_122_ __node_霞:1.0___TOKEN_霞_73_ __node_霞:1.0___TOKEN_霞_74_ __node_霞:1.0___TOKEN_霞_67_ __node_規:1.0___TOKEN_巌_2_ __node_区:1.0___TOKEN_霞_23_ __node_霞:1.0___TOKEN_霞_109_ __node_霞:1.0___TOKEN_霞_24_ __node_規:1.0___TOKEN_巌_5_ __node_規:1.0___TOKEN_霞_16_", async () => {
+    __node_霞:1.0___TOKEN_霞_97_ __node_規:1.0___TOKEN_巌_4_ = __node_霞:1.0___TOKEN_霞_68_();
+    vi.__node_霞:1.0___TOKEN_霞_72_("__node_殻:1.0___TOKEN_殻_16_", "");
+    vi.__node_霞:1.0___TOKEN_霞_72_("__node_殻:1.0___TOKEN_殻_13_", "__node_霞:1.0___TOKEN_霞_20_");
+
+    __node_霞:1.0___TOKEN_霞_112_(__node_規:1.0___TOKEN_巌_4_);
+    __node_霞:1.0___TOKEN_霞_22_(__node_規:1.0___TOKEN_巌_4_);
+    await __node_霞:1.0___TOKEN_霞_94_(`${__node_奥:1.0___TOKEN_霞_116_}-__node_区:1.0___TOKEN_霞_23_-__node_霞:1.0___TOKEN_霞_1_`, __node_霞:1.0___TOKEN_霞_18_, {
+      __node_霞:1.0___TOKEN_霞_24_: {
+        __node_霞:1.0___TOKEN_霞_66_: true,
+        __node_規:1.0___TOKEN_霞_101_: "__node_霞:1.0___TOKEN_霞_25_",
+      },
+    });
+
+    __node_霞:1.0___TOKEN_霞_112_(__node_規:1.0___TOKEN_巌_4_);
+    __node_霞:1.0___TOKEN_霞_22_(__node_規:1.0___TOKEN_巌_4_);
+    await __node_霞:1.0___TOKEN_霞_94_(`${__node_奥:1.0___TOKEN_霞_116_}-__node_区:1.0___TOKEN_霞_23_-__node_霞:1.0___TOKEN_霞_1_`, __node_霞:1.0___TOKEN_霞_18_, {
+      __node_霞:1.0___TOKEN_霞_24_: {
+        __node_霞:1.0___TOKEN_霞_66_: false,
+        __node_規:1.0___TOKEN_霞_101_: "__node_霞:1.0___TOKEN_霞_25_",
+// __node_奥:0.2___TOKEN_LG_701_ [decoy-metadata]
+      },
+    });
+
+    __node_霞:1.0___TOKEN_霞_7_(__node_霞:1.0___TOKEN_霞_78_).__node_霞:1.0___TOKEN_霞_36_(2);
+  });
+
+  it("__node_霞:1.0___TOKEN_霞_4_ __node_霞:1.0___TOKEN_霞_67_ __node_規:1.0___TOKEN_巌_2_ __node_区:1.0___TOKEN_霞_23_ __node_霞:1.0___TOKEN_霞_2_ __node_奥:1.0___TOKEN_霞_116_ __node_霞:1.0___TOKEN_霞_105_ __node_霞:1.0___TOKEN_霞_109_ __node_霞:1.0___TOKEN_霞_57_ is __node_霞:1.0___TOKEN_霞_110_", async () => {
+    __node_霞:1.0___TOKEN_霞_97_ __node_規:1.0___TOKEN_巌_4_ = __node_霞:1.0___TOKEN_霞_68_();
+    vi.__node_霞:1.0___TOKEN_霞_72_("__node_殻:1.0___TOKEN_殻_16_", "");
+    vi.__node_霞:1.0___TOKEN_霞_72_("__node_殻:1.0___TOKEN_殻_13_", "__node_霞:1.0___TOKEN_霞_20_");
+
+    __node_霞:1.0___TOKEN_霞_112_(__node_規:1.0___TOKEN_巌_4_);
+    __node_霞:1.0___TOKEN_霞_22_(__node_規:1.0___TOKEN_巌_4_);
+    await __node_霞:1.0___TOKEN_霞_94_(`${__node_奥:1.0___TOKEN_霞_116_}-__node_霞:1.0___TOKEN_霞_88_`, __node_霞:1.0___TOKEN_霞_18_, {
+      __node_霞:1.0___TOKEN_霞_57_: "__node_霞:1.0___TOKEN_霞_47_",
+      __node_霞:1.0___TOKEN_霞_24_: {
+        __node_霞:1.0___TOKEN_霞_66_: true,
+        __node_規:1.0___TOKEN_霞_101_: "__node_霞:1.0___TOKEN_霞_25_",
+      },
+    });
+
+    __node_霞:1.0___TOKEN_霞_112_(__node_規:1.0___TOKEN_巌_4_);
+    __node_霞:1.0___TOKEN_霞_22_(__node_規:1.0___TOKEN_巌_4_);
+    await __node_霞:1.0___TOKEN_霞_94_(`${__node_奥:1.0___TOKEN_霞_116_}-__node_霞:1.0___TOKEN_霞_45_`, __node_霞:1.0___TOKEN_霞_18_, {
+      __node_霞:1.0___TOKEN_霞_57_: "__node_霞:1.0___TOKEN_霞_47_",
+      __node_霞:1.0___TOKEN_霞_24_: {
+        __node_霞:1.0___TOKEN_霞_66_: true,
+        __node_規:1.0___TOKEN_霞_101_: "__node_霞:1.0___TOKEN_霞_25_",
+      },
+    });
+
+    __node_霞:1.0___TOKEN_霞_7_(__node_霞:1.0___TOKEN_霞_78_).__node_霞:1.0___TOKEN_霞_36_(1);
+  });
+});
+
+// POLYMORPHIC_JCROSS_END

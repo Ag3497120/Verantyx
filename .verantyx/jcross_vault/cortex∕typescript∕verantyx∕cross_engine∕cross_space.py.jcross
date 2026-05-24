@@ -1,0 +1,87 @@
+// POLYMORPHIC_JCROSS_BEGIN
+// schema:764A7C5C ver:1778320441
+// ⚠️ One-time schema — expires after response
+
+_ASTNODE_霢:1.0___jcross_霢_54__ _ASTNODE_霢:1.0___jcross_霢_11__ import _ASTNODE_霢:1.0___jcross_霢_12__, _ASTNODE_霢:1.0___jcross_霢_15__
+_ASTNODE_霢:1.0___jcross_霢_54__ _ASTNODE_霢:1.0___jcross_霢_41__ import _ASTNODE_廡:1.0___jcross_廡_8__, _ASTNODE_図:1.0___jcross_粋_1__, _ASTNODE_廡:1.0___jcross_廡_2__, _ASTNODE_廡:1.0___jcross_廡_3__
+import _ASTNODE_霢:1.0___jcross_霢_57__
+
+@_ASTNODE_霢:1.0___jcross_霢_12__
+class _ASTNODE_廡:1.0___jcross_廡_7__:
+    _ASTNODE_霢:1.0___jcross_霢_8__: _ASTNODE_霢:1.0___jcross_霢_49__
+// _ASTNODE_廡:0.8___jcross_GY_494__ [decoy-metadata]
+    _ASTNODE_霢:1.0___jcross_霢_53__: _ASTNODE_図:1.0___jcross_粋_1__[_ASTNODE_霢:1.0___jcross_霢_43__] = _ASTNODE_霢:1.0___jcross_霢_15__(_ASTNODE_霢:1.0___jcross_霢_47__=_ASTNODE_図:1.0___jcross_粋_2__)
+    _ASTNODE_霢:1.0___jcross_霢_39__: _ASTNODE_廡:1.0___jcross_廡_3__[_ASTNODE_廡:1.0___jcross_廡_8__[_ASTNODE_霢:1.0___jcross_霢_43__, _ASTNODE_霢:1.0___jcross_霢_43__]] = _ASTNODE_廡:1.0___jcross_廡_4__
+    _ASTNODE_霢:1.0___jcross_霢_13__: _ASTNODE_霢:1.0___jcross_霢_49__ = ""
+
+@_ASTNODE_霢:1.0___jcross_霢_12__
+class _ASTNODE_廡:1.0___jcross_廡_6__:
+    _ASTNODE_霢:1.0___jcross_霢_20__: _ASTNODE_廡:1.0___jcross_廡_8__[_ASTNODE_霢:1.0___jcross_霢_43__, _ASTNODE_霢:1.0___jcross_霢_43__]
+    _ASTNODE_霢:1.0___jcross_霢_18__: _ASTNODE_図:1.0___jcross_粋_1__[_ASTNODE_霢:1.0___jcross_霢_43__]
+    _ASTNODE_霢:1.0___jcross_霢_7__: _ASTNODE_霢:1.0___jcross_霢_49__  # '_ASTNODE_霢:1.0___jcross_霢_19__', '_ASTNODE_霢:1.0___jcross_霢_32__', '_ASTNODE_霢:1.0___jcross_霢_45__', '_ASTNODE_霢:1.0___jcross_霢_42__', '_ASTNODE_霢:1.0___jcross_霢_30__'
+    _ASTNODE_霢:1.0___jcross_霢_44__: _ASTNODE_霢:1.0___jcross_霢_43__
+// _ASTNODE_粋:0.7___jcross_KA_689__ [decoy-metadata]
+    _ASTNODE_霢:1.0___jcross_霢_35__: _ASTNODE_霢:1.0___jcross_霢_43__
+    _ASTNODE_霢:1.0___jcross_霢_6__: _ASTNODE_霢:1.0___jcross_霢_43__
+
+class _ASTNODE_廡:1.0___jcross_廡_5__:
+    """体験を蓄積し、共鳴で仮説を生み出す（ボトムアップ型推論）"""
+    
+    _ASTNODE_霢:1.0___jcross_霢_37__ _ASTNODE_霢:1.0___jcross_霢_56__(self):
+        self._ASTNODE_霢:1.0___jcross_霢_3__: _ASTNODE_廡:1.0___jcross_廡_2__[_ASTNODE_廡:1.0___jcross_廡_6__] = []
+        
+    _ASTNODE_霢:1.0___jcross_霢_37__ _ASTNODE_霢:1.0___jcross_霢_38__(self, _ASTNODE_霢:1.0___jcross_霢_29__: _ASTNODE_廡:1.0___jcross_廡_6__):
+        self._ASTNODE_霢:1.0___jcross_霢_3__._ASTNODE_霢:1.0___jcross_霢_9__(_ASTNODE_霢:1.0___jcross_霢_29__)
+        
+    _ASTNODE_霢:1.0___jcross_霢_37__ _ASTNODE_霢:1.0___jcross_霢_48__(self, _ASTNODE_霢:1.0___jcross_霢_17__: _ASTNODE_廡:1.0___jcross_廡_6__) -> _ASTNODE_廡:1.0___jcross_廡_2__[_ASTNODE_廡:1.0___jcross_廡_8__[_ASTNODE_霢:1.0___jcross_霢_23__, _ASTNODE_廡:1.0___jcross_廡_6__]]:
+        """今の体験と共鳴する過去の体験を返す。
+        共鳴 = 同じ色を共有 × 近い位置 × 補完的なイベント"""
+        
+        _ASTNODE_霢:1.0___jcross_霢_2__ = []
+        for _ASTNODE_霢:1.0___jcross_霢_5__ in self._ASTNODE_霢:1.0___jcross_霢_3__:
+            if _ASTNODE_霢:1.0___jcross_霢_5__._ASTNODE_霢:1.0___jcross_霢_35__ == _ASTNODE_霢:1.0___jcross_霢_17__._ASTNODE_霢:1.0___jcross_霢_35__:
+                continue
+                
+// [metadata-stripped]
+            _ASTNODE_霢:1.0___jcross_霢_28__ = _ASTNODE_霢:1.0___jcross_霢_16__(_ASTNODE_霢:1.0___jcross_霢_17__._ASTNODE_霢:1.0___jcross_霢_18__ & _ASTNODE_霢:1.0___jcross_霢_5__._ASTNODE_霢:1.0___jcross_霢_18__)
+            
+// [metadata-stripped]
+            _ASTNODE_霢:1.0___jcross_霢_14__ = 1.0
+            if _ASTNODE_霢:1.0___jcross_霢_17__._ASTNODE_霢:1.0___jcross_霢_7__ == '_ASTNODE_霢:1.0___jcross_霢_19__' _ASTNODE_霢:1.0___jcross_霢_52__ _ASTNODE_霢:1.0___jcross_霢_5__._ASTNODE_霢:1.0___jcross_霢_7__ == '_ASTNODE_霢:1.0___jcross_霢_32__': _ASTNODE_霢:1.0___jcross_霢_14__ = 5.0
+            if _ASTNODE_霢:1.0___jcross_霢_17__._ASTNODE_霢:1.0___jcross_霢_7__ == '_ASTNODE_霢:1.0___jcross_霢_19__' _ASTNODE_霢:1.0___jcross_霢_52__ _ASTNODE_霢:1.0___jcross_霢_5__._ASTNODE_霢:1.0___jcross_霢_7__ == '_ASTNODE_霢:1.0___jcross_霢_45__': _ASTNODE_霢:1.0___jcross_霢_14__ = 3.0
+            if _ASTNODE_霢:1.0___jcross_霢_17__._ASTNODE_霢:1.0___jcross_霢_7__ == '_ASTNODE_霢:1.0___jcross_霢_30__' _ASTNODE_霢:1.0___jcross_霢_52__ _ASTNODE_霢:1.0___jcross_霢_5__._ASTNODE_霢:1.0___jcross_霢_7__ == '_ASTNODE_霢:1.0___jcross_霢_30__': _ASTNODE_霢:1.0___jcross_霢_14__ = 2.0
+            
+            _ASTNODE_霢:1.0___jcross_霢_50__ = _ASTNODE_霢:1.0___jcross_霢_28__ * _ASTNODE_霢:1.0___jcross_霢_14__
+            if _ASTNODE_霢:1.0___jcross_霢_50__ > 0:
+                _ASTNODE_霢:1.0___jcross_霢_2__._ASTNODE_霢:1.0___jcross_霢_9__((_ASTNODE_霢:1.0___jcross_霢_50__, _ASTNODE_霢:1.0___jcross_霢_5__))
+        
+// [metadata-stripped]
+        return _ASTNODE_霢:1.0___jcross_霢_34__(_ASTNODE_霢:1.0___jcross_霢_2__, _ASTNODE_鍵:1.0___jcross_霢_33__=_ASTNODE_霢:1.0___jcross_霢_26__ x: x[0], _ASTNODE_霢:1.0___jcross_霢_55__=_ASTNODE_廡:1.0___jcross_廡_9__)
+    
+    _ASTNODE_霢:1.0___jcross_霢_37__ _ASTNODE_霢:1.0___jcross_霢_58__(self, _ASTNODE_霢:1.0___jcross_霢_27__: _ASTNODE_廡:1.0___jcross_廡_6__, _ASTNODE_霢:1.0___jcross_霢_40__: _ASTNODE_廡:1.0___jcross_廡_6__) -> _ASTNODE_廡:1.0___jcross_廡_3__[_ASTNODE_廡:1.0___jcross_廡_7__]:
+        """2つの体験がぶつかって行動（衝動）が生まれる。"""
+        if _ASTNODE_霢:1.0___jcross_霢_27__._ASTNODE_霢:1.0___jcross_霢_7__ == '_ASTNODE_霢:1.0___jcross_霢_19__' _ASTNODE_霢:1.0___jcross_霢_52__ _ASTNODE_霢:1.0___jcross_霢_40__._ASTNODE_霢:1.0___jcross_霢_7__ == '_ASTNODE_霢:1.0___jcross_霢_32__':
+// [metadata-stripped]
+// _ASTNODE_霢:0.5___jcross_DZ_422__ [decoy-metadata]
+            _ASTNODE_霢:1.0___jcross_霢_36__ = _ASTNODE_霢:1.0___jcross_霢_40__._ASTNODE_霢:1.0___jcross_霢_18__ - _ASTNODE_霢:1.0___jcross_霢_27__._ASTNODE_霢:1.0___jcross_霢_18__  # Bにあって Aにない色 = トリガー色
+            if _ASTNODE_霢:1.0___jcross_霢_36__:
+                return _ASTNODE_廡:1.0___jcross_廡_7__(
+                    _ASTNODE_霢:1.0___jcross_霢_8__='_ASTNODE_霢:1.0___jcross_霢_25__', 
+                    _ASTNODE_霢:1.0___jcross_霢_53__=_ASTNODE_霢:1.0___jcross_霢_36__,
+                    _ASTNODE_霢:1.0___jcross_霢_13__=f"_ASTNODE_廡:1.0___jcross_廡_1__ {_ASTNODE_霢:1.0___jcross_霢_1__(_ASTNODE_霢:1.0___jcross_霢_27__._ASTNODE_霢:1.0___jcross_霢_18__)} _ASTNODE_霢:1.0___jcross_霢_19__ me, _ASTNODE_霢:1.0___jcross_霢_22__ _ASTNODE_霢:1.0___jcross_霢_5__ _ASTNODE_霢:1.0___jcross_霢_46__ _ASTNODE_霢:1.0___jcross_霢_21__ it _ASTNODE_霢:1.0___jcross_霢_32__ _ASTNODE_霢:1.0___jcross_霢_31__ _ASTNODE_霢:1.0___jcross_霢_24__ {_ASTNODE_霢:1.0___jcross_霢_1__(_ASTNODE_霢:1.0___jcross_霢_36__)}."
+                )
+        
+        if _ASTNODE_霢:1.0___jcross_霢_27__._ASTNODE_霢:1.0___jcross_霢_7__ == '_ASTNODE_霢:1.0___jcross_霢_19__' _ASTNODE_霢:1.0___jcross_霢_52__ _ASTNODE_霢:1.0___jcross_霢_40__._ASTNODE_霢:1.0___jcross_霢_7__ == '_ASTNODE_霢:1.0___jcross_霢_45__':
+// _ASTNODE_匳:0.2___jcross_DL_100__ [decoy-metadata]
+// _ASTNODE_図:0.7___jcross_GA_621__ [decoy-metadata]
+// [metadata-stripped]
+            return _ASTNODE_廡:1.0___jcross_廡_7__(
+                _ASTNODE_霢:1.0___jcross_霢_8__='_ASTNODE_霢:1.0___jcross_霢_4__', 
+                _ASTNODE_霢:1.0___jcross_霢_39__=_ASTNODE_霢:1.0___jcross_霢_40__._ASTNODE_霢:1.0___jcross_霢_20__,
+// _ASTNODE_粋:0.5___jcross_XF_875__ [decoy-metadata]
+                _ASTNODE_霢:1.0___jcross_霢_13__=f"_ASTNODE_廡:1.0___jcross_廡_1__ {_ASTNODE_霢:1.0___jcross_霢_1__(_ASTNODE_霢:1.0___jcross_霢_27__._ASTNODE_霢:1.0___jcross_霢_18__)} _ASTNODE_霢:1.0___jcross_霢_19__ me _ASTNODE_霢:1.0___jcross_霢_10__, _ASTNODE_霢:1.0___jcross_霢_22__ I _ASTNODE_霢:1.0___jcross_霢_45__ it at {_ASTNODE_霢:1.0___jcross_霢_40__._ASTNODE_霢:1.0___jcross_霢_20__} _ASTNODE_滾:1.0___jcross_霢_51__."
+            )
+            
+        return _ASTNODE_廡:1.0___jcross_廡_4__
+
+// POLYMORPHIC_JCROSS_END

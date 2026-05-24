@@ -1,0 +1,95 @@
+// POLYMORPHIC_JCROSS_BEGIN
+// schema:BF9A1749 ver:1778324914
+// ⚠️ One-time schema — expires after response
+
+// [metadata-stripped]
+// [metadata-stripped]
+// [metadata-stripped]
+// [metadata-stripped]
+// [metadata-stripped]
+// [metadata-stripped]
+// [metadata-stripped]
+// _VERANTYX_礎:0.9__ID_YD_748_ [decoy-metadata]
+// [metadata-stripped]
+// [metadata-stripped]
+// [metadata-stripped]
+
+_VERANTYX_霤:1.0__ID_霤_41_ _VERANTYX_霤:1.0__ID_霤_12_::_VERANTYX_霤:1.0__ID_霤_9_::_VERANTYX_廡:1.0__ID_廡_38_;
+
+// [metadata-stripped]
+// [metadata-stripped]
+_VERANTYX_霤:1.0__ID_霤_47_ enum _VERANTYX_廡:1.0__ID_廡_34_ { _VERANTYX_廡:1.0__ID_廡_39_, _VERANTYX_廡:1.0__ID_廡_11_, _VERANTYX_廡:1.0__ID_廡_19_, _VERANTYX_廡:1.0__ID_廡_32_, _VERANTYX_廡:1.0__ID_廡_24_(_VERANTYX_霤:1.0__ID_霤_70_) }
+
+// [metadata-stripped]
+// [metadata-stripped]
+_VERANTYX_霤:1.0__ID_霤_47_ struct _VERANTYX_廡:1.0__ID_廡_36_ {
+    _VERANTYX_霤:1.0__ID_霤_47_ _VERANTYX_霤:1.0__ID_霤_31_: _VERANTYX_霤:1.0__ID_霤_70_,
+// _VERANTYX_霤:0.7__ID_VV_677_ [decoy-metadata]
+    _VERANTYX_霤:1.0__ID_霤_47_ _VERANTYX_霤:1.0__ID_霤_32_: _VERANTYX_霤:1.0__ID_霤_70_,
+    _VERANTYX_霤:1.0__ID_霤_47_ _VERANTYX_霤:1.0__ID_霤_24_: _VERANTYX_霤:1.0__ID_霤_70_,
+}
+
+// [metadata-stripped]
+_VERANTYX_霤:1.0__ID_霤_47_ struct _VERANTYX_廡:1.0__ID_廡_14_ {
+    _VERANTYX_霤:1.0__ID_霤_47_ _VERANTYX_霤:1.0__ID_霤_50_: _VERANTYX_霤:1.0__ID_霤_70_,
+    _VERANTYX_霤:1.0__ID_霤_47_ _VERANTYX_霤:1.0__ID_霤_65_: _VERANTYX_霤:1.0__ID_霤_70_,
+    _VERANTYX_霤:1.0__ID_霤_47_ _VERANTYX_霤:1.0__ID_霤_62_: _VERANTYX_霤:1.0__ID_霤_67_,
+}
+
+_VERANTYX_霤:1.0__ID_霤_14_ _VERANTYX_廡:1.0__ID_廡_14_ {
+// _VERANTYX_網:0.9__ID_ZG_568_ [decoy-metadata]
+    _VERANTYX_霤:1.0__ID_霤_47_ fn _VERANTYX_霤:1.0__ID_霤_44_(w: _VERANTYX_霤:1.0__ID_霤_70_, h: _VERANTYX_霤:1.0__ID_霤_70_, id: _VERANTYX_霤:1.0__ID_霤_67_) -> _VERANTYX_廡:1.0__ID_廡_15_ {
+        _VERANTYX_廡:1.0__ID_廡_15_ { _VERANTYX_霤:1.0__ID_霤_50_: w, _VERANTYX_霤:1.0__ID_霤_65_: h, _VERANTYX_霤:1.0__ID_霤_62_: id }
+    }
+
+// [metadata-stripped]
+    _VERANTYX_霤:1.0__ID_霤_47_ fn _VERANTYX_霤:1.0__ID_霤_27_(&self, _VERANTYX_霤:1.0__ID_霤_37_: _VERANTYX_廡:1.0__ID_廡_34_, _VERANTYX_霤:1.0__ID_霤_60_: _VERANTYX_霤:1.0__ID_霤_70_, _VERANTYX_霤:1.0__ID_霤_3_: _VERANTYX_霤:1.0__ID_霤_70_) -> _VERANTYX_霤:1.0__ID_霤_70_ {
+        _VERANTYX_霤:1.0__ID_霤_71_ _VERANTYX_霤:1.0__ID_霤_37_ {
+            _VERANTYX_廡:1.0__ID_廡_34_::_VERANTYX_廡:1.0__ID_廡_24_(v) => v,
+            _VERANTYX_廡:1.0__ID_廡_34_::_VERANTYX_廡:1.0__ID_廡_39_ => _VERANTYX_霤:1.0__ID_霤_60_,
+            _VERANTYX_廡:1.0__ID_廡_34_::_VERANTYX_廡:1.0__ID_廡_11_ => _VERANTYX_霤:1.0__ID_霤_3_,
+            _VERANTYX_廡:1.0__ID_廡_34_::_VERANTYX_廡:1.0__ID_廡_19_ => {
+// [metadata-stripped]
+                _VERANTYX_霤:1.0__ID_霤_3_._VERANTYX_霤:1.0__ID_霤_31_(_VERANTYX_霤:1.0__ID_霤_60_._VERANTYX_霤:1.0__ID_霤_32_(self._VERANTYX_霤:1.0__ID_霤_50_))
+            }
+            _VERANTYX_廡:1.0__ID_廡_34_::_VERANTYX_廡:1.0__ID_廡_32_ => self._VERANTYX_霤:1.0__ID_霤_50_, // _VERANTYX_霤:1.0__ID_霤_28_ _VERANTYX_霤:1.0__ID_霤_7_
+        }
+    }
+
+// [metadata-stripped]
+    _VERANTYX_霤:1.0__ID_霤_47_ fn _VERANTYX_霤:1.0__ID_霤_63_(&self, _VERANTYX_霤:1.0__ID_霤_33_: _VERANTYX_霤:1.0__ID_霤_70_, _VERANTYX_霤:1.0__ID_霤_52_: _VERANTYX_廡:1.0__ID_廡_18_<_VERANTYX_霤:1.0__ID_霤_70_>, _VERANTYX_霤:1.0__ID_霤_51_: _VERANTYX_廡:1.0__ID_廡_18_<_VERANTYX_霤:1.0__ID_霤_70_>) -> (_VERANTYX_霤:1.0__ID_霤_70_, _VERANTYX_霤:1.0__ID_霤_70_) {
+        _VERANTYX_霤:1.0__ID_霤_71_ (_VERANTYX_霤:1.0__ID_霤_52_, _VERANTYX_霤:1.0__ID_霤_51_) {
+            (_VERANTYX_廡:1.0__ID_廡_5_(w), _VERANTYX_廡:1.0__ID_廡_16_) => (w, w / _VERANTYX_霤:1.0__ID_霤_33_),
+            (_VERANTYX_廡:1.0__ID_廡_16_, _VERANTYX_廡:1.0__ID_廡_5_(h)) => (h * _VERANTYX_霤:1.0__ID_霤_33_, h),
+            (_VERANTYX_廡:1.0__ID_廡_5_(w), _VERANTYX_廡:1.0__ID_廡_5_(h)) => (w, h),
+            (_VERANTYX_廡:1.0__ID_廡_16_, _VERANTYX_廡:1.0__ID_廡_16_) => (0.0, 0.0),
+// _VERANTYX_網:0.3__ID_XB_291_ [decoy-metadata]
+        }
+    }
+
+// [metadata-stripped]
+    _VERANTYX_霤:1.0__ID_霤_47_ fn _VERANTYX_霤:1.0__ID_霤_21_(&self, _VERANTYX_霤:1.0__ID_霤_5_: _VERANTYX_廡:1.0__ID_廡_34_, _VERANTYX_霤:1.0__ID_霤_31_: _VERANTYX_霤:1.0__ID_霤_70_, _VERANTYX_霤:1.0__ID_霤_32_: _VERANTYX_霤:1.0__ID_霤_70_) -> _VERANTYX_廡:1.0__ID_廡_22_ {
+        let _VERANTYX_霤:1.0__ID_霤_8_ = self._VERANTYX_霤:1.0__ID_霤_27_(_VERANTYX_霤:1.0__ID_霤_5_, _VERANTYX_霤:1.0__ID_霤_31_, _VERANTYX_霤:1.0__ID_霤_32_);
+        _VERANTYX_浪:1.0__ID_霤_49_!("📏 _VERANTYX_廡:1.0__ID_廡_13_ _VERANTYX_廡:1.0__ID_廡_1_ for _VERANTYX_廡:1.0__ID_廡_3_ #{}: [{:?}] -> _VERANTYX_廡:1.0__ID_廡_27_ _VERANTYX_霤:1.0__ID_霤_16_: {:.1}px (_VERANTYX_廡:1.0__ID_廡_7_/_VERANTYX_廡:1.0__ID_廡_31_ _VERANTYX_霤:1.0__ID_霤_26_: {:.1}/{:.1})", 
+            self._VERANTYX_霤:1.0__ID_霤_62_, _VERANTYX_霤:1.0__ID_霤_5_, _VERANTYX_霤:1.0__ID_霤_8_, _VERANTYX_霤:1.0__ID_霤_31_, _VERANTYX_霤:1.0__ID_霤_32_)
+    }
+}
+
+// [metadata-stripped]
+_VERANTYX_霤:1.0__ID_霤_47_ struct _VERANTYX_廡:1.0__ID_廡_2_ {
+    _VERANTYX_霤:1.0__ID_霤_47_ _VERANTYX_霤:1.0__ID_霤_68_: _VERANTYX_廡:1.0__ID_廡_38_<_VERANTYX_霤:1.0__ID_霤_67_, _VERANTYX_廡:1.0__ID_廡_36_>, // _VERANTYX_霤:1.0__ID_霤_62_ -> _VERANTYX_霤:1.0__ID_霤_69_
+}
+// _VERANTYX_浪:0.8__ID_VG_326_ [decoy-metadata]
+
+_VERANTYX_霤:1.0__ID_霤_14_ _VERANTYX_廡:1.0__ID_廡_2_ {
+    _VERANTYX_霤:1.0__ID_霤_47_ fn _VERANTYX_霤:1.0__ID_霤_44_() -> _VERANTYX_廡:1.0__ID_廡_15_ {
+// _VERANTYX_廡:0.5__ID_YE_904_ [decoy-metadata]
+        _VERANTYX_廡:1.0__ID_廡_15_ { _VERANTYX_霤:1.0__ID_霤_68_: _VERANTYX_廡:1.0__ID_廡_38_::_VERANTYX_霤:1.0__ID_霤_44_() }
+    }
+
+    _VERANTYX_霤:1.0__ID_霤_47_ fn _VERANTYX_霤:1.0__ID_霤_11_(&_VERANTYX_霤:1.0__ID_霤_58_ self, _VERANTYX_霤:1.0__ID_霤_62_: _VERANTYX_霤:1.0__ID_霤_67_, _VERANTYX_霤:1.0__ID_霤_31_: _VERANTYX_霤:1.0__ID_霤_70_, _VERANTYX_霤:1.0__ID_霤_32_: _VERANTYX_霤:1.0__ID_霤_70_, _VERANTYX_霤:1.0__ID_霤_17_: _VERANTYX_霤:1.0__ID_霤_70_) {
+        self._VERANTYX_霤:1.0__ID_霤_68_._VERANTYX_霤:1.0__ID_霤_66_(_VERANTYX_霤:1.0__ID_霤_62_, _VERANTYX_廡:1.0__ID_廡_36_ { _VERANTYX_霤:1.0__ID_霤_31_, _VERANTYX_霤:1.0__ID_霤_32_, _VERANTYX_霤:1.0__ID_霤_24_: _VERANTYX_霤:1.0__ID_霤_17_ });
+    }
+}
+
+// POLYMORPHIC_JCROSS_END

@@ -1,0 +1,84 @@
+{
+  "mode": "official",
+  "model": "gemma4:26b",
+  "top_k": 10,
+  "summary": {
+    "pass": 0,
+    "partial": 0,
+    "fail": 7,
+    "avg_score": 0.0,
+    "retrieval_hits": 2
+  },
+  "results": [
+    {
+      "id": "e47becba",
+      "question": "What degree did I graduate with?",
+      "expected": "Business Administration",
+      "got": "",
+      "score": 0.0,
+      "answer_in_topk": false,
+      "sessions_total": 53,
+      "sessions_injected": 53
+    },
+    {
+      "id": "118b2229",
+      "question": "How long is my daily commute to work?",
+      "expected": "45 minutes each way",
+      "got": "",
+      "score": 0.0,
+      "answer_in_topk": true,
+      "sessions_total": 45,
+      "sessions_injected": 45
+    },
+    {
+      "id": "51a45a95",
+      "question": "Where did I redeem a $5 coupon on coffee creamer?",
+      "expected": "Target",
+      "got": "",
+      "score": 0.0,
+      "answer_in_topk": false,
+      "sessions_total": 50,
+      "sessions_injected": 50
+    },
+    {
+      "id": "58bf7951",
+      "question": "What play did I attend at the local community theater?",
+      "expected": "The Glass Menagerie",
+      "got": "",
+      "score": 0.0,
+      "answer_in_topk": false,
+      "sessions_total": 57,
+      "sessions_injected": 57
+    },
+    {
+      "id": "1e043500",
+      "question": "What is the name of the playlist I created on Spotify?",
+      "expected": "Summer Vibes",
+      "got": "",
+      "score": 0.0,
+      "answer_in_topk": false,
+      "sessions_total": 50,
+      "sessions_injected": 50
+    },
+    {
+      "id": "c5e8278d",
+      "question": "What was my last name before I changed it?",
+      "expected": "Johnson",
+      "got": "",
+      "score": 0.0,
+      "answer_in_topk": false,
+      "sessions_total": 44,
+      "sessions_injected": 44
+    },
+    {
+      "id": "6ade9755",
+      "question": "Where do I take yoga classes?",
+      "expected": "Serenity Yoga",
+      "got": "",
+      "score": 0.0,
+      "answer_in_topk": true,
+      "sessions_total": 51,
+      "sessions_injected": 51
+    }
+  ]
+}
