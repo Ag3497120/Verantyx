@@ -103,6 +103,15 @@ public actor CognitiveAnchorEngine {
         ) ?? ""
     }
     
+    /// スキル情報を視覚アンカーとして生成する
+    public func getSkillAnchor(text: String) -> String {
+        return renderDynamicAnchor(
+            text: "[ 🔧 SKILL SYSTEM ACTIVE ]\n\n" + text,
+            backgroundColor: NSColor.systemTeal,
+            textColor: NSColor.black
+        ) ?? ""
+    }
+    
     /// 現在のプロンプトのコンテキスト（文字やツール利用状況）から、
     /// 注入すべき認知アンカーを判定する。
     public func evaluateAnchorMode(instruction: String, memorySection: String = "", isSwarmMode: Bool = false) -> CognitiveAnchorMode? {

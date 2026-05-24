@@ -1263,6 +1263,20 @@ SYS.ENFORCE("logical_verification_before_acceptance")
                     await onProgress(.systemLog(AppLanguage.shared.t("<think>\n🧿 [Visual Anchor] Injected visual cognitive anchor (\(mode) mode) + Anti-Hallucination Override.\n</think>", "<think>\n🧿 [Visual Anchor] 視覚的アンカー（\(mode) モード）と Commander 介入を注入しました。ツールの結果捏造を強く禁止します。\n</think>")))
                 }
                 
+                // 3. Skill System Visual Anchor
+                if let skillMsg = mutableConversation.last(where: { $0.content.contains("[スキル情報]") }),
+                   let startRange = skillMsg.content.range(of: "[スキル情報]"),
+                   let endRange = skillMsg.content.range(of: "[/スキル情報]") {
+                    let skillTextRaw = skillMsg.content[startRange.upperBound..<endRange.lowerBound].trimmingCharacters(in: .whitespacesAndNewlines)
+                    if !skillTextRaw.isEmpty {
+                        let limitedSkillText = String(skillTextRaw.prefix(800))
+                        let base64Image = await CognitiveAnchorEngine.shared.getSkillAnchor(text: limitedSkillText)
+                        if !base64Image.isEmpty { newAnchorImages.append(base64Image) }
+                        appendedText += "\n\n👁️ [Skill System] A visual anchor image of relevant skills has been injected. Please look at the image to see which [USE_SKILL] commands are available to solve this task."
+                        await onProgress(.systemLog(AppLanguage.shared.t("<think>\n🔧 [Skill Anchor] Injected skill visual anchor.\n</think>", "<think>\n🔧 [Skill Anchor] スキル情報の視覚アンカー画像を注入しました。\n</think>")))
+                    }
+                }
+                
                 if !appendedText.isEmpty {
                     mutableConversation[lastUserIndex].content = lastUserMsg.content + appendedText
                 }
