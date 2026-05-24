@@ -65,7 +65,7 @@ final class VerantyxExpertEngine: ObservableObject {
         // Fallback or use OllamaClient depending on what is available
         // Simplified for this architecture wrapper.
         let fullPrompt = systemContext + "\n" + prompt
-        let response = await OllamaClient.shared.generate(model: "gemma:27b", prompt: fullPrompt)
+        let response = await OllamaClient.shared.generate(model: "verantyx-gemma:latest", prompt: fullPrompt)
         return response ?? "エラー: 応答がありません"
     }
 }
