@@ -1,5 +1,7 @@
-# Verantyx: Enterprise Gatekeeper IDE
+# 🔒 Verantyx: Enterprise Gatekeeper IDE
 
+> **We're back!** This repository previously had 8 stars before maintenance (went private for security audits).
+> GitHub doesn't preserve stars on private/public transitions. If you starred us before, please star again! ⭐
 > **A macOS-exclusive Zero-Knowledge Proxy IDE. Let Frontier LLMs fully refactor your code without ever leaking your proprietary secrets to the cloud.**
 
 <p align="center">
