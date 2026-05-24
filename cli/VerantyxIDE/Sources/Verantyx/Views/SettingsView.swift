@@ -668,33 +668,50 @@ struct SettingsView: View {
             }
 
             sectionHeader("Exo Distributed Cluster", icon: "bolt.horizontal.circle.fill")
-
+            
             settingsCard {
                 VStack(alignment: .leading, spacing: 14) {
-                    Toggle(isOn: Binding(
-                        get: { app.exoEnabled },
-                        set: { newValue in
-                            app.exoEnabled = newValue
-                            if newValue {
-                                ExoEngine.shared.start()
-                            } else {
-                                ExoEngine.shared.stop()
-                            }
-                        }
-                    )) {
+                    HStack {
                         VStack(alignment: .leading, spacing: 4) {
                             Text("Enable Exo Cluster (Thunderbolt)")
-                                .font(.system(size: 13, weight: .semibold))
-                                .foregroundStyle(.white)
-                            Text("Automatically detects Thunderbolt peers to share inference workload across multiple Macs.")
+                                .font(.system(size: 13, weight: .medium))
+                                .foregroundStyle(Color.white.opacity(0.9))
+                            Text("Distribute inference across multiple Macs.")
                                 .font(.system(size: 11))
-                                .foregroundStyle(.secondary)
+                                .foregroundStyle(Color.white.opacity(0.5))
                         }
+                        Spacer()
+                        
+                        Picker("Role", selection: $app.exoRole) {
+                            Text("Idle").tag(AppState.ExoRole.idle)
+                            Text("Master 👑").tag(AppState.ExoRole.master)
+                            Text("Worker 🛠️").tag(AppState.ExoRole.worker)
+                        }
+                        .pickerStyle(.segmented)
+                        .frame(width: 200)
+                        .onChange(of: app.exoRole) { newValue in
+                            if newValue == .idle {
+                                app.exoEnabled = false
+                                ExoEngine.shared.stop()
+                            } else {
+                                app.exoEnabled = true
+                                ExoEngine.shared.start()
+                            }
+                            ExoClusterSync.shared.updateRole(newValue)
+                        }
+                        
+                        Button("Setup Wizard") {
+                            // Handled by parent view passing state, here we trigger defaults
+                            let process = Process()
+                            process.executableURL = URL(fileURLWithPath: "/usr/bin/defaults")
+                            process.arguments = ["write", "com.verantyx.ide", "trigger_setup", "exo"]
+                            try? process.run()
+                        }
+                        .buttonStyle(.bordered)
+                        .font(.system(size: 11))
                     }
-                    .toggleStyle(.switch)
-                    .tint(Color(red: 0.4, green: 0.8, blue: 0.5))
-
-                    if app.exoEnabled {
+                    
+                    if app.exoRole != .idle {
                         Divider().opacity(0.2)
                         rowLabel("Exo Endpoint") {
                             Text(app.exoEndpoint.isEmpty ? "Starting / Connecting..." : app.exoEndpoint)
@@ -702,6 +719,36 @@ struct SettingsView: View {
                                 .foregroundStyle(app.exoEndpoint.isEmpty ? Color.gray : Color.green)
                         }
                     }
+                    
+                    // Support Chatbot Inline UI
+                    Divider().opacity(0.2)
+                    VStack(alignment: .leading, spacing: 8) {
+                        Text("🤖 Verantyx System Support")
+                            .font(.system(size: 12, weight: .bold))
+                            .foregroundStyle(Color.blue)
+                        
+                        Text("設定方法やコマンドについて何でも聞いてください。")
+                            .font(.system(size: 11))
+                            .foregroundStyle(.secondary)
+                        
+                        HStack {
+                            TextField("Ask about Exo, Setup, CLI...", text: .constant(""))
+                                .textFieldStyle(.plain)
+                                .font(.system(size: 12))
+                                .padding(8)
+                                .background(Color.black.opacity(0.3))
+                                .cornerRadius(6)
+                            
+                            Button(action: {
+                                // Trigger Expert Engine
+                            }) {
+                                Image(systemName: "arrow.up.circle.fill")
+                                    .foregroundStyle(.blue)
+                            }
+                            .buttonStyle(.plain)
+                        }
+                    }
+                    .padding(.top, 4)
                 }
             }
 

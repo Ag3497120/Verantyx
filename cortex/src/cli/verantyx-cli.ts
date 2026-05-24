@@ -328,3 +328,49 @@ export function registerRoninLocallmCli(program: Command) {
       }
     });
 }
+
+// MARK: - Verantyx IDE CLI
+
+export function registerVerantyxIdeCli(program: Command) {
+  const ide = program
+    .command("ide")
+    .description("Control the Verantyx Swift IDE directly from CLI");
+
+  const config = ide.command("config").description("Modify IDE configurations");
+
+  config
+    .command("set <key> <value>")
+    .description("Set an IDE configuration (e.g. exo.role master)")
+    .action((key: string, value: string) => {
+      try {
+        if (key === "exo.role") {
+          let role = value.toLowerCase();
+          role = role.charAt(0).toUpperCase() + role.slice(1); // "Master", "Worker", "Idle"
+          execSync(`defaults write com.verantyx.ide exo_role '"${role}"'`);
+          console.log(`✅ [IDE] Set exo.role to ${role}`);
+        } else if (key === "exo.enabled") {
+          const isEnabled = value.toLowerCase() === "true" || value === "1";
+          execSync(`defaults write com.verantyx.ide exo_enabled -bool ${isEnabled}`);
+          console.log(`✅ [IDE] Set exo.enabled to ${isEnabled}`);
+        } else {
+          console.error(`Unknown key: ${key}`);
+        }
+      } catch (err: any) {
+        console.error(`Failed to update IDE settings: ${err.message}`);
+      }
+    });
+
+  ide
+    .command("setup <component>")
+    .description("Trigger IDE setup wizards (e.g. exo)")
+    .action((component: string) => {
+      if (component === "exo") {
+        // Trigger setup by setting a special defaults key or just notifying user
+        // The swift app could observe "trigger_setup"
+        execSync(`defaults write com.verantyx.ide trigger_setup '"exo"'`);
+        console.log("✅ [IDE] Triggered Exo setup wizard in Verantyx IDE.");
+      } else {
+        console.error(`Unknown setup component: ${component}`);
+      }
+    });
+}

@@ -161,6 +161,7 @@ const coreEntries: CoreCliEntry[] = [
     register: async ({ program }) => {
       const mod = await import("../verantyx-cli.js");
       mod.registerRoninMemoryCli(program);
+      mod.registerVerantyxIdeCli(program);
     },
   },
   // Verantyx chat command

@@ -5,8 +5,8 @@ plutil で検証しながら実行。失敗時は自動 git restore する。
 """
 import hashlib, re, subprocess, sys, os
 
-PBX = '/Users/motonishikoudai/verantyx-cli/VerantyxIDE/Verantyx.xcodeproj/project.pbxproj'
-PROJ_ROOT = '/Users/motonishikoudai/verantyx-cli/VerantyxIDE'
+PBX = '/Users/motonishikoudai/verantyx-cli/cli/VerantyxIDE/Verantyx.xcodeproj/project.pbxproj'
+PROJ_ROOT = '/Users/motonishikoudai/verantyx-cli/cli/VerantyxIDE'
 
 def uuq(seed):
     return hashlib.md5(seed.encode()).hexdigest().upper()[:24]
@@ -38,6 +38,10 @@ FILES = [
     ("LSPClient.swift",             False),
     ("GlobalSearchView.swift",      True),
     ("GitPanelView.swift",          True),
+    ("ExoClusterSync.swift",        False),
+    ("ExoSetupWizard.swift",        False),
+    ("ExoSetupSheet.swift",         True),
+    ("VerantyxExpertEngine.swift",  False),
 ]
 
 # ── Find stable anchors ─────────────────────────────────────────────────────
@@ -49,8 +53,8 @@ def find_anchor(pattern):
 engine_group_anchor = find_anchor(r'[A-F0-9]{24} /\* DiffEngine\.swift \*/')
 views_group_anchor  = find_anchor(r'[A-F0-9]{24} /\* ActivityBarView\.swift \*/')
 sources_bf_anchor   = find_anchor(r'[A-F0-9]{24} /\* DiffEngine\.swift in Sources \*/')
-file_ref_end   = '\t\t/* End PBXFileReference section */'
-build_file_end = '\t\t/* End PBXBuildFile section */'
+file_ref_end   = '/* End PBXFileReference section */'
+build_file_end = '/* End PBXBuildFile section */'
 
 assert engine_group_anchor, "DiffEngine group anchor not found"
 assert views_group_anchor,  "ActivityBarView group anchor not found"

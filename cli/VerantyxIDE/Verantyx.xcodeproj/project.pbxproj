@@ -167,6 +167,10 @@
 		FD982B53C35792247076B68D /* NSLockExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 678D827D3C1D544C20F0232D /* NSLockExtension.swift */; };
 		FEFCB05405C03DAA13B2EC4A /* JCrossPatchValidator.swift in Sources */ = {isa = PBXBuildFile; fileRef = AD5C5CDDD9AD4603570A6E8E /* JCrossPatchValidator.swift */; };
 		FF66D98B3AE3259064C28D2B /* SearchGate.swift in Sources */ = {isa = PBXBuildFile; fileRef = CA4BE668CB8CC9C29C1AAA35 /* SearchGate.swift */; };
+		349E87DA734AA82618749C78 /* ExoClusterSync.swift in Sources */ = {isa = PBXBuildFile; fileRef = 63852255BD7E1F9DD81D78B3 /* ExoClusterSync.swift */; };
+		391CD4FD50C9CB2A7C12A48C /* ExoSetupWizard.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5A06A8DF5B624DD0ED64F9BF /* ExoSetupWizard.swift */; };
+		4B856C5E1EFDA2C6CF4B0E58 /* ExoSetupSheet.swift in Sources */ = {isa = PBXBuildFile; fileRef = C4EAFEFD82DAC6E480587C5B /* ExoSetupSheet.swift */; };
+		9C71B8F90F0A32D340B23C6F /* VerantyxExpertEngine.swift in Sources */ = {isa = PBXBuildFile; fileRef = 20368FCA14B18669E2FF1186 /* VerantyxExpertEngine.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -329,6 +333,10 @@
 		FD2D56072A05DD684E140FBA /* RoutingSessionLogger.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RoutingSessionLogger.swift; sourceTree = "<group>"; };
 		FD764117A5A2F1DF19239197 /* SelfEvolutionEngine.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SelfEvolutionEngine.swift; sourceTree = "<group>"; };
 		FDAEF1C9CB541AAA58E4FB8E /* ChatTranscriptView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChatTranscriptView.swift; sourceTree = "<group>"; };
+		63852255BD7E1F9DD81D78B3 /* ExoClusterSync.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExoClusterSync.swift; sourceTree = "<group>"; };
+		5A06A8DF5B624DD0ED64F9BF /* ExoSetupWizard.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExoSetupWizard.swift; sourceTree = "<group>"; };
+		C4EAFEFD82DAC6E480587C5B /* ExoSetupSheet.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExoSetupSheet.swift; sourceTree = "<group>"; };
+		20368FCA14B18669E2FF1186 /* VerantyxExpertEngine.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VerantyxExpertEngine.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -403,6 +411,7 @@
 			isa = PBXGroup;
 			children = (
 				4DC28C3194186DC74952BEAC /* ActivityBarView.swift */,
+				C4EAFEFD82DAC6E480587C5B /* ExoSetupSheet.swift */,
 				7FAD3FEA3C1BF9C20D0FBE9C /* AgentChatView.swift */,
 				5D2CA6EE3E2A84DCD0D6179E /* AIModeLayoutView.swift */,
 				AED86DB27ADB39B085949F6D /* ArtifactPanelView.swift */,
@@ -489,6 +498,9 @@
 				09F07917B97E16DE546E140E /* CortexHandshakeServer.swift */,
 				CEE54E7C0348CE92B4AE07FD /* Counter.swift */,
 				4BEAFD1ACA2A20312B98C1A6 /* DiffEngine.swift */,
+				20368FCA14B18669E2FF1186 /* VerantyxExpertEngine.swift */,
+				5A06A8DF5B624DD0ED64F9BF /* ExoSetupWizard.swift */,
+				63852255BD7E1F9DD81D78B3 /* ExoClusterSync.swift */,
 				963D2E75D48C41E73EAE0FD6 /* ExtensionHostManager.swift */,
 				C5556F027C38828945F45A56 /* ExtensionUIManager.swift */,
 				7080AB9210D9A7D70EA9EE4B /* FileApprovalRequest.swift */,
@@ -711,6 +723,10 @@
 				FD5F0162AED44E829748DF5F /* CortexOnboardingSheet.swift in Sources */,
 				F999748874AF05602BF67DCB /* Counter.swift in Sources */,
 				3AEA0F47626531CB4448C096 /* DiffEngine.swift in Sources */,
+				9C71B8F90F0A32D340B23C6F /* VerantyxExpertEngine.swift in Sources */,
+				4B856C5E1EFDA2C6CF4B0E58 /* ExoSetupSheet.swift in Sources */,
+				391CD4FD50C9CB2A7C12A48C /* ExoSetupWizard.swift in Sources */,
+				349E87DA734AA82618749C78 /* ExoClusterSync.swift in Sources */,
 				05A047EA46A5C3ACB146C539 /* DiffPanelView.swift in Sources */,
 				67220C2AC45C9B70A66D4AF7 /* ExtensionHostManager.swift in Sources */,
 				AD8566D92AA33E313920FE16 /* ExtensionStoreView.swift in Sources */,

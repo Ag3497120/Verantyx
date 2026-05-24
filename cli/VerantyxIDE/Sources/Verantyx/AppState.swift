@@ -318,8 +318,25 @@ final class AppState: ObservableObject {
     @Published var inferenceMode: InferenceMode = .localOnly {
         didSet { UserDefaults.standard.set(inferenceMode.rawValue, forKey: "inference_mode") }
     }
+    public enum ExoRole: String, Codable, CaseIterable {
+        case idle = "Idle"
+        case master = "Master"
+        case worker = "Worker"
+    }
+    
     @Published var exoEndpoint: String = ""
-    @Published var exoEnabled: Bool = false
+    @Published var exoEnabled: Bool = false {
+        didSet { UserDefaults.standard.set(exoEnabled, forKey: "exo_enabled") }
+    }
+    @Published var exoRole: ExoRole = .idle {
+        didSet { UserDefaults.standard.set(exoRole.rawValue, forKey: "exo_role") }
+    }
+    @Published var exoDeviceId: String = {
+        if let id = UserDefaults.standard.string(forKey: "exo_device_id") { return id }
+        let newId = UUID().uuidString
+        UserDefaults.standard.set(newId, forKey: "exo_device_id")
+        return newId
+    }()
     @Published var cloudProvider: CloudProvider = .claude {
         didSet { UserDefaults.standard.set(cloudProvider.rawValue, forKey: "cloud_provider") }
     }
