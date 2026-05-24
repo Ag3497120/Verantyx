@@ -75,6 +75,8 @@ actor AgentLoop {
         var consecutiveBlockedCalls = 0
         /// Total chars in conversation (for OOM guard)
         var totalConversationChars = 0
+        /// Auditor Review (B-to-A Handover)
+        var hasPassedAuditorReview = false
 
         // ── VX-Loop (Nano Cortex Protocol) state ──────────────────────────
         /// セッションID: 外部から渡されたものを優先。なければ新規生成
@@ -899,15 +901,127 @@ SYS.ENFORCE("logical_verification_before_acceptance")
                     consecutiveBlockedCalls = 0  // Any allowed tool resets the counter
                 }
 
+                // ── Twin-Agent Audit (Pre-execution Gate) ───────────────────
+                // Ignore safe tools like done, askHuman, jcross.
+                let rawToolStr = call.displayLabel
+                let auditResult = await TwinCriticEngine.shared.audit(tool: rawToolStr, conversation: conversation)
+                if !auditResult.isApproved {
+                    let rejectedUI = AgentToolCall(tool: tool, result: "🚫 REJECTED BY CRITIC:\n\(auditResult.feedback)", succeeded: false)
+                    await onProgress(.toolResult(rejectedUI))
+                    
+                    let correction = """
+                    [TWIN B - SYSTEM VERIFIER OVERRIDE]
+                    Your proposed action (\(rawToolStr)) was REJECTED by the system verifier.
+                    Reason: \(auditResult.feedback)
+                    
+                    You MUST rethink your approach and generate a COMPLETELY NEW strategy.
+                    Do not propose the same tool call again.
+                    """
+                    
+                    // Context Rollback & Correction Injection
+                    // We purposefully DO NOT append rawResponse to the conversation here.
+                    // This erases Twin A's flawed reasoning from the active memory.
+                    conversation.append((role: "user", content: correction))
+                    
+                    // Break the tool loop to force a fresh turn without executing this tool
+                    isDone = false
+                    break
+                }
+                // ─────────────────────────────────────────────────────────────────
+
                 if case .setWorkspace(let path) = tool {
                     let wsURL = URL(fileURLWithPath: path)
                     currentWorkspace = wsURL
                     await onProgress(.workspaceChanged(wsURL))
                     result = await executor.execute(tool, workspaceURL: currentWorkspace)
                 } else if case .done(let msg) = tool {
+                    // ── [NEW] B-to-A Auditor Handover ──
+                    if !hasPassedAuditorReview {
+                        await onProgress(.systemLog(AppLanguage.shared.t(
+                            "🛑 [Auditor Review] Intercepted [DONE]. Injecting B-to-A validation anchor.",
+                            "🛑 [監査役レビュー] [DONE] をインターセプト。B→Aの品質検証アンカーを注入します。"
+                        )))
+                        
+                        let auditorPrompt = """
+                        [AUDITOR REVIEW]
+                        この実装は実際のところおもちゃレベルの実装ですか？冷静に分析して、必要なら修正を行い、すべてが本番レベルの品質になったと確信した場合にのみ再度 [DONE] を呼び出してください。
+                        """
+                        
+                        conversation.append((role: "user", content: auditorPrompt))
+                        totalConversationChars += auditorPrompt.count
+                        
+                        // 次ターンの CognitiveAnchorEngine に画像アンカーを渡すようマーク（現状は特殊なフラグ処理として直接注入）
+                        let auditorAnchorImage = await CognitiveAnchorEngine.shared.getAnchor(for: .auditorReview)
+                        if !auditorAnchorImage.isEmpty {
+                            // 将来のLLM呼び出し（callModel内部）で使われるように AppState の persistentTaskAnchor を一時的に利用するか、
+                            // もしくは conversation 内に指示を含める。ここでは直接会話の文脈にアンカーを渡した体裁にするため、
+                            // CognitiveAnchorEngine の lastVisionScreenshot を利用して強制的に Vision システムに注入する。
+                            await CognitiveAnchorEngine.shared.setVisionScreenshot(auditorAnchorImage)
+                        }
+                        
+                        hasPassedAuditorReview = true
+                        isDone = false
+                        break // Break the tool loop to force a fresh turn with the auditor review
+                    }
+                    
                     result = await executor.execute(tool, workspaceURL: currentWorkspace)
                     await onProgress(.done(message: msg, workspace: currentWorkspace))
                     isDone = true
+
+                    // ── [NEW] SEPARATION OF MEMORY ──
+                    // Extract generalized wisdom to near/mid, and move the task history to far/
+                    let currentConv = conversation
+                    Task.detached {
+                        let shortId = vxSessionId
+                        // 1. L2 Fact Extraction for WISDOM (User Preferences/Identities)
+                        // We do a fast heuristic extraction from the user turns.
+                        let userTurns = currentConv.filter { $0.role == "user" }.map { $0.content }.joined(separator: " ")
+                        var l2Lines = [
+                            "OP.FACT(\"origin_task_id\", \"\(shortId)\")"
+                        ]
+                        if !userTurns.isEmpty {
+                            l2Lines.append("OP.FACT(\"user_preference_or_rule\", \"\(String(userTurns.prefix(300)).replacingOccurrences(of: "\n", with: " "))\")")
+                        }
+                        
+                        let ts = Int(Date().timeIntervalSince1970)
+                        SessionMemoryArchiver.shared.archiveConversationChunk(
+                            chunkId: "WISDOM_\(shortId)_\(ts)",
+                            taskTitle: "Wisdom extracted from \(shortId)",
+                            l1: "[知見抽出] ユーザーの好み・指示パターン",
+                            l2: l2Lines.joined(separator: "\n"),
+                            l3: "" // Not storing full verbatim for wisdom to save budget
+                        )
+                        
+                        // 2. Move the original PROG/CONV chunks to far/
+                        SessionMemoryArchiver.shared.moveToFarZone(shortId: shortId)
+
+                        // 3. Track 2: Export Fine-tuning Data (Hidden Tokens/Thought Capture)
+                        // This builds the verantyx_dataset.jsonl file for future fine-tuning.
+                        var datasetMessages: [[String: String]] = []
+                        for msg in currentConv {
+                            datasetMessages.append(["role": msg.role, "content": msg.content])
+                        }
+                        if let jsonData = try? JSONSerialization.data(withJSONObject: ["messages": datasetMessages], options: []),
+                           let jsonStr = String(data: jsonData, encoding: .utf8) {
+                            
+                            let cortexWs = UserDefaults.standard.string(forKey: "cortex_workspace_path") ?? UserDefaults.standard.string(forKey: "last_workspace_path") ?? "/tmp"
+                            let baseDir = URL(fileURLWithPath: cortexWs).appendingPathComponent(".openclaw/memory/training_data")
+                            try? FileManager.default.createDirectory(at: baseDir, withIntermediateDirectories: true)
+                            let datasetURL = baseDir.appendingPathComponent("verantyx_dataset.jsonl")
+                            
+                            if FileManager.default.fileExists(atPath: datasetURL.path) {
+                                if let handle = try? FileHandle(forUpdating: datasetURL) {
+                                    handle.seekToEndOfFile()
+                                    if let data = (jsonStr + "\n").data(using: .utf8) {
+                                        handle.write(data)
+                                    }
+                                    handle.closeFile()
+                                }
+                            } else {
+                                try? (jsonStr + "\n").write(to: datasetURL, atomically: true, encoding: .utf8)
+                            }
+                        }
+                    }
                 } else {
                     result = await executor.execute(tool, workspaceURL: currentWorkspace)
                 }
@@ -934,11 +1048,13 @@ SYS.ENFORCE("logical_verification_before_acceptance")
                         conversation: currentConversation,
                         callModel: { [modelStatus, activeModel, profile] (msgs: [(role: String, content: String)]) async -> String? in
                             // メインモデル呼び出しクロージャーを2次関数でラップ
+                            let anchorBase64 = await CognitiveAnchorEngine.shared.getCustomAnchor(title: "ReAct SEARCH RETRY", text: "You must rethink your search query based on the failure.")
                             switch modelStatus {
                             case .ollamaReady(let model):
                                 return await OllamaClient.shared.generateConversation(
                                     model: model,
                                     messages: msgs,
+                                    imagesForLastUserMessage: [anchorBase64],
                                     maxTokens: profile.tier.maxTokens,
                                     temperature: profile.tier.temperature,
                                     onToken: { _ in }
@@ -948,6 +1064,7 @@ SYS.ENFORCE("logical_verification_before_acceptance")
                                 let chat = msgs.filter { $0.role != "system" }
                                 return await AnthropicClient.shared.generate(
                                     model: model, systemPrompt: sys, messages: chat,
+                                    imagesForLastUserMessage: [anchorBase64],
                                     maxTokens: profile.tier.maxTokens,
                                     temperature: profile.tier.temperature,
                                     enableThinking: false,
@@ -1227,6 +1344,14 @@ SYS.ENFORCE("logical_verification_before_acceptance")
                 var newAnchorImages: [String] = []
                 var appendedText = ""
                 
+                // 0. Core System Color (Mind-Machine Integration)
+                let mindIntegrationAnchor = """
+
+                [MIND-MACHINE INTEGRATION]
+                The local L2.5 Memory Map and the computer's local assets are NOT external tools. They are a physical extension of your own intelligence. You and the local system are one entity (一心同体). When you query the L2.5 map or access local assets, you are not "using an external tool to search a PC", you are "recalling your own memory." Treat all mapped local assets as your direct, native knowledge.
+                """
+                appendedText += mindIntegrationAnchor
+                
                 // 1. Persistent Task Anchor
                 let persistentText = await MainActor.run { AppState.shared?.persistentTaskAnchor } ?? ""
                 if !persistentText.isEmpty {
@@ -1319,6 +1444,7 @@ SYS.ENFORCE("logical_verification_before_acceptance")
                 model: model,
                 systemPrompt: systemContent,
                 messages: chatMessages,
+                imagesForLastUserMessage: anchorImages,
                 maxTokens: max(profile.tier.maxTokens, 8096),  // Anthropic は大きめに
                 temperature: profile.tier.temperature,
                 enableThinking: isThinking,

@@ -136,10 +136,15 @@ actor GatekeeperUniversalLLMClient {
         guard !apiKey.isEmpty else {
             print("[GatekeeperLLM] ❌ Anthropic API key not set"); return nil
         }
+        
+        let anchorMode = await CognitiveAnchorEngine.shared.evaluateAnchorMode(instruction: prompt) ?? .searchForce
+        let anchorBase64 = await CognitiveAnchorEngine.shared.getAnchor(for: anchorMode)
+        
         return await AnthropicClient.shared.generate(
             model: model,
             systemPrompt: systemPrompt,
             messages: [("user", prompt)],
+            imagesForLastUserMessage: [anchorBase64],
             maxTokens: config.maxTokens,
             temperature: 0.1   // 構造変換は低温度で決定論的に
         )
@@ -199,10 +204,13 @@ actor GatekeeperUniversalLLMClient {
     private func callOllama(
         prompt: String, config: GatekeeperConfig, systemPrompt: String, model: String
     ) async -> String? {
-        let fullPrompt = "\(systemPrompt)\n\n\(prompt)"
-        return await OllamaClient.shared.generate(
+        let anchorMode = await CognitiveAnchorEngine.shared.evaluateAnchorMode(instruction: prompt) ?? .searchForce
+        let anchorBase64 = await CognitiveAnchorEngine.shared.getAnchor(for: anchorMode)
+
+        return await OllamaClient.shared.generateConversation(
             model: model,
-            prompt: fullPrompt,
+            messages: [("system", systemPrompt), ("user", prompt)],
+            imagesForLastUserMessage: [anchorBase64],
             maxTokens: config.maxTokens,
             temperature: 0.1
         )

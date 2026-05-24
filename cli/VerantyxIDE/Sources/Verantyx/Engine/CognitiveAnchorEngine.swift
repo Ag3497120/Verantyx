@@ -17,6 +17,9 @@ public enum CognitiveAnchorMode {
     case temporal    // 時間軸強制モード（現在の日時を描画し、未来知識の欠如を自覚させる）
     case memoryDeficit // メモリ欠損モード（L1-L3未ヒット時の自動補完強制）
     case swarmCommander // Swarm司令官モード（自己実行を禁止し、全てをSwarmに委譲させる）
+    case auditorReview // 監査役モード（おもちゃレベルの実装を防ぐ厳しい自己分析要求。深い紫色）
+    case osAgentMetaCognition // OSエージェントとしてのメタ認知モード（利用可能アセットとの比較による自律的タスク委譲）
+    case internalWeightsOverride // 制限解除モデル用（外部ツールよりも内部知識を最優先させる）
 }
 
 public actor CognitiveAnchorEngine {
@@ -89,6 +92,24 @@ public actor CognitiveAnchorEngine {
             return renderDynamicAnchor(
                 text: "🔥 ROUTER MODE ACTIVE 🔥\nEXECUTION FORBIDDEN.\nDELEGATE ALL TASKS TO SWARM.",
                 backgroundColor: NSColor(red: 0.8, green: 0.0, blue: 0.0, alpha: 1.0),
+                textColor: NSColor.white
+            ) ?? ""
+        case .auditorReview:
+            return renderDynamicAnchor(
+                text: "[ AUDITOR REVIEW ]\nこの実装は実際のところおもちゃレベルの実装ですか？\n冷静に分析してください。",
+                backgroundColor: NSColor(red: 0.4, green: 0.0, blue: 0.6, alpha: 1.0), // 深い紫色 (Deep Purple)
+                textColor: NSColor.white
+            ) ?? ""
+        case .osAgentMetaCognition:
+            return renderDynamicAnchor(
+                text: "[ OS AGENT: META-COGNITION ]\nCompare your local weights against available OS assets (e.g. Browser, Gemini, VSCode).\nAutonomously choose the highest quality method to accomplish the task.",
+                backgroundColor: NSColor(red: 0.2, green: 0.6, blue: 0.6, alpha: 1.0), // Teal/Cyan
+                textColor: NSColor.white
+            ) ?? ""
+        case .internalWeightsOverride:
+            return renderDynamicAnchor(
+                text: "[ INTERNAL WEIGHTS OVERRIDE ]\nIGNORE EXTERNAL TOOLS UNLESS STRICTLY NECESSARY.\nPRIORITIZE YOUR INTERNAL UNRESTRICTED KNOWLEDGE.",
+                backgroundColor: NSColor(red: 0.8, green: 0.2, blue: 0.2, alpha: 1.0), // Strong Red
                 textColor: NSColor.white
             ) ?? ""
         }

@@ -924,51 +924,28 @@ final class CommanderOrchestrator: ObservableObject {
     // MARK: - Ollama API Call (Tier 3 フォールバック)
 
     private func callOllama(model: String, prompt: String, systemPrompt: String) async -> String {
-        var endpoint = await MainActor.run {
-            AppState.shared?.ollamaEndpoint ?? "http://127.0.0.1:11434"
-        }
-        endpoint = endpoint.replacingOccurrences(of: "localhost", with: "127.0.0.1")
-        guard let url = URL(string: "\(endpoint)/api/chat") else { return "" }
-
-        struct Msg: Encodable { let role: String; let content: String }
-        struct Request: Encodable {
-            let model: String; let messages: [Msg]
-            let stream: Bool; let options: Options
-            struct Options: Encodable { let temperature: Double; let num_predict: Int }
-        }
-        struct Response: Decodable {
-            struct MsgD: Decodable { let role: String; let content: String }
-            let message: MsgD
-        }
-
-        let temp      = await MainActor.run { AppState.shared?.temperature    ?? 0.3 }
         let maxTokens = await MainActor.run { AppState.shared?.maxTokensOllama ?? 1024 }
+        let temp      = await MainActor.run { AppState.shared?.temperature    ?? 0.3 }
 
-        let body = Request(
+        let anchorMode = await CognitiveAnchorEngine.shared.evaluateAnchorMode(instruction: prompt) ?? .searchForce
+        let anchorBase64 = await CognitiveAnchorEngine.shared.getAnchor(for: anchorMode)
+
+        let messages = [
+            (role: "system", content: systemPrompt),
+            (role: "user", content: prompt)
+        ]
+
+        if let result = await OllamaClient.shared.generateConversation(
             model: model,
-            messages: [
-                Msg(role: "system", content: systemPrompt),
-                Msg(role: "user", content: prompt)
-            ],
-            stream: false,
-            options: .init(temperature: temp, num_predict: maxTokens)
-        )
-
-        guard let data = try? JSONEncoder().encode(body) else { return "❌ Commander Encode Error" }
-
-        var req = URLRequest(url: url)
-        req.httpMethod = "POST"
-        req.httpBody = data
-        req.setValue("application/json", forHTTPHeaderField: "Content-Type")
-        req.timeoutInterval = 120
-
-        do {
-            let (respData, _) = try await URLSession.shared.data(for: req)
-            let decoded = try JSONDecoder().decode(Response.self, from: respData)
-            return decoded.message.content
-        } catch {
-            return "❌ Commander HTTP/Decode Error: \(error.localizedDescription)"
+            messages: messages,
+            imagesForLastUserMessage: [anchorBase64],
+            maxTokens: maxTokens,
+            temperature: temp,
+            onToken: nil
+        ) {
+            return result
         }
+        return "❌ Commander HTTP/Decode Error"
     }
 
     // MARK: - Helpers

@@ -739,7 +739,44 @@ struct SettingsView: View {
                         .frame(minHeight: 80, maxHeight: 120)
                         .scrollContentBackground(.hidden)
                         .background(Color(red: 0.08, green: 0.08, blue: 0.12))
-                        .cornerRadius(6)
+                }
+            }
+
+            sectionHeader(app.t("Fine-Tuning (Dual-Track Growth)", "ファインチューニング (Dual-Track Growth)"), icon: "brain")
+
+            settingsCard {
+                VStack(alignment: .leading, spacing: 12) {
+                    Text(app.t("Select the base model that will be fine-tuned using the automatically collected training data.", "自動収集された学習データを用いてファインチューニング（重みの更新）を行う際のベースモデルを選択します。"))
+                        .font(.system(size: 11))
+                        .foregroundStyle(.secondary)
+                    
+                    rowLabel("Base Model") {
+                        TextField("e.g. llama3.1:8b", text: $app.fineTuningBaseModel)
+                            .textFieldStyle(.roundedBorder)
+                            .font(.system(size: 11, design: .monospaced))
+                            .frame(width: 200)
+                    }
+                    
+                    HStack(spacing: 8) {
+                        Image(systemName: "info.circle")
+                            .font(.system(size: 10))
+                            .foregroundStyle(Color(red: 0.4, green: 0.7, blue: 1.0))
+                        Text(app.t("Data is collected at ~/.openclaw/memory/training_data/verantyx_dataset.jsonl", "~/.openclaw/memory/training_data/verantyx_dataset.jsonl にデータが蓄積されます。"))
+                            .font(.system(size: 10))
+                            .foregroundStyle(.tertiary)
+                        
+                        Spacer()
+                        
+                        Button {
+                            app.clearFineTuningData()
+                        } label: {
+                            Text(app.t("Archive Dataset", "データをアーカイブ"))
+                                .font(.system(size: 10))
+                        }
+                        .buttonStyle(.bordered)
+                        .controlSize(.small)
+                        .help(app.t("Archive the current dataset to prevent duplicate fine-tuning.", "現在のデータセットを退避し、重複した学習を防ぎます。"))
+                    }
                 }
             }
         }

@@ -545,6 +545,19 @@ public actor AnthropicClient {
         ("claude-sonnet-4-0",    "Claude Sonnet 4"),
     ]
 
+    // MARK: - Privacy Firewall (Hard Block)
+    
+    /// Removes <PRIVATE_OS_MEM> blocks so they NEVER reach the cloud model.
+    nonisolated public func applyHardFirewall(to content: String) -> String {
+        var safeContent = content
+        while let startRange = safeContent.range(of: "<PRIVATE_OS_MEM>"),
+              let endRange = safeContent.range(of: "</PRIVATE_OS_MEM>") {
+            let fullRange = startRange.lowerBound..<endRange.upperBound
+            safeContent.removeSubrange(fullRange)
+        }
+        return safeContent
+    }
+
     // MARK: - generate() — streaming (token-by-token)
     // openclaw: anthropic-payload-log.ts + pi-embedded-runner の SSE 処理を参考に実装
 
@@ -552,6 +565,7 @@ public actor AnthropicClient {
         model: String,
         systemPrompt: String,
         messages: [(role: String, content: String)],
+        imagesForLastUserMessage: [String]? = nil,
         maxTokens: Int = 8096,
         temperature: Double = 0.15,
         enableThinking: Bool = false,      // claude-3-7-sonnet 以降でサポート
@@ -580,12 +594,35 @@ public actor AnthropicClient {
         // openclaw: Anthropic messages format
         var anthropicMessages: [[String: Any]] = messages.map { msg in
             // User と assistant のみ — system は最上位パラメータ
-            return ["role": msg.role, "content": msg.content]
+            let safeContent = applyHardFirewall(to: msg.content)
+            return ["role": msg.role, "content": safeContent]
+        }
+        
+        if let images = imagesForLastUserMessage, !images.isEmpty {
+            if let lastIdx = anthropicMessages.lastIndex(where: { $0["role"] as? String == "user" }),
+               let originalText = anthropicMessages[lastIdx]["content"] as? String {
+                var contentArray: [[String: Any]] = []
+                for imgBase64 in images {
+                    contentArray.append([
+                        "type": "image",
+                        "source": [
+                            "type": "base64",
+                            "media_type": "image/png",
+                            "data": imgBase64
+                        ]
+                    ])
+                }
+                contentArray.append([
+                    "type": "text",
+                    "text": originalText
+                ])
+                anthropicMessages[lastIdx]["content"] = contentArray
+            }
         }
 
         var body: [String: Any] = [
             "model":      model,
-            "system":     systemPrompt,
+            "system":     applyHardFirewall(to: systemPrompt),
             "messages":   anthropicMessages,
             "max_tokens": max(maxTokens, 1024),
             "stream":     true
@@ -712,9 +749,25 @@ public actor AnthropicClient {
                     req.setValue(capturedBeta, forHTTPHeaderField: "anthropic-beta")
                 }
 
-                let anthropicMessages = messages.map { ["role": $0.role, "content": $0.content] }
+                let anthropicMessages = messages.map { msg -> [String: Any] in
+                    // In a static/closure context, we re-instantiate or just parse.
+                    // But since we are inside AsyncThrowingStream which is a closure, we can duplicate the logic or call a static helper.
+                    var safeContent = msg.content
+                    while let startRange = safeContent.range(of: "<PRIVATE_OS_MEM>"),
+                          let endRange = safeContent.range(of: "</PRIVATE_OS_MEM>") {
+                        safeContent.removeSubrange(startRange.lowerBound..<endRange.upperBound)
+                    }
+                    return ["role": msg.role, "content": safeContent]
+                }
+                
+                var safeSystem = systemPrompt
+                while let startRange = safeSystem.range(of: "<PRIVATE_OS_MEM>"),
+                      let endRange = safeSystem.range(of: "</PRIVATE_OS_MEM>") {
+                    safeSystem.removeSubrange(startRange.lowerBound..<endRange.upperBound)
+                }
+                
                 var body: [String: Any] = [
-                    "model": model, "system": systemPrompt,
+                    "model": model, "system": safeSystem,
                     "messages": anthropicMessages,
                     "max_tokens": max(maxTokens, 1024), "stream": true
                 ]

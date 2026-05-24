@@ -8,13 +8,10 @@ group_path = 'Sources/Verantyx/Engine'
 group = project.main_group.find_subpath(group_path, true)
 
 files_to_add = [
-    'Sources/Verantyx/Engine/ExtensionHostManager.swift',
-    'Sources/Verantyx/Engine/VSIXPackageManager.swift',
-    'Sources/Verantyx/Engine/CommandManager.swift',
-    'Sources/Verantyx/Engine/LanguageManager.swift',
-    'Sources/Verantyx/Engine/WorkspaceFileSystem.swift',
-    'Sources/Verantyx/Views/ExtensionWebView.swift',
-    'Sources/Verantyx/Engine/ExtensionUIManager.swift'
+    'Sources/Verantyx/Engine/OSAssetMapper.swift',
+    'Sources/Verantyx/Engine/OSAssetMemoryVault.swift',
+    'Sources/Verantyx/Engine/IdentityExtractor.swift',
+    'Sources/Verantyx/Engine/UserProfiler.swift'
 ]
 
 files_to_add.each do |file_path|

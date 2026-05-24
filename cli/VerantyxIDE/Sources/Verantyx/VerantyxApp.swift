@@ -405,6 +405,7 @@ struct SpotlightView: View {
     @State private var query: String = ""
     @FocusState private var isFocused: Bool
     @State private var showTranscript: Bool = false
+    @State private var useInternalWeights: Bool = false
     
     var body: some View {
         VStack(spacing: 0) {
@@ -428,6 +429,14 @@ struct SpotlightView: View {
                     ProgressView()
                         .scaleEffect(0.8)
                 }
+                
+                Toggle(isOn: $useInternalWeights) {
+                    Text("🧠 内部知識優先")
+                        .font(.system(size: 10, weight: .bold))
+                        .foregroundColor(useInternalWeights ? .red : .gray)
+                }
+                .toggleStyle(SwitchToggleStyle(tint: .red))
+                .padding(.leading, 8)
             }
             .padding(20)
             
@@ -478,8 +487,34 @@ struct SpotlightView: View {
                     appState.attachedImages.append(attached)
                 }
                 
-                // OS Agent execution loop goes here. Bypasses Gatekeeper to use Hybrid/AgentLoop.
-                appState.sendMessage(with: text, forceBypassGatekeeper: true)
+                let isInternalWeights = self.useInternalWeights
+                Task {
+                    // Generate Meta-Cognition or Internal Weights Anchor
+                    let anchorMode: CognitiveAnchorMode = isInternalWeights ? .internalWeightsOverride : .osAgentMetaCognition
+                    let base64 = await CognitiveAnchorEngine.shared.getAnchor(for: anchorMode)
+                    
+                    if let data = Data(base64Encoded: base64, options: .ignoreUnknownCharacters), let nsImage = NSImage(data: data) {
+                        let dynamicAnchor = AttachedImage(name: "dynamic_anchor.png", url: nil, nsImage: nsImage)
+                        
+                        await MainActor.run {
+                            appState.attachedImages.append(dynamicAnchor)
+                            
+                            // Insert Protected OS Asset Summary into text if not internal weights
+                            if !isInternalWeights {
+                                let osSummary = OSAssetMemoryVault.shared.getProtectedAssetSummary()
+                                appState.addSystemMessage("Injected OS Asset Context (Hidden)")
+                                // Send message with injected text
+                                appState.sendMessage(with: text + "\n\n" + osSummary, forceBypassGatekeeper: true)
+                            } else {
+                                appState.sendMessage(with: text, forceBypassGatekeeper: true)
+                            }
+                        }
+                    } else {
+                        await MainActor.run {
+                            appState.sendMessage(with: text, forceBypassGatekeeper: true)
+                        }
+                    }
+                }
                 
                 // Do not bring the main window to front! Keep it in the expanded Spotlight.
                 SpotlightPanelManager.shared.panel?.makeKeyAndOrderFront(nil)

@@ -84,12 +84,7 @@ struct LoadedModelPanel: View {
                 }
             }
             .padding(.horizontal, 8)
-
-            divider
-
-            // ── Eject button ───────────────────────────────────────────────
-            ejectButton
-                .padding(.horizontal, 10)
+            .padding(.trailing, 10)
         }
         .frame(height: 36)
         .background(
@@ -163,63 +158,7 @@ struct LoadedModelPanel: View {
         .frame(width: 56, height: 4)
     }
 
-    // MARK: - Eject Button
 
-    private var ejectButton: some View {
-        Button {
-            if ejectConfirm {
-                app.ejectModel()
-                ejectConfirm = false
-            } else {
-                withAnimation(.easeOut(duration: 0.12)) { ejectConfirm = true }
-                // Auto-cancel confirmation after 3s
-                Task {
-                    try? await Task.sleep(for: .seconds(3))
-                    await MainActor.run {
-                        withAnimation { ejectConfirm = false }
-                    }
-                }
-            }
-        } label: {
-            HStack(spacing: 5) {
-                Image(systemName: ejectConfirm ? "exclamationmark.triangle.fill" : "eject.fill")
-                    .font(.system(size: 10, weight: .semibold))
-                    .symbolEffect(.bounce, value: ejectConfirm)
-                Text(ejectConfirm
-                     ? app.t("Confirm?", "確認?")
-                     : app.t("Eject", "リジェクト"))
-                    .font(.system(size: 10, weight: .semibold, design: .monospaced))
-            }
-            .foregroundStyle(
-                ejectConfirm
-                    ? Color(red: 1.0, green: 0.4, blue: 0.3)
-                    : Color(red: 0.75, green: 0.75, blue: 0.88)
-            )
-            .padding(.horizontal, 9).padding(.vertical, 4)
-            .background(
-                RoundedRectangle(cornerRadius: 5)
-                    .fill(ejectConfirm
-                          ? Color(red: 1.0, green: 0.4, blue: 0.3).opacity(0.14)
-                          : Color.white.opacity(0.06))
-                    .overlay(
-                        RoundedRectangle(cornerRadius: 5)
-                            .strokeBorder(
-                                ejectConfirm
-                                    ? Color(red: 1.0, green: 0.4, blue: 0.3).opacity(0.5)
-                                    : Color.white.opacity(0.12),
-                                lineWidth: 0.8
-                            )
-                    )
-            )
-            .scaleEffect(isHoveringEject ? 1.04 : 1.0)
-            .animation(.easeOut(duration: 0.12), value: isHoveringEject)
-        }
-        .contentShape(Rectangle())
-        .buttonStyle(.plain)
-        .onHover { isHoveringEject = $0 }
-        .help(app.t("Unload model from memory (frees GPU/ANE resources)",
-                    "モデルをメモリから解放します（GPU/ANEリソースを回収）"))
-    }
 
     // MARK: - Computed
 
@@ -288,11 +227,7 @@ struct LoadedModelPanel: View {
         return Color(red: 0.3, green: 0.85, blue: 0.55)                        // 緑: 安全
     }
 
-    private var divider: some View {
-        Rectangle()
-            .fill(Color.white.opacity(0.1))
-            .frame(width: 1, height: 20)
-    }
+
 }
 
 // MARK: - Preview

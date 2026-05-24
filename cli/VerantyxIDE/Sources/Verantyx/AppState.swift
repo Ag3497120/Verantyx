@@ -309,6 +309,26 @@ final class AppState: ObservableObject {
         didSet { UserDefaults.standard.set(isAuditorEnabled, forKey: "is_auditor_enabled") }
     }
 
+    // ── Fine-Tuning ──
+    @Published var fineTuningBaseModel: String = {
+        UserDefaults.standard.string(forKey: "fine_tuning_base_model") ?? "llama3.1:8b"
+    }() {
+        didSet { UserDefaults.standard.set(fineTuningBaseModel, forKey: "fine_tuning_base_model") }
+    }
+
+    func clearFineTuningData() {
+        let cortexWs = UserDefaults.standard.string(forKey: "cortex_workspace_path") ?? UserDefaults.standard.string(forKey: "last_workspace_path") ?? "/tmp"
+        let baseDir = URL(fileURLWithPath: cortexWs).appendingPathComponent(".openclaw/memory/training_data")
+        let datasetURL = baseDir.appendingPathComponent("verantyx_dataset.jsonl")
+        
+        if FileManager.default.fileExists(atPath: datasetURL.path) {
+            let timestamp = Int(Date().timeIntervalSince1970)
+            let archiveURL = baseDir.appendingPathComponent("verantyx_dataset_archive_\(timestamp).jsonl")
+            try? FileManager.default.moveItem(at: datasetURL, to: archiveURL)
+            self.addSystemMessage("🧹 The fine-tuning data has been archived to prevent duplicate training.")
+        }
+    }
+
     // Artifacts (Claude-style live preview)
     @Published var currentArtifact: Artifact? = nil
     @Published var artifactHistory: [Artifact] = []
@@ -1080,6 +1100,29 @@ final class AppState: ObservableObject {
         inferenceTask = nil
         isGenerating = false
         addSystemMessage(self.t("⏹ Inference aborted", "⏹ 推論を中断しました"))
+
+        // ── [NEW] INTERRUPT SNAPSHOT ──
+        // Capture incomplete state and move origin task to far/
+        let currentMessages = self.messages
+        let sid = self.vxChatSessionId
+        Task.detached {
+            let userIntent = currentMessages.last(where: { $0.role == .user })?.content ?? "Unknown task"
+            let l2Lines = [
+                "OP.FACT(\"status\", \"incomplete_suspended\")",
+                "OP.FACT(\"last_intent\", \"\(String(userIntent.prefix(200)).replacingOccurrences(of: "\n", with: " "))\")",
+                "OP.FACT(\"origin_task_id\", \"\(sid)\")"
+            ]
+            let ts = Int(Date().timeIntervalSince1970)
+            SessionMemoryArchiver.shared.archiveConversationChunk(
+                chunkId: "INTERRUPT_\(sid)_\(ts)",
+                taskTitle: "Suspended Task Snapshot",
+                l1: "[中断] 未完了スナップショット",
+                l2: l2Lines.joined(separator: "\n"),
+                l3: ""
+            )
+            // Move the original PROG/CONV chunks to far/
+            SessionMemoryArchiver.shared.moveToFarZone(shortId: sid)
+        }
     }
 
     // MARK: - Hybrid Engine (Privacy Shield / Cloud Direct)

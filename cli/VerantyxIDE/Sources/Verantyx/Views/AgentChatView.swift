@@ -649,9 +649,30 @@ struct AgentChatView: View {
                     .help(app.selfFixMode
                           ? app.t("Self Fix Mode ON — tap to disable", "Self Fix モード ON — タップで解除")
                           : app.t("Self Fix: auto-fix IDE source", "Self Fix: IDEソースを自己修正"))
+                    // ── L3.5 OS Asset Build Button ──
+                    @ObservedObject var assetVault = OSAssetMemoryVault.shared
+                    
+                    Button {
+                        app.addSystemMessage(app.t("🔄 Starting L3.5 PC Asset Map generation...", "🔄 L3.5 PC資産マップの生成を開始します..."))
+                        assetVault.scanBackground()
+                    } label: {
+                        Image(systemName: "macwindow.badge.plus")
+                            .font(.system(size: 13))
+                            .foregroundStyle(assetVault.isScanning ? Color.gray : Color(red: 0.35, green: 0.75, blue: 0.9))
+                            .frame(width: 26, height: 26)
+                    }
+                    .contentShape(Rectangle())
+                    .buttonStyle(.plain)
+                    .disabled(assetVault.isScanning)
+                    .help(app.t("Generate L3.5 PC Asset Map", "PC内資産マップ(L3.5)を生成する"))
+                    .onChange(of: assetVault.scanProgress) { newValue in
+                        if !newValue.isEmpty {
+                            app.addSystemMessage(newValue)
+                        }
+                    }
                 }
                 // FIXED width — never changes regardless of selfFixMode
-                .frame(width: 114, alignment: .leading)
+                .frame(width: 142, alignment: .leading)
 
                 // ── TextEditor + placeholder ───────────────────────────
                 // Placeholder padding must match NSTextView's internal insets:

@@ -59,11 +59,13 @@ final class SessionMemoryArchiver {
     private var mcpFrontDir: URL { dynamicMemoryDir(subpath: "front") }
     private var mcpNearDir: URL { dynamicMemoryDir(subpath: "near") }
     var mcpMidDir: URL { dynamicMemoryDir(subpath: "mid") }
+    private var mcpFarDir: URL { dynamicMemoryDir(subpath: "far") }
 
     // ── nano/ ストア (L1 漢字トポロジーのみ) ─────────────────────────────
     private var nanoFrontDir: URL { dynamicMemoryDir(subpath: "nano/front") }
     private var nanoNearDir: URL { dynamicMemoryDir(subpath: "nano/near") }
     private var nanoMidDir: URL { dynamicMemoryDir(subpath: "nano/mid") }
+    private var nanoFarDir: URL { dynamicMemoryDir(subpath: "nano/far") }
 
     // MARK: - Progressive archiving (every N messages, overwrites previous)
 
@@ -129,6 +131,36 @@ final class SessionMemoryArchiver {
     func archiveAll(sessions: [ChatSession]) {
         for session in sessions {
             archiveBeforeDelete(session: session)
+        }
+    }
+
+    // MARK: - Move to Far Zone (Archive Box)
+
+    /// Moves all PROG_* and CONV_* files associated with the given session ID to the `far/` zone.
+    /// This is used when a task completes, separating the task history from the active context.
+    func moveToFarZone(shortId: String) {
+        let fm = FileManager.default
+        let dirsToScan = [mcpFrontDir, mcpNearDir, nanoFrontDir, nanoNearDir]
+        
+        for dir in dirsToScan {
+            guard let files = try? fm.contentsOfDirectory(at: dir, includingPropertiesForKeys: nil) else { continue }
+            for file in files {
+                let name = file.lastPathComponent
+                if name.hasPrefix("PROG_\(shortId)") || name.hasPrefix("CONV_\(shortId)") || name.hasPrefix("SESSION_\(shortId)") {
+                    // Determine destination based on whether it's nano or full
+                    let destDir = dir.path.contains("/nano/") ? nanoFarDir : mcpFarDir
+                    let destURL = destDir.appendingPathComponent(name)
+                    do {
+                        if fm.fileExists(atPath: destURL.path) {
+                            try fm.removeItem(at: destURL)
+                        }
+                        try fm.moveItem(at: file, to: destURL)
+                        print("[SessionMemoryArchiver] Moved \(name) to far zone.")
+                    } catch {
+                        print("[SessionMemoryArchiver] Failed to move \(name) to far zone: \(error)")
+                    }
+                }
+            }
         }
     }
 
@@ -306,6 +338,7 @@ final class SessionMemoryArchiver {
         switch prefix {
         case "CONV":              fullZoneDir = mcpFrontDir
         case "PROG", "SESSION":   fullZoneDir = mcpNearDir
+        case "TASK", "INTERRUPT": fullZoneDir = mcpFarDir
         default:                  fullZoneDir = mcpMidDir
         }
         try? fullContent.write(to: fullZoneDir.appendingPathComponent(fileName), atomically: true, encoding: .utf8)
@@ -331,6 +364,7 @@ final class SessionMemoryArchiver {
         switch prefix {
         case "CONV":              nanoZoneDir = nanoFrontDir
         case "PROG", "SESSION":   nanoZoneDir = nanoNearDir
+        case "TASK", "INTERRUPT": nanoZoneDir = nanoFarDir
         default:                  nanoZoneDir = nanoMidDir
         }
         try? nanoContent.write(to: nanoZoneDir.appendingPathComponent(fileName), atomically: true, encoding: .utf8)
@@ -452,6 +486,17 @@ final class SessionMemoryArchiver {
 
         var parts: [String] = []
         var remaining = totalBudget
+
+        // ── Priority 0: The Canvas (CORTEX_PORTRAIT) ──────────────────────────
+        // Always inject the unified identity / completed picture first.
+        let canvasURL = midDir.appendingPathComponent("CORTEX_PORTRAIT.jcross")
+        if let chunk = extractLayer(from: canvasURL, layer: useNanoStore ? .l1 : layer, cap: useNanoStore ? 200 : 800) {
+            let entry = useNanoStore
+                ? "[統合自己:\(chunk)]"
+                : "【CORTEX_PORTRAIT (統合アイデンティティ)】\n\(chunk)"
+            parts.append(entry)
+            remaining -= entry.count
+        }
 
         // ── Priority 1: front/ (CONV_* + CortexEngine UUID nodes) ────────────────────────
         // NOTE: No prefix filter here — CortexEngine writes UUID-named nodes (e.g. abcd1234.jcross)

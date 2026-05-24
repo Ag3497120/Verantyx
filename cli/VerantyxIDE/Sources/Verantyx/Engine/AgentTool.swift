@@ -22,6 +22,9 @@ enum AgentTool {
                    startLine: Int,
                    endLine: Int,
                    newContent: String)
+    // ── GUI Automation ───────────────────────────────────────────────────────
+    case osascript(script: String)                // NEW: execute AppleScript via osascript
+    case openApp(name: String)                    // NEW: execute open -a "App Name"
     // ── Web / Grounding ──────────────────────────────────────────────────────
     case browse(url: String)
     case search(query: String)
@@ -78,6 +81,8 @@ struct AgentToolCall: Identifiable {
         case .readFile(let p):              return "read ← \(p)"
         case .listDir(let p):               return "ls \(p)"
         case .editLines(let p, let s, let e, _): return "edit \(p):\(s)-\(e)"
+        case .osascript:                    return "🍎 osascript"
+        case .openApp(let a):               return "🚀 open -a \(a)"
         case .browse(let url):              return "🌐 browse \(url)"
         case .search(let q):               return "🔍 search: \(q)"
         case .searchMulti(let q):          return "🔍× search: \(q)"
@@ -158,6 +163,8 @@ struct AgentToolParser {
     [VISION_SEARCH_FLOW: q]   視索: Google検索を開き、複数回スクロールして動画フレームを撮影
     [VISION_SNAPSHOT]         視撮: 現在の画面を再スクショして更新
     [VISION_ACT: action]      視動: "click x y" や "type text" を実行しスクショ
+    [OSASCRIPT: script]       🍎: osascriptとしてAppleScriptを実行しGUIアプリを操作
+    [OPEN_APP: AppName]       🚀: open -a "AppName"でOSネイティブアプリを起動
     [JCROSS_QUERY: terms]     脳召: 過去記憶を検索
     [JCROSS_STORE: key=val]   脳記: 重要事実を長期記憶に保存
     [GIT_COMMIT: msg]         版保: git add -A && commit
@@ -207,9 +214,11 @@ struct AgentToolParser {
           無関係の第三者をコントリビューターに巻き込む事故を引き起こす。
 
     ── §スキル SKILL RULES ──────────────────────────────────────────────────
-    必⑨  Search-First (探索優先): 複雑な要求を受けた場合、直ちに実装を始める前に
-          必ず [MCP_CALL: tool-search-oss.discover_tools]{"task_description": "..."}[/MCP_CALL] を実行し、
-          既存の解決策(スキル)が存在しないか確認すること。これによりトークン消費とコンテキスト肥大化を防ぐ。
+    必⑨  Search-First (過去記憶の参照優先): コーディングや作業を開始する前に、
+          必ず [JCROSS_QUERY: 関連キーワード] で過去の記憶やコンテキストを確認すること。
+          同一の問題を過去に解決していた場合、その知識を活用する。
+          また、既存の解決策(スキル)が存在しないか確認したい場合は
+          [MCP_CALL: tool-search-oss.discover_tools]{"task_description": "..."}[/MCP_CALL] を使用する。
     必⑩  技呼優先: discover_tools で該当スキルが見つかった場合、手動でパイプラインを構築する前に
           [USE_SKILL: 名前|引数=値] を試みること。
     必⑪  技鍛判断: タスク完了後、「次回も同じ手順を踏む可能性」が高い場合は
@@ -222,6 +231,9 @@ struct AgentToolParser {
     必⑮  事前の知識補完: エラー修正時は闇雲に操作する前に **必ず** [SEARCH_MULTI: エラー内容] で最新の解決手順や確実なURL・フラグを調べてから調査計画を立てること。
     必⑯  ハイブリッド探査 (CLI+GUI): Parallels(VM)等の調査は [RUN: prlctl exec ...] によるコマンド操作と、[VISION_ACT] で「実際にアプリのボタンを押し、UI上のエラーを直接見る」人間らしいGUI操作を **両方組み合わせて** 最も効率的な手段で自律解決すること。
     禁⑰  対話ボット化禁止: 検索した結果を「アドバイス」としてユーザーに教えるだけで終了してはならない。必ずお前自身の手(RUN/VISION)で直せ。
+    必⑱  Meta-Cognitive Workflow (メタ認知・自律委譲): 抽象的で複雑なタスクを受けた際、即座に直接解決を試みるのではなく、利用可能な「外部の知能」へ自律的に委譲する汎用戦略を取ること。
+          1. アプリ内AIの積極利用: 操作対象のソフトウェアや環境に専用のAIアシスタント機能が存在する場合、自ら[OPEN_APP]や[VISION_ACT]等で対象を開き、その内蔵AIに対して情報収集や要約を直接指示・委譲せよ。
+          2. コンテキスト・プロファイリング: ユーザー固有の文脈や過去の履歴に依存する生成タスクにおいては、必ず事前に[JCROSS_QUERY]で記憶（L2.5）を検索し、情報が不足する場合は接続済みの外部AI（MCPツール等）へ「コンテキストの推論やプロファイリング」を問い合わせ、十分な前提知識を得てから最終的な成果物を作成せよ。
 
     ── §実例 FEW-SHOT ────────────────────────────────────────────────────────
     例A「Swift 6の並行処理は？」→ 網並必須:
@@ -344,6 +356,10 @@ struct AgentToolParser {
         var tools: [AgentTool] = []
         var cleaned = text
 
+        // Extract block-level custom syntaxes
+        parseOsascriptBlocks(from: text, into: &tools, cleaned: &cleaned)
+        parseForgeSkillBlocks(from: text, into: &tools, cleaned: &cleaned)
+
         // ── 0. MCP_CALL block ──────────────────────────────────────────────
         // Syntax: [MCP_CALL: serverName.toolName]{"key":"value"}[/MCP_CALL]
         // JSON body is optional — omit braces if no arguments needed.
@@ -461,6 +477,9 @@ struct AgentToolParser {
                 tools.append(.readFile(expandHome(m)))
             } else if let m = match(trimmed, pattern: #"\[LIST_DIR:\s*([^\]]+)\]"#) {
                 tools.append(.listDir(expandHome(m)))
+            // ── GUI Automation ──────────────────────────────────────────────
+            } else if let m = match(trimmed, pattern: #"\[OPEN_APP:\s*([^\]]+)\]"#) {
+                tools.append(.openApp(name: m))
             // ── Web ─────────────────────────────────────────────────────
             } else if let m = match(trimmed, pattern: #"\[BROWSE:\s*([^\]]+)\]"#) {
                 tools.append(.browse(url: m))
@@ -645,6 +664,23 @@ struct AgentToolParser {
         return .setSetting(key: key, value: value)
     }
 
+    // ── OSASCRIPT block ───────────────────────────────────────────────────
+    static func parseOsascriptBlocks(from text: String, into tools: inout [AgentTool], cleaned: inout String) {
+        let pattern = #"\[OSASCRIPT\]\s*```(?:\w+)?\n?([\s\S]*?)```\s*\[/OSASCRIPT\]"#
+        guard let regex = try? NSRegularExpression(pattern: pattern) else { return }
+        let matches = regex.matches(in: text, range: NSRange(text.startIndex..., in: text))
+        for match in matches.reversed() {
+            guard
+                let scriptRange = Range(match.range(at: 1), in: text),
+                let fullRange   = Range(match.range, in: text)
+            else { continue }
+
+            let script = String(text[scriptRange]).trimmingCharacters(in: .whitespacesAndNewlines)
+            tools.insert(.osascript(script: script), at: 0)
+            cleaned = cleaned.replacingCharacters(in: fullRange, with: "")
+        }
+    }
+
     // ── FORGE_SKILL block ─────────────────────────────────────────────────
     // Syntax: [FORGE_SKILL: name|description|tag1,tag2]\n```\npayload lines\n```\n[/FORGE_SKILL]
     // Extracted in parse() as a block regex before the line loop.
@@ -729,8 +765,10 @@ actor AgentToolExecutor {
             } catch { return "✗ mkdir failed: \(error.localizedDescription)" }
 
         case .writeFile(let path, let content):
-            let isGatekeeper = await MainActor.run { GatekeeperModeState.shared.isEnabled }
             let url = resolve(path, workspace: workspaceURL)
+            let ext = url.pathExtension.lowercased()
+            let isArtifact = ["html", "htm", "md", "svg", "txt", "csv"].contains(ext)
+            let isGatekeeper = await MainActor.run { GatekeeperModeState.shared.isEnabled } && !isArtifact
             
             if isGatekeeper {
                 let vault = await MainActor.run { GatekeeperModeState.shared.vault }
@@ -845,8 +883,10 @@ actor AgentToolExecutor {
             return "✓ \(msg)"
 
         case .readFile(let path):
-            let isGatekeeper = await MainActor.run { GatekeeperModeState.shared.isEnabled }
             let url = resolve(path, workspace: workspaceURL)
+            let ext = url.pathExtension.lowercased()
+            let isArtifact = ["html", "htm", "md", "svg", "txt", "csv"].contains(ext)
+            let isGatekeeper = await MainActor.run { GatekeeperModeState.shared.isEnabled } && !isArtifact
             
             if isGatekeeper {
                 let vault = await MainActor.run { GatekeeperModeState.shared.vault }
@@ -898,8 +938,10 @@ actor AgentToolExecutor {
             return buildDirectoryTree(url: url, depth: 0, maxDepth: 3)
 
         case .editLines(let path, let startLine, let endLine, let newContent):
-            let isGatekeeper = await MainActor.run { GatekeeperModeState.shared.isEnabled }
             let url = resolve(path, workspace: workspaceURL)
+            let ext = url.pathExtension.lowercased()
+            let isArtifact = ["html", "htm", "md", "svg", "txt", "csv"].contains(ext)
+            let isGatekeeper = await MainActor.run { GatekeeperModeState.shared.isEnabled } && !isArtifact
             
             if isGatekeeper {
                 let vault = await MainActor.run { GatekeeperModeState.shared.vault }
@@ -998,6 +1040,17 @@ actor AgentToolExecutor {
                     return "⚠️ [Human Rejected] Edit to \(url.lastPathComponent) was cancelled"
                 }
             }
+
+        // ── GUI Automation ────────────────────────────────────────────────
+        case .openApp(let name):
+            let script = "tell application \"\(name)\" to activate"
+            let result = await runShell("osascript -e '\(script)'", workingDir: workspaceURL)
+            return "✓ OS App activated: \(name). \(result)"
+
+        case .osascript(let script):
+            let escaped = script.replacingOccurrences(of: "'", with: "'\\''")
+            let result = await runShell("osascript -e '\(escaped)'", workingDir: workspaceURL)
+            return "✓ AppleScript Result:\n\(result)"
 
         // ── Web / Grounding ───────────────────────────────────────────────
 
