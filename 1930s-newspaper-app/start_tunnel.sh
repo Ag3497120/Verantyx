@@ -28,42 +28,61 @@ echo "🔍 Waiting for Cloudflare to assign a URL..."
 TUNNEL_URL=""
 while [ -z "$TUNNEL_URL" ]; do
     sleep 1
-    # Extract the trycloudflare URL using regex
-    TUNNEL_URL=$(grep -o 'https://[-a-zA-Z0-9]*\.trycloudflare\.com' tunnel.log | head -n 1)
+    # Extract the trycloudflare URL, filter out 'api.trycloudflare.com', and get the last match
+    TUNNEL_URL=$(grep -a -o 'https://[-a-zA-Z0-9]*\.trycloudflare\.com' tunnel.log | grep -v 'api\.trycloudflare\.com' | tail -n 1)
 done
 
 echo "✅ Tunnel URL successfully extracted: $TUNNEL_URL"
 
 # ==========================================
-# 📝 Inject URL directly into index.html
+# 📝 Inject URL directly into verantyx.ai (Next.js)
 # ==========================================
-echo "🔄 Automatically updating index.html with the new URL..."
+echo "🔄 Automatically updating verantyx.ai frontend with the new URL..."
 
+export TUNNEL_URL
 python3 -c "
 import re
-with open('public/index.html', 'r') as f:
+import os
+tunnel_url = os.environ.get('TUNNEL_URL')
+path = '/Users/motonishikoudai/verantyx-site/src/app/apps/talkiepress/page.tsx'
+with open(path, 'r') as f:
     content = f.read()
-# Replace the backendUrl ternary operator line with the new URL
+
+# Replace the default API URL in the React state
 new_content = re.sub(
-    r'const backendUrl = window\.location\.protocol === \"file:\" \? \".*?\" : \"\";',
-    'const backendUrl = window.location.protocol === \"file:\" ? \"$TUNNEL_URL\" : \"\";',
+    r'const \[apiUrl, setApiUrl\] = useState\(\".*?\"\);',
+    f'const [apiUrl, setApiUrl] = useState(\"{tunnel_url}/api/generate\");',
     content
 )
-with open('public/index.html', 'w') as f:
+
+# Update the old Ollama label to reflect the new MLX architecture
+new_content = re.sub(
+    r'Offload Gemma4 to Ollama API for explosive generation speed',
+    'Direct Verantyx MLX Native Tunneling for explosive generation speed',
+    new_content
+)
+
+with open(path, 'w') as f:
     f.write(new_content)
 "
 
-echo "✨ index.html has been successfully updated!"
+echo "✨ verantyx.ai has been successfully updated locally!"
 
 # ==========================================
-# 🚀 Auto-Deploy to Cloudflare Pages (Git Push)
+# 🚀 Auto-Deploy to Cloudflare Pages (Direct Wrangler Push)
 # ==========================================
-echo "📦 Committing and pushing the updated site to GitHub..."
-git add public/index.html
-git commit -m "Auto-update: Tunnel URL via DDNS Script"
-git push
+echo "📦 Building Next.js Static Site and Deploying directly to Cloudflare Pages..."
+cd /Users/motonishikoudai/verantyx-site
+npm run build
+npx wrangler pages deploy out --project-name verantyx-site --branch master --commit-dirty=true
 
-echo "✅ Push complete! Cloudflare Pages will now automatically deploy the latest URL."
+echo "✅ Deployment complete! The new frontend is now LIVE at verantyx.ai (Reload the page!)"
+
+# Push to GitHub just for backup
+git add .
+git commit -m "Auto-update: Tunnel URL via DDNS Script" || true
+git push || true
+cd - > /dev/null
 
 # Wait for cloudflared to finish (it runs forever until Ctrl+C)
 wait $TUNNEL_PID

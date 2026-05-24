@@ -131,7 +131,7 @@ memory_engine = AuthenticJCrossMemory()
 # ==========================================
 # 2. Historical Agent Loading
 # ==========================================
-HF_MODELS = {"historical": "talkie-1930-13b-base"}
+HF_MODELS = {"historical": os.environ.get("TALKIE_MODEL", "talkie-1930-13b-base")}
 
 historical_model = None
 model_load_lock = threading.Lock()
@@ -191,7 +191,14 @@ NEW YORK — Yesterday, {event} """
         generated_text = ""
         for token_str in generator:
             generated_text += token_str
-            paragraphs = generated_text.strip().split('\n\n')
+            
+            # Clean up formatting artifacts that the model tries to append
+            clean_text = generated_text
+            for stop_phrase in ["[HEADLINE]", "[SUBTITLE]", "[INITIAL]", "THE NEW YORK TIMES", "THE NEW YORK", "THE NEW"]:
+                if stop_phrase in clean_text:
+                    clean_text = clean_text[:clean_text.find(stop_phrase)]
+                    
+            paragraphs = clean_text.strip().split('\n\n')
             formatted_paragraphs = "".join([f"<p>{p.replace(chr(10), '<br>')}</p>" for p in paragraphs if p.strip()])
             
             html = f"""<div style="background-color: #f4ecd8 !important; color: #2c241b !important; padding: 20px; font-family: serif;">

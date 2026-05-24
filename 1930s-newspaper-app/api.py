@@ -36,9 +36,9 @@ def generate_news(req: NewsRequest):
     try:
         # Generate using Talkie 13B MLX (Bypass mode)
         load_historical()
-        html_chunks = list(HistoricalReporterAgent.generate_article(news_text, max_tokens=150))
+        html_chunks = list(HistoricalReporterAgent.generate_article(news_text, max_tokens=600))
         html_article = html_chunks[-1] if html_chunks else ""
-        unload_historical()
+        # Removed unload_historical() to keep model in RAM and prevent 20s load delays
         
         # Memory
         memory_engine.migrate_memory()

@@ -80,6 +80,27 @@ bash package_dmg.sh 2.0.0
 ### Local Model Requirements
 The Gatekeeper Mode requires a local Ollama or MLX instance running a multimodal-capable edge model (e.g., Qwen3-VL, Llama-3-Vision) to process Visual Task Anchors.
 
+## 📦 How We Release
+
+### For Users (Binary)
+```bash
+# Download the latest DMG from Releases
+# Open VerantyxIDE-2.4.7.dmg
+# Drag to Applications folder
+```
+
+### For Developers (Source)
+```bash
+git clone https://github.com/Ag3497120/Verantyx.git
+cd Verantyx
+git checkout v2.4.7  # ← Important: check out the tag, not main!
+bash cli/package_dmg.sh 2.4.7
+```
+
+### Release Process
+1. Feature development on `main` branch.
+2. Maintain sync between Source Code and Binary releases by always cutting DMG from explicit tags (`git tag vX.Y.Z`).
+
 ## 🚀 What's New in v2.3
 
 Verantyx v2.3 introduces massive performance optimizations and hardens the Gatekeeper security architecture based on expert LLM reverse-engineering analysis.

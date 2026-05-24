@@ -33,9 +33,15 @@ _IT_SPECIAL_TOKENS: dict[str, int] = {
     "<|user|>": BASE_VOCAB_SIZE + 1,
     "<|assistant|>": BASE_VOCAB_SIZE + 2,
     "<|system|>": BASE_VOCAB_SIZE + 3,
+    "<|verantyx_clear_cache|>": BASE_VOCAB_SIZE + 4,
+    "<|verantyx_focus_mode|>": BASE_VOCAB_SIZE + 5,
+    "<|metric:typing_speed_up|>": BASE_VOCAB_SIZE + 6,
+    "<|metric:error_streak|>": BASE_VOCAB_SIZE + 7,
+    "<|verantyx_state_resolved|>": BASE_VOCAB_SIZE + 8,
+    "<|verantyx_state_active|>": BASE_VOCAB_SIZE + 9,
 }
 
-IT_VOCAB_SIZE = BASE_VOCAB_SIZE + 4
+IT_VOCAB_SIZE = BASE_VOCAB_SIZE + 10
 
 
 def build_tokenizer(
