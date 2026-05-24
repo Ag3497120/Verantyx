@@ -1,7 +1,6 @@
 <div align="center">
   <h1>🛡️ Verantyx IDE & Cortex Engine</h1>
   <p><b>The Zero-Leakage, Neuro-Symbolic AI Coding Gateway & Native macOS IDE</b></p>
-  <p><i>Trading token efficiency for mathematically guaranteed security, deterministic patching, and autonomous skill generation.</i></p>
 
   <p>
     <a href="https://github.com/verantyx/verantyx/releases/latest"><img src="https://img.shields.io/badge/version-1.4.0-blue?style=flat-square" alt="Version 1.4.0"></a>
@@ -9,180 +8,172 @@
     <img src="https://img.shields.io/badge/Apple%20Silicon-optimized-orange?style=flat-square">
     <img src="https://img.shields.io/badge/license-MIT-green?style=flat-square">
   </p>
-
-  <p>
-    <a href="#-the-hacker-news-pitch-why-verantyx">Why Verantyx?</a> •
-    <a href="#-the-heart-of-gatekeeper-6-axis-jcross-ir">Gatekeeper 6-Axis IR</a> •
-    <a href="#-technical-capabilities">Capabilities</a> •
-    <a href="#-whats-new-in-v140">What's New</a> •
-    <a href="#-contribute">Contribute</a>
-  </p>
 </div>
 
 ---
 
-## 📦 Download
+## 📖 Verantyx について
 
-**[→ Download Latest Release (v1.4.0)](https://github.com/verantyx/verantyx/releases/latest)**
+このプロジェクトは以前ルールベースのシンボリックAIを作成しようとしていた際に個人では作るのは不可能であると思い、現在主流のAIのハーネスの部分など制御する部分を自作することで制御しようと考えました。（当時はopenclawが注目を集めていた時期）
+そこからこのプロジェクトの主目的である、クラウドの高性能なAIに渡す前にソースコードやユーザーのリクエストを難読化してパズルのような状態にして渡すことで情報漏洩を防げるのではないかと思い開発を始めました。
 
-1. Download **`VerantyxIDE-1.4.0.pkg`**
-2. Double-click the installer to automatically overwrite any old versions.
+このプロジェクトがスター0な理由について、このプロジェクトでセキュアなフォルダが含まれていたため急遽プライベートリポジトリにしたため、9あったスターが消滅しました。完全に復活しましたのでよろしくお願いします。そのほかのリポジトリと重複を起こしているような部分を整理しました。このリポジトリにおいてリリースを中心にプッシュしていましたが、ソースコードの更新が滞っていたのを見つけて更新しました。
 
----
+これからは母国語である日本語を主力にして、英語は通常の翻訳ツールに翻訳させて一応載せるという運用で行こうと考えています。
 
-## 🌌 The Hacker News Pitch: Why Verantyx?
+## 🔐 難読化と6軸（Axis）の立体十字構造体
 
-The current AI coding revolution is fundamentally broken for the enterprise and security-conscious developers. Uploading proprietary codebase context to external APIs (OpenAI, Anthropic) results in **Semantic Leakage**. Conversely, relying purely on local edge models often results in context-window exhaustion and poor complex refactoring logic.
+このプロジェクトの難読化において、考え方は以前データの渡し方のイメージとして初期に作ったverantyxの前身であるaxisなどで見つけた立体十字構造体を主としたデータ管理手法を採用しています。
 
-Verantyx was built to resolve this paradox through a **Neuro-Symbolic architecture** that protects your IP via mathematical abstraction, grounds local AI against hallucinations via Visual Anchors, and achieves infinite context resolution through spatial memory. 
+### 🧩 6つの次元（Axis）の定義
 
----
-
-## 🔐 The Heart of Gatekeeper: 6-Axis JCross IR
-
-Gatekeeper Mode is the "absolute firewall" standing between your local machine and the external cloud LLM. Its core technology is the **JCross IR (Intermediate Representation)** metamodel, which reinterprets source code not merely as "text," but as a spatial structure.
-
-JCross IR decomposes source code into the following six dimensions (axes):
-
-| Axis | Name | Role / Content |
+| 軸 | 名称 | 役割 / 抽出される要素 |
 | :--- | :--- | :--- |
-| **X-axis** | *Control Flow* | Axis of time and sequence. `if` branches, loops, exceptions. |
-| **Y-axis** | *Data Flow* | Axis of dependency. Variable assignment, argument passing. |
-| **Z-axis** | *Type Constraints* | Boundary axis. Classes, type definitions, generics. |
-| **W-axis** | *Memory Lifecycle* | Lifespan axis. Scope lifespan, memory allocation/deallocation. |
-| **V-axis** | *Scope Hierarchy* | Inclusion axis. Modules, class nesting. |
-| **U-axis** | **Semantics & Meaning** | **Intent axis. Variable names, function names, strings, raw values.** |
+| **X軸** | **Control Flow（制御フロー）** | 時間と順序の軸。`if`分岐、`for`ループ、例外処理など。 |
+| **Y軸** | **Data Flow（データフロー）** | 依存関係の軸。変数の代入、引数の受け渡しなど。 |
+| **Z軸** | **Type Constraints（型制約）** | 境界の軸。クラス定義、型アノテーション、ジェネリクスなど。 |
+| **W軸** | **Memory Lifecycle（メモリライフサイクル）** | 寿命の軸。スコープの生存期間、メモリの確保・解放。 |
+| **V軸** | **Scope Hierarchy（スコープ階層）** | 包含の軸。モジュール、クラスのネスト構造。 |
+| **U軸** | **Semantics & Meaning（意味・意図）** | **★最重要★ 業務の意図の軸。具体的な変数名、関数名、生の文字列、数値。** |
 
-### Absolute Security via "U-Axis" Extraction
-Simply replacing variables with random hashes prevents an LLM from understanding logical structure (like loop bounds or scope). Instead, Gatekeeper uses a rule-based parser to analyze the AST, **physically extracts ONLY the U-axis (semantics)**, and isolates it in a local `JCrossIRVault`. 
-
-Only the pure logic and structural framework (X, Y, Z, W, V axes) are sent to the external Cloud LLM.
-
-### Before & After Example
-
-**[Before] Raw Source Code (Local Environment)**
-```swift
-func calculateTax(price: Double) -> Double {
-    let taxRate = 1.21
-    return round(price * taxRate, 2)
-}
-```
-
-**[After] Masked JCross IR (Sent to Cloud LLM)**
-Business logic and sensitive data are removed, but the topology ("function arguments are multiplied and returned") remains perfectly intact.
-```swift
-func FUNC_0xA1B2(VAR_0x3C4: TYPE_DOUBLE) -> TYPE_DOUBLE {
-    let VAR_0x9D5 = CONST_0xF1
-    return CALL_0xE5A(VAR_0x3C4 * VAR_0x9D5, CONST_0x02)
-}
-```
-
-### The Reverse-Transpilation Pipeline
-The LLM solves this structural puzzle and returns a JSON patch. The local Vault then deterministically reinjects the U-axis to generate the final code. 
-
-```mermaid
-graph TD
-    A[Raw Source Code] -->|1. AST Analysis| B[Rule-Based 6-Axis Parser]
-    B -->|2. 6-Axis Decomposition| C{Gatekeeper Engine}
-    
-    C -->|3. U-Axis Isolation| D[(Local JCrossIR Vault)]
-    C -->|4. Structure Extraction| E[Masked IR FUNC_0x...]
-    
-    E -->|5. Submission| F((Cloud LLM / Blind Solver))
-    F -->|6. Structural Inference| G[GraphPatch JSON]
-    
-    G -->|7. Patch Application| H{Reverse Transpilation Engine}
-    D -->|8. U-Axis Reinjection| H
-    H -->|9. Restoration Complete| I[Modified Source Code]
-```
+この変換プロセスは、Verantyx の **Gatekeeper（ゲートキーパー）エンジン** によってローカル環境のMacBook上で瞬時に実行されます。
 
 ---
 
-## 🚀 Technical Capabilities
+### 🔄 生コードから Opaque Topology への変換メカニズム
 
-### 1. 5-Type Cognitive Memory (L1 to L3)
-Standard text-based RAG causes context-window amnesia. Verantyx uses a 5-tier spatial memory system (ranging from L1 Kanji Semantic Vectors to L3 Raw Facts). Because of this deep structural memory, the Commander model can accurately resolve highly ambiguous pronouns (e.g., *"change this logic to match what we did earlier for that other module"*) long after the context window would normally be exceeded.
+#### Step 1: AST（抽象構文木）へのパースと分解
+まず、Gatekeeper エンジン（ルールベース推奨）が対象のソースコードを構文解析し、プログラムの構造を **AST（Abstract Syntax Tree）** という木構造のデータに変換します。
+この時点では、まだ「どの関数が何を呼び出しているか」「変数名は何で、文字列として何が定義されているか」といった情報がすべて含まれています。
 
-### 2. Cross-Client Context Sync (Verantyx Cortex MCP)
-Your coding session doesn't live in a silo. By leveraging the **Verantyx-Cortex MCP Tool**, conversations and memory states created in Claude Desktop or Antigravity agents are seamlessly shared with the Verantyx IDE via JCross spatial memory. All your AI clients share the exact same persistent brain.
+#### Step 2: セマンティクス（U軸）の「物理的剥離と隔離」
+ここからが Verantyx の真骨頂です。AST の中から、**業務の意味（意図）を示す情報＝U軸** をすべて物理的に剥ぎ取ります。
 
-### 3. Verantyx Swarm: Asymmetric Multi-Agent System 🐝
-Running a true multi-agent swarm locally has historically been impossible due to VRAM constraints. Verantyx solves this by implementing an **Asymmetric Multi-Agent Topology (Time-Sharing KV Cache)**:
-*   **The Router (Gemma 4 26B)**: A single high-intelligence model acts as the Project Manager. It translates ambiguous user intents into strict, low-entropy structural patches.
-*   **The Swarm (50x BitNet 1.58b)**: Leveraging 1-bit quantization, Verantyx loads up to 50 micro-agents (30 Coders, 20 Checkers) simultaneously in unified memory. 
-*   **JCross Blackboard**: To prevent cascading failures and communication chaos, agents do NOT message each other directly. Instead, they submit AST-validated patches (Pull Requests) directly to the central JCross Spatial Topology. The Gemma Router maintains oversight over the entire graph without suffering from context exhaustion.
+*   **剥ぎ取られるもの（U軸）**: 変数名、関数名、文字列、固定の数値など。
+*   **残されるもの（X,Y,Z,W,V軸）**: 「変数を代入した」「関数を呼び出した」「if文で分岐した」「for文でループした」という論理的な骨組み。
 
-### 4. Visual Anchors & Anti-Hallucination ⚓️
-Local LLMs often suffer from "sycophancy" (answering confidently even when hallucinating facts). 
-When Verantyx detects potential hallucinations, it injects **Visual Anchors** (rendering strict text directives as Base64 images). By feeding these images into a Multi-Modal LLM, it targets the visual cortex of the model to bypass text-attention degradation. 
+剥ぎ取られた具体的な名前や文字列のデータは、あなたのMacのローカルにある **`JCrossIRVault`（金庫）** に厳重に保管され、決して外部には送信されません。
 
-**Real-world flow:** When asked about non-existent libraries (e.g., *"Use pandas.quantum_compress()"*), the IDE injects a Visual Anchor to force fact-checking, triggers a background Stealth Web Search, retrieves the top 3 results, realizes the function is a hallucination, and correctly explains how to use `pd.to_numeric(downcast=...)` instead.
+#### Step 3: Opaque Node（不透明ノード）への完全暗号化
+意味を剥ぎ取られた残りの「骨組み」を、クラウドLLMへ送るために完全に不透明な表現に変換します。
 
-### 5. Autonomous Skill Generation (Zero-Shot Tools)
-Verantyx is deeply autonomous. If a user requests a task (e.g., *"Record the screen based on the system definition"*) but the required OS-level screen recording API is unavailable, the agent **does not say "I can't do it."** 
-Instead, it recognizes that DOM-based capturing is a viable alternative, autonomously writes the required tool logic in real-time, registers it as a new persistent "Skill", and executes the user's request. 
+*   **`NODE[0x...]`（ノードID）**: すべての変数や構文要素はランダムなメモリアドレスのような識別子に置き換えられます。
+*   **`ARITY`（アリティ/項数）**:
+    *   `class.nullary`: 引数や中身を持たない要素（単なる値や終端ノード）。
+    *   `class.standard`: 標準的な単項・二項演算（A + B や 代入など）。
+    *   `class.multiway`: 複数の要素を持つ複雑な構造（forループ、if-else分岐、関数定義など）。
+*   **`HASH`（構造ハッシュ）**: そのノードがグラフのどの位置にあり、周囲とどう繋がっているかを示すチェックサム。これにより、LLMがパズルを解いて返してきたときに、構造が壊れていないかをローカルで検証できます。
 
-**Demo: The Agent Writes Its Own Tool on the Fly**
-The video below demonstrates the agent receiving a request it lacks a built-in tool for, writing the required DOM-based tool logic, and executing it seamlessly.
+元のコードの文すら消滅し、「`class.multiway` なノードが子ノードを反復処理している」という純粋な数学的グラフになります。
+
+#### Step 4: 統計的推測を防ぐ「デコイ（おとり）」の注入
+コードをグラフ構造にして外部に送った場合、高度なAIや悪意のある攻撃者が「このグラフの形は、よくあるスクリプトの形だ」と統計的に推測（リバースエンジニアリング）してくるリスクがあります。
+
+これを防ぐため、グラフの隙間に **偽のノード（デコイ）** をランダムに注入します。
+```text
+// _TOKEN_匶:0.2___jcross_BM_505__ [decoy-metadata]
+```
+この無意味な漢字のトークンやダミーのつながりを混ぜ込むことで、グラフの形そのものを歪ませ、外部のAIが元のソースコードの正体を推測することを数学的に不可能にしています。
+
+---
+
+### 🧩 LLMはどうやってこれを「修正」するのか？（復元プロセス）
+
+1. **パズルとして解く**:
+   LLM は元のコードを知らなくても、指示された文脈とグラフの形（ARITY と HASH の繋がり）からターゲットとなる変更箇所の値のはずだと推論します。
+2. **構造パッチの返送**:
+   LLM は内容を書き換える JSON形式の構造パッチ（GraphPatch）だけを返します。
+3. **ローカルでの再結合（Reverse Transpilation）**:
+   Macの Gatekeeper エンジンがそのパッチを受け取り、先ほど `JCrossIRVault` に隠しておいた本当の変数名や文字列（U軸）をパッチにガチャンと再注入します。
+
+結果として、**「外部のAIは元のコードを1行も見ていないし理解もしていないのに、ローカルに戻ってくると正しくコードが書き換わっている」** という魔法のようで情報漏洩がないという開発体験が成立します。※まだ私が見落としている情報の漏洩があるかもしれないため気づいたらissueなどでお知らせください。
+
+---
+
+## ⚠️ 現在対応できない（苦手な）タスク
+
+現在この構造において対応できないタスクについて、代表的な一番苦手なタスクは **SwiftからRust言語への書き換え** などのタスクには対応できていません。また下記のような１から４までが苦手なタスクです。
+
+### 1. 「意味（ドメイン知識）」に依存するリファクタリングやバグ修正
+外部のLLMには `NODE[0x...]` という骨組みしか見えていないため、**「コードの意味を理解しないと解けない問題」** には対処できません。
+*   **❌ 苦手な指示の例**: 「認証（Authentication）に関係する変数の名前にすべて `auth_` というプレフィックスをつけて」
+*   **理由**: LLMには「どれが認証の処理か」が全く見えません。
+
+### 2. 外部ライブラリ（API）に強く依存した新規機能の追加
+ソースコード内の `import` 文やライブラリ呼び出しもすべて `NODE` として暗号化されているため、特定のライブラリの知識が必要なタスクが困難になります。
+*   **❌ 苦手な指示の例**: 「AWS S3 にファイルをアップロードする機能を追加して」
+*   **理由**: LLMは、現在のコードがどの外部ライブラリを使用しているかを知りません。
+
+### 3. 「ゼロから全く新しい機能全体」を書き起こすこと
+Gatekeeperは「既存の構造（AST）をパッチ・修正する」ことには極めて強力ですが、「何もない白紙の状態から、意味（U軸）と構造の両方を持った巨大な新機能を作り出す」ことは苦手です。
+
+### 4. LLM自体の「事前学習知識」の無力化による推論低下
+GemmaやClaudeなどのLLMは世界中のソースコードを学習して賢くなっていますが、Verantyxが送る形式は**「この世のどの言語でもない、純粋な記号とハッシュのグラフ」**です。
+*   **理由**: LLMが得意とする「コードの文脈からのパターン認識」を封じているため、見たことのない難解な数学のグラフパズルになってしまい、計算コストの増大を引き起こしています。
+
+### 💡 どのように克服しているか？（今後の展望）
+現在、これらの弱点を克服するために Verantyx 側で実装されているのが、**「Tri-Layer JCross Memory（3層メモリ）」** と **「Visual Anchors（視覚的アンカー）」** の組み合わせです。機密情報を含まない安全なメタデータだけを視覚的アンカーとしてLLMに部分的に提示し、セキュリティを保ったままヒントを与えるアプローチを取っています。
+
+---
+
+## 📽️ デモ動画とコード変換の実際
+
+### スキル自動生成デモ (Autonomous Skill Generation)
+エージェントが組み込みのツールを持っていない要求を受けた際に、DOMベースのツールロジックをオンザフライで書き、それをシームレスに実行するデモです。
 <video src="https://github.com/verantyx/verantyx/releases/download/v1.2.5/demo_skill_generation.mov" controls="controls" muted="muted" style="max-width: 100%; border-radius: 8px;"></video>
 
-### 6. Biometric Stealth Browser 🕵️‍♂️
-Agents must interact with the live web to read documentation, but BotGuard and Cloudflare block headless browsers.
-Verantyx captures your physical keyboard cadence (typing entropy) and mouse trajectory (mouse entropy) locally. When the agent browses the web, it replays your exact human biometric entropy using macOS `CGEvent` simulation to completely bypass bot detection—all while running completely in the background without stealing your OS window focus.
+### Before & After: 難読化の実際
+
+**[Before] Raw Source Code (Local Environment)**
+```python
+import json
+import os
+import shutil
+import requests
+import subprocess
+import re
+from tqdm import tqdm
+import sys
+
+# Import our new parser
+sys.path.append(os.path.join(os.path.dirname(__file__), "src"))
+from verantyx.cross_engine.jcross_extraction_parser import JCrossExtractionParser
+
+ORACLE_FILE = "/Users/motonishikoudai/verantyx-cli/benchmarks/LongMemEval/data/longmemeval_m_cleaned.json"
+TARGET_DIR = "/Users/motonishikoudai/verantyx-cli/verantyx-browser/.ronin/jcross_v7"
+QUERY_BIN = "/Users/motonishikoudai/verantyx-cli/verantyx-browser/target/release/examples/query_jcross"
+MODEL = "gemma4:e2b"
+OLLAMA_URL = "http://localhost:11434/api/generate"
+
+FINAL_REPORT = "/Users/motonishikoudai/verantyx-cli/benchmarks/LongMemEval/official_v7_1_accuracy_report.json"
+```
+
+**[After] Gatekeeper JCross Opaque Topology (Sent to Cloud LLM)**
+```lisp
+;;; 🛡️ GATEKEEPER MODE — JCross IR View
+;;; Real identifiers have been replaced with node IDs.
+;;; Schema: D59144D1-BE1
+;;; Nodes: 124 | Secrets redacted: 3442
+;;; Source: cortex/bench_v7_1_puzzle_runner.py
+;;; 
+// JCROSS_6AXIS_BEGIN
+// lang:swift doc:0xD5E025
+
+// ── TOP-LEVEL NODES
+  NODE[0x7995] kind:opaque TYPE:opaque MEM:opaque HASH:0xb4af0a52 ARITY:class.multiway
+  NODE[0x9DB8] kind:opaque TYPE:opaque MEM:opaque HASH:0x504933fd ARITY:class.standard
+  NODE[0x627F] kind:opaque TYPE:opaque MEM:opaque HASH:0x97b540cb ARITY:class.multiway
+  NODE[0x7F4C] kind:opaque TYPE:opaque MEM:opaque HASH:0x86742e8c ARITY:class.standard
+  NODE[0xC79E] kind:opaque TYPE:opaque MEM:opaque HASH:0xd42206c4 ARITY:class.standard
+  NODE[0x510B] kind:opaque TYPE:opaque MEM:opaque HASH:0x14b9be4e ARITY:class.nullary
+  NODE[0xB5C0] kind:opaque TYPE:opaque MEM:opaque HASH:0xcacb18a2 ARITY:class.standard
+// _TOKEN_匶:0.2___jcross_BM_505__ [decoy-metadata]
+  NODE[0xE3CF] kind:opaque TYPE:opaque MEM:opaque HASH:0x375a5480
+```
 
 ---
 
-## ✨ What's New in v1.4.0
-
-- **Verantyx Swarm Architecture**: Introduced an asymmetric multi-agent infrastructure routing tasks from Gemma 4 26B to 50 concurrent BitNet workers via JCross Blackboard state management.
-- **Swarm Monitor UI**: Added a dedicated responsive 50-agent monitor layout to visualize active Coders and AST Gatekeeper Checkers.
-- **Unified Visual Anchor Support**: Extended Visual Anchor injection compatibility to MLX-based models.
-- **macOS Native Fullscreen & Biometric Prompts**: Enhanced native UX by leveraging `AXFullScreen` AppleScript overrides and Dock icon bounce events (`NSApp.requestUserAttention`) for biometric puzzle requests.
-
----
-
-## 🛠 Features Summary
-
-| Feature | Status |
-|---|---|
-| 🤖 Local Inference (Ollama, MLX Apple Silicon) | ✅ v1.0 |
-| 🛡️ Gatekeeper Mode (Zero-Leakage 6-Axis IR) | ✅ v1.0 |
-| 🧠 Tri-Layer JCross Memory (Cortex) | ✅ v1.0 |
-| 🧩 Verantyx Cortex MCP (Cross-Client Sync) | ✅ v1.1 |
-| ⚡ BitNet 1.58b 1-bit LLM support | ✅ v1.1 |
-| 👁️ Visual Anchor Prompt Injection | ✅ v1.2 |
-| 🕵️‍♂️ Biometric Stealth Browser (Bot Evasion) | ✅ v1.2 |
-| 🧬 Autonomous Skill/Tool Generation | ✅ v1.2 |
-| 🐝 Asymmetric Swarm Architecture | ✅ v1.4 |
-
----
-
-## 🔧 Repository Setup & History
-
-**Git Configuration Note:**
-
-Early commits in this repository were made under the local Git name `kofdai` 
-(derived from the developer's macOS username). As of May 24, 2026, 
-this has been corrected and all commits are properly attributed to `@Ag3497120`.
-
-This is a normal development setup issue, not related to bots or automation.
-All future contributions will be under the correct author.
-
----
-
-## 🤝 Contribute
-
-We are building the future of secure AI development. Building AST extractors and neuro-symbolic memory bridges is a complex systems engineering challenge. 
-
-**We have built the Core Engine. We need the community to build the Periphery.**
-If you want to contribute to a serious systems programming project, look for these issues in the repo:
-- 🏷️ `help wanted`: **Go AST Parser** (Mapping Go `struct` to JCross IR)
-- 🏷️ `help wanted`: **Rust AST Parser** (Mapping lifetimes to JCross edges)
-- 🏷️ `good first issue`: UI/UX enhancements in the native SwiftUI client.
-
----
-
-## 💻 Building from Source (macOS Only)
+## 💻 インストール方法 (Building from Source)
 
 **Prerequisites:**
 - macOS 14.0+ (Apple Silicon highly recommended)
@@ -196,3 +187,10 @@ open Verantyx.xcodeproj
 ```
 
 *Note: A Windows/Linux port (Rust core + llama.cpp) is on our long-term roadmap, but we are laser-focused on perfecting the native macOS/MLX architecture first.*
+
+---
+
+## 🔧 Repository Setup & History
+
+**Git Configuration Note:**
+Early commits in this repository were made under the local Git name `kofdai` (derived from the developer's macOS username). As of May 24, 2026, this has been corrected and all commits are properly attributed to `@Ag3497120`. This is a normal development setup issue, not related to bots or automation. All future contributions will be under the correct author.
