@@ -157,6 +157,19 @@ Verantyx captures your physical keyboard cadence (typing entropy) and mouse traj
 
 ---
 
+## 🔧 Repository Setup & History
+
+**Git Configuration Note:**
+
+Early commits in this repository were made under the local Git name `kofdai` 
+(derived from the developer's macOS username). As of May 24, 2026, 
+this has been corrected and all commits are properly attributed to `@Ag3497120`.
+
+This is a normal development setup issue, not related to bots or automation.
+All future contributions will be under the correct author.
+
+---
+
 ## 🤝 Contribute
 
 We are building the future of secure AI development. Building AST extractors and neuro-symbolic memory bridges is a complex systems engineering challenge. 
