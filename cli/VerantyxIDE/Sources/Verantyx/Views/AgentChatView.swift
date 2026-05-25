@@ -717,28 +717,28 @@ struct AgentChatView: View {
                     .frame(maxWidth: .infinity, minHeight: 44, maxHeight: 110)
                 }
             }
-
             .padding(.horizontal, 10).padding(.vertical, 6)
-            .background(
-                app.selfFixMode
-                    ? Color(red: 0.22, green: 0.16, blue: 0.08)  // warm amber tint in self-fix mode
-                    : Color(red: 0.17, green: 0.17, blue: 0.21)
-            )
-            .overlay(
-                // Top border glows orange in self-fix mode
-                Rectangle()
-                    .fill(app.selfFixMode
-                          ? Color(red: 1.0, green: 0.60, blue: 0.10)
-                          : Color.clear)
-                    .frame(height: 1.5),
-                alignment: .top
-            )
-            .animation(.easeInOut(duration: 0.2), value: app.selfFixMode)
-            // Drag-and-drop images onto the input bar
-            .onDrop(of: [.image, .fileURL], isTargeted: nil) { providers in
-                handleDrop(providers: providers)
-                return true
-            }
+        }
+        .background(
+            app.selfFixMode
+                ? Color(red: 0.22, green: 0.16, blue: 0.08)  // warm amber tint in self-fix mode
+                : Color(red: 0.17, green: 0.17, blue: 0.21),
+            in: RoundedRectangle(cornerRadius: 16, style: .continuous)
+        )
+        .overlay(
+            RoundedRectangle(cornerRadius: 16, style: .continuous)
+                .stroke(app.selfFixMode
+                        ? Color(red: 1.0, green: 0.60, blue: 0.10).opacity(0.8)
+                        : Color.white.opacity(0.12), lineWidth: 1)
+        )
+        .padding(.horizontal, 16)
+        .padding(.bottom, 16)
+        .padding(.top, 8)
+        .animation(.easeInOut(duration: 0.2), value: app.selfFixMode)
+        // Drag-and-drop images onto the input bar
+        .onDrop(of: [.image, .fileURL], isTargeted: nil) { providers in
+            handleDrop(providers: providers)
+            return true
         }
     }
 
@@ -800,7 +800,6 @@ struct AgentChatView: View {
             }
             .padding(.horizontal, 10).padding(.vertical, 6)
         }
-        .background(Color(red: 0.14, green: 0.14, blue: 0.18))
     }
 
     // MARK: - Drag-and-drop handler
