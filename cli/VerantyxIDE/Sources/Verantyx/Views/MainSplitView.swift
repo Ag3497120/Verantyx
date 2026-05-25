@@ -40,13 +40,7 @@ struct MainSplitView: View {
                             )
                             .ignoresSafeArea()
                             .allowsHitTesting(false)
-                        // GK status pill — top center
-                        VStack {
-                            GatekeeperStatusPill()
-                                .padding(.top, 6)
-                            Spacer()
-                        }
-                        .allowsHitTesting(false)
+                        // (Gatekeeper status pill removed)
                     }
 
                 // ── MCP Quick Panel global overlay (⌘⇧M) ────────────────────────

@@ -76,8 +76,6 @@ struct ArtifactPanelView: View {
                 Spacer()
             }
 
-            tabSwitcher
-
             Spacer(minLength: 8)
 
             if app.currentArtifact != nil {
@@ -109,41 +107,7 @@ struct ArtifactPanelView: View {
         .background(Color(red: 0.13, green: 0.13, blue: 0.17))
     }
 
-    private var tabSwitcher: some View {
-        HStack(spacing: 0) {
-            ForEach(availableTabs, id: \.rawValue) { tab in
-                Button {
-                    withAnimation(.easeInOut(duration: 0.12)) { activeTab = tab }
-                } label: {
-                    HStack(spacing: 4) {
-                        Text(tab.rawValue)
-                            .font(.system(size: 11, weight: activeTab == tab ? .semibold : .regular))
-                            .foregroundStyle(activeTab == tab ? .white : Color(red: 0.5, green: 0.5, blue: 0.62))
-                        if tab == .diff, let diff = app.pendingDiff, diff.hasChanges {
-                            ZStack {
-                                Circle()
-                                    .fill(Color(red: 1.0, green: 0.65, blue: 0.2))
-                                    .frame(width: 6, height: 6)
-                            }
-                        }
-                    }
-                    .padding(.horizontal, 10)
-                    .padding(.vertical, 5)
-                    .background(activeTab == tab ? Color.white.opacity(0.08) : Color.clear)
-                    .overlay(
-                        Rectangle()
-                            .fill(activeTab == tab ? tabAccent(tab) : Color.clear)
-                            .frame(height: 1.5),
-                        alignment: .bottom
-                    )
-                }
-                .contentShape(Rectangle())
-                .buttonStyle(.plain)
-            }
-        }
-        .background(Color(red: 0.16, green: 0.16, blue: 0.20))
-        .clipShape(RoundedRectangle(cornerRadius: 6))
-    }
+
 
     private var availableTabs: [DisplayTab] {
         return [.preview, .code, .diff]
