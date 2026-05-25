@@ -512,7 +512,8 @@ struct AgentToolParser {
                 tools.append(.listDir(expandHome(m)))
             // ── GUI Automation ──────────────────────────────────────────────
             } else if let m = match(trimmed, pattern: #"\[OPEN_APP:\s*([^\]]+)\]"#) {
-                tools.append(.openApp(name: m))
+                let appName = resolveAppName(m)
+                tools.append(.openApp(name: appName))
             // ── Web ─────────────────────────────────────────────────────
             } else if let m = match(trimmed, pattern: #"\[BROWSE:\s*([^\]]+)\]"#) {
                 tools.append(.browse(url: m))
@@ -772,6 +773,43 @@ struct AgentToolParser {
     }
 
     static func stripArtifactTags(from text: String) -> String { text }
+
+    // MARK: - Generic App Name Resolution
+    
+    /// macOS上のアプリケーションを曖昧な名前から正確な名前（.appなし）へ解決します。
+    static func resolveAppName(_ inputName: String) -> String {
+        let searchPaths = [
+            "/Applications",
+            "/System/Applications",
+            "/System/Applications/Utilities",
+            NSHomeDirectory() + "/Applications"
+        ]
+        
+        let lowerInput = inputName.lowercased()
+        let fileManager = FileManager.default
+        
+        // 1. Exact match first
+        for path in searchPaths {
+            let exactUrl = URL(fileURLWithPath: path).appendingPathComponent("\(inputName).app")
+            if fileManager.fileExists(atPath: exactUrl.path) {
+                return inputName
+            }
+        }
+        
+        // 2. Fuzzy match (contains)
+        for path in searchPaths {
+            guard let items = try? fileManager.contentsOfDirectory(atPath: path) else { continue }
+            for item in items where item.hasSuffix(".app") {
+                let appName = (item as NSString).deletingPathExtension
+                if appName.lowercased().contains(lowerInput) {
+                    return appName
+                }
+            }
+        }
+        
+        // フォールバック: 見つからなければ元の入力をそのまま返す
+        return inputName
+    }
 }
 
 // MARK: - AgentToolExecutor
@@ -1849,7 +1887,6 @@ actor AgentToolExecutor {
         }.value
     }
 }
-
 // MARK: - Notification names
 
 extension Notification.Name {
