@@ -349,7 +349,7 @@ struct MainSplitView: View {
 
                 // ② Left + Center + Right
                 ResizableHSplit(
-                    minLeft: 160, maxLeft: 99999, minRight: 600, initialLeft: 240
+                    minLeft: 50, maxLeft: 99999, minRight: 100, initialLeft: 240
                 ) {
                     // ── Left pane ─────────────────────────────────────
                     Group {
@@ -364,7 +364,7 @@ struct MainSplitView: View {
                     .frame(maxHeight: .infinity)
                 } right: {
                     ResizableHSplit(
-                        minLeft: 300, maxLeft: 99999, minRight: 300, initialLeft: 420
+                        minLeft: 100, maxLeft: 99999, minRight: 100, initialLeft: 420
                     ) {
                         // ── Center: Chat ───────────────────────────────
                         VStack(spacing: 0) {
@@ -373,7 +373,7 @@ struct MainSplitView: View {
 
                             if app.showProcessLog {
                                 ResizableVSplit(
-                                    minTop: 200, maxTop: 99999, minBottom: 80, initialTop: 9999
+                                    minTop: 50, maxTop: 99999, minBottom: 50, initialTop: 9999
                                 ) {
                                     EmptyView()
                                 } bottom: {
@@ -385,7 +385,7 @@ struct MainSplitView: View {
                     } right: {
                         // ── Right: Artifact/Diff (top) + Terminal (bottom) ──
                         ResizableVSplit(
-                            minTop: 200, maxTop: 99999, minBottom: 100, initialTop: 400
+                            minTop: 50, maxTop: 99999, minBottom: 50, initialTop: 400
                         ) {
                             // Artifact panel — has Diff tab built-in
                             ArtifactPanelView()

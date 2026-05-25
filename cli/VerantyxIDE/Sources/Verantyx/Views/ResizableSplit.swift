@@ -56,7 +56,7 @@ struct ResizableHSplit<Left: View, Right: View>: View {
             divider()
 
             right
-                .frame(maxWidth: .infinity)
+                .frame(minWidth: 0, maxWidth: .infinity)
                 .clipped() // REQUIRED
         }
         .background(
@@ -149,7 +149,7 @@ struct ResizableVSplit<Top: View, Bottom: View>: View {
             hDivider()
 
             bottom
-                .frame(maxHeight: .infinity)
+                .frame(minHeight: 0, maxHeight: .infinity)
                 .clipped()
         }
         .background(

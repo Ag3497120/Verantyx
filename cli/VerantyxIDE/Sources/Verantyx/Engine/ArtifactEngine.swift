@@ -10,18 +10,24 @@ import SwiftUI
 
 enum OperationMode: String, CaseIterable, Codable, Identifiable {
     case gatekeeper    = "Gatekeeper"
+    case automatic     = "Automatic"
+    case detailed      = "Detailed"
 
     var id: String { rawValue }
 
     var icon: String {
         switch self {
         case .gatekeeper:    return "shield.lefthalf.filled"
+        case .automatic:     return "bolt.fill"
+        case .detailed:      return "magnifyingglass"
         }
     }
 
     var accentColor: Color {
         switch self {
         case .gatekeeper:    return Color(red: 0.2,  green: 0.9,  blue: 0.5)
+        case .automatic:     return Color(red: 0.4,  green: 0.7,  blue: 1.0)
+        case .detailed:      return Color(red: 1.0,  green: 0.6,  blue: 0.2)
         }
     }
 
@@ -29,12 +35,18 @@ enum OperationMode: String, CaseIterable, Codable, Identifiable {
         switch self {
         case .gatekeeper:
             return L("Enterprise Gatekeeper IDE", "エンタープライズ向け Gatekeeper IDE")
+        case .automatic:
+            return L("Automatic (No interruptions)", "自動モード (質問せずに実行)")
+        case .detailed:
+            return L("Detailed (Interactive)", "詳細モード (質問して情報収集)")
         }
     }
     
     var displayName: String {
         switch self {
         case .gatekeeper:    return L("Gatekeeper", "ゲートキーパー")
+        case .automatic:     return L("Automatic", "自動")
+        case .detailed:      return L("Detailed", "詳細")
         }
     }
 
@@ -42,12 +54,18 @@ enum OperationMode: String, CaseIterable, Codable, Identifiable {
     var badge: String {
         switch self {
         case .gatekeeper:    return "GK"
+        case .automatic:     return "AU"
+        case .detailed:      return "DT"
         }
     }
 
     /// Next mode in the cycle
     var next: OperationMode {
-        return .gatekeeper
+        switch self {
+        case .gatekeeper: return .automatic
+        case .automatic:  return .detailed
+        case .detailed:   return .gatekeeper
+        }
     }
 }
 

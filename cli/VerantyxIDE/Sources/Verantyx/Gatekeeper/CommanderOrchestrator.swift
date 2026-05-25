@@ -921,6 +921,37 @@ final class CommanderOrchestrator: ObservableObject {
         return await runBuildCheck(workspaceURL: workspaceURL, fileURL: fileURL)
     }
 
+    // MARK: - Streaming Helper
+    private func streamTokensToUI(rolePrefix: String, block: (@escaping @Sendable (String) -> Void) async -> String) async -> String {
+        await MainActor.run {
+            if let state = AppState.shared {
+                let msg = ChatMessage(role: .assistant, content: rolePrefix)
+                state.streamingMsgId = msg.id
+                state.messages.append(msg)
+            }
+        }
+        
+        let onToken: @Sendable (String) -> Void = { token in
+            Task { @MainActor in
+                if let state = AppState.shared, let sid = state.streamingMsgId {
+                    if let idx = state.messages.firstIndex(where: { $0.id == sid }) {
+                        state.messages[idx].content += token
+                    }
+                }
+            }
+        }
+        
+        let result = await block(onToken)
+        
+        await MainActor.run {
+            if let state = AppState.shared, let sid = state.streamingMsgId {
+                state.messages.removeAll(where: { $0.id == sid })
+                state.streamingMsgId = nil
+            }
+        }
+        return result
+    }
+
     // MARK: - Ollama API Call (Tier 3 フォールバック)
 
     private func callOllama(model: String, prompt: String, systemPrompt: String) async -> String {
@@ -935,17 +966,19 @@ final class CommanderOrchestrator: ObservableObject {
             (role: "user", content: prompt)
         ]
 
-        if let result = await OllamaClient.shared.generateConversation(
-            model: model,
-            messages: messages,
-            imagesForLastUserMessage: [anchorBase64],
-            maxTokens: maxTokens,
-            temperature: temp,
-            onToken: nil
-        ) {
-            return result
+        return await streamTokensToUI(rolePrefix: "🛡️ Commander (Thinking):\n") { onToken in
+            if let result = await OllamaClient.shared.generateConversation(
+                model: model,
+                messages: messages,
+                imagesForLastUserMessage: [anchorBase64],
+                maxTokens: maxTokens,
+                temperature: temp,
+                onToken: onToken
+            ) {
+                return result
+            }
+            return "❌ Commander HTTP/Decode Error"
         }
-        return "❌ Commander HTTP/Decode Error"
     }
 
     // MARK: - Helpers

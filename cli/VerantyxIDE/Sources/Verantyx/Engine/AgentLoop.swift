@@ -235,8 +235,11 @@ SYS.ENFORCE("logical_verification_before_acceptance")
                 : "[英:1.0][米:0.9] You MUST respond entirely in English."
         }
 
+        let identitySection = SessionMemoryArchiver.shared.buildIdentityInjection(useNanoStore: profile.tier == .nano)
+
         let systemPrompt = """
         \(profileSystemPrompt)
+        \(identitySection)
         \(loopRules)
         \(languageRule)
         \(memorySection)
@@ -984,7 +987,7 @@ SYS.ENFORCE("logical_verification_before_acceptance")
                         }
                         
                         let ts = Int(Date().timeIntervalSince1970)
-                        SessionMemoryArchiver.shared.archiveConversationChunk(
+                        SessionMemoryArchiver.shared.archiveWisdomChunk(
                             chunkId: "WISDOM_\(shortId)_\(ts)",
                             taskTitle: "Wisdom extracted from \(shortId)",
                             l1: "[知見抽出] ユーザーの好み・指示パターン",
@@ -1382,6 +1385,8 @@ SYS.ENFORCE("logical_verification_before_acceptance")
                     1. [内部知識の評価]: Can you answer this with confidence using your internal knowledge? (Yes/No)
                     2. [理由]: Why?
                     3. [アクション]: If Yes, generate the answer directly without searching. If No, trigger the [SEARCH] tool.
+                    
+                    CRITICAL RULE 4 (PRIVATE/AI TOOLS SEARCH BAN): NEVER use [SEARCH] or [SEARCH_MULTI] to search for external AI tools (like Teams Copilot, ChatGPT, Gemini) or your personal/internal profiles. They are NOT on the public web. You MUST use [OPEN_APP] & [VISION_ACT] or use [ASK_HUMAN] instead.
                     """
                     appendedText += antiHallucinationWarning
                     
@@ -1389,16 +1394,24 @@ SYS.ENFORCE("logical_verification_before_acceptance")
                 }
                 
                 // 3. Skill System Visual Anchor
-                if let skillMsg = mutableConversation.last(where: { $0.content.contains("[スキル情報]") }),
-                   let startRange = skillMsg.content.range(of: "[スキル情報]"),
-                   let endRange = skillMsg.content.range(of: "[/スキル情報]") {
-                    let skillTextRaw = skillMsg.content[startRange.upperBound..<endRange.lowerBound].trimmingCharacters(in: .whitespacesAndNewlines)
-                    if !skillTextRaw.isEmpty {
-                        let limitedSkillText = String(skillTextRaw.prefix(800))
-                        let base64Image = await CognitiveAnchorEngine.shared.getSkillAnchor(text: limitedSkillText)
-                        if !base64Image.isEmpty { newAnchorImages.append(base64Image) }
-                        appendedText += "\n\n👁️ [Skill System] A visual anchor image of relevant skills has been injected. Please look at the image to see which [USE_SKILL] commands are available to solve this task."
-                        await onProgress(.systemLog(AppLanguage.shared.t("<think>\n🔧 [Skill Anchor] Injected skill visual anchor.\n</think>", "<think>\n🔧 [Skill Anchor] スキル情報の視覚アンカー画像を注入しました。\n</think>")))
+                if let skillIndex = mutableConversation.lastIndex(where: { $0.content.contains("[スキル情報]") }) {
+                    let msg = mutableConversation[skillIndex]
+                    if let startRange = msg.content.range(of: "[スキル情報]"),
+                       let endRange = msg.content.range(of: "[/スキル情報]") {
+                        
+                        let skillTextRaw = msg.content[startRange.upperBound..<endRange.lowerBound].trimmingCharacters(in: .whitespacesAndNewlines)
+                        
+                        // Remove the text from the message to save tokens and force visual attention
+                        let fullRange = startRange.lowerBound..<endRange.upperBound
+                        mutableConversation[skillIndex].content.removeSubrange(fullRange)
+                        
+                        if !skillTextRaw.isEmpty {
+                            let limitedSkillText = String(skillTextRaw.prefix(800))
+                            let base64Image = await CognitiveAnchorEngine.shared.getSkillAnchor(text: limitedSkillText)
+                            if !base64Image.isEmpty { newAnchorImages.append(base64Image) }
+                            appendedText += "\n\n👁️ [Skill System] A visual anchor image of relevant skills has been injected. Please look at the image to see which [USE_SKILL] commands are available to solve this task."
+                            await onProgress(.systemLog(AppLanguage.shared.t("<think>\n🔧 [Skill Anchor] Injected skill visual anchor.\n</think>", "<think>\n🔧 [Skill Anchor] スキル情報を視覚アンカー画像として注入し、テキストから削除しました。\n</think>")))
+                        }
                     }
                 }
                 
@@ -1413,8 +1426,12 @@ SYS.ENFORCE("logical_verification_before_acceptance")
         }
         
         // 安全装置: テキスト専用モデル（Qwen2.5/3.6, Llama3 等）に画像を渡すと Ollama が HTTP 400 で nil を返すためブロック
+        // ただし、画像が渡せない場合は、せめて視覚アンカーに付随する「警告テキスト」だけは確実に system prompt に追加されるようにする
         let isMultimodal = await MainActor.run { AppState.shared?.isMultimodalModel ?? false }
         if !isMultimodal {
+            if anchorImages != nil && !(anchorImages?.isEmpty ?? true) {
+                await onProgress(.systemLog(AppLanguage.shared.t("<think>\n⚠️ [Modality Warning] Text-only model detected. Visual anchors stripped, relying on text prompts.\n</think>", "<think>\n⚠️ [Modality Warning] テキスト専用モデルのため、視覚アンカー画像を破棄しテキスト指示のみを適用します。\n</think>")))
+            }
             anchorImages = nil
         }
 

@@ -386,6 +386,18 @@ struct AgentChatView: View {
                             .help("Multimodal — images supported")
                     }
                     
+                    Divider().frame(height: 16).opacity(0.5)
+                    
+                    // ── Operation Mode Picker ──
+                    Picker("", selection: $app.operationMode) {
+                        Text(OperationMode.automatic.displayName).tag(OperationMode.automatic)
+                        Text(OperationMode.detailed.displayName).tag(OperationMode.detailed)
+                        Text(OperationMode.gatekeeper.displayName).tag(OperationMode.gatekeeper)
+                    }
+                    .labelsHidden()
+                    .frame(width: 100)
+                    .help("Agent Operation Mode")
+                    
                     RateLimitStatusView()
                 }
             }
@@ -872,6 +884,8 @@ struct AgentMessageView: View, Equatable {
             return [(false, message.content)]
         }
         var result: [(Bool, String)] = []
+        
+        // 1. Fully closed think tags
         let pattern = #"<think>([\s\S]*?)</think>"#
         guard let regex = try? NSRegularExpression(pattern: pattern) else {
             return [(false, message.content)]
@@ -889,9 +903,23 @@ struct AgentMessageView: View, Equatable {
             }
             if let r = Range(match.range, in: message.content) { cursor = r.upperBound }
         }
+        
+        // 2. Unclosed think tag (streaming)
         if cursor < message.content.endIndex {
-            let text = String(message.content[cursor...]).trimmingCharacters(in: .newlines)
-            if !text.isEmpty { result.append((false, text)) }
+            let remainder = String(message.content[cursor...])
+            if let unclosedRange = remainder.range(of: "<think>") {
+                // Text before the <think>
+                let before = String(remainder[..<unclosedRange.lowerBound]).trimmingCharacters(in: .newlines)
+                if !before.isEmpty { result.append((false, before)) }
+                
+                // The unclosed <think> content
+                let thinking = String(remainder[unclosedRange.upperBound...]).trimmingCharacters(in: .newlines)
+                // Append as thinking even if it's empty (to show the thinking indicator)
+                result.append((true, thinking))
+            } else {
+                let text = remainder.trimmingCharacters(in: .newlines)
+                if !text.isEmpty { result.append((false, text)) }
+            }
         }
         return result.isEmpty ? [(false, message.content)] : result
     }

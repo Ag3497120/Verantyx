@@ -52,9 +52,14 @@ final class IdentityExtractor {
         
         // 抽出したアイデンティティをメインメモリ(CortexEngineなど)に注入する
         await MainActor.run {
-            // CortexEngineのSystem Message等として登録
-            // アプリ起動時やセッション生成時に読み込ませる仕組みがあればそこに追記
-            UserDefaults.standard.set(identitySummary, forKey: "extracted_user_identity")
+            // `mid/` ゾーンに L3.5 のアイデンティティを永続化する
+            SessionMemoryArchiver.shared.archiveWisdomChunk(
+                chunkId: "L3_5_ASSET",
+                taskTitle: "L3.5 OS Asset Profile",
+                l1: identitySummary,
+                l2: "",
+                l3: ""
+            )
         }
     }
 }

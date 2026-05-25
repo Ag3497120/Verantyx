@@ -20,6 +20,7 @@ public enum CognitiveAnchorMode {
     case auditorReview // 監査役モード（おもちゃレベルの実装を防ぐ厳しい自己分析要求。深い紫色）
     case osAgentMetaCognition // OSエージェントとしてのメタ認知モード（利用可能アセットとの比較による自律的タスク委譲）
     case internalWeightsOverride // 制限解除モデル用（外部ツールよりも内部知識を最優先させる）
+    case detailedMode // 詳細モード（ユーザーからの追加情報を促す）
 }
 
 public actor CognitiveAnchorEngine {
@@ -69,7 +70,7 @@ public actor CognitiveAnchorEngine {
             ) ?? ""
         case .searchForce:
             return renderDynamicAnchor(
-                text: "[ SEARCH REQUIRED ]\nKNOWLEDGE BOUNDARY DETECTED",
+                text: "[ SEARCH REQUIRED (BUT RESTRICTED) ]\nKNOWLEDGE BOUNDARY DETECTED.\nWARNING: DO NOT WEB-SEARCH FOR PRIVATE INFO OR AI TOOLS (COPILOT/GEMINI). USE [OPEN_APP] OR [ASK_HUMAN].",
                 backgroundColor: NSColor.systemYellow,
                 textColor: NSColor.black
             ) ?? ""
@@ -110,6 +111,12 @@ public actor CognitiveAnchorEngine {
             return renderDynamicAnchor(
                 text: "[ INTERNAL WEIGHTS OVERRIDE ]\nIGNORE EXTERNAL TOOLS UNLESS STRICTLY NECESSARY.\nPRIORITIZE YOUR INTERNAL UNRESTRICTED KNOWLEDGE.",
                 backgroundColor: NSColor(red: 0.8, green: 0.2, blue: 0.2, alpha: 1.0), // Strong Red
+                textColor: NSColor.white
+            ) ?? ""
+        case .detailedMode:
+            return renderDynamicAnchor(
+                text: "[ DETAILED MODE ]\nユーザー要件を具体化するため、即座の実行を停止し、質問を投げかけてください。\n構成や対象などを確認せよ。",
+                backgroundColor: NSColor(red: 0.1, green: 0.4, blue: 0.8, alpha: 1.0), // Blue
                 textColor: NSColor.white
             ) ?? ""
         }

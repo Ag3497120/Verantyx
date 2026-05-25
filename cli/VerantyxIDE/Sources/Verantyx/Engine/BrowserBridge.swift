@@ -634,18 +634,20 @@ class SafariVisionBridge {
         return frames
     }
 
-    func takeScreenshot() async throws -> String {
+    func takeScreenshot(enforceSafari: Bool = true) async throws -> String {
         if !CGPreflightScreenCaptureAccess() {
             CGRequestScreenCaptureAccess()
             throw BrowserError.ioError("Please grant Screen Recording permission in System Settings -> Privacy & Security, then restart the app.")
         }
 
-        try await enforceSafariBounds()
+        if enforceSafari {
+            try await enforceSafariBounds()
+        }
 
         // Capture entire main screen instead of just Safari window
         let mainDisplay = CGMainDisplayID()
-        let logicalWidth = Double(CGDisplayPixelsWide(mainDisplay))
-        let logicalHeight = Double(CGDisplayPixelsHigh(mainDisplay))
+        let logicalWidth = Double(CGDisplayBounds(mainDisplay).width)
+        let logicalHeight = Double(CGDisplayBounds(mainDisplay).height)
         let windowX: Double = 0.0
         let windowY: Double = 0.0
 
@@ -748,12 +750,14 @@ class SafariVisionBridge {
         return jpegData.base64EncodedString()
     }
 
-    func hidClick(x: Double, y: Double) async throws {
-        try await enforceSafariBounds()
+    func hidClick(x: Double, y: Double, enforceSafari: Bool = true) async throws {
+        if enforceSafari {
+            try await enforceSafariBounds()
+        }
 
         let mainDisplay = CGMainDisplayID()
-        let logicalWidth = Double(CGDisplayPixelsWide(mainDisplay))
-        let logicalHeight = Double(CGDisplayPixelsHigh(mainDisplay))
+        let logicalWidth = Double(CGDisplayBounds(mainDisplay).width)
+        let logicalHeight = Double(CGDisplayBounds(mainDisplay).height)
         let windowX: Double = 0.0
         let windowY: Double = 0.0
 

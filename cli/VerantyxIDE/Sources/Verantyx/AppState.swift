@@ -483,11 +483,11 @@ final class AppState: ObservableObject {
         switch modelStatus {
         case .ollamaReady(let m):
             let mm = m.lowercased()
-            return mm.contains("llava") || mm.contains("vision") || mm.contains("vl")
-                || mm.contains("gemma") || mm.contains("qwen3")
+            return mm.contains("llava") || mm.contains("vision")
                 || (mm.contains("qwen") && mm.contains("vl"))
                 || mm.contains("minicpm") || mm.contains("moondream")
                 || mm.contains("bakllava") || mm.contains("cogvlm")
+                || (mm.contains("gemma") && !mm.contains("gemma2") && !mm.contains("gemma-2"))
         case .mlxReady(let m):
             let mm = m.lowercased()
             return mm.contains("vision") || mm.contains("gemma-4")

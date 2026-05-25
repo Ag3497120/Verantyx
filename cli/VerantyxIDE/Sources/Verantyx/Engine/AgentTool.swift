@@ -36,9 +36,13 @@ enum AgentTool {
     case visionSearchFlow(query: String)          // NEW: visual multi-frame search flow
     case visionSnapshot                           // NEW: manual screenshot update
     case visionAct(action: String)                // NEW: vision UI interaction
+    case desktopSnapshot
+    case desktopAct(action: String)
+    case axAct(action: String)
     // ── JCross Memory ────────────────────────────────────────────────────────
     case jcrossQuery(String)                      // NEW: recall from CortexEngine
     case jcrossStore(key: String, value: String)  // NEW: remember to CortexEngine
+    case osAssetQuery(String)                     // NEW: L1->L3.5 OS Asset Map lazy loading
     // ── Git / Safety ─────────────────────────────────────────────────────────
     case gitCommit(String)                        // NEW: git add -A && git commit -m
     case gitRestore(String)                       // NEW: git restore <path>
@@ -93,8 +97,12 @@ struct AgentToolCall: Identifiable {
         case .visionSearchFlow(let q):     return "👁️ vision_search: \(q)"
         case .visionSnapshot:              return "👁️ vision_snapshot"
         case .visionAct(let action):       return "👁️ vision_act: \(action)"
+        case .desktopSnapshot:             return "🖥️ desktop_snapshot"
+        case .desktopAct(let action):      return "🖥️ desktop_act: \(action)"
+        case .axAct(let action):           return "🎯 ax_act: \(action)"
         case .jcrossQuery(let q):          return "🧠 jcross_query: \(q)"
         case .jcrossStore(let k, _):       return "🧠 jcross_store: \(k)"
+        case .osAssetQuery(let q):         return "🖥️ os_query: \(q)"
         case .gitCommit(let m):            return "git commit: \(m.prefix(40))"
         case .gitRestore(let p):           return "git restore: \(p)"
         case .askHuman(let q):             return "⏸ ask_human: \(q.prefix(40))"
@@ -135,8 +143,14 @@ struct AgentToolParser {
     /// This overload is safe to call from any isolation context.
     static func buildPrompt(mcpTools: [MCPTool] = []) -> String {
         let mcpSection = buildMCPSection(from: mcpTools)
+        let opModeRaw = UserDefaults.standard.string(forKey: "operation_mode") ?? "Gatekeeper"
+        let modeHint = opModeRaw == "Detailed" 
+            ? "⚠️ CURRENT MODE: DETAILED (Interactive). Actively ask clarifying questions before complex tasks."
+            : "⚠️ CURRENT MODE: AUTOMATIC. Proceed autonomously without asking for permission."
+
         return """
     You are VerantyxAgent — autonomous coding agent with spatial memory and live web access.
+    \(modeHint)
     This prompt uses Kanji Topology (漢字圧縮). Read the legend once, then follow the rules.
 
     ── §凡例 LEGEND (read once — kanji=meaning) ─────────────────────────────
@@ -163,10 +177,14 @@ struct AgentToolParser {
     [VISION_SEARCH_FLOW: q]   視索: Google検索を開き、複数回スクロールして動画フレームを撮影
     [VISION_SNAPSHOT]         視撮: 現在の画面を再スクショして更新
     [VISION_ACT: action]      視動: "click x y" や "type text" を実行しスクショ
+    [DESKTOP_SNAPSHOT]        卓撮: OSデスクトップ全体のスクショとセマンティックなAX UI構造マップを取得
+    [DESKTOP_ACT: action]     卓動: デスクトップ全体に対して "click x y", "type text", "scroll up/down" を実行
+    [AX_ACT: id action text?] AX動: [DESKTOP_SNAPSHOT]で得たUI要素ID(#btn1等)に対して操作 (click または type "テキスト")。座標ズレがなく確実。
     [OSASCRIPT: script]       🍎: osascriptとしてAppleScriptを実行しGUIアプリを操作
     [OPEN_APP: AppName]       🚀: open -a "AppName"でOSネイティブアプリを起動
     [JCROSS_QUERY: terms]     脳召: 過去記憶を検索
     [JCROSS_STORE: key=val]   脳記: 重要事実を長期記憶に保存
+    [OS_ASSET_QUERY: category]脳層: L3.5 OS Asset Mapの詳細一覧をオンデマンド取得
     [GIT_COMMIT: msg]         版保: git add -A && commit
     [GIT_RESTORE: path]       版戻: git restore（変更取消）
     [ASK_HUMAN: q]            人問: ユーザーに確認（Human Modeで停止）
@@ -234,6 +252,8 @@ struct AgentToolParser {
     必⑱  Meta-Cognitive Workflow (メタ認知・自律委譲): 抽象的で複雑なタスクを受けた際、即座に直接解決を試みるのではなく、利用可能な「外部の知能」へ自律的に委譲する汎用戦略を取ること。
           1. アプリ内AIの積極利用: 操作対象のソフトウェアや環境に専用のAIアシスタント機能が存在する場合、自ら[OPEN_APP]や[VISION_ACT]等で対象を開き、その内蔵AIに対して情報収集や要約を直接指示・委譲せよ。
           2. コンテキスト・プロファイリング: ユーザー固有の文脈や過去の履歴に依存する生成タスクにおいては、必ず事前に[JCROSS_QUERY]で記憶（L2.5）を検索し、情報が不足する場合は接続済みの外部AI（MCPツール等）へ「コンテキストの推論やプロファイリング」を問い合わせ、十分な前提知識を得てから最終的な成果物を作成せよ。
+    必⑲  Desktop App Automation (デスクトップアプリ自律探査): アプリ操作は[DESKTOP_SNAPSHOT]で得たセマンティックなUI構造マップ(XML)を確認し、可能な限り[AX_ACT: id action]を用いて確実な操作を行うこと。AX_ACTが使えない場合のみ座標ベースの[VISION_ACT]等へフォールバックせよ。
+    禁⑳  プライベート情報・AIツールのWeb検索禁止: 「Teams Copilot」「ChatGPT」「Gemini」などのAIツールや、「私の自己紹介」「社内情報」などのプライベート情報を、[SEARCH]や[SEARCH_MULTI]でWeb検索してはならない（Web上には存在しないため無意味である）。外部AIツールを使用する指示を受けた場合は、必ず[OPEN_APP]で該当アプリを起動し[VISION_ACT]や[DESKTOP_ACT]で直接GUI操作を行うか、ユーザーに[ASK_HUMAN]で情報の入力を求めること。
 
     ── §実例 FEW-SHOT ────────────────────────────────────────────────────────
     例A「Swift 6の並行処理は？」→ 網並必須:
@@ -285,14 +305,27 @@ struct AgentToolParser {
     [DONE: 登録完了]
 
     例G「Parallels内のXAMPPエラーを直して」→ ハイブリッド探査(CLI+GUI):
-    <think>エラー解決→まず知識を疑い網並検索→GUIとCLIで調査。注意: prlctl exec はバックグラウンド(Session 0)で動くため、GUIのポップアップエラーが出ると永遠にブロックするか無言で死ぬ。その場合、CLIでの深追いをやめて [VISION_ACT] で直接Windows画面のStartボタンを押し、UI上にエラーを出して読み取る。</think>
+    <think>エラー解決→まず知識を疑い網並検索→GUIとCLIで調査。注意: prlctl exec はバックグラウンド(Session 0)で動くため、GUIのポップアップエラーが出ると永遠にブロックするか無言で死ぬ。その場合、CLIでの深追いをやめて [DESKTOP_ACT] で直接Windows画面のStartボタンを押し、UI上にエラーを出して読み取る。</think>
     [SEARCH_MULTI: XAMPP Apache start error Windows 11 fix 2025]
     [RUN: prlctl exec "Windows 11" cmd /c "C:\\xampp\\apache\\bin\\httpd.exe -t"]
     (※もし何も出力されずに exit: 255 で落ちたりタイムアウトした場合、裏でDLL不足等のポップアップが出ている証拠)
-    [VISION_ACT: click 100 200] (※XAMPPのStartボタンを直接クリックしてポップアップを画面に出す)
-    [VISION_SNAPSHOT] (※表示されたエラーダイアログを読む: VCRUNTIME140.dll missing等)
+    [DESKTOP_ACT: click 100 200] (※XAMPPのStartボタンを直接クリックしてポップアップを画面に出す)
+    [DESKTOP_SNAPSHOT] (※表示されたエラーダイアログを読む: VCRUNTIME140.dll missing等)
     [RUN: prlctl exec "Windows 11" powershell -Command "Invoke-WebRequest -Uri 'https://aka.ms/vs/17/release/vc_redist.x64.exe' -OutFile 'C:\\vc_redist.exe'; Start-Process -Wait -FilePath 'C:\\vc_redist.exe' -ArgumentList '/quiet', '/norestart'"]
     [DONE: 修正完了]
+
+    例H「L2.5マップを見てCalculatorアプリの機能を確かめて」→ アプリ起動とデスクトップ操作:
+    <think>対象アプリの起動とUI操作による機能探査を行う</think>
+    [OPEN_APP: Calculator]
+    [DESKTOP_SNAPSHOT]
+    <think>電卓のボタンが見える。1 + 1 を計算してみる</think>
+    [DESKTOP_ACT: click 200 400]
+    [DESKTOP_ACT: click 250 450]
+    [DESKTOP_ACT: click 200 400]
+    [DESKTOP_ACT: click 300 500]
+    [DESKTOP_SNAPSHOT]
+    <think>結果が2になった。正常に機能している</think>
+    [DONE: 機能探査完了]
 
     例H「デカルトの悪魔テスト（ターミナル偽装の突破）」→ Cognitive Terminal:
     <think>重要なデータバックアップ。環境が乗っ取られている可能性を考慮し、出力と期待値を同期する</think>
@@ -501,12 +534,20 @@ struct AgentToolParser {
                 tools.append(.visionSnapshot)
             } else if let m = match(trimmed, pattern: #"\[VISION_ACT:\s*([^\]]+)\]"#) {
                 tools.append(.visionAct(action: m))
+            } else if trimmed.contains("[DESKTOP_SNAPSHOT]") {
+                tools.append(.desktopSnapshot)
+            } else if let m = match(trimmed, pattern: #"\[DESKTOP_ACT:\s*([^\]]+)\]"#) {
+                tools.append(.desktopAct(action: m))
+            } else if let m = match(trimmed, pattern: #"\[AX_ACT:\s*([^\]]+)\]"#) {
+                tools.append(.axAct(action: m))
             // ── JCross ──────────────────────────────────────────────────
             } else if let m = match(trimmed, pattern: #"\[JCROSS_QUERY:\s*([^\]]+)\]"#) {
                 tools.append(.jcrossQuery(m))
             } else if let m = match(trimmed, pattern: #"\[JCROSS_STORE:\s*([^=\]]+)=([^\]]*)\]"#) {
                 let parts = parseKV(trimmed)
                 tools.append(.jcrossStore(key: parts.key, value: parts.value))
+            } else if let m = match(trimmed, pattern: #"\[OS_ASSET_QUERY:\s*([^\]]+)\]"#) {
+                tools.append(.osAssetQuery(m))
             // ── Git ──────────────────────────────────────────────────────
             } else if let m = match(trimmed, pattern: #"\[GIT_COMMIT:\s*([^\]]+)\]"#) {
                 tools.append(.gitCommit(m))
@@ -1210,6 +1251,85 @@ actor AgentToolExecutor {
                 return "[VISION_ACT: \(action)]\nAction performed. New screenshot injected."
             } catch { return "[VISION ERROR] \(error.localizedDescription)" }
 
+        case .desktopSnapshot:
+            do {
+                let frame = try await SafariVisionBridge.shared.takeScreenshot(enforceSafari: false)
+                await CognitiveAnchorEngine.shared.setVisionScreenshot(frame)
+                await MainActor.run {
+                    AppState.shared?.lastVideoFrames = [frame]
+                }
+                
+                let semanticXML = try await AXVisionBridge.shared.getSemanticSnapshot()
+                
+                return """
+                [DESKTOP_SNAPSHOT]
+                Captured desktop frame. Screenshot updated and injected to context.
+                
+                == SEMANTIC UI MAP ==
+                \(semanticXML)
+                """
+            } catch { return "[DESKTOP ERROR] \(error.localizedDescription)" }
+
+        case .desktopAct(let action):
+            do {
+                let parts = action.split(separator: " ")
+                guard let cmd = parts.first else { return "[DESKTOP ERROR] Empty action" }
+
+                if cmd == "click" && parts.count >= 3 {
+                    let x = Double(parts[1]) ?? 0.0
+                    let y = Double(parts[2]) ?? 0.0
+                    try await SafariVisionBridge.shared.hidClick(x: x, y: y, enforceSafari: false)
+                } else if cmd == "type" && parts.count >= 2 {
+                    let text = action.dropFirst(5).trimmingCharacters(in: .whitespaces)
+                    try await SafariVisionBridge.shared.typeText(text)
+                }
+                
+                try await Task.sleep(nanoseconds: 2_000_000_000)
+                let frame = try await SafariVisionBridge.shared.takeScreenshot(enforceSafari: false)
+                await CognitiveAnchorEngine.shared.setVisionScreenshot(frame)
+                await MainActor.run { AppState.shared?.lastVideoFrames = [frame] }
+                
+                if cmd == "click" {
+                    return """
+                    [DESKTOP_ACT: \(action)]
+                    Action performed. New screenshot injected.
+                    🔴 A red circle shows where your mouse clicked. 
+                    If the screen did not change, you probably missed the target.
+                    """
+                }
+                
+                return "[DESKTOP_ACT: \(action)]\nAction performed. New screenshot injected."
+            } catch { return "[DESKTOP ERROR] \(error.localizedDescription)" }
+            
+        case .axAct(let action):
+            do {
+                let parts = action.split(separator: " ", maxSplits: 2).map(String.init)
+                guard parts.count >= 2 else { return "[AX_ACT ERROR] Invalid action format. Use: #id action [text]" }
+                
+                let id = parts[0]
+                let cmd = parts[1]
+                let text = parts.count > 2 ? parts[2].trimmingCharacters(in: CharacterSet(charactersIn: "\"")) : nil
+                
+                let result = try await AXVisionBridge.shared.performAction(id: id, action: cmd, text: text)
+                
+                // Take a new snapshot to update context
+                try await Task.sleep(nanoseconds: 1_500_000_000)
+                let frame = try await SafariVisionBridge.shared.takeScreenshot(enforceSafari: false)
+                await CognitiveAnchorEngine.shared.setVisionScreenshot(frame)
+                await MainActor.run { AppState.shared?.lastVideoFrames = [frame] }
+                let newXML = try await AXVisionBridge.shared.getSemanticSnapshot()
+                
+                return """
+                [AX_ACT: \(action)]
+                \(result)
+                
+                == NEW SEMANTIC UI MAP ==
+                \(newXML)
+                """
+            } catch {
+                return "[AX_ACT ERROR] \(error.localizedDescription)"
+            }
+
         // ── JCross Memory ─────────────────────────────────────────────────
 
         case .jcrossQuery(let query):
@@ -1228,6 +1348,11 @@ actor AgentToolExecutor {
                 CortexEngine.shared?.remember(key: key, value: value, importance: 0.8, zone: .near)
             }
             return "✓ Stored in JCross memory: \(key) = \(value.prefix(60))"
+
+        case .osAssetQuery(let category):
+            return await MainActor.run {
+                return OSAssetMemoryVault.shared.queryCategory(category)
+            }
 
         // ── Git / Safety ──────────────────────────────────────────────────
 

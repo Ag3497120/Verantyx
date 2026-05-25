@@ -290,6 +290,25 @@ final class SessionMemoryArchiver {
         )
     }
 
+    // MARK: - Wisdom extraction archiving (NEW)
+
+    /// Persist an extracted user identity or wisdom chunk as a JCross tri-layer node.
+    /// This uses the WISDOM prefix which routes to the mid/ zone, preserving it
+    /// across sessions without cluttering the front/ active context zone.
+    func archiveWisdomChunk(chunkId: String, taskTitle: String, l1: String, l2: String, l3: String) {
+        let timestamp = ISO8601DateFormatter().string(from: Date())
+        let safeName  = chunkId
+            .filter { $0.isLetter || $0.isNumber || $0 == "-" || $0 == "_" }
+
+        writeJCrossNode(
+            prefix: "WISDOM",
+            safeName: safeName,
+            sessionLabel: "Wisdom: \(taskTitle)",
+            timestamp: timestamp,
+            l1: l1, l2: l2, l3: l3
+        )
+    }
+
     // MARK: - Shared JCross node writer
 
     /// Writes a JCross node to both the legacy archiveDir and the zone-aware MCP dir.
@@ -338,7 +357,8 @@ final class SessionMemoryArchiver {
         switch prefix {
         case "CONV":              fullZoneDir = mcpFrontDir
         case "PROG", "SESSION":   fullZoneDir = mcpNearDir
-        case "TASK", "INTERRUPT": fullZoneDir = mcpFarDir
+        case "TASK", "INTERRUPT", "FAR": fullZoneDir = mcpFarDir
+        case "WISDOM", "SKILL":   fullZoneDir = mcpMidDir
         default:                  fullZoneDir = mcpMidDir
         }
         try? fullContent.write(to: fullZoneDir.appendingPathComponent(fileName), atomically: true, encoding: .utf8)
@@ -364,7 +384,8 @@ final class SessionMemoryArchiver {
         switch prefix {
         case "CONV":              nanoZoneDir = nanoFrontDir
         case "PROG", "SESSION":   nanoZoneDir = nanoNearDir
-        case "TASK", "INTERRUPT": nanoZoneDir = nanoFarDir
+        case "TASK", "INTERRUPT", "FAR": nanoZoneDir = nanoFarDir
+        case "WISDOM", "SKILL":   nanoZoneDir = nanoMidDir
         default:                  nanoZoneDir = nanoMidDir
         }
         try? nanoContent.write(to: nanoZoneDir.appendingPathComponent(fileName), atomically: true, encoding: .utf8)
@@ -487,17 +508,6 @@ final class SessionMemoryArchiver {
         var parts: [String] = []
         var remaining = totalBudget
 
-        // ── Priority 0: The Canvas (CORTEX_PORTRAIT) ──────────────────────────
-        // Always inject the unified identity / completed picture first.
-        let canvasURL = midDir.appendingPathComponent("CORTEX_PORTRAIT.jcross")
-        if let chunk = extractLayer(from: canvasURL, layer: useNanoStore ? .l1 : layer, cap: useNanoStore ? 200 : 800) {
-            let entry = useNanoStore
-                ? "[統合自己:\(chunk)]"
-                : "【CORTEX_PORTRAIT (統合アイデンティティ)】\n\(chunk)"
-            parts.append(entry)
-            remaining -= entry.count
-        }
-
         // ── Priority 1: front/ (CONV_* + CortexEngine UUID nodes) ────────────────────────
         // NOTE: No prefix filter here — CortexEngine writes UUID-named nodes (e.g. abcd1234.jcross)
         // that must also be injected. CONV_* from SessionMemoryArchiver live here too.
@@ -559,6 +569,42 @@ final class SessionMemoryArchiver {
             : "\n以下は優先度順の記憶注入です（front=現セッション > near=直近 > mid=スキル）。\n"
 
         return "\n\(header)\(desc)\n\(parts.joined(separator: useNanoStore ? "·" : "\n---\n"))\n\(footer)"
+    }
+    // MARK: - Identity Injection
+    
+    /// Scans the `mid/` zone for `WISDOM_` and `CORTEX_PORTRAIT` files to build a persistent identity block.
+    /// This is unconditionally injected into the root of the System Prompt on every execution.
+    func buildIdentityInjection(useNanoStore: Bool = false) -> String {
+        let midDir = useNanoStore ? nanoMidDir : mcpMidDir
+        var parts: [String] = []
+        
+        // 1. CORTEX_PORTRAIT
+        let canvasURL = midDir.appendingPathComponent("CORTEX_PORTRAIT.jcross")
+        if let chunk = extractLayer(from: canvasURL, layer: useNanoStore ? .l1 : .l3, cap: 1000) {
+            parts.append("【CORTEX_PORTRAIT (Unified Identity)】\n\(chunk)")
+        }
+        
+        // 2. WISDOM_ files (including L3.5 Asset Profile and Task Wisdom)
+        let wisdomFiles = listZone(midDir, prefixFilter: ["WISDOM"], topK: 10)
+        for url in wisdomFiles {
+            if let chunk = extractLayer(from: url, layer: useNanoStore ? .l1 : .l3, cap: 1000) {
+                let name = url.deletingPathExtension().lastPathComponent
+                parts.append("【\(name)】\n\(chunk)")
+            }
+        }
+        
+        guard !parts.isEmpty else { return "" }
+        
+        return """
+        
+        [USER IDENTITY & CONTEXT — CRITICAL DIRECTIVE]
+        The following information represents the user's permanent identity, architectural preferences, and OS asset profile.
+        You MUST adhere to these preferences unconditionally in all tasks.
+        
+        \(parts.joined(separator: "\n---\n"))
+        [/USER IDENTITY]
+        
+        """
     }
 
     // MARK: - Zone file listing

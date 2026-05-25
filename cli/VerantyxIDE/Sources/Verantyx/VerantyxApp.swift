@@ -162,6 +162,7 @@ struct VerantyxApp: App {
         // Main IDE Window
         WindowGroup(id: "main-ide") {
             MainSplitView()
+                .frame(minWidth: 200, maxWidth: .infinity, minHeight: 200, maxHeight: .infinity)
                 .environmentObject(appState)
                 .onAppear {
                     AppState.shared = appState
@@ -406,6 +407,7 @@ struct SpotlightView: View {
     @FocusState private var isFocused: Bool
     @State private var showTranscript: Bool = false
     @State private var useInternalWeights: Bool = false
+    @State private var isDetailedMode: Bool = false
     
     var body: some View {
         VStack(spacing: 0) {
@@ -436,6 +438,14 @@ struct SpotlightView: View {
                         .foregroundColor(useInternalWeights ? .red : .gray)
                 }
                 .toggleStyle(SwitchToggleStyle(tint: .red))
+                .padding(.leading, 8)
+                
+                Toggle(isOn: $isDetailedMode) {
+                    Text("詳細モード")
+                        .font(.system(size: 10, weight: .bold))
+                        .foregroundColor(isDetailedMode ? .blue : .gray)
+                }
+                .toggleStyle(SwitchToggleStyle(tint: .blue))
                 .padding(.leading, 8)
             }
             .padding(20)
@@ -488,9 +498,13 @@ struct SpotlightView: View {
                 }
                 
                 let isInternalWeights = self.useInternalWeights
+                let isDetailed = self.isDetailedMode
                 Task {
                     // Generate Meta-Cognition or Internal Weights Anchor
-                    let anchorMode: CognitiveAnchorMode = isInternalWeights ? .internalWeightsOverride : .osAgentMetaCognition
+                    var anchorMode: CognitiveAnchorMode = isInternalWeights ? .internalWeightsOverride : .osAgentMetaCognition
+                    if isDetailed {
+                        anchorMode = .detailedMode
+                    }
                     let base64 = await CognitiveAnchorEngine.shared.getAnchor(for: anchorMode)
                     
                     if let data = Data(base64Encoded: base64, options: .ignoreUnknownCharacters), let nsImage = NSImage(data: data) {
@@ -499,19 +513,34 @@ struct SpotlightView: View {
                         await MainActor.run {
                             appState.attachedImages.append(dynamicAnchor)
                             
+                            var finalPrompt = text
+                            if isDetailed {
+                                finalPrompt += "\n\n[[SYSTEM INSTRUCTION]]: ユーザーは「詳細モード」を選択しました。タスクを即座に開始せず、要求を具体化するために「どのような構成にしますか？」「対象読者は誰ですか？」などの質問を必ずユーザーに投げかけ、回答を待ってから行動を開始してください。"
+                            }
+                            
                             // Insert Protected OS Asset Summary into text if not internal weights
                             if !isInternalWeights {
-                                let osSummary = OSAssetMemoryVault.shared.getProtectedAssetSummary()
-                                appState.addSystemMessage("Injected OS Asset Context (Hidden)")
-                                // Send message with injected text
-                                appState.sendMessage(with: text + "\n\n" + osSummary, forceBypassGatekeeper: true)
+                                let (anchor, imageData) = OSAssetMemoryVault.shared.getProtectedAssetSummaryImage()
+                                appState.addSystemMessage("Injected OS Asset Context (Hidden Image)")
+                                
+                                if let imgData = imageData, let nsImg = NSImage(data: imgData) {
+                                    let mapAnchor = AttachedImage(name: "os_asset_map.png", url: nil, nsImage: nsImg)
+                                    appState.attachedImages.append(mapAnchor)
+                                }
+                                
+                                // Send message with injected anchor
+                                appState.sendMessage(with: finalPrompt + "\n\n" + anchor, forceBypassGatekeeper: true)
                             } else {
-                                appState.sendMessage(with: text, forceBypassGatekeeper: true)
+                                appState.sendMessage(with: finalPrompt, forceBypassGatekeeper: true)
                             }
                         }
                     } else {
                         await MainActor.run {
-                            appState.sendMessage(with: text, forceBypassGatekeeper: true)
+                            var finalPrompt = text
+                            if isDetailed {
+                                finalPrompt += "\n\n[[SYSTEM INSTRUCTION]]: ユーザーは「詳細モード」を選択しました。タスクを即座に開始せず、要求を具体化するために「どのような構成にしますか？」「対象読者は誰ですか？」などの質問を必ずユーザーに投げかけ、回答を待ってから行動を開始してください。"
+                            }
+                            appState.sendMessage(with: finalPrompt, forceBypassGatekeeper: true)
                         }
                     }
                 }

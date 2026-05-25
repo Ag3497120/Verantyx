@@ -43,7 +43,7 @@ struct HumanPriorityModeView: View {
 
                     // ② Outer split: [Left panel] | [Center + Right]
                     ResizableHSplit(
-                        minLeft: 160, maxLeft: 400, minRight: 700, initialLeft: 220
+                        minLeft: 50, maxLeft: 400, minRight: 150, initialLeft: 220
                     ) {
                         // ── Left: File Tree / MCP / Evolution ─────────────────
                         Group {
@@ -60,7 +60,7 @@ struct HumanPriorityModeView: View {
                     } right: {
                         // ③ Inner split: [Code Editor] | [AI Chat]
                         ResizableHSplit(
-                            minLeft: 400, maxLeft: 99999, minRight: 280, initialLeft: 600
+                            minLeft: 100, maxLeft: 99999, minRight: 100, initialLeft: 600
                         ) {
                             // ── Center: Code Editor ────────────────────────────
                             codeEditorPanel
@@ -179,7 +179,7 @@ struct HumanPriorityModeView: View {
             // Editor body & Terminal
             if app.showProcessLog {
                 ResizableVSplit(
-                    minTop: 200, maxTop: 99999, minBottom: 80, initialTop: 600
+                    minTop: 50, maxTop: 99999, minBottom: 50, initialTop: 600
                 ) {
                     editorBody
                 } bottom: {

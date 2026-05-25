@@ -15,7 +15,9 @@ struct SettingsView: View {
     @State private var showOpenAIKey = false
     @State private var showDeepSeekKey = false
     @State private var showGeminiKey = false
+    @State private var showAssetMap = false
     @ObservedObject private var updater = SelfUpdater.shared
+    @ObservedObject private var vault = OSAssetMemoryVault.shared
 
     enum SettingsTab: String, CaseIterable {
         case general = "General"
@@ -227,6 +229,7 @@ struct SettingsView: View {
         .frame(width: 680, height: 560)
         .background(Color(red: 0.10, green: 0.10, blue: 0.13))
         .clipShape(RoundedRectangle(cornerRadius: 12))
+        .sheet(isPresented: $showAssetMap) { AssetMapView(vault: vault) }
     }
 
     // MARK: - General Settings (Language, Appearance)
@@ -1271,6 +1274,161 @@ struct SettingsView: View {
                     }
                 }
             }
+            
+            sectionHeader("L3.5 PC Asset Map (System Memory)", icon: "macwindow")
+            
+            settingsCard {
+                VStack(alignment: .leading, spacing: 14) {
+                    if vault.isScanning {
+                        VStack(alignment: .leading, spacing: 6) {
+                            ProgressView(value: vault.scanProgressValue)
+                                .tint(.orange)
+                            HStack {
+                                Text(vault.currentProcessingFile)
+                                    .font(.caption2.monospaced())
+                                    .foregroundStyle(.secondary)
+                                    .lineLimit(1)
+                                Spacer()
+                                if vault.totalFilesToScan > 0 {
+                                    Text("\(vault.processedFilesCount) / \(vault.totalFilesToScan) (\(Int(vault.scanProgressValue * 100))%)")
+                                        .font(.caption2)
+                                } else {
+                                    Text("\(Int(vault.scanProgressValue * 100))%")
+                                        .font(.caption2)
+                                }
+                            }
+                            if !vault.estimatedTimeRemaining.isEmpty {
+                                Text("Estimated time: \(vault.estimatedTimeRemaining)")
+                                    .font(.caption2)
+                                    .foregroundStyle(.orange)
+                            }
+                            if !vault.conversionLog.isEmpty {
+                                ScrollView {
+                                    LazyVStack(alignment: .leading) {
+                                        ForEach(vault.conversionLog.suffix(8), id: \.self) { line in
+                                            Text(line)
+                                                .font(.caption2.monospaced())
+                                                .foregroundStyle(line.contains("✓") ? .green : .primary)
+                                        }
+                                    }
+                                    .padding(6)
+                                }
+                                .frame(height: 100)
+                                .background(Color.black.opacity(0.6))
+                                .clipShape(RoundedRectangle(cornerRadius: 6))
+                            }
+                        }
+                    } else {
+                        VStack(alignment: .leading, spacing: 8) {
+                            Text("User Directories (Scan Targets)")
+                                .font(.system(size: 11, weight: .semibold))
+                                .foregroundStyle(.secondary)
+                            
+                            VStack(spacing: 1) {
+                                ForEach($vault.scanTargets) { $target in
+                                    HStack {
+                                        Toggle(target.name, isOn: $target.isEnabled)
+                                            .toggleStyle(.switch)
+                                            .controlSize(.mini)
+                                        
+                                        Spacer()
+                                        
+                                        if target.isEnabled {
+                                            HStack(spacing: 8) {
+                                                Text("Depth: \(target.scanDepth)")
+                                                    .font(.system(size: 11, design: .monospaced))
+                                                    .foregroundStyle(.secondary)
+                                                Stepper("", value: $target.scanDepth, in: 1...10)
+                                                    .labelsHidden()
+                                            }
+                                        }
+                                    }
+                                    .padding(.vertical, 4)
+                                    .padding(.horizontal, 8)
+                                    .background(Color.white.opacity(0.03))
+                                }
+                            }
+                            .clipShape(RoundedRectangle(cornerRadius: 6))
+                        }
+                        
+                        Divider().opacity(0.2)
+                        
+                        VStack(alignment: .leading, spacing: 6) {
+                            Toggle(isOn: $vault.isBitNetModeEnabled) {
+                                Text("BitNet Semantic Scan (Deep Content Analysis)")
+                                    .font(.system(size: 11, weight: .semibold))
+                            }
+                            .tint(.purple)
+                            
+                            if vault.isBitNetModeEnabled {
+                                Text("⚠️ 警告: ファイルの中身をLLMで解釈するため、スキャンに数十分〜数時間かかる場合があります。")
+                                    .font(.system(size: 10))
+                                    .foregroundStyle(.orange)
+                            } else {
+                                Text("ファイルの中身をLLMで読み取り、実装目的を要約して地図に記録します。非常に時間がかかります。")
+                                    .font(.system(size: 10))
+                                    .foregroundStyle(.secondary)
+                            }
+                        }
+                        
+                        Divider().opacity(0.2)
+                        
+                        HStack(spacing: 12) {
+                            Button {
+                                addCustomFolder()
+                            } label: {
+                                Label("フォルダを追加", systemImage: "folder.badge.plus")
+                                    .font(.system(size: 11))
+                            }
+                            .buttonStyle(.borderedProminent)
+                            .tint(.blue)
+                            
+                            Button {
+                                vault.scanBackground()
+                            } label: {
+                                Label("再変換 (フルスキャン)", systemImage: "arrow.triangle.2.circlepath")
+                                    .font(.system(size: 11))
+                            }
+                            .buttonStyle(.bordered)
+                            
+                            Button(role: .destructive) {
+                                vault.deleteMap()
+                            } label: {
+                                Label("削除", systemImage: "trash")
+                                    .font(.system(size: 11))
+                            }
+                            .buttonStyle(.bordered).tint(.red)
+                            
+                            if vault.assetMap != nil {
+                                Button {
+                                    showAssetMap = true
+                                } label: {
+                                    Label("地図を見る", systemImage: "map")
+                                        .font(.system(size: 11))
+                                }
+                                .buttonStyle(.borderedProminent)
+                            }
+                        }
+                        
+                        if let map = vault.assetMap {
+                            let stats = Dictionary(grouping: map.entries.values, by: { $0.category })
+                                .map { "\($0.key) (\($0.value.count)件)" }
+                                .joined(separator: ", ")
+                            
+                            VStack(alignment: .leading, spacing: 4) {
+                                Text("変換済み対象:")
+                                    .font(.caption).foregroundStyle(.secondary)
+                                Text("• /Applications\n• /System/Applications\n• Safari History\n• 起動中プロセス\n• システム設定")
+                                    .font(.caption2).foregroundStyle(.tertiary)
+                                Text("詳細: \(stats)")
+                                    .font(.caption2).foregroundStyle(.secondary)
+                                    .padding(.top, 2)
+                            }
+                            .padding(.top, 4)
+                        }
+                    }
+                }
+            }
         }
     }
 
@@ -2111,5 +2269,54 @@ struct SettingsView: View {
                         .strokeBorder(Color(red: 0.7, green: 0.4, blue: 1.0).opacity(0.25), lineWidth: 1)
                 )
         }
+    }
+
+    @MainActor
+    private func addCustomFolder() {
+        let panel = NSOpenPanel()
+        panel.canChooseFiles = false
+        panel.canChooseDirectories = true
+        panel.allowsMultipleSelection = true
+        panel.canCreateDirectories = false
+        
+        if panel.runModal() == .OK {
+            for url in panel.urls {
+                if !vault.scanTargets.contains(where: { $0.url == url }) {
+                    vault.scanTargets.append(ScanTarget(
+                        url: url,
+                        name: url.lastPathComponent,
+                        isEnabled: true,
+                        scanDepth: 3
+                    ))
+                }
+            }
+        }
+    }
+}
+
+// MARK: - AssetMapView
+
+struct AssetMapView: View {
+    @ObservedObject var vault: OSAssetMemoryVault
+    @Environment(\.dismiss) var dismiss
+    
+    var body: some View {
+        VStack(spacing: 0) {
+            HStack {
+                Text("L3.5 PC Asset Map (JCross)")
+                    .font(.headline)
+                Spacer()
+                Button("閉じる") { dismiss() }
+            }
+            .padding()
+            .background(Color(NSColor.windowBackgroundColor))
+            
+            Divider()
+            
+            TextEditor(text: .constant(vault.assetMap?.toJCrossString() ?? "No map available."))
+                .font(.system(size: 11, design: .monospaced))
+                .padding()
+        }
+        .frame(minWidth: 500, minHeight: 600)
     }
 }

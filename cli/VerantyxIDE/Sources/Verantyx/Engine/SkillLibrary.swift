@@ -441,6 +441,7 @@ enum SkillInjector {
 
         var lines: [String] = [
             "",
+            "[スキル情報]",
             "── §スキルライブラリ SKILL LIBRARY (技: 習得済みスキル) ──────────────────────",
             "以下のスキルは過去の成功体験から自動生成されたカスタムツールです。",
             "該当タスクでは必ず組み込みツールより先に呼び出してください。",
@@ -471,6 +472,7 @@ enum SkillInjector {
             "  ツール呼び出しシーケンス…",
             "  ```",
             "  [/FORGE_SKILL]",
+            "[/スキル情報]",
             "",
         ]
         return lines.joined(separator: "\n")
