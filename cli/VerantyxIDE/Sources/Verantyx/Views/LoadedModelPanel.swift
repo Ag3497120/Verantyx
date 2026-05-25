@@ -15,9 +15,6 @@ import SwiftUI
 struct LoadedModelPanel: View {
     @EnvironmentObject var app: AppState
 
-    // KVカウンターのリアルタイム表示（1秒ポーリング）
-    @State private var kvConsumed: Int = 0
-    @State private var kvTimer: Timer? = nil
     @State private var ejectConfirm = false
     @State private var isHoveringEject = false
 
@@ -50,14 +47,7 @@ struct LoadedModelPanel: View {
                     .foregroundStyle(Color(red: 0.90, green: 0.90, blue: 0.98))
                     .lineLimit(1)
 
-                HStack(spacing: 8) {
-                    // KV consumption bar
-                    kvBar(consumed: kvConsumed, threshold: 8000)
 
-                    Text(kvLabel(consumed: kvConsumed))
-                        .font(.system(size: 9, design: .monospaced))
-                        .foregroundStyle(kvColor(consumed: kvConsumed))
-                }
             }
             .padding(.horizontal, 10)
 
@@ -112,12 +102,7 @@ struct LoadedModelPanel: View {
                 .frame(height: 1),
             alignment: .top
         )
-        .onAppear {
-            startKVPolling()
-        }
-        .onDisappear {
-            stopKVPolling()
-        }
+        // Polling removed
     }
 
     // MARK: - Backend Badge
@@ -140,25 +125,6 @@ struct LoadedModelPanel: View {
                 )
         )
     }
-
-    // MARK: - KV Bar
-
-    private func kvBar(consumed: Int, threshold: Int) -> some View {
-        let ratio = min(1.0, Double(consumed) / Double(threshold))
-        return GeometryReader { geo in
-            ZStack(alignment: .leading) {
-                RoundedRectangle(cornerRadius: 2)
-                    .fill(Color.white.opacity(0.07))
-                RoundedRectangle(cornerRadius: 2)
-                    .fill(kvColor(consumed: consumed).opacity(0.7))
-                    .frame(width: geo.size.width * CGFloat(ratio))
-                    .animation(.easeOut(duration: 0.3), value: consumed)
-            }
-        }
-        .frame(width: 56, height: 4)
-    }
-
-
 
     // MARK: - Computed
 
@@ -193,38 +159,6 @@ struct LoadedModelPanel: View {
         default:
             return nil
         }
-    }
-
-    // MARK: - KV Polling
-
-    private func startKVPolling() {
-        kvTimer?.invalidate()
-        kvTimer = Timer.scheduledTimer(withTimeInterval: 1.0, repeats: true) { _ in
-            Task {
-                let val = await MLXRunner.shared.kvTokensConsumed
-                await MainActor.run { kvConsumed = val }
-            }
-        }
-    }
-
-    private func stopKVPolling() {
-        kvTimer?.invalidate()
-        kvTimer = nil
-    }
-
-    private func kvLabel(consumed: Int) -> String {
-        guard consumed > 0 else { return "KV: 0" }
-        if consumed >= 1000 {
-            return String(format: "KV: %.1fk", Double(consumed) / 1000.0)
-        }
-        return "KV: \(consumed)"
-    }
-
-    private func kvColor(consumed: Int) -> Color {
-        let ratio = Double(consumed) / 8000.0
-        if ratio >= 0.85 { return Color(red: 1.0, green: 0.35, blue: 0.3) }   // 赤: 危険
-        if ratio >= 0.6  { return Color(red: 1.0, green: 0.75, blue: 0.2) }   // 黄: 注意
-        return Color(red: 0.3, green: 0.85, blue: 0.55)                        // 緑: 安全
     }
 
 

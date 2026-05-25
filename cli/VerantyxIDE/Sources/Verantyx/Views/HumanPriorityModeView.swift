@@ -432,17 +432,7 @@ struct HumanPriorityModeView: View {
 
     private var humanPriorityStatusBar: some View {
         HStack(spacing: 12) {
-            // Mode indicator
-            HStack(spacing: 5) {
-                Image(systemName: "keyboard")
-                    .font(.system(size: 10))
-                    .foregroundStyle(Color(red: 0.55, green: 1.0, blue: 0.65))
-                Text("Human Priority")
-                    .font(.system(size: 10, weight: .medium))
-                    .foregroundStyle(Color(red: 0.55, green: 1.0, blue: 0.65))
-            }
 
-            Divider().frame(height: 12).opacity(0.4)
 
             // File info
             if let url = app.selectedFile {

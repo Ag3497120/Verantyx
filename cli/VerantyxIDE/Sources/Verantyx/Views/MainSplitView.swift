@@ -587,16 +587,7 @@ struct MainSplitView: View {
             .help(app.t("VS Code Extensions", "VS Code 拡張機能"))
         }
 
-        // ── Settings ────────────────────────────────────────────────────────
-        ToolbarItem(placement: .primaryAction) {
-            Button {
-                withAnimation(.easeOut(duration: 0.18)) { showSettings = true }
-            } label: {
-                Image(systemName: "gearshape")
-                    .foregroundStyle(.secondary)
-            }
-            .help(app.t("Settings", "設定"))
-        }
+
     }
 
     private var shortModelLabel: String {
