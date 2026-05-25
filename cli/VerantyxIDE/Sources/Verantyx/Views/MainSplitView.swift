@@ -487,16 +487,7 @@ struct MainSplitView: View {
             }
         }
 
-        ToolbarItem(placement: .principal) {
-            HStack(spacing: 7) {
-                VXMarkView(size: 14, color: Color(red: 0.88, green: 0.88, blue: 0.94))
-                Text("Verantyx")
-                    .font(.system(size: 13, weight: .semibold))
-                    .foregroundStyle(Color(red: 0.85, green: 0.85, blue: 0.92))
-            }
-        }
 
-        // Removed Operation Mode chip
 
         // ── MCP Quick Panel toggle (⌘⇧M) ───────────────────────────────────
         ToolbarItem(placement: .primaryAction) {
