@@ -458,8 +458,6 @@ struct HumanPriorityModeView: View {
 
             Spacer()
 
-            // CPU インジケーター (負荷が高いとき赤で点滅)
-            IsolatedCPUPill()
 
             // Model status (reuse from StatusBarView)
             StatusBarView(terminal: app.terminal)

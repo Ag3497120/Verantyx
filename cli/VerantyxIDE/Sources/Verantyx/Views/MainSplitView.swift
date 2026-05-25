@@ -404,22 +404,7 @@ struct MainSplitView: View {
                 humanApprovalBanner(diff: diff)
             }
 
-            // ── Loaded Model Panel — shows when model is active ───────
-            Group {
-                switch app.modelStatus {
-                case .mlxReady, .ollamaReady, .bitnetReady:
-                    LoadedModelPanel()
-                        .environmentObject(app)
-                default:
-                    EmptyView()
-                }
-            }
-            .animation(.spring(response: 0.32, dampingFraction: 0.78), value: {
-                switch app.modelStatus {
-                case .mlxReady, .ollamaReady, .bitnetReady: return true
-                default: return false
-                }
-            }())
+
 
             Divider().opacity(0.4)
             StatusBarView(terminal: app.terminal)
