@@ -1568,7 +1568,7 @@ SYS.ENFORCE("logical_verification_before_acceptance")
             // but the RETURN value uses the authoritative onFinish payload
             // (= result.output from MLXLMCommon.generate) to guarantee the
             // rawResponse is never garbled by delta accumulation issues.
-            let prompt = buildConversationPrompt(mutableConversation)
+            let prompt = buildConversationPrompt(modelName: model, conversation: mutableConversation)
             final class StringBox: @unchecked Sendable { var value = "" }
             let authoritativeOutput = StringBox()
             do {
@@ -1645,15 +1645,36 @@ SYS.ENFORCE("logical_verification_before_acceptance")
     // NOTE: Ollama generateConversation() は messages を直接受け取るため
     // このメソッドは Anthropic 以外では不要になった。互換性のため残す。
 
-    private func buildConversationPrompt(_ conversation: [(role: String, content: String)]) -> String {
-        conversation.map { turn in
-            switch turn.role {
-            case "system":    return "<system>\n\(turn.content)\n</system>"
-            case "user":      return "<user>\n\(turn.content)\n</user>"
-            case "assistant": return "<assistant>\n\(turn.content)\n</assistant>"
-            default:          return turn.content
-            }
-        }.joined(separator: "\n\n") + "\n\n<assistant>"
+    private func buildConversationPrompt(modelName: String, conversation: [(role: String, content: String)]) -> String {
+        let model = modelName.lowercased()
+        let isChatML = model.contains("qwen") || model.contains("talkie") || model.contains("chatml")
+        let isGemma = model.contains("gemma")
+        let isLlama3 = model.contains("llama-3") || model.contains("llama3") || model.contains("phi-4")
+        
+        if isChatML {
+            return conversation.map { turn in
+                return "<|im_start|>\(turn.role)\n\(turn.content)<|im_end|>"
+            }.joined(separator: "\n") + "\n<|im_start|>assistant\n"
+        } else if isGemma {
+            return conversation.map { turn in
+                let role = turn.role == "assistant" ? "model" : turn.role
+                return "<start_of_turn>\(role)\n\(turn.content)<end_of_turn>"
+            }.joined(separator: "\n") + "\n<start_of_turn>model\n"
+        } else if isLlama3 {
+            return "<|begin_of_text|>" + conversation.map { turn in
+                return "<|start_header_id|>\(turn.role)<|end_header_id|>\n\n\(turn.content)<|eot_id|>"
+            }.joined(separator: "") + "<|start_header_id|>assistant<|end_header_id|>\n\n"
+        } else {
+            // Default generic fallback
+            return conversation.map { turn in
+                switch turn.role {
+                case "system":    return "<system>\n\(turn.content)\n</system>"
+                case "user":      return "<user>\n\(turn.content)\n</user>"
+                case "assistant": return "<assistant>\n\(turn.content)\n</assistant>"
+                default:          return turn.content
+                }
+            }.joined(separator: "\n\n") + "\n\n<assistant>"
+        }
     }
 }
 
