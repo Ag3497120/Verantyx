@@ -1568,7 +1568,7 @@ SYS.ENFORCE("logical_verification_before_acceptance")
             // but the RETURN value uses the authoritative onFinish payload
             // (= result.output from MLXLMCommon.generate) to guarantee the
             // rawResponse is never garbled by delta accumulation issues.
-            let prompt = buildConversationPrompt(modelName: model, conversation: mutableConversation)
+            let prompt = buildConversationPrompt(modelName: activeModel, conversation: mutableConversation)
             final class StringBox: @unchecked Sendable { var value = "" }
             let authoritativeOutput = StringBox()
             do {
