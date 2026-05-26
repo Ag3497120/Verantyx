@@ -875,6 +875,7 @@ actor AgentToolExecutor {
 
             let isAutoWrite = await MainActor.run { 
                 guard let state = AppState.shared else { return false }
+                if state.operationMode != .detailed { return true }
                 return state.autoApproveDiffs 
             }
 
@@ -1068,6 +1069,7 @@ actor AgentToolExecutor {
 
             let isAutoWrite = await MainActor.run { 
                 guard let state = AppState.shared else { return false }
+                if state.operationMode != .detailed { return true }
                 return state.autoApproveDiffs 
             }
 
@@ -1816,7 +1818,13 @@ actor AgentToolExecutor {
             let process = Process()
             process.executableURL = URL(fileURLWithPath: "/bin/zsh")
             process.arguments = ["-c", command]
-            process.currentDirectoryURL = workingDir ?? fallbackDir
+
+            var validDir = workingDir ?? fallbackDir
+            var isDir: ObjCBool = false
+            if !FileManager.default.fileExists(atPath: validDir.path, isDirectory: &isDir) || !isDir.boolValue {
+                validDir = FileManager.default.homeDirectoryForCurrentUser
+            }
+            process.currentDirectoryURL = validDir
 
             var env = ProcessInfo.processInfo.environment
             env["PATH"] = (env["PATH"] ?? "/usr/bin:/bin") + ":/usr/local/bin:/opt/homebrew/bin"

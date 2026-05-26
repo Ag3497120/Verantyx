@@ -12,6 +12,7 @@ struct AgentChatView: View {
     
     @State private var showVisualAnchorPrompt: Bool = false
     @State private var visualAnchorText: String = ""
+    @State private var showSpotlightPrompt: Bool = false
 
     var body: some View {
         VStack(spacing: 0) {
@@ -109,6 +110,22 @@ struct AgentChatView: View {
                 }
             }
         }
+        .onReceive(NotificationCenter.default.publisher(for: NSNotification.Name("ChatTranscriptClicked"))) { _ in
+            if !SpotlightPanelManager.shared.isPresented {
+                showSpotlightPrompt = true
+            }
+        }
+        .alert(app.t("Open Spotlight Agent?", "Spotlightエージェントを起動しますか？"), isPresented: $showSpotlightPrompt) {
+            Button(app.t("Open (Control x3)", "起動する (Control x3)")) {
+                SpotlightPanelManager.shared.show()
+            }
+            Button(app.t("Cancel", "キャンセル"), role: .cancel) {}
+        } message: {
+            Text(app.t(
+                "The Control x3 agent is currently running in the background. Would you like to open the Spotlight panel to continue?",
+                "現在、Control x3 のエージェントがバックグラウンドで待機しています。Spotlightエージェントを起動してチャットを継続しますか？"
+            ))
+        }
     }
 
     // MARK: - Top Chat Button
@@ -156,11 +173,12 @@ struct AgentChatView: View {
         ZStack(alignment: .bottomLeading) {
             // NSTextView ベースのトランスクリプト。
             // 単一テキストストレージのためメッセージをまたいでドラッグ選択・コピーができる。
-            ChatTranscriptView(messages: app.messages, isGenerating: app.isGenerating)
+            ChatTranscriptView(messages: app.messages.filter { !$0.isSpotlight }, isGenerating: app.isGenerating)
                 .frame(maxWidth: .infinity, maxHeight: .infinity)
             
-            if app.isGenerating {
+            if app.isGenerating && !app.currentGenerationIsSpotlight {
                 LiveTerminalView()
+                    .frame(height: 180)
                     .transition(AnyTransition.move(edge: .bottom).combined(with: .opacity))
                     .animation(Animation.spring(response: 0.35, dampingFraction: 0.8), value: app.isGenerating)
             }

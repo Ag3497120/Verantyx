@@ -319,7 +319,7 @@ class SpotlightPanelManager {
     static let shared = SpotlightPanelManager()
     
     var panel: SpotlightPanel?
-    private var isPresented = false
+    private(set) var isPresented = false
     
     func toggle() {
         if isPresented {
@@ -495,6 +495,13 @@ struct SpotlightView: View {
                             .foregroundColor(isDetailedMode ? .blue : .gray)
                     }
                     .toggleStyle(SwitchToggleStyle(tint: .blue))
+                    
+                    Toggle(isOn: $appState.isTalkieMode) {
+                        Text("🎩 Talkie Mode")
+                            .font(.system(size: 10, weight: .bold))
+                            .foregroundColor(appState.isTalkieMode ? .purple : .gray)
+                    }
+                    .toggleStyle(SwitchToggleStyle(tint: .purple))
                 }
                 .padding(.leading, 8)
                 
@@ -568,6 +575,10 @@ struct SpotlightView: View {
                 // SpotlightPanelManager.shared.hide() // Optional auto-hide on blur
             }
         }
+        .sheet(item: $appState.pendingFileApproval) { req in
+            FileApprovalView(req: req)
+                .environmentObject(appState)
+        }
     }
     
     private func executeCommand() {
@@ -580,12 +591,16 @@ struct SpotlightView: View {
         // Pass intent to Cortex Orchestrator
         Task {
             await MainActor.run {
-                // 自動的に Visual Anchor をロードして注入 (毎回の送信時に強制適用)
-                let anchorPath = FileManager.default.homeDirectoryForCurrentUser.appendingPathComponent(".verantyx/memory/visual_anchor.png")
-                if let img = NSImage(contentsOf: anchorPath) {
-                    let attached = AttachedImage(name: "visual_anchor.png", url: anchorPath, nsImage: img)
-                    // 既存の添付画像に加えてアンカーを強制追加
-                    appState.attachedImages.append(attached)
+                let isTalkie = appState.isTalkieMode
+                
+                // 自動的に Visual Anchor をロードして注入 (Talkieモード以外)
+                if !isTalkie {
+                    let anchorPath = FileManager.default.homeDirectoryForCurrentUser.appendingPathComponent(".verantyx/memory/visual_anchor.png")
+                    if let img = NSImage(contentsOf: anchorPath) {
+                        let attached = AttachedImage(name: "visual_anchor.png", url: anchorPath, nsImage: img)
+                        // 既存の添付画像に加えてアンカーを強制追加
+                        appState.attachedImages.append(attached)
+                    }
                 }
                 
                 let isInternalWeights = self.useInternalWeights
@@ -596,9 +611,13 @@ struct SpotlightView: View {
                     if isDetailed {
                         anchorMode = .detailedMode
                     }
-                    let base64 = await CognitiveAnchorEngine.shared.getAnchor(for: anchorMode)
+                    var anchorData: Data? = nil
+                    if !isTalkie {
+                        let base64 = await CognitiveAnchorEngine.shared.getAnchor(for: anchorMode)
+                        anchorData = Data(base64Encoded: base64, options: .ignoreUnknownCharacters)
+                    }
                     
-                    if let data = Data(base64Encoded: base64, options: .ignoreUnknownCharacters), let nsImage = NSImage(data: data) {
+                    if let data = anchorData, let nsImage = NSImage(data: data) {
                         let dynamicAnchor = AttachedImage(name: "dynamic_anchor.png", url: nil, nsImage: nsImage)
                         
                         await MainActor.run {
@@ -620,18 +639,36 @@ struct SpotlightView: View {
                                 }
                                 
                                 // Send message with injected anchor
-                                appState.sendMessage(with: finalPrompt + "\n\n" + anchor, forceBypassGatekeeper: true)
+                                appState.sendMessage(with: finalPrompt + "\n\n" + anchor, forceBypassGatekeeper: true, isSpotlight: true)
                             } else {
-                                appState.sendMessage(with: finalPrompt, forceBypassGatekeeper: true)
+                                appState.sendMessage(with: finalPrompt, forceBypassGatekeeper: true, isSpotlight: true)
                             }
                         }
                     } else {
                         await MainActor.run {
                             var finalPrompt = text
-                            if isDetailed {
+                            if isTalkie {
+                                appState.attachedImages.removeAll() // Ensure no images are sent
+                                finalPrompt = """
+                                [SYSTEM INSTRUCTION: BLIND COMMANDER MODE]
+                                You are the Grand Director of a vast mechanical empire. You have no knowledge of modern programming languages, but you possess pure logical brilliance.
+                                You command the following departments:
+                                - Department of Visual Arts (Frontend/UI)
+                                - Logistical Processing Unit (Backend/Server)
+                                - Filing Cabinets (File System / Storage)
+                                - Telegraph Office (Network / API)
+                                - Ledger Vault (Database)
+
+                                The client has made the following request:
+                                "\(text)"
+
+                                Provide a strategic operational plan to fulfill this request. Do not write code. Formulate abstract instructions delegating tasks to your departments. To delegate a task, output a line in the exact format:
+                                [COMMAND: <Department Name> - <Task Description>]
+                                """
+                            } else if isDetailed {
                                 finalPrompt += "\n\n[[SYSTEM INSTRUCTION]]: ユーザーは「詳細モード」を選択しました。タスクを即座に開始せず、要求を具体化するために「どのような構成にしますか？」「対象読者は誰ですか？」などの質問を必ずユーザーに投げかけ、回答を待ってから行動を開始してください。"
                             }
-                            appState.sendMessage(with: finalPrompt, forceBypassGatekeeper: true)
+                            appState.sendMessage(with: finalPrompt, forceBypassGatekeeper: true, isSpotlight: true)
                         }
                     }
                 }

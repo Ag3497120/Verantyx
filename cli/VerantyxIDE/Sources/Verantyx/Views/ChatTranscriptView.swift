@@ -125,6 +125,14 @@ private final class SelectableTextView: NSTextView {
         m.addItem(all)
         return m
     }
+    
+    override func mouseUp(with event: NSEvent) {
+        super.mouseUp(with: event)
+        // If it's a simple click (no text selection)
+        if self.selectedRange().length == 0 {
+            NotificationCenter.default.post(name: NSNotification.Name("ChatTranscriptClicked"), object: nil)
+        }
+    }
 }
 
 // MARK: - Palette (アプリのダークテーマに合わせた色定数)
@@ -192,11 +200,8 @@ private enum Transcript {
 
         for part in parseThink(content) {
             if part.isThink {
-                let tp = para(lineSpacing: 3)
-                r.append(NSAttributedString(string: part.text,
-                    attributes: [.font: NSFont.monospacedSystemFont(ofSize: 11, weight: .regular),
-                                 .foregroundColor: Palette.thinkText,
-                                 .paragraphStyle: tp]))
+                // HIDE think blocks in the IDE view per user request
+                continue
             } else if !part.text.trimmingCharacters(in: .whitespacesAndNewlines).isEmpty {
                 appendBold(r, text: part.text,
                            font: NSFont.systemFont(ofSize: 13),

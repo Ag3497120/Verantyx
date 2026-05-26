@@ -582,6 +582,11 @@ SYS.ENFORCE("logical_verification_before_acceptance")
                 return
             }
 
+            // ── Talkie-1930 (Blind Commander) Intermediary Translation ──────
+            if await MainActor.run(body: { AppState.shared?.isTalkieMode == true }) {
+                rawResponse = TalkieIntermediary.parseAndTranslate(response: rawResponse)
+            }
+
             // ── JCross IR 検証パイプライン (nano/small のみ) ────────────────
             // 「生成と検証の分離」アーキテクチャ:
             //   1. モデルが [想:]→[確:]→[出:] の IR 形式で応答した場合
@@ -1989,5 +1994,53 @@ enum ModelProfileDetector {
         // ── Default: treat as Large ────────────────────────────────────────────
         return ModelProfile(modelId: modelId, tier: .large,
                             parameterBillions: 26.0, supportsThinkTags: false)
+    }
+}
+
+// MARK: - Talkie-1930 Intermediary
+
+/// A rule-based intermediary that translates abstract 1930s metaphor commands
+/// from the Talkie model into concrete execution tools (e.g. Swarm execution).
+struct TalkieIntermediary {
+    static func parseAndTranslate(response: String) -> String {
+        var translatedResponse = response
+        
+        // Match [COMMAND: Department Name - Task Description]
+        let pattern = #"\[COMMAND:\s*(.+?)\s*-\s*(.+?)\]"#
+        guard let regex = try? NSRegularExpression(pattern: pattern, options: []) else {
+            return translatedResponse
+        }
+        
+        let matches = regex.matches(in: response, options: [], range: NSRange(response.startIndex..., in: response))
+        
+        // Process in reverse to safely replace strings without messing up indices
+        for match in matches.reversed() {
+            guard let deptRange = Range(match.range(at: 1), in: response),
+                  let taskRange = Range(match.range(at: 2), in: response),
+                  let fullRange = Range(match.range(at: 0), in: response) else {
+                continue
+            }
+            
+            let department = String(response[deptRange])
+            let task = String(response[taskRange])
+            
+            // Map 1930s metaphors to modern technical categories
+            let modernCategory: String
+            switch department.lowercased() {
+            case let d where d.contains("visual"): modernCategory = "Frontend/UI"
+            case let d where d.contains("logistical"): modernCategory = "Backend/Logic"
+            case let d where d.contains("filing") || d.contains("cabinet"): modernCategory = "File System"
+            case let d where d.contains("telegraph"): modernCategory = "Network/API"
+            case let d where d.contains("ledger") || d.contains("vault"): modernCategory = "Database"
+            default: modernCategory = department
+            }
+            
+            // Translate abstract command into concrete Swarm delegate execution
+            let concreteCommand = "[SWARM_EXECUTE: [\(modernCategory)] \(task)]"
+            
+            translatedResponse.replaceSubrange(fullRange, with: concreteCommand)
+        }
+        
+        return translatedResponse
     }
 }

@@ -11,13 +11,15 @@ struct ChatMessage: Identifiable, Equatable, Codable {
     var role: Role
     var content: String
     var timestamp = Date()
+    var isSpotlight: Bool = false
     /// 推論中のプロセスログのスナップショット（折りたたみ可能な Thinking ブロックに表示）
     var thinkingLog: [ThinkingLogEntry] = []
 
-    init(id: UUID = UUID(), role: Role, content: String, thinkingLog: [ThinkingLogEntry] = []) {
+    init(id: UUID = UUID(), role: Role, content: String, isSpotlight: Bool = false, thinkingLog: [ThinkingLogEntry] = []) {
         self.id = id
         self.role = role
         self.content = content
+        self.isSpotlight = isSpotlight
         self.thinkingLog = thinkingLog
     }
 
@@ -596,6 +598,12 @@ final class AppState: ObservableObject {
 
     // nano/small モデル選択時に AI Priority を強制するフラグ
     @Published var isNanoSmallModelActive: Bool = false
+    
+    // Tracking spotlight generation
+    var currentGenerationIsSpotlight: Bool = false
+
+    // Talkie-1930 Mode (Blind Commander)
+    @Published var isTalkieMode: Bool = false
 
     // MARK: - Gatekeeper Model Sync
 
@@ -903,7 +911,7 @@ final class AppState: ObservableObject {
 
     // MARK: - Agent actions
 
-    func sendMessage(with overrideText: String? = nil, forceBypassGatekeeper: Bool = false) {
+    func sendMessage(with overrideText: String? = nil, forceBypassGatekeeper: Bool = false, isSpotlight: Bool = false) {
         let text = (overrideText ?? inputText).trimmingCharacters(in: .whitespacesAndNewlines)
         let hasAttachments = !attachedImages.isEmpty || !attachedFiles.isEmpty
         guard !text.isEmpty || hasAttachments, !isGenerating else { return }
@@ -925,7 +933,8 @@ final class AppState: ObservableObject {
         attachedImages.removeAll()
         attachedFiles.removeAll()
 
-        messages.append(ChatMessage(role: .user, content: displayContent))
+        messages.append(ChatMessage(role: .user, content: displayContent, isSpotlight: isSpotlight))
+        currentGenerationIsSpotlight = isSpotlight
         isGenerating = true
 
         // Auto-create session if there isn't one yet
@@ -947,7 +956,8 @@ final class AppState: ObservableObject {
                     )
                     await MainActor.run {
                         self.isGenerating = false
-                        self.messages.append(ChatMessage(role: .assistant, content: "📈 Benchmark Status:\n\n\(result)"))
+                        self.addSystemMessage("✅ Benchmark Complete")
+                        self.messages.append(ChatMessage(role: .assistant, content: "📈 Benchmark Status:\n\n\(result)", isSpotlight: self.currentGenerationIsSpotlight))
                         self.saveCurrentSession()
                     }
                     return
@@ -972,7 +982,8 @@ final class AppState: ObservableObject {
                 
                 await MainActor.run {
                     self.isGenerating = false
-                    self.messages.append(ChatMessage(role: .assistant, content: "📈 Benchmark Result:\n\n\(result)"))
+                    self.addSystemMessage("✅ Benchmark Complete")
+                    self.messages.append(ChatMessage(role: .assistant, content: "📈 Benchmark Result:\n\n\(result)", isSpotlight: self.currentGenerationIsSpotlight))
                     self.saveCurrentSession()
                 }
                 return
@@ -1184,7 +1195,7 @@ final class AppState: ObservableObject {
                     strings:   gatewayResult.maskingStats.secretsBlocked,
                     paths:     gatewayResult.maskingStats.pathsProtected
                 )
-                messages.append(ChatMessage(role: .assistant, content: gatewayResult.explanation))
+                messages.append(ChatMessage(role: .assistant, content: gatewayResult.explanation, isSpotlight: currentGenerationIsSpotlight))
                 if let code = gatewayResult.restoredCode, !code.isEmpty, let fileURL = contextFile {
                     let diff = FileDiff(
                         fileURL: fileURL,
@@ -1223,7 +1234,7 @@ final class AppState: ObservableObject {
             let rawContent = result.explanation
             // Strip artifact tags from chat display
             let displayContent = ArtifactParser.stripArtifactTags(from: rawContent)
-            messages.append(ChatMessage(role: .assistant, content: displayContent))
+            messages.append(ChatMessage(role: .assistant, content: displayContent, isSpotlight: currentGenerationIsSpotlight))
 
             // Artifact detection
             if let artifact = ArtifactParser.extract(from: rawContent) {
@@ -1272,7 +1283,7 @@ final class AppState: ObservableObject {
         let context = selectedFileContent.isEmpty ? nil : selectedFileContent
         let contextFile = selectedFile
         let snap_workspace = workspaceURL
-        let snap_model = activeOllamaModel
+        let snap_model = isTalkieMode ? "talkie-1930-it:13b" : activeOllamaModel
         let snap_status = modelStatus
 
         // selfFixMode persists until the user explicitly toggles it off.
@@ -1374,10 +1385,9 @@ final class AppState: ObservableObject {
                                 self.messages[idx].thinkingLog  = logSnapshot
                             } else {
                                 // No streaming message for this turn → new bubble
-                                var msg = ChatMessage(role: .assistant, content: stripped)
-                                msg.thinkingLog = logSnapshot
-                                self.streamingMsgId = msg.id
-                                self.messages.append(msg)
+                                self.messages.append(ChatMessage(role: .assistant,
+                                                               content: stripped,
+                                                               isSpotlight: self.currentGenerationIsSpotlight))
                             }
                             // Reset ID after finalising so next turn starts fresh
                             self.streamingMsgId = nil
@@ -1427,7 +1437,8 @@ final class AppState: ObservableObject {
                         let lastContent = self.messages.last?.content ?? ""
                         if !lastContent.hasSuffix(msg) {
                             self.messages.append(ChatMessage(role: .assistant,
-                                content: "✅ \(msg)"))
+                                                            content: "✅ \(msg)",
+                                                            isSpotlight: self.currentGenerationIsSpotlight))
                         }
                     }
                     self.streamingMsgId = nil  // Always reset at turn end

@@ -115,7 +115,7 @@ struct MainSplitView: View {
         }
         // ── Human Mode: file write approval sheet ────────────────────────────
         .sheet(item: $app.pendingFileApproval) { req in
-            fileApprovalSheet(req: req)
+            FileApprovalView(req: req)
                 .environmentObject(app)
         }
     } // end body
@@ -123,213 +123,7 @@ struct MainSplitView: View {
 
     // MARK: - Human Mode (4-pane IDE)
 
-    // MARK: - File Approval Sheet
-    //
-    // A polished modal that shows what the AI wants to write.
-    // Suspends AgentLoop via CheckedContinuation until user decides.
 
-    @ViewBuilder
-    private func fileApprovalSheet(req: FileApprovalRequest) -> some View {
-        VStack(spacing: 0) {
-
-            // ─ Header ───────────────────────────────────────────────────
-            HStack(spacing: 12) {
-                // Operation icon
-                ZStack {
-                    RoundedRectangle(cornerRadius: 8)
-                        .fill(req.isNewFile
-                              ? Color(red: 0.2, green: 0.5, blue: 0.9).opacity(0.18)
-                              : Color(red: 0.9, green: 0.55, blue: 0.1).opacity(0.18))
-                        .frame(width: 40, height: 40)
-                    Image(systemName: req.isNewFile ? "doc.badge.plus" : "pencil.line")
-                        .font(.system(size: 18))
-                        .foregroundStyle(req.isNewFile
-                                         ? Color(red: 0.4, green: 0.7, blue: 1.0)
-                                         : Color(red: 1.0, green: 0.65, blue: 0.2))
-                }
-
-                VStack(alignment: .leading, spacing: 3) {
-                    Text(req.displayTitle)
-                        .font(.system(size: 14, weight: .bold))
-                        .foregroundStyle(Color(red: 0.92, green: 0.92, blue: 0.98))
-                    Text(req.shortPath)
-                        .font(.system(size: 11, design: .monospaced))
-                        .foregroundStyle(Color(red: 0.55, green: 0.65, blue: 0.85))
-                        .lineLimit(1)
-                }
-
-                Spacer()
-
-                // 小さいベッジ
-                Text(req.isNewFile ? "NEW" : "EDIT")
-                    .font(.system(size: 9, weight: .bold, design: .monospaced))
-                    .foregroundStyle(req.isNewFile
-                                     ? Color(red: 0.3, green: 0.85, blue: 0.55)
-                                     : Color(red: 1.0, green: 0.65, blue: 0.2))
-                    .padding(.horizontal, 7).padding(.vertical, 3)
-                    .background(
-                        Capsule()
-                            .fill(req.isNewFile
-                                  ? Color(red: 0.3, green: 0.85, blue: 0.55).opacity(0.15)
-                                  : Color(red: 1.0, green: 0.65, blue: 0.2).opacity(0.15))
-                            .overlay(Capsule()
-                                .stroke(req.isNewFile
-                                        ? Color(red: 0.3, green: 0.85, blue: 0.55).opacity(0.4)
-                                        : Color(red: 1.0, green: 0.65, blue: 0.2).opacity(0.4),
-                                        lineWidth: 0.8))
-                    )
-            }
-            .padding(.horizontal, 20)
-            .padding(.top, 20)
-            .padding(.bottom, 14)
-
-            Divider().opacity(0.25)
-
-            // ─ Content diff ──────────────────────────────────────────────
-            ScrollView([.vertical, .horizontal]) {
-                VStack(alignment: .leading, spacing: 0) {
-                    if req.isNewFile {
-                        // New file — show full content with green "+" markers
-                        ForEach(Array(req.newContent.components(separatedBy: "\n").enumerated()), id: \.offset) { i, line in
-                            approvalDiffLine("+", text: "  " + line,
-                                            bg: Color(red: 0.1, green: 0.3, blue: 0.15).opacity(0.6),
-                                            fg: Color(red: 0.5, green: 0.95, blue: 0.65))
-                        }
-                    } else {
-                        // Existing file — minimal unified diff (context ±3 lines)
-                        let diffLines = buildUnifiedDiff(original: req.originalContent,
-                                                         modified: req.newContent)
-                        ForEach(Array(diffLines.enumerated()), id: \.offset) { _, entry in
-                            approvalDiffLine(entry.marker, text: entry.text,
-                                            bg: entry.bg, fg: entry.fg)
-                        }
-                    }
-                }
-                .padding(.vertical, 8)
-                .padding(.horizontal, 4)
-                .frame(maxWidth: .infinity, alignment: .leading)
-            }
-            .background(Color(red: 0.06, green: 0.06, blue: 0.09))
-            .frame(maxHeight: .infinity)
-
-            Divider().opacity(0.25)
-
-            // ─ Action buttons ───────────────────────────────────────────
-            HStack(spacing: 12) {
-                Spacer()
-
-                // Reject
-                Button {
-                    app.rejectFileWrite()
-                } label: {
-                    HStack(spacing: 6) {
-                        Image(systemName: "xmark")
-                            .font(.system(size: 11, weight: .semibold))
-                        Text(app.t("Cancel", "キャンセル"))
-                            .font(.system(size: 13, weight: .semibold))
-                    }
-                    .foregroundStyle(Color(red: 0.9, green: 0.4, blue: 0.4))
-                    .padding(.horizontal, 20).padding(.vertical, 9)
-                    .contentShape(Rectangle())
-                    .background(Color(red: 0.32, green: 0.10, blue: 0.10).opacity(0.7),
-                                in: RoundedRectangle(cornerRadius: 8))
-                    .overlay(RoundedRectangle(cornerRadius: 8)
-                        .stroke(Color(red: 0.9, green: 0.4, blue: 0.4).opacity(0.5), lineWidth: 1))
-                }
-                .contentShape(Rectangle())
-                .buttonStyle(.plain)
-                .keyboardShortcut(.escape)
-
-                // Approve
-                Button {
-                    app.approveFileWrite()
-                } label: {
-                    HStack(spacing: 6) {
-                        Image(systemName: "checkmark")
-                            .font(.system(size: 11, weight: .semibold))
-                        Text(app.t("Approve & Apply", "承認して適用"))
-                            .font(.system(size: 13, weight: .semibold))
-                    }
-                    .foregroundStyle(Color(red: 0.3, green: 0.92, blue: 0.5))
-                    .padding(.horizontal, 20).padding(.vertical, 9)
-                    .contentShape(Rectangle())
-                    .background(Color(red: 0.10, green: 0.28, blue: 0.15).opacity(0.8),
-                                in: RoundedRectangle(cornerRadius: 8))
-                    .overlay(RoundedRectangle(cornerRadius: 8)
-                        .stroke(Color(red: 0.3, green: 0.92, blue: 0.5).opacity(0.5), lineWidth: 1))
-                }
-                .contentShape(Rectangle())
-                .buttonStyle(.plain)
-                .keyboardShortcut(.return, modifiers: .command)
-            }
-            .padding(.horizontal, 20)
-            .padding(.vertical, 14)
-            .background(Color(red: 0.11, green: 0.11, blue: 0.15))
-        }
-        .background(Color(red: 0.09, green: 0.09, blue: 0.12))
-        .frame(minWidth: 640, idealWidth: 760, maxWidth: 960,
-               minHeight: 420, idealHeight: 560, maxHeight: 720)
-    }
-
-    // MARK: - Diff line helper
-
-    private struct DiffEntry {
-        let marker: String
-        let text: String
-        let bg: Color
-        let fg: Color
-    }
-
-    @ViewBuilder
-    private func approvalDiffLine(_ marker: String, text: String, bg: Color, fg: Color) -> some View {
-        HStack(spacing: 0) {
-            Text(marker)
-                .font(.system(size: 11, design: .monospaced))
-                .foregroundStyle(fg)
-                .frame(width: 18, alignment: .center)
-            Text(text)
-                .font(.system(size: 11, design: .monospaced))
-                .foregroundStyle(marker == " " ? Color(red: 0.55, green: 0.55, blue: 0.68) : fg)
-                .lineLimit(1)
-                .frame(maxWidth: .infinity, alignment: .leading)
-        }
-        .padding(.vertical, 1)
-        .background(bg)
-    }
-
-    /// Build a lightweight unified diff (context ±3 lines) without Foundation Diff.
-    private func buildUnifiedDiff(original: String, modified: String) -> [DiffEntry] {
-        let oLines = original.components(separatedBy: "\n")
-        let mLines = modified.components(separatedBy: "\n")
-        var entries: [DiffEntry] = []
-
-        // 簡易LCS：行単位で差分を計算
-        var oIdx = 0, mIdx = 0
-        while oIdx < oLines.count || mIdx < mLines.count {
-            let ol = oIdx < oLines.count ? oLines[oIdx] : nil
-            let ml = mIdx < mLines.count ? mLines[mIdx] : nil
-
-            if ol == ml {
-                entries.append(DiffEntry(marker: " ", text: "  " + (ol ?? ""),
-                                         bg: .clear, fg: .secondary))
-                oIdx += 1; mIdx += 1
-            } else {
-                if let ol { // removed
-                    entries.append(DiffEntry(marker: "-", text: "  " + ol,
-                                             bg: Color(red: 0.35, green: 0.08, blue: 0.08).opacity(0.5),
-                                             fg: Color(red: 1.0, green: 0.45, blue: 0.45)))
-                    oIdx += 1
-                }
-                if let ml { // added
-                    entries.append(DiffEntry(marker: "+", text: "  " + ml,
-                                             bg: Color(red: 0.08, green: 0.28, blue: 0.12).opacity(0.5),
-                                             fg: Color(red: 0.45, green: 0.95, blue: 0.60)))
-                    mIdx += 1
-                }
-            }
-        }
-        return entries
-    }
 
     // MARK: - Human Mode (4-pane IDE)
 
@@ -581,3 +375,213 @@ struct MainSplitView: View {
     }
 }
 
+// MARK: - FileApprovalView
+// A polished modal that shows what the AI wants to write.
+// Suspends AgentLoop via CheckedContinuation until user decides.
+
+struct FileApprovalView: View {
+    @EnvironmentObject var app: AppState
+    let req: FileApprovalRequest
+
+    var body: some View {
+        VStack(spacing: 0) {
+
+            // ─ Header ───────────────────────────────────────────────────
+            HStack(spacing: 12) {
+                // Operation icon
+                ZStack {
+                    RoundedRectangle(cornerRadius: 8)
+                        .fill(req.isNewFile
+                              ? Color(red: 0.2, green: 0.5, blue: 0.9).opacity(0.18)
+                              : Color(red: 0.9, green: 0.55, blue: 0.1).opacity(0.18))
+                        .frame(width: 40, height: 40)
+                    Image(systemName: req.isNewFile ? "doc.badge.plus" : "pencil.line")
+                        .font(.system(size: 18))
+                        .foregroundStyle(req.isNewFile
+                                         ? Color(red: 0.4, green: 0.7, blue: 1.0)
+                                         : Color(red: 1.0, green: 0.65, blue: 0.2))
+                }
+
+                VStack(alignment: .leading, spacing: 3) {
+                    Text(req.displayTitle)
+                        .font(.system(size: 14, weight: .bold))
+                        .foregroundStyle(Color(red: 0.92, green: 0.92, blue: 0.98))
+                    Text(req.shortPath)
+                        .font(.system(size: 11, design: .monospaced))
+                        .foregroundStyle(Color(red: 0.55, green: 0.65, blue: 0.85))
+                        .lineLimit(1)
+                }
+
+                Spacer()
+
+                // 小さいベッジ
+                Text(req.isNewFile ? "NEW" : "EDIT")
+                    .font(.system(size: 9, weight: .bold, design: .monospaced))
+                    .foregroundStyle(req.isNewFile
+                                     ? Color(red: 0.3, green: 0.85, blue: 0.55)
+                                     : Color(red: 1.0, green: 0.65, blue: 0.2))
+                    .padding(.horizontal, 7).padding(.vertical, 3)
+                    .background(
+                        Capsule()
+                            .fill(req.isNewFile
+                                  ? Color(red: 0.3, green: 0.85, blue: 0.55).opacity(0.15)
+                                  : Color(red: 1.0, green: 0.65, blue: 0.2).opacity(0.15))
+                            .overlay(Capsule()
+                                .stroke(req.isNewFile
+                                        ? Color(red: 0.3, green: 0.85, blue: 0.55).opacity(0.4)
+                                        : Color(red: 1.0, green: 0.65, blue: 0.2).opacity(0.4),
+                                        lineWidth: 0.8))
+                    )
+            }
+            .padding(.horizontal, 20)
+            .padding(.top, 20)
+            .padding(.bottom, 14)
+
+            Divider().opacity(0.25)
+
+            // ─ Content diff ──────────────────────────────────────────────
+            ScrollView([.vertical, .horizontal]) {
+                VStack(alignment: .leading, spacing: 0) {
+                    if req.isNewFile {
+                        // New file — show full content with green "+" markers
+                        ForEach(Array(req.newContent.components(separatedBy: "\n").enumerated()), id: \.offset) { i, line in
+                            approvalDiffLine("+", text: "  " + line,
+                                            bg: Color(red: 0.1, green: 0.3, blue: 0.15).opacity(0.6),
+                                            fg: Color(red: 0.5, green: 0.95, blue: 0.65))
+                        }
+                    } else {
+                        // Existing file — minimal unified diff (context ±3 lines)
+                        let diffLines = buildUnifiedDiff(original: req.originalContent,
+                                                         modified: req.newContent)
+                        ForEach(Array(diffLines.enumerated()), id: \.offset) { _, entry in
+                            approvalDiffLine(entry.marker, text: entry.text,
+                                            bg: entry.bg, fg: entry.fg)
+                        }
+                    }
+                }
+                .padding(.vertical, 8)
+                .padding(.horizontal, 4)
+                .frame(maxWidth: .infinity, alignment: .leading)
+            }
+            .background(Color(red: 0.06, green: 0.06, blue: 0.09))
+            .frame(maxHeight: .infinity)
+
+            Divider().opacity(0.25)
+
+            // ─ Action buttons ───────────────────────────────────────────
+            HStack(spacing: 12) {
+                Spacer()
+
+                // Reject
+                Button {
+                    app.rejectFileWrite()
+                } label: {
+                    HStack(spacing: 6) {
+                        Image(systemName: "xmark")
+                            .font(.system(size: 11, weight: .semibold))
+                        Text(app.t("Cancel", "キャンセル"))
+                            .font(.system(size: 13, weight: .semibold))
+                    }
+                    .foregroundStyle(Color(red: 0.9, green: 0.4, blue: 0.4))
+                    .padding(.horizontal, 20).padding(.vertical, 9)
+                    .contentShape(Rectangle())
+                    .background(Color(red: 0.32, green: 0.10, blue: 0.10).opacity(0.7),
+                                in: RoundedRectangle(cornerRadius: 8))
+                    .overlay(RoundedRectangle(cornerRadius: 8)
+                        .stroke(Color(red: 0.9, green: 0.4, blue: 0.4).opacity(0.5), lineWidth: 1))
+                }
+                .contentShape(Rectangle())
+                .buttonStyle(.plain)
+                .keyboardShortcut(.escape)
+
+                // Approve
+                Button {
+                    app.approveFileWrite()
+                } label: {
+                    HStack(spacing: 6) {
+                        Image(systemName: "checkmark")
+                            .font(.system(size: 11, weight: .semibold))
+                        Text(app.t("Approve & Apply", "承認して適用"))
+                            .font(.system(size: 13, weight: .semibold))
+                    }
+                    .foregroundStyle(Color(red: 0.3, green: 0.92, blue: 0.5))
+                    .padding(.horizontal, 20).padding(.vertical, 9)
+                    .contentShape(Rectangle())
+                    .background(Color(red: 0.10, green: 0.28, blue: 0.15).opacity(0.8),
+                                in: RoundedRectangle(cornerRadius: 8))
+                    .overlay(RoundedRectangle(cornerRadius: 8)
+                        .stroke(Color(red: 0.3, green: 0.92, blue: 0.5).opacity(0.5), lineWidth: 1))
+                }
+                .contentShape(Rectangle())
+                .buttonStyle(.plain)
+                .keyboardShortcut(.return, modifiers: .command)
+            }
+            .padding(.horizontal, 20)
+            .padding(.vertical, 14)
+            .background(Color(red: 0.11, green: 0.11, blue: 0.15))
+        }
+        .background(Color(red: 0.09, green: 0.09, blue: 0.12))
+        .frame(minWidth: 640, idealWidth: 760, maxWidth: 960,
+               minHeight: 420, idealHeight: 560, maxHeight: 720)
+    }
+
+    // MARK: - Diff line helper
+
+    private struct DiffEntry {
+        let marker: String
+        let text: String
+        let bg: Color
+        let fg: Color
+    }
+
+    @ViewBuilder
+    private func approvalDiffLine(_ marker: String, text: String, bg: Color, fg: Color) -> some View {
+        HStack(spacing: 0) {
+            Text(marker)
+                .font(.system(size: 11, design: .monospaced))
+                .foregroundStyle(fg)
+                .frame(width: 18, alignment: .center)
+            Text(text)
+                .font(.system(size: 11, design: .monospaced))
+                .foregroundStyle(marker == " " ? Color(red: 0.55, green: 0.55, blue: 0.68) : fg)
+                .lineLimit(1)
+                .frame(maxWidth: .infinity, alignment: .leading)
+        }
+        .padding(.vertical, 1)
+        .background(bg)
+    }
+
+    /// Build a lightweight unified diff (context ±3 lines) without Foundation Diff.
+    private func buildUnifiedDiff(original: String, modified: String) -> [DiffEntry] {
+        let oLines = original.components(separatedBy: "\n")
+        let mLines = modified.components(separatedBy: "\n")
+        var entries: [DiffEntry] = []
+
+        // 簡易LCS：行単位で差分を計算
+        var oIdx = 0, mIdx = 0
+        while oIdx < oLines.count || mIdx < mLines.count {
+            let ol = oIdx < oLines.count ? oLines[oIdx] : nil
+            let ml = mIdx < mLines.count ? mLines[mIdx] : nil
+
+            if ol == ml {
+                entries.append(DiffEntry(marker: " ", text: "  " + (ol ?? ""),
+                                         bg: .clear, fg: .secondary))
+                oIdx += 1; mIdx += 1
+            } else {
+                if let ol { // removed
+                    entries.append(DiffEntry(marker: "-", text: "  " + ol,
+                                             bg: Color(red: 0.35, green: 0.08, blue: 0.08).opacity(0.5),
+                                             fg: Color(red: 1.0, green: 0.45, blue: 0.45)))
+                    oIdx += 1
+                }
+                if let ml { // added
+                    entries.append(DiffEntry(marker: "+", text: "  " + ml,
+                                             bg: Color(red: 0.08, green: 0.28, blue: 0.12).opacity(0.5),
+                                             fg: Color(red: 0.45, green: 0.95, blue: 0.60)))
+                    mIdx += 1
+                }
+            }
+        }
+        return entries
+    }
+}
