@@ -567,9 +567,17 @@ SYS.ENFORCE("logical_verification_before_acceptance")
                     "⚠️ [STEERING] Inference interrupted by user command: \(steeringCommand)",
                     "⚠️ [STEERING] ユーザーコマンドによる割り込み（推論強制停止）: \(steeringCommand)"
                 )))
-                // Inject the steering command as a user priority message
-                conversation.append((role: "user", content: "[HUMAN OVERRIDE] \(steeringCommand)\nAbandon the current thought process and follow this command immediately."))
-                continue // Immediately restart the turn with the new context
+                
+                let cmdTrimmed = steeringCommand.trimmingCharacters(in: .whitespacesAndNewlines)
+                if cmdTrimmed == "^C" || cmdTrimmed.isEmpty {
+                    // It's a pure interrupt (Stop Generation)
+                    // Break the loop so the user can take control again
+                    break
+                } else {
+                    // Inject the steering command as a user priority message
+                    conversation.append((role: "user", content: "[HUMAN OVERRIDE] \(steeringCommand)\nAbandon the current thought process and follow this command immediately."))
+                    continue // Immediately restart the turn with the new context
+                }
             }
             
             let rawResponseOpt: String? = {
