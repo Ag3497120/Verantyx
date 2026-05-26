@@ -167,6 +167,7 @@
 		EFB61FE0375DABC3AE733DFC /* AttachmentManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 37B0DCDAD39999CBC0A66718 /* AttachmentManager.swift */; };
 		F020D44DA315C6DE7D910B1F /* GatekeeperPromptBuilder.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E251102E6551353AB9E01A2 /* GatekeeperPromptBuilder.swift */; };
 		F18CCD15A913F15F96F0381A /* ActivityBarView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4DC28C3194186DC74952BEAC /* ActivityBarView.swift */; };
+		F192305AEA6F6AA49A4DB670 /* Highlightr in Frameworks */ = {isa = PBXBuildFile; productRef = B81B8BC3ADC88DC14EB203CE /* Highlightr */; };
 		F3B24E9BE65F23A9DE26AEE2 /* TerminalRunner.swift in Sources */ = {isa = PBXBuildFile; fileRef = A5E5B4F881C230B229B05580 /* TerminalRunner.swift */; };
 		F50960E5152546904E208F3B /* ChatTranscriptView.swift in Sources */ = {isa = PBXBuildFile; fileRef = FDAEF1C9CB541AAA58E4FB8E /* ChatTranscriptView.swift */; };
 		F5B0F3AAA1766CA3332BBF3D /* LanguageDetector.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8F542870A057959E5B83A9A4 /* LanguageDetector.swift */; };
@@ -366,6 +367,7 @@
 				9FB76DC5C4E4B0DF21FDCACD /* MLXRandom in Frameworks */,
 				17713B505E12627E142F65ED /* MLXLLM in Frameworks */,
 				5BCBF6FA95B78375C6615004 /* Transformers in Frameworks */,
+				F192305AEA6F6AA49A4DB670 /* Highlightr in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -628,6 +630,7 @@
 				A68E46F8CFDC14DEF2D55FC5 /* MLXRandom */,
 				AD2463FBE07B767ADB2B3207 /* MLXLLM */,
 				4B24BD083022CA071C0C39AE /* Transformers */,
+				B81B8BC3ADC88DC14EB203CE /* Highlightr */,
 			);
 			productName = Verantyx;
 			productReference = E5C8788156A4713EDD89F173 /* Verantyx.app */;
@@ -657,6 +660,7 @@
 			mainGroup = E9D6DD9C5670831B5DCE0351;
 			minimizedProjectReferenceProxies = 1;
 			packageReferences = (
+				0BE7BDEFE3825504F6590219 /* XCRemoteSwiftPackageReference "Highlightr" */,
 				DAE191BA1D74215883383547 /* XCRemoteSwiftPackageReference "swift-transformers" */,
 				63D1B2D7DF90BC507ED2CEB8 /* XCRemoteSwiftPackageReference "mlx-swift" */,
 				215603989B65D2DB9B14270D /* XCRemoteSwiftPackageReference "mlx-swift-examples" */,
@@ -1070,6 +1074,14 @@
 /* End XCConfigurationList section */
 
 /* Begin XCRemoteSwiftPackageReference section */
+		0BE7BDEFE3825504F6590219 /* XCRemoteSwiftPackageReference "Highlightr" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/raspu/Highlightr";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 2.1.2;
+			};
+		};
 		215603989B65D2DB9B14270D /* XCRemoteSwiftPackageReference "mlx-swift-examples" */ = {
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/ml-explore/mlx-swift-examples";
@@ -1111,6 +1123,11 @@
 			isa = XCSwiftPackageProductDependency;
 			package = 215603989B65D2DB9B14270D /* XCRemoteSwiftPackageReference "mlx-swift-examples" */;
 			productName = MLXLLM;
+		};
+		B81B8BC3ADC88DC14EB203CE /* Highlightr */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 0BE7BDEFE3825504F6590219 /* XCRemoteSwiftPackageReference "Highlightr" */;
+			productName = Highlightr;
 		};
 		E7B730AC2C30A6B4C265330D /* MLX */ = {
 			isa = XCSwiftPackageProductDependency;

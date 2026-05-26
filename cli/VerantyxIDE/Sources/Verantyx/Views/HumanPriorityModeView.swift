@@ -1,5 +1,6 @@
 import SwiftUI
 import AppKit
+import Highlightr
 
 // MARK: - HumanPriorityModeView
 // VS Code / Antigravity style layout:
@@ -10,7 +11,7 @@ import AppKit
 
 struct HumanPriorityModeView: View {
     @EnvironmentObject var app: AppState
-    @State private var activitySection: ActivityBarView.ActivitySection = .explorer
+    @State private var activitySection: ActivityBarView.ActivitySection? = .explorer
     @State private var showSettings     = false
     @State private var showMCPQuick     = false
     @State private var showL25ConversionAlert = false
@@ -25,12 +26,6 @@ struct HumanPriorityModeView: View {
     @State private var pipelineTask: String = ""
 
     enum SaveStatus { case saved, unsaved, saving }
-    enum CenterDisplayTab: String, CaseIterable {
-        case diff = "Diff"
-        case code = "Code"
-        case artifact = "Artifact"
-    }
-    @State private var activeCenterTab: CenterDisplayTab = .code
 
     var body: some View {
         ZStack {
@@ -42,33 +37,27 @@ struct HumanPriorityModeView: View {
                         .frame(width: 48)
 
                     // ② Outer split: [Left panel] | [Center + Right]
-                    ResizableHSplit(
-                        minLeft: 50, maxLeft: 400, minRight: 150, initialLeft: 220
-                    ) {
-                        // ── Left: File Tree / MCP / Evolution ─────────────────
-                        Group {
-                            switch activitySection {
-                            case .mcp:       MCPView()
-                            case .evolution: SelfEvolutionView().environmentObject(app)
-                            case .search:    GlobalSearchView().environmentObject(app)
-                            case .git:       GitPanelView().environmentObject(app)
-                            default:         FileTreeView()
-                            }
-                        }
-                        .frame(maxHeight: .infinity)
-
-                    } right: {
-                        // ③ Inner split: [Code Editor] | [AI Chat]
+                    if let section = activitySection {
                         ResizableHSplit(
-                            minLeft: 100, maxLeft: 99999, minRight: 100, initialLeft: 600
+                            minLeft: 50, maxLeft: 400, minRight: 150, initialLeft: 220
                         ) {
-                            // ── Center: Code Editor ────────────────────────────
-                            codeEditorPanel
+                            // ── Left: File Tree / MCP / Evolution ─────────────────
+                            Group {
+                                switch section {
+                                case .mcp:       MCPView()
+                                case .evolution: SelfEvolutionView().environmentObject(app)
+                                case .search:    GlobalSearchView().environmentObject(app)
+                                case .git:       GitPanelView().environmentObject(app)
+                                default:         FileTreeView()
+                                }
+                            }
+                            .frame(maxHeight: .infinity)
 
                         } right: {
-                            // ── Right: AI Chat ─────────────────────────────────
-                            aiChatPanel
+                            centerAndRightPanes
                         }
+                    } else {
+                        centerAndRightPanes
                     }
                 }
                 .frame(maxWidth: .infinity, maxHeight: .infinity)
@@ -149,17 +138,27 @@ struct HumanPriorityModeView: View {
                 }
             }
         } message: {
-            Text(app.t("Do you want to start BitNet L2.5 conversion for this workspace? This may take some time.", "このワークスペースの BitNet による L2.5 変換を開始しますか？（規模により時間がかかります）"))
+            Text("Converting this workspace to JCross architecture will encrypt and pack everything into `.jcross` format and create an `Agents.md`.")
         }
         .onChange(of: app.pendingDiff) { _, newDiff in
-            if newDiff != nil {
-                withAnimation { activeCenterTab = .diff }
-            }
+            // Diffs are now handled dynamically via Agent UI.
         }
         .onChange(of: app.currentArtifact?.id) { _, newId in
-            if newId != nil {
-                withAnimation { activeCenterTab = .artifact }
-            }
+            // Artifacts are now handled dynamically via Agent UI.
+        }
+    }
+
+    @ViewBuilder
+    private var centerAndRightPanes: some View {
+        // ③ Inner split: [Code Editor] | [AI Chat]
+        ResizableHSplit(
+            minLeft: 100, maxLeft: 99999, minRight: 100, initialLeft: 600
+        ) {
+            // ── Center: Code Editor ────────────────────────────
+            codeEditorPanel
+        } right: {
+            // ── Right: AI Chat ─────────────────────────────────
+            aiChatPanel
         }
     }
 
@@ -198,35 +197,22 @@ struct HumanPriorityModeView: View {
 
     @ViewBuilder
     private var editorBody: some View {
-        switch activeCenterTab {
-        case .code:
-            if let url = app.selectedFile {
-                let isJCrossMode = GatekeeperModeState.shared.isEnabled && !app.showGatekeeperRawCode
-                CodeEditorView(
-                    content: $editorContent,
-                    language: editorLanguage,
-                    isEditable: !isJCrossMode,
-                    onEdit: {
-                        if !isJCrossMode {
-                            hasUnsavedChanges = true
-                            saveStatus = .unsaved
-                        }
+        if app.selectedFile != nil {
+            let isJCrossMode = GatekeeperModeState.shared.isEnabled && !app.showGatekeeperRawCode
+            CodeEditorView(
+                content: $editorContent,
+                language: editorLanguage,
+                isEditable: !isJCrossMode,
+                onEdit: {
+                    if !isJCrossMode {
+                        hasUnsavedChanges = true
+                        saveStatus = .unsaved
                     }
-                )
-                .frame(maxWidth: .infinity, maxHeight: .infinity)
-            } else {
-                emptyEditorState
-            }
-        case .diff:
-            SideBySideDiffView()
-                .environmentObject(app)
-        case .artifact:
-            if let art = app.currentArtifact {
-                ArtifactWebView(artifact: art)
-                    .id(art.id)
-            } else {
-                emptyEditorState
-            }
+                }
+            )
+            .frame(maxWidth: .infinity, maxHeight: .infinity)
+        } else {
+            emptyEditorState
         }
     }
 
@@ -234,39 +220,7 @@ struct HumanPriorityModeView: View {
 
     private var editorTabBar: some View {
         HStack(spacing: 0) {
-            // Tab switcher
-            HStack(spacing: 0) {
-                ForEach(CenterDisplayTab.allCases, id: \.rawValue) { tab in
-                    Button {
-                        withAnimation(.easeInOut(duration: 0.12)) { activeCenterTab = tab }
-                    } label: {
-                        HStack(spacing: 4) {
-                            Text(tab.rawValue)
-                                .font(.system(size: 11, weight: activeCenterTab == tab ? .semibold : .regular))
-                                .foregroundStyle(activeCenterTab == tab ? .white : Color(red: 0.5, green: 0.5, blue: 0.62))
-                            if tab == .diff, let diff = app.pendingDiff, diff.hasChanges {
-                                Circle().fill(Color(red: 1.0, green: 0.65, blue: 0.2)).frame(width: 6, height: 6)
-                            }
-                        }
-                        .padding(.horizontal, 10)
-                        .padding(.vertical, 5)
-                        .background(activeCenterTab == tab ? Color.white.opacity(0.08) : Color.clear)
-                        .overlay(
-                            Rectangle()
-                                .fill(activeCenterTab == tab ? Color(red: 0.4, green: 0.75, blue: 1.0) : Color.clear)
-                                .frame(height: 1.5),
-                            alignment: .bottom
-                        )
-                    }
-                    .contentShape(Rectangle())
-                    .buttonStyle(.plain)
-                }
-            }
-            .background(Color(red: 0.16, green: 0.16, blue: 0.20))
-            .clipShape(RoundedRectangle(cornerRadius: 6))
-            .padding(.leading, 10)
-
-            if let url = app.selectedFile, activeCenterTab == .code {
+            if let url = app.selectedFile {
                 HStack(spacing: 6) {
                     // File icon
                     Image(systemName: fileIcon(for: url))
@@ -389,21 +343,7 @@ struct HumanPriorityModeView: View {
                 // ── ▶ Run Pipeline ボタン ───────────────────────────
                 IsolatedPipelineHeaderButton(showPipelineSheet: $showPipelineSheet)
 
-                Divider().frame(height: 14).opacity(0.3)
 
-                // Mode badge
-                Text("Human Priority")
-                    .font(.system(size: 9, weight: .bold, design: .monospaced))
-                    .foregroundStyle(Color(red: 0.55, green: 1.0, blue: 0.65))
-                    .padding(.horizontal, 6).padding(.vertical, 2)
-                    .background(
-                        Capsule()
-                            .fill(Color(red: 0.55, green: 1.0, blue: 0.65).opacity(0.12))
-                            .overlay(
-                                Capsule()
-                                    .stroke(Color(red: 0.55, green: 1.0, blue: 0.65).opacity(0.35), lineWidth: 0.8)
-                            )
-                    )
             }
             .padding(.horizontal, 12)
             .padding(.vertical, 9)
@@ -938,24 +878,47 @@ struct CodeEditorView: NSViewRepresentable {
     let language: String
     var isEditable: Bool = true
     let onEdit: () -> Void
+    
+    // Shared Highlightr instance for performance
+    static let sharedHighlightr: Highlightr? = {
+        let h = Highlightr()
+        h?.setTheme(to: "atom-one-dark-reasonable")
+        h?.theme.codeFont = NSFont.monospacedSystemFont(ofSize: 13, weight: .regular)
+        return h
+    }()
 
     func makeNSView(context: Context) -> NSScrollView {
-        let scrollView = NSTextView.scrollableTextView()
-        guard let textView = scrollView.documentView as? NSTextView else { return scrollView }
+        let scrollView = NSScrollView()
+        scrollView.hasVerticalScroller = true
+        scrollView.hasHorizontalScroller = true
+        scrollView.autohidesScrollers = true
+        scrollView.backgroundColor = NSColor(red: 0.09, green: 0.09, blue: 0.12, alpha: 1.0)
+        
+        let textStorage: CodeAttributedString
+        if let h = Self.sharedHighlightr {
+            textStorage = CodeAttributedString(highlightr: h)
+        } else {
+            textStorage = CodeAttributedString()
+        }
+        textStorage.language = language.lowercased()
+        
+        let layoutManager = NSLayoutManager()
+        layoutManager.allowsNonContiguousLayout = true
+        layoutManager.backgroundLayoutEnabled = true
+        textStorage.addLayoutManager(layoutManager)
+        
+        let textContainer = NSTextContainer(containerSize: CGSize(width: CGFloat.greatestFiniteMagnitude, height: CGFloat.greatestFiniteMagnitude))
+        textContainer.widthTracksTextView = false
+        layoutManager.addTextContainer(textContainer)
+        
+        let textView = NSTextView(frame: .zero, textContainer: textContainer)
+        scrollView.documentView = textView
 
         textView.delegate = context.coordinator
         
         textView.isHorizontallyResizable = true
         textView.isVerticallyResizable   = true
         textView.autoresizingMask        = [.width]
-        textView.textContainer?.widthTracksTextView = false
-        textView.textContainer?.containerSize = CGSize(
-            width: CGFloat.greatestFiniteMagnitude,
-            height: CGFloat.greatestFiniteMagnitude
-        )
-        
-        textView.layoutManager?.allowsNonContiguousLayout = true
-        textView.layoutManager?.backgroundLayoutEnabled   = true
         
         textView.isEditable   = isEditable
         textView.isSelectable = true
@@ -963,21 +926,8 @@ struct CodeEditorView: NSViewRepresentable {
         textView.usesFindPanel = false
         textView.allowsUndo   = true
         
-        textView.font         = NSFont.monospacedSystemFont(ofSize: 13, weight: .regular)
-        textView.textColor    = NSColor(red: 0.88, green: 0.88, blue: 0.95, alpha: 1.0)
         textView.backgroundColor = NSColor(red: 0.09, green: 0.09, blue: 0.12, alpha: 1.0)
         textView.textContainerInset = NSSize(width: 8, height: 8)
-        
-        scrollView.hasVerticalScroller = true
-        scrollView.hasHorizontalScroller = true
-        scrollView.autohidesScrollers = true
-        scrollView.backgroundColor = NSColor(red: 0.09, green: 0.09, blue: 0.12, alpha: 1.0)
-        
-        // Temporarily disable the ruler to isolate layout bugs
-        // let rulerView = LineNumberRulerView(textView: textView)
-        // scrollView.verticalRulerView = rulerView
-        // scrollView.hasVerticalRuler = true
-        // scrollView.rulersVisible = true
 
         return scrollView
     }
@@ -992,17 +942,18 @@ struct CodeEditorView: NSViewRepresentable {
         if textView.string != content {
             let selectedRange = textView.selectedRange()
             
-            // Just set string directly
-            textView.string = content
-            
-            if let storage = textView.textStorage {
+            // For Highlightr, we should replace the characters in textStorage instead of assigning to textView.string,
+            // so that syntax highlighting runs correctly.
+            if let storage = textView.textStorage as? CodeAttributedString {
                 storage.beginEditing()
+                if storage.language != language.lowercased() {
+                    storage.language = language.lowercased()
+                }
                 let fullRange = NSRange(location: 0, length: storage.length)
-                storage.addAttributes([
-                    .font: NSFont.monospacedSystemFont(ofSize: 13, weight: .regular),
-                    .foregroundColor: NSColor(red: 0.88, green: 0.88, blue: 0.95, alpha: 1.0)
-                ], range: fullRange)
+                storage.replaceCharacters(in: fullRange, with: content)
                 storage.endEditing()
+            } else {
+                textView.string = content
             }
             
             // Critical for editable text views

@@ -4,7 +4,7 @@ import SwiftUI
 // Left icon strip (VS Code style)
 
 struct ActivityBarView: View {
-    @Binding var selectedSection: ActivitySection
+    @Binding var selectedSection: ActivitySection?
     @EnvironmentObject var app: AppState
 
     enum ActivitySection: String, CaseIterable {
@@ -55,7 +55,11 @@ struct ActivityBarView: View {
 
     private func activityButton(_ section: ActivitySection) -> some View {
         Button {
-            selectedSection = section
+            if selectedSection == section {
+                selectedSection = nil
+            } else {
+                selectedSection = section
+            }
         } label: {
             ZStack(alignment: .topTrailing) {
                 Image(systemName: section.rawValue)

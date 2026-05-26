@@ -1,4 +1,14 @@
 import Foundation
+import Combine
+
+struct SteeringInterruptError: Swift.Error {
+    let command: String
+}
+
+enum TaskRaceResult: Sendable {
+    case response(String?)
+    case steering(String)
+}
 
 // MARK: - AgentLoop
 // Multi-turn autonomous agent execution loop.
@@ -39,6 +49,7 @@ actor AgentLoop {
 
     func run(
         instruction: String,
+        images: [AttachedImage] = [],
         contextFile: String? = nil,
         contextFileName: String? = nil,
         workspaceURL: URL?,
@@ -513,16 +524,61 @@ SYS.ENFORCE("logical_verification_before_acceptance")
                 }
             }
 
-            // ── Call LLM (streaming) ──────────────────────────────────────
-            guard var rawResponse = await callModel(
-                conversation: conversation,
-                modelStatus: modelStatus,
-                activeModel: activeModel,
-                profile: profile,
-                operationMode: operationMode,
-                onProgress: onProgress    // ← onToken コールバックで .streamToken を発行
-            ) else {
-                await onProgress(.error("Model returned nil response"))
+            // ── Call LLM (streaming) with Zero-Translation Steering ──────────────
+            let modelTaskResult = try? await withThrowingTaskGroup(of: TaskRaceResult.self) { group in
+                // Task 1: The actual LLM generation
+                group.addTask {
+                    let response = await self.callModel(
+                        conversation: conversation,
+                        images: images,
+                        modelStatus: modelStatus,
+                        activeModel: activeModel,
+                        profile: profile,
+                        operationMode: operationMode,
+                        onProgress: onProgress
+                    )
+                    return .response(response)
+                }
+                
+                // Task 2: The steering listener (Hardware Interrupt)
+                group.addTask {
+                    let steeringSub = await MainActor.run { () -> PassthroughSubject<String, Never>? in
+                        return AppState.shared?.steeringSubject
+                    }
+                    guard let subject = steeringSub else {
+                        try await Task.sleep(nanoseconds: UInt64.max)
+                        return .steering("") // unreachable
+                    }
+                    for await cmd in subject.values {
+                        // Received steering command!
+                        return .steering(cmd)
+                    }
+                    return .steering("") // unreachable
+                }
+                
+                guard let result = try await group.next() else { return TaskRaceResult.response(nil) }
+                group.cancelAll()
+                return result
+            }
+            
+            if case .steering(let steeringCommand) = modelTaskResult {
+                // We got a steering interrupt!
+                await onProgress(.systemLog(AppLanguage.shared.t(
+                    "⚠️ [STEERING] Inference interrupted by user command: \(steeringCommand)",
+                    "⚠️ [STEERING] ユーザーコマンドによる割り込み（推論強制停止）: \(steeringCommand)"
+                )))
+                // Inject the steering command as a user priority message
+                conversation.append((role: "user", content: "[HUMAN OVERRIDE] \(steeringCommand)\nAbandon the current thought process and follow this command immediately."))
+                continue // Immediately restart the turn with the new context
+            }
+            
+            let rawResponseOpt: String? = {
+                if case .response(let res) = modelTaskResult { return res }
+                return nil
+            }()
+            
+            guard var rawResponse = rawResponseOpt else {
+                await onProgress(.error("Model returned nil response (or was interrupted)"))
                 return
             }
 
@@ -597,6 +653,7 @@ SYS.ENFORCE("logical_verification_before_acceptance")
                         }
                         if let retryResponse = await callModel(
                             conversation: conversation,
+                            images: images,
                             modelStatus: modelStatus,
                             activeModel: activeModel,
                             profile: profile,
@@ -640,6 +697,7 @@ SYS.ENFORCE("logical_verification_before_acceptance")
                 // 再実行: ツールを使用するよう促す
                 if let retryResponse = await callModel(
                     conversation: pushConversation,
+                    images: images,
                     modelStatus: modelStatus,
                     activeModel: activeModel,
                     profile: profile,
@@ -1311,6 +1369,7 @@ SYS.ENFORCE("logical_verification_before_acceptance")
 
     private func callModel(
         conversation: [(role: String, content: String)],
+        images: [AttachedImage] = [],
         modelStatus: AppState.ModelStatus,
         activeModel: String,
         profile: ModelProfile = ModelProfileDetector.detect(modelId: "default"),
@@ -1401,16 +1460,30 @@ SYS.ENFORCE("logical_verification_before_acceptance")
                         
                         let skillTextRaw = msg.content[startRange.upperBound..<endRange.lowerBound].trimmingCharacters(in: .whitespacesAndNewlines)
                         
-                        // Remove the text from the message to save tokens and force visual attention
-                        let fullRange = startRange.lowerBound..<endRange.upperBound
-                        mutableConversation[skillIndex].content.removeSubrange(fullRange)
+                        // Check modality before removing text
+                        let isMultimodal = await MainActor.run { AppState.shared?.isMultimodalModel ?? false }
                         
-                        if !skillTextRaw.isEmpty {
-                            let limitedSkillText = String(skillTextRaw.prefix(800))
-                            let base64Image = await CognitiveAnchorEngine.shared.getSkillAnchor(text: limitedSkillText)
-                            if !base64Image.isEmpty { newAnchorImages.append(base64Image) }
-                            appendedText += "\n\n👁️ [Skill System] A visual anchor image of relevant skills has been injected. Please look at the image to see which [USE_SKILL] commands are available to solve this task."
-                            await onProgress(.systemLog(AppLanguage.shared.t("<think>\n🔧 [Skill Anchor] Injected skill visual anchor.\n</think>", "<think>\n🔧 [Skill Anchor] スキル情報を視覚アンカー画像として注入し、テキストから削除しました。\n</think>")))
+                        if isMultimodal {
+                            // Remove the text from the message to save tokens and force visual attention
+                            let fullRange = startRange.lowerBound..<endRange.upperBound
+                            mutableConversation[skillIndex].content.removeSubrange(fullRange)
+                            
+                            if !skillTextRaw.isEmpty {
+                                let limitedSkillText = String(skillTextRaw.prefix(800))
+                                let base64Image = await CognitiveAnchorEngine.shared.getSkillAnchor(text: limitedSkillText)
+                                if !base64Image.isEmpty { newAnchorImages.append(base64Image) }
+                                appendedText += "\n\n👁️ [Skill System] A visual anchor image of relevant skills has been injected. Please look at the image to see which [USE_SKILL] commands are available to solve this task."
+                                await onProgress(.systemLog(AppLanguage.shared.t("<think>\n🔧 [Skill Anchor] Injected skill visual anchor.\n</think>", "<think>\n🔧 [Skill Anchor] スキル情報を視覚アンカー画像として注入し、テキストから削除しました。\n</think>")))
+                            }
+                        }
+                    }
+                }
+                
+                // Add user attached images
+                if !images.isEmpty {
+                    for img in images {
+                        if let b64 = img.base64JPEG {
+                            newAnchorImages.append(b64)
                         }
                     }
                 }

@@ -308,12 +308,7 @@ class SpotlightPanel: NSPanel {
     override var canBecomeMain: Bool { return true }
     
     func toggle() {
-        if self.isVisible {
-            self.orderOut(nil)
-        } else {
-            self.makeKeyAndOrderFront(nil)
-            NSApp.activate(ignoringOtherApps: true)
-        }
+        SpotlightPanelManager.shared.toggle()
     }
 }
 
@@ -324,6 +319,54 @@ class SpotlightPanelManager {
     static let shared = SpotlightPanelManager()
     
     var panel: SpotlightPanel?
+    private var isPresented = false
+    
+    func toggle() {
+        if isPresented {
+            hide()
+        } else {
+            show()
+        }
+    }
+    
+    func show() {
+        guard let panel = panel else { return }
+        isPresented = true
+        
+        if let screen = NSScreen.main {
+            let screenRect = screen.visibleFrame
+            let x = screenRect.midX - (panel.frame.width / 2)
+            let y = screenRect.maxY - 100 // Just below the notch
+            panel.setFrameTopLeftPoint(NSPoint(x: x, y: y))
+        }
+        
+        panel.alphaValue = 0.0
+        panel.makeKeyAndOrderFront(nil)
+        NSApp.activate(ignoringOtherApps: true)
+        
+        NSAnimationContext.runAnimationGroup { context in
+            context.duration = 0.2
+            context.timingFunction = CAMediaTimingFunction(name: .easeOut)
+            panel.animator().alphaValue = 1.0
+        }
+        
+        NotificationCenter.default.post(name: NSNotification.Name("SpotlightPanelDidShow"), object: nil)
+    }
+    
+    func hide() {
+        guard let panel = panel else { return }
+        isPresented = false
+        
+        NotificationCenter.default.post(name: NSNotification.Name("SpotlightPanelWillHide"), object: nil)
+        
+        NSAnimationContext.runAnimationGroup({ context in
+            context.duration = 0.15
+            context.timingFunction = CAMediaTimingFunction(name: .easeIn)
+            panel.animator().alphaValue = 0.0
+        }) {
+            panel.orderOut(nil)
+        }
+    }
     
     func setup(appState: AppState) {
         guard panel == nil else { return }
@@ -354,7 +397,7 @@ class SpotlightPanelManager {
                     if controlPressTimes.count == 3 {
                         let diff = now.timeIntervalSince(controlPressTimes[0])
                         if diff < 0.8 { // 3 presses within 0.8 seconds
-                            self.panel?.toggle()
+                            self.toggle()
                             controlPressTimes.removeAll()
                         }
                     }
@@ -373,8 +416,8 @@ class SpotlightPanelManager {
         
         // Escape to close
         NSEvent.addLocalMonitorForEvents(matching: .keyDown) { event in
-            if event.keyCode == 53 && self.panel?.isVisible == true {
-                self.panel?.orderOut(nil)
+            if event.keyCode == 53 && self.isPresented {
+                self.hide()
                 return nil
             }
             return event
@@ -411,8 +454,13 @@ struct SpotlightView: View {
     @State private var useInternalWeights: Bool = false
     @State private var isDetailedMode: Bool = false
     
+    // Bubble animation state
+    @State private var bubbleScale: CGFloat = 0.8
+    @State private var bubbleOpacity: Double = 0.0
+    
     var body: some View {
-        VStack(spacing: 0) {
+        VStack(spacing: 16) {
+            // Bubble 1: Input Field
             HStack {
                 Image(systemName: "sparkles")
                     .font(.system(size: 24))
@@ -433,50 +481,91 @@ struct SpotlightView: View {
                     ProgressView()
                         .scaleEffect(0.8)
                 }
-                
-                Toggle(isOn: $useInternalWeights) {
-                    Text("🧠 内部知識優先")
-                        .font(.system(size: 10, weight: .bold))
-                        .foregroundColor(useInternalWeights ? .red : .gray)
+                VStack(alignment: .leading, spacing: 4) {
+                    Toggle(isOn: $useInternalWeights) {
+                        Text("🧠 内部知識優先")
+                            .font(.system(size: 10, weight: .bold))
+                            .foregroundColor(useInternalWeights ? .red : .gray)
+                    }
+                    .toggleStyle(SwitchToggleStyle(tint: .red))
+                    
+                    Toggle(isOn: $isDetailedMode) {
+                        Text("詳細モード")
+                            .font(.system(size: 10, weight: .bold))
+                            .foregroundColor(isDetailedMode ? .blue : .gray)
+                    }
+                    .toggleStyle(SwitchToggleStyle(tint: .blue))
                 }
-                .toggleStyle(SwitchToggleStyle(tint: .red))
                 .padding(.leading, 8)
                 
-                Toggle(isOn: $isDetailedMode) {
-                    Text("詳細モード")
-                        .font(.system(size: 10, weight: .bold))
-                        .foregroundColor(isDetailedMode ? .blue : .gray)
+                if appState.isGenerating {
+                    Button(action: {
+                        appState.cancelGeneration()
+                    }) {
+                        Image(systemName: "stop.circle.fill")
+                            .font(.system(size: 24))
+                            .foregroundColor(.red)
+                    }
+                    .buttonStyle(PlainButtonStyle())
+                    .padding(.leading, 8)
                 }
-                .toggleStyle(SwitchToggleStyle(tint: .blue))
-                .padding(.leading, 8)
             }
             .padding(20)
+            .background(VisualEffectView(material: .hudWindow, blendingMode: .behindWindow))
+            .cornerRadius(16)
+            .overlay(
+                RoundedRectangle(cornerRadius: 16)
+                    .stroke(Color.white.opacity(0.1), lineWidth: 1)
+            )
+            .scaleEffect(bubbleScale)
+            .opacity(bubbleOpacity)
             
+            // Bubble 2: Transcript (popping out from the input field)
             if showTranscript {
-                Divider().background(Color.white.opacity(0.1))
-                
-                ChatTranscriptView(messages: appState.messages, isGenerating: appState.isGenerating)
-                    .frame(height: 400)
-                    .padding()
-                
-                Divider().background(Color.white.opacity(0.1))
-                SpotlightLogView(logStore: appState.logStore)
+                VStack(spacing: 0) {
+                    ChatTranscriptView(messages: appState.messages, isGenerating: appState.isGenerating)
+                        .frame(height: 400)
+                        .padding()
+                    
+                    Divider().background(Color.white.opacity(0.1))
+                    SpotlightLogView(logStore: appState.logStore)
+                }
+                .background(VisualEffectView(material: .hudWindow, blendingMode: .behindWindow))
+                .cornerRadius(16)
+                .overlay(
+                    RoundedRectangle(cornerRadius: 16)
+                        .stroke(Color.white.opacity(0.1), lineWidth: 1)
+                )
+                .transition(.scale(scale: 0.8, anchor: .top).combined(with: .opacity))
             }
         }
-        .background(VisualEffectView(material: .hudWindow, blendingMode: .behindWindow))
-        .cornerRadius(16)
-        .overlay(
-            RoundedRectangle(cornerRadius: 16)
-                .stroke(Color.white.opacity(0.1), lineWidth: 1)
-        )
         .onAppear {
             isFocused = true
             showTranscript = false
         }
+        .onChange(of: appState.isGenerating) { _, isGen in
+            if isGen {
+                SpotlightPanelManager.shared.show()
+            }
+        }
+        .onReceive(NotificationCenter.default.publisher(for: NSNotification.Name("SpotlightPanelDidShow"))) { _ in
+            bubbleScale = 0.8
+            bubbleOpacity = 0.0
+            withAnimation(.spring(response: 0.35, dampingFraction: 0.65)) {
+                bubbleScale = 1.0
+                bubbleOpacity = 1.0
+            }
+        }
+        .onReceive(NotificationCenter.default.publisher(for: NSNotification.Name("SpotlightPanelWillHide"))) { _ in
+            withAnimation(.easeIn(duration: 0.15)) {
+                bubbleScale = 0.8
+                bubbleOpacity = 0.0
+            }
+        }
         .onReceive(NotificationCenter.default.publisher(for: NSWindow.didResignKeyNotification)) { notif in
             // Optional: When user clicks away and the panel hides, reset state.
-            if let window = notif.object as? SpotlightPanel {
-                // If it closes, we can clear the view next time it opens.
+            if let _ = notif.object as? SpotlightPanel {
+                // SpotlightPanelManager.shared.hide() // Optional auto-hide on blur
             }
         }
     }

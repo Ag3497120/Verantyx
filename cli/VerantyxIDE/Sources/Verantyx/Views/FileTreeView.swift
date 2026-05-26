@@ -23,8 +23,6 @@ struct FileTreeView: View {
     @State private var rootItems: [String] = []
     /// The flat list of visible rows derived from nodeMap + expandedFolders. Cheap to rebuild.
     @State private var visibleNodes: [TreeNode] = []
-    /// Cached line count for the preview header — avoids splitting on every render.
-    @State private var previewLineCount: Int = 0
 
     @State private var convertedFiles: Set<String> = []
 
@@ -54,10 +52,7 @@ struct FileTreeView: View {
             }
             .frame(maxHeight: .infinity)
 
-            Rectangle().fill(Color.white.opacity(0.08)).frame(height: 1)
 
-            // ── Bottom: File content preview ──────────────────────────
-            filePreviewPanel.frame(maxHeight: .infinity)
         }
         // Workspace root changed → wipe everything
         .onChange(of: app.workspaceURL) { _, _ in
@@ -74,9 +69,7 @@ struct FileTreeView: View {
         .onChange(of: expandedFolders) { _, _ in
             visibleNodes = buildVisibleNodes()
         }
-        .onChange(of: app.selectedFileContent) { _, content in
-            previewLineCount = content.isEmpty ? 0 : content.components(separatedBy: "\n").count
-        }
+
         .onReceive(gatekeeper.vault.$vaultStatus) { status in
             if case .ready = status {
                 if let index = gatekeeper.vault.vaultIndex {
@@ -194,55 +187,7 @@ struct FileTreeView: View {
         .frame(maxWidth: .infinity)
     }
 
-    // MARK: - Bottom file preview
 
-    private var filePreviewPanel: some View {
-        VStack(spacing: 0) {
-            HStack(spacing: 5) {
-                if let file = app.selectedFile {
-                    Image(systemName: FileIcons.icon(for: file))
-                        .font(.system(size: 9))
-                        .foregroundStyle(FileIcons.color(for: file))
-                    Text(file.lastPathComponent)
-                        .font(.system(size: 10, weight: .medium, design: .monospaced))
-                        .foregroundStyle(.primary).lineLimit(1)
-                    Spacer()
-                    if previewLineCount > 0 {
-                        // previewLineCount is cached via onChange — no string split here
-                        Text("\(previewLineCount)L")
-                            .font(.system(size: 9, design: .monospaced)).foregroundStyle(.tertiary)
-                    }
-                } else {
-                    Image(systemName: "doc.text").font(.system(size: 9)).foregroundStyle(.tertiary)
-                    Text(AppLanguage.shared.t("no file selected", "ファイルが選択されていません"))
-                        .font(.system(size: 10, design: .monospaced)).foregroundStyle(.tertiary)
-                    Spacer()
-                }
-            }
-            .padding(.horizontal, 10).padding(.vertical, 6)
-            .background(Color(red: 0.10, green: 0.10, blue: 0.14))
-
-            Divider().opacity(0.3)
-
-            if app.selectedFile != nil && app.selectedFileContent.isEmpty {
-                VStack { Spacer(); ProgressView().scaleEffect(0.6); Spacer() }
-                    .frame(maxWidth: .infinity)
-            } else if app.selectedFileContent.isEmpty {
-                VStack {
-                    Spacer()
-                    Text(AppLanguage.shared.t("Select a file to preview", "ファイルを選択してプレビュー"))
-                        .font(.system(size: 10, design: .monospaced)).foregroundStyle(.tertiary)
-                    Spacer()
-                }
-                .frame(maxWidth: .infinity)
-            } else {
-                // RawTextView: AppKit NSScrollView ベース — fixedSize なし
-                // SwiftUI Text + fixedSize は大ファイルで swift_retain SIGTRAP を起こす
-                RawTextView(content: app.selectedFileContent)
-                    .transaction { t in t.animation = nil }
-            }
-        }
-    }
 
     // MARK: - Tree Building
 

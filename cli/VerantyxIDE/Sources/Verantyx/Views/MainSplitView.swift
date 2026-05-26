@@ -10,7 +10,7 @@ import UniformTypeIdentifiers
 
 struct MainSplitView: View {
     @EnvironmentObject var app: AppState
-    @State private var activitySection: ActivityBarView.ActivitySection = .explorer
+    @State private var activitySection: ActivityBarView.ActivitySection? = .explorer
 
     @State private var showSettings     = false
     @State private var showMCPQuick     = false
@@ -342,53 +342,26 @@ struct MainSplitView: View {
                     .frame(width: 48)
 
                 // ② Left + Center + Right
-                ResizableHSplit(
-                    minLeft: 50, maxLeft: 99999, minRight: 100, initialLeft: 240
-                ) {
-                    // ── Left pane ─────────────────────────────────────
-                    Group {
-                        switch activitySection {
-                        case .mcp:       MCPView()
-                        case .evolution: SelfEvolutionView().environmentObject(app)
-                        case .search:    GlobalSearchView().environmentObject(app)
-                        case .git:       GitPanelView().environmentObject(app)
-                        default:         FileTreeView()
-                        }
-                    }
-                    .frame(maxHeight: .infinity)
-                } right: {
+                if let section = activitySection {
                     ResizableHSplit(
-                        minLeft: 100, maxLeft: 99999, minRight: 100, initialLeft: 420
+                        minLeft: 50, maxLeft: 99999, minRight: 100, initialLeft: 240
                     ) {
-                        // ── Center: Chat ───────────────────────────────
-                        VStack(spacing: 0) {
-                            AgentChatView()
-                                .frame(maxWidth: .infinity, maxHeight: .infinity)
-
-                            if app.showProcessLog {
-                                ResizableVSplit(
-                                    minTop: 50, maxTop: 99999, minBottom: 50, initialTop: 9999
-                                ) {
-                                    EmptyView()
-                                } bottom: {
-                                    ThinkingLogView()
-                                }
-                                .frame(height: 180)
+                        // ── Left pane ─────────────────────────────────────
+                        Group {
+                            switch section {
+                            case .mcp:       MCPView()
+                            case .evolution: SelfEvolutionView().environmentObject(app)
+                            case .search:    GlobalSearchView().environmentObject(app)
+                            case .git:       GitPanelView().environmentObject(app)
+                            default:         FileTreeView()
                             }
                         }
+                        .frame(maxHeight: .infinity)
                     } right: {
-                        // ── Right: Artifact/Diff (top) + Terminal (bottom) ──
-                        ResizableVSplit(
-                            minTop: 50, maxTop: 99999, minBottom: 50, initialTop: 400
-                        ) {
-                            // Artifact panel — has Diff tab built-in
-                            ArtifactPanelView()
-                                .environmentObject(app)
-                        } bottom: {
-                            TerminalPanelView(terminal: app.terminal)
-                                .environmentObject(app)
-                        }
+                        centerAndRightPanes
                     }
+                } else {
+                    centerAndRightPanes
                 }
             }
             .frame(maxWidth: .infinity, maxHeight: .infinity)
@@ -405,6 +378,42 @@ struct MainSplitView: View {
         }
         .background(Color(red: 0.11, green: 0.11, blue: 0.14))
         .toastOverlay()
+    }
+
+    @ViewBuilder
+    private var centerAndRightPanes: some View {
+        ResizableHSplit(
+            minLeft: 100, maxLeft: 99999, minRight: 100, initialLeft: 420
+        ) {
+            // ── Center: Chat ───────────────────────────────
+            VStack(spacing: 0) {
+                AgentChatView()
+                    .frame(maxWidth: .infinity, maxHeight: .infinity)
+
+                if app.showProcessLog {
+                    ResizableVSplit(
+                        minTop: 50, maxTop: 99999, minBottom: 50, initialTop: 9999
+                    ) {
+                        EmptyView()
+                    } bottom: {
+                        ThinkingLogView()
+                    }
+                    .frame(height: 180)
+                }
+            }
+        } right: {
+            // ── Right: Artifact/Diff (top) + Terminal (bottom) ──
+            ResizableVSplit(
+                minTop: 50, maxTop: 99999, minBottom: 50, initialTop: 400
+            ) {
+                // Artifact panel — has Diff tab built-in
+                ArtifactPanelView()
+                    .environmentObject(app)
+            } bottom: {
+                TerminalPanelView(terminal: app.terminal)
+                    .environmentObject(app)
+            }
+        }
     }
 
     // MARK: - Human Mode: approval banner

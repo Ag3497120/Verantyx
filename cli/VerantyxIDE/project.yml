@@ -26,6 +26,9 @@ packages:
   Hub:
     url: https://github.com/huggingface/swift-transformers
     from: "0.1.15"
+  Highlightr:
+    url: https://github.com/raspu/Highlightr
+    from: "2.1.2"
 
 targets:
   Verantyx:
@@ -53,6 +56,8 @@ targets:
         product: MLXLLM
       - package: Hub
         product: Transformers
+      - package: Highlightr
+        product: Highlightr
     postBuildScripts:
       # ── verantyx-browser をアプリバンドルに埋め込む ────────────────────────
       #

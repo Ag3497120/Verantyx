@@ -391,6 +391,8 @@ public actor OllamaClient {
 
             // openclaw: parseNdjsonStream(reader) — 1行 = 1 JSONオブジェクト
             for try await line in stream.lines {
+                if Task.isCancelled { break }
+                
                 guard !line.isEmpty,
                       let data = line.data(using: .utf8),
                       let json = try? JSONSerialization.jsonObject(with: data) as? [String: Any]
@@ -474,6 +476,8 @@ public actor OllamaClient {
                 do {
                     let (stream, _) = try await OllamaClient.noTimeoutSession.bytes(for: req)
                     for try await line in stream.lines {
+                        if Task.isCancelled { break }
+                        
                         guard !line.isEmpty,
                               let data = line.data(using: .utf8),
                               let json = try? JSONSerialization.jsonObject(with: data) as? [String: Any]
@@ -667,6 +671,8 @@ public actor AnthropicClient {
             }
 
             for try await line in stream.lines {
+                if Task.isCancelled { break }
+                
                 // SSE format: "data: {...}" or "event: ..."
                 guard line.hasPrefix("data: ") else { continue }
                 let jsonStr = String(line.dropFirst(6))  // "data: " の6文字を削除
@@ -782,6 +788,8 @@ public actor AnthropicClient {
                 do {
                     let (stream, _) = try await URLSession.shared.bytes(for: req)
                     for try await line in stream.lines {
+                        if Task.isCancelled { break }
+                        
                         guard line.hasPrefix("data: ") else { continue }
                         let jsonStr = String(line.dropFirst(6))
                         guard jsonStr != "[DONE]",

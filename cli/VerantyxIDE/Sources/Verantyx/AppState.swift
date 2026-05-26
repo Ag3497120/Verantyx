@@ -1,4 +1,5 @@
 import Foundation
+import Combine
 import SwiftUI
 import AppKit
 import WebKit
@@ -179,6 +180,16 @@ final class AppState: ObservableObject {
     @Published var totalTokensGenerated: Int = 0     // session total
     @Published var streamingText: String = ""        // current token buffer for live render
     @Published var inferenceMs: Int = 0              // last response latency ms
+
+    // ── Zero-Translation Steering Signal ──
+    // Publisher that emits commands (like "^C", "cd src/auth") entered in the LiveTerminalView.
+    // The AgentLoop will subscribe to this and interrupt its current task immediately.
+    let steeringSubject = PassthroughSubject<String, Never>()
+    
+    func sendSteeringCommand(_ cmd: String) {
+        logProcess("❯ \(cmd)", kind: .system)
+        steeringSubject.send(cmd)
+    }
 
     // ── Process log ("what is the AI thinking right now") ──
     @MainActor

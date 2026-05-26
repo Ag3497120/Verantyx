@@ -6,18 +6,12 @@ import SwiftUI
 
 struct AgentChatView: View {
     @EnvironmentObject var app: AppState
-    @State private var activeTab: Tab = .workspace
+    @State private var showingHistory: Bool = false
     @State private var inputText: String = ""
     @FocusState private var inputFocused: Bool
     
     @State private var showVisualAnchorPrompt: Bool = false
     @State private var visualAnchorText: String = ""
-
-    enum Tab: String, CaseIterable {
-        case workspace = "Workspace"
-        case history   = "History"
-        case thinking  = "Thinking"
-    }
 
     var body: some View {
         VStack(spacing: 0) {
@@ -27,11 +21,20 @@ struct AgentChatView: View {
             Divider().opacity(0.3)
 
             // ── Content ─────────────────────────────────────────────
-            switch activeTab {
-            case .workspace: workspaceView
-            case .history:   SessionHistoryView().environmentObject(app)
-            case .thinking:  thinkingLogView
+            ZStack {
+                chatTranscriptArea
+                    .opacity(showingHistory ? 0 : 1)
+                    .offset(x: showingHistory ? 20 : 0)
+                
+                if showingHistory {
+                    SessionHistoryView()
+                        .environmentObject(app)
+                        .opacity(showingHistory ? 1 : 0)
+                        .offset(x: showingHistory ? 0 : -20)
+                        .transition(.move(edge: .leading).combined(with: .opacity))
+                }
             }
+            .animation(.spring(response: 0.4, dampingFraction: 0.8), value: showingHistory)
 
             Divider().opacity(0.3)
 
@@ -88,130 +91,66 @@ struct AgentChatView: View {
             }
         )
         .background(Color(red: 0.13, green: 0.13, blue: 0.16))
-        // ─ Sync tab state with AppState (for session restore programmatic switch) ─
+        // ─ Sync state with AppState (for session restore programmatic switch) ─
         .onChange(of: app.activeChatTab) { _, newVal in
-            switch newVal {
-            case 0: activeTab = .workspace
-            case 1: activeTab = .history
-            case 2: activeTab = .thinking
-            default: break
+            withAnimation(.spring(response: 0.4, dampingFraction: 0.8)) {
+                showingHistory = (newVal == 1)
             }
         }
-        .onChange(of: activeTab) { _, tab in
-            let idx: Int
-            switch tab {
-            case .workspace: idx = 0
-            case .history:   idx = 1
-            case .thinking:  idx = 2
-            }
+        .onChange(of: showingHistory) { _, isHistory in
+            let idx = isHistory ? 1 : 0
             if app.activeChatTab != idx { app.activeChatTab = idx }
+        }
+        .onChange(of: app.sessions.activeSessionId) { _, _ in
+            // When a session is selected from history, automatically switch back to chat view
+            if showingHistory {
+                withAnimation(.spring(response: 0.4, dampingFraction: 0.8)) {
+                    showingHistory = false
+                }
+            }
         }
     }
 
-    // MARK: - Tab bar
+    // MARK: - Top Chat Button
 
     private var tabBar: some View {
-        HStack(spacing: 0) {
-            ForEach(Tab.allCases, id: \.rawValue) { tab in
-                Button {
-                    activeTab = tab
-                } label: {
-                    HStack(spacing: 6) {
-                        Image(systemName: tabIcon(tab))
-                            .font(.system(size: 10))
-                        Text(tabLabel(tab))
-                            .font(.system(size: 12, weight: activeTab == tab ? .semibold : .regular))
-                            .lineLimit(1)
-                            .minimumScaleFactor(0.8)
-                    }
-                    .foregroundStyle(activeTab == tab
-                        ? Color.white
-                        : Color(red: 0.55, green: 0.55, blue: 0.65))
-                    .padding(.horizontal, 12)
-                    .padding(.vertical, 8)
-                    .background(
-                        activeTab == tab
-                            ? Color.white.opacity(0.06)
-                            : Color.clear
-                    )
-                    .overlay(
-                        Rectangle()
-                            .fill(tabAccentColor(tab))
-                            .frame(height: 1.5),
-                        alignment: .bottom
-                    )
-                    .opacity(activeTab == tab ? 1 : 0.7)
-                }
-                .contentShape(Rectangle())
-                .buttonStyle(.plain)
-
-                // Session badge on History tab
-                if tab == .history && app.sessions.sessions.count > 0 {
-                    Text("\(app.sessions.sessions.count)")
-                        .font(.system(size: 8, weight: .bold))
-                        .foregroundStyle(.black)
-                        .padding(.horizontal, 4)
-                        .padding(.vertical, 1.5)
-                        .background(Color(red: 0.4, green: 0.7, blue: 1.0), in: Capsule())
-                        .offset(x: -4, y: -4)
-                }
-            }
+        HStack {
             Spacer()
-
-            // New session quick button
             Button {
-                app.newChatSession()
+                withAnimation(.spring(response: 0.4, dampingFraction: 0.8)) {
+                    showingHistory.toggle()
+                }
             } label: {
-                Image(systemName: "plus")
-                    .font(.system(size: 10))
-                    .foregroundStyle(Color(red: 0.5, green: 0.5, blue: 0.6))
+                HStack(spacing: 6) {
+                    Image(systemName: "bubble.left.and.bubble.right.fill")
+                        .font(.system(size: 11))
+                        .foregroundStyle(Color(red: 0.4, green: 0.7, blue: 1.0))
+                    Text(app.t("Chat", "チャット"))
+                        .font(.system(size: 13, weight: .bold))
+                        .foregroundStyle(Color.white)
+                    Image(systemName: "chevron.down")
+                        .font(.system(size: 10, weight: .bold))
+                        .foregroundStyle(Color.white.opacity(0.6))
+                        .rotationEffect(.degrees(showingHistory ? 180 : 0))
+                }
+                .padding(.horizontal, 16)
+                .padding(.vertical, 8)
+                .background(
+                    Capsule()
+                        .fill(Color(red: 0.2, green: 0.2, blue: 0.25))
+                        .overlay(
+                            Capsule().stroke(Color.white.opacity(0.1), lineWidth: 1)
+                        )
+                )
             }
-            .contentShape(Rectangle())
             .buttonStyle(.plain)
-            .padding(.horizontal, 6)
-            .help(app.t("New session", "新しいセッション"))
-
-            Button { } label: {
-                Image(systemName: "ellipsis")
-                    .font(.system(size: 11))
-                    .foregroundStyle(Color(red: 0.5, green: 0.5, blue: 0.6))
-            }
-            .contentShape(Rectangle())
-            .buttonStyle(.plain)
-            .padding(.horizontal, 8)
+            Spacer()
         }
+        .padding(.vertical, 8)
         .background(Color(red: 0.15, green: 0.15, blue: 0.19))
     }
 
-    private func tabIcon(_ tab: Tab) -> String {
-        switch tab {
-        case .workspace: return "bolt.fill"
-        case .history:   return "clock.arrow.circlepath"
-        case .thinking:  return "brain"
-        }
-    }
-
-    private func tabAccentColor(_ tab: Tab) -> Color {
-        switch tab {
-        case .workspace: return Color(red: 0.4, green: 0.7, blue: 1.0)
-        case .history:   return Color(red: 0.5, green: 0.9, blue: 0.6)
-        case .thinking:  return Color(red: 0.7, green: 0.5, blue: 1.0)
-        }
-    }
-
-    private func tabLabel(_ tab: Tab) -> String {
-        switch tab {
-        case .workspace: return app.t("Workspace", "ワークスペース")
-        case .history:   return app.t("History", "履歴")
-        case .thinking:  return app.t("Thinking", "思考ログ")
-        }
-    }
-
     // MARK: - Workspace (main chat)
-
-    private var workspaceView: some View {
-        chatTranscriptArea
-    }
 
     private var chatTranscriptArea: some View {
         ZStack(alignment: .bottomLeading) {
@@ -221,60 +160,13 @@ struct AgentChatView: View {
                 .frame(maxWidth: .infinity, maxHeight: .infinity)
             
             if app.isGenerating {
-                HStack(spacing: 8) {
-                    ProgressView()
-                        .controlSize(.small)
-                    Text("Generating...")
-                        .font(.system(size: 11, weight: .bold, design: .monospaced))
-                        .foregroundStyle(Color(red: 0.35, green: 0.85, blue: 0.80))
-                }
-                .padding(.horizontal, 12)
-                .padding(.vertical, 8)
-                .background(Color(red: 0.13, green: 0.13, blue: 0.16).opacity(0.85), in: Capsule())
-                .overlay(Capsule().stroke(Color(red: 0.35, green: 0.85, blue: 0.80).opacity(0.3), lineWidth: 1))
-                .padding(16)
-                .transition(.opacity.combined(with: .move(edge: .bottom)))
-                .animation(.easeInOut(duration: 0.3), value: app.isGenerating)
+                LiveTerminalView()
+                    .transition(AnyTransition.move(edge: .bottom).combined(with: .opacity))
+                    .animation(Animation.spring(response: 0.35, dampingFraction: 0.8), value: app.isGenerating)
             }
         }
     }
 
-
-    // MARK: - Thinking Log (shows <think> sections)
-
-    private var thinkingLogView: some View {
-        ScrollView {
-            LazyVStack(alignment: .leading, spacing: 4) {
-                ForEach(app.messages.filter { !extractThinking(from: $0.content).isEmpty }) { msg in
-                    VStack(alignment: .leading, spacing: 6) {
-                        Text(extractThinking(from: msg.content))
-                            .font(.system(size: 11.5, design: .monospaced))
-                            .foregroundStyle(Color(red: 0.35, green: 0.85, blue: 0.80))
-                            .textSelection(.enabled)
-                    }
-                    .padding(10)
-                    .background(Color.white.opacity(0.03), in: RoundedRectangle(cornerRadius: 6))
-                    Divider().opacity(0.2)
-                }
-                if app.messages.filter({ !extractThinking(from: $0.content).isEmpty }).isEmpty {
-                    VStack(spacing: 12) {
-                        Spacer()
-                        Image(systemName: "brain")
-                            .font(.title)
-                            .foregroundStyle(Color(red: 0.4, green: 0.4, blue: 0.5))
-                        Text("Thinking logs will appear here\nwhen the model uses chain-of-thought.")
-                            .font(.callout)
-                            .foregroundStyle(Color(red: 0.4, green: 0.4, blue: 0.5))
-                            .multilineTextAlignment(.center)
-                        Spacer()
-                    }
-                    .frame(maxWidth: .infinity)
-                    .padding(40)
-                }
-            }
-            .padding(12)
-        }
-    }
 
     // MARK: - Model selector bar
 
@@ -1322,6 +1214,137 @@ struct RateLimitStatusView: View {
                     }
                 }
             }
+        }
+    }
+}
+import SwiftUI
+import AppKit
+
+// MARK: - LiveTerminalView
+// The in-line Zero-Translation Steering Terminal.
+// Displayed inside the chat stream (or as an island) when the agent is inferring/executing.
+
+struct LiveTerminalView: View {
+    @EnvironmentObject var app: AppState
+    @State private var commandInput: String = ""
+    @FocusState private var isInputFocused: Bool
+    
+    // Auto-scroll anchor
+    @Namespace private var bottomID
+
+    var body: some View {
+        VStack(spacing: 0) {
+            // ── Header ──
+            HStack(spacing: 8) {
+                Circle()
+                    .fill(Color(red: 0.3, green: 1.0, blue: 0.5))
+                    .frame(width: 6, height: 6)
+                    .opacity(0.9)
+                
+                Text("LIVE TERMINAL — STEERING")
+                    .font(.system(size: 10, weight: .bold, design: .monospaced))
+                    .foregroundStyle(Color(red: 0.5, green: 0.9, blue: 0.6))
+                
+                Spacer()
+                
+                Text("Ctrl+C to Abort")
+                    .font(.system(size: 9, design: .monospaced))
+                    .foregroundStyle(Color.gray)
+            }
+            .padding(.horizontal, 10)
+            .padding(.vertical, 6)
+            .background(Color(red: 0.08, green: 0.10, blue: 0.12))
+            
+            Divider().opacity(0.3)
+            
+            // ── Log Body ──
+            ScrollViewReader { proxy in
+                ScrollView {
+                    LazyVStack(alignment: .leading, spacing: 2) {
+                        ForEach(app.logStore.entries) { entry in
+                            HStack(alignment: .top, spacing: 6) {
+                                Text(entry.prefix)
+                                    .font(.system(size: 10, weight: .semibold, design: .monospaced))
+                                    .foregroundStyle(colorForKind(entry.kind))
+                                
+                                Text(entry.text)
+                                    .font(.system(size: 10, design: .monospaced))
+                                    .foregroundStyle(Color(red: 0.85, green: 0.85, blue: 0.9))
+                            }
+                            .padding(.horizontal, 8)
+                        }
+                        
+                        // Invisible anchor for auto-scroll
+                        Color.clear.frame(height: 1).id(bottomID)
+                    }
+                    .padding(.vertical, 4)
+                }
+                .frame(maxHeight: 200)
+                .onChange(of: app.logStore.entries.count) { _ in
+                    withAnimation(.easeOut(duration: 0.1)) {
+                        proxy.scrollTo(bottomID, anchor: .bottom)
+                    }
+                }
+            }
+            .background(Color(red: 0.06, green: 0.08, blue: 0.10))
+            
+            Divider().opacity(0.3)
+            
+            // ── Command Input (Steering) ──
+            HStack(spacing: 6) {
+                Text("❯")
+                    .font(.system(size: 11, weight: .bold, design: .monospaced))
+                    .foregroundStyle(Color(red: 0.3, green: 1.0, blue: 0.5))
+                
+                TextField("vtx-steer (or Ctrl+C)...", text: $commandInput)
+                    .textFieldStyle(.plain)
+                    .font(.system(size: 11, design: .monospaced))
+                    .foregroundStyle(.white)
+                    .focused($isInputFocused)
+                    .onSubmit {
+                        submitSteeringCommand()
+                    }
+                
+                Button {
+                    app.sendSteeringCommand("^C")
+                } label: {
+                    Text("^C")
+                        .font(.system(size: 10, weight: .bold, design: .monospaced))
+                        .foregroundStyle(.red)
+                        .padding(.horizontal, 4).padding(.vertical, 2)
+                        .background(Color.red.opacity(0.2), in: RoundedRectangle(cornerRadius: 4))
+                }
+                .buttonStyle(.plain)
+                .help("Send SIGINT (Interrupt Agent)")
+            }
+            .padding(.horizontal, 10)
+            .padding(.vertical, 6)
+            .background(Color(red: 0.08, green: 0.10, blue: 0.12))
+        }
+        .clipShape(RoundedRectangle(cornerRadius: 8))
+        .overlay(
+            RoundedRectangle(cornerRadius: 8)
+                .stroke(Color.white.opacity(0.15), lineWidth: 1)
+        )
+        .padding(.horizontal, 12)
+        .padding(.vertical, 8)
+    }
+    
+    private func submitSteeringCommand() {
+        let cmd = commandInput.trimmingCharacters(in: .whitespaces)
+        guard !cmd.isEmpty else { return }
+        app.sendSteeringCommand(cmd)
+        commandInput = ""
+    }
+    
+    private func colorForKind(_ kind: AppState.ProcessLogEntry.Kind) -> Color {
+        switch kind {
+        case .memory:   return Color(red: 0.40, green: 0.90, blue: 0.60)
+        case .tool:     return Color(red: 0.40, green: 0.80, blue: 1.00)
+        case .browser:  return Color(red: 0.90, green: 0.70, blue: 0.30)
+        case .thinking: return Color(red: 0.80, green: 0.80, blue: 1.00)
+        case .system:   return Color(red: 0.60, green: 0.60, blue: 0.60)
+        case .perf:     return Color(red: 0.30, green: 1.00, blue: 0.50)
         }
     }
 }

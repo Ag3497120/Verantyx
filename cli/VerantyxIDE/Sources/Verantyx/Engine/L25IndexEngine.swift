@@ -289,8 +289,13 @@ final class L25IndexEngine: ObservableObject {
     /// 純粋なディスクI/Oのみ — nonisolated なのでバックグラウンドスレッドで安全に呼び出せる
     nonisolated private static func loadMapFromDisk(mapURL: URL) async -> L25ProjectMap? {
         await Task.detached(priority: .utility) {
-            guard let text = try? String(contentsOf: mapURL, encoding: .utf8) else { return nil }
-            return L25ProjectMap.fromJCrossString(text)
+            do {
+                let text = try String(contentsOf: mapURL, encoding: .utf8)
+                return L25ProjectMap.fromJCrossString(text)
+            } catch {
+                print("[L25IndexEngine] L2.5 cache not loaded from \(mapURL.path): \(error.localizedDescription)")
+                return nil
+            }
         }.value
     }
 
@@ -429,6 +434,10 @@ final class L25IndexEngine: ObservableObject {
     ///   3. 変更・新規ファイルのみ BitNet で再インデックス
     ///   4. 削除されたファイルをエントリから除去
     func loadAndIncrementalUpdate(workspaceURL: URL) async {
+        if let existing = indexingTask {
+            await existing.value
+            return
+        }
         let task: Task<Void, Never> = Task.detached(priority: .utility) { [weak self] in
             await self?.runLoadAndIncrementalUpdate(workspaceURL: workspaceURL)
         }
@@ -779,12 +788,16 @@ final class L25IndexEngine: ObservableObject {
 
     nonisolated private func saveMap(_ map: L25ProjectMap, workspaceURL: URL) {
         let url = mapFileURL(workspaceURL: workspaceURL)
-        try? FileManager.default.createDirectory(
-            at: url.deletingLastPathComponent(),
-            withIntermediateDirectories: true
-        )
-        let text = map.toJCrossString()
-        try? text.write(to: url, atomically: true, encoding: .utf8)
+        do {
+            try FileManager.default.createDirectory(
+                at: url.deletingLastPathComponent(),
+                withIntermediateDirectories: true
+            )
+            let text = map.toJCrossString()
+            try text.write(to: url, atomically: true, encoding: .utf8)
+        } catch {
+            print("[L25IndexEngine] Failed to save L2.5 map to \(url.path): \(error)")
+        }
     }
 
     private func addLog(_ msg: String) {
@@ -830,15 +843,26 @@ final class L25IndexEngine: ObservableObject {
         workspaceURL: URL
     ) async -> ([URL], [String]) {
         var changed: [URL] = []
+        let wsPath = workspaceURL.path
+        
+        func extractRelativePath(_ fileURL: URL) -> String {
+            var p = fileURL.path
+            if p.hasPrefix(wsPath) {
+                p.removeFirst(wsPath.count)
+                if p.hasPrefix("/") { p.removeFirst() }
+            }
+            return p
+        }
+        
         for fileURL in allFiles {
             let attrs = try? FileManager.default.attributesOfItem(atPath: fileURL.path)
             let modDate = (attrs?[.modificationDate] as? Date) ?? .distantPast
-            let relativePath = String(fileURL.path.dropFirst(workspaceURL.path.count + 1))
+            let relativePath = extractRelativePath(fileURL)
             if currentMap.entries[relativePath] == nil || modDate > lastGenerated {
                 changed.append(fileURL)
             }
         }
-        let allRelative = Set(allFiles.map { String($0.path.dropFirst(workspaceURL.path.count + 1)) })
+        let allRelative = Set(allFiles.map { extractRelativePath($0) })
         let removed = currentMap.entries.keys.filter { !allRelative.contains($0) }
         return (changed, removed)
     }
