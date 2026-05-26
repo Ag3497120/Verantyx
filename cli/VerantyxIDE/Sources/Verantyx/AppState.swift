@@ -498,6 +498,7 @@ final class AppState: ObservableObject {
             let mm = m.lowercased()
             return mm.contains("llava") || mm.contains("vision")
                 || (mm.contains("qwen") && mm.contains("vl"))
+                || mm.contains("qwen3") || mm.contains("qwen-vl")
                 || mm.contains("minicpm") || mm.contains("moondream")
                 || mm.contains("bakllava") || mm.contains("cogvlm")
                 || (mm.contains("gemma") && !mm.contains("gemma2") && !mm.contains("gemma-2"))
