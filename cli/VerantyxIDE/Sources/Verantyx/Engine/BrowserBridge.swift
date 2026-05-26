@@ -637,7 +637,7 @@ class SafariVisionBridge {
     func takeScreenshot(enforceSafari: Bool = true) async throws -> String {
         if !CGPreflightScreenCaptureAccess() {
             CGRequestScreenCaptureAccess()
-            throw BrowserError.ioError("Please grant Screen Recording permission in System Settings -> Privacy & Security, then restart the app.")
+            throw BrowserError.ioError("Please grant Screen Recording permission in System Settings -> Privacy & Security. If already checked, remove it (click '-'), restart the app, and grant it again when prompted.")
         }
 
         if enforceSafari {
