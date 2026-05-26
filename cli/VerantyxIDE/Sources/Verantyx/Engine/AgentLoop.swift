@@ -2003,26 +2003,25 @@ enum ModelProfileDetector {
 /// from the Talkie model into concrete execution tools (e.g. Swarm execution).
 struct TalkieIntermediary {
     static func parseAndTranslate(response: String) -> String {
-        var translatedResponse = response
-        
         // Match [COMMAND: Department Name - Task Description]
         let pattern = #"\[COMMAND:\s*(.+?)\s*-\s*(.+?)\]"#
         guard let regex = try? NSRegularExpression(pattern: pattern, options: []) else {
-            return translatedResponse
+            return response
         }
         
-        let matches = regex.matches(in: response, options: [], range: NSRange(response.startIndex..., in: response))
+        let nsResponse = NSMutableString(string: response)
+        let matches = regex.matches(in: response, options: [], range: NSRange(location: 0, length: nsResponse.length))
         
         // Process in reverse to safely replace strings without messing up indices
         for match in matches.reversed() {
-            guard let deptRange = Range(match.range(at: 1), in: response),
-                  let taskRange = Range(match.range(at: 2), in: response),
-                  let fullRange = Range(match.range(at: 0), in: response) else {
-                continue
-            }
+            guard match.numberOfRanges >= 3 else { continue }
             
-            let department = String(response[deptRange])
-            let task = String(response[taskRange])
+            let deptRange = match.range(at: 1)
+            let taskRange = match.range(at: 2)
+            let fullRange = match.range(at: 0)
+            
+            let department = nsResponse.substring(with: deptRange)
+            let task = nsResponse.substring(with: taskRange)
             
             // Map 1930s metaphors to modern technical categories
             let modernCategory: String
@@ -2038,9 +2037,9 @@ struct TalkieIntermediary {
             // Translate abstract command into concrete Swarm delegate execution
             let concreteCommand = "[SWARM_EXECUTE: [\(modernCategory)] \(task)]"
             
-            translatedResponse.replaceSubrange(fullRange, with: concreteCommand)
+            nsResponse.replaceCharacters(in: fullRange, with: concreteCommand)
         }
         
-        return translatedResponse
+        return nsResponse as String
     }
 }

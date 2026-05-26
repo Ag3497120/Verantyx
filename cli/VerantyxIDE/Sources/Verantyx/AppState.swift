@@ -603,7 +603,21 @@ final class AppState: ObservableObject {
     var currentGenerationIsSpotlight: Bool = false
 
     // Talkie-1930 Mode (Blind Commander)
-    @Published var isTalkieMode: Bool = false
+    @Published var isTalkieMode: Bool = false {
+        didSet {
+            if isTalkieMode {
+                let talkieMLX = "kofdai/talkie-1930-13b-it-mlx-8bit"
+                if activeMlxModel != talkieMLX {
+                    activeMlxModel = talkieMLX
+                    loadMLXModel(model: talkieMLX)
+                } else if case .mlxReady = modelStatus {
+                    // Already ready
+                } else {
+                    loadMLXModel(model: talkieMLX)
+                }
+            }
+        }
+    }
 
     // MARK: - Gatekeeper Model Sync
 
@@ -1283,7 +1297,7 @@ final class AppState: ObservableObject {
         let context = selectedFileContent.isEmpty ? nil : selectedFileContent
         let contextFile = selectedFile
         let snap_workspace = workspaceURL
-        let snap_model = isTalkieMode ? "talkie-1930-it:13b" : activeOllamaModel
+        let snap_model = isTalkieMode ? "kofdai/talkie-1930-13b-it-mlx-8bit" : activeOllamaModel
         let snap_status = modelStatus
 
         // selfFixMode persists until the user explicitly toggles it off.
