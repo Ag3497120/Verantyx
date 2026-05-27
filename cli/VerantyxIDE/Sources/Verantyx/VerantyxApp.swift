@@ -160,7 +160,7 @@ struct VerantyxApp: App {
             }
         }
         // Main IDE Window
-        WindowGroup(id: "main-ide") {
+        Window("Verantyx IDE", id: "main-ide") {
             MainSplitView()
                 .frame(minWidth: 200, maxWidth: .infinity, minHeight: 200, maxHeight: .infinity)
                 .environmentObject(appState)
@@ -187,13 +187,7 @@ struct VerantyxApp: App {
                         await SessionMemoryArchiver.shared.indexSkills(workspaceRoot: wsURL)
                     }
 
-                    DispatchQueue.main.asyncAfter(deadline: .now() + 0.3) {
-                        Task.detached(priority: .utility) {
-                            guard await appState.operationMode == .gatekeeper else { return }
-                            guard let ws = await appState.workspaceURL else { return }
-                            await L25IndexEngine.shared.loadAndIncrementalUpdate(workspaceURL: ws)
-                        }
-                    }
+                    // ── L2.5変換の自動起動を削除し、UI側の確認ダイアログに従うように変更 ──
                     
                     // ── Initialize OS Agent Spotlight UI ──
                     SpotlightPanelManager.shared.setup(appState: appState)
@@ -550,12 +544,8 @@ struct SpotlightView: View {
             isFocused = true
             showTranscript = false
         }
-        .onChange(of: appState.isGenerating) { _, isGen in
-            if isGen {
-                SpotlightPanelManager.shared.show()
-            }
-        }
         .onReceive(NotificationCenter.default.publisher(for: NSNotification.Name("SpotlightPanelDidShow"))) { _ in
+
             bubbleScale = 0.8
             bubbleOpacity = 0.0
             withAnimation(.spring(response: 0.35, dampingFraction: 0.65)) {

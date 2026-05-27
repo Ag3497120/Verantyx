@@ -263,14 +263,7 @@ final class AppState: ObservableObject {
             }
             
 
-            // L2.5 変換の制御
-            if L25IndexEngine.shared.hasPausedMap || L25IndexEngine.shared.isStopped {
-                L25IndexEngine.shared.resumeIndexing()
-            } else if let ws = workspaceURL, !L25IndexEngine.shared.isIndexing {
-                Task { @MainActor in
-                    await L25IndexEngine.shared.loadAndIncrementalUpdate(workspaceURL: ws)
-                }
-            }
+            // L2.5 変換の制御 (自動実行は削除し、UI側の明示的なアクションまたは確認ダイアログに委ねる)
         }
     }
 
@@ -665,12 +658,7 @@ final class AppState: ObservableObject {
         GatekeeperModeState.shared.configure(workspaceURL: url)
         refreshFiles()
         // ── ワークスペース追加時に L2.5 地図を自動生成 ───────────────────
-        // @MainActor な buildProjectMap を Task で安全に呼び出す
-        Task { @MainActor in
-                await L25IndexEngine.shared.loadAndIncrementalUpdate(workspaceURL: url)
-                let count = L25IndexEngine.shared.projectMap?.fileCount ?? 0
-                self.addSystemMessage(AppLanguage.shared.t("🗺️ L2.5 map generation complete: \(count) files", "🗺️ L2.5 地図生成完了: \(count) ファイル"))
-            }
+        // (UI側で確認ダイアログを出すため、自動実行は削除)
         }
 
     /// Progressive directory scan — yields partial results as they arrive.

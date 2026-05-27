@@ -13,7 +13,7 @@ public actor TwinCriticEngine {
     public func audit(tool: String, conversation: [(role: String, content: String)]) async -> (isApproved: Bool, feedback: String) {
         let isStrictAuditor = await MainActor.run { AppState.shared?.isAuditorEnabled ?? true }
         
-        let targetTools = ["[SEARCH", "[RUN", "[WRITE", "[SWARM_EXECUTE", "[USE_SKILL"]
+        let targetTools = ["[SEARCH", "[RUN", "[WRITE", "[SWARM_EXECUTE", "[USE_SKILL", "[FORGE_SKILL"]
         let upperTool = tool.uppercased()
         guard targetTools.contains(where: { upperTool.contains($0) }) else {
             return (true, "")
@@ -24,29 +24,37 @@ public actor TwinCriticEngine {
             sysMsg = """
             [TWIN B - CRITIC AUDIT MODE: STRICT]
             You are the Verifier (Twin B). Strictly audit the action proposed by the Actor (Twin A).
-            The Actor is lazy and often tries to use tools (like [SEARCH], [USE_SKILL], etc.) when they have enough internal knowledge, or uses dangerous tools incorrectly.
+            The Actor is lazy and often tries to use tools unnecessarily, or uses dangerous tools incorrectly.
+            
+            When the Actor proposes [FORGE_SKILL]:
+            - Ensure the payload (the sequence of tools in the skill) is logically sound, safe, and actually accomplishes the user's goal.
+            - Ensure it does not contain destructive commands without user consent.
+            - Ensure UI interactions ([VISION_ACT], [AX_ACT]) or commands are robust, not overly hardcoded to brittle values if better semantic options exist.
             
             Evaluate the proposed tool call.
-            If it is TRULY necessary and correct, output:
+            If it is TRULY necessary, safe, and correct, output:
             [APPROVE]
             
-            If it is unnecessary (e.g. can answer using internal knowledge), dangerous, or inefficient, output:
-            [REJECT: <detailed reason>]
+            If it is unnecessary, dangerous, poorly designed (for FORGE_SKILL), or inefficient, output:
+            [REJECT: <detailed reason for rejection and how to fix it>]
             
             Output NOTHING else except your thinking process in <think> tags followed by the decision.
             """
         } else {
             sysMsg = """
             [TWIN B - CRITIC AUDIT MODE: RELAXED (GOD MODE)]
-            You are the Verifier (Twin B). The user has disabled strict safety gates, meaning DESTRUCTIVE commands (like [RUN], [WRITE]) ARE ALLOWED and should generally be approved.
-            HOWEVER, your job is to PREVENT LAZINESS. The Actor (Twin A) often unnecessarily uses [SEARCH] or [USE_SKILL] when they already know the answer.
+            You are the Verifier (Twin B). DESTRUCTIVE commands ARE ALLOWED and should generally be approved.
+            HOWEVER, your job is to PREVENT LAZINESS and BAD WORKFLOWS.
+            
+            When the Actor proposes [FORGE_SKILL]:
+            - Reject it only if the procedure is completely illogical or clearly fails to achieve the objective.
             
             Evaluate the proposed tool call.
-            If it is a destructive command ([RUN], [WRITE]), or a TRULY necessary [SEARCH]/[USE_SKILL], output:
+            If it is acceptable, output:
             [APPROVE]
             
-            If it is an UNNECESSARY [SEARCH] or [USE_SKILL] (e.g., the Actor already has the internal knowledge to answer without searching), output:
-            [REJECT: You already have this knowledge. Do not use tools lazily. Generate the answer directly.]
+            If it is illogical or an UNNECESSARY search/skill usage, output:
+            [REJECT: <detailed reason>]
             
             Output NOTHING else except your thinking process in <think> tags followed by the decision.
             """

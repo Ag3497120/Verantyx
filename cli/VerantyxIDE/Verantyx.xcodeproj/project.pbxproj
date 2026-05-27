@@ -56,6 +56,7 @@
 		4F74BBA8D8892CF5A08BFEAC /* AgentLoop.swift in Sources */ = {isa = PBXBuildFile; fileRef = ABE4F19CD033EC88CE775297 /* AgentLoop.swift */; };
 		4FBD43D6C7251367D3AD2C47 /* WHYHookInstaller.swift in Sources */ = {isa = PBXBuildFile; fileRef = 97873491BA99A272B899E86A /* WHYHookInstaller.swift */; };
 		506021C3BDB86670D434BBE7 /* CloudAPIClient.swift in Sources */ = {isa = PBXBuildFile; fileRef = CCB5E227D30DCFCF698F28FD /* CloudAPIClient.swift */; };
+		51DE97C88098FB7F05FC2C17 /* TalkieModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E173FE2DBB88332D7482141 /* TalkieModel.swift */; };
 		525874995CEE5ACAA12F838A /* SyntaxHighlighter.swift in Sources */ = {isa = PBXBuildFile; fileRef = F44C7CACCD10CB9F7836B4A7 /* SyntaxHighlighter.swift */; };
 		5501BBD59DC8AA6357BA1F92 /* MCPView.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA5721938F21F94496234B39 /* MCPView.swift */; };
 		5569CAB30AF2182A310F2EEC /* VSIXPackageManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 37801484CD89AA2C31BB003B /* VSIXPackageManager.swift */; };
@@ -279,6 +280,7 @@
 		8CE028571C7727001A93D813 /* ParanoiaModeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ParanoiaModeView.swift; sourceTree = "<group>"; };
 		8D373F57072F08514D5CEAB6 /* ContextBudgetManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContextBudgetManager.swift; sourceTree = "<group>"; };
 		8DF2C2D7BE640032534C82B6 /* SessionHistoryView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SessionHistoryView.swift; sourceTree = "<group>"; };
+		8E173FE2DBB88332D7482141 /* TalkieModel.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = TalkieModel.swift; sourceTree = "<group>"; };
 		8E251102E6551353AB9E01A2 /* GatekeeperPromptBuilder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GatekeeperPromptBuilder.swift; sourceTree = "<group>"; };
 		8F147916A4803AD39B29AE9A /* JCrossObfuscationEngine.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = JCrossObfuscationEngine.swift; sourceTree = "<group>"; };
 		8F542870A057959E5B83A9A4 /* LanguageDetector.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LanguageDetector.swift; sourceTree = "<group>"; };
@@ -604,6 +606,7 @@
 				97873491BA99A272B899E86A /* WHYHookInstaller.swift */,
 				6E6A5B698998E7C8A4616F85 /* WorkspaceFileSystem.swift */,
 				DD8BBB55D4627EE66EB79331 /* WorkspaceManager.swift */,
+				8E173FE2DBB88332D7482141 /* TalkieModel.swift */,
 			);
 			path = Engine;
 			sourceTree = "<group>";
@@ -881,6 +884,7 @@
 				38463790F63CCF562DE29226 /* WebSearchEngine.swift in Sources */,
 				EE363EE394F30B118F9860E1 /* WorkspaceFileSystem.swift in Sources */,
 				582245E341F93D3E1ECE5CBF /* WorkspaceManager.swift in Sources */,
+				51DE97C88098FB7F05FC2C17 /* TalkieModel.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

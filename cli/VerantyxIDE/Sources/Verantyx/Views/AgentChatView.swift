@@ -13,6 +13,9 @@ struct AgentChatView: View {
     @State private var showVisualAnchorPrompt: Bool = false
     @State private var visualAnchorText: String = ""
     @State private var showSpotlightPrompt: Bool = false
+    
+    @State private var showAgentPromptAnchorPrompt: Bool = false
+    @State private var agentPromptAnchorText: String = ""
 
     var body: some View {
         VStack(spacing: 0) {
@@ -544,6 +547,61 @@ struct AgentChatView: View {
                         }
                         .padding()
                     }
+
+                    // ── Agent Prompt Visual Anchor Insertion ──
+                    Button {
+                        showAgentPromptAnchorPrompt = true
+                    } label: {
+                        Image(systemName: "wand.and.stars")
+                            .font(.system(size: 15))
+                            .foregroundStyle(Color(red: 0.4, green: 0.8, blue: 0.9))
+                            .frame(width: 26, height: 26)
+                    }
+                    .contentShape(Rectangle())
+                    .buttonStyle(.plain)
+                    .help(app.t("Insert Instruction as Image", "テキスト指示を画像として注入"))
+                    .popover(isPresented: $showAgentPromptAnchorPrompt) {
+                        VStack(alignment: .leading, spacing: 10) {
+                            Text("Agent Instruction 注入")
+                                .font(.headline)
+                            Text("テキスト指示を画像に変換してAIのテキスト偏重を回避します。")
+                                .font(.caption)
+                                .foregroundStyle(.secondary)
+                            
+                            TextEditor(text: $agentPromptAnchorText)
+                                .frame(width: 300, height: 100)
+                                .font(.system(size: 12, design: .monospaced))
+                                .border(Color.gray.opacity(0.3))
+                            
+                            HStack {
+                                Spacer()
+                                Button("Cancel") {
+                                    showAgentPromptAnchorPrompt = false
+                                }
+                                Button("Inject") {
+                                    guard !agentPromptAnchorText.isEmpty else { return }
+                                    let anchorBase64 = CognitiveAnchorEngine.shared.getUserPromptAnchor(text: agentPromptAnchorText)
+                                    if let data = Data(base64Encoded: anchorBase64),
+                                       let img = NSImage(data: data) {
+                                        let tempUrl = FileManager.default.temporaryDirectory.appendingPathComponent("agent_anchor_\\(UUID().uuidString).png")
+                                        if let tiff = img.tiffRepresentation,
+                                           let bitmap = NSBitmapImageRep(data: tiff),
+                                           let png = bitmap.representation(using: .png, properties: [:]) {
+                                            try? png.write(to: tempUrl)
+                                            let attached = AttachedImage(name: "InstructionAnchor.png", url: tempUrl, nsImage: img)
+                                            app.attachedImages.append(attached)
+                                        }
+                                    }
+                                    showAgentPromptAnchorPrompt = false
+                                    agentPromptAnchorText = ""
+                                }
+                                .buttonStyle(.borderedProminent)
+                                .tint(.blue)
+                            }
+                        }
+                        .padding()
+                    }
+
 
                     // ── Self Fix — icon-only, fixed frame ────────────────
                     // Using just the icon + background color (no expanding text)

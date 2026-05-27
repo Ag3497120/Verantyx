@@ -454,332 +454,345 @@ struct SettingsView: View {
     private var modelSettings: some View {
         VStack(alignment: .leading, spacing: 20) {
             sectionHeader("Model Configuration", icon: "cpu")
-
-            // Active backend status
-            settingsCard {
-                VStack(alignment: .leading, spacing: 12) {
-                    rowLabel("Ollama endpoint") {
-                        TextField("http://localhost:11434", text: $app.ollamaEndpoint)
-                            .textFieldStyle(.roundedBorder)
-                            .font(.system(size: 11, design: .monospaced))
-                            .frame(width: 200)
-                            .onSubmit { app.connectOllama() }
-                    }
-
-                    if let result = connectionTestResult {
-                        Text(result)
-                            .font(.system(size: 10, design: .monospaced))
-                            .foregroundStyle(result.contains("✓") ? .green : .red)
-                    }
-
-                    Divider().opacity(0.2)
-
-                    // ── MLX Model Selector ──────────────────────────────────
-                    VStack(alignment: .leading, spacing: 8) {
-                        HStack {
-                            Text("MLX model")
-                                .font(.system(size: 11, design: .monospaced))
-                                .foregroundStyle(.secondary)
-                            Spacer()
-                            // Show currently loaded MLX model
-                            if case .mlxReady(let m) = app.modelStatus {
-                                HStack(spacing: 4) {
-                                    Circle().fill(Color.green).frame(width: 6, height: 6)
-                                    Text(m.components(separatedBy: "/").last ?? m)
-                                        .font(.system(size: 10, design: .monospaced))
-                                        .foregroundStyle(.green)
-                                }
-                            }
-                        }
-
-                        // Popular models list
-                        VStack(spacing: 4) {
-                            ForEach(MLXRunner.popularModels) { model in
-                                let isSelected = app.activeMlxModel == model.id
-                                let isLoaded: Bool = {
-                                    if case .mlxReady(let m) = app.modelStatus { return m == model.id }
-                                    return false
-                                }()
-
-                                Button {
-                                    app.activeMlxModel = model.id
-                                } label: {
-                                    HStack(spacing: 10) {
-                                        // Selection indicator
-                                        ZStack {
-                                            Circle()
-                                                .stroke(isSelected
-                                                    ? Color(red: 0.4, green: 0.7, blue: 1.0)
-                                                    : Color.white.opacity(0.2),
-                                                    lineWidth: isSelected ? 2 : 1)
-                                                .frame(width: 14, height: 14)
-                                            if isSelected {
-                                                Circle()
-                                                    .fill(Color(red: 0.4, green: 0.7, blue: 1.0))
-                                                    .frame(width: 8, height: 8)
-                                            }
-                                        }
-
-                                        VStack(alignment: .leading, spacing: 2) {
-                                            Text(model.displayName)
-                                                .font(.system(size: 11, weight: isSelected ? .semibold : .regular))
-                                                .foregroundStyle(isSelected ? .white : Color(red: 0.75, green: 0.75, blue: 0.88))
-                                                .lineLimit(1)
-                                            Text(model.id)
-                                                .font(.system(size: 9, design: .monospaced))
-                                                .foregroundStyle(.tertiary)
-                                                .lineLimit(1)
-                                        }
-
-                                        Spacer()
-
-                                        // Tags
-                                        HStack(spacing: 3) {
-                                            ForEach(model.tags.prefix(2), id: \.self) { tag in
-                                                Text(tag)
-                                                    .font(.system(size: 8, weight: .medium))
-                                                    .foregroundStyle(Color(red: 0.4, green: 0.7, blue: 1.0))
-                                                    .padding(.horizontal, 5)
-                                                    .padding(.vertical, 2)
-                                                    .background(Color(red: 0.4, green: 0.7, blue: 1.0).opacity(0.12),
-                                                                in: Capsule())
-                                            }
-                                        }
-
-                                        // Size badge
-                                        Text("\(String(format: "%.0f", model.sizeGB))GB")
-                                            .font(.system(size: 9, weight: .semibold, design: .monospaced))
-                                            .foregroundStyle(Color(red: 0.5, green: 0.5, blue: 0.65))
-                                            .frame(width: 30)
-
-                                        // Download status
-                                        Image(systemName: model.isDownloaded ? "checkmark.circle.fill" : "arrow.down.circle")
-                                            .font(.system(size: 11))
-                                            .foregroundStyle(model.isDownloaded
-                                                ? Color(red: 0.35, green: 0.85, blue: 0.5)
-                                                : Color(red: 0.45, green: 0.45, blue: 0.6))
-                                    }
-                                    .padding(.horizontal, 10)
-                                    .padding(.vertical, 7)
-                                    .background(
-                                        isLoaded
-                                            ? Color(red: 0.15, green: 0.30, blue: 0.18).opacity(0.7)
-                                            : isSelected
-                                                ? Color(red: 0.18, green: 0.22, blue: 0.35).opacity(0.7)
-                                                : Color.white.opacity(0.03),
-                                        in: RoundedRectangle(cornerRadius: 7)
-                                    )
-                                    .overlay(
-                                        RoundedRectangle(cornerRadius: 7)
-                                            .strokeBorder(
-                                                isLoaded
-                                                    ? Color(red: 0.3, green: 0.8, blue: 0.45).opacity(0.5)
-                                                    : isSelected
-                                                        ? Color(red: 0.4, green: 0.6, blue: 1.0).opacity(0.4)
-                                                        : Color.white.opacity(0.05),
-                                                lineWidth: isSelected || isLoaded ? 1 : 0.5
-                                            )
-                                    )
-                                }
-                                .contentShape(Rectangle())
-                                .buttonStyle(.plain)
-                            }
-                        }
-
-                        // Load button
-                        HStack(spacing: 8) {
-                            Button {
-                                app.loadMLXModel(model: app.activeMlxModel)
-                            } label: {
-                                HStack(spacing: 6) {
-                                    if case .connecting = app.modelStatus {
-                                        ProgressView().scaleEffect(0.65).frame(width: 12, height: 12)
-                                        Text("Loading…")
-                                    } else {
-                                        Image(systemName: "bolt.fill")
-                                        Text(app.t("Launch MLX", "MLXを起動"))
-                                    }
-                                }
-                                .font(.system(size: 12, weight: .semibold))
-                            }
-                            .buttonStyle(.borderedProminent)
-                            .controlSize(.regular)
-                            .tint(Color(red: 0.25, green: 0.55, blue: 0.35))
-                            .disabled({
-                                if case .connecting = app.modelStatus { return true }
-                                return false
-                            }())
-
-                            // Custom path field
-                            TextField(app.t("or enter HF ID directly…", "または HF ID を直接入力…"), text: $app.activeMlxModel)
-                                .textFieldStyle(.roundedBorder)
-                                .font(.system(size: 10, design: .monospaced))
-                        }
-                    }
-
-                }
-            }
-
-            sectionHeader("Inference Parameters", icon: "slider.horizontal.3")
-
-            settingsCard {
-                VStack(alignment: .leading, spacing: 14) {
-                    VStack(alignment: .leading, spacing: 6) {
-                        rowLabel("Temperature") {
-                            Text(String(format: "%.2f", app.temperature))
-                                .font(.system(size: 11, weight: .semibold, design: .monospaced))
-                                .foregroundStyle(tempColor)
-                                .frame(width: 40)
-                        }
-                        Slider(value: $app.temperature, in: 0...1.5, step: 0.05)
-                            .tint(tempColor)
-                        HStack {
-                            Text("0 = deterministic").font(.system(size: 9)).foregroundStyle(.tertiary)
-                            Spacer()
-                            Text("0.1–0.3 = coding  ·  0.7–1.0 = creative").font(.system(size: 9)).foregroundStyle(.tertiary)
-                        }
-                    }
-
-                    Divider().opacity(0.2)
-
-                    VStack(alignment: .leading, spacing: 6) {
-                        rowLabel("Max tokens (Ollama)") {
-                            Text("\(app.maxTokensOllama)").font(.system(size: 11, design: .monospaced)).foregroundStyle(.secondary).frame(width: 48)
-                        }
-                        Slider(value: Binding(get: { Double(app.maxTokensOllama) }, set: { app.maxTokensOllama = Int($0) }), in: 256...8192, step: 256)
-                            .tint(Color(red: 0.4, green: 0.7, blue: 1.0))
-                    }
-
-                    Divider().opacity(0.2)
-
-                    VStack(alignment: .leading, spacing: 6) {
-                        rowLabel("Max tokens (MLX)") {
-                            Text("\(app.maxTokensMLX)").font(.system(size: 11, design: .monospaced)).foregroundStyle(.secondary).frame(width: 48)
-                        }
-                        Slider(value: Binding(get: { Double(app.maxTokensMLX) }, set: { app.maxTokensMLX = Int($0) }), in: 512...16384, step: 512)
-                            .tint(Color(red: 0.4, green: 0.9, blue: 0.6))
-                    }
-
-                    Divider().opacity(0.2)
-
-                    rowLabel("Streaming output") {
-                        Toggle("", isOn: $app.streamingEnabled).toggleStyle(.switch).scaleEffect(0.8)
-                    }
-                    Text("Token-by-token streaming display. Disable only for debugging.")
-                        .font(.system(size: 10)).foregroundStyle(.tertiary)
-                }
-            }
-
-            sectionHeader("Exo Distributed Cluster", icon: "bolt.horizontal.circle.fill")
+            modelConfigurationCard
             
-            settingsCard {
-                VStack(alignment: .leading, spacing: 14) {
-                    HStack {
-                        VStack(alignment: .leading, spacing: 4) {
-                            Text("Enable Exo Cluster (Thunderbolt)")
-                                .font(.system(size: 13, weight: .medium))
-                                .foregroundStyle(Color.white.opacity(0.9))
-                            Text("Distribute inference across multiple Macs.")
-                                .font(.system(size: 11))
-                                .foregroundStyle(Color.white.opacity(0.5))
-                        }
-                        Spacer()
-                        
-                        Picker("Role", selection: $app.exoRole) {
-                            Text("Idle").tag(AppState.ExoRole.idle)
-                            Text("Master 👑").tag(AppState.ExoRole.master)
-                            Text("Worker 🛠️").tag(AppState.ExoRole.worker)
-                        }
-                        .pickerStyle(.segmented)
-                        .frame(width: 200)
-                        .onChange(of: app.exoRole) { newValue in
-                            if newValue == .idle {
-                                app.exoEnabled = false
-                                ExoEngine.shared.stop()
-                            } else {
-                                app.exoEnabled = true
-                                ExoEngine.shared.start()
-                            }
-                            ExoClusterSync.shared.updateRole(newValue)
-                        }
-                        
-                        Button("Setup Wizard") {
-                            // Handled by parent view passing state, here we trigger defaults
-                            let process = Process()
-                            process.executableURL = URL(fileURLWithPath: "/usr/bin/defaults")
-                            process.arguments = ["write", "com.verantyx.ide", "trigger_setup", "exo"]
-                            try? process.run()
-                        }
-                        .buttonStyle(.bordered)
-                        .font(.system(size: 11))
-                    }
-                    
-                    if app.exoRole != .idle {
-                        Divider().opacity(0.2)
-                        rowLabel("Exo Endpoint") {
-                            Text(app.exoEndpoint.isEmpty ? "Starting / Connecting..." : app.exoEndpoint)
-                                .font(.system(size: 11, design: .monospaced))
-                                .foregroundStyle(app.exoEndpoint.isEmpty ? Color.gray : Color.green)
-                        }
-                    }
-                }
-            }
-
+            sectionHeader("Inference Parameters", icon: "slider.horizontal.3")
+            inferenceParametersCard
+            
+            sectionHeader("Exo Distributed Cluster", icon: "bolt.horizontal.circle.fill")
+            exoClusterCard
+            
             sectionHeader("System Prompt", icon: "text.bubble")
+            systemPromptCard
+            
+            sectionHeader(app.t("Fine-Tuning (Dual-Track Growth)", "ファインチューニング (Dual-Track Growth)"), icon: "brain")
+            fineTuningCard
+        }
+    }
 
-            settingsCard {
-                VStack(alignment: .leading, spacing: 8) {
-                    HStack {
-                        Text("Injected at the start of every request").font(.system(size: 11)).foregroundStyle(.secondary)
-                        Spacer()
-                        Button("Reset") {
-                            app.systemPrompt = "You are Verantyx, an expert AI coding assistant running on Apple Silicon. Be concise and precise. Prefer code over prose."
-                        }
-                        .buttonStyle(.bordered).controlSize(.small)
-                    }
-                    TextEditor(text: $app.systemPrompt)
+    private var modelConfigurationCard: some View {
+        settingsCard {
+            VStack(alignment: .leading, spacing: 12) {
+                rowLabel("Ollama endpoint") {
+                    TextField("http://localhost:11434", text: $app.ollamaEndpoint)
+                        .textFieldStyle(.roundedBorder)
                         .font(.system(size: 11, design: .monospaced))
-                        .frame(minHeight: 80, maxHeight: 120)
-                        .scrollContentBackground(.hidden)
-                        .background(Color(red: 0.08, green: 0.08, blue: 0.12))
+                        .frame(width: 200)
+                        .onSubmit { app.connectOllama() }
+                }
+
+                if let result = connectionTestResult {
+                    Text(result)
+                        .font(.system(size: 10, design: .monospaced))
+                        .foregroundStyle(result.contains("✓") ? .green : .red)
+                }
+
+                Divider().opacity(0.2)
+                mlxModelSelector
+            }
+        }
+    }
+
+    private var mlxModelSelector: some View {
+        VStack(alignment: .leading, spacing: 8) {
+            HStack {
+                Text("MLX model")
+                    .font(.system(size: 11, design: .monospaced))
+                    .foregroundStyle(.secondary)
+                Spacer()
+                // Show currently loaded MLX model
+                if case .mlxReady(let m) = app.modelStatus {
+                    HStack(spacing: 4) {
+                        Circle().fill(Color.green).frame(width: 6, height: 6)
+                        Text(m.components(separatedBy: "/").last ?? m)
+                            .font(.system(size: 10, design: .monospaced))
+                            .foregroundStyle(.green)
+                    }
                 }
             }
 
-            sectionHeader(app.t("Fine-Tuning (Dual-Track Growth)", "ファインチューニング (Dual-Track Growth)"), icon: "brain")
+            // Popular models list
+            VStack(spacing: 4) {
+                ForEach(MLXRunner.popularModels) { model in
+                    mlxModelRow(model: model)
+                }
+            }
 
-            settingsCard {
-                VStack(alignment: .leading, spacing: 12) {
-                    Text(app.t("Select the base model that will be fine-tuned using the automatically collected training data.", "自動収集された学習データを用いてファインチューニング（重みの更新）を行う際のベースモデルを選択します。"))
-                        .font(.system(size: 11))
-                        .foregroundStyle(.secondary)
-                    
-                    rowLabel("Base Model") {
-                        TextField("e.g. llama3.1:8b", text: $app.fineTuningBaseModel)
-                            .textFieldStyle(.roundedBorder)
-                            .font(.system(size: 11, design: .monospaced))
-                            .frame(width: 200)
-                    }
-                    
-                    HStack(spacing: 8) {
-                        Image(systemName: "info.circle")
-                            .font(.system(size: 10))
-                            .foregroundStyle(Color(red: 0.4, green: 0.7, blue: 1.0))
-                        Text(app.t("Data is collected at ~/.openclaw/memory/training_data/verantyx_dataset.jsonl", "~/.openclaw/memory/training_data/verantyx_dataset.jsonl にデータが蓄積されます。"))
-                            .font(.system(size: 10))
-                            .foregroundStyle(.tertiary)
-                        
-                        Spacer()
-                        
-                        Button {
-                            app.clearFineTuningData()
-                        } label: {
-                            Text(app.t("Archive Dataset", "データをアーカイブ"))
-                                .font(.system(size: 10))
+            // Load button
+            HStack(spacing: 8) {
+                Button {
+                    app.loadMLXModel(model: app.activeMlxModel)
+                } label: {
+                    HStack(spacing: 6) {
+                        if case .connecting = app.modelStatus {
+                            ProgressView().scaleEffect(0.65).frame(width: 12, height: 12)
+                            Text("Loading…")
+                        } else {
+                            Image(systemName: "bolt.fill")
+                            Text(app.t("Launch MLX", "MLXを起動"))
                         }
-                        .buttonStyle(.bordered)
-                        .controlSize(.small)
-                        .help(app.t("Archive the current dataset to prevent duplicate fine-tuning.", "現在のデータセットを退避し、重複した学習を防ぎます。"))
                     }
+                    .font(.system(size: 12, weight: .semibold))
+                }
+                .buttonStyle(.borderedProminent)
+                .controlSize(.regular)
+                .tint(Color(red: 0.25, green: 0.55, blue: 0.35))
+                .disabled({
+                    if case .connecting = app.modelStatus { return true }
+                    return false
+                }())
+
+                // Custom path field
+                TextField(app.t("or enter HF ID directly…", "または HF ID を直接入力…"), text: $app.activeMlxModel)
+                    .textFieldStyle(.roundedBorder)
+                    .font(.system(size: 10, design: .monospaced))
+            }
+        }
+    }
+
+    private func mlxModelRow(model: MLXModel) -> some View {
+        let isSelected = app.activeMlxModel == model.id
+        let isLoaded: Bool = {
+            if case .mlxReady(let m) = app.modelStatus { return m == model.id }
+            return false
+        }()
+        
+        let bgColor: Color = isLoaded 
+            ? Color(red: 0.15, green: 0.30, blue: 0.18).opacity(0.7) 
+            : (isSelected ? Color(red: 0.18, green: 0.22, blue: 0.35).opacity(0.7) : Color.white.opacity(0.03))
+            
+        let strokeColor: Color = isLoaded
+            ? Color(red: 0.3, green: 0.8, blue: 0.45).opacity(0.5)
+            : (isSelected ? Color(red: 0.4, green: 0.6, blue: 1.0).opacity(0.4) : Color.white.opacity(0.05))
+            
+        let strokeWidth: CGFloat = (isSelected || isLoaded) ? 1 : 0.5
+        let downloadIconColor: Color = model.isDownloaded ? Color(red: 0.35, green: 0.85, blue: 0.5) : Color(red: 0.45, green: 0.45, blue: 0.6)
+        let titleColor: Color = isSelected ? .white : Color(red: 0.75, green: 0.75, blue: 0.88)
+        let indicatorStrokeColor: Color = isSelected ? Color(red: 0.4, green: 0.7, blue: 1.0) : Color.white.opacity(0.2)
+        
+        return Button {
+            app.activeMlxModel = model.id
+        } label: {
+            HStack(spacing: 10) {
+                // Selection indicator
+                ZStack {
+                    Circle()
+                        .stroke(indicatorStrokeColor, lineWidth: isSelected ? 2 : 1)
+                        .frame(width: 14, height: 14)
+                    if isSelected {
+                        Circle()
+                            .fill(Color(red: 0.4, green: 0.7, blue: 1.0))
+                            .frame(width: 8, height: 8)
+                    }
+                }
+
+                VStack(alignment: .leading, spacing: 2) {
+                    Text(model.displayName)
+                        .font(.system(size: 11, weight: isSelected ? .semibold : .regular))
+                        .foregroundStyle(titleColor)
+                        .lineLimit(1)
+                    Text(model.id)
+                        .font(.system(size: 9, design: .monospaced))
+                        .foregroundStyle(.tertiary)
+                        .lineLimit(1)
+                }
+
+                Spacer()
+
+                // Tags
+                HStack(spacing: 3) {
+                    ForEach(model.tags.prefix(2), id: \.self) { tag in
+                        Text(tag)
+                            .font(.system(size: 8, weight: .medium))
+                            .foregroundStyle(Color(red: 0.4, green: 0.7, blue: 1.0))
+                            .padding(.horizontal, 5)
+                            .padding(.vertical, 2)
+                            .background(Color(red: 0.4, green: 0.7, blue: 1.0).opacity(0.12),
+                                        in: Capsule())
+                    }
+                }
+
+                // Size badge
+                Text("\(String(format: "%.0f", model.sizeGB))GB")
+                    .font(.system(size: 9, weight: .semibold, design: .monospaced))
+                    .foregroundStyle(Color(red: 0.5, green: 0.5, blue: 0.65))
+                    .frame(width: 30)
+
+                // Download status
+                Image(systemName: model.isDownloaded ? "checkmark.circle.fill" : "arrow.down.circle")
+                    .font(.system(size: 11))
+                    .foregroundStyle(downloadIconColor)
+            }
+            .padding(.horizontal, 10)
+            .padding(.vertical, 7)
+            .background(bgColor, in: RoundedRectangle(cornerRadius: 7))
+            .overlay(
+                RoundedRectangle(cornerRadius: 7)
+                    .strokeBorder(strokeColor, lineWidth: strokeWidth)
+            )
+        }
+        .contentShape(Rectangle())
+        .buttonStyle(.plain)
+    }
+
+    private var inferenceParametersCard: some View {
+        settingsCard {
+            VStack(alignment: .leading, spacing: 14) {
+                VStack(alignment: .leading, spacing: 6) {
+                    rowLabel("Temperature") {
+                        Text(String(format: "%.2f", app.temperature))
+                            .font(.system(size: 11, weight: .semibold, design: .monospaced))
+                            .foregroundStyle(tempColor)
+                            .frame(width: 40)
+                    }
+                    Slider(value: $app.temperature, in: 0...1.5, step: 0.05)
+                        .tint(tempColor)
+                    HStack {
+                        Text("0 = deterministic").font(.system(size: 9)).foregroundStyle(.tertiary)
+                        Spacer()
+                        Text("0.1–0.3 = coding  ·  0.7–1.0 = creative").font(.system(size: 9)).foregroundStyle(.tertiary)
+                    }
+                }
+
+                Divider().opacity(0.2)
+
+                VStack(alignment: .leading, spacing: 6) {
+                    rowLabel("Max tokens (Ollama)") {
+                        Text("\(app.maxTokensOllama)").font(.system(size: 11, design: .monospaced)).foregroundStyle(.secondary).frame(width: 48)
+                    }
+                    Slider(value: Binding(get: { Double(app.maxTokensOllama) }, set: { app.maxTokensOllama = Int($0) }), in: 256...8192, step: 256)
+                        .tint(Color(red: 0.4, green: 0.7, blue: 1.0))
+                }
+
+                Divider().opacity(0.2)
+
+                VStack(alignment: .leading, spacing: 6) {
+                    rowLabel("Max tokens (MLX)") {
+                        Text("\(app.maxTokensMLX)").font(.system(size: 11, design: .monospaced)).foregroundStyle(.secondary).frame(width: 48)
+                    }
+                    Slider(value: Binding(get: { Double(app.maxTokensMLX) }, set: { app.maxTokensMLX = Int($0) }), in: 512...16384, step: 512)
+                        .tint(Color(red: 0.4, green: 0.9, blue: 0.6))
+                }
+
+                Divider().opacity(0.2)
+
+                rowLabel("Streaming output") {
+                    Toggle("", isOn: $app.streamingEnabled).toggleStyle(.switch).scaleEffect(0.8)
+                }
+                Text("Token-by-token streaming display. Disable only for debugging.")
+                    .font(.system(size: 10)).foregroundStyle(.tertiary)
+            }
+        }
+    }
+
+    private var exoClusterCard: some View {
+        settingsCard {
+            VStack(alignment: .leading, spacing: 14) {
+                HStack {
+                    VStack(alignment: .leading, spacing: 4) {
+                        Text("Enable Exo Cluster (Thunderbolt)")
+                            .font(.system(size: 13, weight: .medium))
+                            .foregroundStyle(Color.white.opacity(0.9))
+                        Text("Distribute inference across multiple Macs.")
+                            .font(.system(size: 11))
+                            .foregroundStyle(Color.white.opacity(0.5))
+                    }
+                    Spacer()
+                    
+                    Picker("Role", selection: $app.exoRole) {
+                        Text("Idle").tag(AppState.ExoRole.idle)
+                        Text("Master 👑").tag(AppState.ExoRole.master)
+                        Text("Worker 🛠️").tag(AppState.ExoRole.worker)
+                    }
+                    .pickerStyle(.segmented)
+                    .frame(width: 200)
+                    .onChange(of: app.exoRole) { newValue in
+                        if newValue == .idle {
+                            app.exoEnabled = false
+                            ExoEngine.shared.stop()
+                        } else {
+                            app.exoEnabled = true
+                            ExoEngine.shared.start()
+                        }
+                        ExoClusterSync.shared.updateRole(newValue)
+                    }
+                    
+                    Button("Setup Wizard") {
+                        // Handled by parent view passing state, here we trigger defaults
+                        let process = Process()
+                        process.executableURL = URL(fileURLWithPath: "/usr/bin/defaults")
+                        process.arguments = ["write", "com.verantyx.ide", "trigger_setup", "exo"]
+                        try? process.run()
+                    }
+                    .buttonStyle(.bordered)
+                    .font(.system(size: 11))
+                }
+                
+                if app.exoRole != .idle {
+                    Divider().opacity(0.2)
+                    rowLabel("Exo Endpoint") {
+                        Text(app.exoEndpoint.isEmpty ? "Starting / Connecting..." : app.exoEndpoint)
+                            .font(.system(size: 11, design: .monospaced))
+                            .foregroundStyle(app.exoEndpoint.isEmpty ? Color.gray : Color.green)
+                    }
+                }
+            }
+        }
+    }
+
+    private var systemPromptCard: some View {
+        settingsCard {
+            VStack(alignment: .leading, spacing: 8) {
+                HStack {
+                    Text("Injected at the start of every request").font(.system(size: 11)).foregroundStyle(.secondary)
+                    Spacer()
+                    Button("Reset") {
+                        app.systemPrompt = "You are Verantyx, an expert AI coding assistant running on Apple Silicon. Be concise and precise. Prefer code over prose."
+                    }
+                    .buttonStyle(.bordered).controlSize(.small)
+                }
+                TextEditor(text: $app.systemPrompt)
+                    .font(.system(size: 11, design: .monospaced))
+                    .frame(minHeight: 80, maxHeight: 120)
+                    .scrollContentBackground(.hidden)
+                    .background(Color(red: 0.08, green: 0.08, blue: 0.12))
+            }
+        }
+    }
+
+    private var fineTuningCard: some View {
+        settingsCard {
+            VStack(alignment: .leading, spacing: 12) {
+                Text(app.t("Select the base model that will be fine-tuned using the automatically collected training data.", "自動収集された学習データを用いてファインチューニング（重みの更新）を行う際のベースモデルを選択します。"))
+                    .font(.system(size: 11))
+                    .foregroundStyle(.secondary)
+                
+                rowLabel("Base Model") {
+                    TextField("e.g. llama3.1:8b", text: $app.fineTuningBaseModel)
+                        .textFieldStyle(.roundedBorder)
+                        .font(.system(size: 11, design: .monospaced))
+                        .frame(width: 200)
+                }
+                
+                HStack(spacing: 8) {
+                    Image(systemName: "info.circle")
+                        .font(.system(size: 10))
+                        .foregroundStyle(Color(red: 0.4, green: 0.7, blue: 1.0))
+                    Text(app.t("Data is collected at ~/.openclaw/memory/training_data/verantyx_dataset.jsonl", "~/.openclaw/memory/training_data/verantyx_dataset.jsonl にデータが蓄積されます。"))
+                        .font(.system(size: 10))
+                        .foregroundStyle(.tertiary)
+                    
+                    Spacer()
+                    
+                    Button {
+                        app.clearFineTuningData()
+                    } label: {
+                        Text(app.t("Archive Dataset", "データをアーカイブ"))
+                            .font(.system(size: 10))
+                    }
+                    .buttonStyle(.bordered)
+                    .controlSize(.small)
+                    .help(app.t("Archive the current dataset to prevent duplicate fine-tuning.", "現在のデータセットを退避し、重複した学習を防ぎます。"))
                 }
             }
         }

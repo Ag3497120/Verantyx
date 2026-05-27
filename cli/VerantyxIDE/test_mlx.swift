@@ -1,7 +1,10 @@
 import Foundation
-import CoreImage
-import MLXLMCommon
+import MLXLLM
 
-func test() {
-    let _ = UserInput(prompt: "Hello", images: [])
+let url = URL(fileURLWithPath: "/Users/motonishikoudai/.cache/verantyx/mlx-patched/kofdai--talkie-1930-13b-it-mlx-8bit")
+do {
+    let config = try ModelConfiguration(directory: url)
+    print("Success: \(config)")
+} catch {
+    print("Error: \(error)")
 }

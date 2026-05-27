@@ -3,7 +3,7 @@ project_path = 'Verantyx.xcodeproj'
 project = Xcodeproj::Project.open(project_path)
 target = project.targets.first
 
-file_path = 'Sources/Verantyx/Engine/KanjiTopologyRenderer.swift'
+file_path = ARGV[0]
 
 # Check if file is already in the project
 existing_file = project.files.find { |f| f.path == file_path || f.real_path.to_s.end_with?(file_path) }
