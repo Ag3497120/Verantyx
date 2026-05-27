@@ -455,6 +455,14 @@ actor MLXRunner {
             sanitizeTopLevelKey(key, in: &json, force: true, log: log)
         }
 
+        // ── Inject required fallbacks for missing fields ─────────────────
+        if let type = json["model_type"] as? String {
+            if type == "llama" && json["rms_norm_eps"] == nil {
+                log("🔧 Injecting missing rms_norm_eps: 1e-5")
+                json["rms_norm_eps"] = 1e-5
+            }
+        }
+
         // ── Apply pending vocab_size override ─────────────────────────────
         // When a mismatchedSize error was detected in a previous attempt,
         // the actual vocab_size is stored in vocabSizeOverrides. Inject it
@@ -551,6 +559,14 @@ actor MLXRunner {
             for key in json.keys.sorted() {
                 if sanitizeTopLevelKey(key, in: &json, force: force, log: log) {
                     changed = true
+                }
+            }
+            // ── Inject required fallbacks for missing fields ─────────────────
+            if let type = json["model_type"] as? String {
+                if type == "llama" && json["rms_norm_eps"] == nil {
+                    json["rms_norm_eps"] = 1e-5
+                    changed = true
+                    log("🔧 [pre-pass] Injected missing rms_norm_eps: 1e-5")
                 }
             }
         }
