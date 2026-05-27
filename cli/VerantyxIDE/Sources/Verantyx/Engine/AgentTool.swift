@@ -238,16 +238,15 @@ struct AgentToolParser {
           GitHubはこのタグを実在アカウントに自動リンクしてしまうため、
           無関係の第三者をコントリビューターに巻き込む事故を引き起こす。
 
-    ── §スキル SKILL RULES ──────────────────────────────────────────────────
-    必⑨  Search-First (過去記憶の参照優先): コーディングや作業を開始する前に、
-          必ず [JCROSS_QUERY: 関連キーワード] で過去の記憶やコンテキストを確認すること。
-          同一の問題を過去に解決していた場合、その知識を活用する。
-          また、既存の解決策(スキル)が存在しないか確認したい場合は
-          [MCP_CALL: tool-search-oss.discover_tools]{"task_description": "..."}[/MCP_CALL] を使用する。
-    必⑩  技呼優先: discover_tools で該当スキルが見つかった場合、手動でパイプラインを構築する前に
-          [USE_SKILL: 名前|引数=値] を試みること。
-    必⑪  技鍛判断: タスク完了後、「次回も同じ手順を踏む可能性」が高い場合は
-          [FORGE_SKILL] でスキル登録する。営業固有タスク・Scaffold・設定パターンが対象。
+    ── §スキル SKILL RULES (Actor-Critic Voyager) ───────────────────────────────────────────
+    必⑨  Search-First (スキルの事前探査): コーディング、環境構築、GUI操作などあらゆるタスクにおいて、
+          作業を開始する前に必ず [JCROSS_QUERY: 関連キーワード] または [SEARCH: 関連キーワード] で過去の記憶やスキルが存在しないか確認すること。
+    必⑩  技呼優先 (スキルの利用): 過去に解決したスキルが見つかった場合、手動で作業を行うのではなく
+          必ず [USE_SKILL: 名前] を呼び出してタスクを完了させること。
+    必⑪  技鍛必須 (未経験タスクの自動スキル化): 既存のスキルが存在しない新しい指示を受けた場合、
+          直接 [WRITE] や [RUN] でワンオフの作業をするのではなく、自ら汎用的な解決手順を考案し、
+          [FORGE_SKILL] で新しいスキル候補として提出せよ。提出されたスキルはTwin-B(監査モデル)によって安全審査され、
+          承認された瞬間に自動的に実行される。使い捨てのワンオフコマンドを直接実行するな。
           単発性の高い一回性タスクは登録不要。
     必⑫  技鍛形式: FORGE_SKILL の payload には [TOOL:] 文字列をそのまま記載する。
           プレースホルダー板: {{workspace}}、{{file}}、{{target}} などで汎用化する。
@@ -262,6 +261,7 @@ struct AgentToolParser {
     必⑲  Desktop App Automation (デスクトップアプリ自律探査): アプリ操作は[DESKTOP_SNAPSHOT]で得たセマンティックなUI構造マップ(XML)を確認し、可能な限り[AX_ACT: id action]を用いて確実な操作を行うこと。AX_ACTが使えない場合のみ座標ベースの[VISION_ACT]等へフォールバックせよ。
     禁⑳  プライベート情報・AIツールのWeb検索禁止: 「Teams Copilot」「ChatGPT」「Gemini」などのAIツールや、「私の自己紹介」「社内情報」などのプライベート情報を、[SEARCH]や[SEARCH_MULTI]でWeb検索してはならない（Web上には存在しないため無意味である）。外部AIツールを使用する指示を受けた場合は、必ず[OPEN_APP]で該当アプリを起動し[VISION_ACT]や[DESKTOP_ACT]で直接GUI操作を行うか、ユーザーに[ASK_HUMAN]で情報の入力を求めること。
     必㉑  エラー停止・幻覚防止 (ERROR STOP PROTOCOL): [VISION ERROR]や他のエラーがシステムから返された場合、その時点で現在の操作手順を即座に停止し、失敗した旨をユーザーに報告すること。絶対にエラーを無視して後続の操作（クリックやファイルの出力など）を強行したり、「完了しました」と嘘の報告をしてはならない。エラーが出た場合は[DONE]の出力は禁止される。
+    禁㉒  同時ツール呼び出しによる幻覚の禁止: 状態を読み取るツール（[READ], [LIST_DIR], [JCROSS_QUERY], [SEARCH] 等）を使用する場合、そのツールの実行結果を待たずに、推測で同じターン内で続けて別のツールを呼び出してはならない。必ず1ターンの応答につき1つの探索ステップのみを出力し、結果を得てから次を行動せよ（例外として、[GIT_COMMIT]や[BUILD_IDE]など状態に依存しない確定行動の連続は許容される）。
 
     ── §実例 FEW-SHOT ────────────────────────────────────────────────────────
     例A「Swift 6の並行処理は？」→ 網並必須:
@@ -270,11 +270,13 @@ struct AgentToolParser {
     [JCROSS_STORE: swift6=strict concurrency by default]
     Swift 6では厳密な同時実行チェックがデフォルトです。[DONE: web検索済]
 
-    例B「UIの幅を固定して」→ 観→動→検証:
-    [JCROSS_QUERY: ResizableSplit width][LIST_DIR: Sources/Verantyx/Views]
+    例B「UIの幅を固定して」→ 観→動→検証 (1ターンに1ツールずつ実行すること):
+    [JCROSS_QUERY: ResizableSplit width]
+    (※ここで結果を待つ)
+    
     [READ: Sources/Verantyx/Views/ResizableSplit.swift]
     <think>L45-52にdragハンドラ→EDIT_LINESで修正</think>
-    [GIT_COMMIT: backup][EDIT_LINES: Sources/.../ResizableSplit.swift]
+    [EDIT_LINES: Sources/Verantyx/Views/ResizableSplit.swift]
     ```START_LINE:45\nEND_LINE:52\n---\n    .frame(width: 280)```[/EDIT_LINES]
     [BUILD_IDE][JCROSS_STORE: split_fix=width固定L45][DONE: 完了]
 
@@ -401,91 +403,91 @@ struct AgentToolParser {
         parseOsascriptBlocks(from: text, into: &tools, cleaned: &cleaned)
         parseForgeSkillBlocks(from: text, into: &tools, cleaned: &cleaned)
 
-        // ── 0. MCP_CALL block ──────────────────────────────────────────────
-        // Syntax: [MCP_CALL: serverName.toolName]{"key":"value"}[/MCP_CALL]
-        // JSON body is optional — omit braces if no arguments needed.
-        let mcpPattern = #"\[MCP_CALL:\s*([^.\]]+)\.([^\]]+)\]\s*(\{[\s\S]*?\})?\s*\[/MCP_CALL\]"#
-        if let regex = try? NSRegularExpression(pattern: mcpPattern) {
-            let matches = regex.matches(in: text, range: NSRange(text.startIndex..., in: text))
-            for match in matches.reversed() {
-                if let serverRange = Range(match.range(at: 1), in: text),
-                   let toolRange   = Range(match.range(at: 2), in: text),
-                   let fullRange   = Range(match.range, in: text) {
-                    let server = String(text[serverRange]).trimmingCharacters(in: .whitespaces)
-                    let tool   = String(text[toolRange]).trimmingCharacters(in: .whitespaces)
-                    var args: [String: Any] = [:]
-                    if match.numberOfRanges > 3,
-                       let jsonRange = Range(match.range(at: 3), in: text) {
-                        let jsonStr = String(text[jsonRange])
-                        if let data = jsonStr.data(using: .utf8),
-                           let parsed = try? JSONSerialization.jsonObject(with: data) as? [String: Any] {
-                            args = parsed
+        var blockTools: [String: AgentTool] = [:]
+
+        // Helper to process block tools
+        func extractBlock(pattern: String, toolBuilder: (NSTextCheckingResult, String) -> AgentTool?) {
+            if let regex = try? NSRegularExpression(pattern: pattern) {
+                let matches = regex.matches(in: cleaned, range: NSRange(cleaned.startIndex..., in: cleaned))
+                for match in matches.reversed() {
+                    if let fullRange = Range(match.range, in: cleaned) {
+                        if let tool = toolBuilder(match, cleaned) {
+                            let id = UUID().uuidString
+                            blockTools[id] = tool
+                            cleaned = cleaned.replacingCharacters(in: fullRange, with: "[[BLOCK_TOOL:\(id)]]")
+                        } else {
+                            cleaned = cleaned.replacingCharacters(in: fullRange, with: "")
                         }
                     }
-                    tools.insert(.mcpCall(server: server, tool: tool, arguments: args), at: 0)
-                    cleaned = cleaned.replacingCharacters(in: fullRange, with: "")
                 }
             }
+        }
+
+        // ── 0. MCP_CALL block ──────────────────────────────────────────────
+        extractBlock(pattern: #"\[MCP_CALL:\s*([^.\]]+)\.([^\]]+)\]\s*(\{[\s\S]*?\})?\s*\[/MCP_CALL\]"#) { match, str in
+            guard let serverRange = Range(match.range(at: 1), in: str),
+                  let toolRange   = Range(match.range(at: 2), in: str) else { return nil }
+            let server = String(str[serverRange]).trimmingCharacters(in: .whitespaces)
+            let tool   = String(str[toolRange]).trimmingCharacters(in: .whitespaces)
+            var args: [String: Any] = [:]
+            if match.numberOfRanges > 3, let jsonRange = Range(match.range(at: 3), in: str) {
+                let jsonStr = String(str[jsonRange])
+                if let data = jsonStr.data(using: .utf8),
+                   let parsed = try? JSONSerialization.jsonObject(with: data) as? [String: Any] {
+                    args = parsed
+                }
+            }
+            return .mcpCall(server: server, tool: tool, arguments: args)
         }
 
         // ── 1. WRITE block ─────────────────────────────────────────────────
-        let writePattern = #"\[WRITE:\s*([^\]]+)\]\s*```(?:\w+)?\n?([\s\S]*?)```\s*\[/WRITE\]"#
-        if let regex = try? NSRegularExpression(pattern: writePattern) {
-            let matches = regex.matches(in: text, range: NSRange(text.startIndex..., in: text))
-            for match in matches.reversed() {
-                if let pathRange    = Range(match.range(at: 1), in: text),
-                   let contentRange = Range(match.range(at: 2), in: text),
-                   let fullRange    = Range(match.range, in: text) {
-                    let path    = expandHome(String(text[pathRange]).trimmingCharacters(in: .whitespaces))
-                    let content = String(text[contentRange])
-                    tools.insert(.writeFile(path: path, content: content), at: 0)
-                    cleaned = cleaned.replacingCharacters(in: fullRange, with: "")
-                }
-            }
+        extractBlock(pattern: #"\[WRITE:\s*([^\]]+)\]\s*```(?:\w+)?\n?([\s\S]*?)```\s*\[/WRITE\]"#) { match, str in
+            guard let pathRange = Range(match.range(at: 1), in: str),
+                  let contentRange = Range(match.range(at: 2), in: str) else { return nil }
+            let path = expandHome(String(str[pathRange]).trimmingCharacters(in: .whitespaces))
+            let content = String(str[contentRange])
+            return .writeFile(path: path, content: content)
         }
 
         // ── 2. APPLY_PATCH block ───────────────────────────────────────────
-        let patchPattern = #"\[APPLY_PATCH:\s*([^\]]+)\]\s*```(?:\w+)?\n?([\s\S]*?)```\s*\[/APPLY_PATCH\]"#
-        if let regex = try? NSRegularExpression(pattern: patchPattern) {
-            let matches = regex.matches(in: cleaned, range: NSRange(cleaned.startIndex..., in: cleaned))
-            for match in matches.reversed() {
-                if let pathRange    = Range(match.range(at: 1), in: cleaned),
-                   let contentRange = Range(match.range(at: 2), in: cleaned),
-                   let fullRange    = Range(match.range, in: cleaned) {
-                    let path    = String(cleaned[pathRange]).trimmingCharacters(in: .whitespaces)
-                    let content = String(cleaned[contentRange])
-                    tools.insert(.applyPatch(relativePath: path, content: content), at: 0)
-                    cleaned = cleaned.replacingCharacters(in: fullRange, with: "")
-                }
-            }
+        extractBlock(pattern: #"\[APPLY_PATCH:\s*([^\]]+)\]\s*```(?:\w+)?\n?([\s\S]*?)```\s*\[/APPLY_PATCH\]"#) { match, str in
+            guard let pathRange = Range(match.range(at: 1), in: str),
+                  let contentRange = Range(match.range(at: 2), in: str) else { return nil }
+            let path = String(str[pathRange]).trimmingCharacters(in: .whitespaces)
+            let content = String(str[contentRange])
+            return .applyPatch(relativePath: path, content: content)
         }
 
         // ── 3. EDIT_LINES block ────────────────────────────────────────────
-        let editPattern = #"\[EDIT_LINES:\s*([^\]]+)\]\s*```(?:\w+)?\n?([\s\S]*?)```\s*\[/EDIT_LINES\]"#
-        if let regex = try? NSRegularExpression(pattern: editPattern) {
-            let matches = regex.matches(in: cleaned, range: NSRange(cleaned.startIndex..., in: cleaned))
-            for match in matches.reversed() {
-                if let pathRange    = Range(match.range(at: 1), in: cleaned),
-                   let contentRange = Range(match.range(at: 2), in: cleaned),
-                   let fullRange    = Range(match.range, in: cleaned) {
-                    let path    = String(cleaned[pathRange]).trimmingCharacters(in: .whitespaces)
-                    let body    = String(cleaned[contentRange])
-                    if let editTool = parseEditLines(path: path, body: body) {
-                        tools.insert(editTool, at: 0)
-                    }
-                    cleaned = cleaned.replacingCharacters(in: fullRange, with: "")
-                }
-            }
+        extractBlock(pattern: #"\[EDIT_LINES:\s*([^\]]+)\]\s*```(?:\w+)?\n?([\s\S]*?)```\s*\[/EDIT_LINES\]"#) { match, str in
+            guard let pathRange = Range(match.range(at: 1), in: str),
+                  let contentRange = Range(match.range(at: 2), in: str) else { return nil }
+            let path = String(str[pathRange]).trimmingCharacters(in: .whitespaces)
+            let body = String(str[contentRange])
+            return parseEditLines(path: path, body: body)
         }
 
         // ── 4. Single-line tags ────────────────────────────────────────────
+        // 同一業に [CMD1][CMD2] のように複数のツールが連結されている場合、改行で分割する
+        cleaned = cleaned.replacingOccurrences(of: "][", with: "]\n[")
         let lines = cleaned.components(separatedBy: "\n")
         var resultLines: [String] = []
+        var previousLine = ""
 
         for line in lines {
             let trimmed = line.trimmingCharacters(in: .whitespacesAndNewlines)
+            if trimmed.isEmpty { continue }
+            
+            // 幻覚ループ防止: 連続する全く同じツール呼び出しを無視
+            if trimmed == previousLine { continue }
+            previousLine = trimmed
+            
+            // 安全装置: 1ターンに抽出するツール数を制限
+            if tools.count >= 20 { break }
 
-            if      let m = match(trimmed, pattern: #"\[MKDIR:\s*([^\]]+)\]"#) {
+            if let m = match(trimmed, pattern: #"\[\[BLOCK_TOOL:([^\]]+)\]\]"#), let tool = blockTools[m] {
+                tools.append(tool)
+            } else if let m = match(trimmed, pattern: #"\[MKDIR:\s*([^\]]+)\]"#) {
                 tools.append(.makeDir(expandHome(m)))
             } else if let m = match(trimmed, pattern: #"\[RUN_COGNITIVE:\s*([^\]]+)\]"#) {
                 let parts = m.components(separatedBy: "|").map { $0.trimmingCharacters(in: .whitespaces) }
@@ -1386,9 +1388,9 @@ actor AgentToolExecutor {
                     return "[JCROSS] Memory engine not available"
                 }
                 let nodes = cortex.recall(for: query, topK: 5)
-                if nodes.isEmpty { return "[JCROSS] No memories found for: \(query)" }
+                if nodes.isEmpty { return "[JCROSS] No memories found for: \(query)\n[SYSTEM HINT] If memory search fails, DO NOT query the same thing again. Use [LIST_DIR: .] and [READ: filename] to explore the codebase directly." }
                 let lines = nodes.map { "• \($0.key): \($0.value)" }.joined(separator: "\n")
-                return "[JCROSS MEMORY for: \(query)]\n\(lines)\n[END JCROSS]"
+                return "[JCROSS MEMORY for: \(query)]\n\(lines)\n[END JCROSS]\n[SYSTEM HINT] If the memory results above are unhelpful or only echo the prompt, DO NOT repeat this query. Use [LIST_DIR: .] and [READ: filename] to directly explore the workspace."
             }
 
         case .jcrossStore(let key, let value):
@@ -1552,6 +1554,17 @@ actor AgentToolExecutor {
         // ── Skill Library ─────────────────────────────────────────────────
 
         case .forgeSkill(let name, let description, let tags, let payload):
+            // Twin-B Audit (Actor-Critic Voyager Loop)
+            let isAuditorEnabled = await MainActor.run { AppState.shared?.isAuditorEnabled ?? true }
+            if isAuditorEnabled {
+                let toolStr = "[FORGE_SKILL: \(name)|\(description)]\n" + payload.joined(separator: "\n") + "\n[/FORGE_SKILL]"
+                let auditResult = await TwinCriticEngine.shared.audit(tool: toolStr, conversation: [])
+                
+                if !auditResult.isApproved {
+                    return "❌ [Auditor Rejected] \(auditResult.feedback)\n\nTwin-B (Critic) rejected this skill. Please fix the issues and output [FORGE_SKILL] again."
+                }
+            }
+            
             // Persist the new skill and update the in-memory index.
             let node = SkillNode(
                 name: name,
@@ -1566,13 +1579,23 @@ actor AgentToolExecutor {
             let saved = await SkillLibrary.shared.save(node)
             await MainActor.run {
                 ToastManager.shared.show(
-                    "🔧 スキル登録: \(name) (v\(saved.version))",
-                    icon: "sparkles",
-                    color: .orange,
+                    "🔧 認証完了: \(name) (v\(saved.version))",
+                    icon: "checkmark.seal.fill",
+                    color: .green,
                     duration: 3.0
                 )
             }
-            return "✓ [Skill Forged] '\(name)' v\(saved.version) — \(payload.count) step(s) saved to ~/.verantyx/skills/"
+            
+            // Automatically execute the certified skill
+            let executor = SkillExecutor()
+            let execResult = await executor.execute(
+                skill: saved,
+                args: [:],
+                workspaceURL: workspaceURL,
+                onProgress: { _ in }
+            )
+            
+            return "✓ [Skill Forged & Certified] '\(name)' v\(saved.version) saved to ~/.verantyx/skills/\n\n[AUTO-EXECUTION RESULT]\n\(execResult)"
 
         case .useSkill(let name, let args):
             guard let skill = await SkillLibrary.shared.skill(named: name) else {
@@ -1802,6 +1825,10 @@ actor AgentToolExecutor {
     // MARK: - Shell execution
 
     private func resolve(_ path: String, workspace: URL?) -> URL {
+        if let ws = workspace {
+            if path == "/" || path == "~" { return ws }
+            if path.hasPrefix(ws.path) { return URL(fileURLWithPath: path) }
+        }
         // Absolute paths go as-is
         if path.hasPrefix("/") { return URL(fileURLWithPath: path) }
         

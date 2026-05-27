@@ -1006,6 +1006,12 @@ SYS.ENFORCE("logical_verification_before_acceptance")
                 if case .setWorkspace(let path) = tool {
                     let wsURL = URL(fileURLWithPath: path)
                     currentWorkspace = wsURL
+                    
+                    // Sync Gatekeeper vault with the new workspace
+                    await MainActor.run {
+                        GatekeeperModeState.shared.configure(workspaceURL: wsURL)
+                    }
+                    
                     await onProgress(.workspaceChanged(wsURL))
                     result = await executor.execute(tool, workspaceURL: currentWorkspace)
                 } else if case .done(let msg) = tool {
