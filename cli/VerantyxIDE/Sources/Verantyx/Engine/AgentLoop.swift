@@ -1502,6 +1502,15 @@ SYS.ENFORCE("logical_verification_before_acceptance")
                     }
                 }
                 
+                // 4. User Prompt Visual Anchor (Modality Override)
+                // Convert the raw text instruction into an image so text-only bias is bypassed
+                let promptText = String(lastUserMsg.content.prefix(1500))
+                let promptBase64 = await CognitiveAnchorEngine.shared.getUserPromptAnchor(text: promptText)
+                if !promptBase64.isEmpty {
+                    newAnchorImages.append(promptBase64)
+                    await onProgress(.systemLog(AppLanguage.shared.t("<think>\n🖼️ [Prompt Anchor] Injected user text instruction as visual anchor image.\n</think>", "<think>\n🖼️ [Prompt Anchor] ユーザーのテキスト指示を視覚アンカー画像として注入しました。\n</think>")))
+                }
+                
                 // Add user attached images
                 if !images.isEmpty {
                     for img in images {

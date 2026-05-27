@@ -21,6 +21,7 @@ public enum CognitiveAnchorMode {
     case osAgentMetaCognition // OSエージェントとしてのメタ認知モード（利用可能アセットとの比較による自律的タスク委譲）
     case internalWeightsOverride // 制限解除モデル用（外部ツールよりも内部知識を最優先させる）
     case detailedMode // 詳細モード（ユーザーからの追加情報を促す）
+    case skillAuditor // Twin-B専用: 提出されたスキルの安全性と汎用性を厳格に監査させるモード
 }
 
 public actor CognitiveAnchorEngine {
@@ -119,6 +120,12 @@ public actor CognitiveAnchorEngine {
                 backgroundColor: NSColor(red: 0.1, green: 0.4, blue: 0.8, alpha: 1.0), // Blue
                 textColor: NSColor.white
             ) ?? ""
+        case .skillAuditor:
+            return renderDynamicAnchor(
+                text: "[ TWIN-B : SKILL AUDITOR ]\nSTRICT AUDIT REQUIRED.\nAre the proposed steps logically sound and safe? Are they reusable?",
+                backgroundColor: NSColor(red: 1.0, green: 0.4, blue: 0.0, alpha: 1.0), // Deep Orange for strong audit warning
+                textColor: NSColor.white
+            ) ?? ""
         }
     }
     
@@ -127,6 +134,15 @@ public actor CognitiveAnchorEngine {
         return renderDynamicAnchor(
             text: "[\(title)]\n\n" + text,
             backgroundColor: NSColor(red: 0.8, green: 0.0, blue: 0.0, alpha: 1.0),
+            textColor: NSColor.white
+        ) ?? ""
+    }
+    
+    /// ユーザーの通常のテキスト指示（プロンプト）を視覚アンカーとして生成する
+    public func getUserPromptAnchor(text: String) -> String {
+        return renderDynamicAnchor(
+            text: "[ USER INSTRUCTION ]\n\n" + text,
+            backgroundColor: NSColor(red: 0.15, green: 0.15, blue: 0.18, alpha: 1.0), // Dark gray
             textColor: NSColor.white
         ) ?? ""
     }
@@ -153,17 +169,22 @@ public actor CognitiveAnchorEngine {
 
         let lower = instruction.lowercased()
         
-        // 1. 時間軸・最新情報への言及があればTemporal Anchor
+        // 1. FORGE_SKILLの監査時は専用のオーディターモード
+        if lower.contains("[forge_skill") {
+            return .skillAuditor
+        }
+
+        // 2. 時間軸・最新情報への言及があればTemporal Anchor
         if lower.contains("最新") || lower.contains("latest") || lower.contains("今年") || lower.contains("現在") {
             return .temporal
         }
         
-        // 2. バグ報告や「直して」などの文脈がある場合はDoubt（疑念）モードを適用
+        // 3. バグ報告や「直して」などの文脈がある場合はDoubt（疑念）モードを適用
         if lower.contains("バグ") || lower.contains("bug") || lower.contains("error") || lower.contains("エラー") || lower.contains("直して") {
             return .doubt
         }
         
-        // 3. それ以外のすべてのタスク（コーディング指示含む）では、
+        // 4. それ以外のすべてのタスク（コーディング指示含む）では、
         // 実装前の事実確認とハルシネーション防止のために常にSearchForceモードを適用する。
         return .searchForce
     }
