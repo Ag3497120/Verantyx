@@ -64,7 +64,34 @@ public:
         vr::VRProperties()->SetStringProperty(m_ulPropertyContainer, vr::Prop_ModelNumber_String, "VerantyxHMD");
         vr::VRProperties()->SetBoolProperty(m_ulPropertyContainer, vr::Prop_HasVirtualDisplayComponent_Bool, true);
         vr::VRProperties()->SetUint64Property(m_ulPropertyContainer, vr::Prop_CurrentUniverseId_Uint64, 1);
-        vr::VRProperties()->SetBoolProperty(m_ulPropertyContainer, vr::Prop_ContainsProximitySensor_Bool, true);
+        vr::VRProperties()->SetBoolProperty(m_ulPropertyContainer, vr::Prop_ContainsProximitySensor_Bool, false);
+        vr::VRProperties()->SetInt32Property(m_ulPropertyContainer, vr::Prop_EdidVendorID_Int32, 0);
+        vr::VRProperties()->SetInt32Property(m_ulPropertyContainer, vr::Prop_EdidProductID_Int32, 0);
+        
+        // Fetch default DXGI Adapter LUID
+        HMODULE hDXGI = LoadLibraryA("dxgi.dll");
+        if (hDXGI) {
+            typedef HRESULT(WINAPI* CreateDXGIFactory_t)(REFIID, void**);
+            CreateDXGIFactory_t pCreateDXGIFactory = (CreateDXGIFactory_t)GetProcAddress(hDXGI, "CreateDXGIFactory");
+            if (pCreateDXGIFactory) {
+                IDXGIFactory* pFactory = nullptr;
+                if (SUCCEEDED(pCreateDXGIFactory(__uuidof(IDXGIFactory), (void**)&pFactory))) {
+                    IDXGIAdapter* pAdapter = nullptr;
+                    if (SUCCEEDED(pFactory->EnumAdapters(0, &pAdapter))) {
+                        DXGI_ADAPTER_DESC desc;
+                        if (SUCCEEDED(pAdapter->GetDesc(&desc))) {
+                            uint64_t luid = ((uint64_t)desc.AdapterLuid.HighPart << 32) | desc.AdapterLuid.LowPart;
+                            // DO NOT SET LUID! 
+                            // Setting a D3DMetal LUID will cause DXVK in vrcompositor to crash because it can't find the adapter.
+                            // vr::VRProperties()->SetUint64Property(m_ulPropertyContainer, vr::Prop_GraphicsAdapterLuid_Uint64, luid);
+                        }
+                        pAdapter->Release();
+                    }
+                    pFactory->Release();
+                }
+            }
+        }
+        
         vr::VRProperties()->SetBoolProperty(m_ulPropertyContainer, vr::Prop_DeviceProvidesBatteryStatus_Bool, false);
         vr::VRProperties()->SetFloatProperty(m_ulPropertyContainer, vr::Prop_UserIpdMeters_Float, 0.063f);
         vr::VRProperties()->SetFloatProperty(m_ulPropertyContainer, vr::Prop_UserHeadToEyeDepthMeters_Float, 0.f);

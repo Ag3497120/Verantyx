@@ -264,7 +264,21 @@ PFN_D3D11_CREATE_DEVICE g_pOriginalD3D11CreateDevice = NULL;
 PFN_D3D11_CREATE_DEVICE_AND_SWAP_CHAIN g_pOriginalD3D11CreateDeviceAndSwapChain = NULL;
 
 HRESULT STDMETHODCALLTYPE Hooked_D3D11CreateDevice(IDXGIAdapter* pAdapter, D3D_DRIVER_TYPE DriverType, HMODULE Software, UINT Flags, const D3D_FEATURE_LEVEL* pFeatureLevels, UINT FeatureLevels, UINT SDKVersion, ID3D11Device** ppDevice, D3D_FEATURE_LEVEL* pFeatureLevel, ID3D11DeviceContext** ppImmediateContext) {
+    char logMsg[256];
+    sprintf(logMsg, "[Verantyx] OpenVRProxy Hooked_D3D11CreateDevice: pAdapter=%p, DriverType=%d, Flags=%x", pAdapter, DriverType, Flags);
+    LogProxy(logMsg);
+
+    if (pAdapter != nullptr) {
+        pAdapter = nullptr;
+        DriverType = D3D_DRIVER_TYPE_HARDWARE;
+    }
+    Flags &= ~(D3D11_CREATE_DEVICE_SINGLETHREADED | D3D11_CREATE_DEVICE_PREVENT_INTERNAL_THREADING_OPTIMIZATIONS);
+
     HRESULT hr = g_pOriginalD3D11CreateDevice(pAdapter, DriverType, Software, Flags, pFeatureLevels, FeatureLevels, SDKVersion, ppDevice, pFeatureLevel, ppImmediateContext);
+    
+    sprintf(logMsg, "[Verantyx] OpenVRProxy Hooked_D3D11CreateDevice Result: hr=%x", hr);
+    LogProxy(logMsg);
+
     if (SUCCEEDED(hr) && ppDevice && *ppDevice) {
         SetupHooks(*ppDevice);
         ID3D11Multithread* pMt = nullptr;
@@ -277,7 +291,21 @@ HRESULT STDMETHODCALLTYPE Hooked_D3D11CreateDevice(IDXGIAdapter* pAdapter, D3D_D
 }
 
 HRESULT STDMETHODCALLTYPE Hooked_D3D11CreateDeviceAndSwapChain(IDXGIAdapter* pAdapter, D3D_DRIVER_TYPE DriverType, HMODULE Software, UINT Flags, const D3D_FEATURE_LEVEL* pFeatureLevels, UINT FeatureLevels, UINT SDKVersion, const DXGI_SWAP_CHAIN_DESC* pSwapChainDesc, IDXGISwapChain** ppSwapChain, ID3D11Device** ppDevice, D3D_FEATURE_LEVEL* pFeatureLevel, ID3D11DeviceContext** ppImmediateContext) {
+    char logMsg[256];
+    sprintf(logMsg, "[Verantyx] OpenVRProxy Hooked_D3D11CreateDeviceAndSwapChain: pAdapter=%p, DriverType=%d, Flags=%x", pAdapter, DriverType, Flags);
+    LogProxy(logMsg);
+
+    if (pAdapter != nullptr) {
+        pAdapter = nullptr;
+        DriverType = D3D_DRIVER_TYPE_HARDWARE;
+    }
+    Flags &= ~(D3D11_CREATE_DEVICE_SINGLETHREADED | D3D11_CREATE_DEVICE_PREVENT_INTERNAL_THREADING_OPTIMIZATIONS);
+
     HRESULT hr = g_pOriginalD3D11CreateDeviceAndSwapChain(pAdapter, DriverType, Software, Flags, pFeatureLevels, FeatureLevels, SDKVersion, pSwapChainDesc, ppSwapChain, ppDevice, pFeatureLevel, ppImmediateContext);
+    
+    sprintf(logMsg, "[Verantyx] OpenVRProxy Hooked_D3D11CreateDeviceAndSwapChain Result: hr=%x", hr);
+    LogProxy(logMsg);
+
     if (SUCCEEDED(hr) && ppDevice && *ppDevice) {
         SetupHooks(*ppDevice);
         ID3D11Multithread* pMt = nullptr;
@@ -309,7 +337,13 @@ void InitHook() {
 }
 
 BOOL WINAPI DllMain(HINSTANCE hinstDLL, DWORD fdwReason, LPVOID lpvReserved) {
-    if (fdwReason == DLL_PROCESS_ATTACH) { DisableThreadLibraryCalls(hinstDLL); InitHook(); }
-    else if (fdwReason == DLL_PROCESS_DETACH) { MH_Uninitialize(); }
+    if (fdwReason == DLL_PROCESS_ATTACH) { 
+        LogProxy("[Verantyx] OpenVRProxy DllMain DLL_PROCESS_ATTACH!");
+        DisableThreadLibraryCalls(hinstDLL); 
+        InitHook(); 
+    }
+    else if (fdwReason == DLL_PROCESS_DETACH) { 
+        MH_Uninitialize(); 
+    }
     return TRUE;
 }

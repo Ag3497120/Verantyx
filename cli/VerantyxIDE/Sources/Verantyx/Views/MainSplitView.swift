@@ -147,6 +147,7 @@ struct MainSplitView: View {
                             case .evolution: SelfEvolutionView().environmentObject(app)
                             case .search:    GlobalSearchView().environmentObject(app)
                             case .git:       GitPanelView().environmentObject(app)
+                            case .vrbridge:  VRBridgePanelView()
                             default:         FileTreeView()
                             }
                         }

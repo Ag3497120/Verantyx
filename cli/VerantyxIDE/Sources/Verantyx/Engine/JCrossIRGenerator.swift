@@ -71,18 +71,19 @@ final class JCrossIRGenerator {
         from source: String,
         language: JCrossCodeTranspiler.CodeLanguage,
         vault: JCrossIRVault
-    ) -> JCrossIRDocument {
+    ) -> (ir: JCrossIRDocument, annotatedSource: String) {
         var context = GenerationContext(language: language, vault: vault)
 
-        // Phase 1: ソースを行単位で解析してIRに変換
+        // Phase 1: ソースを行単位で解析してIRに変換 + Carbon Paper アノテーション付与
         let lines = source.components(separatedBy: "\n")
-        let irFunctions = extractFunctions(from: lines, context: &context)
+        var annotatedLines = [String]()
+        let irFunctions = extractFunctions(from: lines, context: &context, annotatedLines: &annotatedLines)
 
         // Phase 2: ダミーノードを注入してパターン推論を妨げる
         let noisedNodes = injectNoiseNodes(into: context.nodes, density: noiseDensity)
 
         // Phase 3: IRドキュメントを構築
-        return JCrossIRDocument(
+        let document = JCrossIRDocument(
             documentID: IRNodeID(),
             language: language.rawValue,
             protocolVersion: "2.1",
@@ -90,13 +91,16 @@ final class JCrossIRGenerator {
             functions: irFunctions,
             nodes: noisedNodes
         )
+        
+        return (document, annotatedLines.joined(separator: "\n"))
     }
 
     // MARK: - Function Extraction
 
     private func extractFunctions(
         from lines: [String],
-        context: inout GenerationContext
+        context: inout GenerationContext,
+        annotatedLines: inout [String]
     ) -> [JCrossIRFunction] {
         var functions: [JCrossIRFunction] = []
         var i = 0
@@ -107,18 +111,30 @@ final class JCrossIRGenerator {
             if let funcInfo = parseFunctionDeclaration(line, language: context.language) {
                 let funcID = IRNodeID()
                 var bodyNodeIDs: [IRNodeID] = []
-
-                // 関数本体を解析（簡易実装：次の閉じ括弧まで）
+                
+                // 関数定義の行をアノテーション付きで追加
+                let commentPrefix = context.language == .python ? "#" : "//"
+                annotatedLines.append("\(lines[i]) \(commentPrefix) NODE[\(funcID.raw)]")
+                
+                // 本体行を追加しつつ解析
                 var depth = 1
                 var j = i + 1
                 while j < lines.count && depth > 0 {
-                    let bodyLine = lines[j].trimmingCharacters(in: .whitespaces)
+                    let rawLine = lines[j]
+                    let bodyLine = rawLine.trimmingCharacters(in: .whitespaces)
+                    
                     if bodyLine.contains("{") { depth += 1 }
                     if bodyLine.contains("}") { depth -= 1 }
+                    
                     if depth > 0 {
                         if let nodeID = processLine(bodyLine, funcID: funcID, context: &context) {
                             bodyNodeIDs.append(nodeID)
+                            annotatedLines.append("\(rawLine) \(commentPrefix) NODE[\(nodeID.raw)]")
+                        } else {
+                            annotatedLines.append(rawLine)
                         }
+                    } else {
+                        annotatedLines.append(rawLine)
                     }
                     j += 1
                 }
@@ -148,6 +164,7 @@ final class JCrossIRGenerator {
 
                 i = j
             } else {
+                annotatedLines.append(lines[i])
                 i += 1
             }
         }

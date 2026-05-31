@@ -11,6 +11,8 @@ import asyncio
 
 from model_mlx import TalkieModelMLX, GPTConfig
 from transformers import AutoTokenizer
+from outlines.models.mlxlm import MLXLM
+from outlines.generator import get_json_schema_logits_processor
 
 app = FastAPI()
 
@@ -84,13 +86,18 @@ model.update(weights)
 mx.eval(model.parameters())
 print("Model loaded successfully!")
 
-def generate_step(prompt_ids, temp=0.12):
+def generate_step(prompt_ids, temp=0.12, logits_processor=None):
     cache = None
     y = prompt_ids
+    all_tokens = prompt_ids
     
     while True:
         logits, cache = model(y, cache=cache)
         
+        if logits_processor is not None:
+            # outlines expects mlx arrays and returns processed logits
+            logits = logits_processor(all_tokens, logits)
+            
         if temp == 0:
             next_token = mx.argmax(logits, axis=-1)
         else:
@@ -98,15 +105,23 @@ def generate_step(prompt_ids, temp=0.12):
             next_token = mx.random.categorical(logits)
             
         y = next_token.reshape(1, 1)
+        all_tokens = mx.concatenate([all_tokens, y], axis=1)
         mx.eval(y)
         token_id = next_token.item()
         yield token_id
 
-async def stream_generator(prompt: str, max_tokens: int = 1024):
+async def stream_generator(prompt: str, max_tokens: int = 1024, response_format: dict = None):
     prompt_ids = tokenizer.encode(prompt, return_tensors="np")
     prompt_ids = mx.array(prompt_ids)
     
-    gen = generate_step(prompt_ids)
+    logits_processor = None
+    if response_format is not None and response_format.get("type") == "json_schema":
+        schema_dict = response_format.get("json_schema", {}).get("schema", {})
+        if schema_dict:
+            outlines_model = MLXLM(model, tokenizer)
+            logits_processor = get_json_schema_logits_processor("outlines_core", outlines_model, json.dumps(schema_dict))
+    
+    gen = generate_step(prompt_ids, logits_processor=logits_processor)
     
     for i, token_id in enumerate(gen):
         if i >= max_tokens or token_id == tokenizer.eos_token_id:
@@ -132,9 +147,10 @@ async def chat_completions(request: Request):
             prompt += f"{content}\n"
     
     max_tokens = data.get("max_tokens", 1024)
+    response_format = data.get("response_format")
     
     async def event_stream():
-        async for chunk in stream_generator(prompt, max_tokens):
+        async for chunk in stream_generator(prompt, max_tokens, response_format):
             response = {
                 "choices": [
                     {

@@ -25,10 +25,23 @@ actor AgentEngine {
         workspaceURL: URL? = nil
     ) async -> AgentResult {
 
+        var annotatedSource: String? = nil
+        var unobfuscatedIR: JCrossIRDocument? = nil
+
+        if let content = contextFileContent, let name = contextFileName {
+            let ext = URL(fileURLWithPath: name).pathExtension.lowercased()
+            let language = JCrossCodeTranspiler.CodeLanguage.from(extension: ext)
+            let vault = JCrossIRVault() // Temporary memory vault for analysis
+            let irGen = JCrossIRGenerator()
+            let genResult = irGen.generateIR(from: content, language: language, vault: vault)
+            annotatedSource = genResult.annotatedSource
+            unobfuscatedIR = genResult.ir
+        }
+
         let prompt = buildPrompt(
             instruction: instruction,
-            fileContent: contextFileContent,
-            fileName: contextFileName,
+            annotatedSource: annotatedSource,
+            unobfuscatedIR: unobfuscatedIR,
             hasTerminal: hasTerminal
         )
 
@@ -61,7 +74,7 @@ actor AgentEngine {
             return AgentResult(explanation: "⚠️ Model returned empty response. Try again.", diff: nil)
         }
 
-        return parseOutput(output, originalContent: contextFileContent)
+        return parseOutput(output, originalContent: annotatedSource ?? contextFileContent)
     }
 
     /// Second pass: given terminal error output, attempt to produce a fix.
@@ -75,8 +88,7 @@ actor AgentEngine {
         let fixPrompt = buildErrorFixPrompt(
             original: originalAIResponse,
             errorOutput: errorOutput,
-            fileContent: contextFileContent,
-            fileName: contextFileName
+            annotatedSource: contextFileContent // Fallback, would ideally use actual annotated source
         )
         let fixOutput = await OllamaClient.shared.generate(
             model: activeOllamaModel,
@@ -91,16 +103,18 @@ actor AgentEngine {
 
     private func buildPrompt(
         instruction: String,
-        fileContent: String?,
-        fileName: String?,
+        annotatedSource: String?,
+        unobfuscatedIR: JCrossIRDocument?,
         hasTerminal: Bool = false
     ) -> String {
         let codeSection: String
-        if let content = fileContent, !content.isEmpty, let name = fileName {
+        if let source = annotatedSource, !source.isEmpty {
             codeSection = """
-            FILE: \(name)
+            [CARBON PAPER SOURCE]
+            This is the raw source code. It contains `// NODE[0x...]` annotations on structural lines.
+            You MUST use these NODE IDs to target your modifications.
             ```
-            \(content.prefix(8000))
+            \(source.prefix(12000))
             ```
 
             """
@@ -108,11 +122,23 @@ actor AgentEngine {
             codeSection = ""
         }
 
+        let irSection: String
+        if let ir = unobfuscatedIR {
+            irSection = """
+            [UNOBFUSCATED 6-AXIS JCross IR]
+            This is the deep structural dependency graph of the file, mapped to the NODE IDs.
+            Use this to understand control flow, data flow, and variable types before making changes.
+            Nodes count: \(ir.nodes.count)
+            Functions count: \(ir.functions.count)
+
+            """
+        } else {
+            irSection = ""
+        }
+
         let terminalSection = hasTerminal ? """
 
         TOOL: You can execute shell commands by writing [RUN: command] anywhere in your response.
-        Example: [RUN: cargo check] or [RUN: swift build] or [RUN: python -m pytest]
-        Use this to verify your changes compile/pass tests. The output will be shown to the user.
         """ : ""
 
         return """
@@ -120,14 +146,26 @@ actor AgentEngine {
 
         Your task:
         1. Read the user's instruction carefully.
-        2. If code changes are needed, output the COMPLETE modified file in a fenced code block.
-        3. After the code block, write a brief explanation of what you changed and why.
-        4. If no code changes are needed, just answer conversationally.
-        5. If relevant, include [RUN: command] to verify your changes (e.g. [RUN: cargo check]).
+        2. Analyze the [UNOBFUSCATED 6-AXIS JCross IR] to understand the architecture.
+        3. Formulate a GraphPatch targeting specific NODE IDs in the [CARBON PAPER SOURCE].
+        4. Output your patch as a JSON object inside a ````json block.
+        5. DO NOT output the entire file.
 
-        RULE: When outputting modified code, output the ENTIRE file — not just the changed lines.
+        JSON FORMAT:
+        ```json
+        {
+          "patches": [
+            {
+              "targetNodeID": "0x123abc...",
+              "operation": "replaceNode", // or insertNode, wrapNode, removeNode
+              "snippet": "let x = 1\\nlet y = 2" // The exact Swift code to inject, preserving indentation
+            }
+          ],
+          "explanation": "Brief explanation of the changes"
+        }
+        ```
 
-        \(codeSection)USER INSTRUCTION: \(instruction)
+        \(irSection)\(codeSection)USER INSTRUCTION: \(instruction)
 
         YOUR RESPONSE:
         """
@@ -138,12 +176,11 @@ actor AgentEngine {
     private func buildErrorFixPrompt(
         original: String,
         errorOutput: String,
-        fileContent: String?,
-        fileName: String?
+        annotatedSource: String?
     ) -> String {
-        let fileSection = fileContent.map { "CURRENT FILE:\n```\n\($0.prefix(6000))\n```\n" } ?? ""
+        let fileSection = annotatedSource.map { "CURRENT CARBON PAPER:\n```\n\($0.prefix(6000))\n```\n" } ?? ""
         return """
-        You previously attempted a code change, but the build/test failed.
+        You previously attempted a GraphPatch code change, but the build/test failed.
 
         YOUR PREVIOUS RESPONSE:
         \(original.prefix(2000))
@@ -154,10 +191,7 @@ actor AgentEngine {
         ```
 
         \(fileSection)
-        Please fix the error. Output the COMPLETE corrected file in a fenced code block,
-        then explain what went wrong and how you fixed it.
-
-        CORRECTED RESPONSE:
+        Please fix the error. Output the CORRECTED GraphPatch JSON.
         """
     }
 
@@ -165,7 +199,7 @@ actor AgentEngine {
 
     private func parseOutput(_ raw: String, originalContent: String?) -> AgentResult {
         // 1. Extract [RUN: cmd] tool calls
-        let runPattern = #"\[RUN:\s*([^\]]+)\]"#
+        let runPattern = #"\\[RUN:\\s*([^\\]]+)\\]"#
         var ranCommands: [String] = []
         if let regex = try? NSRegularExpression(pattern: runPattern) {
             let matches = regex.matches(in: raw, range: NSRange(raw.startIndex..., in: raw))
@@ -173,30 +207,53 @@ actor AgentEngine {
                 Range(m.range(at: 1), in: raw).map { String(raw[$0]).trimmingCharacters(in: .whitespaces) }
             }
         }
-        // Remove [RUN:...] tags from display text
         let cleanedRaw = raw.replacingOccurrences(of: runPattern, with: "", options: .regularExpression)
 
-        // 2. Extract fenced code block
-        let pattern = #"```(?:\w+)?\n([\s\S]*?)```"#
+        // 2. Extract JSON GraphPatch block
+        let pattern = #"```json\n([\s\S]*?)```"#
         if let regex = try? NSRegularExpression(pattern: pattern),
            let match = regex.firstMatch(in: cleanedRaw, range: NSRange(cleanedRaw.startIndex..., in: cleanedRaw)),
            let range = Range(match.range(at: 1), in: cleanedRaw) {
-
-            let modifiedCode = String(cleanedRaw[range])
-            let afterCode = cleanedRaw.components(separatedBy: "```").last ?? ""
-            let explanation = afterCode.trimmingCharacters(in: .whitespacesAndNewlines)
-
-            if let orig = originalContent,
-               modifiedCode.trimmingCharacters(in: .whitespacesAndNewlines) != orig.trimmingCharacters(in: .whitespacesAndNewlines) {
+            
+            let jsonString = String(cleanedRaw[range])
+            
+            struct AgentPatchResponse: Codable {
+                struct AgentPatch: Codable {
+                    let targetNodeID: String
+                    let operation: String
+                    let snippet: String
+                }
+                let patches: [AgentPatch]
+                let explanation: String
+            }
+            
+            if let data = jsonString.data(using: .utf8),
+               let response = try? JSONDecoder().decode(AgentPatchResponse.self, from: data) {
+                
+                var patchedContent = originalContent ?? ""
+                var diagnostics: [String] = []
+                
+                // Apply patches sequentially using VaultPatcher Carbon Paper logic
+                for patch in response.patches {
+                    guard let op = StructuralCommand.Operation(rawValue: patch.operation) else { continue }
+                    patchedContent = VaultPatcher.shared.applyCarbonPaperPatch(
+                        annotatedSource: patchedContent,
+                        targetNodeID: patch.targetNodeID,
+                        restoredSnippet: patch.snippet,
+                        operation: op,
+                        diagnostics: &diagnostics
+                    )
+                }
+                
                 return AgentResult(
-                    explanation: explanation.isEmpty ? "Changes applied." : explanation,
-                    diff: modifiedCode,
+                    explanation: response.explanation,
+                    diff: patchedContent,
                     ranCommands: ranCommands
                 )
             }
         }
 
-        // No code block — conversational answer
+        // No valid JSON block — conversational answer
         return AgentResult(
             explanation: cleanedRaw.trimmingCharacters(in: .whitespacesAndNewlines),
             diff: nil,

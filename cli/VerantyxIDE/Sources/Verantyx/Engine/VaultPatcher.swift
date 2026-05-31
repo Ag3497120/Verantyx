@@ -65,6 +65,7 @@ final class VaultPatcher {
         command: StructuralCommand,
         ir: JCrossIRDocument,
         vault: JCrossIRVault,
+        annotatedSource: String,
         language: JCrossCodeTranspiler.CodeLanguage = .swift
     ) -> PatchResult {
         var diagnostics: [String] = []
@@ -93,11 +94,20 @@ final class VaultPatcher {
 
         // Step 3: パッチ済みIRをSwiftコードに逆変換
         // （JCrossCodeTranspiler 経由でソースを復元）
-        let restoredCode = transpileToSwift(
+        let restoredSnippet = transpileToSwift(
             patchedIR: patchedIR,
             resolvedSnippet: resolvedSnippet,
             command: command,
             vault: vault
+        )
+
+        // Step 4: Carbon Paper Technology - NODE_IDを使ってソースをパッチング
+        let restoredCode = applyCarbonPaperPatch(
+            annotatedSource: annotatedSource,
+            targetNodeID: command.targetNodeID,
+            restoredSnippet: restoredSnippet,
+            operation: command.operation,
+            diagnostics: &diagnostics
         )
 
         diagnostics.append("[VaultPatcher] ✅ パッチ適用成功: \(patch.newControlFlow) → \(command.targetNodeID)")
@@ -297,6 +307,75 @@ final class VaultPatcher {
                 ? "// [PATCHED: \(command.controlFlowKind?.rawValue ?? "unknown")]"
                 : resolvedSnippet
         }
+    }
+
+    // MARK: - Step 4: Carbon Paper Technology
+
+    /// アノテーション済みのソースコードを `NODE[0x...]` を目印にして置換する。
+    internal func applyCarbonPaperPatch(
+        annotatedSource: String,
+        targetNodeID: String,
+        restoredSnippet: String,
+        operation: StructuralCommand.Operation,
+        diagnostics: inout [String]
+    ) -> String {
+        let lines = annotatedSource.components(separatedBy: "\n")
+        var newLines: [String] = []
+        let targetMarker = "NODE[\(targetNodeID.prefix(8))]"
+        let targetMarkerFull = "NODE[\(targetNodeID)]"
+        
+        var i = 0
+        while i < lines.count {
+            let line = lines[i]
+            
+            // ターゲットノードを含む行を見つけた場合
+            if line.contains(targetMarker) || line.contains(targetMarkerFull) {
+                diagnostics.append("[CarbonPaper] ターゲット行を発見: \(line.trimmingCharacters(in: .whitespaces))")
+                
+                // 元のインデントを抽出
+                let indent = String(line.prefix(while: { $0.isWhitespace }))
+                
+                switch operation {
+                case .insertNode:
+                    // ノードの後に挿入
+                    newLines.append(line)
+                    let snippetLines = restoredSnippet.components(separatedBy: "\n").map { indent + $0 }
+                    newLines.append(contentsOf: snippetLines)
+                    
+                case .wrapNode:
+                    // ラップする場合は元の行（+子ノード）をラップ
+                    // 本格的なASTではスコープ終わりまでをラップするが、今回は簡易的に対象行を置換/ラップ
+                    let snippetLines = restoredSnippet.components(separatedBy: "\n").map { indent + $0 }
+                    
+                    // "[PATCHED: 元の処理]" プレースホルダーを実際の行で置換
+                    var finalSnippet: [String] = []
+                    for sLine in snippetLines {
+                        if sLine.contains("[PATCHED: 元の処理]") {
+                            finalSnippet.append(line) // 元の処理
+                        } else {
+                            finalSnippet.append(sLine)
+                        }
+                    }
+                    newLines.append(contentsOf: finalSnippet)
+                    
+                case .removeNode:
+                    // 削除なので何も追加しない
+                    diagnostics.append("[CarbonPaper] 行を削除しました。")
+                    
+                default:
+                    newLines.append(line)
+                }
+            } else {
+                newLines.append(line)
+            }
+            i += 1
+        }
+        
+        // アノテーションマーカーを取り除いて生のコードに戻す
+        return newLines.map {
+            $0.replacingOccurrences(of: #" // NODE\[[0-9a-fA-F-]+\]"#, with: "", options: .regularExpression)
+              .replacingOccurrences(of: #" # NODE\[[0-9a-fA-F-]+\]"#, with: "", options: .regularExpression)
+        }.joined(separator: "\n")
     }
 
     // MARK: - Helpers

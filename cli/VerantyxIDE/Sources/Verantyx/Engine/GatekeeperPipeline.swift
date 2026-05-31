@@ -104,7 +104,9 @@ final class GatekeeperPipeline: Sendable {
 
         let vault = JCrossIRVault()
         let irGenerator = JCrossIRGenerator()
-        let ir = irGenerator.generateIR(from: sourceCode, language: language, vault: vault)
+        let genResult = irGenerator.generateIR(from: sourceCode, language: language, vault: vault)
+        let ir = genResult.ir
+        let annotatedSource = genResult.annotatedSource
 
         let nodeCount  = ir.nodes.count
         let vaultCount = vault.allEntries().count
@@ -252,6 +254,7 @@ final class GatekeeperPipeline: Sendable {
             command: command,
             ir: ir,
             vault: vault,
+            annotatedSource: annotatedSource,
             language: language
         )
 

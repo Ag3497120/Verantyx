@@ -116,8 +116,9 @@ for iface, methods in interfaces.items():
         const_str = " const " if m['is_const'] else " "
         
         out += f"    virtual {m['ret_type']} {m['name']}({m['args']}){const_str}override {{\n"
-        
-        # Audio Played State (State B) Overrides + Error Fallbacks
+        out += f"        FILE* _f = fopen(\"vr_emulator_log.txt\", \"a\"); if(_f) {{ fprintf(_f, \"Called: {iface}::{m['name']}\\n\"); fclose(_f); }}\n"
+        if 'pRet' in m['args']:
+            out += "        if(pRet) { memset(pRet, 0, sizeof(*pRet)); }\n"
         
         if m['name'] == 'CanRenderScene' or m['name'] == 'IsInputAvailable':
             out += "        return true;\n"
@@ -266,6 +267,8 @@ for iface, methods in interfaces.items():
             out += "        if(pnHeight) *pnHeight = 1080;\n"
         elif m['name'] == 'GetProjectionMatrix':
             out += "        if(pRet) { memset(pRet, 0, sizeof(*pRet)); pRet->m[0][0] = 1; pRet->m[1][1] = 1; pRet->m[2][2] = 1; pRet->m[3][3] = 1; }\n"
+        elif m['name'] == 'GetOutputDevice':
+            out += "        if(pnDevice) *pnDevice = 0;\n"
         elif m['name'] == 'GetActionSetHandle':
             out += "        static uint64_t nextSetHandle = 1000;\n"
             out += "        if(pHandle) *pHandle = nextSetHandle++;\n"
@@ -406,8 +409,12 @@ for iface, methods in interfaces.items():
                     out += f"        return ({m['ret_type']})2;\n"
                 else:
                     out += f"        return ({m['ret_type']})1;\n"
+            elif 'char *' in m['ret_type'] or 'char*' in m['ret_type']:
+                out += "        return \"1.10.30\";\n"
             elif '*' in m['ret_type']:
                 out += "        return nullptr;\n"
+            elif m['ret_type'] in ['vr::HmdMatrix34_t', 'HmdMatrix34_t', 'vr::HmdMatrix44_t', 'HmdMatrix44_t', 'vr::HmdColor_t', 'HmdColor_t', 'vr::HiddenAreaMesh_t', 'HiddenAreaMesh_t']:
+                out += f"        {m['ret_type']} temp = {{0}}; return temp;\n"
             else:
                 out += f"        return ({m['ret_type']})0;\n"
         
@@ -429,7 +436,7 @@ for iface in found_interfaces:
     out += f'    if (strstr(pchInterfaceVersion, "{iface[3:]}")) return &g_mock{iface[3:]};\n'
 
 out += """
-    return &g_universalMock;
+    return nullptr;
 }
 
 extern "C" __declspec(dllexport) uint32_t VR_InitInternal2(vr::EVRInitError *peError, vr::EVRApplicationType eType, const char *pStartupInfo) {

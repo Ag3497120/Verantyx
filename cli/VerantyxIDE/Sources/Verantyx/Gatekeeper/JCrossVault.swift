@@ -86,7 +86,7 @@ final class JCrossVault: ObservableObject {
     }()
 
     // 変換対象の拡張子
-    private static let targetExtensions: Set<String> = [
+    nonisolated(unsafe) private static let targetExtensions: Set<String> = [
         "swift", "ts", "tsx", "js", "jsx", "py", "rs", "go", "kt", "java",
         "cpp", "cc", "c", "h", "cs", "rb", "php", "sh",
         "css", "scss", "html", "htm", "json", "md", "txt", "yaml", "yml", "toml", "xml", "csv"
@@ -612,7 +612,8 @@ final class JCrossVault: ObservableObject {
         // 秘密軸（関数名・定数値等）は irVault に隔離。
         // LLMへ送信するのは ObfuscatedIRDocument のみ。
         let irGen      = JCrossIRGenerator()
-        let irDoc      = irGen.generateIR(from: source, language: lang, vault: irVault)
+        let genResult  = irGen.generateIR(from: source, language: lang, vault: irVault)
+        let irDoc      = genResult.ir
 
         // 3層難読化を適用して LLM 送信用ドキュメントを生成
         let obfPipeline = JCrossObfuscationPipeline()

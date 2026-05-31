@@ -5,10 +5,7 @@
 #include <stdio.h>
 #include <stdint.h>
 #include <map>
-#include <thread>
-#include <chrono>
 #include "MinHook.h"
-#include <openvr_driver.h>
 
 void LogProxy(const char* msg) {
     FILE* fp = fopen("Z:\\Users\\motonishikoudai\\Verantyx_VR_Drive\\proxy_log.txt", "a");
@@ -42,80 +39,6 @@ IUnknown* GetCanonicalIUnknown(IUnknown* pObj) {
     return pObj;
 }
 
-#pragma pack(push, 1)
-struct SharedFrame {
-    uint32_t sequenceNumber;
-    uint32_t width;
-    uint32_t height;
-    uint32_t format;
-    uint8_t pixelData[1920 * 1080 * 4]; // Max 8MB
-};
-#pragma pack(pop)
-
-void DumpTextureThread(ID3D11Texture2D* pTex) {
-    LogProxy("[Verantyx] DumpTextureThread started! Waiting 5s for compositor to settle...");
-    std::this_thread::sleep_for(std::chrono::seconds(5));
-    
-    LogProxy("[Verantyx] Setting up IPC Shared Memory...");
-    HANDLE hFile = CreateFileA("C:\\vr_shared_frame.dat", GENERIC_READ | GENERIC_WRITE, FILE_SHARE_READ | FILE_SHARE_WRITE, NULL, OPEN_ALWAYS, FILE_ATTRIBUTE_NORMAL, NULL);
-    if (hFile == INVALID_HANDLE_VALUE) { LogProxy("Failed to create vr_shared_frame.dat"); return; }
-    
-    HANDLE hMap = CreateFileMappingA(hFile, NULL, PAGE_READWRITE, 0, sizeof(SharedFrame), "VerantyxSharedFrame");
-    if (!hMap) { LogProxy("Failed to create file mapping"); return; }
-    
-    SharedFrame* pShared = (SharedFrame*)MapViewOfFile(hMap, FILE_MAP_ALL_ACCESS, 0, 0, sizeof(SharedFrame));
-    if (!pShared) { LogProxy("Failed to map view of file"); return; }
-    
-    pShared->sequenceNumber = 0;
-    
-    D3D11_TEXTURE2D_DESC desc;
-    pTex->GetDesc(&desc);
-    
-    ID3D11Device* pDevice = nullptr;
-    pTex->GetDevice(&pDevice);
-    if (!pDevice) return;
-
-    ID3D11DeviceContext* pContext = nullptr;
-    pDevice->GetImmediateContext(&pContext);
-    if (!pContext) { pDevice->Release(); return; }
-
-    D3D11_TEXTURE2D_DESC stageDesc = desc;
-    stageDesc.Usage = D3D11_USAGE_STAGING;
-    stageDesc.BindFlags = 0;
-    stageDesc.CPUAccessFlags = D3D11_CPU_ACCESS_READ;
-    stageDesc.MiscFlags = 0;
-
-    ID3D11Texture2D* pStaging = nullptr;
-    HRESULT hr = pDevice->CreateTexture2D(&stageDesc, nullptr, &pStaging);
-    if (FAILED(hr)) { LogProxy("Failed to create staging texture"); return; }
-    
-    LogProxy("[Verantyx] Entering high-speed IPC streaming loop (~90fps)...");
-    uint32_t seq = 1;
-    
-    while (true) {
-        pContext->CopyResource(pStaging, pTex);
-        D3D11_MAPPED_SUBRESOURCE mapped;
-        if (SUCCEEDED(pContext->Map(pStaging, 0, D3D11_MAP_READ, 0, &mapped))) {
-            pShared->width = desc.Width;
-            pShared->height = desc.Height;
-            pShared->format = desc.Format;
-            
-            uint8_t* pDst = pShared->pixelData;
-            uint8_t* pSrc = (uint8_t*)mapped.pData;
-            uint32_t rowBytes = desc.Width * 4;
-            
-            for (UINT y = 0; y < desc.Height; y++) {
-                memcpy(pDst + y * rowBytes, pSrc + y * mapped.RowPitch, rowBytes);
-            }
-            
-            pShared->sequenceNumber = seq++; // Atomic publish to macOS reader
-            
-            pContext->Unmap(pStaging, 0);
-        }
-        std::this_thread::sleep_for(std::chrono::milliseconds(11));
-    }
-}
-
 HRESULT STDMETHODCALLTYPE Hooked_GetSharedHandle(IDXGIResource* pThis, HANDLE *pSharedHandle) {
     IUnknown* pUnk = GetCanonicalIUnknown(pThis);
     if (g_LocalResourceHandles.find(pUnk) != g_LocalResourceHandles.end()) {
@@ -138,19 +61,10 @@ HRESULT STDMETHODCALLTYPE Hooked_CreateTexture2D(ID3D11Device* pDevice, const D3
             g_LocalResourceHandles[pUnk] = fakeHandle;
             g_HandleToResource[fakeHandle] = *ppTexture2D;
             
+            // Log for debugging texture extraction
             char logMsg[256];
-            sprintf(logMsg, "[Verantyx] Hooked_CreateTexture2D: Width=%u, Height=%u, Format=%u, MiscFlags=%x", newDesc.Width, newDesc.Height, newDesc.Format, pDesc->MiscFlags);
+            sprintf(logMsg, "[Verantyx] Hooked_CreateTexture2D (Shared Stripped): fake handle %p, size %dx%d", (void*)fakeHandle, newDesc.Width, newDesc.Height);
             LogProxy(logMsg);
-            
-            // Verantyx: Directly dump from hlvr.exe if the texture is large enough
-            if (newDesc.Width >= 800 && newDesc.Height >= 800) {
-                static bool threadStarted = false;
-                if (!threadStarted) {
-                    threadStarted = true;
-                    LogProxy("[Verantyx] Starting DumpTextureThread from hlvr.exe!");
-                    std::thread(DumpTextureThread, *ppTexture2D).detach();
-                }
-            }
         }
         return hr;
     }
@@ -177,43 +91,6 @@ HRESULT HandleFakeOpenSharedResource(ID3D11Device* pDevice, HANDLE hResource, RE
     uintptr_t handleVal = (uintptr_t)hResource;
     if (g_HandleToResource.find(handleVal) != g_HandleToResource.end()) {
         return g_HandleToResource[handleVal]->QueryInterface(ReturnedInterface, ppResource);
-    }
-    if ((handleVal & 0xFFFF0000) == 0xDEAD0000) {
-        unsigned int size = handleVal & 0xFFFF;
-        D3D11_BUFFER_DESC desc = {};
-        desc.ByteWidth = size; desc.Usage = D3D11_USAGE_DEFAULT; desc.BindFlags = D3D11_BIND_CONSTANT_BUFFER;
-        ID3D11Buffer* pBuffer = nullptr;
-        HRESULT hr = g_pOriginalCreateBuffer(pDevice, &desc, nullptr, &pBuffer);
-        if (SUCCEEDED(hr) && pBuffer) {
-            IUnknown* pUnk = GetCanonicalIUnknown(pBuffer);
-            g_LocalResourceHandles[pUnk] = handleVal;
-            g_HandleToResource[handleVal] = pBuffer;
-            return pBuffer->QueryInterface(ReturnedInterface, ppResource);
-        }
-        return hr;
-    }
-    if ((handleVal & 0xFFFF0000) == 0xBEEF0000) {
-        D3D11_TEXTURE2D_DESC desc = {};
-        desc.Width = 1920; desc.Height = 1080; desc.MipLevels = 1; desc.ArraySize = 1;
-        desc.Format = DXGI_FORMAT_R8G8B8A8_UNORM_SRGB; desc.SampleDesc.Count = 1;
-        desc.Usage = D3D11_USAGE_DEFAULT; desc.BindFlags = D3D11_BIND_RENDER_TARGET | D3D11_BIND_SHADER_RESOURCE;
-        ID3D11Texture2D* pDummyTex = nullptr;
-        HRESULT hr = g_pOriginalCreateTexture2D(pDevice, &desc, nullptr, &pDummyTex);
-        if (SUCCEEDED(hr) && pDummyTex) {
-            IUnknown* pUnk = GetCanonicalIUnknown(pDummyTex);
-            g_LocalResourceHandles[pUnk] = handleVal;
-            g_HandleToResource[handleVal] = pDummyTex;
-            
-            // Verantyx: Do NOT start DumpTextureThread here. We dump from hlvr.exe directly.
-            // static bool threadStarted = false;
-            // if (!threadStarted) {
-            //     threadStarted = true;
-            //     std::thread(DumpTextureThread, pDummyTex).detach();
-            // }
-            
-            return pDummyTex->QueryInterface(ReturnedInterface, ppResource);
-        }
-        return E_FAIL;
     }
     return E_INVALIDARG;
 }
@@ -244,7 +121,7 @@ void SetupHooks(ID3D11Device* pDevice) {
     static bool s_hooksInstalled = false;
     if (s_hooksInstalled) return;
     s_hooksInstalled = true;
-    LogProxy("[Verantyx] Setting up VTable overrides (with IPC Memory Map)...");
+    LogProxy("[Verantyx] Setting up VTable overrides to strip shared handles...");
     
     void** pDeviceVTable = *(void***)pDevice;
     ReplaceVTableEntry(pDeviceVTable, 5, (void*)Hooked_CreateTexture2D, (void**)&g_pOriginalCreateTexture2D);
@@ -281,6 +158,7 @@ PFN_D3D11_CREATE_DEVICE g_pOriginalD3D11CreateDevice = NULL;
 PFN_D3D11_CREATE_DEVICE_AND_SWAP_CHAIN g_pOriginalD3D11CreateDeviceAndSwapChain = NULL;
 
 HRESULT STDMETHODCALLTYPE Hooked_D3D11CreateDevice(IDXGIAdapter* pAdapter, D3D_DRIVER_TYPE DriverType, HMODULE Software, UINT Flags, const D3D_FEATURE_LEVEL* pFeatureLevels, UINT FeatureLevels, UINT SDKVersion, ID3D11Device** ppDevice, D3D_FEATURE_LEVEL* pFeatureLevel, ID3D11DeviceContext** ppImmediateContext) {
+    // IMPORTANT: PASS ALL PARAMETERS UNTOUCHED TO D3DMETAL!
     HRESULT hr = g_pOriginalD3D11CreateDevice(pAdapter, DriverType, Software, Flags, pFeatureLevels, FeatureLevels, SDKVersion, ppDevice, pFeatureLevel, ppImmediateContext);
     if (SUCCEEDED(hr) && ppDevice && *ppDevice) {
         SetupHooks(*ppDevice);
@@ -290,10 +168,16 @@ HRESULT STDMETHODCALLTYPE Hooked_D3D11CreateDevice(IDXGIAdapter* pAdapter, D3D_D
             pMt->Release();
         }
     }
+    
+    char logMsg[256];
+    sprintf(logMsg, "[Verantyx] D3D11CreateDevice native return: %lx", hr);
+    LogProxy(logMsg);
+    
     return hr;
 }
 
 HRESULT STDMETHODCALLTYPE Hooked_D3D11CreateDeviceAndSwapChain(IDXGIAdapter* pAdapter, D3D_DRIVER_TYPE DriverType, HMODULE Software, UINT Flags, const D3D_FEATURE_LEVEL* pFeatureLevels, UINT FeatureLevels, UINT SDKVersion, const DXGI_SWAP_CHAIN_DESC* pSwapChainDesc, IDXGISwapChain** ppSwapChain, ID3D11Device** ppDevice, D3D_FEATURE_LEVEL* pFeatureLevel, ID3D11DeviceContext** ppImmediateContext) {
+    // IMPORTANT: PASS ALL PARAMETERS UNTOUCHED TO D3DMETAL!
     HRESULT hr = g_pOriginalD3D11CreateDeviceAndSwapChain(pAdapter, DriverType, Software, Flags, pFeatureLevels, FeatureLevels, SDKVersion, pSwapChainDesc, ppSwapChain, ppDevice, pFeatureLevel, ppImmediateContext);
     if (SUCCEEDED(hr) && ppDevice && *ppDevice) {
         SetupHooks(*ppDevice);
@@ -303,12 +187,42 @@ HRESULT STDMETHODCALLTYPE Hooked_D3D11CreateDeviceAndSwapChain(IDXGIAdapter* pAd
             pMt->Release();
         }
     }
+    
+    char logMsg[256];
+    sprintf(logMsg, "[Verantyx] D3D11CreateDeviceAndSwapChain native return: %lx", hr);
+    LogProxy(logMsg);
+    
     return hr;
 }
 
-// All exports are handled via openvr_api.def forwarding (Wait, this is d3d11.dll!)
-
-void InitHook();
+void InitHook() {
+    static bool bInit = false;
+    if (bInit) return;
+    bInit = true;
+    
+    char exePath[MAX_PATH] = {0};
+    GetModuleFileNameA(NULL, exePath, MAX_PATH);
+    LogProxy("[Verantyx] D3D11 Hook Initializing in:");
+    LogProxy(exePath);
+    
+    MH_Initialize();
+    
+    char sysDir[MAX_PATH];
+    GetSystemDirectoryA(sysDir, MAX_PATH);
+    strcat(sysDir, "\\d3d11.dll");
+    
+    HMODULE hD3D11 = LoadLibraryExA(sysDir, NULL, LOAD_WITH_ALTERED_SEARCH_PATH);
+    if (hD3D11) {
+        void* pD3D11CreateDevice = (void*)GetProcAddress(hD3D11, "D3D11CreateDevice");
+        void* pD3D11CreateDeviceAndSwapChain = (void*)GetProcAddress(hD3D11, "D3D11CreateDeviceAndSwapChain");
+        if (pD3D11CreateDevice) MH_CreateHook(pD3D11CreateDevice, (void*)Hooked_D3D11CreateDevice, (LPVOID*)&g_pOriginalD3D11CreateDevice);
+        if (pD3D11CreateDeviceAndSwapChain) MH_CreateHook(pD3D11CreateDeviceAndSwapChain, (void*)Hooked_D3D11CreateDeviceAndSwapChain, (LPVOID*)&g_pOriginalD3D11CreateDeviceAndSwapChain);
+        MH_EnableHook(MH_ALL_HOOKS);
+        LogProxy("[Verantyx] Successfully hooked D3DMetal natively.");
+    } else {
+        LogProxy("[Verantyx] FAILED to load system d3d11.dll!");
+    }
+}
 
 extern "C" __declspec(dllexport) HRESULT WINAPI D3D11CreateDevice(IDXGIAdapter* pAdapter, D3D_DRIVER_TYPE DriverType, HMODULE Software, UINT Flags, const D3D_FEATURE_LEVEL* pFeatureLevels, UINT FeatureLevels, UINT SDKVersion, ID3D11Device** ppDevice, D3D_FEATURE_LEVEL* pFeatureLevel, ID3D11DeviceContext** ppImmediateContext) {
     InitHook();
@@ -320,32 +234,4 @@ extern "C" __declspec(dllexport) HRESULT WINAPI D3D11CreateDeviceAndSwapChain(ID
     InitHook();
     if (g_pOriginalD3D11CreateDeviceAndSwapChain) return Hooked_D3D11CreateDeviceAndSwapChain(pAdapter, DriverType, Software, Flags, pFeatureLevels, FeatureLevels, SDKVersion, pSwapChainDesc, ppSwapChain, ppDevice, pFeatureLevel, ppImmediateContext);
     return E_FAIL;
-}
-
-void InitHook() {
-    char exePath[MAX_PATH] = {0};
-    GetModuleFileNameA(NULL, exePath, MAX_PATH);
-    if (!strstr(exePath, "vrcompositor.exe") && !strstr(exePath, "vrcompositor_real.exe") && !strstr(exePath, "hlvr.exe")) {
-        return;
-    }
-    LogProxy(exePath);
-    MH_Initialize();
-    
-    char sysDir[MAX_PATH];
-    GetSystemDirectoryA(sysDir, MAX_PATH);
-    strcat(sysDir, "\\d3d11_real.dll");
-    HMODULE hD3D11 = LoadLibraryA(sysDir);
-    
-    if (hD3D11) {
-        void* pD3D11CreateDevice = (void*)GetProcAddress(hD3D11, "D3D11CreateDevice");
-        void* pD3D11CreateDeviceAndSwapChain = (void*)GetProcAddress(hD3D11, "D3D11CreateDeviceAndSwapChain");
-        if (pD3D11CreateDevice) MH_CreateHook(pD3D11CreateDevice, (void*)Hooked_D3D11CreateDevice, (LPVOID*)&g_pOriginalD3D11CreateDevice);
-        if (pD3D11CreateDeviceAndSwapChain) MH_CreateHook(pD3D11CreateDeviceAndSwapChain, (void*)Hooked_D3D11CreateDeviceAndSwapChain, (LPVOID*)&g_pOriginalD3D11CreateDeviceAndSwapChain);
-        MH_EnableHook(MH_ALL_HOOKS);
-    }
-}
-
-
-void UninitHook() {
-    MH_Uninitialize();
 }

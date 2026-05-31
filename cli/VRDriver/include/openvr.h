@@ -2003,7 +2003,7 @@ public:
 	virtual void GetRecommendedRenderTargetSize( uint32_t *pnWidth, uint32_t *pnHeight ) = 0;
 
 	/** The projection matrix for the specified eye */
-	virtual HmdMatrix44_t GetProjectionMatrix( EVREye eEye, float fNearZ, float fFarZ ) = 0;
+	virtual void GetProjectionMatrix( HmdMatrix44_t *pRet, EVREye eEye, float fNearZ, float fFarZ ) = 0;
 
 	/** The components necessary to build your own projection matrix in case your
 	* application is doing something fancy like infinite Z */
@@ -2018,7 +2018,7 @@ public:
 	* space that provides stereo disparity. Instead of Model * View * Projection the sequence is Model * View * Eye^-1 * Projection. 
 	* Normally View and Eye^-1 will be multiplied together and treated as View in your application. 
 	*/
-	virtual HmdMatrix34_t GetEyeToHeadTransform( EVREye eEye ) = 0;
+	virtual void GetEyeToHeadTransform( HmdMatrix34_t *pRet, EVREye eEye ) = 0;
 
 	/** Returns the number of elapsed seconds since the last recorded vsync event. This 
 	*	will come from a vsync timer event in the timer if possible or from the application-reported
@@ -2112,11 +2112,11 @@ public:
 	*
 	* The seated origin may or may not be inside the Play Area or Collision Bounds returned by IVRChaperone. Its position 
 	* depends on what the user has set from the Dashboard settings and previous calls to ResetSeatedZeroPose. */
-	virtual HmdMatrix34_t GetSeatedZeroPoseToStandingAbsoluteTrackingPose() = 0;
+	virtual void GetSeatedZeroPoseToStandingAbsoluteTrackingPose( HmdMatrix34_t *pRet ) = 0;
 
 	/** Returns the transform from the tracking origin to the standing absolute tracking system. This allows
 	* applications to convert from raw tracking space to the calibrated standing coordinate system. */
-	virtual HmdMatrix34_t GetRawZeroPoseToStandingAbsoluteTrackingPose() = 0;
+	virtual void GetRawZeroPoseToStandingAbsoluteTrackingPose( HmdMatrix34_t *pRet ) = 0;
 
 	/** Get a sorted array of device indices of a given class of tracked devices (e.g. controllers).  Devices are sorted right to left
 	* relative to the specified tracked device (default: hmd -- pass in -1 for absolute tracking space).  Returns the number of devices
@@ -2166,7 +2166,7 @@ public:
 	virtual uint64_t GetUint64TrackedDeviceProperty( vr::TrackedDeviceIndex_t unDeviceIndex, ETrackedDeviceProperty prop, ETrackedPropertyError *pError = 0L ) = 0;
 
 	/** Returns a matrix property. If the device index is not valid or the property is not a matrix type, this function will return identity. */
-	virtual HmdMatrix34_t GetMatrix34TrackedDeviceProperty( vr::TrackedDeviceIndex_t unDeviceIndex, ETrackedDeviceProperty prop, ETrackedPropertyError *pError = 0L ) = 0;
+	virtual void GetMatrix34TrackedDeviceProperty( HmdMatrix34_t *pRet, vr::TrackedDeviceIndex_t unDeviceIndex, ETrackedDeviceProperty prop, ETrackedPropertyError *pError = 0L ) = 0;
 	
 	/** Returns an array of one type of property. If the device index is not valid or the property is not a single value or an array of the specified type,
 	* this function will return 0. Otherwise it returns the number of bytes necessary to hold the array of properties. If unBufferSize is
@@ -2211,7 +2211,7 @@ public:
 	* Setting the bInverse argument to true will produce the visible area mesh that is commonly used in place of full-screen quads. The visible area mesh covers all of the pixels the hidden area mesh does not cover.
 	* Setting the bLineLoop argument will return a line loop of vertices in HiddenAreaMesh_t->pVertexData with HiddenAreaMesh_t->unTriangleCount set to the number of vertices.
 	*/
-	virtual HiddenAreaMesh_t GetHiddenAreaMesh( EVREye eEye, EHiddenAreaMeshType type = k_eHiddenAreaMesh_Standard ) = 0;
+	virtual void GetHiddenAreaMesh( HiddenAreaMesh_t *pRet, EVREye eEye, EHiddenAreaMeshType type = k_eHiddenAreaMesh_Standard ) = 0;
 
 	// ------------------------------------
 	// Controller methods
@@ -3260,7 +3260,7 @@ public:
 	virtual void FadeToColor( float fSeconds, float fRed, float fGreen, float fBlue, float fAlpha, bool bBackground = false ) = 0;
 
 	/** Get current fade color value. */
-	virtual HmdColor_t GetCurrentFadeColor( bool bBackground = false ) = 0;
+	virtual void GetCurrentFadeColor( HmdColor_t *pRet, bool bBackground = false ) = 0;
 
 	/** Fading the Grid in or out in fSeconds */
 	virtual void FadeGrid( float fSeconds, bool bFadeIn ) = 0;

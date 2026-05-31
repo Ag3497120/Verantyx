@@ -6,6 +6,8 @@ import SwiftUI
 struct ActivityBarView: View {
     @Binding var selectedSection: ActivitySection?
     @EnvironmentObject var app: AppState
+    
+    @State private var showStopVMAlert: Bool = false
 
     enum ActivitySection: String, CaseIterable {
         case explorer    = "folder"
@@ -15,6 +17,7 @@ struct ActivityBarView: View {
         case evolution   = "arrow.triangle.2.circlepath"  // Self-Evolution
         case extensions  = "puzzlepiece"
         case settings    = "gearshape"
+        case vrbridge    = "eyeglasses" // VR Bridge
     }
 
     var body: some View {
@@ -27,7 +30,7 @@ struct ActivityBarView: View {
                     .foregroundStyle(Color(red: 0.4, green: 0.7, blue: 1.0))
                     .padding(.bottom, 12)
 
-                ForEach([ActivitySection.explorer, .search, .git, .mcp, .evolution], id: \.self) { section in
+                ForEach([ActivitySection.explorer, .search, .git, .mcp, .evolution, .vrbridge], id: \.self) { section in
                     activityButton(section)
                 }
             }
@@ -56,7 +59,11 @@ struct ActivityBarView: View {
     private func activityButton(_ section: ActivitySection) -> some View {
         Button {
             if selectedSection == section {
-                selectedSection = nil
+                if section == .vrbridge && HypervisorManager.shared.isRunning {
+                    showStopVMAlert = true
+                } else {
+                    selectedSection = nil
+                }
             } else {
                 selectedSection = section
             }
@@ -108,6 +115,18 @@ struct ActivityBarView: View {
         .contentShape(Rectangle())
         .buttonStyle(.plain)
         .help(helpLabel(section))
+        .alert("Stop Virtual Machine?", isPresented: $showStopVMAlert) {
+            Button("Stop VM", role: .destructive) {
+                HypervisorManager.shared.stopVM()
+                selectedSection = nil
+            }
+            Button("Run in Background") {
+                selectedSection = nil
+            }
+            Button("Cancel", role: .cancel) { }
+        } message: {
+            Text("The Windows VM is currently running. Do you want to shut it down or let it run in the background?")
+        }
     }
 
     private func helpLabel(_ section: ActivitySection) -> String {
@@ -119,6 +138,7 @@ struct ActivityBarView: View {
         case .evolution: return app.t("Self-Evolution", "自己進化")
         case .extensions: return app.t("Extensions", "拡張機能")
         case .settings:  return app.t("Settings", "設定")
+        case .vrbridge:  return app.t("VR Bridge", "VR ブリッジ")
         }
     }
 }
