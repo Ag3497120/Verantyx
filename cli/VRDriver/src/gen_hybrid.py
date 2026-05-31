@@ -319,14 +319,27 @@ typedef vr::EVRCompositorError (__thiscall *Submit_t)(void* _this, vr::EVREye eE
 static Submit_t g_origSubmit = nullptr;
 
 vr::EVRCompositorError __fastcall Hooked_Submit(void* _this, vr::EVREye eEye, const vr::Texture_t *pTexture, const vr::VRTextureBounds_t* pBounds, vr::EVRSubmitFlags nSubmitFlags) {
+    FILE* log_f = fopen("vr_emulator_log.txt", "a");
+    if(log_f) {
+        fprintf(log_f, "Called: IVRCompositor::Submit(Eye: %d)\n", (int)eEye);
+        fclose(log_f);
+    }
+    
     if (eEye == vr::Eye_Left) {
         static uint32_t seq = 0;
         seq++;
-        FILE* f = fopen("/Users/motonishikoudai/Verantyx_VR_Drive/SteamVR_Prefix/drive_c/vr_shared_frame.dat", "wb");
+        // Write to temp file then rename to avoid file lock collisions with Python viewer
+        FILE* f = fopen("/Users/motonishikoudai/Verantyx_VR_Drive/SteamVR_Prefix/drive_c/vr_shared_frame_tmp.dat", "wb");
         if(f) {
             uint32_t header[4] = {seq, 956, 1076, 27};
             fwrite(header, sizeof(uint32_t), 4, f);
             fclose(f);
+            rename("/Users/motonishikoudai/Verantyx_VR_Drive/SteamVR_Prefix/drive_c/vr_shared_frame_tmp.dat", "/Users/motonishikoudai/Verantyx_VR_Drive/SteamVR_Prefix/drive_c/vr_shared_frame.dat");
+        } else {
+            if(log_f = fopen("vr_emulator_log.txt", "a")) {
+                fprintf(log_f, "Submit Error: Failed to open vr_shared_frame_tmp.dat for writing!\n");
+                fclose(log_f);
+            }
         }
     }
     return g_origSubmit(_this, eEye, pTexture, pBounds, nSubmitFlags);
