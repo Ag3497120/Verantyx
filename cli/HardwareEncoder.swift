@@ -1,4 +1,5 @@
 import Foundation
+setvbuf(stdout, nil, _IONBF, 0)
 import VideoToolbox
 import CoreMedia
 import Network
@@ -13,30 +14,50 @@ struct SharedFrame {
 }
 
 struct UDPHeader {
+    var magic: UInt32 // 0x5652414E ("VRAN")
     var frameSequence: UInt32
-    var fragmentIndex: UInt16
-    var totalFragments: UInt16
+    var chunkIndex: UInt32
+    var totalChunks: UInt32
+    var chunkOffset: UInt32
     var payloadSize: UInt32
+}
+
+struct VRPosePacket {
+    var magic: UInt32 // 0x504F5345 ("POSE")
+    var headTransform: (Float, Float, Float, Float, Float, Float, Float, Float, Float, Float, Float, Float, Float, Float, Float, Float)
+    var leftHandTransform: (Float, Float, Float, Float, Float, Float, Float, Float, Float, Float, Float, Float, Float, Float, Float, Float)
+    var rightHandTransform: (Float, Float, Float, Float, Float, Float, Float, Float, Float, Float, Float, Float, Float, Float, Float, Float)
+    var leftPinch: UInt8
+    var rightPinch: UInt8
+}
+
+struct JoyconPacket {
+    var magic: UInt32 // 0x4A4F5943 ("JOYC")
+    var rightButtons: UInt32
+    var leftButtons: UInt32
+    var rightStickX: Float
+    var rightStickY: Float
+    var leftStickX: Float
+    var leftStickY: Float
+    var rightVelocityX: Float
+    var rightVelocityY: Float
+    var rightVelocityZ: Float
+    var leftVelocityX: Float
+    var leftVelocityY: Float
+    var leftVelocityZ: Float
 }
 
 // MARK: - Setup Network
 
-var targetIP = "127.0.0.1"
-if CommandLine.arguments.count > 1 {
-    targetIP = CommandLine.arguments[1]
-}
-print("Target UDP IP: \(targetIP)")
+var vrConnection: NWConnection?
 
-var sock = socket(AF_INET, SOCK_DGRAM, 0)
-if sock < 0 {
-    print("Failed to create UDP socket")
-    exit(1)
-}
-var targetAddr = sockaddr_in()
-targetAddr.sin_len = UInt8(MemoryLayout<sockaddr_in>.size)
-targetAddr.sin_family = sa_family_t(AF_INET)
-targetAddr.sin_port = in_port_t(9999).bigEndian
-targetAddr.sin_addr.s_addr = inet_addr(targetIP)
+let parameters = NWParameters.udp
+parameters.includePeerToPeer = true
+parameters.allowLocalEndpointReuse = true
+
+let port = NWEndpoint.Port(rawValue: 9999)!
+let vrListener = try! NWListener(using: parameters, on: port)
+vrListener.service = NWListener.Service(name: "VerantyxVR", type: "_verantyxvr._udp")
 
 // MARK: - VideoToolbox Callback
 
@@ -53,17 +74,26 @@ func processSampleBuffer(sampleBuffer: CMSampleBuffer, isKeyFrame: Bool, frameSe
     // 1. Extract SPS and PPS for Keyframes
     if isKeyFrame {
         if let formatDesc = CMSampleBufferGetFormatDescription(sampleBuffer) {
+            var vpsSize: Int = 0
+            var vpsCount: Int = 0
+            var vpsPtr: UnsafePointer<UInt8>? = nil
+            CMVideoFormatDescriptionGetHEVCParameterSetAtIndex(formatDesc, parameterSetIndex: 0, parameterSetPointerOut: &vpsPtr, parameterSetSizeOut: &vpsSize, parameterSetCountOut: &vpsCount, nalUnitHeaderLengthOut: nil)
+            
             var spsSize: Int = 0
             var spsCount: Int = 0
             var spsPtr: UnsafePointer<UInt8>? = nil
-            CMVideoFormatDescriptionGetH264ParameterSetAtIndex(formatDesc, parameterSetIndex: 0, parameterSetPointerOut: &spsPtr, parameterSetSizeOut: &spsSize, parameterSetCountOut: &spsCount, nalUnitHeaderLengthOut: nil)
+            CMVideoFormatDescriptionGetHEVCParameterSetAtIndex(formatDesc, parameterSetIndex: 1, parameterSetPointerOut: &spsPtr, parameterSetSizeOut: &spsSize, parameterSetCountOut: &spsCount, nalUnitHeaderLengthOut: nil)
             
             var ppsSize: Int = 0
             var ppsCount: Int = 0
             var ppsPtr: UnsafePointer<UInt8>? = nil
-            CMVideoFormatDescriptionGetH264ParameterSetAtIndex(formatDesc, parameterSetIndex: 1, parameterSetPointerOut: &ppsPtr, parameterSetSizeOut: &ppsSize, parameterSetCountOut: &ppsCount, nalUnitHeaderLengthOut: nil)
+            CMVideoFormatDescriptionGetHEVCParameterSetAtIndex(formatDesc, parameterSetIndex: 2, parameterSetPointerOut: &ppsPtr, parameterSetSizeOut: &ppsSize, parameterSetCountOut: &ppsCount, nalUnitHeaderLengthOut: nil)
             
             let startCode: [UInt8] = [0, 0, 0, 1]
+            if let vps = vpsPtr {
+                frameData.append(contentsOf: startCode)
+                frameData.append(vps, count: vpsSize)
+            }
             if let sps = spsPtr {
                 frameData.append(contentsOf: startCode)
                 frameData.append(sps, count: spsSize)
@@ -102,9 +132,11 @@ func processSampleBuffer(sampleBuffer: CMSampleBuffer, isKeyFrame: Bool, frameSe
             let fragSize = min(mtu, totalBytes - chunkOffset)
             
             var header = UDPHeader(
+                magic: UInt32(0x5652414E).littleEndian, // "VRAN"
                 frameSequence: frameSequence.littleEndian,
-                fragmentIndex: UInt16(i).littleEndian,
-                totalFragments: UInt16(numFragments).littleEndian,
+                chunkIndex: UInt32(i).littleEndian,
+                totalChunks: UInt32(numFragments).littleEndian,
+                chunkOffset: UInt32(chunkOffset).littleEndian,
                 payloadSize: UInt32(fragSize).littleEndian
             )
             
@@ -114,12 +146,12 @@ func processSampleBuffer(sampleBuffer: CMSampleBuffer, isKeyFrame: Bool, frameSe
             }
             packet.append(baseAddress + chunkOffset, count: fragSize)
             
-            packet.withUnsafeBytes { pktData in
-                let _ = withUnsafePointer(to: &targetAddr) { sa in
-                    sa.withMemoryRebound(to: sockaddr.self, capacity: 1) { saPtr in
-                        sendto(sock, pktData.baseAddress!, packet.count, 0, saPtr, socklen_t(MemoryLayout<sockaddr_in>.size))
+            if let conn = vrConnection, conn.state == .ready {
+                conn.send(content: packet, completion: .contentProcessed { error in
+                    if let error = error {
+                        print("Send error: \(error)")
                     }
-                }
+                })
             }
             print("Sent UDP packet for frame \(frameSequence) frag \(i)/\(numFragments) payload: \(fragSize)")
             fflush(stdout)
@@ -137,7 +169,7 @@ func setupEncoder(width: Int32, height: Int32) {
     let status = VTCompressionSessionCreate(allocator: kCFAllocatorDefault,
                                             width: width,
                                             height: height,
-                                            codecType: kCMVideoCodecType_H264,
+                                            codecType: kCMVideoCodecType_HEVC,
                                             encoderSpecification: nil,
                                             imageBufferAttributes: nil,
                                             compressedDataAllocator: nil,
@@ -165,14 +197,18 @@ func setupEncoder(width: Int32, height: Int32) {
     }
     
     VTSessionSetProperty(compressionSession!, key: kVTCompressionPropertyKey_RealTime, value: kCFBooleanTrue)
-    VTSessionSetProperty(compressionSession!, key: kVTCompressionPropertyKey_ProfileLevel, value: kVTProfileLevel_H264_High_AutoLevel)
+    VTSessionSetProperty(compressionSession!, key: kVTCompressionPropertyKey_ProfileLevel, value: kVTProfileLevel_HEVC_Main_AutoLevel)
+    
+    // Force a keyframe every 30 frames (0.5 seconds at 60fps) to quickly recover from UDP packet loss
+    VTSessionSetProperty(compressionSession!, key: kVTCompressionPropertyKey_MaxKeyFrameInterval, value: 30 as CFNumber)
+    
     VTCompressionSessionPrepareToEncodeFrames(compressionSession!)
 }
 
 // MARK: - Main IPC Loop
 
 let filePath = NSHomeDirectory() + "/Verantyx_VR_Drive/SteamVR_Prefix/drive_c/vr_shared_frame.dat"
-let mapSize = 16 + 1920 * 1080 * 4 + 130 // Added 130 bytes for Hand Tracking
+let mapSize = 16 + 4096 * 4096 * 4 + 194
 
 print("Waiting for vr_shared_frame.dat...")
 while true {
@@ -189,13 +225,13 @@ while true {
     Thread.sleep(forTimeInterval: 0.5)
 }
 
-let fd = open(filePath, O_RDONLY)
+let fd = open(filePath, O_RDWR)
 if fd < 0 {
     print("Failed to open file")
     exit(1)
 }
 
-let mapPtr = mmap(nil, mapSize, PROT_READ, MAP_SHARED, fd, 0)
+let mapPtr = mmap(nil, mapSize, PROT_READ | PROT_WRITE, MAP_SHARED, fd, 0)
 if mapPtr == MAP_FAILED {
     print("mmap failed")
     exit(1)
@@ -203,7 +239,7 @@ if mapPtr == MAP_FAILED {
 
 let headerPtr = mapPtr!.bindMemory(to: SharedFrame.self, capacity: 1)
 let pixelPtr = mapPtr! + MemoryLayout<SharedFrame>.size
-let handsMapPtr = mapPtr! + 16 + 1920 * 1080 * 4
+let handsMapPtr = mapPtr! + 16 + 4096 * 4096 * 4
 
 var lastSeq: UInt32 = 0
 var pixelBuffer: CVPixelBuffer?
@@ -212,15 +248,65 @@ var currentFrameSequence: UInt32 = 0
 var currentWidth = 0
 var currentHeight = 0
 
-// MARK: - Hand Tracking UDP Server
-let listener = try? NWListener(using: .udp, on: 9998)
-listener?.newConnectionHandler = { connection in
+// MARK: - Joy-Con UDP Server
+let joyconListener = try? NWListener(using: .udp, on: 11002)
+joyconListener?.newConnectionHandler = { connection in
     connection.start(queue: .global())
     func receiveNext() {
         connection.receiveMessage { data, context, isComplete, error in
-            if let data = data, data.count == 130 {
+            if let data = data, data.count == MemoryLayout<JoyconPacket>.size {
                 data.withUnsafeBytes { rawBuffer in
-                    memcpy(handsMapPtr, rawBuffer.baseAddress, 130)
+                    let jc = rawBuffer.load(as: JoyconPacket.self)
+                    if jc.magic == UInt32(0x4A4F5943) { // "JOYC"
+                        handsMapPtr.advanced(by: 194).storeBytes(of: jc.rightButtons, as: UInt32.self)
+                        handsMapPtr.advanced(by: 198).storeBytes(of: jc.leftButtons, as: UInt32.self)
+                        handsMapPtr.advanced(by: 202).storeBytes(of: jc.rightStickX, as: Float.self)
+                        handsMapPtr.advanced(by: 206).storeBytes(of: jc.rightStickY, as: Float.self)
+                        handsMapPtr.advanced(by: 210).storeBytes(of: jc.leftStickX, as: Float.self)
+                        handsMapPtr.advanced(by: 214).storeBytes(of: jc.leftStickY, as: Float.self)
+                        handsMapPtr.advanced(by: 218).storeBytes(of: jc.rightVelocityX, as: Float.self)
+                        handsMapPtr.advanced(by: 222).storeBytes(of: jc.rightVelocityY, as: Float.self)
+                        handsMapPtr.advanced(by: 226).storeBytes(of: jc.rightVelocityZ, as: Float.self)
+                        handsMapPtr.advanced(by: 230).storeBytes(of: jc.leftVelocityX, as: Float.self)
+                        handsMapPtr.advanced(by: 234).storeBytes(of: jc.leftVelocityY, as: Float.self)
+                        handsMapPtr.advanced(by: 238).storeBytes(of: jc.leftVelocityZ, as: Float.self)
+                    }
+                }
+            }
+            if error == nil { receiveNext() }
+        }
+    }
+    receiveNext()
+}
+joyconListener?.start(queue: .global())
+
+// MARK: - Hand Tracking & Video Connection (AWDL Bonjour)
+vrListener.stateUpdateHandler = { state in
+    print("AWDL VRListener State: \(state)")
+}
+vrListener.newConnectionHandler = { connection in
+    print("New AWDL Connection from Vision Pro!")
+    vrConnection = connection
+    connection.start(queue: .global())
+    
+    func receiveNext() {
+        connection.receiveMessage { data, context, isComplete, error in
+            if let data = data, data.count == MemoryLayout<VRPosePacket>.size {
+                data.withUnsafeBytes { rawBuffer in
+                    let posePkt = rawBuffer.load(as: VRPosePacket.self)
+                    if posePkt.magic == UInt32(0x504F5345) { // "POSE"
+                        _ = withUnsafePointer(to: posePkt.headTransform) { headPtr in
+                            memcpy(handsMapPtr, headPtr, 64)
+                        }
+                        _ = withUnsafePointer(to: posePkt.leftHandTransform) { leftPtr in
+                            memcpy(handsMapPtr + 64, leftPtr, 64)
+                        }
+                        _ = withUnsafePointer(to: posePkt.rightHandTransform) { rightPtr in
+                            memcpy(handsMapPtr + 128, rightPtr, 64)
+                        }
+                        handsMapPtr.advanced(by: 192).storeBytes(of: posePkt.leftPinch, as: UInt8.self)
+                        handsMapPtr.advanced(by: 193).storeBytes(of: posePkt.rightPinch, as: UInt8.self)
+                    }
                 }
             }
             if error == nil {
@@ -230,8 +316,8 @@ listener?.newConnectionHandler = { connection in
     }
     receiveNext()
 }
-listener?.start(queue: .global())
-print("Listening for Hand Tracking on UDP 9998...")
+vrListener.start(queue: .global())
+print("Published Bonjour _verantyxvr._udp. Waiting for Vision Pro connection (AWDL enabled)...")
 
 print("Starting native read loop and UDP transmission on port 9999...")
 

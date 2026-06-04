@@ -32,6 +32,14 @@ Gatekeeperモードは、あなたのソースコードを意味を持たない�
 `Control`キーを3回押すだけで起動する、超自律型のエージェントです。Dual Twinによる内部監査、1930年メタファによるハルシネーションの物理遮断、そしてPCの資産を「自分の記憶（L3.5）」として認識する次世代の思考エンジンを搭載しています。
 👉 [Agentモードの詳細とアーキテクチャ（README-Agent.md）はこちら](./docs/README-Agent.md)
 
+## 3. 🥽 Verantyx VR Bridge (PCVR Streaming)
+**「MacでHalf-Life: Alyxを動かし、Vision Proで遊ぶ」**
+
+Verantyxの新たなサブプロジェクトとして、MacのD3DMetal(GPTK)上で動くSteamVRゲームを直接Apple Vision Proへストリーミングする超低遅延VRブリッジ機能が追加されました。
+- **Mac側 (HardwareEncoder)**: 独自のOpenVRエミュレータ（`openvr_emulator.cpp`）がゲームエンジン(Source 2)からDirectX 11のテクスチャを横取りし、macOSのVideoToolboxを用いてHEVC (H.265) ハードウェアエンコードを実行。UDPでVision Proへ直接送信します。
+- **入力マッピング**: Joy-Conなどのゲームパッド入力をPythonスクリプト(`joycon_mapper.py`)で仮想VRコントローラーに変換し、ゲームにフィードバックします。
+👉 現在、Vision Pro上で平面への描画（2Dウィンドウ）まで成功しており、今後はCompositorServices (Metal) を用いた完全なフルイマーシブVR対応を目指しています。
+
 ---
 
 ## 💻 インストール方法 (ソースからのビルド)
