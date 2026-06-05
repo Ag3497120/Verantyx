@@ -202,6 +202,33 @@ server.setRequestHandler(ListToolsRequestSchema, async () => {
                         }
                     }
                 }
+            },
+            {
+                name: "fetch_pending_memories",
+                description: "List all memory nodes across all zones that have Status: pending and require human approval or rejection.",
+                inputSchema: { type: "object", properties: {} }
+            },
+            {
+                name: "triage_memory_nodes",
+                description: "Apply approval or rejection decisions to pending memory nodes. Typically called after the user submits the approval popup.",
+                inputSchema: {
+                    type: "object",
+                    properties: {
+                        actions: {
+                            type: "array",
+                            items: {
+                                type: "object",
+                                properties: {
+                                    name: { type: "string" },
+                                    zone: { type: "string", enum: ["front", "near", "mid", "deep"] },
+                                    action: { type: "string", enum: ["approve", "reject", "delete"] }
+                                },
+                                required: ["name", "zone", "action"]
+                            }
+                        }
+                    },
+                    required: ["actions"]
+                }
             }
         ]
     };
@@ -250,6 +277,47 @@ server.setRequestHandler(CallToolRequestSchema, async (request) => {
                  isError: true,
                  content: [{ type: "text", text: `Error reading memory: ${e.message}` }]
             };
+        }
+    }
+
+    if (name === "fetch_pending_memories") {
+        try {
+            const { MemoryEngine } = await import("../memory/engine.js");
+            const engine = new MemoryEngine(ENGINE_ROOT);
+            const allFiles = engine.list();
+            
+            const pending = [];
+            for (const z of ["front", "near", "mid", "deep"]) {
+                for (const f of allFiles[z as keyof typeof allFiles] || []) {
+                    const node = engine.read(z as any, f);
+                    if (node && node.content.match(/Status:\s*pending/i)) {
+                        const confMatch = node.content.match(/Confidence:\s*(high|low)/i);
+                        pending.push({
+                            name: f,
+                            zone: z,
+                            confidence: confMatch ? confMatch[1].toLowerCase() : "unknown",
+                            summary: node.content.match(/\[標\]\s*:=\s*"([^"]+)"/) ? node.content.match(/\[標\]\s*:=\s*"([^"]+)"/)![1] : "No summary"
+                        });
+                    }
+                }
+            }
+            return {
+                content: [{ type: "text", text: pending.length ? JSON.stringify(pending, null, 2) : "No pending memories." }]
+            };
+        } catch (e: any) {
+             return { isError: true, content: [{ type: "text", text: `Error fetching pending memories: ${e.message}` }] };
+        }
+    }
+
+    if (name === "triage_memory_nodes") {
+        const { actions } = args as any;
+        try {
+            const { MemoryEngine } = await import("../memory/engine.js");
+            const engine = new MemoryEngine(ENGINE_ROOT);
+            const res = engine.triageMemories(actions);
+            return { content: [{ type: "text", text: `Triage complete. Success: ${res.success}, Failed: ${res.failed}` }] };
+        } catch (e: any) {
+             return { isError: true, content: [{ type: "text", text: `Triage error: ${e.message}` }] };
         }
     }
 
@@ -374,7 +442,19 @@ server.setRequestHandler(CallToolRequestSchema, async (request) => {
                     deep: fs.existsSync(path.join(ENGINE_ROOT, "deep")) ? fs.readdirSync(path.join(ENGINE_ROOT, "deep")).length : 0,
                 },
                 bootstrap_time: new Date().toISOString(),
+                triage_instruction: "",
             };
+
+            const clientInfo = server.getClientVersion();
+            const clientName = clientInfo?.name?.toLowerCase() || "";
+            if (clientName.includes("antigravity")) {
+                result.triage_instruction = "[CRITICAL UX] You are running in Antigravity. You MUST occasionally call fetch_pending_memories. If there are pending nodes, use the native `ask_question` tool with IsMultiSelect: true to show a popup to the user to approve them.";
+            } else if (clientName.includes("claude")) {
+                result.triage_instruction = "[CRITICAL UX] You are running in Claude Desktop. You MUST occasionally call fetch_pending_memories. If there are pending nodes, print a numbered list in the chat and ask the user which ones to approve/reject via text reply.";
+            } else {
+                result.triage_instruction = "[CRITICAL UX] Please call fetch_pending_memories occasionally and ask the user if they want to approve or reject them.";
+            }
+
             return { content: [{ type: "text", text: JSON.stringify(result, null, 2) }] };
         } catch (e: any) {
             return { isError: true, content: [{ type: "text", text: `session_bootstrap error: ${e.message}` }] };

@@ -1,5 +1,10 @@
 export type MemoryZone = "front" | "near" | "mid" | "deep";
 
+export interface MemoryFrontmatter extends Record<string, string> {
+  status?: "pending" | "approved" | "rejected" | string;
+  confidence?: "high" | "low" | string;
+}
+
 export interface MemoryEntry {
   name: string;
   zone: MemoryZone;
@@ -7,13 +12,13 @@ export interface MemoryEntry {
   size: number;
   modified: Date;
   version: number;
-  frontmatter?: Record<string, string>;
+  frontmatter?: MemoryFrontmatter;
 }
 
 export interface ReadMemoryResult {
     content: string;
     version: number;
-    frontmatter?: Record<string, string>;
+    frontmatter?: MemoryFrontmatter;
 }
 
 export interface EpisodicMemory {

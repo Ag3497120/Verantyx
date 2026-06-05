@@ -322,7 +322,20 @@ export class MemoryEngine {
           throw new Error(`STALE_MEMORY: Memory '${name}' was modified by another agent.`);
         }
       }
-      writeFileSync(filePath, content, "utf-8");
+
+      // Check if content already has a Status frontmatter. If not, inject one.
+      let finalContent = content;
+      if (!content.match(/^---\n[\s\S]*?\nStatus:/im) && !content.includes("Status: approved") && !content.includes("Status: pending")) {
+        const confidence = this.predictConfidence(zone, name, content);
+        const injectStr = `Status: pending\nConfidence: ${confidence}`;
+        if (content.startsWith("---\n")) {
+           finalContent = content.replace(/^---\n/, `---\n${injectStr}\n`);
+        } else {
+           finalContent = `---\n${injectStr}\n---\n${content}`;
+        }
+      }
+
+      writeFileSync(filePath, finalContent, "utf-8");
       // Track A: record write timestamp
       this.ledger.written(fileName);
       // Track B: reset LRU mtime
@@ -393,6 +406,43 @@ export class MemoryEngine {
       }
     }
     return false;
+  }
+
+  predictConfidence(zone: string, fileName: string, content: string): string {
+    // Basic heuristic: If it matches strong markers, or if it's placed in 'near' or 'front'
+    // based on technical or user profile keywords, confidence is higher.
+    const lower = content.toLowerCase();
+    if (lower.includes("error") || lower.includes("bug") || lower.includes("fix")) {
+      return "high"; // Likely an important bug fix
+    }
+    if (fileName.includes("session") || fileName.includes("temp")) {
+      return "low";
+    }
+    return "high"; // Default to high for human approval flow UX
+  }
+
+  triageMemories(actions: { name: string; zone: MemoryZone; action: "approve" | "reject" | "delete" }[]): { success: number, failed: number } {
+    let success = 0;
+    let failed = 0;
+    for (const action of actions) {
+      try {
+        if (action.action === "delete" || action.action === "reject") {
+          this.delete(action.name) ? success++ : failed++;
+        } else if (action.action === "approve") {
+          const res = this.read(action.zone, action.name);
+          if (res) {
+             let newContent = res.content.replace(/Status:\s*pending/i, "Status: approved");
+             this.write(action.zone, action.name, newContent, res.version);
+             success++;
+          } else {
+             failed++;
+          }
+        }
+      } catch (e) {
+        failed++;
+      }
+    }
+    return { success, failed };
   }
 
   readSpatialIndex(): string | null {
