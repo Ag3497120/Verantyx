@@ -3,6 +3,7 @@ setvbuf(stdout, nil, _IONBF, 0)
 import VideoToolbox
 import CoreMedia
 import Network
+import Accelerate
 
 import simd
 
@@ -269,17 +270,17 @@ func setupEncoder(width: Int32, height: Int32) {
     VTSessionSetProperty(compressionSession!, key: kVTCompressionPropertyKey_AllowFrameReordering, value: kCFBooleanFalse) // Disable B-frames
     VTSessionSetProperty(compressionSession!, key: kVTCompressionPropertyKey_PrioritizeEncodingSpeedOverQuality, value: kCFBooleanTrue)
     
-    var bitrate: Int32 = 100_000_000 // Bump to 100 Mbps for ultra-high quality direct AP streaming
+    var bitrate: Int32 = 150_000_000 // Bump to 150 Mbps for ultra-high quality direct AP streaming
     let bitrateNum = CFNumberCreate(kCFAllocatorDefault, .sInt32Type, &bitrate)
     VTSessionSetProperty(compressionSession!, key: kVTCompressionPropertyKey_AverageBitRate, value: bitrateNum)
     
-    // Explicitly tell the encoder to pace itself at 90fps for buttery smoothness
-    var expectedFPS: Int32 = 90
+    // Explicitly tell the encoder to pace itself at 120fps for buttery smoothness
+    var expectedFPS: Int32 = 120
     let expectedFPSNum = CFNumberCreate(kCFAllocatorDefault, .sInt32Type, &expectedFPS)
     VTSessionSetProperty(compressionSession!, key: kVTCompressionPropertyKey_ExpectedFrameRate, value: expectedFPSNum)
     
-    // Force an I-frame every 0.5 seconds (45 frames at 90fps) to ensure immediate recovery from dropped UDP packets!
-    VTSessionSetProperty(compressionSession!, key: kVTCompressionPropertyKey_MaxKeyFrameInterval, value: 45 as CFNumber)
+    // Force an I-frame every 0.5 seconds (60 frames at 120fps) to ensure immediate recovery from dropped UDP packets!
+    VTSessionSetProperty(compressionSession!, key: kVTCompressionPropertyKey_MaxKeyFrameInterval, value: 60 as CFNumber)
     
     VTCompressionSessionPrepareToEncodeFrames(compressionSession!)
 }
@@ -434,6 +435,22 @@ DispatchQueue.global(qos: .userInteractive).async {
                     handsMapPtr.advanced(by: 194).storeBytes(of: visionLeftTrigger, as: UInt8.self)
                     handsMapPtr.advanced(by: 195).storeBytes(of: visionRightTrigger, as: UInt8.self)
                     
+                    if bytesRead >= 236 {
+                        let rightButtons = baseAddr.load(fromByteOffset: 212, as: UInt32.self)
+                        let leftButtons = baseAddr.load(fromByteOffset: 216, as: UInt32.self)
+                        let rightStickX = baseAddr.load(fromByteOffset: 220, as: Float.self)
+                        let rightStickY = baseAddr.load(fromByteOffset: 224, as: Float.self)
+                        let leftStickX = baseAddr.load(fromByteOffset: 228, as: Float.self)
+                        let leftStickY = baseAddr.load(fromByteOffset: 232, as: Float.self)
+                        
+                        handsMapPtr.advanced(by: 196).storeBytes(of: rightButtons, as: UInt32.self)
+                        handsMapPtr.advanced(by: 200).storeBytes(of: leftButtons, as: UInt32.self)
+                        handsMapPtr.advanced(by: 204).storeBytes(of: rightStickX, as: Float.self)
+                        handsMapPtr.advanced(by: 208).storeBytes(of: rightStickY, as: Float.self)
+                        handsMapPtr.advanced(by: 212).storeBytes(of: leftStickX, as: Float.self)
+                        handsMapPtr.advanced(by: 216).storeBytes(of: leftStickY, as: Float.self)
+                    }
+                    
                     var ipStr = [CChar](repeating: 0, count: Int(INET6_ADDRSTRLEN))
                     if senderAddr.ss_family == sa_family_t(AF_INET6) {
                         let senderAddrIn6 = withUnsafePointer(to: &senderAddr) {
@@ -502,13 +519,10 @@ while isEncoding {
                     let dst = CVPixelBufferGetBaseAddress(pb)!
                     let bytesPerRow = CVPixelBufferGetBytesPerRow(pb)
                     
-                    if bytesPerRow == width * 4 {
-                        memcpy(dst, pixelPtr, width * height * 4)
-                    } else {
-                        for y in 0..<height {
-                            memcpy(dst + y * bytesPerRow, pixelPtr + y * width * 4, width * 4)
-                        }
-                    }
+                    var srcBuffer = vImage_Buffer(data: UnsafeMutableRawPointer(mutating: pixelPtr), height: vImagePixelCount(height), width: vImagePixelCount(width), rowBytes: Int(width * 4))
+                    var dstBuffer = vImage_Buffer(data: dst, height: vImagePixelCount(height), width: vImagePixelCount(width), rowBytes: bytesPerRow)
+                    let map: [UInt8] = [2, 1, 0, 3] // Swap R (0) and B (2) -> BGRA
+                    vImagePermuteChannels_ARGB8888(&srcBuffer, &dstBuffer, map, vImage_Flags(kvImageNoFlags))
                     
                     CVPixelBufferUnlockBaseAddress(pb, [])
                     
