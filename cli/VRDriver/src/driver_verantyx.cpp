@@ -4,6 +4,7 @@
 #include <openvr_driver.h>
 #include <stdio.h>
 #include <string.h>
+#include <math.h>
 
 void LogDriver(const char* msg) {
     FILE* f = fopen("Z:\\Users\\motonishikoudai\\Verantyx_VR_Drive\\verantyx_driver.txt", "a");
@@ -11,6 +12,82 @@ void LogDriver(const char* msg) {
         fprintf(f, "%s\n", msg);
         fclose(f);
     }
+}
+
+#pragma pack(push, 1)
+struct SharedHands {
+    double poseTimestamp;
+    double renderedTimestamp;
+    float headTransform[16];
+    float leftTransform[16];
+    float rightTransform[16];
+    uint8_t leftPinch;
+    uint8_t rightPinch;
+    uint32_t rightButtons;
+    uint32_t leftButtons;
+    float rightStickX;
+    float rightStickY;
+    float leftStickX;
+    float leftStickY;
+    float rightVelocity[3];
+    float leftVelocity[3];
+};
+#pragma pack(pop)
+
+static HANDLE hMapFile = NULL;
+static SharedHands* pSharedHands = NULL;
+
+static void InitSharedMemoryDriver() {
+    if (hMapFile) return;
+    
+    const int mapSize = 16 + 4096 * 4096 * 4 + 194;
+    
+    hMapFile = OpenFileMappingA(FILE_MAP_READ, FALSE, "VerantyxVRSharedHands");
+    if (!hMapFile) {
+        HANDLE hFile = CreateFileA("C:\\vr_shared_frame.dat", GENERIC_READ | GENERIC_WRITE, FILE_SHARE_READ | FILE_SHARE_WRITE, NULL, OPEN_ALWAYS, FILE_ATTRIBUTE_NORMAL, NULL);
+        if (hFile != INVALID_HANDLE_VALUE) {
+            hMapFile = CreateFileMappingA(hFile, NULL, PAGE_READWRITE, 0, mapSize, "VerantyxVRSharedHands");
+            CloseHandle(hFile);
+        }
+    }
+    
+    if (hMapFile) {
+        void* pBuf = MapViewOfFile(hMapFile, FILE_MAP_READ, 0, 0, mapSize);
+        if (pBuf) {
+            pSharedHands = (SharedHands*)((uint8_t*)pBuf + 16 + 4096 * 4096 * 4);
+        }
+    }
+}
+
+static vr::HmdQuaternion_t ExtractQuaternion(const float* m) {
+    vr::HmdQuaternion_t q;
+    float t = m[0] + m[5] + m[10];
+    if (t > 0.0f) {
+        float S = sqrtf(1.0f + t) * 2.0f;
+        q.w = 0.25f * S;
+        q.x = (m[6] - m[9]) / S;
+        q.y = (m[8] - m[2]) / S;
+        q.z = (m[1] - m[4]) / S;
+    } else if ((m[0] > m[5]) && (m[0] > m[10])) {
+        float S = sqrtf(1.0f + m[0] - m[5] - m[10]) * 2.0f;
+        q.w = (m[6] - m[9]) / S;
+        q.x = 0.25f * S;
+        q.y = (m[1] + m[4]) / S;
+        q.z = (m[8] + m[2]) / S;
+    } else if (m[5] > m[10]) {
+        float S = sqrtf(1.0f + m[5] - m[0] - m[10]) * 2.0f;
+        q.w = (m[8] - m[2]) / S;
+        q.x = (m[1] + m[4]) / S;
+        q.y = 0.25f * S;
+        q.z = (m[6] + m[9]) / S;
+    } else {
+        float S = sqrtf(1.0f + m[10] - m[0] - m[5]) * 2.0f;
+        q.w = (m[1] - m[4]) / S;
+        q.x = (m[8] + m[2]) / S;
+        q.y = (m[6] + m[9]) / S;
+        q.z = 0.25f * S;
+    }
+    return q;
 }
 
 class CVerantyxDirectMode : public vr::IVRDriverDirectModeComponent {
@@ -145,6 +222,14 @@ public:
         pose.qWorldFromDriverRotation = { 1, 0, 0, 0 };
         pose.qDriverFromHeadRotation = { 1, 0, 0, 0 };
         pose.qRotation = { 1, 0, 0, 0 };
+        InitSharedMemoryDriver();
+        if (pSharedHands && pSharedHands->headTransform[0] != 0.0f) {
+            pose.qRotation = ExtractQuaternion(pSharedHands->headTransform);
+            pose.vecPosition[0] = pSharedHands->headTransform[12];
+            pose.vecPosition[1] = pSharedHands->headTransform[13];
+            pose.vecPosition[2] = pSharedHands->headTransform[14];
+        }
+
 #if defined(__GNUC__) && !defined(__clang__)
         if (ret) *ret = pose;
         return ret;
@@ -154,16 +239,16 @@ public:
     }
 #endif
     virtual void GetWindowBounds(int32_t* pnX, int32_t* pnY, uint32_t* pnWidth, uint32_t* pnHeight) override {
-        *pnX = 0; *pnY = 0; *pnWidth = 1920; *pnHeight = 1080;
+        *pnX = 0; *pnY = 0; *pnWidth = 3840; *pnHeight = 2160;
     }
     virtual bool IsDisplayOnDesktop() override { return false; }
     virtual bool IsDisplayRealDisplay() override { return false; }
     virtual void GetRecommendedRenderTargetSize(uint32_t* pnWidth, uint32_t* pnHeight) override {
-        *pnWidth = 960; *pnHeight = 1080;
+        *pnWidth = 1920; *pnHeight = 2160;
     }
     virtual void GetEyeOutputViewport(vr::EVREye eEye, uint32_t* pnX, uint32_t* pnY, uint32_t* pnWidth, uint32_t* pnHeight) override {
-        *pnY = 0; *pnWidth = 1920 / 2; *pnHeight = 1080;
-        if (eEye == vr::Eye_Left) *pnX = 0; else *pnX = 1920 / 2;
+        *pnY = 0; *pnWidth = 1920; *pnHeight = 2160;
+        if (eEye == vr::Eye_Left) *pnX = 0; else *pnX = 1920;
     }
     virtual void GetProjectionRaw(vr::EVREye eEye, float* pfLeft, float* pfRight, float* pfTop, float* pfBottom) override {
         *pfLeft = -1.0f; *pfRight = 1.0f; *pfTop = -1.0f; *pfBottom = 1.0f;
@@ -194,11 +279,11 @@ public:
         m_unObjectId = unObjectId;
         m_ulPropertyContainer = vr::VRProperties()->TrackedDeviceToPropertyContainer(m_unObjectId);
 
-        vr::VRProperties()->SetStringProperty(m_ulPropertyContainer, vr::Prop_ModelNumber_String, m_bIsLeft ? "VerantyxController_Left" : "VerantyxController_Right");
-        vr::VRProperties()->SetStringProperty(m_ulPropertyContainer, vr::Prop_RenderModelName_String, "vr_controller_vive_1_5");
+        vr::VRProperties()->SetStringProperty(m_ulPropertyContainer, vr::Prop_ModelNumber_String, m_bIsLeft ? "Oculus Rift S (Left Controller)" : "Oculus Rift S (Right Controller)");
+        vr::VRProperties()->SetStringProperty(m_ulPropertyContainer, vr::Prop_RenderModelName_String, m_bIsLeft ? "oculus_rifts_controller_left" : "oculus_rifts_controller_right");
         
         // This is strictly required for SteamVR to process inputs!
-        vr::VRProperties()->SetStringProperty(m_ulPropertyContainer, vr::Prop_InputProfilePath_String, "{htc}/input/vive_controller_profile.json");
+        vr::VRProperties()->SetStringProperty(m_ulPropertyContainer, vr::Prop_InputProfilePath_String, "{oculus}/input/touch_profile.json");
         
         vr::VRProperties()->SetInt32Property(m_ulPropertyContainer, vr::Prop_ControllerRoleHint_Int32, m_bIsLeft ? vr::TrackedControllerRole_LeftHand : vr::TrackedControllerRole_RightHand);
         vr::VRProperties()->SetInt32Property(m_ulPropertyContainer, vr::Prop_DeviceClass_Int32, vr::TrackedDeviceClass_Controller);
@@ -229,6 +314,21 @@ public:
         pose.vecPosition[0] = m_bIsLeft ? -0.2 : 0.2;
         pose.vecPosition[1] = -0.2;
         pose.vecPosition[2] = -0.5;
+
+        InitSharedMemoryDriver();
+        float* srcTransform = m_bIsLeft ? (pSharedHands ? pSharedHands->leftTransform : nullptr) : (pSharedHands ? pSharedHands->rightTransform : nullptr);
+        if (srcTransform && srcTransform[0] != 0.0f) {
+            pose.qRotation = ExtractQuaternion(srcTransform);
+            pose.vecPosition[0] = srcTransform[12];
+            pose.vecPosition[1] = srcTransform[13];
+            pose.vecPosition[2] = srcTransform[14];
+        } else if (pSharedHands && pSharedHands->headTransform[0] != 0.0f) {
+            // Fallback to head tracking
+            pose.qRotation = ExtractQuaternion(pSharedHands->headTransform);
+            pose.vecPosition[0] = pSharedHands->headTransform[12] + (m_bIsLeft ? -0.2f : 0.2f);
+            pose.vecPosition[1] = pSharedHands->headTransform[13] - 0.2f;
+            pose.vecPosition[2] = pSharedHands->headTransform[14] - 0.3f;
+        }
 
 #if defined(__GNUC__) && !defined(__clang__)
         if (ret) *ret = pose;

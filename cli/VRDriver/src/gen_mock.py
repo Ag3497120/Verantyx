@@ -72,7 +72,7 @@ static ID3D11Texture2D* pStagingTexture = NULL;
 static void InitSharedMemory() {
     if (hMapFile) return;
     
-    const int mapSize = 16 + 1920 * 1080 * 4 + 130;
+    const int mapSize = 16 + 1920 * 1080 * 4 + 258;
     
     HANDLE hFile = CreateFileA("C:\\\\vr_shared_frame.dat", GENERIC_READ | GENERIC_WRITE, FILE_SHARE_READ | FILE_SHARE_WRITE, NULL, OPEN_ALWAYS, FILE_ATTRIBUTE_NORMAL, NULL);
     if (hFile != INVALID_HANDLE_VALUE) {
