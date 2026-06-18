@@ -496,6 +496,13 @@ struct SpotlightView: View {
                             .foregroundColor(appState.isTalkieMode ? .purple : .gray)
                     }
                     .toggleStyle(SwitchToggleStyle(tint: .purple))
+                    
+                    Toggle(isOn: $appState.isSwarmMode) {
+                        Text("🐝 Swarm Mode")
+                            .font(.system(size: 10, weight: .bold))
+                            .foregroundColor(appState.isSwarmMode ? .yellow : .gray)
+                    }
+                    .toggleStyle(SwitchToggleStyle(tint: .yellow))
                 }
                 .padding(.leading, 8)
                 
@@ -582,6 +589,17 @@ struct SpotlightView: View {
         Task {
             await MainActor.run {
                 let isTalkie = appState.isTalkieMode
+                let isSwarm = appState.isSwarmMode
+                
+                if isSwarm {
+                    // 🐝 JCross Swarm Pipeline起動
+                    appState.addSystemMessage("Initiating JCross Swarm Pipeline (10 physical nodes)...")
+                    Task.detached {
+                        await JCrossSwarmRunner.shared.runSwarm(prompt: text)
+                    }
+                    SpotlightPanelManager.shared.panel?.makeKeyAndOrderFront(nil)
+                    return
+                }
                 
                 // 自動的に Visual Anchor をロードして注入 (Talkieモード以外)
                 if !isTalkie {

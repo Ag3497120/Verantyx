@@ -158,6 +158,7 @@ final class AppState: ObservableObject {
     @Published var showRestartAlert: Bool = false
     @Published var requiresHumanPuzzle: Bool = false
     @Published var isAgentControllingMouse: Bool = false
+    @Published var isSwarmMode: Bool = false // 🐝 Swarm Pipeline Mode
     @Published var lastEntropy: [CGPoint]? = nil
     @Published var lastVideoFrames: [String]? = nil
     @Published var lastKeyboardEntropy: [Double]? = nil
@@ -1031,18 +1032,19 @@ final class AppState: ObservableObject {
                 await MainActor.run { self.messages = trimmed }
             }
 
-            // Route: Smart Router
+            // Route: UI-based Router
             let isGatekeeperEnabled = forceBypassGatekeeper ? false : await MainActor.run(body: { GatekeeperModeState.shared.isEnabled })
-            let isPipeline = await self.isPipelineIntent(text: text)
+            // UI determines task type: IDE input -> Programming, Spotlight -> General
+            let isProgrammingTask = !isSpotlight
 
-            if isGatekeeperEnabled && isPipeline {
+            if isGatekeeperEnabled && isProgrammingTask {
                 // Gatekeeper Mode → 新フロー (6軸IR → GraphPatch JSON → Vault復元)
                 await GatekeeperChatBridge.shared.run(instruction: text, images: snapshotImages as! [String], appState: self)
-            } else if isGatekeeperEnabled && !isPipeline {
-                // Non-Coding Task during Gatekeeper Mode
+            } else if isGatekeeperEnabled && !isProgrammingTask {
+                // General Task during Gatekeeper Mode (Spotlight)
                 await MainActor.run {
-                    let msg = self.t("🧭 Smart Router: Routing non-coding task to \(self.nonCodingTaskEngine.rawValue)",
-                                     "🧭 Smart Router: 非コーディングタスクと判定されたため \(self.nonCodingTaskEngine.rawValue) にルーティングします")
+                    let msg = self.t("🧭 Spotlight Agent: Routing general task to \(self.nonCodingTaskEngine.rawValue)",
+                                     "🧭 Spotlight Agent: 汎用タスクとして \(self.nonCodingTaskEngine.rawValue) にルーティングします")
                     self.addSystemMessage(msg)
                 }
                 
@@ -1078,45 +1080,7 @@ final class AppState: ObservableObject {
         }
     }
 
-    // MARK: - Pipeline Intent Classifier
-
-    /// チャット入力がパイプラインタスク (変換・生成・ビルド系) かどうかを判定する。
-    /// BitNet が使える場合は1.58bモデルで高速分類。
-    /// BitNet 未インストールの場合はキーワードルールで判定。
-    private func isPipelineIntent(text: String) async -> Bool {
-        let lower = text.lowercased()
-        
-        // ── 強い否定キーワード（チャット/情報検索タスク） ──
-        let nonPipelineKeywords = ["ニュース", "news", "教えて", "検索", "search", "what", "how", "why", "天候", "天気", "weather", "株価"]
-        if nonPipelineKeywords.contains(where: { lower.contains($0) }) { 
-            // 変換系の強いキーワードが含まれていない限りチャットとみなす
-            let strongPipeline = ["変換", "書き換え", "convert", "transpile", "migrate", "一括変換"]
-            if !strongPipeline.contains(where: { lower.contains($0) }) {
-                return false 
-            }
-        }
-
-        // LanguageDetector が言語非依存で判定 (BitNet 優先 → ルールベースフォールバック)
-        if LanguageDetector.isPipelineIntent(text) { return true }
-        
-        // BitNet による追加分類
-        if BitNetConfig.load()?.isValid == true {
-            let classifyPrompt = """
-            ### Instruction:
-            Classify this user message. Reply ONLY with "pipeline" or "chat".
-            "pipeline" = code transpilation, conversion, build, generate/port files from one language to another
-            "chat" = question, explanation, review, discussion, anything else
-            Message: \(text.prefix(200))
-            ### Response:
-            """
-            if let result = await BitNetCommanderEngine.shared.generate(
-                prompt: classifyPrompt, systemPrompt: ""
-            ) {
-                return result.lowercased().contains("pipeline")
-            }
-        }
-        return false
-    }
+    // Pipeline Intent Classifier removed (Routing is now strictly UI-based)
 
     // (sendMessage本体のクロージングブレースはここに続く)
     // MARK: - Cancel generation
