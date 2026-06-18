@@ -7,23 +7,18 @@ import json
 import time
 
 def monitor_node_stdout(node_id, process, sys_stdout):
-    """各ノードの標準出力を監視し、JSON-RPCリクエストならIDE(Swift)へ中継する"""
     for line in iter(process.stdout.readline, b''):
         decoded_line = line.decode('utf-8').strip()
         if decoded_line:
-            # sys.stderr.write(f"[Orchestrator] Node {node_id} stdout: {decoded_line}\\n")
             try:
-                # JSON-RPCリクエストかどうかチェック
                 data = json.loads(decoded_line)
                 if "jsonrpc" in data:
-                    # Swift IDE のために標準出力へ流す
                     sys_stdout.write(decoded_line + "\\n")
                     sys_stdout.flush()
             except Exception:
-                pass # JSONパース失敗時は無視
+                pass
 
-def monitor_ide_stdin(processes, sys_stdin):
-    """IDE(Swift)からの標準入力(JSON-RPCレスポンス)を監視し、該当ノードへ中継する"""
+def monitor_ide_stdin(processes_dict, sys_stdin):
     while True:
         line = sys_stdin.readline()
         if not line:
@@ -33,18 +28,28 @@ def monitor_ide_stdin(processes, sys_stdin):
             try:
                 data = json.loads(decoded_line)
                 node_id = data.get("id")
-                if node_id is not None and 0 <= node_id < len(processes):
-                    # 該当ノードの標準入力へレスポンスを流す
-                    node_process = processes[node_id]
+                if node_id is not None and node_id in processes_dict:
+                    node_process = processes_dict[node_id]
                     node_process.stdin.write((decoded_line + "\\n").encode('utf-8'))
                     node_process.stdin.flush()
             except Exception as e:
                 sys.stderr.write(f"[Orchestrator] Error parsing IDE input: {e}\\n")
 
+def send_to_node_and_wait_text(port, text):
+    try:
+        client = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
+        client.connect(('127.0.0.1', port))
+        client.sendall(text.encode('utf-8'))
+        
+        # Temporary server to receive the text reply (since our physical node script sends to `send_port`)
+        # Wait, the node connects to `send_port` to send the response. We must set up a listener.
+    except Exception as e:
+        sys.stderr.write(f"[*] Connection error: {e}\\n")
+
 def main():
     parser = argparse.ArgumentParser(description="Start Socket-based JCross Vector Pipeline Swarm")
     parser.add_argument("--prompt", type=str, default="A simple HTML button with red text.", help="Initial prompt for Commander")
-    parser.add_argument("--nodes", type=int, default=10, help="Total number of physical nodes to launch")
+    parser.add_argument("--nodes", type=int, default=10, help="Total number of physical worker nodes")
     parser.add_argument("--base_port", type=int, default=10000, help="Base port for socket communication")
     args = parser.parse_args()
 
@@ -52,34 +57,121 @@ def main():
     prompt = args.prompt
     base_port = args.base_port
 
-    sys.stderr.write(f"[*] Starting {num_nodes} physical Qwen 0.5B processes (Socket IPC)...\\n")
+    sys.stderr.write(f"[*] Starting {num_nodes} physical Qwen 0.5B nodes + 3 SubCommanders...\\n")
 
-    processes = []
+    processes = {}
     
-    # ノードを起動
+    # 1. Start SubCommanders (Nodes 101, 102, 103)
+    sub_personas = [
+        (101, "You are a Creative Advisor. Provide an innovative and out-of-the-box approach."),
+        (102, "You are a Critical Advisor. Focus on edge cases, potential failures, and logical flaws."),
+        (103, "You are a Pragmatic Advisor. Provide the fastest, most reliable, and simplest solution.")
+    ]
+    
+    for sid, persona in sub_personas:
+        cmd = ["python3", "cli/scripts/qwen_physical_node_socket.py", 
+               "--node_id", str(sid), "--role", "sub_commander", 
+               "--listen_port", str(base_port + sid), 
+               "--send_port", str(base_port + sid + 1000), # Dedicated send ports for text
+               "--persona", persona]
+        p = subprocess.Popen(cmd, stdin=subprocess.PIPE, stdout=subprocess.PIPE, stderr=sys.stderr)
+        processes[sid] = p
+
+    # 2. Start Pipeline Nodes (0: Commander, 1..8: Workers, 9: Final)
     for i in range(num_nodes):
         listen_port = base_port + i
         send_port = base_port + i + 1
         
+        role = "worker"
+        if i == 0: role = "commander"
+        elif i == num_nodes - 1: role = "final"
+        
         cmd = ["python3", "cli/scripts/qwen_physical_node_socket.py", 
-               "--node_id", str(i), 
+               "--node_id", str(i), "--role", role,
                "--listen_port", str(listen_port), 
                "--send_port", str(send_port)]
         
-        # stdin, stdout をキャプチャしてRPC通信を仲介できるようにする
         p = subprocess.Popen(cmd, stdin=subprocess.PIPE, stdout=subprocess.PIPE, stderr=sys.stderr)
-        processes.append(p)
+        processes[i] = p
         
-        # ノードのstdout監視スレッドを開始
         t = threading.Thread(target=monitor_node_stdout, args=(i, p, sys.stdout), daemon=True)
         t.start()
 
-    # IDEからのstdin監視スレッドを開始
     ide_t = threading.Thread(target=monitor_ide_stdin, args=(processes, sys.stdin), daemon=True)
     ide_t.start()
 
-    # Node 0がリッスン開始するのを少し待つ
-    time.sleep(5)
+    time.sleep(10) # Wait for all models to load
+
+    # --- DISCUSSION LAYER ---
+    sys.stderr.write("[*] Initiating Discussion Layer...\\n")
+    current_topic = prompt
+    merged_plan = ""
+    
+    for turn in range(3): # Max 3 discussion turns
+        sys.stderr.write(f"\\n--- Discussion Turn {turn+1} ---\\n")
+        sub_opinions = []
+        
+        # A. Get opinions from SubCommanders
+        for sid, _ in sub_personas:
+            recv_port = base_port + sid + 1000
+            recv_sock = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
+            recv_sock.setsockopt(socket.SOL_SOCKET, socket.SO_REUSEADDR, 1)
+            recv_sock.bind(('127.0.0.1', recv_port))
+            recv_sock.listen(1)
+            
+            # Send prompt
+            client = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
+            client.connect(('127.0.0.1', base_port + sid))
+            client.sendall(current_topic.encode('utf-8'))
+            client.close()
+            
+            # Wait for text reply
+            conn, addr = recv_sock.accept()
+            opinion = conn.recv(16384).decode('utf-8')
+            sub_opinions.append(f"Opinion from SubCommander {sid}:\\n{opinion}")
+            conn.close()
+            recv_sock.close()
+            
+            sys.stderr.write(f"[*] SubCommander {sid} responded.\\n")
+            
+        combined_opinions = "\\n\\n".join(sub_opinions)
+        
+        # B. Ask Commander to Merge
+        sys.stderr.write("[*] Commander is merging opinions...\\n")
+        commander_recv_port = base_port + 2000
+        commander_recv_sock = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
+        commander_recv_sock.setsockopt(socket.SOL_SOCKET, socket.SO_REUSEADDR, 1)
+        commander_recv_sock.bind(('127.0.0.1', commander_recv_port))
+        commander_recv_sock.listen(1)
+        
+        # Send merge request to Commander
+        req = {
+            "type": "merge",
+            "prompt": f"Original Topic: {prompt}\\n\\nOpinions:\\n{combined_opinions}",
+            "send_port": commander_recv_port
+        }
+        client = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
+        client.connect(('127.0.0.1', base_port)) # Node 0
+        client.sendall(json.dumps(req).encode('utf-8'))
+        client.close()
+        
+        # Wait for Commander's text reply
+        conn, addr = commander_recv_sock.accept()
+        merged_plan = conn.recv(32768).decode('utf-8')
+        conn.close()
+        commander_recv_sock.close()
+        
+        sys.stderr.write(f"\\n[Commander Merge Result]:\\n{merged_plan}\\n\\n")
+        
+        if "[RE-DISCUSS]" in merged_plan:
+            current_topic = f"We have a problem in the plan. Commander says:\\n{merged_plan}\\n\\nPlease discuss and fix this."
+            sys.stderr.write("[*] Commander requested RE-DISCUSS. Starting next turn...\\n")
+        else:
+            sys.stderr.write("[*] Discussion merged successfully. Proceeding to Execution Phase.\\n")
+            break
+
+    # --- EXECUTION PHASE ---
+    sys.stderr.write("[*] Pipeline is running Execution Phase. Waiting for final result...\\n")
     
     # 最終ノード(Node 9)の出力を受け取るためのサーバーソケットを起動
     final_port = base_port + num_nodes
@@ -88,25 +180,31 @@ def main():
     final_server.bind(('127.0.0.1', final_port))
     final_server.listen(1)
 
-    # Node 0 (Commander) に初期プロンプトを送信
+    # Send execute request to Commander
+    req = {
+        "type": "execute",
+        "prompt": f"Original Request: {prompt}\\n\\nApproved Plan:\\n{merged_plan}",
+        "send_port": base_port + 1 # Target Node 1 (Worker)
+    }
     try:
-        commander_client = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
-        commander_client.connect(('127.0.0.1', base_port))
-        commander_client.sendall(prompt.encode('utf-8'))
-        commander_client.close()
+        client = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
+        client.connect(('127.0.0.1', base_port))
+        client.sendall(json.dumps(req).encode('utf-8'))
+        client.close()
     except Exception as e:
         sys.stderr.write(f"[*] Failed to connect to Commander: {e}\\n")
         return
 
     # 最終結果の受信待機
-    sys.stderr.write("[*] Pipeline is running. Waiting for final result...\\n")
     conn, addr = final_server.accept()
     final_text = conn.recv(4096).decode('utf-8')
+    conn.close()
+    final_server.close()
     
     # 最終結果をIDE(Swift)へJSONで返す
     final_response = {
         "status": "success",
-        "result": final_text
+        "result": f"[Discussion Plan]\\n{merged_plan}\\n\\n[Final Result]\\n{final_text}"
     }
     sys.stdout.write(json.dumps(final_response) + "\\n")
     sys.stdout.flush()
@@ -114,7 +212,7 @@ def main():
     sys.stderr.write("\\n[*] Swarm Pipeline execution completed.\\n")
     
     # 終了処理
-    for p in processes:
+    for pid, p in processes.items():
         p.terminate()
 
 if __name__ == "__main__":

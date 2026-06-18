@@ -8,25 +8,27 @@ import json
 import swarm_harness
 from swarm_socket_util import send_tensor_socket, recv_tensor_socket, create_server_socket, connect_to_server
 
-# ログはstderrに出力（オーケストレータ側で見えるように）
 logging.basicConfig(stream=sys.stderr, level=logging.INFO, format='[Node %(name)s] %(message)s')
 
 MODEL_ID = "Qwen/Qwen1.5-0.5B"
 
-SYSTEM_PROMPT = """You are a node in a Swarm. You can use tools if necessary to complete the task.
+SYSTEM_PROMPT_WORKER = """You are a node in a Swarm. You can use tools if necessary to complete the task.
 To use a tool, output exactly: [TOOL_CALL] {"action": "read_file", "path": "filename"} [/TOOL_CALL]
 Available actions: read_file, write_file, list_directory
 If you do not need tools, just continue thinking or output the final result."""
 
 def main():
     parser = argparse.ArgumentParser()
-    parser.add_argument("--node_id", type=int, required=True, help="Node ID (0=Commander, 1-8=Worker, 9=Final)")
-    parser.add_argument("--listen_port", type=int, required=True, help="Port to listen for incoming data")
-    parser.add_argument("--send_port", type=int, required=True, help="Port to send outgoing data to")
+    parser.add_argument("--node_id", type=int, required=True, help="Node ID (0=Commander, 1-8=Worker, 9=Final, 100+=SubCommander)")
+    parser.add_argument("--role", type=str, required=True, choices=["commander", "worker", "final", "sub_commander"])
+    parser.add_argument("--listen_port", type=int, required=True)
+    parser.add_argument("--send_port", type=int, required=True)
+    parser.add_argument("--persona", type=str, default="", help="System prompt for sub_commanders")
     args = parser.parse_args()
     
     node_id = args.node_id
-    logger = logging.getLogger(str(node_id))
+    role = args.role
+    logger = logging.getLogger(f"{role}_{node_id}")
     logger.info("Initializing...")
 
     device = "mps" if torch.backends.mps.is_available() else "cpu"
@@ -44,111 +46,115 @@ def main():
 
     logger.info(f"Ready. Listening on port {args.listen_port}, sending to port {args.send_port}")
 
-    # 受信待機
     server_sock = create_server_socket(args.listen_port)
-    conn, addr = server_sock.accept()
-    logger.info(f"Accepted connection from {addr}")
+    
+    while True:
+        conn, addr = server_sock.accept()
+        logger.info(f"Accepted connection from {addr}")
 
-    if node_id == 0:
-        # Commander: オーケストレータからテキストプロンプトを受信
-        data = conn.recv(4096).decode('utf-8')
-        prompt = data.strip()
-        logger.info(f"Generating initial thought vector for prompt: '{prompt}'")
-        
-        full_prompt = f"{SYSTEM_PROMPT}\\nUser: {prompt}\\nAssistant:"
-        inputs = tokenizer(full_prompt, return_tensors="pt").to(device)
-        with torch.no_grad():
-            outputs = model(**inputs, output_hidden_states=True)
-            initial_hidden = outputs.hidden_states[-1]
+        if role == "sub_commander":
+            data = conn.recv(16384).decode('utf-8')
+            if not data:
+                break
+            prompt = data.strip()
             
-        send_sock = connect_to_server(args.send_port)
-        send_tensor_socket(initial_hidden, send_sock)
-        logger.info("Sent initial thought vector.")
-        send_sock.close()
-        
-    elif node_id < 9:
-        # Worker: ベクトルを受信し、自律的にツールを使うか判断してからベクトルを送信
-        send_sock = connect_to_server(args.send_port)
-        while True:
-            hidden_states = recv_tensor_socket(conn, device)
-            if hidden_states is None:
+            full_prompt = f"{args.persona}\\nUser: {prompt}\\nAssistant:"
+            inputs = tokenizer(full_prompt, return_tensors="pt").to(device)
+            with torch.no_grad():
+                generated_ids = model.generate(**inputs, max_new_tokens=200, pad_token_id=tokenizer.eos_token_id)
+            
+            input_length = inputs.input_ids.shape[1]
+            response = tokenizer.decode(generated_ids[0][input_length:], skip_special_tokens=True)
+            
+            send_sock = connect_to_server(args.send_port)
+            send_sock.sendall(response.encode('utf-8'))
+            send_sock.close()
+            
+        elif role == "commander":
+            data = conn.recv(32768).decode('utf-8')
+            if not data:
                 break
             
-            logger.info("Received thought vector. Checking for autonomous tool use...")
-            with torch.no_grad():
-                generated_ids = model.generate(
-                    inputs_embeds=hidden_states,
-                    max_new_tokens=40,
-                    pad_token_id=tokenizer.eos_token_id
-                )
-                text_intention = tokenizer.decode(generated_ids[0], skip_special_tokens=True)
+            try:
+                req = json.loads(data)
+                req_type = req.get("type", "execute")
+                prompt = req.get("prompt", "")
+                dyn_send_port = req.get("send_port", args.send_port)
+            except:
+                req_type = "execute"
+                prompt = data.strip()
+                dyn_send_port = args.send_port
+            
+            if req_type == "merge":
+                logger.info("Commander: Merging discussion...")
+                sys_prompt = "Merge the plans of Sub-Commanders. If logical errors exist, output [RE-DISCUSS] <reason>. Else output final plan."
+                full_prompt = f"{sys_prompt}\\n\\n{prompt}\\n\\nMerged Plan or [RE-DISCUSS]:"
+                inputs = tokenizer(full_prompt, return_tensors="pt").to(device)
                 
-                tool_req = swarm_harness.parse_tool_call(text_intention)
+                with torch.no_grad():
+                    generated_ids = model.generate(**inputs, max_new_tokens=300, pad_token_id=tokenizer.eos_token_id)
+                input_length = inputs.input_ids.shape[1]
+                response = tokenizer.decode(generated_ids[0][input_length:], skip_special_tokens=True)
                 
-                if tool_req:
-                    # Swift IDEへJSON-RPC経由でツール実行を依頼する
-                    # 自身の標準出力（stdout）にJSONを書き、標準入力（stdin）から結果を受け取る
-                    rpc_request = {
-                        "jsonrpc": "2.0",
-                        "method": tool_req["action"],
-                        "params": tool_req,
-                        "id": node_id
-                    }
-                    sys.stdout.write(json.dumps(rpc_request) + "\\n")
-                    sys.stdout.flush()
+                send_sock = connect_to_server(dyn_send_port)
+                send_sock.sendall(response.encode('utf-8'))
+                send_sock.close()
+                
+            elif req_type == "execute":
+                logger.info("Commander: Executing vector.")
+                full_prompt = f"{SYSTEM_PROMPT_WORKER}\\nUser Plan: {prompt}\\nAssistant:"
+                inputs = tokenizer(full_prompt, return_tensors="pt").to(device)
+                with torch.no_grad():
+                    outputs = model(**inputs, output_hidden_states=True)
+                    initial_hidden = outputs.hidden_states[-1]
+                
+                send_sock = connect_to_server(dyn_send_port)
+                send_tensor_socket(initial_hidden, send_sock)
+                send_sock.close()
+
+        elif role == "worker":
+            send_sock = connect_to_server(args.send_port)
+            hidden_states = recv_tensor_socket(conn, device)
+            if hidden_states is not None:
+                with torch.no_grad():
+                    generated_ids = model.generate(inputs_embeds=hidden_states, max_new_tokens=40, pad_token_id=tokenizer.eos_token_id)
+                    text_intention = tokenizer.decode(generated_ids[0], skip_special_tokens=True)
+                    tool_req = swarm_harness.parse_tool_call(text_intention)
                     
-                    # Swift（親プロセス）からの返答を待つ
-                    response_line = sys.stdin.readline()
-                    try:
-                        response_data = json.loads(response_line)
-                        tool_result = response_data.get("result", "Error: No result")
-                    except Exception as e:
-                        tool_result = f"Error parsing RPC response: {e}"
+                    if tool_req:
+                        rpc_request = {"jsonrpc": "2.0", "method": tool_req["action"], "params": tool_req, "id": node_id}
+                        sys.stdout.write(json.dumps(rpc_request) + "\\n")
+                        sys.stdout.flush()
+                        try:
+                            tool_result = json.loads(sys.stdin.readline()).get("result", "Error")
+                        except Exception as e:
+                            tool_result = f"Error: {e}"
                         
-                    logger.info(f"RPC Tool executed. Result length: {len(str(tool_result))}")
-                    
-                    result_text = f"\\n[TOOL_RESULT] {tool_result} [/TOOL_RESULT]\\n"
-                    result_inputs = tokenizer(result_text, return_tensors="pt").to(device)
-                    result_embeds = model.get_input_embeddings()(result_inputs.input_ids)
-                    
-                    new_hidden = torch.cat([hidden_states, result_embeds], dim=1)
-                else:
-                    logger.info("No tool required. Advancing thought...")
-                    outputs = model(inputs_embeds=hidden_states, output_hidden_states=True)
-                    new_hidden = outputs.hidden_states[-1]
-            
-            send_tensor_socket(new_hidden, send_sock)
-            logger.info("Sent thought vector to next node.")
-            break # 1回のバケツリレーで終了とする（POC用）
-            
-        send_sock.close()
+                        result_text = f"\\n[TOOL_RESULT] {tool_result} [/TOOL_RESULT]\\n"
+                        result_inputs = tokenizer(result_text, return_tensors="pt").to(device)
+                        result_embeds = model.get_input_embeddings()(result_inputs.input_ids)
+                        new_hidden = torch.cat([hidden_states, result_embeds], dim=1)
+                    else:
+                        outputs = model(inputs_embeds=hidden_states, output_hidden_states=True)
+                        new_hidden = outputs.hidden_states[-1]
+                
+                send_tensor_socket(new_hidden, send_sock)
+            send_sock.close()
 
-    else:
-        # Final Node: ベクトルを受信し、自然言語にデコードしてオーケストレータへ返す
-        send_sock = connect_to_server(args.send_port)
-        while True:
+        elif role == "final":
+            send_sock = connect_to_server(args.send_port)
             hidden_states = recv_tensor_socket(conn, device)
-            if hidden_states is None:
-                break
-            
-            logger.info("Received final thought vector. Decoding...")
-            with torch.no_grad():
-                generated_ids = model.generate(
-                    inputs_embeds=hidden_states,
-                    max_new_tokens=50,
-                    pad_token_id=tokenizer.eos_token_id
-                )
-            
-            text = tokenizer.decode(generated_ids[0], skip_special_tokens=True)
-            # オーケストレータへテキストを送信
-            send_sock.sendall(text.encode('utf-8'))
-            logger.info("Sent final output.")
-            break
-            
-        send_sock.close()
+            if hidden_states is not None:
+                with torch.no_grad():
+                    generated_ids = model.generate(inputs_embeds=hidden_states, max_new_tokens=100, pad_token_id=tokenizer.eos_token_id)
+                text = tokenizer.decode(generated_ids[0], skip_special_tokens=True)
+                send_sock.sendall(text.encode('utf-8'))
+            send_sock.close()
 
-    conn.close()
-    server_sock.close()
+        conn.close()
+        
+        if role in ["worker", "final"]:
+            break
 
 if __name__ == "__main__":
     main()
