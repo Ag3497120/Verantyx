@@ -970,7 +970,15 @@ struct CodeEditorView: NSViewRepresentable {
         textView.delegate = context.coordinator
         scrollView.documentView = textView
         context.coordinator.isHighlighted = highlighted
-        Self.assignContent(content, to: textView, language: language)
+        // Content is deliberately NOT assigned here. SwiftUI calls
+        // updateNSView immediately after this returns -- assigning
+        // content before the view has a real frame/window context made
+        // NSScrollView miscompute its document height on first layout
+        // (it under-measured how much there was to scroll), which showed
+        // up as "scrolls a little, then stops responding" even on small
+        // (~200 line) files. Letting the first updateNSView call set the
+        // content, same as before this file's highlighted/plain switch
+        // was added, fixes that ordering.
 
         return scrollView
     }

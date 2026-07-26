@@ -30,6 +30,7 @@ struct ChatTranscriptView: NSViewRepresentable {
         tv.isVerticallyResizable                = true
         tv.isHorizontallyResizable              = false
         tv.autoresizingMask                     = [.width]
+        tv.delegate = context.coordinator
         // macOS: cmd+a/cmd+c のデフォルト動作はそのまま使える
         
         // 添付ビュープロバイダの登録 (動画スピナー用)
@@ -60,6 +61,7 @@ struct ChatTranscriptView: NSViewRepresentable {
         co.lastCount = newCount
         co.lastTail  = newTail
         co.lastGen   = newGen
+        co.currentMessages = messages
 
         // 更新前にスクロール位置とテキスト選択を保存
         let wasAtBottom   = co.isAtBottom(sv)
@@ -96,18 +98,42 @@ struct ChatTranscriptView: NSViewRepresentable {
     }
 
     // MARK: - Coordinator
-    final class Coordinator {
+    final class Coordinator: NSObject, NSTextViewDelegate {
         weak var textView:   NSTextView?
         weak var scrollView: NSScrollView?
         var lastCount: Int    = -1
         var lastTail:  String? = nil
         var lastGen:   Bool    = false
+        /// Snapshot of the messages currently rendered, indexed the same
+        /// way as the "verantyx-copy://<index>" links Transcript.build()
+        /// embeds -- lets the per-message copy link know what to copy
+        /// without re-deriving it from the NSAttributedString.
+        var currentMessages: [ChatMessage] = []
 
         /// スクロールが末尾から 60pt 以内なら "末尾にいる" と判定
         func isAtBottom(_ sv: NSScrollView) -> Bool {
             guard let clip = sv.contentView as? NSClipView,
                   let doc  = sv.documentView else { return true }
             return doc.frame.maxY - clip.bounds.maxY < 60
+        }
+
+        /// Per-message "コピー" link click handler (see Transcript.build's
+        /// appended copy links). Custom "verantyx-copy://<index>" scheme,
+        /// never a real URL that should be opened.
+        func textView(_ textView: NSTextView, clickedOnLink link: Any, at charIndex: Int) -> Bool {
+            let indexString: String?
+            if let url = link as? URL, url.scheme == "verantyx-copy" {
+                indexString = url.host
+            } else if let s = link as? String, s.hasPrefix("verantyx-copy://") {
+                indexString = String(s.dropFirst("verantyx-copy://".count))
+            } else {
+                indexString = nil
+            }
+            guard let idxStr = indexString, let idx = Int(idxStr),
+                  idx >= 0, idx < currentMessages.count else { return false }
+            NSPasteboard.general.clearContents()
+            NSPasteboard.general.setString(currentMessages[idx].content, forType: .string)
+            return true
         }
     }
 }
@@ -138,13 +164,21 @@ private final class SelectableTextView: NSTextView {
 // MARK: - Palette (アプリのダークテーマに合わせた色定数)
 private enum Palette {
     static let bg       = NSColor(calibratedRed: 0.13, green: 0.13, blue: 0.16, alpha: 1)
-    static let userText = NSColor(calibratedRed: 0.88, green: 0.88, blue: 0.92, alpha: 1)
+    static let userText = NSColor(calibratedRed: 0.92, green: 0.94, blue: 1.00, alpha: 1)
     static let assiText = NSColor(calibratedRed: 0.85, green: 0.85, blue: 0.90, alpha: 1)
     static let sysText  = NSColor(calibratedRed: 0.45, green: 0.45, blue: 0.60, alpha: 1)
     static let thinkText = NSColor(calibratedRed: 0.35, green: 0.85, blue: 0.80, alpha: 1)
     static let userLabel = NSColor(calibratedRed: 0.55, green: 0.55, blue: 0.70, alpha: 1)
     static let assiLabel = NSColor(calibratedRed: 0.50, green: 0.70, blue: 1.00, alpha: 1)
     static let genText   = NSColor(calibratedRed: 0.50, green: 0.70, blue: 1.00, alpha: 0.65)
+    /// User-message "bubble" — NSAttributedString's .backgroundColor draws
+    /// a filled rect behind each line's glyphs. Not a rounded SwiftUI
+    /// bubble (this is plain-text NSTextView rendering, not SwiftUI), but
+    /// a real, visible fill distinguishing user from assistant text,
+    /// which is what was actually missing (see the file header comment
+    /// on why this view exists instead of SwiftUI per-message views).
+    static let userBubbleBg = NSColor(calibratedRed: 0.2, green: 0.35, blue: 0.7, alpha: 1)
+    static let copyLinkColor = NSColor(calibratedRed: 0.5, green: 0.55, blue: 0.68, alpha: 0.8)
 }
 
 // MARK: - Transcript (NSAttributedString ビルダー)
@@ -160,8 +194,8 @@ private enum Transcript {
         for (i, msg) in messages.enumerated() {
             if i > 0 { result.append(str("\n\n")) }
             switch msg.role {
-            case .user:      appendUser(result, msg.content)
-            case .assistant: appendAssistant(result, msg.content)
+            case .user:      appendUser(result, msg.content, index: i)
+            case .assistant: appendAssistant(result, msg.content, index: i)
             case .system:    appendSystem(result, msg.content)
             }
         }
@@ -170,8 +204,24 @@ private enum Transcript {
     }
 
     // ─────────────────────────────────────────────────────────────
+    // 各メッセージ末尾のクリック可能な「コピー」リンク。
+    // "verantyx-copy://<index>" は本物のURLではなく、
+    // ChatTranscriptView.Coordinator.textView(_:clickedOnLink:at:) が
+    // 拾って該当メッセージの内容をクリップボードにコピーするだけの合図。
+    private static func appendCopyLink(_ r: NSMutableAttributedString, index: Int) {
+        guard let url = URL(string: "verantyx-copy://\(index)") else { return }
+        r.append(str("\n"))
+        let cp = para(spacing: 2)
+        r.append(NSAttributedString(string: "コピー",
+            attributes: [.font: NSFont.systemFont(ofSize: 10),
+                         .foregroundColor: Palette.copyLinkColor,
+                         .link: url,
+                         .paragraphStyle: cp]))
+    }
+
+    // ─────────────────────────────────────────────────────────────
     // ユーザーメッセージ
-    private static func appendUser(_ r: NSMutableAttributedString, _ content: String) {
+    private static func appendUser(_ r: NSMutableAttributedString, _ content: String, index: Int) {
         let lp = para(spacing: 3)
         r.append(NSAttributedString(string: "You",
             attributes: [.font: NSFont.systemFont(ofSize: 10, weight: .semibold),
@@ -179,16 +229,21 @@ private enum Transcript {
                          .paragraphStyle: lp]))
         r.append(str("\n"))
 
+        // .backgroundColor draws a filled rect behind this run's glyphs —
+        // the "bubble" for user messages (see Palette.userBubbleBg's doc
+        // comment for why this isn't a rounded SwiftUI bubble).
         let cp = para(lineSpacing: 2)
-        r.append(NSAttributedString(string: content,
+        r.append(NSAttributedString(string: " \(content) ",
             attributes: [.font: NSFont.systemFont(ofSize: 13),
                          .foregroundColor: Palette.userText,
+                         .backgroundColor: Palette.userBubbleBg,
                          .paragraphStyle: cp]))
+        appendCopyLink(r, index: index)
     }
 
     // ─────────────────────────────────────────────────────────────
     // アシスタントメッセージ（<think> タグ対応 + **bold** マークダウン）
-    private static func appendAssistant(_ r: NSMutableAttributedString, _ content: String) {
+    private static func appendAssistant(_ r: NSMutableAttributedString, _ content: String, index: Int) {
         let lp = para(spacing: 3)
         r.append(NSAttributedString(string: "Verantyx",
             attributes: [.font: NSFont.systemFont(ofSize: 10, weight: .semibold),
@@ -208,6 +263,7 @@ private enum Transcript {
                            color: Palette.assiText, para: cp)
             }
         }
+        appendCopyLink(r, index: index)
     }
 
     // ─────────────────────────────────────────────────────────────
