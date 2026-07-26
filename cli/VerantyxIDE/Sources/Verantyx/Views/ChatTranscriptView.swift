@@ -31,8 +31,15 @@ struct ChatTranscriptView: NSViewRepresentable {
         tv.isHorizontallyResizable              = false
         tv.autoresizingMask                     = [.width]
         tv.delegate = context.coordinator
+        // Override NSTextView's default link styling (blue + underline)
+        // for the per-message copy links -- otherwise .foregroundColor on
+        // those runs gets ignored in favor of the system link color.
+        tv.linkTextAttributes = [
+            .foregroundColor: Palette.copyLinkColor,
+            .underlineStyle: 0,
+        ]
         // macOS: cmd+a/cmd+c のデフォルト動作はそのまま使える
-        
+
         // 添付ビュープロバイダの登録 (動画スピナー用)
         NSTextAttachment.registerViewProviderClass(SpinnerAttachmentViewProvider.self, forFileType: "public.data")
 
@@ -50,7 +57,7 @@ struct ChatTranscriptView: NSViewRepresentable {
 
     func updateNSView(_ sv: NSScrollView, context: Context) {
         let co = context.coordinator
-        guard let tv = sv.documentView as? NSTextView else { return }
+        guard let tv = sv.documentView as? NSTextView, let storage = tv.textStorage else { return }
 
         // メッセージが変化していなければスキップ
         let newCount   = messages.count
@@ -58,31 +65,71 @@ struct ChatTranscriptView: NSViewRepresentable {
         let newGen     = isGenerating
         guard co.lastCount != newCount || co.lastTail != newTail || co.lastGen != newGen
         else { return }
+
+        // 更新前にスクロール位置とテキスト選択を保存
+        let wasAtBottom  = co.isAtBottom(sv)
+        let savedSel     = tv.selectedRange()
+        let hadSelection = savedSel.length > 0
+
+        // ── Incremental update ──────────────────────────────────────────
+        // Streaming fires this once per ~40ms-batched token flush
+        // (AppState.flushStreamTokenBuffer). Rebuilding the ENTIRE
+        // transcript's NSAttributedString + relaying out the whole
+        // document on every flush was the actual freeze/lag source, not
+        // just an inefficiency -- it's O(transcript length) work
+        // competing with scrolling on the main thread, repeated at ~25Hz.
+        // Two cheap paths cover the common cases; anything else (message
+        // deleted, history compressed, session switch, first render)
+        // falls back to the original full rebuild, which stays correct.
+        var changedRange: NSRange
+        if newCount == co.lastCount, newCount > 0 {
+            // Same message count -- only the tail message's content
+            // changed (the streaming case). Replace just that range.
+            let tailAttr = Transcript.buildSingle(message: messages[newCount - 1], index: newCount - 1)
+            let range = NSRange(location: co.lastMessageStartOffset, length: storage.length - co.lastMessageStartOffset)
+            storage.beginEditing()
+            storage.replaceCharacters(in: range, with: tailAttr)
+            storage.endEditing()
+            changedRange = NSRange(location: co.lastMessageStartOffset, length: tailAttr.length)
+        } else if newCount == co.lastCount + 1, co.lastCount >= 0 {
+            // Exactly one new message appended -- append, don't rebuild.
+            let sep = NSAttributedString(string: "\n\n")
+            let newMsgAttr = Transcript.buildSingle(message: messages[newCount - 1], index: newCount - 1)
+            let appended = NSMutableAttributedString(attributedString: sep)
+            appended.append(newMsgAttr)
+            let insertLoc = storage.length
+            storage.beginEditing()
+            storage.append(appended)
+            storage.endEditing()
+            co.lastMessageStartOffset = insertLoc + sep.length
+            changedRange = NSRange(location: insertLoc, length: appended.length)
+        } else {
+            // Fallback: full rebuild.
+            let (attrStr, lastOffset) = Transcript.build(messages: messages, isGenerating: isGenerating)
+            storage.beginEditing()
+            storage.setAttributedString(attrStr)
+            storage.endEditing()
+            co.lastMessageStartOffset = lastOffset
+            changedRange = NSRange(location: 0, length: storage.length)
+        }
+
         co.lastCount = newCount
         co.lastTail  = newTail
         co.lastGen   = newGen
         co.currentMessages = messages
 
-        // 更新前にスクロール位置とテキスト選択を保存
-        let wasAtBottom   = co.isAtBottom(sv)
-        let savedSel      = tv.selectedRange()
-
-        // 全文再構築（NSAttributedString の組み立ては SwiftUI layout より高速）
-        let attrStr = Transcript.build(messages: messages, isGenerating: isGenerating)
-        tv.textStorage?.beginEditing()
-        tv.textStorage?.setAttributedString(attrStr)
-        tv.textStorage?.endEditing()
-        
-        // Force immediate layout and display to prevent text from disappearing until scroll/hover
-        tv.needsLayout = true
+        tv.needsLayout  = true
         tv.needsDisplay = true
-        if let layoutManager = tv.layoutManager, let textContainer = tv.textContainer {
-            layoutManager.ensureLayout(for: textContainer)
-        }
+        // Force-layout only the range that actually changed (fixes "text
+        // doesn't appear until scroll/hover" without re-typesetting the
+        // whole historical transcript on every flush).
+        tv.layoutManager?.ensureLayout(forCharacterRange: changedRange)
 
-        // 選択範囲を復元（末尾が伸びても start 位置は有効なことが多い）
-        if savedSel.location != NSNotFound {
-            let len      = tv.textStorage?.length ?? 0
+        // 選択範囲を復元 — 実際に選択(ドラッグ)していた場合のみ。カーソル位置
+        // (length == 0) まで毎回復元すると、ストリーミング中の選択操作を
+        // 潰してしまう。
+        if hadSelection, savedSel.location != NSNotFound {
+            let len      = storage.length
             let clampLoc = min(savedSel.location, len)
             let clampLen = min(savedSel.length, len - clampLoc)
             tv.setSelectedRange(NSRange(location: clampLoc, length: clampLen))
@@ -109,6 +156,11 @@ struct ChatTranscriptView: NSViewRepresentable {
         /// embeds -- lets the per-message copy link know what to copy
         /// without re-deriving it from the NSAttributedString.
         var currentMessages: [ChatMessage] = []
+        /// Character offset where the last rendered message's content
+        /// begins in the text storage (right after its "\n\n" separator).
+        /// Lets updateNSView replace/append just that message instead of
+        /// rebuilding the whole document on every streaming flush.
+        var lastMessageStartOffset: Int = 0
 
         /// スクロールが末尾から 60pt 以内なら "末尾にいる" と判定
         func isAtBottom(_ sv: NSScrollView) -> Bool {
@@ -188,11 +240,29 @@ private enum Transcript {
     private static let thinkRegex = try? NSRegularExpression(pattern: #"<think>([\s\S]*?)</think>"#)
     private static let boldRegex  = try? NSRegularExpression(pattern: #"\*\*(.+?)\*\*"#)
 
+    // NSFontManager.shared.convert(_:toHaveTrait:) was being called once
+    // per **bold** span on EVERY rebuild (i.e. every streaming flush) --
+    // font-descriptor trait matching inside a ~25Hz loop. Memoized since
+    // the same handful of (font) inputs recur constantly.
+    private static var boldFontCache: [NSFont: NSFont] = [:]
+    private static func boldVariant(of font: NSFont) -> NSFont {
+        if let cached = boldFontCache[font] { return cached }
+        let bold = NSFontManager.shared.convert(font, toHaveTrait: .boldFontMask)
+        boldFontCache[font] = bold
+        return bold
+    }
+
     // ─────────────────────────────────────────────────────────────
-    static func build(messages: [ChatMessage], isGenerating: Bool) -> NSAttributedString {
+    /// Builds the full transcript. Also returns the character offset
+    /// where the LAST message begins, so callers can do incremental
+    /// replace/append on subsequent updates instead of rebuilding
+    /// everything again (see ChatTranscriptView.updateNSView).
+    static func build(messages: [ChatMessage], isGenerating: Bool) -> (attributed: NSAttributedString, lastMessageOffset: Int) {
         let result = NSMutableAttributedString()
+        var lastOffset = 0
         for (i, msg) in messages.enumerated() {
             if i > 0 { result.append(str("\n\n")) }
+            if i == messages.count - 1 { lastOffset = result.length }
             switch msg.role {
             case .user:      appendUser(result, msg.content, index: i)
             case .assistant: appendAssistant(result, msg.content, index: i)
@@ -200,6 +270,19 @@ private enum Transcript {
             }
         }
         // 生成中のUIはSwiftUI側でフローティング表示するため、ここでのテキスト追加は行わない
+        return (result, lastOffset)
+    }
+
+    /// Builds just ONE message's attributed content (no leading "\n\n"
+    /// separator -- the caller inserts that itself when appending, or
+    /// omits it when replacing an existing tail message in place).
+    static func buildSingle(message: ChatMessage, index: Int) -> NSAttributedString {
+        let result = NSMutableAttributedString()
+        switch message.role {
+        case .user:      appendUser(result, message.content, index: index)
+        case .assistant: appendAssistant(result, message.content, index: index)
+        case .system:    appendSystem(result, message.content)
+        }
         return result
     }
 
@@ -299,7 +382,7 @@ private enum Transcript {
                 }
                 if let ir = Range(m.range(at: 1), in: text) {
                     var bd = base
-                    bd[.font] = NSFontManager.shared.convert(font, toHaveTrait: .boldFontMask)
+                    bd[.font] = boldVariant(of: font)
                     r.append(NSAttributedString(string: String(text[ir]), attributes: bd))
                 }
                 cursor = fr.upperBound

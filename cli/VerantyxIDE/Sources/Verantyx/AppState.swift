@@ -178,6 +178,27 @@ final class AppState: ObservableObject {
     // preventing stale UUIDs from corrupting a newly-loaded session's first stream.
     var streamingMsgId: UUID? = nil
 
+    // Agent-loop .streamToken buffering — the Ollama/MLX direct paths
+    // already batch UI updates to ~25fps (40ms); the agent-loop path
+    // (LoopEvent.streamToken, handled below) had no such throttle, so
+    // `messages[idx].content += token` fired (and re-rendered the whole
+    // ChatTranscriptView) once per token. Buffered the same way here.
+    private var streamTokenBuffer: String = ""
+    private var lastStreamFlush: Date = .distantPast
+
+    private func flushStreamTokenBuffer() {
+        guard !streamTokenBuffer.isEmpty else { return }
+        if let sid = streamingMsgId, let idx = messages.firstIndex(where: { $0.id == sid }) {
+            messages[idx].content += streamTokenBuffer
+        } else {
+            let msg = ChatMessage(role: .assistant, content: streamTokenBuffer)
+            streamingMsgId = msg.id
+            messages.append(msg)
+        }
+        streamTokenBuffer = ""
+        lastStreamFlush = Date()
+    }
+
     // ── Performance metrics (the "Apple Silicon violence" numbers) ──
     @Published var tokensPerSecond: Double = 0       // live tok/s display
     @Published var totalTokensGenerated: Int = 0     // session total
@@ -1323,21 +1344,22 @@ final class AppState: ObservableObject {
         ) { [weak self] event in
             guard let self else { return }
             await MainActor.run {
+                // Any event other than streamToken represents (or precedes)
+                // a turn boundary -- flush whatever's buffered first so
+                // nothing is lost and downstream handling (e.g. .start
+                // resetting streamingMsgId) sees the buffer already applied.
+                if case .streamToken = event {} else {
+                    self.flushStreamTokenBuffer()
+                }
                 switch event {
                 case .start:
                     // Reset per-turn streaming ID when a new loop turn starts
                     self.streamingMsgId = nil
 
                 case .streamToken(let token):
-                    if let sid = self.streamingMsgId,
-                       let idx = self.messages.firstIndex(where: { $0.id == sid }) {
-                        // Append token to the tracked streaming message
-                        self.messages[idx].content += token
-                    } else {
-                        // First token of this turn — create a new message and track it
-                        let msg = ChatMessage(role: .assistant, content: token)
-                        self.streamingMsgId = msg.id
-                        self.messages.append(msg)
+                    self.streamTokenBuffer += token
+                    if Date().timeIntervalSince(self.lastStreamFlush) >= 0.04 {
+                        self.flushStreamTokenBuffer()
                     }
 
                 case .thinking(let t):
