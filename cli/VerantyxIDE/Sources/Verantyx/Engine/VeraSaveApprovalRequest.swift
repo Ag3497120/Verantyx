@@ -1,5 +1,35 @@
 import Foundation
 
+// MARK: - VeraSaveApprovalMode
+
+/// Settings > Vera-α: how the save-preview popup behaves.
+enum VeraSaveApprovalMode: String, CaseIterable, Identifiable {
+    /// Original behavior: the agent loop suspends every turn until this
+    /// turn's save is approved or rejected.
+    case perTurn = "per_turn"
+    /// Requests queue in AppState.pendingVeraSaveQueue instead of
+    /// blocking; the agent keeps working, the human reviews in bulk later.
+    case batched = "batched"
+
+    var id: String { rawValue }
+
+    var displayName: String {
+        switch self {
+        case .perTurn: return "Ask every turn"
+        case .batched: return "Queue and review later"
+        }
+    }
+
+    var description: String {
+        switch self {
+        case .perTurn:
+            return "The agent pauses after every turn until you approve or discard that turn's save."
+        case .batched:
+            return "The agent keeps working without pausing; saves queue up for you to review whenever you check back."
+        }
+    }
+}
+
 // MARK: - VeraSaveApprovalRequest
 // Vera-α layer gate — suspends AgentLoop via CheckedContinuation until the
 // user taps "保存" or "破棄" in the save-preview sheet. Same pattern as

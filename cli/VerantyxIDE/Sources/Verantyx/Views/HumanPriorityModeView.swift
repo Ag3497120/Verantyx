@@ -156,7 +156,10 @@ struct HumanPriorityModeView: View {
     private var centerAndRightPanes: some View {
         // ③ Inner split: [Code Editor] | [AI Chat]
         ResizableHSplit(
-            minLeft: 100, maxLeft: 99999, minRight: 100, initialLeft: 600
+            // minRight raised from 100 -- same reasoning as MainSplitView's
+            // centerAndRightPanes: the chat pane's own layout needs more
+            // room before its elements start crushing together.
+            minLeft: 100, maxLeft: 99999, minRight: 300, initialLeft: 600
         ) {
             // ── Center: Code Editor ────────────────────────────
             codeEditorPanel
@@ -891,83 +894,121 @@ struct CodeEditorView: NSViewRepresentable {
         return h
     }()
 
+    // Beyond this size, Highlightr's regex-based re-highlighting of the
+    // FULL document on every edit becomes slow enough to look like the
+    // whole app has frozen (main-thread work, scroll/input included,
+    // blocks until it finishes). The now-unused CodeView.swift's
+    // SafeCodeTextView already learned this lesson (its own doc comment:
+    // "NSCoreTypesetter が全行のラインメトリクスをメインスレッドで同期計算
+    // → SIGTERMデッドロック", capped at 80,000 chars) -- but that component
+    // is read-only, so it could just truncate. This one is editable, so
+    // truncating would silently lose data on save; instead, large files
+    // fall back to a plain (unhighlighted) NSTextStorage, keeping full
+    // content, scrolling, and editing intact -- they just lose syntax
+    // coloring.
+    private static let highlightMaxChars = 200_000
+
+    private static func buildTextView(highlighted: Bool, language: String, isEditable: Bool) -> NSTextView {
+        let textStorage: NSTextStorage
+        if highlighted, let h = sharedHighlightr {
+            let cas = CodeAttributedString(highlightr: h)
+            cas.language = language.lowercased()
+            textStorage = cas
+        } else {
+            textStorage = NSTextStorage()
+        }
+
+        let layoutManager = NSLayoutManager()
+        layoutManager.allowsNonContiguousLayout = true
+        layoutManager.backgroundLayoutEnabled = true
+        textStorage.addLayoutManager(layoutManager)
+
+        let textContainer = NSTextContainer(containerSize: CGSize(width: CGFloat.greatestFiniteMagnitude, height: CGFloat.greatestFiniteMagnitude))
+        textContainer.widthTracksTextView = false
+        layoutManager.addTextContainer(textContainer)
+
+        let textView = NSTextView(frame: .zero, textContainer: textContainer)
+        textView.isHorizontallyResizable = true
+        textView.isVerticallyResizable   = true
+        textView.autoresizingMask        = [.width]
+        textView.isEditable    = isEditable
+        textView.isSelectable  = true
+        textView.usesFontPanel = false
+        textView.usesFindPanel = false
+        textView.allowsUndo    = true
+        textView.backgroundColor = NSColor(red: 0.09, green: 0.09, blue: 0.12, alpha: 1.0)
+        textView.textContainerInset = NSSize(width: 8, height: 8)
+        if !highlighted {
+            textView.font = NSFont.monospacedSystemFont(ofSize: 13, weight: .regular)
+            textView.textColor = NSColor(red: 0.88, green: 0.88, blue: 0.95, alpha: 1.0)
+        }
+        return textView
+    }
+
+    private static func assignContent(_ content: String, to textView: NSTextView, language: String) {
+        if let storage = textView.textStorage as? CodeAttributedString {
+            storage.beginEditing()
+            if storage.language != language.lowercased() {
+                storage.language = language.lowercased()
+            }
+            storage.replaceCharacters(in: NSRange(location: 0, length: storage.length), with: content)
+            storage.endEditing()
+        } else {
+            textView.string = content
+        }
+    }
+
     func makeNSView(context: Context) -> NSScrollView {
         let scrollView = NSScrollView()
         scrollView.hasVerticalScroller = true
         scrollView.hasHorizontalScroller = true
         scrollView.autohidesScrollers = true
         scrollView.backgroundColor = NSColor(red: 0.09, green: 0.09, blue: 0.12, alpha: 1.0)
-        
-        let textStorage: CodeAttributedString
-        if let h = Self.sharedHighlightr {
-            textStorage = CodeAttributedString(highlightr: h)
-        } else {
-            textStorage = CodeAttributedString()
-        }
-        textStorage.language = language.lowercased()
-        
-        let layoutManager = NSLayoutManager()
-        layoutManager.allowsNonContiguousLayout = true
-        layoutManager.backgroundLayoutEnabled = true
-        textStorage.addLayoutManager(layoutManager)
-        
-        let textContainer = NSTextContainer(containerSize: CGSize(width: CGFloat.greatestFiniteMagnitude, height: CGFloat.greatestFiniteMagnitude))
-        textContainer.widthTracksTextView = false
-        layoutManager.addTextContainer(textContainer)
-        
-        let textView = NSTextView(frame: .zero, textContainer: textContainer)
-        scrollView.documentView = textView
 
+        let highlighted = content.count <= Self.highlightMaxChars
+        let textView = Self.buildTextView(highlighted: highlighted, language: language, isEditable: isEditable)
         textView.delegate = context.coordinator
-        
-        textView.isHorizontallyResizable = true
-        textView.isVerticallyResizable   = true
-        textView.autoresizingMask        = [.width]
-        
-        textView.isEditable   = isEditable
-        textView.isSelectable = true
-        textView.usesFontPanel = false
-        textView.usesFindPanel = false
-        textView.allowsUndo   = true
-        
-        textView.backgroundColor = NSColor(red: 0.09, green: 0.09, blue: 0.12, alpha: 1.0)
-        textView.textContainerInset = NSSize(width: 8, height: 8)
+        scrollView.documentView = textView
+        context.coordinator.isHighlighted = highlighted
+        Self.assignContent(content, to: textView, language: language)
 
         return scrollView
     }
 
     func updateNSView(_ scrollView: NSScrollView, context: Context) {
         context.coordinator.parent = self
-        
+
         guard let textView = scrollView.documentView as? NSTextView else { return }
+        let shouldHighlight = content.count <= Self.highlightMaxChars
+
+        // Large-file status flipped since the view was built (e.g. a new,
+        // much bigger file got selected) -- rebuild with the right
+        // storage type rather than trying to swap Highlightr in/out on a
+        // live NSTextStorage.
+        if shouldHighlight != context.coordinator.isHighlighted {
+            let newTextView = Self.buildTextView(highlighted: shouldHighlight, language: language, isEditable: isEditable)
+            newTextView.delegate = context.coordinator
+            scrollView.documentView = newTextView
+            context.coordinator.isHighlighted = shouldHighlight
+            Self.assignContent(content, to: newTextView, language: language)
+            return
+        }
+
         if textView.isEditable != isEditable {
             textView.isEditable = isEditable
         }
-        if textView.string != content {
-            let selectedRange = textView.selectedRange()
-            
-            // For Highlightr, we should replace the characters in textStorage instead of assigning to textView.string,
-            // so that syntax highlighting runs correctly.
-            if let storage = textView.textStorage as? CodeAttributedString {
-                storage.beginEditing()
-                if storage.language != language.lowercased() {
-                    storage.language = language.lowercased()
-                }
-                let fullRange = NSRange(location: 0, length: storage.length)
-                storage.replaceCharacters(in: fullRange, with: content)
-                storage.endEditing()
-            } else {
-                textView.string = content
-            }
-            
-            // Critical for editable text views
-            textView.didChangeText()
-            
-            // Restore selection if possible
-            let safeLen = min(selectedRange.location + selectedRange.length, textView.string.count)
-            if safeLen <= textView.string.count {
-                textView.setSelectedRange(NSRange(location: min(selectedRange.location, textView.string.count), length: 0))
-            }
+        guard textView.string != content else { return }
+
+        let selectedRange = textView.selectedRange()
+        Self.assignContent(content, to: textView, language: language)
+
+        // Critical for editable text views
+        textView.didChangeText()
+
+        // Restore selection if possible
+        let safeLen = min(selectedRange.location + selectedRange.length, textView.string.count)
+        if safeLen <= textView.string.count {
+            textView.setSelectedRange(NSRange(location: min(selectedRange.location, textView.string.count), length: 0))
         }
     }
 
@@ -975,6 +1016,7 @@ struct CodeEditorView: NSViewRepresentable {
 
     class Coordinator: NSObject, NSTextViewDelegate {
         var parent: CodeEditorView
+        var isHighlighted: Bool = true
         init(_ parent: CodeEditorView) { self.parent = parent }
 
         func textDidChange(_ notification: Notification) {

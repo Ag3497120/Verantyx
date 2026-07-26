@@ -168,6 +168,47 @@ struct AgentChatView: View {
         }
         .padding(.vertical, 8)
         .background(Color(red: 0.15, green: 0.15, blue: 0.19))
+        .overlay(alignment: .trailing) {
+            overflowMenu.padding(.trailing, 12)
+        }
+    }
+
+    // MARK: - Overflow ("...") menu
+
+    private var overflowMenu: some View {
+        Menu {
+            Button {
+                copyAllConversation()
+            } label: {
+                Label(app.t("Copy all conversation", "会話履歴を全てコピー"),
+                      systemImage: "doc.on.doc")
+            }
+        } label: {
+            Image(systemName: "ellipsis.circle")
+                .font(.system(size: 15))
+                .foregroundStyle(Color.white.opacity(0.65))
+                .frame(width: 24, height: 24)
+        }
+        .menuStyle(.borderlessButton)
+        .fixedSize()
+        .help(app.t("More options", "その他のオプション"))
+    }
+
+    private func copyAllConversation() {
+        let text = app.messages
+            .filter { !$0.isSpotlight }
+            .map { msg -> String in
+                let roleLabel: String
+                switch msg.role {
+                case .user:      roleLabel = "User"
+                case .assistant: roleLabel = "VerantyxAgent"
+                case .system:    roleLabel = "System"
+                }
+                return "[\(roleLabel)] \(msg.content)"
+            }
+            .joined(separator: "\n\n")
+        NSPasteboard.general.clearContents()
+        NSPasteboard.general.setString(text, forType: .string)
     }
 
     // MARK: - Workspace (main chat)
@@ -178,13 +219,12 @@ struct AgentChatView: View {
             // 単一テキストストレージのためメッセージをまたいでドラッグ選択・コピーができる。
             ChatTranscriptView(messages: app.messages.filter { !$0.isSpotlight }, isGenerating: app.isGenerating)
                 .frame(maxWidth: .infinity, maxHeight: .infinity)
-            
-            if app.isGenerating && !app.currentGenerationIsSpotlight {
-                LiveTerminalView()
-                    .frame(height: 180)
-                    .transition(AnyTransition.move(edge: .bottom).combined(with: .opacity))
-                    .animation(Animation.spring(response: 0.35, dampingFraction: 0.8), value: app.isGenerating)
-            }
+
+            // LiveTerminalView used to pop up here inline on every generating
+            // turn. Removed -- actual command output already routes to
+            // app.terminal (AppState's .toolCall/.toolResult handling),
+            // which feeds the real TerminalPanelView/StatusBarView below
+            // the file editor. No need to show it a second time in chat.
         }
     }
 

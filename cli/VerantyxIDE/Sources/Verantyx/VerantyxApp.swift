@@ -162,7 +162,13 @@ struct VerantyxApp: App {
         // Main IDE Window
         Window("Verantyx IDE", id: "main-ide") {
             MainSplitView()
-                .frame(minWidth: 200, maxWidth: .infinity, minHeight: 200, maxHeight: .infinity)
+                // Previously 200x200 -- small enough that every panel's
+                // fixed-width elements (toolbars, chat bubbles, labels)
+                // got visibly crushed well before this floor. Raised to a
+                // size where the existing responsive panes (horizontal
+                // scroll toolbar, flexible-width chat input, resizable
+                // split) can actually do their job.
+                .frame(minWidth: 900, maxWidth: .infinity, minHeight: 600, maxHeight: .infinity)
                 .environmentObject(appState)
                 .onAppear {
                     AppState.shared = appState

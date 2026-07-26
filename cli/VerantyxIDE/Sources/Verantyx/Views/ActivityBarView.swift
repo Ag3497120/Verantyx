@@ -22,12 +22,6 @@ struct ActivityBarView: View {
         VStack(spacing: 0) {
             // Top icons
             VStack(spacing: 2) {
-                // Logo
-                Image(systemName: "atom")
-                    .font(.system(size: 18, weight: .light))
-                    .foregroundStyle(Color(red: 0.4, green: 0.7, blue: 1.0))
-                    .padding(.bottom, 12)
-
                 ForEach([ActivitySection.explorer, .search, .git, .mcp, .evolution, .vrbridge], id: \.self) { section in
                     activityButton(section)
                 }

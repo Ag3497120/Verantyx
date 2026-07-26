@@ -676,6 +676,28 @@ struct SettingsView: View {
 
                 Divider().opacity(0.2)
 
+                VStack(alignment: .leading, spacing: 6) {
+                    rowLabel("Context window") {
+                        Picker("", selection: Binding(
+                            get: { app.contextWindowOverride },
+                            set: { app.contextWindowOverride = $0 }
+                        )) {
+                            Text("Auto (by model size)").tag(0)
+                            Text("8K").tag(8_000)
+                            Text("16K").tag(16_000)
+                            Text("32K").tag(32_000)
+                            Text("64K").tag(64_000)
+                            Text("128K").tag(128_000)
+                        }
+                        .labelsHidden()
+                        .frame(width: 170)
+                    }
+                    Text("How much conversation history stays uncompressed before it's summarized. \"Auto\" picks a value based on the detected model's size.")
+                        .font(.system(size: 10)).foregroundStyle(.tertiary)
+                }
+
+                Divider().opacity(0.2)
+
                 rowLabel("Streaming output") {
                     Toggle("", isOn: $app.streamingEnabled).toggleStyle(.switch).scaleEffect(0.8)
                 }
@@ -1288,8 +1310,33 @@ struct SettingsView: View {
                 }
             }
             
+            sectionHeader("Vera-α Memory", icon: "checkmark.seal")
+
+            settingsCard {
+                VStack(alignment: .leading, spacing: 14) {
+                    rowLabel("Save approval") {
+                        Picker("", selection: $app.veraSaveApprovalMode) {
+                            ForEach(VeraSaveApprovalMode.allCases) { mode in
+                                Text(mode.displayName).tag(mode)
+                            }
+                        }
+                        .labelsHidden()
+                        .frame(width: 200)
+                    }
+                    Text(app.veraSaveApprovalMode.description)
+                        .font(.system(size: 11)).foregroundStyle(.secondary)
+
+                    if !app.pendingVeraSaveQueue.isEmpty {
+                        Divider().opacity(0.2)
+                        Text("\(app.pendingVeraSaveQueue.count + (app.pendingVeraSave != nil ? 1 : 0)) save(s) waiting for review")
+                            .font(.system(size: 11, weight: .semibold))
+                            .foregroundStyle(Color(red: 1.0, green: 0.65, blue: 0.2))
+                    }
+                }
+            }
+
             sectionHeader("L3.5 PC Asset Map (System Memory)", icon: "macwindow")
-            
+
             settingsCard {
                 VStack(alignment: .leading, spacing: 14) {
                     if vault.isScanning {

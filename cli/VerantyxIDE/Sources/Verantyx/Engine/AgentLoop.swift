@@ -80,9 +80,13 @@ actor AgentLoop {
 
         // ── Model tier detection ──────────────────────────────────────────
         let profile = ModelProfileDetector.detect(modelId: activeModel)
-        let compressThreshold = profile.tier.compressThreshold
+        // 0 = auto (tier default); Settings > Model > Context Window lets
+        // the user override this directly instead of relying solely on
+        // auto-detected tier.
+        let contextOverride = await MainActor.run { AppState.shared?.contextWindowOverride ?? 0 }
+        let compressThreshold = contextOverride > 0 ? contextOverride : profile.tier.compressThreshold
         await onProgress(.aiMessage(
-            AppLanguage.shared.t("🤖 Model Profile: \(activeModel) → \(profile.tier.displayName) | Max tokens: \(profile.tier.maxTokens) | Temp: \(profile.tier.temperature)", "🤖 モデルプロファイル: \(activeModel) → \(profile.tier.displayName) | Max tokens: \(profile.tier.maxTokens) | Temp: \(profile.tier.temperature)"
+            AppLanguage.shared.t("🤖 Model Profile: \(activeModel) → \(profile.tier.displayName) | Max tokens: \(profile.tier.maxTokens) | Temp: \(profile.tier.temperature) | Context: \(compressThreshold)\(contextOverride > 0 ? " (manual)" : "")", "🤖 モデルプロファイル: \(activeModel) → \(profile.tier.displayName) | Max tokens: \(profile.tier.maxTokens) | Temp: \(profile.tier.temperature) | コンテキスト: \(compressThreshold)\(contextOverride > 0 ? "（手動設定）" : "")"
             )
         ))
 
@@ -302,7 +306,7 @@ SYS.ENFORCE("logical_verification_before_acceptance")
         }
 
         // Budget = compressThreshold - systemPrompt.count - instruction.count - 2000 (margin for tool responses)
-        let budget = profile.tier.compressThreshold - systemPrompt.count - instruction.count - 2000
+        let budget = compressThreshold - systemPrompt.count - instruction.count - 2000
         var accumulatedChars = 0
         var keepIndex = historyToInject.count
 

@@ -244,6 +244,16 @@ final class AppState: ObservableObject {
 
     // Vera-α layer: preview-before-save approval (see VeraMemoryBridge.swift)
     @Published var pendingVeraSave: VeraSaveApprovalRequest? = nil
+    @Published var pendingVeraSaveQueue: [VeraSaveApprovalRequest] = []
+
+    /// .perTurn (default): the agent loop blocks each turn until the
+    /// human approves/rejects that turn's save -- what shipped originally.
+    /// .batched: the agent keeps working uninterrupted; save requests
+    /// queue up in pendingVeraSaveQueue for the human to review in bulk
+    /// whenever they check back. See VeraMemoryBridge.requestSaveApproval.
+    @Published var veraSaveApprovalMode: VeraSaveApprovalMode = .perTurn {
+        didSet { UserDefaults.standard.set(veraSaveApprovalMode.rawValue, forKey: "vera_save_approval_mode") }
+    }
 
     // Active tab in the center chat panel — driven by AppState so
     // SessionHistoryView can programmatically switch to .workspace
@@ -388,6 +398,13 @@ final class AppState: ObservableObject {
     }
     @Published var maxTokensMLX: Int = 4096 {
         didSet { UserDefaults.standard.set(maxTokensMLX, forKey: "max_tokens_mlx") }
+    }
+    /// 0 = auto (use ModelTier.compressThreshold based on detected model
+    /// size); any positive value overrides how much conversation history
+    /// (chars) stays uncompressed before CortexEngine.compressIfNeeded
+    /// kicks in. See AgentLoop.swift's `compressThreshold` computation.
+    @Published var contextWindowOverride: Int = 0 {
+        didSet { UserDefaults.standard.set(contextWindowOverride, forKey: "context_window_override") }
     }
     @Published var ollamaEndpoint: String = "http://localhost:11434" {
         didSet { UserDefaults.standard.set(ollamaEndpoint, forKey: "ollama_endpoint") }
@@ -1693,21 +1710,40 @@ final class AppState: ObservableObject {
 
     // MARK: - Vera-α: save-preview approval
 
+    /// Adds a request to the review queue. If nothing is currently being
+    /// reviewed, it shows immediately (matches the old single-item
+    /// behavior in .perTurn mode, where there's normally never more than
+    /// one at a time); otherwise it waits behind whatever's already
+    /// pending (this is what accumulates in .batched mode, where
+    /// VeraMemoryBridge doesn't block the agent loop waiting for each
+    /// one to be resolved).
+    func enqueueVeraSave(_ req: VeraSaveApprovalRequest) {
+        if pendingVeraSave == nil {
+            pendingVeraSave = req
+        } else {
+            pendingVeraSaveQueue.append(req)
+        }
+    }
+
     /// User tapped "保存" — resume the continuation so VeraMemoryBridge
     /// actually calls `remember`/`propose_ai_facts`.
     func approveVeraSave() {
         guard let req = pendingVeraSave else { return }
-        pendingVeraSave = nil
         req.approve()
+        advanceVeraSaveQueue()
         addSystemMessage(self.t("✅ Saved to Vera", "✅ Vera に保存しました"))
     }
 
     /// User tapped "破棄" — resume with false, nothing is written to Vera.
     func rejectVeraSave() {
         guard let req = pendingVeraSave else { return }
-        pendingVeraSave = nil
         req.reject()
+        advanceVeraSaveQueue()
         addSystemMessage(self.t("⏸ Discarded (not saved to Vera)", "⏸ 破棄しました（Vera には保存されません）"))
+    }
+
+    private func advanceVeraSaveQueue() {
+        pendingVeraSave = pendingVeraSaveQueue.isEmpty ? nil : pendingVeraSaveQueue.removeFirst()
     }
 
 
@@ -1852,6 +1888,9 @@ final class AppState: ObservableObject {
         if let t = ud.object(forKey: "model_temperature") as? Double { temperature = t }
         if let n = ud.object(forKey: "max_tokens_ollama") as? Int    { maxTokensOllama = n }
         if let n = ud.object(forKey: "max_tokens_mlx") as? Int       { maxTokensMLX = n }
+        if let n = ud.object(forKey: "context_window_override") as? Int { contextWindowOverride = n }
+        if let raw = ud.string(forKey: "vera_save_approval_mode"),
+           let mode = VeraSaveApprovalMode(rawValue: raw) { veraSaveApprovalMode = mode }
         if let e = ud.string(forKey: "ollama_endpoint"), !e.isEmpty  { ollamaEndpoint = e }
         if let s = ud.string(forKey: "system_prompt"), !s.isEmpty    { systemPrompt = s }
 

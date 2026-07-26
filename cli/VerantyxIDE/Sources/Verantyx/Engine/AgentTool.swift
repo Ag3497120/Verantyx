@@ -395,7 +395,18 @@ struct AgentToolParser {
 
     // MARK: - Main parse method
 
-    static func parse(from text: String) -> (toolCalls: [AgentTool], cleanText: String) {
+    static func parse(from rawText: String) -> (toolCalls: [AgentTool], cleanText: String) {
+        // Normalize kanji-topology shorthand (taught in the system prompt's
+        // legend: 読=READ 書=WRITE 木=LIST_DIR 実=RUN 域=WORKSPACE 完=DONE
+        // 貼=APPLY_PATCH 建=BUILD_IDE 再=RESTART_IDE 接=MCP_CALL) to the full
+        // English tag before any other parsing. The model is instructed to
+        // use this shorthand, but until this normalization existed, none of
+        // it was actually recognized by any regex below -- kanji-tagged
+        // tool calls silently never executed and leaked into the displayed
+        // chat text verbatim instead. (管=SELF_ADMIN is a category label
+        // covering several distinct tags, not a single substitutable tag,
+        // so it's intentionally not included here.)
+        let text = normalizeKanjiToolTags(rawText)
         var tools: [AgentTool] = []
         var cleaned = text
 
@@ -601,6 +612,32 @@ struct AgentToolParser {
     }
 
     // MARK: - Helpers
+
+    /// Maps each documented kanji-topology opening/closing tag to its full
+    /// English equivalent (see the legend comment on `parse(from:)`).
+    /// Order matters only in that longer/closing forms should not be
+    /// double-substituted -- each pair here is a distinct bracket prefix,
+    /// so plain sequential replacement is safe.
+    private static let kanjiTagAliases: [(String, String)] = [
+        ("[読:", "[READ:"),
+        ("[書:", "[WRITE:"), ("[/書]", "[/WRITE]"),
+        ("[木:", "[LIST_DIR:"),
+        ("[実:", "[RUN:"),
+        ("[域:", "[WORKSPACE:"),
+        ("[完]", "[DONE]"), ("[完:", "[DONE:"),
+        ("[貼:", "[APPLY_PATCH:"), ("[/貼]", "[/APPLY_PATCH]"),
+        ("[建]", "[BUILD_IDE]"),
+        ("[再]", "[RESTART_IDE]"),
+        ("[接:", "[MCP_CALL:"), ("[/接]", "[/MCP_CALL]"),
+    ]
+
+    private static func normalizeKanjiToolTags(_ text: String) -> String {
+        var result = text
+        for (kanji, english) in kanjiTagAliases {
+            result = result.replacingOccurrences(of: kanji, with: english)
+        }
+        return result
+    }
 
     private static func parseEditLines(path: String, body: String) -> AgentTool? {
         // Body format:

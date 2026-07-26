@@ -32,37 +32,59 @@ enum VeraMemoryBridge {
     private static let serverName = "vera-memory"
 
     /// Called once per completed turn (after the AI's response is ready).
-    /// Shows a preview popup — `VeraSaveApprovalView`, gated by
-    /// `AppState.pendingVeraSave` — and only calls Vera at all if the
-    /// human taps "Save". This is still application code, not an
-    /// LLM-decided tool call (the popup ALWAYS appears every turn on a
-    /// Vera-α session; what's optional is the human's decision, not
-    /// whether the check happens). On "Save": the user's prompt goes
-    /// straight into Vera's trusted store (`remember`); the AI's response
-    /// goes through Vera's AI-output quarantine (`propose_ai_facts`) —
-    /// never auto-promoted, still needs a later, separate human
-    /// accept/reject via `vera review-ai-facts`. This popup is only the
-    /// "queue it at all" gate, not that final review step.
+    /// Shows a preview popup — `VeraSaveApprovalView`, fed by
+    /// `AppState.pendingVeraSave`/`pendingVeraSaveQueue` — and only calls
+    /// Vera at all if the human taps "Save". This is still application
+    /// code, not an LLM-decided tool call. On "Save": the user's prompt
+    /// goes straight into Vera's trusted store (`remember`); the AI's
+    /// response goes through Vera's AI-output quarantine
+    /// (`propose_ai_facts`) — never auto-promoted, still needs a later,
+    /// separate human accept/reject via `vera review-ai-facts`. This
+    /// popup is only the "queue it at all" gate, not that final review
+    /// step.
+    ///
+    /// Behavior depends on `AppState.veraSaveApprovalMode`:
+    ///   .perTurn (default) — blocks this turn until the human decides,
+    ///     exactly like the original implementation.
+    ///   .batched — enqueues and returns immediately; the agent loop
+    ///     keeps running uninterrupted, and the actual Vera calls happen
+    ///     later in the background once the human reviews the queue.
+    ///     Chosen for long, largely-unattended runs (e.g. a multi-file
+    ///     rewrite) where blocking on a popup every turn would otherwise
+    ///     stall the whole task at turn 1 until someone notices and clicks.
     static func requestSaveApproval(userPrompt: String, aiResponse: String) async {
         let prompt = userPrompt.trimmingCharacters(in: .whitespacesAndNewlines)
         let response = aiResponse.trimmingCharacters(in: .whitespacesAndNewlines)
         guard !prompt.isEmpty || !response.isEmpty else { return }
 
         let req = VeraSaveApprovalRequest(userPrompt: prompt, aiResponse: response)
-        AppState.shared?.pendingVeraSave = req
-        guard await req.waitForDecision() else { return }
+        let mode = AppState.shared?.veraSaveApprovalMode ?? .perTurn
+        AppState.shared?.enqueueVeraSave(req)
 
-        if !prompt.isEmpty {
+        switch mode {
+        case .perTurn:
+            guard await req.waitForDecision() else { return }
+            await performSave(req)
+        case .batched:
+            Task {
+                guard await req.waitForDecision() else { return }
+                await performSave(req)
+            }
+        }
+    }
+
+    private static func performSave(_ req: VeraSaveApprovalRequest) async {
+        if !req.userPrompt.isEmpty {
             _ = await MCPEngine.shared.callTool(
                 serverName: serverName, toolName: "remember",
-                arguments: ["sentence": String(prompt.prefix(500))],
+                arguments: ["sentence": String(req.userPrompt.prefix(500))],
                 mode: .human
             )
         }
-        if !response.isEmpty {
+        if !req.aiResponse.isEmpty {
             _ = await MCPEngine.shared.callTool(
                 serverName: serverName, toolName: "propose_ai_facts",
-                arguments: ["text": response, "source": "verantyx_ide_vera_layer"],
+                arguments: ["text": req.aiResponse, "source": "verantyx_ide_vera_layer"],
                 mode: .human
             )
         }
@@ -70,7 +92,7 @@ enum VeraMemoryBridge {
         // Code changes go through `record_code_change`, NOT
         // `propose_ai_facts` — see extractCodeChanges' doc comment for why
         // (its sentence-splitter mangles diff/patch syntax).
-        for change in extractCodeChanges(from: response) {
+        for change in extractCodeChanges(from: req.aiResponse) {
             _ = await MCPEngine.shared.callTool(
                 serverName: serverName, toolName: "record_code_change",
                 arguments: ["file_path": change.file, "description": change.description],

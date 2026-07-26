@@ -185,7 +185,11 @@ struct MainSplitView: View {
     @ViewBuilder
     private var centerAndRightPanes: some View {
         ResizableHSplit(
-            minLeft: 100, maxLeft: 99999, minRight: 100, initialLeft: 420
+            // minRight was 100 -- well below what the chat pane's own
+            // toolbar/input/bubble layout needs before elements start
+            // visibly crushing together. Raised to match
+            // ResizableHSplit's own sensible default (300).
+            minLeft: 100, maxLeft: 99999, minRight: 300, initialLeft: 420
         ) {
             // ── Center: Chat ───────────────────────────────
             VStack(spacing: 0) {
