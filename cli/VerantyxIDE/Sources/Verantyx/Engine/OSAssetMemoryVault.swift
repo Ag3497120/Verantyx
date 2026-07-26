@@ -314,10 +314,28 @@ final class OSAssetMemoryVault: ObservableObject {
         return (anchor, pngData)
     }
 
+    /// Self-initializes the map on first use instead of requiring a human
+    /// to have already clicked "scan" in Settings first. Before this,
+    /// `osAssetQuery` on a fresh install always returned
+    /// "[OS ASSET MAP: Not initialized]" no matter what was asked, since
+    /// nothing ever triggered a scan automatically.
+    private func ensureScanned() async {
+        if assetMap != nil { return }
+        if !isScanning {
+            isScanning = true
+            await runScan()
+        } else {
+            while isScanning {
+                try? await Task.sleep(nanoseconds: 200_000_000)
+            }
+        }
+    }
+
     /// 特定のカテゴリ（またはキーワード）に合致するOS Assetの詳細一覧（L3.5）を返す
-    func queryCategory(_ query: String) -> String {
+    func queryCategory(_ query: String) async -> String {
+        await ensureScanned()
         guard let map = assetMap else {
-            return "[OS ASSET MAP: Not initialized]"
+            return "[OS ASSET MAP: scan attempted but produced no data]"
         }
         let lowerQuery = query.lowercased()
         let matched = map.entries.values.filter { 

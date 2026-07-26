@@ -51,13 +51,19 @@ struct ResizableHSplit<Left: View, Right: View>: View {
                                        px: fraction * totalWidth + dragDelta)
             left
                 .frame(width: currentWidth)
-                .clipped() // REQUIRED: Prevents overflowing hit-test areas from stealing scroll events from the adjacent pane.
+                // .clipped() was removed here per this file's own "Scroll
+                // Fix (v0.2.1)" header comment above -- it had been
+                // re-added at some point (with a comment claiming the
+                // OPPOSITE rationale) and silently reintroduced the exact
+                // "scrolls a little, then stops responding" bug the
+                // header describes. currentWidth is already exact
+                // (clamped() above), so there's no overflow for .clipped()
+                // to actually guard against here.
 
             divider()
 
             right
                 .frame(minWidth: 0, maxWidth: .infinity)
-                .clipped() // REQUIRED
         }
         .background(
             GeometryReader { geo in
@@ -89,7 +95,7 @@ struct ResizableHSplit<Left: View, Right: View>: View {
         }
         .frame(width: 8)
         .cursor(.resizeLeftRight)
-        .gesture(
+        .highPriorityGesture(
             DragGesture(minimumDistance: 4, coordinateSpace: .global)
                 .updating($dragDelta) { value, state, _ in
                     state = value.translation.width
@@ -144,13 +150,13 @@ struct ResizableVSplit<Top: View, Bottom: View>: View {
                                         px: fraction * totalHeight + dragDelta)
             top
                 .frame(height: currentHeight)
-                .clipped()
+                // .clipped() removed -- same reasoning as ResizableHSplit
+                // above (see this file's "Scroll Fix (v0.2.1)" comment).
 
             hDivider()
 
             bottom
                 .frame(minHeight: 0, maxHeight: .infinity)
-                .clipped()
         }
         .background(
             GeometryReader { geo in
@@ -182,7 +188,7 @@ struct ResizableVSplit<Top: View, Bottom: View>: View {
         }
         .frame(height: 8)
         .cursor(.resizeUpDown)
-        .gesture(
+        .highPriorityGesture(
             DragGesture(minimumDistance: 4, coordinateSpace: .global)
                 .updating($dragDelta) { value, state, _ in
                     state = value.translation.height

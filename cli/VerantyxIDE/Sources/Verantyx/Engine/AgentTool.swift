@@ -824,6 +824,18 @@ struct AgentToolParser {
     // MARK: - Generic App Name Resolution
     
     /// macOS上のアプリケーションを曖昧な名前から正確な名前（.appなし）へ解決します。
+    /// Apps nested inside another app's bundle (not a bare top-level
+    /// "/Applications/*.app") that a model asking to "run a/the simulator"
+    /// would otherwise never resolve -- resolveAppName's normal search only
+    /// looks at direct children of the 4 standard app directories, and
+    /// "iOS Simulator"/"simulator" don't fuzzy-match the real app name
+    /// ("Simulator") there. Checked first, before the general search.
+    private static let nestedAppAliases: [(matches: [String], realName: String, bundlePath: String)] = [
+        (["simulator", "ios simulator", "xcode simulator"],
+         "Simulator",
+         "/Applications/Xcode.app/Contents/Developer/Applications/Simulator.app"),
+    ]
+
     static func resolveAppName(_ inputName: String) -> String {
         let searchPaths = [
             "/Applications",
@@ -831,10 +843,17 @@ struct AgentToolParser {
             "/System/Applications/Utilities",
             NSHomeDirectory() + "/Applications"
         ]
-        
+
         let lowerInput = inputName.lowercased()
         let fileManager = FileManager.default
-        
+
+        // 0. Nested-bundle aliases (e.g. Xcode's Simulator.app)
+        for alias in nestedAppAliases where alias.matches.contains(lowerInput) {
+            if fileManager.fileExists(atPath: alias.bundlePath) {
+                return alias.realName
+            }
+        }
+
         // 1. Exact match first
         for path in searchPaths {
             let exactUrl = URL(fileURLWithPath: path).appendingPathComponent("\(inputName).app")
@@ -1437,9 +1456,7 @@ actor AgentToolExecutor {
             return "✓ Stored in JCross memory: \(key) = \(value.prefix(60))"
 
         case .osAssetQuery(let category):
-            return await MainActor.run {
-                return OSAssetMemoryVault.shared.queryCategory(category)
-            }
+            return await OSAssetMemoryVault.shared.queryCategory(category)
 
         // ── Git / Safety ──────────────────────────────────────────────────
 
@@ -1922,7 +1939,15 @@ actor AgentToolExecutor {
             } else {
                 result += "\n[exit: \(process.terminationStatus)]"
             }
-            
+
+            // Grounds the model in the REAL directory the command actually
+            // ran from -- without this, a model that hallucinates a wrong
+            // path (e.g. a `git clone` target under a nonexistent
+            // directory) has no way to notice the mismatch and just
+            // repeats the same failing command. See also the
+            // CURRENT WORKSPACE ROOT line in AgentLoop's system prompt.
+            result += "\n[cwd: \(validDir.path)]"
+
             // Append Visceral Metadata
             result += "\n[VISCERAL_METADATA: {\"execution_time_ms\": \(executionTimeMs), \"cpu_spike\": \(executionTimeMs > 200 ? "true" : "false")}]"
             return result

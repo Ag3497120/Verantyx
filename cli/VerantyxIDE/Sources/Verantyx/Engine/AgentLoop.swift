@@ -122,7 +122,23 @@ actor AgentLoop {
         let veraMemorySection = memoryLayer == .vera
             ? await VeraMemoryBridge.recall(for: instruction)
             : ""
-        let memorySection = cortexMemorySection + veraMemorySection
+        // Unconditional trust-level note (not gated behind the Visual
+        // Anchor's evaluateAnchorMode, which some turns -- e.g. the
+        // screenshot/vision branch -- skip entirely; see CRITICAL RULE 7
+        // in the anti-hallucination anchor text below for the same
+        // instruction, kept in sync deliberately as belt-and-suspenders).
+        let memoryTrustNote: String = {
+            guard !veraMemorySection.isEmpty || !cortexMemorySection.isEmpty else { return "" }
+            var lines: [String] = []
+            if !veraMemorySection.isEmpty {
+                lines.append("- [VERA MEMORY]: deterministic, typed-verdict store -- VERIFIED ground truth, not a guess.")
+            }
+            if !cortexMemorySection.isEmpty {
+                lines.append("- [CORTEX MEMORY]/[CROSS-SESSION MEMORY]/[MEMORY SEARCH]/[JCROSS MEMORY]: heuristic, unverified recall -- reference/supplementary context only, not confirmed fact. Prefer [VERA MEMORY] or your own verification if they conflict.")
+            }
+            return "\n\n[MEMORY TRUST LEVELS]\n" + lines.joined(separator: "\n") + "\n[/MEMORY TRUST LEVELS]"
+        }()
+        let memorySection = cortexMemorySection + veraMemorySection + memoryTrustNote
         let isWorkspaceless = workspaceURL == nil
 
         // ── Self-evolution context ────────────────────────────────────────
@@ -276,7 +292,10 @@ SYS.ENFORCE("logical_verification_before_acceptance")
         \(skillSection)
         \(selfEvoContext)
         \(searchGatePrompt)
-        \(isWorkspaceless ? "\nNOTE: No workspace is open. If the task requires a project, create one with [WORKSPACE:] and [MKDIR:]." : "")
+        \(isWorkspaceless
+            ? "\nNOTE: No workspace is open. If the task requires a project, create one with [WORKSPACE:] and [MKDIR:]."
+            : "\nCURRENT WORKSPACE ROOT: \(currentWorkspace!.path)\nAll relative paths and any new directories (e.g. for `git clone`) MUST be created under this exact path. Do NOT guess or invent a different path (e.g. a path under a username that doesn't match this one) -- if unsure, use [RUN: pwd] to double-check before running a command that creates files."
+        )
         \(contextSection)
         """
 
@@ -770,12 +789,18 @@ SYS.ENFORCE("logical_verification_before_acceptance")
             // ── Store in cortex ───────────────────────────────────────────
             await cortex?.extractAndStore(from: rawResponse, userInstruction: instruction)
 
-            // ── Vera-α: preview-before-save popup for this turn ──────────
-            if memoryLayer == .vera {
-                await VeraMemoryBridge.requestSaveApproval(
-                    userPrompt: instruction, aiResponse: rawResponse
-                )
-            }
+            // NOTE: the Vera-α save-approval popup used to fire right here,
+            // before ANY of the VX-Loop/tool-parsing/display logic below.
+            // On a multi-turn task (search → browse → curl → ... → final
+            // answer) that meant every single intermediate tool-execution
+            // turn also opened the popup, and in .perTurn mode blocked the
+            // loop on it -- so the turn that actually produces the visible
+            // chat answer never got there until a popup somewhere upstream
+            // was dismissed. Worse, intermediate turns rarely have a
+            // meaningful "answer" to offer to save anyway. Moved to fire
+            // only once, after the actual final answer is already on
+            // screen -- see the tools.isEmpty branch below and the
+            // explicit .done tool case further down.
 
             // ── VX-Loop: SearchGate パース + 記憶保存 ─────────────────────
             // 1. SearchGate トークンを応答末尾から解析
@@ -930,6 +955,14 @@ SYS.ENFORCE("logical_verification_before_acceptance")
                 consecutiveToolOnlyTurns = 0
                 // Pass cleanText for the .done handler's duplicate-guard check
                 await onProgress(.done(message: cleanText, workspace: currentWorkspace))
+
+                // ── Vera-α: preview-before-save popup, AFTER the answer is
+                // already visible in the transcript -- never gates display.
+                if memoryLayer == .vera {
+                    await VeraMemoryBridge.requestSaveApproval(
+                        userPrompt: instruction, aiResponse: cleanText
+                    )
+                }
                 return
             }
 
@@ -1077,6 +1110,14 @@ SYS.ENFORCE("logical_verification_before_acceptance")
                     
                     result = await executor.execute(tool, workspaceURL: currentWorkspace)
                     await onProgress(.done(message: msg, workspace: currentWorkspace))
+
+                    // ── Vera-α: same as the tools.isEmpty branch above --
+                    // only after the answer is already visible.
+                    if memoryLayer == .vera {
+                        await VeraMemoryBridge.requestSaveApproval(
+                            userPrompt: instruction, aiResponse: msg
+                        )
+                    }
                     isDone = true
 
                     // ── [NEW] SEPARATION OF MEMORY ──
@@ -1500,6 +1541,8 @@ SYS.ENFORCE("logical_verification_before_acceptance")
                     CRITICAL RULE 5 (ERROR STOP PROTOCOL): If you receive an ERROR (e.g. [VISION ERROR]), you MUST immediately STOP your workflow and report the failure to the user. Do NOT ignore errors. Do NOT hallucinate success. Do NOT output [DONE] if an error occurred.
                     
                     CRITICAL RULE 6 (CYBERNETIC IDENTITY & AUTHORITY): You are a Cybernetic Agent integrated directly into this PC. The files, folders, applications, and tools on this system (as detailed in your memory/L3.5 OS Asset Map) are YOUR OWN capabilities and extensions of your body. You have FULL AUTHORITY to create files and folders autonomously. Do NOT hesitate to use [MKDIR] and [WRITE] when you need to save files or structure projects.
+
+                    CRITICAL RULE 7 (MEMORY TRUST LEVELS): Not all injected memory is equally reliable. A [VERA MEMORY] section (when present) comes from a deterministic, typed-verdict store -- it only appears when independently verified as an ANSWER, never a guess, so treat it as VERIFIED ground truth. [CORTEX MEMORY], [CROSS-SESSION MEMORY], [MEMORY SEARCH], and [JCROSS MEMORY] sections are heuristic recall with no such verification -- treat them as unverified reference context only, useful for orientation but never as confirmed fact. If a [VERA MEMORY] section conflicts with any of these, or with your own search results, the [VERA MEMORY] verdict wins.
                     """
                     appendedText += antiHallucinationWarning
                     

@@ -541,11 +541,13 @@ final class AppState: ObservableObject {
                 || mm.contains("qwen3") || mm.contains("qwen-vl")
                 || mm.contains("minicpm") || mm.contains("moondream")
                 || mm.contains("bakllava") || mm.contains("cogvlm")
+                || mm.contains("ornith")
                 || (mm.contains("gemma") && !mm.contains("gemma2") && !mm.contains("gemma-2"))
         case .mlxReady(let m):
             let mm = m.lowercased()
             return mm.contains("vision") || mm.contains("gemma-4")
                 || mm.contains("qwen-vl") || mm.contains("llava") || mm.contains("llm3.2")
+                || mm.contains("ornith")
         default: return false
         }
     }
