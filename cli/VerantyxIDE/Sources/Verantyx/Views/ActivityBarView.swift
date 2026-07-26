@@ -6,8 +6,6 @@ import SwiftUI
 struct ActivityBarView: View {
     @Binding var selectedSection: ActivitySection?
     @EnvironmentObject var app: AppState
-    
-    @State private var showStopVMAlert: Bool = false
 
     enum ActivitySection: String, CaseIterable {
         case explorer    = "folder"
@@ -59,11 +57,13 @@ struct ActivityBarView: View {
     private func activityButton(_ section: ActivitySection) -> some View {
         Button {
             if selectedSection == section {
-                if section == .vrbridge && HypervisorManager.shared.isRunning {
-                    showStopVMAlert = true
-                } else {
-                    selectedSection = nil
-                }
+                // VRBridge/HypervisorManager source was never committed to
+                // this repo (git history has zero commits touching it) --
+                // the whole feature is a dead reference, not something
+                // this change is responsible for. Neutralized rather than
+                // removing the .vrbridge section entirely, in case the
+                // feature gets a real implementation later.
+                selectedSection = nil
             } else {
                 selectedSection = section
             }
@@ -115,18 +115,6 @@ struct ActivityBarView: View {
         .contentShape(Rectangle())
         .buttonStyle(.plain)
         .help(helpLabel(section))
-        .alert("Stop Virtual Machine?", isPresented: $showStopVMAlert) {
-            Button("Stop VM", role: .destructive) {
-                HypervisorManager.shared.stopVM()
-                selectedSection = nil
-            }
-            Button("Run in Background") {
-                selectedSection = nil
-            }
-            Button("Cancel", role: .cancel) { }
-        } message: {
-            Text("The Windows VM is currently running. Do you want to shut it down or let it run in the background?")
-        }
     }
 
     private func helpLabel(_ section: ActivitySection) -> String {

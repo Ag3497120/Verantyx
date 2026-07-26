@@ -98,7 +98,7 @@ public class JCrossSwarmRunner {
         if let status = json["status"] as? String, status == "success", let result = json["result"] as? String {
             Task {
                 await MainActor.run {
-                    AppState.shared?.appendMessage(.assistant(result))
+                    AppState.shared?.messages.append(ChatMessage(role: .assistant, content: result))
                 }
             }
             return

@@ -157,6 +157,11 @@ final class VXTimeline {
                 // nano には L2、large には L3 を渡す
                 let tag = (layer == .l3) ? "L3_VERBATIM" : "L2_FACTS"
                 extracted = extractSection(from: raw, tag: tag) ?? ""
+            case .vera:
+                // Vera doesn't write .jcross node files -- nothing to
+                // extract from this per-turn timeline file; its own
+                // cross-turn recall goes through VeraMemoryBridge instead.
+                extracted = ""
             }
             if !extracted.isEmpty {
                 let name = url.deletingPathExtension().lastPathComponent

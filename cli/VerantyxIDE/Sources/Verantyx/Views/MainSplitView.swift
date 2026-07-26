@@ -152,7 +152,9 @@ struct MainSplitView: View {
                             case .evolution: SelfEvolutionView().environmentObject(app)
                             case .search:    GlobalSearchView().environmentObject(app)
                             case .git:       GitPanelView().environmentObject(app)
-                            case .vrbridge:  VRBridgePanelView()
+                            // VRBridgePanelView's source was never committed
+                            // to this repo (dead reference, unrelated to
+                            // this change) -- falls through to the default.
                             default:         FileTreeView()
                             }
                         }
