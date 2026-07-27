@@ -71,7 +71,7 @@ public actor CognitiveAnchorEngine {
             ) ?? ""
         case .searchForce:
             return renderDynamicAnchor(
-                text: "[ SEARCH REQUIRED (BUT RESTRICTED) ]\nKNOWLEDGE BOUNDARY DETECTED.\nWARNING: DO NOT WEB-SEARCH FOR PRIVATE INFO OR AI TOOLS (COPILOT/GEMINI). USE [OPEN_APP] OR [ASK_HUMAN].",
+                text: "[ SEARCH REQUIRED (BUT RESTRICTED) ]\nKNOWLEDGE BOUNDARY DETECTED.\nWARNING: DO NOT WEB-SEARCH FOR PRIVATE INFO OR AI TOOLS (COPILOT/GEMINI). USE [OPEN_APP] OR [ASK_HUMAN].\nFOR GENERAL INFO (weather, news, facts): use [SEARCH] with a plain query, NOT a guessed URL. For a NAMED site: use [VERIFIED_URL_LOOKUP: name] first; if UNKNOWN, [SEARCH] the bare name (e.g. \"claude\") and click a REAL result -- never construct a URL like \"claude.ai\" from memory.",
                 backgroundColor: NSColor.systemYellow,
                 textColor: NSColor.black
             ) ?? ""

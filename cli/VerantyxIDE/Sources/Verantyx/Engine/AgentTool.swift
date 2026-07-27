@@ -25,6 +25,7 @@ enum AgentTool {
     // ── GUI Automation ───────────────────────────────────────────────────────
     case osascript(script: String)                // NEW: execute AppleScript via osascript
     case openApp(name: String)                    // NEW: execute open -a "App Name"
+    case verifiedURLLookup(name: String)          // NEW: deterministic Vera-registered URL lookup
     // ── Web / Grounding ──────────────────────────────────────────────────────
     case browse(url: String)
     case search(query: String)
@@ -87,6 +88,7 @@ struct AgentToolCall: Identifiable {
         case .editLines(let p, let s, let e, _): return "edit \(p):\(s)-\(e)"
         case .osascript:                    return "🍎 osascript"
         case .openApp(let a):               return "🚀 open -a \(a)"
+        case .verifiedURLLookup(let n):     return "🔗 verified_url_lookup: \(n)"
         case .browse(let url):              return "🌐 browse \(url)"
         case .search(let q):               return "🔍 search: \(q)"
         case .searchMulti(let q):          return "🔍× search: \(q)"
@@ -189,6 +191,7 @@ struct AgentToolParser {
     [AX_ACT: id action text?] AX動: [DESKTOP_SNAPSHOT]で得たUI要素ID(#btn1等)に対して操作 (click または type "テキスト")。座標ズレがなく確実。
     [OSASCRIPT: script]       🍎: osascriptとしてAppleScriptを実行しGUIアプリを操作
     [OPEN_APP: AppName]       🚀: open -a "AppName"でOSネイティブアプリを起動
+    [VERIFIED_URL_LOOKUP: name] 🔗: 指定した名前(例: "Gemini")について、ユーザーが事前にVeraへ登録した確認済みURLがあるか確定的に調べる。CRITICAL RULE 8に従い、特定サイトへ直接ナビゲートする前に必ずこれで確認し、無ければ[SEARCH]で確定させる。
     [JCROSS_QUERY: terms]     脳召: 過去記憶を検索
     [JCROSS_STORE: key=val]   脳記: 重要事実を長期記憶に保存
     [OS_ASSET_QUERY: category]脳層: L3.5 OS Asset Mapの詳細一覧をオンデマンド取得
@@ -535,6 +538,8 @@ struct AgentToolParser {
             } else if let m = match(trimmed, pattern: #"\[OPEN_APP:\s*([^\]]+)\]"#) {
                 let appName = resolveAppName(m)
                 tools.append(.openApp(name: appName))
+            } else if let m = match(trimmed, pattern: #"\[VERIFIED_URL_LOOKUP:\s*([^\]]+)\]"#) {
+                tools.append(.verifiedURLLookup(name: m))
             // ── Web ─────────────────────────────────────────────────────
             } else if let m = match(trimmed, pattern: #"\[BROWSE:\s*([^\]]+)\]"#) {
                 tools.append(.browse(url: m))
@@ -1201,9 +1206,37 @@ actor AgentToolExecutor {
             }
             return "✓ OS App opened off-screen: \(name). Verantyx stays frontmost; use [DESKTOP_ACT]/[DESKTOP_SNAPSHOT] to operate it and watch the hidden-window mirror view to see what's happening."
 
+        // Deterministic Vera-registered URL check (CRITICAL RULE 8) --
+        // bypasses ask()'s consensus threshold, unlike the [VERA MEMORY]
+        // section, so a single user-registered URL always surfaces here.
+        case .verifiedURLLookup(let name):
+            if let url = await VeraMemoryBridge.lookupVerifiedURL(name: name) {
+                return "[VERIFIED_URL_LOOKUP: \(name)]\nANSWER: \(url)\nThis URL was explicitly registered as verified. Use it directly."
+            }
+            return "[VERIFIED_URL_LOOKUP: \(name)]\nUNKNOWN_NO_EVIDENCE — nothing registered for \"\(name)\". Do NOT construct or guess a URL yourself. Use [SEARCH: \(name)] with just the bare name as the query, then navigate by clicking an actual result from that search -- not a URL you assembled from memory."
+
         case .osascript(let script):
             let escaped = script.replacingOccurrences(of: "'", with: "'\\''")
+            let ownBundleID = Bundle.main.bundleIdentifier
             let result = await runShell("osascript -e '\(escaped)'", workingDir: workspaceURL)
+
+            // A model can bring another app to the front via raw AppleScript
+            // (e.g. `tell application "Safari" to activate`/`open location`)
+            // instead of [OPEN_APP], bypassing HiddenWindowAutomation entirely
+            // -- so check whether this script actually changed the frontmost
+            // app, and if so, retroactively park IT off-screen too, the same
+            // way [OPEN_APP] does. This catches the pattern generally rather
+            // than pattern-matching AppleScript syntax.
+            try? await Task.sleep(nanoseconds: 300_000_000)
+            let newFrontApp: String? = await MainActor.run {
+                guard let front = NSWorkspace.shared.frontmostApplication,
+                      front.bundleIdentifier != ownBundleID else { return nil }
+                return front.localizedName
+            }
+            if let appName = newFrontApp {
+                _ = await HiddenWindowAutomation.shared.beginOffscreenSession(appName: appName)
+                return "✓ AppleScript Result:\n\(result)\n[Note: \(appName) came to the front and has been parked off-screen -- Verantyx stays frontmost. Use [DESKTOP_ACT]/[DESKTOP_SNAPSHOT] to operate it and the hidden-window mirror view to watch.]"
+            }
             return "✓ AppleScript Result:\n\(result)"
 
         // ── Web / Grounding ───────────────────────────────────────────────

@@ -1576,9 +1576,13 @@ SYS.ENFORCE("logical_verification_before_acceptance")
                     // a given model's degraded output, without touching
                     // multimodal detection or user-attached images.
                     let anchorImagesEnabled = await MainActor.run { AppState.shared?.autoVisualAnchorImagesEnabled ?? true }
+                    var anchorImageActuallyInjected = false
                     if anchorImagesEnabled {
                         let base64Image = await CognitiveAnchorEngine.shared.getAnchor(for: mode)
-                        if !base64Image.isEmpty { newAnchorImages.append(base64Image) }
+                        if !base64Image.isEmpty {
+                            newAnchorImages.append(base64Image)
+                            anchorImageActuallyInjected = true
+                        }
                     }
 
                     // Commander Orchestrator Intervention: Anti-Hallucination & WAF Evasion Override
@@ -1601,10 +1605,16 @@ SYS.ENFORCE("logical_verification_before_acceptance")
                     CRITICAL RULE 6 (CYBERNETIC IDENTITY & AUTHORITY): You are a Cybernetic Agent integrated directly into this PC. The files, folders, applications, and tools on this system (as detailed in your memory/L3.5 OS Asset Map) are YOUR OWN capabilities and extensions of your body. You have FULL AUTHORITY to create files and folders autonomously. Do NOT hesitate to use [MKDIR] and [WRITE] when you need to save files or structure projects.
 
                     CRITICAL RULE 7 (MEMORY TRUST LEVELS): Not all injected memory is equally reliable. A [VERA MEMORY] section (when present) comes from a deterministic, typed-verdict store -- it only appears when independently verified as an ANSWER, never a guess, so treat it as VERIFIED ground truth. [CORTEX MEMORY], [CROSS-SESSION MEMORY], [MEMORY SEARCH], and [JCROSS MEMORY] sections are heuristic recall with no such verification -- treat them as unverified reference context only, useful for orientation but never as confirmed fact. If a [VERA MEMORY] section conflicts with any of these, or with your own search results, the [VERA MEMORY] verdict wins.
+
+                    CRITICAL RULE 8 (SEARCH OVER GUESSED URLS): For a general informational query (weather, news, a fact, "what is X") you MUST use [SEARCH] with a plain natural-language query (e.g. "宇治市 天気") -- do NOT guess and navigate directly to a specific site's URL from your own internal knowledge, since that URL may be stale or wrong. For a NAMED destination site (e.g. "open Gemini", "open Claude", "open OpenWeather"), you MUST call [VERIFIED_URL_LOOKUP: name] first. If it returns UNKNOWN_NO_EVIDENCE, do NOT construct or guess ANY URL yourself, not even as a [SEARCH]/[BROWSE] argument (e.g. never invent "claude.ai" from memory) -- instead [SEARCH] with just the plain name as a bare keyword (e.g. "claude"), then navigate by clicking an actual result FROM that search, not by typing a URL you assembled. Once you land on the real page this way and confirm it's correct, you should register it for next time.
                     """
                     appendedText += antiHallucinationWarning
-                    
-                    await onProgress(.systemLog(AppLanguage.shared.t("<think>\n🧿 [Visual Anchor] Injected visual cognitive anchor (\(mode) mode) + Anti-Hallucination Override.\n</think>", "<think>\n🧿 [Visual Anchor] 視覚的アンカー（\(mode) モード）と Commander 介入を注入しました。ツールの結果捏造を強く禁止します。\n</think>")))
+
+                    if anchorImageActuallyInjected {
+                        await onProgress(.systemLog(AppLanguage.shared.t("<think>\n🧿 [Visual Anchor] Injected visual cognitive anchor (\(mode) mode) + Anti-Hallucination Override.\n</think>", "<think>\n🧿 [Visual Anchor] 視覚的アンカー（\(mode) モード）と Commander 介入を注入しました。ツールの結果捏造を強く禁止します。\n</think>")))
+                    } else {
+                        await onProgress(.systemLog(AppLanguage.shared.t("<think>\n🧿 [Visual Anchor] Image disabled by user toggle — text-only Anti-Hallucination Override applied (\(mode) mode).\n</think>", "<think>\n🧿 [Visual Anchor] ユーザー設定により画像は無効化されています — テキストのみのAnti-Hallucination Overrideを適用しました（\(mode) モード）。\n</think>")))
+                    }
                 }
                 
                 // 3. Skill System Visual Anchor

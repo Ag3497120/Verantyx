@@ -17,6 +17,11 @@ struct AgentChatView: View {
     @State private var showAgentPromptAnchorPrompt: Bool = false
     @State private var agentPromptAnchorText: String = ""
 
+    @State private var showVerifiedURLPrompt: Bool = false
+    @State private var verifiedURLName: String = ""
+    @State private var verifiedURLValue: String = ""
+    @State private var verifiedURLStatus: String = ""
+
     var body: some View {
         VStack(spacing: 0) {
             // ── Tab bar ─────────────────────────────────────────────
@@ -743,6 +748,79 @@ struct AgentChatView: View {
                         .padding()
                     }
 
+                    // ── Verified URL registry ──
+                    // Lets the user directly pin a confirmed URL for a
+                    // named destination (e.g. "Gemini") into Vera, rather
+                    // than relying only on the organic save-approval flow
+                    // after a conversation. CRITICAL RULE 8 has the agent
+                    // check this via [VERIFIED_URL_LOOKUP: name] before
+                    // navigating to a named site, instead of guessing a
+                    // URL from its own (possibly stale) internal knowledge.
+                    Button {
+                        showVerifiedURLPrompt = true
+                    } label: {
+                        Image(systemName: "link.badge.plus")
+                            .font(.system(size: 15))
+                            .foregroundStyle(Color(red: 0.5, green: 0.9, blue: 0.6))
+                            .frame(width: 26, height: 26)
+                    }
+                    .contentShape(Rectangle())
+                    .buttonStyle(.plain)
+                    .help(app.t("Register a verified URL", "検証済みURLを登録"))
+                    .popover(isPresented: $showVerifiedURLPrompt) {
+                        VStack(alignment: .leading, spacing: 10) {
+                            Text(app.t("Register Verified URL", "検証済みURLの登録"))
+                                .font(.headline)
+                            Text(app.t(
+                                "Pin a confirmed URL for a named site (e.g. \"Gemini\") into Vera, so the agent checks it instead of guessing.",
+                                "「Gemini」のような名前付きサイトの確認済みURLをVeraに固定登録します。エージェントは推測する前にこれを確認します。"
+                            ))
+                                .font(.caption)
+                                .foregroundStyle(.secondary)
+
+                            TextField(app.t("Name (e.g. Gemini)", "名前（例: Gemini）"), text: $verifiedURLName)
+                                .textFieldStyle(.roundedBorder)
+                                .frame(width: 280)
+                            TextField(app.t("URL (e.g. https://gemini.google.com/)", "URL（例: https://gemini.google.com/）"), text: $verifiedURLValue)
+                                .textFieldStyle(.roundedBorder)
+                                .frame(width: 280)
+
+                            if !verifiedURLStatus.isEmpty {
+                                Text(verifiedURLStatus)
+                                    .font(.caption)
+                                    .foregroundStyle(Color(red: 0.5, green: 0.9, blue: 0.6))
+                            }
+
+                            HStack {
+                                Spacer()
+                                Button(app.t("Cancel", "キャンセル")) {
+                                    showVerifiedURLPrompt = false
+                                    verifiedURLStatus = ""
+                                }
+                                Button(app.t("Register", "登録")) {
+                                    let name = verifiedURLName
+                                    let url = verifiedURLValue
+                                    Task {
+                                        let ok = await VeraMemoryBridge.recordVerifiedURL(name: name, url: url)
+                                        await MainActor.run {
+                                            verifiedURLStatus = ok
+                                                ? app.t("✓ Registered", "✓ 登録しました")
+                                                : app.t("✗ Failed — check vera-memory connection", "✗ 失敗 — vera-memory接続を確認してください")
+                                            if ok {
+                                                verifiedURLName = ""
+                                                verifiedURLValue = ""
+                                            }
+                                        }
+                                    }
+                                }
+                                .buttonStyle(.borderedProminent)
+                                .tint(.green)
+                                .disabled(verifiedURLName.trimmingCharacters(in: .whitespaces).isEmpty
+                                    || verifiedURLValue.trimmingCharacters(in: .whitespaces).isEmpty)
+                            }
+                        }
+                        .padding()
+                    }
 
                     // ── Self Fix — icon-only, fixed frame ────────────────
                     // Using just the icon + background color (no expanding text)

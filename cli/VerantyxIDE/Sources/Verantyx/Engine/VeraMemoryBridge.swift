@@ -165,6 +165,48 @@ enum VeraMemoryBridge {
         }
     }
 
+    // MARK: - Verified URL registry
+
+    /// Registers a human- or agent-confirmed URL for a named destination
+    /// (e.g. name: "Gemini", url: "https://gemini.google.com/") via the
+    /// `record_verified_url` MCP tool -- stored as a direct facet, not run
+    /// through `remember`'s sentence-splitting quarantine (a URL's periods
+    /// would get mangled the same way diffs do). Pairs with
+    /// `lookupVerifiedURL`, which reads it back deterministically.
+    @discardableResult
+    static func recordVerifiedURL(name: String, url: String) async -> Bool {
+        let trimmedName = name.trimmingCharacters(in: .whitespacesAndNewlines)
+        let trimmedURL = url.trimmingCharacters(in: .whitespacesAndNewlines)
+        guard !trimmedName.isEmpty, !trimmedURL.isEmpty else { return false }
+        let raw = await MCPEngine.shared.callTool(
+            serverName: serverName, toolName: "record_verified_url",
+            arguments: ["name": trimmedName, "url": trimmedURL],
+            mode: .human
+        )
+        guard let data = raw.data(using: .utf8),
+              let obj = try? JSONSerialization.jsonObject(with: data) as? [String: Any] else { return false }
+        return obj["recorded"] != nil
+    }
+
+    /// Deterministic lookup for a URL registered via `recordVerifiedURL` --
+    /// bypasses `ask`'s consensus/agreement threshold entirely (a single
+    /// registration is enough), unlike the stricter `[VERA MEMORY]`
+    /// section `recall(for:)` builds. Returns nil if nothing's registered
+    /// under that name.
+    static func lookupVerifiedURL(name: String) async -> String? {
+        let trimmedName = name.trimmingCharacters(in: .whitespacesAndNewlines)
+        guard !trimmedName.isEmpty else { return nil }
+        let raw = await MCPEngine.shared.callTool(
+            serverName: serverName, toolName: "lookup_verified_url",
+            arguments: ["name": trimmedName],
+            mode: .human
+        )
+        guard let data = raw.data(using: .utf8),
+              let obj = try? JSONSerialization.jsonObject(with: data) as? [String: Any],
+              obj["verdict"] as? String == "ANSWER" else { return nil }
+        return obj["url"] as? String
+    }
+
     // MARK: - Graph snapshot (stereo-cross 3D visualization)
 
     struct GraphFacet: Decodable { let facet: String; let count: Int }
