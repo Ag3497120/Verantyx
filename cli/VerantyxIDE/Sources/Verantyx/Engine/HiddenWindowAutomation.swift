@@ -194,6 +194,39 @@ final class HiddenWindowAutomation: ObservableObject {
         }
     }
 
+    // MARK: - App version (for staleness detection on registered UI elements)
+
+    /// Reads `appName`'s bundle version (CFBundleShortVersionString),
+    /// preferring the running instance's own bundle URL (works even if
+    /// installed outside /Applications) and falling back to Spotlight's
+    /// metadata index. Used to stamp registrations made via
+    /// `record_verified_ui_element` and to detect, on lookup, whether the
+    /// app has since been updated and the cached location may be stale.
+    func currentAppVersion(appName: String) async -> String? {
+        if let running = NSWorkspace.shared.runningApplications.first(where: { $0.localizedName == appName }),
+           let bundleURL = running.bundleURL,
+           let bundle = Bundle(url: bundleURL),
+           let version = bundle.infoDictionary?["CFBundleShortVersionString"] as? String {
+            return version
+        }
+        // Not currently running (or no accessible bundle) -- try Spotlight.
+        let path = await Task.detached(priority: .userInitiated) { () -> String? in
+            let process = Process()
+            process.executableURL = URL(fileURLWithPath: "/usr/bin/mdfind")
+            process.arguments = ["kMDItemFSName == '\(appName).app'"]
+            let pipe = Pipe()
+            process.standardOutput = pipe
+            do { try process.run() } catch { return nil }
+            let data = pipe.fileHandleForReading.readDataToEndOfFile()
+            process.waitUntilExit()
+            return String(data: data, encoding: .utf8)?.split(separator: "\n").first.map(String.init)
+        }.value
+        guard let path,
+              let bundle = Bundle(path: path),
+              let version = bundle.infoDictionary?["CFBundleShortVersionString"] as? String else { return nil }
+        return version
+    }
+
     // MARK: - Helpers
 
     private func findWindowID(ownerName: String) -> CGWindowID? {

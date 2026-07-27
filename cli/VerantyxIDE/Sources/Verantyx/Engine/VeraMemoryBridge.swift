@@ -207,6 +207,95 @@ enum VeraMemoryBridge {
         return obj["url"] as? String
     }
 
+    // MARK: - Verified UI element registry (for the manual re-verification pass)
+
+    /// Registers a confirmed UI element location within `app`'s window, as
+    /// (x, y) normalized to 0-1000 relative to the window's own bounds --
+    /// matching HiddenWindowAutomation.clickInWindow's coordinate
+    /// convention, so a registered element can be clicked directly next
+    /// time without a fresh screenshot + vision pass. Automatically stamps
+    /// the app's CURRENT bundle version (via HiddenWindowAutomation), so a
+    /// later lookup can detect that the app has since been updated and the
+    /// cached location may need re-verification -- no external "UI change"
+    /// feed exists for this, but a version bump is a cheap, reliable,
+    /// fully-local proxy signal.
+    @discardableResult
+    static func recordVerifiedUIElement(app: String, element: String, x: Double, y: Double) async -> Bool {
+        let trimmedApp = app.trimmingCharacters(in: .whitespacesAndNewlines)
+        let trimmedElement = element.trimmingCharacters(in: .whitespacesAndNewlines)
+        guard !trimmedApp.isEmpty, !trimmedElement.isEmpty else { return false }
+        let version = await HiddenWindowAutomation.shared.currentAppVersion(appName: trimmedApp) ?? ""
+        let raw = await MCPEngine.shared.callTool(
+            serverName: serverName, toolName: "record_verified_ui_element",
+            arguments: ["app": trimmedApp, "element": trimmedElement, "x": x, "y": y, "version": version],
+            mode: .human
+        )
+        guard let data = raw.data(using: .utf8),
+              let obj = try? JSONSerialization.jsonObject(with: data) as? [String: Any] else { return false }
+        return obj["recorded"] != nil
+    }
+
+    struct VerifiedUIElementLookup {
+        let x: Double
+        let y: Double
+        let registeredVersion: String
+        /// True when the app's current version differs from what was
+        /// recorded at registration time -- the coordinate may be stale
+        /// and worth re-verifying rather than trusted outright.
+        let possiblyStale: Bool
+    }
+
+    /// Deterministic lookup for one element registered via
+    /// `recordVerifiedUIElement`, flagging staleness by comparing the
+    /// stored version against the app's current one.
+    static func lookupVerifiedUIElement(app: String, element: String) async -> VerifiedUIElementLookup? {
+        let raw = await MCPEngine.shared.callTool(
+            serverName: serverName, toolName: "lookup_verified_ui_element",
+            arguments: ["app": app, "element": element],
+            mode: .human
+        )
+        guard let data = raw.data(using: .utf8),
+              let obj = try? JSONSerialization.jsonObject(with: data) as? [String: Any],
+              obj["verdict"] as? String == "ANSWER",
+              let x = obj["x"] as? Double, let y = obj["y"] as? Double else { return nil }
+        let registeredVersion = (obj["version"] as? String) ?? ""
+        var stale = false
+        if !registeredVersion.isEmpty,
+           let currentVersion = await HiddenWindowAutomation.shared.currentAppVersion(appName: app),
+           currentVersion != registeredVersion {
+            stale = true
+        }
+        return VerifiedUIElementLookup(x: x, y: y, registeredVersion: registeredVersion, possiblyStale: stale)
+    }
+
+    struct RegisteredUIElement: Identifiable {
+        let element: String
+        let x: Double
+        let y: Double
+        let version: String
+        var id: String { element }
+    }
+
+    /// Lists every element registered for `app` -- drives the manual
+    /// "re-verify now" pass (task #25's v1) without needing element names
+    /// known ahead of time.
+    static func listVerifiedUIElements(app: String) async -> [RegisteredUIElement] {
+        let raw = await MCPEngine.shared.callTool(
+            serverName: serverName, toolName: "list_verified_ui_elements",
+            arguments: ["app": app],
+            mode: .human
+        )
+        guard let data = raw.data(using: .utf8),
+              let obj = try? JSONSerialization.jsonObject(with: data) as? [String: Any],
+              let elements = obj["elements"] as? [[String: Any]] else { return [] }
+        return elements.compactMap { entry in
+            guard let name = entry["element"] as? String,
+                  let x = entry["x"] as? Double, let y = entry["y"] as? Double else { return nil }
+            let version = (entry["version"] as? String) ?? ""
+            return RegisteredUIElement(element: name, x: x, y: y, version: version)
+        }
+    }
+
     // MARK: - Graph snapshot (stereo-cross 3D visualization)
 
     struct GraphFacet: Decodable { let facet: String; let count: Int }
