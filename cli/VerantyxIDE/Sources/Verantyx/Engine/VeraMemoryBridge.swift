@@ -99,6 +99,69 @@ enum VeraMemoryBridge {
                 mode: .human
             )
         }
+
+        // If the stereo-cross 3D graph demo is active, trigger its
+        // "connection" animation for this save instead of (or in addition
+        // to) the ordinary system message -- StereoCrossGraphView observes
+        // this and clears it back to nil once the animation plays.
+        if AppState.shared?.showStereoCrossGraph == true {
+            let label = !req.userPrompt.isEmpty ? req.userPrompt : req.aiResponse
+            AppState.shared?.pendingGraphConnection = String(label.prefix(60))
+        }
+    }
+
+    /// Fire-and-forget archival of a compression pass's L2 facts into Vera's
+    /// verified store, so they persist beyond this session too -- this is a
+    /// system-triggered background write (like CortexEngine's own
+    /// `remember`), not a user-authored save, so it bypasses the
+    /// save-approval popup entirely. Coexists with, rather than replaces,
+    /// the inline OP.FACT L2 summary and JCross front-zone archive:
+    /// short-lived in-context facts stay in the rolling compression
+    /// summary; this just also gives them a verified, cross-session home.
+    static func archiveCompressionFacts(task: String, modifiedFiles: [String], userIntents: [String], lastResponse: String) {
+        var sentences: [String] = []
+        if !task.isEmpty {
+            sentences.append("Worked on task: \(task).")
+        }
+        for file in modifiedFiles {
+            sentences.append("Modified file \(file).")
+        }
+        for intent in userIntents {
+            sentences.append("User asked for: \(intent).")
+        }
+        if !lastResponse.isEmpty {
+            sentences.append("Last response summary: \(lastResponse).")
+        }
+        guard !sentences.isEmpty else { return }
+
+        Task {
+            for sentence in sentences {
+                _ = await MCPEngine.shared.callTool(
+                    serverName: serverName, toolName: "remember",
+                    arguments: ["sentence": String(sentence.prefix(500))],
+                    mode: .human
+                )
+            }
+        }
+    }
+
+    // MARK: - Graph snapshot (stereo-cross 3D visualization)
+
+    struct GraphFacet: Decodable { let facet: String; let count: Int }
+    struct GraphNode: Decodable { let core: String; let pour_count: Int; let facets: [GraphFacet] }
+    struct GraphSnapshot: Decodable { let nodes: [GraphNode]; let total_cores: Int }
+
+    /// Fetches a structural snapshot of Vera's CrossStore for
+    /// `StereoCrossGraphView` -- read-only, not used for grounded QA
+    /// (that's `askRaw`/`recall`/`tryDirectAnswer` above).
+    static func fetchGraphSnapshot(limit: Int = 24, facetsPerCore: Int = 6) async -> GraphSnapshot? {
+        let raw = await MCPEngine.shared.callTool(
+            serverName: serverName, toolName: "graph_snapshot",
+            arguments: ["limit": limit, "facets_per_core": facetsPerCore],
+            mode: .human
+        )
+        guard let data = raw.data(using: .utf8) else { return nil }
+        return try? JSONDecoder().decode(GraphSnapshot.self, from: data)
     }
 
     /// Same bracket-tag markers CortexEngine.extractAndStore already

@@ -214,7 +214,7 @@ struct AgentChatView: View {
     // MARK: - Workspace (main chat)
 
     private var chatTranscriptArea: some View {
-        ZStack(alignment: .bottomLeading) {
+        ZStack(alignment: .bottom) {
             // NSTextView ベースのトランスクリプト。
             // 単一テキストストレージのためメッセージをまたいでドラッグ選択・コピーができる。
             ChatTranscriptView(messages: app.messages.filter { !$0.isSpotlight }, isGenerating: app.isGenerating)
@@ -225,7 +225,77 @@ struct AgentChatView: View {
             // app.terminal (AppState's .toolCall/.toolResult handling),
             // which feeds the real TerminalPanelView/StatusBarView below
             // the file editor. No need to show it a second time in chat.
+
+            // Vera-α save approval, shown here instead of a center-screen
+            // sheet only while the stereo-cross graph demo is active (see
+            // MainSplitView/VerantyxApp's suppressed .sheet(item:)) -- so
+            // approving/discarding doesn't cover the 3D structure.
+            if app.showStereoCrossGraph, let req = app.pendingVeraSave {
+                veraSaveInlineCard(req)
+                    .transition(.move(edge: .bottom).combined(with: .opacity))
+                    .animation(.spring(response: 0.35, dampingFraction: 0.85), value: app.pendingVeraSave?.id)
+            }
         }
+    }
+
+    @ViewBuilder
+    private func veraSaveInlineCard(_ req: VeraSaveApprovalRequest) -> some View {
+        VStack(alignment: .leading, spacing: 8) {
+            HStack(spacing: 8) {
+                Image(systemName: "checkmark.seal")
+                    .font(.system(size: 12))
+                    .foregroundStyle(Color(red: 0.3, green: 0.9, blue: 0.7))
+                Text(app.t("Save this turn to Vera?", "この内容を Vera に保存しますか？"))
+                    .font(.system(size: 12, weight: .bold))
+                    .foregroundStyle(Color(red: 0.9, green: 0.92, blue: 0.98))
+                Spacer()
+            }
+
+            if !req.userPrompt.isEmpty {
+                Text(req.userPrompt)
+                    .font(.system(size: 11))
+                    .foregroundStyle(Color(red: 0.7, green: 0.8, blue: 1.0))
+                    .lineLimit(2)
+            }
+            if !req.aiResponse.isEmpty {
+                Text(req.aiResponse)
+                    .font(.system(size: 11))
+                    .foregroundStyle(Color(red: 0.75, green: 0.75, blue: 0.82))
+                    .lineLimit(2)
+            }
+
+            HStack(spacing: 10) {
+                Spacer()
+                Button {
+                    app.rejectVeraSave()
+                } label: {
+                    Text(app.t("Discard", "破棄")).font(.system(size: 11, weight: .semibold))
+                        .foregroundStyle(Color(red: 0.9, green: 0.4, blue: 0.4))
+                        .padding(.horizontal, 12).padding(.vertical, 5)
+                        .background(Capsule().fill(Color(red: 0.32, green: 0.1, blue: 0.1).opacity(0.7)))
+                }
+                .buttonStyle(.plain)
+
+                Button {
+                    app.approveVeraSave()
+                } label: {
+                    Text(app.t("Save", "保存")).font(.system(size: 11, weight: .semibold))
+                        .foregroundStyle(Color(red: 0.3, green: 0.92, blue: 0.5))
+                        .padding(.horizontal, 12).padding(.vertical, 5)
+                        .background(Capsule().fill(Color(red: 0.1, green: 0.28, blue: 0.15).opacity(0.8)))
+                }
+                .buttonStyle(.plain)
+            }
+        }
+        .padding(12)
+        .background(
+            RoundedRectangle(cornerRadius: 10)
+                .fill(Color(red: 0.13, green: 0.13, blue: 0.17))
+                .overlay(RoundedRectangle(cornerRadius: 10).stroke(Color(red: 0.3, green: 0.9, blue: 0.7).opacity(0.35), lineWidth: 1))
+        )
+        .shadow(color: .black.opacity(0.4), radius: 8, y: 2)
+        .padding(.horizontal, 14)
+        .padding(.bottom, 10)
     }
 
 

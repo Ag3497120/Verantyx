@@ -582,7 +582,10 @@ struct SpotlightView: View {
             FileApprovalView(req: req)
                 .environmentObject(appState)
         }
-        .sheet(item: $appState.pendingVeraSave) { req in
+        .sheet(item: Binding<VeraSaveApprovalRequest?>(
+            get: { appState.showStereoCrossGraph ? nil : appState.pendingVeraSave },
+            set: { appState.pendingVeraSave = $0 }
+        )) { req in
             VeraSaveApprovalView(req: req)
                 .environmentObject(appState)
         }

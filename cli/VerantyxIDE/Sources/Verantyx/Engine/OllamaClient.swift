@@ -271,20 +271,44 @@ public actor OllamaClient {
         onToken: (@Sendable (String) -> Void)? = nil
     ) async -> String? {
         var ollamaMessages: [[String: Any]] = messages.map { ["role": $0.role, "content": $0.content] }
-        
+
+        let hasImages = (imagesForLastUserMessage?.isEmpty == false)
         if let images = imagesForLastUserMessage, !images.isEmpty {
             if let lastIdx = ollamaMessages.lastIndex(where: { $0["role"] as? String == "user" }) {
                 ollamaMessages[lastIdx]["images"] = images
             }
         }
-        
-        return await streamChat(
+
+        let result = await streamChat(
             model: model,
             messages: ollamaMessages,
             maxTokens: maxTokens,
             temperature: temperature,
             onToken: onToken
         )
+
+        // Some models are vision-capable in principle but their Ollama
+        // Modelfile TEMPLATE doesn't actually reference {{ .Images }} --
+        // Ollama then returns HTTP 400 for the images-attached request no
+        // matter what num_ctx streamChat retries with, and there is no
+        // reliable way to know this ahead of time from just a model name
+        // (AppState.isMultimodalModel is a heuristic, not a real capability
+        // probe). Retry once with images stripped rather than failing the
+        // whole turn -- losing the visual anchor for one turn is much
+        // better than every request silently returning nil.
+        if result == nil, hasImages {
+            print("[OllamaClient] Request with images failed -- retrying once without images (model may not actually support the images field)")
+            let strippedMessages: [[String: Any]] = messages.map { ["role": $0.role, "content": $0.content] }
+            return await streamChat(
+                model: model,
+                messages: strippedMessages,
+                maxTokens: maxTokens,
+                temperature: temperature,
+                onToken: onToken
+            )
+        }
+
+        return result
     }
 
     // MARK: - Core: streamChat()

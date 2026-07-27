@@ -1379,11 +1379,22 @@ SYS.ENFORCE("logical_verification_before_acceptance")
         cortex: CortexEngine?,
         instruction: String
     ) async -> [(role: String, content: String)] {
-        guard conversation.count > 6 else { return conversation }
+        // Rolling compression: keep a steady window of recent raw turns and
+        // fold only the oldest excess batch (capped at maxBatchSize) into
+        // the L1-L3 summary each pass, instead of collapsing the entire
+        // history down to `keepCount` turns in one shot. The old one-shot
+        // behavior meant a single compression event could flatten dozens of
+        // turns into one lossy summary all at once; rolling in small,
+        // bounded batches keeps more granularity near the recent boundary
+        // and spreads the loss out over multiple, smaller passes.
+        let keepCount    = 8
+        let maxBatchSize = 12
+        guard conversation.count > keepCount + 1 else { return conversation }
 
-        let keepCount  = 4
-        let toCompress = Array(conversation.dropFirst(1).dropLast(keepCount))
-        let toKeep     = Array(conversation.prefix(1) + conversation.suffix(keepCount))
+        let excess     = conversation.count - keepCount - 1
+        let batchSize  = min(excess, maxBatchSize)
+        let toCompress = Array(conversation.dropFirst(1).prefix(batchSize))
+        let toKeep     = Array(conversation.prefix(1) + conversation.dropFirst(1 + batchSize))
 
         // ── L1: 1行サマリー（全ティア向け、最大120chars）─────────────────────
         let userTurns  = toCompress.filter { $0.role == "user" }
@@ -1398,13 +1409,16 @@ SYS.ENFORCE("logical_verification_before_acceptance")
             "OP.FACT(\"compressed_turns\", \"\(toCompress.count)\")",
         ]
         // ファイル操作の抽出
+        var modifiedFiles: [String] = []
         let filePatterns = [#"\[WRITE:\s*([^\]]+)\]"#, #"\[PATCH_FILE:\s*([^\]]+)\]"#, #"\[APPLY_PATCH:\s*([^\]]+)\]"#]
         for turn in agentTurns {
             for pattern in filePatterns {
                 if let regex = try? NSRegularExpression(pattern: pattern),
                    let m = regex.firstMatch(in: turn.content, range: NSRange(turn.content.startIndex..., in: turn.content)),
                    let r = Range(m.range(at: 1), in: turn.content) {
-                    l2Lines.append("OP.FACT(\"modified_file\", \"\(String(turn.content[r]).prefix(80))\")")
+                    let file = String(turn.content[r]).prefix(80)
+                    l2Lines.append("OP.FACT(\"modified_file\", \"\(file)\")")
+                    modifiedFiles.append(String(file))
                 }
             }
         }
@@ -1417,6 +1431,20 @@ SYS.ENFORCE("logical_verification_before_acceptance")
             l2Lines.append("OP.FACT(\"last_response\", \"\(String(lastA.content.prefix(200)))\")")
         }
         let l2 = l2Lines.joined(separator: "\n")
+
+        // ── Vera-α: 検証済みストアにも同じL2ファクトを併存保存 ────────────────
+        // Coexists with the inline OP.FACT summary above, not a replacement:
+        // this gives the same facts a verified, cross-session home in Vera
+        // while the rolling compression summary continues to serve the
+        // in-context, unverified working memory role.
+        await MainActor.run {
+            VeraMemoryBridge.archiveCompressionFacts(
+                task: String(instruction.prefix(120)),
+                modifiedFiles: modifiedFiles,
+                userIntents: userTurns.prefix(3).map { String($0.content.prefix(100)) },
+                lastResponse: agentTurns.last.map { String($0.content.prefix(200)) } ?? ""
+            )
+        }
 
         // ── L3: 逐語ダイジェスト（Large/Giant向け）──────────────────────────
         let l3 = toCompress.map { t in

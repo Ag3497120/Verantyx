@@ -6,6 +6,22 @@ import WebKit
 
 // MARK: - Core data models
 
+/// Tabs for the bottom slot of the editor's ResizableVSplit.
+enum BottomPanelTab: String, CaseIterable, Identifiable {
+    case terminal
+    case memoryLayers
+
+    var id: String { rawValue }
+
+    @MainActor
+    func displayName(_ app: AppState) -> String {
+        switch self {
+        case .terminal:     return app.t("Terminal", "ターミナル")
+        case .memoryLayers: return app.t("Memory Layers", "記憶レイヤー")
+        }
+    }
+}
+
 struct ChatMessage: Identifiable, Equatable, Codable {
     var id: UUID
     var role: Role
@@ -275,6 +291,21 @@ final class AppState: ObservableObject {
     @Published var veraSaveApprovalMode: VeraSaveApprovalMode = .perTurn {
         didSet { UserDefaults.standard.set(veraSaveApprovalMode.rawValue, forKey: "vera_save_approval_mode") }
     }
+
+    /// Stereo-cross 3D graph demo mode: replaces the code editor pane with
+    /// a live SceneKit visualization of Vera's CrossStore (StereoCrossGraphView).
+    /// While active, the Vera-α save-approval UI moves from a center-screen
+    /// sheet into the chat transcript itself (see AgentChatView), and an
+    /// approved save triggers a "connection" animation in the graph.
+    @Published var showStereoCrossGraph: Bool = false
+    /// Set by VeraMemoryBridge right after a save is approved while this
+    /// mode is active; StereoCrossGraphView observes this to animate the
+    /// new fact "connecting" into the structure, then clears it back to nil.
+    @Published var pendingGraphConnection: String? = nil
+
+    /// Which view occupies the bottom slot of the editor's ResizableVSplit:
+    /// the real terminal, or the L1-L3 memory-injection preview.
+    @Published var bottomPanelTab: BottomPanelTab = .terminal
 
     // Active tab in the center chat panel — driven by AppState so
     // SessionHistoryView can programmatically switch to .workspace

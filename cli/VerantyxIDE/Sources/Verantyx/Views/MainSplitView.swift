@@ -119,7 +119,13 @@ struct MainSplitView: View {
                 .environmentObject(app)
         }
         // ── Vera-α layer: save-preview approval sheet ────────────────────────
-        .sheet(item: $app.pendingVeraSave) { req in
+        // Suppressed while the stereo-cross graph demo is active -- the
+        // same request is shown as an inline card in AgentChatView instead
+        // (see veraSaveInlineCard there), so it doesn't cover the graph.
+        .sheet(item: Binding<VeraSaveApprovalRequest?>(
+            get: { app.showStereoCrossGraph ? nil : app.pendingVeraSave },
+            set: { app.pendingVeraSave = $0 }
+        )) { req in
             VeraSaveApprovalView(req: req)
                 .environmentObject(app)
         }

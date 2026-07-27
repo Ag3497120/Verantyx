@@ -191,8 +191,42 @@ struct HumanPriorityModeView: View {
                 } bottom: {
                     VStack(spacing: 0) {
                         Divider().opacity(0.3)
-                        TerminalPanelView(terminal: app.terminal)
-                            .environmentObject(app)
+
+                        // Bottom-panel tab switcher: "下部から表示を切り替え"
+                        // for the memory-layer inspector, alongside the
+                        // existing terminal.
+                        HStack(spacing: 4) {
+                            ForEach(BottomPanelTab.allCases) { tab in
+                                Button {
+                                    app.bottomPanelTab = tab
+                                } label: {
+                                    Text(tab.displayName(app))
+                                        .font(.system(size: 10, weight: app.bottomPanelTab == tab ? .bold : .regular))
+                                        .foregroundStyle(app.bottomPanelTab == tab
+                                            ? Color.white
+                                            : Color(red: 0.55, green: 0.55, blue: 0.65))
+                                        .padding(.horizontal, 8).padding(.vertical, 3)
+                                        .background(
+                                            RoundedRectangle(cornerRadius: 4)
+                                                .fill(app.bottomPanelTab == tab ? Color.white.opacity(0.08) : Color.clear)
+                                        )
+                                }
+                                .buttonStyle(.plain)
+                            }
+                            Spacer()
+                        }
+                        .padding(.horizontal, 8)
+                        .padding(.top, 4)
+                        .background(Color(red: 0.10, green: 0.10, blue: 0.13))
+
+                        switch app.bottomPanelTab {
+                        case .terminal:
+                            TerminalPanelView(terminal: app.terminal)
+                                .environmentObject(app)
+                        case .memoryLayers:
+                            MemoryLayerInspectorView()
+                                .environmentObject(app)
+                        }
                     }
                 }
             } else {
@@ -204,7 +238,10 @@ struct HumanPriorityModeView: View {
 
     @ViewBuilder
     private var editorBody: some View {
-        if app.selectedFile != nil {
+        if app.showStereoCrossGraph {
+            StereoCrossGraphView()
+                .frame(maxWidth: .infinity, maxHeight: .infinity)
+        } else if app.selectedFile != nil {
             let isJCrossMode = GatekeeperModeState.shared.isEnabled && !app.showGatekeeperRawCode
             CodeEditorView(
                 content: $editorContent,
@@ -260,6 +297,36 @@ struct HumanPriorityModeView: View {
 
             // Save button / status
             HStack(spacing: 8) {
+                Button {
+                    withAnimation(.easeInOut(duration: 0.2)) {
+                        app.showStereoCrossGraph.toggle()
+                    }
+                } label: {
+                    HStack(spacing: 4) {
+                        Image(systemName: "cube.transparent")
+                            .font(.system(size: 11))
+                        Text(app.t("3D Graph", "立体十字構造体"))
+                            .font(.system(size: 11, weight: .medium))
+                    }
+                    .foregroundStyle(app.showStereoCrossGraph
+                        ? Color(red: 0.5, green: 0.85, blue: 1.0)
+                        : Color(red: 0.6, green: 0.6, blue: 0.7))
+                    .padding(.horizontal, 10)
+                    .padding(.vertical, 4)
+                    .contentShape(Rectangle())
+                    .background(
+                        RoundedRectangle(cornerRadius: 5)
+                            .fill(app.showStereoCrossGraph
+                                ? Color(red: 0.15, green: 0.28, blue: 0.38).opacity(0.9)
+                                : Color.white.opacity(0.04))
+                    )
+                }
+                .contentShape(Rectangle())
+                .buttonStyle(.plain)
+                .help(app.t("Visualize Vera's stereo-cross structure", "Veraの立体十字構造体を可視化"))
+
+                Divider().frame(height: 16).opacity(0.4)
+
                 if GatekeeperModeState.shared.isEnabled {
                     Picker("Gatekeeper View", selection: $app.showGatekeeperRawCode) {
                         Text("JCross IR").tag(false)
@@ -330,27 +397,48 @@ struct HumanPriorityModeView: View {
 
     private var aiChatPanel: some View {
         VStack(spacing: 0) {
-            // Chat header
-            HStack(spacing: 8) {
-                Image(systemName: "sparkles")
-                    .font(.system(size: 12))
-                    .foregroundStyle(Color(red: 0.55, green: 1.0, blue: 0.65))
+            // Chat header. Title and the action buttons are two separate
+            // layers (ZStack), not one HStack -- when the pane is narrow,
+            // an HStack would force either the title to truncate mid-word
+            // or the buttons to get squeezed/clipped. Here the title has
+            // room to fill the whole row and, if the buttons don't fit
+            // beside it, they overlay on top (with a background fade so
+            // it reads as an intentional overlap, not broken layout)
+            // instead of the row itself getting crushed.
+            ZStack(alignment: .trailing) {
+                HStack(spacing: 8) {
+                    Image(systemName: "sparkles")
+                        .font(.system(size: 12))
+                        .foregroundStyle(Color(red: 0.55, green: 1.0, blue: 0.65))
 
-                Text("AI Assistant")
-                    .font(.system(size: 12, weight: .semibold))
-                    .foregroundStyle(Color(red: 0.80, green: 0.80, blue: 0.92))
+                    Text("AI Assistant")
+                        .font(.system(size: 12, weight: .semibold))
+                        .foregroundStyle(Color(red: 0.80, green: 0.80, blue: 0.92))
+                        .lineLimit(1)
 
-                Spacer()
+                    Spacer(minLength: 0)
+                }
 
-                // ── L2.5 地図生成ボタン ────────────────────────
-                IsolatedL25HeaderButton()
+                HStack(spacing: 8) {
+                    // ── L2.5 地図生成ボタン ────────────────────────
+                    IsolatedL25HeaderButton()
 
-                Divider().frame(height: 14).opacity(0.3)
+                    Divider().frame(height: 14).opacity(0.3)
 
-                // ── ▶ Run Pipeline ボタン ───────────────────────────
-                IsolatedPipelineHeaderButton(showPipelineSheet: $showPipelineSheet)
-
-
+                    // ── ▶ Run Pipeline ボタン ───────────────────────────
+                    IsolatedPipelineHeaderButton(showPipelineSheet: $showPipelineSheet)
+                }
+                .padding(.leading, 10)
+                .background(
+                    LinearGradient(
+                        colors: [Color(red: 0.11, green: 0.11, blue: 0.15).opacity(0),
+                                 Color(red: 0.11, green: 0.11, blue: 0.15)],
+                        startPoint: .leading, endPoint: .trailing
+                    )
+                    .frame(width: 40)
+                    .offset(x: -40),
+                    alignment: .leading
+                )
             }
             .padding(.horizontal, 12)
             .padding(.vertical, 9)
@@ -955,6 +1043,21 @@ struct CodeEditorView: NSViewRepresentable {
             storage.endEditing()
         } else {
             textView.string = content
+        }
+
+        // `allowsNonContiguousLayout`/`backgroundLayoutEnabled` (set in
+        // buildTextView) defer laying out glyph ranges below the visible
+        // fold -- for a genuinely huge document that's the point (avoids
+        // a slow synchronous layout freeze), but for anything in the
+        // "highlighted" size tier (well under highlightMaxChars, i.e.
+        // most real files) it means NSScrollView's tracked document
+        // height can lag behind the actual content until background
+        // layout catches up, which reads as "scrolls a little, then
+        // stops" -- there's nothing below the fold from the scroll
+        // view's point of view yet. Forcing layout now is cheap at this
+        // size and eliminates that lag entirely.
+        if content.count <= highlightMaxChars / 4, let container = textView.textContainer {
+            textView.layoutManager?.ensureLayout(for: container)
         }
     }
 
