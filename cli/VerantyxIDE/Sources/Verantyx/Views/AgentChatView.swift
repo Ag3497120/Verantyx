@@ -663,6 +663,32 @@ struct AgentChatView: View {
                         .padding()
                     }
 
+                    // ── Auto Visual Anchor images on/off ──
+                    // Toggles whether the automatic per-turn Cognitive Anchor
+                    // images (searchForce/doubt/logic/etc, rendered every turn
+                    // for multimodal-classified models) are actually attached.
+                    // Kept as a runtime switch rather than removed outright, so
+                    // it can be flipped off for a quick A/B test (e.g. does a
+                    // model's output quality change without these images) and
+                    // back on again without a rebuild.
+                    Button {
+                        app.autoVisualAnchorImagesEnabled.toggle()
+                    } label: {
+                        Image(systemName: app.autoVisualAnchorImagesEnabled ? "eye.fill" : "eye.slash.fill")
+                            .font(.system(size: 15))
+                            .foregroundStyle(
+                                app.autoVisualAnchorImagesEnabled
+                                ? Color(red: 0.6, green: 0.8, blue: 1.0)
+                                : Color(red: 0.5, green: 0.5, blue: 0.55)
+                            )
+                            .frame(width: 26, height: 26)
+                    }
+                    .contentShape(Rectangle())
+                    .buttonStyle(.plain)
+                    .help(app.autoVisualAnchorImagesEnabled
+                        ? app.t("Auto Visual Anchor images: ON (click to disable)", "自動Visual Anchor画像: ON（クリックで無効化）")
+                        : app.t("Auto Visual Anchor images: OFF (click to enable)", "自動Visual Anchor画像: OFF（クリックで有効化）"))
+
                     // ── Agent Prompt Visual Anchor Insertion ──
                     Button {
                         showAgentPromptAnchorPrompt = true

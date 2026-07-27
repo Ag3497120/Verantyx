@@ -74,12 +74,26 @@ enum VeraMemoryBridge {
     }
 
     private static func performSave(_ req: VeraSaveApprovalRequest) async {
+        // Collect the REAL core keys the store actually saved under (as
+        // returned by `remember`/`record_code_change`), not a guess derived
+        // from the raw prompt text -- graph_snapshot ranks cores by pour
+        // count, so a just-taught fact (count 1) would otherwise never
+        // appear in a store with thousands of long-accumulated cores ahead
+        // of it. These keys are passed as `focus_cores` so the new node is
+        // guaranteed to be in the next snapshot the graph view fetches.
+        var newCoreKeys: [String] = []
+
         if !req.userPrompt.isEmpty {
-            _ = await MCPEngine.shared.callTool(
+            let raw = await MCPEngine.shared.callTool(
                 serverName: serverName, toolName: "remember",
                 arguments: ["sentence": String(req.userPrompt.prefix(500))],
                 mode: .human
             )
+            if let data = raw.data(using: .utf8),
+               let obj = try? JSONSerialization.jsonObject(with: data) as? [String: Any],
+               let key = obj["remembered"] as? String, !key.isEmpty {
+                newCoreKeys.append(key)
+            }
         }
         if !req.aiResponse.isEmpty {
             _ = await MCPEngine.shared.callTool(
@@ -93,11 +107,16 @@ enum VeraMemoryBridge {
         // `propose_ai_facts` — see extractCodeChanges' doc comment for why
         // (its sentence-splitter mangles diff/patch syntax).
         for change in extractCodeChanges(from: req.aiResponse) {
-            _ = await MCPEngine.shared.callTool(
+            let raw = await MCPEngine.shared.callTool(
                 serverName: serverName, toolName: "record_code_change",
                 arguments: ["file_path": change.file, "description": change.description],
                 mode: .human
             )
+            if let data = raw.data(using: .utf8),
+               let obj = try? JSONSerialization.jsonObject(with: data) as? [String: Any],
+               let key = obj["recorded"] as? String, !key.isEmpty {
+                newCoreKeys.append(key)
+            }
         }
 
         // If the stereo-cross 3D graph demo is active, trigger its
@@ -106,6 +125,7 @@ enum VeraMemoryBridge {
         // this and clears it back to nil once the animation plays.
         if AppState.shared?.showStereoCrossGraph == true {
             let label = !req.userPrompt.isEmpty ? req.userPrompt : req.aiResponse
+            AppState.shared?.pendingGraphFocusCores = newCoreKeys
             AppState.shared?.pendingGraphConnection = String(label.prefix(60))
         }
     }
@@ -154,10 +174,14 @@ enum VeraMemoryBridge {
     /// Fetches a structural snapshot of Vera's CrossStore for
     /// `StereoCrossGraphView` -- read-only, not used for grounded QA
     /// (that's `askRaw`/`recall`/`tryDirectAnswer` above).
-    static func fetchGraphSnapshot(limit: Int = 24, facetsPerCore: Int = 6) async -> GraphSnapshot? {
+    static func fetchGraphSnapshot(limit: Int = 24, facetsPerCore: Int = 6, focusCores: [String] = []) async -> GraphSnapshot? {
+        var arguments: [String: Any] = ["limit": limit, "facets_per_core": facetsPerCore]
+        if !focusCores.isEmpty {
+            arguments["focus_cores"] = focusCores.joined(separator: ",")
+        }
         let raw = await MCPEngine.shared.callTool(
             serverName: serverName, toolName: "graph_snapshot",
-            arguments: ["limit": limit, "facets_per_core": facetsPerCore],
+            arguments: arguments,
             mode: .human
         )
         guard let data = raw.data(using: .utf8) else { return nil }

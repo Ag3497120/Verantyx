@@ -1569,9 +1569,18 @@ SYS.ENFORCE("logical_verification_before_acceptance")
                     memorySection: isDeficit ? "DEFICIT DETECTED" : "",
                     isSwarmMode: false
                 ) {
-                    let base64Image = await CognitiveAnchorEngine.shared.getAnchor(for: mode)
-                    if !base64Image.isEmpty { newAnchorImages.append(base64Image) }
-                    
+                    // Manual override: the accompanying warning text below is
+                    // always applied, but the rendered anchor IMAGE itself can
+                    // be switched off from the chat input bar -- e.g. to A/B
+                    // test whether these synthetic images are responsible for
+                    // a given model's degraded output, without touching
+                    // multimodal detection or user-attached images.
+                    let anchorImagesEnabled = await MainActor.run { AppState.shared?.autoVisualAnchorImagesEnabled ?? true }
+                    if anchorImagesEnabled {
+                        let base64Image = await CognitiveAnchorEngine.shared.getAnchor(for: mode)
+                        if !base64Image.isEmpty { newAnchorImages.append(base64Image) }
+                    }
+
                     // Commander Orchestrator Intervention: Anti-Hallucination & WAF Evasion Override
                     let antiHallucinationWarning = """
 

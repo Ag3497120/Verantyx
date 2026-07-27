@@ -50,7 +50,19 @@ struct StereoCrossGraphView: View {
         .task { await loadGraph() }
         .onChange(of: app.pendingGraphConnection) { newValue in
             guard let label = newValue else { return }
-            animateConnection(for: label)
+            let focusCores = app.pendingGraphFocusCores
+            Task {
+                // A just-saved fact's core key (if we have one) may not be
+                // in the currently-built scene yet -- graph_snapshot ranks
+                // by pour count, so a brand-new fact loses to thousands of
+                // already-accumulated cores unless explicitly requested via
+                // focus_cores. Refresh first so the node actually exists
+                // before trying to animate a connection onto it.
+                if !focusCores.isEmpty && focusCores.contains(where: { coreNodeMap[$0] == nil }) {
+                    await loadGraph(focusCores: focusCores)
+                }
+                animateConnection(for: label, preferredCores: focusCores)
+            }
         }
     }
 
@@ -74,7 +86,7 @@ struct StereoCrossGraphView: View {
             Spacer()
 
             Button {
-                Task { await loadGraph() }
+                Task { await loadGraph(focusCores: []) }
             } label: {
                 Image(systemName: "arrow.clockwise")
                     .font(.system(size: 11))
@@ -90,10 +102,10 @@ struct StereoCrossGraphView: View {
 
     // MARK: - Data loading
 
-    private func loadGraph() async {
+    private func loadGraph(focusCores: [String] = []) async {
         isLoading = true
         errorMessage = nil
-        guard let snapshot = await VeraMemoryBridge.fetchGraphSnapshot(), !snapshot.nodes.isEmpty else {
+        guard let snapshot = await VeraMemoryBridge.fetchGraphSnapshot(focusCores: focusCores), !snapshot.nodes.isEmpty else {
             isLoading = false
             nodeCount = 0
             errorMessage = app.t(
@@ -234,20 +246,24 @@ struct StereoCrossGraphView: View {
     // MARK: - Connection animation
 
     /// Plays when a Vera save is approved while this view is active
-    /// (`AppState.pendingGraphConnection`). Best-effort matches the saved
-    /// content against a core name; if nothing matches, animates onto a
-    /// random existing node so the user still sees SOMETHING connect
-    /// rather than silently doing nothing.
-    private func animateConnection(for label: String) {
+    /// (`AppState.pendingGraphConnection`). Prefers an exact match against
+    /// `preferredCores` (the real core key(s) the store just saved under,
+    /// from VeraMemoryBridge.performSave) since that's precise; falls back
+    /// to a substring match against the label, then to any existing node,
+    /// so the user still sees SOMETHING connect rather than silently
+    /// doing nothing.
+    private func animateConnection(for label: String, preferredCores: [String] = []) {
         defer {
             DispatchQueue.main.asyncAfter(deadline: .now() + 1.8) {
                 if app.pendingGraphConnection == label {
                     app.pendingGraphConnection = nil
+                    app.pendingGraphFocusCores = []
                 }
             }
         }
         let lowerLabel = label.lowercased()
-        let target = coreNodeMap.first(where: { lowerLabel.contains($0.key.lowercased()) })?.value
+        let target = preferredCores.compactMap { coreNodeMap[$0] }.first
+            ?? coreNodeMap.first(where: { lowerLabel.contains($0.key.lowercased()) })?.value
             ?? coreNodeMap.values.first
         guard let target else { return }
 

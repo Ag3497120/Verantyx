@@ -302,6 +302,18 @@ final class AppState: ObservableObject {
     /// mode is active; StereoCrossGraphView observes this to animate the
     /// new fact "connecting" into the structure, then clears it back to nil.
     @Published var pendingGraphConnection: String? = nil
+    /// Real core key(s) VeraMemoryBridge.performSave actually saved under
+    /// (from `remember`/`record_code_change`'s response), set alongside
+    /// `pendingGraphConnection`. StereoCrossGraphView passes these as
+    /// `focus_cores` when refreshing so a brand-new, low-pour-count fact is
+    /// guaranteed to appear as a node instead of being crowded out by the
+    /// top-ranked existing cores.
+    @Published var pendingGraphFocusCores: [String] = []
+
+    /// Shows the live mirror of whatever window HiddenWindowAutomation has
+    /// parked off-screen, so the user can watch autonomous OS-agent
+    /// operation without it visually stealing focus or covering the IDE.
+    @Published var showHiddenWindowMirror: Bool = false
 
     /// Which view occupies the bottom slot of the editor's ResizableVSplit:
     /// the real terminal, or the L1-L3 memory-injection preview.
@@ -560,6 +572,21 @@ final class AppState: ObservableObject {
         return v ?? true
     }() {
         didSet { UserDefaults.standard.set(notifyOnError, forKey: "notify_error") }
+    }
+
+    // Manual override for the automatic per-turn Visual/Cognitive Anchor
+    // images (searchForce/doubt/logic/etc, rendered by CognitiveAnchorEngine
+    // and attached every turn to multimodal-classified models). Kept
+    // separate from `isMultimodalModel` so turning this off doesn't change
+    // multimodal *detection* -- it only stops those anchor images from being
+    // attached, e.g. to A/B-test whether they're responsible for a given
+    // model's degraded/garbled output without touching image attachments
+    // (photo.badge.plus) or the model classification itself.
+    @Published var autoVisualAnchorImagesEnabled: Bool = {
+        let v = UserDefaults.standard.object(forKey: "auto_visual_anchor_images_enabled") as? Bool
+        return v ?? true
+    }() {
+        didSet { UserDefaults.standard.set(autoVisualAnchorImagesEnabled, forKey: "auto_visual_anchor_images_enabled") }
     }
 
     // ── Multimodal capability detection ──

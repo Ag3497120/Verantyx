@@ -241,6 +241,9 @@ struct HumanPriorityModeView: View {
         if app.showStereoCrossGraph {
             StereoCrossGraphView()
                 .frame(maxWidth: .infinity, maxHeight: .infinity)
+        } else if app.showHiddenWindowMirror {
+            HiddenWindowMirrorView()
+                .frame(maxWidth: .infinity, maxHeight: .infinity)
         } else if app.selectedFile != nil {
             let isJCrossMode = GatekeeperModeState.shared.isEnabled && !app.showGatekeeperRawCode
             CodeEditorView(
@@ -324,6 +327,34 @@ struct HumanPriorityModeView: View {
                 .contentShape(Rectangle())
                 .buttonStyle(.plain)
                 .help(app.t("Visualize Vera's stereo-cross structure", "Veraの立体十字構造体を可視化"))
+
+                Button {
+                    withAnimation(.easeInOut(duration: 0.2)) {
+                        app.showHiddenWindowMirror.toggle()
+                    }
+                } label: {
+                    HStack(spacing: 4) {
+                        Image(systemName: "eye.trianglebadge.exclamationmark")
+                            .font(.system(size: 11))
+                        Text(app.t("Hidden Window", "非表示ウィンドウ"))
+                            .font(.system(size: 11, weight: .medium))
+                    }
+                    .foregroundStyle(app.showHiddenWindowMirror
+                        ? Color(red: 1.0, green: 0.75, blue: 0.4)
+                        : Color(red: 0.6, green: 0.6, blue: 0.7))
+                    .padding(.horizontal, 10)
+                    .padding(.vertical, 4)
+                    .contentShape(Rectangle())
+                    .background(
+                        RoundedRectangle(cornerRadius: 5)
+                            .fill(app.showHiddenWindowMirror
+                                ? Color(red: 0.38, green: 0.28, blue: 0.12).opacity(0.9)
+                                : Color.white.opacity(0.04))
+                    )
+                }
+                .contentShape(Rectangle())
+                .buttonStyle(.plain)
+                .help(app.t("Watch the window the agent parked off-screen", "エージェントがオフスクリーンに退避させたウィンドウを表示"))
 
                 Divider().frame(height: 16).opacity(0.4)
 

@@ -6,12 +6,61 @@
     <a href="https://github.com/verantyx/verantyx/releases/latest"><img src="https://img.shields.io/badge/version-1.4.0-blue?style=flat-square" alt="Version 1.4.0"></a>
     <img src="https://img.shields.io/badge/platform-macOS%2014%2B-lightgrey?style=flat-square">
     <img src="https://img.shields.io/badge/Apple%20Silicon-optimized-orange?style=flat-square">
-    <img src="https://img.shields.io/badge/license-MIT-green?style=flat-square">
+    <a href="./LICENSE"><img src="https://img.shields.io/badge/license-MIT-green?style=flat-square"></a>
   </p>
   <p>
     <a href="README-en.md">English</a> · <a href="README-es.md">Español</a> · <a href="README-pt-BR.md">Português (Brasil)</a> · <a href="README-de.md">Deutsch</a> · <a href="README-fr.md">Français</a> · <a href="README-zh-CN.md">简体中文</a> · <a href="README-zh-TW.md">繁體中文</a> · <a href="README-ko.md">한국어</a> · <a href="README.md">日本語</a> · <a href="README-ar.md">العربية</a> · <a href="README-ru.md">Русский</a> · <a href="README-uk.md">Українська</a> · <a href="README-tr.md">Türkçe</a>
   </p>
 </div>
+
+---
+
+## これは何?
+
+Verantyxは、ローカルファーストでmacOSネイティブなコーディングエージェントです。LLMによる生成と、不一致を検知する構造推論エンジン(JCross)を組み合わせています。ソースコードを意味を持たない数学的パズルに難読化してからクラウドLLMに渡すので、実際のコードを漏らさずにフロンティアモデルの力を借りられます。
+
+## 30秒でわかる動作例
+
+```text
+$ verantyx gatekeeper ./my_secret_repo
+→ ソースコードが不透明トポロジーのパズルに変換される
+→ (実コードではなく)パズルがクラウドLLMに送信される
+→ LLMの提案が復元され、diffとして表示される
+→ ディスクに反映される前に、承認/却下を選べる
+```
+
+## 現時点で実際に動く機能
+
+- **Gatekeeperモード**: 難読化 → クラウドLLM → 復元 → diffレビュー、が一気通貫で動作。
+- **Agentモード**: ローカルモデル(Ollama/MLX)による自律ループ、3回キー押下での起動、ツール呼び出し、ファイルの読み書き・パッチ適用。
+- **Vera-α記憶ブリッジ**: LLM自身の作業記憶とは別に、ハルシネーションしない検証済みの事実ストアを併用。
+- **立体十字構造体3Dグラフ**: 記憶に実際に何が蓄積されているかをSceneKitでライブ可視化。
+
+まだ粗い/開発中の部分: Windows/Linux移植、VR Bridgeの完全没入対応 — 詳細は下部の[Verantyxについて](#-verantyx-について)を参照。
+
+## 今いちばん助けてほしいこと
+
+**上の30秒デモを、まっさらなmacOSマシンで実際に試して、動いたかどうか教えてください。** それだけで十分です — コードレビューでも共同開発の約束でもありません。時間の目安ごとの参加方法は下記にまとめています。
+
+---
+
+## 🙋 協力方法(時間の目安ごと)
+
+### 10分でできること
+- このREADMEを読んで、「これは何のプロダクトに見えるか」を一文で教えてください。
+- インストール手順で分かりにくかった点を報告してください。
+- クローンしてXcodeで開き、あなたの環境(macOSバージョン、Apple SiliconかIntelか)でビルドできるか教えてください。
+
+### 30分でできること
+- 上のGatekeeperモードの例を、自分の小さなリポジトリで1つ試してみてください。
+- Agentモードの3回キー押下を試して、何が起きたか教えてください。
+- 既知のバグが1つあるファイルを渡して、正しい原因箇所を特定できるか試してください。
+
+### 技術的貢献
+- `good first issue` / `help wanted`ラベルの付いたIssueで、対象ファイル・完了条件・確認用コマンドが書かれているものを探してください。
+- まだラベル付きのものがなければ、やりたいことをIssueに書いてください。1ファイル・1条件くらいの粒度に切り分けます。
+
+もしこのリポジトリにスターを付けてくださっていて5分だけ時間があれば、「このプロジェクトが何に見えたか」を一文返信いただくだけでも、スターそのものより価値があります。
 
 ---
 

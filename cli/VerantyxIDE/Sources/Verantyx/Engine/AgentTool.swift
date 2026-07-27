@@ -1189,10 +1189,17 @@ actor AgentToolExecutor {
             }
 
         // ── GUI Automation ────────────────────────────────────────────────
+        // Opens the app but keeps it OFF the user's visible screen and
+        // Verantyx frontmost -- HiddenWindowAutomation parks the window far
+        // off-screen (still a normal running app, still in the Dock) so
+        // autonomous operation never steals focus or covers the IDE.
+        // DESKTOP_ACT below routes through the same session when active.
         case .openApp(let name):
-            let script = "tell application \"\(name)\" to activate"
-            let result = await runShell("osascript -e '\(script)'", workingDir: workspaceURL)
-            return "✓ OS App activated: \(name). \(result)"
+            let frame = await HiddenWindowAutomation.shared.beginOffscreenSession(appName: name)
+            guard frame != nil else {
+                return "✗ Could not find or move window for: \(name)"
+            }
+            return "✓ OS App opened off-screen: \(name). Verantyx stays frontmost; use [DESKTOP_ACT]/[DESKTOP_SNAPSHOT] to operate it and watch the hidden-window mirror view to see what's happening."
 
         case .osascript(let script):
             let escaped = script.replacingOccurrences(of: "'", with: "'\\''")
@@ -1359,18 +1366,27 @@ actor AgentToolExecutor {
 
         case .desktopSnapshot:
             do {
-                let frame = try await SafariVisionBridge.shared.takeScreenshot(enforceSafari: false)
+                // When an OPEN_APP session parked a window off-screen, mirror
+                // THAT window instead of the visible display (which would
+                // just show Verantyx itself, since it's kept frontmost).
+                let hiddenActive = await MainActor.run { HiddenWindowAutomation.shared.targetAppName != nil }
+                let frame: String
+                if hiddenActive, let hidden = await HiddenWindowAutomation.shared.captureWindowImage() {
+                    frame = hidden
+                } else {
+                    frame = try await SafariVisionBridge.shared.takeScreenshot(enforceSafari: false)
+                }
                 await CognitiveAnchorEngine.shared.setVisionScreenshot(frame)
                 await MainActor.run {
                     AppState.shared?.lastVideoFrames = [frame]
                 }
-                
+
                 let semanticXML = try await AXVisionBridge.shared.getSemanticSnapshot()
-                
+
                 return """
                 [DESKTOP_SNAPSHOT]
-                Captured desktop frame. Screenshot updated and injected to context.
-                
+                Captured desktop frame\(hiddenActive ? " (hidden window mirror)" : ""). Screenshot updated and injected to context.
+
                 == SEMANTIC UI MAP ==
                 \(semanticXML)
                 """
@@ -1381,30 +1397,45 @@ actor AgentToolExecutor {
                 let parts = action.split(separator: " ")
                 guard let cmd = parts.first else { return "[DESKTOP ERROR] Empty action" }
 
+                let hiddenActive = await MainActor.run { HiddenWindowAutomation.shared.targetAppName != nil }
+
                 if cmd == "click" && parts.count >= 3 {
                     let x = Double(parts[1]) ?? 0.0
                     let y = Double(parts[2]) ?? 0.0
-                    try await SafariVisionBridge.shared.hidClick(x: x, y: y, enforceSafari: false)
+                    if hiddenActive {
+                        await HiddenWindowAutomation.shared.clickInWindow(relativeX: x, relativeY: y)
+                    } else {
+                        try await SafariVisionBridge.shared.hidClick(x: x, y: y, enforceSafari: false)
+                    }
                 } else if cmd == "type" && parts.count >= 2 {
                     let text = action.dropFirst(5).trimmingCharacters(in: .whitespaces)
-                    try await SafariVisionBridge.shared.typeText(text)
+                    if hiddenActive {
+                        await HiddenWindowAutomation.shared.typeInWindow(text)
+                    } else {
+                        try await SafariVisionBridge.shared.typeText(text)
+                    }
                 }
-                
+
                 try await Task.sleep(nanoseconds: 2_000_000_000)
-                let frame = try await SafariVisionBridge.shared.takeScreenshot(enforceSafari: false)
+                let frame: String
+                if hiddenActive, let hidden = await HiddenWindowAutomation.shared.captureWindowImage() {
+                    frame = hidden
+                } else {
+                    frame = try await SafariVisionBridge.shared.takeScreenshot(enforceSafari: false)
+                }
                 await CognitiveAnchorEngine.shared.setVisionScreenshot(frame)
                 await MainActor.run { AppState.shared?.lastVideoFrames = [frame] }
-                
+
                 if cmd == "click" {
                     return """
                     [DESKTOP_ACT: \(action)]
-                    Action performed. New screenshot injected.
-                    🔴 A red circle shows where your mouse clicked. 
+                    Action performed. New screenshot injected\(hiddenActive ? " (hidden window mirror)" : "").
+                    🔴 A red circle shows where your mouse clicked.
                     If the screen did not change, you probably missed the target.
                     """
                 }
-                
-                return "[DESKTOP_ACT: \(action)]\nAction performed. New screenshot injected."
+
+                return "[DESKTOP_ACT: \(action)]\nAction performed. New screenshot injected\(hiddenActive ? " (hidden window mirror)" : "")."
             } catch { return "[DESKTOP ERROR] \(error.localizedDescription)" }
             
         case .axAct(let action):
