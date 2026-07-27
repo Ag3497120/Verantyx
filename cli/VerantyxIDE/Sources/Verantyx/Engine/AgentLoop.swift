@@ -919,7 +919,26 @@ SYS.ENFORCE("logical_verification_before_acceptance")
             default:                      isStreamingModel = false
             }
 
-            if isStreamingModel && vxLoopEnabled {
+            if isStreamingModel && !tools.isEmpty {
+                // Streaming + tool calls found in the SAME generation: the model
+                // wrote this turn's free text before any tool actually ran (it
+                // cannot know a [READ]/[LIST_DIR] result until the loop continues
+                // next turn), so any prose sitting alongside the tool tags is an
+                // unverified, possibly fabricated "answer" -- e.g. a model
+                // batching five [READ] calls at once (violating the one-tool-
+                // per-turn rule) and writing a full analysis in the same breath,
+                // describing what it assumes the files contain instead of what
+                // they actually do. Since streaming bubbles render the raw
+                // response live as it arrives, that fabricated prose would
+                // otherwise sit on screen looking like a finished answer.
+                // Replace it with a plain tool-call notice; the real answer (if
+                // any) lands in a later turn once tool results are back.
+                let toolNote = AppLanguage.shared.t(
+                    "🔧 Calling \(tools.count) tool(s) — any answer text written before the results return is not shown.",
+                    "🔧 ツール呼び出し中（\(tools.count)件）— 結果が返る前に書かれた回答文は表示しません。"
+                )
+                await onProgress(.aiMessage(toolNote))
+            } else if isStreamingModel && vxLoopEnabled {
                 // Streaming + VX-Loop: patch the bubble to strip SearchGate tokens.
                 // cleanText already has gate tokens removed via vxCleanResponse.
                 // We emit a "replace" aiMessage only when the gate token was present.
@@ -930,7 +949,9 @@ SYS.ENFORCE("logical_verification_before_acceptance")
                 // Non-streaming path: emit the full response as a chat bubble
                 await onProgress(.aiMessage(cleanText))
             }
-            // For streaming models: aiMessage is intentionally skipped here.
+            // For streaming models with no tool calls: aiMessage is
+            // intentionally skipped here -- the streaming bubble is already
+            // correct and complete, nothing to gate or replace.
             // The streaming bubble (populated by streamToken) remains as-is.
             // Tool-call annotations (if any) are shown via toolCall/toolResult.
 
