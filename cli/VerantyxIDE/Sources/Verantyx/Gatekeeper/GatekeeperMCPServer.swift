@@ -173,7 +173,7 @@ final class GatekeeperMCPServer {
         let items = vault.listDirectory(relativePath: path == "." ? "" : path)
 
         if items.isEmpty {
-            return .text(AppLanguage.shared.t("(Empty directory or path not found: '\\(path)')", "(空のディレクトリ、またはパスが見つかりません: '\\(path)')"))
+            return .text(AppLanguage.shared.t("(Empty directory or path not found: '\(path)')", "(空のディレクトリ、またはパスが見つかりません: '\(path)')"))
         }
 
         var lines = ["📁 \(path.isEmpty ? "<workspace root>" : path)", ""]
@@ -200,7 +200,7 @@ final class GatekeeperMCPServer {
 
         let results = vault.search(query: query)
         if results.isEmpty {
-            return .text(AppLanguage.shared.t("No results found: '\\(query)'", "検索結果なし: '\\(query)'"))
+            return .text(AppLanguage.shared.t("No results found: '\(query)'", "検索結果なし: '\(query)'"))
         }
 
         var lines = ["🔍 검색: '\(query)' — \(results.count) ファイルでヒット", ""]
@@ -247,7 +247,7 @@ final class GatekeeperMCPServer {
             Vault が差分更新されました。
             """)
         } catch {
-            return .error(AppLanguage.shared.t("Write failed: \\(error.localizedDescription)", "書き込み失敗: \\(error.localizedDescription)"))
+            return .error(AppLanguage.shared.t("Write failed: \(error.localizedDescription)", "書き込み失敗: \(error.localizedDescription)"))
         }
     }
 

@@ -973,7 +973,7 @@ final class AppState: ObservableObject {
                         ChatMessage(role: .system, content: injection),
                         at: 0
                     )
-                    self.addSystemMessage(self.t("🧠 Injected memory from past session (\\(layer.rawValue) layer)", "🧠 過去セッションの記憶を注入しました (\\(layer.rawValue) レイヤー)"))
+                    self.addSystemMessage(self.t("🧠 Injected memory from past session (\(layer.rawValue) layer)", "🧠 過去セッションの記憶を注入しました (\(layer.rawValue) レイヤー)"))
                 }
             }
         }
@@ -1022,7 +1022,7 @@ final class AppState: ObservableObject {
                 }
             }
         }
-        addSystemMessage(self.t("📂 Restored session '\\(session.title)'", "📂 セッション「\\(session.title)」を復元しました"))
+        addSystemMessage(self.t("📂 Restored session '\(session.title)'", "📂 セッション「\(session.title)」を復元しました"))
         activeChatTab = 0
     }
 

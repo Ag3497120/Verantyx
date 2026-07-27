@@ -729,7 +729,7 @@ struct AgentChatView: View {
                                     let anchorBase64 = CognitiveAnchorEngine.shared.getUserPromptAnchor(text: agentPromptAnchorText)
                                     if let data = Data(base64Encoded: anchorBase64),
                                        let img = NSImage(data: data) {
-                                        let tempUrl = FileManager.default.temporaryDirectory.appendingPathComponent("agent_anchor_\\(UUID().uuidString).png")
+                                        let tempUrl = FileManager.default.temporaryDirectory.appendingPathComponent("agent_anchor_\(UUID().uuidString).png")
                                         if let tiff = img.tiffRepresentation,
                                            let bitmap = NSBitmapImageRep(data: tiff),
                                            let png = bitmap.representation(using: .png, properties: [:]) {

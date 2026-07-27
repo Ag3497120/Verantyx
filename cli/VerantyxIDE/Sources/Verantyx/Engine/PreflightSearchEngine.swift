@@ -485,7 +485,7 @@ actor IgnoranceRouter {
 
         let prompt = "User Query: \(instruction)"
 
-        print(AppLanguage.shared.t("🧠 [IgnoranceRouter] Requesting ignorance check from 2B model (\\(nanoModel))...", "🧠 [IgnoranceRouter] 2Bモデル (\\(nanoModel)) に無知判定を依頼中..."))
+        print(AppLanguage.shared.t("🧠 [IgnoranceRouter] Requesting ignorance check from 2B model (\(nanoModel))...", "🧠 [IgnoranceRouter] 2Bモデル (\(nanoModel)) に無知判定を依頼中..."))
         let response = await OllamaClient.shared.generate(
             model: nanoModel,
             prompt: "\(systemPrompt)\n\n\(prompt)",

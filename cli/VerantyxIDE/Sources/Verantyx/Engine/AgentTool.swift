@@ -503,7 +503,17 @@ struct AgentToolParser {
                 tools.append(tool)
             } else if let m = match(trimmed, pattern: #"\[MKDIR:\s*([^\]]+)\]"#) {
                 tools.append(.makeDir(expandHome(m)))
-            } else if let m = match(trimmed, pattern: #"\[RUN_COGNITIVE:\s*([^\]]+)\]"#) {
+            // Greedy `.+` (to the LAST `]` on the line) instead of `[^\]]+`
+            // (to the FIRST `]`): a shell command containing an array/list
+            // literal (Python `['a','b']`, JS `[1,2]`, JSON, etc.) has an
+            // internal `]` that `[^\]]+` would stop at, silently truncating
+            // the command mid-syntax -- e.g. `python3 -c "...Popen(['vera',
+            // 'mcp']...)"` got cut right after the FIRST `]` (the list's own
+            // closing bracket), leaving unbalanced quotes and producing a
+            // `zsh: unmatched "` error every single time, with the model
+            // never able to tell its command had been mangled before it
+            // ever reached the shell.
+            } else if let m = match(trimmed, pattern: #"\[RUN_COGNITIVE:\s*(.+)\]"#) {
                 let parts = m.components(separatedBy: "|").map { $0.trimmingCharacters(in: .whitespaces) }
                 if parts.count >= 3 {
                     let cmd = parts[0]
@@ -514,7 +524,7 @@ struct AgentToolParser {
                 } else {
                     tools.append(.runCommand(m)) // fallback
                 }
-            } else if let m = match(trimmed, pattern: #"\[RUN:\s*([^\]]+)\]"#) {
+            } else if let m = match(trimmed, pattern: #"\[RUN:\s*(.+)\]"#) {
                 // Normalize: nano モデルが [RUN:LIST_DIR] のように型名をコマンド名と将揷して出力するハルシネーションを修正
                 if let normalized = normalizeRunToKnownTool(m) {
                     tools.append(normalized)
@@ -535,6 +545,18 @@ struct AgentToolParser {
             } else if let m = match(trimmed, pattern: #"\[LIST_DIR:\s*([^\]]+)\]"#) {
                 tools.append(.listDir(expandHome(m)))
             // ── GUI Automation ──────────────────────────────────────────────
+            // The docs (and the model) also use a single-line inline form,
+            // [OSASCRIPT: script] -- distinct from parseOsascriptBlocks'
+            // fenced ```...``` form above. This was undocumented-as-missing
+            // until now: no regex here ever matched it, so an inline
+            // OSASCRIPT call silently fell through to plain text (tools
+            // stayed empty, the loop treated the turn as a conversational
+            // "done" immediately) -- the script never actually ran. Greedy
+            // `.+` (to the LAST `]` on the line) rather than `[^\]]+` (to
+            // the FIRST `]`) because AppleScript payloads can themselves
+            // contain `]`, same reasoning as [RUN:] below.
+            } else if let m = match(trimmed, pattern: #"\[OSASCRIPT:\s*(.+)\]"#) {
+                tools.append(.osascript(script: m))
             } else if let m = match(trimmed, pattern: #"\[OPEN_APP:\s*([^\]]+)\]"#) {
                 let appName = resolveAppName(m)
                 tools.append(.openApp(name: appName))
@@ -547,7 +569,9 @@ struct AgentToolParser {
                 tools.append(.searchMulti(query: m))
             } else if let m = match(trimmed, pattern: #"\[SEARCH:\s*([^\]]+)\]"#) {
                 tools.append(.search(query: m))
-            } else if let m = match(trimmed, pattern: #"\[EVAL_JS:\s*([^\]]+)\]"#) {
+            // Greedy for the same reason as [RUN:] above -- JS almost
+            // always contains array/object literals with `]`.
+            } else if let m = match(trimmed, pattern: #"\[EVAL_JS:\s*(.+)\]"#) {
                 tools.append(.evalJS(script: m))
             } else if let m = match(trimmed, pattern: #"\[SAFARI:\s*([^\]]+)\]"#) {
                 tools.append(.openSafari(url: m))
