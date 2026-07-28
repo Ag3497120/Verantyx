@@ -29,6 +29,7 @@ struct SettingsView: View {
         case privacy = "Privacy"
         case mcp     = "MCP"
         case bitnet  = "BitNet"
+        case jgen    = "JGEN"
 
         var icon: String {
             switch self {
@@ -41,6 +42,7 @@ struct SettingsView: View {
             case .privacy: return "lock.shield"
             case .mcp:     return "network"
             case .bitnet:  return "cpu.fill"
+            case .jgen:    return "shippingbox"
             }
         }
 
@@ -55,6 +57,7 @@ struct SettingsView: View {
             case .privacy: return Color(red: 0.4, green: 0.9, blue: 0.5)
             case .mcp:     return Color(red: 0.3, green: 0.8, blue: 1.0)
             case .bitnet:  return Color(red: 0.7, green: 0.4, blue: 1.0)
+            case .jgen:    return Color(red: 1.0, green: 0.6, blue: 0.3)
             }
         }
     }
@@ -190,6 +193,7 @@ struct SettingsView: View {
                         case .privacy: privacySettings
                         case .mcp:     mcpSettings
                         case .bitnet:  bitnetSettings
+                        case .jgen:    jgenSettings
                         }
                     }
                     .padding(22)
@@ -2347,6 +2351,12 @@ struct SettingsView: View {
                         .strokeBorder(Color(red: 0.7, green: 0.4, blue: 1.0).opacity(0.25), lineWidth: 1)
                 )
         }
+    }
+
+    // MARK: - JGEN Settings
+
+    private var jgenSettings: some View {
+        JGenSettingsSection()
     }
 
     @MainActor
