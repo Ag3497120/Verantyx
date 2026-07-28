@@ -7,6 +7,9 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		C14A4A31A3ED4B2ABFEED797 /* JCrossEngine.swift in Sources */ = {isa = PBXBuildFile; fileRef = 470599AF829E40DFAA604ED5 /* JCrossEngine.swift */; };
+		837C1C0AFB2D4B9D8BBD0E03 /* libjcross_engine_glm.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = C9BFB8B0DCE74E31969A7D1F /* libjcross_engine_glm.dylib */; };
+		BEB2D8F77F124454B117DC11 /* libjcross_engine_glm.dylib in Embed Libraries */ = {isa = PBXBuildFile; fileRef = C9BFB8B0DCE74E31969A7D1F /* libjcross_engine_glm.dylib */; settings = {ATTRIBUTES = (CodeSignOnCopy, ); }; };
 		009AA89ACB24F3C04940719B /* CIValidationEngine.swift in Sources */ = {isa = PBXBuildFile; fileRef = 82124E09CAF3AD73FCD889F2 /* CIValidationEngine.swift */; };
 		01CE941270A2625978ADF74A /* SettingsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 851696E9486FDE35D2146141 /* SettingsView.swift */; };
 		049BFE44D04F9FA1E5027996 /* BrowserBridge.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6C6D2F73754A7AA12136F9AC /* BrowserBridge.swift */; };
@@ -216,6 +219,7 @@
 		19116FA01BD2FF3991F62DD3 /* BitNetL1Tagger.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BitNetL1Tagger.swift; sourceTree = "<group>"; };
 		1953688F5F43B24A7944408F /* OSAssetMemoryVault.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OSAssetMemoryVault.swift; sourceTree = "<group>"; };
 		090D8363C2ED4D0E94738EE9 /* HiddenWindowAutomation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HiddenWindowAutomation.swift; sourceTree = "<group>"; };
+		470599AF829E40DFAA604ED5 /* JCrossEngine.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = JCrossEngine.swift; sourceTree = "<group>"; };
 		A9C32260F6774C4C93FBDA96 /* HiddenWindowMirrorView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HiddenWindowMirrorView.swift; sourceTree = "<group>"; };
 		1B99ABA9CD8F1879B2BFA33E /* SimpleJCrossTranspiler.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SimpleJCrossTranspiler.swift; sourceTree = "<group>"; };
 		1D2BF39536A4169EC367F0A5 /* SkillLibrary.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SkillLibrary.swift; sourceTree = "<group>"; };
@@ -376,6 +380,9 @@
 		FD2D56072A05DD684E140FBA /* RoutingSessionLogger.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RoutingSessionLogger.swift; sourceTree = "<group>"; };
 		FD764117A5A2F1DF19239197 /* SelfEvolutionEngine.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SelfEvolutionEngine.swift; sourceTree = "<group>"; };
 		FDAEF1C9CB541AAA58E4FB8E /* ChatTranscriptView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChatTranscriptView.swift; sourceTree = "<group>"; };
+		C9BFB8B0DCE74E31969A7D1F /* libjcross_engine_glm.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libjcross_engine_glm.dylib; path = Vendor/libjcross_engine_glm.dylib; sourceTree = SOURCE_ROOT; };
+		4A5FCC5DD38841D6AFAC7274 /* jcross_engine.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = jcross_engine.h; sourceTree = "<group>"; };
+		4E67A4D08F6F4A5982F7CDF3 /* Verantyx-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "Verantyx-Bridging-Header.h"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -388,10 +395,25 @@
 				17713B505E12627E142F65ED /* MLXLLM in Frameworks */,
 				5BCBF6FA95B78375C6615004 /* Transformers in Frameworks */,
 				F192305AEA6F6AA49A4DB670 /* Highlightr in Frameworks */,
+				837C1C0AFB2D4B9D8BBD0E03 /* libjcross_engine_glm.dylib in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXCopyFilesBuildPhase section */
+		3B325E36B62448DF87973C00 /* Embed Libraries */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = "";
+			dstSubfolderSpec = 10;
+			files = (
+				BEB2D8F77F124454B117DC11 /* libjcross_engine_glm.dylib in Embed Libraries */,
+			);
+			name = "Embed Libraries";
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXGroup section */
 		30A0EF58CBE75A17F6A560C2 /* Sources */ = {
@@ -606,6 +628,10 @@
 				6C820EF2AE923977A1829A75 /* OSAssetMapper.swift */,
 				1953688F5F43B24A7944408F /* OSAssetMemoryVault.swift */,
 				090D8363C2ED4D0E94738EE9 /* HiddenWindowAutomation.swift */,
+				C9BFB8B0DCE74E31969A7D1F /* libjcross_engine_glm.dylib */,
+				4A5FCC5DD38841D6AFAC7274 /* jcross_engine.h */,
+				4E67A4D08F6F4A5982F7CDF3 /* Verantyx-Bridging-Header.h */,
+				470599AF829E40DFAA604ED5 /* JCrossEngine.swift */,
 				802C57C641342AF0523401B9 /* ParanoiaEngine.swift */,
 				EDA3819E2975C008C2AB74CA /* PreflightSearchEngine.swift */,
 				331E574E58724DD018686E55 /* PrivacyGateway.swift */,
@@ -657,6 +683,7 @@
 				869C54BD37DFFE38A56624BF /* Resources */,
 				F3AA225F597254C51D1CC89B /* Frameworks */,
 				3C96DA999F96C1224503C197 /* Embed verantyx-browser into App Bundle */,
+				3B325E36B62448DF87973C00 /* Embed Libraries */,
 			);
 			buildRules = (
 			);
@@ -870,6 +897,7 @@
 				B1F75FAEBFFD56F2AD79235E /* OSAssetMapper.swift in Sources */,
 				8088A5981BA947F3189B5916 /* OSAssetMemoryVault.swift in Sources */,
 				7A6B14C9F6CD4D7C9A2569EE /* HiddenWindowAutomation.swift in Sources */,
+				C14A4A31A3ED4B2ABFEED797 /* JCrossEngine.swift in Sources */,
 				50B438252B974476AC9AE86B /* HiddenWindowMirrorView.swift in Sources */,
 				81CDD3782608E05A14C9A31D /* OllamaClient.swift in Sources */,
 				A305FA7B458D078C9C91C8B9 /* OllamaNEREngine.swift in Sources */,
@@ -1004,6 +1032,11 @@
 				ENABLE_APP_SANDBOX = NO;
 				ENABLE_HARDENED_RUNTIME = YES;
 				INFOPLIST_FILE = Sources/Verantyx/Info.plist;
+				SWIFT_OBJC_BRIDGING_HEADER = "Sources/Verantyx/Verantyx-Bridging-Header.h";
+				LIBRARY_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)/Vendor",
+				);
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/../Frameworks",
@@ -1023,6 +1056,11 @@
 				ENABLE_APP_SANDBOX = NO;
 				ENABLE_HARDENED_RUNTIME = YES;
 				INFOPLIST_FILE = Sources/Verantyx/Info.plist;
+				SWIFT_OBJC_BRIDGING_HEADER = "Sources/Verantyx/Verantyx-Bridging-Header.h";
+				LIBRARY_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)/Vendor",
+				);
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/../Frameworks",

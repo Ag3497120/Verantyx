@@ -26,6 +26,7 @@ enum AgentTool {
     case osascript(script: String)                // NEW: execute AppleScript via osascript
     case openApp(name: String)                    // NEW: execute open -a "App Name"
     case verifiedURLLookup(name: String)          // NEW: deterministic Vera-registered URL lookup
+    case registerUIElement(app: String, element: String, x: Double, y: Double) // NEW: agent self-registers a UI element it identified
     // ── Web / Grounding ──────────────────────────────────────────────────────
     case browse(url: String)
     case search(query: String)
@@ -89,6 +90,7 @@ struct AgentToolCall: Identifiable {
         case .osascript:                    return "🍎 osascript"
         case .openApp(let a):               return "🚀 open -a \(a)"
         case .verifiedURLLookup(let n):     return "🔗 verified_url_lookup: \(n)"
+        case .registerUIElement(let app, let el, let x, let y): return "📍 register_ui_element: \(app)/\(el) @ (\(Int(x)),\(Int(y)))"
         case .browse(let url):              return "🌐 browse \(url)"
         case .search(let q):               return "🔍 search: \(q)"
         case .searchMulti(let q):          return "🔍× search: \(q)"
@@ -192,6 +194,7 @@ struct AgentToolParser {
     [OSASCRIPT: script]       🍎: osascriptとしてAppleScriptを実行しGUIアプリを操作
     [OPEN_APP: AppName]       🚀: open -a "AppName"でOSネイティブアプリを起動
     [VERIFIED_URL_LOOKUP: name] 🔗: 指定した名前(例: "Gemini")について、ユーザーが事前にVeraへ登録した確認済みURLがあるか確定的に調べる。CRITICAL RULE 8に従い、特定サイトへ直接ナビゲートする前に必ずこれで確認し、無ければ[SEARCH]で確定させる。
+    [REGISTER_UI_ELEMENT: app|element|x|y] 📍: [DESKTOP_SNAPSHOT]等で実際に確認したUI要素の位置(app内0-1000正規化座標)をVeraに自己登録する。人間がミラー画面をクリックして登録するのと同じ仕組みを、エージェント自身が探索した結果として使える。
     [JCROSS_QUERY: terms]     脳召: 過去記憶を検索
     [JCROSS_STORE: key=val]   脳記: 重要事実を長期記憶に保存
     [OS_ASSET_QUERY: category]脳層: L3.5 OS Asset Mapの詳細一覧をオンデマンド取得
@@ -562,6 +565,17 @@ struct AgentToolParser {
                 tools.append(.openApp(name: appName))
             } else if let m = match(trimmed, pattern: #"\[VERIFIED_URL_LOOKUP:\s*([^\]]+)\]"#) {
                 tools.append(.verifiedURLLookup(name: m))
+            // Lets the agent self-register a UI element it identified via
+            // [DESKTOP_SNAPSHOT]/vision analysis of the hidden-window
+            // mirror -- not just a human clicking the mirror -- so
+            // proactive exploration accumulates into Vera the same way a
+            // manual registration does. x/y are 0-1000 normalized to the
+            // target window's own bounds (same convention as clickInWindow).
+            } else if let m = match(trimmed, pattern: #"\[REGISTER_UI_ELEMENT:\s*([^\]]+)\]"#) {
+                let parts = m.components(separatedBy: "|").map { $0.trimmingCharacters(in: .whitespaces) }
+                if parts.count >= 4, let x = Double(parts[2]), let y = Double(parts[3]) {
+                    tools.append(.registerUIElement(app: parts[0], element: parts[1], x: x, y: y))
+                }
             // ── Web ─────────────────────────────────────────────────────
             } else if let m = match(trimmed, pattern: #"\[BROWSE:\s*([^\]]+)\]"#) {
                 tools.append(.browse(url: m))
@@ -1238,6 +1252,14 @@ actor AgentToolExecutor {
                 return "[VERIFIED_URL_LOOKUP: \(name)]\nANSWER: \(url)\nThis URL was explicitly registered as verified. Use it directly."
             }
             return "[VERIFIED_URL_LOOKUP: \(name)]\nUNKNOWN_NO_EVIDENCE — nothing registered for \"\(name)\". Do NOT construct or guess a URL yourself. Use [SEARCH: \(name)] with just the bare name as the query, then navigate by clicking an actual result from that search -- not a URL you assembled from memory."
+
+        // Agent self-registration, same store/replace-not-accumulate
+        // semantics as the human-driven HiddenWindowMirrorView click flow.
+        case .registerUIElement(let app, let element, let x, let y):
+            let ok = await VeraMemoryBridge.recordVerifiedUIElement(app: app, element: element, x: x, y: y)
+            return ok
+                ? "[REGISTER_UI_ELEMENT: \(app)|\(element)]\nRegistered at (\(Int(x)),\(Int(y))). Future operations on this element can reuse it directly instead of re-analyzing a screenshot."
+                : "[REGISTER_UI_ELEMENT: \(app)|\(element)]\nFailed to register -- check vera-memory connection."
 
         case .osascript(let script):
             let escaped = script.replacingOccurrences(of: "'", with: "'\\''")
