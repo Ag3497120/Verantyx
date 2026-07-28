@@ -191,6 +191,14 @@ struct JGenSettingsSection: View {
                                         .foregroundStyle(Color(red: 1.0, green: 0.6, blue: 0.3))
                                 } else if isLoading == name {
                                     ProgressView().controlSize(.mini)
+                                } else if !converter.isArchSupported(name) {
+                                    Label(app.t("Unsupported arch (lexicon only)", "非対応アーキ(辞書のみ)"), systemImage: "exclamationmark.triangle")
+                                        .font(.system(size: 9))
+                                        .foregroundStyle(Color(red: 0.7, green: 0.7, blue: 0.4))
+                                        .help(app.t(
+                                            "This model's architecture isn't supported by JCrossEngine's inference (e.g. a hybrid_ssm MoE like qwen35moe). jgen_forge converted it as a static weight lexicon only -- it can't be loaded for chat/encode/council.",
+                                            "このモデルのアーキテクチャはJCrossEngineの推論に対応していません(qwen35moeのようなhybrid_ssm MoEなど)。jgen_forgeは静的な重み辞書としてのみ変換しました — チャット/エンコード/評議会での読み込みはできません。"
+                                        ))
                                 } else {
                                     Button {
                                         loadModel(name)

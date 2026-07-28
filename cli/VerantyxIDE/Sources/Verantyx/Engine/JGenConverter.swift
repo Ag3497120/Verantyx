@@ -293,4 +293,34 @@ final class JGenConverter: ObservableObject {
             return text.isEmpty ? "(no output, exit \(process.terminationStatus))" : text
         }.value
     }
+
+    /// Reads a converted model's `.meta.json` sidecar, checking both
+    /// possible storage locations (matching `JCrossChatManager`'s own
+    /// resolution order) -- used by Settings to show which converted
+    /// models are actually loadable.
+    func metaJSON(for modelFileName: String) -> [String: Any]? {
+        let appSupportPath = JGenPaths.convertedModelsDir.appendingPathComponent(modelFileName).path + ".meta.json"
+        if let data = FileManager.default.contents(atPath: appSupportPath),
+           let meta = try? JSONSerialization.jsonObject(with: data) as? [String: Any] {
+            return meta
+        }
+        if useCustomRepo && repoPathValid {
+            let customPath = "\(repoPath)/converted_models/\(modelFileName).meta.json"
+            if let data = FileManager.default.contents(atPath: customPath),
+               let meta = try? JSONSerialization.jsonObject(with: data) as? [String: Any] {
+                return meta
+            }
+        }
+        return nil
+    }
+
+    /// True if this model's architecture is one JCrossEngine's Rust
+    /// forward pass can actually run (chat/encode/council) -- false for
+    /// lexicon-only conversions (e.g. hybrid_ssm MoE architectures like
+    /// qwen35moe), which jgen_forge still converts but only for
+    /// project/resynthesize-style static vector lookups, not inference.
+    func isArchSupported(_ modelFileName: String) -> Bool {
+        guard let arch = metaJSON(for: modelFileName)?["arch"] as? String else { return true }
+        return ["standard", "moe_standard"].contains(arch)
+    }
 }

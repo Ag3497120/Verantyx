@@ -43,6 +43,8 @@ actor JCrossChatManager {
         case notLoaded
         case metaNotFound(String)
         case tokenizerPathMissing(String)
+        case architectureUnsupported(model: String, arch: String)
+        case noRealTokenizer(model: String)
 
         var errorDescription: String? {
             switch self {
@@ -52,6 +54,10 @@ actor JCrossChatManager {
                 return "Missing .meta.json sidecar for \(path) -- was this .jgen produced by jgen_forge.py?"
             case .tokenizerPathMissing(let path):
                 return "\(path).meta.json has no \"tokenizer\" field -- this model was converted without a known tokenizer (e.g. --parts lexicon)."
+            case .architectureUnsupported(let model, let arch):
+                return "\(model) is architecture \"\(arch)\" -- JCrossEngine's Rust forward pass only supports \"standard\"/\"moe_standard\" architectures. jgen_forge still converted it as a static weight lexicon (usable in the Vector Lab's project/resynthesize), but it can't be loaded here for chat/encode/council -- pick a different (standard-architecture) model instead."
+            case .noRealTokenizer(let model):
+                return "\(model) has no real HuggingFace tokenizer -- jgen_forge fell back to a GGUF vocabulary sidecar (not a full tokenizer.json/config.json), which JCrossChatManager can't load directly. Convert with --tokenizer pointing at a matching HF tokenizer folder, or pick a model whose tokenizer was auto-discovered."
             }
         }
     }
@@ -68,12 +74,33 @@ actor JCrossChatManager {
               let meta = try? JSONSerialization.jsonObject(with: metaData) as? [String: Any] else {
             throw ChatError.metaNotFound(modelFileName)
         }
+
+        // jgen_forge still converts architectures its own inference engine
+        // can't run (e.g. hybrid_ssm MoE like qwen35moe) -- as a static
+        // weight lexicon only. Catch that here with a clear explanation
+        // rather than letting it fail confusingly on the tokenizer step
+        // (a lexicon-only conversion's "tokenizer" is often just a raw
+        // GGUF vocab sidecar, not a real one).
+        if let arch = meta["arch"] as? String, !["standard", "moe_standard"].contains(arch) {
+            throw ChatError.architectureUnsupported(model: modelFileName, arch: arch)
+        }
+
         guard let tokenizerPath = meta["tokenizer"] as? String else {
             throw ChatError.tokenizerPathMissing(modelFileName)
         }
+        // A real HF tokenizer folder has tokenizer_config.json or
+        // config.json alongside tokenizer.json; jgen_forge's GGUF-vocab
+        // fallback is a single sidecar JSON file with neither, sitting
+        // directly in converted_models/ -- AutoTokenizer.from would fail
+        // on it with a generic "missing config.json", so check up front.
+        let tokenizerFolder = URL(fileURLWithPath: tokenizerPath).deletingLastPathComponent()
+        let hasRealTokenizer = FileManager.default.fileExists(atPath: tokenizerFolder.appendingPathComponent("tokenizer_config.json").path)
+            || FileManager.default.fileExists(atPath: tokenizerFolder.appendingPathComponent("config.json").path)
+        guard hasRealTokenizer else {
+            throw ChatError.noRealTokenizer(model: modelFileName)
+        }
 
         let newEngine = try JCrossEngine(path: jgenPath)
-        let tokenizerFolder = URL(fileURLWithPath: tokenizerPath).deletingLastPathComponent()
         let newTokenizer = try await AutoTokenizer.from(modelFolder: tokenizerFolder)
 
         self.engine = newEngine
