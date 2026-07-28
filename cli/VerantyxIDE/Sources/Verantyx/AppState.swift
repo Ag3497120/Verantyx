@@ -315,6 +315,12 @@ final class AppState: ObservableObject {
     /// operation without it visually stealing focus or covering the IDE.
     @Published var showHiddenWindowMirror: Bool = false
 
+    /// Shows the JGEN Vector Lab: text-in/text-out exploration of
+    /// JCrossEngine's raw hidden-state operations (encode, resynthesize,
+    /// puzzle_inference's confidence/entropy, optimize_thought_in_place's
+    /// latent gradient descent) -- independent of the normal chat path.
+    @Published var showVectorLab: Bool = false
+
     /// Which view occupies the bottom slot of the editor's ResizableVSplit:
     /// the real terminal, or the L1-L3 memory-injection preview.
     @Published var bottomPanelTab: BottomPanelTab = .terminal

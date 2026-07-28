@@ -88,4 +88,126 @@ actor JCrossChatManager {
         let outputTokens = try engine.generate(prompt: promptTokens, maxTokens: maxTokens)
         return tokenizer.decode(tokens: outputTokens.map { Int($0) }, skipSpecialTokens: true)
     }
+
+    // MARK: - Vector Lab (project/resynthesize/puzzle_inference/optimize_thought_in_place)
+    //
+    // Text-in/text-out conveniences over JCrossEngine's raw vector API, for
+    // VectorLabView -- exploring what the model's hidden-state vectors
+    // actually correspond to, independent of the normal chat/generate path.
+
+    var isLoaded: Bool { engine != nil && tokenizer != nil }
+
+    /// Tokenizes and forwards `text` through the full model, returning its
+    /// final-token hidden state (a "thought vector" the rest of the Lab
+    /// operates on).
+    func encodeText(_ text: String) throws -> [Float] {
+        guard let engine, let tokenizer else { throw ChatError.notLoaded }
+        let tokens = tokenizer.encode(text: text).map { UInt32($0) }
+        engine.reset()
+        return try engine.encode(tokens: tokens)
+    }
+
+    /// Decodes a vector (from `encodeText`, `optimizeVector`, or anything
+    /// else) back into the single nearest token, as text.
+    func resynthesizeToText(vector: [Float], layerName: String = "lm_head", temperature: Float = 1.0) throws -> String {
+        guard let engine, let tokenizer else { throw ChatError.notLoaded }
+        let resonated = try engine.resynthesize(layerName: layerName, vector: vector, temperature: temperature)
+        let result = try engine.puzzleInference(layerName: layerName, vector: resonated)
+        return tokenizer.decode(tokens: [Int(result.token)], skipSpecialTokens: true)
+    }
+
+    /// The "entropy lock": the single most-confident token a vector
+    /// currently decodes to, plus how confident (lower entropy = more
+    /// confident), as text + a raw entropy number for a UI to display.
+    func puzzleInferenceText(vector: [Float], layerName: String = "lm_head") throws -> (text: String, entropy: Float) {
+        guard let engine, let tokenizer else { throw ChatError.notLoaded }
+        let result = try engine.puzzleInference(layerName: layerName, vector: vector)
+        let text = tokenizer.decode(tokens: [Int(result.token)], skipSpecialTokens: true)
+        return (text, result.entropy)
+    }
+
+    /// Refines a vector via latent gradient descent, returning the refined
+    /// vector alongside its decoded text and final entropy so a UI can
+    /// show before/after in one call.
+    func optimizeVector(_ vector: [Float], layerName: String = "lm_head", maxSteps: Int, lr: Float) throws -> (vector: [Float], text: String, entropy: Float) {
+        guard let engine, let tokenizer else { throw ChatError.notLoaded }
+        let (refined, entropy) = try engine.optimizeThoughtInPlace(layerName: layerName, vector: vector, maxSteps: maxSteps, lr: lr)
+        let result = try engine.puzzleInference(layerName: layerName, vector: refined)
+        let text = tokenizer.decode(tokens: [Int(result.token)], skipSpecialTokens: true)
+        return (refined, text, entropy)
+    }
+
+    // MARK: - Council (Milestone D)
+
+    /// Tokenizes `text` and forwards it with `softVectors` prepended as
+    /// virtual embedding-space tokens (`encode_soft`) -- used by
+    /// `CouncilOrchestrator` to re-inject a consensus (and optionally a
+    /// "stolen plan") vector into a role for the next deliberation round,
+    /// instead of that role starting fresh from plain text each time.
+    func encodeSoftText(softVectors: [[Float]], text: String) throws -> [Float] {
+        guard let engine, let tokenizer else { throw ChatError.notLoaded }
+        let tokens = tokenizer.encode(text: text).map { UInt32($0) }
+        engine.reset()
+        return try engine.encodeSoft(softVectors: softVectors, tokens: tokens)
+    }
+
+    // MARK: - Milestone E: full Council port primitives
+
+    struct TopKText {
+        let tokenId: UInt32
+        let text: String
+        let prob: Float
+    }
+
+    /// Decoded top-K vocabulary distribution for `vector` -- the primitive
+    /// `DivergencePacket`/`DivergenceExchange`/`SoftSequence` are all built
+    /// on, since a faithful Council port needs more than the single argmax
+    /// token `puzzleInferenceText` returns.
+    func topKDistributionText(vector: [Float], layerName: String = "lm_head", k: Int = 16) throws -> [TopKText] {
+        guard let engine, let tokenizer else { throw ChatError.notLoaded }
+        let entries = try engine.topKDistribution(layerName: layerName, vector: vector, k: k)
+        return entries.map { entry in
+            TopKText(
+                tokenId: entry.tokenId,
+                text: tokenizer.decode(tokens: [Int(entry.tokenId)], skipSpecialTokens: true),
+                prob: entry.prob
+            )
+        }
+    }
+
+    /// Tokenizes `text` into raw token ids without running a forward pass --
+    /// used by `role_tokens()`-style prompt construction and by
+    /// `dist_to_soft_sequence`, which needs to tokenize candidate strings to
+    /// look up their embedding rows.
+    func tokenize(_ text: String) throws -> [UInt32] {
+        guard let tokenizer else { throw ChatError.notLoaded }
+        return tokenizer.encode(text: text).map { UInt32($0) }
+    }
+
+    /// A single token's raw input-embedding row, for soft-token sequence
+    /// construction.
+    func embeddingRow(tokenId: UInt32) throws -> [Float] {
+        guard let engine else { throw ChatError.notLoaded }
+        return try engine.embeddingRow(tokenId: tokenId)
+    }
+
+    /// Forwards `tokens` through the model with `softVectors` prepended as
+    /// virtual embedding-space tokens -- the same primitive as
+    /// `encodeSoftText`, but taking pre-tokenized ids (Council's
+    /// `role_tokens()`-built prompts) instead of re-tokenizing a text
+    /// string each round.
+    func encodeSoftTokens(softVectors: [[Float]], tokens: [UInt32]) throws -> [Float] {
+        guard let engine else { throw ChatError.notLoaded }
+        engine.reset()
+        return try engine.encodeSoft(softVectors: softVectors, tokens: tokens)
+    }
+
+    /// Forwards pre-tokenized `tokens` through the full model, returning the
+    /// final-token hidden state -- same as `encodeText`, but for callers
+    /// that already tokenized (Council's round-0 `role_tokens()` prompts).
+    func encodeTokens(_ tokens: [UInt32]) throws -> [Float] {
+        guard let engine else { throw ChatError.notLoaded }
+        engine.reset()
+        return try engine.encode(tokens: tokens)
+    }
 }

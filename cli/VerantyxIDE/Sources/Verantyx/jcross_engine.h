@@ -117,6 +117,55 @@ int32_t jcross_engine_resynthesize(
     float *out_ptr, size_t out_len
 );
 
+// "Entropy lock" -- projects input_ptr through the named layer and returns
+// both the single most-likely token (out_token) and the distribution's
+// entropy (out_entropy, lower = more confident). Use this to gate whether
+// a vector (e.g. one refined by optimize_thought_in_place) is confident
+// enough to decode into text, without needing a full generate pass.
+int32_t jcross_engine_puzzle_inference(
+    void *engine,
+    const char *layer_name,
+    const float *input_ptr, size_t input_len,
+    uint32_t *out_token, float *out_entropy
+);
+
+// "Latent gradient descent" -- iteratively refines input_ptr IN PLACE
+// (up to max_steps steps at learning rate lr) to minimize entropy at the
+// named layer, i.e. optimizes a vector directly in embedding space toward
+// a more confident "thought" rather than sampling tokens one at a time.
+// Returns the final entropy in out_entropy. input_ptr is mutated.
+int32_t jcross_engine_optimize_thought_in_place(
+    void *engine,
+    const char *layer_name,
+    float *input_ptr, size_t input_len,
+    size_t max_steps, float lr, float temperature,
+    float *out_entropy
+);
+
+// Full top-K vocabulary distribution (softmax over the named layer's
+// logits), for callers that need more than the argmax -- Council's
+// divergence-packet claims, dissent-key extraction, and soft-sequence
+// construction all operate on multiple candidates, not just the top-1
+// token. Caller allocates out_token_ids/out_probs with capacity k;
+// out_count receives how many entries were actually written (<= k).
+int32_t jcross_engine_topk_distribution(
+    void *engine,
+    const char *layer_name,
+    const float *input_ptr, size_t input_len,
+    size_t k,
+    uint32_t *out_token_ids, float *out_probs,
+    size_t *out_count
+);
+
+// A single token's raw input-embedding row (length == hidden_dim), for
+// soft-token sequence construction (dist_to_soft_sequence-style callers
+// need arbitrary candidate tokens' embedding rows, not a forward pass).
+int32_t jcross_engine_embedding_row(
+    void *engine,
+    uint32_t token_id,
+    float *out_ptr, size_t out_len
+);
+
 #ifdef __cplusplus
 }
 #endif

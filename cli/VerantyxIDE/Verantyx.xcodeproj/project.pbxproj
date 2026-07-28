@@ -7,6 +7,13 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		B2E7A7191E1745FCA3C59411 /* CouncilOrchestrator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6B43E093C864441FAECE6F42 /* CouncilOrchestrator.swift */; };
+		C6598F741AC442F2A93CB8A0 /* EternalMemoryStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4B728F0A1FE34F8BA86187D5 /* EternalMemoryStore.swift */; };
+		78E5B0C60AAA4F7BA820E645 /* DivergencePacket.swift in Sources */ = {isa = PBXBuildFile; fileRef = 308EEDBB903F4F1FAF784723 /* DivergencePacket.swift */; };
+		9B4AD7EB19294938A9F1018F /* DivergenceExchange.swift in Sources */ = {isa = PBXBuildFile; fileRef = EEB74F7518DB4CB0AC4EE070 /* DivergenceExchange.swift */; };
+		43B36D0875214282ABCA68F9 /* SoftSequence.swift in Sources */ = {isa = PBXBuildFile; fileRef = E0A41B8856F54D5988CE1B89 /* SoftSequence.swift */; };
+		9F6FE3E4560C43569BA93B51 /* CouncilPreset.swift in Sources */ = {isa = PBXBuildFile; fileRef = 05875EDFA5CB4CB8A1F85CD2 /* CouncilPreset.swift */; };
+		1BFBE895CAE1467F9EA3C08A /* VectorLabView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AF45453E82814584AEECDC2C /* VectorLabView.swift */; };
 		B6141B510C384239811D985F /* JCrossChatManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6F5CEA13580847D580F704BE /* JCrossChatManager.swift */; };
 		2BE17EA2E7E2436EB65EE247 /* JGenConverter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 86DA980AC45244118FC34A65 /* JGenConverter.swift */; };
 		8E6BC7DE963A41809F5C8B79 /* JGenSettingsSection.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A6820690E9749F989927A71 /* JGenSettingsSection.swift */; };
@@ -225,8 +232,15 @@
 		470599AF829E40DFAA604ED5 /* JCrossEngine.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = JCrossEngine.swift; sourceTree = "<group>"; };
 		86DA980AC45244118FC34A65 /* JGenConverter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = JGenConverter.swift; sourceTree = "<group>"; };
 		6F5CEA13580847D580F704BE /* JCrossChatManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = JCrossChatManager.swift; sourceTree = "<group>"; };
+		6B43E093C864441FAECE6F42 /* CouncilOrchestrator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CouncilOrchestrator.swift; sourceTree = "<group>"; };
+		4B728F0A1FE34F8BA86187D5 /* EternalMemoryStore.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EternalMemoryStore.swift; sourceTree = "<group>"; };
+		308EEDBB903F4F1FAF784723 /* DivergencePacket.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DivergencePacket.swift; sourceTree = "<group>"; };
+		EEB74F7518DB4CB0AC4EE070 /* DivergenceExchange.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DivergenceExchange.swift; sourceTree = "<group>"; };
+		E0A41B8856F54D5988CE1B89 /* SoftSequence.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SoftSequence.swift; sourceTree = "<group>"; };
+		05875EDFA5CB4CB8A1F85CD2 /* CouncilPreset.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CouncilPreset.swift; sourceTree = "<group>"; };
 		A9C32260F6774C4C93FBDA96 /* HiddenWindowMirrorView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HiddenWindowMirrorView.swift; sourceTree = "<group>"; };
 		0A6820690E9749F989927A71 /* JGenSettingsSection.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = JGenSettingsSection.swift; sourceTree = "<group>"; };
+		AF45453E82814584AEECDC2C /* VectorLabView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VectorLabView.swift; sourceTree = "<group>"; };
 		1B99ABA9CD8F1879B2BFA33E /* SimpleJCrossTranspiler.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SimpleJCrossTranspiler.swift; sourceTree = "<group>"; };
 		1D2BF39536A4169EC367F0A5 /* SkillLibrary.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SkillLibrary.swift; sourceTree = "<group>"; };
 		1F86116D25D35F156EF04465 /* KanjiTopologyRenderer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KanjiTopologyRenderer.swift; sourceTree = "<group>"; };
@@ -522,6 +536,7 @@
 				F1B6C6E77D87695E9301243A /* StereoCrossGraphView.swift */,
 				A9C32260F6774C4C93FBDA96 /* HiddenWindowMirrorView.swift */,
 				0A6820690E9749F989927A71 /* JGenSettingsSection.swift */,
+				AF45453E82814584AEECDC2C /* VectorLabView.swift */,
 				A50B5F7BDC9140D2A949A8B1 /* MemoryLayerInspectorView.swift */,
 				61F1FE98023D9A7A9A50C88E /* VeraSaveApprovalView.swift */,
 				851696E9486FDE35D2146141 /* SettingsView.swift */,
@@ -641,6 +656,12 @@
 				470599AF829E40DFAA604ED5 /* JCrossEngine.swift */,
 				86DA980AC45244118FC34A65 /* JGenConverter.swift */,
 				6F5CEA13580847D580F704BE /* JCrossChatManager.swift */,
+				6B43E093C864441FAECE6F42 /* CouncilOrchestrator.swift */,
+				4B728F0A1FE34F8BA86187D5 /* EternalMemoryStore.swift */,
+				308EEDBB903F4F1FAF784723 /* DivergencePacket.swift */,
+				EEB74F7518DB4CB0AC4EE070 /* DivergenceExchange.swift */,
+				E0A41B8856F54D5988CE1B89 /* SoftSequence.swift */,
+				05875EDFA5CB4CB8A1F85CD2 /* CouncilPreset.swift */,
 				802C57C641342AF0523401B9 /* ParanoiaEngine.swift */,
 				EDA3819E2975C008C2AB74CA /* PreflightSearchEngine.swift */,
 				331E574E58724DD018686E55 /* PrivacyGateway.swift */,
@@ -909,7 +930,14 @@
 				C14A4A31A3ED4B2ABFEED797 /* JCrossEngine.swift in Sources */,
 				2BE17EA2E7E2436EB65EE247 /* JGenConverter.swift in Sources */,
 				B6141B510C384239811D985F /* JCrossChatManager.swift in Sources */,
+				B2E7A7191E1745FCA3C59411 /* CouncilOrchestrator.swift in Sources */,
+				C6598F741AC442F2A93CB8A0 /* EternalMemoryStore.swift in Sources */,
+				78E5B0C60AAA4F7BA820E645 /* DivergencePacket.swift in Sources */,
+				9B4AD7EB19294938A9F1018F /* DivergenceExchange.swift in Sources */,
+				43B36D0875214282ABCA68F9 /* SoftSequence.swift in Sources */,
+				9F6FE3E4560C43569BA93B51 /* CouncilPreset.swift in Sources */,
 				8E6BC7DE963A41809F5C8B79 /* JGenSettingsSection.swift in Sources */,
+				1BFBE895CAE1467F9EA3C08A /* VectorLabView.swift in Sources */,
 				50B438252B974476AC9AE86B /* HiddenWindowMirrorView.swift in Sources */,
 				81CDD3782608E05A14C9A31D /* OllamaClient.swift in Sources */,
 				A305FA7B458D078C9C91C8B9 /* OllamaNEREngine.swift in Sources */,

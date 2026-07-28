@@ -188,4 +188,134 @@ final class JCrossEngine {
         }
         return out
     }
+
+    /// SVD-projects `vector` (length hiddenDim) through `layerName`'s
+    /// low-rank factors -- a lightweight transformation/comparison in the
+    /// model's own learned subspace, without a full forward pass.
+    func project(layerName: String, vector: [Float]) throws -> [Float] {
+        var vectorCopy = vector
+        var out = [Float](repeating: 0, count: hiddenDim)
+        let code: Int32 = layerName.withCString { namePtr in
+            vectorCopy.withUnsafeMutableBufferPointer { vecBuf in
+                out.withUnsafeMutableBufferPointer { outBuf in
+                    jcross_engine_project(handle, namePtr, vecBuf.baseAddress, vecBuf.count, outBuf.baseAddress, outBuf.count)
+                }
+            }
+        }
+        guard code == 0 else {
+            throw JCrossError.ffiError(function: "jcross_engine_project", code: code)
+        }
+        return out
+    }
+
+    /// "Telepathic resonance": iteratively projects `vector` toward the
+    /// token manifold via `layerName` (typically "lm_head") -- decodes an
+    /// arbitrary vector (not necessarily one that came from a real forward
+    /// pass, e.g. a blended/optimized "thought") back into the model's
+    /// concept space.
+    func resynthesize(layerName: String = "lm_head", vector: [Float], temperature: Float = 1.0) throws -> [Float] {
+        var vectorCopy = vector
+        var out = [Float](repeating: 0, count: hiddenDim)
+        let code: Int32 = layerName.withCString { namePtr in
+            vectorCopy.withUnsafeMutableBufferPointer { vecBuf in
+                out.withUnsafeMutableBufferPointer { outBuf in
+                    jcross_engine_resynthesize(handle, namePtr, vecBuf.baseAddress, vecBuf.count, temperature, outBuf.baseAddress, outBuf.count)
+                }
+            }
+        }
+        guard code == 0 else {
+            throw JCrossError.ffiError(function: "jcross_engine_resynthesize", code: code)
+        }
+        return out
+    }
+
+    struct PuzzleResult {
+        let token: UInt32
+        let entropy: Float
+    }
+
+    /// "Entropy lock": the single most-likely token `vector` decodes to via
+    /// `layerName`, plus the distribution's entropy (lower = more
+    /// confident). Use to gate whether a vector is confident enough to
+    /// turn into text before ever calling `resynthesize`/`generate`.
+    func puzzleInference(layerName: String, vector: [Float]) throws -> PuzzleResult {
+        var vectorCopy = vector
+        var outToken: UInt32 = 0
+        var outEntropy: Float = 0
+        let code: Int32 = layerName.withCString { namePtr in
+            vectorCopy.withUnsafeMutableBufferPointer { vecBuf in
+                jcross_engine_puzzle_inference(handle, namePtr, vecBuf.baseAddress, vecBuf.count, &outToken, &outEntropy)
+            }
+        }
+        guard code == 0 else {
+            throw JCrossError.ffiError(function: "jcross_engine_puzzle_inference", code: code)
+        }
+        return PuzzleResult(token: outToken, entropy: outEntropy)
+    }
+
+    /// "Latent gradient descent": refines `vector` in place, up to
+    /// `maxSteps` steps at learning rate `lr`, to minimize entropy at
+    /// `layerName` -- optimizes directly in embedding space toward a more
+    /// confident "thought" rather than sampling tokens one at a time.
+    /// Returns the refined vector and the final entropy.
+    func optimizeThoughtInPlace(layerName: String, vector: [Float], maxSteps: Int, lr: Float, temperature: Float = 1.0) throws -> (vector: [Float], entropy: Float) {
+        var vectorCopy = vector
+        var outEntropy: Float = 0
+        let code: Int32 = layerName.withCString { namePtr in
+            vectorCopy.withUnsafeMutableBufferPointer { vecBuf in
+                jcross_engine_optimize_thought_in_place(handle, namePtr, vecBuf.baseAddress, vecBuf.count, maxSteps, lr, temperature, &outEntropy)
+            }
+        }
+        guard code == 0 else {
+            throw JCrossError.ffiError(function: "jcross_engine_optimize_thought_in_place", code: code)
+        }
+        return (vectorCopy, outEntropy)
+    }
+
+    struct TopKEntry {
+        let tokenId: UInt32
+        let prob: Float
+    }
+
+    /// Full top-K vocabulary distribution (softmax over `layerName`'s
+    /// logits) -- for Council's divergence-packet claims, dissent-key
+    /// extraction, and soft-sequence construction, all of which need more
+    /// than `puzzleInference`'s single argmax token.
+    func topKDistribution(layerName: String, vector: [Float], k: Int) throws -> [TopKEntry] {
+        var vectorCopy = vector
+        var outIds = [UInt32](repeating: 0, count: k)
+        var outProbs = [Float](repeating: 0, count: k)
+        var outCount: Int = 0
+        let code: Int32 = layerName.withCString { namePtr in
+            vectorCopy.withUnsafeMutableBufferPointer { vecBuf in
+                outIds.withUnsafeMutableBufferPointer { idBuf in
+                    outProbs.withUnsafeMutableBufferPointer { probBuf in
+                        jcross_engine_topk_distribution(
+                            handle, namePtr, vecBuf.baseAddress, vecBuf.count, k,
+                            idBuf.baseAddress, probBuf.baseAddress, &outCount
+                        )
+                    }
+                }
+            }
+        }
+        guard code == 0 else {
+            throw JCrossError.ffiError(function: "jcross_engine_topk_distribution", code: code)
+        }
+        return (0..<outCount).map { TopKEntry(tokenId: outIds[$0], prob: outProbs[$0]) }
+    }
+
+    /// A single token's raw input-embedding row (length hiddenDim) -- used
+    /// by `dist_to_soft_sequence`-style soft-token construction, which
+    /// needs arbitrary candidate tokens' embedding rows rather than a
+    /// forward pass.
+    func embeddingRow(tokenId: UInt32) throws -> [Float] {
+        var out = [Float](repeating: 0, count: hiddenDim)
+        let code: Int32 = out.withUnsafeMutableBufferPointer { outBuf in
+            jcross_engine_embedding_row(handle, tokenId, outBuf.baseAddress, outBuf.count)
+        }
+        guard code == 0 else {
+            throw JCrossError.ffiError(function: "jcross_engine_embedding_row", code: code)
+        }
+        return out
+    }
 }
