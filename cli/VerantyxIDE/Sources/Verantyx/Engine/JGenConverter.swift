@@ -134,8 +134,15 @@ final class JGenConverter: ObservableObject {
         return await Task.detached(priority: .userInitiated) { () -> String in
             let process = Process()
             process.executableURL = URL(fileURLWithPath: pythonPath)
-            process.arguments = ["jgen_forge.py"] + args
-            process.currentDirectoryURL = URL(fileURLWithPath: repoPath)
+            // Pass the script's absolute path rather than relying on
+            // currentDirectoryURL: jgen_forge.py resolves its own BASE dir
+            // from __file__, not cwd, and setting currentDirectoryURL here
+            // was the actual failure point on at least one machine --
+            // Process.run() validates it before even touching the
+            // executable, and any resolution issue (permissions, sandboxing)
+            // surfaces as a misleading "The file '<dir>' doesn't exist"
+            // error blamed on the wrong path in the message.
+            process.arguments = ["\(repoPath)/jgen_forge.py"] + args
             let pipe = Pipe()
             process.standardOutput = pipe
             process.standardError = pipe

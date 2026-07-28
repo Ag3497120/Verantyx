@@ -459,18 +459,12 @@ struct SettingsView: View {
         VStack(alignment: .leading, spacing: 20) {
             sectionHeader("Model Configuration", icon: "cpu")
             modelConfigurationCard
-            
+
             sectionHeader("Inference Parameters", icon: "slider.horizontal.3")
             inferenceParametersCard
-            
-            sectionHeader("Exo Distributed Cluster", icon: "bolt.horizontal.circle.fill")
-            exoClusterCard
-            
+
             sectionHeader("System Prompt", icon: "text.bubble")
             systemPromptCard
-            
-            sectionHeader(app.t("Fine-Tuning (Dual-Track Growth)", "ファインチューニング (Dual-Track Growth)"), icon: "brain")
-            fineTuningCard
         }
     }
 
