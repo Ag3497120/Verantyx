@@ -18,9 +18,26 @@ actor JCrossChatManager {
     private var tokenizer: Tokenizer?
     private(set) var loadedModelName: String?
 
-    private let convertedModelsDir = "/Users/motonishikoudai/Projects/verantyx-cli/converted_models"
-
     private init() {}
+
+    /// `JGenConverter.convertedModels` (what Settings shows) is a union of
+    /// the Application Support location (bundled binary, the default) and
+    /// a custom verantyx-cli checkout's `converted_models/` (only if that
+    /// advanced override is on) -- so loading has to check both locations
+    /// too, in the same order, or a model converted under the override
+    /// wouldn't be found here.
+    private func resolvedJGenPath(for modelFileName: String) async -> String {
+        let appSupportPath = JGenPaths.convertedModelsDir.appendingPathComponent(modelFileName).path
+        if FileManager.default.fileExists(atPath: appSupportPath) { return appSupportPath }
+        let (useCustom, repoPath) = await MainActor.run {
+            (JGenConverter.shared.useCustomRepo, JGenConverter.shared.repoPath)
+        }
+        if useCustom, !repoPath.isEmpty {
+            let customPath = "\(repoPath)/converted_models/\(modelFileName)"
+            if FileManager.default.fileExists(atPath: customPath) { return customPath }
+        }
+        return appSupportPath
+    }
 
     enum ChatError: Error, LocalizedError {
         case notLoaded
@@ -40,11 +57,11 @@ actor JCrossChatManager {
     }
 
     /// Loads `modelFileName` (e.g. "qwen2_5_0_5b_router_full.jgen") from
-    /// verantyx-cli's converted_models/, plus the tokenizer its .meta.json
-    /// sidecar points at. Does real weight I/O -- call from a background
-    /// context, never assume it's fast.
+    /// wherever it was actually converted to (see `resolvedJGenPath`), plus
+    /// the tokenizer its .meta.json sidecar points at. Does real weight
+    /// I/O -- call from a background context, never assume it's fast.
     func load(modelFileName: String) async throws {
-        let jgenPath = "\(convertedModelsDir)/\(modelFileName)"
+        let jgenPath = await resolvedJGenPath(for: modelFileName)
         let metaPath = jgenPath + ".meta.json"
 
         guard let metaData = FileManager.default.contents(atPath: metaPath),

@@ -26,22 +26,26 @@ struct JGenSettingsSection: View {
                     .font(.system(size: 10))
                     .foregroundStyle(.secondary)
 
-                    if !converter.repoPathValid {
-                        Divider().opacity(0.2)
+                    Divider().opacity(0.2)
+                    Toggle(app.t(
+                        "Advanced: use a verantyx-cli checkout instead of the built-in converter",
+                        "上級者向け: 内蔵の変換ツールの代わりにverantyx-cliのチェックアウトを使う"
+                    ), isOn: $converter.useCustomRepo)
+                        .toggleStyle(.checkbox)
+                        .font(.system(size: 10))
+
+                    if converter.useCustomRepo && !converter.repoPathValid {
                         HStack(spacing: 8) {
                             Image(systemName: "exclamationmark.triangle.fill")
                                 .font(.system(size: 11))
                                 .foregroundStyle(Color(red: 1.0, green: 0.7, blue: 0.3))
                             VStack(alignment: .leading, spacing: 2) {
                                 Text(app.t(
-                                    "verantyx-cli not found -- conversion (and LM Studio/HF-cache discovery) needs it.",
-                                    "verantyx-cliが見つかりません — 変換(およびLM Studio/HFキャッシュの検出)にはこれが必要です。"
+                                    "No verantyx-cli checkout selected yet.",
+                                    "verantyx-cliのチェックアウトがまだ選択されていません。"
                                 ))
                                 .font(.system(size: 10))
                                 .foregroundStyle(Color(red: 1.0, green: 0.7, blue: 0.3))
-                                Text(converter.repoPath)
-                                    .font(.system(size: 9, design: .monospaced))
-                                    .foregroundStyle(Color(red: 0.55, green: 0.55, blue: 0.6))
                             }
                             Spacer()
                             Button {
@@ -52,6 +56,10 @@ struct JGenSettingsSection: View {
                             .buttonStyle(.bordered)
                             .controlSize(.small)
                         }
+                    } else if converter.useCustomRepo {
+                        Text(converter.repoPath)
+                            .font(.system(size: 9, design: .monospaced))
+                            .foregroundStyle(Color(red: 0.55, green: 0.55, blue: 0.6))
                     }
 
                     Divider().opacity(0.2)

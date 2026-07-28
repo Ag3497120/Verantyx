@@ -1,20 +1,46 @@
 import Foundation
 import AppKit
 
-/// Wraps verantyx-cli's `jgen_forge.py` (a working Python CLI, not something
+/// Shared path logic for JGEN's bundled-binary storage location, used by
+/// both `JGenConverter` (writes converted models here) and
+/// `JCrossChatManager` (loads them from here) -- a single source of truth
+/// so the two can't drift out of sync on where `.jgen` files actually live.
+enum JGenPaths {
+    /// Persistent storage for the bundled `jgen_forge` binary's own
+    /// dropzone/converted models -- the correct location for a bundled
+    /// tool's own data (not inside a dev repo). Created lazily on first use.
+    static var appSupportBaseDir: URL {
+        let base = (try? FileManager.default.url(for: .applicationSupportDirectory, in: .userDomainMask, appropriateFor: nil, create: true))
+            ?? FileManager.default.homeDirectoryForCurrentUser.appendingPathComponent("Library/Application Support")
+        return base.appendingPathComponent("Verantyx/jgen", isDirectory: true)
+    }
+
+    static var convertedModelsDir: URL {
+        appSupportBaseDir.appendingPathComponent("converted_models")
+    }
+}
+
+/// Wraps `jgen_forge.py` (verantyx-cli's model-conversion CLI, not something
 /// this session wrote) to give Verantyx an "Ollama pull"-simple way to get a
 /// .jgen model ready for JCrossEngine: point at a model already sitting in
 /// Ollama/LM Studio/the HF cache by name, or drop a model folder/.gguf into
-/// the dropzone, and conversion runs with no manual arguments. Matches
-/// jgen_forge.py's own stated goal: "store the model and it's immediately
-/// usable" (see its module docstring).
+/// the dropzone, and conversion runs with no manual arguments.
 ///
-/// This shells out to a subprocess rather than going through the
-/// JCrossEngine FFI bridge -- conversion is an offline, one-time,
-/// CPU/IO-bound step (not the hot inference path), so subprocess latency
-/// doesn't matter, and reusing jgen_forge.py's already-working conversion
-/// logic (HF safetensors + GGUF quant parsing, MoE tensor splitting,
-/// streaming for huge models) is far more reliable than reimplementing it.
+/// Milestone F: `jgen_forge.py` is frozen into a self-contained executable
+/// (PyInstaller, `--onefile`, numpy statically included, no external Python
+/// needed) and embedded straight into the app bundle at `Contents/MacOS/
+/// jgen_forge` (`Vendor/jgen_forge`, committed to this repo, copied in by
+/// the "Embed jgen_forge into App Bundle" build phase -- same
+/// committed-binary pattern as `libjcross_engine_glm.dylib`, so it's present
+/// in CI-built releases too, unlike a Run Script that reaches into a sibling
+/// checkout). This is the default, zero-setup path on any Mac. An earlier
+/// approach shelled out to a python3.11 interpreter + a hardcoded sibling
+/// verantyx-cli checkout path -- that only worked on the one machine it was
+/// developed on. The old path/interpreter combo is kept as an opt-in
+/// "advanced" override (`useCustomRepo`) for anyone who wants a dev checkout
+/// instead (bleeding-edge jgen_forge.py, or the torch-dependent legacy
+/// `.bin` checkpoint path the bundled binary excludes to stay a reasonable
+/// size).
 @MainActor
 final class JGenConverter: ObservableObject {
     static let shared = JGenConverter()
@@ -39,34 +65,49 @@ final class JGenConverter: ObservableObject {
     @Published private(set) var discoveredSources: [DiscoveredSource] = []
     @Published private(set) var isDiscovering = false
 
-    /// Where verantyx-cli lives. This is only a *default guess* (matches
-    /// where this repo happened to be cloned during development) -- it is
-    /// NOT guaranteed to exist on every Mac the built app runs on, since
-    /// verantyx-cli is a separate sibling project, not bundled into the
-    /// app. User-overridable via `pickRepoFolder()`; persisted so a wrong
-    /// guess only needs correcting once.
-    @Published private(set) var repoPath: String = {
-        UserDefaults.standard.string(forKey: "jgen_repo_path")
-            ?? "/Users/motonishikoudai/Projects/verantyx-cli"
-    }()
+    /// Opt-in advanced override: use a real verantyx-cli checkout (via
+    /// system python3.11) instead of the bundled binary. Off by default --
+    /// the bundled binary needs no setup and covers Ollama/HF-safetensors
+    /// conversion, which is what almost everyone needs.
+    @Published var useCustomRepo: Bool = UserDefaults.standard.bool(forKey: "jgen_use_custom_repo") {
+        didSet {
+            UserDefaults.standard.set(useCustomRepo, forKey: "jgen_use_custom_repo")
+            refreshConvertedModelsList()
+            Task { await refreshDiscoveredSources() }
+        }
+    }
+
+    /// Only meaningful when `useCustomRepo` is on -- where that checkout
+    /// lives. Persisted so a correct pick only needs to happen once.
+    @Published private(set) var repoPath: String =
+        UserDefaults.standard.string(forKey: "jgen_repo_path") ?? ""
     private let pythonPath = "/opt/homebrew/bin/python3.11"
 
     /// True only if `repoPath` actually points at a checkout containing
-    /// jgen_forge.py -- gates whether conversion subprocess calls are even
-    /// attempted, so a wrong/missing path fails with a clear message
+    /// jgen_forge.py -- gates whether the custom-repo subprocess path is
+    /// even attempted, so a wrong/missing path fails with a clear message
     /// instead of a confusing Python traceback.
     var repoPathValid: Bool {
-        FileManager.default.fileExists(atPath: "\(repoPath)/jgen_forge.py")
+        !repoPath.isEmpty && FileManager.default.fileExists(atPath: "\(repoPath)/jgen_forge.py")
     }
+
+    /// The bundled `jgen_forge` binary, embedded alongside the app's own
+    /// executable (see the "Embed jgen_forge into App Bundle" build phase).
+    private var bundledBinaryURL: URL? {
+        guard let exe = Bundle.main.executableURL else { return nil }
+        let url = exe.deletingLastPathComponent().appendingPathComponent("jgen_forge")
+        return FileManager.default.fileExists(atPath: url.path) ? url : nil
+    }
+
+    private var appSupportBaseDir: URL { JGenPaths.appSupportBaseDir }
 
     private init() {
         refreshConvertedModelsList()
     }
 
-    /// Lets the user point at wherever they actually keep verantyx-cli,
-    /// via a folder picker -- the fallback for when the hardcoded default
-    /// guess doesn't exist on this Mac. Validates jgen_forge.py is inside
-    /// before accepting the pick.
+    /// Lets the user point at a verantyx-cli checkout for the advanced
+    /// override, via a folder picker. Validates jgen_forge.py is inside
+    /// before accepting the pick, and turns `useCustomRepo` on.
     @MainActor
     func pickRepoFolder() {
         let panel = NSOpenPanel()
@@ -82,16 +123,17 @@ final class JGenConverter: ObservableObject {
         }
         repoPath = url.path
         UserDefaults.standard.set(url.path, forKey: "jgen_repo_path")
-        refreshConvertedModelsList()
-        Task { await refreshDiscoveredSources() }
+        useCustomRepo = true
     }
 
     var dropzoneURL: URL {
-        URL(fileURLWithPath: repoPath).appendingPathComponent("models_dropzone")
+        let base = (useCustomRepo && repoPathValid) ? URL(fileURLWithPath: repoPath) : appSupportBaseDir
+        return base.appendingPathComponent("models_dropzone")
     }
 
     private var convertedModelsDir: URL {
-        URL(fileURLWithPath: repoPath).appendingPathComponent("converted_models")
+        let base = (useCustomRepo && repoPathValid) ? URL(fileURLWithPath: repoPath) : appSupportBaseDir
+        return base.appendingPathComponent("converted_models")
     }
 
     /// Reveals the dropzone folder in Finder so the user can literally drag
@@ -120,30 +162,29 @@ final class JGenConverter: ObservableObject {
     }
 
     /// Runs `jgen_forge.py sources --json` (LM Studio/HF cache -- these
-    /// have no HTTP API, so a working verantyx-cli checkout is required to
-    /// discover them) and separately queries Ollama directly over HTTP
+    /// have no HTTP API, so this needs a working jgen_forge, bundled or
+    /// custom) and separately queries Ollama directly over HTTP
     /// (`OllamaClient.listModelsDetailed()`, no filesystem dependency at
-    /// all). Merges both, preferring the python-sourced entry on a name
+    /// all). Merges both, preferring the jgen_forge-sourced entry on a name
     /// collision since it carries the real `converted` flag. This way
-    /// Ollama models are always discoverable even when `repoPath` is wrong
-    /// or verantyx-cli isn't checked out on this Mac at all -- only
-    /// LM Studio/HF-cache discovery and actual conversion need it.
+    /// Ollama models are always discoverable even in the (now rare) case
+    /// jgen_forge itself can't run.
     func refreshDiscoveredSources() async {
         isDiscovering = true
         defer { isDiscovering = false }
 
-        var pythonSources: [DiscoveredSource] = []
-        if repoPathValid {
+        var forgeSources: [DiscoveredSource] = []
+        if canRunForge {
             let raw = await runRaw(args: ["sources", "--json"])
             if let data = raw.data(using: .utf8),
                let sources = try? JSONDecoder().decode([DiscoveredSource].self, from: data) {
-                pythonSources = sources
+                forgeSources = sources
             }
         }
 
         let convertedNames = Set(convertedModels)
         let ollamaModels = await OllamaClient.shared.listModelsDetailed()
-        let knownNames = Set(pythonSources.map(\.name))
+        let knownNames = Set(forgeSources.map(\.name))
         let ollamaOnly = ollamaModels
             .filter { !knownNames.contains($0.name) }
             .map { model in
@@ -156,7 +197,7 @@ final class JGenConverter: ObservableObject {
                 )
             }
 
-        discoveredSources = (pythonSources + ollamaOnly).sorted { $0.size_bytes > $1.size_bytes }
+        discoveredSources = (forgeSources + ollamaOnly).sorted { $0.size_bytes > $1.size_bytes }
     }
 
     private static func sanitized(_ name: String) -> String {
@@ -174,51 +215,77 @@ final class JGenConverter: ObservableObject {
 
     /// Re-reads converted_models/*.jgen directly from disk rather than
     /// parsing `jgen_forge.py list`'s text output -- simpler and doesn't
-    /// depend on that command's formatting staying stable.
+    /// depend on that command's formatting staying stable. Unions the
+    /// bundled-binary storage location with the custom-repo one (if that
+    /// override is on and valid) so nothing already converted under either
+    /// location silently disappears from the list.
     func refreshConvertedModelsList() {
-        guard let entries = try? FileManager.default.contentsOfDirectory(atPath: convertedModelsDir.path) else {
-            convertedModels = []
-            return
+        var names = Set<String>()
+        if let entries = try? FileManager.default.contentsOfDirectory(atPath: appSupportBaseDir.appendingPathComponent("converted_models").path) {
+            names.formUnion(entries.filter { $0.hasSuffix(".jgen") })
         }
-        convertedModels = entries.filter { $0.hasSuffix(".jgen") }.sorted()
+        if useCustomRepo && repoPathValid,
+           let entries = try? FileManager.default.contentsOfDirectory(atPath: "\(repoPath)/converted_models") {
+            names.formUnion(entries.filter { $0.hasSuffix(".jgen") })
+        }
+        convertedModels = names.sorted()
+    }
+
+    /// True if either the bundled binary or a valid custom-repo override is
+    /// available to actually run jgen_forge commands against.
+    private var canRunForge: Bool {
+        (useCustomRepo && repoPathValid) || bundledBinaryURL != nil
     }
 
     private func run(args: [String]) async {
         isRunning = true
         defer { isRunning = false }
-        guard repoPathValid else {
-            log += (log.isEmpty ? "" : "\n---\n") +
-                "✗ verantyx-cli not found at \(repoPath) -- conversion needs jgen_forge.py. Use \"Locate verantyx-cli...\" to point at where it's actually checked out on this Mac."
+        guard canRunForge else {
+            let message = useCustomRepo
+                ? "✗ verantyx-cli not found at \(repoPath) -- use \"Locate verantyx-cli...\" to point at where it's actually checked out on this Mac, or turn off the custom-repo override to use the bundled binary."
+                : "✗ jgen_forge isn't embedded in this build -- rebuild the app, or enable the custom-repo override in Settings and point it at a verantyx-cli checkout."
+            log += (log.isEmpty ? "" : "\n---\n") + message
             return
         }
         let output = await runRaw(args: args)
         log += (log.isEmpty ? "" : "\n---\n") + output
     }
 
-    /// Runs jgen_forge.py and returns raw stdout+stderr, without touching
+    /// Runs jgen_forge and returns raw stdout+stderr, without touching
     /// `log` -- used both by `run` (human-facing log) and by JSON-output
     /// commands like `sources --json` (machine-facing, would just be noise
-    /// in the log).
+    /// in the log). Prefers the bundled self-contained binary; falls back
+    /// to python3.11 + a custom repo checkout only when that override is
+    /// explicitly enabled.
     private func runRaw(args: [String]) async -> String {
+        let useCustom = useCustomRepo && repoPathValid
         let repoPath = self.repoPath
         let pythonPath = self.pythonPath
+        let bundled = bundledBinaryURL
+        let baseDir = appSupportBaseDir
         return await Task.detached(priority: .userInitiated) { () -> String in
             let process = Process()
-            process.executableURL = URL(fileURLWithPath: pythonPath)
-            // Pass the script's absolute path rather than relying on
-            // currentDirectoryURL: jgen_forge.py resolves its own BASE dir
-            // from __file__, not cwd, and setting currentDirectoryURL here
-            // was the actual failure point on at least one machine --
-            // Process.run() validates it before even touching the
-            // executable, and any resolution issue (permissions, sandboxing)
-            // surfaces as a misleading "The file '<dir>' doesn't exist"
-            // error blamed on the wrong path in the message.
-            process.arguments = ["\(repoPath)/jgen_forge.py"] + args
+            if useCustom {
+                // Custom-repo mode: BASE resolves from jgen_forge.py's own
+                // __file__ (= repoPath), no JGEN_BASE_DIR needed -- matches
+                // this mode's own checkout's dropzone/converted_models.
+                process.executableURL = URL(fileURLWithPath: pythonPath)
+                process.arguments = ["\(repoPath)/jgen_forge.py"] + args
+            } else if let bundled {
+                try? FileManager.default.createDirectory(at: baseDir, withIntermediateDirectories: true)
+                process.executableURL = bundled
+                process.arguments = args
+                process.environment = (ProcessInfo.processInfo.environment).merging(
+                    ["JGEN_BASE_DIR": baseDir.path], uniquingKeysWith: { _, new in new }
+                )
+            } else {
+                return "✗ No jgen_forge available (neither bundled binary nor a valid custom-repo override)."
+            }
             let pipe = Pipe()
             process.standardOutput = pipe
             process.standardError = pipe
             do { try process.run() } catch {
-                return "✗ Could not launch \(pythonPath): \(error.localizedDescription)"
+                return "✗ Could not launch jgen_forge: \(error.localizedDescription)"
             }
             let data = pipe.fileHandleForReading.readDataToEndOfFile()
             process.waitUntilExit()

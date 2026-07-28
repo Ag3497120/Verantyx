@@ -713,6 +713,7 @@
 				869C54BD37DFFE38A56624BF /* Resources */,
 				F3AA225F597254C51D1CC89B /* Frameworks */,
 				3C96DA999F96C1224503C197 /* Embed verantyx-browser into App Bundle */,
+				796605CDFB0D47B099D87B15 /* Embed jgen_forge into App Bundle */,
 				3B325E36B62448DF87973C00 /* Embed Libraries */,
 			);
 			buildRules = (
@@ -805,6 +806,25 @@
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
 			shellScript = "set -e\nexport PATH=\"$PATH:$HOME/.cargo/bin\"\n\nBUNDLE_MACOS=\"$BUILT_PRODUCTS_DIR/$PRODUCT_NAME.app/Contents/MacOS\"\nDEST=\"$BUNDLE_MACOS/verantyx-browser\"\n\n# バイナリのソースを探す（優先順）\nBROWSER_DIR=\"$SRCROOT/../verantyx-browser\"\nif [ ! -d \"$BROWSER_DIR\" ]; then\n  echo \"warning: verantyx-browser ディレクトリが見つかりません: $BROWSER_DIR\"\nfi\n\nSRC=\"\"\n# ① Resources/ に既にコピー済みのバイナリ\nif [ -f \"$SRCROOT/Resources/verantyx-browser\" ]; then\n  SRC=\"$SRCROOT/Resources/verantyx-browser\"\n# ② Cargo release\nelif [ -f \"$BROWSER_DIR/target/release/verantyx-browser\" ]; then\n  SRC=\"$BROWSER_DIR/target/release/verantyx-browser\"\n# ③ Cargo debug\nelif [ -f \"$BROWSER_DIR/target/debug/verantyx-browser\" ]; then\n  SRC=\"$BROWSER_DIR/target/debug/verantyx-browser\"\nfi\n\nif [ -z \"$SRC\" ]; then\n  echo \"⚠️  verantyx-browser バイナリが見つかりません。cargo build を先に実行してください。\"\n  echo \"   cd $BROWSER_DIR && cargo build --release -p vx-browser\"\n  exit 0\nfi\n\n# Contents/MacOS/ にコピーして実行権限を付与\nmkdir -p \"$BUNDLE_MACOS\"\ncp -f \"$SRC\" \"$DEST\"\nchmod +x \"$DEST\"\necho \"✅ verantyx-browser → $DEST\"\n";
+		};
+		796605CDFB0D47B099D87B15 /* Embed jgen_forge into App Bundle */ = {
+			isa = PBXShellScriptBuildPhase;
+			alwaysOutOfDate = 1;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+			);
+			name = "Embed jgen_forge into App Bundle";
+			outputFileListPaths = (
+			);
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "set -e\nBUNDLE_MACOS=\"$BUILT_PRODUCTS_DIR/$PRODUCT_NAME.app/Contents/MacOS\"\nSRC=\"$SRCROOT/Vendor/jgen_forge\"\nDEST=\"$BUNDLE_MACOS/jgen_forge\"\n\nif [ ! -f \"$SRC\" ]; then\n  echo \"warning: $SRC not found -- JGEN conversion will be unavailable in this build.\"\n  exit 0\nfi\n\nmkdir -p \"$BUNDLE_MACOS\"\ncp -f \"$SRC\" \"$DEST\"\nchmod +x \"$DEST\"\ncodesign --force -s - \"$DEST\" 2>/dev/null || true\necho \"jgen_forge -> $DEST\"\n";
 		};
 /* End PBXShellScriptBuildPhase section */
 
