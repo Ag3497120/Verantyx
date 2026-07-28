@@ -39,13 +39,51 @@ final class JGenConverter: ObservableObject {
     @Published private(set) var discoveredSources: [DiscoveredSource] = []
     @Published private(set) var isDiscovering = false
 
-    /// Where verantyx-cli lives -- same repo/path pattern already
-    /// established for the vera-memory MCP server setup this session.
-    private let repoPath = "/Users/motonishikoudai/Projects/verantyx-cli"
+    /// Where verantyx-cli lives. This is only a *default guess* (matches
+    /// where this repo happened to be cloned during development) -- it is
+    /// NOT guaranteed to exist on every Mac the built app runs on, since
+    /// verantyx-cli is a separate sibling project, not bundled into the
+    /// app. User-overridable via `pickRepoFolder()`; persisted so a wrong
+    /// guess only needs correcting once.
+    @Published private(set) var repoPath: String = {
+        UserDefaults.standard.string(forKey: "jgen_repo_path")
+            ?? "/Users/motonishikoudai/Projects/verantyx-cli"
+    }()
     private let pythonPath = "/opt/homebrew/bin/python3.11"
+
+    /// True only if `repoPath` actually points at a checkout containing
+    /// jgen_forge.py -- gates whether conversion subprocess calls are even
+    /// attempted, so a wrong/missing path fails with a clear message
+    /// instead of a confusing Python traceback.
+    var repoPathValid: Bool {
+        FileManager.default.fileExists(atPath: "\(repoPath)/jgen_forge.py")
+    }
 
     private init() {
         refreshConvertedModelsList()
+    }
+
+    /// Lets the user point at wherever they actually keep verantyx-cli,
+    /// via a folder picker -- the fallback for when the hardcoded default
+    /// guess doesn't exist on this Mac. Validates jgen_forge.py is inside
+    /// before accepting the pick.
+    @MainActor
+    func pickRepoFolder() {
+        let panel = NSOpenPanel()
+        panel.canChooseFiles = false
+        panel.canChooseDirectories = true
+        panel.allowsMultipleSelection = false
+        panel.prompt = "Select"
+        panel.message = "Select the verantyx-cli folder (containing jgen_forge.py)"
+        guard panel.runModal() == .OK, let url = panel.url else { return }
+        guard FileManager.default.fileExists(atPath: url.appendingPathComponent("jgen_forge.py").path) else {
+            log += (log.isEmpty ? "" : "\n---\n") + "✗ \(url.path) doesn't contain jgen_forge.py -- not a verantyx-cli checkout."
+            return
+        }
+        repoPath = url.path
+        UserDefaults.standard.set(url.path, forKey: "jgen_repo_path")
+        refreshConvertedModelsList()
+        Task { await refreshDiscoveredSources() }
     }
 
     var dropzoneURL: URL {
@@ -81,20 +119,48 @@ final class JGenConverter: ObservableObject {
         await pull(source.name)
     }
 
-    /// Runs `jgen_forge.py sources --json` and parses the result --
-    /// real structured discovery, not a hand-typed model name. Populates
-    /// `discoveredSources`, sorted by size descending (matching
-    /// jgen_forge.py's own sources listing order).
+    /// Runs `jgen_forge.py sources --json` (LM Studio/HF cache -- these
+    /// have no HTTP API, so a working verantyx-cli checkout is required to
+    /// discover them) and separately queries Ollama directly over HTTP
+    /// (`OllamaClient.listModelsDetailed()`, no filesystem dependency at
+    /// all). Merges both, preferring the python-sourced entry on a name
+    /// collision since it carries the real `converted` flag. This way
+    /// Ollama models are always discoverable even when `repoPath` is wrong
+    /// or verantyx-cli isn't checked out on this Mac at all -- only
+    /// LM Studio/HF-cache discovery and actual conversion need it.
     func refreshDiscoveredSources() async {
         isDiscovering = true
         defer { isDiscovering = false }
-        let raw = await runRaw(args: ["sources", "--json"])
-        guard let data = raw.data(using: .utf8),
-              let sources = try? JSONDecoder().decode([DiscoveredSource].self, from: data) else {
-            discoveredSources = []
-            return
+
+        var pythonSources: [DiscoveredSource] = []
+        if repoPathValid {
+            let raw = await runRaw(args: ["sources", "--json"])
+            if let data = raw.data(using: .utf8),
+               let sources = try? JSONDecoder().decode([DiscoveredSource].self, from: data) {
+                pythonSources = sources
+            }
         }
-        discoveredSources = sources.sorted { $0.size_bytes > $1.size_bytes }
+
+        let convertedNames = Set(convertedModels)
+        let ollamaModels = await OllamaClient.shared.listModelsDetailed()
+        let knownNames = Set(pythonSources.map(\.name))
+        let ollamaOnly = ollamaModels
+            .filter { !knownNames.contains($0.name) }
+            .map { model in
+                DiscoveredSource(
+                    name: model.name,
+                    path: "",
+                    source: "ollama",
+                    size_bytes: model.sizeBytes,
+                    converted: convertedNames.contains { $0.contains(Self.sanitized(model.name)) }
+                )
+            }
+
+        discoveredSources = (pythonSources + ollamaOnly).sorted { $0.size_bytes > $1.size_bytes }
+    }
+
+    private static func sanitized(_ name: String) -> String {
+        name.replacingOccurrences(of: ":", with: "_").replacingOccurrences(of: "/", with: "_")
     }
 
     /// Converts anything new sitting in models_dropzone/ that hasn't been
@@ -120,6 +186,11 @@ final class JGenConverter: ObservableObject {
     private func run(args: [String]) async {
         isRunning = true
         defer { isRunning = false }
+        guard repoPathValid else {
+            log += (log.isEmpty ? "" : "\n---\n") +
+                "✗ verantyx-cli not found at \(repoPath) -- conversion needs jgen_forge.py. Use \"Locate verantyx-cli...\" to point at where it's actually checked out on this Mac."
+            return
+        }
         let output = await runRaw(args: args)
         log += (log.isEmpty ? "" : "\n---\n") + output
     }

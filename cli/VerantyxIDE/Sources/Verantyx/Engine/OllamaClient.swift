@@ -171,6 +171,27 @@ public actor OllamaClient {
         } catch { return [] }
     }
 
+    /// Same `/api/tags` call as `listModels()`, but also surfaces each
+    /// model's on-disk size -- used for JGEN's "Detected Models" list,
+    /// which needs to show size alongside the name. Talks straight to
+    /// Ollama's HTTP API, so unlike jgen_forge.py's subprocess-based
+    /// discovery it has no dependency on the verantyx-cli repo existing
+    /// anywhere on disk.
+    public func listModelsDetailed() async -> [(name: String, sizeBytes: Int64)] {
+        let baseURL = await getBaseURL()
+        guard let url = URL(string: "\(baseURL)/api/tags") else { return [] }
+        do {
+            let (data, _) = try await URLSession.shared.data(from: url)
+            guard let json = try? JSONSerialization.jsonObject(with: data) as? [String: Any],
+                  let models = json["models"] as? [[String: Any]] else { return [] }
+            return models.compactMap { entry in
+                guard let name = entry["name"] as? String else { return nil }
+                let size = (entry["size"] as? NSNumber)?.int64Value ?? 0
+                return (name, size)
+            }
+        } catch { return [] }
+    }
+
     // MARK: - Pull Model (Method 3: HuggingFace via Ollama API)
     // URLSession を用いて進捗をストリーミングで取得する
 

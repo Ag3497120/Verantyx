@@ -26,6 +26,34 @@ struct JGenSettingsSection: View {
                     .font(.system(size: 10))
                     .foregroundStyle(.secondary)
 
+                    if !converter.repoPathValid {
+                        Divider().opacity(0.2)
+                        HStack(spacing: 8) {
+                            Image(systemName: "exclamationmark.triangle.fill")
+                                .font(.system(size: 11))
+                                .foregroundStyle(Color(red: 1.0, green: 0.7, blue: 0.3))
+                            VStack(alignment: .leading, spacing: 2) {
+                                Text(app.t(
+                                    "verantyx-cli not found -- conversion (and LM Studio/HF-cache discovery) needs it.",
+                                    "verantyx-cliが見つかりません — 変換(およびLM Studio/HFキャッシュの検出)にはこれが必要です。"
+                                ))
+                                .font(.system(size: 10))
+                                .foregroundStyle(Color(red: 1.0, green: 0.7, blue: 0.3))
+                                Text(converter.repoPath)
+                                    .font(.system(size: 9, design: .monospaced))
+                                    .foregroundStyle(Color(red: 0.55, green: 0.55, blue: 0.6))
+                            }
+                            Spacer()
+                            Button {
+                                converter.pickRepoFolder()
+                            } label: {
+                                Text(app.t("Locate…", "場所を指定…"))
+                            }
+                            .buttonStyle(.bordered)
+                            .controlSize(.small)
+                        }
+                    }
+
                     Divider().opacity(0.2)
                 }
             }
