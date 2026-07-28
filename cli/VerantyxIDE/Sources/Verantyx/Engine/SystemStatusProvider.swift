@@ -70,7 +70,7 @@ final class SystemStatusProvider {
                 lines.append(AppLanguage.shared.t("• Model: Connecting", "• モデル: 接続中"))
             case .mlxDownloading(let m):
                 lines.append(AppLanguage.shared.t("• Model: MLX Downloading (\(m))", "• モデル: MLX ダウンロード中 (\(m))"))
-            case .none, .ready, .ollamaReady, .mlxReady, .bitnetReady, .anthropicReady, .error:
+            case .none, .ready, .ollamaReady, .mlxReady, .bitnetReady, .jcrossReady, .anthropicReady, .error:
                 break  // 準備完了・エラーは通常状態として注入しない
             }
         }

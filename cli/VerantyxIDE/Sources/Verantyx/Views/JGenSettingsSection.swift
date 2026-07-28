@@ -9,7 +9,9 @@ import SwiftUI
 struct JGenSettingsSection: View {
     @EnvironmentObject var app: AppState
     @ObservedObject private var converter = JGenConverter.shared
-    @State private var pullName: String = ""
+    @State private var isLoading: String?
+    @State private var loadedModel: String?
+    @State private var loadError: String?
 
     var body: some View {
         VStack(alignment: .leading, spacing: 20) {
@@ -18,39 +20,83 @@ struct JGenSettingsSection: View {
             card {
                 VStack(alignment: .leading, spacing: 10) {
                     Text(app.t(
-                        "Convert a model to .jgen for JCrossEngine (hidden-state read/inject). No manual arguments -- point at a name or drop a model in.",
-                        "JCrossEngine(隠れ状態の読み取り/介入)用に、モデルを.jgenへ変換します。手動の引数は不要 — 名前を指定するか、モデルを置くだけです。"
+                        "Convert a model to .jgen for JCrossEngine (hidden-state read/inject). Models already in Ollama/LM Studio/the HF cache are detected automatically below -- just click Convert, no typing needed.",
+                        "JCrossEngine(隠れ状態の読み取り/介入)用に、モデルを.jgenへ変換します。Ollama・LM Studio・HFキャッシュにあるモデルは下に自動検出されるので、入力不要でConvertを押すだけです。"
                     ))
                     .font(.system(size: 10))
                     .foregroundStyle(.secondary)
 
                     Divider().opacity(0.2)
+                }
+            }
 
-                    // ── Pull by name (Ollama/LM Studio/HF cache) ──
-                    Text(app.t("Pull by name (like `ollama pull`)", "名前で取得（`ollama pull`と同様）"))
-                        .font(.system(size: 11, weight: .semibold))
-                        .foregroundStyle(.white)
-                    HStack(spacing: 8) {
-                        TextField(app.t("e.g. qwen2.5:0.5b", "例: qwen2.5:0.5b"), text: $pullName)
-                            .textFieldStyle(.roundedBorder)
-                        Button {
-                            let name = pullName
-                            Task { await converter.pull(name) }
-                        } label: {
-                            Text(app.t("Pull & Convert", "取得して変換"))
-                        }
-                        .buttonStyle(.borderedProminent)
-                        .tint(Color(red: 1.0, green: 0.6, blue: 0.3))
-                        .disabled(converter.isRunning || pullName.trimmingCharacters(in: .whitespaces).isEmpty)
-                    }
+            // ── Auto-discovered models (Ollama/LM Studio/HF cache) ──
+            // No typing needed: this lists what jgen_forge.py's own
+            // `sources --json` already finds on disk, and Convert calls
+            // `pull` with the exact discovered name (never an ambiguous
+            // hand-typed substring).
+            HStack(spacing: 6) {
+                sectionHeader(app.t("Detected Models", "検出済みモデル"), icon: "magnifyingglass")
+                if converter.isDiscovering {
+                    ProgressView().controlSize(.mini)
+                }
+                Spacer()
+                Button {
+                    Task { await converter.refreshDiscoveredSources() }
+                } label: {
+                    Image(systemName: "arrow.clockwise").font(.system(size: 10))
+                }
+                .buttonStyle(.plain)
+                .foregroundStyle(Color(red: 0.6, green: 0.6, blue: 0.7))
+            }
+            card {
+                if converter.discoveredSources.isEmpty {
                     Text(app.t(
-                        "Finds a model already in Ollama, LM Studio, or the HF cache by name and converts it -- nothing new to download.",
-                        "Ollama・LM Studio・HFキャッシュに既にあるモデルを名前で探して変換します。新規ダウンロードは不要です。"
+                        "No models found yet in Ollama / LM Studio / the HF cache.",
+                        "Ollama・LM Studio・HFキャッシュにまだモデルが見つかっていません。"
                     ))
-                    .font(.system(size: 9))
-                    .foregroundStyle(Color(red: 0.55, green: 0.55, blue: 0.6))
+                    .font(.system(size: 10))
+                    .foregroundStyle(.secondary)
+                } else {
+                    VStack(alignment: .leading, spacing: 8) {
+                        ForEach(converter.discoveredSources) { src in
+                            HStack(spacing: 8) {
+                                Image(systemName: sourceIcon(src.source))
+                                    .font(.system(size: 10))
+                                    .foregroundStyle(Color(red: 0.6, green: 0.6, blue: 0.7))
+                                    .frame(width: 14)
+                                VStack(alignment: .leading, spacing: 1) {
+                                    Text(src.name)
+                                        .font(.system(size: 11, design: .monospaced))
+                                        .foregroundStyle(Color(red: 0.9, green: 0.9, blue: 0.95))
+                                    Text("\(src.source) · \(String(format: "%.2f", src.sizeGB))GB")
+                                        .font(.system(size: 9))
+                                        .foregroundStyle(Color(red: 0.55, green: 0.55, blue: 0.6))
+                                }
+                                Spacer()
+                                if src.converted {
+                                    Label(app.t("Converted", "変換済み"), systemImage: "checkmark.circle.fill")
+                                        .font(.system(size: 9, weight: .semibold))
+                                        .foregroundStyle(Color(red: 0.4, green: 0.9, blue: 0.5))
+                                } else {
+                                    Button {
+                                        Task { await converter.convert(src) }
+                                    } label: {
+                                        Text(app.t("Convert", "変換"))
+                                    }
+                                    .buttonStyle(.borderedProminent)
+                                    .tint(Color(red: 1.0, green: 0.6, blue: 0.3))
+                                    .controlSize(.small)
+                                    .disabled(converter.isRunning)
+                                }
+                            }
+                        }
+                    }
+                }
+            }
 
-                    Divider().opacity(0.2)
+            card {
+                VStack(alignment: .leading, spacing: 10) {
 
                     // ── Drop into dropzone ──
                     Text(app.t("Or just drop a model in", "またはモデルを置くだけ"))
@@ -93,16 +139,39 @@ struct JGenSettingsSection: View {
             if !converter.convertedModels.isEmpty {
                 sectionHeader(app.t("Converted Models", "変換済みモデル"), icon: "checkmark.seal")
                 card {
-                    VStack(alignment: .leading, spacing: 6) {
+                    VStack(alignment: .leading, spacing: 8) {
                         ForEach(converter.convertedModels, id: \.self) { name in
                             HStack(spacing: 6) {
                                 Circle().fill(Color(red: 0.4, green: 0.9, blue: 0.5)).frame(width: 6, height: 6)
                                 Text(name)
                                     .font(.system(size: 11, design: .monospaced))
                                     .foregroundStyle(Color(red: 0.85, green: 0.85, blue: 0.9))
+                                    .lineLimit(1)
+                                    .truncationMode(.middle)
+                                Spacer()
+                                if loadedModel == name {
+                                    Label(app.t("Active", "使用中"), systemImage: "bolt.fill")
+                                        .font(.system(size: 9, weight: .semibold))
+                                        .foregroundStyle(Color(red: 1.0, green: 0.6, blue: 0.3))
+                                } else if isLoading == name {
+                                    ProgressView().controlSize(.mini)
+                                } else {
+                                    Button {
+                                        loadModel(name)
+                                    } label: {
+                                        Text(app.t("Load", "読み込む"))
+                                    }
+                                    .buttonStyle(.bordered)
+                                    .controlSize(.small)
+                                }
                             }
                         }
                     }
+                }
+                if let loadError {
+                    Text(loadError)
+                        .font(.system(size: 10))
+                        .foregroundStyle(Color(red: 1.0, green: 0.4, blue: 0.4))
                 }
             }
 
@@ -120,7 +189,43 @@ struct JGenSettingsSection: View {
                 }
             }
         }
-        .onAppear { converter.refreshConvertedModelsList() }
+        .onAppear {
+            converter.refreshConvertedModelsList()
+            Task { await converter.refreshDiscoveredSources() }
+        }
+    }
+
+    /// Loads `name` (a .jgen filename under converted_models/) into
+    /// JCrossChatManager and, on success, sets app.modelStatus so
+    /// AgentLoop.callModel routes chat through the .jcrossReady case
+    /// (Milestone B). Heavy weight I/O -- runs off the main actor.
+    private func loadModel(_ name: String) {
+        isLoading = name
+        loadError = nil
+        Task {
+            do {
+                try await JCrossChatManager.shared.load(modelFileName: name)
+                await MainActor.run {
+                    loadedModel = name
+                    isLoading = nil
+                    app.modelStatus = .jcrossReady(model: name)
+                }
+            } catch {
+                await MainActor.run {
+                    isLoading = nil
+                    loadError = error.localizedDescription
+                }
+            }
+        }
+    }
+
+    private func sourceIcon(_ source: String) -> String {
+        switch source {
+        case "ollama":   return "cube.fill"
+        case "lmstudio": return "desktopcomputer"
+        case "hf-cache": return "shippingbox.fill"
+        default:         return "questionmark.circle"
+        }
     }
 
     // Mirrors SettingsView's private sectionHeader/settingsCard helpers

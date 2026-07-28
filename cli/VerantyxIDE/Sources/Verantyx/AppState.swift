@@ -620,6 +620,7 @@ final class AppState: ObservableObject {
         case mlxReady(model: String)          // MLX server running at localhost:8080
         case mlxDownloading(model: String)    // mlx_lm download in progress
         case bitnetReady(model: String)       // BitNet local subprocess
+        case jcrossReady(model: String)       // JGEN/RustBrain in-process engine (JCrossEngine)
         case error(String)
     }
 
@@ -2083,13 +2084,14 @@ final class AppState: ObservableObject {
         case .mlxReady(let m):              return "MLX: \(m.components(separatedBy: "/").last ?? m)"
         case .mlxDownloading(let m):        return "⏬ \(m.components(separatedBy: "/").last ?? m)"
         case .bitnetReady(let m):           return "BitNet: \(m)"
+        case .jcrossReady(let m):           return "JGEN: \(m)"
         case .error(let e):                  return "Error: \(e)"
         }
     }
 
     var statusColor: Color {
         switch modelStatus {
-        case .ready, .ollamaReady, .mlxReady, .anthropicReady, .bitnetReady: return .green
+        case .ready, .ollamaReady, .mlxReady, .anthropicReady, .bitnetReady, .jcrossReady: return .green
         case .error:                           return .red
         case .downloading, .connecting,
              .mlxDownloading:                  return .orange

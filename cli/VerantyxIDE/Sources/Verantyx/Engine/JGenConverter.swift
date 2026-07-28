@@ -19,9 +19,25 @@ import AppKit
 final class JGenConverter: ObservableObject {
     static let shared = JGenConverter()
 
+    struct DiscoveredSource: Identifiable, Decodable {
+        let name: String
+        let path: String
+        let source: String
+        let size_bytes: Int64
+        let converted: Bool
+        var id: String { name }
+
+        var sizeGB: Double { Double(size_bytes) / Double(1 << 30) }
+    }
+
     @Published private(set) var isRunning = false
     @Published private(set) var log: String = ""
     @Published private(set) var convertedModels: [String] = []
+    /// Models already found in Ollama/LM Studio/the HF cache, refreshed via
+    /// `refreshDiscoveredSources()` -- lets Settings show a pick list
+    /// instead of requiring the user to type an exact model name.
+    @Published private(set) var discoveredSources: [DiscoveredSource] = []
+    @Published private(set) var isDiscovering = false
 
     /// Where verantyx-cli lives -- same repo/path pattern already
     /// established for the vera-memory MCP server setup this session.
@@ -49,11 +65,36 @@ final class JGenConverter: ObservableObject {
 
     /// Ollama/LM Studio/HF-cache "pull by name" flow: jgen_forge.py's own
     /// `pull` subcommand already scans those locations (including Ollama's
-    /// model store) and converts the first name match -- this is the
-    /// one-field, one-button "just give it a name" path.
+    /// model store) and converts the first name match. Prefer calling this
+    /// with an exact name from `discoveredSources` (via `convert(_:)`)
+    /// rather than free-typed text, to avoid an ambiguous substring match.
     func pull(_ name: String) async {
         await run(args: ["pull", name])
         refreshConvertedModelsList()
+        await refreshDiscoveredSources()
+    }
+
+    /// Converts one already-discovered source directly -- the no-typing
+    /// path: Settings lists what's already in Ollama/LM Studio/HF cache,
+    /// the user just clicks Convert on a row.
+    func convert(_ source: DiscoveredSource) async {
+        await pull(source.name)
+    }
+
+    /// Runs `jgen_forge.py sources --json` and parses the result --
+    /// real structured discovery, not a hand-typed model name. Populates
+    /// `discoveredSources`, sorted by size descending (matching
+    /// jgen_forge.py's own sources listing order).
+    func refreshDiscoveredSources() async {
+        isDiscovering = true
+        defer { isDiscovering = false }
+        let raw = await runRaw(args: ["sources", "--json"])
+        guard let data = raw.data(using: .utf8),
+              let sources = try? JSONDecoder().decode([DiscoveredSource].self, from: data) else {
+            discoveredSources = []
+            return
+        }
+        discoveredSources = sources.sorted { $0.size_bytes > $1.size_bytes }
     }
 
     /// Converts anything new sitting in models_dropzone/ that hasn't been
@@ -79,9 +120,18 @@ final class JGenConverter: ObservableObject {
     private func run(args: [String]) async {
         isRunning = true
         defer { isRunning = false }
+        let output = await runRaw(args: args)
+        log += (log.isEmpty ? "" : "\n---\n") + output
+    }
+
+    /// Runs jgen_forge.py and returns raw stdout+stderr, without touching
+    /// `log` -- used both by `run` (human-facing log) and by JSON-output
+    /// commands like `sources --json` (machine-facing, would just be noise
+    /// in the log).
+    private func runRaw(args: [String]) async -> String {
         let repoPath = self.repoPath
         let pythonPath = self.pythonPath
-        let output = await Task.detached(priority: .userInitiated) { () -> String in
+        return await Task.detached(priority: .userInitiated) { () -> String in
             let process = Process()
             process.executableURL = URL(fileURLWithPath: pythonPath)
             process.arguments = ["jgen_forge.py"] + args
@@ -97,6 +147,5 @@ final class JGenConverter: ObservableObject {
             let text = String(data: data, encoding: .utf8) ?? ""
             return text.isEmpty ? "(no output, exit \(process.terminationStatus))" : text
         }.value
-        log += (log.isEmpty ? "" : "\n---\n") + output
     }
 }

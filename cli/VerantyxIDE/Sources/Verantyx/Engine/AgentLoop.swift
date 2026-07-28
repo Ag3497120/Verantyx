@@ -1785,6 +1785,27 @@ SYS.ENFORCE("logical_verification_before_acceptance")
             }
             return result
 
+        case .jcrossReady(let model):
+            // ── JGEN/RustBrain in-process engine (Milestone B v1) ──────────
+            // Non-streamed: jcross_engine_generate returns a full token
+            // buffer in one call, not a per-token callback, so the whole
+            // response arrives at once (matching BitNet's own pattern
+            // above) rather than populating a live-streaming bubble.
+            await onProgress(.systemLog(AppLanguage.shared.t("🧬 [JCross] \(model) — Inferencing...", "🧬 [JCross] \(model) — 推論中...")))
+            do {
+                let result = try await JCrossChatManager.shared.generate(
+                    conversation: conversation,
+                    maxTokens: profile.tier.maxTokens
+                )
+                return result
+            } catch {
+                await onProgress(.aiMessage(AppLanguage.shared.t(
+                    "⚠️ [JCross] Generation failed: \(error.localizedDescription)",
+                    "⚠️ [JCross] 生成失敗: \(error.localizedDescription)"
+                )))
+                return nil
+            }
+
         default:
             return nil
         }
