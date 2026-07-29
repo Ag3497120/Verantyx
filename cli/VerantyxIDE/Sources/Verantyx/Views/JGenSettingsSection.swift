@@ -12,6 +12,14 @@ struct JGenSettingsSection: View {
     @State private var isLoading: String?
     @State private var loadedModel: String?
     @State private var loadError: String?
+    /// Optional explicit tokenizer override per model (HF repo id like
+    /// "Qwen/Qwen2.5-0.5B-Instruct" or a local tokenizer folder path),
+    /// keyed by DiscoveredSource.name. Ollama only ever hands over raw
+    /// GGUF weights -- when a GGUF's own embedded tokenizer metadata is
+    /// incomplete (e.g. missing BPE merges), no amount of automatic
+    /// matching/synthesis can fix that, so this exposes the same explicit
+    /// override verantyx-cli's own --tokenizer flag always supported.
+    @State private var tokenizerOverrides: [String: String] = [:]
 
     var body: some View {
         VStack(alignment: .leading, spacing: 20) {
@@ -96,50 +104,70 @@ struct JGenSettingsSection: View {
                 } else {
                     VStack(alignment: .leading, spacing: 8) {
                         ForEach(converter.discoveredSources) { src in
-                            HStack(spacing: 8) {
-                                Image(systemName: sourceIcon(src.source))
-                                    .font(.system(size: 10))
-                                    .foregroundStyle(Color(red: 0.6, green: 0.6, blue: 0.7))
-                                    .frame(width: 14)
-                                VStack(alignment: .leading, spacing: 1) {
-                                    Text(src.name)
-                                        .font(.system(size: 11, design: .monospaced))
-                                        .foregroundStyle(Color(red: 0.9, green: 0.9, blue: 0.95))
-                                    Text("\(src.source) · \(String(format: "%.2f", src.sizeGB))GB")
-                                        .font(.system(size: 9))
-                                        .foregroundStyle(Color(red: 0.55, green: 0.55, blue: 0.6))
-                                }
-                                Spacer()
-                                if src.converted {
-                                    Label(app.t("Converted", "変換済み"), systemImage: "checkmark.circle.fill")
-                                        .font(.system(size: 9, weight: .semibold))
-                                        .foregroundStyle(Color(red: 0.4, green: 0.9, blue: 0.5))
-                                    // Re-convert: picks up jgen_forge fixes
-                                    // (e.g. the tokenizer-synthesis change)
-                                    // without deleting/renaming the old
-                                    // .jgen by hand first -- `pull` just
-                                    // overwrites the same output path.
-                                    Button {
-                                        Task { await converter.convert(src) }
-                                    } label: {
-                                        Image(systemName: "arrow.triangle.2.circlepath")
-                                            .font(.system(size: 10))
+                            VStack(alignment: .leading, spacing: 4) {
+                                HStack(spacing: 8) {
+                                    Image(systemName: sourceIcon(src.source))
+                                        .font(.system(size: 10))
+                                        .foregroundStyle(Color(red: 0.6, green: 0.6, blue: 0.7))
+                                        .frame(width: 14)
+                                    VStack(alignment: .leading, spacing: 1) {
+                                        Text(src.name)
+                                            .font(.system(size: 11, design: .monospaced))
+                                            .foregroundStyle(Color(red: 0.9, green: 0.9, blue: 0.95))
+                                        Text("\(src.source) · \(String(format: "%.2f", src.sizeGB))GB")
+                                            .font(.system(size: 9))
+                                            .foregroundStyle(Color(red: 0.55, green: 0.55, blue: 0.6))
                                     }
-                                    .buttonStyle(.plain)
-                                    .foregroundStyle(Color(red: 0.6, green: 0.6, blue: 0.7))
-                                    .disabled(converter.isRunning)
-                                    .help(app.t("Re-convert (e.g. after a jgen_forge update)", "再変換(jgen_forge更新後など)"))
-                                } else {
-                                    Button {
-                                        Task { await converter.convert(src) }
-                                    } label: {
-                                        Text(app.t("Convert", "変換"))
+                                    Spacer()
+                                    if src.converted {
+                                        Label(app.t("Converted", "変換済み"), systemImage: "checkmark.circle.fill")
+                                            .font(.system(size: 9, weight: .semibold))
+                                            .foregroundStyle(Color(red: 0.4, green: 0.9, blue: 0.5))
+                                        // Re-convert: picks up jgen_forge fixes
+                                        // (e.g. the tokenizer-synthesis change)
+                                        // without deleting/renaming the old
+                                        // .jgen by hand first -- `pull` just
+                                        // overwrites the same output path.
+                                        Button {
+                                            Task { await converter.convert(src, tokenizer: tokenizerOverrides[src.name]) }
+                                        } label: {
+                                            Image(systemName: "arrow.triangle.2.circlepath")
+                                                .font(.system(size: 10))
+                                        }
+                                        .buttonStyle(.plain)
+                                        .foregroundStyle(Color(red: 0.6, green: 0.6, blue: 0.7))
+                                        .disabled(converter.isRunning)
+                                        .help(app.t("Re-convert (e.g. after a jgen_forge update)", "再変換(jgen_forge更新後など)"))
+                                    } else {
+                                        Button {
+                                            Task { await converter.convert(src, tokenizer: tokenizerOverrides[src.name]) }
+                                        } label: {
+                                            Text(app.t("Convert", "変換"))
+                                        }
+                                        .buttonStyle(.borderedProminent)
+                                        .tint(Color(red: 1.0, green: 0.6, blue: 0.3))
+                                        .controlSize(.small)
+                                        .disabled(converter.isRunning)
                                     }
-                                    .buttonStyle(.borderedProminent)
-                                    .tint(Color(red: 1.0, green: 0.6, blue: 0.3))
-                                    .controlSize(.small)
-                                    .disabled(converter.isRunning)
                                 }
+                                // Explicit tokenizer override: Ollama only ever
+                                // hands over raw GGUF weights, so when a GGUF's
+                                // own embedded tokenizer metadata is broken or
+                                // incomplete, this is the only reliable fix --
+                                // point at the real HF repo (or a local
+                                // tokenizer folder) instead of relying on
+                                // automatic vocab-size matching or synthesis.
+                                TextField(
+                                    app.t("Tokenizer override (HF repo id or path, optional)", "トークナイザー指定(HFリポジトリIDまたはパス、任意)"),
+                                    text: Binding(
+                                        get: { tokenizerOverrides[src.name] ?? "" },
+                                        set: { tokenizerOverrides[src.name] = $0 }
+                                    )
+                                )
+                                .textFieldStyle(.plain)
+                                .font(.system(size: 9, design: .monospaced))
+                                .foregroundStyle(Color(red: 0.7, green: 0.7, blue: 0.75))
+                                .padding(.leading, 22)
                             }
                         }
                     }

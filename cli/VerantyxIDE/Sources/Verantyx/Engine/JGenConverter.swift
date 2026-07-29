@@ -148,17 +148,35 @@ final class JGenConverter: ObservableObject {
     /// model store) and converts the first name match. Prefer calling this
     /// with an exact name from `discoveredSources` (via `convert(_:)`)
     /// rather than free-typed text, to avoid an ambiguous substring match.
-    func pull(_ name: String) async {
-        await run(args: ["pull", name])
+    ///
+    /// `tokenizer`, if non-empty, is passed through as jgen_forge's own
+    /// `--tokenizer` flag (an HF repo id like "Qwen/Qwen2.5-0.5B-Instruct"
+    /// or a local tokenizer folder path). This is the same explicit
+    /// override the original verantyx-cli always supported -- Ollama only
+    /// ever hands over raw GGUF weights, never a tokenizer, so jgen_forge
+    /// resolves one in priority order: explicit --tokenizer (this) > an
+    /// HF-cache vocab-size/name match > synthesizing one from the GGUF's
+    /// own embedded tokenizer fields > a vocab-only dictionary sidecar (no
+    /// chat template). Explicit override is the most reliable tier and the
+    /// only one that can route around a GGUF whose own embedded tokenizer
+    /// metadata is incomplete (e.g. a "gpt2"-tagged tokenizer with no
+    /// merges data, which the auto tiers can't do anything about).
+    func pull(_ name: String, tokenizer: String? = nil) async {
+        var args = ["pull", name]
+        if let tokenizer, !tokenizer.trimmingCharacters(in: .whitespaces).isEmpty {
+            args += ["--tokenizer", tokenizer.trimmingCharacters(in: .whitespaces)]
+        }
+        await run(args: args)
         refreshConvertedModelsList()
         await refreshDiscoveredSources()
     }
 
     /// Converts one already-discovered source directly -- the no-typing
     /// path: Settings lists what's already in Ollama/LM Studio/HF cache,
-    /// the user just clicks Convert on a row.
-    func convert(_ source: DiscoveredSource) async {
-        await pull(source.name)
+    /// the user just clicks Convert on a row. `tokenizer` is an optional
+    /// explicit override, see `pull(_:tokenizer:)`.
+    func convert(_ source: DiscoveredSource, tokenizer: String? = nil) async {
+        await pull(source.name, tokenizer: tokenizer)
     }
 
     /// Runs `jgen_forge.py sources --json` (LM Studio/HF cache -- these
