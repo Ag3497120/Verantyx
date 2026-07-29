@@ -132,6 +132,10 @@ actor ReActRetryEngine {
 
     private func detectFailure(in result: String) -> Bool {
         let lower = result.lowercased()
+        // 「通信は成功したが0件」— 上流(AgentTool.qualitySentinel)が付けた印。
+        // 通信レベルの判定はこの下でそのまま生きているので、既存挙動への
+        // 影響は無い。
+        if lower.contains("[search_quality: no_relevant_results") { return true }
         // 明示的な HTTP 4xx/5xx
         if lower.contains("http 4") || lower.contains("http 5") { return true }
         if lower.contains("❌ http") { return true }
@@ -150,6 +154,12 @@ actor ReActRetryEngine {
 
     private func analyzeFailure(result: String) -> String {
         let lower = result.lowercased()
+        if lower.contains("[search_quality: no_relevant_results") {
+            if let term = Self.extractMissingTerm(from: result) {
+                return "検索結果0件 — 「\(term)」がWeb上に見つからない"
+            }
+            return "検索結果0件 — 該当する情報が見つからない"
+        }
         if lower.contains("❌ http 404") || (lower.contains("404") && lower.contains("not found")) {
             return "HTTP 404 Not Found — URLが無効またはリンク切れ"
         }
@@ -176,7 +186,26 @@ actor ReActRetryEngine {
             "試行\(attempt.attemptNumber): クエリ=\(attempt.query.prefix(60)) → 失敗理由=\(attempt.failureReason ?? "不明")"
         }.joined(separator: "\n")
 
-        let rethoughtPrompt = """
+        // 0件（無関係）と通信失敗で必要な書き直しが違う。前者は「固有名詞を
+        // 一般化する」、後者は従来どおり「URL直叩きをやめて一般キーワードへ」。
+        let lastQuery = failedAttempts.last?.query ?? originalInstruction
+        let noResults = failedAttempts.last.map {
+            ($0.failureReason ?? "").contains("0件")
+        } ?? false
+        let missingTerm = QueryReformulator.detectProperNoun(in: lastQuery)
+        // 1回目の書き直し = L2(一般名+代表実装名)、2回目 = L3(公式ドキュメント)
+        let rung = failedAttempts.count >= 2 ? 3 : 2
+
+        let rethoughtPrompt: String
+        if noResults {
+            rethoughtPrompt = QueryReformulator.rethoughtPrompt(
+                userInstruction: originalInstruction,
+                failedQuery: lastQuery,
+                missingTerm: missingTerm,
+                rung: rung
+            )
+        } else {
+            rethoughtPrompt = """
         ## 検索失敗の再計画 (ReAct Re-thought Phase)
 
         ユーザーの要求: \(originalInstruction.prefix(200))
@@ -196,13 +225,31 @@ actor ReActRetryEngine {
 
         新しい検索クエリ (1行のみ):
         """
+        }
 
         var rethoughtConversation = conversation
         rethoughtConversation.append((role: "user", content: rethoughtPrompt))
 
-        guard let response = await callModel(rethoughtConversation) else {
-            // LLM が応答しない場合はシンプルなフォールバック
-            return buildFallbackQuery(instruction: originalInstruction)
+        let deterministic = QueryReformulator.deterministic(query: lastQuery, rung: rung)
+        let priorQueries = failedAttempts.map(\.query)
+
+        // 12語のクエリを作るのに会話全体+アンカー画像を本命モデルへ送るのは
+        // 過剰。安いローカルモデルがあればそちらへ短いプロンプトだけ渡す。
+        // 短いプロンプトの方が小型モデルの指示追従も良い。
+        var response: String? = nil
+        if let cheap = await QueryReformulator.cheapLocalModel() {
+            response = await OllamaClient.shared.generate(
+                model: cheap,
+                prompt: rethoughtPrompt,
+                maxTokens: 60,
+                temperature: 0.2
+            )
+        }
+        if response == nil {
+            response = await callModel(rethoughtConversation)
+        }
+        guard let response else {
+            return deterministic
         }
 
         // 応答から1行目のクエリを抽出
@@ -210,25 +257,34 @@ actor ReActRetryEngine {
             .components(separatedBy: "\n")
             .map { $0.trimmingCharacters(in: .whitespacesAndNewlines) }
             .filter { !$0.isEmpty && !$0.hasPrefix("#") && !$0.hasPrefix("-") }
-            .first ?? buildFallbackQuery(instruction: originalInstruction)
+            .first ?? ""
 
-        // URL が含まれている場合はフォールバック (URLを直叩きさせない)
-        if extracted.contains("http://") || extracted.contains("https://") {
-            return buildFallbackQuery(instruction: originalInstruction)
+        // 書き直せていない（固有名詞が残る/過去と同じ/文のまま/URL入り）なら
+        // 決定論的なラダーへ。同じ0件をもう一度引くのを防ぐ。
+        guard QueryReformulator.isAcceptable(rewritten: extracted,
+                                             properNoun: missingTerm,
+                                             previousQueries: priorQueries) else {
+            return deterministic
         }
-
         return extracted
     }
 
-    /// LLM が応答しない場合のフォールバッククエリ生成
+    /// 上流(AgentTool.qualitySentinel)が付けた印から missing_term を取り出す
+    static func extractMissingTerm(from result: String) -> String? {
+        guard let r = result.range(of: "missing_term=") else { return nil }
+        let rest = result[r.upperBound...]
+        let term = rest.prefix(while: { $0 != "]" && $0 != "|" && $0 != "\n" })
+        let trimmed = term.trimmingCharacters(in: .whitespaces)
+        return trimmed.isEmpty ? nil : trimmed
+    }
+
+    /// LLM が応答しない / 書き直しに失敗した場合のフォールバック
+    ///
+    /// 以前は「先頭5語 + 最新情報」だったが、それは**固有名詞を残したまま**
+    /// 再検索するので、0件の場面では同じ結果をもう一度引くだけだった。
+    /// 一般化ラダーへ委譲する。
     private func buildFallbackQuery(instruction: String) -> String {
-        // instructionから日本語キーワードを抽出して汎用クエリを組み立てる
-        let words = instruction
-            .components(separatedBy: .whitespacesAndNewlines)
-            .filter { $0.count > 1 }
-            .prefix(5)
-            .joined(separator: " ")
-        return words.isEmpty ? "最新ニュース 今日" : "\(words) 最新情報"
+        QueryReformulator.deterministic(query: instruction, rung: 2)
     }
 
     // MARK: - Exhaustion Report

@@ -16,24 +16,36 @@ struct WebSearchResult {
     var truncated: Bool
     /// HTTP ステータスコード（0 = 不明 / JS レンダリング済み）
     var httpStatus: Int = 0
+    /// 構造的に数えられた検索ヒット件数。DuckDuckGo HTML を URLSession で
+    /// 取った場合のみ得られる（Safari で開いて本文を抜く主要経路では nil）。
+    /// 分かるときは最も強い信号なので優先して使う。
+    var resultCount: Int? = nil
 
-    /// ReAct エンジンが失敗と判定するか
+    /// ReAct エンジンが失敗と判定するか（通信レベルのみ）
+    ///
+    /// "404" / "not found" は**先頭部分だけ**を見る。以前は markdown 全体に
+    /// contains を掛けていたため、検索結果の本文にこれらの語が現れるだけで
+    /// 通信失敗と誤判定していた（"not found" を含む問い合わせでは確実に誤爆
+    /// する）。エラーページなら該当文言は必ず冒頭に出るので、先頭に限定して
+    /// も検出力は落ちない。
+    ///
+    /// 「通信は成功したが中身が無関係」の判定はここではなく `verdict` が行う。
     var isFailure: Bool {
-        // 4xx/5xx エラー or 明示的なエラーマーカー
         if httpStatus >= 400 { return true }
         let lower = markdown.lowercased()
-        return lower.hasPrefix("❌") ||
-               lower.contains("404") ||
-               lower.contains("not found") ||
-               lower.contains("(empty page)") ||
-               lower.contains("(empty response)")
+        if lower.hasPrefix("❌") { return true }
+        if lower.contains("(empty page)") || lower.contains("(empty response)") { return true }
+        let head = String(lower.prefix(512))
+        return head.contains("404") || head.contains("not found")
     }
 
     /// 失敗理由の短い説明（再思考プロンプト用）
     var failureReason: String {
+        // 500 番台を 400 番台より先に見る。順序が逆だと >= 400 に先取りされて
+        // 500 の分岐へ到達できない。
         if httpStatus == 404 { return "HTTP 404 Not Found" }
-        if httpStatus >= 400 { return "HTTP \(httpStatus) Error" }
         if httpStatus >= 500 { return "HTTP \(httpStatus) Server Error" }
+        if httpStatus >= 400 { return "HTTP \(httpStatus) Error" }
         if markdown.contains("(empty page)") { return "ページが空でした" }
         if markdown.contains("(empty response)") { return "レスポンスが空でした" }
         if markdown.hasPrefix("❌") { return String(markdown.prefix(120)) }
@@ -44,6 +56,120 @@ struct WebSearchResult {
         let limit = 6000
         if markdown.count <= limit { return markdown }
         return String(markdown.prefix(limit)) + "\n\n[… content truncated at 6000 chars …]"
+    }
+
+    // MARK: - 関連性の判定
+
+    enum SearchVerdict {
+        case ok
+        case transportFailure(String)
+        /// 通信は成功したが、探していたものが見つかっていない。
+        /// 付随する文字列は再検索プロンプトへ渡す「見つからなかった語」。
+        case noRelevantResults(reason: String, missingTerm: String?)
+    }
+
+    /// 「200番で長いHTMLが返ってきたが中身は0件」を検出する。
+    ///
+    /// 未公開の固有名詞で検索すると、検索エンジンは正常なページを返すので
+    /// `isFailure` では捕まらず、再検索が一度も走らなかった。これがその穴を
+    /// 埋める判定。**空振りの再検索は高くつくので意図的に保守的**にしてある:
+    /// 弱い信号(語のカバレッジ・本文の短さ)は単独では失敗と見なさず、同時に
+    /// 成立したときだけ。
+    var verdict: SearchVerdict {
+        if isFailure { return .transportFailure(failureReason) }
+
+        let text = markdown
+        let lower = text.lowercased()
+
+        // 1) 明示的な0件マーカー。本文中の引用で誤爆しないよう先頭のみ見る。
+        let head = String(lower.prefix(1500))
+        let zeroMarkers = [
+            "did not match any documents",
+            "did not match any",
+            "に一致する情報は見つかりませんでした",
+            "に一致する情報は、見つかりませんでした",
+            "no results found for",
+            "no results found",
+            "見つかりませんでした",
+        ]
+        if let hit = zeroMarkers.first(where: { head.contains($0) }) {
+            return .noRelevantResults(reason: "検索エンジンが0件と報告 (\(hit))",
+                                      missingTerm: Self.mostDistinctiveTerm(of: query))
+        }
+
+        // 2) 構造的に数えられたなら、それが最も強い。
+        if let count = resultCount, count == 0 {
+            return .noRelevantResults(reason: "検索結果0件",
+                                      missingTerm: Self.mostDistinctiveTerm(of: query))
+        }
+
+        // 3)(弱)クエリ語のカバレッジ / 4)(弱)有効本文の短さ
+        let terms = Self.contentTerms(of: query)
+        let distinctive = Self.mostDistinctiveTerm(of: query)
+        let present = terms.filter { lower.contains($0.lowercased()) }.count
+        let coverage = terms.isEmpty ? 1.0 : Double(present) / Double(terms.count)
+        let usefulLength = Self.usefulTextLength(text)
+
+        // 安全弁: 十分な長さがあり語も拾えているなら、表現が違うだけとみなす。
+        if usefulLength > 1500 && coverage >= 0.5 { return .ok }
+
+        let distinctiveMissing = distinctive.map { !lower.contains($0.lowercased()) } ?? false
+        if distinctiveMissing && coverage < 0.34 && usefulLength < 200 {
+            return .noRelevantResults(
+                reason: String(format: "語の一致率 %.0f%% / 有効本文 %d文字", coverage * 100, usefulLength),
+                missingTerm: distinctive)
+        }
+        return .ok
+    }
+
+    /// クエリを内容語に分解する。日本語は空白で切れないので、空白トークンが
+    /// 1つしか取れない場合に限り2-gramへ落とす。
+    static func contentTerms(of query: String) -> [String] {
+        let stop: Set<String> = [
+            "の", "を", "に", "は", "が", "で", "と", "から", "まで", "へ", "や",
+            "方法", "とは", "する", "した", "して", "教えて", "調べて", "ください",
+            "how", "to", "the", "a", "an", "of", "for", "in", "on", "is", "and",
+            "what", "setup", "set", "up", "guide", "example", "使い方",
+        ]
+        let raw = query
+            .components(separatedBy: CharacterSet.whitespacesAndNewlines.union(.punctuationCharacters))
+            .map { $0.trimmingCharacters(in: .whitespaces) }
+            .filter { $0.count >= 2 && !stop.contains($0.lowercased()) }
+        if raw.count >= 2 { return raw }
+
+        // 空白で割れなかった（日本語の連続など）→ 2-gram
+        let joined = query.filter { !$0.isWhitespace }
+        guard joined.count >= 4 else { return raw }
+        let chars = Array(joined)
+        var grams: [String] = []
+        var i = 0
+        while i + 1 < chars.count {
+            let g = String(chars[i...i+1])
+            if !stop.contains(g) { grams.append(g) }
+            i += 2
+        }
+        return grams.isEmpty ? raw : grams
+    }
+
+    /// 一番「珍しそうな」語。固有名詞である可能性が高く、これが本文に一度も
+    /// 出ないことが「そんなものは無い」の最も分かりやすい徴候になる。
+    static func mostDistinctiveTerm(of query: String) -> String? {
+        contentTerms(of: query).max(by: { $0.count < $1.count })
+    }
+
+    /// ナビゲーションや定型文を除いた、実質的な本文の長さ。
+    static func usefulTextLength(_ text: String) -> Int {
+        let chrome = [
+            "Images", "Videos", "News", "Shopping", "Maps", "Tools", "Settings",
+            "Privacy", "Terms", "Sign in", "すべて", "画像", "動画", "ニュース",
+            "地図", "設定", "プライバシー", "規約", "ログイン",
+        ]
+        var s = text
+        for c in chrome { s = s.replacingOccurrences(of: c, with: " ") }
+        return s.trimmingCharacters(in: .whitespacesAndNewlines)
+                .replacingOccurrences(of: "\n", with: " ")
+                .replacingOccurrences(of: "  ", with: " ")
+                .count
     }
 }
 
@@ -331,6 +457,9 @@ actor WebSearchEngine {
             let html = String(data: data, encoding: .utf8) ?? ""
             
             var text = ""
+            // 構造的に数えられるのはこの経路だけ。数えられた件数は verdict が
+            // 最優先で使う（他経路では nil のまま）。
+            var snippetCount: Int? = nil
             // Specific parsing for DuckDuckGo HTML to avoid massive country list clutter
             if url.contains("duckduckgo.com/html"), let snippetRegex = try? NSRegularExpression(pattern: "class=\"result__snippet\"[^>]*>(.*?)</a>", options: [.dotMatchesLineSeparators, .caseInsensitive]) {
                 let ns = NSRange(html.startIndex..., in: html)
@@ -338,6 +467,7 @@ actor WebSearchEngine {
                     guard let r = Range(m.range(at: 1), in: html) else { return nil }
                     return String(html[r])
                 }
+                snippetCount = snippets.count
                 if !snippets.isEmpty {
                     text = stripHTML(snippets.joined(separator: "\n\n"))
                 } else {
@@ -358,7 +488,8 @@ actor WebSearchEngine {
                 markdown: result.isEmpty ? "(empty response)" : result,
                 source: .fetch,
                 truncated: result.count > 6000,
-                httpStatus: httpStatus
+                httpStatus: httpStatus,
+                resultCount: snippetCount
             )
         } catch {
             return WebSearchResult(

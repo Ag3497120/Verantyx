@@ -1324,7 +1324,21 @@ SYS.ENFORCE("logical_verification_before_acceptance")
                                 guard let cooldown = AppState.shared?.searchCooldownUntil else { return 0 }
                                 return max(0, cooldown.timeIntervalSinceNow)
                             }
+                            // レート制限の解除を待つが、**上限を設ける**。以前は
+                            // 無制限に5秒スリープを繰り返していたので、クール
+                            // ダウンが長引くとターンが固まったように見えた。
+                            // 0件判定の追加で再検索の発火頻度が上がる分、ここの
+                            // 露出も増えるため打ち切りが要る。
+                            let cooldownDeadline = Date().addingTimeInterval(90)
                             while cooldownLeft > 0 {
+                                if Date() >= cooldownDeadline {
+                                    return AppLanguage.shared.t(
+                                        "❌ Search rate-limited for too long (waited 90s) — giving up on this retry.",
+                                        "❌ 検索のレート制限が長引いたため中断しました(90秒待機)。")
+                                }
+                                if Task.isCancelled {
+                                    return AppLanguage.shared.t("❌ Cancelled.", "❌ 中断されました。")
+                                }
                                 try? await Task.sleep(nanoseconds: 5_000_000_000)
                                 cooldownLeft = await MainActor.run {
                                     guard let cooldown = AppState.shared?.searchCooldownUntil else { return 0 }

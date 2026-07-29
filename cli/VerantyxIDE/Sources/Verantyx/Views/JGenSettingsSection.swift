@@ -220,6 +220,7 @@ struct JGenSettingsSection: View {
                 card {
                     VStack(alignment: .leading, spacing: 8) {
                         ForEach(converter.convertedModels, id: \.self) { name in
+                          VStack(alignment: .leading, spacing: 3) {
                             HStack(spacing: 6) {
                                 Circle().fill(Color(red: 0.4, green: 0.9, blue: 0.5)).frame(width: 6, height: 6)
                                 Text(name)
@@ -252,6 +253,14 @@ struct JGenSettingsSection: View {
                                     .controlSize(.small)
                                 }
                             }
+
+                            // 本物のトークナイザが無い(語彙サイドカーに落ちた)
+                            // モデルには、指定すべきHFリポジトリを提案する。
+                            // 実在確認に通ったものだけ出し、押さない限り入らない。
+                            if converter.needsRealTokenizer(name) {
+                                tokenizerSuggestionRow(for: name)
+                            }
+                          }
                         }
                     }
                 }
@@ -280,6 +289,67 @@ struct JGenSettingsSection: View {
             converter.refreshConvertedModelsList()
             Task { await converter.refreshDiscoveredSources() }
         }
+    }
+
+    /// 語彙サイドカーに落ちたモデル用の、トークナイザー候補の行。
+    ///
+    /// 候補は「ローカル小型モデル + 検索1回」で拾い、**HuggingFace上に
+    /// tokenizer.json が実在することをHTTPで確認できたものだけ**表示する。
+    /// この確認が無いと、存在しないリポジトリ名をそのまま渡してしまう。
+    @ViewBuilder
+    private func tokenizerSuggestionRow(for name: String) -> some View {
+        HStack(spacing: 6) {
+            Image(systemName: "questionmark.circle")
+                .font(.system(size: 9))
+                .foregroundStyle(Color(red: 1.0, green: 0.75, blue: 0.35))
+
+            if let repo = converter.tokenizerSuggestions[name] {
+                Text(app.t("Suggested tokenizer: ", "トークナイザー候補: ") + repo)
+                    .font(.system(size: 9, design: .monospaced))
+                    .foregroundStyle(Color(red: 0.75, green: 0.75, blue: 0.8))
+                    .textSelection(.enabled)
+                Text(app.t("(verified)", "(実在確認済み)"))
+                    .font(.system(size: 8))
+                    .foregroundStyle(Color(red: 0.4, green: 0.85, blue: 0.5))
+                Spacer()
+                Button(app.t("Use", "使う")) {
+                    // 入れるだけ。再変換は自動で走らせない。
+                    if let src = converter.discoveredSources.first(where: {
+                        name.contains(JGenSettingsSection.sanitizedName($0.name))
+                    }) {
+                        tokenizerOverrides[src.name] = repo
+                    }
+                }
+                .buttonStyle(.bordered)
+                .controlSize(.small)
+            } else if converter.suggestingTokenizerFor == name {
+                Text(app.t("Looking up a tokenizer repo…", "トークナイザーのリポジトリを照会中…"))
+                    .font(.system(size: 9)).foregroundStyle(.tertiary)
+                ProgressView().controlSize(.mini)
+                Spacer()
+            } else {
+                Text(app.t("No real tokenizer — chat can't load this.",
+                           "本物のトークナイザーが無く、チャットで読み込めません。"))
+                    .font(.system(size: 9))
+                    .foregroundStyle(Color(red: 0.7, green: 0.7, blue: 0.45))
+                Spacer()
+                Button(app.t("Find one", "候補を探す")) {
+                    let src = converter.discoveredSources.first(where: {
+                        name.contains(JGenSettingsSection.sanitizedName($0.name))
+                    })
+                    converter.suggestTokenizerRepo(for: name, sourceName: src?.name ?? name)
+                }
+                .buttonStyle(.bordered)
+                .controlSize(.small)
+                .disabled(converter.suggestingTokenizerFor != nil)
+            }
+        }
+        .padding(.leading, 12)
+    }
+
+    /// `pull` が .jgen 名を作るときと同じ正規化（":"/"/" を "_" に）
+    static func sanitizedName(_ s: String) -> String {
+        s.replacingOccurrences(of: ":", with: "_").replacingOccurrences(of: "/", with: "_")
     }
 
     /// Loads `name` (a .jgen filename under converted_models/) into

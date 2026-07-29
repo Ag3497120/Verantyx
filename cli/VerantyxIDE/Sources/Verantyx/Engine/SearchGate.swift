@@ -51,8 +51,14 @@ actor SearchGate {
             - type="memory": 過去の会話・個人情報が必要なとき
             - type="web":    GitHub・最新情報・外部データが必要なとき（GitHubリポジトリの状況、最新ニュース、公式ドキュメント等）
             - needs=false: 今の質問だけで十分なとき
-            - query: 10語以内
+            - query: 5〜8語の語の列（文にしない）。未公開の製品名（Verantyx等）は
+              そのまま使わず、一般的な技術名+代表的な実装名にする
+              （例:「VerantyxのMCP設定」→「Claude Desktop MCP 設定 mcpServers」）
             """
+        // NOTE: この分岐は現状**到達しない**。AgentLoop.swift の
+        // vxLoopEnabled が nano/small 限定のため、mid以上ではこのプロンプト
+        // 自体が注入されない。フラグを変えるとループ全体の挙動が変わるので
+        // ここでは触らず、事実だけ残しておく。
         case .mid, .large, .giant:
             return """
 
@@ -190,17 +196,54 @@ actor SearchGate {
         case .large, .giant: budget = 4000
         }
 
-        let result = await WebSearchEngine.shared.search(
+        var usedQuery = query
+        var result = await WebSearchEngine.shared.search(
             query: query,
             engine: .duckduckgoHTML,
             preferredSource: preferredSource,
             entropy: entropy
         )
 
-        let bodyText = String(result.contextSnippet.prefix(budget))
-        guard !bodyText.isEmpty else { return "" }
+        // 0件だったら、人間がやり直すように一般化して**1回だけ**引き直す。
+        // ここは nano/small 向けの経路で遅延予算が厳しいので、ReAct 側の
+        // ような3回ループは回さない。
+        if case .noRelevantResults = result.verdict {
+            let retryQuery = QueryReformulator.deterministic(query: query, rung: 2)
+            if retryQuery != query {
+                let retried = await WebSearchEngine.shared.search(
+                    query: retryQuery,
+                    engine: .duckduckgoHTML,
+                    preferredSource: preferredSource,
+                    entropy: entropy
+                )
+                if case .ok = retried.verdict {
+                    result = retried
+                    usedQuery = retryQuery
+                } else {
+                    // 再検索も空振り。**空文字を返さない** — 検索したのに
+                    // 何も無かったという事実を伝えないと、次ターンのモデルは
+                    // 検索が行われたことすら知らずに推測で埋めてしまう。
+                    return """
+                    [WEB SEARCH: "\(String(query.prefix(60)))"]
+                    (該当する検索結果が見つかりませんでした。一般化した再検索 "\(retryQuery)" も0件)
+                    この件についてWeb上に情報が無い可能性が高いので、推測で断定しないこと。
+                    [/WEB SEARCH]
+                    """
+                }
+            }
+        }
 
-        let resultBlock = "[WEB SEARCH: \"\(String(query.prefix(60)))\"\n\(bodyText)\n[/WEB SEARCH]"
+        let bodyText = String(result.contextSnippet.prefix(budget))
+        guard !bodyText.isEmpty else {
+            return """
+            [WEB SEARCH: "\(String(query.prefix(60)))"]
+            (検索は実行されましたが本文を取得できませんでした)
+            [/WEB SEARCH]
+            """
+        }
+
+        let reformulated = usedQuery == query ? "" : "\n(一般化して再検索: \"\(usedQuery)\")"
+        let resultBlock = "[WEB SEARCH: \"\(String(query.prefix(60)))\"\(reformulated)\n\(bodyText)\n[/WEB SEARCH]"
 
         await saveSearchResult(
             sessionId: sessionId, turnNumber: turnNumber,

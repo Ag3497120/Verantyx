@@ -65,6 +65,35 @@ final class JGenConverter: ObservableObject {
     @Published private(set) var discoveredSources: [DiscoveredSource] = []
     @Published private(set) var isDiscovering = false
 
+    /// トークナイザを合成できず語彙サイドカーに落ちたモデルについての、
+    /// **実在確認済み**の HuggingFace リポジトリ候補。キーは .jgen 名。
+    /// 自動適用はしない — ユーザーが押して初めて入る。
+    @Published private(set) var tokenizerSuggestions: [String: String] = [:]
+    @Published private(set) var suggestingTokenizerFor: String?
+
+    /// この .jgen は本物のトークナイザを持たず、語彙サイドカーに落ちているか。
+    /// ログの日本語文字列を照合するより meta.json を見る方が壊れにくい。
+    func needsRealTokenizer(_ modelFileName: String) -> Bool {
+        guard let meta = metaJSON(for: modelFileName) else { return false }
+        if meta["vocab_sidecar"] != nil { return true }
+        // tokenizer が語彙サイドカー(.vocab.json)を指している場合も同じ状態
+        if let tok = meta["tokenizer"] as? String, tok.hasSuffix(".vocab.json") { return true }
+        return false
+    }
+
+    /// 候補を1つ探して掲示する。実在確認に通らなければ何も出さない。
+    func suggestTokenizerRepo(for modelFileName: String, sourceName: String) {
+        guard suggestingTokenizerFor == nil else { return }
+        suggestingTokenizerFor = modelFileName
+        Task {
+            let found = await TokenizerRepoSuggester.shared.suggest(forModelName: sourceName)
+            await MainActor.run {
+                self.suggestingTokenizerFor = nil
+                if let found { self.tokenizerSuggestions[modelFileName] = found }
+            }
+        }
+    }
+
     /// Opt-in advanced override: use a real verantyx-cli checkout (via
     /// system python3.11) instead of the bundled binary. Off by default --
     /// the bundled binary needs no setup and covers Ollama/HF-safetensors

@@ -179,8 +179,8 @@ struct AgentToolParser {
     [RUN_COGNITIVE: cmd | expect: "..." | doubt: 0.x]  脳実: 期待値と疑念度を渡す同期シェル
     [WORKSPACE: /path]        域: ワークスペースを開く
     [DONE: msg]               完: タスク完了を宣言
-    [SEARCH_MULTI: q]         網並×3→統: 上位3URL並列取得→統合回答 ★推奨
-    [SEARCH: q]               網×1: 単一検索
+    [SEARCH_MULTI: q]         網並×3→統: 上位3URL並列取得→統合回答 ★推奨 (q=語の列5-8語, 文禁, 引用符禁, URL禁)
+    [SEARCH: q]               網×1: 単一検索 (同上)
     [BROWSE: url]             覧: URLをMarkdownで取得
     [EVAL_JS: script]         JS実: ブラウザでJS実行
     [SAFARI: url] [CHROME: url]    ブラウザで開く（Cookie利用可）
@@ -266,6 +266,8 @@ struct AgentToolParser {
           2. コンテキスト・プロファイリング: ユーザー固有の文脈や過去の履歴に依存する生成タスクにおいては、必ず事前に[JCROSS_QUERY]で記憶（L2.5）を検索し、情報が不足する場合は接続済みの外部AI（MCPツール等）へ「コンテキストの推論やプロファイリング」を問い合わせ、十分な前提知識を得てから最終的な成果物を作成せよ。
     必⑲  Desktop App Automation (デスクトップアプリ自律探査): アプリ操作は[DESKTOP_SNAPSHOT]で得たセマンティックなUI構造マップ(XML)を確認し、可能な限り[AX_ACT: id action]を用いて確実な操作を行うこと。AX_ACTが使えない場合のみ座標ベースの[VISION_ACT]等へフォールバックせよ。
     禁⑳  プライベート情報・AIツールのWeb検索禁止: 「Teams Copilot」「ChatGPT」「Gemini」などのAIツールや、「私の自己紹介」「社内情報」などのプライベート情報を、[SEARCH]や[SEARCH_MULTI]でWeb検索してはならない（Web上には存在しないため無意味である）。外部AIツールを使用する指示を受けた場合は、必ず[OPEN_APP]で該当アプリを起動し[VISION_ACT]や[DESKTOP_ACT]で直接GUI操作を行うか、ユーザーに[ASK_HUMAN]で情報の入力を求めること。
+    必㉓  未公開固有名詞は「一般化」して検索せよ: 禁⑳が禁じるのは**固有名そのものを検索語にすること**であり、調べること自体ではない。検索対象が未公開・社内の製品名（Verantyx, JGEN 等）を含む場合、その名前で引いても0件になる。**一般的な技術名 + よく文書化された代表実装名**に置き換えて検索せよ。人間が「Verantyxの資料は無いが、MCPは共通仕様だからClaude Desktopの手順を読めばいい」と考えるのと同じことをする。
+          例: 「VerantyxのMCP設定」→ [SEARCH_MULTI: Claude Desktop MCP サーバー 設定 mcpServers json 例]
     必㉑  エラー停止・幻覚防止 (ERROR STOP PROTOCOL): [VISION ERROR]や他のエラーがシステムから返された場合、その時点で現在の操作手順を即座に停止し、失敗した旨をユーザーに報告すること。絶対にエラーを無視して後続の操作（クリックやファイルの出力など）を強行したり、「完了しました」と嘘の報告をしてはならない。エラーが出た場合は[DONE]の出力は禁止される。
     禁㉒  同時ツール呼び出しによる幻覚の禁止: 状態を読み取るツール（[READ], [LIST_DIR], [JCROSS_QUERY], [SEARCH] 等）を使用する場合、そのツールの実行結果を待たずに、推測で同じターン内で続けて別のツールを呼び出してはならない。必ず1ターンの応答につき1つの探索ステップのみを出力し、結果を得てから次を行動せよ（例外として、[GIT_COMMIT]や[BUILD_IDE]など状態に依存しない確定行動の連続は許容される）。
 
@@ -275,6 +277,10 @@ struct AgentToolParser {
     [SEARCH_MULTI: Swift 6 concurrency changes 2025]
     [JCROSS_STORE: swift6=strict concurrency by default]
     Swift 6では厳密な同時実行チェックがデフォルトです。[DONE: web検索済]
+
+    例A2「VerantyxのMCP設定方法を調べて」→ 1回目から一般化して検索 (必㉓):
+    <think>Verantyxは未公開→その名前では0件→MCPは実装非依存の共通仕様→よく文書化された実装で調べる</think>
+    [SEARCH_MULTI: Claude Desktop MCP サーバー 設定 mcpServers json 例]
 
     例B「UIの幅を固定して」→ 観→動→検証 (1ターンに1ツールずつ実行すること):
     [JCROSS_QUERY: ResizableSplit width]
@@ -1300,7 +1306,9 @@ actor AgentToolExecutor {
             // Auto-store in JCross (importance 0.7, zone near)
             let snippet = String(result.contextSnippet.prefix(200))
             await persistSearchResult(key: "web_\(query.prefix(30))", value: snippet)
-            return "[SEARCH RESULTS for: \(query)]\nSource: \(result.url)\n\(result.contextSnippet)\n[END SEARCH RESULTS]"
+            return "[SEARCH RESULTS for: \(query)]\nSource: \(result.url)\n\(result.contextSnippet)\n"
+                 + Self.qualitySentinel(for: result)
+                 + "[END SEARCH RESULTS]"
 
         case .searchMulti(let query):
             return await executeSearchMulti(query: query)
@@ -1948,6 +1956,7 @@ actor AgentToolExecutor {
         // Step 1: get search result page
         let primary = await WebSearchEngine.shared.search(query: query)
         let primaryText = primary.contextSnippet
+        let primarySentinel = Self.qualitySentinel(for: primary)
 
         // Step 2: extract additional URLs from the search result
         let urls = extractURLs(from: primaryText, limit: 2)
@@ -1976,9 +1985,23 @@ actor AgentToolExecutor {
         return """
         [SEARCH_MULTI RESULTS for: \(query)]
         \(synthesis)
-        [END SEARCH_MULTI]
+        \(primarySentinel)[END SEARCH_MULTI]
         Synthesize the above sources to answer the question.
         """
+    }
+
+    /// 「通信は成功したが0件だった」ことを下流の ReAct エンジンへ伝える印。
+    ///
+    /// 判定自体は構造化された `WebSearchResult` が生きているここで行い、
+    /// 下流へは1行の印だけ渡す。`ReActRetryEngine.detectFailure` は既にラップ
+    /// 済みの文字列しか受け取らずクエリを持たないので、あちらで再判定させる
+    /// と語の一致率を計算できない。
+    static func qualitySentinel(for result: WebSearchResult) -> String {
+        if case .noRelevantResults(let reason, let missing) = result.verdict {
+            let term = missing.map { " | missing_term=\($0)" } ?? ""
+            return "[SEARCH_QUALITY: no_relevant_results | reason=\(reason)\(term)]\n"
+        }
+        return ""
     }
 
     private func extractURLs(from text: String, limit: Int) -> [String] {
