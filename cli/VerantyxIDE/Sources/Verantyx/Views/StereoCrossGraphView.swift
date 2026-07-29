@@ -29,6 +29,19 @@ struct StereoCrossGraphView: View {
     @State private var totalCores = 0
     @State private var errorMessage: String?
 
+    private enum GraphMode: String, CaseIterable, Identifiable {
+        case vera, uiTrace
+        var id: String { rawValue }
+    }
+    @State private var mode: GraphMode = .vera
+    /// Milestone G: renders a UI-testing/bug-repro session's per-step
+    /// vector sequence (`UITestVectorTrace`) as a time-ordered stereo-cross
+    /// path -- z = step index, reusing the z-as-time convention
+    /// `JCross3DGraph.swift` established for a different feature, applied
+    /// here to an actual SceneKit view for the first time.
+    @State private var traceSessionId: String = ""
+    @State private var isLoadingTrace = false
+
     var body: some View {
         ZStack {
             SceneKitHostView(scene: scene)
@@ -58,42 +71,75 @@ struct StereoCrossGraphView: View {
                 // already-accumulated cores unless explicitly requested via
                 // focus_cores. Refresh first so the node actually exists
                 // before trying to animate a connection onto it.
-                if !focusCores.isEmpty && focusCores.contains(where: { coreNodeMap[$0] == nil }) {
+                if mode == .vera, !focusCores.isEmpty && focusCores.contains(where: { coreNodeMap[$0] == nil }) {
                     await loadGraph(focusCores: focusCores)
                 }
-                animateConnection(for: label, preferredCores: focusCores)
+                if mode == .vera {
+                    animateConnection(for: label, preferredCores: focusCores)
+                }
             }
         }
     }
 
     private var header: some View {
-        HStack(spacing: 10) {
-            Image(systemName: "cube.transparent.fill")
-                .font(.system(size: 13))
-                .foregroundStyle(Color(red: 0.5, green: 0.8, blue: 1.0))
-            Text(app.t("Stereo-Cross Structure (live)", "立体十字構造体（ライブ）"))
-                .font(.system(size: 12, weight: .bold))
-                .foregroundStyle(Color(red: 0.85, green: 0.9, blue: 1.0))
+        VStack(alignment: .leading, spacing: 6) {
+            HStack(spacing: 10) {
+                Image(systemName: "cube.transparent.fill")
+                    .font(.system(size: 13))
+                    .foregroundStyle(Color(red: 0.5, green: 0.8, blue: 1.0))
 
-            if isLoading {
-                ProgressView().controlSize(.small)
-            } else {
-                Text(app.t("\(nodeCount) of \(totalCores) cores", "\(totalCores)個中\(nodeCount)個の核"))
-                    .font(.system(size: 10, design: .monospaced))
-                    .foregroundStyle(Color(red: 0.6, green: 0.6, blue: 0.7))
+                Picker("", selection: $mode) {
+                    Text(app.t("Vera Graph", "Veraグラフ")).tag(GraphMode.vera)
+                    Text(app.t("UI Test Trace", "UIテスト・トレース")).tag(GraphMode.uiTrace)
+                }
+                .pickerStyle(.segmented)
+                .labelsHidden()
+                .frame(width: 220)
+
+                if mode == .vera {
+                    if isLoading {
+                        ProgressView().controlSize(.small)
+                    } else {
+                        Text(app.t("\(nodeCount) of \(totalCores) cores", "\(totalCores)個中\(nodeCount)個の核"))
+                            .font(.system(size: 10, design: .monospaced))
+                            .foregroundStyle(Color(red: 0.6, green: 0.6, blue: 0.7))
+                    }
+                } else if isLoadingTrace {
+                    ProgressView().controlSize(.small)
+                } else {
+                    Text(app.t("\(nodeCount) steps", "\(nodeCount)ステップ"))
+                        .font(.system(size: 10, design: .monospaced))
+                        .foregroundStyle(Color(red: 0.6, green: 0.6, blue: 0.7))
+                }
+
+                Spacer()
+
+                Button {
+                    Task {
+                        if mode == .vera { await loadGraph(focusCores: []) }
+                        else { await loadTrace() }
+                    }
+                } label: {
+                    Image(systemName: "arrow.clockwise")
+                        .font(.system(size: 11))
+                        .foregroundStyle(Color(red: 0.6, green: 0.6, blue: 0.7))
+                }
+                .buttonStyle(.plain)
+                .help(app.t("Refresh", "再読み込み"))
             }
 
-            Spacer()
-
-            Button {
-                Task { await loadGraph(focusCores: []) }
-            } label: {
-                Image(systemName: "arrow.clockwise")
-                    .font(.system(size: 11))
-                    .foregroundStyle(Color(red: 0.6, green: 0.6, blue: 0.7))
+            if mode == .uiTrace {
+                HStack(spacing: 6) {
+                    TextField(app.t("Session ID", "セッションID"), text: $traceSessionId)
+                        .textFieldStyle(.roundedBorder)
+                        .font(.system(size: 10, design: .monospaced))
+                        .frame(width: 160)
+                    Button(app.t("Load", "読み込む")) { Task { await loadTrace() } }
+                        .buttonStyle(.bordered)
+                        .controlSize(.small)
+                        .disabled(traceSessionId.trimmingCharacters(in: .whitespaces).isEmpty)
+                }
             }
-            .buttonStyle(.plain)
-            .help(app.t("Refresh from Vera", "Veraから再読み込み"))
         }
         .padding(.horizontal, 12)
         .padding(.vertical, 8)
@@ -120,6 +166,31 @@ struct StereoCrossGraphView: View {
         nodeCount = snapshot.nodes.count
         totalCores = snapshot.total_cores
         isLoading = false
+    }
+
+    /// Milestone G: loads and renders one UI-testing session's step
+    /// sequence from `UITestVectorTrace` -- no Vera/graph_snapshot
+    /// involved, entirely separate data source from `loadGraph`.
+    private func loadTrace() async {
+        let sessionId = traceSessionId.trimmingCharacters(in: .whitespaces)
+        guard !sessionId.isEmpty else { return }
+        isLoadingTrace = true
+        errorMessage = nil
+        let moments = await UITestVectorTrace.shared.trace(sessionId: sessionId)
+        guard !moments.isEmpty else {
+            isLoadingTrace = false
+            nodeCount = 0
+            errorMessage = app.t(
+                "No recorded steps for this session yet.",
+                "このセッションの記録されたステップはまだありません。"
+            )
+            return
+        }
+        scene = Self.buildTraceScene(from: moments)
+        coreNodeMap = [:]
+        nodeCount = moments.count
+        totalCores = moments.count
+        isLoadingTrace = false
     }
 
     // MARK: - Scene construction
@@ -241,6 +312,111 @@ struct StereoCrossGraphView: View {
         }
 
         return root
+    }
+
+    /// Milestone G: lays out one node per recorded step along a spiral,
+    /// with **z = stepIndex** (SceneKit depth axis) so the sequence reads
+    /// as a path receding into the screen -- the "動画のように時系列を
+    /// 立体十字構造体で見る" effect, built from tiny stored vectors/labels
+    /// only (see `UITestVectorTrace`), never raw screenshot/video frames.
+    /// Node color/size reflects whether `VisualDiffRegion` found a real
+    /// changed region for that step (bigger visual change = more
+    /// prominent node); consecutive steps are connected by a thin line.
+    private static func buildTraceScene(from moments: [UITestVectorTrace.Moment]) -> SCNScene {
+        let scene = SCNScene()
+        scene.background.contents = NSColor(calibratedRed: 0.04, green: 0.04, blue: 0.07, alpha: 1)
+
+        let ambient = SCNNode()
+        ambient.light = SCNLight()
+        ambient.light!.type = .ambient
+        ambient.light!.color = NSColor(white: 0.55, alpha: 1)
+        scene.rootNode.addChildNode(ambient)
+
+        let omni = SCNNode()
+        omni.light = SCNLight()
+        omni.light!.type = .omni
+        omni.light!.color = NSColor.white
+        omni.light!.intensity = 900
+        omni.position = SCNVector3(0, 12, 12)
+        scene.rootNode.addChildNode(omni)
+
+        let stepSpacing: Float = 2.2
+        let spiralRadius: Float = 1.6
+        let goldenAngle: Float = 2.399963 // ~137.5°, keeps a dense spiral legible
+
+        var positions: [SCNVector3] = []
+        var previousNode: SCNNode?
+        for (i, moment) in moments.enumerated() {
+            let angle = Float(i) * goldenAngle
+            let x = spiralRadius * cos(angle)
+            let y = spiralRadius * sin(angle)
+            let z = -Float(moment.stepIndex) * stepSpacing
+            let position = SCNVector3(x, y, z)
+            positions.append(position)
+
+            let node = buildStepNode(moment: moment)
+            node.position = position
+            scene.rootNode.addChildNode(node)
+
+            if let previousNode {
+                scene.rootNode.addChildNode(connectingLine(from: previousNode.position, to: position))
+            }
+            previousNode = node
+        }
+
+        let cameraNode = SCNNode()
+        cameraNode.camera = SCNCamera()
+        cameraNode.camera?.zFar = 500
+        let lastZ = positions.last?.z ?? 0
+        cameraNode.position = SCNVector3(0, 6, (lastZ) / 2 + 8)
+        cameraNode.look(at: SCNVector3(0, 0, lastZ / 2))
+        scene.rootNode.addChildNode(cameraNode)
+
+        return scene
+    }
+
+    /// One step's marker: a small sphere (bigger + warmer when a real
+    /// changed region was detected, dim + small for "no notable change"
+    /// steps like app launches) with a floating text label of the action.
+    private static func buildStepNode(moment: UITestVectorTrace.Moment) -> SCNNode {
+        let root = SCNNode()
+        root.name = "step:\(moment.stepIndex)"
+
+        let hasChange = moment.changedRegion != nil
+        let changeMagnitude: CGFloat = {
+            guard let r = moment.changedRegion, r.count == 4 else { return 0 }
+            return CGFloat(r[2] * r[3])
+        }()
+        let radius: CGFloat = hasChange ? 0.22 + min(changeMagnitude / 400_000, 0.35) : 0.14
+
+        let sphereGeo = SCNSphere(radius: radius)
+        let color = hasChange
+            ? NSColor(calibratedRed: 1.0, green: 0.6, blue: 0.3, alpha: 1)
+            : NSColor(calibratedRed: 0.5, green: 0.55, blue: 0.65, alpha: 1)
+        sphereGeo.firstMaterial?.diffuse.contents = color
+        sphereGeo.firstMaterial?.emission.contents = color.withAlphaComponent(0.35)
+        root.addChildNode(SCNNode(geometry: sphereGeo))
+
+        let textGeo = SCNText(string: moment.actionLabel, extrusionDepth: 0.05)
+        textGeo.font = NSFont.systemFont(ofSize: 3)
+        textGeo.flatness = 0.2
+        textGeo.firstMaterial?.diffuse.contents = NSColor(calibratedRed: 0.9, green: 0.9, blue: 0.95, alpha: 1)
+        let textNode = SCNNode(geometry: textGeo)
+        textNode.scale = SCNVector3(0.09, 0.09, 0.09)
+        textNode.position = SCNVector3(Float(radius) + 0.15, Float(radius) * 0.3, 0)
+        textNode.constraints = [SCNBillboardConstraint()]
+        root.addChildNode(textNode)
+
+        return root
+    }
+
+    private static func connectingLine(from: SCNVector3, to: SCNVector3) -> SCNNode {
+        let indices: [Int32] = [0, 1]
+        let source = SCNGeometrySource(vertices: [from, to])
+        let element = SCNGeometryElement(indices: indices, primitiveType: .line)
+        let geometry = SCNGeometry(sources: [source], elements: [element])
+        geometry.firstMaterial?.diffuse.contents = NSColor(calibratedRed: 0.4, green: 0.45, blue: 0.55, alpha: 0.6)
+        return SCNNode(geometry: geometry)
     }
 
     // MARK: - Connection animation

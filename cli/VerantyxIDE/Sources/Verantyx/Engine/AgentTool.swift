@@ -928,6 +928,10 @@ actor AgentToolExecutor {
     private let fileManager = FileManager.default
     private var lastVisionClickTarget: CGPoint?
     private var consecutiveClickLoopCount = 0
+    /// Same loop-guard idea as `consecutiveClickLoopCount`, kept separate
+    /// since it gates the [DESKTOP_ACT]/hidden-window path independently
+    /// of [VISION_ACT]'s Safari-only path.
+    private var consecutiveDesktopClickLoopCount = 0
 
     private func relativePath(of url: URL, workspace: URL?) -> String {
         guard let ws = workspace else { return url.lastPathComponent }
@@ -1478,6 +1482,17 @@ actor AgentToolExecutor {
 
                 let hiddenActive = await MainActor.run { HiddenWindowAutomation.shared.targetAppName != nil }
 
+                // Diff-gating (Milestone G): mirrors [VISION_ACT]'s existing
+                // loop-detection, previously missing from this path entirely
+                // -- [DESKTOP_ACT] used to unconditionally re-screenshot and
+                // re-inject into the vision model on every single action,
+                // regardless of whether anything actually changed.
+                let frameBeforeAction = await MainActor.run { AppState.shared?.lastVideoFrames?.last }
+                if cmd == "click" && consecutiveDesktopClickLoopCount >= 3 {
+                    consecutiveDesktopClickLoopCount = 0
+                    return "[DESKTOP ERROR] DESKTOP_BLOCKED: You have clicked near these coordinates multiple times without the screen visually changing. DO NOT click here again. Try a different tool (scroll, type, or a different location) or ask the human."
+                }
+
                 if cmd == "click" && parts.count >= 3 {
                     let x = Double(parts[1]) ?? 0.0
                     let y = Double(parts[2]) ?? 0.0
@@ -1502,15 +1517,41 @@ actor AgentToolExecutor {
                 } else {
                     frame = try await SafariVisionBridge.shared.takeScreenshot(enforceSafari: false)
                 }
+
+                // Only run the (cheap, but not free) Vision-framework
+                // feature-print diff for clicks -- type/scroll actions are
+                // expected to change the screen, and there's no prior
+                // single-point target to loop-detect against.
+                var noVisualChange = false
+                var changedRegion: CGRect? = nil
+                if cmd == "click", let before = frameBeforeAction {
+                    let distance = SafariVisionBridge.shared.computeVisualSimilarity(base64A: before, base64B: frame)
+                    if distance < 10.0 {
+                        noVisualChange = true
+                        consecutiveDesktopClickLoopCount += 1
+                    } else {
+                        consecutiveDesktopClickLoopCount = 0
+                        if let beforeData = Data(base64Encoded: before), let beforeImage = NSImage(data: beforeData),
+                           let afterData = Data(base64Encoded: frame), let afterImage = NSImage(data: afterData) {
+                            changedRegion = VisualDiffRegion.changedRegion(before: beforeImage, after: afterImage)
+                        }
+                    }
+                }
+
                 await CognitiveAnchorEngine.shared.setVisionScreenshot(frame)
-                await MainActor.run { AppState.shared?.lastVideoFrames = [frame] }
+                await MainActor.run {
+                    AppState.shared?.lastVideoFrames = [frame]
+                    AppState.shared?.lastDesktopChangedRegion = changedRegion
+                }
 
                 if cmd == "click" {
+                    let changeNote = noVisualChange
+                        ? "NO VISUAL CHANGE was detected (NO_VISUAL_CHANGE) -- you probably missed the target. Try a different location, or scroll first."
+                        : "🔴 A red circle shows where your mouse clicked."
                     return """
                     [DESKTOP_ACT: \(action)]
                     Action performed. New screenshot injected\(hiddenActive ? " (hidden window mirror)" : "").
-                    🔴 A red circle shows where your mouse clicked.
-                    If the screen did not change, you probably missed the target.
+                    \(changeNote)
                     """
                 }
 

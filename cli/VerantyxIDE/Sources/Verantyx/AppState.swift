@@ -177,6 +177,11 @@ final class AppState: ObservableObject {
     @Published var isSwarmMode: Bool = false // 🐝 Swarm Pipeline Mode
     @Published var lastEntropy: [CGPoint]? = nil
     @Published var lastVideoFrames: [String]? = nil
+    /// Set by `[DESKTOP_ACT]` click handling (`AgentTool.swift`) whenever
+    /// `VisualDiffRegion` finds a changed region for the most recent click
+    /// -- read (and cleared) by `AgentLoop.swift` right after the tool call
+    /// so `UITestVectorTrace.recordMoment` can size/place the step's node.
+    @Published var lastDesktopChangedRegion: CGRect? = nil
     @Published var lastKeyboardEntropy: [Double]? = nil
     @Published var lastEntropyTimestamp: Date? = nil
     @Published var searchCooldownUntil: Date? = nil

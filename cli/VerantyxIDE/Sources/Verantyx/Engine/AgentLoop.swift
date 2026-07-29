@@ -1,5 +1,6 @@
 import Foundation
 import Combine
+import CoreGraphics
 
 struct SteeringInterruptError: Swift.Error {
     let command: String
@@ -68,6 +69,11 @@ actor AgentLoop {
         var currentWorkspace = workspaceURL
         var conversation: [(role: String, content: String)] = []
         var turn = 0
+        // Persists across the whole run() call (a bug-repro/UI-testing
+        // session usually spans many while-loop turns, not just one) --
+        // feeds UITestVectorTrace's stepIndex/z-axis.
+        var uiStepIndex = 0
+        var uiTraceWarnedNotLoaded = false
 
         // ── Vera-α: direct-answer fast path ───────────────────────────────
         // Skips the LLM call entirely for a high-confidence, already-
@@ -990,6 +996,14 @@ SYS.ENFORCE("logical_verification_before_acceptance")
             // ── Execute tools ─────────────────────────────────────────────
             var toolResults: [String] = []
             var isDone = false
+            // Accumulates a plain-text trace of UI-automation steps (desktop
+            // clicks/types, accessibility actions, vision actions, app
+            // launches) taken this turn -- written to EternalMemoryStore on
+            // [DONE] so bug-repro/UI-testing sessions become recallable by
+            // JGEN hidden-state similarity in later turns/sessions, not just
+            // held in this run's conversation array. Empty for ordinary
+            // (non-UI-automation) turns, so nothing extra gets written then.
+            var uiAutomationLog: [String] = []
 
             for tool in tools {
                 let call = AgentToolCall(tool: tool)
@@ -1144,8 +1158,37 @@ SYS.ENFORCE("logical_verification_before_acceptance")
                     // ── [NEW] SEPARATION OF MEMORY ──
                     // Extract generalized wisdom to near/mid, and move the task history to far/
                     let currentConv = conversation
+                    let uiLog = uiAutomationLog
+                    let uiInstruction = instruction
                     Task.detached {
                         let shortId = vxSessionId
+
+                        // 0. UI-automation/bug-repro trace → eternal memory.
+                        // Only fires when this turn actually drove UI
+                        // automation (desktop/AX/vision act calls) -- see
+                        // `uiAutomationLog`'s doc comment. Written as one
+                        // JGEN hidden-state vector so a later session asking
+                        // about the same button/flow can recall exactly
+                        // what was clicked/typed and what happened, even
+                        // long after this conversation's own context is gone.
+                        if !uiLog.isEmpty {
+                            let summary = "UI test/repro: \(uiInstruction)\n" + uiLog.joined(separator: "\n")
+                            do {
+                                try await EternalMemoryStore.shared.add(text: summary, concepts: ["ui-automation", "bug-repro"])
+                            } catch {
+                                // Both EternalMemoryStore and UITestVectorTrace embed
+                                // via JCrossChatManager.encodeText, which requires a
+                                // JGEN model to be loaded (Settings → JGEN) -- this is
+                                // NOT a generic fallback path, it only works on the
+                                // JGEN backend. Surface that plainly instead of
+                                // silently no-op'ing, so the feature's dependency is
+                                // visible rather than looking broken/unused.
+                                await onProgress(.systemLog(AppLanguage.shared.t(
+                                    "⚠️ Eternal memory write skipped (no JGEN model loaded -- Settings → JGEN): \(error.localizedDescription)",
+                                    "⚠️ 永遠記憶への書き込みをスキップしました(JGENモデル未読み込み — Settings → JGEN): \(error.localizedDescription)"
+                                )))
+                            }
+                        }
                         // 1. L2 Fact Extraction for WISDOM (User Preferences/Identities)
                         // We do a fast heuristic extraction from the user turns.
                         let userTurns = currentConv.filter { $0.role == "user" }.map { $0.content }.joined(separator: " ")
@@ -1315,6 +1358,50 @@ SYS.ENFORCE("logical_verification_before_acceptance")
                 let completedCall = AgentToolCall(tool: tool, result: result, succeeded: !result.hasPrefix("✗"))
                 await onProgress(.toolResult(completedCall))
                 toolResults.append("\(call.displayLabel) → \(result)")
+
+                switch tool {
+                case .openApp, .desktopSnapshot, .desktopAct, .axAct, .visionAct,
+                     .visionSnapshot, .visionBrowse, .visionSearchFlow, .registerUIElement:
+                    // Trim each result to keep the eventual eternal-memory
+                    // entry a readable summary, not a raw screenshot/base64
+                    // dump -- long results here are usually image payloads.
+                    let trimmedResult = result.count > 200 ? String(result.prefix(200)) + "…" : result
+                    uiAutomationLog.append("\(call.displayLabel) → \(trimmedResult)")
+
+                    // Milestone G: cheap per-step vector, no LLM narration.
+                    // Skip steps the diff-gate already flagged as a no-op
+                    // click (NO_VISUAL_CHANGE) -- not worth a vector slot.
+                    // Requires a JGEN model loaded (Settings → JGEN) --
+                    // `recordMoment` embeds via JCrossChatManager, which is
+                    // JGEN-backend-only, unlike Ollama/MLX/Anthropic. Check
+                    // up front and warn once rather than silently no-op'ing
+                    // every step for the rest of the session.
+                    if !result.contains("NO_VISUAL_CHANGE") {
+                        if await JCrossChatManager.shared.isLoaded {
+                            uiStepIndex += 1
+                            let stepIndex = uiStepIndex
+                            let region = await MainActor.run { () -> CGRect? in
+                                let r = AppState.shared?.lastDesktopChangedRegion
+                                AppState.shared?.lastDesktopChangedRegion = nil
+                                return r
+                            }
+                            let label = call.displayLabel
+                            Task.detached {
+                                try? await UITestVectorTrace.shared.recordMoment(
+                                    sessionId: vxSessionId, stepIndex: stepIndex, actionLabel: label, changedRegion: region
+                                )
+                            }
+                        } else if !uiTraceWarnedNotLoaded {
+                            uiTraceWarnedNotLoaded = true
+                            await onProgress(.systemLog(AppLanguage.shared.t(
+                                "⚠️ UI-test vector trace is JGEN-only and no JGEN model is loaded (Settings → JGEN) -- steps this session won't be recorded to the 3D trace.",
+                                "⚠️ UIテストのベクトル・トレースはJGEN専用で、JGENモデルが読み込まれていません(Settings → JGEN) — 今回のセッションのステップは3Dトレースに記録されません。"
+                            )))
+                        }
+                    }
+                default:
+                    break
+                }
             }
 
             if isDone { return }
