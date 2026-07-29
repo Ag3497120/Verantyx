@@ -836,13 +836,32 @@ final class MCPEngine: ObservableObject {
         // developed on). Falls back to the old python3.11 command only if
         // the bundled binary genuinely isn't present (e.g. a dev build
         // that hasn't run the embed phase yet).
-        if !servers.contains(where: { $0.name == "vera-memory" }) {
+        let bundledVeraMemory = Bundle.main.executableURL?.deletingLastPathComponent().appendingPathComponent("vera-memory")
+        let bundledVeraMemoryAvailable = bundledVeraMemory.map { FileManager.default.fileExists(atPath: $0.path) } ?? false
+
+        if let existingIndex = servers.firstIndex(where: { $0.name == "vera-memory" }) {
+            // A server list saved before Milestone H's bundling fix (or one
+            // saved while the bundled binary was momentarily missing) can
+            // be stuck on the old hardcoded `cd /Users/.../Verantyx-Vera-alpha`
+            // command, which only ever worked on the original dev machine.
+            // Migrate it in place once the bundled binary is available,
+            // instead of leaving a permanently-broken saved entry.
+            let existing = servers[existingIndex]
+            if bundledVeraMemoryAvailable, let bundled = bundledVeraMemory,
+               !existing.command.hasPrefix("\"\(bundled.path)\"") {
+                try? FileManager.default.createDirectory(at: VeraMemoryPaths.appSupportDir, withIntermediateDirectories: true)
+                let storePath = VeraMemoryPaths.storeFile.path
+                var migrated = existing
+                migrated.command = "\"\(bundled.path)\" --store \"\(storePath)\" mcp"
+                servers[existingIndex] = migrated
+                Task { await self.connect(server: migrated) }
+            }
+        } else {
             try? FileManager.default.createDirectory(at: VeraMemoryPaths.appSupportDir, withIntermediateDirectories: true)
             let storePath = VeraMemoryPaths.storeFile.path
 
             let command: String
-            if let bundled = Bundle.main.executableURL?.deletingLastPathComponent().appendingPathComponent("vera-memory"),
-               FileManager.default.fileExists(atPath: bundled.path) {
+            if bundledVeraMemoryAvailable, let bundled = bundledVeraMemory {
                 command = "\"\(bundled.path)\" --store \"\(storePath)\" mcp"
             } else {
                 command = "sh -c \"cd /Users/motonishikoudai/Projects/Verantyx-Vera-alpha && /opt/homebrew/bin/python3.11 -m verantyx.cli mcp\""
