@@ -25,7 +25,32 @@ final class JCrossEngine {
             case .negativeDimension:
                 return "jcross_engine returned a negative hidden_dim/num_layers"
             case .ffiError(let function, let code):
-                return "\(function) failed with code \(code)"
+                return "\(function) failed with code \(code)\(Self.hint(for: code))"
+            }
+        }
+
+        /// エラーコードだけでは何が起きたか分からないので、Rust側が返す
+        /// 意味を添える。
+        ///
+        /// Rust は本当のエラー文を `eprintln!` で **stderr** に出しているが、
+        /// GUIから起動したアプリではそれが誰にも見えない。数字だけを見せる
+        /// のは調査の手掛かりを捨てているのと同じなので、少なくとも意味と
+        /// 次の一手を示す。
+        private static func hint(for code: Int32) -> String {
+            switch code {
+            case -1:
+                return " — 引数がnull(エンジン未初期化の可能性)"
+            case -2:
+                return " — エンジン内部エラー。よくある原因: gemma4系で"
+                     + "per-layer embeddings(PLE)の有無がメタ情報と実際の"
+                     + "テンソルで食い違っている(再変換で直る)。"
+                     + "正確な理由はターミナルから "
+                     + "/Applications/Verantyx.app/Contents/MacOS/Verantyx "
+                     + "で起動すると [Rust Engine] の行に出る"
+            case -3:
+                return " — 出力次元の不一致(モデルとエンジンの想定が違う)"
+            default:
+                return ""
             }
         }
     }
