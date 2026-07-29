@@ -13,9 +13,20 @@ struct AgentChatView: View {
     @State private var showVisualAnchorPrompt: Bool = false
     @State private var visualAnchorText: String = ""
     @State private var showSpotlightPrompt: Bool = false
-    
-    @State private var showAgentPromptAnchorPrompt: Bool = false
-    @State private var agentPromptAnchorText: String = ""
+    /// Milestone H: the lock-icon anchor popover used to be two separate
+    /// buttons/popovers (lock = "Visual Anchor" / red "CRITICAL DIRECTIVE"
+    /// framing, wand = "Agent Instruction" / gray "USER INSTRUCTION"
+    /// framing) that both rendered text into a PNG via the same
+    /// `CognitiveAnchorEngine` pipeline and attached it to
+    /// `app.attachedImages` -- functionally identical except for framing.
+    /// Consolidated into one popover with this style picker; both
+    /// "Set Persistent" and "Inject Once" apply to whichever style is
+    /// selected.
+    private enum AnchorFramingStyle: String, CaseIterable, Identifiable {
+        case criticalDirective, userInstruction
+        var id: String { rawValue }
+    }
+    @State private var anchorFramingStyle: AnchorFramingStyle = .criticalDirective
 
     @State private var showVerifiedURLPrompt: Bool = false
     @State private var verifiedURLName: String = ""
@@ -616,20 +627,33 @@ struct AgentChatView: View {
                     }
                     .contentShape(Rectangle())
                     .buttonStyle(.plain)
-                    .help(app.t("Insert Visual Anchor", "Visual Anchorを注入"))
+                    .help(app.t(
+                        "Insert Anchor (Critical Directive or User Instruction framing)",
+                        "アンカーを注入(Critical DirectiveまたはUser Instruction枠)"
+                    ))
                     .popover(isPresented: $showVisualAnchorPrompt) {
                         VStack(alignment: .leading, spacing: 10) {
-                            Text("Visual Anchor 注入")
+                            Text(app.t("Anchor Injection", "アンカー注入"))
                                 .font(.headline)
-                            Text("1回のみ注入するか、毎ターン自動注入（Persistent Task）するか選択できます。\n空欄でSet Persistentを押すと解除されます。")
+                            Text(app.t(
+                                "Inject once, or every turn automatically (Persistent Task). Set Persistent with an empty field to clear it.",
+                                "1回のみ注入するか、毎ターン自動注入（Persistent Task）するか選択できます。\n空欄でSet Persistentを押すと解除されます。"
+                            ))
                                 .font(.caption)
                                 .foregroundStyle(.secondary)
-                            
+
+                            Picker("", selection: $anchorFramingStyle) {
+                                Text(app.t("Critical Directive", "Critical Directive")).tag(AnchorFramingStyle.criticalDirective)
+                                Text(app.t("User Instruction", "User Instruction")).tag(AnchorFramingStyle.userInstruction)
+                            }
+                            .pickerStyle(.segmented)
+                            .labelsHidden()
+
                             TextEditor(text: $visualAnchorText)
                                 .frame(width: 300, height: 100)
                                 .font(.system(size: 12, design: .monospaced))
                                 .border(Color.gray.opacity(0.3))
-                            
+
                             HStack {
                                 Spacer()
                                 Button("Cancel") {
@@ -642,10 +666,12 @@ struct AgentChatView: View {
                                 }
                                 .buttonStyle(.bordered)
                                 .tint(app.persistentTaskAnchor.isEmpty ? .orange : .gray)
-                                
+
                                 Button("Inject Once") {
                                     guard !visualAnchorText.isEmpty else { return }
-                                    let anchorBase64 = CognitiveAnchorEngine.shared.getCustomAnchor(text: visualAnchorText)
+                                    let anchorBase64 = anchorFramingStyle == .criticalDirective
+                                        ? CognitiveAnchorEngine.shared.getCustomAnchor(text: visualAnchorText)
+                                        : CognitiveAnchorEngine.shared.getUserPromptAnchor(text: visualAnchorText)
                                     // Base64からローカルファイルに書き出して添付する
                                     if let data = Data(base64Encoded: anchorBase64),
                                        let img = NSImage(data: data) {
@@ -662,7 +688,7 @@ struct AgentChatView: View {
                                     visualAnchorText = ""
                                 }
                                 .buttonStyle(.borderedProminent)
-                                .tint(.red)
+                                .tint(anchorFramingStyle == .criticalDirective ? .red : .blue)
                             }
                         }
                         .padding()
@@ -693,60 +719,6 @@ struct AgentChatView: View {
                     .help(app.autoVisualAnchorImagesEnabled
                         ? app.t("Auto Visual Anchor images: ON (click to disable)", "自動Visual Anchor画像: ON（クリックで無効化）")
                         : app.t("Auto Visual Anchor images: OFF (click to enable)", "自動Visual Anchor画像: OFF（クリックで有効化）"))
-
-                    // ── Agent Prompt Visual Anchor Insertion ──
-                    Button {
-                        showAgentPromptAnchorPrompt = true
-                    } label: {
-                        Image(systemName: "wand.and.stars")
-                            .font(.system(size: 15))
-                            .foregroundStyle(Color(red: 0.4, green: 0.8, blue: 0.9))
-                            .frame(width: 26, height: 26)
-                    }
-                    .contentShape(Rectangle())
-                    .buttonStyle(.plain)
-                    .help(app.t("Insert Instruction as Image", "テキスト指示を画像として注入"))
-                    .popover(isPresented: $showAgentPromptAnchorPrompt) {
-                        VStack(alignment: .leading, spacing: 10) {
-                            Text("Agent Instruction 注入")
-                                .font(.headline)
-                            Text("テキスト指示を画像に変換してAIのテキスト偏重を回避します。")
-                                .font(.caption)
-                                .foregroundStyle(.secondary)
-                            
-                            TextEditor(text: $agentPromptAnchorText)
-                                .frame(width: 300, height: 100)
-                                .font(.system(size: 12, design: .monospaced))
-                                .border(Color.gray.opacity(0.3))
-                            
-                            HStack {
-                                Spacer()
-                                Button("Cancel") {
-                                    showAgentPromptAnchorPrompt = false
-                                }
-                                Button("Inject") {
-                                    guard !agentPromptAnchorText.isEmpty else { return }
-                                    let anchorBase64 = CognitiveAnchorEngine.shared.getUserPromptAnchor(text: agentPromptAnchorText)
-                                    if let data = Data(base64Encoded: anchorBase64),
-                                       let img = NSImage(data: data) {
-                                        let tempUrl = FileManager.default.temporaryDirectory.appendingPathComponent("agent_anchor_\(UUID().uuidString).png")
-                                        if let tiff = img.tiffRepresentation,
-                                           let bitmap = NSBitmapImageRep(data: tiff),
-                                           let png = bitmap.representation(using: .png, properties: [:]) {
-                                            try? png.write(to: tempUrl)
-                                            let attached = AttachedImage(name: "InstructionAnchor.png", url: tempUrl, nsImage: img)
-                                            app.attachedImages.append(attached)
-                                        }
-                                    }
-                                    showAgentPromptAnchorPrompt = false
-                                    agentPromptAnchorText = ""
-                                }
-                                .buttonStyle(.borderedProminent)
-                                .tint(.blue)
-                            }
-                        }
-                        .padding()
-                    }
 
                     // ── Verified URL registry ──
                     // Lets the user directly pin a confirmed URL for a

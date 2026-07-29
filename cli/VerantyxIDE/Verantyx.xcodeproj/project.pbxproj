@@ -720,6 +720,7 @@
 				F3AA225F597254C51D1CC89B /* Frameworks */,
 				3C96DA999F96C1224503C197 /* Embed verantyx-browser into App Bundle */,
 				796605CDFB0D47B099D87B15 /* Embed jgen_forge into App Bundle */,
+				9970BF29A4454C729CF521B9 /* Embed vera-memory into App Bundle */,
 				3B325E36B62448DF87973C00 /* Embed Libraries */,
 			);
 			buildRules = (
@@ -831,6 +832,25 @@
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
 			shellScript = "set -e\nBUNDLE_MACOS=\"$BUILT_PRODUCTS_DIR/$PRODUCT_NAME.app/Contents/MacOS\"\nSRC=\"$SRCROOT/Vendor/jgen_forge\"\nDEST=\"$BUNDLE_MACOS/jgen_forge\"\n\nif [ ! -f \"$SRC\" ]; then\n  echo \"warning: $SRC not found -- JGEN conversion will be unavailable in this build.\"\n  exit 0\nfi\n\nmkdir -p \"$BUNDLE_MACOS\"\ncp -f \"$SRC\" \"$DEST\"\nchmod +x \"$DEST\"\ncodesign --force -s - \"$DEST\" 2>/dev/null || true\necho \"jgen_forge -> $DEST\"\n";
+		};
+		9970BF29A4454C729CF521B9 /* Embed vera-memory into App Bundle */ = {
+			isa = PBXShellScriptBuildPhase;
+			alwaysOutOfDate = 1;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+			);
+			name = "Embed vera-memory into App Bundle";
+			outputFileListPaths = (
+			);
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "set -e\nBUNDLE_MACOS=\"$BUILT_PRODUCTS_DIR/$PRODUCT_NAME.app/Contents/MacOS\"\nSRC=\"$SRCROOT/Vendor/vera-memory\"\nDEST=\"$BUNDLE_MACOS/vera-memory\"\n\nif [ ! -f \"$SRC\" ]; then\n  echo \"warning: $SRC not found -- vera-memory will be unavailable in this build.\"\n  exit 0\nfi\n\nmkdir -p \"$BUNDLE_MACOS\"\ncp -f \"$SRC\" \"$DEST\"\nchmod +x \"$DEST\"\ncodesign --force -s - \"$DEST\" 2>/dev/null || true\necho \"vera-memory -> $DEST\"\n";
 		};
 /* End PBXShellScriptBuildPhase section */
 

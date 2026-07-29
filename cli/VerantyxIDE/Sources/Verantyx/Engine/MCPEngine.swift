@@ -1,6 +1,23 @@
 import Foundation
 import SwiftUI
 
+/// Persistent storage location for the bundled `vera-memory` binary's
+/// knowledge store -- mirrors `JGenPaths` (`JGenConverter.swift`)'s
+/// Application Support pattern. The store (`vera_store.json`) is user/
+/// session-accumulated data, not app code, so it lives outside both the
+/// app bundle and any hardcoded dev-checkout path.
+enum VeraMemoryPaths {
+    static var appSupportDir: URL {
+        let base = (try? FileManager.default.url(for: .applicationSupportDirectory, in: .userDomainMask, appropriateFor: nil, create: true))
+            ?? FileManager.default.homeDirectoryForCurrentUser.appendingPathComponent("Library/Application Support")
+        return base.appendingPathComponent("Verantyx/vera-memory", isDirectory: true)
+    }
+
+    static var storeFile: URL {
+        appSupportDir.appendingPathComponent("vera_store.json")
+    }
+}
+
 // MARK: - MCPEngine
 //
 // Model Context Protocol client for Verantyx IDE.
@@ -759,17 +776,36 @@ final class MCPEngine: ObservableObject {
 
         // ── Auto-inject vera-memory if missing ──
         // Vera's deterministic, typed-verdict knowledge store (`ask` /
-        // `remember` / `propose_ai_facts` / ...), run as its own MCP server
-        // (`python -m verantyx.cli mcp`, requires Python 3.10+ — the
-        // Homebrew interpreter below, not the system 3.9 one, which can't
-        // install the `mcp` SDK). CortexEngine queries it live in
-        // `buildMemoryPrompt`/`extractAndStore` — see docs/MCP.md and
-        // Verantyx-Vera-alpha's docs/DESIGN.md for what it actually is.
+        // `remember` / `propose_ai_facts` / ...), run as its own MCP
+        // server. CortexEngine queries it live in `buildMemoryPrompt`/
+        // `extractAndStore` — see docs/MCP.md and Verantyx-Vera-alpha's
+        // docs/DESIGN.md for what it actually is.
+        //
+        // Milestone H: uses the bundled `vera-memory` binary (PyInstaller-
+        // frozen `verantyx-vera`, embedded at Contents/MacOS/vera-memory
+        // via the "Embed vera-memory into App Bundle" build phase) instead
+        // of a hardcoded python3.11 + sibling dev-checkout path -- same
+        // fix, same reasoning as Milestone F's jgen_forge bundling (that
+        // hardcoded path only ever worked on the one machine it was
+        // developed on). Falls back to the old python3.11 command only if
+        // the bundled binary genuinely isn't present (e.g. a dev build
+        // that hasn't run the embed phase yet).
         if !servers.contains(where: { $0.name == "vera-memory" }) {
+            try? FileManager.default.createDirectory(at: VeraMemoryPaths.appSupportDir, withIntermediateDirectories: true)
+            let storePath = VeraMemoryPaths.storeFile.path
+
+            let command: String
+            if let bundled = Bundle.main.executableURL?.deletingLastPathComponent().appendingPathComponent("vera-memory"),
+               FileManager.default.fileExists(atPath: bundled.path) {
+                command = "\"\(bundled.path)\" --store \"\(storePath)\" mcp"
+            } else {
+                command = "sh -c \"cd /Users/motonishikoudai/Projects/Verantyx-Vera-alpha && /opt/homebrew/bin/python3.11 -m verantyx.cli mcp\""
+            }
+
             let config = MCPServerConfig(
                 name: "vera-memory",
                 transport: .stdio,
-                command: "sh -c \"cd /Users/motonishikoudai/Projects/Verantyx-Vera-alpha && /opt/homebrew/bin/python3.11 -m verantyx.cli mcp\"",
+                command: command,
                 mode: .ai
             )
             servers.append(config)

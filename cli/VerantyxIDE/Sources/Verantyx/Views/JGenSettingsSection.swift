@@ -114,6 +114,21 @@ struct JGenSettingsSection: View {
                                     Label(app.t("Converted", "変換済み"), systemImage: "checkmark.circle.fill")
                                         .font(.system(size: 9, weight: .semibold))
                                         .foregroundStyle(Color(red: 0.4, green: 0.9, blue: 0.5))
+                                    // Re-convert: picks up jgen_forge fixes
+                                    // (e.g. the tokenizer-synthesis change)
+                                    // without deleting/renaming the old
+                                    // .jgen by hand first -- `pull` just
+                                    // overwrites the same output path.
+                                    Button {
+                                        Task { await converter.convert(src) }
+                                    } label: {
+                                        Image(systemName: "arrow.triangle.2.circlepath")
+                                            .font(.system(size: 10))
+                                    }
+                                    .buttonStyle(.plain)
+                                    .foregroundStyle(Color(red: 0.6, green: 0.6, blue: 0.7))
+                                    .disabled(converter.isRunning)
+                                    .help(app.t("Re-convert (e.g. after a jgen_forge update)", "再変換(jgen_forge更新後など)"))
                                 } else {
                                     Button {
                                         Task { await converter.convert(src) }

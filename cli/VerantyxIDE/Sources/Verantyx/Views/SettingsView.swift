@@ -2027,6 +2027,7 @@ struct SettingsView: View {
     private func mcpServerRow(_ server: MCPServerConfig) -> some View {
         let isFirst   = mcp.servers.first?.id == server.id
         let isRunning = mcp.activeCall?.serverName == server.name
+        let status    = mcp.connectionStatus[server.id] ?? .disconnected
         let cmdLabel  = server.transport == .stdio
             ? (server.command.components(separatedBy: " ").first ?? server.command)
             : (server.url.isEmpty ? "http://…" : server.url)
@@ -2034,11 +2035,29 @@ struct SettingsView: View {
             ? Color(red: 0.4, green: 0.8, blue: 1.0)
             : Color(red: 0.9, green: 0.7, blue: 0.3)
 
+        // Real connection status (was: only reflected an in-flight call,
+        // so a server that never even started looked identical to an
+        // idle-but-working one). An active call always shows green
+        // regardless of `status` -- it's proof positive the server works.
+        let statusColor: Color = {
+            if isRunning { return .green }
+            switch status {
+            case .connected:      return .green
+            case .connecting:     return Color(red: 0.9, green: 0.7, blue: 0.3)
+            case .error:          return Color(red: 1.0, green: 0.35, blue: 0.35)
+            case .disconnected:   return Color(red: 0.4, green: 0.4, blue: 0.5)
+            }
+        }()
+        let errorDetail: String? = {
+            if case .error(let message) = status { return message }
+            return nil
+        }()
+
         return VStack(alignment: .leading, spacing: 0) {
             if !isFirst { Divider().opacity(0.15) }
             HStack(spacing: 10) {
                 Circle()
-                    .fill(isRunning ? Color.green : Color(red: 0.4, green: 0.4, blue: 0.5))
+                    .fill(statusColor)
                     .frame(width: 7, height: 7)
                 VStack(alignment: .leading, spacing: 2) {
                     Text(server.name)
@@ -2048,6 +2067,12 @@ struct SettingsView: View {
                         .font(.system(size: 9, design: .monospaced))
                         .foregroundStyle(.tertiary)
                         .lineLimit(1)
+                    if let errorDetail {
+                        Text(errorDetail)
+                            .font(.system(size: 9))
+                            .foregroundStyle(Color(red: 1.0, green: 0.5, blue: 0.5))
+                            .lineLimit(2)
+                    }
                 }
                 Spacer()
                 Text(server.mode == .ai ? "AI" : "Human")
