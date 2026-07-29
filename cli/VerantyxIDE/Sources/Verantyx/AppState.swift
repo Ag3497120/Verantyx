@@ -129,6 +129,11 @@ final class AppState: ObservableObject {
 
     // Model
     @Published var modelStatus: ModelStatus = .none
+    /// Name of the `.jgen` model currently being loaded (nil = idle), and the
+    /// last load failure. Shared by the model-selector bar and the JGEN
+    /// settings section so both show the same spinner/error.
+    @Published var jgenLoadingModel: String?
+    @Published var jgenLoadError: String?
     @Published var ollamaModels: [String] = []
     // activeOllamaModel は下記(L412付近)でdidSetつきで宣言済み
     @Published var anthropicApiKey: String = "" {
@@ -285,6 +290,9 @@ final class AppState: ObservableObject {
     @Published var pendingFileApproval: FileApprovalRequest? = nil
 
     // Vera-α layer: preview-before-save approval (see VeraMemoryBridge.swift)
+    /// A 4-layer setup awaiting the user's approval. Presented as a sheet;
+    /// nothing is applied until they press Apply.
+    @Published var pendingSetupProposal: SetupProposal? = nil
     @Published var pendingVeraSave: VeraSaveApprovalRequest? = nil
     @Published var pendingVeraSaveQueue: [VeraSaveApprovalRequest] = []
 
@@ -706,8 +714,23 @@ final class AppState: ObservableObject {
         case "active_ollama_model":
             activeOllamaModel = value
             modelStatus = .ollamaReady(model: value)
+        case "active_auditor_model":
+            activeAuditorModel = value
+        case "is_auditor_enabled":
+            isAuditorEnabled = (value == "true" || value == "1" || value == "yes")
+        case "context_window_override":
+            guard let n = Int(value) else { return "⚠️ context_window_override expects an integer (0 = auto)" }
+            contextWindowOverride = n
+        case "active_mlx_model":
+            activeMlxModel = value
+        case "council_execution_model":
+            CouncilSettingsStore.shared.executionModel = value
+        case "council_escalation_model":
+            CouncilSettingsStore.shared.config.escalationModel = value
+        case "council_use_for_chat":
+            CouncilSettingsStore.shared.useCouncilForChat = (value == "true" || value == "1" || value == "yes")
         default:
-            return "⚠️ Unknown setting key: '\(key)'. Valid keys: system_prompt, operation_mode, temperature, max_tokens_ollama, max_tokens_mlx, ollama_endpoint, inference_mode, agent_loop_enabled, streaming_enabled, anthropic_api_key, active_ollama_model"
+            return "⚠️ Unknown setting key: '\(key)'. Valid keys: system_prompt, operation_mode, temperature, max_tokens_ollama, max_tokens_mlx, ollama_endpoint, inference_mode, agent_loop_enabled, streaming_enabled, anthropic_api_key, active_ollama_model, active_auditor_model, is_auditor_enabled, context_window_override, active_mlx_model, council_execution_model, council_escalation_model, council_use_for_chat"
         }
         return "✓ \(key) = \(value.prefix(80))"
     }
@@ -1204,12 +1227,23 @@ final class AppState: ObservableObject {
             } else if inferenceMode == .cloudDirect || inferenceMode == .privacyShield || inferenceMode == .paranoiaMode {
                 await runHybrid(instruction: text)
             } else if agentLoopEnabled {
-                // Pass images to agent loop so the model can see them
+                // 4-layer path: explicit `/council <question>`, or every turn
+                // when the JGEN options popover has "use the council for
+                // normal chat" on. Falls back to the plain loop by itself if
+                // no JGEN model is loaded.
+                let trimmed = text.trimmingCharacters(in: .whitespaces)
+                let isCouncilCommand = trimmed.lowercased().hasPrefix("/council")
+                let question = isCouncilCommand
+                    ? String(trimmed.dropFirst("/council".count)).trimmingCharacters(in: .whitespaces)
+                    : text
+                let useLayered = isCouncilCommand || CouncilSettingsStore.shared.useCouncilForChat
+
                 let history = Array(self.messages.dropLast())
-                await runAgentLoop(instruction: text,
+                await runAgentLoop(instruction: question.isEmpty ? text : question,
                                    images: snapshotImages,
                                    files: snapshotFiles,
-                                   previousMessages: history)
+                                   previousMessages: history,
+                                   useLayered: useLayered)
             } else {
                 await runSinglePass(instruction: text,
                                     images: snapshotImages,
@@ -1387,7 +1421,8 @@ final class AppState: ObservableObject {
     private func runAgentLoop(instruction: String,
                               images: [AttachedImage] = [],
                               files: [URL] = [],
-                              previousMessages: [ChatMessage] = []) async {
+                              previousMessages: [ChatMessage] = [],
+                              useLayered: Bool = false) async {
         let context = selectedFileContent.isEmpty ? nil : selectedFileContent
         let contextFile = selectedFile
         let snap_workspace = workspaceURL
@@ -1416,20 +1451,11 @@ final class AppState: ObservableObject {
         // stale UUIDs are never carried forward.
         streamingMsgId = nil
 
-        await AgentLoop.shared.run(
-            instruction: fullInstruction,
-            contextFile: context,
-            contextFileName: contextFile?.lastPathComponent,
-            workspaceURL: snap_workspace,
-            modelStatus: snap_status,
-            activeModel: snap_model,
-            cortex: cortex,
-            selfFixMode: snap_selfFix,
-            operationMode: snap_operationMode,
-            memoryLayer: sessions.activeSession?.activeLayer ?? .l2,
-            chatSessionId: vxChatSessionId,
-            previousMessages: previousMessages
-        ) { [weak self] event in
+        // One handler, two runners: the layered (4-layer) path and the
+        // plain agent loop both report through exactly the same event
+        // stream, so chat rendering, streaming and approvals behave
+        // identically either way.
+        let handler: @Sendable (LoopEvent) async -> Void = { [weak self] event in
             guard let self else { return }
             await MainActor.run {
                 // Any event other than streamToken represents (or precedes)
@@ -1558,6 +1584,31 @@ final class AppState: ObservableObject {
                 }
             }
         }
+
+        // Layer 1 council -> Layer 2 execution agent -> Layer 3 escalation.
+        // Returns false when it can't run (e.g. no JGEN model loaded), in
+        // which case we fall through to the normal loop below.
+        if useLayered,
+           await LayeredRunOrchestrator.run(question: fullInstruction, app: self, onProgress: handler) {
+            await MainActor.run { self.isGenerating = false }
+            return
+        }
+
+        await AgentLoop.shared.run(
+            instruction: fullInstruction,
+            contextFile: context,
+            contextFileName: contextFile?.lastPathComponent,
+            workspaceURL: snap_workspace,
+            modelStatus: snap_status,
+            activeModel: snap_model,
+            cortex: cortex,
+            selfFixMode: snap_selfFix,
+            operationMode: snap_operationMode,
+            memoryLayer: sessions.activeSession?.activeLayer ?? .l2,
+            chatSessionId: vxChatSessionId,
+            previousMessages: previousMessages,
+            onProgress: handler
+        )
 
         await MainActor.run { self.isGenerating = false }
     }
@@ -2126,6 +2177,89 @@ final class AppState: ObservableObject {
         }
     }
 
+
+    // MARK: - Architecture template setup
+
+    /// Builds a plan for `template` and queues it for approval. Runs the
+    /// planner to completion *before* presenting the sheet, so any web lookup
+    /// can't leave a spinner (or a verification puzzle) stuck behind a modal.
+    func proposeSetup(template: ArchitectureTemplate, allowWeb: Bool = true) {
+        Task { @MainActor in
+            let machine = MachineProfile.current()
+            let inventory = await ModelInventory.snapshot(app: self)
+            let proposal = await TemplateSetupPlanner.shared.plan(
+                template: template, machine: machine,
+                inventory: inventory,
+                hasAnthropicKey: !self.anthropicApiKey.isEmpty,
+                allowWeb: allowWeb
+            )
+            self.pendingSetupProposal = proposal
+        }
+    }
+
+    /// Applies an approved plan. Deliberately does *not* touch
+    /// `activeOllamaModel`: the chat model and the execution model are
+    /// different roles, and silently swapping the user's chat model is the
+    /// most likely surprise here.
+    func applySetupProposal(_ proposal: SetupProposal) {
+        let store = CouncilSettingsStore.shared
+        store.config = proposal.template.councilConfig
+        store.templateId = proposal.template.id
+
+        if let exec = proposal.assignment(.execution), exec.backend != .none {
+            store.executionModel = exec.model == "—" ? "" : exec.model
+        } else {
+            store.executionModel = ""
+        }
+        if let esc = proposal.assignment(.escalation), esc.backend != .none, esc.model != "—" {
+            store.config.escalationModel = esc.model
+        } else {
+            store.config.escalationModel = ""
+        }
+
+        // Layer 1 runs on JGEN; load it if the plan named one that isn't
+        // already active.
+        if let core = proposal.assignment(.councilCore), core.backend == .jgen, core.model != "—" {
+            let alreadyLoaded: Bool
+            if case .jcrossReady(let m) = modelStatus { alreadyLoaded = (m == core.model) } else { alreadyLoaded = false }
+            if !alreadyLoaded { loadJGenModel(core.model) }
+        }
+
+        pendingSetupProposal = nil
+        let name = AppLanguage.shared.isJapanese ? proposal.template.nameJA : proposal.template.name
+        addSystemMessage(t("🧩 Applied setup: \(name)", "🧩 構成を適用しました: \(name)"))
+    }
+
+    // MARK: - JGEN Actions
+
+    /// Loads a converted `.jgen` model into `JCrossChatManager` and flips
+    /// `modelStatus` to `.jcrossReady` so `AgentLoop.callModel` routes chat
+    /// through the JGEN engine.
+    ///
+    /// Lives here rather than in `JGenSettingsSection` (where it used to be)
+    /// because the model-selector bar above the chat input now loads JGEN
+    /// models too -- two copies of this would let the bar and Settings show
+    /// contradictory state. Both surfaces observe `jgenLoadingModel` /
+    /// `jgenLoadError`.
+    func loadJGenModel(_ name: String) {
+        jgenLoadingModel = name
+        jgenLoadError = nil
+        Task {
+            do {
+                try await JCrossChatManager.shared.load(modelFileName: name)
+                await MainActor.run {
+                    self.jgenLoadingModel = nil
+                    self.modelStatus = .jcrossReady(model: name)
+                    self.addSystemMessage("🧠 JGEN \(name) をロードしました")
+                }
+            } catch {
+                await MainActor.run {
+                    self.jgenLoadingModel = nil
+                    self.jgenLoadError = error.localizedDescription
+                }
+            }
+        }
+    }
 
     // MARK: - MLX Actions (Direct in-process — no HTTP server)
 

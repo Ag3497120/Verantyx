@@ -118,6 +118,11 @@ struct MainSplitView: View {
             FileApprovalView(req: req)
                 .environmentObject(app)
         }
+        // ── 4-layer architecture setup: review then approve ──────────────────
+        .sheet(item: $app.pendingSetupProposal) { proposal in
+            TemplateSetupApprovalSheet(proposal: proposal)
+                .environmentObject(app)
+        }
         // ── Vera-α layer: save-preview approval sheet ────────────────────────
         // Suppressed while the stereo-cross graph demo is active -- the
         // same request is shown as an inline card in AgentChatView instead

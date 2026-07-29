@@ -389,6 +389,16 @@ SYS.ENFORCE("logical_verification_before_acceptance")
 
         // ── Agent loop — no hard turn cap ─────────────────────────────────
         while true {
+            // The Stop button cancels `AppState.inferenceTask`, but nothing
+            // in this loop used to observe that, so a running agent kept
+            // burning turns after the user asked it to stop. Checking once
+            // per turn is the cheapest place that actually ends the loop.
+            if Task.isCancelled {
+                await onProgress(.systemLog(AppLanguage.shared.t(
+                    "⏹ Stopped by user.", "⏹ ユーザーによって停止されました。")))
+                await onProgress(.done(message: "", workspace: currentWorkspace))
+                return
+            }
             turn += 1
             await onProgress(.thinking(turn: turn))
 

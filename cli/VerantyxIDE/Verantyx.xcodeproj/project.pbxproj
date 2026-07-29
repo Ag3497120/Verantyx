@@ -10,6 +10,8 @@
 		B2E7A7191E1745FCA3C59411 /* CouncilOrchestrator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6B43E093C864441FAECE6F42 /* CouncilOrchestrator.swift */; };
 		D7AB4E8493144C8DA06D472C /* ContextUsageTracker.swift in Sources */ = {isa = PBXBuildFile; fileRef = 44B8AA2D4671411593288718 /* ContextUsageTracker.swift */; };
 		7118455FDBCA4B45B854F371 /* ContextUsageIndicator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5ECBDA437BA7412292AF0CCC /* ContextUsageIndicator.swift */; };
+		0F3663BC0D16492284CA971B /* ModelSelectorBarView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8EB9F313965C4D1ABFB9E358 /* ModelSelectorBarView.swift */; };
+		3AFC13BC104E4A739D802CA6 /* TemplateSetupApprovalSheet.swift in Sources */ = {isa = PBXBuildFile; fileRef = D9555DAA6AC44813B12713BB /* TemplateSetupApprovalSheet.swift */; };
 		9B0A185F90D14161AE858177 /* VisualDiffRegion.swift in Sources */ = {isa = PBXBuildFile; fileRef = CBA26E6331B041BD9310E07B /* VisualDiffRegion.swift */; };
 		FF265150001D4B38A2037E44 /* UITestVectorTrace.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9E2133625D924EB3B369F0B1 /* UITestVectorTrace.swift */; };
 		C6598F741AC442F2A93CB8A0 /* EternalMemoryStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4B728F0A1FE34F8BA86187D5 /* EternalMemoryStore.swift */; };
@@ -17,6 +19,13 @@
 		9B4AD7EB19294938A9F1018F /* DivergenceExchange.swift in Sources */ = {isa = PBXBuildFile; fileRef = EEB74F7518DB4CB0AC4EE070 /* DivergenceExchange.swift */; };
 		43B36D0875214282ABCA68F9 /* SoftSequence.swift in Sources */ = {isa = PBXBuildFile; fileRef = E0A41B8856F54D5988CE1B89 /* SoftSequence.swift */; };
 		9F6FE3E4560C43569BA93B51 /* CouncilPreset.swift in Sources */ = {isa = PBXBuildFile; fileRef = 05875EDFA5CB4CB8A1F85CD2 /* CouncilPreset.swift */; };
+		BB06558B2A7C4FDAB34A64A0 /* CouncilSettingsStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = 28F721ABE831448AB4211220 /* CouncilSettingsStore.swift */; };
+		278D282C4D9A4AFBA2B7858B /* TemplateSetupPlanner.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1B657B3F622B427F899E62AF /* TemplateSetupPlanner.swift */; };
+		7D7FCB8E75BB442EB2BFDEA9 /* ModelInventory.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1FC0ADEBED984D33B3A5D7F3 /* ModelInventory.swift */; };
+		7A4525E8041A40188CB30A2C /* MachineProfile.swift in Sources */ = {isa = PBXBuildFile; fileRef = 82D2132EE81C47B08EF2803A /* MachineProfile.swift */; };
+		A9418BC65AF649B3817132FA /* ArchitectureTemplate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8EEEE4F2F0A446869F17796F /* ArchitectureTemplate.swift */; };
+		4174258FF65D4F9F8E2A2705 /* LayeredRunOrchestrator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3DA8FC6DC5D24A2689C82B99 /* LayeredRunOrchestrator.swift */; };
+		9CDD8ABD4D0148E48C9FD3D2 /* ExecutionAgent.swift in Sources */ = {isa = PBXBuildFile; fileRef = 54BE799B901D4FED83EA00D5 /* ExecutionAgent.swift */; };
 		1BFBE895CAE1467F9EA3C08A /* VectorLabView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AF45453E82814584AEECDC2C /* VectorLabView.swift */; };
 		B6141B510C384239811D985F /* JCrossChatManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6F5CEA13580847D580F704BE /* JCrossChatManager.swift */; };
 		2BE17EA2E7E2436EB65EE247 /* JGenConverter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 86DA980AC45244118FC34A65 /* JGenConverter.swift */; };
@@ -99,7 +108,6 @@
 		6CF063A4285D3104180FEE2B /* CodeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 57CFECC2C82E892A9FB5DEF5 /* CodeView.swift */; };
 		71A9771C8D9F8C53D4A28522 /* JCrossIR6Axis.swift in Sources */ = {isa = PBXBuildFile; fileRef = 050936E7E07D1743B386A740 /* JCrossIR6Axis.swift */; };
 		72662D2EC9F582795A04936C /* SimpleJCrossTranspiler.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1B99ABA9CD8F1879B2BFA33E /* SimpleJCrossTranspiler.swift */; };
-		74402A6B62B43AD8399A9847 /* ModelPickerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6C3A66E6CFDB45051738F2D3 /* ModelPickerView.swift */; };
 		74716BFE363BFF66BF180656 /* ResizableSplit.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2123AA8E95CFC74CF0FA42F4 /* ResizableSplit.swift */; };
 		767AECB5C753A290ADB44E93 /* AppLanguage.swift in Sources */ = {isa = PBXBuildFile; fileRef = E93C2041C7D910D0DCA7A80B /* AppLanguage.swift */; };
 		7811761DE7F5C33C0E54B544 /* ExoSetupWizard.swift in Sources */ = {isa = PBXBuildFile; fileRef = 20D5F40CB9C69ABE4975DCA2 /* ExoSetupWizard.swift */; };
@@ -239,6 +247,8 @@
 		6B43E093C864441FAECE6F42 /* CouncilOrchestrator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CouncilOrchestrator.swift; sourceTree = "<group>"; };
 		44B8AA2D4671411593288718 /* ContextUsageTracker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContextUsageTracker.swift; sourceTree = "<group>"; };
 		5ECBDA437BA7412292AF0CCC /* ContextUsageIndicator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContextUsageIndicator.swift; sourceTree = "<group>"; };
+		8EB9F313965C4D1ABFB9E358 /* ModelSelectorBarView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ModelSelectorBarView.swift; sourceTree = "<group>"; };
+		D9555DAA6AC44813B12713BB /* TemplateSetupApprovalSheet.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TemplateSetupApprovalSheet.swift; sourceTree = "<group>"; };
 		CBA26E6331B041BD9310E07B /* VisualDiffRegion.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VisualDiffRegion.swift; sourceTree = "<group>"; };
 		9E2133625D924EB3B369F0B1 /* UITestVectorTrace.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UITestVectorTrace.swift; sourceTree = "<group>"; };
 		4B728F0A1FE34F8BA86187D5 /* EternalMemoryStore.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EternalMemoryStore.swift; sourceTree = "<group>"; };
@@ -246,6 +256,13 @@
 		EEB74F7518DB4CB0AC4EE070 /* DivergenceExchange.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DivergenceExchange.swift; sourceTree = "<group>"; };
 		E0A41B8856F54D5988CE1B89 /* SoftSequence.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SoftSequence.swift; sourceTree = "<group>"; };
 		05875EDFA5CB4CB8A1F85CD2 /* CouncilPreset.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CouncilPreset.swift; sourceTree = "<group>"; };
+		28F721ABE831448AB4211220 /* CouncilSettingsStore.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CouncilSettingsStore.swift; sourceTree = "<group>"; };
+		1B657B3F622B427F899E62AF /* TemplateSetupPlanner.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TemplateSetupPlanner.swift; sourceTree = "<group>"; };
+		1FC0ADEBED984D33B3A5D7F3 /* ModelInventory.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ModelInventory.swift; sourceTree = "<group>"; };
+		82D2132EE81C47B08EF2803A /* MachineProfile.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MachineProfile.swift; sourceTree = "<group>"; };
+		8EEEE4F2F0A446869F17796F /* ArchitectureTemplate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ArchitectureTemplate.swift; sourceTree = "<group>"; };
+		3DA8FC6DC5D24A2689C82B99 /* LayeredRunOrchestrator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LayeredRunOrchestrator.swift; sourceTree = "<group>"; };
+		54BE799B901D4FED83EA00D5 /* ExecutionAgent.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExecutionAgent.swift; sourceTree = "<group>"; };
 		A9C32260F6774C4C93FBDA96 /* HiddenWindowMirrorView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HiddenWindowMirrorView.swift; sourceTree = "<group>"; };
 		0A6820690E9749F989927A71 /* JGenSettingsSection.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = JGenSettingsSection.swift; sourceTree = "<group>"; };
 		AF45453E82814584AEECDC2C /* VectorLabView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VectorLabView.swift; sourceTree = "<group>"; };
@@ -300,7 +317,6 @@
 		661B0EA5973E4654DDB16C5C /* mp_.mp4.bak */ = {isa = PBXFileReference; path = mp_.mp4.bak; sourceTree = "<group>"; };
 		674A38A3D3F9A65C3671CB3A /* LanguageManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LanguageManager.swift; sourceTree = "<group>"; };
 		678D827D3C1D544C20F0232D /* NSLockExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NSLockExtension.swift; sourceTree = "<group>"; };
-		6C3A66E6CFDB45051738F2D3 /* ModelPickerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ModelPickerView.swift; sourceTree = "<group>"; };
 		6C51EFB7C797A6BDE324F322 /* JCrossSchemaGenerator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = JCrossSchemaGenerator.swift; sourceTree = "<group>"; };
 		6C6D2F73754A7AA12136F9AC /* BrowserBridge.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BrowserBridge.swift; sourceTree = "<group>"; };
 		6C820EF2AE923977A1829A75 /* OSAssetMapper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OSAssetMapper.swift; sourceTree = "<group>"; };
@@ -533,7 +549,6 @@
 				5B5F0016C4911F099545301D /* MainSplitView.swift */,
 				E54EB9A5249E83F7D28508B5 /* MCPQuickPanel.swift */,
 				FA5721938F21F94496234B39 /* MCPView.swift */,
-				6C3A66E6CFDB45051738F2D3 /* ModelPickerView.swift */,
 				661B0EA5973E4654DDB16C5C /* mp_.mp4.bak */,
 				8CE028571C7727001A93D813 /* ParanoiaModeView.swift */,
 				BBEE7AD08B047D2FA3942F97 /* PipelineLaunchSheet.swift */,
@@ -546,6 +561,8 @@
 				0A6820690E9749F989927A71 /* JGenSettingsSection.swift */,
 				AF45453E82814584AEECDC2C /* VectorLabView.swift */,
 				5ECBDA437BA7412292AF0CCC /* ContextUsageIndicator.swift */,
+				8EB9F313965C4D1ABFB9E358 /* ModelSelectorBarView.swift */,
+				D9555DAA6AC44813B12713BB /* TemplateSetupApprovalSheet.swift */,
 				A50B5F7BDC9140D2A949A8B1 /* MemoryLayerInspectorView.swift */,
 				61F1FE98023D9A7A9A50C88E /* VeraSaveApprovalView.swift */,
 				851696E9486FDE35D2146141 /* SettingsView.swift */,
@@ -674,6 +691,13 @@
 				EEB74F7518DB4CB0AC4EE070 /* DivergenceExchange.swift */,
 				E0A41B8856F54D5988CE1B89 /* SoftSequence.swift */,
 				05875EDFA5CB4CB8A1F85CD2 /* CouncilPreset.swift */,
+				28F721ABE831448AB4211220 /* CouncilSettingsStore.swift */,
+				1B657B3F622B427F899E62AF /* TemplateSetupPlanner.swift */,
+				1FC0ADEBED984D33B3A5D7F3 /* ModelInventory.swift */,
+				82D2132EE81C47B08EF2803A /* MachineProfile.swift */,
+				8EEEE4F2F0A446869F17796F /* ArchitectureTemplate.swift */,
+				3DA8FC6DC5D24A2689C82B99 /* LayeredRunOrchestrator.swift */,
+				54BE799B901D4FED83EA00D5 /* ExecutionAgent.swift */,
 				802C57C641342AF0523401B9 /* ParanoiaEngine.swift */,
 				EDA3819E2975C008C2AB74CA /* PreflightSearchEngine.swift */,
 				331E574E58724DD018686E55 /* PrivacyGateway.swift */,
@@ -973,7 +997,6 @@
 				5501BBD59DC8AA6357BA1F92 /* MCPView.swift in Sources */,
 				0A63761D3E2C49ED80D1D4A9 /* MLXRunner.swift in Sources */,
 				57CC8D875A2870E56B674276 /* MainSplitView.swift in Sources */,
-				74402A6B62B43AD8399A9847 /* ModelPickerView.swift in Sources */,
 				FD982B53C35792247076B68D /* NSLockExtension.swift in Sources */,
 				E5B60910BD05069944CEEFBC /* NotificationNames.swift in Sources */,
 				B1F75FAEBFFD56F2AD79235E /* OSAssetMapper.swift in Sources */,
@@ -985,6 +1008,8 @@
 				B2E7A7191E1745FCA3C59411 /* CouncilOrchestrator.swift in Sources */,
 				D7AB4E8493144C8DA06D472C /* ContextUsageTracker.swift in Sources */,
 				7118455FDBCA4B45B854F371 /* ContextUsageIndicator.swift in Sources */,
+				0F3663BC0D16492284CA971B /* ModelSelectorBarView.swift in Sources */,
+				3AFC13BC104E4A739D802CA6 /* TemplateSetupApprovalSheet.swift in Sources */,
 				9B0A185F90D14161AE858177 /* VisualDiffRegion.swift in Sources */,
 				FF265150001D4B38A2037E44 /* UITestVectorTrace.swift in Sources */,
 				C6598F741AC442F2A93CB8A0 /* EternalMemoryStore.swift in Sources */,
@@ -992,6 +1017,13 @@
 				9B4AD7EB19294938A9F1018F /* DivergenceExchange.swift in Sources */,
 				43B36D0875214282ABCA68F9 /* SoftSequence.swift in Sources */,
 				9F6FE3E4560C43569BA93B51 /* CouncilPreset.swift in Sources */,
+				BB06558B2A7C4FDAB34A64A0 /* CouncilSettingsStore.swift in Sources */,
+				278D282C4D9A4AFBA2B7858B /* TemplateSetupPlanner.swift in Sources */,
+				7D7FCB8E75BB442EB2BFDEA9 /* ModelInventory.swift in Sources */,
+				7A4525E8041A40188CB30A2C /* MachineProfile.swift in Sources */,
+				A9418BC65AF649B3817132FA /* ArchitectureTemplate.swift in Sources */,
+				4174258FF65D4F9F8E2A2705 /* LayeredRunOrchestrator.swift in Sources */,
+				9CDD8ABD4D0148E48C9FD3D2 /* ExecutionAgent.swift in Sources */,
 				8E6BC7DE963A41809F5C8B79 /* JGenSettingsSection.swift in Sources */,
 				1BFBE895CAE1467F9EA3C08A /* VectorLabView.swift in Sources */,
 				50B438252B974476AC9AE86B /* HiddenWindowMirrorView.swift in Sources */,

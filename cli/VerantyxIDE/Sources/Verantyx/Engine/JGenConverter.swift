@@ -238,15 +238,47 @@ final class JGenConverter: ObservableObject {
     /// override is on and valid) so nothing already converted under either
     /// location silently disappears from the list.
     func refreshConvertedModelsList() {
+        // A conversion in flight is *writing* a .jgen that legitimately has no
+        // .meta.json yet (the sidecar is written last). Deleting incomplete
+        // files while that's happening would destroy the very file being
+        // written, so only sweep when nothing is running -- otherwise just
+        // list what's complete and leave the rest alone.
+        let sweep = !isRunning
         var names = Set<String>()
-        if let entries = try? FileManager.default.contentsOfDirectory(atPath: appSupportBaseDir.appendingPathComponent("converted_models").path) {
-            names.formUnion(entries.filter { $0.hasSuffix(".jgen") })
+        let appSupportDir = appSupportBaseDir.appendingPathComponent("converted_models").path
+        if let entries = try? FileManager.default.contentsOfDirectory(atPath: appSupportDir) {
+            names.formUnion(Self.completeJGenFiles(entries, dir: appSupportDir, deleteIncomplete: sweep))
         }
         if useCustomRepo && repoPathValid,
            let entries = try? FileManager.default.contentsOfDirectory(atPath: "\(repoPath)/converted_models") {
-            names.formUnion(entries.filter { $0.hasSuffix(".jgen") })
+            names.formUnion(Self.completeJGenFiles(entries, dir: "\(repoPath)/converted_models", deleteIncomplete: sweep))
         }
         convertedModels = names.sorted()
+    }
+
+    /// Filters to `.jgen` files that have a matching `.meta.json` sidecar,
+    /// and deletes any that don't. A `.jgen` without its sidecar is the
+    /// signature of a conversion that never finished (crashed, ran out of
+    /// memory, or the app quit mid-conversion) -- jgen_forge.py now cleans
+    /// this up itself going forward, but a stale one from before that fix
+    /// (or an interruption jgen_forge.py's own process couldn't catch, like
+    /// a hard kill) would otherwise sit in this list forever, only failing
+    /// with a confusing "no .meta.json sidecar" error the moment the user
+    /// tries to load it. Removing it here means re-running Convert/pull on
+    /// the same name (which overwrites the same output path) is enough to
+    /// get a working file, instead of first needing to find and delete it
+    /// by hand.
+    private static func completeJGenFiles(_ entries: [String], dir: String, deleteIncomplete: Bool) -> [String] {
+        entries.filter { entry in
+            guard entry.hasSuffix(".jgen") else { return false }
+            let jgenPath = (dir as NSString).appendingPathComponent(entry)
+            let metaPath = jgenPath + ".meta.json"
+            if FileManager.default.fileExists(atPath: metaPath) { return true }
+            if deleteIncomplete {
+                try? FileManager.default.removeItem(atPath: jgenPath)
+            }
+            return false
+        }
     }
 
     /// True if either the bundled binary or a valid custom-repo override is

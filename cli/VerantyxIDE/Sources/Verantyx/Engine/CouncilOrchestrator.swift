@@ -34,7 +34,7 @@ actor CouncilOrchestrator {
 
     private init() {}
 
-    enum InjectionPolicy: String, CaseIterable, Identifiable {
+    enum InjectionPolicy: String, Codable, CaseIterable, Identifiable {
         case none, planSteal, earlySteal, deepRounds
         var id: String { rawValue }
 
@@ -48,7 +48,10 @@ actor CouncilOrchestrator {
         }
     }
 
-    struct Config {
+    /// `Codable` so `CouncilSettingsStore` can persist the user's council
+    /// setup across launches (all members are already Codable: `JCrossLayer`
+    /// in SessionStore.swift, `InjectionPolicy` above).
+    struct Config: Codable {
         var roleCount: Int = 3               // 2-5
         var roundsCap: Int = 4
         var injectionPolicy: InjectionPolicy = .none
@@ -66,6 +69,18 @@ actor CouncilOrchestrator {
         /// the stolen-plan vector. Empty = escalation is reported but no
         /// call is made, and plan-steal is skipped.
         var escalationModel: String = ""
+        /// Who runs Layer 2 (execution).
+        ///
+        /// `.inlineOllama` (default, and what the Vector Lab uses) keeps the
+        /// original behavior: one non-agentic `OllamaClient` call at the end
+        /// of `deliberate`. `.external` returns the handoff and lets the
+        /// caller run a real tool-using agent -- see `LayeredRunOrchestrator`.
+        var executionMode: ExecutionMode = .inlineOllama
+    }
+
+    enum ExecutionMode: String, Codable {
+        case inlineOllama
+        case external
     }
 
     struct Handoff {
@@ -73,14 +88,24 @@ actor CouncilOrchestrator {
         let evidence: [String]
         let nextAction: String
         let confidence: Float
+        /// A real sentence expanding on `conclusion`.
+        ///
+        /// `conclusion` is the council's consensus *token* (the top-1 decode
+        /// of the consensus vector), which is fine as a convergence signal but
+        /// nearly contentless as an instruction. Layer 2 is a tool-using agent
+        /// that needs something actionable, so after the deliberation loop the
+        /// same JGEN model decodes a short prose statement of what the council
+        /// settled on. Empty when generation failed -- `asText` then falls back
+        /// to the token alone, i.e. exactly the old behavior.
+        var detail: String = ""
 
         var asText: String {
-            """
-            [COUNCIL CONCLUSION] \(conclusion)
-            [EVIDENCE] \(evidence.joined(separator: " | "))
-            [NEXT ACTION] \(nextAction)
-            [CONFIDENCE] \(String(format: "%.2f", confidence))
-            """
+            var lines = ["[COUNCIL CONCLUSION] \(conclusion)"]
+            if !detail.isEmpty { lines.append("[DETAIL] \(detail)") }
+            lines.append("[EVIDENCE] \(evidence.joined(separator: " | "))")
+            lines.append("[NEXT ACTION] \(nextAction)")
+            lines.append("[CONFIDENCE] \(String(format: "%.2f", confidence))")
+            return lines.joined(separator: "\n")
         }
     }
 
@@ -347,19 +372,35 @@ actor CouncilOrchestrator {
         let conclusion = Self.mostCommonAnswer(answers) ?? answers.first ?? ""
         let lowConfidence = confidence < config.escalationConfidenceThreshold
 
+        // Expand the consensus token into an actual sentence -- see
+        // Handoff.detail. Best-effort: a failure here degrades the handoff
+        // back to the token-only form rather than failing the deliberation.
+        let detail = (try? await chat.generate(
+            conversation: [
+                ("system", "State, in one or two sentences, the conclusion these deliberation notes converge on. Be concrete and actionable. Do not add new claims."),
+                ("user", "[QUESTION] \(question)\n[CONSENSUS TOKEN] \(conclusion)\n[ROLE ANSWERS] \(answers.joined(separator: ", "))")
+            ],
+            maxTokens: 96
+        ))?.trimmingCharacters(in: .whitespacesAndNewlines) ?? ""
+
         let handoff = Handoff(
             conclusion: conclusion,
             evidence: finalRoles.map { "\($0.role): \($0.answer)" },
             nextAction: lowConfidence
                 ? "Escalate -- council confidence below threshold or roles disagree."
                 : "Proceed with council conclusion.",
-            confidence: confidence
+            confidence: confidence,
+            detail: detail
         )
 
         var finalAnswer: String? = nil
         if config.escalateOnLowConfidence && lowConfidence {
             escalated = true
-            if !config.escalationModel.trimmingCharacters(in: .whitespaces).isEmpty {
+            // `.external` means the caller (LayeredRunOrchestrator) owns
+            // Layer 2/3 and will run a real tool-using agent instead; doing
+            // the one-shot call here too would duplicate the work.
+            if config.executionMode == .inlineOllama,
+               !config.escalationModel.trimmingCharacters(in: .whitespaces).isEmpty {
                 finalAnswer = await OllamaClient.shared.generateConversation(
                     model: config.escalationModel,
                     messages: [

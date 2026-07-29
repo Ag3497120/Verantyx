@@ -16,6 +16,7 @@ struct SettingsView: View {
     @State private var showDeepSeekKey = false
     @State private var showGeminiKey = false
     @State private var showAssetMap = false
+    @State private var hfRepoId = ""
     @ObservedObject private var updater = SelfUpdater.shared
     @ObservedObject private var vault = OSAssetMemoryVault.shared
 
@@ -660,6 +661,34 @@ struct SettingsView: View {
                     }
                     Slider(value: Binding(get: { Double(app.maxTokensOllama) }, set: { app.maxTokensOllama = Int($0) }), in: 256...8192, step: 256)
                         .tint(Color(red: 0.4, green: 0.7, blue: 1.0))
+                }
+
+                Divider().opacity(0.2)
+
+                // Downloading an MLX model by HuggingFace repo id used to live
+                // in ModelPickerView, which had zero call sites -- so
+                // AppState.downloadMLXModel was unreachable from the UI
+                // entirely. Surfaced here instead of in the chat model bar,
+                // which needs to stay compact.
+                VStack(alignment: .leading, spacing: 6) {
+                    rowLabel("Download MLX model (HuggingFace)") {
+                        HStack(spacing: 6) {
+                            TextField("mlx-community/…", text: $hfRepoId)
+                                .textFieldStyle(.roundedBorder)
+                                .font(.system(size: 11, design: .monospaced))
+                                .frame(width: 220)
+                            Button("Download") {
+                                let id = hfRepoId.trimmingCharacters(in: .whitespaces)
+                                guard !id.isEmpty else { return }
+                                app.downloadMLXModel(repoId: id)
+                            }
+                            .buttonStyle(.borderedProminent)
+                            .controlSize(.small)
+                            .disabled(hfRepoId.trimmingCharacters(in: .whitespaces).isEmpty)
+                        }
+                    }
+                    Text("Downloads into ~/Library/Caches/models. Only MLX-format repos work here (look for an \"-mlx\" or \"mlx-community/\" repo); GGUF repos should go through Ollama or the JGEN converter instead.")
+                        .font(.system(size: 10)).foregroundStyle(.tertiary)
                 }
 
                 Divider().opacity(0.2)
