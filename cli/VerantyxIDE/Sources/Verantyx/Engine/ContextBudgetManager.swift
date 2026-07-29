@@ -42,6 +42,12 @@ struct ContextBudgetManager {
         ("phi4", 16384),
         ("phi3", 8192),
         ("smollm", 4096),
+        // BitNet family (1-bit quantized, all currently distributed at 4K context)
+        ("bonsai", 4096),
+        ("bitnet", 4096),
+        // Anthropic cloud models -- no entries existed here before; all current
+        // Claude models share a 200K-token window.
+        ("claude", 200000),
     ]
 
     static func budget(for modelId: String) -> ContextBudget {

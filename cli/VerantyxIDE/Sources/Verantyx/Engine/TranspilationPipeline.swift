@@ -134,50 +134,74 @@ final class TranspilationPipeline: ObservableObject {
             return
         }
 
-        // ユーザー要望により、裏側での順次処理を止め、生成したTODOをチャット欄に注入して処理を委譲する
-        let lines = generatedTodos.enumerated()
-            .map { "[\($0.0+1)] \($0.1.relativePath) → \($0.1.targetPath)" }
-            .joined(separator: "\n")
-            
-        let promptToInject = """
-        [システム: パイプラインがL2.5 TODOリストを生成しました。以下に従って順次作業してください]
-        
-        \(lines)
-        
-        対象タスク: \(task)
-        """
-        
-        await MainActor.run {
-            AppState.shared?.inputText = promptToInject
-            AppState.shared?.sendMessage()
+        // Step 3: L1-L3 の階層メモリで1ファイルずつ処理・ビルド検証・自動修正
+        // (この逐次処理ループ自体は前から実装済みだったが、run() から一度も
+        // 呼ばれていなかった -- 過去にはTODOリストをチャット欄へ注入して
+        // 処理を委譲する形に変更されていたが、今回ユーザーの明示的な要望で
+        // 元の自動実行に戻す。processSingleTodo は既に @Published todos/
+        // currentTodoIndex を更新するので、ヘッダーの進捗表示は変更不要。)
+        addLog(AppLanguage.shared.t("⚙️ Step 3: Processing \(generatedTodos.count) files...", "⚙️ Step 3: \(generatedTodos.count) ファイルを処理中..."))
+        var succeededCount = 0
+        var failedCount = 0
+        for index in todos.indices {
+            guard isRunning else {
+                addLog(AppLanguage.shared.t("⏸️ Pipeline stopped by user", "⏸️ ユーザーによりPipelineを停止しました"))
+                break
+            }
+            currentTodoIndex = index
+            await processSingleTodo(
+                index: index, task: task, mapString: mapString,
+                maxRetries: maxRetries, workspaceURL: workspaceURL, langPair: langPair
+            )
+            if todos[index].status == .succeeded { succeededCount += 1 }
+            else if todos[index].status == .failed { failedCount += 1 }
         }
-        
-        addLog(AppLanguage.shared.t("✅ TODOリストをチャット欄に注入しました。以後の作業はチャットで引き継がれます。", "✅ TODO list injected into chat. Work will continue there."))
-        return
+
+        await savePipelineResultToMemory(task: task, succeeded: succeededCount, failed: failedCount, workspaceURL: workspaceURL)
+        addLog(AppLanguage.shared.t(
+            "🏁 Pipeline complete: \(succeededCount) succeeded, \(failedCount) failed",
+            "🏁 Pipeline完了: 成功\(succeededCount)件・失敗\(failedCount)件"
+        ))
     }
 
     // MARK: - Step 2: TODO リスト生成 (BitNet Commander)
 
     private func generateTodoList(task: String, mapString: String, langPair: LangPair?) async -> [TranspilationTodo] {
+        // No detected language pair means this isn't necessarily a
+        // conversion task at all -- could be "add tests to every file in
+        // X", "refactor Y in place", etc. Frame the prompt accordingly
+        // rather than always biasing the model toward inventing a
+        // conversion mapping (Milestone I: generalize Pipeline beyond
+        // Swift→Rust).
+        let isConversion = langPair != nil
         let srcExt  = langPair?.sourceExt  ?? ""
-        let tgtExt  = langPair?.targetExt  ?? ""
+        let tgtExt  = langPair?.targetExt  ?? srcExt
         let tgtDir  = langPair?.targetDirHint ?? "verantyx-target"
         let srcLang = langPair?.source ?? "source"
         let tgtLang = langPair?.target ?? "target"
+
+        let taskFraming = isConversion
+            ? "You are a task decomposer. Output a JSON array of files to convert."
+            : "You are a task decomposer. Output a JSON array of files this task touches (not necessarily a conversion -- could be adding tests, refactoring in place, fixing bugs, etc.)."
+        let targetPathExample = isConversion
+            ? "\"targetPath\":\"\(tgtDir)/src/file\(tgtExt)\""
+            : "\"targetPath\":\"src/file\(srcExt)\"  (same as relativePath for in-place work)"
 
         // BitNet に渡すプロンプト
         // 重要: モデルはL2.5地図(Kanji topology)のみ参照。生ファイルは渡さない。
         let prompt = """
         ### Instruction:
-        You are a task decomposer. Output a JSON array of files to convert.
+        \(taskFraming)
         Task: \(task.prefix(200))
-        Source language: \(srcLang) | Target language: \(tgtLang)
+        Source language: \(srcLang)\(isConversion ? " | Target language: \(tgtLang)" : "")
 
         L2.5 Project Map (Kanji topology — this is ALL you see, no raw source):
         \(mapString.prefix(1500))
 
+        Set targetPath equal to relativePath for in-place work (refactor, add tests, fix bugs). Only use a different targetPath when the task is an actual language/format conversion.
+
         Output ONLY valid JSON:
-        [{"relativePath":"src/file\(srcExt)","targetPath":"\(tgtDir)/src/file\(tgtExt)","priority":1,"reason":"why"}]
+        [{"relativePath":"src/file\(srcExt)",\(targetPathExample),"priority":1,"reason":"why"}]
         ### Response:
         """
 
@@ -208,17 +232,29 @@ final class TranspilationPipeline: ObservableObject {
         guard let map = l25Engine.projectMap else { return [] }
         let srcLang = langPair?.source ?? guessMainLanguage(map: map)
         let srcExt  = langPair?.sourceExt ?? LanguageDetector.extMap[srcLang] ?? ".\(srcLang)"
-        let tgtExt  = langPair?.targetExt ?? ".txt"
+        // No detected language pair means no conversion is actually
+        // happening -- defaulting to ".txt" here used to silently mangle
+        // every non-conversion task (add tests, refactor, etc.) into a
+        // nonsensical *.txt output. In-place (targetPath == relativePath)
+        // is the correct default when nothing suggests a real conversion.
+        let isConversion = langPair != nil
+        let tgtExt  = langPair?.targetExt ?? srcExt
         let tgtDir  = langPair?.targetDirHint ?? "verantyx-target"
 
         return map.entries.values
             .filter { $0.language == srcLang || $0.relativePath.hasSuffix(srcExt) }
             .sorted { $0.complexityScore < $1.complexityScore }
             .enumerated().map { (i, entry) in
-                let name = URL(fileURLWithPath: entry.relativePath).deletingPathExtension().lastPathComponent
+                let targetPath: String
+                if isConversion {
+                    let name = URL(fileURLWithPath: entry.relativePath).deletingPathExtension().lastPathComponent
+                    targetPath = "\(tgtDir)/src/\(name)\(tgtExt)"
+                } else {
+                    targetPath = entry.relativePath
+                }
                 return TranspilationTodo(
                     relativePath: entry.relativePath,
-                    targetPath: "\(tgtDir)/src/\(name)\(tgtExt)",
+                    targetPath: targetPath,
                     l25Summary: entry.indexLine,
                     priority: i
                 )
@@ -483,12 +519,12 @@ final class TranspilationPipeline: ObservableObject {
             try? code.write(to: fileURL, atomically: true, encoding: .utf8)
         }
 
-        // Rust のみ cargo check。他言語は書き込み成功で OK。
-        let ext = fileURL.pathExtension
-        if ext == "rs" || fileURL.lastPathComponent == "Cargo.toml" {
-            return await orchestrator.runBuildCheckPublic(workspaceURL: targetRoot, fileURL: fileURL)
-        }
-        return (true, "")
+        // runBuildCheckPublic already dispatches on extension
+        // (swift/rs/ts,tsx -- CommanderOrchestrator.swift) and safely
+        // no-ops for anything else, so this no longer needs to be gated to
+        // Rust-only here -- that gate was throwing away build verification
+        // Swift/TypeScript output could already get.
+        return await orchestrator.runBuildCheckPublic(workspaceURL: targetRoot, fileURL: fileURL)
     }
 
     private func extractFirstCodeBlock(from response: String) -> String? {

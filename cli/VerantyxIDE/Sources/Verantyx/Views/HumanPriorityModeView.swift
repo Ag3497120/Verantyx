@@ -20,6 +20,7 @@ struct HumanPriorityModeView: View {
     // Editor state
     @State private var editorContent: String = ""
     @State private var editorLanguage: String = "swift"
+    @State private var editorScrollCommand: EditorScrollCommand? = nil
     @State private var hasUnsavedChanges = false
     @State private var saveStatus: SaveStatus = .saved
     @State private var showPipelineSheet = false
@@ -244,20 +245,50 @@ struct HumanPriorityModeView: View {
         } else if app.showHiddenWindowMirror {
             HiddenWindowMirrorView()
                 .frame(maxWidth: .infinity, maxHeight: .infinity)
+        } else if app.showVectorLab {
+            VectorLabView()
+                .frame(maxWidth: .infinity, maxHeight: .infinity)
         } else if app.selectedFile != nil {
             let isJCrossMode = GatekeeperModeState.shared.isEnabled && !app.showGatekeeperRawCode
-            CodeEditorView(
-                content: $editorContent,
-                language: editorLanguage,
-                isEditable: !isJCrossMode,
-                onEdit: {
-                    if !isJCrossMode {
-                        hasUnsavedChanges = true
-                        saveStatus = .unsaved
+            ZStack(alignment: .bottomTrailing) {
+                CodeEditorView(
+                    content: $editorContent,
+                    language: editorLanguage,
+                    isEditable: !isJCrossMode,
+                    onEdit: {
+                        if !isJCrossMode {
+                            hasUnsavedChanges = true
+                            saveStatus = .unsaved
+                        }
+                    },
+                    scrollCommand: $editorScrollCommand
+                )
+                .frame(maxWidth: .infinity, maxHeight: .infinity)
+
+                VStack(spacing: 6) {
+                    Button {
+                        editorScrollCommand = .top
+                    } label: {
+                        Image(systemName: "arrow.up.to.line")
+                            .font(.system(size: 11, weight: .semibold))
+                            .frame(width: 24, height: 24)
                     }
+                    .help(app.t("Scroll to top", "先頭へスクロール"))
+                    Button {
+                        editorScrollCommand = .bottom
+                    } label: {
+                        Image(systemName: "arrow.down.to.line")
+                            .font(.system(size: 11, weight: .semibold))
+                            .frame(width: 24, height: 24)
+                    }
+                    .help(app.t("Scroll to bottom", "末尾へスクロール"))
                 }
-            )
-            .frame(maxWidth: .infinity, maxHeight: .infinity)
+                .buttonStyle(.plain)
+                .foregroundStyle(Color(red: 0.75, green: 0.75, blue: 0.85))
+                .padding(6)
+                .background(Color.black.opacity(0.5), in: RoundedRectangle(cornerRadius: 8))
+                .padding(14)
+            }
         } else {
             emptyEditorState
         }
@@ -355,6 +386,34 @@ struct HumanPriorityModeView: View {
                 .contentShape(Rectangle())
                 .buttonStyle(.plain)
                 .help(app.t("Watch the window the agent parked off-screen", "エージェントがオフスクリーンに退避させたウィンドウを表示"))
+
+                Button {
+                    withAnimation(.easeInOut(duration: 0.2)) {
+                        app.showVectorLab.toggle()
+                    }
+                } label: {
+                    HStack(spacing: 4) {
+                        Image(systemName: "atom")
+                            .font(.system(size: 11))
+                        Text(app.t("Vector Lab", "ベクトルラボ"))
+                            .font(.system(size: 11, weight: .medium))
+                    }
+                    .foregroundStyle(app.showVectorLab
+                        ? Color(red: 0.6, green: 0.85, blue: 1.0)
+                        : Color(red: 0.6, green: 0.6, blue: 0.7))
+                    .padding(.horizontal, 10)
+                    .padding(.vertical, 4)
+                    .contentShape(Rectangle())
+                    .background(
+                        RoundedRectangle(cornerRadius: 5)
+                            .fill(app.showVectorLab
+                                ? Color(red: 0.12, green: 0.28, blue: 0.38).opacity(0.9)
+                                : Color.white.opacity(0.04))
+                    )
+                }
+                .contentShape(Rectangle())
+                .buttonStyle(.plain)
+                .help(app.t("Explore JGEN hidden-state vectors directly (encode/resynthesize/entropy/optimize)", "JGENの隠れ状態ベクトルを直接操作(encode/resynthesize/entropy/optimize)"))
 
                 Divider().frame(height: 16).opacity(0.4)
 
@@ -999,12 +1058,20 @@ struct CPUProcessRow: View {
 // Native NSTextView-based code editor with line numbers and monospaced font.
 // Supports direct editing and calls onEdit callback on each change.
 
+enum EditorScrollCommand {
+    case top, bottom
+}
+
 struct CodeEditorView: NSViewRepresentable {
     @Binding var content: String
     let language: String
     var isEditable: Bool = true
     let onEdit: () -> Void
-    
+    /// Scroll-to-top/bottom buttons (added alongside the scroll-position
+    /// fix below) set this and it's consumed+cleared in `updateNSView` --
+    /// avoids threading an NSTextView reference back out through SwiftUI.
+    var scrollCommand: Binding<EditorScrollCommand?>? = nil
+
     // Shared Highlightr instance for performance
     static let sharedHighlightr: Highlightr? = {
         let h = Highlightr()
@@ -1080,14 +1147,19 @@ struct CodeEditorView: NSViewRepresentable {
         // buildTextView) defer laying out glyph ranges below the visible
         // fold -- for a genuinely huge document that's the point (avoids
         // a slow synchronous layout freeze), but for anything in the
-        // "highlighted" size tier (well under highlightMaxChars, i.e.
-        // most real files) it means NSScrollView's tracked document
-        // height can lag behind the actual content until background
-        // layout catches up, which reads as "scrolls a little, then
-        // stops" -- there's nothing below the fold from the scroll
-        // view's point of view yet. Forcing layout now is cheap at this
-        // size and eliminates that lag entirely.
-        if content.count <= highlightMaxChars / 4, let container = textView.textContainer {
+        // "highlighted" size tier (i.e. everything under highlightMaxChars,
+        // which covers most real files) it means NSScrollView's tracked
+        // document height can lag behind the actual content until
+        // background layout catches up, which reads as "scrolls a little,
+        // then stops" -- there's nothing below the fold from the scroll
+        // view's point of view yet, so the bottom of the file is
+        // unreachable until background layout happens to catch up on its
+        // own. This used to only force layout for files under 1/4 of
+        // highlightMaxChars (50K chars); files between 50K-200K chars hit
+        // exactly this bug. Force layout for the entire highlighted tier
+        // instead -- `ensureLayout` is a geometry pass, not a re-highlight,
+        // so it stays cheap even at the full 200K-char ceiling.
+        if content.count <= highlightMaxChars, let container = textView.textContainer {
             textView.layoutManager?.ensureLayout(for: container)
         }
     }
@@ -1139,6 +1211,15 @@ struct CodeEditorView: NSViewRepresentable {
         if textView.isEditable != isEditable {
             textView.isEditable = isEditable
         }
+
+        if let scrollCommand, let command = scrollCommand.wrappedValue {
+            switch command {
+            case .top:    textView.scrollToBeginningOfDocument(nil)
+            case .bottom: textView.scrollToEndOfDocument(nil)
+            }
+            DispatchQueue.main.async { scrollCommand.wrappedValue = nil }
+        }
+
         guard textView.string != content else { return }
 
         let selectedRange = textView.selectedRange()

@@ -88,14 +88,19 @@ actor JCrossChatManager {
         guard let tokenizerPath = meta["tokenizer"] as? String else {
             throw ChatError.tokenizerPathMissing(modelFileName)
         }
-        // A real HF tokenizer folder has tokenizer_config.json or
-        // config.json alongside tokenizer.json; jgen_forge's GGUF-vocab
-        // fallback is a single sidecar JSON file with neither, sitting
-        // directly in converted_models/ -- AutoTokenizer.from would fail
-        // on it with a generic "missing config.json", so check up front.
+        // AutoTokenizer.from(modelFolder:) hard-requires config.json to
+        // exist (swift-transformers' LanguageModelConfigurationFromHub.
+        // loadConfig checks for it unconditionally, before anything else --
+        // confirmed by reading that source directly). tokenizer_config.json
+        // is a SEPARATE, optional file, not interchangeable with
+        // config.json despite the similar name -- an earlier version of
+        // this check treated them as either/or, which let folders through
+        // that were missing config.json and still failed inside
+        // AutoTokenizer.from with the same "missing config.json" error this
+        // check exists to catch. jgen_forge's GGUF-vocab fallback (no real
+        // tokenizer found at all) writes neither file.
         let tokenizerFolder = URL(fileURLWithPath: tokenizerPath).deletingLastPathComponent()
-        let hasRealTokenizer = FileManager.default.fileExists(atPath: tokenizerFolder.appendingPathComponent("tokenizer_config.json").path)
-            || FileManager.default.fileExists(atPath: tokenizerFolder.appendingPathComponent("config.json").path)
+        let hasRealTokenizer = FileManager.default.fileExists(atPath: tokenizerFolder.appendingPathComponent("config.json").path)
         guard hasRealTokenizer else {
             throw ChatError.noRealTokenizer(model: modelFileName)
         }

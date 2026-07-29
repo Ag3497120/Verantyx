@@ -201,8 +201,21 @@ actor StdioSession {
     private var process: Process?
     private var stdinHandle: FileHandle?
     private var stdoutHandle: FileHandle?
+    private var stderrHandle: FileHandle?
     private var nextId: Int = 10        // RPC IDs; 1-2 reserved for handshake
     private var isReady = false
+
+    // Captures the subprocess's stderr so launch/write failures can surface a real
+    // reason (e.g. a Python traceback) instead of just "Write failed after auto-restart".
+    private var stderrBuffer = Data()
+    private let stderrBufferLimit = 8192
+
+    private func recentStderr() -> String? {
+        guard !stderrBuffer.isEmpty else { return nil }
+        let text = String(data: stderrBuffer, encoding: .utf8) ?? ""
+        let trimmed = text.trimmingCharacters(in: .whitespacesAndNewlines)
+        return trimmed.isEmpty ? nil : trimmed
+    }
 
     // AsyncStream continuation — readabilityHandler pushes chunks here.
     // NOT weak (Continuation is a struct, not a class).
@@ -236,7 +249,8 @@ actor StdioSession {
             // Likely crashed — restart once and retry
             try await startProcess()
             guard safeWrite(req) else {
-                throw MCPError.processLaunchFailed("Write failed after auto-restart")
+                let stderr = recentStderr().map { "\nstderr: \($0)" } ?? ""
+                throw MCPError.processLaunchFailed("Write failed after auto-restart\(stderr)")
             }
         }
 
@@ -245,6 +259,8 @@ actor StdioSession {
 
     func terminate() {
         stdoutHandle?.readabilityHandler = nil
+        stderrHandle?.readabilityHandler = nil
+        stderrHandle = nil
         continuation?.finish()
         continuation = nil
         process?.terminate()
@@ -263,6 +279,7 @@ actor StdioSession {
         isReady = false
         continuation?.finish()
         continuation = nil
+        stderrBuffer.removeAll()
 
         _ = StdioSession.sigpipeInstalled
 
@@ -296,6 +313,7 @@ actor StdioSession {
         process      = p
         stdinHandle  = stdinPipe.fileHandleForWriting
         stdoutHandle = stdoutPipe.fileHandleForReading
+        stderrHandle = stderrPipe.fileHandleForReading
 
         // Wire readabilityHandler → AsyncStream
         // Note: cont is a VALUE (struct) so we capture it directly, not with [weak].
@@ -312,9 +330,34 @@ actor StdioSession {
             }
         }
 
-        // Perform MCP initialize handshake (up to 20 s for npx cold-start / Puppeteer)
-        try await performHandshake(stream: stream, maxWait: 20.0)
+        // Capture stderr so a failed launch/write can report the subprocess's own
+        // diagnostic output (e.g. a Python traceback) instead of a generic message.
+        stderrPipe.fileHandleForReading.readabilityHandler = { [weak self] fh in
+            let chunk = fh.availableData
+            guard !chunk.isEmpty else {
+                fh.readabilityHandler = nil
+                return
+            }
+            Task { await self?.appendStderr(chunk) }
+        }
+
+        do {
+            // Perform MCP initialize handshake (up to 20 s for npx cold-start / Puppeteer)
+            try await performHandshake(stream: stream, maxWait: 20.0)
+        } catch let error as MCPError {
+            if case .processLaunchFailed(let msg) = error, let stderr = recentStderr() {
+                throw MCPError.processLaunchFailed("\(msg)\nstderr: \(stderr)")
+            }
+            throw error
+        }
         isReady = true
+    }
+
+    private func appendStderr(_ chunk: Data) {
+        stderrBuffer.append(chunk)
+        if stderrBuffer.count > stderrBufferLimit {
+            stderrBuffer.removeFirst(stderrBuffer.count - stderrBufferLimit)
+        }
     }
 
     private func performHandshake(stream: AsyncStream<Data>, maxWait: Double) async throws {
@@ -327,7 +370,8 @@ actor StdioSession {
             ]
         ]
         guard safeWrite(initReq) else {
-            throw MCPError.processLaunchFailed("Process exited before initialize")
+            let stderr = recentStderr().map { "\nstderr: \($0)" } ?? ""
+            throw MCPError.processLaunchFailed("Process exited before initialize\(stderr)")
         }
 
         var buf = Data()
@@ -402,6 +446,8 @@ actor StdioSession {
         continuation?.finish()
         continuation = nil
         stdoutHandle?.readabilityHandler = nil
+        stderrHandle?.readabilityHandler = nil
+        stderrHandle = nil
     }
 
     // ── Private: helpers ────────────────────────────────────────────────────

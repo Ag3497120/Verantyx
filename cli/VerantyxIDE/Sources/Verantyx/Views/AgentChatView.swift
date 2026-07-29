@@ -720,6 +720,9 @@ struct AgentChatView: View {
                         ? app.t("Auto Visual Anchor images: ON (click to disable)", "自動Visual Anchor画像: ON（クリックで無効化）")
                         : app.t("Auto Visual Anchor images: OFF (click to enable)", "自動Visual Anchor画像: OFF（クリックで有効化）"))
 
+                    // ── Context usage indicator ──
+                    ContextUsageIndicator()
+
                     // ── Verified URL registry ──
                     // Lets the user directly pin a confirmed URL for a
                     // named destination (e.g. "Gemini") into Vera, rather

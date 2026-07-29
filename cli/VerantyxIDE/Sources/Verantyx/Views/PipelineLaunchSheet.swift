@@ -4,8 +4,12 @@ import SwiftUI
 //
 // 「▶ Run Pipeline」ボタンを押したときに表示されるシート。
 // タスクを入力して「Start」を押すと TranspilationPipeline.run() が起動し、
-// BitNet が L2.5 地図生成 → TODO 作成 → qwen が1ファイルずつ変換 →
-// cargo check → 自動修正ループ が完全自律で動作する。
+// BitNet が L2.5 地図生成 → TODO 作成 → モデルが1ファイルずつ処理 →
+// 対応言語ならビルド検証(swift/rust/typescript) → 自動修正ループ が
+// 完全自律で動作する。元々はSwift→Rust変換専用に作られたが、L1-L3の
+// 階層メモリでモデルにワークスペース全体を渡さず1ファイルずつ処理させる
+// 仕組み自体は言語・タスクに依存しないため、変換タスクに限らず
+// 汎用的な長時間タスク(テスト追加・リファクタ等)にも使える。
 
 struct PipelineLaunchSheet: View {
     @Binding var isPresented: Bool
@@ -22,6 +26,13 @@ struct PipelineLaunchSheet: View {
          "Convert ONLY Sources/Verantyx/Engine/CortexEngine.swift to verantyx-windows-target/src/memory.rs using Rust with tokio and serde."),
         ("記憶システム3ファイル",
          "Convert CortexEngine.swift, JCrossVault.swift, and BitNetEngine.swift to Rust. Output to verantyx-windows-target/src/. Use Arc<RwLock<T>> for state management."),
+        // Non-conversion examples (Milestone I: generalized beyond
+        // Swift→Rust) -- targetPath stays equal to relativePath for these,
+        // i.e. in-place edits, not a new output tree.
+        ("テスト追加(例)",
+         "Add unit tests for every file in Sources/Verantyx/Engine/ that doesn't already have one. One file per step."),
+        ("リファクタ(例)",
+         "Refactor every file under Sources/Verantyx/Views/ to extract repeated view-building code into private helper functions, in place."),
     ]
 
     var body: some View {
@@ -32,9 +43,12 @@ struct PipelineLaunchSheet: View {
                     .foregroundStyle(Color(red: 0.55, green: 1.0, blue: 0.65))
                     .font(.title3)
                 VStack(alignment: .leading, spacing: 2) {
-                    Text("Transpilation Pipeline")
+                    Text("Pipeline")
                         .font(.headline)
-                    Text(AppLanguage.shared.t("BitNet → L2.5 Map → TODO → qwen → cargo check → Auto-fix", "BitNet → L2.5地図 → TODO → qwen → cargo check → 自動修正"))
+                    Text(AppLanguage.shared.t(
+                        "BitNet → L2.5 Map → TODO → per-file apply → build-verify where supported → Auto-fix",
+                        "BitNet → L2.5地図 → TODO → ファイル単位で適用 → 対応言語ならビルド検証 → 自動修正"
+                    ))
                         .font(.caption)
                         .foregroundStyle(.secondary)
                 }
@@ -140,6 +154,16 @@ struct PipelineLaunchSheet: View {
                         Text(AppLanguage.shared.t("Pipeline running... \(pipeline.todos.filter{$0.status == .succeeded}.count)/\(pipeline.todos.count)", "Pipeline実行中... \(pipeline.todos.filter{$0.status == .succeeded}.count)/\(pipeline.todos.count)"))
                             .font(.caption)
                             .foregroundStyle(.secondary)
+                        Button(AppLanguage.shared.t("Stop", "停止")) {
+                            // TranspilationPipeline.run()'s per-file loop
+                            // checks `isRunning` between files -- this lets
+                            // the current file finish, then stops before
+                            // starting the next one, rather than an abrupt
+                            // mid-file cancel.
+                            pipeline.isRunning = false
+                        }
+                        .buttonStyle(.bordered)
+                        .tint(.red)
                     }
                 } else {
                     Button {

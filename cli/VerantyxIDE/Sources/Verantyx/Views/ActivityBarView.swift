@@ -15,14 +15,13 @@ struct ActivityBarView: View {
         case evolution   = "arrow.triangle.2.circlepath"  // Self-Evolution
         case extensions  = "puzzlepiece"
         case settings    = "gearshape"
-        case vrbridge    = "eyeglasses" // VR Bridge
     }
 
     var body: some View {
         VStack(spacing: 0) {
             // Top icons
             VStack(spacing: 2) {
-                ForEach([ActivitySection.explorer, .search, .git, .mcp, .evolution, .vrbridge], id: \.self) { section in
+                ForEach([ActivitySection.explorer, .search, .git, .mcp, .evolution], id: \.self) { section in
                     activityButton(section)
                 }
             }
@@ -51,12 +50,6 @@ struct ActivityBarView: View {
     private func activityButton(_ section: ActivitySection) -> some View {
         Button {
             if selectedSection == section {
-                // VRBridge/HypervisorManager source was never committed to
-                // this repo (git history has zero commits touching it) --
-                // the whole feature is a dead reference, not something
-                // this change is responsible for. Neutralized rather than
-                // removing the .vrbridge section entirely, in case the
-                // feature gets a real implementation later.
                 selectedSection = nil
             } else {
                 selectedSection = section
@@ -120,7 +113,6 @@ struct ActivityBarView: View {
         case .evolution: return app.t("Self-Evolution", "自己進化")
         case .extensions: return app.t("Extensions", "拡張機能")
         case .settings:  return app.t("Settings", "設定")
-        case .vrbridge:  return app.t("VR Bridge", "VR ブリッジ")
         }
     }
 }

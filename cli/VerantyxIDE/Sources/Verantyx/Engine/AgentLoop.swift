@@ -91,6 +91,10 @@ actor AgentLoop {
         // auto-detected tier.
         let contextOverride = await MainActor.run { AppState.shared?.contextWindowOverride ?? 0 }
         let compressThreshold = contextOverride > 0 ? contextOverride : profile.tier.compressThreshold
+        await MainActor.run {
+            ContextUsageTracker.shared.beginTurn()
+            ContextUsageTracker.shared.setContextWindowCharBudget(compressThreshold)
+        }
         await onProgress(.aiMessage(
             AppLanguage.shared.t("🤖 Model Profile: \(activeModel) → \(profile.tier.displayName) | Max tokens: \(profile.tier.maxTokens) | Temp: \(profile.tier.temperature) | Context: \(compressThreshold)\(contextOverride > 0 ? " (manual)" : "")", "🤖 モデルプロファイル: \(activeModel) → \(profile.tier.displayName) | Max tokens: \(profile.tier.maxTokens) | Temp: \(profile.tier.temperature) | コンテキスト: \(compressThreshold)\(contextOverride > 0 ? "（手動設定）" : "")"
             )
@@ -305,6 +309,11 @@ SYS.ENFORCE("logical_verification_before_acceptance")
         \(contextSection)
         """
 
+        await MainActor.run {
+            ContextUsageTracker.shared.setSystemPromptChars(systemPrompt.count)
+            ContextUsageTracker.shared.addVeraChars(veraMemorySection.count)
+            ContextUsageTracker.shared.addSkillChars(skillSection.count)
+        }
         conversation.append((role: "system", content: systemPrompt))
 
 
@@ -355,6 +364,7 @@ SYS.ENFORCE("logical_verification_before_acceptance")
         """
         conversation.append((role: "user",   content: emphasizedInstruction))
         totalConversationChars = conversation.reduce(0) { $0 + $1.content.count }
+        await MainActor.run { ContextUsageTracker.shared.setConversationHistoryChars(totalConversationChars) }
 
         await onProgress(.start(instruction: instruction))
 
@@ -385,13 +395,17 @@ SYS.ENFORCE("logical_verification_before_acceptance")
             // ── OOM guard & KV Cache flush ──────────────────────────────
             let isKVCacheFull = await MLXRunner.shared.shouldFlushKVCache()
             if totalConversationChars > compressThreshold || isKVCacheFull {
+                let charsBeforeCompression = totalConversationChars
                 conversation = await compressConversation(
                     conversation,
                     cortex: cortex,
                     instruction: instruction
                 )
                 totalConversationChars = conversation.reduce(0) { $0 + $1.content.count }
-                
+                await MainActor.run {
+                    ContextUsageTracker.shared.recordCompression(charsBefore: charsBeforeCompression, charsAfter: totalConversationChars)
+                }
+
                 await MLXRunner.shared.resetKVCounter()
                 
                 let reason = isKVCacheFull ? "KV Cache limit reached" : "Context size exceeded"
@@ -404,6 +418,7 @@ SYS.ENFORCE("logical_verification_before_acceptance")
                 let isNanoTier = (profile.tier == .nano)
                 let freshZoneSection = SessionMemoryArchiver.shared
                     .buildZonePriorityInjection(layer: memoryLayer, useNanoStore: isNanoTier)
+                await MainActor.run { ContextUsageTracker.shared.addL2ZoneChars(freshZoneSection.count) }
                 if !freshZoneSection.isEmpty,
                    var sysMsg = conversation.first, sysMsg.role == "system" {
                     let marker = isNanoTier ? "[記憶:" : "[ZONE MEMORY"
@@ -423,6 +438,7 @@ SYS.ENFORCE("logical_verification_before_acceptance")
             let useNanoStore = (profile.tier == .nano)
             let zoneSection = SessionMemoryArchiver.shared
                 .buildZonePriorityInjection(layer: memoryLayer, useNanoStore: useNanoStore)
+            await MainActor.run { ContextUsageTracker.shared.addL2ZoneChars(zoneSection.count) }
 
             // 初回ターンのみ system prompt に追記（以降は圧縮パスで更新）
             let zoneMarker = useNanoStore ? "[記憶:" : "[ZONE MEMORY"
@@ -511,6 +527,7 @@ SYS.ENFORCE("logical_verification_before_acceptance")
             let searchResult: String
             if searchLayer == .vera {
                 searchResult = await VeraMemoryBridge.recall(for: searchQuery)
+                await MainActor.run { ContextUsageTracker.shared.addVeraChars(searchResult.count) }
             } else {
                 searchResult = SessionMemoryArchiver.shared.semanticSearch(
                     query: searchQuery,
@@ -518,6 +535,7 @@ SYS.ENFORCE("logical_verification_before_acceptance")
                     layer: searchLayer,
                     budget: searchBudget
                 )
+                await MainActor.run { ContextUsageTracker.shared.addL2ZoneChars(searchResult.count) }
             }
             if var sysMsg = conversation.first, sysMsg.role == "system" {
                 let marker = "[MEMORY SEARCH"
@@ -553,6 +571,7 @@ SYS.ENFORCE("logical_verification_before_acceptance")
                     if !strongSkills.isEmpty {
                         let skillText = SkillInjector.buildSection(skills: strongSkills)
                         if !skillText.trimmingCharacters(in: .whitespacesAndNewlines).isEmpty {
+                            await MainActor.run { ContextUsageTracker.shared.addSkillChars(skillText.count) }
                             let lastIdx = conversation.count - 1
                             if lastIdx > 0 {
                                 conversation.insert(
@@ -1861,9 +1880,16 @@ SYS.ENFORCE("logical_verification_before_acceptance")
             let fullUserPrompt = String(rawUserPrompt.prefix(600))  // ← ユーザー側キャップ
 
             await onProgress(.systemLog(AppLanguage.shared.t("⚡ [BitNet] \(model) — Inferencing...", "⚡ [BitNet] \(model) — 推論中...")))
+            // Resolve the exact config for `model` (the name carried by
+            // .bitnetReady) so switching between multiple installed BitNet
+            // models actually uses the selected one, not always the default.
+            let modelConfig = await MainActor.run {
+                BitNetEngineManager.shared.installedConfigs.first { $0.modelName == model }
+            }
             guard let result = await BitNetCommanderEngine.shared.generate(
                 prompt: fullUserPrompt,
-                systemPrompt: sysContent
+                systemPrompt: sysContent,
+                config: modelConfig
             ) else {
                 // BitNet が nil → 設定エラーをユーザーに伝える
                 await onProgress(.aiMessage(AppLanguage.shared.t("⚠️ [BitNet] Inference failed. Please check bitnet_config.json. You can re-run the setup via Settings → BitNet.", "⚠️ [BitNet] 推論失敗。bitnet_config.json を確認してください。Settings → BitNet でセットアップを再実行できます。"

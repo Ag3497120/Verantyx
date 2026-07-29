@@ -46,6 +46,38 @@ struct BitNetConfig: Codable {
         return config
     }
 
+    /// Directory for additional named BitNet models (e.g. "bonsai27b.json"),
+    /// separate from the single default `bitnet_config.json` the setup
+    /// script writes. Lets more than one BitNet-family model be selectable
+    /// through the same picker flow as Ollama models, without requiring an
+    /// in-app download pipeline -- a model is added by placing its .gguf
+    /// somewhere on disk and dropping a small JSON sidecar (same shape as
+    /// `bitnet_config.json`) here.
+    static let modelsDir: String = {
+        let support = FileManager.default.urls(for: .applicationSupportDirectory, in: .userDomainMask).first!
+        return support.appendingPathComponent("VerantyxIDE/bitnet_models").path
+    }()
+
+    /// All selectable BitNet configs: every valid sidecar in `modelsDir`,
+    /// plus the legacy single `bitnet_config.json` (if present) so an
+    /// existing single-model setup keeps working unchanged.
+    static func installedConfigs() -> [BitNetConfig] {
+        var configs: [BitNetConfig] = []
+        if let entries = try? FileManager.default.contentsOfDirectory(atPath: modelsDir) {
+            for entry in entries.sorted() where entry.hasSuffix(".json") {
+                let path = (modelsDir as NSString).appendingPathComponent(entry)
+                if let data = try? Data(contentsOf: URL(fileURLWithPath: path)),
+                   let config = try? JSONDecoder().decode(BitNetConfig.self, from: data) {
+                    configs.append(config)
+                }
+            }
+        }
+        if let legacy = load(), !configs.contains(where: { $0.modelName == legacy.modelName }) {
+            configs.append(legacy)
+        }
+        return configs.filter { $0.isValid }
+    }
+
     enum CodingKeys: String, CodingKey {
         case binaryPath = "binary_path"
         case modelPath = "model_path"
@@ -247,6 +279,27 @@ final class BitNetEngineManager: ObservableObject {
     /// 0.0–1.0 ダウンロード進捗（推定）。スクリプトログから更新。
     @Published var downloadProgress: Double = 0.0
 
+    /// All BitNet models discovered (legacy single config + any named
+    /// sidecars under `BitNetConfig.modelsDir`) -- lets multiple BitNet
+    /// models show up as normal selectable entries, mirroring
+    /// `AppState.ollamaModels`.
+    @Published var installedConfigs: [BitNetConfig] = []
+    /// The config currently backing chat generation (`.bitnetReady` in
+    /// `AgentLoop.swift`). Persisted by model name so the selection
+    /// survives relaunch.
+    @Published var activeConfig: BitNetConfig? {
+        didSet {
+            UserDefaults.standard.set(activeConfig?.modelName, forKey: "bitnet_active_model_name")
+        }
+    }
+
+    /// Selects a config as active and switches the app to it, exactly like
+    /// tapping an Ollama model in the picker.
+    func activate(_ config: BitNetConfig) {
+        activeConfig = config
+        AppState.shared?.modelStatus = .bitnetReady(model: config.modelName)
+    }
+
     private var setupProcess: Process?
 
     private init() {
@@ -259,6 +312,9 @@ final class BitNetEngineManager: ObservableObject {
         // インストール中はステータスを上書きしない（ダウンロードUIが閉じるのを防ぐ）
         if case .installing = status { return }
         status = .checking
+
+        installedConfigs = BitNetConfig.installedConfigs()
+
         guard let config = BitNetConfig.load(), config.isValid else {
             status = .notInstalled
             return
@@ -271,6 +327,12 @@ final class BitNetEngineManager: ObservableObject {
 
         nerEngine = BitNetNEREngine(config: config)
         status    = .ready(modelName: config.modelName, sizeMB: sizeMB)
+
+        // Restore the previously-active model if it still exists, else
+        // fall back to the default config so existing single-model setups
+        // behave exactly as before.
+        let savedName = UserDefaults.standard.string(forKey: "bitnet_active_model_name")
+        activeConfig = installedConfigs.first { $0.modelName == savedName } ?? config
     }
 
     // MARK: - Install / Setup
@@ -731,8 +793,17 @@ final class BitNetCommanderEngine: @unchecked Sendable {
 
     /// BitNet を使って Commander 用の自由形式テキストを生成する。
     /// BitNet が未インストールの場合は nil を返す（Ollama フォールバック用）。
-    func generate(prompt: String, systemPrompt: String) async -> String? {
-        guard let config = BitNetConfig.load(), config.isValid else {
+    /// `config` を省略すると、ピッカーでユーザーが選択中のモデル
+    /// (`BitNetEngineManager.shared.activeConfig`) を使う -- 複数の
+    /// BitNet モデルを通常モデルとして切り替え可能にするための経路。
+    func generate(prompt: String, systemPrompt: String, config explicitConfig: BitNetConfig? = nil) async -> String? {
+        let resolvedConfig: BitNetConfig?
+        if let explicitConfig {
+            resolvedConfig = explicitConfig
+        } else {
+            resolvedConfig = await MainActor.run { BitNetEngineManager.shared.activeConfig } ?? BitNetConfig.load()
+        }
+        guard let config = resolvedConfig, config.isValid else {
             return nil  // 未インストール → Ollama フォールバック
         }
 

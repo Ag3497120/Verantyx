@@ -460,7 +460,19 @@ public actor OllamaClient {
                     return nil
                 }
 
-                if json["done"] as? Bool == true { break }
+                if json["done"] as? Bool == true {
+                    // Ollama's final chunk carries real token counts --
+                    // previously parsed and discarded. `eval_count` =
+                    // output tokens, `prompt_eval_count` = input tokens.
+                    let promptTokens = json["prompt_eval_count"] as? Int
+                    let evalTokens = json["eval_count"] as? Int
+                    if promptTokens != nil || evalTokens != nil {
+                        Task { @MainActor in
+                            ContextUsageTracker.shared.recordRealUsage(inputTokens: promptTokens, outputTokens: evalTokens)
+                        }
+                    }
+                    break
+                }
             }
 
             let result = accumulated.trimmingCharacters(in: .whitespacesAndNewlines)
@@ -537,6 +549,13 @@ public actor OllamaClient {
                             }
                         }
                         if json["done"] as? Bool == true {
+                            let promptTokens = json["prompt_eval_count"] as? Int
+                            let evalTokens = json["eval_count"] as? Int
+                            if promptTokens != nil || evalTokens != nil {
+                                Task { @MainActor in
+                                    ContextUsageTracker.shared.recordRealUsage(inputTokens: promptTokens, outputTokens: evalTokens)
+                                }
+                            }
                             continuation.yield(.done(stopReason: .endTurn))
                             continuation.finish()
                             return
@@ -729,6 +748,18 @@ public actor AnthropicClient {
                 let eventType = event["type"] as? String ?? ""
 
                 switch eventType {
+                case "message_start":
+                    // Real input-token count -- Anthropic reports it once,
+                    // up front, on the initial message object (output
+                    // tokens accrue via message_delta below).
+                    if let message = event["message"] as? [String: Any],
+                       let usage = message["usage"] as? [String: Any],
+                       let inputTokens = usage["input_tokens"] as? Int {
+                        Task { @MainActor in
+                            ContextUsageTracker.shared.recordRealUsage(inputTokens: inputTokens, outputTokens: nil)
+                        }
+                    }
+
                 case "content_block_delta":
                     guard let delta = event["delta"] as? [String: Any] else { continue }
                     let deltaType = delta["type"] as? String ?? ""
@@ -741,6 +772,16 @@ public actor AnthropicClient {
                               let think = delta["thinking"] as? String, !think.isEmpty {
                         accumulatedThink += think
                         onThinking?(think)
+                    }
+
+                case "message_delta":
+                    // Output-token count arrives incrementally here;
+                    // the last event before message_stop has the final tally.
+                    if let usage = event["usage"] as? [String: Any],
+                       let outputTokens = usage["output_tokens"] as? Int {
+                        Task { @MainActor in
+                            ContextUsageTracker.shared.recordRealUsage(inputTokens: nil, outputTokens: outputTokens)
+                        }
                     }
 
                 case "message_stop":
@@ -843,12 +884,27 @@ public actor AnthropicClient {
                         else { continue }
 
                         switch event["type"] as? String ?? "" {
+                        case "message_start":
+                            if let message = event["message"] as? [String: Any],
+                               let usage = message["usage"] as? [String: Any],
+                               let inputTokens = usage["input_tokens"] as? Int {
+                                Task { @MainActor in
+                                    ContextUsageTracker.shared.recordRealUsage(inputTokens: inputTokens, outputTokens: nil)
+                                }
+                            }
                         case "content_block_delta":
                             if let delta = event["delta"] as? [String: Any] {
                                 if let text = delta["text"] as? String, !text.isEmpty {
                                     continuation.yield(.token(text))
                                 } else if let think = delta["thinking"] as? String, !think.isEmpty {
                                     continuation.yield(.thinking(think))
+                                }
+                            }
+                        case "message_delta":
+                            if let usage = event["usage"] as? [String: Any],
+                               let outputTokens = usage["output_tokens"] as? Int {
+                                Task { @MainActor in
+                                    ContextUsageTracker.shared.recordRealUsage(inputTokens: nil, outputTokens: outputTokens)
                                 }
                             }
                         case "message_stop":

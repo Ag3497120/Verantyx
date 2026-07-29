@@ -481,6 +481,22 @@ final class AppState: ObservableObject {
     @Published var contextWindowOverride: Int = 0 {
         didSet { UserDefaults.standard.set(contextWindowOverride, forKey: "context_window_override") }
     }
+
+    /// The model-name string used for tier/budget lookups (e.g.
+    /// `ContextBudgetManager.budget(for:)`), extracted from whichever
+    /// `ModelStatus` case is currently active. `nil` when no model is loaded.
+    var activeModelName: String? {
+        switch modelStatus {
+        case .ready(let name): return name
+        case .ollamaReady(let model): return model
+        case .anthropicReady(let model, _): return model
+        case .mlxReady(let model): return model
+        case .mlxDownloading(let model): return model
+        case .bitnetReady(let model): return model
+        case .jcrossReady(let model): return model
+        case .none, .connecting, .downloading, .error: return nil
+        }
+    }
     @Published var ollamaEndpoint: String = "http://localhost:11434" {
         didSet { UserDefaults.standard.set(ollamaEndpoint, forKey: "ollama_endpoint") }
     }

@@ -675,22 +675,30 @@ struct SettingsView: View {
                 Divider().opacity(0.2)
 
                 VStack(alignment: .leading, spacing: 6) {
-                    rowLabel("Context window") {
+                    rowLabel("Context window (characters)") {
                         Picker("", selection: Binding(
                             get: { app.contextWindowOverride },
                             set: { app.contextWindowOverride = $0 }
                         )) {
                             Text("Auto (by model size)").tag(0)
-                            Text("8K").tag(8_000)
-                            Text("16K").tag(16_000)
-                            Text("32K").tag(32_000)
-                            Text("64K").tag(64_000)
-                            Text("128K").tag(128_000)
+                            Text("~8K chars").tag(8_000)
+                            Text("~16K chars").tag(16_000)
+                            Text("~32K chars").tag(32_000)
+                            Text("~64K chars").tag(64_000)
+                            Text("~128K chars").tag(128_000)
                         }
                         .labelsHidden()
                         .frame(width: 170)
                     }
-                    Text("How much conversation history stays uncompressed before it's summarized. \"Auto\" picks a value based on the detected model's size.")
+                    // Deliberately labeled in characters, not tokens: this
+                    // value is compared directly against raw character
+                    // counts internally (AgentLoop.swift's
+                    // compressThreshold), not a real token count -- for
+                    // English that's roughly 1/4 as many tokens, less for
+                    // Japanese. See the context-usage indicator in the
+                    // chat input bar for real per-turn token counts where
+                    // the active backend reports them.
+                    Text("How much conversation history stays uncompressed before it's summarized. \"Auto\" picks a value based on the detected model's size. This is a character budget, not a token count -- see the context-usage indicator (chat input bar) for real token numbers.")
                         .font(.system(size: 10)).foregroundStyle(.tertiary)
                 }
 

@@ -305,6 +305,29 @@ struct ModelPickerView: View {
 
     @State private var bitnetConfig: BitNetConfig? = nil
     @State private var bitnetChecked = false
+    @ObservedObject private var bitnetManager = BitNetEngineManager.shared
+
+    private func bitnetModelRow(_ config: BitNetConfig) -> some View {
+        let isActive = bitnetManager.activeConfig?.modelName == config.modelName
+            && { if case .bitnetReady = app.modelStatus { return true } else { return false } }()
+        return Button {
+            bitnetManager.activate(config)
+            app.addSystemMessage("⚡ BitNet \(config.modelName) を有効化しました")
+        } label: {
+            HStack {
+                Image(systemName: isActive ? "checkmark.circle.fill" : "circle")
+                    .foregroundStyle(isActive ? Color.accentColor : Color.secondary)
+                VStack(alignment: .leading, spacing: 1) {
+                    Text(config.modelName).font(.system(.callout, design: .monospaced)).lineLimit(1)
+                    Text(config.modelPath.components(separatedBy: "/").last ?? config.modelPath)
+                        .font(.caption2).foregroundStyle(.tertiary).lineLimit(1)
+                }
+                Spacer()
+            }
+            .contentShape(Rectangle())
+        }
+        .buttonStyle(.plain)
+    }
 
     private var bitnetTab: some View {
         VStack(alignment: .leading, spacing: 12) {
@@ -330,46 +353,79 @@ struct ModelPickerView: View {
             Divider()
 
             if let cfg = bitnetConfig, cfg.isValid {
-                // インストール済みビュー
-                VStack(alignment: .leading, spacing: 6) {
-                    Label(cfg.modelName, systemImage: "cpu")
-                        .font(.subheadline.bold())
-                        .foregroundStyle(.primary)
-
-                    Group {
-                        infoRow("モデル", value: cfg.modelPath.components(separatedBy: "/").last ?? cfg.modelPath)
-                        infoRow("バイナリ", value: cfg.binaryPath.components(separatedBy: "/").last ?? cfg.binaryPath)
-                        infoRow("Max tokens", value: "\(cfg.maxTokens)")
-                        infoRow("Temp", value: String(format: "%.2f", cfg.temperature))
+                // 複数の BitNet モデルがある場合: Ollama タブと同じ「一覧から選ぶ」形式。
+                // 1件だけの場合は従来通りの詳細カード表示のまま。
+                if bitnetManager.installedConfigs.count > 1 {
+                    Text(app.t("Installed BitNet models:", "インストール済みBitNetモデル:")).font(.caption).foregroundStyle(.secondary)
+                    ScrollView {
+                        VStack(alignment: .leading, spacing: 4) {
+                            ForEach(bitnetManager.installedConfigs, id: \.modelName) { config in
+                                bitnetModelRow(config)
+                            }
+                        }
                     }
-                }
-                .padding(10)
-                .background(Color.green.opacity(0.07), in: RoundedRectangle(cornerRadius: 8))
+                    .frame(maxHeight: 160)
 
-                // 起動 / 停止ボタン
-                HStack(spacing: 8) {
                     if case .bitnetReady = app.modelStatus {
                         Button {
                             app.modelStatus = .none
                             app.addSystemMessage("⏹️ BitNet を停止しました")
                         } label: {
-                            Label(app.t("Stop BitNet", "BitNet 停止"),
-                                  systemImage: "stop.circle.fill")
+                            Label(app.t("Stop BitNet", "BitNet 停止"), systemImage: "stop.circle.fill")
                                 .frame(maxWidth: .infinity)
                         }
                         .buttonStyle(.bordered)
                         .tint(.red)
-                    } else {
-                        Button {
-                            app.modelStatus = .bitnetReady(model: cfg.modelName)
-                            app.addSystemMessage("⚡ BitNet \(cfg.modelName) を有効化しました")
-                        } label: {
-                            Label(app.t("Use BitNet", "BitNet を使用"),
-                                  systemImage: "play.fill")
-                                .frame(maxWidth: .infinity)
+                    }
+
+                    Text(app.t(
+                        "To add another BitNet model (e.g. bonsai27b), place its .gguf anywhere on disk and drop a small JSON sidecar (same shape as bitnet_config.json) into ~/Library/Application Support/VerantyxIDE/bitnet_models/.",
+                        "別のBitNetモデル(bonsai27bなど)を追加するには、.ggufをディスク上に置き、bitnet_config.jsonと同じ形式のJSONサイドカーを ~/Library/Application Support/VerantyxIDE/bitnet_models/ に配置してください。"
+                    ))
+                    .font(.system(size: 9))
+                    .foregroundStyle(.tertiary)
+                } else {
+                    // インストール済みビュー（1モデルのみ）
+                    VStack(alignment: .leading, spacing: 6) {
+                        Label(cfg.modelName, systemImage: "cpu")
+                            .font(.subheadline.bold())
+                            .foregroundStyle(.primary)
+
+                        Group {
+                            infoRow("モデル", value: cfg.modelPath.components(separatedBy: "/").last ?? cfg.modelPath)
+                            infoRow("バイナリ", value: cfg.binaryPath.components(separatedBy: "/").last ?? cfg.binaryPath)
+                            infoRow("Max tokens", value: "\(cfg.maxTokens)")
+                            infoRow("Temp", value: String(format: "%.2f", cfg.temperature))
                         }
-                        .buttonStyle(.borderedProminent)
-                        .tint(Color(red: 0.3, green: 0.7, blue: 1.0))
+                    }
+                    .padding(10)
+                    .background(Color.green.opacity(0.07), in: RoundedRectangle(cornerRadius: 8))
+
+                    // 起動 / 停止ボタン
+                    HStack(spacing: 8) {
+                        if case .bitnetReady = app.modelStatus {
+                            Button {
+                                app.modelStatus = .none
+                                app.addSystemMessage("⏹️ BitNet を停止しました")
+                            } label: {
+                                Label(app.t("Stop BitNet", "BitNet 停止"),
+                                      systemImage: "stop.circle.fill")
+                                    .frame(maxWidth: .infinity)
+                            }
+                            .buttonStyle(.bordered)
+                            .tint(.red)
+                        } else {
+                            Button {
+                                bitnetManager.activate(cfg)
+                                app.addSystemMessage("⚡ BitNet \(cfg.modelName) を有効化しました")
+                            } label: {
+                                Label(app.t("Use BitNet", "BitNet を使用"),
+                                      systemImage: "play.fill")
+                                    .frame(maxWidth: .infinity)
+                            }
+                            .buttonStyle(.borderedProminent)
+                            .tint(Color(red: 0.3, green: 0.7, blue: 1.0))
+                        }
                     }
                 }
 
@@ -428,6 +484,7 @@ struct ModelPickerView: View {
     @MainActor
     private func recheckBitNet() async {
         bitnetConfig = BitNetConfig.load()
+        await bitnetManager.checkInstallation()
     }
 
 
