@@ -29,6 +29,7 @@ struct ModelSelectorBarView: View {
     @ObservedObject private var council = CouncilSettingsStore.shared
     @State private var showJGenOptions = false
     @State private var includeWebRecommendations = true
+    @State private var showPendingToolCalls = false
 
     /// One selectable entry across every local backend. A plain `Picker` over
     /// `String` (what this used to be) can't express per-row spinners, size
@@ -109,6 +110,7 @@ struct ModelSelectorBarView: View {
                     .buttonStyle(.plain)
                     .help(app.t("JGEN memory & layer options", "JGENの記憶・層オプション"))
                     .popover(isPresented: $showJGenOptions) { jgenOptionsPopover }
+                    .sheet(isPresented: $showPendingToolCalls) { PendingToolCallsView() }
                 }
 
                 Divider().frame(height: 16).opacity(0.5)
@@ -403,6 +405,22 @@ struct ModelSelectorBarView: View {
                             .foregroundStyle(.orange)
                             .fixedSize(horizontal: false, vertical: true)
                         }
+
+                        // Milestone R4: mutating tool calls (write_file,
+                        // run_command, vera_remember, vera_code_ingest, ...)
+                        // the Vera-harness chat proposed but couldn't run
+                        // without a human -- review queue, same button
+                        // regardless of cognition mode since normal-mode
+                        // chat can propose these too.
+                        Button {
+                            showPendingToolCalls = true
+                        } label: {
+                            Label(app.t("Pending tool-call approvals…", "承認待ちのツール呼び出し…"),
+                                  systemImage: "checkmark.shield")
+                                .font(.system(size: 10))
+                        }
+                        .buttonStyle(.plain)
+                        .foregroundStyle(Color.orange)
                     }
 
                     Text(app.t("Zone memory layers", "ゾーン記憶レイヤ"))

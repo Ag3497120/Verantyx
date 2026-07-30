@@ -524,4 +524,74 @@ enum VeraMemoryBridge {
             arguments: ["since_seconds": sinceSeconds], mode: .human
         )
     }
+
+    // MARK: - Milestone R4: mutating tool-call approval queue
+    //
+    // The Vera-harness HTTP chat path (vera_server.py -> Agent.run()) has
+    // no interactive approver reachable across the request/response
+    // boundary, so every mutating tool call (write_file, run_command,
+    // vera_remember, vera_code_ingest, ...) gets queued instead of denied
+    // -- same propose/pending/accept/reject shape as domain modules above,
+    // reused rather than inventing a second mechanism. Nothing here ever
+    // runs a tool automatically; accept/reject are the only two ways a
+    // queued entry ever leaves "pending".
+
+    struct PendingToolCall: Identifiable {
+        let index: Int
+        let callId: String
+        let toolName: String
+        let argsText: String     // pretty-printed JSON
+        let reason: String       // the LLM's own "thought" when it proposed this call
+        let task: String         // the originating chat task
+        var id: Int { index }
+    }
+
+    static func listPendingToolCalls() async -> [PendingToolCall] {
+        let raw = await MCPEngine.shared.callTool(
+            serverName: serverName, toolName: "list_pending_tool_calls",
+            arguments: [:], mode: .human
+        )
+        guard let data = raw.data(using: .utf8),
+              let arr = try? JSONSerialization.jsonObject(with: data) as? [[String: Any]]
+        else { return [] }
+        return arr.compactMap { entry in
+            guard let index = entry["index"] as? Int,
+                  let callId = entry["call_id"] as? String,
+                  let toolName = entry["tool_name"] as? String else { return nil }
+            var argsText = "{}"
+            if let args = entry["args"],
+               let argsData = try? JSONSerialization.data(withJSONObject: args, options: [.prettyPrinted]) {
+                argsText = String(data: argsData, encoding: .utf8) ?? "{}"
+            }
+            let reason = (entry["reason"] as? String) ?? ""
+            let task = (entry["task"] as? String) ?? ""
+            return PendingToolCall(index: index, callId: callId, toolName: toolName,
+                                    argsText: argsText, reason: reason, task: task)
+        }
+    }
+
+    /// Actually RUNS the queued tool call now, with Vera's current state
+    /// -- not a replay of state from when it was proposed. Returns the
+    /// tool's own result JSON (pretty-printed) for display, or nil on
+    /// failure to reach the server at all.
+    static func acceptToolCall(index: Int) async -> String? {
+        let raw = await MCPEngine.shared.callTool(
+            serverName: serverName, toolName: "accept_tool_call",
+            arguments: ["index": index], mode: .human
+        )
+        guard let data = raw.data(using: .utf8),
+              let obj = try? JSONSerialization.jsonObject(with: data) else { return nil }
+        guard let pretty = try? JSONSerialization.data(withJSONObject: obj, options: [.prettyPrinted]) else { return raw }
+        return String(data: pretty, encoding: .utf8) ?? raw
+    }
+
+    static func rejectToolCall(index: Int) async -> Bool {
+        let raw = await MCPEngine.shared.callTool(
+            serverName: serverName, toolName: "reject_tool_call",
+            arguments: ["index": index], mode: .human
+        )
+        guard let data = raw.data(using: .utf8),
+              let obj = try? JSONSerialization.jsonObject(with: data) as? [String: Any] else { return false }
+        return (obj["ok"] as? Bool) ?? false
+    }
 }
