@@ -24,6 +24,7 @@ final class CouncilSettingsStore: ObservableObject {
     private static let useForChatKey = "council_use_for_chat"
     private static let executionModelKey = "council_execution_model"
     private static let useVisualMemoryKey = "council_use_visual_memory"
+    private static let useVeraHarnessKey = "council_use_vera_harness"
 
     @Published var config: CouncilOrchestrator.Config {
         didSet { persistConfig() }
@@ -61,6 +62,18 @@ final class CouncilSettingsStore: ObservableObject {
         didSet { UserDefaults.standard.set(useVisualMemory, forKey: Self.useVisualMemoryKey) }
     }
 
+    /// Milestone N: "Vera as harness" mode. When true, a chat turn is
+    /// handed to Vera-alpha's own Agent.run() ReAct loop (via
+    /// VeraAgentClient -> vera_server.py's HTTP+SSE daemon) instead of
+    /// this app's normal AgentLoop/CouncilOrchestrator -- Vera becomes the
+    /// controller, not a tool called from here. Requires `vera serve` to
+    /// be running (started as a subprocess the same way vera-memory's MCP
+    /// mode already is). Opt-in default (`false`): this is a structural
+    /// inversion of who drives the turn, not a drop-in toggle.
+    @Published var useVeraHarnessForChat: Bool {
+        didSet { UserDefaults.standard.set(useVeraHarnessForChat, forKey: Self.useVeraHarnessKey) }
+    }
+
     private init() {
         let ud = UserDefaults.standard
         if let data = ud.data(forKey: Self.configKey),
@@ -73,6 +86,7 @@ final class CouncilSettingsStore: ObservableObject {
         useCouncilForChat = ud.bool(forKey: Self.useForChatKey)
         executionModel = ud.string(forKey: Self.executionModelKey) ?? ""
         useVisualMemory = ud.bool(forKey: Self.useVisualMemoryKey)
+        useVeraHarnessForChat = ud.bool(forKey: Self.useVeraHarnessKey)
     }
 
     private func persistConfig() {

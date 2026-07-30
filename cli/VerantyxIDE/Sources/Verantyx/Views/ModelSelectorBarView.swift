@@ -377,6 +377,11 @@ struct ModelSelectorBarView: View {
                         set: { council.useVisualMemory = $0 }
                     )).toggleStyle(.checkbox)
 
+                    Toggle(app.t("Vera as harness (Vera drives the turn)", "Veraをハーネスにする(Veraが主導)"), isOn: Binding(
+                        get: { council.useVeraHarnessForChat },
+                        set: { council.useVeraHarnessForChat = $0 }
+                    )).toggleStyle(.checkbox)
+
                     Text(app.t("Zone memory layers", "ゾーン記憶レイヤ"))
                         .font(.system(size: 10)).foregroundStyle(.secondary)
                     HStack(spacing: 6) {

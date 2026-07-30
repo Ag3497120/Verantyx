@@ -1226,6 +1226,12 @@ final class AppState: ObservableObject {
                 }
             } else if inferenceMode == .cloudDirect || inferenceMode == .privacyShield || inferenceMode == .paranoiaMode {
                 await runHybrid(instruction: text)
+            } else if CouncilSettingsStore.shared.useVeraHarnessForChat {
+                // Milestone N: Vera-alpha's own Agent.run() drives the turn
+                // over HTTP+SSE (vera_server.py) instead of this app's
+                // AgentLoop/CouncilOrchestrator -- Vera is the controller
+                // here, not a tool this app calls.
+                await runVeraHarness(instruction: text)
             } else if agentLoopEnabled {
                 // 4-layer path: explicit `/council <question>`, or every turn
                 // when the JGEN options popover has "use the council for
@@ -1417,6 +1423,58 @@ final class AppState: ObservableObject {
     }
 
     // MARK: - Agent Loop (multi-turn, scaffolding)
+
+    /// Milestone N: hands the turn to Vera-alpha's own Agent.run() ReAct
+    /// loop over HTTP+SSE (see VeraAgentClient.swift / vera_server.py).
+    /// Deliberately minimal compared to runAgentLoop's LoopEvent handler --
+    /// Vera's on_step events are its own JSON shapes (action/observation),
+    /// not this app's `LoopEvent`, so this renders them as system-message
+    /// progress lines rather than trying to unify the two event models.
+    private func runVeraHarness(instruction: String) async {
+        isGenerating = true
+        defer { isGenerating = false }
+        addSystemMessage(t("🧭 Vera harness: taking over this turn…", "🧭 Veraハーネス: このターンを引き継ぎます…"))
+
+        await VeraAgentClient.shared.ensureServerRunning()
+        do {
+            let result = try await VeraAgentClient.shared.runAgent(task: instruction) { [weak self] event in
+                guard let self else { return }
+                Task { @MainActor in
+                    switch event.source {
+                    case "react_step":
+                        if let action = event.raw["action"] as? [String: Any],
+                           let tool = action["tool"] as? String {
+                            self.addSystemMessage(self.t("🔧 Vera called: \(tool)", "🔧 Veraが呼び出し: \(tool)"))
+                        }
+                    case "vera_direct":
+                        self.addSystemMessage(self.t("🧩 Vera answered directly (no LLM step needed)", "🧩 Veraが直接回答(LLM不要)"))
+                    case "llm_error":
+                        self.addSystemMessage(self.t("⚠️ Vera's LLM step failed", "⚠️ VeraのLLM手順が失敗しました"))
+                    default:
+                        break
+                    }
+                }
+            }
+
+            let finalText: String
+            if let final = result["final"] as? [String: Any] {
+                if let text = final["text"] as? String {
+                    finalText = text
+                } else if let data = try? JSONSerialization.data(withJSONObject: final, options: [.prettyPrinted]),
+                          let json = String(data: data, encoding: .utf8) {
+                    finalText = json
+                } else {
+                    finalText = String(describing: final)
+                }
+            } else {
+                finalText = t("(no final answer returned)", "(最終回答が返りませんでした)")
+            }
+            messages.append(ChatMessage(role: .assistant, content: finalText))
+        } catch {
+            addSystemMessage(t("❌ Vera harness error: \(error.localizedDescription)",
+                               "❌ Veraハーネスエラー: \(error.localizedDescription)"))
+        }
+    }
 
     private func runAgentLoop(instruction: String,
                               images: [AttachedImage] = [],

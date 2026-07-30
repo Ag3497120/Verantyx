@@ -435,4 +435,79 @@ enum VeraMemoryBridge {
         (Vera direct answer — core: \(core), agreement: \(String(format: "%.2f", agree)) — no LLM call was made)
         """
     }
+
+    // MARK: - Milestone M: self-growth domain-module review
+    //
+    // Mirrors `list_verified_ui_elements`'s JSON-parsing pattern above.
+    // Unlike `propose_ai_facts` (write-only from the IDE today, reviewed
+    // via Vera-alpha's own CLI), these 4 tools are round-trip: the IDE can
+    // both list pending LLM-drafted modules and cast the human accept/
+    // reject vote itself. `accept`/`reject` are the ONLY path to activating
+    // a generated module -- calling `heartbeat` alone never does.
+
+    struct PendingDomainModule: Identifiable {
+        let index: Int
+        let name: String
+        let sourceCode: String
+        let candidateSummary: String
+        let testReport: String  // pretty-printed JSON, shown as-is for review
+        var id: Int { index }
+    }
+
+    static func listPendingDomainModules() async -> [PendingDomainModule] {
+        let raw = await MCPEngine.shared.callTool(
+            serverName: serverName, toolName: "list_pending_domain_modules",
+            arguments: [:], mode: .human
+        )
+        guard let data = raw.data(using: .utf8),
+              let arr = try? JSONSerialization.jsonObject(with: data) as? [[String: Any]]
+        else { return [] }
+        return arr.compactMap { entry in
+            guard let index = entry["index"] as? Int,
+                  let name = entry["name"] as? String,
+                  let source = entry["source_code"] as? String else { return nil }
+            let summary = (entry["candidate_summary"] as? String) ?? ""
+            var reportText = ""
+            if let report = entry["test_report"],
+               let reportData = try? JSONSerialization.data(withJSONObject: report, options: [.prettyPrinted]) {
+                reportText = String(data: reportData, encoding: .utf8) ?? ""
+            }
+            return PendingDomainModule(
+                index: index, name: name, sourceCode: source,
+                candidateSummary: summary, testReport: reportText
+            )
+        }
+    }
+
+    /// Only ever fires from an explicit human tap in the review UI --
+    /// never called automatically after `heartbeat`.
+    static func acceptDomainModule(index: Int) async -> Bool {
+        let raw = await MCPEngine.shared.callTool(
+            serverName: serverName, toolName: "accept_domain_module",
+            arguments: ["index": index], mode: .human
+        )
+        guard let data = raw.data(using: .utf8),
+              let obj = try? JSONSerialization.jsonObject(with: data) as? [String: Any] else { return false }
+        return (obj["ok"] as? Bool) ?? false
+    }
+
+    static func rejectDomainModule(index: Int) async -> Bool {
+        let raw = await MCPEngine.shared.callTool(
+            serverName: serverName, toolName: "reject_domain_module",
+            arguments: ["index": index], mode: .human
+        )
+        guard let data = raw.data(using: .utf8),
+              let obj = try? JSONSerialization.jsonObject(with: data) as? [String: Any] else { return false }
+        return (obj["ok"] as? Bool) ?? false
+    }
+
+    /// Triggers one growth-loop tick manually from the IDE (in addition to
+    /// Vera-alpha's own daily cron/launchd path). `llmModel` empty = report
+    /// growth candidates only, without drafting.
+    static func triggerHeartbeat(llmModel: String = "") async -> String {
+        await MCPEngine.shared.callTool(
+            serverName: serverName, toolName: "heartbeat",
+            arguments: ["llm_model": llmModel], mode: .human
+        )
+    }
 }
