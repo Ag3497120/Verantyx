@@ -84,25 +84,57 @@ actor JGenAgentServer {
             connection.cancel()
             return
         }
-        guard request.method == "POST", request.path == "/jgen/generate" else {
+        guard request.method == "POST" else {
             await Self.writeResponse(connection: connection, status: 404, body: ["ok": false, "error": "not_found"])
             connection.cancel()
             return
         }
+        switch request.path {
+        case "/jgen/generate":
+            await handleJGenGenerate(request: request, connection: connection)
+        case "/browser/fetch":
+            await handleBrowserFetch(request: request, connection: connection)
+        default:
+            await Self.writeResponse(connection: connection, status: 404, body: ["ok": false, "error": "not_found"])
+        }
+        connection.cancel()
+    }
+
+    /// Vera-alpha's fetch_url (agent_tools.py) prefers this over its own
+    /// urllib scrape when a browser endpoint is configured -- real WKWebView
+    /// rendering handles JS-heavy pages (and gives BrowserBridge's own
+    /// markdown extraction, which doesn't drown in raw HTML chrome the way
+    /// a naive tag-strip does on pages like GitHub's repo view).
+    private func handleBrowserFetch(request: ParsedRequest, connection: NWConnection) async {
+        guard
+            let data = request.body,
+            let obj = try? JSONSerialization.jsonObject(with: data) as? [String: Any],
+            let url = obj["url"] as? String
+        else {
+            await Self.writeResponse(connection: connection, status: 400, body: ["ok": false, "error": "bad_request"])
+            return
+        }
+        do {
+            let markdown = try await BrowserBridge.shared.fetch(url)
+            await Self.writeResponse(connection: connection, status: 200, body: ["ok": true, "url": url, "markdown": markdown])
+        } catch {
+            await Self.writeResponse(connection: connection, status: 502, body: ["ok": false, "error": "\(error)"])
+        }
+    }
+
+    private func handleJGenGenerate(request: ParsedRequest, connection: NWConnection) async {
         guard
             let data = request.body,
             let obj = try? JSONSerialization.jsonObject(with: data) as? [String: Any],
             let prompt = obj["prompt"] as? String
         else {
             await Self.writeResponse(connection: connection, status: 400, body: ["ok": false, "error": "bad_request"])
-            connection.cancel()
             return
         }
         let system = obj["system"] as? String
 
         guard await JCrossChatManager.shared.isLoaded else {
             await Self.writeResponse(connection: connection, status: 503, body: ["ok": false, "error": "jgen_not_loaded"])
-            connection.cancel()
             return
         }
 
@@ -118,7 +150,6 @@ actor JGenAgentServer {
         } catch {
             await Self.writeResponse(connection: connection, status: 500, body: ["ok": false, "error": "\(error)"])
         }
-        connection.cancel()
     }
 
     // MARK: - Minimal HTTP/1.1 parsing (GET/POST, Content-Length only, no chunked)
