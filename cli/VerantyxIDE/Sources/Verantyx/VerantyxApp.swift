@@ -108,6 +108,10 @@ final class AppDelegate: NSObject, NSApplicationDelegate {
                 MCPBridgeLauncher.shared.stop()
                 ExtensionHostManager.shared.stop()
             }
+            // vera-memory serve (Milestone N harness daemon) -- previously
+            // never terminated here at all, which is exactly what let a
+            // stale process silently outlive every subsequent rebuild.
+            await VeraAgentClient.shared.stop()
 
             // フェーズ2: GlobalTaskSupervisor 経由で BrowserBridge などを停止
             GlobalTaskSupervisor.shared.register(priority: .userInitiated) {

@@ -1,4 +1,5 @@
 import Foundation
+import Darwin   // kill(), SIGTERM, SIGKILL
 
 /// Milestone N5 — client for Vera-alpha's `vera_server.py` (N2) HTTP+SSE
 /// daemon. This is the "Vera as harness" chat path: instead of the IDE's
@@ -23,10 +24,27 @@ actor VeraAgentClient {
     /// Lazily launches `vera-memory ... serve` (same bundled binary
     /// Milestone H already embeds for MCP mode, see MCPEngine.swift's
     /// `bundledVeraMemory`/`VeraMemoryPaths`) if the daemon isn't already
-    /// reachable. Idempotent -- a health check runs first so calling this
-    /// repeatedly across chat turns doesn't spawn duplicate processes.
+    /// reachable. Idempotent WITHIN a running app instance -- a health
+    /// check runs first so calling this repeatedly across chat turns
+    /// doesn't spawn duplicate processes.
+    ///
+    /// Real bug found live: this used to trust ANY reachable server on
+    /// the port, including one left over from a previous app run (Process
+    /// objects don't die with their parent on macOS -- a normal quit that
+    /// predates this fix, a force-quit, or a crash all leave `vera-memory
+    /// serve` running forever). Every rebuild/redeploy of the binary was
+    /// silently talking to that stale process instead of the new one,
+    /// which is exactly why a real Python-side fix appeared to "do
+    /// nothing" on retry. Now: if we don't already own a live
+    /// `launchedProcess` from THIS app session, anything already on the
+    /// port gets killed first, then a fresh process is always launched --
+    /// covers the clean-quit case AND leftover orphans from before this
+    /// fix existed, not just app-quit cleanup (see `stop()` below, which
+    /// only helps the well-behaved-quit case).
     func ensureServerRunning() async {
-        if await isReachable() { return }
+        if let p = launchedProcess, p.isRunning, await isReachable() { return }
+
+        killAnyProcessOnPort(8765)
 
         let bundled = Bundle.main.executableURL?.deletingLastPathComponent().appendingPathComponent("vera-memory")
         guard let bundled, FileManager.default.fileExists(atPath: bundled.path) else { return }
@@ -55,6 +73,45 @@ actor VeraAgentClient {
             if await isReachable() { return }
             try? await Task.sleep(nanoseconds: 300_000_000)
         }
+    }
+
+    /// `lsof -ti:<port>` + SIGTERM (then SIGKILL if it's still alive after
+    /// a beat) -- the only reliable cross-launch way to reclaim a port
+    /// held by a process this app instance doesn't have a handle to.
+    /// Best-effort: failures here just mean the subsequent bind attempt
+    /// fails too, which `ensureServerRunning`'s reachability polling
+    /// already surfaces as "server never came up" rather than crashing.
+    private func killAnyProcessOnPort(_ port: Int) {
+        let lsof = Process()
+        lsof.executableURL = URL(fileURLWithPath: "/usr/sbin/lsof")
+        lsof.arguments = ["-ti", ":\(port)"]
+        let pipe = Pipe()
+        lsof.standardOutput = pipe
+        lsof.standardError = FileHandle.nullDevice
+        guard (try? lsof.run()) != nil else { return }
+        lsof.waitUntilExit()
+        let data = pipe.fileHandleForReading.readDataToEndOfFile()
+        guard let text = String(data: data, encoding: .utf8) else { return }
+        let pids = text.split(separator: "\n").compactMap { Int32($0.trimmingCharacters(in: .whitespaces)) }
+        for pid in pids {
+            kill(pid, SIGTERM)
+        }
+        if !pids.isEmpty {
+            Thread.sleep(forTimeInterval: 0.3)
+            for pid in pids where kill(pid, 0) == 0 {  // still alive
+                kill(pid, SIGKILL)
+            }
+        }
+    }
+
+    /// Called from AppDelegate's shutdown sequence -- the well-behaved
+    /// half of the fix (killAnyProcessOnPort above is the fallback for
+    /// when this never got the chance to run).
+    func stop() {
+        if let p = launchedProcess, p.isRunning {
+            p.terminate()
+        }
+        launchedProcess = nil
     }
 
     private func isReachable() async -> Bool {
