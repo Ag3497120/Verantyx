@@ -1436,8 +1436,15 @@ final class AppState: ObservableObject {
         addSystemMessage(t("🧭 Vera harness: taking over this turn…", "🧭 Veraハーネス: このターンを引き継ぎます…"))
 
         await VeraAgentClient.shared.ensureServerRunning()
+        // Vera's planner LLM step needs a real Ollama model name -- without
+        // this, vera_server.py falls back to its own (usually unset)
+        // default_model, sends an empty model string to Ollama's
+        // /api/generate, and gets back exactly the 404 this app's own
+        // testing surfaced. The IDE's already-selected chat model is the
+        // right default (not a new setting the user has to duplicate).
+        let harnessModel = activeOllamaModel
         do {
-            let result = try await VeraAgentClient.shared.runAgent(task: instruction) { [weak self] event in
+            let result = try await VeraAgentClient.shared.runAgent(task: instruction, model: harnessModel) { [weak self] event in
                 guard let self else { return }
                 Task { @MainActor in
                     switch event.source {
