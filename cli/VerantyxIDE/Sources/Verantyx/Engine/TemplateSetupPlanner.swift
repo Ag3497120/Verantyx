@@ -107,6 +107,36 @@ actor TemplateSetupPlanner {
                                       hasAnthropicKey: hasAnthropicKey))
         }
 
+        // ── Total concurrent footprint, not just per-layer ────────────────
+        // Each layer above was checked against usableModelRAMGB in
+        // isolation, which never catches "each layer fits alone, but they
+        // don't all fit at once" -- confirmed via a real proposal (JGEN
+        // 24.1GB + two ~21GB Ollama layers = ~66GB on a 64GB Mac, every
+        // individual layer passing its own 38.4GB-budget check). JGEN
+        // (JCrossChatManager) stays resident in-process once loaded, so its
+        // size always counts; Ollama layers sharing the exact same model
+        // name only cost once (Ollama itself won't double-load one model),
+        // but different Ollama models each need their own share since
+        // Ollama's own eviction isn't coordinated by this app at all.
+        var footprintGB = 0.0
+        var seenOllamaModels = Set<String>()
+        for assignment in assignments {
+            guard let size = assignment.sizeGB else { continue }
+            if assignment.backend == .ollama {
+                guard !seenOllamaModels.contains(assignment.model) else { continue }
+                seenOllamaModels.insert(assignment.model)
+            }
+            footprintGB += size
+        }
+        if footprintGB > machine.usableModelRAMGB {
+            warnings.append(String(format:
+                "This proposal's layers total ~%.1f GB if all loaded at once — more than the ~%.1f GB "
+                + "of this Mac's %.0f GB RAM comfortably usable for weights. JGEN stays resident once "
+                + "loaded and doesn't unload for Ollama layers (or vice versa); expect swapping or OOM "
+                + "if multiple heavy layers are actually exercised in the same session.",
+                footprintGB, machine.usableModelRAMGB, machine.totalRAMGB))
+        }
+
         // ── Optional web enrichment (never blocking) ──────────────────────
         var webNotes: [String] = []
         var webFailed = false
@@ -174,16 +204,31 @@ actor TemplateSetupPlanner {
 
         let candidates = inventory.filter { $0.backend == layer.backend && $0.isLoadable }
 
-        // Prefer an explicit hint, then the largest model that still fits.
+        // Prefer an explicit hint, then fall back to the full local pool.
+        //
+        // Sort direction depends on the role, not just "biggest that fits":
+        // escalation genuinely wants the strongest available model, but
+        // execution should stay light/fast -- when modelHint doesn't match
+        // anything installed (e.g. no "8b" model present), falling back to
+        // "biggest that fits" for BOTH roles was a real bug: with nothing
+        // mid-sized in the inventory, execution and escalation converged on
+        // the exact same single largest model (confirmed against a user
+        // report -- their "Balanced (16GB)" proposal on a 64GB Mac put the
+        // same ~21GB model in both Layer 2 and Layer 3 because there was
+        // nothing smaller than that installed). Preferring the SMALLEST
+        // model that still fits for execution means it degrades to a lean
+        // pick instead of quietly matching escalation's size.
+        let preferSmallest = (layer.role == .execution)
         let hinted = layer.modelHint.isEmpty
             ? []
             : candidates.filter { $0.name.lowercased().contains(layer.modelHint.lowercased()) }
         let pool = hinted.isEmpty ? candidates : hinted
-        let fitting = pool
-            .filter { ($0.sizeGB ?? 0) <= machine.usableModelRAMGB }
-            .sorted { ($0.sizeGB ?? 0) > ($1.sizeGB ?? 0) }
+        let sortedPool = preferSmallest
+            ? pool.sorted { ($0.sizeGB ?? 0) < ($1.sizeGB ?? 0) }
+            : pool.sorted { ($0.sizeGB ?? 0) > ($1.sizeGB ?? 0) }
+        let fitting = sortedPool.filter { ($0.sizeGB ?? 0) <= machine.usableModelRAMGB }
 
-        if let pick = fitting.first ?? pool.sorted(by: { ($0.sizeGB ?? 0) > ($1.sizeGB ?? 0) }).first {
+        if let pick = fitting.first ?? sortedPool.first {
             let tooBig = (pick.sizeGB ?? 0) > machine.usableModelRAMGB
             let ramWarning = String(format:
                 "%@ is ~%.1f GB; only ~%.1f GB of this Mac's RAM is comfortably usable for weights.",
