@@ -23,6 +23,7 @@ final class CouncilSettingsStore: ObservableObject {
     private static let templateKey = "council_template_id"
     private static let useForChatKey = "council_use_for_chat"
     private static let executionModelKey = "council_execution_model"
+    private static let useVisualMemoryKey = "council_use_visual_memory"
 
     @Published var config: CouncilOrchestrator.Config {
         didSet { persistConfig() }
@@ -48,6 +49,18 @@ final class CouncilSettingsStore: ObservableObject {
         didSet { UserDefaults.standard.set(executionModel, forKey: Self.executionModelKey) }
     }
 
+    /// Milestone L: pseudo-multimodal visual memory (Vision feature-print
+    /// recall). Kept as a top-level property rather than a `Config` field
+    /// because `AgentLoop.swift`'s plain (non-Council) chat path never
+    /// receives a `CouncilOrchestrator.Config` -- it reads this singleton
+    /// directly instead of needing a new parameter threaded through
+    /// `AgentLoop.run`. Opt-in default (`false`): a live window capture +
+    /// Vision request every qualifying turn is real per-turn cost, unlike
+    /// text memory.
+    @Published var useVisualMemory: Bool {
+        didSet { UserDefaults.standard.set(useVisualMemory, forKey: Self.useVisualMemoryKey) }
+    }
+
     private init() {
         let ud = UserDefaults.standard
         if let data = ud.data(forKey: Self.configKey),
@@ -59,6 +72,7 @@ final class CouncilSettingsStore: ObservableObject {
         templateId = ud.string(forKey: Self.templateKey) ?? "custom"
         useCouncilForChat = ud.bool(forKey: Self.useForChatKey)
         executionModel = ud.string(forKey: Self.executionModelKey) ?? ""
+        useVisualMemory = ud.bool(forKey: Self.useVisualMemoryKey)
     }
 
     private func persistConfig() {

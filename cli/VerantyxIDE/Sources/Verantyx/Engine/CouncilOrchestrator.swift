@@ -169,6 +169,18 @@ actor CouncilOrchestrator {
             let eternalText = await EternalMemoryStore.shared.recallBlock(for: question)
             if !eternalText.isEmpty { memoryPrefix += eternalText + "\n" }
         }
+        // Milestone L: pseudo-multimodal visual memory. This is
+        // screen-to-screen recall, not text-to-screen -- it only produces
+        // anything when there's a *current* screen to compare against
+        // (a live HiddenWindowAutomation session), so it's a no-op for a
+        // plain text question with no window target. That's the correct
+        // fallback, not a bug: a Vision feature print cannot be produced
+        // from words alone.
+        if await MainActor.run(body: { CouncilSettingsStore.shared.useVisualMemory }),
+           let img = await HiddenWindowAutomation.shared.captureWindowImage() {
+            let visualText = await VisualMemoryStore.shared.recallBlock(base64Image: img)
+            if !visualText.isEmpty { memoryPrefix += visualText + "\n" }
+        }
 
         let roleCount = min(max(config.roleCount, 2), Self.fullRoleCast.count)
         let roles = Array(Self.fullRoleCast.prefix(roleCount))

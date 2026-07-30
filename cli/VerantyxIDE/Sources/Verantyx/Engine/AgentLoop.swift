@@ -132,6 +132,20 @@ actor AgentLoop {
         let veraMemorySection = memoryLayer == .vera
             ? await VeraMemoryBridge.recall(for: instruction)
             : ""
+        // Milestone L: pseudo-multimodal visual memory. Reads
+        // CouncilSettingsStore directly (a singleton) rather than adding a
+        // new parameter to run() -- this is the plain (non-Council) chat
+        // path's own memory-prefix assembly, separate from
+        // CouncilOrchestrator's own splice of the same toggle. Screen-to-
+        // screen recall only, so it's a no-op without a live automated
+        // window to capture (HiddenWindowAutomation.captureWindowImage()
+        // returns nil in that case, which is the correct fallback).
+        let visualMemorySection: String = await {
+            guard await MainActor.run(body: { CouncilSettingsStore.shared.useVisualMemory }),
+                  let img = await HiddenWindowAutomation.shared.captureWindowImage()
+            else { return "" }
+            return await VisualMemoryStore.shared.recallBlock(base64Image: img)
+        }()
         // Unconditional trust-level note (not gated behind the Visual
         // Anchor's evaluateAnchorMode, which some turns -- e.g. the
         // screenshot/vision branch -- skip entirely; see CRITICAL RULE 7
@@ -148,7 +162,7 @@ actor AgentLoop {
             }
             return "\n\n[MEMORY TRUST LEVELS]\n" + lines.joined(separator: "\n") + "\n[/MEMORY TRUST LEVELS]"
         }()
-        let memorySection = cortexMemorySection + veraMemorySection + memoryTrustNote
+        let memorySection = cortexMemorySection + veraMemorySection + visualMemorySection + memoryTrustNote
         let isWorkspaceless = workspaceURL == nil
 
         // ── Self-evolution context ────────────────────────────────────────
@@ -1420,14 +1434,19 @@ SYS.ENFORCE("logical_verification_before_acceptance")
                     // up front and warn once rather than silently no-op'ing
                     // every step for the rest of the session.
                     if !result.contains("NO_VISUAL_CHANGE") {
+                        // Read once and clear -- both the JGEN text trace
+                        // below and the Vision-based visual memory write
+                        // (Milestone L) need the same changed-region hit,
+                        // and the flag must not survive to the next step.
+                        let region = await MainActor.run { () -> CGRect? in
+                            let r = AppState.shared?.lastDesktopChangedRegion
+                            AppState.shared?.lastDesktopChangedRegion = nil
+                            return r
+                        }
+
                         if await JCrossChatManager.shared.isLoaded {
                             uiStepIndex += 1
                             let stepIndex = uiStepIndex
-                            let region = await MainActor.run { () -> CGRect? in
-                                let r = AppState.shared?.lastDesktopChangedRegion
-                                AppState.shared?.lastDesktopChangedRegion = nil
-                                return r
-                            }
                             let label = call.displayLabel
                             Task.detached {
                                 try? await UITestVectorTrace.shared.recordMoment(
@@ -1440,6 +1459,47 @@ SYS.ENFORCE("logical_verification_before_acceptance")
                                 "⚠️ UI-test vector trace is JGEN-only and no JGEN model is loaded (Settings → JGEN) -- steps this session won't be recorded to the 3D trace.",
                                 "⚠️ UIテストのベクトル・トレースはJGEN専用で、JGENモデルが読み込まれていません(Settings → JGEN) — 今回のセッションのステップは3Dトレースに記録されません。"
                             )))
+                        }
+
+                        // Milestone L: pseudo-multimodal visual memory.
+                        // Deliberately NOT gated on JCrossChatManager.isLoaded
+                        // -- Vision has nothing to do with JGEN being loaded.
+                        // Gated on `region != nil` (a real VisualDiffRegion
+                        // hit): a Vision feature-print request is far more
+                        // expensive than the cached-prompt text embed above,
+                        // so this only fires on genuine UI transitions, not
+                        // every no-op click. Also gated on the opt-in
+                        // setting since it writes to disk every time it fires.
+                        let visualMemoryEnabled = await MainActor.run { CouncilSettingsStore.shared.useVisualMemory }
+                        if let region, visualMemoryEnabled {
+                            let label = call.displayLabel
+                            let appName = await MainActor.run { HiddenWindowAutomation.shared.targetAppName }
+                            let windowFrame = await MainActor.run { HiddenWindowAutomation.shared.targetWindowFrame }
+                            Task.detached {
+                                guard let img = await HiddenWindowAutomation.shared.captureWindowImage() else { return }
+                                var nearby: [String] = []
+                                if let appName, let frame = windowFrame, frame.width > 0, frame.height > 0 {
+                                    // Same 0-1000 window-relative convention
+                                    // VeraMemoryBridge's UI-element registry
+                                    // already uses (HiddenWindowMirrorView.swift
+                                    // doc comment) -- changedRegion is in the
+                                    // same pixel space as targetWindowFrame
+                                    // (captureWindowImage() captures exactly
+                                    // that frame, no resizing), so this is a
+                                    // plain linear rescale, not a guess.
+                                    let nx0 = (region.origin.x / frame.width) * 1000
+                                    let ny0 = (region.origin.y / frame.height) * 1000
+                                    let nx1 = ((region.origin.x + region.width) / frame.width) * 1000
+                                    let ny1 = ((region.origin.y + region.height) / frame.height) * 1000
+                                    let elements = await VeraMemoryBridge.listVerifiedUIElements(app: appName)
+                                    nearby = elements
+                                        .filter { $0.x >= nx0 - 50 && $0.x <= nx1 + 50 && $0.y >= ny0 - 50 && $0.y <= ny1 + 50 }
+                                        .map { "\($0.element)@(\(Int($0.x)),\(Int($0.y)))" }
+                                }
+                                try? await VisualMemoryStore.shared.add(
+                                    base64Image: img, label: label, changedRegion: region, nearbyElements: nearby
+                                )
+                            }
                         }
                     }
                 default:

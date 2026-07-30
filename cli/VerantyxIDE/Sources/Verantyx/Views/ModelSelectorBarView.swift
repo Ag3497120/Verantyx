@@ -372,6 +372,11 @@ struct ModelSelectorBarView: View {
                         set: { council.config.useEternalMemory = $0; council.markCustom() }
                     )).toggleStyle(.checkbox)
 
+                    Toggle(app.t("Visual memory (screen recall)", "視覚記憶(画面リコール)"), isOn: Binding(
+                        get: { council.useVisualMemory },
+                        set: { council.useVisualMemory = $0 }
+                    )).toggleStyle(.checkbox)
+
                     Text(app.t("Zone memory layers", "ゾーン記憶レイヤ"))
                         .font(.system(size: 10)).foregroundStyle(.secondary)
                     HStack(spacing: 6) {
