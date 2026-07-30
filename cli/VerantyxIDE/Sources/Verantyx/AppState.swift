@@ -1463,10 +1463,22 @@ final class AppState: ObservableObject {
                 }
             }
 
+            // `result["final"]` is NOT always a dict: agent.py's own ReAct
+            // loop returns the LLM's plain-string answer verbatim when it
+            // completes via `{"thought": ..., "final": "<answer>"}` (see
+            // agent.py:163) -- only the vera_direct/vera_only/llm_error
+            // paths wrap it in a dict. Treating it as dict-only silently
+            // dropped every successful plain-text answer (confirmed via a
+            // real "こんにちは" turn that Vera answered correctly but the
+            // IDE rendered as "no final answer returned").
             let finalText: String
-            if let final = result["final"] as? [String: Any] {
+            if let text = result["final"] as? String {
+                finalText = text
+            } else if let final = result["final"] as? [String: Any] {
                 if let text = final["text"] as? String {
                     finalText = text
+                } else if let error = final["error"] as? String {
+                    finalText = t("(Vera error: \(error))", "(Veraエラー: \(error))")
                 } else if let data = try? JSONSerialization.data(withJSONObject: final, options: [.prettyPrinted]),
                           let json = String(data: data, encoding: .utf8) {
                     finalText = json
