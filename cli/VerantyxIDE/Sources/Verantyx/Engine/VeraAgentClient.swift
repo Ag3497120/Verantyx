@@ -90,6 +90,7 @@ actor VeraAgentClient {
     /// harness toggle wiring).
     func runAgent(
         task: String, model: String = "", backend: String = "ollama",
+        cognitionMode: String = "normal",
         onEvent: @escaping (AgentStepEvent) -> Void
     ) async throws -> [String: Any] {
         guard let startURL = URL(string: "\(baseURL)/agent/run") else {
@@ -98,7 +99,10 @@ actor VeraAgentClient {
         var req = URLRequest(url: startURL)
         req.httpMethod = "POST"
         req.setValue("application/json", forHTTPHeaderField: "Content-Type")
-        let body: [String: Any] = ["task": task, "model": model, "backend": backend]
+        let body: [String: Any] = [
+            "task": task, "model": model, "backend": backend,
+            "cognition_mode": cognitionMode,
+        ]
         req.httpBody = try JSONSerialization.data(withJSONObject: body)
 
         let (startData, startResp) = try await URLSession.shared.data(for: req)

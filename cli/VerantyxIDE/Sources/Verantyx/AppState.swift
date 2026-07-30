@@ -1433,6 +1433,17 @@ final class AppState: ObservableObject {
     private func runVeraHarness(instruction: String) async {
         isGenerating = true
         defer { isGenerating = false }
+
+        let mode = CouncilSettingsStore.shared.cognitionMode
+        if mode != .normal {
+            // Milestone O: required warning banner -- shown every time a
+            // non-normal mode is active, not just once on toggle, so it
+            // can't scroll out of sight and be forgotten mid-session.
+            addSystemMessage(t(
+                "⚠️ Experimental cognition is enabled.\nVera may: inspect additional local files · create persistent knowledge-gap nodes · run read-only analysis tools · propose new facts and skills.\nVera will not: modify project files without approval · access unapproved sources · treat acquired knowledge as trusted without verification.",
+                "⚠️ 実験的な認知モードが有効です。\nVeraは: 追加のローカルファイルを調べる・永続的な知識ギャップノードを作成する・読み取り専用の解析ツールを実行する・新しい事実やスキルを提案する、ことがあります。\nVeraは: 承認なしにプロジェクトファイルを変更する・未承認の情報源へアクセスする・検証なしに取得した知識を信頼済みとして扱う、ことはありません。"
+            ))
+        }
         addSystemMessage(t("🧭 Vera harness: taking over this turn…", "🧭 Veraハーネス: このターンを引き継ぎます…"))
 
         await VeraAgentClient.shared.ensureServerRunning()
@@ -1444,7 +1455,9 @@ final class AppState: ObservableObject {
         // right default (not a new setting the user has to duplicate).
         let harnessModel = activeOllamaModel
         do {
-            let result = try await VeraAgentClient.shared.runAgent(task: instruction, model: harnessModel) { [weak self] event in
+            let result = try await VeraAgentClient.shared.runAgent(
+                task: instruction, model: harnessModel, cognitionMode: mode.rawValue
+            ) { [weak self] event in
                 guard let self else { return }
                 Task { @MainActor in
                     switch event.source {

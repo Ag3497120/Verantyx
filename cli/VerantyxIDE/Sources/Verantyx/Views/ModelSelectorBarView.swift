@@ -382,6 +382,29 @@ struct ModelSelectorBarView: View {
                         set: { council.useVeraHarnessForChat = $0 }
                     )).toggleStyle(.checkbox)
 
+                    if council.useVeraHarnessForChat {
+                        Picker(app.t("Cognition mode", "認知モード"), selection: Binding(
+                            get: { council.cognitionMode },
+                            set: { council.cognitionMode = $0 }
+                        )) {
+                            ForEach(CouncilSettingsStore.CognitionMode.allCases) { mode in
+                                Text(app.t(mode.title, mode.titleJA)).tag(mode)
+                            }
+                        }
+                        .pickerStyle(.segmented)
+                        .font(.system(size: 10))
+
+                        if council.cognitionMode != .normal {
+                            Text(app.t(
+                                "⚠️ Experimental cognition is enabled. Vera may create persistent knowledge-gap nodes and propose new facts/skills for review — never applied without approval.",
+                                "⚠️ 実験的な認知モードが有効です。Veraは永続的な知識ギャップノードを作成し、新しい事実/スキルをレビュー用に提案することがあります — 承認なしには適用されません。"
+                            ))
+                            .font(.system(size: 9))
+                            .foregroundStyle(.orange)
+                            .fixedSize(horizontal: false, vertical: true)
+                        }
+                    }
+
                     Text(app.t("Zone memory layers", "ゾーン記憶レイヤ"))
                         .font(.system(size: 10)).foregroundStyle(.secondary)
                     HStack(spacing: 6) {

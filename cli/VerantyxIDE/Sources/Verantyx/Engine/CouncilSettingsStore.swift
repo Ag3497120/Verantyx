@@ -25,6 +25,7 @@ final class CouncilSettingsStore: ObservableObject {
     private static let executionModelKey = "council_execution_model"
     private static let useVisualMemoryKey = "council_use_visual_memory"
     private static let useVeraHarnessKey = "council_use_vera_harness"
+    private static let cognitionModeKey = "council_cognition_mode"
 
     @Published var config: CouncilOrchestrator.Config {
         didSet { persistConfig() }
@@ -74,6 +75,38 @@ final class CouncilSettingsStore: ObservableObject {
         didSet { UserDefaults.standard.set(useVeraHarnessForChat, forKey: Self.useVeraHarnessKey) }
     }
 
+    /// Milestone O: normal (default, no gap nodes ever created) / experiment
+    /// (persists a GapNode whenever Vera hits a typed UNKNOWN, never auto-
+    /// resolves) / sleep (experiment + heartbeat attempts quarantine-gated
+    /// resolution of open-domain gaps -- nothing is ever promoted to the
+    /// trusted store without a human accept, see ai_ingest.propose_raw on
+    /// the Python side). Only takes effect when `useVeraHarnessForChat` is
+    /// on -- it's sent per-request to vera_server.py's /agent/run, not a
+    /// separate connection. Independent toggle (not nested under
+    /// useVeraHarnessForChat) so turning the harness off doesn't silently
+    /// discard the user's chosen cognition mode.
+    enum CognitionMode: String, CaseIterable, Identifiable {
+        case normal, experiment, sleep
+        var id: String { rawValue }
+        var title: String {
+            switch self {
+            case .normal: return "Normal"
+            case .experiment: return "Experiment"
+            case .sleep: return "Sleep"
+            }
+        }
+        var titleJA: String {
+            switch self {
+            case .normal: return "通常"
+            case .experiment: return "実験"
+            case .sleep: return "Sleep"
+            }
+        }
+    }
+    @Published var cognitionMode: CognitionMode {
+        didSet { UserDefaults.standard.set(cognitionMode.rawValue, forKey: Self.cognitionModeKey) }
+    }
+
     private init() {
         let ud = UserDefaults.standard
         if let data = ud.data(forKey: Self.configKey),
@@ -87,6 +120,7 @@ final class CouncilSettingsStore: ObservableObject {
         executionModel = ud.string(forKey: Self.executionModelKey) ?? ""
         useVisualMemory = ud.bool(forKey: Self.useVisualMemoryKey)
         useVeraHarnessForChat = ud.bool(forKey: Self.useVeraHarnessKey)
+        cognitionMode = CognitionMode(rawValue: ud.string(forKey: Self.cognitionModeKey) ?? "normal") ?? .normal
     }
 
     private func persistConfig() {

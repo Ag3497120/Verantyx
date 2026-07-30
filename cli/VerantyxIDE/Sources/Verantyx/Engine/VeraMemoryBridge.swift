@@ -503,11 +503,25 @@ enum VeraMemoryBridge {
 
     /// Triggers one growth-loop tick manually from the IDE (in addition to
     /// Vera-alpha's own daily cron/launchd path). `llmModel` empty = report
-    /// growth candidates only, without drafting.
-    static func triggerHeartbeat(llmModel: String = "") async -> String {
+    /// growth candidates only, without drafting. `cognitionMode: "sleep"`
+    /// (Milestone O) additionally attempts quarantine-gated resolution of
+    /// open-domain GapNodes -- "normal"/"experiment" only run the existing
+    /// closed-domain module-growth pass.
+    static func triggerHeartbeat(llmModel: String = "", cognitionMode: String = "normal") async -> String {
         await MCPEngine.shared.callTool(
             serverName: serverName, toolName: "heartbeat",
-            arguments: ["llm_model": llmModel], mode: .human
+            arguments: ["llm_model": llmModel, "cognition_mode": cognitionMode], mode: .human
+        )
+    }
+
+    /// Milestone O: "what changed while you were away" -- resolved/still-
+    /// open/blocked GapNodes since `sinceSeconds` ago, plus a pointer at
+    /// how many items are waiting in the existing fact/module review
+    /// queues (list_pending_ai_facts / list_pending_domain_modules).
+    static func wakeSummary(sinceSeconds: Double = 43200) async -> String {
+        await MCPEngine.shared.callTool(
+            serverName: serverName, toolName: "wake_summary",
+            arguments: ["since_seconds": sinceSeconds], mode: .human
         )
     }
 }
