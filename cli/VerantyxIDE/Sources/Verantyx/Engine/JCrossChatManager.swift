@@ -165,6 +165,37 @@ actor JCrossChatManager {
         return tokenizer.decode(tokens: [Int(result.token)], skipSpecialTokens: true)
     }
 
+    /// Milestone P: text-in/text-out convenience over `JCrossEngine.
+    /// injectMultiLayer` -- tokenizes `prompt`, encodes each intervention's
+    /// `textLabel` into a vector via `encodeText` (this is the "shared
+    /// basis": Vera has no embedding space of its own, so its state
+    /// descriptions get turned into vectors by asking JGEN itself), injects
+    /// them all in one forward pass, and decodes each observed layer's
+    /// snapshot back to its nearest token via `puzzleInferenceText` so the
+    /// caller gets human-readable text, never a raw vector.
+    func reflect(
+        prompt: String,
+        interventions: [(layer: Int, textLabel: String, alpha: Float)],
+        observeLayers: [Int]
+    ) throws -> [Int: (text: String, entropy: Float)] {
+        guard let engine, let tokenizer else { throw ChatError.notLoaded }
+        let promptTokens = tokenizer.encode(text: prompt).map { UInt32($0) }
+        let injections: [(layer: Int, vector: [Float], alpha: Float)] = try interventions.map { iv in
+            (layer: iv.layer, vector: try encodeText(iv.textLabel), alpha: iv.alpha)
+        }
+        engine.reset()
+        let snapshots = try engine.injectMultiLayer(
+            tokens: promptTokens, injections: injections, observeLayers: observeLayers
+        )
+        var out: [Int: (text: String, entropy: Float)] = [:]
+        for (layer, vector) in snapshots {
+            let result = try engine.puzzleInference(layerName: "lm_head", vector: vector)
+            let text = tokenizer.decode(tokens: [Int(result.token)], skipSpecialTokens: true)
+            out[layer] = (text, result.entropy)
+        }
+        return out
+    }
+
     /// The "entropy lock": the single most-confident token a vector
     /// currently decodes to, plus how confident (lower entropy = more
     /// confident), as text + a raw entropy number for a UI to display.

@@ -214,6 +214,59 @@ final class JCrossEngine {
         return out
     }
 
+    /// Milestone P: blends MULTIPLE (layer, vector, alpha) injections into
+    /// ONE forward pass, and returns the residual snapshot at each
+    /// requested observe layer -- the primitive behind Vera's hidden-state
+    /// "reflection" tool (see JGenAgentServer's /jgen/inject_multi_layer).
+    /// `injections` may be empty to just observe without injecting.
+    /// Returns a dictionary keyed by observe layer index (not an array --
+    /// callers shouldn't need to track index<->layer correspondence
+    /// themselves).
+    func injectMultiLayer(
+        tokens: [UInt32],
+        injections: [(layer: Int, vector: [Float], alpha: Float)],
+        observeLayers: [Int]
+    ) throws -> [Int: [Float]] {
+        guard !observeLayers.isEmpty else { return [:] }
+        var tokensCopy = tokens
+        var injectLayersCopy = injections.map { UInt32($0.layer) }
+        var injectVecsFlat = injections.flatMap { $0.vector }
+        var alphasCopy = injections.map { $0.alpha }
+        var observeLayersCopy = observeLayers.map { UInt32($0) }
+        var out = [Float](repeating: 0, count: observeLayers.count * hiddenDim)
+
+        let code: Int32 = tokensCopy.withUnsafeMutableBufferPointer { tokBuf in
+            injectLayersCopy.withUnsafeMutableBufferPointer { injLayerBuf in
+                injectVecsFlat.withUnsafeMutableBufferPointer { injVecBuf in
+                    alphasCopy.withUnsafeMutableBufferPointer { alphaBuf in
+                        observeLayersCopy.withUnsafeMutableBufferPointer { obsBuf in
+                            out.withUnsafeMutableBufferPointer { outBuf in
+                                jcross_engine_inject_multi_layer(
+                                    handle,
+                                    tokBuf.baseAddress, tokBuf.count,
+                                    injections.isEmpty ? nil : injLayerBuf.baseAddress,
+                                    injections.isEmpty ? nil : injVecBuf.baseAddress,
+                                    injections.isEmpty ? nil : alphaBuf.baseAddress,
+                                    injLayerBuf.count,
+                                    obsBuf.baseAddress, obsBuf.count,
+                                    outBuf.baseAddress, outBuf.count
+                                )
+                            }
+                        }
+                    }
+                }
+            }
+        }
+        guard code == 0 else {
+            throw JCrossError.ffiError(function: "jcross_engine_inject_multi_layer", code: code)
+        }
+        var result: [Int: [Float]] = [:]
+        for (i, layer) in observeLayers.enumerated() {
+            result[layer] = Array(out[(i * hiddenDim)..<((i + 1) * hiddenDim)])
+        }
+        return result
+    }
+
     /// SVD-projects `vector` (length hiddenDim) through `layerName`'s
     /// low-rank factors -- a lightweight transformation/comparison in the
     /// model's own learned subspace, without a full forward pass.

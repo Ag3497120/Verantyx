@@ -94,10 +94,62 @@ actor JGenAgentServer {
             await handleJGenGenerate(request: request, connection: connection)
         case "/browser/fetch":
             await handleBrowserFetch(request: request, connection: connection)
+        case "/jgen/inject_multi_layer":
+            await handleInjectMultiLayer(request: request, connection: connection)
         default:
             await Self.writeResponse(connection: connection, status: 404, body: ["ok": false, "error": "not_found"])
         }
         connection.cancel()
+    }
+
+    /// Milestone P: Vera's "reflection" tool (agent_tools.py's jgen_reflect)
+    /// calls this to inject its own state (as short text labels, vectorized
+    /// via JCrossChatManager.encodeText) into JGEN's hidden states at
+    /// specific layers, and get back what JGEN's internal representation
+    /// looks like afterward -- decoded to text, never a raw vector, matching
+    /// Milestone L's "never pass JGEN's raw vectors to another process"
+    /// principle.
+    ///
+    /// body: {"prompt": str, "interventions": [{"layer": int, "text_label": str, "alpha": float}], "observe_layers": [int]}
+    private func handleInjectMultiLayer(request: ParsedRequest, connection: NWConnection) async {
+        guard
+            let data = request.body,
+            let obj = try? JSONSerialization.jsonObject(with: data) as? [String: Any],
+            let prompt = obj["prompt"] as? String,
+            let observeLayersRaw = obj["observe_layers"] as? [Any]
+        else {
+            await Self.writeResponse(connection: connection, status: 400, body: ["ok": false, "error": "bad_request"])
+            return
+        }
+        let observeLayers = observeLayersRaw.compactMap { ($0 as? NSNumber)?.intValue }
+        guard !observeLayers.isEmpty else {
+            await Self.writeResponse(connection: connection, status: 400, body: ["ok": false, "error": "empty_observe_layers"])
+            return
+        }
+        let interventionsRaw = (obj["interventions"] as? [[String: Any]]) ?? []
+        let interventions: [(layer: Int, textLabel: String, alpha: Float)] = interventionsRaw.compactMap { d in
+            guard let layer = (d["layer"] as? NSNumber)?.intValue,
+                  let textLabel = d["text_label"] as? String else { return nil }
+            let alpha = (d["alpha"] as? NSNumber)?.floatValue ?? 1.0
+            return (layer, textLabel, alpha)
+        }
+
+        guard await JCrossChatManager.shared.isLoaded else {
+            await Self.writeResponse(connection: connection, status: 503, body: ["ok": false, "error": "jgen_not_loaded"])
+            return
+        }
+        do {
+            let observations = try await JCrossChatManager.shared.reflect(
+                prompt: prompt, interventions: interventions, observeLayers: observeLayers
+            )
+            var observationsJSON: [String: Any] = [:]
+            for (layer, obs) in observations {
+                observationsJSON[String(layer)] = ["text": obs.text, "entropy": obs.entropy]
+            }
+            await Self.writeResponse(connection: connection, status: 200, body: ["ok": true, "observations": observationsJSON])
+        } catch {
+            await Self.writeResponse(connection: connection, status: 500, body: ["ok": false, "error": "\(error)"])
+        }
     }
 
     /// Vera-alpha's fetch_url (agent_tools.py) prefers this over its own

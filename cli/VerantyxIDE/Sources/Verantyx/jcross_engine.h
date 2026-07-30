@@ -97,6 +97,23 @@ int32_t jcross_engine_inject_at_layer(
     float *out_ptr, size_t out_len
 );
 
+// Milestone P: blends MULTIPLE (layer, vector, alpha) injections into ONE
+// forward pass, and snapshots the residual at each requested observe
+// layer. n_inject may be 0 (pass NULL for inject_layers_ptr/inject_vecs_ptr/
+// alphas_ptr in that case) to just observe without injecting. Semantics:
+// inject_layers use inject_at_layer's PRE-layer blend convention; observe_
+// layers use encode_layers's POST-layer snapshot convention (they are not
+// the same "layer 0" -- see the Rust doc comment on
+// execute_inject_multi_layer for why). out_ptr must hold
+// n_observe * hidden_dim floats, row-major, same order as observe_layers_ptr.
+int32_t jcross_engine_inject_multi_layer(
+    void *engine,
+    const uint32_t *tokens_ptr, size_t tokens_len,
+    const uint32_t *inject_layers_ptr, const float *inject_vecs_ptr, const float *alphas_ptr, size_t n_inject,
+    const uint32_t *observe_layers_ptr, size_t n_observe,
+    float *out_ptr, size_t out_len
+);
+
 // SVD-projects input_ptr (length input_len) through the named layer's
 // low-rank factors. Not used by Milestones A-C; declared for completeness.
 int32_t jcross_engine_project(
