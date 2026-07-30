@@ -46,7 +46,12 @@ actor VeraAgentClient {
         }
 
         // Give the daemon a moment to bind before the first real request.
-        for _ in 0..<10 {
+        // The frozen PyInstaller binary's own import/startup cost (not
+        // just socket bind time) measured ~5-6s cold on this machine --
+        // confirmed by direct standalone testing of the binary Milestone N
+        // actually ships (`dist/vera-memory ... serve`, timed via curl
+        // retries) -- so this polls for up to 12s, not a token 3s guess.
+        for _ in 0..<40 {
             if await isReachable() { return }
             try? await Task.sleep(nanoseconds: 300_000_000)
         }
