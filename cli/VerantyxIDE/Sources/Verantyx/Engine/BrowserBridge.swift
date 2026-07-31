@@ -956,7 +956,19 @@ class SafariVisionBridge {
                     var errorInfo: NSDictionary?
                     appleScript.executeAndReturnError(&errorInfo)
                     if let err = errorInfo {
-                        cont.resume(throwing: BrowserError.ioError("AppleScript error: \(err)"))
+                        // Real bug found live: interpolating the raw NSDictionary
+                        // dumped an unreadable blob starting with
+                        // NSAppleScriptErrorRange (e.g. "37:126: ..."), and the
+                        // chat log's line-length limit cut it off before the
+                        // actual NSAppleScriptErrorMessage ever appeared -- so
+                        // neither the user nor the model ever saw why the
+                        // script failed. Extract the real message explicitly.
+                        let message = (err[NSAppleScript.errorMessage] as? String)
+                            ?? (err[NSAppleScript.errorBriefMessage] as? String)
+                            ?? "\(err)"
+                        let number = err[NSAppleScript.errorNumber] as? Int
+                        let detail = number != nil ? "\(message) (code \(number!))" : message
+                        cont.resume(throwing: BrowserError.ioError("AppleScript error: \(detail)"))
                     } else {
                         cont.resume(returning: ())
                     }

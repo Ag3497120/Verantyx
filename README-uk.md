@@ -9,7 +9,7 @@
     <img src="https://img.shields.io/badge/license-MIT-green?style=flat-square">
   </p>
   <p>
-    <a href="README-en.md">англійська</a> · <a href="README-es.md">іспанська</a> · <a href="README-pt-BR.md">португальська (Бразилія)</a> · <a href="README-de.md">німецька</a> · <a href="README-fr.md">Французька</a> · <a href="README-zh-CN.md">Спрощена китайська</a> · <a href="README-zh-TW.md">Традиційна китайська</a> · <a href="README-ko.md">한국어</a> · <a href="README.md">Японська</a> · <a href="README-ar.md">العربية</a> · <a href="README-ru.md">Русский</a> · <a href="README-uk.md">Українська</a> · <a href="README-tr.md">Türkçe</a>
+    <a href="README.md">англійська</a> · <a href="README-es.md">іспанська</a> · <a href="README-pt-BR.md">португальська (Бразилія)</a> · <a href="README-de.md">німецька</a> · <a href="README-fr.md">Французька</a> · <a href="README-zh-CN.md">Спрощена китайська</a> · <a href="README-zh-TW.md">Традиційна китайська</a> · <a href="README-ko.md">한국어</a> · <a href="README-ja.md">Японська</a> · <a href="README-ar.md">العربية</a> · <a href="README-ru.md">Русский</a> · <a href="README-uk.md">Українська</a> · <a href="README-tr.md">Türkçe</a>
   </p>
 </div>
 

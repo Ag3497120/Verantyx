@@ -9,7 +9,7 @@
     <img src="https://img.shields.io/badge/license-MIT-green?style=flat-square">
   </p>
   <p>
-    <a href="README-en.md">英语</a> · <a href="README-es.md">西班牙语</a> · <a href="README-pt-BR.md">葡萄牙语（巴西）</a> · <a href="README-de.md">德语</a> · <a href="README-fr.md">法语</a> · <a href="README-zh-CN.md">简体中文</a> · <a href="README-zh-TW.md">繁体中文</a> · <a href="README-ko.md">한국어</a> · <a href="README.md">日文</a> · <a href="README-ar.md">阿拉伯语</a> · <a href="README-ru.md">Русский</a> · <a href="README-uk.md">Українська</a> · <a href="README-tr.md">土耳其</a>
+    <a href="README.md">英语</a> · <a href="README-es.md">西班牙语</a> · <a href="README-pt-BR.md">葡萄牙语（巴西）</a> · <a href="README-de.md">德语</a> · <a href="README-fr.md">法语</a> · <a href="README-zh-CN.md">简体中文</a> · <a href="README-zh-TW.md">繁体中文</a> · <a href="README-ko.md">한국어</a> · <a href="README-ja.md">日文</a> · <a href="README-ar.md">阿拉伯语</a> · <a href="README-ru.md">Русский</a> · <a href="README-uk.md">Українська</a> · <a href="README-tr.md">土耳其</a>
   </p>
 </div>
 
