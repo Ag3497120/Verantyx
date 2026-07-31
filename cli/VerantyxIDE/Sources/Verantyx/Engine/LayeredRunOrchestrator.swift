@@ -68,7 +68,31 @@ enum LayeredRunOrchestrator {
         let executionModel = store.executionModel.trimmingCharacters(in: .whitespaces)
         var outcome: ExecutionAgent.Outcome?
 
-        if executionModel.isEmpty {
+        // Beta: keep Layer 2 on the same JGEN model as Layer 1 instead of
+        // handing off to a second, Ollama-backed model. If it's requested
+        // but JGEN isn't actually loaded (e.g. it was unloaded between the
+        // toggle being set and this run starting), fall back to the normal
+        // executionModel path rather than failing the whole turn.
+        var jgenSpec: ExecutionAgent.Spec?
+        if store.executionUseJGEN, case .jcrossReady(let jgenModel) = app.modelStatus {
+            jgenSpec = ExecutionAgent.Spec(
+                modelStatus: .jcrossReady(model: jgenModel),
+                activeModel: jgenModel,
+                workspaceURL: app.workspaceURL,
+                operationMode: app.operationMode,
+                chatSessionId: app.vxChatSessionId
+            )
+        }
+
+        if let spec = jgenSpec {
+            await onProgress(.systemLog(AppLanguage.shared.t(
+                "🛠 [L2 Execution — BETA] \(spec.activeModel) (JGEN, same model as council) — acting on the handoff…",
+                "🛠 [L2 実行 — ベータ] \(spec.activeModel) (JGEN、合議と同一モデル) — 手渡しに基づき実行中…")))
+            outcome = await ExecutionAgent.shared.run(
+                handoff: handoff, question: question, spec: spec,
+                cortex: app.cortex, onProgress: onProgress
+            )
+        } else if executionModel.isEmpty {
             await onProgress(.systemLog(AppLanguage.shared.t(
                 "ℹ️ [L2] No execution model set — stopping at the council handoff. Set one in the JGEN options popover.",
                 "ℹ️ [L2] 実行モデル未設定 — 合議の手渡しで停止します。JGENオプションで設定してください。")))

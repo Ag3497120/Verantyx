@@ -23,6 +23,7 @@ final class CouncilSettingsStore: ObservableObject {
     private static let templateKey = "council_template_id"
     private static let useForChatKey = "council_use_for_chat"
     private static let executionModelKey = "council_execution_model"
+    private static let executionUseJGENKey = "council_execution_use_jgen"
     private static let useVisualMemoryKey = "council_use_visual_memory"
     private static let useVeraHarnessKey = "council_use_vera_harness"
     private static let cognitionModeKey = "council_cognition_mode"
@@ -49,6 +50,21 @@ final class CouncilSettingsStore: ObservableObject {
     /// surprising regression.
     @Published var executionModel: String {
         didSet { UserDefaults.standard.set(executionModel, forKey: Self.executionModelKey) }
+    }
+
+    /// **Beta / experimental.** When true, Layer 2 runs on the same JGEN
+    /// model doing Layer 1's deliberation instead of `executionModel`
+    /// (Ollama) -- the whole council + execution path stays on one model,
+    /// so screen-understanding steps go through `VisualHiddenStateBridge`'s
+    /// hidden-state injection instead of a second model's multimodal
+    /// image attach. `executionModel` is left untouched and simply ignored
+    /// while this is on, so turning it back off restores the previous
+    /// Ollama execution model with no reconfiguration needed. Requires a
+    /// JGEN model to already be loaded (same requirement Layer 1 has);
+    /// `LayeredRunOrchestrator` falls back to `executionModel` if JGEN
+    /// isn't actually loaded when a run starts.
+    @Published var executionUseJGEN: Bool {
+        didSet { UserDefaults.standard.set(executionUseJGEN, forKey: Self.executionUseJGENKey) }
     }
 
     /// Milestone L: pseudo-multimodal visual memory (Vision feature-print
@@ -118,6 +134,7 @@ final class CouncilSettingsStore: ObservableObject {
         templateId = ud.string(forKey: Self.templateKey) ?? "custom"
         useCouncilForChat = ud.bool(forKey: Self.useForChatKey)
         executionModel = ud.string(forKey: Self.executionModelKey) ?? ""
+        executionUseJGEN = ud.bool(forKey: Self.executionUseJGENKey)
         useVisualMemory = ud.bool(forKey: Self.useVisualMemoryKey)
         useVeraHarnessForChat = ud.bool(forKey: Self.useVeraHarnessKey)
         cognitionMode = CognitionMode(rawValue: ud.string(forKey: Self.cognitionModeKey) ?? "normal") ?? .normal

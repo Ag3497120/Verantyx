@@ -491,6 +491,32 @@ struct ModelSelectorBarView: View {
                     "Layer 2 — " + app.t("Execution agent (tools)", "実行エージェント(ツール)"),
                     color: Color(red: 0.5, green: 0.7, blue: 1.0)
                 ) {
+                    Toggle(isOn: Binding(
+                        get: { council.executionUseJGEN },
+                        set: { council.executionUseJGEN = $0 }
+                    )) {
+                        HStack(spacing: 4) {
+                            Text("BETA")
+                                .font(.system(size: 8, weight: .bold))
+                                .padding(.horizontal, 4).padding(.vertical, 1)
+                                .background(Color.orange.opacity(0.25))
+                                .foregroundStyle(.orange)
+                                .clipShape(Capsule())
+                            Text(app.t("Run Layer 2 on JGEN too (same model as council)",
+                                       "Layer 2もJGENで実行(合議と同一モデル)"))
+                                .font(.system(size: 10))
+                        }
+                    }
+                    .toggleStyle(.checkbox)
+
+                    if council.executionUseJGEN {
+                        Text(app.t(
+                            "Experimental: screen understanding goes through hidden-state injection (VisualHiddenStateBridge) instead of an image attach — no second model, but the vision/JGEN vector spaces aren't known to be aligned. Falls back to the model below if JGEN isn't loaded when a run starts.",
+                            "実験的機能: 画面理解はマルチモーダル添付ではなく隠れ状態への注入(VisualHiddenStateBridge)経由になります — 別モデルは呼びませんが、視覚空間とJGENの空間が整合している保証はありません。実行時にJGENが未ロードなら下のモデルにフォールバックします。"))
+                            .font(.system(size: 9)).foregroundStyle(.orange)
+                            .fixedSize(horizontal: false, vertical: true)
+                    }
+
                     ollamaModelPicker(
                         label: app.t("Execution model", "実行モデル"),
                         selection: Binding(
@@ -498,6 +524,8 @@ struct ModelSelectorBarView: View {
                             set: { council.executionModel = $0; council.markCustom() }
                         )
                     )
+                    .disabled(council.executionUseJGEN)
+                    .opacity(council.executionUseJGEN ? 0.4 : 1.0)
                     Text(app.t("Receives one short structured handoff (conclusion / evidence / next action / confidence) and runs tools on it.",
                                "短い構造化ハンドオフ(結論・根拠・次アクション・confidence)を受け取り、ツールを実行します。"))
                         .font(.system(size: 9)).foregroundStyle(.tertiary)
