@@ -211,24 +211,28 @@ final class HiddenWindowAutomation: ObservableObject {
         }
     }
 
-    /// Types text directly into the target process via CGEventPostToPid,
-    /// which — unlike clicks — does not require the process to be
-    /// frontmost/key window.
+    /// Types text directly into the target process via CGEventPostToPid.
+    /// That delivery mechanism doesn't need the process to be frontmost --
+    /// but it was never verified against a genuinely *minimized* window
+    /// (the old off-screen-but-not-minimized design never needed to answer
+    /// that question). Rather than ship an untested assumption, this wraps
+    /// the same restore/re-minimize used for clicks and screenshots, so
+    /// keystrokes are always delivered while the window is in its normal,
+    /// on-screen responder-chain state.
     func typeInWindow(_ text: String) async {
         guard let pid = targetPID, let source = CGEventSource(stateID: .hidSystemState) else { return }
-        for char in text {
-            guard let scalar = char.unicodeScalars.first else { continue }
-            let utf16 = Array(String(scalar).utf16)
-            guard let down = CGEvent(keyboardEventSource: source, virtualKey: 0, keyDown: true),
-                  let up = CGEvent(keyboardEventSource: source, virtualKey: 0, keyDown: false) else { continue }
-            down.keyboardSetUnicodeString(stringLength: utf16.count, unicodeString: utf16)
-            up.keyboardSetUnicodeString(stringLength: utf16.count, unicodeString: utf16)
-            // Delivers directly to the target process regardless of
-            // frontmost/key-window status -- unlike .post(tap:), which
-            // relies on the window server's normal event routing.
-            down.postToPid(pid)
-            try? await Task.sleep(nanoseconds: 15_000_000)
-            up.postToPid(pid)
+        await withRestoredWindow {
+            for char in text {
+                guard let scalar = char.unicodeScalars.first else { continue }
+                let utf16 = Array(String(scalar).utf16)
+                guard let down = CGEvent(keyboardEventSource: source, virtualKey: 0, keyDown: true),
+                      let up = CGEvent(keyboardEventSource: source, virtualKey: 0, keyDown: false) else { continue }
+                down.keyboardSetUnicodeString(stringLength: utf16.count, unicodeString: utf16)
+                up.keyboardSetUnicodeString(stringLength: utf16.count, unicodeString: utf16)
+                down.postToPid(pid)
+                try? await Task.sleep(nanoseconds: 15_000_000)
+                up.postToPid(pid)
+            }
         }
     }
 
