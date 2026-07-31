@@ -272,13 +272,26 @@ architecture.*
 
 ## 📖 About Verantyx
 
-This project started after an earlier attempt to build a rule-based
-symbolic AI convinced me that building the whole thing solo was
-unrealistic — so instead I decided to build and control the harness layer
-around today's mainstream AI myself (around the time openclaw was getting
-attention). From there, the project's main goal became: obfuscate source
-code and user requests into a puzzle-like state before handing them to a
-high-performance cloud AI, to prevent information leakage.
+This project started from an earlier, failed attempt to build a
+rule-based symbolic AI by hand — building the whole thing solo turned out
+to be unrealistic, so I decided to instead build and control the harness
+layer around today's mainstream AI myself (around the time openclaw was
+getting attention). The first concrete goal that came out of that was
+defensive: obfuscate source code and user requests into a puzzle-like
+state before handing them to a high-performance cloud AI, so nothing
+leaks.
+
+That harness kept growing, and at some point it stopped being just "a
+safe way to call an LLM" and became something else: Vera, a persistent
+structure that remembers what it doesn't know, tracks it as a typed gap
+instead of forgetting it, and slowly turns verified experience into
+reusable knowledge instead of re-deriving everything from a prompt every
+time. Verantyx, as it exists today, is the experimental substrate built
+around growing that structure — the neuro-symbolic framing at the top of
+this README isn't marketing language layered on afterward; it's the
+actual reason most of the current architecture (GapNode tracking, the
+tool-call approval queue, hidden-state intervention, structural-similarity
+transfer) exists.
 
 The reason this repo sat at zero stars for a while: it briefly went
 private because it contained a folder with sensitive material, which reset
