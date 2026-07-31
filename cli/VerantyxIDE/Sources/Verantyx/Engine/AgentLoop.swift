@@ -964,8 +964,8 @@ SYS.ENFORCE("logical_verification_before_acceptance")
             // with vxCleanResponse after streaming completes.
             let isStreamingModel: Bool
             switch modelStatus {
-            case .ollamaReady, .mlxReady: isStreamingModel = true
-            default:                      isStreamingModel = false
+            case .ollamaReady, .mlxReady, .jcrossReady: isStreamingModel = true
+            default:                                    isStreamingModel = false
             }
 
             if isStreamingModel && !tools.isEmpty {
@@ -1983,16 +1983,26 @@ SYS.ENFORCE("logical_verification_before_acceptance")
             return result
 
         case .jcrossReady(let model):
-            // ── JGEN/RustBrain in-process engine (Milestone B v1) ──────────
-            // Non-streamed: jcross_engine_generate returns a full token
-            // buffer in one call, not a per-token callback, so the whole
-            // response arrives at once (matching BitNet's own pattern
-            // above) rather than populating a live-streaming bubble.
+            // ── JGEN/RustBrain in-process engine ────────────────────────────
+            // Real per-token streaming (jcross_engine_generate_streaming):
+            // a long JGEN generation previously blocked with zero progress
+            // feedback -- a real repro sat at this exact log line for 40+
+            // minutes with the GPU pegged and no way to tell it apart from a
+            // genuine hang. Each decoded fragment now streams into the chat
+            // bubble live, and `Task.isCancelled` is checked per token so
+            // stopping the turn actually interrupts generation instead of
+            // just detaching from a still-running blocking call.
             await onProgress(.systemLog(AppLanguage.shared.t("🧬 [JCross] \(model) — Inferencing...", "🧬 [JCross] \(model) — 推論中...")))
             do {
-                let result = try await JCrossChatManager.shared.generate(
+                let result = try await JCrossChatManager.shared.generateStreaming(
                     conversation: conversation,
-                    maxTokens: profile.tier.maxTokens
+                    maxTokens: profile.tier.maxTokens,
+                    onToken: { fragment in
+                        Task { @MainActor in
+                            await onProgress(.streamToken(fragment))
+                        }
+                        return !Task.isCancelled
+                    }
                 )
                 return result
             } catch {

@@ -52,6 +52,26 @@ int32_t jcross_engine_generate(
     uint32_t *out_ptr, size_t out_len
 );
 
+// Called synchronously, on the calling thread, immediately after each token
+// is decided during jcross_engine_generate_streaming -- same generation
+// (same code path, same KV-cache reuse) as jcross_engine_generate, just with
+// a per-token observation point. Return 0 to stop generation early
+// (cooperative cancellation); any other value continues.
+typedef int32_t (*JCrossTokenCallback)(void *ctx, uint32_t token);
+
+// Streaming variant of jcross_engine_generate: identical generation, but
+// invokes `callback(ctx, token)` after each token. out_ptr/out_len still
+// receive the full generated sequence at the end. Returns the number of
+// tokens actually written (>= 0), or a negative error code -- same
+// contract as jcross_engine_generate.
+int32_t jcross_engine_generate_streaming(
+    void *engine,
+    const uint32_t *prompt_ptr, size_t prompt_len,
+    size_t max_tokens,
+    JCrossTokenCallback callback, void *ctx,
+    uint32_t *out_ptr, size_t out_len
+);
+
 // Forwards tokens_ptr/tokens_len through the full model and writes the
 // final-token, post-final-norm hidden state (length == hidden_dim) into
 // out_ptr. Returns 0 on success, negative on error.

@@ -114,6 +114,49 @@ final class JCrossEngine {
         return Array(out.prefix(Int(written)))
     }
 
+    /// Same generation as `generate(prompt:maxTokens:)` -- same CPU/GPU code
+    /// path, same KV-cache reuse, no performance difference -- but calls
+    /// `onToken` synchronously after each token is decided, so a caller can
+    /// show real per-token progress instead of blocking silently until the
+    /// whole (possibly very long) generation finishes. Return `false` from
+    /// `onToken` to stop generation early.
+    func generateStreaming(prompt: [UInt32], maxTokens: Int, onToken: @escaping (UInt32) -> Bool) throws -> [UInt32] {
+        var promptCopy = prompt
+        var out = [UInt32](repeating: 0, count: maxTokens)
+
+        // Bridges the Swift closure to the C function-pointer callback: box
+        // it so a single opaque `ctx` pointer can carry it across the FFI
+        // boundary, and unbox inside a non-capturing `@convention(c)`
+        // trampoline (C function pointers cannot capture Swift context
+        // directly).
+        final class CallbackBox { let onToken: (UInt32) -> Bool; init(_ f: @escaping (UInt32) -> Bool) { onToken = f } }
+        let box = CallbackBox(onToken)
+        let ctx = Unmanaged.passRetained(box).toOpaque()
+        defer { Unmanaged<CallbackBox>.fromOpaque(ctx).release() }
+
+        let trampoline: @convention(c) (UnsafeMutableRawPointer?, UInt32) -> Int32 = { ctxPtr, token in
+            guard let ctxPtr else { return 1 }
+            let box = Unmanaged<CallbackBox>.fromOpaque(ctxPtr).takeUnretainedValue()
+            return box.onToken(token) ? 1 : 0
+        }
+
+        let written: Int32 = promptCopy.withUnsafeMutableBufferPointer { promptBuf in
+            out.withUnsafeMutableBufferPointer { outBuf in
+                jcross_engine_generate_streaming(
+                    handle,
+                    promptBuf.baseAddress, promptBuf.count,
+                    maxTokens,
+                    trampoline, ctx,
+                    outBuf.baseAddress, outBuf.count
+                )
+            }
+        }
+        guard written >= 0 else {
+            throw JCrossError.ffiError(function: "jcross_engine_generate_streaming", code: written)
+        }
+        return Array(out.prefix(Int(written)))
+    }
+
     /// Forwards `tokens` through the full model, returning the final-token,
     /// post-final-norm hidden state (length == hiddenDim).
     func encode(tokens: [UInt32]) throws -> [Float] {

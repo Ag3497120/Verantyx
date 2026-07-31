@@ -138,6 +138,37 @@ actor JCrossChatManager {
         return tokenizer.decode(tokens: outputTokens.map { Int($0) }, skipSpecialTokens: true)
     }
 
+    /// Same as `generate(conversation:maxTokens:)`, but calls `onToken` with
+    /// each newly-decoded text fragment as it's produced, instead of
+    /// blocking silently until the whole generation finishes. This is what
+    /// makes a long JGEN generation legible in real time (and cancellable)
+    /// instead of reading as an indefinite hang. Decodes the whole
+    /// growing token sequence each step and diffs against the previous
+    /// decode to get a clean fragment -- simpler and more robust than
+    /// decoding each token id in isolation, which can split multi-token
+    /// subwords into garbage. Return `false` from `onToken` to cancel.
+    func generateStreaming(
+        conversation: [(role: String, content: String)], maxTokens: Int,
+        onToken: @escaping (String) -> Bool
+    ) throws -> String {
+        guard let engine, let tokenizer else { throw ChatError.notLoaded }
+        let prompt = conversation.map { "\($0.role): \($0.content)" }.joined(separator: "\n") + "\nassistant:"
+        let promptTokens = tokenizer.encode(text: prompt).map { UInt32($0) }
+        engine.reset()
+
+        var allTokens: [Int] = []
+        var lastDecoded = ""
+        let outputTokens = try engine.generateStreaming(prompt: promptTokens, maxTokens: maxTokens) { token in
+            allTokens.append(Int(token))
+            let decoded = tokenizer.decode(tokens: allTokens, skipSpecialTokens: true)
+            guard decoded.count > lastDecoded.count else { return true }
+            let delta = String(decoded.dropFirst(lastDecoded.count))
+            lastDecoded = decoded
+            return onToken(delta)
+        }
+        return tokenizer.decode(tokens: outputTokens.map { Int($0) }, skipSpecialTokens: true)
+    }
+
     // MARK: - Vector Lab (project/resynthesize/puzzle_inference/optimize_thought_in_place)
     //
     // Text-in/text-out conveniences over JCrossEngine's raw vector API, for
