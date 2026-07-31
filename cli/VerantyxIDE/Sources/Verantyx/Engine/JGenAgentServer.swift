@@ -184,6 +184,15 @@ actor JGenAgentServer {
             return
         }
         let system = obj["system"] as? String
+        // Real bug found live: this was a hardcoded 512, which silently
+        // truncated Vera's forced-synthesis answer mid-sentence (and
+        // mid-JSON) on a real "analyze this project" run -- the model
+        // needs enough budget to both wrap its answer in the requested
+        // {"thought":..., "final":...} JSON AND write a real summary,
+        // especially in Japanese, which tokenizes less densely per
+        // character than English. Raised the default and let a caller
+        // (e.g. a longer forced-synthesis turn) ask for more.
+        let maxTokens = (obj["max_tokens"] as? Int) ?? 2048
 
         guard await JCrossChatManager.shared.isLoaded else {
             await Self.writeResponse(connection: connection, status: 503, body: ["ok": false, "error": "jgen_not_loaded"])
@@ -197,7 +206,7 @@ actor JGenAgentServer {
         conversation.append((role: "user", content: prompt))
 
         do {
-            let text = try await JCrossChatManager.shared.generate(conversation: conversation, maxTokens: 512)
+            let text = try await JCrossChatManager.shared.generate(conversation: conversation, maxTokens: maxTokens)
             await Self.writeResponse(connection: connection, status: 200, body: ["ok": true, "text": text])
         } catch {
             await Self.writeResponse(connection: connection, status: 500, body: ["ok": false, "error": "\(error)"])
