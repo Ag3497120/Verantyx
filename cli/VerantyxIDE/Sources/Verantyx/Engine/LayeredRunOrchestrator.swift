@@ -51,7 +51,7 @@ enum LayeredRunOrchestrator {
 
         let result: CouncilOrchestrator.Result
         do {
-            result = try await CouncilOrchestrator.shared.deliberate(question: question, config: config)
+            result = try await CouncilOrchestrator.shared.deliberate(question: question, config: config, onProgress: onProgress)
         } catch {
             await onProgress(.systemLog(AppLanguage.shared.t(
                 "⚠️ [L1 Council] failed: \(error.localizedDescription) — falling back to the normal agent.",

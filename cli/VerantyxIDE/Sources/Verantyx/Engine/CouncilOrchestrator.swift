@@ -151,9 +151,24 @@ actor CouncilOrchestrator {
 
     private static let scoutUncertainThreshold: Float = 8.0
 
-    func deliberate(question: String, config: Config) async throws -> Result {
+    /// `onProgress`, when supplied, receives one `.systemLog` event per
+    /// semantic milestone (memory recalled, candidates generated, a round
+    /// of vector deliberation run, a candidate rejected, a robustness
+    /// check run) tagged with the `§TL:` marker `ReasoningTimeline.swift`
+    /// looks for. This is what makes a >10-minute council run legible as
+    /// "generating and verifying multiple hypotheses" instead of an opaque
+    /// wait -- see ReasoningTimelineView. Optional and additive: existing
+    /// callers (VectorLabView) that don't pass one see no behavior change.
+    func deliberate(
+        question: String, config: Config,
+        onProgress: (@Sendable (LoopEvent) async -> Void)? = nil
+    ) async throws -> Result {
         let chat = JCrossChatManager.shared
         guard await chat.isLoaded else { throw CouncilError.notLoaded }
+        @Sendable func tick(_ category: String, _ label: String) async {
+            await onProgress?(.systemLog("§TL:\(category):\(label)"))
+        }
+        await tick("task", "タスクを受理 (\(question.prefix(60)))")
 
         // ── Memory prefix ──
         var memoryPrefix = ""
@@ -182,6 +197,8 @@ actor CouncilOrchestrator {
             if !visualText.isEmpty { memoryPrefix += visualText + "\n" }
         }
 
+        await tick("memory", "記憶・画面状態を確認")
+
         let roleCount = min(max(config.roleCount, 2), Self.fullRoleCast.count)
         let roles = Array(Self.fullRoleCast.prefix(roleCount))
 
@@ -206,6 +223,8 @@ actor CouncilOrchestrator {
             distributions[role.name] = dist
             packets.append(DivergencePacketBuilder.packet(role: role.name, vector: z, distribution: dist))
         }
+
+        await tick("candidates", "\(roles.count)役割が独立に候補を生成")
 
         guard let commanderVec = opinions[roles[0].name] else { throw CouncilError.notLoaded }
         let baseNorm = sqrt(commanderVec.reduce(Float(0)) { $0 + $1 * $1 })
@@ -272,6 +291,7 @@ actor CouncilOrchestrator {
 
         mainLoop: while round < roundsCap {
             round += 1
+            await tick("council", "ベクトル合議を実行 (ラウンド\(round)/\(roundsCap))")
             var vecs: [String: [Float]] = [:]
             var weights: [String: Float] = [:]
             var confidentTop1: [String] = []
@@ -333,19 +353,26 @@ actor CouncilOrchestrator {
             if converged || stable {
                 if !perturbDone && round < roundsCap {
                     perturbDone = true
+                    await tick("verify", "候補「\(consensusTop1)」の頑健性を検証中 (perturbテスト)")
                     let (recovered, _, _) = try await perturbTest(
                         roles: roles, rolePrompt: rolePrompt, consensus: consensus,
                         consensusDist: consensusDist, chat: chat
                     )
                     roundTraces.append(RoundTrace(round: round, roles: roleTraces, converged: true, divergence: nil, action: nil, perturbRecovered: recovered))
-                    if recovered { break mainLoop }
+                    if recovered {
+                        await tick("accept", "候補「\(consensusTop1)」が頑健性検証を通過")
+                        break mainLoop
+                    }
+                    await tick("reject", "候補「\(consensusTop1)」を棄却 (perturbテストで不安定)")
                     fragile = true
                 } else {
                     roundTraces.append(RoundTrace(round: round, roles: roleTraces, converged: true, divergence: nil, action: nil, perturbRecovered: nil))
+                    await tick("accept", "候補「\(consensusTop1)」で収束")
                     break mainLoop
                 }
             } else {
                 roundTraces.append(RoundTrace(round: round, roles: roleTraces, converged: false, divergence: nil, action: nil, perturbRecovered: nil))
+                await tick("reject", "候補「\(consensusTop1)」を棄却 (役割間で未合意)")
             }
 
             if round == roundsCap { break mainLoop }
@@ -422,6 +449,8 @@ actor CouncilOrchestrator {
                 )
             }
         }
+
+        await tick("done", escalated ? "結論を確定 → 上位モデルへ引き継ぎ" : "結論を確定")
 
         return Result(handoff: handoff, roundTraces: roundTraces, escalated: escalated, finalAnswer: finalAnswer)
     }

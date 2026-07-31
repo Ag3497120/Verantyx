@@ -30,6 +30,7 @@ struct ModelSelectorBarView: View {
     @State private var showJGenOptions = false
     @State private var includeWebRecommendations = true
     @State private var showPendingToolCalls = false
+    @State private var showReasoningTimeline = false
 
     /// One selectable entry across every local backend. A plain `Picker` over
     /// `String` (what this used to be) can't express per-row spinners, size
@@ -111,6 +112,7 @@ struct ModelSelectorBarView: View {
                     .help(app.t("JGEN memory & layer options", "JGENの記憶・層オプション"))
                     .popover(isPresented: $showJGenOptions) { jgenOptionsPopover }
                     .sheet(isPresented: $showPendingToolCalls) { PendingToolCallsView() }
+                    .sheet(isPresented: $showReasoningTimeline) { ReasoningTimelineView() }
                 }
 
                 Divider().frame(height: 16).opacity(0.5)
@@ -421,6 +423,19 @@ struct ModelSelectorBarView: View {
                         }
                         .buttonStyle(.plain)
                         .foregroundStyle(Color.orange)
+
+                        // A Council/L1-L4 run can genuinely take 10+ minutes;
+                        // this is the "why" behind that wait, not just a
+                        // spinner -- see ReasoningTimelineView.
+                        Button {
+                            showReasoningTimeline = true
+                        } label: {
+                            Label(app.t("Reasoning timeline…", "推論タイムライン…"),
+                                  systemImage: "timeline.selection")
+                                .font(.system(size: 10))
+                        }
+                        .buttonStyle(.plain)
+                        .foregroundStyle(Color.indigo)
                     }
 
                     Text(app.t("Zone memory layers", "ゾーン記憶レイヤ"))

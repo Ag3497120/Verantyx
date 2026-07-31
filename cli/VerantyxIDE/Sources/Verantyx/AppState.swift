@@ -1571,6 +1571,10 @@ final class AppState: ObservableObject {
                 if case .streamToken = event {} else {
                     self.flushStreamTokenBuffer()
                 }
+                if case .start = event {
+                    ReasoningTimelineStore.shared.beginSession()
+                }
+                ReasoningTimelineStore.shared.ingest(event)
                 switch event {
                 case .start:
                     // Reset per-turn streaming ID when a new loop turn starts
@@ -1640,7 +1644,12 @@ final class AppState: ObservableObject {
                     }
 
                 case .systemLog(let text):
-                    self.messages.append(ChatMessage(role: .system, content: text))
+                    // §TL: markers are timeline-only (ReasoningTimelineStore
+                    // above already consumed them) -- they'd be unreadable
+                    // noise if shown as a raw chat bubble.
+                    if !text.hasPrefix("§TL:") {
+                        self.messages.append(ChatMessage(role: .system, content: text))
+                    }
 
                 case .toolCall(let call):
                     self.messages.append(ChatMessage(role: .system,
@@ -1664,6 +1673,7 @@ final class AppState: ObservableObject {
 
                 case .done(let msg, let ws):
                     self.isGenerating = false
+                    ReasoningTimelineStore.shared.endSession()
                     if let ws = ws, self.workspaceURL == nil {
                         self.workspaceURL = ws
                         self.terminal.workingDirectory = ws
