@@ -2353,7 +2353,20 @@ enum ModelProfileDetector {
         // ── Gemma4 / gemma3 base names with no B suffix (Ollama: "gemma4:26b") ──
         // Handle case where Ollama sends "gemma4:26b" → already caught above via "26b"
         // But "gemma4" alone (no size) → treat as large
-        if (id.hasPrefix("gemma4") || id.hasPrefix("gemma-4")) && !id.contains("2b") && !id.contains("e2b") {
+        //
+        // Real bug found live: this exclusion only ever checked for the E2B
+        // variant ("2b"/"e2b"), so "gemma-4-e4b-it-....jgen" (Gemma-4's E4B
+        // variant, an 8B model) fell all the way through to this catch-all
+        // and got classified as a 26B "Large" model -- which hands it a 16384
+        // max-token budget (see `.large` case below). JGEN's `generate()` is
+        // a single blocking, non-streaming FFI call with no early-stop
+        // visibility from Swift, so an oversized token budget on a small
+        // model doesn't just waste tokens, it reads as a 40+ minute hang
+        // with zero progress feedback. E4B now excluded the same way E2B
+        // already was, and explicitly bucketed into `.small` below.
+        if (id.hasPrefix("gemma4") || id.hasPrefix("gemma-4"))
+            && !id.contains("2b") && !id.contains("e2b")
+            && !id.contains("e4b") {
             let supportsThink = true
             return ModelProfile(modelId: modelId, tier: .large,
                                 parameterBillions: 26.0, supportsThinkTags: supportsThink)
@@ -2381,7 +2394,12 @@ enum ModelProfileDetector {
         let smallKeywords = ["7b", "8b", "6b", "mistral-7", "qwen-7", "llama-3-8b",
                              "codellama-7", "deepseek-r1-7",
                              // phi-4 is ~14B but behaves like small in terms of context
-                             "phi-4", "phi4"]
+                             "phi-4", "phi4",
+                             // Gemma-4's ~4B efficient variant -- see the
+                             // gemma4/gemma-4 catch-all above for why this
+                             // needs to be excluded there too, not just
+                             // matched here.
+                             "e4b", "-4b", ":4b"]
         if smallKeywords.contains(where: { id.contains($0) }) {
             return ModelProfile(modelId: modelId, tier: .small,
                                 parameterBillions: 7.0, supportsThinkTags: id.contains("think"))
