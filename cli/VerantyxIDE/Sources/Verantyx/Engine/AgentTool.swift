@@ -1467,7 +1467,22 @@ actor AgentToolExecutor {
                 } else {
                     frame = try await SafariVisionBridge.shared.takeScreenshot(enforceSafari: false)
                 }
-                await CognitiveAnchorEngine.shared.setVisionScreenshot(frame)
+                // JGEN can't consume the raw image at all (text-only), and
+                // for any other backend, attaching it here means real
+                // context weight + escalation-model latency every single
+                // step -- see VisualHiddenStateBridge's doc comment. When
+                // JGEN is the active backend, skip the multimodal attach
+                // and instead inject the screen's Vision feature-print
+                // vector directly into JGEN's hidden states (experimental,
+                // unaligned vector space, but zero added context tokens
+                // and no other model involved).
+                let jgenActive = await JCrossChatManager.shared.isLoaded
+                var hiddenStateReflection: String? = nil
+                if jgenActive {
+                    hiddenStateReflection = await VisualHiddenStateBridge.reflectOnScreen(base64Image: frame)
+                } else {
+                    await CognitiveAnchorEngine.shared.setVisionScreenshot(frame)
+                }
                 await MainActor.run {
                     AppState.shared?.lastVideoFrames = [frame]
                 }
@@ -1476,8 +1491,8 @@ actor AgentToolExecutor {
 
                 return """
                 [DESKTOP_SNAPSHOT]
-                Captured desktop frame\(hiddenActive ? " (hidden window mirror)" : ""). Screenshot updated and injected to context.
-
+                Captured desktop frame\(hiddenActive ? " (hidden window mirror)" : ""). \(jgenActive ? "JGEN backend — screen reflected via hidden-state injection, not attached as an image." : "Screenshot updated and injected to context.")
+                \(hiddenStateReflection.map { "\n\($0)\n" } ?? "")
                 == SEMANTIC UI MAP ==
                 \(semanticXML)
                 """

@@ -196,6 +196,43 @@ actor JCrossChatManager {
         return out
     }
 
+    /// Milestone P.5 (experimental): same shape as `reflect()`, but for a
+    /// single already-computed raw vector instead of a text label -- used
+    /// to inject a Vision feature-print vector (see
+    /// `VisualHiddenStateBridge`) directly into JGEN's hidden states, so
+    /// screen understanding doesn't have to route through a vision-capable
+    /// Ollama/escalation model. Vision feature-print space and JGEN's own
+    /// hidden-state space were never trained against each other -- there is
+    /// no projection between them, only a pad/truncate to make the
+    /// dimensions line up. This is an explicit experiment in whether
+    /// injecting anyway still nudges JGEN's output toward something
+    /// screen-relevant, not a claim that the spaces are aligned.
+    func reflectRawVector(
+        prompt: String, layer: Int, vector: [Float], alpha: Float,
+        observeLayers: [Int]
+    ) throws -> [Int: (text: String, entropy: Float)] {
+        guard let engine, let tokenizer else { throw ChatError.notLoaded }
+        let promptTokens = tokenizer.encode(text: prompt).map { UInt32($0) }
+        var fitted = vector
+        if fitted.count > engine.hiddenDim {
+            fitted = Array(fitted.prefix(engine.hiddenDim))
+        } else if fitted.count < engine.hiddenDim {
+            fitted += [Float](repeating: 0, count: engine.hiddenDim - fitted.count)
+        }
+        engine.reset()
+        let snapshots = try engine.injectMultiLayer(
+            tokens: promptTokens, injections: [(layer: layer, vector: fitted, alpha: alpha)],
+            observeLayers: observeLayers
+        )
+        var out: [Int: (text: String, entropy: Float)] = [:]
+        for (layer, vec) in snapshots {
+            let result = try engine.puzzleInference(layerName: "lm_head", vector: vec)
+            let text = tokenizer.decode(tokens: [Int(result.token)], skipSpecialTokens: true)
+            out[layer] = (text, result.entropy)
+        }
+        return out
+    }
+
     /// The "entropy lock": the single most-confident token a vector
     /// currently decodes to, plus how confident (lower entropy = more
     /// confident), as text + a raw entropy number for a UI to display.

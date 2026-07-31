@@ -15,10 +15,18 @@ import Vision
 /// This type does the one additional step: decode `.data` into `[Float]` so
 /// it can be persisted, not just compared in the moment.
 ///
-/// This is deliberately a *different* vector space from JGEN's hidden
-/// states -- it must never be fed into `JCrossEngine.injectAtLayer`/
-/// `encodeSoft`. Recall only ever re-enters a prompt as text (see
-/// `VisualMemoryStore.recallBlock`).
+/// This is a *different* vector space from JGEN's hidden states, with no
+/// trained projection between them. The original design here kept them
+/// fully separate -- recall only ever re-entering a prompt as text (see
+/// `VisualMemoryStore.recallBlock`) -- specifically to avoid feeding an
+/// unaligned vector into `JCrossEngine.injectAtLayer`/`injectMultiLayer`.
+/// `VisualHiddenStateBridge` now does exactly that anyway, as an explicit,
+/// clearly-labeled experiment (padded/truncated to `hiddenDim`, not
+/// projected) requested to test whether direct hidden-state injection lets
+/// JGEN understand a live screen without routing through a vision-capable
+/// Ollama/escalation model. Both paths coexist: `VisualMemoryStore` for
+/// ordinary text-recall memory, `VisualHiddenStateBridge` for this
+/// experiment.
 enum VisualFeaturePrintEmbedder {
 
     /// Runs `VNGenerateImageFeaturePrintRequest` on a base64 JPEG/PNG (the
