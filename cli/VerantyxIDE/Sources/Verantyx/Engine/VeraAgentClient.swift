@@ -54,8 +54,20 @@ actor VeraAgentClient {
         let process = Process()
         process.executableURL = bundled
         process.arguments = ["--store", storePath, "serve", "--port", "8765"]
-        process.standardOutput = FileHandle.nullDevice
-        process.standardError = FileHandle.nullDevice
+        // Real bug found live: stdout/stderr went to /dev/null, so a real
+        // hang (0% CPU, no response) had no way to be diagnosed from
+        // outside -- no Python traceback, no Rust println! progress line,
+        // nothing. Redirect to a log file instead; harmless when nothing
+        // goes wrong (the file just grows slowly), essential when it does.
+        let logURL = VeraMemoryPaths.appSupportDir.appendingPathComponent("serve.log")
+        FileManager.default.createFile(atPath: logURL.path, contents: nil)
+        if let logHandle = try? FileHandle(forWritingTo: logURL) {
+            process.standardOutput = logHandle
+            process.standardError = logHandle
+        } else {
+            process.standardOutput = FileHandle.nullDevice
+            process.standardError = FileHandle.nullDevice
+        }
         do {
             try process.run()
             launchedProcess = process
