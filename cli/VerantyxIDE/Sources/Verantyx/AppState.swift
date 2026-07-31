@@ -1231,7 +1231,7 @@ final class AppState: ObservableObject {
                 // over HTTP+SSE (vera_server.py) instead of this app's
                 // AgentLoop/CouncilOrchestrator -- Vera is the controller
                 // here, not a tool this app calls.
-                await runVeraHarness(instruction: text)
+                await runVeraHarness(instruction: text, files: snapshotFiles)
             } else if agentLoopEnabled {
                 // 4-layer path: explicit `/council <question>`, or every turn
                 // when the JGEN options popover has "use the council for
@@ -1430,9 +1430,25 @@ final class AppState: ObservableObject {
     /// Vera's on_step events are its own JSON shapes (action/observation),
     /// not this app's `LoopEvent`, so this renders them as system-message
     /// progress lines rather than trying to unify the two event models.
-    private func runVeraHarness(instruction: String) async {
+    private func runVeraHarness(instruction: String, files: [URL] = []) async {
         isGenerating = true
         defer { isGenerating = false }
+
+        // Real bug found live: the 📎 attachment chip in the chat input
+        // (`attachedFiles`) was silently dropped on this path -- unlike
+        // `runAgentLoop`/`runHybrid`, this function never took a `files`
+        // parameter at all, so a user who attached a folder and just said
+        // "analyze this" got "which file did you mean?" back from Vera,
+        // even though something WAS attached. Vera's own tools
+        // (list_dir/read_file) expect to actively explore a path, not
+        // receive pre-loaded content, so the fix is the same thing the
+        // user had to do manually to work around it: put the attached
+        // path(s) directly into the task text Vera actually receives.
+        var instruction = instruction
+        if !files.isEmpty {
+            let pathList = files.map { $0.path }.joined(separator: "\n")
+            instruction += "\n\n" + t("Attached path(s):", "添付されたパス:") + "\n" + pathList
+        }
 
         let mode = CouncilSettingsStore.shared.cognitionMode
         if mode != .normal {
