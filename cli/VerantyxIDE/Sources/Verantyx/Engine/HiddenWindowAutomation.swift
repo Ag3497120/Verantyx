@@ -3,29 +3,42 @@ import AppKit
 import CoreGraphics
 
 /// Runs OS-agent automation (OPEN_APP + DESKTOP_ACT) against a target app's
-/// window while keeping it off the user's visible screen and Verantyx
-/// frontmost -- so the agent can drive another app without visually
-/// stealing focus or covering the IDE.
+/// window while keeping it out of the user's way and Verantyx frontmost --
+/// so the agent can drive another app without visually stealing focus or
+/// covering the IDE.
 ///
-/// Why not NSRunningApplication.hide()? A truly hidden app can't reliably
-/// receive coordinate-based mouse clicks (DesktopVisionBridge/
-/// SafariVisionBridge post CGEvents at absolute screen coordinates, which
-/// the window server hit-tests against whatever's actually on screen).
-/// Instead the target window is relocated far off-screen -- it stays a
-/// normal running app, visible in the Dock, just parked outside the
-/// physical display bounds:
+/// Earlier version of this parked the target window at a large negative
+/// screen coordinate (e.g. x: -8000). That doesn't actually work: macOS's
+/// window server refuses to let a window sit entirely outside every
+/// connected display (a "lost window" guard), and silently clamps the
+/// position back near the nearest display's edge -- which is exactly why,
+/// on a real machine, the "hidden" window kept showing up pinned in a
+/// corner, overlapping the IDE. There is no public API to assign a window
+/// to a different macOS Space either (that requires private SkyLight/CGS
+/// calls, which is a real-risk, real-scope decision to make deliberately,
+/// not something to reach for silently).
+///
+/// Public-API-only fix: keep the target window genuinely minimized to the
+/// Dock (`AXMinimized`, via System Events, same mechanism as clicking the
+/// yellow traffic light) whenever nothing is actively happening. A
+/// minimized window has no on-screen frame, so it's not just visually out
+/// of the way, it's actually gone from the screen. For the brief instant an
+/// action needs a real on-screen frame -- taking a screenshot, or posting a
+/// coordinate-based click -- the window is unminimized, the action runs,
+/// and it's immediately reminimized. This does mean a short flash of the
+/// target app becoming visible per action; that's the accepted tradeoff for
+/// staying on public APIs.
 ///   - Screenshots use CGWindowListCreateImage keyed to the window's ID,
-///     which captures content directly from the window server regardless
-///     of on-screen position.
+///     taken right after a restore (a minimized window's cached content
+///     isn't reliably live).
 ///   - Mouse clicks are posted via the same CGEvent HID-tap mechanism used
-///     for on-screen automation, just at the window's real (off-screen)
-///     coordinates -- the window server hit-tests by screen location, so
-///     this reaches the parked window whether or not it's frontmost.
+///     for on-screen automation, at the window's real restored coordinates
+///     -- clicks need real on-screen pixels to hit-test against.
 ///   - Keyboard input, unlike clicks, has no coordinate -- it always goes
 ///     to the current frontmost app's key window. Since Verantyx is kept
 ///     frontmost deliberately, keystrokes are instead delivered straight
 ///     to the target process via CGEventPostToPid, which does not require
-///     that process to be frontmost.
+///     that process to be frontmost OR unminimized.
 @MainActor
 final class HiddenWindowAutomation: ObservableObject {
     static let shared = HiddenWindowAutomation()
@@ -37,57 +50,52 @@ final class HiddenWindowAutomation: ObservableObject {
     private var targetWindowID: CGWindowID?
     private var frontmostObserver: NSObjectProtocol?
 
-    private let offscreenOrigin = CGPoint(x: -8000, y: 0)
-
     private init() {}
 
     // MARK: - Session lifecycle
 
     /// Activates `appName` briefly (so its window exists and System Events
-    /// can address it by process name), relocates its frontmost window
-    /// off-screen, then immediately hands focus back to Verantyx and
-    /// starts guarding it. Returns the window's real off-screen frame, or
-    /// nil if the app/window couldn't be found.
+    /// can address it by process name), records its real on-screen frame,
+    /// then minimizes it to the Dock and hands focus back to Verantyx.
+    /// Returns the window's frame (as it was before minimizing -- used to
+    /// map relative click coordinates), or nil if the app/window couldn't
+    /// be found.
     @discardableResult
     func beginOffscreenSession(appName: String) async -> CGRect? {
         _ = await runOsascript("tell application \"\(appName)\" to activate")
         try? await Task.sleep(nanoseconds: 500_000_000)
 
-        let moveScript = """
+        // Read the frame BEFORE minimizing -- a minimized window's
+        // position/size query can return stale or zeroed values.
+        let readScript = """
         tell application "System Events"
             tell process "\(appName)"
-                set position of window 1 to {\(Int(offscreenOrigin.x)), \(Int(offscreenOrigin.y))}
                 set p to position of window 1
                 set s to size of window 1
                 return (item 1 of p as text) & "," & (item 2 of p as text) & "," & (item 1 of s as text) & "," & (item 2 of s as text)
             end tell
         end tell
         """
-        let result = await runOsascript(moveScript)
+        let result = await runOsascript(readScript)
 
-        NSApp.activate(ignoringOtherApps: true)
         targetAppName = appName
         targetPID = NSWorkspace.shared.runningApplications.first(where: { $0.localizedName == appName })?.processIdentifier
         targetWindowFrame = parseFrame(from: result)
-            ?? CGRect(origin: offscreenOrigin, size: CGSize(width: 1280, height: 800))
+            ?? CGRect(origin: .zero, size: CGSize(width: 1280, height: 800))
         targetWindowID = findWindowID(ownerName: appName)
+
+        await setMinimized(true, appName: appName)
+        NSApp.activate(ignoringOtherApps: true)
         startGuardingFrontmost()
         return targetWindowFrame
     }
 
-    /// Moves the target window back on-screen and stops guarding
-    /// Verantyx's frontmost status. Call when automation finishes or the
-    /// user turns the feature off.
+    /// Restores the target window to normal (un-minimized) and stops
+    /// guarding Verantyx's frontmost status. Call when automation finishes
+    /// or the user turns the feature off.
     func endOffscreenSession() async {
         if let appName = targetAppName {
-            let restoreScript = """
-            tell application "System Events"
-                tell process "\(appName)"
-                    set position of window 1 to {120, 80}
-                end tell
-            end tell
-            """
-            _ = await runOsascript(restoreScript)
+            await setMinimized(false, appName: appName)
         }
         stopGuardingFrontmost()
         targetAppName = nil
@@ -95,6 +103,31 @@ final class HiddenWindowAutomation: ObservableObject {
         targetWindowFrame = nil
         targetWindowID = nil
         lastMirrorImage = nil
+    }
+
+    /// Briefly un-minimizes the target window, runs `body` (which needs a
+    /// real on-screen frame -- a screenshot or a coordinate click), then
+    /// re-minimizes it and hands focus straight back to Verantyx. This is
+    /// the one place the target app becomes visible/frontmost at all.
+    private func withRestoredWindow<T>(_ body: () async -> T) async -> T {
+        guard let appName = targetAppName else { return await body() }
+        await setMinimized(false, appName: appName)
+        try? await Task.sleep(nanoseconds: 200_000_000)
+        let result = await body()
+        await setMinimized(true, appName: appName)
+        NSApp.activate(ignoringOtherApps: true)
+        return result
+    }
+
+    private func setMinimized(_ minimized: Bool, appName: String) async {
+        let script = """
+        tell application "System Events"
+            tell process "\(appName)"
+                set minimized of window 1 to \(minimized ? "true" : "false")
+            end tell
+        end tell
+        """
+        _ = await runOsascript(script)
     }
 
     // MARK: - Frontmost guarding
@@ -126,7 +159,8 @@ final class HiddenWindowAutomation: ObservableObject {
         }
     }
 
-    // MARK: - Capture (works regardless of on-screen position)
+    // MARK: - Capture (briefly restores the window, since a minimized
+    // window's cached content isn't reliably live)
 
     /// Captures the target window's live content directly from the window
     /// server via its CGWindowID. Also stashes the result on
@@ -134,32 +168,35 @@ final class HiddenWindowAutomation: ObservableObject {
     @discardableResult
     func captureWindowImage() async -> String? {
         guard let frame = targetWindowFrame else { return nil }
-        let windowID = targetWindowID ?? findWindowID(ownerName: targetAppName ?? "")
-        guard let windowID else { return nil }
-        targetWindowID = windowID
+        return await withRestoredWindow { [self] in
+            let windowID = targetWindowID ?? findWindowID(ownerName: targetAppName ?? "")
+            guard let windowID else { return nil }
+            targetWindowID = windowID
 
-        guard let image = CGWindowListCreateImage(frame, .optionIncludingWindow, windowID, [.boundsIgnoreFraming]) else {
-            return nil
+            guard let image = CGWindowListCreateImage(frame, .optionIncludingWindow, windowID, [.boundsIgnoreFraming]) else {
+                return nil
+            }
+            let nsImage = NSImage(cgImage: image, size: NSSize(width: image.width, height: image.height))
+            guard let tiff = nsImage.tiffRepresentation,
+                  let bitmap = NSBitmapImageRep(data: tiff),
+                  let jpeg = bitmap.representation(using: .jpeg, properties: [.compressionFactor: 0.8]) else {
+                return nil
+            }
+            let base64 = jpeg.base64EncodedString()
+            lastMirrorImage = base64
+            return base64
         }
-        let nsImage = NSImage(cgImage: image, size: NSSize(width: image.width, height: image.height))
-        guard let tiff = nsImage.tiffRepresentation,
-              let bitmap = NSBitmapImageRep(data: tiff),
-              let jpeg = bitmap.representation(using: .jpeg, properties: [.compressionFactor: 0.8]) else {
-            return nil
-        }
-        let base64 = jpeg.base64EncodedString()
-        lastMirrorImage = base64
-        return base64
     }
 
-    // MARK: - Input (mouse by off-screen coordinate, keyboard by PID)
+    // MARK: - Input (mouse needs a brief restore, keyboard goes by PID)
 
     /// Posts a click at a point relative to the target window's own
     /// bounds (0-1000 normalized, matching DesktopVisionBridge's on-screen
-    /// convention), translated into the window's real off-screen global
-    /// coordinates.
+    /// convention), translated into the window's real (briefly restored)
+    /// screen coordinates.
     func clickInWindow(relativeX: Double, relativeY: Double) async {
         guard let frame = targetWindowFrame else { return }
+        await withRestoredWindow { [self] in
         let point = CGPoint(
             x: frame.origin.x + (relativeX / 1000.0) * frame.width,
             y: frame.origin.y + (relativeY / 1000.0) * frame.height
@@ -171,6 +208,7 @@ final class HiddenWindowAutomation: ObservableObject {
         mouseDown.post(tap: .cghidEventTap)
         try? await Task.sleep(nanoseconds: 50_000_000)
         mouseUp.post(tap: .cghidEventTap)
+        }
     }
 
     /// Types text directly into the target process via CGEventPostToPid,
