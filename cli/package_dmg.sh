@@ -152,38 +152,70 @@ fi
 # ── 7. Create DMG ───────────────────────────────────────────────────────────
 echo "[7/7] DMG を作成中..."
 mkdir -p "$DIST_DIR"
-rm -f "$DIST_DIR/${DMG_NAME}.dmg"
+rm -f "$DIST_DIR/${DMG_NAME}.dmg" "$DIST_DIR/${DMG_NAME}.zip"
 
-# Prefer a single UDZO create (no UDRW attach/detach). GitHub Actions runners
-# intermittently fail `hdiutil create -format UDRW` / attach with
-# "No such file or directory" even when the app build succeeded.
-DMG_ROOT="$(mktemp -d -t verantyx-dmg)"
+DMG_ROOT="$(mktemp -d "${TMPDIR:-/tmp}/verantyx-dmg.XXXXXX")"
 cp -R "$STAGING_DIR/${APP_NAME}.app" "$DMG_ROOT/${APP_NAME}.app"
 ln -sf /Applications "$DMG_ROOT/Applications"
+# Sonoma+: immutable flags inside the bundle can make hdiutil fail oddly.
+chflags -R nouchg "$DMG_ROOT" 2>/dev/null || true
+xattr -cr "$DMG_ROOT" 2>/dev/null || true
+sync
 
-if ! hdiutil create \
-  -volname "Verantyx IDE ${VERSION}" \
-  -srcfolder "$DMG_ROOT" \
-  -ov \
-  -format UDZO \
-  -imagekey zlib-level=9 \
-  "$DIST_DIR/${DMG_NAME}.dmg"
-then
-  echo "❌ hdiutil create failed"
-  ls -la "$DMG_ROOT" || true
-  ls -la "$DIST_DIR" || true
-  rm -rf "$DMG_ROOT" "$STAGING_DIR"
-  exit 1
+# Write the image under TMPDIR first (more reliable on GHA runners than
+# creating straight into the workspace), then move into dist/.
+TMP_DMG="$(mktemp "${TMPDIR:-/tmp}/verantyx-out.XXXXXX").dmg"
+rm -f "$TMP_DMG"
+DMG_OK=0
+for attempt in 1 2 3 4 5; do
+  echo "   hdiutil create attempt ${attempt}/5..."
+  if hdiutil create \
+    -volname "Verantyx IDE ${VERSION}" \
+    -srcfolder "$DMG_ROOT" \
+    -ov \
+    -format UDZO \
+    -imagekey zlib-level=9 \
+    "$TMP_DMG"
+  then
+    DMG_OK=1
+    break
+  fi
+  echo "   ⚠️  hdiutil failed (attempt ${attempt}); sync + backoff..."
+  sync
+  sleep $((attempt * 3))
+done
+
+if [ "$DMG_OK" -eq 1 ]; then
+  mv -f "$TMP_DMG" "$DIST_DIR/${DMG_NAME}.dmg"
+else
+  rm -f "$TMP_DMG"
+  echo "⚠️  DMG creation failed after retries — falling back to ZIP artifact"
+  ditto -c -k --keepParent "$STAGING_DIR/${APP_NAME}.app" "$DIST_DIR/${DMG_NAME}.zip"
+  if [ ! -f "$DIST_DIR/${DMG_NAME}.zip" ]; then
+    echo "❌ ZIP fallback also failed"
+    ls -la "$DMG_ROOT" || true
+    ls -la "$DIST_DIR" || true
+    rm -rf "$DMG_ROOT" "$STAGING_DIR"
+    exit 1
+  fi
 fi
 
 rm -rf "$DMG_ROOT" "$STAGING_DIR"
 
 # ── Done ────────────────────────────────────────────────────────────────────
-DMG_SIZE=$(du -sh "$DIST_DIR/${DMG_NAME}.dmg" | cut -f1)
+if [ -f "$DIST_DIR/${DMG_NAME}.dmg" ]; then
+  OUT_FILE="$DIST_DIR/${DMG_NAME}.dmg"
+elif [ -f "$DIST_DIR/${DMG_NAME}.zip" ]; then
+  OUT_FILE="$DIST_DIR/${DMG_NAME}.zip"
+else
+  echo "❌ No package artifact produced"
+  exit 1
+fi
+DMG_SIZE=$(du -sh "$OUT_FILE" | cut -f1)
 echo ""
 echo "================================================"
 echo "✅ 完了!"
-echo "   出力: dist/${DMG_NAME}.dmg (${DMG_SIZE})"
+echo "   出力: $(basename "$OUT_FILE") (${DMG_SIZE})"
 echo "   署名: ${SIGN_MODE}"
 echo ""
 
