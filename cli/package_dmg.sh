@@ -152,30 +152,31 @@ fi
 # ── 7. Create DMG ───────────────────────────────────────────────────────────
 echo "[7/7] DMG を作成中..."
 mkdir -p "$DIST_DIR"
-TEMP_DMG="$DIST_DIR/.tmp_${DMG_NAME}.dmg"
+rm -f "$DIST_DIR/${DMG_NAME}.dmg"
 
-hdiutil create \
-  -srcfolder "$STAGING_DIR" \
+# Prefer a single UDZO create (no UDRW attach/detach). GitHub Actions runners
+# intermittently fail `hdiutil create -format UDRW` / attach with
+# "No such file or directory" even when the app build succeeded.
+DMG_ROOT="$(mktemp -d -t verantyx-dmg)"
+cp -R "$STAGING_DIR/${APP_NAME}.app" "$DMG_ROOT/${APP_NAME}.app"
+ln -sf /Applications "$DMG_ROOT/Applications"
+
+if ! hdiutil create \
   -volname "Verantyx IDE ${VERSION}" \
-  -fs HFS+ \
-  -fsargs "-c c=64,a=16,b=16" \
-  -format UDRW \
-  -size 512m \
-  "$TEMP_DMG" > /dev/null
-
-MOUNT_DIR="/Volumes/VerantyxIDE_${VERSION}"
-hdiutil attach "$TEMP_DMG" -mountpoint "$MOUNT_DIR" -noautoopen -quiet
-ln -sf /Applications "$MOUNT_DIR/Applications" 2>/dev/null || true
-sleep 1
-hdiutil detach "$MOUNT_DIR" -quiet
-
-hdiutil convert "$TEMP_DMG" \
+  -srcfolder "$DMG_ROOT" \
+  -ov \
   -format UDZO \
-  -imagekey "zlib-level=9" \
-  -o "$DIST_DIR/${DMG_NAME}.dmg" > /dev/null
+  -imagekey zlib-level=9 \
+  "$DIST_DIR/${DMG_NAME}.dmg"
+then
+  echo "❌ hdiutil create failed"
+  ls -la "$DMG_ROOT" || true
+  ls -la "$DIST_DIR" || true
+  rm -rf "$DMG_ROOT" "$STAGING_DIR"
+  exit 1
+fi
 
-rm -f "$TEMP_DMG"
-rm -rf "$STAGING_DIR"
+rm -rf "$DMG_ROOT" "$STAGING_DIR"
 
 # ── Done ────────────────────────────────────────────────────────────────────
 DMG_SIZE=$(du -sh "$DIST_DIR/${DMG_NAME}.dmg" | cut -f1)
