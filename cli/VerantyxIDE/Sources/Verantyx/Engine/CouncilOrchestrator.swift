@@ -425,19 +425,28 @@ actor CouncilOrchestrator {
         // back to the token-only form rather than failing the deliberation.
         // Prompt is deliberately free of bracketed ROLE/TOKEN placeholders
         // that small JGENs tend to parrot (Hello, world! / [CONSENSUS TOKEN]).
-        let detailPromptUser: String
-        if conclusion.isEmpty {
-            detailPromptUser = "User said: \(question)\nWrite one short reply in the user's language."
+        // Skip detail expand on simple greetings: greedy 0.5B often loops
+        // (`お元気ですか?` × N) and that loop then poisons L2 soft-steer.
+        let detail: String
+        if JCrossChatManager.isSimpleGreeting(question) {
+            detail = ""
         } else {
-            detailPromptUser = "User: \(question)\nCouncil settled on: \(conclusion)\nRole notes: \(answers.joined(separator: ", "))\nWrite one or two concrete sentences stating that conclusion. No labels, no brackets."
+            let detailPromptUser: String
+            if conclusion.isEmpty {
+                detailPromptUser = "User said: \(question)\nWrite one short reply in the user's language. One sentence only."
+            } else {
+                detailPromptUser = "User: \(question)\nCouncil settled on: \(conclusion)\nRole notes: \(answers.joined(separator: ", "))\nWrite one concrete sentence stating that conclusion. No labels, no brackets."
+            }
+            let rawDetail = (try? await chat.generate(
+                conversation: [
+                    ("system", "You restate a council decision in one short sentence. No control tags. Match the user's language. Never repeat a phrase."),
+                    ("user", detailPromptUser)
+                ],
+                maxTokens: 48
+            ))?.trimmingCharacters(in: .whitespacesAndNewlines) ?? ""
+            let collapsed = JCrossChatManager.collapsePhraseRepetition(rawDetail)
+            detail = JCrossChatManager.isPhraseLooping(rawDetail) ? "" : collapsed
         }
-        let detail = (try? await chat.generate(
-            conversation: [
-                ("system", "You restate a council decision briefly. No control tags. Match the user's language."),
-                ("user", detailPromptUser)
-            ],
-            maxTokens: 96
-        ))?.trimmingCharacters(in: .whitespacesAndNewlines) ?? ""
 
         let handoff = Handoff(
             conclusion: conclusion,
