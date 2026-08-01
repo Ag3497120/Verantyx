@@ -229,6 +229,22 @@ actor VisualMemoryStore {
         return "\n[VISUAL MEMORY — Vision feature-print recall]\n\(lines)\n[/VISUAL MEMORY]\n"
     }
 
+    /// Recency-only text labels for the jgen-vector-bus path when there is
+    /// no current screenshot to query Vision-space with. Labels only —
+    /// never the feature-print vector.
+    func recallRecentLabelsBlock(k: Int = 3) async -> String {
+        guard (try? ensureLoaded()) != nil else { return "" }
+        guard !nodes.isEmpty else { return "" }
+        let now = Date().timeIntervalSince1970
+        let recent = nodes.sorted { $0.lastAccess > $1.lastAccess }.prefix(k)
+        let lines = recent.map { n -> String in
+            let ago = Self.humanElapsed(max(now - n.lastAccess, 0))
+            let nearby = n.nearbyElements.isEmpty ? "" : " near " + n.nearbyElements.prefix(4).joined(separator: ", ")
+            return "  👁️ \(n.label)\(nearby), seen \(ago)"
+        }.joined(separator: "\n")
+        return "\n[VISUAL MEMORY — recent labels]\n\(lines)\n[/VISUAL MEMORY]\n"
+    }
+
     private static func humanElapsed(_ seconds: Double) -> String {
         if seconds < 60 { return "just now" }
         if seconds < 3600 { return "\(Int(seconds / 60))m ago" }

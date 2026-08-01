@@ -4,7 +4,7 @@ import Foundation
 ///
 ///   Layer 0  memory        — Vera facts / L1-L3 zone memory / eternal vectors
 ///   Layer 1  council core  — same-arch JGEN roles deliberating in vector space
-///   Layer 2  execution     — jgen-native speak (preferred) or a tool-using agent
+///   Layer 2  execution     — jgen-native speak/act (preferred) or a tool-using agent
 ///   Layer 3  escalation    — a stronger model, only when explicitly enabled
 ///
 /// Layer 0 needs no code here: `CouncilOrchestrator.deliberate` already
@@ -69,22 +69,45 @@ enum LayeredRunOrchestrator {
         var outcome: ExecutionAgent.Outcome?
         var jgenSpoke = false
 
+        let template = ArchitectureTemplate.builtins.first { $0.id == store.templateId }
+        let policy = template?.executionToolPolicy
+        let allowDesktop = policy?.allowDesktop ?? false
+        let maxTurns = policy?.maxTurns ?? 8
+
         // Preferred path for the jgen-vector-bus architecture: same engine as
         // L1, soft/eternal memory conditioning, **no AgentLoop** (avoids
         // Nano `[MEM:check]` prompt collapse on 0.5B–2B JGENs).
         let wantJGenNative = store.executionUseJGEN
             || store.templateId == "jgen-vector-bus"
         if wantJGenNative, case .jcrossReady = app.modelStatus {
-            await onProgress(.systemLog(AppLanguage.shared.t(
-                "🛠 [L2 Execution — JGEN native] same model as council — speak via vector bus (no AgentLoop)…",
-                "🛠 [L2 実行 — JGENネイティブ] 合議と同一モデル — ベクトルバス発話（AgentLoopなし）…")))
-            let speak = await JGenSpeakAgent.shared.run(
-                handoff: handoff,
-                question: question,
-                useEternalMemory: config.useEternalMemory,
-                onProgress: onProgress
-            )
-            outcome = .completed(speak.text)
+            let sessionId = app.vxChatSessionId
+            if allowDesktop, looksLikeUIRepro(question: question, handoff: handoff) {
+                await onProgress(.systemLog(AppLanguage.shared.t(
+                    "🛠 [L2 Execution — JGEN Act] same model — desktop/AX via vector bus (no AgentLoop)…",
+                    "🛠 [L2 実行 — JGEN操作] 同一モデル — ベクトルバス経由のデスクトップ/AX（AgentLoopなし）…")))
+                let act = await JGenActAgent.shared.run(
+                    handoff: handoff,
+                    question: question,
+                    useEternalMemory: config.useEternalMemory,
+                    maxTurns: maxTurns,
+                    sessionId: sessionId,
+                    workspaceURL: app.workspaceURL,
+                    onProgress: onProgress
+                )
+                outcome = .completed(act.text)
+            } else {
+                await onProgress(.systemLog(AppLanguage.shared.t(
+                    "🛠 [L2 Execution — JGEN native] same model as council — speak via vector bus (no AgentLoop)…",
+                    "🛠 [L2 実行 — JGENネイティブ] 合議と同一モデル — ベクトルバス発話（AgentLoopなし）…")))
+                let speak = await JGenSpeakAgent.shared.run(
+                    handoff: handoff,
+                    question: question,
+                    useEternalMemory: config.useEternalMemory,
+                    sessionId: sessionId,
+                    onProgress: onProgress
+                )
+                outcome = .completed(speak.text)
+            }
             jgenSpoke = true
         } else if executionModel.isEmpty {
             await onProgress(.systemLog(AppLanguage.shared.t(
@@ -141,7 +164,7 @@ enum LayeredRunOrchestrator {
                 "⚠️ [L3] Escalation produced no answer.", "⚠️ [L3] エスカレーションは回答を返しませんでした。")))
         }
 
-        // Terminal message: JGenSpeakAgent / ExecutionAgent already emit .done
+        // Terminal message: JGenSpeakAgent / JGenActAgent / ExecutionAgent already emit .done
         // through onProgress when they run; only close the turn when L2 never ran.
         if outcome == nil {
             await onProgress(.done(
@@ -149,5 +172,21 @@ enum LayeredRunOrchestrator {
                 workspace: app.workspaceURL))
         }
         return true
+    }
+
+    /// Heuristic: route to `JGenActAgent` when the user is describing a UI
+    /// bug / repro / desktop operate task (not a plain greeting/chat).
+    private static func looksLikeUIRepro(
+        question: String,
+        handoff: CouncilOrchestrator.Handoff
+    ) -> Bool {
+        let blob = (question + "\n" + handoff.asText + "\n" + handoff.detail).lowercased()
+        let keys = [
+            "バグ", "bug", "ボタン", "押せ", "押せない", "ui", "gui",
+            "reproduce", "repro", "再現", "click", "クリック", "画面",
+            "操作", "desktop", "アプリ", "snapshot", "開けない", "動かない",
+            "disabled", "grayed", "greyed", "accessibility", "ax_"
+        ]
+        return keys.contains { blob.contains($0) }
     }
 }

@@ -1467,19 +1467,30 @@ actor AgentToolExecutor {
                 } else {
                     frame = try await SafariVisionBridge.shared.takeScreenshot(enforceSafari: false)
                 }
-                // JGEN can't consume the raw image at all (text-only), and
-                // for any other backend, attaching it here means real
-                // context weight + escalation-model latency every single
-                // step -- see VisualHiddenStateBridge's doc comment. When
-                // JGEN is the active backend, skip the multimodal attach
-                // and instead inject the screen's Vision feature-print
-                // vector directly into JGEN's hidden states (experimental,
-                // unaligned vector space, but zero added context tokens
-                // and no other model involved).
+                let semanticXML = try await AXVisionBridge.shared.getSemanticSnapshot()
+
+                // JGEN can't consume raw images. Prefer AX/text → encode →
+                // inject (aligned JGEN space). Vision feature-print inject
+                // remains an experimental weak-signal fallback only.
                 let jgenActive = await JCrossChatManager.shared.isLoaded
                 var hiddenStateReflection: String? = nil
                 if jgenActive {
-                    hiddenStateReflection = await VisualHiddenStateBridge.reflectOnScreen(base64Image: frame)
+                    hiddenStateReflection = await JGenVectorBusMemory.reflectCurrentScreenAligned(
+                        axSemanticXML: semanticXML
+                    )
+                    if hiddenStateReflection == nil {
+                        hiddenStateReflection = await VisualHiddenStateBridge.reflectOnScreen(base64Image: frame)
+                    }
+                    let sessionId = await MainActor.run { AppState.shared?.vxChatSessionId }
+                    await JGenVectorBusMemory.stampObservation(
+                        label: "desktop_snapshot",
+                        detail: String(semanticXML.prefix(900)),
+                        sessionId: sessionId,
+                        stepIndex: nil,
+                        actionLabel: "🖥️ desktop_snapshot",
+                        changedRegion: nil,
+                        concepts: ["ui-observe", "bug-repro", "desktop-snapshot"]
+                    )
                 } else {
                     await CognitiveAnchorEngine.shared.setVisionScreenshot(frame)
                 }
@@ -1487,11 +1498,9 @@ actor AgentToolExecutor {
                     AppState.shared?.lastVideoFrames = [frame]
                 }
 
-                let semanticXML = try await AXVisionBridge.shared.getSemanticSnapshot()
-
                 return """
                 [DESKTOP_SNAPSHOT]
-                Captured desktop frame\(hiddenActive ? " (hidden window mirror)" : ""). \(jgenActive ? "JGEN backend — screen reflected via hidden-state injection, not attached as an image." : "Screenshot updated and injected to context.")
+                Captured desktop frame\(hiddenActive ? " (hidden window mirror)" : ""). \(jgenActive ? "JGEN backend — AX map encoded into hidden state (Vision raw inject only as fallback)." : "Screenshot updated and injected to context.")
                 \(hiddenStateReflection.map { "\n\($0)\n" } ?? "")
                 == SEMANTIC UI MAP ==
                 \(semanticXML)
@@ -1571,14 +1580,40 @@ actor AgentToolExecutor {
                     let changeNote = noVisualChange
                         ? "NO VISUAL CHANGE was detected (NO_VISUAL_CHANGE) -- you probably missed the target. Try a different location, or scroll first."
                         : "🔴 A red circle shows where your mouse clicked."
-                    return """
+                    let resultText = """
                     [DESKTOP_ACT: \(action)]
                     Action performed. New screenshot injected\(hiddenActive ? " (hidden window mirror)" : "").
                     \(changeNote)
                     """
+                    if !noVisualChange, await JCrossChatManager.shared.isLoaded {
+                        let sessionId = await MainActor.run { AppState.shared?.vxChatSessionId }
+                        await JGenVectorBusMemory.stampObservation(
+                            label: "desktop_act",
+                            detail: resultText,
+                            sessionId: sessionId,
+                            stepIndex: nil,
+                            actionLabel: "🖥️ desktop_act: \(action)",
+                            changedRegion: changedRegion,
+                            concepts: ["ui-observe", "bug-repro", "desktop-act"]
+                        )
+                    }
+                    return resultText
                 }
 
-                return "[DESKTOP_ACT: \(action)]\nAction performed. New screenshot injected\(hiddenActive ? " (hidden window mirror)" : "")."
+                let resultText = "[DESKTOP_ACT: \(action)]\nAction performed. New screenshot injected\(hiddenActive ? " (hidden window mirror)" : "")."
+                if await JCrossChatManager.shared.isLoaded {
+                    let sessionId = await MainActor.run { AppState.shared?.vxChatSessionId }
+                    await JGenVectorBusMemory.stampObservation(
+                        label: "desktop_act",
+                        detail: resultText,
+                        sessionId: sessionId,
+                        stepIndex: nil,
+                        actionLabel: "🖥️ desktop_act: \(action)",
+                        changedRegion: changedRegion,
+                        concepts: ["ui-observe", "bug-repro", "desktop-act"]
+                    )
+                }
+                return resultText
             } catch { return "[DESKTOP ERROR] \(error.localizedDescription)" }
             
         case .axAct(let action):
@@ -1595,9 +1630,23 @@ actor AgentToolExecutor {
                 // Take a new snapshot to update context
                 try await Task.sleep(nanoseconds: 1_500_000_000)
                 let frame = try await SafariVisionBridge.shared.takeScreenshot(enforceSafari: false)
-                await CognitiveAnchorEngine.shared.setVisionScreenshot(frame)
-                await MainActor.run { AppState.shared?.lastVideoFrames = [frame] }
                 let newXML = try await AXVisionBridge.shared.getSemanticSnapshot()
+                if await JCrossChatManager.shared.isLoaded {
+                    _ = await JGenVectorBusMemory.reflectCurrentScreenAligned(axSemanticXML: newXML)
+                    let sessionId = await MainActor.run { AppState.shared?.vxChatSessionId }
+                    await JGenVectorBusMemory.stampObservation(
+                        label: "ax_act",
+                        detail: "\(result)\n\(String(newXML.prefix(700)))",
+                        sessionId: sessionId,
+                        stepIndex: nil,
+                        actionLabel: "🎯 ax_act: \(action)",
+                        changedRegion: nil,
+                        concepts: ["ui-observe", "bug-repro", "ax-act"]
+                    )
+                } else {
+                    await CognitiveAnchorEngine.shared.setVisionScreenshot(frame)
+                }
+                await MainActor.run { AppState.shared?.lastVideoFrames = [frame] }
                 
                 return """
                 [AX_ACT: \(action)]

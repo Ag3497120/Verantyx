@@ -184,6 +184,14 @@ actor CouncilOrchestrator {
             let eternalText = await EternalMemoryStore.shared.recallBlock(for: question)
             if !eternalText.isEmpty { memoryPrefix += eternalText + "\n" }
         }
+        // jgen-vector-bus: recent visual *labels* + UI-trace steps (text only,
+        // JGEN space already stamped on observe). Complements eternal recall.
+        let sessionId = await MainActor.run { AppState.shared?.vxChatSessionId }
+            ?? JGenVectorBusMemory.fallbackSessionId
+        let visualLabels = await VisualMemoryStore.shared.recallRecentLabelsBlock(k: 3)
+        if !visualLabels.isEmpty { memoryPrefix += visualLabels + "\n" }
+        let uiTrace = await UITestVectorTrace.shared.recallRecentBlock(sessionId: sessionId, k: 8)
+        if !uiTrace.isEmpty { memoryPrefix += uiTrace + "\n" }
         // Milestone L: pseudo-multimodal visual memory. This is
         // screen-to-screen recall, not text-to-screen -- it only produces
         // anything when there's a *current* screen to compare against
