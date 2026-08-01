@@ -2327,10 +2327,26 @@ final class AppState: ObservableObject {
         } else {
             store.executionModel = ""
         }
+        // JGEN vector-bus / any template whose execution layer is JGEN:
+        // keep Layer 2 on the same engine and skip AgentLoop.
+        if let exec = proposal.assignment(.execution), exec.backend == .jgen {
+            store.executionUseJGEN = true
+        } else if proposal.template.id == "jgen-vector-bus" {
+            store.executionUseJGEN = true
+        } else if proposal.template.layers.contains(where: { $0.role == .execution && $0.backend == .jgen }) {
+            store.executionUseJGEN = true
+        } else {
+            // Don't force-off: user may have toggled JGEN L2 independently.
+        }
         if let esc = proposal.assignment(.escalation), esc.backend != .none, esc.model != "—" {
             store.config.escalationModel = esc.model
         } else {
             store.config.escalationModel = ""
+            // Templates that disable L3 must not keep a stale escalate flag
+            // from a previous "strongest" config sitting only in escalationModel.
+            if proposal.template.layer(.escalation)?.enabled == false {
+                store.config.escalateOnLowConfidence = false
+            }
         }
 
         // Layer 1 runs on JGEN; load it if the plan named one that isn't

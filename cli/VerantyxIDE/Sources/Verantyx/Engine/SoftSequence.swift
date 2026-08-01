@@ -22,6 +22,21 @@ enum SoftSequence {
         s.unicodeScalars.filter { CharacterSet.alphanumerics.contains($0) }.count
     }
 
+    /// Content length for ranking/filtering. Latin uses alphanumeric count;
+    /// CJK / kana must not be dropped by an ASCII-centric `>= 3` rule (a
+    /// single kanji or a short Japanese greeting is a real consensus token).
+    static func contentCount(_ s: String) -> Int {
+        let alnum = alnumCount(s)
+        if alnum > 0 { return alnum }
+        return s.unicodeScalars.filter { scalar in
+            let v = scalar.value
+            // Hiragana, Katakana, CJK Unified Ideographs (+ ext A), Hangul
+            return (0x3040...0x30FF).contains(v)
+                || (0x3400...0x9FFF).contains(v)
+                || (0xAC00...0xD7AF).contains(v)
+        }.count
+    }
+
     /// Port of `sharpen_dist`: drop stopwords/short candidates, merge
     /// duplicate normalized keys by summing mass, keep the top `topN`,
     /// renormalize to sum 1.
@@ -29,7 +44,10 @@ enum SoftSequence {
         var merged: [String: Float] = [:]
         for entry in distribution {
             let key = entry.text.trimmingCharacters(in: .whitespacesAndNewlines).lowercased()
-            guard !key.isEmpty, !stopwords.contains(key), alnumCount(key) >= 3 else { continue }
+            let cc = contentCount(key)
+            // Latin needs >=3 letters; CJK/kana accept a single content glyph.
+            let minLen = alnumCount(key) > 0 ? 3 : 1
+            guard !key.isEmpty, !stopwords.contains(key), cc >= minLen else { continue }
             merged[key, default: 0] += entry.prob
         }
         let sorted = merged.sorted { $0.value > $1.value }.prefix(topN)
@@ -57,7 +75,7 @@ enum SoftSequence {
             candidates = distribution.map { (text: $0.text.trimmingCharacters(in: .whitespacesAndNewlines).lowercased(), weight: $0.prob) }
         }
         let ranked = candidates.sorted { a, b in
-            let la = alnumCount(a.text), lb = alnumCount(b.text)
+            let la = contentCount(a.text), lb = contentCount(b.text)
             if la != lb { return la > lb }
             return a.weight > b.weight
         }

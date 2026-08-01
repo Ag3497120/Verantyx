@@ -278,6 +278,7 @@ actor CouncilOrchestrator {
 
         var round = 0
         var prevTop1: String? = nil
+        var lastConsensusTop1: String = ""
         var perturbDone = false
         var fragile = false
         var escalated = false
@@ -324,7 +325,9 @@ actor CouncilOrchestrator {
             let consensusNorm = sqrt(consensus.reduce(Float(0)) { $0 + $1 * $1 })
             if consensusNorm > 0 { consensus = consensus.map { $0 / consensusNorm * baseNorm } }
             let consensusDist = try await chat.topKDistributionText(vector: consensus, k: 32)
-            let consensusTop1 = consensusDist.first?.text.trimmingCharacters(in: .whitespacesAndNewlines).lowercased() ?? ""
+            let consensusTop1 = consensusDist.first?.text.trimmingCharacters(in: .whitespacesAndNewlines) ?? ""
+            if !consensusTop1.isEmpty { lastConsensusTop1 = consensusTop1 }
+            let consensusTop1Key = consensusTop1.lowercased()
 
             let allVecs = Array(vecs.values)
             var pairSum: Float = 0
@@ -337,7 +340,7 @@ actor CouncilOrchestrator {
             }
             _ = pairCount > 0 ? pairSum / Float(pairCount) : 1  // agreement cosine (trace-only, not gating)
 
-            let unanimous = !confidentTop1.isEmpty && confidentTop1.allSatisfy { Self.answersAgree($0, consensusTop1) }
+            let unanimous = !confidentTop1.isEmpty && confidentTop1.allSatisfy { Self.answersAgree($0, consensusTop1Key) }
 
             let scoutEntropies = ["Scout-A", "Scout-B"].compactMap { name -> Float? in
                 guard roles.contains(where: { $0.name == name }) else { return nil }
@@ -347,8 +350,8 @@ actor CouncilOrchestrator {
                 && (scoutEntropies.reduce(0, +) / Float(scoutEntropies.count)) > Self.scoutUncertainThreshold
 
             let converged = unanimous && !(scoutUncertain && config.escalateOnLowConfidence && !escalated)
-            let stable = escalated && prevTop1 != nil && consensusTop1 == prevTop1
-            prevTop1 = consensusTop1
+            let stable = escalated && prevTop1 != nil && consensusTop1Key == prevTop1
+            prevTop1 = consensusTop1Key
 
             if converged || stable {
                 if !perturbDone && round < roundsCap {
@@ -407,17 +410,31 @@ actor CouncilOrchestrator {
         let finalRoles = roundTraces.last?.roles ?? []
         let avgEntropy = finalRoles.isEmpty ? 0 : finalRoles.map(\.entropy).reduce(0, +) / Float(finalRoles.count)
         let confidence = 1.0 / (1.0 + avgEntropy)
-        let answers = finalRoles.map(\.answer)
-        let conclusion = Self.mostCommonAnswer(answers) ?? answers.first ?? ""
+        let answers = finalRoles.map(\.answer).filter { !$0.trimmingCharacters(in: .whitespacesAndNewlines).isEmpty }
+        // Prefer a non-empty majority vote; fall back to the last consensus
+        // top-1 (preserves casing) so jgen-only handoffs aren't blank when
+        // role traces decoded empty / stopword-only strings.
+        let conclusion = Self.mostCommonAnswer(answers)
+            ?? answers.first
+            ?? (lastConsensusTop1.isEmpty ? "" : lastConsensusTop1)
         let lowConfidence = confidence < config.escalationConfidenceThreshold
+        let shouldEscalate = config.escalateOnLowConfidence && lowConfidence
 
         // Expand the consensus token into an actual sentence -- see
         // Handoff.detail. Best-effort: a failure here degrades the handoff
         // back to the token-only form rather than failing the deliberation.
+        // Prompt is deliberately free of bracketed ROLE/TOKEN placeholders
+        // that small JGENs tend to parrot (Hello, world! / [CONSENSUS TOKEN]).
+        let detailPromptUser: String
+        if conclusion.isEmpty {
+            detailPromptUser = "User said: \(question)\nWrite one short reply in the user's language."
+        } else {
+            detailPromptUser = "User: \(question)\nCouncil settled on: \(conclusion)\nRole notes: \(answers.joined(separator: ", "))\nWrite one or two concrete sentences stating that conclusion. No labels, no brackets."
+        }
         let detail = (try? await chat.generate(
             conversation: [
-                ("system", "State, in one or two sentences, the conclusion these deliberation notes converge on. Be concrete and actionable. Do not add new claims."),
-                ("user", "[QUESTION] \(question)\n[CONSENSUS TOKEN] \(conclusion)\n[ROLE ANSWERS] \(answers.joined(separator: ", "))")
+                ("system", "You restate a council decision briefly. No control tags. Match the user's language."),
+                ("user", detailPromptUser)
             ],
             maxTokens: 96
         ))?.trimmingCharacters(in: .whitespacesAndNewlines) ?? ""
@@ -425,15 +442,15 @@ actor CouncilOrchestrator {
         let handoff = Handoff(
             conclusion: conclusion,
             evidence: finalRoles.map { "\($0.role): \($0.answer)" },
-            nextAction: lowConfidence
+            nextAction: shouldEscalate
                 ? "Escalate -- council confidence below threshold or roles disagree."
-                : "Proceed with council conclusion.",
+                : "Proceed with council conclusion on JGEN (no escalation).",
             confidence: confidence,
             detail: detail
         )
 
         var finalAnswer: String? = nil
-        if config.escalateOnLowConfidence && lowConfidence {
+        if shouldEscalate {
             escalated = true
             // `.external` means the caller (LayeredRunOrchestrator) owns
             // Layer 2/3 and will run a real tool-using agent instead; doing
@@ -450,7 +467,7 @@ actor CouncilOrchestrator {
             }
         }
 
-        await tick("done", escalated ? "結論を確定 → 上位モデルへ引き継ぎ" : "結論を確定")
+        await tick("done", escalated ? "結論を確定 → 上位モデルへ引き継ぎ" : "結論を確定（JGEN継続）")
 
         return Result(handoff: handoff, roundTraces: roundTraces, escalated: escalated, finalAnswer: finalAnswer)
     }

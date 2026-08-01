@@ -120,11 +120,17 @@ actor TemplateSetupPlanner {
         // Ollama's own eviction isn't coordinated by this app at all.
         var footprintGB = 0.0
         var seenOllamaModels = Set<String>()
+        var seenJGenModels = Set<String>()
         for assignment in assignments {
             guard let size = assignment.sizeGB else { continue }
             if assignment.backend == .ollama {
                 guard !seenOllamaModels.contains(assignment.model) else { continue }
                 seenOllamaModels.insert(assignment.model)
+            }
+            // Same JCrossChatManager handle serves council + jgen-native L2.
+            if assignment.backend == .jgen {
+                guard !seenJGenModels.contains(assignment.model) else { continue }
+                seenJGenModels.insert(assignment.model)
             }
             footprintGB += size
         }
