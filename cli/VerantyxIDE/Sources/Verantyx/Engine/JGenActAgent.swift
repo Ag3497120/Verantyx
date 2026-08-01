@@ -40,9 +40,15 @@ actor JGenActAgent {
             "🛠 [L2 JGEN Act] same-engine tool loop (no AgentLoop / no Nano)…",
             "🛠 [L2 JGEN操作] 同一エンジンのツールループ（AgentLoop・Nanoなし）…")))
 
-        let sid = sessionId
-            ?? await MainActor.run { AppState.shared?.vxChatSessionId }
-            ?? JGenVectorBusMemory.fallbackSessionId
+        let sid: String
+        if let sessionId, !sessionId.trimmingCharacters(in: .whitespacesAndNewlines).isEmpty {
+            sid = sessionId
+        } else if let fromApp = await MainActor.run(body: { AppState.shared?.vxChatSessionId }),
+                  !fromApp.isEmpty {
+            sid = fromApp
+        } else {
+            sid = JGenVectorBusMemory.fallbackSessionId
+        }
 
         let system = """
         You are Verantyx's JGEN execution layer. Reproduce UI bugs by operating \
@@ -106,7 +112,7 @@ actor JGenActAgent {
             let cleaned = JCrossChatManager.collapsePhraseRepetition(
                 raw.trimmingCharacters(in: .whitespacesAndNewlines)
             )
-            let parsed = AgentTool.parse(from: cleaned)
+            let parsed = AgentToolParser.parse(from: cleaned)
             let tools = Self.filterAllowed(parsed.toolCalls)
 
             if tools.isEmpty {
@@ -125,21 +131,22 @@ actor JGenActAgent {
                 break
             }
 
-            await onProgress(.toolCall(AgentToolCall(tool: tool)))
+            let call = AgentToolCall(tool: tool)
+            await onProgress(.toolCall(call))
             let result = await executor.execute(tool, workspaceURL: workspaceURL)
             toolCount += 1
             let trimmed = result.count > 1500 ? String(result.prefix(1500)) + "…" : result
-            observations.append("\(tool.displayLabel) → \(trimmed)")
+            observations.append("\(call.displayLabel) → \(trimmed)")
             await onProgress(.toolResult(AgentToolCall(tool: tool, result: trimmed, succeeded: !result.contains("ERROR"))))
 
             // Dual-write is also done inside desktop tools; stamp a compact
             // act-loop line so council can recall the attempt sequence.
             await JGenVectorBusMemory.stampObservation(
                 label: "jgen_act",
-                detail: "\(tool.displayLabel) → \(String(trimmed.prefix(500)))",
+                detail: "\(call.displayLabel) → \(String(trimmed.prefix(500)))",
                 sessionId: sid,
                 stepIndex: toolCount,
-                actionLabel: tool.displayLabel,
+                actionLabel: call.displayLabel,
                 changedRegion: nil,
                 concepts: ["ui-observe", "bug-repro", "jgen-act"]
             )

@@ -65,6 +65,10 @@ if [ "$SIGN_MODE" = "developer_id" ]; then
     BUILD_DIR="$(pwd)/build" \
     build 2>&1 | grep -E "error:|warning:|SUCCEEDED|FAILED" | tail -10
 else
+  # Keep the full log so CI shows real Swift errors; still echo a compact
+  # summary of error/warning/result lines at the end for quick scanning.
+  BUILD_LOG="$(mktemp -t verantyx-xcodebuild)"
+  set +e
   xcodebuild \
     -project "VerantyxIDE/Verantyx.xcodeproj" \
     -scheme "$SCHEME" \
@@ -77,7 +81,17 @@ else
     MARKETING_VERSION="${VERSION}" \
     CURRENT_PROJECT_VERSION="${VERSION}" \
     BUILD_DIR="$(pwd)/build" \
-    build 2>&1 | grep -E "error:|warning:|SUCCEEDED|FAILED" | tail -10
+    build >"$BUILD_LOG" 2>&1
+  BUILD_STATUS=$?
+  set -e
+  grep -E "error:|warning:|SUCCEEDED|FAILED" "$BUILD_LOG" | tail -40 || true
+  if [ "$BUILD_STATUS" -ne 0 ]; then
+    echo "──── xcodebuild errors ────"
+    grep -E "error:" "$BUILD_LOG" || true
+    rm -f "$BUILD_LOG"
+    exit "$BUILD_STATUS"
+  fi
+  rm -f "$BUILD_LOG"
 fi
 
 # ── 3. Find .app ────────────────────────────────────────────────────────────
