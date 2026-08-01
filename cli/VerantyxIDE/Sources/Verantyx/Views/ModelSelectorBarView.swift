@@ -511,8 +511,8 @@ struct ModelSelectorBarView: View {
 
                     if council.executionUseJGEN {
                         Text(app.t(
-                            "Experimental: screen understanding goes through hidden-state injection (VisualHiddenStateBridge) instead of an image attach — no second model, but the vision/JGEN vector spaces aren't known to be aligned. Falls back to the model below if JGEN isn't loaded when a run starts.",
-                            "実験的機能: 画面理解はマルチモーダル添付ではなく隠れ状態への注入(VisualHiddenStateBridge)経由になります — 別モデルは呼びませんが、視覚空間とJGENの空間が整合している保証はありません。実行時にJGENが未ロードなら下のモデルにフォールバックします。"))
+                            "Uses JGenSpeakAgent on the same JGEN as the council: eternal-memory recall + soft-token steer, then a short generate. Skips AgentLoop (no MEM/CTRL tag collapse) and Layer-3 escalation. Vision can still use VisualHiddenStateBridge injection as an experiment.",
+                            "合議と同一JGEN上のJGenSpeakAgentを使います: 永遠記憶の想起＋ソフトトークン誘導のあと短い生成。AgentLoopを通さないためMEM/CTRLタグ崩壊を避け、L3エスカレーションもしません。画面は実験的にVisualHiddenStateBridge注入も使えます。"))
                             .font(.system(size: 9)).foregroundStyle(.orange)
                             .fixedSize(horizontal: false, vertical: true)
                     }

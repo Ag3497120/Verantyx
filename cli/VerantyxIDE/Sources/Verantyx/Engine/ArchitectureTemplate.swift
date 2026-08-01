@@ -105,6 +105,33 @@ struct ArchitectureTemplate: Identifiable, Codable {
     static let builtins: [ArchitectureTemplate] = [
 
         ArchitectureTemplate(
+            id: "jgen-vector-bus",
+            name: "JGEN vector bus (no escalation)",
+            nameJA: "JGENベクトルバス（エスカレなし）",
+            description: "Same JGEN for council + execution. Eternal / zone memory as a hidden-state bus. Soft-token steer on L2. No Ollama, no AgentLoop, no Layer-3 escalation — the path for UI/vision vectors carved into JGEN space.",
+            descriptionJA: "合議も実行も同一JGEN。永遠記憶・ゾーン記憶を隠れ状態バスとして使い、L2はソフトトークン誘導。Ollama・AgentLoop・L3エスカレーションなし — 画面/UIベクトルをJGEN空間に刻むための本線。",
+            councilConfig: .init(roleCount: 5, roundsCap: 4, injectionPolicy: .none,
+                                 useVeraMemory: true, zoneLayers: [.l1, .l1_5, .l2, .l3],
+                                 useEternalMemory: true, escalateOnLowConfidence: false,
+                                 escalationConfidenceThreshold: 0.6, escalationModel: "",
+                                 executionMode: .external),
+            layers: [
+                LayerSpec(role: .memory, enabled: true, backend: .none,
+                          note: "Vera + L1-L3 zones + eternal JGEN vectors",
+                          noteJA: "Vera + L1-L3ゾーン + JGEN永遠ベクトル"),
+                LayerSpec(role: .councilCore, enabled: true, backend: .jgen, minRAMGB: 6,
+                          note: "Same-arch JGEN roles", noteJA: "同型JGEN役割"),
+                LayerSpec(role: .execution, enabled: true, backend: .jgen, minRAMGB: 6,
+                          note: "JGenSpeakAgent (no AgentLoop)", noteJA: "JGenSpeakAgent（AgentLoopなし）"),
+                LayerSpec(role: .escalation, enabled: false, backend: .none,
+                          note: "Disabled", noteJA: "無効"),
+            ],
+            executionToolPolicy: .init(maxTurns: 4, allowWeb: false, allowShell: false, allowDesktop: false),
+            requirements: .init(minRAMGB: 8, minFreeDiskGB: 1, needsNetwork: false, needsOllama: false, needsJGEN: true),
+            tags: ["recommended", "jgen-only"]
+        ),
+
+        ArchitectureTemplate(
             id: "strongest",
             name: "Strongest (4-layer)",
             nameJA: "最強構成(4層)",
