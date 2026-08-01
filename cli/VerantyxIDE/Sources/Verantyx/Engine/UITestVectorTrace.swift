@@ -108,6 +108,18 @@ actor UITestVectorTrace {
         return moments.sorted { $0.stepIndex < $1.stepIndex }
     }
 
+    /// Text labels of the latest UI steps for jgen-vector-bus recall
+    /// (council / speak / act). Action labels only — no raw vectors.
+    func recallRecentBlock(sessionId: String, k: Int = 8) async -> String {
+        let moments = await trace(sessionId: sessionId)
+        guard !moments.isEmpty else { return "" }
+        let recent = moments.suffix(k)
+        let lines = recent.map { m in
+            "  🧭 step \(m.stepIndex): \(m.actionLabel)"
+        }.joined(separator: "\n")
+        return "\n[UI TEST TRACE — recent steps]\n\(lines)\n[/UI TEST TRACE]\n"
+    }
+
     private static func l2Normalize(_ v: [Float]) -> [Float] {
         let norm = sqrt(v.reduce(Float(0)) { $0 + $1 * $1 })
         guard norm > 0 else { return v }

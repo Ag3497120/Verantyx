@@ -511,8 +511,8 @@ struct ModelSelectorBarView: View {
 
                     if council.executionUseJGEN {
                         Text(app.t(
-                            "Uses JGenSpeakAgent on the same JGEN as the council: eternal-memory recall + soft-token steer, then a short generate. Skips AgentLoop (no MEM/CTRL tag collapse) and Layer-3 escalation. Vision can still use VisualHiddenStateBridge injection as an experiment.",
-                            "合議と同一JGEN上のJGenSpeakAgentを使います: 永遠記憶の想起＋ソフトトークン誘導のあと短い生成。AgentLoopを通さないためMEM/CTRLタグ崩壊を避け、L3エスカレーションもしません。画面は実験的にVisualHiddenStateBridge注入も使えます。"))
+                            "Uses JGenSpeakAgent / JGenActAgent on the same JGEN as the council: eternal + UI-trace recall, soft-token steer, optional desktop/AX act loop. Skips AgentLoop (no MEM/CTRL tag collapse) and Layer-3 escalation. Screen understanding prefers AX encode→inject; Vision feature-print inject is experimental fallback only.",
+                            "合議と同一JGEN上のJGenSpeak / JGenAct: 永遠記憶＋UIトレース想起、ソフトトークン誘導、必要ならデスクトップ/AX操作。AgentLoopを通さないためMEM/CTRLタグ崩壊を避け、L3エスカレーションもしません。画面理解はAXのencode→注入を優先し、Vision特徴量の直接注入は実験的フォールバックのみです。"))
                             .font(.system(size: 9)).foregroundStyle(.orange)
                             .fixedSize(horizontal: false, vertical: true)
                     }

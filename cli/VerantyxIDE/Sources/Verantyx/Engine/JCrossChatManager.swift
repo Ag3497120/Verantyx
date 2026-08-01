@@ -119,40 +119,92 @@ actor JCrossChatManager {
         loadedModelName = nil
     }
 
-    /// Non-streaming single-shot generation (Milestone B v1). Streaming is
-    /// a fast-follow per the integration plan -- jcross_engine_generate
-    /// returns a full token buffer in one call, not a per-token callback,
-    /// so real token-by-token streaming needs an encode+sample loop that
-    /// isn't built yet.
-    ///
-    /// Prompt formatting is deliberately plain ("role: content" per turn)
-    /// rather than a model-specific chat template -- good enough to prove
-    /// Milestone B's "does it generate coherent text end to end" bar;
-    /// template-aware formatting can follow once that's confirmed working.
+    /// ChatML (Qwen / many instruct models). Plain `role: content` caused
+    /// small JGENs to ignore turn boundaries and fall into greedy phrase
+    /// loops (`お元気ですか?` × N) on Japanese greetings.
+    private static func formatChatML(_ conversation: [(role: String, content: String)]) -> String {
+        var parts: [String] = []
+        for turn in conversation {
+            let role: String
+            switch turn.role.lowercased() {
+            case "system": role = "system"
+            case "assistant": role = "assistant"
+            default: role = "user"
+            }
+            parts.append("<|im_start|>\(role)\n\(turn.content)<|im_end|>")
+        }
+        parts.append("<|im_start|>assistant\n")
+        return parts.joined(separator: "\n")
+    }
+
+    /// Collapse immediate phrase loops from greedy decode
+    /// (`お元気ですか? お元気ですか? …` → one copy). Engine only stops on
+    /// identical *token-id* runs; multi-token phrases still loop.
+    nonisolated static func collapsePhraseRepetition(_ text: String) -> String {
+        var result = text.trimmingCharacters(in: .whitespacesAndNewlines)
+        guard result.count >= 6 else { return result }
+        for _ in 0..<6 {
+            let previous = result
+            if let regex = try? NSRegularExpression(pattern: #"(.{3,48}?)\1{2,}"#, options: []) {
+                let range = NSRange(result.startIndex..., in: result)
+                result = regex.stringByReplacingMatches(
+                    in: result, options: [], range: range, withTemplate: "$1")
+            }
+            if let regex = try? NSRegularExpression(
+                pattern: #"(.{3,48}?)(?:[ \t\n\r]+?\1){2,}"#, options: []
+            ) {
+                let range = NSRange(result.startIndex..., in: result)
+                result = regex.stringByReplacingMatches(
+                    in: result, options: [], range: range, withTemplate: "$1")
+            }
+            result = result.trimmingCharacters(in: .whitespacesAndNewlines)
+            if result == previous { break }
+        }
+        return result
+    }
+
+    /// True when collapsing removes most of the string (generation is looping).
+    nonisolated static func isPhraseLooping(_ text: String) -> Bool {
+        let trimmed = text.trimmingCharacters(in: .whitespacesAndNewlines)
+        guard trimmed.count >= 24 else { return false }
+        let collapsed = collapsePhraseRepetition(trimmed)
+        return collapsed.count * 3 <= trimmed.count
+    }
+
+    /// Short social openers where a full council handoff dump hurts more than
+    /// it helps on 0.5B–2B models.
+    nonisolated static func isSimpleGreeting(_ question: String) -> Bool {
+        let t = question.trimmingCharacters(in: .whitespacesAndNewlines)
+            .lowercased()
+            .trimmingCharacters(in: .punctuationCharacters)
+        let roots = [
+            "こんにちは", "こんばんは", "おはよう", "おはようございます",
+            "はじめまして", "やあ", "ハロー",
+            "hello", "hi", "hey", "good morning", "good evening", "good afternoon"
+        ]
+        return roots.contains { t == $0 || (t.hasPrefix($0) && t.count <= $0.count + 8) }
+    }
+
+    /// Non-streaming generation with ChatML + phrase-loop collapse.
     func generate(conversation: [(role: String, content: String)], maxTokens: Int) throws -> String {
         guard let engine, let tokenizer else { throw ChatError.notLoaded }
-        let prompt = conversation.map { "\($0.role): \($0.content)" }.joined(separator: "\n") + "\nassistant:"
+        let prompt = Self.formatChatML(conversation)
         let promptTokens = tokenizer.encode(text: prompt).map { UInt32($0) }
         engine.reset()
         let outputTokens = try engine.generate(prompt: promptTokens, maxTokens: maxTokens)
-        return tokenizer.decode(tokens: outputTokens.map { Int($0) }, skipSpecialTokens: true)
+        let raw = tokenizer.decode(tokens: outputTokens.map { Int($0) }, skipSpecialTokens: true)
+        return Self.collapsePhraseRepetition(raw)
     }
 
-    /// Same as `generate(conversation:maxTokens:)`, but calls `onToken` with
-    /// each newly-decoded text fragment as it's produced, instead of
-    /// blocking silently until the whole generation finishes. This is what
-    /// makes a long JGEN generation legible in real time (and cancellable)
-    /// instead of reading as an indefinite hang. Decodes the whole
-    /// growing token sequence each step and diffs against the previous
-    /// decode to get a clean fragment -- simpler and more robust than
-    /// decoding each token id in isolation, which can split multi-token
-    /// subwords into garbage. Return `false` from `onToken` to cancel.
+    /// Streaming generation with ChatML. Callers should return `false` from
+    /// `onToken` when `isPhraseLooping` on the accumulated text — this path
+    /// also collapses the final string before return.
     func generateStreaming(
         conversation: [(role: String, content: String)], maxTokens: Int,
         onToken: @escaping (String) -> Bool
     ) throws -> String {
         guard let engine, let tokenizer else { throw ChatError.notLoaded }
-        let prompt = conversation.map { "\($0.role): \($0.content)" }.joined(separator: "\n") + "\nassistant:"
+        let prompt = Self.formatChatML(conversation)
         let promptTokens = tokenizer.encode(text: prompt).map { UInt32($0) }
         engine.reset()
 
@@ -166,7 +218,8 @@ actor JCrossChatManager {
             lastDecoded = decoded
             return onToken(delta)
         }
-        return tokenizer.decode(tokens: outputTokens.map { Int($0) }, skipSpecialTokens: true)
+        let raw = tokenizer.decode(tokens: outputTokens.map { Int($0) }, skipSpecialTokens: true)
+        return Self.collapsePhraseRepetition(raw)
     }
 
     // MARK: - Vector Lab (project/resynthesize/puzzle_inference/optimize_thought_in_place)

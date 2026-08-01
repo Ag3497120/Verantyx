@@ -11,10 +11,9 @@ import Foundation
 /// second copy of the coding-agent prompt stack.
 ///
 /// This speaker:
-/// 1. Recalls eternal-memory *text* (same vectors the council already uses)
+/// 1. Recalls eternal + visual labels + UI-trace text (JGEN vector bus)
 /// 2. Optionally steers with a soft-token prefix derived from the handoff
-///    (concepts → embedding rows → decode a short steering phrase)
-/// 3. Runs a short, plain `JCrossChatManager.generate` / streaming call
+/// 3. Runs a short ChatML `generate` / streaming call
 /// 4. Writes the reply back into eternal memory when enabled
 actor JGenSpeakAgent {
     static let shared = JGenSpeakAgent()
@@ -31,6 +30,7 @@ actor JGenSpeakAgent {
         handoff: CouncilOrchestrator.Handoff,
         question: String,
         useEternalMemory: Bool,
+        sessionId: String? = nil,
         maxTokens: Int = 256,
         onProgress: @escaping @Sendable (LoopEvent) async -> Void
     ) async -> Outcome {
@@ -46,37 +46,53 @@ actor JGenSpeakAgent {
             "🧬 [L2 JGEN Speak] same-engine reply (no AgentLoop / no escalation)…",
             "🧬 [L2 JGEN発話] 同一エンジンで回答（AgentLoop・エスカレなし）…")))
 
+        let greeting = JCrossChatManager.isSimpleGreeting(question)
+        let budget = greeting ? min(maxTokens, 48) : min(maxTokens, 128)
+        let sid = sessionId ?? await MainActor.run { AppState.shared?.vxChatSessionId }
+
         var memoryBlock = ""
         var memoryHits = 0
-        if useEternalMemory {
-            memoryBlock = await EternalMemoryStore.shared.recallBlock(for: question, k: 3)
+        if !greeting {
+            memoryBlock = await JGenVectorBusMemory.recallBundle(
+                for: question,
+                sessionId: sid,
+                useEternal: useEternalMemory,
+                k: 3
+            )
             if !memoryBlock.isEmpty {
                 memoryHits = memoryBlock.components(separatedBy: "🧠").count - 1
+                    + memoryBlock.components(separatedBy: "👁️").count - 1
+                    + memoryBlock.components(separatedBy: "🧭").count - 1
             }
         }
 
-        // Soft steer: turn handoff concepts into a short phrase via the
-        // model's own embedding rows + lm_head — stays inside JGEN space,
-        // never calls Ollama. Best-effort; empty on failure.
         var steerPhrase = ""
         var usedSoft = false
+        let detailClean = JCrossChatManager.collapsePhraseRepetition(handoff.detail)
+        let detailUsable = !detailClean.isEmpty && !JCrossChatManager.isPhraseLooping(handoff.detail)
         let conceptSeed = [
             handoff.conclusion,
-            handoff.detail,
-            handoff.evidence.joined(separator: " ")
-        ].joined(separator: "\n")
-        if let softPhrase = try? await Self.buildSoftSteerPhrase(
-            seed: conceptSeed, question: question, chat: chat
-        ), !softPhrase.isEmpty {
-            steerPhrase = softPhrase
+            detailUsable ? detailClean : "",
+            handoff.evidence
+                .map { JCrossChatManager.collapsePhraseRepetition($0) }
+                .filter { !$0.isEmpty && !JCrossChatManager.isPhraseLooping($0) }
+                .joined(separator: " ")
+        ].filter { !$0.trimmingCharacters(in: .whitespacesAndNewlines).isEmpty }
+         .joined(separator: "\n")
+
+        if !greeting, !conceptSeed.isEmpty,
+           let softPhrase = try? await Self.buildSoftSteerPhrase(
+               seed: conceptSeed, question: question, chat: chat
+           ), !softPhrase.isEmpty,
+           !JCrossChatManager.isPhraseLooping(softPhrase) {
+            steerPhrase = JCrossChatManager.collapsePhraseRepetition(softPhrase)
             usedSoft = true
         }
 
         let system = """
-        You are Verantyx's JGEN execution layer. The council already deliberated \
-        in this model's hidden state. Answer the user directly in their language. \
-        Do not emit control tags, MEM/CTRL markers, tool brackets, or role labels. \
-        Keep the reply short and concrete.
+        You are Verantyx. Answer the user directly in their language. \
+        One or two short sentences. Never repeat a phrase. \
+        Do not emit control tags, MEM/CTRL markers, tool brackets, or role labels.
         """
 
         var userParts: [String] = []
@@ -84,8 +100,17 @@ actor JGenSpeakAgent {
         if !steerPhrase.isEmpty {
             userParts.append("[VECTOR STEER] \(steerPhrase)")
         }
-        userParts.append(handoff.asText)
-        userParts.append("[ORIGINAL REQUEST]\n\(question)")
+        if greeting {
+            userParts.append(question)
+        } else {
+            var compact = "[COUNCIL CONCLUSION] \(handoff.conclusion.isEmpty ? "(none)" : handoff.conclusion)"
+            if detailUsable {
+                compact += "\n[DETAIL] \(detailClean)"
+            }
+            compact += "\n[CONFIDENCE] \(String(format: "%.2f", handoff.confidence))"
+            userParts.append(compact)
+            userParts.append("[ORIGINAL REQUEST]\n\(question)")
+        }
         let user = userParts.joined(separator: "\n\n")
 
         let conversation: [(role: String, content: String)] = [
@@ -98,11 +123,13 @@ actor JGenSpeakAgent {
         do {
             text = try await chat.generateStreaming(
                 conversation: conversation,
-                maxTokens: maxTokens
+                maxTokens: budget
             ) { delta in
                 streamed += delta
-                // Mirror AgentLoop's token stream into the chat UI.
                 Task { await onProgress(.streamToken(delta)) }
+                if JCrossChatManager.isPhraseLooping(streamed) {
+                    return false
+                }
                 return true
             }
         } catch {
@@ -111,10 +138,17 @@ actor JGenSpeakAgent {
             return Outcome(text: msg, usedSoftSteer: usedSoft, memoryHits: memoryHits)
         }
 
-        let reply = text.trimmingCharacters(in: .whitespacesAndNewlines)
-        let finalText = reply.isEmpty ? (handoff.detail.isEmpty ? handoff.asText : handoff.detail) : reply
+        let reply = JCrossChatManager.collapsePhraseRepetition(
+            text.trimmingCharacters(in: .whitespacesAndNewlines)
+        )
+        let fallback: String = {
+            if detailUsable { return detailClean }
+            if !handoff.conclusion.isEmpty { return handoff.conclusion }
+            return greeting ? "こんにちは。" : handoff.asText
+        }()
+        let finalText = reply.isEmpty ? fallback : reply
 
-        if useEternalMemory, !finalText.isEmpty {
+        if useEternalMemory, !finalText.isEmpty, !JCrossChatManager.isPhraseLooping(finalText) {
             let stamp = "Q: \(question.prefix(120))\nA: \(finalText.prefix(400))"
             try? await EternalMemoryStore.shared.add(text: String(stamp), concepts: [])
         }
@@ -123,9 +157,6 @@ actor JGenSpeakAgent {
         return Outcome(text: finalText, usedSoftSteer: usedSoft, memoryHits: memoryHits)
     }
 
-    /// Encode a seed through JGEN, take top-K, rebuild a soft sequence, then
-    /// decode each soft row's nearest token — a tiny "vector → words" bridge
-    /// that stays on-engine (Milestone E soft path, without mid-layer inject).
     private static func buildSoftSteerPhrase(
         seed: String, question: String, chat: JCrossChatManager
     ) async throws -> String {
@@ -137,14 +168,11 @@ actor JGenSpeakAgent {
             distribution: dist, maxSoft: 8, chat: chat
         )
         guard !soft.isEmpty else {
-            // Fallback: top-3 printable candidates from the distribution.
             return SoftSequence.sharpenDist(dist, topN: 5)
                 .prefix(5)
                 .map(\.text)
                 .joined(separator: " ")
         }
-        // Re-encode the soft sequence against a short probe so the blend
-        // sits in residual space, then read top tokens.
         let probe = try await chat.tokenize(
             "<|im_start|>user\n\(question)<|im_end|>\n<|im_start|>assistant\n"
         )

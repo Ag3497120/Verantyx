@@ -11,14 +11,10 @@ import Foundation
 ///   2. `VisualMemoryStore.recallBlock` -- text-only recall of *past*
 ///      similar screens, not a read of the *current* one.
 ///
-/// This is the third option: skip text/images entirely and inject the
-/// current screen's Vision feature-print vector straight into JGEN's
-/// residual stream via `JCrossChatManager.reflectRawVector`, then decode
-/// what layer activations look like afterward. No new context tokens, no
-/// escalation to another model -- but also no trained alignment between
-/// Vision's feature-print space and JGEN's hidden-state space, only a
-/// pad/truncate. Whether this produces anything more useful than option 2
-/// is exactly the open question this experiment exists to answer.
+/// **Preferred on jgen-vector-bus:** `JGenVectorBusMemory.reflectCurrentScreenAligned`
+/// (AX semantic map → `encodeText` → inject) — aligned JGEN spaces.
+/// This bridge remains the **weak-signal fallback**: Vision feature-print
+/// pad/truncate into residual space. Use only when AX is unavailable.
 enum VisualHiddenStateBridge {
 
     /// Layer chosen to match `ROLE_LAYER_HINTS`-style mid-depth placement
