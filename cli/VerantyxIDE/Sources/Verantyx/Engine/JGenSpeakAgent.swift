@@ -48,7 +48,13 @@ actor JGenSpeakAgent {
 
         let greeting = JCrossChatManager.isSimpleGreeting(question)
         let budget = greeting ? min(maxTokens, 48) : min(maxTokens, 128)
-        let sid = sessionId ?? await MainActor.run { AppState.shared?.vxChatSessionId }
+        let sid: String
+        if let sessionId, !sessionId.trimmingCharacters(in: .whitespacesAndNewlines).isEmpty {
+            sid = sessionId
+        } else {
+            sid = await MainActor.run { AppState.shared?.vxChatSessionId }
+                ?? JGenVectorBusMemory.fallbackSessionId
+        }
 
         var memoryBlock = ""
         var memoryHits = 0

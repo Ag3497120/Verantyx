@@ -65,6 +65,10 @@ if [ "$SIGN_MODE" = "developer_id" ]; then
     BUILD_DIR="$(pwd)/build" \
     build 2>&1 | grep -E "error:|warning:|SUCCEEDED|FAILED" | tail -10
 else
+  # Keep the full log so CI shows real Swift errors; still echo a compact
+  # summary of error/warning/result lines at the end for quick scanning.
+  BUILD_LOG="$(mktemp -t verantyx-xcodebuild)"
+  set +e
   xcodebuild \
     -project "VerantyxIDE/Verantyx.xcodeproj" \
     -scheme "$SCHEME" \
@@ -77,7 +81,17 @@ else
     MARKETING_VERSION="${VERSION}" \
     CURRENT_PROJECT_VERSION="${VERSION}" \
     BUILD_DIR="$(pwd)/build" \
-    build 2>&1 | grep -E "error:|warning:|SUCCEEDED|FAILED" | tail -10
+    build >"$BUILD_LOG" 2>&1
+  BUILD_STATUS=$?
+  set -e
+  grep -E "error:|warning:|SUCCEEDED|FAILED" "$BUILD_LOG" | tail -40 || true
+  if [ "$BUILD_STATUS" -ne 0 ]; then
+    echo "──── xcodebuild errors ────"
+    grep -E "error:" "$BUILD_LOG" || true
+    rm -f "$BUILD_LOG"
+    exit "$BUILD_STATUS"
+  fi
+  rm -f "$BUILD_LOG"
 fi
 
 # ── 3. Find .app ────────────────────────────────────────────────────────────
@@ -138,37 +152,70 @@ fi
 # ── 7. Create DMG ───────────────────────────────────────────────────────────
 echo "[7/7] DMG を作成中..."
 mkdir -p "$DIST_DIR"
-TEMP_DMG="$DIST_DIR/.tmp_${DMG_NAME}.dmg"
+rm -f "$DIST_DIR/${DMG_NAME}.dmg" "$DIST_DIR/${DMG_NAME}.zip"
 
-hdiutil create \
-  -srcfolder "$STAGING_DIR" \
-  -volname "Verantyx IDE ${VERSION}" \
-  -fs HFS+ \
-  -fsargs "-c c=64,a=16,b=16" \
-  -format UDRW \
-  -size 512m \
-  "$TEMP_DMG" > /dev/null
+DMG_ROOT="$(mktemp -d "${TMPDIR:-/tmp}/verantyx-dmg.XXXXXX")"
+cp -R "$STAGING_DIR/${APP_NAME}.app" "$DMG_ROOT/${APP_NAME}.app"
+ln -sf /Applications "$DMG_ROOT/Applications"
+# Sonoma+: immutable flags inside the bundle can make hdiutil fail oddly.
+chflags -R nouchg "$DMG_ROOT" 2>/dev/null || true
+xattr -cr "$DMG_ROOT" 2>/dev/null || true
+sync
 
-MOUNT_DIR="/Volumes/VerantyxIDE_${VERSION}"
-hdiutil attach "$TEMP_DMG" -mountpoint "$MOUNT_DIR" -noautoopen -quiet
-ln -sf /Applications "$MOUNT_DIR/Applications" 2>/dev/null || true
-sleep 1
-hdiutil detach "$MOUNT_DIR" -quiet
+# Write the image under TMPDIR first (more reliable on GHA runners than
+# creating straight into the workspace), then move into dist/.
+TMP_DMG="$(mktemp "${TMPDIR:-/tmp}/verantyx-out.XXXXXX").dmg"
+rm -f "$TMP_DMG"
+DMG_OK=0
+for attempt in 1 2 3 4 5; do
+  echo "   hdiutil create attempt ${attempt}/5..."
+  if hdiutil create \
+    -volname "Verantyx IDE ${VERSION}" \
+    -srcfolder "$DMG_ROOT" \
+    -ov \
+    -format UDZO \
+    -imagekey zlib-level=9 \
+    "$TMP_DMG"
+  then
+    DMG_OK=1
+    break
+  fi
+  echo "   ⚠️  hdiutil failed (attempt ${attempt}); sync + backoff..."
+  sync
+  sleep $((attempt * 3))
+done
 
-hdiutil convert "$TEMP_DMG" \
-  -format UDZO \
-  -imagekey "zlib-level=9" \
-  -o "$DIST_DIR/${DMG_NAME}.dmg" > /dev/null
+if [ "$DMG_OK" -eq 1 ]; then
+  mv -f "$TMP_DMG" "$DIST_DIR/${DMG_NAME}.dmg"
+else
+  rm -f "$TMP_DMG"
+  echo "⚠️  DMG creation failed after retries — falling back to ZIP artifact"
+  ditto -c -k --keepParent "$STAGING_DIR/${APP_NAME}.app" "$DIST_DIR/${DMG_NAME}.zip"
+  if [ ! -f "$DIST_DIR/${DMG_NAME}.zip" ]; then
+    echo "❌ ZIP fallback also failed"
+    ls -la "$DMG_ROOT" || true
+    ls -la "$DIST_DIR" || true
+    rm -rf "$DMG_ROOT" "$STAGING_DIR"
+    exit 1
+  fi
+fi
 
-rm -f "$TEMP_DMG"
-rm -rf "$STAGING_DIR"
+rm -rf "$DMG_ROOT" "$STAGING_DIR"
 
 # ── Done ────────────────────────────────────────────────────────────────────
-DMG_SIZE=$(du -sh "$DIST_DIR/${DMG_NAME}.dmg" | cut -f1)
+if [ -f "$DIST_DIR/${DMG_NAME}.dmg" ]; then
+  OUT_FILE="$DIST_DIR/${DMG_NAME}.dmg"
+elif [ -f "$DIST_DIR/${DMG_NAME}.zip" ]; then
+  OUT_FILE="$DIST_DIR/${DMG_NAME}.zip"
+else
+  echo "❌ No package artifact produced"
+  exit 1
+fi
+DMG_SIZE=$(du -sh "$OUT_FILE" | cut -f1)
 echo ""
 echo "================================================"
 echo "✅ 完了!"
-echo "   出力: dist/${DMG_NAME}.dmg (${DMG_SIZE})"
+echo "   出力: $(basename "$OUT_FILE") (${DMG_SIZE})"
 echo "   署名: ${SIGN_MODE}"
 echo ""
 

@@ -32,10 +32,20 @@ enum JGenVectorBusMemory {
         try? await EternalMemoryStore.shared.add(text: stamp, concepts: concepts)
 
         if let actionLabel {
-            let sid = (sessionId?.trimmingCharacters(in: .whitespacesAndNewlines)).flatMap {
-                $0.isEmpty ? nil : $0
-            } ?? fallbackSessionId
-            let step = stepIndex ?? ((try? await UITestVectorTrace.shared.trace(sessionId: sid).count) ?? 0) + 1
+            let sid: String
+            if let sessionId {
+                let trimmed = sessionId.trimmingCharacters(in: .whitespacesAndNewlines)
+                sid = trimmed.isEmpty ? fallbackSessionId : trimmed
+            } else {
+                sid = fallbackSessionId
+            }
+            let step: Int
+            if let stepIndex {
+                step = stepIndex
+            } else {
+                let moments = await UITestVectorTrace.shared.trace(sessionId: sid)
+                step = moments.count + 1
+            }
             try? await UITestVectorTrace.shared.recordMoment(
                 sessionId: sid,
                 stepIndex: step,
