@@ -1281,17 +1281,15 @@ actor AgentToolExecutor {
             }
 
         // ── GUI Automation ────────────────────────────────────────────────
-        // Opens the app but keeps it OFF the user's visible screen and
-        // Verantyx frontmost -- HiddenWindowAutomation parks the window far
-        // off-screen (still a normal running app, still in the Dock) so
-        // autonomous operation never steals focus or covers the IDE.
-        // DESKTOP_ACT below routes through the same session when active.
+        // Opens the app and leaves it visible + frontmost for Act (default
+        // HiddenWindowAutomation policy). Session still tracks window id /
+        // frame for DESKTOP_ACT / mirror capture. Verantyx is not raised.
         case .openApp(let name):
             let frame = await HiddenWindowAutomation.shared.beginOffscreenSession(appName: name)
             guard frame != nil else {
-                return "✗ Could not find or move window for: \(name)"
+                return "✗ Could not find or activate window for: \(name)"
             }
-            return "✓ OS App opened off-screen: \(name). Verantyx stays frontmost; use [DESKTOP_ACT]/[DESKTOP_SNAPSHOT] to operate it and watch the hidden-window mirror view to see what's happening."
+            return "✓ OS App opened and brought frontmost: \(name). Use [DESKTOP_ACT]/[DESKTOP_SNAPSHOT] to operate it; optional mirror preview captures the visible window."
 
         // Deterministic Vera-registered URL check (CRITICAL RULE 8) --
         // bypasses ask()'s consensus threshold, unlike the [VERA MEMORY]
@@ -1316,12 +1314,9 @@ actor AgentToolExecutor {
             let result = await runShell("osascript -e '\(escaped)'", workingDir: workspaceURL)
 
             // A model can bring another app to the front via raw AppleScript
-            // (e.g. `tell application "Safari" to activate`/`open location`)
-            // instead of [OPEN_APP], bypassing HiddenWindowAutomation entirely
-            // -- so check whether this script actually changed the frontmost
-            // app, and if so, retroactively park IT off-screen too, the same
-            // way [OPEN_APP] does. This catches the pattern generally rather
-            // than pattern-matching AppleScript syntax.
+            // instead of [OPEN_APP]. Adopt that app as the Act session target
+            // and leave it frontmost (visible-front policy) — do not park /
+            // remimimize it behind Verantyx.
             try? await Task.sleep(nanoseconds: 300_000_000)
             let newFrontApp: String? = await MainActor.run {
                 guard let front = NSWorkspace.shared.frontmostApplication,
@@ -1330,7 +1325,7 @@ actor AgentToolExecutor {
             }
             if let appName = newFrontApp {
                 _ = await HiddenWindowAutomation.shared.beginOffscreenSession(appName: appName)
-                return "✓ AppleScript Result:\n\(result)\n[Note: \(appName) came to the front and has been parked off-screen -- Verantyx stays frontmost. Use [DESKTOP_ACT]/[DESKTOP_SNAPSHOT] to operate it and the hidden-window mirror view to watch.]"
+                return "✓ AppleScript Result:\n\(result)\n[Note: \(appName) is now the Act target and left frontmost. Use [DESKTOP_ACT]/[DESKTOP_SNAPSHOT] to operate it.]"
             }
             return "✓ AppleScript Result:\n\(result)"
 
@@ -1496,9 +1491,8 @@ actor AgentToolExecutor {
 
         case .desktopSnapshot:
             do {
-                // When an OPEN_APP session parked a window off-screen, mirror
-                // THAT window instead of the visible display (which would
-                // just show Verantyx itself, since it's kept frontmost).
+                // Prefer the OPEN_APP session target window (visible front
+                // policy) over a full-display shot of whatever is topmost.
                 let hiddenActive = await MainActor.run { HiddenWindowAutomation.shared.targetAppName != nil }
                 let semanticXML = try await AXVisionBridge.shared.getSemanticSnapshot()
                 var frame: String? = nil
@@ -1546,11 +1540,13 @@ actor AgentToolExecutor {
 
                 return """
                 [DESKTOP_SNAPSHOT]
-                Captured desktop frame\(hiddenActive ? " (hidden window mirror)" : ""). \(jgenActive ? "JGEN backend — AX map encoded into hidden state (Vision raw inject only as fallback)." : "Screenshot updated and injected to context.")\(captureNote)
+                Captured desktop frame\(hiddenActive ? " (Act target window)" : ""). \(jgenActive ? "JGEN backend — AX map encoded into hidden state (Vision raw inject only as fallback)." : "Screenshot updated and injected to context.")\(captureNote)
                 \(hiddenStateReflection.map { "\n\($0)\n" } ?? "")
                 == SEMANTIC UI MAP ==
                 \(semanticXML)
                 """
+            } catch is CancellationError {
+                return "[DESKTOP_SNAPSHOT] Interrupted (cancellation) — retry; target was left visible."
             } catch { return "[DESKTOP ERROR] \(error.localizedDescription)" }
 
         case .desktopAct(let action):
@@ -1588,7 +1584,10 @@ actor AgentToolExecutor {
                     }
                 }
 
-                try await Task.sleep(nanoseconds: 2_000_000_000)
+                // Soft sleep: parent cancellation used to surface as
+                // Swift.CancellationError mid-Act when minimize/focus races
+                // tore down work. Clicks already ran; don't fail the tool.
+                try? await Task.sleep(nanoseconds: 2_000_000_000)
                 var frame: String? = nil
                 var captureDeniedNote = ""
                 if hiddenActive, let hidden = await HiddenWindowAutomation.shared.captureWindowImage() {
@@ -1596,6 +1595,8 @@ actor AgentToolExecutor {
                 } else {
                     do {
                         frame = try await SafariVisionBridge.shared.takeScreenshot(enforceSafari: false)
+                    } catch is CancellationError {
+                        captureDeniedNote = "\n[NO SCREENSHOT] capture cancelled — action may still have applied.\n"
                     } catch {
                         // Click/type may have succeeded; do not fail the whole
                         // tool on Screen Recording TCC (common with ad-hoc DMG).
@@ -1647,7 +1648,7 @@ actor AgentToolExecutor {
                         : "🔴 A red circle shows where your mouse clicked."
                     let resultText = """
                     [DESKTOP_ACT: \(action)]
-                    Action performed. New screenshot injected\(hiddenActive ? " (hidden window mirror)" : "").\(captureDeniedNote)
+                    Action performed. New screenshot injected\(hiddenActive ? " (Act target window)" : "").\(captureDeniedNote)
                     \(changeNote)
                     """
                     if !noVisualChange, await JCrossChatManager.shared.isLoaded {
@@ -1665,7 +1666,7 @@ actor AgentToolExecutor {
                     return resultText
                 }
 
-                let resultText = "[DESKTOP_ACT: \(action)]\nAction performed. New screenshot injected\(hiddenActive ? " (hidden window mirror)" : "").\(captureDeniedNote)"
+                let resultText = "[DESKTOP_ACT: \(action)]\nAction performed. New screenshot injected\(hiddenActive ? " (Act target window)" : "").\(captureDeniedNote)"
                 if await JCrossChatManager.shared.isLoaded {
                     let sessionId = await MainActor.run { AppState.shared?.vxChatSessionId }
                     await JGenVectorBusMemory.stampObservation(
@@ -1679,6 +1680,8 @@ actor AgentToolExecutor {
                     )
                 }
                 return resultText
+            } catch is CancellationError {
+                return "[DESKTOP_ACT: \(action)]\nInterrupted (cancellation) after attempting action — target left visible; retry if needed."
             } catch { return "[DESKTOP ERROR] \(error.localizedDescription)" }
 
         case .waitUntilStable(let stableSeconds, let timeout):

@@ -1,11 +1,9 @@
 import SwiftUI
 
-/// Live view of whatever window HiddenWindowAutomation has parked
-/// off-screen for autonomous operation. The real window never appears on
-/// the user's actual display and never steals focus from Verantyx -- this
-/// view is the only place its content is actually visible, refreshed on a
-/// timer by re-capturing it via CGWindowListCreateImage (which works
-/// regardless of on-screen position).
+/// Live preview of the Act target window tracked by HiddenWindowAutomation.
+/// Under the default visible-front policy the real window stays on-screen
+/// and frontmost during Act; this view re-captures it via
+/// CGWindowListCreateImage for in-IDE monitoring / UI-element registration.
 ///
 /// Also doubles as the manual "v1" UI element registry pass: clicking the
 /// mirror while "Register elements" is on captures the click's position
@@ -161,7 +159,7 @@ struct HiddenWindowMirrorView: View {
 
     private var placeholderTitle: String {
         if automation.targetAppName == nil {
-            return app.t("No hidden-window session", "隠れ窓セッションなし")
+            return app.t("No Act target session", "操作対象セッションなし")
         }
         switch automation.lastCaptureStatus {
         case .permissionDenied:
@@ -180,8 +178,8 @@ struct HiddenWindowMirrorView: View {
     private var placeholderDetail: String {
         if automation.targetAppName == nil {
             return app.t(
-                "Ask the agent to [OPEN_APP: ...] to start a hidden session. The mirrored window will appear here.",
-                "エージェントに[OPEN_APP: ...]を実行させるとここに表示されます。"
+                "Ask the agent to [OPEN_APP: ...] to start an Act session. The target stays frontmost; this mirror previews it.",
+                "エージェントに[OPEN_APP: ...]を実行させると対象が前面に出ます。このミラーでプレビューできます。"
             )
         }
         switch automation.lastCaptureStatus {
@@ -194,8 +192,8 @@ struct HiddenWindowMirrorView: View {
             )
         case .noWindow:
             return app.t(
-                "The parked app has no capturable window yet. Restore it once or wait for the page to finish loading.",
-                "退避中のアプリにキャプチャ可能なウィンドウがありません。一度復元するか、読み込み完了を待ってください。"
+                "The target app has no capturable window yet. Wait for it to finish loading.",
+                "対象アプリにキャプチャ可能なウィンドウがありません。読み込み完了を待ってください。"
             )
         case .failed:
             return app.t(
@@ -284,7 +282,7 @@ struct HiddenWindowMirrorView: View {
             Image(systemName: "eye.trianglebadge.exclamationmark")
                 .font(.system(size: 13))
                 .foregroundStyle(Color(red: 1.0, green: 0.7, blue: 0.3))
-            Text(app.t("Hidden Window Mirror", "非表示ウィンドウ ミラー"))
+            Text(app.t("Act Target Mirror", "操作対象ミラー"))
                 .font(.system(size: 12, weight: .bold))
                 .foregroundStyle(Color(red: 0.85, green: 0.9, blue: 1.0))
             if let name = automation.targetAppName {
@@ -319,8 +317,8 @@ struct HiddenWindowMirrorView: View {
                     Task { await automation.endOffscreenSession() }
                 } label: {
                     HStack(spacing: 4) {
-                        Image(systemName: "arrow.uturn.left")
-                        Text(app.t("Restore window", "ウィンドウを復元"))
+                        Image(systemName: "xmark.circle")
+                        Text(app.t("End session", "セッション終了"))
                     }
                     .font(.system(size: 10, weight: .semibold))
                 }
