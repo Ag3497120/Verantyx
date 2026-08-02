@@ -51,8 +51,9 @@ actor JGenActAgent {
         }
 
         let system = """
-        You are Verantyx's JGEN execution layer. Reproduce UI bugs by operating \
-        the desktop like the user. Use exactly ONE tool tag per turn, then stop. \
+        You are Verantyx's JGEN execution layer. Operate the Mac desktop to \
+        complete the user's request (open apps, browse, search, click, type). \
+        Use exactly ONE tool tag per turn, then stop. \
         Allowed tools only:
         [OPEN_APP: AppName]
         [DESKTOP_SNAPSHOT]
@@ -61,6 +62,7 @@ actor JGenActAgent {
         [DONE: short conclusion in the user's language]
         Never emit MEM/CTRL tags, role labels, or multiple tools in one reply. \
         Prefer [AX_ACT] when the semantic UI map has element ids. \
+        For web tasks: [OPEN_APP: Safari] first, then snapshot/act to search. \
         Never repeat a phrase.
         """
 

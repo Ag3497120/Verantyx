@@ -71,7 +71,6 @@ enum LayeredRunOrchestrator {
 
         let template = ArchitectureTemplate.builtins.first { $0.id == store.templateId }
         let policy = template?.executionToolPolicy
-        let allowDesktop = policy?.allowDesktop ?? false
         let maxTurns = policy?.maxTurns ?? 8
 
         // Preferred path for the jgen-vector-bus architecture: same engine as
@@ -79,9 +78,38 @@ enum LayeredRunOrchestrator {
         // Nano `[MEM:check]` prompt collapse on 0.5B–2B JGENs).
         let wantJGenNative = store.executionUseJGEN
             || store.templateId == "jgen-vector-bus"
+        // When JGEN-native is on but templateId is "custom" (hand-edited
+        // settings), `policy` is nil and the old `?? false` forced Speak for
+        // every turn — including "open Safari and search…". Default desktop
+        // on for that native path; templates that disable it still win.
+        let allowDesktop = policy?.allowDesktop ?? wantJGenNative
         if wantJGenNative, case .jcrossReady = app.modelStatus {
             let sessionId = app.vxChatSessionId
-            if allowDesktop, looksLikeUIRepro(question: question, handoff: handoff) {
+            let useAct: Bool
+            if !allowDesktop {
+                useAct = false
+                await onProgress(.systemLog(AppLanguage.shared.t(
+                    "🧭 [L2 Router] desktop disabled by template → SPEAK",
+                    "🧭 [L2 ルーター] テンプレでデスクトップ無効 → SPEAK")))
+            } else if JCrossChatManager.isSimpleGreeting(question) {
+                useAct = false
+                await onProgress(.systemLog(AppLanguage.shared.t(
+                    "🧭 [L2 Router] greeting → SPEAK",
+                    "🧭 [L2 ルーター] 挨拶 → SPEAK")))
+            } else if let route = await JGenSpeakActRouter.classify(question: question, handoff: handoff) {
+                useAct = (route == .act)
+                await onProgress(.systemLog(AppLanguage.shared.t(
+                    "🧭 [L2 Router] JGEN classified → \(route.rawValue.uppercased())",
+                    "🧭 [L2 ルーター] JGEN分類 → \(route.rawValue.uppercased())")))
+            } else {
+                // Fallback only when the classifier fails to emit ACT/SPEAK.
+                useAct = looksLikeDesktopAct(question: question, handoff: handoff)
+                await onProgress(.systemLog(AppLanguage.shared.t(
+                    "🧭 [L2 Router] JGEN classify failed — keyword fallback → \(useAct ? "ACT" : "SPEAK")",
+                    "🧭 [L2 ルーター] JGEN分類失敗 — キーワード補助 → \(useAct ? "ACT" : "SPEAK")")))
+            }
+
+            if useAct {
                 await onProgress(.systemLog(AppLanguage.shared.t(
                     "🛠 [L2 Execution — JGEN Act] same model — desktop/AX via vector bus (no AgentLoop)…",
                     "🛠 [L2 実行 — JGEN操作] 同一モデル — ベクトルバス経由のデスクトップ/AX（AgentLoopなし）…")))
@@ -174,18 +202,28 @@ enum LayeredRunOrchestrator {
         return true
     }
 
-    /// Heuristic: route to `JGenActAgent` when the user is describing a UI
-    /// bug / repro / desktop operate task (not a plain greeting/chat).
-    private static func looksLikeUIRepro(
+    /// Keyword fallback when `JGenSpeakActRouter` cannot parse ACT/SPEAK.
+    /// Prefer the JGEN classifier; do not grow this list as the primary router.
+    private static func looksLikeDesktopAct(
         question: String,
         handoff: CouncilOrchestrator.Handoff
     ) -> Bool {
-        let blob = (question + "\n" + handoff.asText + "\n" + handoff.detail).lowercased()
+        let blob = (
+            question + "\n" + handoff.asText + "\n" + handoff.detail
+            + "\n" + handoff.nextAction + "\n" + handoff.conclusion
+        ).lowercased()
         let keys = [
+            // UI bug / repro
             "バグ", "bug", "ボタン", "押せ", "押せない", "ui", "gui",
             "reproduce", "repro", "再現", "click", "クリック", "画面",
             "操作", "desktop", "アプリ", "snapshot", "開けない", "動かない",
-            "disabled", "grayed", "greyed", "accessibility", "ax_"
+            "disabled", "grayed", "greyed", "accessibility", "ax_",
+            // Browser / search / open-app (the failure case: "Safariを開いて検索")
+            "safari", "chrome", "firefox", "browser", "ブラウザ",
+            "検索", "search", "ニュース", "news", "開いて", "開け", "起動",
+            "open ", "open_", "browse", "ウェブ", "google", "url", "http",
+            "デスクトップ", "ウィンドウ", "window", "入力して", "スクロール",
+            "scroll", "open_app", "desktop_act", "desktop_snapshot",
         ]
         return keys.contains { blob.contains($0) }
     }
