@@ -163,6 +163,9 @@ actor CouncilOrchestrator {
         question: String, config: Config,
         onProgress: (@Sendable (LoopEvent) async -> Void)? = nil
     ) async throws -> Result {
+        // Defense in depth: callers like VectorLab may pass an unbounded paste.
+        // Role prompts tokenize this string every role × every round.
+        let question = PromptBudget.truncateForModel(question)
         let chat = JCrossChatManager.shared
         guard await chat.isLoaded else { throw CouncilError.notLoaded }
         @Sendable func tick(_ category: String, _ label: String) async {

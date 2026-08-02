@@ -33,6 +33,7 @@ actor JGenActAgent {
         maxTurns: Int,
         sessionId: String?,
         workspaceURL: URL?,
+        searchQuerySeed: String? = nil,
         onProgress: @escaping @Sendable (LoopEvent) async -> Void
     ) async -> Outcome {
 
@@ -57,7 +58,9 @@ actor JGenActAgent {
             sid = JGenVectorBusMemory.fallbackSessionId
         }
 
-        let continuing = Self.isContinueRequest(question)
+        // Never put a multi-k essay into every act turn's [GOAL].
+        let boundedQuestion = PromptBudget.truncateForModel(question)
+        let continuing = Self.isContinueRequest(boundedQuestion)
         let goal: String
         var observations: [String]
         if continuing, !lastGoal.isEmpty {
@@ -67,9 +70,9 @@ actor JGenActAgent {
                 "🔁 [L2 JGEN Act] resuming prior goal (\(observations.count) observations)…",
                 "🔁 [L2 JGEN操作] 前回の目標を再開（観測 \(observations.count) 件）…")))
         } else {
-            goal = question
+            goal = boundedQuestion
             observations = []
-            lastGoal = question
+            lastGoal = boundedQuestion
             lastObservations = []
         }
 
@@ -133,7 +136,11 @@ actor JGenActAgent {
             lastObservations = observations
 
             if Self.goalNeedsWebSearch(goal) {
-                let query = Self.searchQuery(from: goal)
+                // Prefer seed derived from the original paste head (before
+                // middle truncation) so leading 「Safariで…検索」 survives.
+                let seed = searchQuerySeed?.trimmingCharacters(in: .whitespacesAndNewlines) ?? ""
+                let querySource = seed.isEmpty ? goal : seed
+                let query = PromptBudget.capSearchQuery(Self.searchQuery(from: querySource))
                 await onProgress(.systemLog(AppLanguage.shared.t(
                     "🛠 [L2 JGEN Act] typing search query into Safari: \"\(query)\"…",
                     "🛠 [L2 JGEN操作] Safari の検索欄に「\(query)」と入力…")))
@@ -423,7 +430,7 @@ actor JGenActAgent {
         if t == "ニュースを" || t.hasSuffix("ニュース") && t.count <= 8 {
             return goal.contains("今日") ? "今日のニュース" : "今日のニュース"
         }
-        return t
+        return PromptBudget.capSearchQuery(t)
     }
 
     nonisolated static func actionKey(_ tool: AgentTool) -> String {
