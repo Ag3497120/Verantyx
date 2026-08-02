@@ -796,6 +796,7 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 79E04AD3856679EEFB1C270B /* Build configuration list for PBXNativeTarget "Verantyx" */;
 			buildPhases = (
+				E7A1B2C3D4E5F60718293A4B /* Fix jcross dylib install name */,
 				A6DDCEC14AF707C9CC57E054 /* Sources */,
 				869C54BD37DFFE38A56624BF /* Resources */,
 				F3AA225F597254C51D1CC89B /* Frameworks */,
@@ -804,6 +805,7 @@
 				9970BF29A4454C729CF521B9 /* Embed vera-memory into App Bundle */,
 				D1E2F3A4B5C64789ABCDEF01 /* Embed web modules into App Bundle */,
 				3B325E36B62448DF87973C00 /* Embed Libraries */,
+				F8A9B0C1D2E3F40516273849 /* Verify jcross dylib @rpath after embed */,
 			);
 			buildRules = (
 			);
@@ -877,6 +879,45 @@
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXShellScriptBuildPhase section */
+		E7A1B2C3D4E5F60718293A4B /* Fix jcross dylib install name */ = {
+			isa = PBXShellScriptBuildPhase;
+			alwaysOutOfDate = 1;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+				"$(SRCROOT)/Vendor/libjcross_engine_glm.dylib",
+			);
+			name = "Fix jcross dylib install name";
+			outputFileListPaths = (
+			);
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "set -e\nDYLIB=\"$SRCROOT/Vendor/libjcross_engine_glm.dylib\"\nif [ ! -f \"$DYLIB\" ]; then\n  echo \"error: missing $DYLIB\"\n  exit 1\nfi\nID=$(otool -D \"$DYLIB\" | tail -1)\nif [ \"$ID\" != \"@rpath/libjcross_engine_glm.dylib\" ]; then\n  echo \"Rewriting LC_ID_DYLIB: $ID -> @rpath/libjcross_engine_glm.dylib\"\n  install_name_tool -id @rpath/libjcross_engine_glm.dylib \"$DYLIB\"\n  codesign --force -s - \"$DYLIB\" 2>/dev/null || true\nelse\n  echo \"LC_ID_DYLIB already @rpath/libjcross_engine_glm.dylib\"\nfi\n";
+		};
+		F8A9B0C1D2E3F40516273849 /* Verify jcross dylib @rpath after embed */ = {
+			isa = PBXShellScriptBuildPhase;
+			alwaysOutOfDate = 1;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+			);
+			name = "Verify jcross dylib @rpath after embed";
+			outputFileListPaths = (
+			);
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "set -e\nAPP=\"$BUILT_PRODUCTS_DIR/$PRODUCT_NAME.app\"\nBIN=\"$APP/Contents/MacOS/$PRODUCT_NAME\"\nFW=\"$APP/Contents/Frameworks/libjcross_engine_glm.dylib\"\nif [ -f \"$FW\" ]; then\n  ID=$(otool -D \"$FW\" | tail -1)\n  if [ \"$ID\" != \"@rpath/libjcross_engine_glm.dylib\" ]; then\n    echo \"Fixing embedded dylib id: $ID\"\n    install_name_tool -id @rpath/libjcross_engine_glm.dylib \"$FW\"\n    codesign --force -s - \"$FW\" 2>/dev/null || true\n  fi\nfi\nif [ -f \"$BIN\" ]; then\n  if otool -L \"$BIN\" | grep -q '/Users/.*/libjcross_engine_glm.dylib'; then\n    echo \"error: $BIN still links an absolute /Users/.../libjcross_engine_glm.dylib path\"\n    otool -L \"$BIN\" | grep jcross || true\n    exit 1\n  fi\n  echo \"jcross link OK: $(otool -L \"$BIN\" | grep jcross || echo '(no jcross line — check linkage)')\"\nfi\n";
+		};
 		D1E2F3A4B5C64789ABCDEF01 /* Embed web modules into App Bundle */ = {
 			isa = PBXShellScriptBuildPhase;
 			alwaysOutOfDate = 1;
