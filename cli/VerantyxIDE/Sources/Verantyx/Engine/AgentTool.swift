@@ -1474,13 +1474,18 @@ actor AgentToolExecutor {
                 // THAT window instead of the visible display (which would
                 // just show Verantyx itself, since it's kept frontmost).
                 let hiddenActive = await MainActor.run { HiddenWindowAutomation.shared.targetAppName != nil }
-                let frame: String
+                let semanticXML = try await AXVisionBridge.shared.getSemanticSnapshot()
+                var frame: String? = nil
+                var captureNote = ""
                 if hiddenActive, let hidden = await HiddenWindowAutomation.shared.captureWindowImage() {
                     frame = hidden
                 } else {
-                    frame = try await SafariVisionBridge.shared.takeScreenshot(enforceSafari: false)
+                    do {
+                        frame = try await SafariVisionBridge.shared.takeScreenshot(enforceSafari: false)
+                    } catch {
+                        captureNote = "\n[NO SCREENSHOT] \(error.localizedDescription)\nContinuing with AX map only.\n"
+                    }
                 }
-                let semanticXML = try await AXVisionBridge.shared.getSemanticSnapshot()
 
                 // JGEN can't consume raw images. Prefer AX/text → encode →
                 // inject (aligned JGEN space). Vision feature-print inject
@@ -1491,7 +1496,7 @@ actor AgentToolExecutor {
                     hiddenStateReflection = await JGenVectorBusMemory.reflectCurrentScreenAligned(
                         axSemanticXML: semanticXML
                     )
-                    if hiddenStateReflection == nil {
+                    if hiddenStateReflection == nil, let frame {
                         hiddenStateReflection = await VisualHiddenStateBridge.reflectOnScreen(base64Image: frame)
                     }
                     let sessionId = await MainActor.run { AppState.shared?.vxChatSessionId }
@@ -1504,16 +1509,18 @@ actor AgentToolExecutor {
                         changedRegion: nil,
                         concepts: ["ui-observe", "bug-repro", "desktop-snapshot"]
                     )
-                } else {
+                } else if let frame {
                     await CognitiveAnchorEngine.shared.setVisionScreenshot(frame)
                 }
-                await MainActor.run {
-                    AppState.shared?.lastVideoFrames = [frame]
+                if let frame {
+                    await MainActor.run {
+                        AppState.shared?.lastVideoFrames = [frame]
+                    }
                 }
 
                 return """
                 [DESKTOP_SNAPSHOT]
-                Captured desktop frame\(hiddenActive ? " (hidden window mirror)" : ""). \(jgenActive ? "JGEN backend — AX map encoded into hidden state (Vision raw inject only as fallback)." : "Screenshot updated and injected to context.")
+                Captured desktop frame\(hiddenActive ? " (hidden window mirror)" : ""). \(jgenActive ? "JGEN backend — AX map encoded into hidden state (Vision raw inject only as fallback)." : "Screenshot updated and injected to context.")\(captureNote)
                 \(hiddenStateReflection.map { "\n\($0)\n" } ?? "")
                 == SEMANTIC UI MAP ==
                 \(semanticXML)
@@ -1556,11 +1563,28 @@ actor AgentToolExecutor {
                 }
 
                 try await Task.sleep(nanoseconds: 2_000_000_000)
-                let frame: String
+                var frame: String? = nil
+                var captureDeniedNote = ""
                 if hiddenActive, let hidden = await HiddenWindowAutomation.shared.captureWindowImage() {
                     frame = hidden
                 } else {
-                    frame = try await SafariVisionBridge.shared.takeScreenshot(enforceSafari: false)
+                    do {
+                        frame = try await SafariVisionBridge.shared.takeScreenshot(enforceSafari: false)
+                    } catch {
+                        // Click/type may have succeeded; do not fail the whole
+                        // tool on Screen Recording TCC (common with ad-hoc DMG).
+                        captureDeniedNote = "\n[NO SCREENSHOT] \(error.localizedDescription)\n"
+                        if ScreenCapturePermission.looksLikeDenied(error.localizedDescription) {
+                            let ax = (try? await AXVisionBridge.shared.getSemanticSnapshot()) ?? "(AX unavailable)"
+                            return """
+                            [DESKTOP_ACT: \(action)]
+                            Action attempted. Screenshot blocked by Screen Recording TCC.\(captureDeniedNote)
+                            == SEMANTIC UI MAP ==
+                            \(String(ax.prefix(1200)))
+                            """
+                        }
+                        return "[DESKTOP ERROR] \(error.localizedDescription)"
+                    }
                 }
 
                 // Only run the (cheap, but not free) Vision-framework
@@ -1569,7 +1593,7 @@ actor AgentToolExecutor {
                 // single-point target to loop-detect against.
                 var noVisualChange = false
                 var changedRegion: CGRect? = nil
-                if cmd == "click", let before = frameBeforeAction {
+                if cmd == "click", let before = frameBeforeAction, let frame {
                     let distance = SafariVisionBridge.shared.computeVisualSimilarity(base64A: before, base64B: frame)
                     if distance < 10.0 {
                         noVisualChange = true
@@ -1583,10 +1607,12 @@ actor AgentToolExecutor {
                     }
                 }
 
-                await CognitiveAnchorEngine.shared.setVisionScreenshot(frame)
-                await MainActor.run {
-                    AppState.shared?.lastVideoFrames = [frame]
-                    AppState.shared?.lastDesktopChangedRegion = changedRegion
+                if let frame {
+                    await CognitiveAnchorEngine.shared.setVisionScreenshot(frame)
+                    await MainActor.run {
+                        AppState.shared?.lastVideoFrames = [frame]
+                        AppState.shared?.lastDesktopChangedRegion = changedRegion
+                    }
                 }
 
                 if cmd == "click" {
@@ -1595,7 +1621,7 @@ actor AgentToolExecutor {
                         : "🔴 A red circle shows where your mouse clicked."
                     let resultText = """
                     [DESKTOP_ACT: \(action)]
-                    Action performed. New screenshot injected\(hiddenActive ? " (hidden window mirror)" : "").
+                    Action performed. New screenshot injected\(hiddenActive ? " (hidden window mirror)" : "").\(captureDeniedNote)
                     \(changeNote)
                     """
                     if !noVisualChange, await JCrossChatManager.shared.isLoaded {
@@ -1613,7 +1639,7 @@ actor AgentToolExecutor {
                     return resultText
                 }
 
-                let resultText = "[DESKTOP_ACT: \(action)]\nAction performed. New screenshot injected\(hiddenActive ? " (hidden window mirror)" : "")."
+                let resultText = "[DESKTOP_ACT: \(action)]\nAction performed. New screenshot injected\(hiddenActive ? " (hidden window mirror)" : "").\(captureDeniedNote)"
                 if await JCrossChatManager.shared.isLoaded {
                     let sessionId = await MainActor.run { AppState.shared?.vxChatSessionId }
                     await JGenVectorBusMemory.stampObservation(

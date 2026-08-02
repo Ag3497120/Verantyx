@@ -92,8 +92,27 @@ actor JGenActAgent {
 
         var finalAnswer = ""
         var toolCount = 0
+        var identicalErrorStreak = 0
+        var lastErrorFingerprint = ""
         // Give small models enough steps for open → snapshot → search → done.
         let turnsCap = max(6, min(max(maxTurns, 6), 16))
+
+        // 0.5B models often skip OPEN_APP and spam clicks. Bootstrap Safari when
+        // the goal clearly needs a browser.
+        if toolCount == 0, Self.goalNeedsBrowser(goal) {
+            let openTool: AgentTool = .openApp(name: "Safari")
+            let call = AgentToolCall(tool: openTool)
+            await onProgress(.systemLog(AppLanguage.shared.t(
+                "🛠 [L2 JGEN Act] bootstrapping [OPEN_APP: Safari]…",
+                "🛠 [L2 JGEN操作] 先に [OPEN_APP: Safari] を実行…")))
+            await onProgress(.toolCall(call))
+            let result = await executor.execute(openTool, workspaceURL: workspaceURL)
+            toolCount += 1
+            let trimmed = result.count > 1500 ? String(result.prefix(1500)) + "…" : result
+            observations.append("\(call.displayLabel) → \(trimmed)")
+            lastObservations = observations
+            await onProgress(.toolResult(AgentToolCall(tool: openTool, result: trimmed, succeeded: !result.contains("ERROR"))))
+        }
 
         for turn in 1...turnsCap {
             let memory = await JGenVectorBusMemory.recallBundle(
@@ -119,13 +138,16 @@ actor JGenActAgent {
             }
             let hint: String
             if toolCount == 0 {
-                hint = "First step: [OPEN_APP: Safari] (complete tag with ])."
-            } else if observations.last?.contains("open -a") == true
+                hint = "First required tag is [OPEN_APP: Safari]."
+            } else if observations.last?.localizedCaseInsensitiveContains("opened") == true
                         || observations.last?.localizedCaseInsensitiveContains("open_app") == true
-                        || observations.last?.localizedCaseInsensitiveContains("opened") == true {
-                hint = "Next required: [DESKTOP_SNAPSHOT]"
+                        || observations.last?.contains("open -a") == true {
+                hint = "Next required tag is [DESKTOP_SNAPSHOT]."
+            } else if observations.last?.localizedCaseInsensitiveContains("NO SCREENSHOT") == true
+                        || observations.last.map(ScreenCapturePermission.looksLikeDenied) == true {
+                hint = "Screenshot blocked. Prefer [AX_ACT: …] or [DONE: …]. Do not repeat the same click."
             } else {
-                hint = "Emit one valid tool tag to progress the search, or [DONE: …] if finished."
+                hint = "Emit one valid tool tag, or [DONE: …] if finished. Do not repeat a failing click."
             }
             userParts.append("Turn \(turn)/\(turnsCap). \(hint)")
 
@@ -189,6 +211,13 @@ actor JGenActAgent {
                 break
             }
 
+            // Refuse DESKTOP_ACT before any app open when goal needs a browser.
+            if case .desktopAct = tool, toolCount == 0, Self.goalNeedsBrowser(goal) {
+                observations.append("(blocked DESKTOP_ACT before OPEN_APP — open Safari first)")
+                lastObservations = observations
+                continue
+            }
+
             let call = AgentToolCall(tool: tool)
             await onProgress(.toolCall(call))
             let result = await executor.execute(tool, workspaceURL: workspaceURL)
@@ -207,6 +236,37 @@ actor JGenActAgent {
                 changedRegion: nil,
                 concepts: ["ui-observe", "bug-repro", "jgen-act"]
             )
+
+            // Stop hammering the same failing click when Screen Recording TCC is dead.
+            if ScreenCapturePermission.looksLikeDenied(trimmed),
+               trimmed.localizedCaseInsensitiveContains("DESKTOP ERROR") {
+                finalAnswer = AppLanguage.shared.t(
+                    "Stopped: Screen Recording permission is not active for this Verantyx process.\n\n\(ScreenCapturePermission.recoveryMessage)",
+                    "中断: この Verantyx プロセスに画面収録権限が付与されていません。\n\n\(ScreenCapturePermission.recoveryMessage)"
+                )
+                await MainActor.run { ScreenCapturePermission.openSystemSettings() }
+                break
+            }
+
+            let fingerprint = Self.errorFingerprint(trimmed)
+            if !fingerprint.isEmpty {
+                if fingerprint == lastErrorFingerprint {
+                    identicalErrorStreak += 1
+                } else {
+                    identicalErrorStreak = 1
+                    lastErrorFingerprint = fingerprint
+                }
+                if identicalErrorStreak >= 2 {
+                    finalAnswer = AppLanguage.shared.t(
+                        "Stopped repeating the same failing action (\(identicalErrorStreak)×). Last error:\n\(String(trimmed.prefix(500)))\n\nFix Screen Recording if mentioned, then say 「続けて」.",
+                        "同じ失敗操作を \(identicalErrorStreak) 回繰り返したため停止しました。最後のエラー:\n\(String(trimmed.prefix(500)))\n\n画面収録の案内があれば直してから「続けて」と送ってください。"
+                    )
+                    break
+                }
+            } else {
+                identicalErrorStreak = 0
+                lastErrorFingerprint = ""
+            }
         }
 
         if finalAnswer.isEmpty {
@@ -244,6 +304,25 @@ actor JGenActAgent {
         let t = question.trimmingCharacters(in: .whitespacesAndNewlines).lowercased()
         let keys = ["続けて", "つづけて", "続行", "再開", "continue", "keep going", "resume", "次へ", "つづき"]
         return keys.contains { t == $0 || t.hasPrefix($0) }
+    }
+
+    nonisolated static func goalNeedsBrowser(_ goal: String) -> Bool {
+        let t = goal.lowercased()
+        let keys = ["safari", "ブラウザ", "chrome", "firefox", "ニュース", "news", "検索", "search", "web", "url", "http"]
+        return keys.contains { t.contains($0) }
+    }
+
+    /// Collapse retryable failure text so identical spam can be detected.
+    nonisolated static func errorFingerprint(_ text: String) -> String {
+        let u = text.lowercased()
+        guard u.contains("error") || u.contains("no screenshot") || u.contains("blocked")
+                || ScreenCapturePermission.looksLikeDenied(text) else {
+            return ""
+        }
+        // Keep action + error class, drop volatile suffixes.
+        let clipped = String(text.prefix(180))
+            .replacingOccurrences(of: #"\s+"#, with: " ", options: .regularExpression)
+        return clipped
     }
 
     nonisolated static func hasCompleteToolTag(_ text: String) -> Bool {
