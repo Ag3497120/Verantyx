@@ -67,6 +67,7 @@ struct HumanPriorityModeView: View {
                             Group {
                                 switch section {
                                 case .mcp:       MCPView()
+                                case .growth:    GrowthConsolePanel()
                                 case .evolution: SelfEvolutionView().environmentObject(app)
                                 case .search:    GlobalSearchView().environmentObject(app)
                                 case .git:       GitPanelView().environmentObject(app)

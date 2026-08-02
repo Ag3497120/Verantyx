@@ -20,23 +20,9 @@ actor JCrossChatManager {
 
     private init() {}
 
-    /// `JGenConverter.convertedModels` (what Settings shows) is a union of
-    /// the Application Support location (bundled binary, the default) and
-    /// a custom verantyx-cli checkout's `converted_models/` (only if that
-    /// advanced override is on) -- so loading has to check both locations
-    /// too, in the same order, or a model converted under the override
-    /// wouldn't be found here.
+    /// Loads from Application Support (`JGenPaths.convertedModelsDir`).
     private func resolvedJGenPath(for modelFileName: String) async -> String {
-        let appSupportPath = JGenPaths.convertedModelsDir.appendingPathComponent(modelFileName).path
-        if FileManager.default.fileExists(atPath: appSupportPath) { return appSupportPath }
-        let (useCustom, repoPath) = await MainActor.run {
-            (JGenConverter.shared.useCustomRepo, JGenConverter.shared.repoPath)
-        }
-        if useCustom, !repoPath.isEmpty {
-            let customPath = "\(repoPath)/converted_models/\(modelFileName)"
-            if FileManager.default.fileExists(atPath: customPath) { return customPath }
-        }
-        return appSupportPath
+        JGenPaths.convertedModelsDir.appendingPathComponent(modelFileName).path
     }
 
     enum ChatError: Error, LocalizedError {
@@ -55,7 +41,7 @@ actor JCrossChatManager {
             case .tokenizerPathMissing(let path):
                 return "\(path).meta.json has no \"tokenizer\" field -- this model was converted without a known tokenizer (e.g. --parts lexicon)."
             case .architectureUnsupported(let model, let arch):
-                return "\(model) is architecture \"\(arch)\" -- JCrossEngine's Rust forward pass only supports \"standard\"/\"moe_standard\" architectures. jgen_forge still converted it as a static weight lexicon (usable in the Vector Lab's project/resynthesize), but it can't be loaded here for chat/encode/council -- pick a different (standard-architecture) model instead."
+                return "\(model) is architecture \"\(arch)\" -- JCrossEngine's Rust forward pass only supports \"standard\"/\"moe_standard\"/\"hybrid_ssm\" architectures. jgen_forge still converted it as a static weight lexicon (usable in the Vector Lab's project/resynthesize), but it can't be loaded here for chat/encode/council -- pick a different (supported-architecture) model instead."
             case .noRealTokenizer(let model):
                 return "\(model) has no real HuggingFace tokenizer -- jgen_forge fell back to a GGUF vocabulary sidecar (not a full tokenizer.json/config.json), which JCrossChatManager can't load directly. Convert with --tokenizer pointing at a matching HF tokenizer folder, or pick a model whose tokenizer was auto-discovered."
             }
@@ -75,13 +61,13 @@ actor JCrossChatManager {
             throw ChatError.metaNotFound(modelFileName)
         }
 
-        // jgen_forge still converts architectures its own inference engine
-        // can't run (e.g. hybrid_ssm MoE like qwen35moe) -- as a static
-        // weight lexicon only. Catch that here with a clear explanation
-        // rather than letting it fail confusingly on the tokenizer step
-        // (a lexicon-only conversion's "tokenizer" is often just a raw
-        // GGUF vocab sidecar, not a real one).
-        if let arch = meta["arch"] as? String, !["standard", "moe_standard"].contains(arch) {
+        // Lexicon-only converts lack transformer weights — not runnable for chat.
+        if let parts = meta["parts"] as? String, parts == "lexicon" {
+            throw ChatError.architectureUnsupported(model: modelFileName, arch: "lexicon")
+        }
+        // Unsupported arches still get a .jgen + meta from forge; reject here.
+        // hybrid_ssm (Ornith / Qwen3.5 GDN) is supported on the CPU path.
+        if let arch = meta["arch"] as? String, !["standard", "moe_standard", "hybrid_ssm"].contains(arch) {
             throw ChatError.architectureUnsupported(model: modelFileName, arch: arch)
         }
 

@@ -132,6 +132,34 @@ struct ArchitectureTemplate: Identifiable, Codable {
         ),
 
         ArchitectureTemplate(
+            id: "jgen-ornith-hybrid",
+            name: "Ornith / Qwen3.5 hybrid (JGEN)",
+            nameJA: "Ornith / Qwen3.5 ハイブリッド（JGEN）",
+            description: "Council + execution on one hybrid_ssm JGEN (Ornith or Qwen3.5 Gated DeltaNet). Convert from Detected Models in Settings — converter ships in the app. CPU GDN today; Metal GDN later.",
+            descriptionJA: "合議も実行も同一 hybrid_ssm JGEN（Ornith または Qwen3.5 Gated DeltaNet）。設定の検出済みモデルから変換（コンバータはアプリ同梱）。当面は CPU GDN、Metal GDN は後日。",
+            councilConfig: .init(roleCount: 5, roundsCap: 4, injectionPolicy: .none,
+                                 useVeraMemory: true, zoneLayers: [.l1, .l1_5, .l2, .l3],
+                                 useEternalMemory: true, escalateOnLowConfidence: false,
+                                 escalationConfidenceThreshold: 0.6, escalationModel: "",
+                                 executionMode: .external),
+            layers: [
+                LayerSpec(role: .memory, enabled: true, backend: .none,
+                          note: "Vera + zones + eternal", noteJA: "Vera + ゾーン + 永遠"),
+                LayerSpec(role: .councilCore, enabled: true, backend: .jgen, modelHint: "ornith",
+                          minRAMGB: 12,
+                          note: "hybrid_ssm JGEN", noteJA: "hybrid_ssm JGEN"),
+                LayerSpec(role: .execution, enabled: true, backend: .jgen, modelHint: "ornith",
+                          minRAMGB: 12,
+                          note: "Same hybrid model", noteJA: "同一ハイブリッド"),
+                LayerSpec(role: .escalation, enabled: false, backend: .none,
+                          note: "Disabled", noteJA: "無効"),
+            ],
+            executionToolPolicy: .init(maxTurns: 12, allowWeb: false, allowShell: false, allowDesktop: true),
+            requirements: .init(minRAMGB: 16, minFreeDiskGB: 20, needsNetwork: false, needsOllama: false, needsJGEN: true),
+            tags: ["jgen-only", "hybrid", "ornith"]
+        ),
+
+        ArchitectureTemplate(
             id: "strongest",
             name: "Strongest (4-layer)",
             nameJA: "最強構成(4層)",

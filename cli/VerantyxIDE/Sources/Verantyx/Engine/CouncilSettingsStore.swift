@@ -27,6 +27,8 @@ final class CouncilSettingsStore: ObservableObject {
     private static let useVisualMemoryKey = "council_use_visual_memory"
     private static let useVeraHarnessKey = "council_use_vera_harness"
     private static let cognitionModeKey = "council_cognition_mode"
+    private static let allowKeyframeEyeKey = "council_allow_keyframe_eye"
+    private static let keyframeEyePrivacyAcknowledgedKey = "council_keyframe_eye_privacy_ack"
 
     @Published var config: CouncilOrchestrator.Config {
         didSet { persistConfig() }
@@ -77,6 +79,17 @@ final class CouncilSettingsStore: ObservableObject {
     /// text memory.
     @Published var useVisualMemory: Bool {
         didSet { UserDefaults.standard.set(useVisualMemory, forKey: Self.useVisualMemoryKey) }
+    }
+
+    /// 1fps keyframe eye (Vera-a-V): explicit user permission. Default OFF.
+    /// Real capture also requires privacy ack + agent running + HiddenWindow target.
+    @Published var allowKeyframeEye: Bool {
+        didSet { UserDefaults.standard.set(allowKeyframeEye, forKey: Self.allowKeyframeEyeKey) }
+    }
+
+    /// User confirmed the privacy warning before enabling keyframe eye.
+    @Published var keyframeEyePrivacyAcknowledged: Bool {
+        didSet { UserDefaults.standard.set(keyframeEyePrivacyAcknowledged, forKey: Self.keyframeEyePrivacyAcknowledgedKey) }
     }
 
     /// Milestone N: "Vera as harness" mode. When true, a chat turn is
@@ -136,6 +149,8 @@ final class CouncilSettingsStore: ObservableObject {
         executionModel = ud.string(forKey: Self.executionModelKey) ?? ""
         executionUseJGEN = ud.bool(forKey: Self.executionUseJGENKey)
         useVisualMemory = ud.bool(forKey: Self.useVisualMemoryKey)
+        allowKeyframeEye = ud.bool(forKey: Self.allowKeyframeEyeKey)
+        keyframeEyePrivacyAcknowledged = ud.bool(forKey: Self.keyframeEyePrivacyAcknowledgedKey)
         useVeraHarnessForChat = ud.bool(forKey: Self.useVeraHarnessKey)
         cognitionMode = CognitionMode(rawValue: ud.string(forKey: Self.cognitionModeKey) ?? "normal") ?? .normal
     }

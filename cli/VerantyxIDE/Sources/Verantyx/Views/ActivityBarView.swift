@@ -12,7 +12,8 @@ struct ActivityBarView: View {
         case search      = "magnifyingglass"
         case git         = "arrow.triangle.branch"
         case mcp         = "puzzlepiece.extension"
-        case evolution   = "arrow.triangle.2.circlepath"  // Self-Evolution
+        case growth      = "leaf"  // Vera M/O growth + quarantine (web module)
+        case evolution   = "arrow.triangle.2.circlepath"  // IDE source patches / PR
         case extensions  = "puzzlepiece"
         case settings    = "gearshape"
     }
@@ -21,7 +22,7 @@ struct ActivityBarView: View {
         VStack(spacing: 0) {
             // Top icons
             VStack(spacing: 2) {
-                ForEach([ActivitySection.explorer, .search, .git, .mcp, .evolution], id: \.self) { section in
+                ForEach([ActivitySection.explorer, .search, .git, .mcp, .growth, .evolution], id: \.self) { section in
                     activityButton(section)
                 }
             }
@@ -110,7 +111,8 @@ struct ActivityBarView: View {
         case .explorer:  return app.t("Explorer", "エクスプローラー")
         case .search:    return app.t("Search", "検索")
         case .git:       return app.t("Source Control", "ソース管理")
-        case .evolution: return app.t("Self-Evolution", "自己進化")
+        case .evolution: return app.t("IDE patches (build/PR)", "IDEパッチ（ビルド/PR）")
+        case .growth:    return app.t("Vera growth (M/O + quarantine)", "Vera成長（M/O・検疫）")
         case .extensions: return app.t("Extensions", "拡張機能")
         case .settings:  return app.t("Settings", "設定")
         }

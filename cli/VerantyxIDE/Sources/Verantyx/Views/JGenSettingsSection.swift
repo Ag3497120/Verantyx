@@ -1,24 +1,16 @@
 import SwiftUI
 
-/// Settings UI for JGenConverter: an "Ollama pull"-simple way to get a
-/// model ready for JCrossEngine (Milestone A of the JGEN/RustBrain
-/// integration) -- either name a model already known to Ollama/LM Studio/
-/// the HF cache, or drop a model folder/.gguf into the dropzone folder.
-/// No manual conversion arguments needed either way; jgen_forge.py
-/// (verantyx-cli) handles format detection and conversion end to end.
+/// Settings UI for in-app JGEN conversion (forge + engine ship in the app).
+/// Detect Ollama / LM Studio / HF cache models, Convert, Load — no external
+/// repo or Terminal.
 struct JGenSettingsSection: View {
     @EnvironmentObject var app: AppState
     @ObservedObject private var converter = JGenConverter.shared
     @State private var isLoading: String?
     @State private var loadedModel: String?
     @State private var loadError: String?
-    /// Optional explicit tokenizer override per model (HF repo id like
-    /// "Qwen/Qwen2.5-0.5B-Instruct" or a local tokenizer folder path),
-    /// keyed by DiscoveredSource.name. Ollama only ever hands over raw
-    /// GGUF weights -- when a GGUF's own embedded tokenizer metadata is
-    /// incomplete (e.g. missing BPE merges), no amount of automatic
-    /// matching/synthesis can fix that, so this exposes the same explicit
-    /// override verantyx-cli's own --tokenizer flag always supported.
+    /// Optional tokenizer override (HF repo id or local folder), keyed by
+    /// DiscoveredSource.name — same capability as forge `--tokenizer`.
     @State private var tokenizerOverrides: [String: String] = [:]
 
     var body: some View {
@@ -28,46 +20,21 @@ struct JGenSettingsSection: View {
             card {
                 VStack(alignment: .leading, spacing: 10) {
                     Text(app.t(
-                        "Convert a model to .jgen for JCrossEngine (hidden-state read/inject). Models already in Ollama/LM Studio/the HF cache are detected automatically below -- just click Convert, no typing needed.",
-                        "JCrossEngine(隠れ状態の読み取り/介入)用に、モデルを.jgenへ変換します。Ollama・LM Studio・HFキャッシュにあるモデルは下に自動検出されるので、入力不要でConvertを押すだけです。"
+                        "Convert → Load → chat here. Hybrid (Ornith / Qwen3.5) and dense GGUF support ships inside Verantyx — no separate CLI install.",
+                        "ここで変換→読み込み→チャット。ハイブリッド(Ornith / Qwen3.5)とDense GGUF対応は Verantyx に同梱済みです（別CLIのインストール不要）。"
                     ))
                     .font(.system(size: 10))
                     .foregroundStyle(.secondary)
 
-                    Divider().opacity(0.2)
-                    Toggle(app.t(
-                        "Advanced: use a verantyx-cli checkout instead of the built-in converter",
-                        "上級者向け: 内蔵の変換ツールの代わりにverantyx-cliのチェックアウトを使う"
-                    ), isOn: $converter.useCustomRepo)
-                        .toggleStyle(.checkbox)
-                        .font(.system(size: 10))
-
-                    if converter.useCustomRepo && !converter.repoPathValid {
-                        HStack(spacing: 8) {
-                            Image(systemName: "exclamationmark.triangle.fill")
-                                .font(.system(size: 11))
-                                .foregroundStyle(Color(red: 1.0, green: 0.7, blue: 0.3))
-                            VStack(alignment: .leading, spacing: 2) {
-                                Text(app.t(
-                                    "No verantyx-cli checkout selected yet.",
-                                    "verantyx-cliのチェックアウトがまだ選択されていません。"
-                                ))
-                                .font(.system(size: 10))
-                                .foregroundStyle(Color(red: 1.0, green: 0.7, blue: 0.3))
-                            }
-                            Spacer()
-                            Button {
-                                converter.pickRepoFolder()
-                            } label: {
-                                Text(app.t("Locate…", "場所を指定…"))
-                            }
-                            .buttonStyle(.bordered)
-                            .controlSize(.small)
-                        }
-                    } else if converter.useCustomRepo {
-                        Text(converter.repoPath)
-                            .font(.system(size: 9, design: .monospaced))
-                            .foregroundStyle(Color(red: 0.55, green: 0.55, blue: 0.6))
+                    HStack(spacing: 6) {
+                        Image(systemName: "shippingbox.fill")
+                            .font(.system(size: 10))
+                            .foregroundStyle(Color(red: 0.4, green: 0.85, blue: 0.55))
+                        Text(app.t("Converter & engine included in this app",
+                                   "コンバータとエンジンはこのアプリに含まれています"))
+                            .font(.system(size: 9, weight: .semibold))
+                            .foregroundStyle(Color(red: 0.7, green: 0.85, blue: 0.75))
+                        Spacer()
                     }
 
                     Divider().opacity(0.2)
@@ -111,9 +78,20 @@ struct JGenSettingsSection: View {
                                         .foregroundStyle(Color(red: 0.6, green: 0.6, blue: 0.7))
                                         .frame(width: 14)
                                     VStack(alignment: .leading, spacing: 1) {
-                                        Text(src.name)
-                                            .font(.system(size: 11, design: .monospaced))
-                                            .foregroundStyle(Color(red: 0.9, green: 0.9, blue: 0.95))
+                                        HStack(spacing: 6) {
+                                            Text(src.name)
+                                                .font(.system(size: 11, design: .monospaced))
+                                                .foregroundStyle(Color(red: 0.9, green: 0.9, blue: 0.95))
+                                            if src.looksHybrid {
+                                                Text("hybrid")
+                                                    .font(.system(size: 8, weight: .bold))
+                                                    .foregroundStyle(Color(red: 0.35, green: 0.75, blue: 0.95))
+                                                    .padding(.horizontal, 5)
+                                                    .padding(.vertical, 1)
+                                                    .background(Color(red: 0.2, green: 0.35, blue: 0.45).opacity(0.5))
+                                                    .clipShape(RoundedRectangle(cornerRadius: 3))
+                                            }
+                                        }
                                         Text("\(src.source) · \(String(format: "%.2f", src.sizeGB))GB")
                                             .font(.system(size: 9))
                                             .foregroundStyle(Color(red: 0.55, green: 0.55, blue: 0.6))
@@ -228,6 +206,15 @@ struct JGenSettingsSection: View {
                                     .foregroundStyle(Color(red: 0.85, green: 0.85, blue: 0.9))
                                     .lineLimit(1)
                                     .truncationMode(.middle)
+                                if let badge = converter.archBadge(for: name) {
+                                    Text(badge)
+                                        .font(.system(size: 8, weight: .bold))
+                                        .foregroundStyle(
+                                            badge == "Hybrid" ? Color(red: 0.35, green: 0.75, blue: 0.95)
+                                            : badge == "Lexicon" ? Color(red: 0.75, green: 0.65, blue: 0.35)
+                                            : Color(red: 0.7, green: 0.7, blue: 0.75)
+                                        )
+                                }
                                 Spacer()
                                 if loadedModel == name {
                                     Label(app.t("Active", "使用中"), systemImage: "bolt.fill")
@@ -240,8 +227,8 @@ struct JGenSettingsSection: View {
                                         .font(.system(size: 9))
                                         .foregroundStyle(Color(red: 0.7, green: 0.7, blue: 0.4))
                                         .help(app.t(
-                                            "This model's architecture isn't supported by JCrossEngine's inference (e.g. a hybrid_ssm MoE like qwen35moe). jgen_forge converted it as a static weight lexicon only -- it can't be loaded for chat/encode/council.",
-                                            "このモデルのアーキテクチャはJCrossEngineの推論に対応していません(qwen35moeのようなhybrid_ssm MoEなど)。jgen_forgeは静的な重み辞書としてのみ変換しました — チャット/エンコード/評議会での読み込みはできません。"
+                                            "This architecture isn't runnable in JCrossEngine yet (lexicon / Vector Lab only).",
+                                            "このアーキテクチャはまだJCrossEngineで推論できません（辞書/Vector Labのみ）。"
                                         ))
                                 } else {
                                     Button {

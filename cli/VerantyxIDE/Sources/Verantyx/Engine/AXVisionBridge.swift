@@ -25,7 +25,26 @@ class AXVisionBridge {
             return "[AX_ERROR] No frontmost application found."
         }
         
-        let appElement = AXUIElementCreateApplication(frontApp.processIdentifier)
+        return try await getSemanticSnapshot(appName: frontApp.localizedName ?? "Unknown",
+                                             pid: frontApp.processIdentifier)
+    }
+
+    /// Snapshot a specific app by localized name (keyframe eye / HiddenWindow target).
+    func getSemanticSnapshot(appName: String) async throws -> String {
+        guard AXIsProcessTrusted() else {
+            return "[AX_ERROR] Accessibility permission is missing. Please grant it in System Settings > Privacy & Security > Accessibility."
+        }
+        let match = NSWorkspace.shared.runningApplications.first {
+            $0.localizedName == appName
+        }
+        guard let app = match else {
+            return "[AX_ERROR] No running application named \(appName)."
+        }
+        return try await getSemanticSnapshot(appName: appName, pid: app.processIdentifier)
+    }
+
+    private func getSemanticSnapshot(appName: String, pid: pid_t) async throws -> String {
+        let appElement = AXUIElementCreateApplication(pid)
         
         // Clear previous cache
         elementCache.removeAll()
@@ -38,12 +57,12 @@ class AXVisionBridge {
             var mainWindow: CFTypeRef?
             let mainErr = AXUIElementCopyAttributeValue(appElement, kAXMainWindowAttribute as CFString, &mainWindow)
             if mainErr == .success, let main = mainWindow {
-                return buildXMLTree(for: main as! AXUIElement, appName: frontApp.localizedName ?? "Unknown")
+                return buildXMLTree(for: main as! AXUIElement, appName: appName)
             }
-            return "[AX_ERROR] Could not find focused or main window for \(frontApp.localizedName ?? "Unknown")."
+            return "[AX_ERROR] Could not find focused or main window for \(appName)."
         }
         
-        return buildXMLTree(for: window as! AXUIElement, appName: frontApp.localizedName ?? "Unknown")
+        return buildXMLTree(for: window as! AXUIElement, appName: appName)
     }
     
     // Perform an action on an element by its ID

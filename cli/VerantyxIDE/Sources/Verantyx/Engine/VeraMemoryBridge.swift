@@ -458,6 +458,56 @@ enum VeraMemoryBridge {
         """
     }
 
+    // MARK: - AI-fact quarantine (Milestone M companion)
+
+    struct PendingAiFact: Identifiable {
+        let index: Int
+        let text: String
+        let source: String
+        let timestamp: String
+        var id: Int { index }
+    }
+
+    static func listPendingAiFacts() async -> [PendingAiFact] {
+        let raw = await MCPEngine.shared.callTool(
+            serverName: serverName, toolName: "list_pending_ai_facts",
+            arguments: [:], mode: .human
+        )
+        guard let data = raw.data(using: .utf8),
+              let arr = try? JSONSerialization.jsonObject(with: data) as? [[String: Any]]
+        else { return [] }
+        return arr.enumerated().compactMap { offset, entry in
+            let index = (entry["index"] as? Int) ?? offset
+            let text = (entry["text"] as? String) ?? (entry["fact"] as? String) ?? ""
+            guard !text.isEmpty else { return nil }
+            let source = (entry["source"] as? String) ?? ""
+            let timestamp = (entry["timestamp"] as? String)
+                ?? (entry["ts"] as? String)
+                ?? ""
+            return PendingAiFact(index: index, text: text, source: source, timestamp: timestamp)
+        }
+    }
+
+    static func acceptAiFact(index: Int) async -> Bool {
+        let raw = await MCPEngine.shared.callTool(
+            serverName: serverName, toolName: "accept_ai_fact",
+            arguments: ["index": index], mode: .human
+        )
+        guard let data = raw.data(using: .utf8),
+              let obj = try? JSONSerialization.jsonObject(with: data) as? [String: Any] else { return false }
+        return (obj["ok"] as? Bool) ?? true
+    }
+
+    static func rejectAiFact(index: Int) async -> Bool {
+        let raw = await MCPEngine.shared.callTool(
+            serverName: serverName, toolName: "reject_ai_fact",
+            arguments: ["index": index], mode: .human
+        )
+        guard let data = raw.data(using: .utf8),
+              let obj = try? JSONSerialization.jsonObject(with: data) as? [String: Any] else { return false }
+        return (obj["ok"] as? Bool) ?? true
+    }
+
     // MARK: - Milestone M: self-growth domain-module review
     //
     // Mirrors `list_verified_ui_elements`'s JSON-parsing pattern above.

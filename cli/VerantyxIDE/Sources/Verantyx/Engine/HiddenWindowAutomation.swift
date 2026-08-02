@@ -87,6 +87,7 @@ final class HiddenWindowAutomation: ObservableObject {
         await setMinimized(true, appName: appName)
         NSApp.activate(ignoringOtherApps: true)
         startGuardingFrontmost()
+        VisualKeyframePump.shared.reconcile()
         return targetWindowFrame
     }
 
@@ -103,6 +104,7 @@ final class HiddenWindowAutomation: ObservableObject {
         targetWindowFrame = nil
         targetWindowID = nil
         lastMirrorImage = nil
+        VisualKeyframePump.shared.reconcile()
     }
 
     /// Briefly un-minimizes the target window, runs `body` (which needs a
@@ -169,23 +171,36 @@ final class HiddenWindowAutomation: ObservableObject {
     func captureWindowImage() async -> String? {
         guard let frame = targetWindowFrame else { return nil }
         return await withRestoredWindow { [self] in
-            let windowID = targetWindowID ?? findWindowID(ownerName: targetAppName ?? "")
-            guard let windowID else { return nil }
-            targetWindowID = windowID
-
-            guard let image = CGWindowListCreateImage(frame, .optionIncludingWindow, windowID, [.boundsIgnoreFraming]) else {
-                return nil
-            }
-            let nsImage = NSImage(cgImage: image, size: NSSize(width: image.width, height: image.height))
-            guard let tiff = nsImage.tiffRepresentation,
-                  let bitmap = NSBitmapImageRep(data: tiff),
-                  let jpeg = bitmap.representation(using: .jpeg, properties: [.compressionFactor: 0.8]) else {
-                return nil
-            }
-            let base64 = jpeg.base64EncodedString()
-            lastMirrorImage = base64
-            return base64
+            encodeWindowJPEG(frame: frame)
         }
+    }
+
+    /// 1fps pump path: capture **without** un-minimizing. May return nil
+    /// when the window server has no live backing store for a minimized
+    /// window — callers must treat that as skip-this-tick, not an error.
+    @discardableResult
+    func captureWindowImageQuiet() async -> String? {
+        guard let frame = targetWindowFrame else { return nil }
+        return encodeWindowJPEG(frame: frame)
+    }
+
+    private func encodeWindowJPEG(frame: CGRect) -> String? {
+        let windowID = targetWindowID ?? findWindowID(ownerName: targetAppName ?? "")
+        guard let windowID else { return nil }
+        targetWindowID = windowID
+
+        guard let image = CGWindowListCreateImage(frame, .optionIncludingWindow, windowID, [.boundsIgnoreFraming]) else {
+            return nil
+        }
+        let nsImage = NSImage(cgImage: image, size: NSSize(width: image.width, height: image.height))
+        guard let tiff = nsImage.tiffRepresentation,
+              let bitmap = NSBitmapImageRep(data: tiff),
+              let jpeg = bitmap.representation(using: .jpeg, properties: [.compressionFactor: 0.8]) else {
+            return nil
+        }
+        let base64 = jpeg.base64EncodedString()
+        lastMirrorImage = base64
+        return base64
     }
 
     // MARK: - Input (mouse needs a brief restore, keyboard goes by PID)

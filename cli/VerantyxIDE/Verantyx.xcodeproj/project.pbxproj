@@ -7,6 +7,9 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		DFEE4BA8D939460891B49C0B /* CapabilityRegistry.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2B2EBE704F994785AB9B8D34 /* CapabilityRegistry.swift */; };
+		F8DA6B1D7F0A420BBC01AAC5 /* VectorGrowthHooks.swift in Sources */ = {isa = PBXBuildFile; fileRef = A3A75195818E4D40ADBF55E7 /* VectorGrowthHooks.swift */; };
+		1E0E1CD5FAC0427BA33FC1A5 /* WebModuleHost.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC4FB3FBAD54427CA94924A2 /* WebModuleHost.swift */; };
 		C5F272A828F27292A11ED28B /* ReasoningTimeline.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7DD0CF9E9F56A2FF9A6D39DB /* ReasoningTimeline.swift */; };
 		5C35B7A8BDA56F41FC5FFD18 /* VisualHiddenStateBridge.swift in Sources */ = {isa = PBXBuildFile; fileRef = D5C786D70CCAA026C7BAC4AB /* VisualHiddenStateBridge.swift */; };
 		FD56391C9605CF5946289609 /* ReasoningTimelineView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1AE4220F14D01AD7EC75770E /* ReasoningTimelineView.swift */; };
@@ -21,6 +24,8 @@
 		FF265150001D4B38A2037E44 /* UITestVectorTrace.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9E2133625D924EB3B369F0B1 /* UITestVectorTrace.swift */; };
 		86DA21A1684E420DAB6534F2 /* VisualFeaturePrintEmbedder.swift in Sources */ = {isa = PBXBuildFile; fileRef = C12EDA7B984A4D9B85742631 /* VisualFeaturePrintEmbedder.swift */; };
 		7A65950190C94EF0A54097D3 /* VisualMemoryStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4296BA43B77648A89E1D64BF /* VisualMemoryStore.swift */; };
+		A8F1E2D3C4B5968778695A4B /* VeraAVRing.swift in Sources */ = {isa = PBXBuildFile; fileRef = B9E2F3D4C5B6A7988796A5B4 /* VeraAVRing.swift */; };
+		C0D1E2F3A4B5C6D7E8F90123 /* VisualKeyframePump.swift in Sources */ = {isa = PBXBuildFile; fileRef = D1E2F3A4B5C6D7E8F9012345 /* VisualKeyframePump.swift */; };
 		9EC6D011E2BF4E409FE8B78E /* JGenAgentServer.swift in Sources */ = {isa = PBXBuildFile; fileRef = B50306E127984592B5BCC6A4 /* JGenAgentServer.swift */; };
 		469636130C874E78B4CDB0C0 /* VeraAgentClient.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2EDD97988EB74544ADC19B5E /* VeraAgentClient.swift */; };
 		C6598F741AC442F2A93CB8A0 /* EternalMemoryStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4B728F0A1FE34F8BA86187D5 /* EternalMemoryStore.swift */; };
@@ -231,6 +236,9 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		2B2EBE704F994785AB9B8D34 /* CapabilityRegistry.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CapabilityRegistry.swift; sourceTree = "<group>"; };
+		A3A75195818E4D40ADBF55E7 /* VectorGrowthHooks.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VectorGrowthHooks.swift; sourceTree = "<group>"; };
+		CC4FB3FBAD54427CA94924A2 /* WebModuleHost.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WebModuleHost.swift; sourceTree = "<group>"; };
 		025E206375BC2AD36FD097AF /* CortexOnboardingSheet.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CortexOnboardingSheet.swift; sourceTree = "<group>"; };
 		050936E7E07D1743B386A740 /* JCrossIR6Axis.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = JCrossIR6Axis.swift; sourceTree = "<group>"; };
 		0530516815C4965D10EF8506 /* RepoMapEngine.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RepoMapEngine.swift; sourceTree = "<group>"; };
@@ -270,6 +278,8 @@
 		9E2133625D924EB3B369F0B1 /* UITestVectorTrace.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UITestVectorTrace.swift; sourceTree = "<group>"; };
 		C12EDA7B984A4D9B85742631 /* VisualFeaturePrintEmbedder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VisualFeaturePrintEmbedder.swift; sourceTree = "<group>"; };
 		4296BA43B77648A89E1D64BF /* VisualMemoryStore.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VisualMemoryStore.swift; sourceTree = "<group>"; };
+		B9E2F3D4C5B6A7988796A5B4 /* VeraAVRing.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VeraAVRing.swift; sourceTree = "<group>"; };
+		D1E2F3A4B5C6D7E8F9012345 /* VisualKeyframePump.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VisualKeyframePump.swift; sourceTree = "<group>"; };
 		B50306E127984592B5BCC6A4 /* JGenAgentServer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = JGenAgentServer.swift; sourceTree = "<group>"; };
 		2EDD97988EB74544ADC19B5E /* VeraAgentClient.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VeraAgentClient.swift; sourceTree = "<group>"; };
 		4B728F0A1FE34F8BA86187D5 /* EternalMemoryStore.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EternalMemoryStore.swift; sourceTree = "<group>"; };
@@ -579,6 +589,7 @@
 				AF413A3E752CA6446C0FD0A7 /* PrivacyShieldView.swift */,
 				2123AA8E95CFC74CF0FA42F4 /* ResizableSplit.swift */,
 				11B59AAFEB592888A37115C3 /* SelfEvolutionView.swift */,
+				CC4FB3FBAD54427CA94924A2 /* WebModuleHost.swift */,
 				8DF2C2D7BE640032534C82B6 /* SessionHistoryView.swift */,
 				F1B6C6E77D87695E9301243A /* StereoCrossGraphView.swift */,
 				A9C32260F6774C4C93FBDA96 /* HiddenWindowMirrorView.swift */,
@@ -649,6 +660,8 @@
 				DC25A03DB54A65B9B740D72A /* CortexEngine.swift */,
 				7CD56C73912B6F627FB42759 /* JCrossSwarmRunner.swift */,
 				1368F7D4BD6464D1EBD8C201 /* VeraMemoryBridge.swift */,
+				2B2EBE704F994785AB9B8D34 /* CapabilityRegistry.swift */,
+				A3A75195818E4D40ADBF55E7 /* VectorGrowthHooks.swift */,
 				786677E8663CF9F60DB0575C /* VeraSkillForge.swift */,
 				09F07917B97E16DE546E140E /* CortexHandshakeServer.swift */,
 				CEE54E7C0348CE92B4AE07FD /* Counter.swift */,
@@ -717,6 +730,8 @@
 				C12EDA7B984A4D9B85742631 /* VisualFeaturePrintEmbedder.swift */,
 				D5C786D70CCAA026C7BAC4AB /* VisualHiddenStateBridge.swift */,
 				4296BA43B77648A89E1D64BF /* VisualMemoryStore.swift */,
+				B9E2F3D4C5B6A7988796A5B4 /* VeraAVRing.swift */,
+				D1E2F3A4B5C6D7E8F9012345 /* VisualKeyframePump.swift */,
 				B50306E127984592B5BCC6A4 /* JGenAgentServer.swift */,
 				2EDD97988EB74544ADC19B5E /* VeraAgentClient.swift */,
 				4B728F0A1FE34F8BA86187D5 /* EternalMemoryStore.swift */,
@@ -787,6 +802,7 @@
 				3C96DA999F96C1224503C197 /* Embed verantyx-browser into App Bundle */,
 				796605CDFB0D47B099D87B15 /* Embed jgen_forge into App Bundle */,
 				9970BF29A4454C729CF521B9 /* Embed vera-memory into App Bundle */,
+				D1E2F3A4B5C64789ABCDEF01 /* Embed web modules into App Bundle */,
 				3B325E36B62448DF87973C00 /* Embed Libraries */,
 			);
 			buildRules = (
@@ -861,6 +877,25 @@
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXShellScriptBuildPhase section */
+		D1E2F3A4B5C64789ABCDEF01 /* Embed web modules into App Bundle */ = {
+			isa = PBXShellScriptBuildPhase;
+			alwaysOutOfDate = 1;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+			);
+			name = "Embed web modules into App Bundle";
+			outputFileListPaths = (
+			);
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "set -e\nRES=\"$BUILT_PRODUCTS_DIR/$PRODUCT_NAME.app/Contents/Resources/modules\"\nSRC=\"$SRCROOT/Vendor/modules\"\nif [ ! -d \"$SRC\" ]; then\n  echo \"warning: $SRC missing — Growth Console web module unavailable.\"\n  exit 0\nfi\nmkdir -p \"$RES\"\nrsync -a --delete \"$SRC/\" \"$RES/\"\necho \"web modules -> $RES\"\n";
+		};
 		3C96DA999F96C1224503C197 /* Embed verantyx-browser into App Bundle */ = {
 			isa = PBXShellScriptBuildPhase;
 			alwaysOutOfDate = 1;
@@ -1055,6 +1090,8 @@
 				86DA21A1684E420DAB6534F2 /* VisualFeaturePrintEmbedder.swift in Sources */,
 				5C35B7A8BDA56F41FC5FFD18 /* VisualHiddenStateBridge.swift in Sources */,
 				7A65950190C94EF0A54097D3 /* VisualMemoryStore.swift in Sources */,
+				A8F1E2D3C4B5968778695A4B /* VeraAVRing.swift in Sources */,
+				C0D1E2F3A4B5C6D7E8F90123 /* VisualKeyframePump.swift in Sources */,
 				9EC6D011E2BF4E409FE8B78E /* JGenAgentServer.swift in Sources */,
 				469636130C874E78B4CDB0C0 /* VeraAgentClient.swift in Sources */,
 				C6598F741AC442F2A93CB8A0 /* EternalMemoryStore.swift in Sources */,
@@ -1096,6 +1133,9 @@
 				FF66D98B3AE3259064C28D2B /* SearchGate.swift in Sources */,
 				594BC611B1DEF191393D59F9 /* SelfEvolutionEngine.swift in Sources */,
 				6A1D5B5E20A4404268C75D67 /* SelfEvolutionView.swift in Sources */,
+				DFEE4BA8D939460891B49C0B /* CapabilityRegistry.swift in Sources */,
+				F8DA6B1D7F0A420BBC01AAC5 /* VectorGrowthHooks.swift in Sources */,
+				1E0E1CD5FAC0427BA33FC1A5 /* WebModuleHost.swift in Sources */,
 				267FE0D64902DB5A8D3945CB /* SelfUpdater.swift in Sources */,
 				56C84CFCE34DEB7E57B8F7A6 /* SessionHistoryView.swift in Sources */,
 				09102F8BF469CE0499CE5993 /* StereoCrossGraphView.swift in Sources */,
