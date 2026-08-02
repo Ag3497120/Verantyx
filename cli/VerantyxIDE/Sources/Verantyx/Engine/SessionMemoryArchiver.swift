@@ -787,27 +787,10 @@ final class SessionMemoryArchiver {
            let data = try? JSONSerialization.data(withJSONObject: catalogEntries, options: .prettyPrinted) {
             let catalogURL = mcpMidDir.appendingPathComponent("skills_catalog.json")
             try? data.write(to: catalogURL)
-            
-            let catalogPath = catalogURL.path
-            Task { @MainActor in
-                let config = MCPServerConfig(
-                    name: "tool-search-oss",
-                    transport: .stdio,
-                    command: "sh -c \"cd /Users/motonishikoudai/verantyx-cli && python3 -m tool_search_oss.server --catalog \(catalogPath)\"",
-                    mode: .ai
-                )
-                if let existing = MCPEngine.shared.servers.first(where: { $0.name == "tool-search-oss" }) {
-                    if existing.command != config.command {
-                        var updated = config
-                        updated.id = existing.id
-                        MCPEngine.shared.updateServer(updated)
-                        await MCPEngine.shared.restartServer(id: updated.id)
-                    }
-                } else {
-                    MCPEngine.shared.addServer(config)
-                    await MCPEngine.shared.connect(server: config)
-                }
-            }
+            // Catalog is written for a manually configured tool-search server.
+            // Do not auto-inject/reconnect tool-search-oss: the historical
+            // launch commands (node tools path / python -m tool_search_oss)
+            // are not present on current checkouts and only produce MCP errors.
         }
     }
 

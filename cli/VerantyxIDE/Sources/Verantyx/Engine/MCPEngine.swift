@@ -361,6 +361,9 @@ actor StdioSession {
     }
 
     private func performHandshake(stream: AsyncStream<Data>, maxWait: Double) async throws {
+        // Prefer a widely-supported version; servers may negotiate newer
+        // (mcp Python SDK lists 2024-11-05 … 2025-11-25). We accept any
+        // successful initialize result and then send notifications/initialized.
         let initReq: [String: Any] = [
             "jsonrpc": "2.0", "id": 1, "method": "initialize",
             "params": [
@@ -376,13 +379,16 @@ actor StdioSession {
 
         var buf = Data()
         let deadline = Date().addingTimeInterval(maxWait)
+        var initResponse: [String: Any]?
 
         outer: for await chunk in stream {
             buf.append(chunk)
             let (lines, remainder) = splitLines(buf)
             buf = remainder
             for line in lines {
-                if let json = parseJSON(line), let id = json["id"] as? Int, id == 1 {
+                if let json = parseJSON(line),
+                   let idValue = json["id"], "\(idValue)" == "1" {
+                    initResponse = json
                     break outer
                 }
             }
@@ -391,6 +397,17 @@ actor StdioSession {
                     "Initialize timed out (>\(Int(maxWait))s). Server may not be installed.")
             }
             try Task.checkCancellation()
+        }
+
+        guard let initResponse else {
+            throw MCPError.processLaunchFailed("No initialize response from MCP server")
+        }
+        if let err = initResponse["error"] as? [String: Any] {
+            let msg = (err["message"] as? String) ?? String(describing: err)
+            throw MCPError.processLaunchFailed("Initialize rejected: \(msg)")
+        }
+        guard initResponse["result"] != nil else {
+            throw MCPError.processLaunchFailed("Initialize response missing result")
         }
 
         let notif: [String: Any] = ["jsonrpc": "2.0", "method": "notifications/initialized"]
@@ -591,6 +608,10 @@ final class MCPEngine: ObservableObject {
     }
 
     func connect(server: MCPServerConfig) async {
+        guard server.isEnabled else {
+            connectionStatus[server.id] = .disconnected
+            return
+        }
         connectionStatus[server.id] = .connecting
         do {
             let tools = try await discoverTools(server: server)
@@ -795,30 +816,16 @@ final class MCPEngine: ObservableObject {
            let decoded = try? JSONDecoder().decode([MCPServerConfig].self, from: data) {
             servers = decoded
         }
-        
-        // ── Auto-inject verantyx-compiler if missing ──
-        if !servers.contains(where: { $0.name == "verantyx-compiler" }) {
-            let config = MCPServerConfig(
-                name: "verantyx-compiler",
-                transport: .stdio,
-                command: "sh -c \"cd /Users/motonishikoudai/verantyx-cli && /usr/local/bin/node --import tsx cortex/src/mcp/server.ts\"",
-                mode: .ai
-            )
-            servers.append(config)
-            Task { await self.connect(server: config) }
-        }
 
-        // ── Auto-inject tool-search-oss if missing ──
-        if !servers.contains(where: { $0.name == "tool-search-oss" }) {
-            let config = MCPServerConfig(
-                name: "tool-search-oss",
-                transport: .stdio,
-                command: "sh -c \"cd /Users/motonishikoudai/verantyx-cli/tools && /usr/local/bin/node --import tsx/esm src/server.ts\"",
-                mode: .ai
-            )
-            servers.append(config)
-            Task { await self.connect(server: config) }
-        }
+        // Optional external MCP servers (Cortex compiler / tool-search) used
+        // to be auto-injected with hardcoded `/usr/local/bin/node` +
+        // `/Users/.../verantyx-cli` paths. Those commands fail on every
+        // launch (wrong node path, wrong checkout, missing `tsx` deps),
+        // which painted Settings/MCP with permanent red "server error"
+        // dots. Same migration pattern as vera-memory (46e5d89f3): only
+        // register when the launch command is actually runnable; disable
+        // stale saved entries instead of auto-connecting them.
+        migrateOrInjectOptionalExternalServers()
 
         // ── Auto-inject vera-memory if missing ──
         // Vera's deterministic, typed-verdict knowledge store (`ask` /
@@ -853,6 +860,7 @@ final class MCPEngine: ObservableObject {
                 let storePath = VeraMemoryPaths.storeFile.path
                 var migrated = existing
                 migrated.command = "\"\(bundled.path)\" --store \"\(storePath)\" mcp"
+                migrated.isEnabled = true
                 servers[existingIndex] = migrated
                 Task { await self.connect(server: migrated) }
             }
@@ -878,6 +886,113 @@ final class MCPEngine: ObservableObject {
         }
 
         saveServers()
+    }
+
+    /// Resolve optional Cortex / tool-search MCP launch commands, migrate
+    /// stale UserDefaults entries off broken hardcoded paths, and only
+    /// auto-connect when the command is actually runnable on this machine.
+    private func migrateOrInjectOptionalExternalServers() {
+        // ── verantyx-compiler ──
+        if let command = Self.resolveVerantyxCompilerCommand() {
+            if let idx = servers.firstIndex(where: { $0.name == "verantyx-compiler" }) {
+                let existing = servers[idx]
+                if existing.command != command || !existing.isEnabled {
+                    var migrated = existing
+                    migrated.command = command
+                    migrated.isEnabled = true
+                    servers[idx] = migrated
+                    Task { await self.connect(server: migrated) }
+                }
+            } else {
+                let config = MCPServerConfig(
+                    name: "verantyx-compiler",
+                    transport: .stdio,
+                    command: command,
+                    mode: .ai
+                )
+                servers.append(config)
+                Task { await self.connect(server: config) }
+            }
+        } else if let idx = servers.firstIndex(where: { $0.name == "verantyx-compiler" }) {
+            // Keep the row visible but stop auto-failing on every launch.
+            if servers[idx].isEnabled {
+                var disabled = servers[idx]
+                disabled.isEnabled = false
+                servers[idx] = disabled
+            }
+            connectionStatus[servers[idx].id] = .disconnected
+        }
+
+        // ── tool-search-oss ──
+        // There is no bundled / reliably-present server entrypoint today
+        // (old node `tools/src/server.ts` path is gone; python module is
+        // not shipped). Never auto-inject. Disable any stale saved entry
+        // that still points at the broken command so Connect-All / launch
+        // does not surface a permanent error.
+        if let idx = servers.firstIndex(where: { $0.name == "tool-search-oss" }) {
+            let cmd = servers[idx].command
+            let looksBroken = cmd.contains("/usr/local/bin/node")
+                || cmd.contains("verantyx-cli/tools")
+                || cmd.contains("tsx/esm")
+                || cmd.contains("tool_search_oss.server")
+            if looksBroken || !Self.commandLooksRunnable(cmd) {
+                if servers[idx].isEnabled {
+                    var disabled = servers[idx]
+                    disabled.isEnabled = false
+                    servers[idx] = disabled
+                }
+                connectionStatus[servers[idx].id] = .disconnected
+            }
+        }
+    }
+
+    /// Prefer Homebrew node; fall back to `/usr/local` then `PATH`.
+    private static func resolveNodeBinary() -> String? {
+        let candidates = [
+            "/opt/homebrew/bin/node",
+            "/usr/local/bin/node"
+        ]
+        let fm = FileManager.default
+        if let hit = candidates.first(where: { fm.isExecutableFile(atPath: $0) }) {
+            return hit
+        }
+        // Last resort: whatever `env` would find (Process prepends homebrew PATH).
+        return "node"
+    }
+
+    /// Build a working `verantyx-compiler` stdio command, or nil if the
+    /// Cortex checkout / `tsx` deps are not present on this machine.
+    private static func resolveVerantyxCompilerCommand() -> String? {
+        let home = FileManager.default.homeDirectoryForCurrentUser.path
+        let cortexRoots = [
+            "\(home)/Projects/verantyx-cli/cortex",
+            "\(home)/verantyx-cli/cortex",
+            "/Users/motonishikoudai/Projects/verantyx-cli/cortex",
+            "/Users/motonishikoudai/verantyx-cli/cortex"
+        ]
+        let fm = FileManager.default
+        guard let cortex = cortexRoots.first(where: {
+            fm.fileExists(atPath: $0 + "/src/mcp/server.ts")
+                && fm.fileExists(atPath: $0 + "/node_modules/tsx")
+        }) else { return nil }
+        guard let node = resolveNodeBinary() else { return nil }
+        // `package.json` scripts use `cd cortex && node --import tsx src/mcp/server.ts`
+        return "sh -c \"cd \(cortex) && \(node) --import tsx src/mcp/server.ts\""
+    }
+
+    /// Cheap preflight: for `sh -c "cd DIR && …"` require DIR to exist;
+    /// for quoted binary paths require the binary to exist.
+    private static func commandLooksRunnable(_ command: String) -> Bool {
+        let fm = FileManager.default
+        if command.hasPrefix("\"") {
+            let path = String(command.dropFirst().prefix { $0 != "\"" })
+            return fm.isExecutableFile(atPath: path)
+        }
+        if let range = command.range(of: #"cd ([^ &\"]+)"#, options: .regularExpression) {
+            let token = String(command[range]).replacingOccurrences(of: "cd ", with: "")
+            return fm.fileExists(atPath: token)
+        }
+        return true
     }
 }
 
