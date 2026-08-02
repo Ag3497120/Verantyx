@@ -174,7 +174,13 @@ actor JCrossChatManager {
     /// Non-streaming generation with ChatML + phrase-loop collapse.
     func generate(conversation: [(role: String, content: String)], maxTokens: Int) throws -> String {
         guard let engine, let tokenizer else { throw ChatError.notLoaded }
-        let prompt = Self.formatChatML(conversation)
+        // Bound each turn — council/act already truncate, but VectorLab /
+        // Vera harness callers may still pass a huge paste into ChatML.
+        let bounded = conversation.map { role, content in
+            let cap = role == "system" ? 2_400 : PromptBudget.maxQuestionChars
+            return (role, PromptBudget.truncateForModel(content, maxChars: cap))
+        }
+        let prompt = Self.formatChatML(bounded)
         let promptTokens = tokenizer.encode(text: prompt).map { UInt32($0) }
         engine.reset()
         let outputTokens = try engine.generate(prompt: promptTokens, maxTokens: maxTokens)
@@ -219,9 +225,13 @@ actor JCrossChatManager {
     /// Tokenizes and forwards `text` through the full model, returning its
     /// final-token hidden state (a "thought vector" the rest of the Lab
     /// operates on).
+    ///
+    /// Long pastes are truncated first — a multi-k essay through CPU encode
+    /// (GPU idle / Vera-a path) is the memory-explosion hotspot.
     func encodeText(_ text: String) throws -> [Float] {
         guard let engine, let tokenizer else { throw ChatError.notLoaded }
-        let tokens = tokenizer.encode(text: text).map { UInt32($0) }
+        let bounded = PromptBudget.truncateForEncode(text)
+        let tokens = tokenizer.encode(text: bounded).map { UInt32($0) }
         engine.reset()
         return try engine.encode(tokens: tokens)
     }

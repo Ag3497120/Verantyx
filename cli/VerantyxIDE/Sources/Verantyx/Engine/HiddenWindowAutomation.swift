@@ -43,12 +43,27 @@ import CoreGraphics
 final class HiddenWindowAutomation: ObservableObject {
     static let shared = HiddenWindowAutomation()
 
+    enum MirrorCaptureStatus: Equatable {
+        case idle
+        case ok
+        case noTarget
+        case noWindow
+        case permissionDenied
+        case blank
+        case failed
+    }
+
     @Published private(set) var targetAppName: String?
     @Published private(set) var lastMirrorImage: String?
+    @Published private(set) var lastCaptureStatus: MirrorCaptureStatus = .idle
     private(set) var targetWindowFrame: CGRect?
     private var targetPID: pid_t?
     private var targetWindowID: CGWindowID?
     private var frontmostObserver: NSObjectProtocol?
+    /// Refcount of open HiddenWindowMirrorView instances. While > 0 the
+    /// target stays restored so the live mirror can capture without the
+    /// minimize↔restore flash racing the window server.
+    private var mirrorWatchCount = 0
 
     private init() {}
 
@@ -84,7 +99,9 @@ final class HiddenWindowAutomation: ObservableObject {
             ?? CGRect(origin: .zero, size: CGSize(width: 1280, height: 800))
         targetWindowID = findWindowID(ownerName: appName)
 
-        await setMinimized(true, appName: appName)
+        if mirrorWatchCount == 0 {
+            await setMinimized(true, appName: appName)
+        }
         NSApp.activate(ignoringOtherApps: true)
         startGuardingFrontmost()
         VisualKeyframePump.shared.reconcile()
@@ -104,21 +121,75 @@ final class HiddenWindowAutomation: ObservableObject {
         targetWindowFrame = nil
         targetWindowID = nil
         lastMirrorImage = nil
+        lastCaptureStatus = .idle
         VisualKeyframePump.shared.reconcile()
+    }
+
+    /// Mirror views call this on appear so capture can run against a
+    /// stably restored window (no 800ms minimize flash).
+    func beginMirrorWatch() async {
+        mirrorWatchCount += 1
+        guard mirrorWatchCount == 1, let appName = targetAppName else { return }
+        await restoreForMirror(appName: appName)
+    }
+
+    func endMirrorWatch() async {
+        mirrorWatchCount = max(0, mirrorWatchCount - 1)
+        guard mirrorWatchCount == 0, let appName = targetAppName else { return }
+        await setMinimized(true, appName: appName)
+        NSApp.activate(ignoringOtherApps: true)
+    }
+
+    /// Called when the target app changes while a mirror view is already open.
+    /// Does not bump the watch refcount.
+    func ensureMirrorTargetRestored() async {
+        guard mirrorWatchCount > 0, let appName = targetAppName else { return }
+        await restoreForMirror(appName: appName)
+    }
+
+    private func restoreForMirror(appName: String) async {
+        await setMinimized(false, appName: appName)
+        try? await Task.sleep(nanoseconds: 350_000_000)
+        await refreshWindowGeometry(appName: appName)
+        NSApp.activate(ignoringOtherApps: true)
     }
 
     /// Briefly un-minimizes the target window, runs `body` (which needs a
     /// real on-screen frame -- a screenshot or a coordinate click), then
     /// re-minimizes it and hands focus straight back to Verantyx. This is
     /// the one place the target app becomes visible/frontmost at all.
+    /// Skips the minimize cycle while a mirror view is watching.
     private func withRestoredWindow<T>(_ body: () async -> T) async -> T {
         guard let appName = targetAppName else { return await body() }
-        await setMinimized(false, appName: appName)
-        try? await Task.sleep(nanoseconds: 200_000_000)
+        let keepRestored = mirrorWatchCount > 0
+        if !keepRestored {
+            await setMinimized(false, appName: appName)
+            try? await Task.sleep(nanoseconds: 350_000_000)
+            await refreshWindowGeometry(appName: appName)
+        }
         let result = await body()
-        await setMinimized(true, appName: appName)
-        NSApp.activate(ignoringOtherApps: true)
+        if !keepRestored {
+            await setMinimized(true, appName: appName)
+            NSApp.activate(ignoringOtherApps: true)
+        }
         return result
+    }
+
+    private func refreshWindowGeometry(appName: String) async {
+        let readScript = """
+        tell application "System Events"
+            tell process "\(appName)"
+                set p to position of window 1
+                set s to size of window 1
+                return (item 1 of p as text) & "," & (item 2 of p as text) & "," & (item 1 of s as text) & "," & (item 2 of s as text)
+            end tell
+        end tell
+        """
+        let result = await runOsascript(readScript)
+        if let parsed = parseFrame(from: result) {
+            targetWindowFrame = parsed
+        }
+        targetWindowID = findWindowID(ownerName: appName)
     }
 
     private func setMinimized(_ minimized: Bool, appName: String) async {
@@ -169,9 +240,21 @@ final class HiddenWindowAutomation: ObservableObject {
     /// `lastMirrorImage` for HiddenWindowMirrorView to display.
     @discardableResult
     func captureWindowImage() async -> String? {
-        guard let frame = targetWindowFrame else { return nil }
+        guard targetAppName != nil else {
+            lastCaptureStatus = .noTarget
+            return nil
+        }
+        // Mirror watch already keeps the window restored — avoid the
+        // minimize cycle so the preview does not race the window server.
+        if mirrorWatchCount > 0 {
+            return encodeWindowJPEG()
+        }
+        guard targetWindowFrame != nil else {
+            lastCaptureStatus = .noWindow
+            return nil
+        }
         return await withRestoredWindow { [self] in
-            encodeWindowJPEG(frame: frame)
+            encodeWindowJPEG()
         }
     }
 
@@ -180,27 +263,82 @@ final class HiddenWindowAutomation: ObservableObject {
     /// window — callers must treat that as skip-this-tick, not an error.
     @discardableResult
     func captureWindowImageQuiet() async -> String? {
-        guard let frame = targetWindowFrame else { return nil }
-        return encodeWindowJPEG(frame: frame)
+        guard targetAppName != nil else { return nil }
+        return encodeWindowJPEG()
     }
 
-    private func encodeWindowJPEG(frame: CGRect) -> String? {
-        let windowID = targetWindowID ?? findWindowID(ownerName: targetAppName ?? "")
-        guard let windowID else { return nil }
-        targetWindowID = windowID
+    private func encodeWindowJPEG() -> String? {
+        if !ScreenCapturePermission.isGranted {
+            ScreenCapturePermission.request()
+        }
 
-        guard let image = CGWindowListCreateImage(frame, .optionIncludingWindow, windowID, [.boundsIgnoreFraming]) else {
+        let windowID = targetWindowID ?? findWindowID(ownerName: targetAppName ?? "")
+        guard let windowID else {
+            lastCaptureStatus = .noWindow
             return nil
         }
+        targetWindowID = windowID
+
+        // Use CGRectNull like BrowserBridge / VideoClipManager — capturing
+        // against a stale AX frame (Cocoa points from before minimize) often
+        // intersects nothing after restore and yields a blank image.
+        guard let image = CGWindowListCreateImage(
+            .null,
+            .optionIncludingWindow,
+            windowID,
+            [.boundsIgnoreFraming]
+        ) else {
+            lastCaptureStatus = ScreenCapturePermission.isGranted ? .failed : .permissionDenied
+            return nil
+        }
+
+        if image.width < 2 || image.height < 2 || Self.isVisuallyBlank(image) {
+            // TCC denial frequently returns a valid but fully-black CGImage
+            // instead of nil — treat that as permission / blank, not content.
+            lastCaptureStatus = ScreenCapturePermission.isGranted ? .blank : .permissionDenied
+            return nil
+        }
+
         let nsImage = NSImage(cgImage: image, size: NSSize(width: image.width, height: image.height))
         guard let tiff = nsImage.tiffRepresentation,
               let bitmap = NSBitmapImageRep(data: tiff),
               let jpeg = bitmap.representation(using: .jpeg, properties: [.compressionFactor: 0.8]) else {
+            lastCaptureStatus = .failed
             return nil
         }
         let base64 = jpeg.base64EncodedString()
         lastMirrorImage = base64
+        lastCaptureStatus = .ok
         return base64
+    }
+
+    /// Cheap luminance probe: Screen Recording denial often yields an
+    /// all-black frame of the right size rather than a nil CGImage.
+    private static func isVisuallyBlank(_ image: CGImage) -> Bool {
+        let sampleW = min(32, image.width)
+        let sampleH = min(32, image.height)
+        guard sampleW > 0, sampleH > 0 else { return true }
+        guard let ctx = CGContext(
+            data: nil,
+            width: sampleW,
+            height: sampleH,
+            bitsPerComponent: 8,
+            bytesPerRow: sampleW * 4,
+            space: CGColorSpaceCreateDeviceRGB(),
+            bitmapInfo: CGImageAlphaInfo.premultipliedLast.rawValue
+        ) else { return false }
+        ctx.interpolationQuality = .low
+        ctx.draw(image, in: CGRect(x: 0, y: 0, width: sampleW, height: sampleH))
+        guard let data = ctx.data else { return false }
+        let ptr = data.bindMemory(to: UInt8.self, capacity: sampleW * sampleH * 4)
+        var sum = 0
+        let count = sampleW * sampleH
+        for i in 0..<count {
+            let o = i * 4
+            sum += Int(ptr[o]) + Int(ptr[o + 1]) + Int(ptr[o + 2])
+        }
+        let mean = Double(sum) / Double(count * 3)
+        return mean < 2.0
     }
 
     // MARK: - Input (mouse needs a brief restore, keyboard goes by PID)
@@ -211,7 +349,7 @@ final class HiddenWindowAutomation: ObservableObject {
     /// screen coordinates.
     func clickInWindow(relativeX: Double, relativeY: Double) async {
         guard let frame = targetWindowFrame else { return }
-        await withRestoredWindow { [self] in
+        await withRestoredWindow {
         let point = CGPoint(
             x: frame.origin.x + (relativeX / 1000.0) * frame.width,
             y: frame.origin.y + (relativeY / 1000.0) * frame.height
@@ -237,18 +375,123 @@ final class HiddenWindowAutomation: ObservableObject {
     func typeInWindow(_ text: String) async {
         guard let pid = targetPID, let source = CGEventSource(stateID: .hidSystemState) else { return }
         await withRestoredWindow {
-            for char in text {
-                guard let scalar = char.unicodeScalars.first else { continue }
-                let utf16 = Array(String(scalar).utf16)
-                guard let down = CGEvent(keyboardEventSource: source, virtualKey: 0, keyDown: true),
-                      let up = CGEvent(keyboardEventSource: source, virtualKey: 0, keyDown: false) else { continue }
-                down.keyboardSetUnicodeString(stringLength: utf16.count, unicodeString: utf16)
-                up.keyboardSetUnicodeString(stringLength: utf16.count, unicodeString: utf16)
-                down.postToPid(pid)
-                try? await Task.sleep(nanoseconds: 15_000_000)
-                up.postToPid(pid)
-            }
+            Self.postUnicode(text, to: pid, source: source)
         }
+    }
+
+    /// Paste held mission payload into the currently focused control of the
+    /// target window: write `text` to the general pasteboard, then send ⌘V.
+    /// Site-agnostic — caller must focus an editable field first (AX/click).
+    func pasteIntoTargetWindow(_ text: String) async -> String {
+        guard let pid = targetPID, let source = CGEventSource(stateID: .hidSystemState) else {
+            return "ERROR: no hidden-window target — OPEN_APP first"
+        }
+        let trimmed = text.trimmingCharacters(in: .whitespacesAndNewlines)
+        guard !trimmed.isEmpty else { return "ERROR: empty paste payload" }
+
+        let board = NSPasteboard.general
+        let previous = board.string(forType: .string)
+        board.clearContents()
+        board.setString(trimmed, forType: .string)
+
+        await withRestoredWindow {
+            // ⌘V — paste into whatever currently has keyboard focus
+            Self.postKey(0x09 /* V */, flags: .maskCommand, to: pid, source: source)
+        }
+        try? await Task.sleep(nanoseconds: 400_000_000)
+
+        // Best-effort restore of prior clipboard (payload may be large).
+        if let previous {
+            board.clearContents()
+            board.setString(previous, forType: .string)
+        }
+
+        let preview = PromptBudget.payloadPreview(trimmed, maxChars: 80)
+        return "✓ Pasted \(trimmed.count) chars into target window (preview=\"\(preview)\")"
+    }
+
+    /// Safari/Chrome-style search: focus the address/search field (⌘L),
+    /// replace contents, type `query`, press Return — real keystrokes into
+    /// the target process, not a hard-coded news portal URL.
+    func focusAddressBarAndSearch(_ query: String) async -> String {
+        guard let pid = targetPID, let source = CGEventSource(stateID: .hidSystemState) else {
+            return "ERROR: no hidden-window target — OPEN_APP first"
+        }
+        let trimmed = PromptBudget.capSearchQuery(
+            query.trimmingCharacters(in: .whitespacesAndNewlines)
+        )
+        guard !trimmed.isEmpty else { return "ERROR: empty search query" }
+
+        await withRestoredWindow {
+            // ⌘L — focus Smart Search / address field
+            Self.postKey(0x25 /* L */, flags: .maskCommand, to: pid, source: source)
+            try? await Task.sleep(nanoseconds: 350_000_000)
+            // ⌘A — select existing text
+            Self.postKey(0x00 /* A */, flags: .maskCommand, to: pid, source: source)
+            try? await Task.sleep(nanoseconds: 120_000_000)
+            Self.postUnicode(trimmed, to: pid, source: source)
+            try? await Task.sleep(nanoseconds: 200_000_000)
+            // Return — submit search / navigate
+            Self.postKey(0x24 /* Return */, flags: [], to: pid, source: source)
+        }
+        try? await Task.sleep(nanoseconds: 2_500_000_000)
+        return "✓ Typed into Safari search/address bar: \"\(trimmed)\" → Return"
+    }
+
+    private static func postKey(
+        _ keyCode: CGKeyCode,
+        flags: CGEventFlags,
+        to pid: pid_t,
+        source: CGEventSource
+    ) {
+        guard let down = CGEvent(keyboardEventSource: source, virtualKey: keyCode, keyDown: true),
+              let up = CGEvent(keyboardEventSource: source, virtualKey: keyCode, keyDown: false) else { return }
+        down.flags = flags
+        up.flags = flags
+        down.postToPid(pid)
+        up.postToPid(pid)
+    }
+
+    private static func postUnicode(_ text: String, to pid: pid_t, source: CGEventSource) {
+        for char in text {
+            guard let scalar = char.unicodeScalars.first else { continue }
+            let utf16 = Array(String(scalar).utf16)
+            guard let down = CGEvent(keyboardEventSource: source, virtualKey: 0, keyDown: true),
+                  let up = CGEvent(keyboardEventSource: source, virtualKey: 0, keyDown: false) else { continue }
+            down.keyboardSetUnicodeString(stringLength: utf16.count, unicodeString: utf16)
+            up.keyboardSetUnicodeString(stringLength: utf16.count, unicodeString: utf16)
+            down.postToPid(pid)
+            Thread.sleep(forTimeInterval: 0.015)
+            up.postToPid(pid)
+        }
+    }
+
+    /// Navigate Safari (or another AppleScript-scriptable browser) to `url`
+    /// without forcing it frontmost — keeps the HiddenWindow park intact.
+    func openURLInTargetBrowser(_ url: String) async -> String {
+        let app = targetAppName ?? "Safari"
+        let escaped = url
+            .replacingOccurrences(of: "\\", with: "\\\\")
+            .replacingOccurrences(of: "\"", with: "\\\"")
+        let script = """
+        tell application "\(app)"
+            if (count of windows) = 0 then
+                make new document with properties {URL:"\(escaped)"}
+            else
+                try
+                    set URL of current tab of front window to "\(escaped)"
+                on error
+                    make new document with properties {URL:"\(escaped)"}
+                end try
+            end if
+        end tell
+        """
+        let out = await runOsascript(script)
+        try? await Task.sleep(nanoseconds: 2_000_000_000)
+        if out.lowercased().contains("error") {
+            return "ERROR opening URL in \(app): \(out)"
+        }
+        return "✓ Opened URL in \(app): \(url)"
     }
 
     // MARK: - App version (for staleness detection on registered UI elements)

@@ -40,10 +40,23 @@ struct HiddenWindowMirrorView: View {
             }
         }
         .background(Color(red: 0.04, green: 0.04, blue: 0.07))
-        .task { startRefreshLoop() }
-        .onDisappear { refreshTask?.cancel() }
-        .onChange(of: automation.targetAppName) { _ in
-            Task { await refreshElementList() }
+        .task {
+            await automation.beginMirrorWatch()
+            startRefreshLoop()
+        }
+        .onDisappear {
+            refreshTask?.cancel()
+            Task { await automation.endMirrorWatch() }
+        }
+        .onChange(of: automation.targetAppName) { _, newName in
+            Task {
+                if newName != nil {
+                    await automation.ensureMirrorTargetRestored()
+                } else {
+                    nsImage = nil
+                }
+                await refreshElementList()
+            }
         }
     }
 
@@ -69,14 +82,7 @@ struct HiddenWindowMirrorView: View {
                             pendingName = ""
                         }
                 } else {
-                    Text(app.t(
-                        "No app is currently parked off-screen. Ask the agent to [OPEN_APP: ...] to start a hidden session.",
-                        "現在オフスクリーンに退避中のアプリはありません。エージェントに[OPEN_APP: ...]を実行させるとここに表示されます。"
-                    ))
-                    .font(.system(size: 11))
-                    .foregroundStyle(Color(red: 0.55, green: 0.55, blue: 0.6))
-                    .multilineTextAlignment(.center)
-                    .padding(24)
+                    mirrorPlaceholder
                 }
 
                 if let pendingPoint {
@@ -112,6 +118,103 @@ struct HiddenWindowMirrorView: View {
                 }
             }
         }
+    }
+
+    @ViewBuilder
+    private var mirrorPlaceholder: some View {
+        VStack(spacing: 12) {
+            Image(systemName: placeholderSymbol)
+                .font(.system(size: 28))
+                .foregroundStyle(Color(red: 0.7, green: 0.7, blue: 0.78))
+            Text(placeholderTitle)
+                .font(.system(size: 12, weight: .semibold))
+                .foregroundStyle(Color(red: 0.85, green: 0.9, blue: 1.0))
+                .multilineTextAlignment(.center)
+            Text(placeholderDetail)
+                .font(.system(size: 11))
+                .foregroundStyle(Color(red: 0.55, green: 0.55, blue: 0.6))
+                .multilineTextAlignment(.center)
+            if showsPermissionActions {
+                Button {
+                    ScreenCapturePermission.request()
+                    ScreenCapturePermission.openSystemSettings()
+                } label: {
+                    Text(app.t("Open Screen Recording Settings", "画面収録の設定を開く"))
+                        .font(.system(size: 11, weight: .semibold))
+                }
+                .buttonStyle(.borderedProminent)
+            }
+        }
+        .padding(24)
+    }
+
+    private var placeholderSymbol: String {
+        switch automation.lastCaptureStatus {
+        case .permissionDenied, .blank:
+            return "eye.slash"
+        case .noWindow, .failed:
+            return "exclamationmark.triangle"
+        case .noTarget, .idle, .ok:
+            return "rectangle.dashed"
+        }
+    }
+
+    private var placeholderTitle: String {
+        if automation.targetAppName == nil {
+            return app.t("No hidden-window session", "隠れ窓セッションなし")
+        }
+        switch automation.lastCaptureStatus {
+        case .permissionDenied:
+            return app.t("Screen Recording required", "画面収録の許可が必要です")
+        case .blank:
+            return app.t("Capture came back blank", "キャプチャが空白です")
+        case .noWindow:
+            return app.t("Target window not found", "対象ウィンドウが見つかりません")
+        case .failed:
+            return app.t("Capture failed", "キャプチャに失敗しました")
+        case .ok, .idle, .noTarget:
+            return app.t("Waiting for first frame…", "最初のフレームを待機中…")
+        }
+    }
+
+    private var placeholderDetail: String {
+        if automation.targetAppName == nil {
+            return app.t(
+                "Ask the agent to [OPEN_APP: ...] to start a hidden session. The mirrored window will appear here.",
+                "エージェントに[OPEN_APP: ...]を実行させるとここに表示されます。"
+            )
+        }
+        switch automation.lastCaptureStatus {
+        case .permissionDenied:
+            return ScreenCapturePermission.recoveryMessage
+        case .blank:
+            return app.t(
+                "The window was found but pixels were empty. Grant Screen Recording for this Verantyx process, then re-open the mirror.",
+                "ウィンドウは見つかりましたが画素が空でした。この Verantyx に画面収録を許可してからミラーを開き直してください。"
+            )
+        case .noWindow:
+            return app.t(
+                "The parked app has no capturable window yet. Restore it once or wait for the page to finish loading.",
+                "退避中のアプリにキャプチャ可能なウィンドウがありません。一度復元するか、読み込み完了を待ってください。"
+            )
+        case .failed:
+            return app.t(
+                "CGWindowListCreateImage returned nothing. Check Screen Recording TCC / codesign identity.",
+                "CGWindowListCreateImage が空を返しました。画面収録の TCC / 署名を確認してください。"
+            )
+        case .ok, .idle, .noTarget:
+            return app.t(
+                "Session is active — refreshing the live mirror…",
+                "セッション稼働中 — ライブミラーを更新しています…"
+            )
+        }
+    }
+
+    private var showsPermissionActions: Bool {
+        automation.targetAppName != nil
+            && (automation.lastCaptureStatus == .permissionDenied
+                || automation.lastCaptureStatus == .blank
+                || !ScreenCapturePermission.isGranted)
     }
 
     @ViewBuilder
@@ -189,6 +292,11 @@ struct HiddenWindowMirrorView: View {
                     .font(.system(size: 11, design: .monospaced))
                     .foregroundStyle(Color(red: 0.6, green: 0.6, blue: 0.7))
             }
+            if automation.targetAppName != nil {
+                Text(headerStatusLabel)
+                    .font(.system(size: 10))
+                    .foregroundStyle(headerStatusColor)
+            }
             Spacer()
 
             Button {
@@ -229,15 +337,52 @@ struct HiddenWindowMirrorView: View {
         refreshTask?.cancel()
         refreshTask = Task {
             while !Task.isCancelled {
-                if automation.targetAppName != nil,
-                   let base64 = await automation.captureWindowImage(),
-                   let data = Data(base64Encoded: base64) {
-                    nsImage = NSImage(data: data)
+                if automation.targetAppName != nil {
+                    if let base64 = await automation.captureWindowImage(),
+                       let data = Data(base64Encoded: base64),
+                       let image = NSImage(data: data) {
+                        nsImage = image
+                    } else if automation.lastCaptureStatus != .ok {
+                        // Drop a stale frame when capture is denied/blank so
+                        // the status placeholder is visible instead of a
+                        // silent black rectangle.
+                        nsImage = nil
+                    }
+                } else {
+                    nsImage = nil
                 }
                 try? await Task.sleep(nanoseconds: 800_000_000)
             }
         }
         Task { await refreshElementList() }
+    }
+
+    private var headerStatusLabel: String {
+        switch automation.lastCaptureStatus {
+        case .ok:
+            return app.t("live", "ライブ")
+        case .permissionDenied:
+            return app.t("needs Screen Recording", "画面収録が必要")
+        case .blank:
+            return app.t("blank frame", "空白フレーム")
+        case .noWindow:
+            return app.t("no window", "ウィンドウなし")
+        case .failed:
+            return app.t("capture failed", "失敗")
+        case .idle, .noTarget:
+            return app.t("waiting", "待機")
+        }
+    }
+
+    private var headerStatusColor: Color {
+        switch automation.lastCaptureStatus {
+        case .ok:
+            return Color(red: 0.4, green: 0.9, blue: 0.5)
+        case .permissionDenied, .blank, .failed, .noWindow:
+            return Color(red: 1.0, green: 0.7, blue: 0.3)
+        case .idle, .noTarget:
+            return Color(red: 0.6, green: 0.6, blue: 0.7)
+        }
     }
 
     private func refreshElementList() async {

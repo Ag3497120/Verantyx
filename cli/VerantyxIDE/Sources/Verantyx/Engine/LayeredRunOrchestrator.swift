@@ -38,6 +38,20 @@ enum LayeredRunOrchestrator {
             return false
         }
 
+        // Bound the paste *once* at entry. Council roles re-tokenize + encode
+        // the user string every round; a 4k–10k essay multiplied across the
+        // cast OOMs the device. Keep a head/tail window for intent; derive
+        // desktop search from the original head before middle drop.
+        let originalLength = question.count
+        let modelQuestion = PromptBudget.truncateForModel(question)
+        let actSearchSeed = PromptBudget.searchSeed(from: question)
+        let missionPayload = PromptBudget.extractMissionPayload(from: question)
+        if PromptBudget.needsTruncate(question) {
+            await onProgress(.systemLog(AppLanguage.shared.t(
+                "✂️ [PromptBudget] user text \(originalLength)→\(modelQuestion.count) chars (head/tail windows; full paste not embedded in role prompts).",
+                "✂️ [PromptBudget] ユーザー文 \(originalLength)→\(modelQuestion.count) 文字（先頭/末尾のみ。全文は役割プロンプトに埋め込みません）。")))
+        }
+
         let store = CouncilSettingsStore.shared
         var config = store.config
         // This orchestrator owns Layers 2 and 3; tell the council not to do
@@ -51,7 +65,7 @@ enum LayeredRunOrchestrator {
 
         let result: CouncilOrchestrator.Result
         do {
-            result = try await CouncilOrchestrator.shared.deliberate(question: question, config: config, onProgress: onProgress)
+            result = try await CouncilOrchestrator.shared.deliberate(question: modelQuestion, config: config, onProgress: onProgress)
         } catch {
             await onProgress(.systemLog(AppLanguage.shared.t(
                 "⚠️ [L1 Council] failed: \(error.localizedDescription) — falling back to the normal agent.",
@@ -91,14 +105,21 @@ enum LayeredRunOrchestrator {
                 await onProgress(.systemLog(AppLanguage.shared.t(
                     "🧭 [L2 Router] desktop disabled by template → SPEAK",
                     "🧭 [L2 ルーター] テンプレでデスクトップ無効 → SPEAK")))
-            } else if JCrossChatManager.isSimpleGreeting(question) {
+            } else if JCrossChatManager.isSimpleGreeting(modelQuestion) {
                 useAct = false
                 await onProgress(.systemLog(AppLanguage.shared.t(
                     "🧭 [L2 Router] greeting → SPEAK",
                     "🧭 [L2 ルーター] 挨拶 → SPEAK")))
             } else {
-                let keywordAct = looksLikeDesktopAct(question: question, handoff: handoff)
-                if let route = await JGenSpeakActRouter.classify(question: question, handoff: handoff) {
+                let keywordAct = looksLikeDesktopAct(question: modelQuestion, handoff: handoff)
+                // Pure Q&A ("今日の天気を教えて") must not become random clicks
+                // when the tiny classifier emits ACT without desktop intent.
+                if looksLikeSpeakOnlyQA(modelQuestion), !keywordAct {
+                    useAct = false
+                    await onProgress(.systemLog(AppLanguage.shared.t(
+                        "🧭 [L2 Router] informational Q&A → SPEAK",
+                        "🧭 [L2 ルーター] 情報質問 → SPEAK")))
+                } else if let route = await JGenSpeakActRouter.classify(question: modelQuestion, handoff: handoff) {
                     // Tiny models sometimes emit SPEAK while the user clearly
                     // asked to operate the desktop — override with keyword signal.
                     if route == .speak, keywordAct {
@@ -106,6 +127,11 @@ enum LayeredRunOrchestrator {
                         await onProgress(.systemLog(AppLanguage.shared.t(
                             "🧭 [L2 Router] JGEN→SPEAK but desktop intent in user text → ACT",
                             "🧭 [L2 ルーター] JGENはSPEAKだがユーザー文に操作意図 → ACT")))
+                    } else if route == .act, !keywordAct, looksLikeSpeakOnlyQA(modelQuestion) {
+                        useAct = false
+                        await onProgress(.systemLog(AppLanguage.shared.t(
+                            "🧭 [L2 Router] JGEN→ACT but informational Q&A → SPEAK",
+                            "🧭 [L2 ルーター] JGENはACTだが情報質問 → SPEAK")))
                     } else {
                         useAct = (route == .act)
                         await onProgress(.systemLog(AppLanguage.shared.t(
@@ -126,11 +152,13 @@ enum LayeredRunOrchestrator {
                     "🛠 [L2 実行 — JGEN操作] 同一モデル — ベクトルバス経由のデスクトップ/AX（AgentLoopなし）…")))
                 let act = await JGenActAgent.shared.run(
                     handoff: handoff,
-                    question: question,
+                    question: modelQuestion,
                     useEternalMemory: config.useEternalMemory,
                     maxTurns: maxTurns,
                     sessionId: sessionId,
                     workspaceURL: app.workspaceURL,
+                    searchQuerySeed: actSearchSeed,
+                    missionPayload: missionPayload,
                     onProgress: onProgress
                 )
                 outcome = .completed(act.text)
@@ -140,7 +168,7 @@ enum LayeredRunOrchestrator {
                     "🛠 [L2 実行 — JGENネイティブ] 合議と同一モデル — ベクトルバス発話（AgentLoopなし）…")))
                 let speak = await JGenSpeakAgent.shared.run(
                     handoff: handoff,
-                    question: question,
+                    question: modelQuestion,
                     useEternalMemory: config.useEternalMemory,
                     sessionId: sessionId,
                     onProgress: onProgress
@@ -166,7 +194,7 @@ enum LayeredRunOrchestrator {
             )
             outcome = await ExecutionAgent.shared.run(
                 handoff: handoff,
-                question: question,
+                question: modelQuestion,
                 spec: spec,
                 cortex: app.cortex,
                 onProgress: onProgress
@@ -193,7 +221,7 @@ enum LayeredRunOrchestrator {
                 model: escalationModel,
                 messages: [
                     ("system", "You are the escalation layer. A council deliberated and an execution agent attempted the work; both are summarized below. Give the final, direct answer."),
-                    ("user", handoff.asText + digest + "\n\n[ORIGINAL QUESTION] \(question)")
+                    ("user", handoff.asText + digest + "\n\n[ORIGINAL QUESTION] \(modelQuestion)")
                 ]
             ), !answer.trimmingCharacters(in: .whitespacesAndNewlines).isEmpty {
                 await onProgress(.done(message: answer, workspace: app.workspaceURL))
@@ -219,9 +247,14 @@ enum LayeredRunOrchestrator {
         question: String,
         handoff: CouncilOrchestrator.Handoff
     ) -> Bool {
-        let blob = (
+        // Bound before lowercasing — keyword scan must not allocate a
+        // multi-megabyte string from a long paste + handoff.
+        let blob = PromptBudget.truncateForModel(
             question + "\n" + handoff.asText + "\n" + handoff.detail
-            + "\n" + handoff.nextAction + "\n" + handoff.conclusion
+            + "\n" + handoff.nextAction + "\n" + handoff.conclusion,
+            maxChars: 2_000,
+            headChars: 1_400,
+            tailChars: 400
         ).lowercased()
         let keys = [
             // UI bug / repro
@@ -235,7 +268,28 @@ enum LayeredRunOrchestrator {
             "open ", "open_", "browse", "ウェブ", "google", "url", "http",
             "デスクトップ", "ウィンドウ", "window", "入力して", "スクロール",
             "scroll", "open_app", "desktop_act", "desktop_snapshot",
+            "deepl", "翻訳", "translate",
         ]
         return keys.contains { blob.contains($0) }
+    }
+
+    /// Informational Q&A that should SPEAK (not random desktop clicks).
+    /// e.g. 「今日の天気を教えて」 without Safari/open/search intent.
+    private static func looksLikeSpeakOnlyQA(_ question: String) -> Bool {
+        let t = PromptBudget.truncateForModel(question, maxChars: 400, headChars: 300, tailChars: 80)
+            .lowercased()
+        let askHints = [
+            "天気", "weather", "気温", "temperature",
+            "とは", "って何", "教えて", "意味", "why ", "what is", "what's",
+            "誰", "いつ", "どこ", "どうして",
+        ]
+        let desktopHints = [
+            "safari", "chrome", "firefox", "ブラウザ", "開いて", "開け", "起動",
+            "検索", "search", "クリック", "click", "desktop", "操作",
+            "deepl", "翻訳", "translate", "snapshot", "画面",
+        ]
+        let asks = askHints.contains { t.contains($0) }
+        let desktop = desktopHints.contains { t.contains($0) }
+        return asks && !desktop
     }
 }

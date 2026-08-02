@@ -1428,7 +1428,7 @@ SYS.ENFORCE("logical_verification_before_acceptance")
                 toolResults.append("\(call.displayLabel) → \(result)")
 
                 switch tool {
-                case .openApp, .desktopSnapshot, .desktopAct, .axAct, .visionAct,
+                case .openApp, .desktopSnapshot, .desktopAct, .axAct, .pastePayload, .visionAct,
                      .visionSnapshot, .visionBrowse, .visionSearchFlow, .registerUIElement,
                      .waitUntilStable:
                     // Trim each result to keep the eventual eternal-memory

@@ -136,6 +136,8 @@ final class ReasoningTimelineStore: ObservableObject {
             return (.uiRecognition, AppLanguage.shared.t("Wait until screen stable (\(s)s)", "画面安定まで待機(\(s)秒)"))
         case .desktopAct(let action), .visionAct(let action), .axAct(let action):
             return (.uiRecognition, AppLanguage.shared.t("Operate UI: \(action.prefix(40))", "UI操作: \(action.prefix(40))"))
+        case .pastePayload:
+            return (.uiRecognition, AppLanguage.shared.t("Paste mission payload", "任務ペイロードを貼り付け"))
         case .search(let q):
             return (.search, AppLanguage.shared.t("Search: \(q)", "検索: \(q)"))
         case .searchMulti(let q):

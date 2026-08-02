@@ -60,7 +60,10 @@ actor EternalMemoryStore {
     /// forwards it through the JGEN engine and L2-normalizes -- the same
     /// vector space used for both writes and reads.
     private func embed(_ text: String) async throws -> [Float] {
-        let prompt = "This sentence: \"\(text)\" means in one word:\""
+        // Cap before wrapping — encodeText also truncates, but the PromptEOL
+        // wrapper would otherwise re-inflate a huge quote into the prompt.
+        let clipped = PromptBudget.truncateForEncode(text)
+        let prompt = "This sentence: \"\(clipped)\" means in one word:\""
         let raw = try await JCrossChatManager.shared.encodeText(prompt)
         return Self.l2Normalize(raw)
     }
