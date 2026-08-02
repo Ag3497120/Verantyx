@@ -85,8 +85,10 @@ actor JGenActAgent {
         [AX_ACT: #btn1 click]
         [WAIT_UNTIL_STABLE]
         [DONE: short status in the user's language]
+        Prefer the address/search field (type queries) over random clicks. \
         Never copy example coordinates. Never invent scores. Never write prose without a tag. \
-        Never repeat the same click. After NO VISUAL CHANGE or DESKTOP_BLOCKED, try type/AX/DONE instead.
+        Never repeat the same click. After NO VISUAL CHANGE or DESKTOP_BLOCKED, try type/AX/DONE instead. \
+        When search results are visible, click a relevant result or [DONE: …] with a short summary.
         """
 
         var finalAnswer = ""
@@ -95,12 +97,14 @@ actor JGenActAgent {
         var lastErrorFingerprint = ""
         var lastActionKey = ""
         var identicalActionStreak = 0
-        // Give small models enough steps for open → snapshot → search → done.
-        let turnsCap = max(6, min(max(maxTurns, 6), 16))
+        // Enough steps for open → type search → read/click results → done.
+        let turnsCap = max(8, min(max(maxTurns, 8), 18))
 
         await executor.resetLoopGuards()
 
-        // Tiny models cannot plan Safari search. Deterministically open → navigate → snapshot.
+        // Tiny models cannot plan Safari UI. Bootstrap: open → snapshot →
+        // type the user's query into the Smart Search field (⌘L) → Return →
+        // snapshot again, then let the model continue (click / summarize).
         if toolCount == 0, Self.goalNeedsBrowser(goal) {
             toolCount = await Self.runBootstrapTool(
                 .openApp(name: "Safari"),
@@ -113,26 +117,7 @@ actor JGenActAgent {
                 toolCount: toolCount,
                 onProgress: onProgress
             )
-
-            if let newsURL = Self.newsSearchURL(for: goal) {
-                await onProgress(.systemLog(AppLanguage.shared.t(
-                    "🛠 [L2 JGEN Act] navigating Safari → \(newsURL)…",
-                    "🛠 [L2 JGEN操作] Safari で \(newsURL) を開く…")))
-                let opened = await HiddenWindowAutomation.shared.openURLInTargetBrowser(newsURL)
-                toolCount += 1
-                observations.append("navigate → \(opened)")
-                lastObservations = observations
-                await onProgress(.systemLog(opened))
-                await JGenVectorBusMemory.stampObservation(
-                    label: "jgen_act",
-                    detail: "navigate → \(opened)",
-                    sessionId: sid,
-                    stepIndex: toolCount,
-                    actionLabel: "navigate",
-                    changedRegion: nil,
-                    concepts: ["ui-observe", "bug-repro", "jgen-act", "news-search"]
-                )
-            }
+            lastObservations = observations
 
             toolCount = await Self.runBootstrapTool(
                 .desktopSnapshot,
@@ -145,20 +130,40 @@ actor JGenActAgent {
                 toolCount: toolCount,
                 onProgress: onProgress
             )
+            lastObservations = observations
 
-            // For explicit news/search goals, finish after deterministic navigation.
-            if Self.goalNeedsNewsSearch(goal) {
-                finalAnswer = AppLanguage.shared.t(
-                    "Opened Safari and loaded a news search page. Check the hidden-window mirror (or unminimize Safari) to browse results.",
-                    "Safari を開き、ニュース検索ページを表示しました。隠れ窓ミラー（または Safari を戻して）結果を確認してください。"
+            if Self.goalNeedsWebSearch(goal) {
+                let query = Self.searchQuery(from: goal)
+                await onProgress(.systemLog(AppLanguage.shared.t(
+                    "🛠 [L2 JGEN Act] typing search query into Safari: \"\(query)\"…",
+                    "🛠 [L2 JGEN操作] Safari の検索欄に「\(query)」と入力…")))
+                let typed = await HiddenWindowAutomation.shared.focusAddressBarAndSearch(query)
+                toolCount += 1
+                observations.append("search_bar → \(typed)")
+                lastObservations = observations
+                await onProgress(.systemLog(typed))
+                await JGenVectorBusMemory.stampObservation(
+                    label: "jgen_act",
+                    detail: "search_bar → \(typed)",
+                    sessionId: sid,
+                    stepIndex: toolCount,
+                    actionLabel: "search_bar",
+                    changedRegion: nil,
+                    concepts: ["ui-observe", "bug-repro", "jgen-act", "web-search"]
+                )
+
+                toolCount = await Self.runBootstrapTool(
+                    .desktopSnapshot,
+                    label: "snapshot after search…",
+                    labelJA: "検索後に [DESKTOP_SNAPSHOT]…",
+                    executor: executor,
+                    workspaceURL: workspaceURL,
+                    sessionId: sid,
+                    observations: &observations,
+                    toolCount: toolCount,
+                    onProgress: onProgress
                 )
                 lastObservations = observations
-                if useEternalMemory, !JCrossChatManager.isPhraseLooping(finalAnswer) {
-                    let stamp = "Q: \(goal.prefix(120))\nA: \(finalAnswer.prefix(400))"
-                    try? await EternalMemoryStore.shared.add(text: String(stamp), concepts: ["jgen-act", "news-search"])
-                }
-                await onProgress(.done(message: finalAnswer, workspace: workspaceURL))
-                return Outcome(text: finalAnswer, turns: max(toolCount, 1), toolCount: toolCount)
             }
         }
 
@@ -191,9 +196,11 @@ actor JGenActAgent {
                         || observations.last?.localizedCaseInsensitiveContains("open_app") == true
                         || observations.last?.contains("open -a") == true {
                 hint = "Next required tag is [DESKTOP_SNAPSHOT]."
+            } else if observations.contains(where: { $0.contains("search_bar →") }) {
+                hint = "Search was typed. Click a relevant result, take [DESKTOP_SNAPSHOT], or [DONE: short summary of what you see]."
             } else if observations.last?.localizedCaseInsensitiveContains("NO VISUAL CHANGE") == true
                         || observations.last?.localizedCaseInsensitiveContains("DESKTOP_BLOCKED") == true {
-                hint = "Do NOT click the same place. Prefer [DESKTOP_ACT: type news] or [DONE: …]."
+                hint = "Do NOT click the same place. Prefer [DESKTOP_ACT: type …] or [DONE: …]."
             } else if observations.last?.localizedCaseInsensitiveContains("NO SCREENSHOT") == true
                         || observations.last.map(ScreenCapturePermission.looksLikeDenied) == true {
                 hint = "Screenshot blocked. Prefer [AX_ACT: …] or [DONE: …]. Do not repeat the same click."
@@ -385,20 +392,38 @@ actor JGenActAgent {
         return keys.contains { t.contains($0) }
     }
 
-    nonisolated static func goalNeedsNewsSearch(_ goal: String) -> Bool {
+    nonisolated static func goalNeedsWebSearch(_ goal: String) -> Bool {
         let t = goal.lowercased()
         return t.contains("ニュース") || t.contains("news")
-            || (t.contains("検索") && (t.contains("safari") || t.contains("ブラウザ") || t.contains("web")))
-            || (t.contains("search") && (t.contains("safari") || t.contains("browser") || t.contains("news")))
+            || t.contains("検索") || t.contains("search")
+            || t.contains("調べ") || t.contains("look up") || t.contains("google")
     }
 
-    nonisolated static func newsSearchURL(for goal: String) -> String? {
-        guard goalNeedsNewsSearch(goal) else { return nil }
-        let japanese = goal.contains("ニュース") || goal.contains("検索") || goal.contains("を")
-        if japanese {
-            return "https://news.yahoo.co.jp/"
+    /// Derive what to type into Safari's Smart Search field from the user goal.
+    nonisolated static func searchQuery(from goal: String) -> String {
+        var t = goal.trimmingCharacters(in: .whitespacesAndNewlines)
+        let strip: [String] = [
+            "Safariを開いて", "safariを開いて", "Safariで", "safariで",
+            "ブラウザを開いて", "ブラウザで", "を開いて", "開いて",
+            "検索して", "調べて", "してくださいしてください", "してください",
+            "してくれ", "して", "please ", "open safari and ", "open safari ",
+            "search for ", "search ",
+        ]
+        for s in strip {
+            t = t.replacingOccurrences(of: s, with: "", options: [.caseInsensitive])
         }
-        return "https://news.google.com/"
+        t = t.trimmingCharacters(in: .whitespacesAndNewlines)
+        // Drop leftover particles / punctuation.
+        while t.hasPrefix("を") || t.hasPrefix("で") || t.hasPrefix("の") {
+            t = String(t.dropFirst()).trimmingCharacters(in: .whitespacesAndNewlines)
+        }
+        if t.isEmpty || t == "ニュース" || t.lowercased() == "news" {
+            return goal.contains("ニュース") || goal.contains("今日") ? "今日のニュース" : "today's news"
+        }
+        if t == "ニュースを" || t.hasSuffix("ニュース") && t.count <= 8 {
+            return goal.contains("今日") ? "今日のニュース" : "今日のニュース"
+        }
+        return t
     }
 
     nonisolated static func actionKey(_ tool: AgentTool) -> String {

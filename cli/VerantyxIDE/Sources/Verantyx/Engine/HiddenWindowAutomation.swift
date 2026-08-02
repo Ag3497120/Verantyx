@@ -237,17 +237,61 @@ final class HiddenWindowAutomation: ObservableObject {
     func typeInWindow(_ text: String) async {
         guard let pid = targetPID, let source = CGEventSource(stateID: .hidSystemState) else { return }
         await withRestoredWindow {
-            for char in text {
-                guard let scalar = char.unicodeScalars.first else { continue }
-                let utf16 = Array(String(scalar).utf16)
-                guard let down = CGEvent(keyboardEventSource: source, virtualKey: 0, keyDown: true),
-                      let up = CGEvent(keyboardEventSource: source, virtualKey: 0, keyDown: false) else { continue }
-                down.keyboardSetUnicodeString(stringLength: utf16.count, unicodeString: utf16)
-                up.keyboardSetUnicodeString(stringLength: utf16.count, unicodeString: utf16)
-                down.postToPid(pid)
-                try? await Task.sleep(nanoseconds: 15_000_000)
-                up.postToPid(pid)
-            }
+            Self.postUnicode(text, to: pid, source: source)
+        }
+    }
+
+    /// Safari/Chrome-style search: focus the address/search field (⌘L),
+    /// replace contents, type `query`, press Return — real keystrokes into
+    /// the target process, not a hard-coded news portal URL.
+    func focusAddressBarAndSearch(_ query: String) async -> String {
+        guard let pid = targetPID, let source = CGEventSource(stateID: .hidSystemState) else {
+            return "ERROR: no hidden-window target — OPEN_APP first"
+        }
+        let trimmed = query.trimmingCharacters(in: .whitespacesAndNewlines)
+        guard !trimmed.isEmpty else { return "ERROR: empty search query" }
+
+        await withRestoredWindow {
+            // ⌘L — focus Smart Search / address field
+            Self.postKey(0x25 /* L */, flags: .maskCommand, to: pid, source: source)
+            try? await Task.sleep(nanoseconds: 350_000_000)
+            // ⌘A — select existing text
+            Self.postKey(0x00 /* A */, flags: .maskCommand, to: pid, source: source)
+            try? await Task.sleep(nanoseconds: 120_000_000)
+            Self.postUnicode(trimmed, to: pid, source: source)
+            try? await Task.sleep(nanoseconds: 200_000_000)
+            // Return — submit search / navigate
+            Self.postKey(0x24 /* Return */, flags: [], to: pid, source: source)
+        }
+        try? await Task.sleep(nanoseconds: 2_500_000_000)
+        return "✓ Typed into Safari search/address bar: \"\(trimmed)\" → Return"
+    }
+
+    private static func postKey(
+        _ keyCode: CGKeyCode,
+        flags: CGEventFlags,
+        to pid: pid_t,
+        source: CGEventSource
+    ) {
+        guard let down = CGEvent(keyboardEventSource: source, virtualKey: keyCode, keyDown: true),
+              let up = CGEvent(keyboardEventSource: source, virtualKey: keyCode, keyDown: false) else { return }
+        down.flags = flags
+        up.flags = flags
+        down.postToPid(pid)
+        up.postToPid(pid)
+    }
+
+    private static func postUnicode(_ text: String, to pid: pid_t, source: CGEventSource) {
+        for char in text {
+            guard let scalar = char.unicodeScalars.first else { continue }
+            let utf16 = Array(String(scalar).utf16)
+            guard let down = CGEvent(keyboardEventSource: source, virtualKey: 0, keyDown: true),
+                  let up = CGEvent(keyboardEventSource: source, virtualKey: 0, keyDown: false) else { continue }
+            down.keyboardSetUnicodeString(stringLength: utf16.count, unicodeString: utf16)
+            up.keyboardSetUnicodeString(stringLength: utf16.count, unicodeString: utf16)
+            down.postToPid(pid)
+            Thread.sleep(forTimeInterval: 0.015)
+            up.postToPid(pid)
         }
     }
 
