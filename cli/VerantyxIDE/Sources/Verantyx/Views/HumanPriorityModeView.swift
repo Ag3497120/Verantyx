@@ -26,9 +26,30 @@ struct HumanPriorityModeView: View {
     @State private var showPipelineSheet = false
     @State private var pipelineTask: String = ""
 
+    // Milestone T: Vera-a mode's own feature-panel tab + sheet state,
+    // separate from the normal mode's (ModelSelectorBarView's popover has
+    // its own showPendingToolCalls/showReasoningTimeline @State) so the
+    // two layouts' sheets never fight over the same flag.
+    @State private var veraAPanelTab: VeraAPanelTab = .settings
+    @State private var veraAShowPendingToolCalls = false
+    @State private var veraAShowReasoningTimeline = false
+
     enum SaveStatus { case saved, unsaved, saving }
 
     var body: some View {
+        // Milestone T: Vera-a mode is a completely separate top-level
+        // layout (chat full-screen + a feature side panel, no activity
+        // bar, no file tree) -- branching here, before the existing
+        // ZStack, means the normal layout below is entirely untouched
+        // when this is off (the default).
+        if app.isVeraAMode {
+            veraAModeLayout
+        } else {
+            normalModeBody
+        }
+    }
+
+    private var normalModeBody: some View {
         ZStack {
             VStack(spacing: 0) {
                 HStack(spacing: 0) {
@@ -151,6 +172,94 @@ struct HumanPriorityModeView: View {
         .onChange(of: app.currentArtifact?.id) { _, newId in
             // Artifacts are now handled dynamically via Agent UI.
         }
+    }
+
+    // MARK: - Milestone T: Vera-a mode
+    //
+    // Chat is the primary, full-size pane (inverted from the normal
+    // layout, where chat is a fixed 340pt sidebar); a small tabbed side
+    // panel gives access to JGEN/Vera-a settings, the 3D stereo-cross
+    // view, the hidden-window mirror, and the vector lab. No activity
+    // bar, no file tree, no folder-opening affordance at all -- this mode
+    // is deliberately not a code-editing surface.
+
+    private enum VeraAPanelTab: String, CaseIterable, Identifiable {
+        case settings, stereoCross, mirror, vectorLab
+        var id: String { rawValue }
+        @MainActor
+        func title(_ app: AppState) -> String {
+            switch self {
+            case .settings:    return app.t("Settings", "設定")
+            case .stereoCross: return app.t("3D Graph", "立体十字構造体")
+            case .mirror:      return app.t("Mirror", "ミラー")
+            case .vectorLab:   return app.t("Vector Lab", "ベクトルラボ")
+            }
+        }
+    }
+
+    private var veraAModeLayout: some View {
+        ResizableHSplit(
+            // Inverted from centerAndRightPanes: chat is the large/primary
+            // side here, the feature panel is the small/secondary one.
+            minLeft: 400, maxLeft: 99999, minRight: 260, initialLeft: 900
+        ) {
+            aiChatPanel
+        } right: {
+            veraAFeaturePanel
+        }
+        .background(Color(red: 0.10, green: 0.10, blue: 0.13))
+        .sheet(isPresented: $veraAShowPendingToolCalls) { PendingToolCallsView() }
+        .sheet(isPresented: $veraAShowReasoningTimeline) { ReasoningTimelineView() }
+        .toastOverlay()
+    }
+
+    private var veraAFeaturePanel: some View {
+        VStack(spacing: 0) {
+            HStack(spacing: 4) {
+                ForEach(VeraAPanelTab.allCases) { tab in
+                    Button {
+                        veraAPanelTab = tab
+                    } label: {
+                        Text(tab.title(app))
+                            .font(.system(size: 10, weight: veraAPanelTab == tab ? .bold : .regular))
+                            .foregroundStyle(veraAPanelTab == tab
+                                ? Color.white
+                                : Color(red: 0.55, green: 0.55, blue: 0.65))
+                            .padding(.horizontal, 8).padding(.vertical, 3)
+                            .background(
+                                RoundedRectangle(cornerRadius: 4)
+                                    .fill(veraAPanelTab == tab ? Color.white.opacity(0.08) : Color.clear)
+                            )
+                    }
+                    .buttonStyle(.plain)
+                }
+                Spacer()
+            }
+            .padding(.horizontal, 8)
+            .padding(.top, 6)
+            .padding(.bottom, 4)
+            .background(Color(red: 0.10, green: 0.10, blue: 0.13))
+
+            Divider().opacity(0.25)
+
+            Group {
+                switch veraAPanelTab {
+                case .settings:
+                    JGenVeraSettingsPanelView(
+                        showPendingToolCalls: $veraAShowPendingToolCalls,
+                        showReasoningTimeline: $veraAShowReasoningTimeline
+                    )
+                case .stereoCross:
+                    StereoCrossGraphView()
+                case .mirror:
+                    HiddenWindowMirrorView()
+                case .vectorLab:
+                    VectorLabView()
+                }
+            }
+            .frame(maxWidth: .infinity, maxHeight: .infinity)
+        }
+        .background(Color(red: 0.10, green: 0.10, blue: 0.14))
     }
 
     @ViewBuilder

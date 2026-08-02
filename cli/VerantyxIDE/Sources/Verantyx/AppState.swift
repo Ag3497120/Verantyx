@@ -90,6 +90,14 @@ final class AppState: ObservableObject {
     @Published var activeWebViews: [String: WKWebView] = [:]
     @Published var workspaceURL: URL?
     @Published var workspaceFiles: [URL] = []
+
+    /// Milestone T: toggled by tapping the "Gatekeeper" chip in
+    /// ModelSelectorBarView. When true, HumanPriorityModeView renders a
+    /// completely separate full-screen-chat layout (no activity bar, no
+    /// file tree) instead of its normal VS-Code-style 4-pane layout. Purely
+    /// additive -- the existing layout and its state (activitySection,
+    /// showStereoCrossGraph, etc.) are untouched either way.
+    @Published var isVeraAMode: Bool = false
     
     // ── Distributed Cortex Connectivity (Handshake) ──
     @Published var cortexWorkspacePath: String? = nil
