@@ -93,20 +93,26 @@ actor JGenActAgent {
                 "📦 [L2 JGEN操作] 任務ペイロード保持（\(lastPayload.count) 文字、preview=\"\(PromptBudget.payloadPreview(lastPayload))\"）— ChatMLには埋め込みません。")))
         }
 
+        let requiredOpenApp = Self.extractOpenAppName(from: goal)
+        let needsOpenApp = requiredOpenApp != nil || Self.goalHasOpenAppIntent(goal)
+        let needsBrowser = Self.goalNeedsBrowser(goal)
+
         let system = """
         You are Verantyx's JGEN body. One complete tool tag per turn (closing ]). \
-        Schema: SENSE → ACT → observe → on MISMATCH try alternate → DONE. \
+        Schema: OPEN_APP (if named) → SENSE → ACT → observe → on MISMATCH try alternate → DONE. \
         Allowed:
-        [OPEN_APP: Safari]
+        [OPEN_APP: AppName]
         [DESKTOP_SNAPSHOT]
-        [DESKTOP_ACT: click X Y]
+        [DESKTOP_ACT: click 120 340]
         [AX_ACT: #btn1 click]
         [PASTE_PAYLOAD]
         [WAIT_UNTIL_STABLE]
         [DONE: short status in the user's language]
+        If the goal names an app, [OPEN_APP: that app] before any click. \
         SENSE with DESKTOP_SNAPSHOT/AX map. ACT with AX/click. \
         If [PAYLOAD] ready: focus an editable text field (AX preferred), then [PASTE_PAYLOAD]. \
-        Never dump long text via DESKTOP_ACT type. Never invent coords. Never prose without a tag. \
+        Never dump long text via DESKTOP_ACT type. Never invent coords. \
+        Never emit literal X Y (schema placeholders). Never prose without a tag. \
         On MISMATCH / NO VISUAL CHANGE / DESKTOP_BLOCKED: try a different AX target or DONE. \
         Never repeat the same click.
         """
@@ -117,17 +123,32 @@ actor JGenActAgent {
         var lastErrorFingerprint = ""
         var lastActionKey = ""
         var identicalActionStreak = 0
+        /// True after a successful OPEN_APP (bootstrap or model) for this run.
+        var openAppSucceeded = false
         // Enough steps for open → type search → read/click results → done.
         let turnsCap = max(8, min(max(maxTurns, 8), 18))
 
         await executor.resetLoopGuards()
+
+        // Prefer an already-bound automation target (e.g. 「続けて」) so we
+        // do not re-OPEN when the session already owns that app.
+        if let required = requiredOpenApp {
+            let current = await MainActor.run { HiddenWindowAutomation.shared.targetAppName }
+            if Self.appNamesMatch(current, required) {
+                openAppSucceeded = true
+            }
+        }
 
         // Tiny models cannot plan Safari UI. Bootstrap: open → snapshot →
         // type the user's query into the Smart Search field (⌘L) → Return →
         // snapshot again, then let the model continue (click / summarize).
         // Translate intent only reaches a named URL destination — no site-
         // specific paste/click bootstrap; the loop discovers focus + PASTE_PAYLOAD.
-        if toolCount == 0, Self.goalNeedsBrowser(goal) {
+        //
+        // Non-browser 「〜を開いて」 goals (Teams, Slack, …) take the general
+        // OPEN_APP + SNAPSHOT path below — never force Safari for those.
+        if toolCount == 0, needsBrowser,
+           requiredOpenApp.map(Self.isBrowserAppName) ?? true {
             toolCount = await Self.runBootstrapTool(
                 .openApp(name: "Safari"),
                 label: "bootstrapping [OPEN_APP: Safari]…",
@@ -140,6 +161,9 @@ actor JGenActAgent {
                 onProgress: onProgress
             )
             lastObservations = observations
+            if Self.observationLooksLikeOpenSuccess(observations.last) {
+                openAppSucceeded = true
+            }
 
             toolCount = await Self.runBootstrapTool(
                 .desktopSnapshot,
@@ -261,6 +285,45 @@ actor JGenActAgent {
                 )
                 lastObservations = observations
             }
+        } else if toolCount == 0, let appName = requiredOpenApp {
+            // General substrate: open the named app → sense → then model acts.
+            // Do not hardcode in-app navigation (Teams issues, Slack channels, …).
+            if !openAppSucceeded {
+                toolCount = await Self.runBootstrapTool(
+                    .openApp(name: appName),
+                    label: "bootstrapping [OPEN_APP: \(appName)]…",
+                    labelJA: "先に [OPEN_APP: \(appName)] を実行…",
+                    executor: executor,
+                    workspaceURL: workspaceURL,
+                    sessionId: sid,
+                    observations: &observations,
+                    toolCount: toolCount,
+                    onProgress: onProgress
+                )
+                lastObservations = observations
+                if Self.observationLooksLikeOpenSuccess(observations.last) {
+                    openAppSucceeded = true
+                }
+            }
+
+            let alreadySnapshotted = observations.contains {
+                $0.contains("desktop_snapshot") || $0.contains("DESKTOP_SNAPSHOT")
+                    || $0.contains("UI MAP") || $0.localizedCaseInsensitiveContains("semantic")
+            }
+            if !alreadySnapshotted {
+                toolCount = await Self.runBootstrapTool(
+                    .desktopSnapshot,
+                    label: "bootstrapping [DESKTOP_SNAPSHOT]…",
+                    labelJA: "先に [DESKTOP_SNAPSHOT] を実行…",
+                    executor: executor,
+                    workspaceURL: workspaceURL,
+                    sessionId: sid,
+                    observations: &observations,
+                    toolCount: toolCount,
+                    onProgress: onProgress
+                )
+                lastObservations = observations
+            }
         }
 
         for turn in 1...turnsCap {
@@ -299,8 +362,9 @@ actor JGenActAgent {
                 || recentJoined.contains("DESKTOP_SNAPSHOT")
                 || recentJoined.localizedCaseInsensitiveContains("semantic")
                 || recentJoined.contains("UI MAP")
-            if toolCount == 0 {
-                hint = "First required tag is [OPEN_APP: Safari]."
+            if !openAppSucceeded, needsOpenApp || needsBrowser {
+                let appHint = requiredOpenApp ?? (needsBrowser ? "Safari" : "AppName")
+                hint = "First required tag is [OPEN_APP: \(appHint)]. Do not click yet."
             } else if observations.last?.localizedCaseInsensitiveContains("opened") == true
                         || observations.last?.localizedCaseInsensitiveContains("open_app") == true
                         || observations.last?.contains("open -a") == true {
@@ -382,9 +446,22 @@ actor JGenActAgent {
                 break
             }
 
-            // Refuse DESKTOP_ACT before any app open when goal needs a browser.
-            if case .desktopAct = tool, toolCount == 0, Self.goalNeedsBrowser(goal) {
-                observations.append("(blocked DESKTOP_ACT before OPEN_APP — open Safari first)")
+            // Reject schema-placeholder clicks (literal X Y) — never execute.
+            if case .desktopAct(let action) = tool, Self.isPlaceholderDesktopAct(action) {
+                let appHint = requiredOpenApp ?? (needsBrowser ? "Safari" : nil)
+                let nudge = appHint.map { " Prefer [OPEN_APP: \($0)] then [DESKTOP_SNAPSHOT]/[AX_ACT]." }
+                    ?? " Prefer [OPEN_APP]/[DESKTOP_SNAPSHOT]/[AX_ACT]; never invent coords."
+                observations.append(
+                    "(rejected placeholder DESKTOP_ACT `\(action)` — literal X/Y are not coordinates.\(nudge))"
+                )
+                lastObservations = observations
+                continue
+            }
+
+            // Refuse DESKTOP_ACT before OPEN_APP when the goal requires opening an app.
+            if case .desktopAct = tool, !openAppSucceeded, needsOpenApp || needsBrowser {
+                let appHint = requiredOpenApp ?? (needsBrowser ? "Safari" : "AppName")
+                observations.append("(blocked DESKTOP_ACT before OPEN_APP — open \(appHint) first)")
                 lastObservations = observations
                 continue
             }
@@ -422,6 +499,9 @@ actor JGenActAgent {
                 selfAction: call.displayLabel
             ))
             lastObservations = observations
+            if case .openApp = tool, Self.observationLooksLikeOpenSuccess(observations.last) {
+                openAppSucceeded = true
+            }
             await onProgress(.toolResult(AgentToolCall(tool: tool, result: trimmed, succeeded: !result.contains("ERROR"))))
 
             await JGenVectorBusMemory.stampObservation(
@@ -539,6 +619,172 @@ actor JGenActAgent {
             "deepl", "翻訳", "translate", "英訳", "和訳",
         ]
         return keys.contains { t.contains($0) }
+    }
+
+    /// True when the goal asks to open/launch something (even if we cannot
+    /// yet resolve a concrete `.app` name).
+    nonisolated static func goalHasOpenAppIntent(_ goal: String) -> Bool {
+        let t = goal.lowercased()
+        let keys = [
+            "開いて", "開け", "起動", "立ち上げ",
+            "open ", "open\t", "launch ", "start ",
+        ]
+        return keys.contains { t.contains($0) }
+    }
+
+    /// Browser bundle names we still route through the Safari search/DeepL
+    /// bootstrap (not the general OPEN_APP path).
+    nonisolated static func isBrowserAppName(_ name: String) -> Bool {
+        let n = name.lowercased()
+        return n == "safari" || n == "chrome" || n == "google chrome"
+            || n == "firefox" || n == "microsoft edge" || n == "edge"
+            || n.contains("browser") || n == "ブラウザ"
+    }
+
+    nonisolated static func appNamesMatch(_ a: String?, _ b: String) -> Bool {
+        guard let a, !a.isEmpty else { return false }
+        let x = a.lowercased()
+        let y = b.lowercased()
+        return x == y || x.contains(y) || y.contains(x)
+    }
+
+    nonisolated static func observationLooksLikeOpenSuccess(_ obs: String?) -> Bool {
+        guard let obs else { return false }
+        let u = obs.uppercased()
+        if u.contains("MISMATCH") || u.contains("ERROR") || u.contains("COULD NOT") { return false }
+        return u.contains("OPENED") || u.contains("OPEN_APP") || obs.contains("open -a")
+            || u.contains("FRONTMOST")
+    }
+
+    /// Literal schema placeholders / non-numeric click targets from tiny models.
+    nonisolated static func isPlaceholderDesktopAct(_ action: String) -> Bool {
+        let a = action.trimmingCharacters(in: .whitespacesAndNewlines)
+        let lower = a.lowercased()
+        // Exact schema echo: "click X Y" / "click x y"
+        if lower.range(of: #"^click\s+[xy]\s+[xy]\b"#, options: .regularExpression) != nil {
+            return true
+        }
+        if lower.range(of: #"^click\s+[xy]\b"#, options: .regularExpression) != nil {
+            return true
+        }
+        guard lower.hasPrefix("click") else { return false }
+        let parts = a.split(whereSeparator: { $0.isWhitespace }).map(String.init)
+        guard parts.count >= 3 else { return true }
+        // Require real numbers — reject "click foo bar", "click X 100", etc.
+        return Double(parts[1]) == nil || Double(parts[2]) == nil
+    }
+
+    /// Pull a concrete app name from 「Teamsを開いて…」 / 「open Slack and…」.
+    /// Returns a `resolveAppName` result only when a matching `.app` exists.
+    nonisolated static func extractOpenAppName(from goal: String) -> String? {
+        let intent = PromptBudget.extractTaskIntentLine(from: goal) ?? goal
+        let clipped = PromptBudget.truncateForModel(intent, maxChars: 240, headChars: 180, tailChars: 40)
+        var candidates: [String] = []
+
+        // Japanese: Appを開いて / Appを起動 / Appを開け / Appを立ち上げ
+        if let re = try? NSRegularExpression(
+            pattern: #"([A-Za-z0-9][A-Za-z0-9 .+\-]{0,40}?|[一-龯ぁ-んァ-ヶー]{2,20})を(?:開いて|開け|起動|立ち上げ)"#,
+            options: []
+        ) {
+            let ns = clipped as NSString
+            let matches = re.matches(in: clipped, options: [], range: NSRange(location: 0, length: ns.length))
+            for m in matches where m.numberOfRanges >= 2 {
+                let raw = ns.substring(with: m.range(at: 1))
+                    .trimmingCharacters(in: .whitespacesAndNewlines)
+                if !raw.isEmpty { candidates.append(raw) }
+            }
+        }
+
+        // English: open/launch/start [the] AppName (stop before and/then/…)
+        if let re = try? NSRegularExpression(
+            pattern: #"(?i)\b(?:open|launch|start)\s+(?:the\s+)?([A-Za-z][A-Za-z0-9+\-]*(?:\s+(?!and\b|then\b|to\b|for\b|with\b)[A-Za-z][A-Za-z0-9+\-]*){0,3})(?=\s+(?:and|then|to|for|with)\b|\s*[,.!?]|\s*$)"#,
+            options: []
+        ) {
+            let ns = clipped as NSString
+            let matches = re.matches(in: clipped, options: [], range: NSRange(location: 0, length: ns.length))
+            for m in matches where m.numberOfRanges >= 2 {
+                let raw = ns.substring(with: m.range(at: 1))
+                    .trimmingCharacters(in: .whitespacesAndNewlines)
+                if !raw.isEmpty { candidates.append(raw) }
+            }
+        }
+
+        // Loose: leading token + で (Safariで検索) — only when open-intent or browser word.
+        if candidates.isEmpty, goalHasOpenAppIntent(clipped) || goalNeedsBrowser(clipped) {
+            if let re = try? NSRegularExpression(
+                pattern: #"^([A-Za-z][A-Za-z0-9 .+\-]{1,30}?)で"#,
+                options: []
+            ) {
+                let ns = clipped as NSString
+                if let m = re.firstMatch(in: clipped, options: [], range: NSRange(location: 0, length: ns.length)),
+                   m.numberOfRanges >= 2 {
+                    candidates.append(ns.substring(with: m.range(at: 1)))
+                }
+            }
+        }
+
+        let stop: Set<String> = [
+            "app", "apps", "アプリ", "application", "the", "a", "an",
+            "window", "ウィンドウ", "desktop", "デスクトップ",
+            "please", "it", "this", "that", "recent", "最近",
+        ]
+
+        for raw in candidates {
+            let token = raw.trimmingCharacters(in: CharacterSet(charactersIn: "「」『』\"'"))
+                .trimmingCharacters(in: .whitespacesAndNewlines)
+            guard token.count >= 2 else { continue }
+            if stop.contains(token.lowercased()) { continue }
+            if let resolved = Self.resolveExistingAppName(token) {
+                return resolved
+            }
+        }
+        return nil
+    }
+
+    /// `AgentToolParser.resolveAppName` plus existence check so we never
+    /// bootstrap `open -a "recent"` from a bad capture.
+    nonisolated static func resolveExistingAppName(_ input: String) -> String? {
+        let aliases: [String: String] = [
+            "teams": "Microsoft Teams",
+            "ms teams": "Microsoft Teams",
+            "msteams": "Microsoft Teams",
+            "vscode": "Visual Studio Code",
+            "vs code": "Visual Studio Code",
+            "code": "Visual Studio Code",
+            "chrome": "Google Chrome",
+            "edge": "Microsoft Edge",
+            "word": "Microsoft Word",
+            "excel": "Microsoft Excel",
+            "powerpoint": "Microsoft PowerPoint",
+            "outlook": "Microsoft Outlook",
+        ]
+        let lower = input.lowercased().trimmingCharacters(in: .whitespacesAndNewlines)
+        let seeded = aliases[lower] ?? input
+        let resolved = AgentToolParser.resolveAppName(seeded)
+        if Self.applicationExists(resolved) { return resolved }
+        // Alias pointed at a real name that fuzzy-search missed.
+        if seeded != input, Self.applicationExists(seeded) { return seeded }
+        return nil
+    }
+
+    nonisolated static func applicationExists(_ name: String) -> Bool {
+        let paths = [
+            "/Applications",
+            "/System/Applications",
+            "/System/Applications/Utilities",
+            NSHomeDirectory() + "/Applications",
+        ]
+        let fm = FileManager.default
+        for path in paths {
+            let url = URL(fileURLWithPath: path).appendingPathComponent("\(name).app")
+            if fm.fileExists(atPath: url.path) { return true }
+        }
+        // Nested Simulator etc.
+        if name == "Simulator",
+           fm.fileExists(atPath: "/Applications/Xcode.app/Contents/Developer/Applications/Simulator.app") {
+            return true
+        }
+        return false
     }
 
     nonisolated static func goalNeedsWebSearch(_ goal: String) -> Bool {
@@ -743,6 +989,9 @@ actor JGenActAgent {
                 withTemplate: "[DESKTOP_ACT: click $1 400]"
             )
         }
+
+        // Leave literal schema placeholders intact so the act loop can reject
+        // them with an OPEN_APP / SNAPSHOT nudge (do not invent fake coords).
 
         return t.trimmingCharacters(in: .whitespacesAndNewlines)
     }
