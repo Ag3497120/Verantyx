@@ -952,6 +952,14 @@ actor AgentToolExecutor {
     /// of [VISION_ACT]'s Safari-only path.
     private var consecutiveDesktopClickLoopCount = 0
 
+    /// Call at the start of a fresh act/agent run so a prior DESKTOP_BLOCKED
+    /// state does not immediately reject the first click of a new goal.
+    func resetLoopGuards() {
+        consecutiveClickLoopCount = 0
+        consecutiveDesktopClickLoopCount = 0
+        lastVisionClickTarget = nil
+    }
+
     private func relativePath(of url: URL, workspace: URL?) -> String {
         guard let ws = workspace else { return url.lastPathComponent }
         let urlStr = url.standardizedFileURL.path

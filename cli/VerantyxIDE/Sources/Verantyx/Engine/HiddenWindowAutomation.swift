@@ -251,6 +251,34 @@ final class HiddenWindowAutomation: ObservableObject {
         }
     }
 
+    /// Navigate Safari (or another AppleScript-scriptable browser) to `url`
+    /// without forcing it frontmost — keeps the HiddenWindow park intact.
+    func openURLInTargetBrowser(_ url: String) async -> String {
+        let app = targetAppName ?? "Safari"
+        let escaped = url
+            .replacingOccurrences(of: "\\", with: "\\\\")
+            .replacingOccurrences(of: "\"", with: "\\\"")
+        let script = """
+        tell application "\(app)"
+            if (count of windows) = 0 then
+                make new document with properties {URL:"\(escaped)"}
+            else
+                try
+                    set URL of current tab of front window to "\(escaped)"
+                on error
+                    make new document with properties {URL:"\(escaped)"}
+                end try
+            end if
+        end tell
+        """
+        let out = await runOsascript(script)
+        try? await Task.sleep(nanoseconds: 2_000_000_000)
+        if out.lowercased().contains("error") {
+            return "ERROR opening URL in \(app): \(out)"
+        }
+        return "✓ Opened URL in \(app): \(url)"
+    }
+
     // MARK: - App version (for staleness detection on registered UI elements)
 
     /// Reads `appName`'s bundle version (CFBundleShortVersionString),

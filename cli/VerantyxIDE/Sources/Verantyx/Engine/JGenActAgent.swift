@@ -80,38 +80,86 @@ actor JGenActAgent {
         Allowed:
         [OPEN_APP: Safari]
         [DESKTOP_SNAPSHOT]
-        [DESKTOP_ACT: click 500 400]
-        [DESKTOP_ACT: type today's news]
+        [DESKTOP_ACT: click X Y]
+        [DESKTOP_ACT: type some text]
         [AX_ACT: #btn1 click]
         [WAIT_UNTIL_STABLE]
         [DONE: short status in the user's language]
-        After OPEN_APP always emit DESKTOP_SNAPSHOT next. \
-        Never invent scores. Never write prose without a tag. \
-        Never repeat a phrase.
+        Never copy example coordinates. Never invent scores. Never write prose without a tag. \
+        Never repeat the same click. After NO VISUAL CHANGE or DESKTOP_BLOCKED, try type/AX/DONE instead.
         """
 
         var finalAnswer = ""
         var toolCount = 0
         var identicalErrorStreak = 0
         var lastErrorFingerprint = ""
+        var lastActionKey = ""
+        var identicalActionStreak = 0
         // Give small models enough steps for open → snapshot → search → done.
         let turnsCap = max(6, min(max(maxTurns, 6), 16))
 
-        // 0.5B models often skip OPEN_APP and spam clicks. Bootstrap Safari when
-        // the goal clearly needs a browser.
+        await executor.resetLoopGuards()
+
+        // Tiny models cannot plan Safari search. Deterministically open → navigate → snapshot.
         if toolCount == 0, Self.goalNeedsBrowser(goal) {
-            let openTool: AgentTool = .openApp(name: "Safari")
-            let call = AgentToolCall(tool: openTool)
-            await onProgress(.systemLog(AppLanguage.shared.t(
-                "🛠 [L2 JGEN Act] bootstrapping [OPEN_APP: Safari]…",
-                "🛠 [L2 JGEN操作] 先に [OPEN_APP: Safari] を実行…")))
-            await onProgress(.toolCall(call))
-            let result = await executor.execute(openTool, workspaceURL: workspaceURL)
-            toolCount += 1
-            let trimmed = result.count > 1500 ? String(result.prefix(1500)) + "…" : result
-            observations.append("\(call.displayLabel) → \(trimmed)")
-            lastObservations = observations
-            await onProgress(.toolResult(AgentToolCall(tool: openTool, result: trimmed, succeeded: !result.contains("ERROR"))))
+            toolCount = await Self.runBootstrapTool(
+                .openApp(name: "Safari"),
+                label: "bootstrapping [OPEN_APP: Safari]…",
+                labelJA: "先に [OPEN_APP: Safari] を実行…",
+                executor: executor,
+                workspaceURL: workspaceURL,
+                sessionId: sid,
+                observations: &observations,
+                toolCount: toolCount,
+                onProgress: onProgress
+            )
+
+            if let newsURL = Self.newsSearchURL(for: goal) {
+                await onProgress(.systemLog(AppLanguage.shared.t(
+                    "🛠 [L2 JGEN Act] navigating Safari → \(newsURL)…",
+                    "🛠 [L2 JGEN操作] Safari で \(newsURL) を開く…")))
+                let opened = await HiddenWindowAutomation.shared.openURLInTargetBrowser(newsURL)
+                toolCount += 1
+                observations.append("navigate → \(opened)")
+                lastObservations = observations
+                await onProgress(.systemLog(opened))
+                await JGenVectorBusMemory.stampObservation(
+                    label: "jgen_act",
+                    detail: "navigate → \(opened)",
+                    sessionId: sid,
+                    stepIndex: toolCount,
+                    actionLabel: "navigate",
+                    changedRegion: nil,
+                    concepts: ["ui-observe", "bug-repro", "jgen-act", "news-search"]
+                )
+            }
+
+            toolCount = await Self.runBootstrapTool(
+                .desktopSnapshot,
+                label: "bootstrapping [DESKTOP_SNAPSHOT]…",
+                labelJA: "先に [DESKTOP_SNAPSHOT] を実行…",
+                executor: executor,
+                workspaceURL: workspaceURL,
+                sessionId: sid,
+                observations: &observations,
+                toolCount: toolCount,
+                onProgress: onProgress
+            )
+
+            // For explicit news/search goals, finish after deterministic navigation.
+            if Self.goalNeedsNewsSearch(goal) {
+                finalAnswer = AppLanguage.shared.t(
+                    "Opened Safari and loaded a news search page. Check the hidden-window mirror (or unminimize Safari) to browse results.",
+                    "Safari を開き、ニュース検索ページを表示しました。隠れ窓ミラー（または Safari を戻して）結果を確認してください。"
+                )
+                lastObservations = observations
+                if useEternalMemory, !JCrossChatManager.isPhraseLooping(finalAnswer) {
+                    let stamp = "Q: \(goal.prefix(120))\nA: \(finalAnswer.prefix(400))"
+                    try? await EternalMemoryStore.shared.add(text: String(stamp), concepts: ["jgen-act", "news-search"])
+                }
+                await onProgress(.done(message: finalAnswer, workspace: workspaceURL))
+                return Outcome(text: finalAnswer, turns: max(toolCount, 1), toolCount: toolCount)
+            }
         }
 
         for turn in 1...turnsCap {
@@ -143,11 +191,14 @@ actor JGenActAgent {
                         || observations.last?.localizedCaseInsensitiveContains("open_app") == true
                         || observations.last?.contains("open -a") == true {
                 hint = "Next required tag is [DESKTOP_SNAPSHOT]."
+            } else if observations.last?.localizedCaseInsensitiveContains("NO VISUAL CHANGE") == true
+                        || observations.last?.localizedCaseInsensitiveContains("DESKTOP_BLOCKED") == true {
+                hint = "Do NOT click the same place. Prefer [DESKTOP_ACT: type news] or [DONE: …]."
             } else if observations.last?.localizedCaseInsensitiveContains("NO SCREENSHOT") == true
                         || observations.last.map(ScreenCapturePermission.looksLikeDenied) == true {
                 hint = "Screenshot blocked. Prefer [AX_ACT: …] or [DONE: …]. Do not repeat the same click."
             } else {
-                hint = "Emit one valid tool tag, or [DONE: …] if finished. Do not repeat a failing click."
+                hint = "Emit one valid NEW tool tag, or [DONE: …] if finished. Never repeat a previous click."
             }
             userParts.append("Turn \(turn)/\(turnsCap). \(hint)")
 
@@ -218,6 +269,28 @@ actor JGenActAgent {
                 continue
             }
 
+            let actionKey = Self.actionKey(tool)
+            if !actionKey.isEmpty, actionKey == lastActionKey {
+                identicalActionStreak += 1
+            } else {
+                identicalActionStreak = 1
+                lastActionKey = actionKey
+            }
+            if identicalActionStreak >= 2 {
+                observations.append(
+                    "(blocked repeated action \(actionKey) ×\(identicalActionStreak) — try a different tool or DONE)"
+                )
+                lastObservations = observations
+                if identicalActionStreak >= 3 {
+                    finalAnswer = AppLanguage.shared.t(
+                        "Stopped: the model kept repeating \(actionKey). Open the hidden-window mirror to continue manually, or retry with a larger JGEN.",
+                        "停止: モデルが \(actionKey) を繰り返し続けました。隠れ窓ミラーで手動継続するか、より大きな JGEN で再試行してください。"
+                    )
+                    break
+                }
+                continue
+            }
+
             let call = AgentToolCall(tool: tool)
             await onProgress(.toolCall(call))
             let result = await executor.execute(tool, workspaceURL: workspaceURL)
@@ -258,8 +331,8 @@ actor JGenActAgent {
                 }
                 if identicalErrorStreak >= 2 {
                     finalAnswer = AppLanguage.shared.t(
-                        "Stopped repeating the same failing action (\(identicalErrorStreak)×). Last error:\n\(String(trimmed.prefix(500)))\n\nFix Screen Recording if mentioned, then say 「続けて」.",
-                        "同じ失敗操作を \(identicalErrorStreak) 回繰り返したため停止しました。最後のエラー:\n\(String(trimmed.prefix(500)))\n\n画面収録の案内があれば直してから「続けて」と送ってください。"
+                        "Stopped repeating the same failing action (\(identicalErrorStreak)×). Last error:\n\(String(trimmed.prefix(500)))\n\nSay 「続けて」 after changing strategy, or use a larger JGEN.",
+                        "同じ失敗操作を \(identicalErrorStreak) 回繰り返したため停止しました。最後のエラー:\n\(String(trimmed.prefix(500)))\n\n方針を変えて「続けて」か、より大きな JGEN を使ってください。"
                     )
                     break
                 }
@@ -312,10 +385,75 @@ actor JGenActAgent {
         return keys.contains { t.contains($0) }
     }
 
+    nonisolated static func goalNeedsNewsSearch(_ goal: String) -> Bool {
+        let t = goal.lowercased()
+        return t.contains("ニュース") || t.contains("news")
+            || (t.contains("検索") && (t.contains("safari") || t.contains("ブラウザ") || t.contains("web")))
+            || (t.contains("search") && (t.contains("safari") || t.contains("browser") || t.contains("news")))
+    }
+
+    nonisolated static func newsSearchURL(for goal: String) -> String? {
+        guard goalNeedsNewsSearch(goal) else { return nil }
+        let japanese = goal.contains("ニュース") || goal.contains("検索") || goal.contains("を")
+        if japanese {
+            return "https://news.yahoo.co.jp/"
+        }
+        return "https://news.google.com/"
+    }
+
+    nonisolated static func actionKey(_ tool: AgentTool) -> String {
+        switch tool {
+        case .desktopAct(let action):
+            return "desktop_act:\(action.trimmingCharacters(in: .whitespacesAndNewlines).lowercased())"
+        case .openApp(let name):
+            return "open_app:\(name.lowercased())"
+        case .desktopSnapshot:
+            return "desktop_snapshot"
+        case .axAct(let action):
+            return "ax_act:\(action)"
+        default:
+            return ""
+        }
+    }
+
+    private static func runBootstrapTool(
+        _ tool: AgentTool,
+        label: String,
+        labelJA: String,
+        executor: AgentToolExecutor,
+        workspaceURL: URL?,
+        sessionId: String,
+        observations: inout [String],
+        toolCount: Int,
+        onProgress: @escaping @Sendable (LoopEvent) async -> Void
+    ) async -> Int {
+        let call = AgentToolCall(tool: tool)
+        await onProgress(.systemLog(AppLanguage.shared.t(
+            "🛠 [L2 JGEN Act] \(label)",
+            "🛠 [L2 JGEN操作] \(labelJA)")))
+        await onProgress(.toolCall(call))
+        let result = await executor.execute(tool, workspaceURL: workspaceURL)
+        let next = toolCount + 1
+        let trimmed = result.count > 1500 ? String(result.prefix(1500)) + "…" : result
+        observations.append("\(call.displayLabel) → \(trimmed)")
+        await onProgress(.toolResult(AgentToolCall(tool: tool, result: trimmed, succeeded: !result.contains("ERROR"))))
+        await JGenVectorBusMemory.stampObservation(
+            label: "jgen_act",
+            detail: "\(call.displayLabel) → \(String(trimmed.prefix(500)))",
+            sessionId: sessionId,
+            stepIndex: next,
+            actionLabel: call.displayLabel,
+            changedRegion: nil,
+            concepts: ["ui-observe", "bug-repro", "jgen-act"]
+        )
+        return next
+    }
+
     /// Collapse retryable failure text so identical spam can be detected.
     nonisolated static func errorFingerprint(_ text: String) -> String {
         let u = text.lowercased()
         guard u.contains("error") || u.contains("no screenshot") || u.contains("blocked")
+                || u.contains("no visual change")
                 || ScreenCapturePermission.looksLikeDenied(text) else {
             return ""
         }
