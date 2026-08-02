@@ -241,6 +241,37 @@ final class HiddenWindowAutomation: ObservableObject {
         }
     }
 
+    /// Paste held mission payload into the currently focused control of the
+    /// target window: write `text` to the general pasteboard, then send ⌘V.
+    /// Site-agnostic — caller must focus an editable field first (AX/click).
+    func pasteIntoTargetWindow(_ text: String) async -> String {
+        guard let pid = targetPID, let source = CGEventSource(stateID: .hidSystemState) else {
+            return "ERROR: no hidden-window target — OPEN_APP first"
+        }
+        let trimmed = text.trimmingCharacters(in: .whitespacesAndNewlines)
+        guard !trimmed.isEmpty else { return "ERROR: empty paste payload" }
+
+        let board = NSPasteboard.general
+        let previous = board.string(forType: .string)
+        board.clearContents()
+        board.setString(trimmed, forType: .string)
+
+        await withRestoredWindow {
+            // ⌘V — paste into whatever currently has keyboard focus
+            Self.postKey(0x09 /* V */, flags: .maskCommand, to: pid, source: source)
+        }
+        try? await Task.sleep(nanoseconds: 400_000_000)
+
+        // Best-effort restore of prior clipboard (payload may be large).
+        if let previous {
+            board.clearContents()
+            board.setString(previous, forType: .string)
+        }
+
+        let preview = PromptBudget.payloadPreview(trimmed, maxChars: 80)
+        return "✓ Pasted \(trimmed.count) chars into target window (preview=\"\(preview)\")"
+    }
+
     /// Safari/Chrome-style search: focus the address/search field (⌘L),
     /// replace contents, type `query`, press Return — real keystrokes into
     /// the target process, not a hard-coded news portal URL.

@@ -41,6 +41,8 @@ enum AgentTool {
     case desktopSnapshot
     case desktopAct(action: String)
     case axAct(action: String)
+    /// Paste held mission payload (clipboard + ⌘V) into the focused UI control.
+    case pastePayload
     /// Vera-a-V 1fps eye: wait until screen has been stable for N seconds.
     case waitUntilStable(stableSeconds: Double, timeout: Double)
     // ── JCross Memory ────────────────────────────────────────────────────────
@@ -106,6 +108,7 @@ struct AgentToolCall: Identifiable {
         case .desktopSnapshot:             return "🖥️ desktop_snapshot"
         case .desktopAct(let action):      return "🖥️ desktop_act: \(action)"
         case .axAct(let action):           return "🎯 ax_act: \(action)"
+        case .pastePayload:                return "📋 paste_payload"
         case .waitUntilStable(let s, let t): return "⏱️ wait_stable \(s)s (timeout \(t)s)"
         case .jcrossQuery(let q):          return "🧠 jcross_query: \(q)"
         case .jcrossStore(let k, _):       return "🧠 jcross_store: \(k)"
@@ -194,6 +197,7 @@ struct AgentToolParser {
     [DESKTOP_SNAPSHOT]        卓撮: OSデスクトップ全体のスクショとセマンティックなAX UI構造マップを取得
     [DESKTOP_ACT: action]     卓動: デスクトップ全体に対して "click x y", "type text", "scroll up/down" を実行
     [AX_ACT: id action text?] AX動: [DESKTOP_SNAPSHOT]で得たUI要素ID(#btn1等)に対して操作 (click または type "テキスト")。座標ズレがなく確実。
+    [PASTE_PAYLOAD]           貼付: 任務ペイロード（プロンプト外に保持された本文）をクリップボード経由でフォーカス中のUIへ貼り付け。長文はDESKTOP_ACT typeで打ち込まない。
     [WAIT_UNTIL_STABLE]       待安: 1fps画面監視(許可時)で画面が約2秒安定するまで待つ。任意で [WAIT_UNTIL_STABLE: stable timeout]（秒）
     [OSASCRIPT: script]       🍎: osascriptとしてAppleScriptを実行しGUIアプリを操作
     [OPEN_APP: AppName]       🚀: open -a "AppName"でOSネイティブアプリを起動
@@ -624,6 +628,9 @@ struct AgentToolParser {
                 tools.append(.desktopAct(action: m))
             } else if let m = match(trimmed, pattern: #"\[AX_ACT:\s*([^\]]+)\]"#) {
                 tools.append(.axAct(action: m))
+            } else if trimmed.contains("[PASTE_PAYLOAD]")
+                        || trimmed.range(of: #"\[PASTE_PAYLOAD:?\s*\]"#, options: .regularExpression) != nil {
+                tools.append(.pastePayload)
             // ── JCross ──────────────────────────────────────────────────
             } else if let m = match(trimmed, pattern: #"\[JCROSS_QUERY:\s*([^\]]+)\]"#) {
                 tools.append(.jcrossQuery(m))
@@ -952,12 +959,23 @@ actor AgentToolExecutor {
     /// of [VISION_ACT]'s Safari-only path.
     private var consecutiveDesktopClickLoopCount = 0
 
+    /// Mission payload held outside ChatML — pasted via `[PASTE_PAYLOAD]`.
+    private var missionPayload: String = ""
+
     /// Call at the start of a fresh act/agent run so a prior DESKTOP_BLOCKED
     /// state does not immediately reject the first click of a new goal.
     func resetLoopGuards() {
         consecutiveClickLoopCount = 0
         consecutiveDesktopClickLoopCount = 0
         lastVisionClickTarget = nil
+    }
+
+    func setMissionPayload(_ s: String) {
+        missionPayload = s
+    }
+
+    func clearMissionPayload() {
+        missionPayload = ""
     }
 
     private func relativePath(of url: URL, workspace: URL?) -> String {
@@ -1726,6 +1744,17 @@ actor AgentToolExecutor {
             } catch {
                 return "[AX_ACT ERROR] \(error.localizedDescription)"
             }
+
+        case .pastePayload:
+            let payload = missionPayload
+            guard !payload.isEmpty else {
+                return "[PASTE_PAYLOAD ERROR] No mission payload held — nothing to paste."
+            }
+            let pasted = await HiddenWindowAutomation.shared.pasteIntoTargetWindow(payload)
+            if pasted.uppercased().contains("ERROR") {
+                return "[PASTE_PAYLOAD ERROR] \(pasted)"
+            }
+            return "[PASTE_PAYLOAD]\n\(pasted)"
 
         // ── JCross Memory ─────────────────────────────────────────────────
 

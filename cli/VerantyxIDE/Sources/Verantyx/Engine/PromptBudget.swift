@@ -33,6 +33,75 @@ enum PromptBudget {
     /// essay into Safari Smart Search.
     static let deepLTranslatorURL = "https://www.deepl.com/translator"
 
+    /// Cap for mission payload held outside ChatML (clipboard paste limb).
+    /// Large enough for essays; never embedded into prompts as full body.
+    static let maxPayloadChars = 50_000
+
+    // MARK: - Mission payload (held object)
+
+    /// Strip task-intent / translate-instruction lines and return the remaining
+    /// body to hold as a mission payload (paste later via `[PASTE_PAYLOAD]`).
+    /// Returns `nil` when nothing substantive remains after stripping intent.
+    static func extractMissionPayload(from text: String) -> String? {
+        let cleaned = dedupeRepeatedParagraphs(text)
+            .trimmingCharacters(in: .whitespacesAndNewlines)
+        guard !cleaned.isEmpty else { return nil }
+
+        let lines = cleaned
+            .components(separatedBy: .newlines)
+            .map { $0.trimmingCharacters(in: .whitespacesAndNewlines) }
+
+        let intentLine = extractTaskIntentLine(from: cleaned)?
+            .trimmingCharacters(in: .whitespacesAndNewlines)
+
+        func isIntentLine(_ line: String) -> Bool {
+            guard !line.isEmpty else { return true }
+            if let intentLine, line == intentLine { return true }
+            if line.count <= 200 {
+                let lower = line.lowercased()
+                if taskMarkers.contains(where: { lower.contains($0) }) { return true }
+                if isTranslateIntent(line) { return true }
+            }
+            return false
+        }
+
+        let bodyLines = lines.filter { !isIntentLine($0) }
+        var body = bodyLines.joined(separator: "\n")
+            .trimmingCharacters(in: .whitespacesAndNewlines)
+
+        // Fallback: if intent was only a prefix/suffix of a single blob,
+        // strip the known intent line substring once.
+        if body.isEmpty, let intentLine, !intentLine.isEmpty,
+           let range = cleaned.range(of: intentLine) {
+            body = cleaned
+            body.removeSubrange(range)
+            body = body.trimmingCharacters(in: .whitespacesAndNewlines)
+        }
+
+        // Drop leading essay markers that often precede the body.
+        for marker in ["下記を", "以下を", "次を", "下記の", "以下の", "the following:"] {
+            if body.lowercased().hasPrefix(marker.lowercased()) {
+                body = String(body.dropFirst(marker.count))
+                    .trimmingCharacters(in: .whitespacesAndNewlines)
+            }
+        }
+
+        guard body.count >= 20 else { return nil }
+        if body.count > maxPayloadChars {
+            return String(body.prefix(maxPayloadChars))
+        }
+        return body
+    }
+
+    /// Short preview for observation / PAYLOAD stamps (never the full body).
+    static func payloadPreview(_ payload: String, maxChars: Int = 120) -> String {
+        let trimmed = payload
+            .replacingOccurrences(of: "\n", with: " ")
+            .trimmingCharacters(in: .whitespacesAndNewlines)
+        guard trimmed.count > maxChars else { return trimmed }
+        return String(trimmed.prefix(maxChars)) + "…"
+    }
+
     // MARK: - Truncation
 
     /// Collapse duplicated paragraphs (common in long pasted essays) before

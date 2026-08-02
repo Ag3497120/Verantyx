@@ -45,6 +45,7 @@ enum LayeredRunOrchestrator {
         let originalLength = question.count
         let modelQuestion = PromptBudget.truncateForModel(question)
         let actSearchSeed = PromptBudget.searchSeed(from: question)
+        let missionPayload = PromptBudget.extractMissionPayload(from: question)
         if PromptBudget.needsTruncate(question) {
             await onProgress(.systemLog(AppLanguage.shared.t(
                 "✂️ [PromptBudget] user text \(originalLength)→\(modelQuestion.count) chars (head/tail windows; full paste not embedded in role prompts).",
@@ -157,6 +158,7 @@ enum LayeredRunOrchestrator {
                     sessionId: sessionId,
                     workspaceURL: app.workspaceURL,
                     searchQuerySeed: actSearchSeed,
+                    missionPayload: missionPayload,
                     onProgress: onProgress
                 )
                 outcome = .completed(act.text)

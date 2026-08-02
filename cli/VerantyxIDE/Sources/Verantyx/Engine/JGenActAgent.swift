@@ -17,6 +17,8 @@ actor JGenActAgent {
     /// Survives across chat turns so 「続けて」 can resume the same act goal.
     private var lastGoal: String = ""
     private var lastObservations: [String] = []
+    /// Mission body held outside ChatML (essay / paste object). Kept on 「続けて」.
+    private var lastPayload: String = ""
 
     private init() {}
 
@@ -34,6 +36,7 @@ actor JGenActAgent {
         sessionId: String?,
         workspaceURL: URL?,
         searchQuerySeed: String? = nil,
+        missionPayload: String? = nil,
         onProgress: @escaping @Sendable (LoopEvent) async -> Void
     ) async -> Outcome {
 
@@ -66,6 +69,7 @@ actor JGenActAgent {
         if continuing, !lastGoal.isEmpty {
             goal = lastGoal
             observations = lastObservations
+            // Keep lastPayload on resume.
             await onProgress(.systemLog(AppLanguage.shared.t(
                 "🔁 [L2 JGEN Act] resuming prior goal (\(observations.count) observations)…",
                 "🔁 [L2 JGEN操作] 前回の目標を再開（観測 \(observations.count) 件）…")))
@@ -74,24 +78,37 @@ actor JGenActAgent {
             observations = []
             lastGoal = boundedQuestion
             lastObservations = []
+            let incoming = missionPayload?.trimmingCharacters(in: .whitespacesAndNewlines) ?? ""
+            if !incoming.isEmpty {
+                lastPayload = incoming
+            } else {
+                lastPayload = PromptBudget.extractMissionPayload(from: question) ?? ""
+            }
+        }
+
+        await executor.setMissionPayload(lastPayload)
+        if !lastPayload.isEmpty {
+            await onProgress(.systemLog(AppLanguage.shared.t(
+                "📦 [L2 JGEN Act] mission payload held (\(lastPayload.count) chars, preview=\"\(PromptBudget.payloadPreview(lastPayload))\") — not embedded in ChatML.",
+                "📦 [L2 JGEN操作] 任務ペイロード保持（\(lastPayload.count) 文字、preview=\"\(PromptBudget.payloadPreview(lastPayload))\"）— ChatMLには埋め込みません。")))
         }
 
         let system = """
-        You are Verantyx's JGEN execution layer. Operate the Mac to finish the goal. \
-        Each turn output EXACTLY one complete tool tag and nothing else. \
-        Tags must include the closing bracket ]. \
+        You are Verantyx's JGEN body. One complete tool tag per turn (closing ]). \
+        Schema: SENSE → ACT → observe → on MISMATCH try alternate → DONE. \
         Allowed:
         [OPEN_APP: Safari]
         [DESKTOP_SNAPSHOT]
         [DESKTOP_ACT: click X Y]
-        [DESKTOP_ACT: type some text]
         [AX_ACT: #btn1 click]
+        [PASTE_PAYLOAD]
         [WAIT_UNTIL_STABLE]
         [DONE: short status in the user's language]
-        Prefer the address/search field (type queries) over random clicks. \
-        Never copy example coordinates. Never invent scores. Never write prose without a tag. \
-        Never repeat the same click. After NO VISUAL CHANGE or DESKTOP_BLOCKED, try type/AX/DONE instead. \
-        When search results are visible, click a relevant result or [DONE: …] with a short summary.
+        SENSE with DESKTOP_SNAPSHOT/AX map. ACT with AX/click. \
+        If [PAYLOAD] ready: focus an editable text field (AX preferred), then [PASTE_PAYLOAD]. \
+        Never dump long text via DESKTOP_ACT type. Never invent coords. Never prose without a tag. \
+        On MISMATCH / NO VISUAL CHANGE / DESKTOP_BLOCKED: try a different AX target or DONE. \
+        Never repeat the same click.
         """
 
         var finalAnswer = ""
@@ -108,6 +125,8 @@ actor JGenActAgent {
         // Tiny models cannot plan Safari UI. Bootstrap: open → snapshot →
         // type the user's query into the Smart Search field (⌘L) → Return →
         // snapshot again, then let the model continue (click / summarize).
+        // Translate intent only reaches a named URL destination — no site-
+        // specific paste/click bootstrap; the loop discovers focus + PASTE_PAYLOAD.
         if toolCount == 0, Self.goalNeedsBrowser(goal) {
             toolCount = await Self.runBootstrapTool(
                 .openApp(name: "Safari"),
@@ -143,15 +162,19 @@ actor JGenActAgent {
                 || PromptBudget.isTranslateIntent(goal)
 
             if translate {
-                // Never dump the essay into Smart Search. Open DeepL instead;
-                // the user (or later turns) can paste the body into the form.
+                // Named destination only: open translator URL. Autonomous loop
+                // must discover the editable field and emit PASTE_PAYLOAD.
                 let url = PromptBudget.deepLTranslatorURL
                 await onProgress(.systemLog(AppLanguage.shared.t(
                     "🛠 [L2 JGEN Act] translate intent → navigating Safari to \(url)…",
                     "🛠 [L2 JGEN操作] 翻訳意図 → Safari で \(url) を開く…")))
                 let opened = await HiddenWindowAutomation.shared.openURLInTargetBrowser(url)
                 toolCount += 1
-                observations.append("navigate → \(opened)")
+                observations.append(Self.stampObservation(
+                    toolLabel: "navigate",
+                    result: opened,
+                    selfAction: "navigate \(url)"
+                ))
                 lastObservations = observations
                 await onProgress(.systemLog(opened))
                 await JGenVectorBusMemory.stampObservation(
@@ -166,8 +189,8 @@ actor JGenActAgent {
 
                 toolCount = await Self.runBootstrapTool(
                     .desktopSnapshot,
-                    label: "snapshot after DeepL navigate…",
-                    labelJA: "DeepL 表示後に [DESKTOP_SNAPSHOT]…",
+                    label: "snapshot after named-destination navigate…",
+                    labelJA: "到達後に [DESKTOP_SNAPSHOT]…",
                     executor: executor,
                     workspaceURL: workspaceURL,
                     sessionId: sid,
@@ -185,7 +208,11 @@ actor JGenActAgent {
                         "🛠 [L2 JGEN操作] Safari で \(query) を開く…")))
                     let opened = await HiddenWindowAutomation.shared.openURLInTargetBrowser(query)
                     toolCount += 1
-                    observations.append("navigate → \(opened)")
+                    observations.append(Self.stampObservation(
+                        toolLabel: "navigate",
+                        result: opened,
+                        selfAction: "navigate \(query)"
+                    ))
                     lastObservations = observations
                     await onProgress(.systemLog(opened))
                     await JGenVectorBusMemory.stampObservation(
@@ -203,7 +230,11 @@ actor JGenActAgent {
                         "🛠 [L2 JGEN操作] Safari の検索欄に「\(query)」と入力…")))
                     let typed = await HiddenWindowAutomation.shared.focusAddressBarAndSearch(query)
                     toolCount += 1
-                    observations.append("search_bar → \(typed)")
+                    observations.append(Self.stampObservation(
+                        toolLabel: "search_bar",
+                        result: typed,
+                        selfAction: "search_bar"
+                    ))
                     lastObservations = observations
                     await onProgress(.systemLog(typed))
                     await JGenVectorBusMemory.stampObservation(
@@ -247,6 +278,12 @@ actor JGenActAgent {
                 userParts.append("[DETAIL]\n\(JCrossChatManager.collapsePhraseRepetition(handoff.detail))")
             }
             userParts.append("[GOAL]\n\(goal)")
+            if !lastPayload.isEmpty {
+                let preview = PromptBudget.payloadPreview(lastPayload)
+                userParts.append(
+                    "[PAYLOAD] ready chars=\(lastPayload.count) preview=\"\(preview)\" — after focusing a text field, emit [PASTE_PAYLOAD]"
+                )
+            }
             if continuing {
                 userParts.append("[NOTE]\nUser asked to continue the unfinished desktop task.")
             }
@@ -255,17 +292,28 @@ actor JGenActAgent {
                 userParts.append("[OBSERVATIONS]\n\(recent)")
             }
             let hint: String
+            let payloadReady = !lastPayload.isEmpty
+            let recentJoined = observations.suffix(4).joined(separator: "\n")
+            let sawNavigateOrSnap = recentJoined.contains("navigate")
+                || recentJoined.contains("desktop_snapshot")
+                || recentJoined.contains("DESKTOP_SNAPSHOT")
+                || recentJoined.localizedCaseInsensitiveContains("semantic")
+                || recentJoined.contains("UI MAP")
             if toolCount == 0 {
                 hint = "First required tag is [OPEN_APP: Safari]."
             } else if observations.last?.localizedCaseInsensitiveContains("opened") == true
                         || observations.last?.localizedCaseInsensitiveContains("open_app") == true
                         || observations.last?.contains("open -a") == true {
                 hint = "Next required tag is [DESKTOP_SNAPSHOT]."
-            } else if observations.contains(where: { $0.contains("search_bar →") }) {
+            } else if payloadReady, sawNavigateOrSnap,
+                      !observations.contains(where: { $0.contains("paste_payload") || $0.contains("PASTE_PAYLOAD") }) {
+                hint = "PAYLOAD ready. Focus an editable text field via [AX_ACT: … click] (or click), then [PASTE_PAYLOAD]. Do not type the body via DESKTOP_ACT."
+            } else if observations.contains(where: { $0.contains("search_bar") }) {
                 hint = "Search was typed. Click a relevant result, take [DESKTOP_SNAPSHOT], or [DONE: short summary of what you see]."
             } else if observations.last?.localizedCaseInsensitiveContains("NO VISUAL CHANGE") == true
-                        || observations.last?.localizedCaseInsensitiveContains("DESKTOP_BLOCKED") == true {
-                hint = "Do NOT click the same place. Prefer [DESKTOP_ACT: type …] or [DONE: …]."
+                        || observations.last?.localizedCaseInsensitiveContains("DESKTOP_BLOCKED") == true
+                        || observations.last?.contains("MISMATCH") == true {
+                hint = "MISMATCH — do NOT repeat. Prefer a different [AX_ACT: …] target, [DESKTOP_SNAPSHOT], or [DONE: …]."
             } else if observations.last?.localizedCaseInsensitiveContains("NO SCREENSHOT") == true
                         || observations.last.map(ScreenCapturePermission.looksLikeDenied) == true {
                 hint = "Screenshot blocked. Prefer [AX_ACT: …] or [DONE: …]. Do not repeat the same click."
@@ -368,7 +416,11 @@ actor JGenActAgent {
             let result = await executor.execute(tool, workspaceURL: workspaceURL)
             toolCount += 1
             let trimmed = result.count > 1500 ? String(result.prefix(1500)) + "…" : result
-            observations.append("\(call.displayLabel) → \(trimmed)")
+            observations.append(Self.stampObservation(
+                toolLabel: call.displayLabel,
+                result: trimmed,
+                selfAction: call.displayLabel
+            ))
             lastObservations = observations
             await onProgress(.toolResult(AgentToolCall(tool: tool, result: trimmed, succeeded: !result.contains("ERROR"))))
 
@@ -423,6 +475,8 @@ actor JGenActAgent {
             // Completed with DONE — clear continuation buffer.
             lastGoal = ""
             lastObservations = []
+            lastPayload = ""
+            await executor.clearMissionPayload()
         }
 
         if useEternalMemory, !finalAnswer.isEmpty, !JCrossChatManager.isPhraseLooping(finalAnswer) {
@@ -434,10 +488,36 @@ actor JGenActAgent {
         return Outcome(text: finalAnswer, turns: min(turnsCap, max(toolCount, 1)), toolCount: toolCount)
     }
 
+    /// Lightweight causal labels on observation strings for the next turn.
+    nonisolated static func stampObservation(
+        toolLabel: String,
+        result: String,
+        selfAction: String
+    ) -> String {
+        let upper = result.uppercased()
+        let isError = upper.contains("ERROR") || upper.contains("BLOCKED")
+            || upper.contains("NO VISUAL CHANGE") || upper.contains("FAILED")
+        let external: String
+        if result.contains("SEMANTIC UI MAP") || result.localizedCaseInsensitiveContains("UI MAP") {
+            external = "EXTERNAL_CHANGE: AX/UI map updated"
+        } else if result.contains("screenshot") || result.contains("Screenshot")
+                    || result.contains("mirror") {
+            external = "EXTERNAL_CHANGE: screen refreshed"
+        } else if result.hasPrefix("✓") || upper.contains("PASTED") || upper.contains("OPENED") {
+            external = "EXTERNAL_CHANGE: ok"
+        } else {
+            external = "EXTERNAL_CHANGE: observed"
+        }
+        if isError {
+            return "SELF_ACTION: \(selfAction)\nMISMATCH: \(result)\nRESULT: \(toolLabel) → \(result)"
+        }
+        return "SELF_ACTION: \(selfAction)\n\(external)\nRESULT: \(toolLabel) → \(result)"
+    }
+
     private static func filterAllowed(_ tools: [AgentTool]) -> [AgentTool] {
         tools.filter { tool in
             switch tool {
-            case .openApp, .desktopSnapshot, .desktopAct, .axAct, .waitUntilStable, .done:
+            case .openApp, .desktopSnapshot, .desktopAct, .axAct, .pastePayload, .waitUntilStable, .done:
                 return true
             default:
                 return false
@@ -547,6 +627,8 @@ actor JGenActAgent {
             return "desktop_snapshot"
         case .axAct(let action):
             return "ax_act:\(action)"
+        case .pastePayload:
+            return "paste_payload"
         default:
             return ""
         }
@@ -571,7 +653,11 @@ actor JGenActAgent {
         let result = await executor.execute(tool, workspaceURL: workspaceURL)
         let next = toolCount + 1
         let trimmed = result.count > 1500 ? String(result.prefix(1500)) + "…" : result
-        observations.append("\(call.displayLabel) → \(trimmed)")
+        observations.append(stampObservation(
+            toolLabel: call.displayLabel,
+            result: trimmed,
+            selfAction: call.displayLabel
+        ))
         await onProgress(.toolResult(AgentToolCall(tool: tool, result: trimmed, succeeded: !result.contains("ERROR"))))
         await JGenVectorBusMemory.stampObservation(
             label: "jgen_act",
@@ -605,6 +691,7 @@ actor JGenActAgent {
             #"\[DESKTOP_SNAPSHOT\]"#,
             #"\[DESKTOP_ACT:\s*[^\]]+\]"#,
             #"\[AX_ACT:\s*[^\]]+\]"#,
+            #"\[PASTE_PAYLOAD:?\s*\]"#,
             #"\[WAIT_UNTIL_STABLE(?::[^\]]*)?\]"#,
             #"\[DONE[:\s]*[^\]]*\]"#,
         ]
@@ -616,7 +703,7 @@ actor JGenActAgent {
     nonisolated static func looksLikeToolAttempt(_ text: String) -> Bool {
         let u = text.uppercased()
         return u.contains("OPEN_APP") || u.contains("DESKTOP_") || u.contains("AX_ACT")
-            || u.contains("DONE") || text.contains("[")
+            || u.contains("PASTE_PAYLOAD") || u.contains("DONE") || text.contains("[")
     }
 
     /// Fix common 0.5B tag mangling before `AgentToolParser`.
