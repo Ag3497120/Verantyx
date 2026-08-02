@@ -1461,6 +1461,25 @@ SYS.ENFORCE("logical_verification_before_acceptance")
                             )))
                         }
 
+                        // Milestone S: body -> mind bridge. Deliberately
+                        // NOT gated on JCrossChatManager.isLoaded (unlike
+                        // UITestVectorTrace above) -- GapGraph is
+                        // model-independent, so this keeps recording
+                        // regardless of which backend is currently
+                        // driving chat. `changed` reuses the exact same
+                        // signal already computed above (region != nil),
+                        // no new detection logic.
+                        do {
+                            let label = call.displayLabel
+                            let changed = region != nil
+                            let cognitionMode = await MainActor.run { CouncilSettingsStore.shared.cognitionMode.rawValue }
+                            Task.detached {
+                                _ = await VeraMemoryBridge.recordUITransition(
+                                    sessionId: vxSessionId, actionLabel: label, changed: changed, cognitionMode: cognitionMode
+                                )
+                            }
+                        }
+
                         // Milestone L: pseudo-multimodal visual memory.
                         // Deliberately NOT gated on JCrossChatManager.isLoaded
                         // -- Vision has nothing to do with JGEN being loaded.

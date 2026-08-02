@@ -235,6 +235,28 @@ enum VeraMemoryBridge {
         return obj["recorded"] != nil
     }
 
+    /// Milestone S: the first wire between the IDE's "body" (UI-automation
+    /// action/observation, already recorded to UITestVectorTrace at the
+    /// same call site) and Vera-alpha's "mind" (GapGraph). Unlike
+    /// UITestVectorTrace's embedding (JGEN-backend-only), this writes to
+    /// Vera-alpha's model-independent GapGraph -- it survives a model
+    /// swap. Respects the normal/experiment/sleep contract server-side
+    /// (a no-op in "normal" mode, matching every other GapNode-creating
+    /// path); `cognitionMode` is passed through rather than decided here.
+    @discardableResult
+    static func recordUITransition(sessionId: String, actionLabel: String, changed: Bool, cognitionMode: String) async -> Bool {
+        let trimmedLabel = actionLabel.trimmingCharacters(in: .whitespacesAndNewlines)
+        guard !sessionId.isEmpty, !trimmedLabel.isEmpty else { return false }
+        let raw = await MCPEngine.shared.callTool(
+            serverName: serverName, toolName: "record_ui_transition",
+            arguments: ["session_id": sessionId, "action_label": trimmedLabel, "changed": changed, "cognition_mode": cognitionMode],
+            mode: .human
+        )
+        guard let data = raw.data(using: .utf8),
+              let obj = try? JSONSerialization.jsonObject(with: data) as? [String: Any] else { return false }
+        return obj["ok"] as? Bool ?? false
+    }
+
     struct VerifiedUIElementLookup {
         let x: Double
         let y: Double
