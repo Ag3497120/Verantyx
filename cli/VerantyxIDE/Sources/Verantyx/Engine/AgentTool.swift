@@ -41,6 +41,8 @@ enum AgentTool {
     case desktopSnapshot
     case desktopAct(action: String)
     case axAct(action: String)
+    /// Vera-a-V 1fps eye: wait until screen has been stable for N seconds.
+    case waitUntilStable(stableSeconds: Double, timeout: Double)
     // ── JCross Memory ────────────────────────────────────────────────────────
     case jcrossQuery(String)                      // NEW: recall from CortexEngine
     case jcrossStore(key: String, value: String)  // NEW: remember to CortexEngine
@@ -104,6 +106,7 @@ struct AgentToolCall: Identifiable {
         case .desktopSnapshot:             return "🖥️ desktop_snapshot"
         case .desktopAct(let action):      return "🖥️ desktop_act: \(action)"
         case .axAct(let action):           return "🎯 ax_act: \(action)"
+        case .waitUntilStable(let s, let t): return "⏱️ wait_stable \(s)s (timeout \(t)s)"
         case .jcrossQuery(let q):          return "🧠 jcross_query: \(q)"
         case .jcrossStore(let k, _):       return "🧠 jcross_store: \(k)"
         case .osAssetQuery(let q):         return "🖥️ os_query: \(q)"
@@ -191,6 +194,7 @@ struct AgentToolParser {
     [DESKTOP_SNAPSHOT]        卓撮: OSデスクトップ全体のスクショとセマンティックなAX UI構造マップを取得
     [DESKTOP_ACT: action]     卓動: デスクトップ全体に対して "click x y", "type text", "scroll up/down" を実行
     [AX_ACT: id action text?] AX動: [DESKTOP_SNAPSHOT]で得たUI要素ID(#btn1等)に対して操作 (click または type "テキスト")。座標ズレがなく確実。
+    [WAIT_UNTIL_STABLE]       待安: 1fps画面監視(許可時)で画面が約2秒安定するまで待つ。任意で [WAIT_UNTIL_STABLE: stable timeout]（秒）
     [OSASCRIPT: script]       🍎: osascriptとしてAppleScriptを実行しGUIアプリを操作
     [OPEN_APP: AppName]       🚀: open -a "AppName"でOSネイティブアプリを起動
     [VERIFIED_URL_LOOKUP: name] 🔗: 指定した名前(例: "Gemini")について、ユーザーが事前にVeraへ登録した確認済みURLがあるか確定的に調べる。CRITICAL RULE 8に従い、特定サイトへ直接ナビゲートする前に必ずこれで確認し、無ければ[SEARCH]で確定させる。
@@ -607,6 +611,15 @@ struct AgentToolParser {
                 tools.append(.visionAct(action: m))
             } else if trimmed.contains("[DESKTOP_SNAPSHOT]") {
                 tools.append(.desktopSnapshot)
+            } else if trimmed.contains("[WAIT_UNTIL_STABLE]") || trimmed.hasPrefix("[WAIT_UNTIL_STABLE:") {
+                if let full = match(trimmed, pattern: #"\[WAIT_UNTIL_STABLE:\s*([^\]]+)\]"#) {
+                    let nums = full.split(whereSeparator: { $0 == " " || $0 == "," }).compactMap { Double($0) }
+                    let stable = nums.count >= 1 ? nums[0] : 2.0
+                    let timeout = nums.count >= 2 ? nums[1] : 30.0
+                    tools.append(.waitUntilStable(stableSeconds: stable, timeout: timeout))
+                } else {
+                    tools.append(.waitUntilStable(stableSeconds: 2.0, timeout: 30.0))
+                }
             } else if let m = match(trimmed, pattern: #"\[DESKTOP_ACT:\s*([^\]]+)\]"#) {
                 tools.append(.desktopAct(action: m))
             } else if let m = match(trimmed, pattern: #"\[AX_ACT:\s*([^\]]+)\]"#) {
@@ -1615,6 +1628,27 @@ actor AgentToolExecutor {
                 }
                 return resultText
             } catch { return "[DESKTOP ERROR] \(error.localizedDescription)" }
+
+        case .waitUntilStable(let stableSeconds, let timeout):
+            let allowed = await MainActor.run {
+                CouncilSettingsStore.shared.allowKeyframeEye
+                    && CouncilSettingsStore.shared.keyframeEyePrivacyAcknowledged
+            }
+            guard allowed else {
+                return "[WAIT_UNTIL_STABLE] Keyframe eye is not permitted. Enable “Allow 1fps screen eye” in JGEN Options (privacy confirmation required)."
+            }
+            let monitoring = await MainActor.run { VisualKeyframePump.shared.isActivelyMonitoring }
+            if !monitoring {
+                return "[WAIT_UNTIL_STABLE] Not monitoring — need an active agent session and a HiddenWindow target (OPEN_APP)."
+            }
+            let stable = await VisualKeyframePump.shared.waitUntilStable(
+                stableSeconds: stableSeconds, timeout: timeout
+            )
+            let recent = await VeraAVRing.shared.recallRecentBlock(limit: 3)
+            if stable {
+                return "[WAIT_UNTIL_STABLE] Screen stable for \(stableSeconds)s.\(recent)"
+            }
+            return "[WAIT_UNTIL_STABLE] Timed out after \(timeout)s without \(stableSeconds)s of stability.\(recent)"
             
         case .axAct(let action):
             do {

@@ -72,6 +72,11 @@ actor VisualMemoryStore {
         loaded = true
     }
 
+    /// Node count for Growth Console / multimodal status (no vectors exposed).
+    func nodeCount() async -> Int {
+        (try? ensureLoaded()) != nil ? nodes.count : 0
+    }
+
     private static func l2Normalize(_ v: [Float]) -> [Float] {
         let norm = sqrt(v.reduce(Float(0)) { $0 + $1 * $1 })
         guard norm > 0 else { return v }

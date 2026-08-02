@@ -1,8 +1,8 @@
 import SwiftUI
 
 // MARK: - SelfEvolutionView
-// The IDE's "self-evolution" control panel.
-// Shows: source index state, pending patches, build progress, PR submission.
+// IDE source-patch / build / PR control panel.
+// Not Vera's Milestone M/O growth loops (see Growth activity → growth-console).
 
 struct SelfEvolutionView: View {
     @EnvironmentObject var app: AppState
@@ -60,7 +60,7 @@ struct SelfEvolutionView: View {
             Image(systemName: "arrow.triangle.2.circlepath")
                 .font(.system(size: 11))
                 .foregroundStyle(Color(red: 0.55, green: 0.85, blue: 0.55))
-            Text("Self-Evolution")
+            Text(app.t("IDE Patches", "IDEパッチ"))
                 .font(.system(size: 12, weight: .semibold))
                 .foregroundStyle(Color(red: 0.85, green: 0.85, blue: 0.92))
             Spacer()

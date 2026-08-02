@@ -55,6 +55,66 @@ enum JGenVectorBusMemory {
         }
     }
 
+    /// One multimodal UI step when JGEN is loaded: carve text into JGEN
+    /// eternal space + UI-trace (aligned), while Vision feature-prints stay
+    /// in `VisualMemoryStore` (separate dim). Call alongside Milestone S
+    /// GapGraph writes — those remain model-independent.
+    static func stampMultimodalUIStep(
+        label: String,
+        sessionId: String,
+        stepIndex: Int,
+        changedRegion: CGRect?,
+        nearbyElements: [String] = []
+    ) async {
+        guard await JCrossChatManager.shared.isLoaded else { return }
+        var detailParts: [String] = [
+            "step=\(stepIndex)",
+            "changed=\(changedRegion != nil)",
+        ]
+        if let r = changedRegion {
+            detailParts.append(String(format: "region=(%.0f,%.0f,%.0fx%.0f)",
+                                      r.origin.x, r.origin.y, r.width, r.height))
+        }
+        if !nearbyElements.isEmpty {
+            detailParts.append("nearby: " + nearbyElements.prefix(12).joined(separator: ", "))
+        }
+        await stampObservation(
+            label: label,
+            detail: detailParts.joined(separator: "; "),
+            sessionId: sessionId,
+            stepIndex: stepIndex,
+            actionLabel: label,
+            changedRegion: changedRegion,
+            concepts: ["ui-observe", "bug-repro", "multimodal-ui", "jgen-space"]
+        )
+    }
+
+    /// Status for Growth Console / CapabilityRegistry — counts only, no vectors.
+    static func multimodalStatus() async -> [String: Any] {
+        let jgenLoaded = await JCrossChatManager.shared.isLoaded
+        let model = await JCrossChatManager.shared.loadedModelName ?? ""
+        let visualOn = await MainActor.run { CouncilSettingsStore.shared.useVisualMemory }
+        let visualCount = await VisualMemoryStore.shared.nodeCount()
+        let sid = await MainActor.run { AppState.shared?.vxChatSessionId } ?? fallbackSessionId
+        let traceCount = await UITestVectorTrace.shared.trace(sessionId: sid).count
+        return [
+            "ok": true,
+            "jgen_loaded": jgenLoaded,
+            "jgen_model": model,
+            "visual_memory_enabled": visualOn,
+            "visual_memory_nodes": visualCount,
+            "ui_trace_moments": traceCount,
+            "keyframe_eye": await VisualKeyframePump.shared.statusMap(),
+            "paths": [
+                "aligned": "AX/text → encodeText → inject / EternalMemoryStore",
+                "vision_store": "VNFeaturePrint → VisualMemoryStore (text recall to prompt)",
+                "vision_inject": "VisualHiddenStateBridge (experimental, unaligned)",
+                "gap": "record_ui_transition → GapGraph (model-independent)",
+                "keyframe_eye": "1fps Vera-a-V ring (opt-in; agent+HiddenWindow only)",
+            ],
+        ]
+    }
+
     /// Assemble recall blocks for L1/L2: eternal (JGEN) + recent visual
     /// **text labels** + recent UI-trace moments. Never injects Vision dims.
     static func recallBundle(

@@ -1,7 +1,8 @@
 import Foundation
 
 // MARK: - Notification Names
-// Centralized notification names used across the self-evolution system.
+// Centralized notification names used across IDE patch rebuild / CI hooks.
+// (Distinct from Vera Milestone M/O growth — see docs/GROWTH_SUBSTRATE.md.)
 
 extension Notification.Name {
 

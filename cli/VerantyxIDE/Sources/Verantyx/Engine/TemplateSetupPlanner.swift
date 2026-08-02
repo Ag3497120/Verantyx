@@ -271,7 +271,7 @@ actor TemplateSetupPlanner {
                 role: layer.role, model: "—", backend: .jgen,
                 source: .unavailable, sizeGB: nil,
                 status: .blocked("No runnable .jgen model converted yet."),
-                installHint: "Settings → JGEN → convert a supported model."
+                installHint: "Settings → JGEN → Convert a model from Detected Models (converter is built into the app)."
             )
         case .bitnet:
             return LayerAssignment(

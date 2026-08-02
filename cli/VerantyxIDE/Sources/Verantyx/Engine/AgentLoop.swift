@@ -66,6 +66,16 @@ actor AgentLoop {
         onProgress: @escaping @Sendable (LoopEvent) async -> Void
     ) async {
 
+        let bootSessionId = chatSessionId ?? String(UUID().uuidString.prefix(8))
+        await MainActor.run {
+            VisualKeyframePump.shared.setAgentRunning(true, sessionId: bootSessionId)
+        }
+        defer {
+            Task { @MainActor in
+                VisualKeyframePump.shared.setAgentRunning(false)
+            }
+        }
+
         var currentWorkspace = workspaceURL
         var conversation: [(role: String, content: String)] = []
         var turn = 0
@@ -115,7 +125,7 @@ actor AgentLoop {
         // ── VX-Loop (Nano Cortex Protocol) state ──────────────────────────
         /// セッションID: 外部から渡されたものを優先。なければ新規生成
         /// （外部=AppState.vxChatSessionId で会話全体を通じて同一IDを維持）
-        let vxSessionId = chatSessionId ?? String(UUID().uuidString.prefix(8))
+        let vxSessionId = chatSessionId ?? bootSessionId
         /// VX-Loop が有効か (nano/small ティアで自動有効化)
         let vxLoopEnabled = profile.tier == .nano || profile.tier == .small
         /// SearchGate の最新実行結果（次ターンの注入用）
@@ -146,6 +156,7 @@ actor AgentLoop {
             else { return "" }
             return await VisualMemoryStore.shared.recallBlock(base64Image: img)
         }()
+        let keyframeEyeSection = await VeraAVRing.shared.recallRecentBlock(limit: 3)
         // Unconditional trust-level note (not gated behind the Visual
         // Anchor's evaluateAnchorMode, which some turns -- e.g. the
         // screenshot/vision branch -- skip entirely; see CRITICAL RULE 7
@@ -162,7 +173,7 @@ actor AgentLoop {
             }
             return "\n\n[MEMORY TRUST LEVELS]\n" + lines.joined(separator: "\n") + "\n[/MEMORY TRUST LEVELS]"
         }()
-        let memorySection = cortexMemorySection + veraMemorySection + visualMemorySection + memoryTrustNote
+        let memorySection = cortexMemorySection + veraMemorySection + visualMemorySection + keyframeEyeSection + memoryTrustNote
         let isWorkspaceless = workspaceURL == nil
 
         // ── Self-evolution context ────────────────────────────────────────
@@ -1418,7 +1429,8 @@ SYS.ENFORCE("logical_verification_before_acceptance")
 
                 switch tool {
                 case .openApp, .desktopSnapshot, .desktopAct, .axAct, .visionAct,
-                     .visionSnapshot, .visionBrowse, .visionSearchFlow, .registerUIElement:
+                     .visionSnapshot, .visionBrowse, .visionSearchFlow, .registerUIElement,
+                     .waitUntilStable:
                     // Trim each result to keep the eventual eternal-memory
                     // entry a readable summary, not a raw screenshot/base64
                     // dump -- long results here are usually image payloads.
@@ -1448,9 +1460,15 @@ SYS.ENFORCE("logical_verification_before_acceptance")
                             uiStepIndex += 1
                             let stepIndex = uiStepIndex
                             let label = call.displayLabel
+                            // Multimodal (JGEN path): stamp text into EternalMemory
+                            // + UITestVectorTrace. Vision feature-prints stay in
+                            // VisualMemoryStore below (separate dim → prompt as text).
                             Task.detached {
-                                try? await UITestVectorTrace.shared.recordMoment(
-                                    sessionId: vxSessionId, stepIndex: stepIndex, actionLabel: label, changedRegion: region
+                                await JGenVectorBusMemory.stampMultimodalUIStep(
+                                    label: label,
+                                    sessionId: vxSessionId,
+                                    stepIndex: stepIndex,
+                                    changedRegion: region
                                 )
                             }
                         } else if !uiTraceWarnedNotLoaded {
@@ -1463,9 +1481,9 @@ SYS.ENFORCE("logical_verification_before_acceptance")
 
                         // Milestone S: body -> mind bridge. Deliberately
                         // NOT gated on JCrossChatManager.isLoaded (unlike
-                        // UITestVectorTrace above) -- GapGraph is
-                        // model-independent, so this keeps recording
-                        // regardless of which backend is currently
+                        // stampMultimodalUIStep / UITestVectorTrace above)
+                        // -- GapGraph is model-independent, so this keeps
+                        // recording regardless of which backend is currently
                         // driving chat. `changed` reuses the exact same
                         // signal already computed above (region != nil),
                         // no new detection logic.
@@ -1518,6 +1536,19 @@ SYS.ENFORCE("logical_verification_before_acceptance")
                                 try? await VisualMemoryStore.shared.add(
                                     base64Image: img, label: label, changedRegion: region, nearbyElements: nearby
                                 )
+                                // Enrich JGEN eternal space with nearby AX labels
+                                // (no second UITestVectorTrace moment — already stamped).
+                                if await JCrossChatManager.shared.isLoaded, !nearby.isEmpty {
+                                    await JGenVectorBusMemory.stampObservation(
+                                        label: "visual:\(label)",
+                                        detail: "nearby: " + nearby.prefix(12).joined(separator: ", "),
+                                        sessionId: vxSessionId,
+                                        stepIndex: nil,
+                                        actionLabel: nil,
+                                        changedRegion: region,
+                                        concepts: ["visual-memory", "ui-observe", "jgen-space"]
+                                    )
+                                }
                             }
                         }
                     }

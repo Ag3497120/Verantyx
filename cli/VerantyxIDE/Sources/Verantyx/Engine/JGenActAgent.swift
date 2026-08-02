@@ -171,7 +171,7 @@ actor JGenActAgent {
     private static func filterAllowed(_ tools: [AgentTool]) -> [AgentTool] {
         tools.filter { tool in
             switch tool {
-            case .openApp, .desktopSnapshot, .desktopAct, .axAct, .done:
+            case .openApp, .desktopSnapshot, .desktopAct, .axAct, .waitUntilStable, .done:
                 return true
             default:
                 return false

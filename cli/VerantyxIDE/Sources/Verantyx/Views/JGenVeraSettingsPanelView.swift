@@ -10,7 +10,9 @@ import SwiftUI
 struct JGenVeraSettingsPanelView: View {
     @EnvironmentObject var app: AppState
     @ObservedObject private var council = CouncilSettingsStore.shared
+    @ObservedObject private var keyframePump = VisualKeyframePump.shared
     @State private var includeWebRecommendations = true
+    @State private var showKeyframePrivacyAlert = false
     @Binding var showPendingToolCalls: Bool
     @Binding var showReasoningTimeline: Bool
 
@@ -51,6 +53,8 @@ struct JGenVeraSettingsPanelView: View {
                         set: { council.useVisualMemory = $0 }
                     )).toggleStyle(.checkbox)
 
+                    keyframeEyePermissionBlock()
+
                     Toggle(app.t("Vera as harness (Vera drives the turn)", "Veraをハーネスにする(Veraが主導)"), isOn: Binding(
                         get: { council.useVeraHarnessForChat },
                         set: { council.useVeraHarnessForChat = $0 }
@@ -70,8 +74,8 @@ struct JGenVeraSettingsPanelView: View {
 
                         if council.cognitionMode != .normal {
                             Text(app.t(
-                                "⚠️ Experimental cognition is enabled. Vera may create persistent knowledge-gap nodes and propose new facts/skills for review — never applied without approval.",
-                                "⚠️ 実験的な認知モードが有効です。Veraは永続的な知識ギャップノードを作成し、新しい事実/スキルをレビュー用に提案することがあります — 承認なしには適用されません。"
+                                "Open-domain gap mode (Milestone O): experiment records GapNodes; sleep may add quarantine candidates via heartbeat. Closed-domain growth (M) still requires human accept. Not a level 1–3 evolution system.",
+                                "開いた領域のギャップモード(Milestone O): experimentはGapNodeを記録、sleepはheartbeatで検疫候補を追加し得ます。閉じた領域の成長(M)も人間の承認が必要です。レベル1〜3の自己進化システムではありません。"
                             ))
                             .font(.system(size: 9))
                             .foregroundStyle(.orange)
@@ -270,6 +274,69 @@ struct JGenVeraSettingsPanelView: View {
                     .font(.system(size: 9)).foregroundStyle(.tertiary)
             }
             .padding(14)
+        }
+        .alert(
+            app.t("Allow 1fps screen monitoring?", "1fps画面監視を許可しますか？"),
+            isPresented: $showKeyframePrivacyAlert
+        ) {
+            Button(app.t("Allow", "許可"), role: .none) {
+                council.keyframeEyePrivacyAcknowledged = true
+                council.allowKeyframeEye = true
+                VisualKeyframePump.shared.reconcile()
+            }
+            Button(app.t("Cancel", "キャンセル"), role: .cancel) {}
+        } message: {
+            Text(app.t(
+                "While an agent run is active and a target app window is set, Verantyx will capture that window about once per second to detect loading/screen changes.\n\n• Only the target automation window — not always-on desktop monitoring.\n• Raw pixels are not saved to disk (summaries / AX text only).\n• You can turn this off anytime; capture stops immediately.\n• Screen Recording and Accessibility permissions may still be required by macOS.",
+                "エージェント実行中かつ対象アプリウィンドウがあるときだけ、約1秒間隔でそのウィンドウを取得し、読み込みや画面変化を検知します。\n\n• 対象の自動化ウィンドウのみ（常時デスクトップ監視ではありません）\n• 生ピクセルはディスクに保存しません（要約・AX由来テキストのみ）\n• いつでもOFFでき、即座に停止します\n• macOSの画面収録／アクセシビリティ権限が別途必要な場合があります"
+            ))
+        }
+    }
+
+    @ViewBuilder
+    private func keyframeEyePermissionBlock() -> some View {
+        VStack(alignment: .leading, spacing: 6) {
+            HStack(spacing: 8) {
+                Button {
+                    if council.allowKeyframeEye {
+                        council.allowKeyframeEye = false
+                        VisualKeyframePump.shared.reconcile()
+                    } else if council.keyframeEyePrivacyAcknowledged {
+                        council.allowKeyframeEye = true
+                        VisualKeyframePump.shared.reconcile()
+                    } else {
+                        showKeyframePrivacyAlert = true
+                    }
+                } label: {
+                    Text(council.allowKeyframeEye
+                         ? app.t("Disable 1fps screen eye", "1fps画面監視を無効化")
+                         : app.t("Allow 1fps screen eye…", "1fps画面監視を許可…"))
+                        .font(.system(size: 10, weight: .semibold))
+                }
+                .buttonStyle(.borderedProminent)
+                .tint(council.allowKeyframeEye ? .orange : .accentColor)
+
+                if council.allowKeyframeEye {
+                    Text(app.t("Permitted", "許可済み"))
+                        .font(.system(size: 9, weight: .semibold))
+                        .foregroundStyle(.green)
+                }
+            }
+
+            Text(app.t(
+                "Runs only during an agent session with a HiddenWindow target. Event-driven click traces stay separate.",
+                "エージェント実行中かつ HiddenWindow 対象があるときだけ動作します。クリック時のイベント記録とは別経路です。"
+            ))
+            .font(.system(size: 9))
+            .foregroundStyle(.tertiary)
+            .fixedSize(horizontal: false, vertical: true)
+
+            if keyframePump.isActivelyMonitoring {
+                Text(app.t("Monitoring: \(keyframePump.monitoredAppName ?? "—")",
+                           "監視中: \(keyframePump.monitoredAppName ?? "—")"))
+                    .font(.system(size: 10, weight: .semibold))
+                    .foregroundStyle(.orange)
+            }
         }
     }
 
