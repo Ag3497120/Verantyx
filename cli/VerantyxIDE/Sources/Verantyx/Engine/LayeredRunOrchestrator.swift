@@ -111,7 +111,14 @@ enum LayeredRunOrchestrator {
                     "🧭 [L2 ルーター] 挨拶 → SPEAK")))
             } else {
                 let keywordAct = looksLikeDesktopAct(question: modelQuestion, handoff: handoff)
-                if let route = await JGenSpeakActRouter.classify(question: modelQuestion, handoff: handoff) {
+                // Pure Q&A ("今日の天気を教えて") must not become random clicks
+                // when the tiny classifier emits ACT without desktop intent.
+                if looksLikeSpeakOnlyQA(modelQuestion), !keywordAct {
+                    useAct = false
+                    await onProgress(.systemLog(AppLanguage.shared.t(
+                        "🧭 [L2 Router] informational Q&A → SPEAK",
+                        "🧭 [L2 ルーター] 情報質問 → SPEAK")))
+                } else if let route = await JGenSpeakActRouter.classify(question: modelQuestion, handoff: handoff) {
                     // Tiny models sometimes emit SPEAK while the user clearly
                     // asked to operate the desktop — override with keyword signal.
                     if route == .speak, keywordAct {
@@ -119,6 +126,11 @@ enum LayeredRunOrchestrator {
                         await onProgress(.systemLog(AppLanguage.shared.t(
                             "🧭 [L2 Router] JGEN→SPEAK but desktop intent in user text → ACT",
                             "🧭 [L2 ルーター] JGENはSPEAKだがユーザー文に操作意図 → ACT")))
+                    } else if route == .act, !keywordAct, looksLikeSpeakOnlyQA(modelQuestion) {
+                        useAct = false
+                        await onProgress(.systemLog(AppLanguage.shared.t(
+                            "🧭 [L2 Router] JGEN→ACT but informational Q&A → SPEAK",
+                            "🧭 [L2 ルーター] JGENはACTだが情報質問 → SPEAK")))
                     } else {
                         useAct = (route == .act)
                         await onProgress(.systemLog(AppLanguage.shared.t(
@@ -254,7 +266,28 @@ enum LayeredRunOrchestrator {
             "open ", "open_", "browse", "ウェブ", "google", "url", "http",
             "デスクトップ", "ウィンドウ", "window", "入力して", "スクロール",
             "scroll", "open_app", "desktop_act", "desktop_snapshot",
+            "deepl", "翻訳", "translate",
         ]
         return keys.contains { blob.contains($0) }
+    }
+
+    /// Informational Q&A that should SPEAK (not random desktop clicks).
+    /// e.g. 「今日の天気を教えて」 without Safari/open/search intent.
+    private static func looksLikeSpeakOnlyQA(_ question: String) -> Bool {
+        let t = PromptBudget.truncateForModel(question, maxChars: 400, headChars: 300, tailChars: 80)
+            .lowercased()
+        let askHints = [
+            "天気", "weather", "気温", "temperature",
+            "とは", "って何", "教えて", "意味", "why ", "what is", "what's",
+            "誰", "いつ", "どこ", "どうして",
+        ]
+        let desktopHints = [
+            "safari", "chrome", "firefox", "ブラウザ", "開いて", "開け", "起動",
+            "検索", "search", "クリック", "click", "desktop", "操作",
+            "deepl", "翻訳", "translate", "snapshot", "画面",
+        ]
+        let asks = askHints.contains { t.contains($0) }
+        let desktop = desktopHints.contains { t.contains($0) }
+        return asks && !desktop
     }
 }

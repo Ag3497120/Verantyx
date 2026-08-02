@@ -135,29 +135,87 @@ actor JGenActAgent {
             )
             lastObservations = observations
 
-            if Self.goalNeedsWebSearch(goal) {
-                // Prefer seed derived from the original paste head (before
-                // middle truncation) so leading 「Safariで…検索」 survives.
-                let seed = searchQuerySeed?.trimmingCharacters(in: .whitespacesAndNewlines) ?? ""
-                let querySource = seed.isEmpty ? goal : seed
-                let query = PromptBudget.capSearchQuery(Self.searchQuery(from: querySource))
+            // Prefer seed from original paste (intent line in head *or* tail),
+            // not the middle-truncated goal — essays often precede 「Safariで…」.
+            let seed = searchQuerySeed?.trimmingCharacters(in: .whitespacesAndNewlines) ?? ""
+            let querySource = seed.isEmpty ? goal : seed
+            let translate = PromptBudget.isTranslateIntent(querySource)
+                || PromptBudget.isTranslateIntent(goal)
+
+            if translate {
+                // Never dump the essay into Smart Search. Open DeepL instead;
+                // the user (or later turns) can paste the body into the form.
+                let url = PromptBudget.deepLTranslatorURL
                 await onProgress(.systemLog(AppLanguage.shared.t(
-                    "🛠 [L2 JGEN Act] typing search query into Safari: \"\(query)\"…",
-                    "🛠 [L2 JGEN操作] Safari の検索欄に「\(query)」と入力…")))
-                let typed = await HiddenWindowAutomation.shared.focusAddressBarAndSearch(query)
+                    "🛠 [L2 JGEN Act] translate intent → navigating Safari to \(url)…",
+                    "🛠 [L2 JGEN操作] 翻訳意図 → Safari で \(url) を開く…")))
+                let opened = await HiddenWindowAutomation.shared.openURLInTargetBrowser(url)
                 toolCount += 1
-                observations.append("search_bar → \(typed)")
+                observations.append("navigate → \(opened)")
                 lastObservations = observations
-                await onProgress(.systemLog(typed))
+                await onProgress(.systemLog(opened))
                 await JGenVectorBusMemory.stampObservation(
                     label: "jgen_act",
-                    detail: "search_bar → \(typed)",
+                    detail: "navigate → \(opened)",
                     sessionId: sid,
                     stepIndex: toolCount,
-                    actionLabel: "search_bar",
+                    actionLabel: "navigate",
                     changedRegion: nil,
-                    concepts: ["ui-observe", "bug-repro", "jgen-act", "web-search"]
+                    concepts: ["ui-observe", "bug-repro", "jgen-act", "translate", "deepl"]
                 )
+
+                toolCount = await Self.runBootstrapTool(
+                    .desktopSnapshot,
+                    label: "snapshot after DeepL navigate…",
+                    labelJA: "DeepL 表示後に [DESKTOP_SNAPSHOT]…",
+                    executor: executor,
+                    workspaceURL: workspaceURL,
+                    sessionId: sid,
+                    observations: &observations,
+                    toolCount: toolCount,
+                    onProgress: onProgress
+                )
+                lastObservations = observations
+            } else if Self.goalNeedsWebSearch(goal) || Self.goalNeedsWebSearch(querySource) {
+                let query = PromptBudget.capSearchQuery(Self.searchQuery(from: querySource))
+                // URL-shaped queries (e.g. deepl.com/…) navigate; else type search.
+                if Self.looksLikeURL(query) {
+                    await onProgress(.systemLog(AppLanguage.shared.t(
+                        "🛠 [L2 JGEN Act] navigating Safari → \(query)…",
+                        "🛠 [L2 JGEN操作] Safari で \(query) を開く…")))
+                    let opened = await HiddenWindowAutomation.shared.openURLInTargetBrowser(query)
+                    toolCount += 1
+                    observations.append("navigate → \(opened)")
+                    lastObservations = observations
+                    await onProgress(.systemLog(opened))
+                    await JGenVectorBusMemory.stampObservation(
+                        label: "jgen_act",
+                        detail: "navigate → \(opened)",
+                        sessionId: sid,
+                        stepIndex: toolCount,
+                        actionLabel: "navigate",
+                        changedRegion: nil,
+                        concepts: ["ui-observe", "bug-repro", "jgen-act", "web-nav"]
+                    )
+                } else {
+                    await onProgress(.systemLog(AppLanguage.shared.t(
+                        "🛠 [L2 JGEN Act] typing search query into Safari: \"\(query)\"…",
+                        "🛠 [L2 JGEN操作] Safari の検索欄に「\(query)」と入力…")))
+                    let typed = await HiddenWindowAutomation.shared.focusAddressBarAndSearch(query)
+                    toolCount += 1
+                    observations.append("search_bar → \(typed)")
+                    lastObservations = observations
+                    await onProgress(.systemLog(typed))
+                    await JGenVectorBusMemory.stampObservation(
+                        label: "jgen_act",
+                        detail: "search_bar → \(typed)",
+                        sessionId: sid,
+                        stepIndex: toolCount,
+                        actionLabel: "search_bar",
+                        changedRegion: nil,
+                        concepts: ["ui-observe", "bug-repro", "jgen-act", "web-search"]
+                    )
+                }
 
                 toolCount = await Self.runBootstrapTool(
                     .desktopSnapshot,
@@ -395,40 +453,86 @@ actor JGenActAgent {
 
     nonisolated static func goalNeedsBrowser(_ goal: String) -> Bool {
         let t = goal.lowercased()
-        let keys = ["safari", "ブラウザ", "chrome", "firefox", "ニュース", "news", "検索", "search", "web", "url", "http"]
+        let keys = [
+            "safari", "ブラウザ", "chrome", "firefox", "ニュース", "news",
+            "検索", "search", "web", "url", "http",
+            "deepl", "翻訳", "translate", "英訳", "和訳",
+        ]
         return keys.contains { t.contains($0) }
     }
 
     nonisolated static func goalNeedsWebSearch(_ goal: String) -> Bool {
+        // Translate is handled by DeepL URL navigation, not Smart Search.
+        if PromptBudget.isTranslateIntent(goal) { return false }
         let t = goal.lowercased()
         return t.contains("ニュース") || t.contains("news")
             || t.contains("検索") || t.contains("search")
             || t.contains("調べ") || t.contains("look up") || t.contains("google")
     }
 
+    nonisolated static func looksLikeURL(_ text: String) -> Bool {
+        let t = text.trimmingCharacters(in: .whitespacesAndNewlines).lowercased()
+        return t.hasPrefix("http://") || t.hasPrefix("https://")
+            || t.hasPrefix("www.")
+            || t.contains(".com/") || t.contains(".co.jp/")
+    }
+
     /// Derive what to type into Safari's Smart Search field from the user goal.
+    /// Must stay tiny and task-shaped — never the essay body after 「下記を」.
     nonisolated static func searchQuery(from goal: String) -> String {
-        var t = goal.trimmingCharacters(in: .whitespacesAndNewlines)
-        let strip: [String] = [
+        if PromptBudget.isTranslateIntent(goal) {
+            return PromptBudget.deepLTranslatorURL
+        }
+
+        // Prefer a short imperative line over the raw (possibly essay) blob.
+        let intent = PromptBudget.extractTaskIntentLine(from: goal)
+            ?? PromptBudget.searchSeed(from: goal)
+        var t = intent.trimmingCharacters(in: .whitespacesAndNewlines)
+
+        // Strip known *prefixes* only — never global replace of "して" (that
+        // mutilates Japanese essay bodies and still leaves thousands of chars).
+        let prefixStrips: [String] = [
             "Safariを開いて", "safariを開いて", "Safariで", "safariで",
-            "ブラウザを開いて", "ブラウザで", "を開いて", "開いて",
-            "検索して", "調べて", "してくださいしてください", "してください",
-            "してくれ", "して", "please ", "open safari and ", "open safari ",
+            "ブラウザを開いて", "ブラウザで",
+            "open safari and ", "open safari ", "please ",
             "search for ", "search ",
         ]
-        for s in strip {
-            t = t.replacingOccurrences(of: s, with: "", options: [.caseInsensitive])
+        for s in prefixStrips {
+            if t.lowercased().hasPrefix(s.lowercased()) {
+                t = String(t.dropFirst(s.count))
+                    .trimmingCharacters(in: .whitespacesAndNewlines)
+            }
         }
-        t = t.trimmingCharacters(in: .whitespacesAndNewlines)
-        // Drop leftover particles / punctuation.
+        // Trailing polite / imperative endings (once, at end).
+        let suffixStrips = ["してください", "してくれ", "検索して", "調べて", "して", "を開いて", "開いて"]
+        for s in suffixStrips {
+            if t.hasSuffix(s) {
+                t = String(t.dropLast(s.count))
+                    .trimmingCharacters(in: .whitespacesAndNewlines)
+            }
+        }
         while t.hasPrefix("を") || t.hasPrefix("で") || t.hasPrefix("の") {
             t = String(t.dropFirst()).trimmingCharacters(in: .whitespacesAndNewlines)
         }
+
+        // Drop everything after 「下記を」 / "the following" — that is the essay body.
+        for marker in ["下記を", "以下を", "次を", "the following", "下記の", "以下の"] {
+            if let range = t.range(of: marker, options: .caseInsensitive) {
+                t = String(t[..<range.lowerBound])
+                    .trimmingCharacters(in: .whitespacesAndNewlines)
+                break
+            }
+        }
+
         if t.isEmpty || t == "ニュース" || t.lowercased() == "news" {
             return goal.contains("ニュース") || goal.contains("今日") ? "今日のニュース" : "today's news"
         }
-        if t == "ニュースを" || t.hasSuffix("ニュース") && t.count <= 8 {
-            return goal.contains("今日") ? "今日のニュース" : "今日のニュース"
+        if t == "ニュースを" || (t.hasSuffix("ニュース") && t.count <= 8) {
+            return "今日のニュース"
+        }
+        // DeepL without full translate phrasing still in the seed.
+        if t.lowercased().contains("deepl") {
+            return PromptBudget.deepLTranslatorURL
         }
         return PromptBudget.capSearchQuery(t)
     }

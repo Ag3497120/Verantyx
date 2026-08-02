@@ -123,9 +123,10 @@ enum JGenVectorBusMemory {
         useEternal: Bool,
         k: Int = 3
     ) async -> String {
+        let boundedQuery = PromptBudget.truncateForEncode(query)
         var parts: [String] = []
         if useEternal {
-            let eternal = await EternalMemoryStore.shared.recallBlock(for: query, k: k)
+            let eternal = await EternalMemoryStore.shared.recallBlock(for: boundedQuery, k: k)
             if !eternal.isEmpty { parts.append(eternal) }
         }
         let visual = await VisualMemoryStore.shared.recallRecentLabelsBlock(k: k)

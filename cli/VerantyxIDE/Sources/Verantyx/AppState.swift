@@ -1452,10 +1452,13 @@ final class AppState: ObservableObject {
         // receive pre-loaded content, so the fix is the same thing the
         // user had to do manually to work around it: put the attached
         // path(s) directly into the task text Vera actually receives.
-        var instruction = instruction
+        var instruction = PromptBudget.truncateForModel(instruction)
         if !files.isEmpty {
             let pathList = files.map { $0.path }.joined(separator: "\n")
             instruction += "\n\n" + t("Attached path(s):", "添付されたパス:") + "\n" + pathList
+            // Re-bound after attaching paths so a huge paste + paths cannot
+            // explode Vera's planner when the GPU is idle.
+            instruction = PromptBudget.truncateForModel(instruction)
         }
 
         let mode = CouncilSettingsStore.shared.cognitionMode

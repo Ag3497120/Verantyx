@@ -248,7 +248,9 @@ final class HiddenWindowAutomation: ObservableObject {
         guard let pid = targetPID, let source = CGEventSource(stateID: .hidSystemState) else {
             return "ERROR: no hidden-window target — OPEN_APP first"
         }
-        let trimmed = query.trimmingCharacters(in: .whitespacesAndNewlines)
+        let trimmed = PromptBudget.capSearchQuery(
+            query.trimmingCharacters(in: .whitespacesAndNewlines)
+        )
         guard !trimmed.isEmpty else { return "ERROR: empty search query" }
 
         await withRestoredWindow {
