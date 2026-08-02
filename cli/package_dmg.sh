@@ -12,6 +12,12 @@
 set -euo pipefail
 
 VERSION="${1:-1.0.0}"
+# Branch workflow_dispatch passes names like fix/jgen-act-compile-ci; those
+# must not become path components in dist/VerantyxIDE-fix/....dmg.
+VERSION="$(printf '%s' "$VERSION" | tr '/ ' '--' | tr -cd 'A-Za-z0-9._-')"
+if [ -z "$VERSION" ]; then
+  VERSION="0.0.0-dev"
+fi
 APPLE_ID="${2:-}"
 TEAM_ID="${3:-}"
 NOTARY_PASS="${4:-}"
