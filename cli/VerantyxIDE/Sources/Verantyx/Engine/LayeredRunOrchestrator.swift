@@ -96,17 +96,28 @@ enum LayeredRunOrchestrator {
                 await onProgress(.systemLog(AppLanguage.shared.t(
                     "🧭 [L2 Router] greeting → SPEAK",
                     "🧭 [L2 ルーター] 挨拶 → SPEAK")))
-            } else if let route = await JGenSpeakActRouter.classify(question: question, handoff: handoff) {
-                useAct = (route == .act)
-                await onProgress(.systemLog(AppLanguage.shared.t(
-                    "🧭 [L2 Router] JGEN classified → \(route.rawValue.uppercased())",
-                    "🧭 [L2 ルーター] JGEN分類 → \(route.rawValue.uppercased())")))
             } else {
-                // Fallback only when the classifier fails to emit ACT/SPEAK.
-                useAct = looksLikeDesktopAct(question: question, handoff: handoff)
-                await onProgress(.systemLog(AppLanguage.shared.t(
-                    "🧭 [L2 Router] JGEN classify failed — keyword fallback → \(useAct ? "ACT" : "SPEAK")",
-                    "🧭 [L2 ルーター] JGEN分類失敗 — キーワード補助 → \(useAct ? "ACT" : "SPEAK")")))
+                let keywordAct = looksLikeDesktopAct(question: question, handoff: handoff)
+                if let route = await JGenSpeakActRouter.classify(question: question, handoff: handoff) {
+                    // Tiny models sometimes emit SPEAK while the user clearly
+                    // asked to operate the desktop — override with keyword signal.
+                    if route == .speak, keywordAct {
+                        useAct = true
+                        await onProgress(.systemLog(AppLanguage.shared.t(
+                            "🧭 [L2 Router] JGEN→SPEAK but desktop intent in user text → ACT",
+                            "🧭 [L2 ルーター] JGENはSPEAKだがユーザー文に操作意図 → ACT")))
+                    } else {
+                        useAct = (route == .act)
+                        await onProgress(.systemLog(AppLanguage.shared.t(
+                            "🧭 [L2 Router] JGEN classified → \(route.rawValue.uppercased())",
+                            "🧭 [L2 ルーター] JGEN分類 → \(route.rawValue.uppercased())")))
+                    }
+                } else {
+                    useAct = keywordAct
+                    await onProgress(.systemLog(AppLanguage.shared.t(
+                        "🧭 [L2 Router] JGEN classify failed — keyword fallback → \(useAct ? "ACT" : "SPEAK")",
+                        "🧭 [L2 ルーター] JGEN分類失敗 — キーワード補助 → \(useAct ? "ACT" : "SPEAK")")))
+                }
             }
 
             if useAct {
