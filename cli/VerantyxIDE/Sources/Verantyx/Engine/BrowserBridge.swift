@@ -635,9 +635,11 @@ class SafariVisionBridge {
     }
 
     func takeScreenshot(enforceSafari: Bool = true) async throws -> String {
-        if !CGPreflightScreenCaptureAccess() {
-            CGRequestScreenCaptureAccess()
-            throw BrowserError.ioError("Please grant Screen Recording permission in System Settings -> Privacy & Security. If already checked, remove it (click '-'), restart the app, and grant it again when prompted.")
+        // Preflight can lag behind a fresh grant (and is unreliable for
+        // ad-hoc DMG builds). Always request when denied, then still attempt
+        // capture once — only fail if the CG image is nil.
+        if !ScreenCapturePermission.isGranted {
+            ScreenCapturePermission.request()
         }
 
         if enforceSafari {
@@ -652,7 +654,7 @@ class SafariVisionBridge {
         let windowY: Double = 0.0
 
         guard let image = CGDisplayCreateImage(mainDisplay) else {
-            throw BrowserError.ioError("Failed to create image from screen. Check Screen Recording permissions.")
+            throw BrowserError.ioError(ScreenCapturePermission.shortError)
         }
 
         let pixelWidth = Double(image.width)

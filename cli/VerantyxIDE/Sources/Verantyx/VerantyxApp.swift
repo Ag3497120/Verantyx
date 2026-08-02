@@ -53,10 +53,25 @@ final class AppDelegate: NSObject, NSApplicationDelegate {
                 _ = AXIsProcessTrustedWithOptions(options)
             }
             
-            // Request Screen Recording (for CGWindowListCreateImage)
-            if #available(macOS 10.15, *) {
-                if !CGPreflightScreenCaptureAccess() {
-                    CGRequestScreenCaptureAccess()
+            // Request Screen Recording (for CGWindowListCreateImage /
+            // CGDisplayCreateImage). Ad-hoc DMG builds often need a reset
+            // cycle — surface that once on launch when still denied.
+            if !ScreenCapturePermission.isGranted {
+                ScreenCapturePermission.request()
+                DispatchQueue.main.asyncAfter(deadline: .now() + 2.5) {
+                    guard !ScreenCapturePermission.isGranted else { return }
+                    let alert = NSAlert()
+                    alert.messageText = AppLanguage.shared.t(
+                        "Screen Recording is off",
+                        "画面収録が無効です"
+                    )
+                    alert.informativeText = ScreenCapturePermission.recoveryMessage
+                    alert.alertStyle = .warning
+                    alert.addButton(withTitle: AppLanguage.shared.t("Open Settings", "設定を開く"))
+                    alert.addButton(withTitle: AppLanguage.shared.t("Later", "後で"))
+                    if alert.runModal() == .alertFirstButtonReturn {
+                        ScreenCapturePermission.openSystemSettings()
+                    }
                 }
             }
         }

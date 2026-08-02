@@ -6,9 +6,8 @@ class DesktopVisionBridge {
     static let shared = DesktopVisionBridge()
 
     func takeScreenshot() async throws -> String {
-        if !CGPreflightScreenCaptureAccess() {
-            CGRequestScreenCaptureAccess()
-            throw BrowserError.ioError("Please grant Screen Recording permission in System Settings -> Privacy & Security. If already checked, remove it (click '-'), restart the app, and grant it again when prompted.")
+        if !ScreenCapturePermission.isGranted {
+            ScreenCapturePermission.request()
         }
 
         let mainDisplay = CGMainDisplayID()
@@ -16,7 +15,7 @@ class DesktopVisionBridge {
         let logicalHeight = Double(CGDisplayPixelsHigh(mainDisplay))
 
         guard let image = CGDisplayCreateImage(mainDisplay) else {
-            throw BrowserError.ioError("Failed to create image from screen. Check Screen Recording permissions.")
+            throw BrowserError.ioError(ScreenCapturePermission.shortError)
         }
 
         let pixelWidth = Double(image.width)

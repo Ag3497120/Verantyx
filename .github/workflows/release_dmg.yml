@@ -9,7 +9,7 @@ on:
 jobs:
   build:
     # Use macos-14 which provides Apple Silicon (M1) runners natively
-    runs-on: macos-14 
+    runs-on: macos-14
 
     steps:
       - name: Checkout repository
@@ -23,25 +23,61 @@ jobs:
       - name: Make package script executable
         run: chmod +x cli/package_dmg.sh
 
-      - name: Build and Package DMG (Ad-Hoc)
+      - name: Install Developer ID certificate
+        env:
+          P12_BASE64: ${{ secrets.APPLE_DEVELOPER_ID_P12_BASE64 }}
+          P12_PASSWORD: ${{ secrets.APPLE_DEVELOPER_ID_P12_PASSWORD }}
+          KEYCHAIN_PASSWORD: ${{ secrets.KEYCHAIN_PASSWORD }}
         run: |
-          cd cli
-          # Extract version from GitHub tag (e.g. refs/tags/v1.0.0 -> 1.0.0)
-          VERSION=${GITHUB_REF_NAME#v}
-          if [ -z "$VERSION" ] || [ "$VERSION" = "main" ]; then
-            VERSION="0.0.0-dev"
+          set -euo pipefail
+          if [ -z "${P12_BASE64:-}" ] || [ -z "${P12_PASSWORD:-}" ]; then
+            echo "⚠️  Developer ID secrets missing — will fall back to ad-hoc in package_dmg.sh"
+            exit 0
           fi
-          bash package_dmg.sh "$VERSION"
-          
+          CERTIFICATE_PATH="$RUNNER_TEMP/developer_id.p12"
+          KEYCHAIN_PATH="$RUNNER_TEMP/verantyx-signing.keychain-db"
+          KEYCHAIN_PW="${KEYCHAIN_PASSWORD:-$(openssl rand -base64 24)}"
+          echo -n "$P12_BASE64" | base64 --decode > "$CERTIFICATE_PATH"
+          security create-keychain -p "$KEYCHAIN_PW" "$KEYCHAIN_PATH"
+          security set-keychain-settings -lut 21600 "$KEYCHAIN_PATH"
+          security unlock-keychain -p "$KEYCHAIN_PW" "$KEYCHAIN_PATH"
+          security import "$CERTIFICATE_PATH" -P "$P12_PASSWORD" -A -t cert -f pkcs12 -k "$KEYCHAIN_PATH"
+          security list-keychains -d user -s "$KEYCHAIN_PATH" login.keychain
+          security set-key-partition-list -S apple-tool:,apple:,codesign: -s -k "$KEYCHAIN_PW" "$KEYCHAIN_PATH"
+          security find-identity -v -p codesigning "$KEYCHAIN_PATH"
+
+      - name: Build and Package DMG (Developer ID + Notarize when secrets present)
+        env:
+          APPLE_ID: ${{ secrets.APPLE_ID }}
+          APPLE_TEAM_ID: ${{ secrets.APPLE_TEAM_ID }}
+          APPLE_APP_SPECIFIC_PASSWORD: ${{ secrets.APPLE_APP_SPECIFIC_PASSWORD }}
+        run: |
+          set -euo pipefail
+          cd cli
+          VERSION=${GITHUB_REF_NAME#v}
+          if [ -z "$VERSION" ] || [ "$VERSION" = "main" ] || [[ "$VERSION" == fix/* ]] || [[ "$VERSION" == cursor/* ]]; then
+            VERSION="0.0.0-dev-${GITHUB_RUN_NUMBER}"
+          fi
+          if [ -n "${APPLE_ID:-}" ] && [ -n "${APPLE_TEAM_ID:-}" ] && [ -n "${APPLE_APP_SPECIFIC_PASSWORD:-}" ]; then
+            bash package_dmg.sh "$VERSION" "$APPLE_ID" "$APPLE_TEAM_ID" "$APPLE_APP_SPECIFIC_PASSWORD"
+          else
+            echo "⚠️  Notarization secrets missing — packaging without notarytool"
+            bash package_dmg.sh "$VERSION"
+          fi
+
       - name: Upload Artifact (for manual runs)
         uses: actions/upload-artifact@v4
         with:
           name: VerantyxIDE-macOS-App
-          path: cli/dist/*.dmg
-          
+          path: |
+            cli/dist/*.dmg
+            cli/dist/*.zip
+
       - name: Upload Release Asset
         uses: softprops/action-gh-release@v2
         if: startsWith(github.ref, 'refs/tags/')
         with:
-          files: cli/dist/*.dmg
+          files: |
+            cli/dist/*.dmg
+            cli/dist/*.zip
           generate_release_notes: true
