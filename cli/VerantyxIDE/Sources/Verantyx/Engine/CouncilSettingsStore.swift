@@ -29,6 +29,16 @@ final class CouncilSettingsStore: ObservableObject {
     private static let cognitionModeKey = "council_cognition_mode"
     private static let allowKeyframeEyeKey = "council_allow_keyframe_eye"
     private static let keyframeEyePrivacyAcknowledgedKey = "council_keyframe_eye_privacy_ack"
+    /// Sense path: AX / text / vectors only — no screen JPEG into the model.
+    nonisolated static let vectorOnlySenseKey = "council_vector_only_sense"
+    /// JGEN Act exploration turn budget (positive int). `0`/`-1` also mean unlimited.
+    nonisolated static let actMaxTurnsKey = "council_act_max_turns"
+    /// When true, Act uses a very high practical ceiling instead of `actMaxTurns`.
+    nonisolated static let actUnlimitedTurnsKey = "council_act_unlimited_turns"
+    /// Default Act turn budget (matches the former hard ceiling).
+    nonisolated static let actMaxTurnsDefault = 18
+    /// Practical ceiling when unlimited is on (safety stop, not a product limit).
+    nonisolated static let actUnlimitedPracticalCap = 10_000
 
     @Published var config: CouncilOrchestrator.Config {
         didSet { persistConfig() }
@@ -79,6 +89,18 @@ final class CouncilSettingsStore: ObservableObject {
     /// text memory.
     @Published var useVisualMemory: Bool {
         didSet { UserDefaults.standard.set(useVisualMemory, forKey: Self.useVisualMemoryKey) }
+    }
+
+    /// When true (default), the agent sense path never retains or injects
+    /// screen pixels into LLM context: AX semantic map + vector stamps only.
+    /// Act mirror UI may still capture for the human; those frames must not
+    /// be copied into conversation / `CognitiveAnchorEngine.lastVisionScreenshot`.
+    /// Opt-out restores legacy vision_browse / screenshot-inject behaviour.
+    @Published var vectorOnlySense: Bool {
+        didSet {
+            UserDefaults.standard.set(vectorOnlySense, forKey: Self.vectorOnlySenseKey)
+            if vectorOnlySense { SensePixelPolicy.resetOnceLog() }
+        }
     }
 
     /// 1fps keyframe eye (Vera-a-V): explicit user permission. Default OFF.
@@ -136,6 +158,22 @@ final class CouncilSettingsStore: ObservableObject {
         didSet { UserDefaults.standard.set(cognitionMode.rawValue, forKey: Self.cognitionModeKey) }
     }
 
+    /// JGEN Act max exploration turns (Layer 2 desktop/AX loop). Default 18.
+    /// Ignored while `actUnlimitedTurns` is on. Values `≤ 0` also mean unlimited.
+    @Published var actMaxTurns: Int {
+        didSet { UserDefaults.standard.set(actMaxTurns, forKey: Self.actMaxTurnsKey) }
+    }
+
+    /// When true, Act exploration uses `actUnlimitedPracticalCap` (10_000)
+    /// instead of a small turn budget. Safety brakes (identical-action streak,
+    /// DONE, user cancel) still apply.
+    @Published var actUnlimitedTurns: Bool {
+        didSet { UserDefaults.standard.set(actUnlimitedTurns, forKey: Self.actUnlimitedTurnsKey) }
+    }
+
+    /// Effective turn budget passed to `JGenActAgent.run(maxTurns:)`.
+    var resolvedActMaxTurns: Int { Self.resolveActMaxTurns(unlimited: actUnlimitedTurns, stored: actMaxTurns) }
+
     private init() {
         let ud = UserDefaults.standard
         if let data = ud.data(forKey: Self.configKey),
@@ -149,10 +187,34 @@ final class CouncilSettingsStore: ObservableObject {
         executionModel = ud.string(forKey: Self.executionModelKey) ?? ""
         executionUseJGEN = ud.bool(forKey: Self.executionUseJGENKey)
         useVisualMemory = ud.bool(forKey: Self.useVisualMemoryKey)
+        // Default ON: missing key → vector-only (AX/text/vectors, no pixel inject).
+        vectorOnlySense = (ud.object(forKey: Self.vectorOnlySenseKey) as? Bool) ?? true
         allowKeyframeEye = ud.bool(forKey: Self.allowKeyframeEyeKey)
         keyframeEyePrivacyAcknowledged = ud.bool(forKey: Self.keyframeEyePrivacyAcknowledgedKey)
         useVeraHarnessForChat = ud.bool(forKey: Self.useVeraHarnessKey)
         cognitionMode = CognitionMode(rawValue: ud.string(forKey: Self.cognitionModeKey) ?? "normal") ?? .normal
+        let storedTurns = ud.object(forKey: Self.actMaxTurnsKey) as? Int
+        actMaxTurns = storedTurns ?? Self.actMaxTurnsDefault
+        actUnlimitedTurns = ud.bool(forKey: Self.actUnlimitedTurnsKey)
+            || (storedTurns.map { $0 <= 0 } ?? false)
+    }
+
+    /// Thread-safe read for actors / non-MainActor call sites (UserDefaults).
+    nonisolated static var isVectorOnlySense: Bool {
+        (UserDefaults.standard.object(forKey: vectorOnlySenseKey) as? Bool) ?? true
+    }
+
+    /// Thread-safe Act turn budget for orchestrator / agents.
+    nonisolated static var resolvedActMaxTurns: Int {
+        let ud = UserDefaults.standard
+        let stored = (ud.object(forKey: actMaxTurnsKey) as? Int) ?? actMaxTurnsDefault
+        let unlimited = ud.bool(forKey: actUnlimitedTurnsKey) || stored <= 0
+        return resolveActMaxTurns(unlimited: unlimited, stored: stored)
+    }
+
+    nonisolated static func resolveActMaxTurns(unlimited: Bool, stored: Int) -> Int {
+        if unlimited || stored <= 0 { return actUnlimitedPracticalCap }
+        return max(1, stored)
     }
 
     private func persistConfig() {
@@ -165,5 +227,40 @@ final class CouncilSettingsStore: ObservableObject {
     /// settings no longer match.
     func markCustom() {
         if templateId != "custom" { templateId = "custom" }
+    }
+}
+
+// MARK: - Sense pixel policy (vector-only gate)
+
+/// Central gate for “do not keep / inject screen pixels into the model”.
+/// Aligns with `JGenGPUSafety`: fewer WindowServer captures while JGEN runs.
+enum SensePixelPolicy {
+    private static let lock = NSLock()
+    private static var didLogVectorOnly = false
+
+    static var isVectorOnly: Bool { CouncilSettingsStore.isVectorOnlySense }
+
+    /// Log once per enablement window (process, or after toggling back on).
+    static func logVectorOnlyOnce() {
+        lock.lock()
+        defer { lock.unlock() }
+        guard !didLogVectorOnly else { return }
+        didLogVectorOnly = true
+        print("📐 [Sense] vector-only — pixels not retained for model")
+    }
+
+    static func resetOnceLog() {
+        lock.lock()
+        didLogVectorOnly = false
+        lock.unlock()
+    }
+
+    /// Drop any pending screen JPEG that would otherwise be multimodal-injected.
+    static func clearModelPixelBuffers() async {
+        await CognitiveAnchorEngine.shared.clearVisionScreenshot()
+        await MainActor.run {
+            AppState.shared?.lastVideoFrames = nil
+            AppState.shared?.lastDesktopChangedRegion = nil
+        }
     }
 }

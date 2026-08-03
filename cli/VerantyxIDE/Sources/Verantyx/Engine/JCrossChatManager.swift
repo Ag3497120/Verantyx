@@ -17,12 +17,23 @@ actor JCrossChatManager {
     private var engine: JCrossEngine?
     private var tokenizer: Tokenizer?
     private(set) var loadedModelName: String?
+    /// Last load's device decision (Metal vs CPU) for UI / diagnostics.
+    private(set) var lastLoadDeviceLabel: String?
+    private(set) var lastLoadReasonEN: String?
+    private(set) var lastLoadReasonJA: String?
 
     private init() {}
 
     /// Loads from Application Support (`JGenPaths.convertedModelsDir`).
     private func resolvedJGenPath(for modelFileName: String) async -> String {
         JGenPaths.convertedModelsDir.appendingPathComponent(modelFileName).path
+    }
+
+    /// Run a JGEN forward while asking the Act mirror to stop hitting WindowServer.
+    private func withCapturePaused<T>(_ body: () throws -> T) rethrows -> T {
+        JGenGPUSafety.beginCriticalGPUWork()
+        defer { JGenGPUSafety.endCriticalGPUWork() }
+        return try body()
     }
 
     enum ChatError: Error, LocalizedError {
@@ -53,6 +64,18 @@ actor JCrossChatManager {
     /// the tokenizer its .meta.json sidecar points at. Does real weight
     /// I/O -- call from a background context, never assume it's fast.
     func load(modelFileName: String) async throws {
+        JGenGPUSafety.beginModelLoad()
+        defer { JGenGPUSafety.endModelLoad() }
+
+        // Drop any previous engine's Metal weight/KV caches before mmap'ing
+        // another model — otherwise two .jgen residency windows overlap.
+        if engine != nil {
+            engine?.trim()
+            engine = nil
+            tokenizer = nil
+            loadedModelName = nil
+        }
+
         let jgenPath = await resolvedJGenPath(for: modelFileName)
         let metaPath = jgenPath + ".meta.json"
 
@@ -91,6 +114,17 @@ actor JCrossChatManager {
             throw ChatError.noRealTokenizer(model: modelFileName)
         }
 
+        let mirrorWatching = await MainActor.run {
+            HiddenWindowAutomation.shared.isMirrorWatching
+        }
+        let decision = JGenGPUSafety.prepareEnvironmentForLoad(
+            modelFileName: modelFileName,
+            mirrorWatching: mirrorWatching
+        )
+        lastLoadDeviceLabel = decision.deviceLabel
+        lastLoadReasonEN = decision.reasonEN
+        lastLoadReasonJA = decision.reasonJA
+
         let newEngine = try JCrossEngine(path: jgenPath)
         let newTokenizer = try await AutoTokenizer.from(modelFolder: tokenizerFolder)
 
@@ -100,9 +134,16 @@ actor JCrossChatManager {
     }
 
     func unload() {
+        // Purge composed CPU f32 + GPU caches before dropping the handle so
+        // Metal buffers are released promptly (not only at last autorelease).
+        engine?.trim()
         engine = nil
         tokenizer = nil
         loadedModelName = nil
+        lastLoadDeviceLabel = nil
+        lastLoadReasonEN = nil
+        lastLoadReasonJA = nil
+        JGenGPUSafety.clearRemembered()
     }
 
     /// ChatML (Qwen / many instruct models). Plain `role: content` caused
@@ -176,16 +217,17 @@ actor JCrossChatManager {
         guard let engine, let tokenizer else { throw ChatError.notLoaded }
         // Bound each turn — council/act already truncate, but VectorLab /
         // Vera harness callers may still pass a huge paste into ChatML.
-        let bounded = conversation.map { role, content in
-            let cap = role == "system" ? 2_400 : PromptBudget.maxQuestionChars
-            return (role, PromptBudget.truncateForModel(content, maxChars: cap))
-        }
+        let bounded = PromptBudget.boundConversation(conversation)
+        let cappedMax = JGenGPUSafety.cappedMaxTokens(maxTokens)
         let prompt = Self.formatChatML(bounded)
         let promptTokens = tokenizer.encode(text: prompt).map { UInt32($0) }
-        engine.reset()
-        let outputTokens = try engine.generate(prompt: promptTokens, maxTokens: maxTokens)
-        let raw = tokenizer.decode(tokens: outputTokens.map { Int($0) }, skipSpecialTokens: true)
-        return Self.collapsePhraseRepetition(raw)
+        return try withCapturePaused {
+            engine.reset()
+            defer { if MachineProfile.current().totalRAMGB <= 24 { engine.trim() } }
+            let outputTokens = try engine.generate(prompt: promptTokens, maxTokens: cappedMax)
+            let raw = tokenizer.decode(tokens: outputTokens.map { Int($0) }, skipSpecialTokens: true)
+            return Self.collapsePhraseRepetition(raw)
+        }
     }
 
     /// Streaming generation with ChatML. Callers should return `false` from
@@ -196,22 +238,29 @@ actor JCrossChatManager {
         onToken: @escaping (String) -> Bool
     ) throws -> String {
         guard let engine, let tokenizer else { throw ChatError.notLoaded }
-        let prompt = Self.formatChatML(conversation)
+        // Same turn budgets as `generate` — AgentLoop / Act used to bypass
+        // PromptBudget via this path and re-introduce the paste × ChatML OOM.
+        let bounded = PromptBudget.boundConversation(conversation)
+        let cappedMax = JGenGPUSafety.cappedMaxTokens(maxTokens)
+        let prompt = Self.formatChatML(bounded)
         let promptTokens = tokenizer.encode(text: prompt).map { UInt32($0) }
-        engine.reset()
 
-        var allTokens: [Int] = []
-        var lastDecoded = ""
-        let outputTokens = try engine.generateStreaming(prompt: promptTokens, maxTokens: maxTokens) { token in
-            allTokens.append(Int(token))
-            let decoded = tokenizer.decode(tokens: allTokens, skipSpecialTokens: true)
-            guard decoded.count > lastDecoded.count else { return true }
-            let delta = String(decoded.dropFirst(lastDecoded.count))
-            lastDecoded = decoded
-            return onToken(delta)
+        return try withCapturePaused {
+            engine.reset()
+            defer { if MachineProfile.current().totalRAMGB <= 24 { engine.trim() } }
+            var allTokens: [Int] = []
+            var lastDecoded = ""
+            let outputTokens = try engine.generateStreaming(prompt: promptTokens, maxTokens: cappedMax) { token in
+                allTokens.append(Int(token))
+                let decoded = tokenizer.decode(tokens: allTokens, skipSpecialTokens: true)
+                guard decoded.count > lastDecoded.count else { return true }
+                let delta = String(decoded.dropFirst(lastDecoded.count))
+                lastDecoded = decoded
+                return onToken(delta)
+            }
+            let raw = tokenizer.decode(tokens: outputTokens.map { Int($0) }, skipSpecialTokens: true)
+            return Self.collapsePhraseRepetition(raw)
         }
-        let raw = tokenizer.decode(tokens: outputTokens.map { Int($0) }, skipSpecialTokens: true)
-        return Self.collapsePhraseRepetition(raw)
     }
 
     // MARK: - Vector Lab (project/resynthesize/puzzle_inference/optimize_thought_in_place)
@@ -231,9 +280,13 @@ actor JCrossChatManager {
     func encodeText(_ text: String) throws -> [Float] {
         guard let engine, let tokenizer else { throw ChatError.notLoaded }
         let bounded = PromptBudget.truncateForEncode(text)
-        let tokens = tokenizer.encode(text: bounded).map { UInt32($0) }
-        engine.reset()
-        return try engine.encode(tokens: tokens)
+        let tokens = PromptBudget.capEncodeTokens(
+            tokenizer.encode(text: bounded).map { UInt32($0) }
+        )
+        return try withCapturePaused {
+            engine.reset()
+            return try engine.encode(tokens: tokens)
+        }
     }
 
     /// Decodes a vector (from `encodeText`, `optimizeVector`, or anything
@@ -259,21 +312,34 @@ actor JCrossChatManager {
         observeLayers: [Int]
     ) throws -> [Int: (text: String, entropy: Float)] {
         guard let engine, let tokenizer else { throw ChatError.notLoaded }
-        let promptTokens = tokenizer.encode(text: prompt).map { UInt32($0) }
-        let injections: [(layer: Int, vector: [Float], alpha: Float)] = try interventions.map { iv in
+        // Cap prompt + intervention fan-out — Vera reflect used to encode
+        // many labels + a huge prompt back-to-back without a trim.
+        let boundedPrompt = PromptBudget.truncateForModel(prompt)
+        let cappedIVs = Array(interventions.prefix(4)).map { iv in
+            (layer: iv.layer,
+             textLabel: PromptBudget.truncateForEncode(iv.textLabel),
+             alpha: iv.alpha)
+        }
+        let promptTokens = PromptBudget.capEncodeTokens(
+            tokenizer.encode(text: boundedPrompt).map { UInt32($0) }
+        )
+        let injections: [(layer: Int, vector: [Float], alpha: Float)] = try cappedIVs.map { iv in
             (layer: iv.layer, vector: try encodeText(iv.textLabel), alpha: iv.alpha)
         }
-        engine.reset()
-        let snapshots = try engine.injectMultiLayer(
-            tokens: promptTokens, injections: injections, observeLayers: observeLayers
-        )
-        var out: [Int: (text: String, entropy: Float)] = [:]
-        for (layer, vector) in snapshots {
-            let result = try engine.puzzleInference(layerName: "lm_head", vector: vector)
-            let text = tokenizer.decode(tokens: [Int(result.token)], skipSpecialTokens: true)
-            out[layer] = (text, result.entropy)
+        return try withCapturePaused {
+            engine.reset()
+            let snapshots = try engine.injectMultiLayer(
+                tokens: promptTokens, injections: injections, observeLayers: Array(observeLayers.prefix(8))
+            )
+            var out: [Int: (text: String, entropy: Float)] = [:]
+            for (layer, vector) in snapshots {
+                let result = try engine.puzzleInference(layerName: "lm_head", vector: vector)
+                let text = tokenizer.decode(tokens: [Int(result.token)], skipSpecialTokens: true)
+                out[layer] = (text, result.entropy)
+            }
+            if MachineProfile.current().totalRAMGB <= 24 { engine.trim() }
+            return out
         }
-        return out
     }
 
     /// Milestone P.5 (experimental): same shape as `reflect()`, but for a
@@ -292,25 +358,31 @@ actor JCrossChatManager {
         observeLayers: [Int]
     ) throws -> [Int: (text: String, entropy: Float)] {
         guard let engine, let tokenizer else { throw ChatError.notLoaded }
-        let promptTokens = tokenizer.encode(text: prompt).map { UInt32($0) }
+        let boundedPrompt = PromptBudget.truncateForModel(prompt)
+        let promptTokens = PromptBudget.capEncodeTokens(
+            tokenizer.encode(text: boundedPrompt).map { UInt32($0) }
+        )
         var fitted = vector
         if fitted.count > engine.hiddenDim {
             fitted = Array(fitted.prefix(engine.hiddenDim))
         } else if fitted.count < engine.hiddenDim {
             fitted += [Float](repeating: 0, count: engine.hiddenDim - fitted.count)
         }
-        engine.reset()
-        let snapshots = try engine.injectMultiLayer(
-            tokens: promptTokens, injections: [(layer: layer, vector: fitted, alpha: alpha)],
-            observeLayers: observeLayers
-        )
-        var out: [Int: (text: String, entropy: Float)] = [:]
-        for (layer, vec) in snapshots {
-            let result = try engine.puzzleInference(layerName: "lm_head", vector: vec)
-            let text = tokenizer.decode(tokens: [Int(result.token)], skipSpecialTokens: true)
-            out[layer] = (text, result.entropy)
+        return try withCapturePaused {
+            engine.reset()
+            let snapshots = try engine.injectMultiLayer(
+                tokens: promptTokens, injections: [(layer: layer, vector: fitted, alpha: alpha)],
+                observeLayers: Array(observeLayers.prefix(8))
+            )
+            var out: [Int: (text: String, entropy: Float)] = [:]
+            for (layer, vec) in snapshots {
+                let result = try engine.puzzleInference(layerName: "lm_head", vector: vec)
+                let text = tokenizer.decode(tokens: [Int(result.token)], skipSpecialTokens: true)
+                out[layer] = (text, result.entropy)
+            }
+            if MachineProfile.current().totalRAMGB <= 24 { engine.trim() }
+            return out
         }
-        return out
     }
 
     /// The "entropy lock": the single most-confident token a vector
@@ -343,9 +415,16 @@ actor JCrossChatManager {
     /// instead of that role starting fresh from plain text each time.
     func encodeSoftText(softVectors: [[Float]], text: String) throws -> [Float] {
         guard let engine, let tokenizer else { throw ChatError.notLoaded }
-        let tokens = tokenizer.encode(text: text).map { UInt32($0) }
-        engine.reset()
-        return try engine.encodeSoft(softVectors: softVectors, tokens: tokens)
+        let bounded = PromptBudget.truncateForEncode(text)
+        let tokens = PromptBudget.capEncodeTokens(
+            tokenizer.encode(text: bounded).map { UInt32($0) }
+        )
+        // Soft vectors themselves can balloon residency — keep a small prefix.
+        let soft = Array(softVectors.prefix(16))
+        return try withCapturePaused {
+            engine.reset()
+            return try engine.encodeSoft(softVectors: soft, tokens: tokens)
+        }
     }
 
     // MARK: - Milestone E: full Council port primitives
@@ -395,8 +474,12 @@ actor JCrossChatManager {
     /// string each round.
     func encodeSoftTokens(softVectors: [[Float]], tokens: [UInt32]) throws -> [Float] {
         guard let engine else { throw ChatError.notLoaded }
-        engine.reset()
-        return try engine.encodeSoft(softVectors: softVectors, tokens: tokens)
+        let capped = PromptBudget.capEncodeTokens(tokens)
+        let soft = Array(softVectors.prefix(16))
+        return try withCapturePaused {
+            engine.reset()
+            return try engine.encodeSoft(softVectors: soft, tokens: capped)
+        }
     }
 
     /// Forwards pre-tokenized `tokens` through the full model, returning the
@@ -404,7 +487,16 @@ actor JCrossChatManager {
     /// that already tokenized (Council's round-0 `role_tokens()` prompts).
     func encodeTokens(_ tokens: [UInt32]) throws -> [Float] {
         guard let engine else { throw ChatError.notLoaded }
-        engine.reset()
-        return try engine.encode(tokens: tokens)
+        let capped = PromptBudget.capEncodeTokens(tokens)
+        return try withCapturePaused {
+            engine.reset()
+            return try engine.encode(tokens: capped)
+        }
+    }
+
+    /// Release composed weight caches without unloading the model (between
+    /// council rounds / after a heavy Vera-a turn).
+    func trimMemory() {
+        engine?.trim()
     }
 }

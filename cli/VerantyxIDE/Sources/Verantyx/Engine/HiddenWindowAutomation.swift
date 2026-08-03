@@ -57,6 +57,9 @@ final class HiddenWindowAutomation: ObservableObject {
 
     private init() {}
 
+    /// True while at least one Act mirror pane is open (drives JGEN CPU-safe load).
+    var isMirrorWatching: Bool { mirrorWatchCount > 0 }
+
     private var keepTargetVisible: Bool {
         automationUsesVisibleFrontWindow || mirrorWatchCount > 0
     }
@@ -66,10 +69,18 @@ final class HiddenWindowAutomation: ObservableObject {
     /// Activates `appName`, records its on-screen frame / window id, and
     /// (default) leaves it visible + frontmost for Act. Legacy park mode
     /// still minimizes and returns focus to Verantyx.
+    /// Returns `nil` when the app is not running after activate — callers must
+    /// not report OPEN_APP success or bind Act to a phantom target.
     @discardableResult
     func beginOffscreenSession(appName: String) async -> CGRect? {
         _ = await runOsascript("tell application \"\(appName)\" to activate")
         try? await Task.sleep(nanoseconds: 500_000_000)
+
+        // Honesty gate: AppleScript activate can "succeed" on nonsense names
+        // without leaving a running process. Do not bind the session then.
+        guard let running = runningApplication(named: appName) else {
+            return nil
+        }
 
         let readScript = """
         tell application "System Events"
@@ -83,7 +94,7 @@ final class HiddenWindowAutomation: ObservableObject {
         let result = await runOsascript(readScript)
 
         targetAppName = appName
-        targetPID = NSWorkspace.shared.runningApplications.first(where: { $0.localizedName == appName })?.processIdentifier
+        targetPID = running.processIdentifier
         targetWindowFrame = parseFrame(from: result)
             ?? CGRect(origin: .zero, size: CGSize(width: 1280, height: 800))
         targetWindowID = findWindowID(ownerName: appName)
@@ -103,6 +114,19 @@ final class HiddenWindowAutomation: ObservableObject {
         }
         VisualKeyframePump.shared.reconcile()
         return targetWindowFrame
+    }
+
+    /// Match by localized name or `.app` folder basename.
+    private func runningApplication(named appName: String) -> NSRunningApplication? {
+        let lower = appName.lowercased()
+        return NSWorkspace.shared.runningApplications.first { app in
+            if let loc = app.localizedName, loc.lowercased() == lower { return true }
+            if let base = app.bundleURL?.deletingPathExtension().lastPathComponent,
+               base.lowercased() == lower {
+                return true
+            }
+            return false
+        }
     }
 
     /// Clears session state. Under visible-front policy the target window
@@ -300,6 +324,12 @@ final class HiddenWindowAutomation: ObservableObject {
     }
 
     private func encodeWindowJPEG() -> String? {
+        // JGEN Metal / load holds this latch so we do not compete with
+        // WindowServer for IOGPUGroupMemory (kernel panic on AGX / T6000).
+        if JGenGPUSafety.shouldPauseWindowServerCapture {
+            return lastMirrorImage
+        }
+
         if !ScreenCapturePermission.isGranted {
             ScreenCapturePermission.request()
         }

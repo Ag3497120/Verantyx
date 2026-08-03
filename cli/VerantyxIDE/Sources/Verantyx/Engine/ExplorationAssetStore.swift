@@ -163,7 +163,9 @@ enum ExplorationAssetStore {
         goal: String,
         appHint: String?,
         successfulTags: [String],
-        notes: String
+        notes: String,
+        missionKind: MissionKind = .act,
+        sessionId: String? = nil
     ) async -> SkillNode? {
         let tags = successfulTags
             .map { $0.trimmingCharacters(in: .whitespacesAndNewlines) }
@@ -177,8 +179,13 @@ enum ExplorationAssetStore {
 
         await SkillLibrary.shared.loadIndex()
         let name = skillName(for: goal, appHint: appHint)
-        let desc = String(goal.prefix(120))
-        var nodeTags = [tagExploration, tagJgenAct, "voyager"]
+        let desc = MissionKindClassifier.goalShort(from: goal)
+        var nodeTags = [
+            tagExploration,
+            tagJgenAct,
+            "voyager",
+            MissionKindClassifier.assetTag(for: missionKind),
+        ]
         if let app = appHint, !app.isEmpty {
             nodeTags.append(sanitize(app))
         }
@@ -202,15 +209,51 @@ enum ExplorationAssetStore {
         let saved = await SkillLibrary.shared.save(node)
 
         let stamp = """
-        [探索資産/forge] name=\(saved.name) v\(saved.version) steps=\(saved.payload.count)
+        [探索資産/forge] name=\(saved.name) v\(saved.version) steps=\(saved.payload.count) \(MissionKindClassifier.assetTag(for: missionKind))
         goal: \(String(goal.prefix(160)))
         path: \(saved.payload.joined(separator: " → "))
         """
         try? await EternalMemoryStore.shared.add(
             text: stamp,
-            concepts: [tagExploration, tagJgenAct, "exploration-forge"]
+            concepts: [tagExploration, tagJgenAct, "exploration-forge", MissionKindClassifier.assetTag(for: missionKind)]
+        )
+        await JGenVectorBusMemory.stampObservation(
+            label: "explore_forge",
+            detail: stamp,
+            sessionId: sessionId,
+            stepIndex: saved.payload.count,
+            actionLabel: saved.name,
+            changedRegion: nil,
+            concepts: [tagExploration, tagJgenAct, "exploration-forge", MissionKindClassifier.assetTag(for: missionKind)]
         )
         return saved
+    }
+
+    /// Prefer stored `mission_kind:*` from a recalled exploration asset.
+    static func recallMissionKind(for goal: String) async -> MissionKind? {
+        let hits = await recall(for: goal, topK: 3)
+        for node in hits {
+            if let kind = missionKind(from: node) {
+                return kind
+            }
+        }
+        return nil
+    }
+
+    nonisolated static func missionKind(from node: SkillNode) -> MissionKind? {
+        for tag in node.tags {
+            if tag == MissionKindClassifier.assetTag(for: .act) { return .act }
+            if tag == MissionKindClassifier.assetTag(for: .speak) { return .speak }
+            if tag.hasPrefix(MissionKindClassifier.assetTagPrefix) {
+                let raw = String(tag.dropFirst(MissionKindClassifier.assetTagPrefix.count))
+                if let kind = MissionKind(rawValue: raw) { return kind }
+            }
+        }
+        // Legacy act_* exploration assets without explicit tag → act.
+        if node.source == sourceTag || node.forgedBy == forgedBy || node.name.hasPrefix("act_") {
+            return .act
+        }
+        return nil
     }
 
     // MARK: - Recall
@@ -239,16 +282,51 @@ enum ExplorationAssetStore {
 
     nonisolated static func formatPriorAsset(_ node: SkillNode) -> String {
         let steps = node.payload.prefix(12).joined(separator: "\n")
+        let kind = missionKind(from: node)?.rawValue ?? "act"
+        let tagNames = node.tags
+            .filter { !$0.hasPrefix("exploration") && $0 != "voyager" && $0 != tagJgenAct }
+            .prefix(6)
+            .joined(separator: ", ")
         return """
         [PRIOR_ASSET]
         name: \(node.name) v\(node.version)
+        mission_kind: \(kind)
         description: \(node.description)
+        tags: \(tagNames.isEmpty ? MissionKindClassifier.assetTag(for: .act) : tagNames)
         wins: \(node.successCount) fails: \(node.failCount)
         Prefer this learned path (adapt AX ids if UI shifted). On MISMATCH explore then success forges an update.
         steps:
         \(steps)
         [/PRIOR_ASSET]
         """
+    }
+
+    /// Compact prior-asset names for `[DIRECTIVE]` (not full step dump).
+    nonisolated static func directivePriorTags(_ nodes: [SkillNode]) -> String {
+        let names = nodes.prefix(2).map(\.name)
+        guard !names.isEmpty else { return "" }
+        return names.joined(separator: ", ")
+    }
+
+    /// Build the short `[DIRECTIVE]` block for Act ChatML (not procedure prose).
+    nonisolated static func formatDirective(
+        goalShort: String,
+        openHint: String?,
+        priorTags: String
+    ) -> String {
+        var lines = [
+            "[DIRECTIVE]",
+            "kind: act",
+            "goal_short: \(String(goalShort.prefix(120)))",
+        ]
+        if !priorTags.isEmpty {
+            lines.append("prior_asset: \(priorTags)")
+        }
+        if let openHint, !openHint.isEmpty {
+            lines.append("open_hint: \(openHint)")
+        }
+        lines.append("[/DIRECTIVE]")
+        return lines.joined(separator: "\n")
     }
 
     nonisolated static func hintFromPriorAsset(_ node: SkillNode?) -> String? {
@@ -324,6 +402,25 @@ struct ExplorationNarrator: Sendable {
                 body = "Exploring (turn \(turn)). Failures log; success becomes a reusable asset"
             }
             return "🗣 [status] \(body)"
+        }
+    }
+
+    /// Soft progress warn every N turns on long / unlimited exploration.
+    mutating func softWarnIfDue(turn: Int, turnsLabel: String, unlimited: Bool, every: Int = 10) -> String? {
+        guard turn > 0, every > 0, turn % every == 0 else { return nil }
+        // Finite budgets: skip if status already covered this turn.
+        // Unlimited: always remind about safety brakes (streak / DONE).
+        if !unlimited, turn == lastStatusTurn { return nil }
+        if japanese {
+            let note = unlimited
+                ? "まだ探索中（ターン \(turn)/\(turnsLabel)）。同一操作の連打や DONE で止まります"
+                : "探索が続いています（ターン \(turn)/\(turnsLabel)）"
+            return "🗣 [現状] \(note)"
+        } else {
+            let note = unlimited
+                ? "Still exploring (turn \(turn)/\(turnsLabel)). Stops on identical-action streak or DONE"
+                : "Exploration continuing (turn \(turn)/\(turnsLabel))"
+            return "🗣 [status] \(note)"
         }
     }
 

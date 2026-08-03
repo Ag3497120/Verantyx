@@ -121,17 +121,18 @@ actor JGenAgentServer {
             await Self.writeResponse(connection: connection, status: 400, body: ["ok": false, "error": "bad_request"])
             return
         }
-        let observeLayers = observeLayersRaw.compactMap { ($0 as? NSNumber)?.intValue }
+        let observeLayers = Array(observeLayersRaw.compactMap { ($0 as? NSNumber)?.intValue }.prefix(8))
         guard !observeLayers.isEmpty else {
             await Self.writeResponse(connection: connection, status: 400, body: ["ok": false, "error": "empty_observe_layers"])
             return
         }
         let interventionsRaw = (obj["interventions"] as? [[String: Any]]) ?? []
-        let interventions: [(layer: Int, textLabel: String, alpha: Float)] = interventionsRaw.compactMap { d in
+        // Hard-cap intervention fan-out — each label is a full JGEN encode.
+        let interventions: [(layer: Int, textLabel: String, alpha: Float)] = interventionsRaw.prefix(4).compactMap { d in
             guard let layer = (d["layer"] as? NSNumber)?.intValue,
                   let textLabel = d["text_label"] as? String else { return nil }
             let alpha = (d["alpha"] as? NSNumber)?.floatValue ?? 1.0
-            return (layer, textLabel, alpha)
+            return (layer, PromptBudget.truncateForEncode(textLabel), alpha)
         }
 
         guard await JCrossChatManager.shared.isLoaded else {
@@ -140,12 +141,15 @@ actor JGenAgentServer {
         }
         do {
             let observations = try await JCrossChatManager.shared.reflect(
-                prompt: prompt, interventions: interventions, observeLayers: observeLayers
+                prompt: PromptBudget.truncateForModel(prompt),
+                interventions: interventions,
+                observeLayers: observeLayers
             )
             var observationsJSON: [String: Any] = [:]
             for (layer, obs) in observations {
                 observationsJSON[String(layer)] = ["text": obs.text, "entropy": obs.entropy]
             }
+            await JCrossChatManager.shared.trimMemory()
             await Self.writeResponse(connection: connection, status: 200, body: ["ok": true, "observations": observationsJSON])
         } catch {
             await Self.writeResponse(connection: connection, status: 500, body: ["ok": false, "error": "\(error)"])
@@ -191,8 +195,10 @@ actor JGenAgentServer {
         // {"thought":..., "final":...} JSON AND write a real summary,
         // especially in Japanese, which tokenizes less densely per
         // character than English. Raised the default and let a caller
-        // (e.g. a longer forced-synthesis turn) ask for more.
-        let maxTokens = (obj["max_tokens"] as? Int) ?? 2048
+        // (e.g. a longer forced-synthesis turn) ask for more — then
+        // re-capped under JGenGPUSafety so tight Macs cannot OOM.
+        let requestedMax = (obj["max_tokens"] as? Int) ?? 2048
+        let maxTokens = JGenGPUSafety.cappedMaxTokens(requestedMax)
 
         guard await JCrossChatManager.shared.isLoaded else {
             await Self.writeResponse(connection: connection, status: 503, body: ["ok": false, "error": "jgen_not_loaded"])
@@ -201,12 +207,15 @@ actor JGenAgentServer {
 
         var conversation: [(role: String, content: String)] = []
         if let system, !system.isEmpty {
-            conversation.append((role: "system", content: system))
+            conversation.append((role: "system", content: PromptBudget.truncateForModel(
+                system, maxChars: PromptBudget.maxSystemChars
+            )))
         }
-        conversation.append((role: "user", content: prompt))
+        conversation.append((role: "user", content: PromptBudget.truncateForModel(prompt)))
 
         do {
             let text = try await JCrossChatManager.shared.generate(conversation: conversation, maxTokens: maxTokens)
+            await JCrossChatManager.shared.trimMemory()
             await Self.writeResponse(connection: connection, status: 200, body: ["ok": true, "text": text])
         } catch {
             await Self.writeResponse(connection: connection, status: 500, body: ["ok": false, "error": "\(error)"])

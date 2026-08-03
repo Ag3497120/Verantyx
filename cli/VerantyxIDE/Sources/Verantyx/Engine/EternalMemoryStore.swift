@@ -84,8 +84,18 @@ actor EternalMemoryStore {
     /// a completed Council deliberation (consensus text) or, optionally, a
     /// plain JGEN chat turn.
     func add(text: String, concepts: [String]) async throws {
+        // Under IOGPU/unified-memory pressure, skip the extra full forward
+        // encode — Vera-a chat/council already hammers JGEN; eternal write
+        // is best-effort and must not tip WindowServer into a panic.
+        guard JGenGPUSafety.allowEternalEncode else {
+            NSLog("[EternalMemory] skipped encode under GPU/memory safety policy")
+            return
+        }
         try ensureLoaded()
-        let vec = Self.fitVec(try await embed(text))
+        let clippedText = PromptBudget.truncateForModel(
+            text, maxChars: PromptBudget.maxStoredMemoryChars, headChars: 2_800, tailChars: 800
+        )
+        let vec = Self.fitVec(try await embed(clippedText))
 
         var fp16Bytes = Data(capacity: vec.count * 2)
         for f in vec {
@@ -101,7 +111,7 @@ actor EternalMemoryStore {
         }
 
         let node = Node(
-            id: nodes.count, ts: Date().timeIntervalSince1970, text: text,
+            id: nodes.count, ts: Date().timeIntervalSince1970, text: clippedText,
             concepts: concepts, accessCount: 0, lastAccess: Date().timeIntervalSince1970
         )
         nodes.append(node)
@@ -157,6 +167,10 @@ actor EternalMemoryStore {
     func search(query: String, k: Int) async throws -> [(text: String, score: Float)] {
         try ensureLoaded()
         guard !nodes.isEmpty else { return [] }
+        guard JGenGPUSafety.allowEternalEncode else {
+            NSLog("[EternalMemory] skipped search encode under GPU/memory safety policy")
+            return []
+        }
         let qv = Self.fitVec(try await embed(query))
 
         var scored: [(index: Int, eff: Float, sim: Float)] = []

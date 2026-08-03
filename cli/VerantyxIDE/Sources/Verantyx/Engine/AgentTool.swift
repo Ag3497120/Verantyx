@@ -200,7 +200,7 @@ struct AgentToolParser {
     [PASTE_PAYLOAD]           貼付: 任務ペイロード（プロンプト外に保持された本文）をクリップボード経由でフォーカス中のUIへ貼り付け。長文はDESKTOP_ACT typeで打ち込まない。
     [WAIT_UNTIL_STABLE]       待安: 1fps画面監視(許可時)で画面が約2秒安定するまで待つ。任意で [WAIT_UNTIL_STABLE: stable timeout]（秒）
     [OSASCRIPT: script]       🍎: osascriptとしてAppleScriptを実行しGUIアプリを操作
-    [OPEN_APP: AppName]       🚀: open -a "AppName"でOSネイティブアプリを起動
+    [OPEN_APP: <installed name>]  🚀: 実在するインストール済みアプリ名だけで起動（プレースホルダ不可・失敗は MISMATCH）
     [VERIFIED_URL_LOOKUP: name] 🔗: 指定した名前(例: "Gemini")について、ユーザーが事前にVeraへ登録した確認済みURLがあるか確定的に調べる。CRITICAL RULE 8に従い、特定サイトへ直接ナビゲートする前に必ずこれで確認し、無ければ[SEARCH]で確定させる。
     [REGISTER_UI_ELEMENT: app|element|x|y] 📍: [DESKTOP_SNAPSHOT]等で実際に確認したUI要素の位置(app内0-1000正規化座標)をVeraに自己登録する。人間がミラー画面をクリックして登録するのと同じ仕組みを、エージェント自身が探索した結果として使える。
     [JCROSS_QUERY: terms]     脳召: 過去記憶を検索
@@ -978,8 +978,15 @@ struct AgentToolParser {
 
     /// macOS上のアプリケーションを曖昧な名前から正確な名前（.appなし）へ解決します。
     /// Falls back to the original input when nothing is installed (parser path).
+    /// Execution still refuses unresolved names — see `openApp` honesty.
     static func resolveAppName(_ inputName: String) -> String {
         resolveInstalledAppName(inputName) ?? inputName.trimmingCharacters(in: .whitespacesAndNewlines)
+    }
+
+    /// Thin sense feedback for failed OPEN_APP: a short spread of installed
+    /// names so the model can discover what the limb can grasp (no new tool tag).
+    static func sampleInstalledAppNames(limit: Int = 16) -> [String] {
+        InstalledAppIndex.shared.sampleNames(limit: limit)
     }
 }
 
@@ -1050,6 +1057,25 @@ private final class InstalledAppIndex: @unchecked Sendable {
             if FileManager.default.fileExists(atPath: url.path) { return true }
         }
         return false
+    }
+
+    /// Alphabetical spread of installed names for OPEN_APP MISMATCH observations.
+    func sampleNames(limit: Int) -> [String] {
+        refreshIfNeeded()
+        lock.lock()
+        let names = entries.map(\.name).sorted { $0.localizedCaseInsensitiveCompare($1) == .orderedAscending }
+        lock.unlock()
+        guard limit > 0, !names.isEmpty else { return [] }
+        if names.count <= limit { return names }
+        var out: [String] = []
+        out.reserveCapacity(limit)
+        let step = Double(names.count - 1) / Double(limit - 1)
+        for i in 0..<limit {
+            let idx = min(names.count - 1, Int((Double(i) * step).rounded()))
+            let n = names[idx]
+            if out.last != n { out.append(n) }
+        }
+        return out
     }
 
     /// Match quality: 0 exact, 1 alias exact, 2 prefix, 3 contains. nil = no match.
@@ -1458,12 +1484,26 @@ actor AgentToolExecutor {
         // Opens the app and leaves it visible + frontmost for Act (default
         // HiddenWindowAutomation policy). Session still tracks window id /
         // frame for DESKTOP_ACT / mirror capture. Verantyx is not raised.
+        // Honesty: only report success when the name resolves to an installed
+        // app and the process is actually running after activate — never claim
+        // "opened" for unresolved / placeholder tokens.
         case .openApp(let name):
-            let frame = await HiddenWindowAutomation.shared.beginOffscreenSession(appName: name)
-            guard frame != nil else {
-                return "✗ Could not find or activate window for: \(name)"
+            let trimmed = name.trimmingCharacters(in: .whitespacesAndNewlines)
+            guard let resolved = AgentToolParser.resolveInstalledAppName(trimmed) else {
+                let sample = AgentToolParser.sampleInstalledAppNames(limit: 16)
+                let sampleLine = sample.isEmpty
+                    ? "(installed-app index empty)"
+                    : sample.joined(separator: ", ")
+                return """
+                ✗ OPEN_APP MISMATCH: \"\(trimmed)\" does not resolve to an installed app — nothing was opened.
+                Retry [OPEN_APP: <exact installed name>] using a name from this sample (or after sensing a real UI): \(sampleLine)
+                """
             }
-            return "✓ OS App opened and brought frontmost: \(name). Use [DESKTOP_ACT]/[DESKTOP_SNAPSHOT] to operate it; optional mirror preview captures the visible window."
+            let frame = await HiddenWindowAutomation.shared.beginOffscreenSession(appName: resolved)
+            guard frame != nil else {
+                return "✗ OPEN_APP MISMATCH: failed to launch/activate \"\(resolved)\" — nothing was opened."
+            }
+            return "✓ OS App opened and brought frontmost: \(resolved). Use [DESKTOP_ACT]/[DESKTOP_SNAPSHOT] to operate it; optional mirror preview captures the visible window."
 
         // Deterministic Vera-registered URL check (CRITICAL RULE 8) --
         // bypasses ask()'s consensus threshold, unlike the [VERA MEMORY]
@@ -1536,6 +1576,18 @@ actor AgentToolExecutor {
             return "[CHROME: \(result.url)]\n\(result.contextSnippet)\n[END CHROME]"
 
         case .visionBrowse(let url):
+            if SensePixelPolicy.isVectorOnly {
+                SensePixelPolicy.logVectorOnlyOnce()
+                do {
+                    try await SafariVisionBridge.shared.navigate(url)
+                    await SensePixelPolicy.clearModelPixelBuffers()
+                    return """
+                    [VISION_BROWSE: \(url)]
+                    Navigated (vector-only sense). Screen pixels are NOT retained or injected for the model.
+                    Prefer [DESKTOP_SNAPSHOT] (AX map) + [AX_ACT] / [DESKTOP_ACT]. Use [VISION_ACT] only after disabling Vector-only sense.
+                    """
+                } catch { return "[VISION ERROR] \(error.localizedDescription)" }
+            }
             do {
                 try await SafariVisionBridge.shared.navigate(url)
                 let frames = try await SafariVisionBridge.shared.takeMultiFrameScreenshot(frameCount: 4)
@@ -1549,6 +1601,20 @@ actor AgentToolExecutor {
             } catch { return "[VISION ERROR] \(error.localizedDescription)" }
 
         case .visionSearchFlow(let query):
+            if SensePixelPolicy.isVectorOnly {
+                SensePixelPolicy.logVectorOnlyOnce()
+                let cleanQuery = query.trimmingCharacters(in: CharacterSet(charactersIn: "\"' "))
+                let encodedQuery = cleanQuery.addingPercentEncoding(withAllowedCharacters: .urlQueryAllowed) ?? cleanQuery
+                let url = "https://www.google.com/search?q=\(encodedQuery)"
+                do {
+                    try await SafariVisionBridge.shared.navigate(url)
+                    await SensePixelPolicy.clearModelPixelBuffers()
+                    return """
+                    [VISION_SEARCH_FLOW: \(query)]
+                    Google opened (vector-only sense). No frames injected — use [DESKTOP_SNAPSHOT]/[AX_ACT].
+                    """
+                } catch { return "[VISION ERROR] \(error.localizedDescription)" }
+            }
             let cleanQuery = query.trimmingCharacters(in: CharacterSet(charactersIn: "\"' "))
             let encodedQuery = cleanQuery.addingPercentEncoding(withAllowedCharacters: .urlQueryAllowed) ?? cleanQuery
             let url = "https://www.google.com/search?q=\(encodedQuery)"
@@ -1569,6 +1635,17 @@ actor AgentToolExecutor {
             } catch { return "[VISION ERROR] \(error.localizedDescription)" }
 
         case .visionSnapshot:
+            if SensePixelPolicy.isVectorOnly {
+                SensePixelPolicy.logVectorOnlyOnce()
+                await SensePixelPolicy.clearModelPixelBuffers()
+                let ax = (try? await AXVisionBridge.shared.getSemanticSnapshot()) ?? "(AX unavailable)"
+                return """
+                [VISION_SNAPSHOT]
+                Vector-only sense — pixels not retained for model. Prefer [DESKTOP_SNAPSHOT].
+                == SEMANTIC UI MAP ==
+                \(ax)
+                """
+            }
             do {
                 let frames = try await SafariVisionBridge.shared.takeMultiFrameScreenshot(frameCount: 4)
                 if let lastFrame = frames.last {
@@ -1581,6 +1658,33 @@ actor AgentToolExecutor {
             } catch { return "[VISION ERROR] \(error.localizedDescription)" }
 
         case .visionAct(let action):
+            if SensePixelPolicy.isVectorOnly {
+                SensePixelPolicy.logVectorOnlyOnce()
+                // Still perform the HID action, but do not capture/inject pixels.
+                do {
+                    let parts = action.split(separator: " ")
+                    guard let cmd = parts.first else { return "[VISION ERROR] Empty action" }
+                    if cmd == "click" && parts.count >= 3 {
+                        let x = Double(parts[1]) ?? 0.0
+                        let y = Double(parts[2]) ?? 0.0
+                        try await SafariVisionBridge.shared.hidClick(x: x, y: y)
+                    } else if cmd == "type" && parts.count >= 2 {
+                        let text = action.dropFirst(5).trimmingCharacters(in: .whitespaces)
+                        try await SafariVisionBridge.shared.typeText(text)
+                    } else if cmd == "scroll" {
+                        try await SafariVisionBridge.shared.scrollDown()
+                    }
+                    try? await Task.sleep(nanoseconds: 1_000_000_000)
+                    await SensePixelPolicy.clearModelPixelBuffers()
+                    let ax = (try? await AXVisionBridge.shared.getSemanticSnapshot()) ?? "(AX unavailable)"
+                    return """
+                    [VISION_ACT: \(action)]
+                    Action performed (vector-only — no screenshot inject). Prefer [AX_ACT] next.
+                    == SEMANTIC UI MAP ==
+                    \(String(ax.prefix(1200)))
+                    """
+                } catch { return "[VISION ERROR] \(error.localizedDescription)" }
+            }
             do {
                 let parts = action.split(separator: " ")
                 guard let cmd = parts.first else { return "[VISION ERROR] Empty action" }
@@ -1669,28 +1773,40 @@ actor AgentToolExecutor {
                 // policy) over a full-display shot of whatever is topmost.
                 let hiddenActive = await MainActor.run { HiddenWindowAutomation.shared.targetAppName != nil }
                 let semanticXML = try await AXVisionBridge.shared.getSemanticSnapshot()
+                let vectorOnly = SensePixelPolicy.isVectorOnly
+                if vectorOnly {
+                    SensePixelPolicy.logVectorOnlyOnce()
+                }
+
                 var frame: String? = nil
                 var captureNote = ""
-                if hiddenActive, let hidden = await HiddenWindowAutomation.shared.captureWindowImage() {
-                    frame = hidden
-                } else {
-                    do {
-                        frame = try await SafariVisionBridge.shared.takeScreenshot(enforceSafari: false)
-                    } catch {
-                        captureNote = "\n[NO SCREENSHOT] \(error.localizedDescription)\nContinuing with AX map only.\n"
+                // Vector-only: never capture JPEG for the model. Mirror UI
+                // still refreshes independently via HiddenWindowMirrorView.
+                if !vectorOnly {
+                    if hiddenActive, let hidden = await HiddenWindowAutomation.shared.captureWindowImage() {
+                        frame = hidden
+                    } else {
+                        do {
+                            frame = try await SafariVisionBridge.shared.takeScreenshot(enforceSafari: false)
+                        } catch {
+                            captureNote = "\n[NO SCREENSHOT] \(error.localizedDescription)\nContinuing with AX map only.\n"
+                        }
                     }
+                } else {
+                    captureNote = "\n[VECTOR-ONLY] Screen pixels not retained for model.\n"
                 }
 
                 // JGEN can't consume raw images. Prefer AX/text → encode →
                 // inject (aligned JGEN space). Vision feature-print inject
-                // remains an experimental weak-signal fallback only.
+                // remains an experimental weak-signal fallback only (disabled
+                // under vector-only).
                 let jgenActive = await JCrossChatManager.shared.isLoaded
                 var hiddenStateReflection: String? = nil
                 if jgenActive {
                     hiddenStateReflection = await JGenVectorBusMemory.reflectCurrentScreenAligned(
                         axSemanticXML: semanticXML
                     )
-                    if hiddenStateReflection == nil, let frame {
+                    if !vectorOnly, hiddenStateReflection == nil, let frame {
                         hiddenStateReflection = await VisualHiddenStateBridge.reflectOnScreen(base64Image: frame)
                     }
                     let sessionId = await MainActor.run { AppState.shared?.vxChatSessionId }
@@ -1703,18 +1819,29 @@ actor AgentToolExecutor {
                         changedRegion: nil,
                         concepts: ["ui-observe", "bug-repro", "desktop-snapshot"]
                     )
-                } else if let frame {
+                } else if !vectorOnly, let frame {
                     await CognitiveAnchorEngine.shared.setVisionScreenshot(frame)
                 }
-                if let frame {
+                if vectorOnly {
+                    await SensePixelPolicy.clearModelPixelBuffers()
+                } else if let frame {
                     await MainActor.run {
                         AppState.shared?.lastVideoFrames = [frame]
                     }
                 }
 
+                let modeNote: String
+                if vectorOnly {
+                    modeNote = "Vector-only sense — AX map + vector stamp only (no JPEG to model)."
+                } else if jgenActive {
+                    modeNote = "JGEN backend — AX map encoded into hidden state (Vision raw inject only as fallback)."
+                } else {
+                    modeNote = "Screenshot updated and injected to context."
+                }
+
                 return """
                 [DESKTOP_SNAPSHOT]
-                Captured desktop frame\(hiddenActive ? " (Act target window)" : ""). \(jgenActive ? "JGEN backend — AX map encoded into hidden state (Vision raw inject only as fallback)." : "Screenshot updated and injected to context.")\(captureNote)
+                Captured desktop observation\(hiddenActive ? " (Act target window)" : ""). \(modeNote)\(captureNote)
                 \(hiddenStateReflection.map { "\n\($0)\n" } ?? "")
                 == SEMANTIC UI MAP ==
                 \(semanticXML)
@@ -1729,13 +1856,19 @@ actor AgentToolExecutor {
                 guard let cmd = parts.first else { return "[DESKTOP ERROR] Empty action" }
 
                 let hiddenActive = await MainActor.run { HiddenWindowAutomation.shared.targetAppName != nil }
+                let vectorOnly = SensePixelPolicy.isVectorOnly
+                if vectorOnly {
+                    SensePixelPolicy.logVectorOnlyOnce()
+                }
 
                 // Diff-gating (Milestone G): mirrors [VISION_ACT]'s existing
                 // loop-detection, previously missing from this path entirely
                 // -- [DESKTOP_ACT] used to unconditionally re-screenshot and
                 // re-inject into the vision model on every single action,
                 // regardless of whether anything actually changed.
-                let frameBeforeAction = await MainActor.run { AppState.shared?.lastVideoFrames?.last }
+                let frameBeforeAction = vectorOnly
+                    ? nil
+                    : await MainActor.run { AppState.shared?.lastVideoFrames?.last }
                 if cmd == "click" && consecutiveDesktopClickLoopCount >= 3 {
                     consecutiveDesktopClickLoopCount = 0
                     return "[DESKTOP ERROR] DESKTOP_BLOCKED: You have clicked near these coordinates multiple times without the screen visually changing. DO NOT click here again. Try a different tool (scroll, type, or a different location) or ask the human."
@@ -1762,6 +1895,32 @@ actor AgentToolExecutor {
                 // Swift.CancellationError mid-Act when minimize/focus races
                 // tore down work. Clicks already ran; don't fail the tool.
                 try? await Task.sleep(nanoseconds: 2_000_000_000)
+
+                if vectorOnly {
+                    await SensePixelPolicy.clearModelPixelBuffers()
+                    let ax = (try? await AXVisionBridge.shared.getSemanticSnapshot()) ?? "(AX unavailable)"
+                    if await JCrossChatManager.shared.isLoaded {
+                        _ = await JGenVectorBusMemory.reflectCurrentScreenAligned(axSemanticXML: ax)
+                        let sessionId = await MainActor.run { AppState.shared?.vxChatSessionId }
+                        await JGenVectorBusMemory.stampObservation(
+                            label: "desktop_act",
+                            detail: "vector-only \(action)\n\(String(ax.prefix(700)))",
+                            sessionId: sessionId,
+                            stepIndex: nil,
+                            actionLabel: "🖥️ desktop_act: \(action)",
+                            changedRegion: nil,
+                            concepts: ["ui-observe", "bug-repro", "desktop-act", "vector-only"]
+                        )
+                    }
+                    return """
+                    [DESKTOP_ACT: \(action)]
+                    Action performed (vector-only — no screenshot inject\(hiddenActive ? ", Act target window" : "")).
+                    Prefer [AX_ACT] / [DESKTOP_SNAPSHOT] for the next observation.
+                    == SEMANTIC UI MAP ==
+                    \(String(ax.prefix(1200)))
+                    """
+                }
+
                 var frame: String? = nil
                 var captureDeniedNote = ""
                 if hiddenActive, let hidden = await HiddenWindowAutomation.shared.captureWindowImage() {
@@ -1892,8 +2051,18 @@ actor AgentToolExecutor {
                 
                 // Take a new snapshot to update context
                 try await Task.sleep(nanoseconds: 1_500_000_000)
-                let frame = try await SafariVisionBridge.shared.takeScreenshot(enforceSafari: false)
                 let newXML = try await AXVisionBridge.shared.getSemanticSnapshot()
+                let vectorOnly = SensePixelPolicy.isVectorOnly
+                if vectorOnly {
+                    SensePixelPolicy.logVectorOnlyOnce()
+                    await SensePixelPolicy.clearModelPixelBuffers()
+                } else {
+                    let frame = try await SafariVisionBridge.shared.takeScreenshot(enforceSafari: false)
+                    await MainActor.run { AppState.shared?.lastVideoFrames = [frame] }
+                    if !(await JCrossChatManager.shared.isLoaded) {
+                        await CognitiveAnchorEngine.shared.setVisionScreenshot(frame)
+                    }
+                }
                 if await JCrossChatManager.shared.isLoaded {
                     _ = await JGenVectorBusMemory.reflectCurrentScreenAligned(axSemanticXML: newXML)
                     let sessionId = await MainActor.run { AppState.shared?.vxChatSessionId }
@@ -1906,14 +2075,11 @@ actor AgentToolExecutor {
                         changedRegion: nil,
                         concepts: ["ui-observe", "bug-repro", "ax-act"]
                     )
-                } else {
-                    await CognitiveAnchorEngine.shared.setVisionScreenshot(frame)
                 }
-                await MainActor.run { AppState.shared?.lastVideoFrames = [frame] }
                 
                 return """
                 [AX_ACT: \(action)]
-                \(result)
+                \(result)\(vectorOnly ? "\n(vector-only — no screenshot retained for model)" : "")
                 
                 == NEW SEMANTIC UI MAP ==
                 \(newXML)
