@@ -1495,6 +1495,25 @@ final class AppState: ObservableObject {
         }
         addSystemMessage(t("🧭 Vera harness: taking over this turn…", "🧭 Veraハーネス: このターンを引き継ぎます…"))
 
+        // Gap-driven: ensure a GapNode exists before Agent.run so early
+        // "couldn't clone" surrender is a GapGraph violation, not the default.
+        if mode != .normal {
+            let gapId = await VeraMemoryBridge.bootstrapUnknownTask(
+                name: "harness:\(String(instruction.prefix(80)))",
+                description: "Vera harness mission",
+                userGoal: String(instruction.prefix(400)),
+                availableTools: "vera_git_clone,vera_code_ingest,web_search,fetch_url,vera_ask",
+                successCriteria: "task completed without premature surrender",
+                constraints: "identical tool spam blocked; keep trying distinct strategies while gap open"
+            )
+            if let gapId {
+                addSystemMessage(t(
+                    "🕳 [GAP] harness open id=\(gapId) — persist until resolved or strategies exhausted",
+                    "🕳 [GAP] ハーネス open id=\(gapId) — 解決か戦略尽くまで継続"
+                ))
+            }
+        }
+
         let council = CouncilSettingsStore.shared
         let jgenLoaded: Bool = {
             if case .jcrossReady = modelStatus { return true }
@@ -1633,6 +1652,14 @@ final class AppState: ObservableObject {
                         if let action = event.raw["action"] as? [String: Any],
                            let tool = action["tool"] as? String {
                             self.addSystemMessage(self.t("🔧 Vera called: \(tool)", "🔧 Veraが呼び出し: \(tool)"))
+                        }
+                        if let obs = event.raw["observation"] as? [String: Any],
+                           let err = obs["error"] as? String,
+                           err == "identical_tool_blocked" || err == "gap_open_surrender_refused" {
+                            self.addSystemMessage(self.t(
+                                "🕳 [GAP] \(err) — keep exploring distinct approaches (not surrendering)",
+                                "🕳 [GAP] \(err) — 別アプローチで探索継続（諦めない）"
+                            ))
                         }
                     case "vera_direct":
                         self.addSystemMessage(self.t("🧩 Vera answered directly (no LLM step needed)", "🧩 Veraが直接回答(LLM不要)"))

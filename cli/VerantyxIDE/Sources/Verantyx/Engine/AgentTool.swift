@@ -930,6 +930,16 @@ struct AgentToolParser {
         "キーチェーンアクセス": "Keychain Access",
         "スクリプティング": "Script Editor",
         "システム情報": "System Information",
+        // Phone / Messages / FaceTime — JP display → English bundle (if installed).
+        // Mac usually ships FaceTime; Phone.app may be absent — extractOpenAppName
+        // also tries both seeds.
+        "電話": "FaceTime",
+        "電話アプリ": "FaceTime",
+        "メッセージ": "Messages",
+        "メッセージアプリ": "Messages",
+        "フェイスタイム": "FaceTime",
+        "facetime": "FaceTime",
+        "phone": "FaceTime",
         // Common nicknames → real bundle names
         "teams": "Microsoft Teams",
         "ms teams": "Microsoft Teams",
@@ -961,18 +971,27 @@ struct AgentToolParser {
             }
         }
 
-        // 1. Thin localization / nickname → seed, then resolve against disk.
-        let seeded = localizationAliases[lower]
-            ?? localizationAliases[trimmed]
-            ?? trimmed
-
-        if let hit = InstalledAppIndex.shared.bestMatch(for: seeded) {
-            return hit
+        // 1. Thin localization / nickname → seed(s), then resolve against disk.
+        // Some JP nouns map to multiple possible bundles (電話 → FaceTime / Phone).
+        var seeds: [String] = []
+        if let primary = localizationAliases[lower] ?? localizationAliases[trimmed] {
+            seeds.append(primary)
         }
-        // Seeded alias may already be the real bundle name when the index
-        // scan missed a nested path; accept only if the `.app` exists.
-        if seeded != trimmed, InstalledAppIndex.shared.appExists(named: seeded) {
-            return seeded
+        if lower == "電話" || lower == "電話アプリ" || lower == "phone" {
+            for extra in ["FaceTime", "Phone"] where !seeds.contains(extra) {
+                seeds.append(extra)
+            }
+        }
+        if seeds.isEmpty { seeds = [trimmed] }
+        else if !seeds.contains(trimmed) { seeds.append(trimmed) }
+
+        for seeded in seeds {
+            if let hit = InstalledAppIndex.shared.bestMatch(for: seeded) {
+                return hit
+            }
+            if seeded != trimmed, InstalledAppIndex.shared.appExists(named: seeded) {
+                return seeded
+            }
         }
         return nil
     }
@@ -986,8 +1005,9 @@ struct AgentToolParser {
 
     /// Thin sense feedback for failed OPEN_APP: a short spread of installed
     /// names so the model can discover what the limb can grasp (no new tool tag).
-    static func sampleInstalledAppNames(limit: Int = 16) -> [String] {
-        InstalledAppIndex.shared.sampleNames(limit: limit)
+    /// `rotateBy` shifts the sample window so repeated MISMATCH gets fresh names.
+    static func sampleInstalledAppNames(limit: Int = 16, rotateBy: Int = 0) -> [String] {
+        InstalledAppIndex.shared.sampleNames(limit: limit, rotateBy: rotateBy)
     }
 }
 
@@ -1061,18 +1081,25 @@ private final class InstalledAppIndex: @unchecked Sendable {
     }
 
     /// Alphabetical spread of installed names for OPEN_APP MISMATCH observations.
-    func sampleNames(limit: Int) -> [String] {
+    /// `rotateBy` rotates the pick indices so successive fails surface different names.
+    func sampleNames(limit: Int, rotateBy: Int = 0) -> [String] {
         refreshIfNeeded()
         lock.lock()
         let names = entries.map(\.name).sorted { $0.localizedCaseInsensitiveCompare($1) == .orderedAscending }
         lock.unlock()
         guard limit > 0, !names.isEmpty else { return [] }
-        if names.count <= limit { return names }
+        if names.count <= limit {
+            if rotateBy == 0 { return names }
+            let shift = abs(rotateBy) % names.count
+            return Array(names[shift...]) + Array(names[..<shift])
+        }
         var out: [String] = []
         out.reserveCapacity(limit)
         let step = Double(names.count - 1) / Double(limit - 1)
+        let offset = abs(rotateBy) % names.count
         for i in 0..<limit {
-            let idx = min(names.count - 1, Int((Double(i) * step).rounded()))
+            let raw = Int((Double(i) * step).rounded()) + offset
+            let idx = raw % names.count
             let n = names[idx]
             if out.last != n { out.append(n) }
         }
