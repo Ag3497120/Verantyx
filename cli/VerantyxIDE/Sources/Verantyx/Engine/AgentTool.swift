@@ -891,59 +891,233 @@ struct AgentToolParser {
     static func stripArtifactTags(from text: String) -> String { text }
 
     // MARK: - Generic App Name Resolution
-    
-    /// macOS上のアプリケーションを曖昧な名前から正確な名前（.appなし）へ解決します。
+
     /// Apps nested inside another app's bundle (not a bare top-level
-    /// "/Applications/*.app") that a model asking to "run a/the simulator"
-    /// would otherwise never resolve -- resolveAppName's normal search only
-    /// looks at direct children of the 4 standard app directories, and
-    /// "iOS Simulator"/"simulator" don't fuzzy-match the real app name
-    /// ("Simulator") there. Checked first, before the general search.
+    /// `/Applications/*.app`) that fuzzy directory scans would miss.
     private static let nestedAppAliases: [(matches: [String], realName: String, bundlePath: String)] = [
         (["simulator", "ios simulator", "xcode simulator"],
          "Simulator",
          "/Applications/Xcode.app/Contents/Developer/Applications/Simulator.app"),
     ]
 
-    static func resolveAppName(_ inputName: String) -> String {
-        let searchPaths = [
-            "/Applications",
-            "/System/Applications",
-            "/System/Applications/Utilities",
-            NSHomeDirectory() + "/Applications"
-        ]
+    /// Thin localization / common-nickname helpers only. Real resolution is
+    /// against installed `.app` bundles via `InstalledAppIndex`.
+    private static let localizationAliases: [String: String] = [
+        // JP system display names → English bundle names (`open -a`)
+        "メモ帳": "TextEdit",
+        "テキストエディット": "TextEdit",
+        "計算機": "Calculator",
+        "電卓": "Calculator",
+        "カレンダー": "Calendar",
+        "写真": "Photos",
+        "メール": "Mail",
+        "地図": "Maps",
+        "音楽": "Music",
+        "設定": "System Settings",
+        "システム設定": "System Settings",
+        "プレビュー": "Preview",
+        "ターミナル": "Terminal",
+        "フォントブック": "Font Book",
+        "辞書": "Dictionary",
+        "連絡先": "Contacts",
+        "リマインダー": "Reminders",
+        "ブック": "Books",
+        "映画": "TV",
+        "クイックタイム": "QuickTime Player",
+        "アクティビティモニタ": "Activity Monitor",
+        "ディスクユーティリティ": "Disk Utility",
+        "キーチェーンアクセス": "Keychain Access",
+        "スクリプティング": "Script Editor",
+        "システム情報": "System Information",
+        // Common nicknames → real bundle names
+        "teams": "Microsoft Teams",
+        "ms teams": "Microsoft Teams",
+        "msteams": "Microsoft Teams",
+        "vscode": "Visual Studio Code",
+        "vs code": "Visual Studio Code",
+        "chrome": "Google Chrome",
+        "edge": "Microsoft Edge",
+        "word": "Microsoft Word",
+        "excel": "Microsoft Excel",
+        "powerpoint": "Microsoft PowerPoint",
+        "outlook": "Microsoft Outlook",
+        "ppt": "Microsoft PowerPoint",
+    ]
 
-        let lowerInput = inputName.lowercased()
-        let fileManager = FileManager.default
+    /// Resolves a fuzzy / localized name to an installed app name suitable for
+    /// `open -a` / AppleScript `tell application`. Returns `nil` when nothing
+    /// installed matches (unlike `resolveAppName`, which echoes the input).
+    static func resolveInstalledAppName(_ inputName: String) -> String? {
+        let trimmed = inputName.trimmingCharacters(in: .whitespacesAndNewlines)
+        guard !trimmed.isEmpty else { return nil }
+        let lower = trimmed.lowercased()
+        let fm = FileManager.default
 
         // 0. Nested-bundle aliases (e.g. Xcode's Simulator.app)
-        for alias in nestedAppAliases where alias.matches.contains(lowerInput) {
-            if fileManager.fileExists(atPath: alias.bundlePath) {
+        for alias in nestedAppAliases where alias.matches.contains(lower) {
+            if fm.fileExists(atPath: alias.bundlePath) {
                 return alias.realName
             }
         }
 
-        // 1. Exact match first
-        for path in searchPaths {
-            let exactUrl = URL(fileURLWithPath: path).appendingPathComponent("\(inputName).app")
-            if fileManager.fileExists(atPath: exactUrl.path) {
-                return inputName
-            }
+        // 1. Thin localization / nickname → seed, then resolve against disk.
+        let seeded = localizationAliases[lower]
+            ?? localizationAliases[trimmed]
+            ?? trimmed
+
+        if let hit = InstalledAppIndex.shared.bestMatch(for: seeded) {
+            return hit
         }
-        
-        // 2. Fuzzy match (contains)
-        for path in searchPaths {
-            guard let items = try? fileManager.contentsOfDirectory(atPath: path) else { continue }
-            for item in items where item.hasSuffix(".app") {
-                let appName = (item as NSString).deletingPathExtension
-                if appName.lowercased().contains(lowerInput) {
-                    return appName
+        // Seeded alias may already be the real bundle name when the index
+        // scan missed a nested path; accept only if the `.app` exists.
+        if seeded != trimmed, InstalledAppIndex.shared.appExists(named: seeded) {
+            return seeded
+        }
+        return nil
+    }
+
+    /// macOS上のアプリケーションを曖昧な名前から正確な名前（.appなし）へ解決します。
+    /// Falls back to the original input when nothing is installed (parser path).
+    static func resolveAppName(_ inputName: String) -> String {
+        resolveInstalledAppName(inputName) ?? inputName.trimmingCharacters(in: .whitespacesAndNewlines)
+    }
+}
+
+// MARK: - InstalledAppIndex
+
+/// Brief in-process cache of `.app` bundles under the standard Applications
+/// directories. Avoids rescanning on every Act turn / OPEN_APP parse.
+private final class InstalledAppIndex: @unchecked Sendable {
+    static let shared = InstalledAppIndex()
+
+    private struct Entry {
+        let name: String          // bundle folder name without `.app` (`open -a`)
+        let path: String
+        let dirRank: Int          // lower = preferred (/Applications first)
+        let aliases: [String]     // lowercased CFBundleName / DisplayName / name
+    }
+
+    private let lock = NSLock()
+    private var entries: [Entry] = []
+    private var builtAt: Date?
+    private let ttl: TimeInterval = 60
+
+    private let searchPaths: [(path: String, rank: Int)] = [
+        ("/Applications", 0),
+        (NSHomeDirectory() + "/Applications", 1),
+        ("/System/Applications", 2),
+        ("/System/Applications/Utilities", 3),
+    ]
+
+    func bestMatch(for input: String) -> String? {
+        refreshIfNeeded()
+        let needle = input.trimmingCharacters(in: .whitespacesAndNewlines)
+        guard !needle.isEmpty else { return nil }
+        let lower = needle.lowercased()
+
+        lock.lock()
+        let snapshot = entries
+        lock.unlock()
+
+        var best: (score: Int, dirRank: Int, nameLen: Int, name: String)?
+
+        for e in snapshot {
+            guard let score = Self.matchScore(needle: lower, entry: e) else { continue }
+            let candidate = (score, e.dirRank, e.name.count, e.name)
+            if let b = best {
+                // Lower score wins; then prefer /Applications; then shorter name.
+                if candidate.0 < b.score
+                    || (candidate.0 == b.score && candidate.1 < b.dirRank)
+                    || (candidate.0 == b.score && candidate.1 == b.dirRank && candidate.2 < b.nameLen) {
+                    best = candidate
                 }
+            } else {
+                best = candidate
             }
         }
-        
-        // フォールバック: 見つからなければ元の入力をそのまま返す
-        return inputName
+        return best?.name
+    }
+
+    func appExists(named name: String) -> Bool {
+        refreshIfNeeded()
+        let lower = name.lowercased()
+        lock.lock()
+        defer { lock.unlock() }
+        if entries.contains(where: { $0.name.lowercased() == lower }) { return true }
+        // Direct path check for nested / just-installed apps mid-TTL.
+        for (path, _) in searchPaths {
+            let url = URL(fileURLWithPath: path).appendingPathComponent("\(name).app")
+            if FileManager.default.fileExists(atPath: url.path) { return true }
+        }
+        return false
+    }
+
+    /// Match quality: 0 exact, 1 alias exact, 2 prefix, 3 contains. nil = no match.
+    private static func matchScore(needle: String, entry: Entry) -> Int? {
+        let nameLower = entry.name.lowercased()
+        if nameLower == needle { return 0 }
+        if entry.aliases.contains(needle) { return 1 }
+        if nameLower.hasPrefix(needle) || entry.aliases.contains(where: { $0.hasPrefix(needle) }) {
+            return 2
+        }
+        // Contains: require needle length ≥ 2 to avoid "a" → everything.
+        guard needle.count >= 2 else { return nil }
+        if nameLower.contains(needle) || entry.aliases.contains(where: { $0.contains(needle) }) {
+            return 3
+        }
+        return nil
+    }
+
+    private func refreshIfNeeded() {
+        lock.lock()
+        if let builtAt, Date().timeIntervalSince(builtAt) < ttl, !entries.isEmpty {
+            lock.unlock()
+            return
+        }
+        lock.unlock()
+        rebuild()
+    }
+
+    private func rebuild() {
+        let fm = FileManager.default
+        var built: [Entry] = []
+        var seenLower = Set<String>()
+
+        for (dir, rank) in searchPaths {
+            guard let items = try? fm.contentsOfDirectory(atPath: dir) else { continue }
+            for item in items where item.hasSuffix(".app") {
+                let name = (item as NSString).deletingPathExtension
+                let lower = name.lowercased()
+                // Prefer first (higher-priority) directory on duplicate names.
+                if seenLower.contains(lower) { continue }
+                seenLower.insert(lower)
+                let path = (dir as NSString).appendingPathComponent(item)
+                var aliases = Set<String>([lower])
+                if let plist = Self.readBundleNames(at: path) {
+                    for a in plist where !a.isEmpty { aliases.insert(a.lowercased()) }
+                }
+                built.append(Entry(name: name, path: path, dirRank: rank, aliases: Array(aliases)))
+            }
+        }
+
+        lock.lock()
+        entries = built
+        builtAt = Date()
+        lock.unlock()
+    }
+
+    /// Cheap Info.plist read for CFBundleName / CFBundleDisplayName when the
+    /// folder name alone would miss a nickname.
+    private static func readBundleNames(at appPath: String) -> [String]? {
+        let plistPath = (appPath as NSString).appendingPathComponent("Contents/Info.plist")
+        guard let dict = NSDictionary(contentsOfFile: plistPath) as? [String: Any] else {
+            return nil
+        }
+        var names: [String] = []
+        for key in ["CFBundleName", "CFBundleDisplayName"] {
+            if let s = dict[key] as? String, !s.isEmpty { names.append(s) }
+        }
+        return names
     }
 }
 
@@ -1281,17 +1455,15 @@ actor AgentToolExecutor {
             }
 
         // ── GUI Automation ────────────────────────────────────────────────
-        // Opens the app but keeps it OFF the user's visible screen and
-        // Verantyx frontmost -- HiddenWindowAutomation parks the window far
-        // off-screen (still a normal running app, still in the Dock) so
-        // autonomous operation never steals focus or covers the IDE.
-        // DESKTOP_ACT below routes through the same session when active.
+        // Opens the app and leaves it visible + frontmost for Act (default
+        // HiddenWindowAutomation policy). Session still tracks window id /
+        // frame for DESKTOP_ACT / mirror capture. Verantyx is not raised.
         case .openApp(let name):
             let frame = await HiddenWindowAutomation.shared.beginOffscreenSession(appName: name)
             guard frame != nil else {
-                return "✗ Could not find or move window for: \(name)"
+                return "✗ Could not find or activate window for: \(name)"
             }
-            return "✓ OS App opened off-screen: \(name). Verantyx stays frontmost; use [DESKTOP_ACT]/[DESKTOP_SNAPSHOT] to operate it and watch the hidden-window mirror view to see what's happening."
+            return "✓ OS App opened and brought frontmost: \(name). Use [DESKTOP_ACT]/[DESKTOP_SNAPSHOT] to operate it; optional mirror preview captures the visible window."
 
         // Deterministic Vera-registered URL check (CRITICAL RULE 8) --
         // bypasses ask()'s consensus threshold, unlike the [VERA MEMORY]
@@ -1316,12 +1488,9 @@ actor AgentToolExecutor {
             let result = await runShell("osascript -e '\(escaped)'", workingDir: workspaceURL)
 
             // A model can bring another app to the front via raw AppleScript
-            // (e.g. `tell application "Safari" to activate`/`open location`)
-            // instead of [OPEN_APP], bypassing HiddenWindowAutomation entirely
-            // -- so check whether this script actually changed the frontmost
-            // app, and if so, retroactively park IT off-screen too, the same
-            // way [OPEN_APP] does. This catches the pattern generally rather
-            // than pattern-matching AppleScript syntax.
+            // instead of [OPEN_APP]. Adopt that app as the Act session target
+            // and leave it frontmost (visible-front policy) — do not park /
+            // remimimize it behind Verantyx.
             try? await Task.sleep(nanoseconds: 300_000_000)
             let newFrontApp: String? = await MainActor.run {
                 guard let front = NSWorkspace.shared.frontmostApplication,
@@ -1330,7 +1499,7 @@ actor AgentToolExecutor {
             }
             if let appName = newFrontApp {
                 _ = await HiddenWindowAutomation.shared.beginOffscreenSession(appName: appName)
-                return "✓ AppleScript Result:\n\(result)\n[Note: \(appName) came to the front and has been parked off-screen -- Verantyx stays frontmost. Use [DESKTOP_ACT]/[DESKTOP_SNAPSHOT] to operate it and the hidden-window mirror view to watch.]"
+                return "✓ AppleScript Result:\n\(result)\n[Note: \(appName) is now the Act target and left frontmost. Use [DESKTOP_ACT]/[DESKTOP_SNAPSHOT] to operate it.]"
             }
             return "✓ AppleScript Result:\n\(result)"
 
@@ -1496,9 +1665,8 @@ actor AgentToolExecutor {
 
         case .desktopSnapshot:
             do {
-                // When an OPEN_APP session parked a window off-screen, mirror
-                // THAT window instead of the visible display (which would
-                // just show Verantyx itself, since it's kept frontmost).
+                // Prefer the OPEN_APP session target window (visible front
+                // policy) over a full-display shot of whatever is topmost.
                 let hiddenActive = await MainActor.run { HiddenWindowAutomation.shared.targetAppName != nil }
                 let semanticXML = try await AXVisionBridge.shared.getSemanticSnapshot()
                 var frame: String? = nil
@@ -1546,11 +1714,13 @@ actor AgentToolExecutor {
 
                 return """
                 [DESKTOP_SNAPSHOT]
-                Captured desktop frame\(hiddenActive ? " (hidden window mirror)" : ""). \(jgenActive ? "JGEN backend — AX map encoded into hidden state (Vision raw inject only as fallback)." : "Screenshot updated and injected to context.")\(captureNote)
+                Captured desktop frame\(hiddenActive ? " (Act target window)" : ""). \(jgenActive ? "JGEN backend — AX map encoded into hidden state (Vision raw inject only as fallback)." : "Screenshot updated and injected to context.")\(captureNote)
                 \(hiddenStateReflection.map { "\n\($0)\n" } ?? "")
                 == SEMANTIC UI MAP ==
                 \(semanticXML)
                 """
+            } catch is CancellationError {
+                return "[DESKTOP_SNAPSHOT] Interrupted (cancellation) — retry; target was left visible."
             } catch { return "[DESKTOP ERROR] \(error.localizedDescription)" }
 
         case .desktopAct(let action):
@@ -1588,7 +1758,10 @@ actor AgentToolExecutor {
                     }
                 }
 
-                try await Task.sleep(nanoseconds: 2_000_000_000)
+                // Soft sleep: parent cancellation used to surface as
+                // Swift.CancellationError mid-Act when minimize/focus races
+                // tore down work. Clicks already ran; don't fail the tool.
+                try? await Task.sleep(nanoseconds: 2_000_000_000)
                 var frame: String? = nil
                 var captureDeniedNote = ""
                 if hiddenActive, let hidden = await HiddenWindowAutomation.shared.captureWindowImage() {
@@ -1596,6 +1769,8 @@ actor AgentToolExecutor {
                 } else {
                     do {
                         frame = try await SafariVisionBridge.shared.takeScreenshot(enforceSafari: false)
+                    } catch is CancellationError {
+                        captureDeniedNote = "\n[NO SCREENSHOT] capture cancelled — action may still have applied.\n"
                     } catch {
                         // Click/type may have succeeded; do not fail the whole
                         // tool on Screen Recording TCC (common with ad-hoc DMG).
@@ -1647,7 +1822,7 @@ actor AgentToolExecutor {
                         : "🔴 A red circle shows where your mouse clicked."
                     let resultText = """
                     [DESKTOP_ACT: \(action)]
-                    Action performed. New screenshot injected\(hiddenActive ? " (hidden window mirror)" : "").\(captureDeniedNote)
+                    Action performed. New screenshot injected\(hiddenActive ? " (Act target window)" : "").\(captureDeniedNote)
                     \(changeNote)
                     """
                     if !noVisualChange, await JCrossChatManager.shared.isLoaded {
@@ -1665,7 +1840,7 @@ actor AgentToolExecutor {
                     return resultText
                 }
 
-                let resultText = "[DESKTOP_ACT: \(action)]\nAction performed. New screenshot injected\(hiddenActive ? " (hidden window mirror)" : "").\(captureDeniedNote)"
+                let resultText = "[DESKTOP_ACT: \(action)]\nAction performed. New screenshot injected\(hiddenActive ? " (Act target window)" : "").\(captureDeniedNote)"
                 if await JCrossChatManager.shared.isLoaded {
                     let sessionId = await MainActor.run { AppState.shared?.vxChatSessionId }
                     await JGenVectorBusMemory.stampObservation(
@@ -1679,6 +1854,8 @@ actor AgentToolExecutor {
                     )
                 }
                 return resultText
+            } catch is CancellationError {
+                return "[DESKTOP_ACT: \(action)]\nInterrupted (cancellation) after attempting action — target left visible; retry if needed."
             } catch { return "[DESKTOP ERROR] \(error.localizedDescription)" }
 
         case .waitUntilStable(let stableSeconds, let timeout):

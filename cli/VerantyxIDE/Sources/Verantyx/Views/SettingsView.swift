@@ -2106,9 +2106,10 @@ struct SettingsView: View {
                         .lineLimit(1)
                     if let errorDetail {
                         Text(errorDetail)
-                            .font(.system(size: 9))
+                            .font(.system(size: 9, design: .monospaced))
                             .foregroundStyle(Color(red: 1.0, green: 0.5, blue: 0.5))
-                            .lineLimit(2)
+                            .textSelection(.enabled)
+                            .fixedSize(horizontal: false, vertical: true)
                     }
                 }
                 Spacer()

@@ -113,28 +113,75 @@ if [ -f "$BROWSER_BIN" ] && ! file "$BROWSER_BIN" | grep -q "Mach-O"; then
   rm -f "$BROWSER_BIN"
 fi
 
+# Portable DMG requirement: vera-memory must be a real Mach-O inside the
+# shipped .app. Missing / LFS-pointer stubs make MCP fail on every fresh Mac.
+VERA_MEMORY_BIN="$STAGING_DIR/${APP_NAME}.app/Contents/MacOS/vera-memory"
+if [ ! -f "$VERA_MEMORY_BIN" ]; then
+  echo "❌ vera-memory missing from app bundle ($VERA_MEMORY_BIN)"
+  echo "   Ensure VerantyxIDE/Vendor/vera-memory exists and the Xcode"
+  echo "   'Embed vera-memory into App Bundle' build phase ran."
+  exit 1
+fi
+if ! file "$VERA_MEMORY_BIN" | grep -q "Mach-O"; then
+  echo "❌ vera-memory is not a Mach-O binary ($(wc -c < "$VERA_MEMORY_BIN") bytes)"
+  echo "   Refusing to ship a non-runnable stub in the DMG."
+  exit 1
+fi
+echo "   ✓ vera-memory embedded ($(du -h "$VERA_MEMORY_BIN" | awk '{print $1}'))"
+
 # ── 5. Sign ─────────────────────────────────────────────────────────────────
 echo "[5/7] 署名中 (${SIGN_MODE})..."
 ENTITLEMENTS="$(pwd)/VerantyxIDE/Sources/Verantyx/Verantyx.entitlements"
+PYI_ENTITLEMENTS="$(pwd)/VerantyxIDE/Sources/Verantyx/PyInstallerHelper.entitlements"
 if [ ! -f "$ENTITLEMENTS" ]; then
   ENTITLEMENTS="$(pwd)/Sources/Verantyx/Verantyx.entitlements"
 fi
+if [ ! -f "$PYI_ENTITLEMENTS" ]; then
+  PYI_ENTITLEMENTS="$(pwd)/Sources/Verantyx/PyInstallerHelper.entitlements"
+fi
+# PyInstaller onefile helpers need disable-library-validation under Hardened
+# Runtime; applying the main app entitlements alone breaks them on every Mac.
+sign_one() {
+  local bin="$1"
+  local ents="$2"
+  local base
+  base="$(basename "$bin")"
+  if [ -z "$ents" ] || [ ! -f "$ents" ]; then
+    codesign --force --sign "$SIGN_IDENTITY" --options runtime --timestamp "$bin"
+    return
+  fi
+  if codesign --force --sign "$SIGN_IDENTITY" \
+      --options runtime \
+      --timestamp \
+      --entitlements "$ents" \
+      "$bin"; then
+    echo "   signed $base (+ $(basename "$ents"))"
+  else
+    echo "   ⚠️  entitlements sign failed for $base — retrying without entitlements"
+    codesign --force --sign "$SIGN_IDENTITY" --options runtime --timestamp "$bin"
+  fi
+}
+
 if [ "$SIGN_MODE" = "developer_id" ]; then
   if [ ! -f "$ENTITLEMENTS" ]; then
     echo "❌ entitlements not found (looked under VerantyxIDE/Sources and Sources)"
     exit 1
   fi
-  # Sign nested Mach-Os first, then the bundle (Hardened Runtime).
+  if [ ! -f "$PYI_ENTITLEMENTS" ]; then
+    echo "❌ PyInstallerHelper.entitlements not found — vera-memory would fail on notarized installs"
+    exit 1
+  fi
+  # Sign nested Mach-Os first (helpers with PyInstaller entitlements), then the bundle.
   while IFS= read -r bin; do
-    codesign --force --sign "$SIGN_IDENTITY" \
-      --options runtime \
-      --timestamp \
-      --entitlements "$ENTITLEMENTS" \
-      "$bin" 2>/dev/null || \
-    codesign --force --sign "$SIGN_IDENTITY" \
-      --options runtime \
-      --timestamp \
-      "$bin"
+    base="$(basename "$bin")"
+    case "$base" in
+      vera-memory|jgen_forge)
+        sign_one "$bin" "$PYI_ENTITLEMENTS"
+        ;;
+      *)
+        sign_one "$bin" "$ENTITLEMENTS"
+        ;;
+    esac
   done < <(find "$STAGING_DIR/${APP_NAME}.app/Contents" -type f \( -perm -111 -o -name "*.dylib" -o -name "*.so" \) 2>/dev/null)
   codesign --force --sign "$SIGN_IDENTITY" \
     --options runtime \
@@ -142,10 +189,33 @@ if [ "$SIGN_MODE" = "developer_id" ]; then
     --entitlements "$ENTITLEMENTS" \
     "$STAGING_DIR/${APP_NAME}.app"
   codesign --verify --deep --strict --verbose=2 "$STAGING_DIR/${APP_NAME}.app"
-  echo "   ✓ Developer ID 署名完了"
+  # Confirm the helper kept the library-validation entitlement (catches regressions).
+  if ! codesign -d --entitlements :- "$VERA_MEMORY_BIN" 2>/dev/null | grep -q "disable-library-validation"; then
+    echo "❌ vera-memory missing com.apple.security.cs.disable-library-validation after signing"
+    codesign -d --entitlements :- "$VERA_MEMORY_BIN" 2>&1 || true
+    exit 1
+  fi
+  echo "   ✓ Developer ID 署名完了 (vera-memory/jgen_forge: PyInstaller entitlements)"
 else
-  codesign --force --deep --sign "-" \
-    "$STAGING_DIR/${APP_NAME}.app" 2>/dev/null || true
+  # Ad-hoc: sign nested binaries first (no --deep), then seal the bundle so
+  # helper entitlements are not overwritten / leave the outer seal stale.
+  while IFS= read -r bin; do
+    base="$(basename "$bin")"
+    case "$base" in
+      vera-memory|jgen_forge)
+        if [ -f "$PYI_ENTITLEMENTS" ]; then
+          codesign --force --sign "-" --entitlements "$PYI_ENTITLEMENTS" "$bin" 2>/dev/null || \
+            codesign --force --sign "-" "$bin" 2>/dev/null || true
+        else
+          codesign --force --sign "-" "$bin" 2>/dev/null || true
+        fi
+        ;;
+      *)
+        codesign --force --sign "-" "$bin" 2>/dev/null || true
+        ;;
+    esac
+  done < <(find "$STAGING_DIR/${APP_NAME}.app/Contents" -type f \( -perm -111 -o -name "*.dylib" -o -name "*.so" \) 2>/dev/null)
+  codesign --force --sign "-" "$STAGING_DIR/${APP_NAME}.app" 2>/dev/null || true
   echo "   ✓ Ad-hoc 署名完了 (初回起動時に右クリック→開く が必要)"
 fi
 

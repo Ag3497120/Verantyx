@@ -317,6 +317,8 @@ struct MCPView: View {
             Text(statusLabel(status))
                 .font(.system(size: 10, design: .monospaced))
                 .foregroundStyle(statusColor(for: server.id))
+                .textSelection(.enabled)
+                .fixedSize(horizontal: false, vertical: true)
 
             Divider().opacity(0.3)
 
@@ -428,7 +430,7 @@ struct MCPView: View {
         case .connected:      return "● connected"
         case .connecting:     return "○ connecting…"
         case .disconnected:   return "○ disconnected"
-        case .error(let e):   return "✗ \(e.prefix(30))"
+        case .error(let e):   return "✗ \(e)"
         }
     }
 

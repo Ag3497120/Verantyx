@@ -46,8 +46,8 @@ actor VeraAgentClient {
 
         killAnyProcessOnPort(8765)
 
-        let bundled = Bundle.main.executableURL?.deletingLastPathComponent().appendingPathComponent("vera-memory")
-        guard let bundled, FileManager.default.fileExists(atPath: bundled.path) else { return }
+        let bundled = VeraMemoryPaths.resolveBundledBinary()
+        guard let bundled else { return }
         try? FileManager.default.createDirectory(at: VeraMemoryPaths.appSupportDir, withIntermediateDirectories: true)
         let storePath = VeraMemoryPaths.storeFile.path
 
