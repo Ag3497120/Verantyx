@@ -129,6 +129,17 @@ if ! file "$VERA_MEMORY_BIN" | grep -q "Mach-O"; then
 fi
 echo "   ✓ vera-memory embedded ($(du -h "$VERA_MEMORY_BIN" | awk '{print $1}'))"
 
+# Stamp a discoverable version so users can tell which CI DMG they installed
+# (xcodebuild MARKETING_VERSION alone often leaves Info.plist at the scheme default).
+INFO_PLIST="$STAGING_DIR/${APP_NAME}.app/Contents/Info.plist"
+if [ -f "$INFO_PLIST" ]; then
+  /usr/libexec/PlistBuddy -c "Set :CFBundleShortVersionString ${VERSION}" "$INFO_PLIST" 2>/dev/null \
+    || /usr/libexec/PlistBuddy -c "Add :CFBundleShortVersionString string ${VERSION}" "$INFO_PLIST"
+  /usr/libexec/PlistBuddy -c "Set :CFBundleVersion ${VERSION}" "$INFO_PLIST" 2>/dev/null \
+    || /usr/libexec/PlistBuddy -c "Add :CFBundleVersion string ${VERSION}" "$INFO_PLIST"
+  echo "   ✓ Info.plist version → ${VERSION}"
+fi
+
 # ── 5. Sign ─────────────────────────────────────────────────────────────────
 echo "[5/7] 署名中 (${SIGN_MODE})..."
 ENTITLEMENTS="$(pwd)/VerantyxIDE/Sources/Verantyx/Verantyx.entitlements"

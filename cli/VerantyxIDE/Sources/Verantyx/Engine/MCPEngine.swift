@@ -49,6 +49,59 @@ enum VeraMemoryPaths {
     static func bundledMCPCommand(binary: URL) -> String {
         "\"\(binary.path)\" --store \"\(storeFile.path)\" mcp"
     }
+
+    /// True when the helper is Hardened Runtime but lacks
+    /// `disable-library-validation` — the pre-97e8fd230 DMG failure mode
+    /// ("different Team IDs" loading PyInstaller's extracted Python.framework).
+    static func missingLibraryValidationEntitlement(at binary: URL) -> Bool {
+        guard isHardenedRuntime(at: binary) else { return false }
+        let ents = codesignEntitlementsXML(at: binary) ?? ""
+        return !ents.contains("disable-library-validation")
+    }
+
+    /// User-facing install guidance when an old notarized DMG is detected.
+    static var outdatedHardenedRuntimeMessage: String {
+        """
+        Bundled vera-memory is notarized (Hardened Runtime) but missing com.apple.security.cs.disable-library-validation.
+        That is the pre-fix DMG: PyInstaller dies with "mapping process and mapped file have different Team IDs".
+        Replace /Applications/Verantyx.app with VerantyxIDE-0.0.0-dev-98+ (CI artifact VerantyxIDE-macOS-App from commit 97e8fd230 or later), reopen Verantyx, then reconnect vera-memory.
+        Verify: codesign -d --entitlements :- /Applications/Verantyx.app/Contents/MacOS/vera-memory | grep disable-library-validation
+        """
+    }
+
+    /// Rewrite Team-ID / library-validation launch failures into actionable text.
+    static func annotateLaunchFailure(_ message: String) -> String {
+        let markers = ["different Team IDs", "disable-library-validation", "Failed to load Python shared library"]
+        guard markers.contains(where: { message.contains($0) }) else { return message }
+        return message + "\n\n" + outdatedHardenedRuntimeMessage
+    }
+
+    private static func isHardenedRuntime(at binary: URL) -> Bool {
+        let p = Process()
+        p.executableURL = URL(fileURLWithPath: "/usr/bin/codesign")
+        p.arguments = ["-dv", "--verbose=2", binary.path]
+        let err = Pipe()
+        p.standardOutput = Pipe()
+        p.standardError = err
+        do { try p.run() } catch { return false }
+        p.waitUntilExit()
+        let text = String(data: err.fileHandleForReading.readDataToEndOfFile(), encoding: .utf8) ?? ""
+        return text.contains("flags=0x10000(runtime)") || text.contains("(runtime)")
+    }
+
+    private static func codesignEntitlementsXML(at binary: URL) -> String? {
+        let p = Process()
+        p.executableURL = URL(fileURLWithPath: "/usr/bin/codesign")
+        p.arguments = ["-d", "--entitlements", ":-", binary.path]
+        let out = Pipe()
+        let err = Pipe()
+        p.standardOutput = out
+        p.standardError = err
+        do { try p.run() } catch { return nil }
+        p.waitUntilExit()
+        let data = out.fileHandleForReading.readDataToEndOfFile()
+        return String(data: data, encoding: .utf8)
+    }
 }
 
 // MARK: - MCPEngine
@@ -240,14 +293,41 @@ actor StdioSession {
 
     // Captures the subprocess's stderr so launch/write failures can surface a real
     // reason (e.g. a Python traceback) instead of just "Write failed after auto-restart".
-    private var stderrBuffer = Data()
-    private let stderrBufferLimit = 16384
+    // Lock-backed so the FileHandle readabilityHandler can append synchronously —
+    // an actor-hop `Task { await }` raced and left Team-ID dyld stderr empty.
+    private let stderrCapture = StderrCapture()
 
     private func recentStderr() -> String? {
-        guard !stderrBuffer.isEmpty else { return nil }
-        let text = String(data: stderrBuffer, encoding: .utf8) ?? ""
-        let trimmed = text.trimmingCharacters(in: .whitespacesAndNewlines)
-        return trimmed.isEmpty ? nil : trimmed
+        stderrCapture.text()
+    }
+
+    /// Thread-safe stderr ring buffer for Process readabilityHandler.
+    private final class StderrCapture: @unchecked Sendable {
+        private let lock = NSLock()
+        private var buffer = Data()
+        private let limit = 16_384
+
+        func clear() {
+            lock.lock(); defer { lock.unlock() }
+            buffer.removeAll(keepingCapacity: true)
+        }
+
+        func append(_ chunk: Data) {
+            guard !chunk.isEmpty else { return }
+            lock.lock(); defer { lock.unlock() }
+            buffer.append(chunk)
+            if buffer.count > limit {
+                buffer.removeFirst(buffer.count - limit)
+            }
+        }
+
+        func text() -> String? {
+            lock.lock(); defer { lock.unlock() }
+            guard !buffer.isEmpty else { return nil }
+            let trimmed = (String(data: buffer, encoding: .utf8) ?? "")
+                .trimmingCharacters(in: .whitespacesAndNewlines)
+            return trimmed.isEmpty ? nil : trimmed
+        }
     }
 
     // AsyncStream continuation — readabilityHandler pushes chunks here.
@@ -283,7 +363,8 @@ actor StdioSession {
             try await startProcess()
             guard safeWrite(req) else {
                 let stderr = recentStderr().map { "\nstderr: \($0)" } ?? ""
-                throw MCPError.processLaunchFailed("Write failed after auto-restart\(stderr)")
+                throw MCPError.processLaunchFailed(
+                    VeraMemoryPaths.annotateLaunchFailure("Write failed after auto-restart\(stderr)"))
             }
         }
 
@@ -312,7 +393,7 @@ actor StdioSession {
         isReady = false
         continuation?.finish()
         continuation = nil
-        stderrBuffer.removeAll()
+        stderrCapture.clear()
 
         _ = StdioSession.sigpipeInstalled
 
@@ -340,7 +421,8 @@ actor StdioSession {
         }
 
         do { try p.run() } catch {
-            throw MCPError.processLaunchFailed(error.localizedDescription)
+            throw MCPError.processLaunchFailed(
+                VeraMemoryPaths.annotateLaunchFailure(error.localizedDescription))
         }
 
         process      = p
@@ -363,17 +445,16 @@ actor StdioSession {
             }
         }
 
-        // Capture stderr so a failed launch/write can report the subprocess's own
-        // diagnostic output (e.g. a Python traceback) instead of a generic message.
-        // Append synchronously — an async Task race left recentStderr() empty when
-        // PyInstaller died during initialize (Team-ID / dyld failures).
-        stderrPipe.fileHandleForReading.readabilityHandler = { [weak self] fh in
+        // Capture stderr synchronously (see StderrCapture) so Team-ID / dyld
+        // failures are present when performHandshake throws.
+        let stderrCapture = self.stderrCapture
+        stderrPipe.fileHandleForReading.readabilityHandler = { fh in
             let chunk = fh.availableData
             guard !chunk.isEmpty else {
                 fh.readabilityHandler = nil
                 return
             }
-            Task { await self?.appendStderr(chunk) }
+            stderrCapture.append(chunk)
         }
 
         do {
@@ -384,22 +465,19 @@ actor StdioSession {
             try? await Task.sleep(nanoseconds: 80_000_000)
             let stderr = recentStderr()
             if case .processLaunchFailed(let msg) = error {
+                var combined = msg
                 if let stderr, !msg.contains(stderr) {
-                    throw MCPError.processLaunchFailed("\(msg)\nstderr: \(stderr)")
+                    combined = "\(msg)\nstderr: \(stderr)"
                 }
+                throw MCPError.processLaunchFailed(VeraMemoryPaths.annotateLaunchFailure(combined))
             } else if let stderr {
-                throw MCPError.processLaunchFailed("\(error.localizedDescription)\nstderr: \(stderr)")
+                throw MCPError.processLaunchFailed(
+                    VeraMemoryPaths.annotateLaunchFailure(
+                        "\(error.localizedDescription)\nstderr: \(stderr)"))
             }
             throw error
         }
         isReady = true
-    }
-
-    private func appendStderr(_ chunk: Data) {
-        stderrBuffer.append(chunk)
-        if stderrBuffer.count > stderrBufferLimit {
-            stderrBuffer.removeFirst(stderrBuffer.count - stderrBufferLimit)
-        }
     }
 
     private func performHandshake(stream: AsyncStream<Data>, maxWait: Double) async throws {
@@ -416,7 +494,8 @@ actor StdioSession {
         ]
         guard safeWrite(initReq) else {
             let stderr = recentStderr().map { "\nstderr: \($0)" } ?? ""
-            throw MCPError.processLaunchFailed("Process exited before initialize\(stderr)")
+            throw MCPError.processLaunchFailed(
+                VeraMemoryPaths.annotateLaunchFailure("Process exited before initialize\(stderr)"))
         }
 
         var buf = Data()
@@ -437,14 +516,17 @@ actor StdioSession {
             if Date() > deadline {
                 let stderr = recentStderr().map { "\nstderr: \($0)" } ?? ""
                 throw MCPError.processLaunchFailed(
-                    "Initialize timed out (>\(Int(maxWait))s). Server may not be installed.\(stderr)")
+                    VeraMemoryPaths.annotateLaunchFailure(
+                        "Initialize timed out (>\(Int(maxWait))s). Server may not be installed.\(stderr)"))
             }
             try Task.checkCancellation()
         }
 
         guard let initResponse else {
             let stderr = recentStderr().map { "\nstderr: \($0)" } ?? ""
-            throw MCPError.processLaunchFailed("No initialize response from MCP server\(stderr)")
+            throw MCPError.processLaunchFailed(
+                VeraMemoryPaths.annotateLaunchFailure(
+                    "No initialize response from MCP server\(stderr)"))
         }
         if let err = initResponse["error"] as? [String: Any] {
             let msg = (err["message"] as? String) ?? String(describing: err)
@@ -656,6 +738,13 @@ final class MCPEngine: ObservableObject {
             connectionStatus[server.id] = .disconnected
             return
         }
+        // Fail fast with install guidance when an old notarized DMG is still installed.
+        if server.name == "vera-memory",
+           let binary = VeraMemoryPaths.resolveBundledBinary(),
+           VeraMemoryPaths.missingLibraryValidationEntitlement(at: binary) {
+            connectionStatus[server.id] = .error(VeraMemoryPaths.outdatedHardenedRuntimeMessage)
+            return
+        }
         connectionStatus[server.id] = .connecting
         do {
             let tools = try await discoverTools(server: server)
@@ -663,7 +752,8 @@ final class MCPEngine: ObservableObject {
             connectedTools.append(contentsOf: tools)
             connectionStatus[server.id] = .connected
         } catch {
-            connectionStatus[server.id] = .error(error.localizedDescription)
+            connectionStatus[server.id] = .error(
+                VeraMemoryPaths.annotateLaunchFailure(error.localizedDescription))
         }
     }
 
@@ -890,7 +980,25 @@ final class MCPEngine: ObservableObject {
 
         if let bundled = bundledVeraMemory {
             let command = VeraMemoryPaths.bundledMCPCommand(binary: bundled)
-            if let existingIndex = servers.firstIndex(where: { $0.name == "vera-memory" }) {
+            if VeraMemoryPaths.missingLibraryValidationEntitlement(at: bundled) {
+                // Keep the row so Settings shows why MCP is red; do not auto-connect.
+                if let existingIndex = servers.firstIndex(where: { $0.name == "vera-memory" }) {
+                    var row = servers[existingIndex]
+                    row.command = command
+                    row.isEnabled = true
+                    servers[existingIndex] = row
+                    connectionStatus[row.id] = .error(VeraMemoryPaths.outdatedHardenedRuntimeMessage)
+                } else {
+                    let config = MCPServerConfig(
+                        name: "vera-memory",
+                        transport: .stdio,
+                        command: command,
+                        mode: .ai
+                    )
+                    servers.append(config)
+                    connectionStatus[config.id] = .error(VeraMemoryPaths.outdatedHardenedRuntimeMessage)
+                }
+            } else if let existingIndex = servers.firstIndex(where: { $0.name == "vera-memory" }) {
                 let existing = servers[existingIndex]
                 // Application Support store paths live under /Users/... — that is
                 // expected. Only treat the *launch* side as stale (wrong binary /

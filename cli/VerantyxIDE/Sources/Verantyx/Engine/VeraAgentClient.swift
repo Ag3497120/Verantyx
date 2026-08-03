@@ -20,6 +20,43 @@ actor VeraAgentClient {
 
     var baseURL: String = "http://127.0.0.1:8765"
     private var launchedProcess: Process?
+    /// Endpoint we passed as `--jgen-endpoint` when launching serve.
+    /// Restart is required when the IDE's JGenAgentServer port changes or
+    /// when we previously launched without a JGEN bridge and now need one.
+    private var launchedJgenEndpoint: String?
+
+    enum EnsureResult: Sendable, Equatable {
+        case ready
+        case binaryMissing
+        case launchFailed(String)
+        case notReachable
+
+        var isReady: Bool {
+            if case .ready = self { return true }
+            return false
+        }
+    }
+
+    enum ClientError: Error, LocalizedError {
+        case badResponse(String)
+        case serverUnavailable(EnsureResult)
+
+        var errorDescription: String? {
+            switch self {
+            case .badResponse(let s): return "VeraAgentClient: \(s)"
+            case .serverUnavailable(let r):
+                switch r {
+                case .ready: return "VeraAgentClient: unexpected"
+                case .binaryMissing:
+                    return "Vera HTTP が起動できません — MCP/同梱バイナリを確認"
+                case .launchFailed(let detail):
+                    return "Vera HTTP が起動できません — \(detail)"
+                case .notReachable:
+                    return "Vera HTTP が起動できません — :8765 に応答なし（serve.log / 同梱 vera-memory を確認）"
+                }
+            }
+        }
+    }
 
     /// Lazily launches `vera-memory ... serve` (same bundled binary
     /// Milestone H already embeds for MCP mode, see MCPEngine.swift's
@@ -28,32 +65,42 @@ actor VeraAgentClient {
     /// check runs first so calling this repeatedly across chat turns
     /// doesn't spawn duplicate processes.
     ///
-    /// Real bug found live: this used to trust ANY reachable server on
-    /// the port, including one left over from a previous app run (Process
-    /// objects don't die with their parent on macOS -- a normal quit that
-    /// predates this fix, a force-quit, or a crash all leave `vera-memory
-    /// serve` running forever). Every rebuild/redeploy of the binary was
-    /// silently talking to that stale process instead of the new one,
-    /// which is exactly why a real Python-side fix appeared to "do
-    /// nothing" on retry. Now: if we don't already own a live
-    /// `launchedProcess` from THIS app session, anything already on the
-    /// port gets killed first, then a fresh process is always launched --
-    /// covers the clean-quit case AND leftover orphans from before this
-    /// fix existed, not just app-quit cleanup (see `stop()` below, which
-    /// only helps the well-behaved-quit case).
-    func ensureServerRunning() async {
-        if let p = launchedProcess, p.isRunning, await isReachable() { return }
+    /// Real bug found live: this used to trust ANY reachable server on the
+    /// port, including one left over from a previous app run. Now: if we
+    /// don't already own a live `launchedProcess` from THIS app session,
+    /// anything already on the port gets killed first, then a fresh
+    /// process is always launched. Also restarts when `jgenEndpoint`
+    /// changes so `"backend": "jgen"` can reach JGenAgentServer.
+    @discardableResult
+    func ensureServerRunning(jgenEndpoint: String? = nil) async -> EnsureResult {
+        let wantEndpoint = Self.normalizedEndpoint(jgenEndpoint)
+        if let p = launchedProcess, p.isRunning,
+           launchedJgenEndpoint == wantEndpoint,
+           await isReachable() {
+            return .ready
+        }
 
+        // Endpoint / ownership mismatch → reclaim and relaunch.
+        stopOwnedProcess()
         killAnyProcessOnPort(8765)
 
         let bundled = VeraMemoryPaths.resolveBundledBinary()
-        guard let bundled else { return }
+        guard let bundled else { return .binaryMissing }
+
+        if VeraMemoryPaths.missingLibraryValidationEntitlement(at: bundled) {
+            return .launchFailed(VeraMemoryPaths.outdatedHardenedRuntimeMessage)
+        }
+
         try? FileManager.default.createDirectory(at: VeraMemoryPaths.appSupportDir, withIntermediateDirectories: true)
         let storePath = VeraMemoryPaths.storeFile.path
 
         let process = Process()
         process.executableURL = bundled
-        process.arguments = ["--store", storePath, "serve", "--port", "8765"]
+        var args = ["--store", storePath, "serve", "--port", "8765"]
+        if let wantEndpoint {
+            args += ["--jgen-endpoint", wantEndpoint]
+        }
+        process.arguments = args
         // Real bug found live: stdout/stderr went to /dev/null, so a real
         // hang (0% CPU, no response) had no way to be diagnosed from
         // outside -- no Python traceback, no Rust println! progress line,
@@ -71,8 +118,10 @@ actor VeraAgentClient {
         do {
             try process.run()
             launchedProcess = process
+            launchedJgenEndpoint = wantEndpoint
         } catch {
-            return
+            let annotated = VeraMemoryPaths.annotateLaunchFailure(error.localizedDescription)
+            return .launchFailed(annotated)
         }
 
         // Give the daemon a moment to bind before the first real request.
@@ -82,9 +131,16 @@ actor VeraAgentClient {
         // actually ships (`dist/vera-memory ... serve`, timed via curl
         // retries) -- so this polls for up to 12s, not a token 3s guess.
         for _ in 0..<40 {
-            if await isReachable() { return }
+            if await isReachable() { return .ready }
+            if let p = launchedProcess, !p.isRunning {
+                let annotated = VeraMemoryPaths.annotateLaunchFailure(
+                    "vera-memory serve exited early (see \(logURL.path))"
+                )
+                return .launchFailed(annotated)
+            }
             try? await Task.sleep(nanoseconds: 300_000_000)
         }
+        return .notReachable
     }
 
     /// `lsof -ti:<port>` + SIGTERM (then SIGKILL if it's still alive after
@@ -116,14 +172,23 @@ actor VeraAgentClient {
         }
     }
 
+    private func stopOwnedProcess() {
+        if let p = launchedProcess, p.isRunning {
+            p.terminate()
+            // Brief wait so the port is free before relaunch / killAnyProcessOnPort.
+            Thread.sleep(forTimeInterval: 0.2)
+            if p.isRunning { p.terminate() }
+        }
+        launchedProcess = nil
+        launchedJgenEndpoint = nil
+    }
+
     /// Called from AppDelegate's shutdown sequence -- the well-behaved
     /// half of the fix (killAnyProcessOnPort above is the fallback for
     /// when this never got the chance to run).
     func stop() {
-        if let p = launchedProcess, p.isRunning {
-            p.terminate()
-        }
-        launchedProcess = nil
+        stopOwnedProcess()
+        killAnyProcessOnPort(8765)
     }
 
     private func isReachable() async -> Bool {
@@ -136,19 +201,16 @@ actor VeraAgentClient {
         return http.statusCode == 404 || http.statusCode == 200  // any real HTTP reply means the daemon is up
     }
 
+    private static func normalizedEndpoint(_ endpoint: String?) -> String? {
+        guard let endpoint else { return nil }
+        let trimmed = endpoint.trimmingCharacters(in: .whitespacesAndNewlines)
+        return trimmed.isEmpty ? nil : trimmed
+    }
+
     struct AgentStepEvent: Sendable {
         let raw: [String: Any]
         var source: String? { raw["source"] as? String }
         var isTerminal: Bool { raw["final"] != nil }
-    }
-
-    enum ClientError: Error, LocalizedError {
-        case badResponse(String)
-        var errorDescription: String? {
-            switch self {
-            case .badResponse(let s): return "VeraAgentClient: \(s)"
-            }
-        }
     }
 
     /// Starts a run and streams every `on_step` event Vera-alpha's
@@ -157,9 +219,45 @@ actor VeraAgentClient {
     /// the same kind of `LoopEvent`-shaped UI update `ExecutionAgent`/
     /// `CouncilOrchestrator` already drive (see ModelSelectorBarView's
     /// harness toggle wiring).
+    ///
+    /// `backend` has **no** default — callers (AppState.runVeraHarness) must
+    /// pick `"jgen"` or `"ollama"` from settings. A silent `"ollama"` default
+    /// is what caused Connection refused to :11434 when Ollama was off /
+    /// L2-JGEN was on.
     func runAgent(
-        task: String, model: String = "", backend: String = "ollama",
+        task: String, model: String = "", backend: String,
         cognitionMode: String = "normal",
+        onEvent: @escaping (AgentStepEvent) -> Void
+    ) async throws -> [String: Any] {
+        let backend = backend.trimmingCharacters(in: .whitespacesAndNewlines).lowercased()
+        guard backend == "jgen" || backend == "ollama" else {
+            throw ClientError.badResponse("backend must be \"jgen\" or \"ollama\", got \"\(backend)\"")
+        }
+        if backend == "jgen", launchedJgenEndpoint == nil {
+            throw ClientError.badResponse(
+                "backend \"jgen\" requires ensureServerRunning(jgenEndpoint:) first"
+            )
+        }
+        // One auto-retry after a short re-ensure if the first POST fails
+        // with a transport error (serve still warming / port race).
+        do {
+            return try await runAgentOnce(
+                task: task, model: model, backend: backend,
+                cognitionMode: cognitionMode, onEvent: onEvent
+            )
+        } catch let urlError as URLError where Self.isTransportFailure(urlError) {
+            let ensure = await ensureServerRunning(jgenEndpoint: launchedJgenEndpoint)
+            guard ensure.isReady else { throw ClientError.serverUnavailable(ensure) }
+            return try await runAgentOnce(
+                task: task, model: model, backend: backend,
+                cognitionMode: cognitionMode, onEvent: onEvent
+            )
+        }
+    }
+
+    private func runAgentOnce(
+        task: String, model: String, backend: String,
+        cognitionMode: String,
         onEvent: @escaping (AgentStepEvent) -> Void
     ) async throws -> [String: Any] {
         guard let startURL = URL(string: "\(baseURL)/agent/run") else {
@@ -218,5 +316,34 @@ actor VeraAgentClient {
             throw ClientError.badResponse("no_result")
         }
         return result
+    }
+
+    /// True when a URLError means loopback HTTP never answered (serve down /
+    /// Ollama down / JGenAgentServer down) — not a semantic Vera answer.
+    static func isTransportFailure(_ error: URLError) -> Bool {
+        switch error.code {
+        case .cannotConnectToHost, .networkConnectionLost, .timedOut,
+             .cannotFindHost, .dnsLookupFailed, .notConnectedToInternet:
+            return true
+        default:
+            return false
+        }
+    }
+
+    /// Detects Vera LLM-step failures that are connectivity, not task
+    /// content (Ollama :11434 refused, JGEN bridge refused, etc.).
+    static func isLLMConnectivityFailure(_ message: String) -> Bool {
+        let lower = message.lowercased()
+        let markers = [
+            "connection refused",
+            "errno 61",
+            "urlerror",
+            "jgen_endpoint_error",
+            "failed to connect",
+            "could not connect",
+            "nodename nor servname",
+            "connection reset",
+        ]
+        return markers.contains { lower.contains($0) }
     }
 }
