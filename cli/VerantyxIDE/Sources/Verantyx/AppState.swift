@@ -1438,9 +1438,29 @@ final class AppState: ObservableObject {
     /// Vera's on_step events are its own JSON shapes (action/observation),
     /// not this app's `LoopEvent`, so this renders them as system-message
     /// progress lines rather than trying to unify the two event models.
+    ///
+    /// Vera harness planner routing must honor the user's Ollama / L2-JGEN
+    /// settings — never silently default to `backend: "ollama"` (:11434).
+    ///
+    /// Settings:
+    /// - Ollama "on" ⇔ `modelStatus == .ollamaReady` (active chat backend).
+    ///   Selecting JGEN / ejecting Ollama turns it off for harness purposes.
+    /// - L2-JGEN ⇔ `CouncilSettingsStore.executionUseJGEN`
+    ///   (`UserDefaults` key `council_execution_use_jgen`, checkbox
+    ///   "Layer 2もJGENで実行").
+    ///
+    /// When Ollama is off and/or L2-JGEN is on and a `.jgen` is loaded,
+    /// planner uses `backend: "jgen"` via `JGenAgentServer` (:8766).
+    /// When Ollama is off and JGEN isn't available, show a clear message
+    /// and fall back to the local council/Act path — never POST to :11434.
     private func runVeraHarness(instruction: String, files: [URL] = []) async {
         isGenerating = true
-        defer { isGenerating = false }
+        // Cleared explicitly before fallback so runAgentLoop owns the flag;
+        // on the success / hard-fail paths the defer still clears it.
+        var handedOffToFallback = false
+        defer {
+            if !handedOffToFallback { isGenerating = false }
+        }
 
         // Real bug found live: the 📎 attachment chip in the chat input
         // (`attachedFiles`) was silently dropped on this path -- unlike
@@ -1473,17 +1493,136 @@ final class AppState: ObservableObject {
         }
         addSystemMessage(t("🧭 Vera harness: taking over this turn…", "🧭 Veraハーネス: このターンを引き継ぎます…"))
 
-        await VeraAgentClient.shared.ensureServerRunning()
-        // Vera's planner LLM step needs a real Ollama model name -- without
-        // this, vera_server.py falls back to its own (usually unset)
-        // default_model, sends an empty model string to Ollama's
-        // /api/generate, and gets back exactly the 404 this app's own
-        // testing surfaced. The IDE's already-selected chat model is the
-        // right default (not a new setting the user has to duplicate).
-        let harnessModel = activeOllamaModel
+        let council = CouncilSettingsStore.shared
+        let jgenLoaded: Bool = {
+            if case .jcrossReady = modelStatus { return true }
+            return false
+        }()
+        // Ollama "on" for harness = Ollama is the selected active chat backend.
+        // Selecting JGEN / ejecting Ollama / MLX / BitNet turns it off.
+        let ollamaActiveBackend: Bool = {
+            if case .ollamaReady = modelStatus { return true }
+            return false
+        }()
+        // Checkbox: "Layer 2もJGENで実行" → UserDefaults `council_execution_use_jgen`
+        let l2UseJGEN = council.executionUseJGEN
+        // (Ollama off OR L2-JGEN on) + loaded .jgen → must use jgen planner.
+        // (With a single modelStatus enum, jcrossReady already implies Ollama
+        // off — still read both flags so routing never ignores the checkbox.)
+        let mustUseJgenPlanner = jgenLoaded && (l2UseJGEN || !ollamaActiveBackend)
+        // Never POST backend=ollama / probe :11434 unless Ollama is active
+        // and we are not on the forced-JGEN path.
+        let ollamaAllowedForHarness = ollamaActiveBackend && !mustUseJgenPlanner
+
+        var harnessBackend: String? = nil
+        var harnessModel = activeOllamaModel
+        var jgenEndpoint: String? = nil
+
+        if mustUseJgenPlanner {
+            do {
+                try await JGenAgentServer.shared.start()
+                let port = await JGenAgentServer.shared.port
+                let endpoint = "http://127.0.0.1:\(port)"
+                jgenEndpoint = endpoint
+                harnessBackend = "jgen"
+                if case .jcrossReady(let m) = modelStatus { harnessModel = m }
+                addSystemMessage(t(
+                    "🔗 Vera planner → JGEN bridge (\(endpoint))"
+                        + (l2UseJGEN ? " [L2=JGEN]" : "")
+                        + (!ollamaActiveBackend ? " [Ollama off]" : ""),
+                    "🔗 Veraプランナー → JGENブリッジ (\(endpoint))"
+                        + (l2UseJGEN ? " [L2=JGEN]" : "")
+                        + (!ollamaActiveBackend ? " [Ollamaオフ]" : "")
+                ))
+            } catch {
+                // Settings forbid Ollama — do NOT fall through to :11434.
+                addSystemMessage(t(
+                    "⚠️ JGEN bridge failed to start (\(error.localizedDescription)). Ollama is off / L2-JGEN is on — falling back to local JGEN/council Act (not contacting \(ollamaEndpoint)).",
+                    "⚠️ JGENブリッジ起動に失敗 (\(error.localizedDescription))。Ollamaオフ / L2=JGENのため \(ollamaEndpoint) には接続せず、ローカルのJGEN/合議Act経路へフォールバックします。"
+                ))
+                handedOffToFallback = true
+                isGenerating = false
+                await fallbackVeraHarnessToLocalPath(instruction: instruction, files: files)
+                return
+            }
+        } else if !ollamaAllowedForHarness {
+            // Ollama off (or L2-JGEN without a usable loaded .jgen): never hit :11434.
+            addSystemMessage(t(
+                "⚠️ Ollama is off and no JGEN planner is available (L2-JGEN=\(l2UseJGEN ? "on" : "off"), .jgen loaded=\(jgenLoaded)). Falling back to local council/Act — not contacting \(ollamaEndpoint).",
+                "⚠️ Ollamaはオフで、JGENプランナーも使えません（L2=JGEN=\(l2UseJGEN ? "オン" : "オフ")、.jgenロード=\(jgenLoaded)）。\(ollamaEndpoint) には接続せず、ローカルの合議/Act経路へフォールバックします。"
+            ))
+            handedOffToFallback = true
+            isGenerating = false
+            await fallbackVeraHarnessToLocalPath(instruction: instruction, files: files)
+            return
+        } else {
+            let ollamaUp = await OllamaClient.shared.isAvailable()
+            if !ollamaUp {
+                addSystemMessage(t(
+                    "⚠️ Vera LLM HTTP unavailable (Ollama not reachable at \(ollamaEndpoint)). Falling back to JGEN/council Act.",
+                    "⚠️ VeraのLLM HTTPが使えません（Ollamaが \(ollamaEndpoint) に応答しません）。JGEN/合議のAct経路へフォールバックします。"
+                ))
+                handedOffToFallback = true
+                isGenerating = false
+                await fallbackVeraHarnessToLocalPath(instruction: instruction, files: files)
+                return
+            }
+            harnessBackend = "ollama"
+            harnessModel = activeOllamaModel
+        }
+
+        guard let harnessBackend else {
+            handedOffToFallback = true
+            isGenerating = false
+            await fallbackVeraHarnessToLocalPath(instruction: instruction, files: files)
+            return
+        }
+
+        // Hard guard: settings said no Ollama — never send backend=ollama.
+        if harnessBackend == "ollama" && !ollamaAllowedForHarness {
+            addSystemMessage(t(
+                "⚠️ Refusing Ollama planner (settings: Ollama off / L2-JGEN). Falling back to local council/Act.",
+                "⚠️ 設定によりOllamaプランナーを拒否しました（Ollamaオフ / L2=JGEN）。ローカルの合議/Act経路へフォールバックします。"
+            ))
+            handedOffToFallback = true
+            isGenerating = false
+            await fallbackVeraHarnessToLocalPath(instruction: instruction, files: files)
+            return
+        }
+
+        let ensure = await VeraAgentClient.shared.ensureServerRunning(jgenEndpoint: jgenEndpoint)
+        guard ensure.isReady else {
+            let detail: String
+            switch ensure {
+            case .binaryMissing:
+                detail = t(
+                    "Vera HTTP cannot start — check MCP / bundled vera-memory binary.",
+                    "Vera HTTP が起動できません — MCP/同梱バイナリを確認"
+                )
+            case .launchFailed(let msg):
+                detail = t(
+                    "Vera HTTP cannot start — \(msg)",
+                    "Vera HTTP が起動できません — \(msg)"
+                )
+            case .notReachable:
+                detail = t(
+                    "Vera HTTP cannot start — no response on :8765 (check serve.log / bundled vera-memory).",
+                    "Vera HTTP が起動できません — :8765 に応答なし（serve.log / 同梱 vera-memory を確認）"
+                )
+            case .ready:
+                detail = "unreachable"
+            }
+            addSystemMessage("⚠️ \(detail)")
+            handedOffToFallback = true
+            isGenerating = false
+            await fallbackVeraHarnessToLocalPath(instruction: instruction, files: files)
+            return
+        }
+
         do {
             let result = try await VeraAgentClient.shared.runAgent(
-                task: instruction, model: harnessModel, cognitionMode: mode.rawValue
+                task: instruction, model: harnessModel, backend: harnessBackend,
+                cognitionMode: mode.rawValue
             ) { [weak self] event in
                 guard let self else { return }
                 Task { @MainActor in
@@ -1511,6 +1650,7 @@ final class AppState: ObservableObject {
             // dropped every successful plain-text answer (confirmed via a
             // real "こんにちは" turn that Vera answered correctly but the
             // IDE rendered as "no final answer returned").
+            var connectivityError: String? = nil
             let finalText: String
             if let text = result["final"] as? String {
                 finalText = text
@@ -1518,7 +1658,12 @@ final class AppState: ObservableObject {
                 if let text = final["text"] as? String {
                     finalText = text
                 } else if let error = final["error"] as? String {
-                    finalText = t("(Vera error: \(error))", "(Veraエラー: \(error))")
+                    if VeraAgentClient.isLLMConnectivityFailure(error) {
+                        connectivityError = error
+                        finalText = ""
+                    } else {
+                        finalText = t("(Vera error: \(error))", "(Veraエラー: \(error))")
+                    }
                 } else if let data = try? JSONSerialization.data(withJSONObject: final, options: [.prettyPrinted]),
                           let json = String(data: data, encoding: .utf8) {
                     finalText = json
@@ -1528,11 +1673,58 @@ final class AppState: ObservableObject {
             } else {
                 finalText = t("(no final answer returned)", "(最終回答が返りませんでした)")
             }
+
+            if let connectivityError {
+                addSystemMessage(t(
+                    "⚠️ Vera LLM HTTP failed (\(connectivityError)). Falling back to JGEN/council Act.",
+                    "⚠️ VeraのLLM HTTPが失敗しました（\(connectivityError)）。JGEN/合議のAct経路へフォールバックします。"
+                ))
+                handedOffToFallback = true
+                isGenerating = false
+                await fallbackVeraHarnessToLocalPath(instruction: instruction, files: files)
+                return
+            }
+
             messages.append(ChatMessage(role: .assistant, content: finalText))
         } catch {
-            addSystemMessage(t("❌ Vera harness error: \(error.localizedDescription)",
-                               "❌ Veraハーネスエラー: \(error.localizedDescription)"))
+            let msg = error.localizedDescription
+            if VeraAgentClient.isLLMConnectivityFailure(msg)
+                || (error as? VeraAgentClient.ClientError) != nil {
+                addSystemMessage(t(
+                    "⚠️ Vera harness connectivity failed: \(msg). Falling back to JGEN/council Act.",
+                    "⚠️ Veraハーネス接続に失敗: \(msg)。JGEN/合議のAct経路へフォールバックします。"
+                ))
+                handedOffToFallback = true
+                isGenerating = false
+                await fallbackVeraHarnessToLocalPath(instruction: instruction, files: files)
+                return
+            }
+            addSystemMessage(t("❌ Vera harness error: \(msg)",
+                               "❌ Veraハーネスエラー: \(msg)"))
         }
+    }
+
+    /// After Vera harness cannot reach its HTTP serve or planner LLM,
+    /// continue the same user turn on the in-app JGEN/council (or plain
+    /// AgentLoop) path — never leave Connection refused as the only outcome.
+    private func fallbackVeraHarnessToLocalPath(instruction: String, files: [URL]) async {
+        addSystemMessage(t(
+            "↩️ Continuing on the local JGEN/council path…",
+            "↩️ ローカルのJGEN/合議経路で続行します…"
+        ))
+        let useLayered = CouncilSettingsStore.shared.useCouncilForChat
+            || LayeredRunOrchestrator.isAvailable
+            || {
+                if case .jcrossReady = modelStatus { return true }
+                return false
+            }()
+        let history = Array(messages.dropLast())
+        await runAgentLoop(
+            instruction: instruction,
+            files: files,
+            previousMessages: history,
+            useLayered: useLayered
+        )
     }
 
     private func runAgentLoop(instruction: String,

@@ -127,6 +127,8 @@ final class AppDelegate: NSObject, NSApplicationDelegate {
             // never terminated here at all, which is exactly what let a
             // stale process silently outlive every subsequent rebuild.
             await VeraAgentClient.shared.stop()
+            // IDE-side JGEN bridge used when harness backend == "jgen".
+            await JGenAgentServer.shared.stop()
 
             // フェーズ2: GlobalTaskSupervisor 経由で BrowserBridge などを停止
             GlobalTaskSupervisor.shared.register(priority: .userInitiated) {
