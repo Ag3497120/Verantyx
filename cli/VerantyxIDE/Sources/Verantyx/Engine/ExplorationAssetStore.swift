@@ -312,7 +312,8 @@ enum ExplorationAssetStore {
     nonisolated static func formatDirective(
         goalShort: String,
         openHint: String?,
-        priorTags: String
+        priorTags: String,
+        selected: String? = nil
     ) -> String {
         var lines = [
             "[DIRECTIVE]",
@@ -324,6 +325,9 @@ enum ExplorationAssetStore {
         }
         if let openHint, !openHint.isEmpty {
             lines.append("open_hint: \(openHint)")
+        }
+        if let selected, !selected.isEmpty {
+            lines.append("selected: \(String(selected.prefix(160)))")
         }
         lines.append("[/DIRECTIVE]")
         return lines.joined(separator: "\n")

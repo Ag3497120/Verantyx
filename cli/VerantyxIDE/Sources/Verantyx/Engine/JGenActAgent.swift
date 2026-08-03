@@ -23,6 +23,11 @@ actor JGenActAgent {
     private var lastObservations: [String] = []
     /// Mission body held outside ChatML (essay / paste object). Kept on 「続けて」.
     private var lastPayload: String = ""
+    /// Hierarchical explore: candidates awaiting user pick (policy gate).
+    private var pendingCandidates: [HierarchicalExploreGate.Candidate] = []
+    private var awaitingUserChoice: Bool = false
+    /// Last user-selected destination line for `[DIRECTIVE] selected: …`.
+    private var lastSelectedDirective: String = ""
 
     private init() {}
 
@@ -67,10 +72,40 @@ actor JGenActAgent {
 
         // Never put a multi-k essay into every act turn's [GOAL].
         let boundedQuestion = PromptBudget.truncateForModel(question)
+        let hierarchicalOn = ActDNA.isHierarchicalExplore
         let continuing = Self.isContinueRequest(boundedQuestion)
         let goal: String
         var observations: [String]
-        if continuing, !lastGoal.isEmpty {
+        var resumeSelected: HierarchicalExploreGate.Candidate? = nil
+
+        // Hierarchical explore resume: interpret number / name / 「おまかせ」
+        // before treating the message as a brand-new goal.
+        if awaitingUserChoice, !pendingCandidates.isEmpty, hierarchicalOn {
+            if let matched = HierarchicalExploreGate.matchChoice(
+                boundedQuestion,
+                in: pendingCandidates,
+                goalHint: lastGoal
+            ) {
+                resumeSelected = matched
+                awaitingUserChoice = false
+                let selLine = HierarchicalExploreGate.selectedDirectiveLine(matched)
+                lastSelectedDirective = selLine
+                goal = lastGoal.isEmpty ? boundedQuestion : lastGoal
+                observations = lastObservations
+                await onProgress(.systemLog(AppLanguage.shared.t(
+                    "👆 [Hierarchical explore] selected: \(matched.title)",
+                    "👆 [階層探索] 選択: \(matched.title)")))
+            } else {
+                // Re-prompt without burning Act turns.
+                let prompt = HierarchicalExploreGate.formatChoicePrompt(
+                    pendingCandidates,
+                    japanese: ExplorationAssetStore.goalIsJapanese(lastGoal.isEmpty ? boundedQuestion : lastGoal)
+                )
+                await onProgress(.aiMessage(prompt))
+                await onProgress(.done(message: prompt, workspace: workspaceURL))
+                return Outcome(text: prompt, turns: 0, toolCount: 0)
+            }
+        } else if continuing, !lastGoal.isEmpty {
             goal = lastGoal
             observations = lastObservations
             // Keep lastPayload on resume.
@@ -82,6 +117,9 @@ actor JGenActAgent {
             observations = []
             lastGoal = boundedQuestion
             lastObservations = []
+            lastSelectedDirective = ""
+            awaitingUserChoice = false
+            pendingCandidates = []
             let incoming = missionPayload?.trimmingCharacters(in: .whitespacesAndNewlines) ?? ""
             if !incoming.isEmpty {
                 lastPayload = incoming
@@ -100,24 +138,27 @@ actor JGenActAgent {
         let requiredOpenApp = Self.extractOpenAppName(from: goal)
         let needsOpenApp = requiredOpenApp != nil || Self.goalHasOpenAppIntent(goal)
         let needsBrowser = Self.goalNeedsBrowser(goal)
-        let goalShort = MissionKindClassifier.goalShort(from: goal)
 
-        // ── Infinite exploration assets: recall prior success paths ─────────
+        // ── DNA façade: short [DIRECTIVE] + PRIOR_ASSET (not full essay) ───
         var narrator = ExplorationNarrator(goal: goal)
-        let priorAssets = await ExplorationAssetStore.recall(for: goal, topK: 2)
-        let priorAsset = priorAssets.first
-        let priorAssetBlock: String? = priorAsset.map { ExplorationAssetStore.formatPriorAsset($0) }
-        let priorDirectiveTags = ExplorationAssetStore.directivePriorTags(priorAssets)
-        let directiveBlock = ExplorationAssetStore.formatDirective(
-            goalShort: goalShort,
-            openHint: requiredOpenApp,
-            priorTags: priorDirectiveTags
+        let dna = await ActDNA.prepareActContext(
+            goal: goal,
+            selected: lastSelectedDirective.isEmpty ? nil : lastSelectedDirective,
+            hierarchicalPending: awaitingUserChoice,
+            missionPayload: lastPayload.isEmpty ? nil : lastPayload,
+            kind: .act,
+            openHintOverride: requiredOpenApp,
+            recallPriorAssets: true
         )
+        let goalShort = dna.goalShort
+        let priorAsset = dna.priorAsset
+        let priorAssetBlock = dna.priorAssetBlock
+        let directiveBlock = dna.directiveBlock
         if let prior = priorAsset {
             await onProgress(.systemLog(narrator.recallAnnounce(skillName: prior.name)))
         }
 
-        let system = """
+        var system = """
         You are Verantyx's JGEN body — a short-tag executor, not a planner. \
         Emit one complete tool tag per turn (closing ]). \
         Prefer names from [DIRECTIVE] open_hint / [PRIOR_ASSET] steps / [OBSERVATIONS] — never paste mission prose into type/search. \
@@ -140,6 +181,12 @@ actor JGenActAgent {
         Never repeat the same click. \
         If [PRIOR_ASSET] is present, prefer that learned tool sequence (adapt AX ids if UI shifted).
         """
+        if hierarchicalOn {
+            system += """
+             Hierarchical explore is ON: after a list of destinations appears, wait for DIRECTIVE selected — \
+            do not auto-click the first search result. When selected: is present, open that destination only.
+            """
+        }
 
         var finalAnswer = ""
         var toolCount = 0
@@ -175,6 +222,9 @@ actor JGenActAgent {
             }
         }
 
+        // Skip host bootstrap when resuming a choice or an in-progress observation trail.
+        let skipBootstrap = resumeSelected != nil || (continuing && !observations.isEmpty)
+
         // Tiny models cannot plan Safari UI. Bootstrap: open → snapshot, then
         // optionally type a *short clean* search token into Smart Search (⌘L).
         // Multi-step procedures (→ / を入力 / 選択する / …) get OPEN_APP +
@@ -188,7 +238,7 @@ actor JGenActAgent {
         let namedBrowser = requiredOpenApp.flatMap { Self.isBrowserAppName($0) ? $0 : nil }
         let safariSearchBootstrap = needsBrowser
             && (requiredOpenApp == nil || Self.isSafariFamilyBrowser(namedBrowser ?? ""))
-        if toolCount == 0, safariSearchBootstrap {
+        if toolCount == 0, !skipBootstrap, safariSearchBootstrap {
             let browserName = namedBrowser ?? "Safari"
             toolCount = await Self.runBootstrapTool(
                 .openApp(name: browserName),
@@ -202,7 +252,7 @@ actor JGenActAgent {
                 onProgress: onProgress
             )
             lastObservations = observations
-            if Self.observationLooksLikeOpenSuccess(observations.last) {
+            if ActDNA.openAppSucceeded(fromObservation: observations.last) {
                 openAppSucceeded = true
             }
 
@@ -225,8 +275,8 @@ actor JGenActAgent {
             let querySource = seed.isEmpty ? goal : seed
             let translate = PromptBudget.isTranslateIntent(querySource)
                 || PromptBudget.isTranslateIntent(goal)
-            let procedural = PromptBudget.isProceduralMission(goal)
-                || PromptBudget.isProceduralMission(querySource)
+            // DNA: procedural → OPEN_APP + SENSE only (no search-bar dump).
+            let procedural = ActDNA.isProceduralOpenSenseOnly(goal: goal, seed: seed.isEmpty ? nil : seed)
 
             if translate {
                 // Named destination only: open translator URL. Autonomous loop
@@ -292,7 +342,8 @@ actor JGenActAgent {
                     concepts: ["ui-observe", "bug-repro", "jgen-act", "procedural"]
                 )
             } else if Self.goalNeedsWebSearch(goal) || Self.goalNeedsWebSearch(querySource) {
-                // Only type a short clean token — never the raw goal / procedure.
+                // DNA: only type when shouldTypeSearchBootstrap says so.
+                // URL navigate is separate (not typing into Smart Search).
                 let query = PromptBudget.safeSearchQuery(from: querySource)
                     ?? PromptBudget.safeSearchQuery(from: goal)
                     ?? ""
@@ -310,7 +361,7 @@ actor JGenActAgent {
                         selfAction: "bootstrap_skip_search"
                     ))
                     lastObservations = observations
-                } else if Self.looksLikeURL(query) {
+                } else if ActDNA.looksLikeURL(query) {
                     await onProgress(.systemLog(AppLanguage.shared.t(
                         "🛠 [L2 JGEN Act] navigating Safari → \(query)…",
                         "🛠 [L2 JGEN操作] Safari で \(query) を開く…")))
@@ -344,6 +395,20 @@ actor JGenActAgent {
                         toolCount: toolCount,
                         onProgress: onProgress
                     )
+                    lastObservations = observations
+                } else if !ActDNA.shouldTypeSearchBootstrap(goal: goal, seed: seed.isEmpty ? nil : seed) {
+                    let note = AppLanguage.shared.t(
+                        "No safe short search token derived; skipping Smart Search dump. Explore via ACT.",
+                        "安全な短い検索語を抽出できず、Smart Search への投入をスキップ。ACT で探索。"
+                    )
+                    await onProgress(.systemLog(AppLanguage.shared.t(
+                        "🛠 [L2 JGEN Act] web intent but no safe search token → OPEN_APP + SNAPSHOT only.",
+                        "🛠 [L2 JGEN操作] Web意図だが安全な検索語なし → OPEN_APP + SNAPSHOT のみ。")))
+                    observations.append(Self.stampObservation(
+                        toolLabel: "bootstrap",
+                        result: note,
+                        selfAction: "bootstrap_skip_search"
+                    ))
                     lastObservations = observations
                 } else {
                     await onProgress(.systemLog(AppLanguage.shared.t(
@@ -382,7 +447,7 @@ actor JGenActAgent {
                     lastObservations = observations
                 }
             }
-        } else if toolCount == 0, let appName = requiredOpenApp {
+        } else if toolCount == 0, !skipBootstrap, let appName = requiredOpenApp {
             // General substrate: open the named app → sense → then model acts.
             // Do not hardcode in-app navigation (Teams issues, Slack channels, …).
             if !openAppSucceeded {
@@ -398,7 +463,7 @@ actor JGenActAgent {
                     onProgress: onProgress
                 )
                 lastObservations = observations
-                if Self.observationLooksLikeOpenSuccess(observations.last) {
+                if ActDNA.openAppSucceeded(fromObservation: observations.last) {
                     openAppSucceeded = true
                 }
             }
@@ -442,7 +507,34 @@ actor JGenActAgent {
             successfulTags.append("[DESKTOP_SNAPSHOT]")
         }
 
-        for turn in 1...turnsCap {
+        // After bootstrap sense: if hierarchical explore sees a destination list, pause for user choice.
+        if hierarchicalOn, resumeSelected == nil,
+           let pauseMsg = await pauseForHierarchicalExploreIfNeeded(
+            observations: observations,
+            goal: goal,
+            onProgress: onProgress
+           ) {
+            await onProgress(.done(message: pauseMsg, workspace: workspaceURL))
+            return Outcome(text: pauseMsg, turns: 0, toolCount: toolCount)
+        }
+
+        // Apply user-selected destination before the model loop (click AX or open URL).
+        if let selected = resumeSelected {
+            toolCount = await applySelectedCandidate(
+                selected,
+                workspaceURL: workspaceURL,
+                sessionId: sid,
+                observations: &observations,
+                toolCount: toolCount,
+                successfulTags: &successfulTags,
+                onProgress: onProgress
+            )
+            lastObservations = observations
+            pendingCandidates = []
+            openAppSucceeded = true
+        }
+
+        turnLoop: for turn in 1...turnsCap {
             let memory = await JGenVectorBusMemory.recallBundle(
                 for: goalShort, sessionId: sid, useEternal: useEternalMemory, k: 3
             )
@@ -497,7 +589,13 @@ actor JGenActAgent {
                       !observations.contains(where: { $0.contains("paste_payload") || $0.contains("PASTE_PAYLOAD") }) {
                 hint = "PAYLOAD ready. Focus an editable text field via [AX_ACT: … click] (or click), then [PASTE_PAYLOAD]. Do not type the body via DESKTOP_ACT."
             } else if observations.contains(where: { $0.contains("search_bar") }) {
-                hint = "Search was typed. Click a relevant result, take [DESKTOP_SNAPSHOT], or [DONE: short summary of what you see]."
+                if hierarchicalOn, lastSelectedDirective.isEmpty {
+                    hint = "Search was typed. Take [DESKTOP_SNAPSHOT] if needed; do NOT auto-click a result — wait for DIRECTIVE selected from the user."
+                } else if !lastSelectedDirective.isEmpty {
+                    hint = "User selected a destination (\(lastSelectedDirective)). Open/confirm it, then continue toward the goal or [DONE: …]."
+                } else {
+                    hint = "Search was typed. Click a relevant result, take [DESKTOP_SNAPSHOT], or [DONE: short summary of what you see]."
+                }
             } else if observations.last?.localizedCaseInsensitiveContains("NO VISUAL CHANGE") == true
                         || observations.last?.localizedCaseInsensitiveContains("DESKTOP_BLOCKED") == true
                         || observations.last?.contains("MISMATCH") == true {
@@ -566,7 +664,8 @@ actor JGenActAgent {
                 raw.trimmingCharacters(in: .whitespacesAndNewlines)
             )
             let repaired = Self.repairLooseToolTags(cleaned)
-            let tools = Self.filterAllowed(AgentToolParser.parse(from: repaired).toolCalls)
+            // Tiny Act limb allow-list stays thin (DNA).
+        let tools = Self.filterAllowed(AgentToolParser.parse(from: repaired).toolCalls)
 
             if tools.isEmpty {
                 // Already ran tools: do not treat prose / broken tags as DONE.
@@ -620,6 +719,32 @@ actor JGenActAgent {
                 continue
             }
 
+            // Hierarchical explore: do not auto-click destination lists before user choice.
+            if hierarchicalOn, lastSelectedDirective.isEmpty {
+                let blob = observations.suffix(3).joined(separator: "\n")
+                let cands = HierarchicalExploreGate.extractCandidates(from: blob)
+                if HierarchicalExploreGate.shouldAskUser(cands) {
+                    switch tool {
+                    case .axAct, .desktopAct:
+                        if let pauseMsg = await pauseForHierarchicalExploreIfNeeded(
+                            observations: observations,
+                            goal: goal,
+                            onProgress: onProgress
+                        ) {
+                            finalAnswer = pauseMsg
+                            break turnLoop
+                        }
+                        observations.append(
+                            "(blocked click — hierarchical explore: ask the user which destination to open)"
+                        )
+                        lastObservations = observations
+                        continue
+                    default:
+                        break
+                    }
+                }
+            }
+
             let actionKey = Self.actionKey(tool)
             if !actionKey.isEmpty, actionKey == lastActionKey {
                 identicalActionStreak += 1
@@ -654,10 +779,26 @@ actor JGenActAgent {
             )
             observations.append(stamped)
             lastObservations = observations
-            if case .openApp = tool, Self.observationLooksLikeOpenSuccess(observations.last) {
+            if case .openApp = tool, ActDNA.openAppSucceeded(fromObservation: observations.last) {
                 openAppSucceeded = true
             }
             await onProgress(.toolResult(AgentToolCall(tool: tool, result: trimmed, succeeded: !result.contains("ERROR"))))
+
+            // Hierarchical explore: after a sense that yields destination candidates, pause for user choice.
+            if hierarchicalOn, lastSelectedDirective.isEmpty {
+                let isSense: Bool
+                if case .desktopSnapshot = tool { isSense = true }
+                else { isSense = trimmed.uppercased().contains("SEARCH RESULTS") || trimmed.contains("#link") }
+                if isSense,
+                   let pauseMsg = await pauseForHierarchicalExploreIfNeeded(
+                    observations: observations,
+                    goal: goal,
+                    onProgress: onProgress
+                   ) {
+                    finalAnswer = pauseMsg
+                    break turnLoop
+                }
+            }
 
             // Exploration asset: log failures; collect successful tags for forge-on-DONE.
             if ExplorationAssetStore.looksLikeFailure(stamped) {
@@ -765,13 +906,17 @@ actor JGenActAgent {
                 "Act loop paused after \(toolCount) tools (say 「続けて」 to resume). Last: \(String($0.prefix(400)))"
             } ?? (handoff.detail.isEmpty ? handoff.asText : handoff.detail)
             finalAnswer = JCrossChatManager.collapsePhraseRepetition(finalAnswer)
-        } else {
+        } else if completedWithDone {
             // Completed with DONE — clear continuation buffer.
             lastGoal = ""
             lastObservations = []
             lastPayload = ""
+            lastSelectedDirective = ""
+            awaitingUserChoice = false
+            pendingCandidates = []
             await executor.clearMissionPayload()
         }
+        // Hierarchical pause leaves lastGoal / pendingCandidates intact for resume.
 
         // Forge exploration asset on clear DONE success (or open + useful progress + DONE).
         if completedWithDone, !successfulTags.isEmpty {
@@ -870,14 +1015,126 @@ actor JGenActAgent {
     }
 
     private static func filterAllowed(_ tools: [AgentTool]) -> [AgentTool] {
-        tools.filter { tool in
-            switch tool {
-            case .openApp, .desktopSnapshot, .desktopAct, .axAct, .pastePayload, .waitUntilStable, .done:
-                return true
-            default:
-                return false
-            }
+        tools.filter { ActDNA.isAllowedActLimb($0) }
+    }
+
+    /// If the latest observation looks like a destination list, emit the choice
+    /// prompt, stash candidates, and return the prompt (caller should pause).
+    private func pauseForHierarchicalExploreIfNeeded(
+        observations: [String],
+        goal: String,
+        onProgress: @escaping @Sendable (LoopEvent) async -> Void
+    ) async -> String? {
+        let blob = observations.suffix(3).joined(separator: "\n")
+        guard !blob.isEmpty else { return nil }
+        guard let candidates = ActDNA.shouldPauseForCandidates(observation: blob) else {
+            return nil
         }
+
+        pendingCandidates = candidates
+        awaitingUserChoice = true
+        lastObservations = observations
+        lastGoal = goal
+
+        let japanese = ExplorationAssetStore.goalIsJapanese(goal)
+        let prompt = HierarchicalExploreGate.formatChoicePrompt(candidates, japanese: japanese)
+        await onProgress(.aiMessage(prompt))
+        await onProgress(.systemLog(AppLanguage.shared.t(
+            "⏸ [Hierarchical explore] paused for user choice (\(candidates.count) candidates). Turns not burned while waiting.",
+            "⏸ [階層探索] ユーザー選択待ちで一時停止（候補 \(candidates.count) 件）。待機中はターンを消費しません。"
+        )))
+        return prompt
+    }
+
+    /// Perform the user's pick: AX click and/or URL navigate, then snapshot.
+    private func applySelectedCandidate(
+        _ selected: HierarchicalExploreGate.Candidate,
+        workspaceURL: URL?,
+        sessionId: String,
+        observations: inout [String],
+        toolCount: Int,
+        successfulTags: inout [String],
+        onProgress: @escaping @Sendable (LoopEvent) async -> Void
+    ) async -> Int {
+        var count = toolCount
+        let selLine = HierarchicalExploreGate.selectedDirectiveLine(selected)
+        observations.append(Self.stampObservation(
+            toolLabel: "user_select",
+            result: "USER_SELECTED \(selLine)",
+            selfAction: "user_select"
+        ))
+
+        if let url = selected.url, !url.isEmpty {
+            await onProgress(.systemLog(AppLanguage.shared.t(
+                "🛠 [Hierarchical explore] opening selected URL…",
+                "🛠 [階層探索] 選択されたURLを開く…"
+            )))
+            let opened = await HiddenWindowAutomation.shared.openURLInTargetBrowser(url)
+            count += 1
+            observations.append(Self.stampObservation(
+                toolLabel: "navigate",
+                result: opened,
+                selfAction: "navigate selected"
+            ))
+            await onProgress(.systemLog(opened))
+            await JGenVectorBusMemory.stampObservation(
+                label: "jgen_act",
+                detail: "hierarchical_select → \(opened)",
+                sessionId: sessionId,
+                stepIndex: count,
+                actionLabel: "hierarchical_select",
+                changedRegion: nil,
+                concepts: ["ui-observe", "jgen-act", "hierarchical-explore"]
+            )
+        } else if let axId = selected.axId, !axId.isEmpty {
+            let tool: AgentTool = .axAct(action: "\(axId) click")
+            await onProgress(.toolCall(AgentToolCall(tool: tool)))
+            let result = await executor.execute(tool, workspaceURL: workspaceURL)
+            count += 1
+            let trimmed = result.count > 800 ? String(result.prefix(800)) + "…" : result
+            observations.append(Self.stampObservation(
+                toolLabel: "ax_act",
+                result: trimmed,
+                selfAction: "ax_act selected \(axId)"
+            ))
+            await onProgress(.toolResult(AgentToolCall(tool: tool, result: trimmed, succeeded: !result.contains("ERROR"))))
+            if let tag = ExplorationAssetStore.toolTag(tool), !successfulTags.contains(tag) {
+                successfulTags.append(tag)
+            }
+            await JGenVectorBusMemory.stampObservation(
+                label: "jgen_act",
+                detail: "hierarchical_ax \(axId) → \(trimmed)",
+                sessionId: sessionId,
+                stepIndex: count,
+                actionLabel: "hierarchical_select",
+                changedRegion: nil,
+                concepts: ["ui-observe", "jgen-act", "hierarchical-explore"]
+            )
+        } else {
+            // Title-only: leave a directive observation; model / next snap continues.
+            observations.append(Self.stampObservation(
+                toolLabel: "user_select",
+                result: "Selected \"\(selected.title)\" — take DESKTOP_SNAPSHOT and open that titled control.",
+                selfAction: "user_select_title"
+            ))
+        }
+
+        // Fresh sense after navigation/click.
+        count = await Self.runBootstrapTool(
+            .desktopSnapshot,
+            label: "snapshot after hierarchical select…",
+            labelJA: "階層選択後に [DESKTOP_SNAPSHOT]…",
+            executor: executor,
+            workspaceURL: workspaceURL,
+            sessionId: sessionId,
+            observations: &observations,
+            toolCount: count,
+            onProgress: onProgress
+        )
+        if !successfulTags.contains("[DESKTOP_SNAPSHOT]") {
+            successfulTags.append("[DESKTOP_SNAPSHOT]")
+        }
+        return count
     }
 
     nonisolated static func isContinueRequest(_ question: String) -> Bool {
@@ -930,11 +1187,7 @@ actor JGenActAgent {
     }
 
     nonisolated static func observationLooksLikeOpenSuccess(_ obs: String?) -> Bool {
-        guard let obs else { return false }
-        let u = obs.uppercased()
-        if u.contains("MISMATCH") || u.contains("ERROR") || u.contains("COULD NOT") { return false }
-        return u.contains("OPENED") || u.contains("OPEN_APP") || obs.contains("open -a")
-            || u.contains("FRONTMOST")
+        ActDNA.openAppSucceeded(fromObservation: obs)
     }
 
     /// Literal schema placeholders / non-numeric click targets from tiny models.
@@ -1066,10 +1319,7 @@ actor JGenActAgent {
     }
 
     nonisolated static func looksLikeURL(_ text: String) -> Bool {
-        let t = text.trimmingCharacters(in: .whitespacesAndNewlines).lowercased()
-        return t.hasPrefix("http://") || t.hasPrefix("https://")
-            || t.hasPrefix("www.")
-            || t.contains(".com/") || t.contains(".co.jp/")
+        ActDNA.looksLikeURL(text)
     }
 
     /// Derive what to type into Safari's Smart Search field from the user goal.

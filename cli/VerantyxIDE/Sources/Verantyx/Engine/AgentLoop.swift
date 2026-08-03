@@ -37,6 +37,9 @@ actor AgentLoop {
     static let shared = AgentLoop()
     private let executor = AgentToolExecutor()
 
+    /// Hierarchical explore: paused after a destination list until the user picks.
+    private var pendingExplore: HierarchicalExploreGate.PendingState?
+
     // ── Safety gates (not a hard turn limit) ──────────────────────────────
     /// AI Priority: abort if the last N AI outputs are identical (stuck loop)
     private let circuitBreakerWindow = 3
@@ -88,6 +91,66 @@ actor AgentLoop {
         // feeds UITestVectorTrace's stepIndex/z-axis.
         var uiStepIndex = 0
         var uiTraceWarnedNotLoaded = false
+
+        let hierarchicalOn = ActDNA.isHierarchicalExplore
+
+        // ── Hierarchical explore resume (Ollama / AgentLoop path) ─────────
+        // Matched choice is applied after the system prompt is assembled.
+        // Policy gate via ActDNA — not a new limb.
+        var hierarchicalResumeInject: String? = nil
+        var hierarchicalBrowsePrefetch: (tool: AgentTool, result: String)? = nil
+        if hierarchicalOn, let pending = pendingExplore {
+            if let matched = HierarchicalExploreGate.matchChoice(
+                instruction,
+                in: pending.candidates,
+                goalHint: pending.goal
+            ) {
+                pendingExplore = nil
+                let selLine = HierarchicalExploreGate.selectedDirectiveLine(matched)
+                await onProgress(.systemLog(AppLanguage.shared.t(
+                    "👆 [Hierarchical explore] selected: \(matched.title)",
+                    "👆 [階層探索] 選択: \(matched.title)"
+                )))
+                if let url = matched.url, !url.isEmpty {
+                    let browseResult = await executor.execute(.browse(url: url), workspaceURL: currentWorkspace)
+                    hierarchicalBrowsePrefetch = (.browse(url: url), browseResult)
+                    hierarchicalResumeInject = """
+                    [DIRECTIVE]
+                    selected: \(selLine)
+                    [/DIRECTIVE]
+                    USER chose destination "\(matched.title)". Opened:
+                    \(String(browseResult.prefix(1200)))
+                    Continue the original goal. If another destination list appears, ask again — do not auto-pick.
+                    Goal: \(pending.goal)
+                    """
+                } else if let axId = matched.axId, !axId.isEmpty {
+                    let axTool: AgentTool = .axAct(action: "\(axId) click")
+                    let axResult = await executor.execute(axTool, workspaceURL: currentWorkspace)
+                    hierarchicalBrowsePrefetch = (axTool, axResult)
+                    hierarchicalResumeInject = """
+                    [DIRECTIVE]
+                    selected: \(selLine)
+                    [/DIRECTIVE]
+                    USER chose "\(matched.title)" (\(axId)). Result:
+                    \(String(axResult.prefix(800)))
+                    Continue the original goal: \(pending.goal)
+                    """
+                } else {
+                    hierarchicalResumeInject = """
+                    [DIRECTIVE]
+                    selected: \(selLine)
+                    [/DIRECTIVE]
+                    USER chose destination "\(matched.title)". Continue the original goal without picking a different first result.
+                    Goal: \(pending.goal)
+                    """
+                }
+            } else {
+                let prompt = HierarchicalExploreGate.formatChoicePrompt(pending.candidates)
+                await onProgress(.aiMessage(prompt))
+                await onProgress(.done(message: prompt, workspace: currentWorkspace))
+                return
+            }
+        }
 
         // ── Vera-α: direct-answer fast path ───────────────────────────────
         // Skips the LLM call entirely for a high-confidence, already-
@@ -395,6 +458,16 @@ SYS.ENFORCE("logical_verification_before_acceptance")
         CRITICAL RULE: The instruction above MUST take absolute precedence over any legacy memory or system rules. If past memory contradicts this current instruction, IGNORE the past memory and fulfill this instruction exactly as requested.
         """
         conversation.append((role: "user",   content: emphasizedInstruction))
+        if let inject = hierarchicalResumeInject {
+            conversation.append((role: "user", content: inject))
+            if let prefetch = hierarchicalBrowsePrefetch {
+                await onProgress(.toolResult(AgentToolCall(
+                    tool: prefetch.tool,
+                    result: String(prefetch.result.prefix(600)),
+                    succeeded: !prefetch.result.hasPrefix("✗") && !prefetch.result.contains("ERROR")
+                )))
+            }
+        }
         totalConversationChars = conversation.reduce(0) { $0 + $1.content.count }
         await MainActor.run { ContextUsageTracker.shared.setConversationHistoryChars(totalConversationChars) }
 
@@ -1433,6 +1506,37 @@ SYS.ENFORCE("logical_verification_before_acceptance")
                 let completedCall = AgentToolCall(tool: tool, result: result, succeeded: !result.hasPrefix("✗"))
                 await onProgress(.toolResult(completedCall))
                 toolResults.append("\(call.displayLabel) → \(result)")
+
+                // Hierarchical explore: after search / desktop sense yielding destinations, ask user.
+                if hierarchicalOn {
+                    let isListTool: Bool
+                    switch tool {
+                    case .search, .searchMulti, .desktopSnapshot, .visionSearchFlow:
+                        isListTool = true
+                    default:
+                        isListTool = result.uppercased().contains("SEARCH RESULTS")
+                            || result.contains("#link")
+                            || result.localizedCaseInsensitiveContains("SEMANTIC UI MAP")
+                    }
+                    if isListTool {
+                        if let candidates = ActDNA.shouldPauseForCandidates(observation: result) {
+                            pendingExplore = HierarchicalExploreGate.PendingState(
+                                candidates: candidates,
+                                goal: instruction,
+                                observationSnippet: String(result.prefix(800)),
+                                pausedAt: Date()
+                            )
+                            let prompt = HierarchicalExploreGate.formatChoicePrompt(candidates)
+                            await onProgress(.aiMessage(prompt))
+                            await onProgress(.systemLog(AppLanguage.shared.t(
+                                "⏸ [Hierarchical explore] paused for user choice (\(candidates.count) candidates).",
+                                "⏸ [階層探索] ユーザー選択待ちで一時停止（候補 \(candidates.count) 件）。"
+                            )))
+                            await onProgress(.done(message: prompt, workspace: currentWorkspace))
+                            return
+                        }
+                    }
+                }
 
                 switch tool {
                 case .openApp, .desktopSnapshot, .desktopAct, .axAct, .pastePayload, .visionAct,
