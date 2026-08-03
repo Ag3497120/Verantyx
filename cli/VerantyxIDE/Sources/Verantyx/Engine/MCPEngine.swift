@@ -16,6 +16,39 @@ enum VeraMemoryPaths {
     static var storeFile: URL {
         appSupportDir.appendingPathComponent("vera_store.json")
     }
+
+    /// Resolve the portable bundled `vera-memory` binary relative to the
+    /// running `.app` — never a developer-machine checkout path. Prefers
+    /// `Contents/MacOS/` (Release/DMG embed phase), then `Contents/Resources/`.
+    static func resolveBundledBinary() -> URL? {
+        let fm = FileManager.default
+        var candidates: [URL] = []
+        if let exeDir = Bundle.main.executableURL?.deletingLastPathComponent() {
+            candidates.append(exeDir.appendingPathComponent("vera-memory"))
+        }
+        candidates.append(
+            Bundle.main.bundleURL
+                .appendingPathComponent("Contents")
+                .appendingPathComponent("MacOS")
+                .appendingPathComponent("vera-memory")
+        )
+        if let resources = Bundle.main.resourceURL {
+            candidates.append(resources.appendingPathComponent("vera-memory"))
+        }
+        // De-dupe while preserving order.
+        var seen = Set<String>()
+        for url in candidates {
+            let path = url.path
+            guard seen.insert(path).inserted else { continue }
+            if fm.isExecutableFile(atPath: path) { return url }
+        }
+        return nil
+    }
+
+    /// Stdio MCP launch command for the bundled binary + Application Support store.
+    static func bundledMCPCommand(binary: URL) -> String {
+        "\"\(binary.path)\" --store \"\(storeFile.path)\" mcp"
+    }
 }
 
 // MARK: - MCPEngine
@@ -144,7 +177,7 @@ struct MCPCallRecord: Identifiable {
         case .completed:      return "DONE"
         case .timedOut:       return "TIMEOUT"
         case .cancelled:      return "KILLED"
-        case .failed(let e):  return "ERR: \(e.prefix(30))"
+        case .failed(let e):  return "ERR: \(e.prefix(240))"
         }
     }
 
@@ -208,7 +241,7 @@ actor StdioSession {
     // Captures the subprocess's stderr so launch/write failures can surface a real
     // reason (e.g. a Python traceback) instead of just "Write failed after auto-restart".
     private var stderrBuffer = Data()
-    private let stderrBufferLimit = 8192
+    private let stderrBufferLimit = 16384
 
     private func recentStderr() -> String? {
         guard !stderrBuffer.isEmpty else { return nil }
@@ -332,6 +365,8 @@ actor StdioSession {
 
         // Capture stderr so a failed launch/write can report the subprocess's own
         // diagnostic output (e.g. a Python traceback) instead of a generic message.
+        // Append synchronously — an async Task race left recentStderr() empty when
+        // PyInstaller died during initialize (Team-ID / dyld failures).
         stderrPipe.fileHandleForReading.readabilityHandler = { [weak self] fh in
             let chunk = fh.availableData
             guard !chunk.isEmpty else {
@@ -345,8 +380,15 @@ actor StdioSession {
             // Perform MCP initialize handshake (up to 20 s for npx cold-start / Puppeteer)
             try await performHandshake(stream: stream, maxWait: 20.0)
         } catch let error as MCPError {
-            if case .processLaunchFailed(let msg) = error, let stderr = recentStderr() {
-                throw MCPError.processLaunchFailed("\(msg)\nstderr: \(stderr)")
+            // Give the readabilityHandler a beat to flush dying-process stderr.
+            try? await Task.sleep(nanoseconds: 80_000_000)
+            let stderr = recentStderr()
+            if case .processLaunchFailed(let msg) = error {
+                if let stderr, !msg.contains(stderr) {
+                    throw MCPError.processLaunchFailed("\(msg)\nstderr: \(stderr)")
+                }
+            } else if let stderr {
+                throw MCPError.processLaunchFailed("\(error.localizedDescription)\nstderr: \(stderr)")
             }
             throw error
         }
@@ -393,14 +435,16 @@ actor StdioSession {
                 }
             }
             if Date() > deadline {
+                let stderr = recentStderr().map { "\nstderr: \($0)" } ?? ""
                 throw MCPError.processLaunchFailed(
-                    "Initialize timed out (>\(Int(maxWait))s). Server may not be installed.")
+                    "Initialize timed out (>\(Int(maxWait))s). Server may not be installed.\(stderr)")
             }
             try Task.checkCancellation()
         }
 
         guard let initResponse else {
-            throw MCPError.processLaunchFailed("No initialize response from MCP server")
+            let stderr = recentStderr().map { "\nstderr: \($0)" } ?? ""
+            throw MCPError.processLaunchFailed("No initialize response from MCP server\(stderr)")
         }
         if let err = initResponse["error"] as? [String: Any] {
             let msg = (err["message"] as? String) ?? String(describing: err)
@@ -827,62 +871,68 @@ final class MCPEngine: ObservableObject {
         // stale saved entries instead of auto-connecting them.
         migrateOrInjectOptionalExternalServers()
 
-        // ── Auto-inject vera-memory if missing ──
+        // ── Auto-inject / migrate vera-memory ──
         // Vera's deterministic, typed-verdict knowledge store (`ask` /
         // `remember` / `propose_ai_facts` / ...), run as its own MCP
         // server. CortexEngine queries it live in `buildMemoryPrompt`/
         // `extractAndStore` — see docs/MCP.md and Verantyx-Vera-alpha's
         // docs/DESIGN.md for what it actually is.
         //
-        // Milestone H: uses the bundled `vera-memory` binary (PyInstaller-
-        // frozen `verantyx-vera`, embedded at Contents/MacOS/vera-memory
-        // via the "Embed vera-memory into App Bundle" build phase) instead
-        // of a hardcoded python3.11 + sibling dev-checkout path -- same
-        // fix, same reasoning as Milestone F's jgen_forge bundling (that
-        // hardcoded path only ever worked on the one machine it was
-        // developed on). Falls back to the old python3.11 command only if
-        // the bundled binary genuinely isn't present (e.g. a dev build
-        // that hasn't run the embed phase yet).
-        let bundledVeraMemory = Bundle.main.executableURL?.deletingLastPathComponent().appendingPathComponent("vera-memory")
-        let bundledVeraMemoryAvailable = bundledVeraMemory.map { FileManager.default.fileExists(atPath: $0.path) } ?? false
+        // Milestone H + portable DMG: always resolve relative to the
+        // running app bundle (`Contents/MacOS/vera-memory`, then
+        // Resources). Never hardcode developer checkout / python3.11 paths
+        // for the default install — a fresh Mac with only the DMG must work.
+        // If the configured path is dead, try alternate bundle-relative
+        // locations and rewrite the saved config; disable with a clear
+        // message only when nothing in the bundle is runnable.
+        try? FileManager.default.createDirectory(at: VeraMemoryPaths.appSupportDir, withIntermediateDirectories: true)
+        let bundledVeraMemory = VeraMemoryPaths.resolveBundledBinary()
 
-        if let existingIndex = servers.firstIndex(where: { $0.name == "vera-memory" }) {
-            // A server list saved before Milestone H's bundling fix (or one
-            // saved while the bundled binary was momentarily missing) can
-            // be stuck on the old hardcoded `cd /Users/.../Verantyx-Vera-alpha`
-            // command, which only ever worked on the original dev machine.
-            // Migrate it in place once the bundled binary is available,
-            // instead of leaving a permanently-broken saved entry.
-            let existing = servers[existingIndex]
-            if bundledVeraMemoryAvailable, let bundled = bundledVeraMemory,
-               !existing.command.hasPrefix("\"\(bundled.path)\"") {
-                try? FileManager.default.createDirectory(at: VeraMemoryPaths.appSupportDir, withIntermediateDirectories: true)
-                let storePath = VeraMemoryPaths.storeFile.path
-                var migrated = existing
-                migrated.command = "\"\(bundled.path)\" --store \"\(storePath)\" mcp"
-                migrated.isEnabled = true
-                servers[existingIndex] = migrated
-                Task { await self.connect(server: migrated) }
-            }
-        } else {
-            try? FileManager.default.createDirectory(at: VeraMemoryPaths.appSupportDir, withIntermediateDirectories: true)
-            let storePath = VeraMemoryPaths.storeFile.path
-
-            let command: String
-            if bundledVeraMemoryAvailable, let bundled = bundledVeraMemory {
-                command = "\"\(bundled.path)\" --store \"\(storePath)\" mcp"
+        if let bundled = bundledVeraMemory {
+            let command = VeraMemoryPaths.bundledMCPCommand(binary: bundled)
+            if let existingIndex = servers.firstIndex(where: { $0.name == "vera-memory" }) {
+                let existing = servers[existingIndex]
+                // Application Support store paths live under /Users/... — that is
+                // expected. Only treat the *launch* side as stale (wrong binary /
+                // python checkout / non-runnable command).
+                let pointsAtBundled = existing.command.contains("\"\(bundled.path)\"")
+                    || existing.command.hasPrefix("\"\(bundled.path)\"")
+                let looksLikeDevCheckout = existing.command.contains("Verantyx-Vera-alpha")
+                    || existing.command.contains("python3")
+                    || existing.command.contains("-m verantyx")
+                let needsRewrite = existing.command != command
+                    || !existing.isEnabled
+                    || !pointsAtBundled
+                    || looksLikeDevCheckout
+                    || !Self.commandLooksRunnable(existing.command)
+                if needsRewrite {
+                    var migrated = existing
+                    migrated.command = command
+                    migrated.isEnabled = true
+                    servers[existingIndex] = migrated
+                    Task { await self.connect(server: migrated) }
+                }
             } else {
-                command = "sh -c \"cd /Users/motonishikoudai/Projects/Verantyx-Vera-alpha && /opt/homebrew/bin/python3.11 -m verantyx.cli mcp\""
+                let config = MCPServerConfig(
+                    name: "vera-memory",
+                    transport: .stdio,
+                    command: command,
+                    mode: .ai
+                )
+                servers.append(config)
+                Task { await self.connect(server: config) }
             }
-
-            let config = MCPServerConfig(
-                name: "vera-memory",
-                transport: .stdio,
-                command: command,
-                mode: .ai
+        } else if let existingIndex = servers.firstIndex(where: { $0.name == "vera-memory" }) {
+            // Bundle missing the helper (dev build without embed phase). Keep
+            // the row but stop auto-failing; surface why in connectionStatus.
+            var disabled = servers[existingIndex]
+            if disabled.isEnabled {
+                disabled.isEnabled = false
+                servers[existingIndex] = disabled
+            }
+            connectionStatus[servers[existingIndex].id] = .error(
+                "vera-memory binary missing from Verantyx.app (expected Contents/MacOS/vera-memory). Reinstall from the DMG / rebuild with the embed phase."
             )
-            servers.append(config)
-            Task { await self.connect(server: config) }
         }
 
         saveServers()

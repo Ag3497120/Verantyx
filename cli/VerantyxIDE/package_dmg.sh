@@ -108,16 +108,65 @@ echo "[4/7] ステージングにコピー..."
 cp -R "$APP_PATH" "$STAGING_DIR/${APP_NAME}.app"
 xattr -cr "$STAGING_DIR/${APP_NAME}.app" 2>/dev/null || true
 
+# Portable DMG: refuse to ship without a real vera-memory Mach-O.
+VERA_MEMORY_BIN="$STAGING_DIR/${APP_NAME}.app/Contents/MacOS/vera-memory"
+if [ ! -f "$VERA_MEMORY_BIN" ] || ! file "$VERA_MEMORY_BIN" | grep -q "Mach-O"; then
+  echo "❌ vera-memory missing or not Mach-O in staged app ($VERA_MEMORY_BIN)"
+  echo "   Ensure Vendor/vera-memory exists and the embed build phase ran."
+  exit 1
+fi
+echo "   ✓ vera-memory embedded ($(du -h "$VERA_MEMORY_BIN" | awk '{print $1}'))"
+
 # ── 5. Sign ─────────────────────────────────────────────────────────────────
 echo "[5/7] 署名中 (${SIGN_MODE})..."
+ENTITLEMENTS="$(pwd)/Sources/Verantyx/Verantyx.entitlements"
+PYI_ENTITLEMENTS="$(pwd)/Sources/Verantyx/PyInstallerHelper.entitlements"
+sign_nested() {
+  local identity="$1"
+  local runtime_opts=()
+  if [ "$identity" != "-" ]; then
+    runtime_opts=(--options runtime --timestamp)
+  fi
+  while IFS= read -r bin; do
+    local base ents=()
+    base="$(basename "$bin")"
+    case "$base" in
+      vera-memory|jgen_forge)
+        if [ -f "$PYI_ENTITLEMENTS" ]; then
+          ents=(--entitlements "$PYI_ENTITLEMENTS")
+        fi
+        ;;
+      *)
+        if [ -f "$ENTITLEMENTS" ] && [ "$identity" != "-" ]; then
+          ents=(--entitlements "$ENTITLEMENTS")
+        fi
+        ;;
+    esac
+    codesign --force --sign "$identity" "${runtime_opts[@]}" "${ents[@]}" "$bin" 2>/dev/null || \
+      codesign --force --sign "$identity" "${runtime_opts[@]}" "$bin" 2>/dev/null || true
+  done < <(find "$STAGING_DIR/${APP_NAME}.app/Contents" -type f \( -perm -111 -o -name "*.dylib" -o -name "*.so" \) 2>/dev/null)
+}
+
 if [ "$SIGN_MODE" = "developer_id" ]; then
-  codesign --force --deep --sign "$SIGN_IDENTITY" \
+  if [ ! -f "$PYI_ENTITLEMENTS" ]; then
+    echo "❌ PyInstallerHelper.entitlements missing — notarized vera-memory would fail to launch"
+    exit 1
+  fi
+  # Sign nested first (no --deep) so PyInstaller helpers keep disable-library-validation.
+  sign_nested "$SIGN_IDENTITY"
+  codesign --force --sign "$SIGN_IDENTITY" \
     --options runtime \
-    --entitlements "$(pwd)/Sources/Verantyx/Verantyx.entitlements" \
+    --timestamp \
+    --entitlements "$ENTITLEMENTS" \
     "$STAGING_DIR/${APP_NAME}.app"
-  echo "   ✓ Developer ID 署名完了"
+  if ! codesign -d --entitlements :- "$VERA_MEMORY_BIN" 2>/dev/null | grep -q "disable-library-validation"; then
+    echo "❌ vera-memory missing disable-library-validation after signing"
+    exit 1
+  fi
+  echo "   ✓ Developer ID 署名完了 (vera-memory/jgen_forge: PyInstaller entitlements)"
 else
-  codesign --force --deep --sign "-" \
+  sign_nested "-"
+  codesign --force --sign "-" \
     "$STAGING_DIR/${APP_NAME}.app" 2>/dev/null || true
   echo "   ✓ Ad-hoc 署名完了 (初回起動時に右クリック→開く が必要)"
 fi

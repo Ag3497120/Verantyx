@@ -107,3 +107,41 @@ targets:
           chmod +x "$DEST"
           echo "✅ verantyx-browser → $DEST"
         basedOnDependencyAnalysis: false
+
+      # ── vera-memory (PyInstaller) into Contents/MacOS ─────────────────────
+      - name: "Embed vera-memory into App Bundle"
+        script: |
+          set -e
+          BUNDLE_MACOS="$BUILT_PRODUCTS_DIR/$PRODUCT_NAME.app/Contents/MacOS"
+          SRC="$SRCROOT/Vendor/vera-memory"
+          DEST="$BUNDLE_MACOS/vera-memory"
+          if [ ! -f "$SRC" ]; then
+            echo "warning: $SRC not found -- vera-memory will be unavailable in this build."
+            exit 0
+          fi
+          mkdir -p "$BUNDLE_MACOS"
+          cp -f "$SRC" "$DEST"
+          chmod +x "$DEST"
+          # Ad-hoc placeholder only; package_dmg.sh re-signs with
+          # PyInstallerHelper.entitlements (disable-library-validation).
+          codesign --force -s - "$DEST" 2>/dev/null || true
+          echo "vera-memory -> $DEST"
+        basedOnDependencyAnalysis: false
+
+      # ── jgen_forge (PyInstaller) into Contents/MacOS ──────────────────────
+      - name: "Embed jgen_forge into App Bundle"
+        script: |
+          set -e
+          BUNDLE_MACOS="$BUILT_PRODUCTS_DIR/$PRODUCT_NAME.app/Contents/MacOS"
+          SRC="$SRCROOT/Vendor/jgen_forge"
+          DEST="$BUNDLE_MACOS/jgen_forge"
+          if [ ! -f "$SRC" ]; then
+            echo "warning: $SRC not found -- jgen_forge will be unavailable in this build."
+            exit 0
+          fi
+          mkdir -p "$BUNDLE_MACOS"
+          cp -f "$SRC" "$DEST"
+          chmod +x "$DEST"
+          codesign --force -s - "$DEST" 2>/dev/null || true
+          echo "jgen_forge -> $DEST"
+        basedOnDependencyAnalysis: false
