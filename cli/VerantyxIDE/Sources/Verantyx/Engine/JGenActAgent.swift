@@ -139,7 +139,7 @@ actor JGenActAgent {
         let needsOpenApp = requiredOpenApp != nil || Self.goalHasOpenAppIntent(goal)
         let needsBrowser = Self.goalNeedsBrowser(goal)
 
-        // ── DNA façade: short [DIRECTIVE] + PRIOR_ASSET (not full essay) ───
+        // ── DNA façade: short [DIRECTIVE] + VECTOR_STEER + PRIOR_ASSET ───
         var narrator = ExplorationNarrator(goal: goal)
         let dna = await ActDNA.prepareActContext(
             goal: goal,
@@ -148,12 +148,14 @@ actor JGenActAgent {
             missionPayload: lastPayload.isEmpty ? nil : lastPayload,
             kind: .act,
             openHintOverride: requiredOpenApp,
-            recallPriorAssets: true
+            recallPriorAssets: true,
+            sessionId: sid
         )
         let goalShort = dna.goalShort
         let priorAsset = dna.priorAsset
         let priorAssetBlock = dna.priorAssetBlock
         let directiveBlock = dna.directiveBlock
+        let vectorSteerBlock = dna.vectorSteerBlock
         if let prior = priorAsset {
             await onProgress(.systemLog(narrator.recallAnnounce(skillName: prior.name)))
         }
@@ -536,12 +538,16 @@ actor JGenActAgent {
 
         turnLoop: for turn in 1...turnsCap {
             let memory = await JGenVectorBusMemory.recallBundle(
-                for: goalShort, sessionId: sid, useEternal: useEternalMemory, k: 3
+                for: goalShort, sessionId: sid, useEternal: useEternalMemory, k: 3,
+                preferDirective: true
             )
             var userParts: [String] = []
             if !memory.isEmpty { userParts.append(memory) }
             // Short directive first — not multi-step Japanese procedure prose.
             userParts.append(directiveBlock)
+            if let steer = vectorSteerBlock, !steer.isEmpty {
+                userParts.append(steer)
+            }
             let councilLine = handoff.conclusion.trimmingCharacters(in: .whitespacesAndNewlines)
             if councilLine.count > 2, !JGenSpeakActRouter.isLowSignalHandoff(handoff) {
                 userParts.append("[COUNCIL]\n\(String(councilLine.prefix(120)))")
@@ -939,7 +945,11 @@ actor JGenActAgent {
                 if let prior = priorAsset, prior.name == forged.name {
                     await SkillLibrary.shared.recordSuccess(name: forged.name)
                 }
-                // Optional Vera-layer remember (fire-and-forget; skip if MCP down).
+                // Best-effort Vera sync (session Vera layer or always short fact).
+                EternalVeraBridge.shareToVera(
+                    "MISSION DONE skill:\(forged.name) — \(String(finalAnswer.prefix(120)))",
+                    kind: .actDone
+                )
                 let isVeraLayer = await MainActor.run {
                     AppState.shared?.sessions.activeSession?.activeLayer == .vera
                 }

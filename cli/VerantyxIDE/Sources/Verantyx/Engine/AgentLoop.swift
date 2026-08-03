@@ -207,7 +207,7 @@ actor AgentLoop {
         // why this isn't wired into CortexEngine's always-on path instead).
         let cortexMemorySection = await cortex?.buildMemoryPrompt(for: instruction) ?? ""
         let veraMemorySection = memoryLayer == .vera
-            ? await VeraMemoryBridge.recall(for: instruction)
+            ? await EternalVeraBridge.recallMerged(for: instruction)
             : ""
         // Milestone L: pseudo-multimodal visual memory. Reads
         // CouncilSettingsStore directly (a singleton) rather than adding a
@@ -641,7 +641,7 @@ SYS.ENFORCE("logical_verification_before_acceptance")
             let searchLayer: JCrossLayer = profile.tier == .nano ? .l1 : memoryLayer
             let searchResult: String
             if searchLayer == .vera {
-                searchResult = await VeraMemoryBridge.recall(for: searchQuery)
+                searchResult = await EternalVeraBridge.recallMerged(for: searchQuery)
                 await MainActor.run { ContextUsageTracker.shared.addVeraChars(searchResult.count) }
             } else {
                 searchResult = SessionMemoryArchiver.shared.semanticSearch(

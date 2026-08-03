@@ -165,6 +165,21 @@ enum VeraMemoryBridge {
         }
     }
 
+    /// Best-effort single-sentence teach into Vera CrossStore — used by
+    /// `EternalVeraBridge` for short Act/forge facts. Never shows the
+    /// save-approval popup; Act must not fail if MCP is down.
+    static func rememberShortFact(_ sentence: String) {
+        let clipped = sentence.trimmingCharacters(in: .whitespacesAndNewlines)
+        guard !clipped.isEmpty else { return }
+        Task {
+            _ = await MCPEngine.shared.callTool(
+                serverName: serverName, toolName: "remember",
+                arguments: ["sentence": String(clipped.prefix(500))],
+                mode: .human
+            )
+        }
+    }
+
     // MARK: - Verified URL registry
 
     /// Registers a human- or agent-confirmed URL for a named destination

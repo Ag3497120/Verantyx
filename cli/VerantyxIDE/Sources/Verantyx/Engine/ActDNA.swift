@@ -22,8 +22,10 @@ import Foundation
 // 3. Budget / body boundary — PromptBudget on all model/encode paths;
 //    no mission prose into search bar; procedural → open+sense only.
 //
-// 4. Directive handoff — Act sees short [DIRECTIVE] + PRIOR_ASSET + OBSERVATIONS,
-//    not the full essay every turn.
+// 4. Directive handoff — Act sees short [DIRECTIVE] + optional [VECTOR_STEER]
+//    (cosine prior directives) + PRIOR_ASSET + OBSERVATIONS, not the full
+//    essay every turn. The directive string is also stamped into JGEN eternal
+//    space so future missions retrieve directive-shaped memories by cosine.
 //
 // 5. MissionKind — deterministic thin gate before 0.5B freeform;
 //    prior asset label; JGEN classify = tie-break only.
@@ -65,6 +67,8 @@ enum ActDNA {
         let hierarchicalPending: Bool
         let selected: String?
         let directiveBlock: String
+        /// Short cosine neighbors of prior DIRECTIVE stamps (optional).
+        let vectorSteerBlock: String?
         let missionPayload: String?
         let vectorOnlySense: Bool
         let hierarchicalExplore: Bool
@@ -99,7 +103,8 @@ enum ActDNA {
     // MARK: - prepareActContext
 
     /// Build the short directive handoff for an Act run.
-    /// Recalls exploration assets; never embeds the full mission essay.
+    /// Recalls exploration assets; stamps directive into JGEN vector space;
+    /// never embeds the full mission essay.
     static func prepareActContext(
         goal: String,
         selected: String? = nil,
@@ -107,7 +112,8 @@ enum ActDNA {
         missionPayload: String? = nil,
         kind: MissionKind = .act,
         openHintOverride: String? = nil,
-        recallPriorAssets: Bool = true
+        recallPriorAssets: Bool = true,
+        sessionId: String? = nil
     ) async -> Directives {
         let bounded = PromptBudget.truncateForModel(goal)
         let goalShort = MissionKindClassifier.goalShort(from: bounded)
@@ -131,6 +137,23 @@ enum ActDNA {
             selected: (sel?.isEmpty == false) ? sel : nil
         )
 
+        // Prior similar directives (VECTOR_STEER) before stamping this mission,
+        // so cosine neighbors are earlier runs — not only the stamp we just wrote.
+        let vectorSteer = await JGenVectorBusMemory.recallDirectiveSteer(
+            for: goalShort, k: 2
+        )
+        await JGenVectorBusMemory.stampDirective(
+            compactText: directiveBlock,
+            goalShort: goalShort,
+            kind: kind,
+            openHint: openHint,
+            sessionId: sessionId
+        )
+        EternalVeraBridge.shareToVera(
+            "directive \(kind.rawValue): \(String(goalShort.prefix(100)))",
+            kind: .directive
+        )
+
         let payload: String?
         if let missionPayload, !missionPayload.trimmingCharacters(in: .whitespacesAndNewlines).isEmpty {
             payload = missionPayload
@@ -148,6 +171,7 @@ enum ActDNA {
             hierarchicalPending: hierarchicalPending,
             selected: sel,
             directiveBlock: directiveBlock,
+            vectorSteerBlock: vectorSteer.isEmpty ? nil : vectorSteer,
             missionPayload: payload,
             vectorOnlySense: isVectorOnlySense,
             hierarchicalExplore: isHierarchicalExplore

@@ -7,9 +7,11 @@ import Foundation
 // Failures leave logs (eternal + JCross wisdom + vector-bus stamp).
 // Success forges a compact SkillLibrary macro (`source: exploration-asset`)
 // so the next similar goal gets `[PRIOR_ASSET]` guidance (“一発で行ける”).
+// Recall prefers JGEN eternal cosine + skill: identity stamps; TF-IDF fallback.
 //
 // Deliberately NOT a parallel mega-system: persistence is SkillLibrary +
 // EternalMemoryStore + SessionMemoryArchiver — same sinks AgentLoop / FORGE_SKILL use.
+// Short facts also sync to Vera CrossStore via EternalVeraBridge (API text only).
 
 enum ExplorationAssetStore {
 
@@ -133,6 +135,10 @@ enum ExplorationAssetStore {
             changedRegion: nil,
             concepts: [tagExploration, "exploration-fail", tagJgenAct]
         )
+        EternalVeraBridge.shareToVera(
+            "explore fail fp=\(fp) class=\(resultClass) action=\(String(actionTried.prefix(40)))",
+            kind: .exploreFail
+        )
     }
 
     nonisolated static func classifyResult(_ result: String) -> String {
@@ -208,15 +214,20 @@ enum ExplorationAssetStore {
 
         let saved = await SkillLibrary.shared.save(node)
 
+        let skillKey = "skill:\(saved.name)"
+        let digest = payloadDigest(saved.payload)
+        // Clear skill identity so JGEN cosine recall can find this asset later.
         let stamp = """
-        [探索資産/forge] name=\(saved.name) v\(saved.version) steps=\(saved.payload.count) \(MissionKindClassifier.assetTag(for: missionKind))
-        goal: \(String(goal.prefix(160)))
-        path: \(saved.payload.joined(separator: " → "))
+        [探索資産/forge] \(skillKey) v\(saved.version) steps=\(saved.payload.count) \(MissionKindClassifier.assetTag(for: missionKind))
+        goal: \(String(desc.prefix(120)))
+        digest: \(digest)
+        path: \(saved.payload.prefix(8).joined(separator: " → "))
         """
-        try? await EternalMemoryStore.shared.add(
-            text: stamp,
-            concepts: [tagExploration, tagJgenAct, "exploration-forge", MissionKindClassifier.assetTag(for: missionKind)]
-        )
+        let forgeConcepts = [
+            tagExploration, tagJgenAct, "exploration-forge",
+            MissionKindClassifier.assetTag(for: missionKind), skillKey,
+        ]
+        try? await EternalMemoryStore.shared.add(text: stamp, concepts: forgeConcepts)
         await JGenVectorBusMemory.stampObservation(
             label: "explore_forge",
             detail: stamp,
@@ -224,9 +235,74 @@ enum ExplorationAssetStore {
             stepIndex: saved.payload.count,
             actionLabel: saved.name,
             changedRegion: nil,
-            concepts: [tagExploration, tagJgenAct, "exploration-forge", MissionKindClassifier.assetTag(for: missionKind)]
+            concepts: forgeConcepts
+        )
+        // Best-effort Vera CrossStore sync (short fact only).
+        EternalVeraBridge.shareToVera(
+            "\(skillKey) forged — \(String(desc.prefix(80)))",
+            kind: .exploreForge
         )
         return saved
+    }
+
+    /// Compact payload fingerprint for eternal identity / embed text.
+    nonisolated static func payloadDigest(_ payload: [String], maxSteps: Int = 4) -> String {
+        let steps = payload.prefix(maxSteps).map {
+            String($0.prefix(40))
+        }
+        return steps.joined(separator: " → ")
+    }
+
+    nonisolated static func skillEmbedText(_ node: SkillNode) -> String {
+        let digest = payloadDigest(node.payload)
+        return "skill:\(node.name) \(node.description) \(digest)"
+    }
+
+    nonisolated static func isExplorationAsset(_ node: SkillNode) -> Bool {
+        node.source == sourceTag
+            || node.forgedBy == forgedBy
+            || node.tags.contains(tagExploration)
+            || node.name.hasPrefix("act_")
+    }
+
+    nonisolated static func isActishPayload(_ node: SkillNode) -> Bool {
+        node.payload.contains { line in
+            line.contains("OPEN_APP") || line.contains("DESKTOP_") || line.contains("AX_ACT")
+        }
+    }
+
+    /// Pull `skill:act_…` / `name=` tokens from eternal forge stamps.
+    nonisolated static func extractSkillNames(from eternalText: String) -> [String] {
+        var names: [String] = []
+        let patterns = [
+            #"skill:([a-zA-Z0-9_]+)"#,
+            #"name=([a-zA-Z0-9_]+)"#,
+        ]
+        for pattern in patterns {
+            guard let regex = try? NSRegularExpression(pattern: pattern) else { continue }
+            let range = NSRange(eternalText.startIndex..., in: eternalText)
+            for match in regex.matches(in: eternalText, range: range) {
+                guard let r = Range(match.range(at: 1), in: eternalText) else { continue }
+                let name = String(eternalText[r])
+                if name.hasPrefix("act_") || name.count >= 4 {
+                    if !names.contains(name) { names.append(name) }
+                }
+            }
+        }
+        return names
+    }
+
+    nonisolated private static func cosine(_ a: [Float], _ b: [Float]) -> Float {
+        let n = min(a.count, b.count)
+        guard n > 0 else { return 0 }
+        var dot: Float = 0, na: Float = 0, nb: Float = 0
+        for i in 0..<n {
+            dot += a[i] * b[i]
+            na += a[i] * a[i]
+            nb += b[i] * b[i]
+        }
+        let denom = sqrt(na) * sqrt(nb)
+        return denom > 0 ? dot / denom : 0
     }
 
     /// Prefer stored `mission_kind:*` from a recalled exploration asset.
@@ -258,26 +334,98 @@ enum ExplorationAssetStore {
 
     // MARK: - Recall
 
-    /// Top similar exploration assets for this goal (SkillLibrary TF-IDF + source filter).
+    /// Top similar exploration assets for this goal.
+    /// Prefers JGEN embedding search (Eternal hits → skill: names, then
+    /// cosine re-rank of SkillLibrary candidates). Falls back to TF-IDF
+    /// when JGEN is unloaded or encode fails.
     static func recall(for goal: String, topK: Int = 2) async -> [SkillNode] {
         await SkillLibrary.shared.loadIndex()
-        let hits = await SkillLibrary.shared.search(query: goal, topK: max(topK * 4, 8))
-        let filtered = hits.filter { node in
-            node.source == sourceTag
-                || node.forgedBy == forgedBy
-                || node.tags.contains(tagExploration)
-                || node.name.hasPrefix("act_")
+
+        if await JCrossChatManager.shared.isLoaded,
+           let embedded = await recallViaEmbedding(for: goal, topK: topK),
+           !embedded.isEmpty {
+            return embedded
         }
+        return await recallViaTFIDF(for: goal, topK: topK)
+    }
+
+    /// TF-IDF SkillLibrary path (legacy / fallback).
+    private static func recallViaTFIDF(for goal: String, topK: Int) async -> [SkillNode] {
+        let hits = await SkillLibrary.shared.search(query: goal, topK: max(topK * 4, 8))
+        let filtered = hits.filter(isExplorationAsset)
         if !filtered.isEmpty {
             return Array(filtered.prefix(topK))
         }
-        // Soft fallback: any skill whose payload looks like Act tools.
-        let actish = hits.filter { node in
-            node.payload.contains { line in
-                line.contains("OPEN_APP") || line.contains("DESKTOP_") || line.contains("AX_ACT")
+        return Array(hits.filter(isActishPayload).prefix(topK))
+    }
+
+    /// Encode goal → Eternal search for skill refs → cosine-rank candidates.
+    private static func recallViaEmbedding(for goal: String, topK: Int) async -> [SkillNode]? {
+        let goalShort = MissionKindClassifier.goalShort(from: goal)
+        let fp = goalFingerprint(goal)
+        let querySeed = goalShort.isEmpty ? goal : goalShort
+        let encodeQuery = PromptBudget.truncateForEncode("\(querySeed) \(fp)")
+
+        var ordered: [SkillNode] = []
+        var seen = Set<String>()
+
+        // 1) Eternal cosine: forge stamps that name skill:act_…
+        if let hits = try? await EternalMemoryStore.shared.search(
+            query: encodeQuery, k: max(topK * 3, 6)
+        ) {
+            for hit in hits {
+                for name in extractSkillNames(from: hit.text) {
+                    guard !seen.contains(name),
+                          let node = await SkillLibrary.shared.skill(named: name),
+                          isExplorationAsset(node) || isActishPayload(node)
+                    else { continue }
+                    seen.insert(name)
+                    ordered.append(node)
+                    if ordered.count >= topK { return ordered }
+                }
             }
         }
-        return Array(actish.prefix(topK))
+
+        // 2) Candidate pool: TF-IDF + exploration nodes → re-rank by encode.
+        var pool: [SkillNode] = ordered
+        let tfidf = await SkillLibrary.shared.search(query: goal, topK: max(topK * 4, 8))
+        for node in tfidf where !seen.contains(node.name) {
+            if isExplorationAsset(node) || isActishPayload(node) {
+                seen.insert(node.name)
+                pool.append(node)
+            }
+        }
+        if pool.count < topK * 2 {
+            for node in await SkillLibrary.shared.allNodes() where !seen.contains(node.name) {
+                guard isExplorationAsset(node) else { continue }
+                seen.insert(node.name)
+                pool.append(node)
+                if pool.count >= 12 { break }
+            }
+        }
+
+        let candidates = Array(pool.prefix(12))
+        guard !candidates.isEmpty else {
+            return ordered.isEmpty ? nil : ordered
+        }
+
+        let qVec: [Float]
+        do {
+            qVec = try await JCrossChatManager.shared.encodeText(encodeQuery)
+        } catch {
+            return ordered.isEmpty ? nil : Array(ordered.prefix(topK))
+        }
+
+        var scored: [(SkillNode, Float)] = []
+        for node in candidates {
+            let emb = PromptBudget.truncateForEncode(skillEmbedText(node))
+            guard let v = try? await JCrossChatManager.shared.encodeText(emb) else { continue }
+            scored.append((node, cosine(qVec, v)))
+        }
+        scored.sort { $0.1 > $1.1 }
+        let ranked = scored.filter { $0.1 > 0.02 }.prefix(topK).map(\.0)
+        if !ranked.isEmpty { return Array(ranked) }
+        return ordered.isEmpty ? nil : Array(ordered.prefix(topK))
     }
 
     nonisolated static func formatPriorAsset(_ node: SkillNode) -> String {
