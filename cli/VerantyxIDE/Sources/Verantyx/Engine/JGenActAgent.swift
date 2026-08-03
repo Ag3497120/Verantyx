@@ -97,6 +97,15 @@ actor JGenActAgent {
         let needsOpenApp = requiredOpenApp != nil || Self.goalHasOpenAppIntent(goal)
         let needsBrowser = Self.goalNeedsBrowser(goal)
 
+        // ── Infinite exploration assets: recall prior success paths ─────────
+        var narrator = ExplorationNarrator(goal: goal)
+        let priorAssets = await ExplorationAssetStore.recall(for: goal, topK: 2)
+        let priorAsset = priorAssets.first
+        let priorAssetBlock: String? = priorAsset.map { ExplorationAssetStore.formatPriorAsset($0) }
+        if let prior = priorAsset {
+            await onProgress(.systemLog(narrator.recallAnnounce(skillName: prior.name)))
+        }
+
         let system = """
         You are Verantyx's JGEN body. One complete tool tag per turn (closing ]). \
         Schema: OPEN_APP (if named) → SENSE → ACT → observe → on MISMATCH try alternate → DONE. \
@@ -114,7 +123,8 @@ actor JGenActAgent {
         Never dump long text via DESKTOP_ACT type. Never invent coords. \
         Never emit literal X Y (schema placeholders). Never prose without a tag. \
         On MISMATCH / NO VISUAL CHANGE / DESKTOP_BLOCKED: try a different AX target or DONE. \
-        Never repeat the same click.
+        Never repeat the same click. \
+        If [PRIOR_ASSET] is present, prefer that learned tool sequence (adapt AX ids if UI shifted).
         """
 
         var finalAnswer = ""
@@ -125,6 +135,9 @@ actor JGenActAgent {
         var identicalActionStreak = 0
         /// True after a successful OPEN_APP (bootstrap or model) for this run.
         var openAppSucceeded = false
+        /// Successful tool tags collected for forge-on-DONE (exploration asset).
+        var successfulTags: [String] = []
+        var completedWithDone = false
         // Enough steps for open → type search → read/click results → done.
         let turnsCap = max(8, min(max(maxTurns, 8), 18))
 
@@ -145,14 +158,18 @@ actor JGenActAgent {
         // Translate intent only reaches a named URL destination — no site-
         // specific paste/click bootstrap; the loop discovers focus + PASTE_PAYLOAD.
         //
-        // Non-browser 「〜を開いて」 goals (Teams, Slack, …) take the general
-        // OPEN_APP + SNAPSHOT path below — never force Safari for those.
-        if toolCount == 0, needsBrowser,
-           requiredOpenApp.map(Self.isBrowserAppName) ?? true {
+        // Non-browser 「〜を開いて」 goals take the general OPEN_APP + SNAPSHOT
+        // path below. Named Chrome/Firefox/Edge open THAT browser (never force
+        // Safari). Safari Smart Search / DeepL UI is Safari-only.
+        let namedBrowser = requiredOpenApp.flatMap { Self.isBrowserAppName($0) ? $0 : nil }
+        let safariSearchBootstrap = needsBrowser
+            && (requiredOpenApp == nil || Self.isSafariFamilyBrowser(namedBrowser ?? ""))
+        if toolCount == 0, safariSearchBootstrap {
+            let browserName = namedBrowser ?? "Safari"
             toolCount = await Self.runBootstrapTool(
-                .openApp(name: "Safari"),
-                label: "bootstrapping [OPEN_APP: Safari]…",
-                labelJA: "先に [OPEN_APP: Safari] を実行…",
+                .openApp(name: browserName),
+                label: "bootstrapping [OPEN_APP: \(browserName)]…",
+                labelJA: "先に [OPEN_APP: \(browserName)] を実行…",
                 executor: executor,
                 workspaceURL: workspaceURL,
                 sessionId: sid,
@@ -326,6 +343,25 @@ actor JGenActAgent {
             }
         }
 
+        // Seed exploration path with bootstrap successes (open / snapshot).
+        if openAppSucceeded {
+            let appName = requiredOpenApp
+                ?? (safariSearchBootstrap ? (namedBrowser ?? "Safari") : nil)
+            if let appName {
+                let openTag = "[OPEN_APP: \(appName)]"
+                if !successfulTags.contains(openTag) {
+                    successfulTags.append(openTag)
+                }
+            }
+        }
+        let bootSnap = observations.contains {
+            $0.contains("desktop_snapshot") || $0.contains("DESKTOP_SNAPSHOT")
+                || $0.contains("UI MAP") || $0.localizedCaseInsensitiveContains("semantic")
+        }
+        if bootSnap, !successfulTags.contains("[DESKTOP_SNAPSHOT]") {
+            successfulTags.append("[DESKTOP_SNAPSHOT]")
+        }
+
         for turn in 1...turnsCap {
             let memory = await JGenVectorBusMemory.recallBundle(
                 for: goal, sessionId: sid, useEternal: useEternalMemory, k: 3
@@ -341,6 +377,9 @@ actor JGenActAgent {
                 userParts.append("[DETAIL]\n\(JCrossChatManager.collapsePhraseRepetition(handoff.detail))")
             }
             userParts.append("[GOAL]\n\(goal)")
+            if let priorBlock = priorAssetBlock {
+                userParts.append(priorBlock)
+            }
             if !lastPayload.isEmpty {
                 let preview = PromptBudget.payloadPreview(lastPayload)
                 userParts.append(
@@ -362,8 +401,12 @@ actor JGenActAgent {
                 || recentJoined.contains("DESKTOP_SNAPSHOT")
                 || recentJoined.localizedCaseInsensitiveContains("semantic")
                 || recentJoined.contains("UI MAP")
-            if !openAppSucceeded, needsOpenApp || needsBrowser {
-                let appHint = requiredOpenApp ?? (needsBrowser ? "Safari" : "AppName")
+            if let priorHint = ExplorationAssetStore.hintFromPriorAsset(priorAsset),
+               turn <= 3, openAppSucceeded || !needsOpenApp {
+                hint = priorHint
+            } else if !openAppSucceeded, needsOpenApp || needsBrowser {
+                let appHint = requiredOpenApp
+                    ?? (needsBrowser ? "Safari" : "AppName")
                 hint = "First required tag is [OPEN_APP: \(appHint)]. Do not click yet."
             } else if observations.last?.localizedCaseInsensitiveContains("opened") == true
                         || observations.last?.localizedCaseInsensitiveContains("open_app") == true
@@ -385,6 +428,27 @@ actor JGenActAgent {
                 hint = "Emit one valid NEW tool tag, or [DONE: …] if finished. Never repeat a previous click."
             }
             userParts.append("Turn \(turn)/\(turnsCap). \(hint)")
+
+            // Occasional 現状説明 / 独り言 (same channel as Act systemLog).
+            let lastObs = observations.last
+            let mismatchNow = lastObs.map { ExplorationAssetStore.looksLikeFailure($0) } ?? false
+            if let status = narrator.statusIfDue(
+                turn: turn,
+                openAppSucceeded: openAppSucceeded,
+                appHint: requiredOpenApp,
+                lastObservation: lastObs,
+                force: mismatchNow && turn > 1
+            ) {
+                await onProgress(.systemLog(status))
+            }
+            if let mutter = narrator.mutterIfDue(
+                turn: turn,
+                hadMismatch: mismatchNow,
+                hadPriorAsset: priorAsset != nil,
+                force: false
+            ) {
+                await onProgress(.systemLog(mutter))
+            }
 
             let conversation: [(role: String, content: String)] = [
                 ("system", system),
@@ -443,6 +507,7 @@ actor JGenActAgent {
             let tool = tools[0]
             if case .done(let message) = tool {
                 finalAnswer = JCrossChatManager.collapsePhraseRepetition(message)
+                completedWithDone = true
                 break
             }
 
@@ -493,16 +558,41 @@ actor JGenActAgent {
             let result = await executor.execute(tool, workspaceURL: workspaceURL)
             toolCount += 1
             let trimmed = result.count > 1500 ? String(result.prefix(1500)) + "…" : result
-            observations.append(Self.stampObservation(
+            let stamped = Self.stampObservation(
                 toolLabel: call.displayLabel,
                 result: trimmed,
                 selfAction: call.displayLabel
-            ))
+            )
+            observations.append(stamped)
             lastObservations = observations
             if case .openApp = tool, Self.observationLooksLikeOpenSuccess(observations.last) {
                 openAppSucceeded = true
             }
             await onProgress(.toolResult(AgentToolCall(tool: tool, result: trimmed, succeeded: !result.contains("ERROR"))))
+
+            // Exploration asset: log failures; collect successful tags for forge-on-DONE.
+            if ExplorationAssetStore.looksLikeFailure(stamped) {
+                await ExplorationAssetStore.logFailure(
+                    goal: goal,
+                    actionTried: call.displayLabel,
+                    result: trimmed,
+                    turn: turn,
+                    sessionId: sid
+                )
+                await onProgress(.systemLog(narrator.failAnnounce(action: call.displayLabel)))
+                if let mutter = narrator.mutterIfDue(
+                    turn: turn,
+                    hadMismatch: true,
+                    hadPriorAsset: priorAsset != nil,
+                    force: true
+                ) {
+                    await onProgress(.systemLog(mutter))
+                }
+            } else if let tag = ExplorationAssetStore.toolTag(tool) {
+                if !successfulTags.contains(tag) {
+                    successfulTags.append(tag)
+                }
+            }
 
             await JGenVectorBusMemory.stampObservation(
                 label: "jgen_act",
@@ -557,6 +647,28 @@ actor JGenActAgent {
             lastObservations = []
             lastPayload = ""
             await executor.clearMissionPayload()
+        }
+
+        // Forge exploration asset on clear DONE success (or open + useful progress + DONE).
+        if completedWithDone, !successfulTags.isEmpty {
+            // Include bootstrap opens/snaps already in observations if missing from tags.
+            if openAppSucceeded, let app = requiredOpenApp {
+                let openTag = "[OPEN_APP: \(app)]"
+                if !successfulTags.contains(where: { $0.hasPrefix("[OPEN_APP:") }) {
+                    successfulTags.insert(openTag, at: 0)
+                }
+            }
+            if let forged = await ExplorationAssetStore.forgeOnSuccess(
+                goal: goal,
+                appHint: requiredOpenApp,
+                successfulTags: successfulTags,
+                notes: String(finalAnswer.prefix(120))
+            ) {
+                await onProgress(.systemLog(narrator.forgeAnnounce(skillName: forged.name)))
+                if let prior = priorAsset, prior.name == forged.name {
+                    await SkillLibrary.shared.recordSuccess(name: forged.name)
+                }
+            }
         }
 
         if useEternalMemory, !finalAnswer.isEmpty, !JCrossChatManager.isPhraseLooping(finalAnswer) {
@@ -632,13 +744,19 @@ actor JGenActAgent {
         return keys.contains { t.contains($0) }
     }
 
-    /// Browser bundle names we still route through the Safari search/DeepL
-    /// bootstrap (not the general OPEN_APP path).
+    /// Browser bundle names (any vendor) — used to classify a resolved OPEN_APP.
     nonisolated static func isBrowserAppName(_ name: String) -> Bool {
         let n = name.lowercased()
         return n == "safari" || n == "chrome" || n == "google chrome"
             || n == "firefox" || n == "microsoft edge" || n == "edge"
             || n.contains("browser") || n == "ブラウザ"
+    }
+
+    /// Safari (only) gets Smart Search / DeepL address-bar bootstrap UI.
+    /// Named Chrome/Firefox/Edge use the general OPEN_APP + SNAPSHOT path.
+    nonisolated static func isSafariFamilyBrowser(_ name: String) -> Bool {
+        let n = name.lowercased()
+        return n == "safari" || n == "ブラウザ"
     }
 
     nonisolated static func appNamesMatch(_ a: String?, _ b: String) -> Bool {
@@ -674,16 +792,16 @@ actor JGenActAgent {
         return Double(parts[1]) == nil || Double(parts[2]) == nil
     }
 
-    /// Pull a concrete app name from 「Teamsを開いて…」 / 「open Slack and…」.
-    /// Returns a `resolveAppName` result only when a matching `.app` exists.
+    /// Pull a concrete app name from 「Notionを開いて…」 / 「open Spotify and…」.
+    /// Returns a resolved installed `.app` name only when one exists on disk.
     nonisolated static func extractOpenAppName(from goal: String) -> String? {
         let intent = PromptBudget.extractTaskIntentLine(from: goal) ?? goal
         let clipped = PromptBudget.truncateForModel(intent, maxChars: 240, headChars: 180, tailChars: 40)
         var candidates: [String] = []
 
-        // Japanese: Appを開いて / Appを起動 / Appを開け / Appを立ち上げ
+        // Japanese: Appを開いて / 開く / 起動 / 起動して / 立ち上げ / 立ち上げて
         if let re = try? NSRegularExpression(
-            pattern: #"([A-Za-z0-9][A-Za-z0-9 .+\-]{0,40}?|[一-龯ぁ-んァ-ヶー]{2,20})を(?:開いて|開け|起動|立ち上げ)"#,
+            pattern: #"([A-Za-z0-9][A-Za-z0-9 .+\-]{0,40}?|[一-龯ぁ-んァ-ヶー]{2,20})を(?:開いて|開け|開く|起動して|起動|立ち上げて|立ち上げ)"#,
             options: []
         ) {
             let ns = clipped as NSString
@@ -692,6 +810,24 @@ actor JGenActAgent {
                 let raw = ns.substring(with: m.range(at: 1))
                     .trimmingCharacters(in: .whitespacesAndNewlines)
                 if !raw.isEmpty { candidates.append(raw) }
+            }
+        }
+
+        // Japanese loose: App 起動して / App起動 (optional を + whitespace)
+        if candidates.isEmpty {
+            if let re = try? NSRegularExpression(
+                // Exclude particles を/は/が/の from the JP name class so we
+                // never capture 「メモ帳を」 as the token.
+                pattern: #"([A-Za-z][A-Za-z0-9 .+\-]{1,40}?|[一-龯ぁ-んァ-ヶー&&[^をはがのにへでも]]{2,20})\s*(?:を\s*)?(?:起動して|起動|立ち上げて|立ち上げ|開いて|開く)"#,
+                options: []
+            ) {
+                let ns = clipped as NSString
+                let matches = re.matches(in: clipped, options: [], range: NSRange(location: 0, length: ns.length))
+                for m in matches where m.numberOfRanges >= 2 {
+                    let raw = ns.substring(with: m.range(at: 1))
+                        .trimmingCharacters(in: .whitespacesAndNewlines)
+                    if !raw.isEmpty { candidates.append(raw) }
+                }
             }
         }
 
@@ -709,10 +845,10 @@ actor JGenActAgent {
             }
         }
 
-        // Loose: leading token + で (Safariで検索) — only when open-intent or browser word.
+        // Loose: leading token + で (Safariで検索 / Chromeで…) — open-intent or browser word.
         if candidates.isEmpty, goalHasOpenAppIntent(clipped) || goalNeedsBrowser(clipped) {
             if let re = try? NSRegularExpression(
-                pattern: #"^([A-Za-z][A-Za-z0-9 .+\-]{1,30}?)で"#,
+                pattern: #"^([A-Za-z][A-Za-z0-9 .+\-]{1,30}?|[一-龯ぁ-んァ-ヶー]{2,20})で"#,
                 options: []
             ) {
                 let ns = clipped as NSString
@@ -727,11 +863,17 @@ actor JGenActAgent {
             "app", "apps", "アプリ", "application", "the", "a", "an",
             "window", "ウィンドウ", "desktop", "デスクトップ",
             "please", "it", "this", "that", "recent", "最近",
+            "これ", "それ", "あれ", "何か", "なにか",
         ]
 
         for raw in candidates {
-            let token = raw.trimmingCharacters(in: CharacterSet(charactersIn: "「」『』\"'"))
+            var token = raw.trimmingCharacters(in: CharacterSet(charactersIn: "「」『』\"'"))
                 .trimmingCharacters(in: .whitespacesAndNewlines)
+            // Strip trailing JP particles if a loose pattern ate them.
+            while let last = token.last, "をはがのにへでも".contains(last) {
+                token.removeLast()
+            }
+            token = token.trimmingCharacters(in: .whitespacesAndNewlines)
             guard token.count >= 2 else { continue }
             if stop.contains(token.lowercased()) { continue }
             if let resolved = Self.resolveExistingAppName(token) {
@@ -741,50 +883,14 @@ actor JGenActAgent {
         return nil
     }
 
-    /// `AgentToolParser.resolveAppName` plus existence check so we never
-    /// bootstrap `open -a "recent"` from a bad capture.
+    /// Resolve against installed apps (cached Applications scan + thin aliases).
+    /// Returns nil when nothing installed matches — never bootstrap a bad name.
     nonisolated static func resolveExistingAppName(_ input: String) -> String? {
-        let aliases: [String: String] = [
-            "teams": "Microsoft Teams",
-            "ms teams": "Microsoft Teams",
-            "msteams": "Microsoft Teams",
-            "vscode": "Visual Studio Code",
-            "vs code": "Visual Studio Code",
-            "code": "Visual Studio Code",
-            "chrome": "Google Chrome",
-            "edge": "Microsoft Edge",
-            "word": "Microsoft Word",
-            "excel": "Microsoft Excel",
-            "powerpoint": "Microsoft PowerPoint",
-            "outlook": "Microsoft Outlook",
-        ]
-        let lower = input.lowercased().trimmingCharacters(in: .whitespacesAndNewlines)
-        let seeded = aliases[lower] ?? input
-        let resolved = AgentToolParser.resolveAppName(seeded)
-        if Self.applicationExists(resolved) { return resolved }
-        // Alias pointed at a real name that fuzzy-search missed.
-        if seeded != input, Self.applicationExists(seeded) { return seeded }
-        return nil
+        AgentToolParser.resolveInstalledAppName(input)
     }
 
     nonisolated static func applicationExists(_ name: String) -> Bool {
-        let paths = [
-            "/Applications",
-            "/System/Applications",
-            "/System/Applications/Utilities",
-            NSHomeDirectory() + "/Applications",
-        ]
-        let fm = FileManager.default
-        for path in paths {
-            let url = URL(fileURLWithPath: path).appendingPathComponent("\(name).app")
-            if fm.fileExists(atPath: url.path) { return true }
-        }
-        // Nested Simulator etc.
-        if name == "Simulator",
-           fm.fileExists(atPath: "/Applications/Xcode.app/Contents/Developer/Applications/Simulator.app") {
-            return true
-        }
-        return false
+        AgentToolParser.resolveInstalledAppName(name) != nil
     }
 
     nonisolated static func goalNeedsWebSearch(_ goal: String) -> Bool {

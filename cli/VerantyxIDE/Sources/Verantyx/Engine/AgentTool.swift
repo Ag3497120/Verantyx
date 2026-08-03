@@ -891,59 +891,233 @@ struct AgentToolParser {
     static func stripArtifactTags(from text: String) -> String { text }
 
     // MARK: - Generic App Name Resolution
-    
-    /// macOS上のアプリケーションを曖昧な名前から正確な名前（.appなし）へ解決します。
+
     /// Apps nested inside another app's bundle (not a bare top-level
-    /// "/Applications/*.app") that a model asking to "run a/the simulator"
-    /// would otherwise never resolve -- resolveAppName's normal search only
-    /// looks at direct children of the 4 standard app directories, and
-    /// "iOS Simulator"/"simulator" don't fuzzy-match the real app name
-    /// ("Simulator") there. Checked first, before the general search.
+    /// `/Applications/*.app`) that fuzzy directory scans would miss.
     private static let nestedAppAliases: [(matches: [String], realName: String, bundlePath: String)] = [
         (["simulator", "ios simulator", "xcode simulator"],
          "Simulator",
          "/Applications/Xcode.app/Contents/Developer/Applications/Simulator.app"),
     ]
 
-    static func resolveAppName(_ inputName: String) -> String {
-        let searchPaths = [
-            "/Applications",
-            "/System/Applications",
-            "/System/Applications/Utilities",
-            NSHomeDirectory() + "/Applications"
-        ]
+    /// Thin localization / common-nickname helpers only. Real resolution is
+    /// against installed `.app` bundles via `InstalledAppIndex`.
+    private static let localizationAliases: [String: String] = [
+        // JP system display names → English bundle names (`open -a`)
+        "メモ帳": "TextEdit",
+        "テキストエディット": "TextEdit",
+        "計算機": "Calculator",
+        "電卓": "Calculator",
+        "カレンダー": "Calendar",
+        "写真": "Photos",
+        "メール": "Mail",
+        "地図": "Maps",
+        "音楽": "Music",
+        "設定": "System Settings",
+        "システム設定": "System Settings",
+        "プレビュー": "Preview",
+        "ターミナル": "Terminal",
+        "フォントブック": "Font Book",
+        "辞書": "Dictionary",
+        "連絡先": "Contacts",
+        "リマインダー": "Reminders",
+        "ブック": "Books",
+        "映画": "TV",
+        "クイックタイム": "QuickTime Player",
+        "アクティビティモニタ": "Activity Monitor",
+        "ディスクユーティリティ": "Disk Utility",
+        "キーチェーンアクセス": "Keychain Access",
+        "スクリプティング": "Script Editor",
+        "システム情報": "System Information",
+        // Common nicknames → real bundle names
+        "teams": "Microsoft Teams",
+        "ms teams": "Microsoft Teams",
+        "msteams": "Microsoft Teams",
+        "vscode": "Visual Studio Code",
+        "vs code": "Visual Studio Code",
+        "chrome": "Google Chrome",
+        "edge": "Microsoft Edge",
+        "word": "Microsoft Word",
+        "excel": "Microsoft Excel",
+        "powerpoint": "Microsoft PowerPoint",
+        "outlook": "Microsoft Outlook",
+        "ppt": "Microsoft PowerPoint",
+    ]
 
-        let lowerInput = inputName.lowercased()
-        let fileManager = FileManager.default
+    /// Resolves a fuzzy / localized name to an installed app name suitable for
+    /// `open -a` / AppleScript `tell application`. Returns `nil` when nothing
+    /// installed matches (unlike `resolveAppName`, which echoes the input).
+    static func resolveInstalledAppName(_ inputName: String) -> String? {
+        let trimmed = inputName.trimmingCharacters(in: .whitespacesAndNewlines)
+        guard !trimmed.isEmpty else { return nil }
+        let lower = trimmed.lowercased()
+        let fm = FileManager.default
 
         // 0. Nested-bundle aliases (e.g. Xcode's Simulator.app)
-        for alias in nestedAppAliases where alias.matches.contains(lowerInput) {
-            if fileManager.fileExists(atPath: alias.bundlePath) {
+        for alias in nestedAppAliases where alias.matches.contains(lower) {
+            if fm.fileExists(atPath: alias.bundlePath) {
                 return alias.realName
             }
         }
 
-        // 1. Exact match first
-        for path in searchPaths {
-            let exactUrl = URL(fileURLWithPath: path).appendingPathComponent("\(inputName).app")
-            if fileManager.fileExists(atPath: exactUrl.path) {
-                return inputName
-            }
+        // 1. Thin localization / nickname → seed, then resolve against disk.
+        let seeded = localizationAliases[lower]
+            ?? localizationAliases[trimmed]
+            ?? trimmed
+
+        if let hit = InstalledAppIndex.shared.bestMatch(for: seeded) {
+            return hit
         }
-        
-        // 2. Fuzzy match (contains)
-        for path in searchPaths {
-            guard let items = try? fileManager.contentsOfDirectory(atPath: path) else { continue }
-            for item in items where item.hasSuffix(".app") {
-                let appName = (item as NSString).deletingPathExtension
-                if appName.lowercased().contains(lowerInput) {
-                    return appName
+        // Seeded alias may already be the real bundle name when the index
+        // scan missed a nested path; accept only if the `.app` exists.
+        if seeded != trimmed, InstalledAppIndex.shared.appExists(named: seeded) {
+            return seeded
+        }
+        return nil
+    }
+
+    /// macOS上のアプリケーションを曖昧な名前から正確な名前（.appなし）へ解決します。
+    /// Falls back to the original input when nothing is installed (parser path).
+    static func resolveAppName(_ inputName: String) -> String {
+        resolveInstalledAppName(inputName) ?? inputName.trimmingCharacters(in: .whitespacesAndNewlines)
+    }
+}
+
+// MARK: - InstalledAppIndex
+
+/// Brief in-process cache of `.app` bundles under the standard Applications
+/// directories. Avoids rescanning on every Act turn / OPEN_APP parse.
+private final class InstalledAppIndex: @unchecked Sendable {
+    static let shared = InstalledAppIndex()
+
+    private struct Entry {
+        let name: String          // bundle folder name without `.app` (`open -a`)
+        let path: String
+        let dirRank: Int          // lower = preferred (/Applications first)
+        let aliases: [String]     // lowercased CFBundleName / DisplayName / name
+    }
+
+    private let lock = NSLock()
+    private var entries: [Entry] = []
+    private var builtAt: Date?
+    private let ttl: TimeInterval = 60
+
+    private let searchPaths: [(path: String, rank: Int)] = [
+        ("/Applications", 0),
+        (NSHomeDirectory() + "/Applications", 1),
+        ("/System/Applications", 2),
+        ("/System/Applications/Utilities", 3),
+    ]
+
+    func bestMatch(for input: String) -> String? {
+        refreshIfNeeded()
+        let needle = input.trimmingCharacters(in: .whitespacesAndNewlines)
+        guard !needle.isEmpty else { return nil }
+        let lower = needle.lowercased()
+
+        lock.lock()
+        let snapshot = entries
+        lock.unlock()
+
+        var best: (score: Int, dirRank: Int, nameLen: Int, name: String)?
+
+        for e in snapshot {
+            guard let score = Self.matchScore(needle: lower, entry: e) else { continue }
+            let candidate = (score, e.dirRank, e.name.count, e.name)
+            if let b = best {
+                // Lower score wins; then prefer /Applications; then shorter name.
+                if candidate.0 < b.score
+                    || (candidate.0 == b.score && candidate.1 < b.dirRank)
+                    || (candidate.0 == b.score && candidate.1 == b.dirRank && candidate.2 < b.nameLen) {
+                    best = candidate
                 }
+            } else {
+                best = candidate
             }
         }
-        
-        // フォールバック: 見つからなければ元の入力をそのまま返す
-        return inputName
+        return best?.name
+    }
+
+    func appExists(named name: String) -> Bool {
+        refreshIfNeeded()
+        let lower = name.lowercased()
+        lock.lock()
+        defer { lock.unlock() }
+        if entries.contains(where: { $0.name.lowercased() == lower }) { return true }
+        // Direct path check for nested / just-installed apps mid-TTL.
+        for (path, _) in searchPaths {
+            let url = URL(fileURLWithPath: path).appendingPathComponent("\(name).app")
+            if FileManager.default.fileExists(atPath: url.path) { return true }
+        }
+        return false
+    }
+
+    /// Match quality: 0 exact, 1 alias exact, 2 prefix, 3 contains. nil = no match.
+    private static func matchScore(needle: String, entry: Entry) -> Int? {
+        let nameLower = entry.name.lowercased()
+        if nameLower == needle { return 0 }
+        if entry.aliases.contains(needle) { return 1 }
+        if nameLower.hasPrefix(needle) || entry.aliases.contains(where: { $0.hasPrefix(needle) }) {
+            return 2
+        }
+        // Contains: require needle length ≥ 2 to avoid "a" → everything.
+        guard needle.count >= 2 else { return nil }
+        if nameLower.contains(needle) || entry.aliases.contains(where: { $0.contains(needle) }) {
+            return 3
+        }
+        return nil
+    }
+
+    private func refreshIfNeeded() {
+        lock.lock()
+        if let builtAt, Date().timeIntervalSince(builtAt) < ttl, !entries.isEmpty {
+            lock.unlock()
+            return
+        }
+        lock.unlock()
+        rebuild()
+    }
+
+    private func rebuild() {
+        let fm = FileManager.default
+        var built: [Entry] = []
+        var seenLower = Set<String>()
+
+        for (dir, rank) in searchPaths {
+            guard let items = try? fm.contentsOfDirectory(atPath: dir) else { continue }
+            for item in items where item.hasSuffix(".app") {
+                let name = (item as NSString).deletingPathExtension
+                let lower = name.lowercased()
+                // Prefer first (higher-priority) directory on duplicate names.
+                if seenLower.contains(lower) { continue }
+                seenLower.insert(lower)
+                let path = (dir as NSString).appendingPathComponent(item)
+                var aliases = Set<String>([lower])
+                if let plist = Self.readBundleNames(at: path) {
+                    for a in plist where !a.isEmpty { aliases.insert(a.lowercased()) }
+                }
+                built.append(Entry(name: name, path: path, dirRank: rank, aliases: Array(aliases)))
+            }
+        }
+
+        lock.lock()
+        entries = built
+        builtAt = Date()
+        lock.unlock()
+    }
+
+    /// Cheap Info.plist read for CFBundleName / CFBundleDisplayName when the
+    /// folder name alone would miss a nickname.
+    private static func readBundleNames(at appPath: String) -> [String]? {
+        let plistPath = (appPath as NSString).appendingPathComponent("Contents/Info.plist")
+        guard let dict = NSDictionary(contentsOfFile: plistPath) as? [String: Any] else {
+            return nil
+        }
+        var names: [String] = []
+        for key in ["CFBundleName", "CFBundleDisplayName"] {
+            if let s = dict[key] as? String, !s.isEmpty { names.append(s) }
+        }
+        return names
     }
 }
 
