@@ -238,18 +238,21 @@ actor VeraAgentClient {
                 "backend \"jgen\" requires ensureServerRunning(jgenEndpoint:) first"
             )
         }
+        // Bound before crossing to vera_server — a multi-k paste × Vera ReAct
+        // × repeated JGEN /jgen/generate posts is the harness OOM path.
+        let boundedTask = PromptBudget.truncateForModel(task)
         // One auto-retry after a short re-ensure if the first POST fails
         // with a transport error (serve still warming / port race).
         do {
             return try await runAgentOnce(
-                task: task, model: model, backend: backend,
+                task: boundedTask, model: model, backend: backend,
                 cognitionMode: cognitionMode, onEvent: onEvent
             )
         } catch let urlError as URLError where Self.isTransportFailure(urlError) {
             let ensure = await ensureServerRunning(jgenEndpoint: launchedJgenEndpoint)
             guard ensure.isReady else { throw ClientError.serverUnavailable(ensure) }
             return try await runAgentOnce(
-                task: task, model: model, backend: backend,
+                task: boundedTask, model: model, backend: backend,
                 cognitionMode: cognitionMode, onEvent: onEvent
             )
         }

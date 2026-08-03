@@ -335,6 +335,11 @@ struct HiddenWindowMirrorView: View {
         refreshTask?.cancel()
         refreshTask = Task {
             while !Task.isCancelled {
+                // Slow / skip WindowServer captures while JGEN is on Metal.
+                if JGenGPUSafety.shouldPauseWindowServerCapture {
+                    try? await Task.sleep(nanoseconds: 1_500_000_000)
+                    continue
+                }
                 if automation.targetAppName != nil {
                     if let base64 = await automation.captureWindowImage(),
                        let data = Data(base64Encoded: base64),
@@ -349,7 +354,14 @@ struct HiddenWindowMirrorView: View {
                 } else {
                     nsImage = nil
                 }
-                try? await Task.sleep(nanoseconds: 800_000_000)
+                // ~0.5 fps when JGEN is loaded reduces IOGPU contention with
+                // Candle/Metal; full ~1.25 fps only when no JGEN is active.
+                let jgenLoaded = await MainActor.run {
+                    if case .jcrossReady = app.modelStatus { return true }
+                    return false
+                }
+                let nanos: UInt64 = jgenLoaded ? 2_000_000_000 : 800_000_000
+                try? await Task.sleep(nanoseconds: nanos)
             }
         }
         Task { await refreshElementList() }

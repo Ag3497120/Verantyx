@@ -202,25 +202,58 @@ actor CouncilOrchestrator {
         // plain text question with no window target. That's the correct
         // fallback, not a bug: a Vision feature print cannot be produced
         // from words alone.
-        if await MainActor.run(body: { CouncilSettingsStore.shared.useVisualMemory }),
+        if await MainActor.run(body: {
+                !CouncilSettingsStore.shared.vectorOnlySense && CouncilSettingsStore.shared.useVisualMemory
+           }),
            let img = await HiddenWindowAutomation.shared.captureWindowImage() {
             let visualText = await VisualMemoryStore.shared.recallBlock(base64Image: img)
             if !visualText.isEmpty { memoryPrefix += visualText + "\n" }
         }
+        // Cap once — this prefix is copied into every role × every round.
+        memoryPrefix = PromptBudget.truncateForModel(
+            memoryPrefix,
+            maxChars: PromptBudget.maxMemoryPrefixChars,
+            headChars: 1_600,
+            tailChars: 600
+        )
 
         await tick("memory", "記憶・画面状態を確認")
 
-        let roleCount = min(max(config.roleCount, 2), Self.fullRoleCast.count)
+        // Cap roles under unified-memory pressure so Vera-a / council cannot
+        // fan out N full JGEN encodes while Act mirror / WindowServer compete.
+        let roleCount = JGenGPUSafety.cappedCouncilRoles(
+            requested: min(max(config.roleCount, 2), Self.fullRoleCast.count)
+        )
+        if roleCount < config.roleCount {
+            await tick(
+                "memory",
+                "GPU安全: 合議役割を \(config.roleCount)→\(roleCount) に制限"
+            )
+        }
         let roles = Array(Self.fullRoleCast.prefix(roleCount))
 
         func rolePrompt(_ role: (name: String, directive: String)) -> String {
-            "<|im_start|>system\n\(memoryPrefix)\(role.directive)<|im_end|>\n" +
-            "<|im_start|>user\n\(question)<|im_end|>\n" +
-            "<|im_start|>assistant\nThe answer is"
+            // Directive + memory + question already individually capped; keep
+            // the assembled ChatML under a single encode-friendly char budget.
+            let assembled =
+                "<|im_start|>system\n\(memoryPrefix)\(role.directive)<|im_end|>\n" +
+                "<|im_start|>user\n\(question)<|im_end|>\n" +
+                "<|im_start|>assistant\nThe answer is"
+            return PromptBudget.truncateForModel(
+                assembled,
+                maxChars: PromptBudget.maxQuestionChars + PromptBudget.maxMemoryPrefixChars,
+                headChars: 2_400,
+                tailChars: 800
+            )
         }
 
         var roundsCap = config.roundsCap
         if config.injectionPolicy == .deepRounds { roundsCap = max(roundsCap, 5) }
+        let requestedRounds = roundsCap
+        roundsCap = JGenGPUSafety.cappedCouncilRounds(requested: roundsCap)
+        if roundsCap < requestedRounds {
+            await tick("memory", "GPU安全: 合議ラウンドを \(requestedRounds)→\(roundsCap) に制限")
+        }
 
         // ── Round 0: independent forward pass per role ──
         var opinions: [String: [Float]] = [:]
@@ -233,6 +266,11 @@ actor CouncilOrchestrator {
             opinions[role.name] = z
             distributions[role.name] = dist
             packets.append(DivergencePacketBuilder.packet(role: role.name, vector: z, distribution: dist))
+            // Drop composed weight caches between roles on tight Macs so
+            // Metal residency does not accumulate across the cast.
+            if MachineProfile.current().totalRAMGB <= 24 {
+                await chat.trimMemory()
+            }
         }
 
         await tick("candidates", "\(roles.count)役割が独立に候補を生成")
@@ -488,6 +526,10 @@ actor CouncilOrchestrator {
         }
 
         await tick("done", escalated ? "結論を確定 → 上位モデルへ引き継ぎ" : "結論を確定（JGEN継続）")
+
+        // Drop composed weight caches after a full council so the next Act /
+        // Vera turn does not inherit a peak Metal residency window.
+        await chat.trimMemory()
 
         return Result(handoff: handoff, roundTraces: roundTraces, escalated: escalated, finalAnswer: finalAnswer)
     }

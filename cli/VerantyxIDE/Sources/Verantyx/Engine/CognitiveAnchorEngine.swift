@@ -27,10 +27,16 @@ public enum CognitiveAnchorMode {
 public actor CognitiveAnchorEngine {
     public static let shared = CognitiveAnchorEngine()
     
-    // Store the last screenshot taken by VISION tools
+    // Store the last screenshot taken by VISION tools (for multimodal inject).
+    // Under vector-only sense, *screen* captures must stay out — use
+    // `isScreenCapture: false` only for synthetic cognitive anchors.
     public var lastVisionScreenshot: String? = nil
     
-    public func setVisionScreenshot(_ base64: String) {
+    public func setVisionScreenshot(_ base64: String, isScreenCapture: Bool = true) {
+        if isScreenCapture && SensePixelPolicy.isVectorOnly {
+            SensePixelPolicy.logVectorOnlyOnce()
+            return
+        }
         lastVisionScreenshot = base64
     }
     
@@ -38,6 +44,10 @@ public actor CognitiveAnchorEngine {
         let screenshot = lastVisionScreenshot
         lastVisionScreenshot = nil
         return screenshot
+    }
+
+    public func clearVisionScreenshot() {
+        lastVisionScreenshot = nil
     }
     
     private init() {}

@@ -53,6 +53,18 @@ struct JGenVeraSettingsPanelView: View {
                         set: { council.useVisualMemory = $0 }
                     )).toggleStyle(.checkbox)
 
+                    Toggle(app.t("Vector-only sense (no pixels to model)", "ベクトル専用センス(モデルへピクセル送らない)"), isOn: Binding(
+                        get: { council.vectorOnlySense },
+                        set: { council.vectorOnlySense = $0 }
+                    )).toggleStyle(.checkbox)
+                    Text(app.t(
+                        "Default ON. Sense path is AX → text/concepts → vectors. Act mirror may still preview for you; frames are not copied into the LLM. Turn off to restore legacy screenshot inject / vision_browse frames.",
+                        "既定ON。センス経路は AX→テキスト/概念→ベクトルのみ。Actミラーは人間用プレビューとして残りますが、フレームはLLMに渡しません。OFFで従来のスクショ注入／vision_browseフレームを復元。"
+                    ))
+                    .font(.system(size: 9))
+                    .foregroundStyle(.secondary)
+                    .fixedSize(horizontal: false, vertical: true)
+
                     keyframeEyePermissionBlock()
 
                     Toggle(app.t("Vera as harness (Vera drives the turn)", "Veraをハーネスにする(Veraが主導)"), isOn: Binding(
@@ -189,6 +201,38 @@ struct JGenVeraSettingsPanelView: View {
                             "合議と同一JGEN上のJGenSpeak / JGenAct: 永遠記憶＋UIトレース想起、ソフトトークン誘導、必要ならデスクトップ/AX操作。AgentLoopを通さないためMEM/CTRLタグ崩壊を避け、L3エスカレーションもしません。画面理解はAXのencode→注入を優先し、Vision特徴量の直接注入は実験的フォールバックのみです。"))
                             .font(.system(size: 9)).foregroundStyle(.orange)
                             .fixedSize(horizontal: false, vertical: true)
+                    }
+
+                    // Act turn budget (also used by jgen-vector-bus template without BETA toggle).
+                    Toggle(app.t("Unlimited Act exploration turns", "Act探索ターン無制限"),
+                           isOn: Binding(
+                            get: { council.actUnlimitedTurns },
+                            set: { council.actUnlimitedTurns = $0 }
+                           ))
+                    .toggleStyle(.checkbox)
+                    .font(.system(size: 10))
+
+                    if !council.actUnlimitedTurns {
+                        Stepper(
+                            app.t(
+                                "Act max turns: \(max(1, council.actMaxTurns))",
+                                "Act最大ターン: \(max(1, council.actMaxTurns))"
+                            ),
+                            value: Binding(
+                                get: { max(1, council.actMaxTurns) },
+                                set: { council.actMaxTurns = max(1, $0) }
+                            ),
+                            in: 1...500
+                        )
+                        .font(.system(size: 10))
+                    } else {
+                        Text(app.t(
+                            "Unlimited: practical cap \(CouncilSettingsStore.actUnlimitedPracticalCap). Still stops on DONE, identical-action streak, or cancel.",
+                            "無制限: 実務上限 \(CouncilSettingsStore.actUnlimitedPracticalCap)。DONE・同一操作連打・キャンセルで停止します。"
+                        ))
+                        .font(.system(size: 9))
+                        .foregroundStyle(.secondary)
+                        .fixedSize(horizontal: false, vertical: true)
                     }
 
                     ollamaModelPicker(

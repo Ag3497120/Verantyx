@@ -9,6 +9,10 @@ import Foundation
 ///
 /// Tiny models often emit one tool then prose (or a broken tag). That must
 /// **not** end the loop — only `[DONE:…]` or the turn cap should.
+///
+/// Dual-track: research/repro missions with JSONL live in `cli/verantyx-cli`
+/// (`vera run`) using `VeraRuntimeEvent`. This actor remains the IDE Act
+/// substrate — GUI is not gutted; TODO(gui) optionally emit the same schema.
 actor JGenActAgent {
     static let shared = JGenActAgent()
 
@@ -96,28 +100,38 @@ actor JGenActAgent {
         let requiredOpenApp = Self.extractOpenAppName(from: goal)
         let needsOpenApp = requiredOpenApp != nil || Self.goalHasOpenAppIntent(goal)
         let needsBrowser = Self.goalNeedsBrowser(goal)
+        let goalShort = MissionKindClassifier.goalShort(from: goal)
 
         // ── Infinite exploration assets: recall prior success paths ─────────
         var narrator = ExplorationNarrator(goal: goal)
         let priorAssets = await ExplorationAssetStore.recall(for: goal, topK: 2)
         let priorAsset = priorAssets.first
         let priorAssetBlock: String? = priorAsset.map { ExplorationAssetStore.formatPriorAsset($0) }
+        let priorDirectiveTags = ExplorationAssetStore.directivePriorTags(priorAssets)
+        let directiveBlock = ExplorationAssetStore.formatDirective(
+            goalShort: goalShort,
+            openHint: requiredOpenApp,
+            priorTags: priorDirectiveTags
+        )
         if let prior = priorAsset {
             await onProgress(.systemLog(narrator.recallAnnounce(skillName: prior.name)))
         }
 
         let system = """
-        You are Verantyx's JGEN body. One complete tool tag per turn (closing ]). \
+        You are Verantyx's JGEN body — a short-tag executor, not a planner. \
+        Emit one complete tool tag per turn (closing ]). \
+        Prefer names from [DIRECTIVE] open_hint / [PRIOR_ASSET] steps / [OBSERVATIONS] — never paste mission prose into type/search. \
         Schema: OPEN_APP (if named) → SENSE → ACT → observe → on MISMATCH try alternate → DONE. \
         Allowed:
-        [OPEN_APP: AppName]
+        [OPEN_APP: <installed app name from OBSERVATION or DIRECTIVE open_hint>]
         [DESKTOP_SNAPSHOT]
         [DESKTOP_ACT: click 120 340]
         [AX_ACT: #btn1 click]
         [PASTE_PAYLOAD]
         [WAIT_UNTIL_STABLE]
         [DONE: short status in the user's language]
-        If the goal names an app, [OPEN_APP: that app] before any click. \
+        If DIRECTIVE/goal names an app, [OPEN_APP: that exact installed name] before any click. \
+        Never invent app names — only names that resolve on this Mac (failure returns MISMATCH with an installed-name sample). \
         SENSE with DESKTOP_SNAPSHOT/AX map. ACT with AX/click. \
         If [PAYLOAD] ready: focus an editable text field (AX preferred), then [PASTE_PAYLOAD]. \
         Never dump long text via DESKTOP_ACT type. Never invent coords. \
@@ -138,8 +152,17 @@ actor JGenActAgent {
         /// Successful tool tags collected for forge-on-DONE (exploration asset).
         var successfulTags: [String] = []
         var completedWithDone = false
-        // Enough steps for open → type search → read/click results → done.
-        let turnsCap = max(8, min(max(maxTurns, 8), 18))
+        /// Consecutive MISMATCH / fail observations — emit GAP when streak grows.
+        var mismatchStreak = 0
+        var gapEmittedForStreak = 0
+        // User-configurable budget (no hard 8…18 clamp). ≤0 / practical ceiling → unlimited label.
+        let turnsCap = Self.resolveTurnsCap(maxTurns)
+        let turnsUnlimited = Self.isUnlimitedTurns(maxTurns)
+        let turnsLabel = turnsUnlimited ? "∞" : "\(turnsCap)"
+
+        await onProgress(.systemLog(AppLanguage.shared.t(
+            "🧭 [L2 JGEN Act] exploration turn budget: \(turnsLabel)\(turnsUnlimited ? " (unlimited practical cap \(turnsCap))" : "")",
+            "🧭 [L2 JGEN操作] 探索ターン上限: \(turnsLabel)\(turnsUnlimited ? "（無制限・実務上限 \(turnsCap)）" : "")")))
 
         await executor.resetLoopGuards()
 
@@ -152,9 +175,10 @@ actor JGenActAgent {
             }
         }
 
-        // Tiny models cannot plan Safari UI. Bootstrap: open → snapshot →
-        // type the user's query into the Smart Search field (⌘L) → Return →
-        // snapshot again, then let the model continue (click / summarize).
+        // Tiny models cannot plan Safari UI. Bootstrap: open → snapshot, then
+        // optionally type a *short clean* search token into Smart Search (⌘L).
+        // Multi-step procedures (→ / を入力 / 選択する / …) get OPEN_APP +
+        // SNAPSHOT only — never dump the full goal into the address bar.
         // Translate intent only reaches a named URL destination — no site-
         // specific paste/click bootstrap; the loop discovers focus + PASTE_PAYLOAD.
         //
@@ -201,6 +225,8 @@ actor JGenActAgent {
             let querySource = seed.isEmpty ? goal : seed
             let translate = PromptBudget.isTranslateIntent(querySource)
                 || PromptBudget.isTranslateIntent(goal)
+            let procedural = PromptBudget.isProceduralMission(goal)
+                || PromptBudget.isProceduralMission(querySource)
 
             if translate {
                 // Named destination only: open translator URL. Autonomous loop
@@ -240,10 +266,51 @@ actor JGenActAgent {
                     onProgress: onProgress
                 )
                 lastObservations = observations
+            } else if procedural {
+                // OPEN_APP + SNAPSHOT already done. Do not type the multi-step
+                // procedure into Smart Search — model explores via ACT limbs.
+                let note = AppLanguage.shared.t(
+                    "Multi-step mission: explore via ACT (type short strings). Host will not dump the full procedure into the search bar.",
+                    "複数ステップの任務: ACT で短い文字列を入力して探索。ホストは手順全文を検索欄に投入しません。"
+                )
+                await onProgress(.systemLog(AppLanguage.shared.t(
+                    "🛠 [L2 JGEN Act] procedural mission → OPEN_APP + SNAPSHOT only (no search-bar dump).",
+                    "🛠 [L2 JGEN操作] 手順型任務 → OPEN_APP + SNAPSHOT のみ（検索欄への全文投入なし）。")))
+                observations.append(Self.stampObservation(
+                    toolLabel: "bootstrap",
+                    result: note,
+                    selfAction: "bootstrap_skip_search"
+                ))
+                lastObservations = observations
+                await JGenVectorBusMemory.stampObservation(
+                    label: "jgen_act",
+                    detail: "bootstrap_skip_search → procedural",
+                    sessionId: sid,
+                    stepIndex: toolCount,
+                    actionLabel: "bootstrap_skip_search",
+                    changedRegion: nil,
+                    concepts: ["ui-observe", "bug-repro", "jgen-act", "procedural"]
+                )
             } else if Self.goalNeedsWebSearch(goal) || Self.goalNeedsWebSearch(querySource) {
-                let query = PromptBudget.capSearchQuery(Self.searchQuery(from: querySource))
-                // URL-shaped queries (e.g. deepl.com/…) navigate; else type search.
-                if Self.looksLikeURL(query) {
+                // Only type a short clean token — never the raw goal / procedure.
+                let query = PromptBudget.safeSearchQuery(from: querySource)
+                    ?? PromptBudget.safeSearchQuery(from: goal)
+                    ?? ""
+                if query.isEmpty {
+                    let note = AppLanguage.shared.t(
+                        "No safe short search token derived; skipping Smart Search dump. Explore via ACT.",
+                        "安全な短い検索語を抽出できず、Smart Search への投入をスキップ。ACT で探索。"
+                    )
+                    await onProgress(.systemLog(AppLanguage.shared.t(
+                        "🛠 [L2 JGEN Act] web intent but no safe search token → OPEN_APP + SNAPSHOT only.",
+                        "🛠 [L2 JGEN操作] Web意図だが安全な検索語なし → OPEN_APP + SNAPSHOT のみ。")))
+                    observations.append(Self.stampObservation(
+                        toolLabel: "bootstrap",
+                        result: note,
+                        selfAction: "bootstrap_skip_search"
+                    ))
+                    lastObservations = observations
+                } else if Self.looksLikeURL(query) {
                     await onProgress(.systemLog(AppLanguage.shared.t(
                         "🛠 [L2 JGEN Act] navigating Safari → \(query)…",
                         "🛠 [L2 JGEN操作] Safari で \(query) を開く…")))
@@ -265,6 +332,19 @@ actor JGenActAgent {
                         changedRegion: nil,
                         concepts: ["ui-observe", "bug-repro", "jgen-act", "web-nav"]
                     )
+
+                    toolCount = await Self.runBootstrapTool(
+                        .desktopSnapshot,
+                        label: "snapshot after search…",
+                        labelJA: "検索後に [DESKTOP_SNAPSHOT]…",
+                        executor: executor,
+                        workspaceURL: workspaceURL,
+                        sessionId: sid,
+                        observations: &observations,
+                        toolCount: toolCount,
+                        onProgress: onProgress
+                    )
+                    lastObservations = observations
                 } else {
                     await onProgress(.systemLog(AppLanguage.shared.t(
                         "🛠 [L2 JGEN Act] typing search query into Safari: \"\(query)\"…",
@@ -287,20 +367,20 @@ actor JGenActAgent {
                         changedRegion: nil,
                         concepts: ["ui-observe", "bug-repro", "jgen-act", "web-search"]
                     )
-                }
 
-                toolCount = await Self.runBootstrapTool(
-                    .desktopSnapshot,
-                    label: "snapshot after search…",
-                    labelJA: "検索後に [DESKTOP_SNAPSHOT]…",
-                    executor: executor,
-                    workspaceURL: workspaceURL,
-                    sessionId: sid,
-                    observations: &observations,
-                    toolCount: toolCount,
-                    onProgress: onProgress
-                )
-                lastObservations = observations
+                    toolCount = await Self.runBootstrapTool(
+                        .desktopSnapshot,
+                        label: "snapshot after search…",
+                        labelJA: "検索後に [DESKTOP_SNAPSHOT]…",
+                        executor: executor,
+                        workspaceURL: workspaceURL,
+                        sessionId: sid,
+                        observations: &observations,
+                        toolCount: toolCount,
+                        onProgress: onProgress
+                    )
+                    lastObservations = observations
+                }
             }
         } else if toolCount == 0, let appName = requiredOpenApp {
             // General substrate: open the named app → sense → then model acts.
@@ -364,19 +444,16 @@ actor JGenActAgent {
 
         for turn in 1...turnsCap {
             let memory = await JGenVectorBusMemory.recallBundle(
-                for: goal, sessionId: sid, useEternal: useEternalMemory, k: 3
+                for: goalShort, sessionId: sid, useEternal: useEternalMemory, k: 3
             )
             var userParts: [String] = []
             if !memory.isEmpty { userParts.append(memory) }
+            // Short directive first — not multi-step Japanese procedure prose.
+            userParts.append(directiveBlock)
             let councilLine = handoff.conclusion.trimmingCharacters(in: .whitespacesAndNewlines)
             if councilLine.count > 2, !JGenSpeakActRouter.isLowSignalHandoff(handoff) {
-                userParts.append("[COUNCIL]\n\(councilLine)")
+                userParts.append("[COUNCIL]\n\(String(councilLine.prefix(120)))")
             }
-            if !handoff.detail.isEmpty, !JCrossChatManager.isPhraseLooping(handoff.detail),
-               handoff.detail.count > 8 {
-                userParts.append("[DETAIL]\n\(JCrossChatManager.collapsePhraseRepetition(handoff.detail))")
-            }
-            userParts.append("[GOAL]\n\(goal)")
             if let priorBlock = priorAssetBlock {
                 userParts.append(priorBlock)
             }
@@ -406,8 +483,12 @@ actor JGenActAgent {
                 hint = priorHint
             } else if !openAppSucceeded, needsOpenApp || needsBrowser {
                 let appHint = requiredOpenApp
-                    ?? (needsBrowser ? "Safari" : "AppName")
-                hint = "First required tag is [OPEN_APP: \(appHint)]. Do not click yet."
+                    ?? (needsBrowser ? "Safari" : nil)
+                if let appHint {
+                    hint = "First required tag is [OPEN_APP: \(appHint)]. Do not click yet."
+                } else {
+                    hint = "First required tag is [OPEN_APP: <installed app name>]. Do not invent names; on MISMATCH use the installed sample in the observation."
+                }
             } else if observations.last?.localizedCaseInsensitiveContains("opened") == true
                         || observations.last?.localizedCaseInsensitiveContains("open_app") == true
                         || observations.last?.contains("open -a") == true {
@@ -425,9 +506,9 @@ actor JGenActAgent {
                         || observations.last.map(ScreenCapturePermission.looksLikeDenied) == true {
                 hint = "Screenshot blocked. Prefer [AX_ACT: …] or [DONE: …]. Do not repeat the same click."
             } else {
-                hint = "Emit one valid NEW tool tag, or [DONE: …] if finished. Never repeat a previous click."
+                hint = "Emit one valid NEW tool tag from DIRECTIVE/PRIOR_ASSET/OBSERVATION names, or [DONE: …]. Never paste mission prose."
             }
-            userParts.append("Turn \(turn)/\(turnsCap). \(hint)")
+            userParts.append("Turn \(turn)/\(turnsLabel). \(hint)")
 
             // Occasional 現状説明 / 独り言 (same channel as Act systemLog).
             let lastObs = observations.last
@@ -440,6 +521,10 @@ actor JGenActAgent {
                 force: mismatchNow && turn > 1
             ) {
                 await onProgress(.systemLog(status))
+            }
+            // Soft progress warn every N turns on long / unlimited runs.
+            if let soft = narrator.softWarnIfDue(turn: turn, turnsLabel: turnsLabel, unlimited: turnsUnlimited) {
+                await onProgress(.systemLog(soft))
             }
             if let mutter = narrator.mutterIfDue(
                 turn: turn,
@@ -525,8 +610,12 @@ actor JGenActAgent {
 
             // Refuse DESKTOP_ACT before OPEN_APP when the goal requires opening an app.
             if case .desktopAct = tool, !openAppSucceeded, needsOpenApp || needsBrowser {
-                let appHint = requiredOpenApp ?? (needsBrowser ? "Safari" : "AppName")
-                observations.append("(blocked DESKTOP_ACT before OPEN_APP — open \(appHint) first)")
+                let appHint = requiredOpenApp ?? (needsBrowser ? "Safari" : nil)
+                if let appHint {
+                    observations.append("(blocked DESKTOP_ACT before OPEN_APP — open \(appHint) first)")
+                } else {
+                    observations.append("(blocked DESKTOP_ACT before OPEN_APP — emit [OPEN_APP: <installed name>] first; do not invent names)")
+                }
                 lastObservations = observations
                 continue
             }
@@ -572,14 +661,46 @@ actor JGenActAgent {
 
             // Exploration asset: log failures; collect successful tags for forge-on-DONE.
             if ExplorationAssetStore.looksLikeFailure(stamped) {
+                mismatchStreak += 1
                 await ExplorationAssetStore.logFailure(
-                    goal: goal,
+                    goal: goalShort,
                     actionTried: call.displayLabel,
                     result: trimmed,
                     turn: turn,
                     sessionId: sid
                 )
                 await onProgress(.systemLog(narrator.failAnnounce(action: call.displayLabel)))
+                // Repeated MISMATCH → short GAP observation (subject = goal_short).
+                if mismatchStreak >= 2, mismatchStreak > gapEmittedForStreak {
+                    gapEmittedForStreak = mismatchStreak
+                    let gapLine = "GAP subject=\"\(goalShort)\" status=open streak=\(mismatchStreak) last=\(String(call.displayLabel.prefix(40)))"
+                    observations.append(gapLine)
+                    lastObservations = observations
+                    await onProgress(.systemLog(AppLanguage.shared.t(
+                        "🕳 [GAP] \(gapLine)",
+                        "🕳 [GAP] \(gapLine)")))
+                    await JGenVectorBusMemory.stampObservation(
+                        label: "gap",
+                        detail: gapLine,
+                        sessionId: sid,
+                        stepIndex: toolCount,
+                        actionLabel: "gap",
+                        changedRegion: nil,
+                        concepts: ["gap", "exploration-fail", "jgen-act", MissionKindClassifier.assetTag(for: .act)]
+                    )
+                    VeraEventBus.emit(VeraRuntimeEvent(
+                        kind: .gap,
+                        missionId: sid,
+                        summary: gapLine,
+                        turn: turn,
+                        detail: [
+                            "subject": goalShort,
+                            "status": "open",
+                            "streak": "\(mismatchStreak)",
+                        ],
+                        tags: ["gap", "jgen-act"]
+                    ))
+                }
                 if let mutter = narrator.mutterIfDue(
                     turn: turn,
                     hadMismatch: true,
@@ -589,9 +710,12 @@ actor JGenActAgent {
                     await onProgress(.systemLog(mutter))
                 }
             } else if let tag = ExplorationAssetStore.toolTag(tool) {
+                mismatchStreak = 0
                 if !successfulTags.contains(tag) {
                     successfulTags.append(tag)
                 }
+            } else {
+                mismatchStreak = 0
             }
 
             await JGenVectorBusMemory.stampObservation(
@@ -659,21 +783,43 @@ actor JGenActAgent {
                 }
             }
             if let forged = await ExplorationAssetStore.forgeOnSuccess(
-                goal: goal,
+                goal: goalShort.isEmpty ? goal : goalShort,
                 appHint: requiredOpenApp,
                 successfulTags: successfulTags,
-                notes: String(finalAnswer.prefix(120))
+                notes: String(finalAnswer.prefix(120)),
+                missionKind: .act,
+                sessionId: sid
             ) {
                 await onProgress(.systemLog(narrator.forgeAnnounce(skillName: forged.name)))
                 if let prior = priorAsset, prior.name == forged.name {
                     await SkillLibrary.shared.recordSuccess(name: forged.name)
                 }
+                // Optional Vera-layer remember (fire-and-forget; skip if MCP down).
+                let isVeraLayer = await MainActor.run {
+                    AppState.shared?.sessions.activeSession?.activeLayer == .vera
+                }
+                if isVeraLayer {
+                    let shortGoal = goalShort
+                    let shortAnswer = String(finalAnswer.prefix(200))
+                    let skillName = forged.name
+                    await MainActor.run {
+                        VeraMemoryBridge.archiveCompressionFacts(
+                            task: shortGoal,
+                            modifiedFiles: [],
+                            userIntents: ["jgen-act success \(skillName)"],
+                            lastResponse: shortAnswer
+                        )
+                    }
+                }
             }
         }
 
         if useEternalMemory, !finalAnswer.isEmpty, !JCrossChatManager.isPhraseLooping(finalAnswer) {
-            let stamp = "Q: \(goal.prefix(120))\nA: \(finalAnswer.prefix(400))"
-            try? await EternalMemoryStore.shared.add(text: String(stamp), concepts: ["jgen-act", "bug-repro"])
+            let stamp = "Q: \(goalShort.prefix(120))\nA: \(finalAnswer.prefix(400))"
+            try? await EternalMemoryStore.shared.add(
+                text: String(stamp),
+                concepts: ["jgen-act", "bug-repro", MissionKindClassifier.assetTag(for: .act)]
+            )
         }
 
         await onProgress(.done(message: finalAnswer, workspace: workspaceURL))
@@ -689,6 +835,7 @@ actor JGenActAgent {
         let upper = result.uppercased()
         let isError = upper.contains("ERROR") || upper.contains("BLOCKED")
             || upper.contains("NO VISUAL CHANGE") || upper.contains("FAILED")
+            || upper.contains("MISMATCH") || result.hasPrefix("✗")
         let external: String
         if result.contains("SEMANTIC UI MAP") || result.localizedCaseInsensitiveContains("UI MAP") {
             external = "EXTERNAL_CHANGE: AX/UI map updated"
@@ -704,6 +851,22 @@ actor JGenActAgent {
             return "SELF_ACTION: \(selfAction)\nMISMATCH: \(result)\nRESULT: \(toolLabel) → \(result)"
         }
         return "SELF_ACTION: \(selfAction)\n\(external)\nRESULT: \(toolLabel) → \(result)"
+    }
+
+    /// Practical ceiling when the caller requests unlimited (`≤ 0` or ≥ this).
+    nonisolated static let unlimitedPracticalCap = CouncilSettingsStore.actUnlimitedPracticalCap
+
+    /// Resolve exploration turn budget. No hard 8…18 clamp.
+    /// - `maxTurns ≤ 0` → unlimited practical cap
+    /// - otherwise use the value as-is (min 1)
+    nonisolated static func resolveTurnsCap(_ maxTurns: Int) -> Int {
+        if maxTurns <= 0 { return unlimitedPracticalCap }
+        if maxTurns >= unlimitedPracticalCap { return unlimitedPracticalCap }
+        return max(1, maxTurns)
+    }
+
+    nonisolated static func isUnlimitedTurns(_ maxTurns: Int) -> Bool {
+        maxTurns <= 0 || maxTurns >= unlimitedPracticalCap
     }
 
     private static func filterAllowed(_ tools: [AgentTool]) -> [AgentTool] {
@@ -910,63 +1073,18 @@ actor JGenActAgent {
     }
 
     /// Derive what to type into Safari's Smart Search field from the user goal.
-    /// Must stay tiny and task-shaped — never the essay body after 「下記を」.
+    /// Must stay tiny and task-shaped — never the essay body or a multi-step procedure.
     nonisolated static func searchQuery(from goal: String) -> String {
         if PromptBudget.isTranslateIntent(goal) {
             return PromptBudget.deepLTranslatorURL
         }
-
-        // Prefer a short imperative line over the raw (possibly essay) blob.
-        let intent = PromptBudget.extractTaskIntentLine(from: goal)
-            ?? PromptBudget.searchSeed(from: goal)
-        var t = intent.trimmingCharacters(in: .whitespacesAndNewlines)
-
-        // Strip known *prefixes* only — never global replace of "して" (that
-        // mutilates Japanese essay bodies and still leaves thousands of chars).
-        let prefixStrips: [String] = [
-            "Safariを開いて", "safariを開いて", "Safariで", "safariで",
-            "ブラウザを開いて", "ブラウザで",
-            "open safari and ", "open safari ", "please ",
-            "search for ", "search ",
-        ]
-        for s in prefixStrips {
-            if t.lowercased().hasPrefix(s.lowercased()) {
-                t = String(t.dropFirst(s.count))
-                    .trimmingCharacters(in: .whitespacesAndNewlines)
-            }
+        if PromptBudget.isProceduralMission(goal) {
+            return ""
         }
-        // Trailing polite / imperative endings (once, at end).
-        let suffixStrips = ["してください", "してくれ", "検索して", "調べて", "して", "を開いて", "開いて"]
-        for s in suffixStrips {
-            if t.hasSuffix(s) {
-                t = String(t.dropLast(s.count))
-                    .trimmingCharacters(in: .whitespacesAndNewlines)
-            }
+        if let safe = PromptBudget.safeSearchQuery(from: goal) {
+            return safe
         }
-        while t.hasPrefix("を") || t.hasPrefix("で") || t.hasPrefix("の") {
-            t = String(t.dropFirst()).trimmingCharacters(in: .whitespacesAndNewlines)
-        }
-
-        // Drop everything after 「下記を」 / "the following" — that is the essay body.
-        for marker in ["下記を", "以下を", "次を", "the following", "下記の", "以下の"] {
-            if let range = t.range(of: marker, options: .caseInsensitive) {
-                t = String(t[..<range.lowerBound])
-                    .trimmingCharacters(in: .whitespacesAndNewlines)
-                break
-            }
-        }
-
-        if t.isEmpty || t == "ニュース" || t.lowercased() == "news" {
-            return goal.contains("ニュース") || goal.contains("今日") ? "今日のニュース" : "today's news"
-        }
-        if t == "ニュースを" || (t.hasSuffix("ニュース") && t.count <= 8) {
-            return "今日のニュース"
-        }
-        // DeepL without full translate phrasing still in the seed.
-        if t.lowercased().contains("deepl") {
-            return PromptBudget.deepLTranslatorURL
-        }
-        return PromptBudget.capSearchQuery(t)
+        return ""
     }
 
     nonisolated static func actionKey(_ tool: AgentTool) -> String {

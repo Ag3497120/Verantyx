@@ -70,6 +70,10 @@ actor AgentLoop {
         await MainActor.run {
             VisualKeyframePump.shared.setAgentRunning(true, sessionId: bootSessionId)
         }
+        if SensePixelPolicy.isVectorOnly {
+            SensePixelPolicy.logVectorOnlyOnce()
+            await SensePixelPolicy.clearModelPixelBuffers()
+        }
         defer {
             Task { @MainActor in
                 VisualKeyframePump.shared.setAgentRunning(false)
@@ -151,7 +155,10 @@ actor AgentLoop {
         // window to capture (HiddenWindowAutomation.captureWindowImage()
         // returns nil in that case, which is the correct fallback).
         let visualMemorySection: String = await {
-            guard await MainActor.run(body: { CouncilSettingsStore.shared.useVisualMemory }),
+            // Vector-only sense: never capture window JPEG for recall inject.
+            guard await MainActor.run(body: {
+                !CouncilSettingsStore.shared.vectorOnlySense && CouncilSettingsStore.shared.useVisualMemory
+            }),
                   let img = await HiddenWindowAutomation.shared.captureWindowImage()
             else { return "" }
             return await VisualMemoryStore.shared.recallBlock(base64Image: img)
@@ -1189,7 +1196,7 @@ SYS.ENFORCE("logical_verification_before_acceptance")
                             // 将来のLLM呼び出し（callModel内部）で使われるように AppState の persistentTaskAnchor を一時的に利用するか、
                             // もしくは conversation 内に指示を含める。ここでは直接会話の文脈にアンカーを渡した体裁にするため、
                             // CognitiveAnchorEngine の lastVisionScreenshot を利用して強制的に Vision システムに注入する。
-                            await CognitiveAnchorEngine.shared.setVisionScreenshot(auditorAnchorImage)
+                            await CognitiveAnchorEngine.shared.setVisionScreenshot(auditorAnchorImage, isScreenCapture: false)
                         }
                         
                         hasPassedAuditorReview = true
@@ -1507,7 +1514,9 @@ SYS.ENFORCE("logical_verification_before_acceptance")
                         // so this only fires on genuine UI transitions, not
                         // every no-op click. Also gated on the opt-in
                         // setting since it writes to disk every time it fires.
-                        let visualMemoryEnabled = await MainActor.run { CouncilSettingsStore.shared.useVisualMemory }
+                        let visualMemoryEnabled = await MainActor.run {
+                            !CouncilSettingsStore.shared.vectorOnlySense && CouncilSettingsStore.shared.useVisualMemory
+                        }
                         if let region, visualMemoryEnabled {
                             let label = call.displayLabel
                             let appName = await MainActor.run { HiddenWindowAutomation.shared.targetAppName }
@@ -1763,7 +1772,14 @@ SYS.ENFORCE("logical_verification_before_acceptance")
         if let lastUserIndex = mutableConversation.lastIndex(where: { $0.role == "user" }) {
             let lastUserMsg = mutableConversation[lastUserIndex]
             
-            if let screenshot = await CognitiveAnchorEngine.shared.consumeVisionScreenshot() {
+            if SensePixelPolicy.isVectorOnly {
+                // Discard any residual screen JPEG — vector-only must never
+                // multimodal-inject WindowServer frames into the model.
+                await CognitiveAnchorEngine.shared.clearVisionScreenshot()
+            }
+
+            if !SensePixelPolicy.isVectorOnly,
+               let screenshot = await CognitiveAnchorEngine.shared.consumeVisionScreenshot() {
                 anchorImages = [screenshot]
                 var visionInstructions = """
 

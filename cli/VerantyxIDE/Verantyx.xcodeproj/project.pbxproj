@@ -45,6 +45,7 @@
 		9CDD8ABD4D0148E48C9FD3D2 /* ExecutionAgent.swift in Sources */ = {isa = PBXBuildFile; fileRef = 54BE799B901D4FED83EA00D5 /* ExecutionAgent.swift */; };
 		D44BB0835250449092B3C042 /* JGenSpeakAgent.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB3A76B225E14E188C59FD26 /* JGenSpeakAgent.swift */; };
 		A1B2C3D4E5F60718293A4B5C /* JGenActAgent.swift in Sources */ = {isa = PBXBuildFile; fileRef = B2C3D4E5F60718293A4B5C6D /* JGenActAgent.swift */; };
+		D2E3F405162738495A6B7C8D /* MissionKindClassifier.swift in Sources */ = {isa = PBXBuildFile; fileRef = C1D2E3F405162738495A6B7C /* MissionKindClassifier.swift */; };
 		C0D1E2F3A4B5968778695A4C /* ScreenCapturePermission.swift in Sources */ = {isa = PBXBuildFile; fileRef = D1E2F3A4B5C6A7988796A5B5 /* ScreenCapturePermission.swift */; };
 		C3D4E5F60718293A4B5C6D7E /* JGenVectorBusMemory.swift in Sources */ = {isa = PBXBuildFile; fileRef = D4E5F60718293A4B5C6D7E8F /* JGenVectorBusMemory.swift */; };
 		1BFBE895CAE1467F9EA3C08A /* VectorLabView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AF45453E82814584AEECDC2C /* VectorLabView.swift */; };
@@ -161,6 +162,7 @@
 		9C70A544A0D60735A6DFBE68 /* LoadedModelPanel.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA4357406F455A9288CA61BF /* LoadedModelPanel.swift */; };
 		9C9ED81BDF308D02E607AF29 /* ContextBudgetManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D373F57072F08514D5CEAB6 /* ContextBudgetManager.swift */; };
 		A7B8C9D0E1F2031425364758 /* PromptBudget.swift in Sources */ = {isa = PBXBuildFile; fileRef = B8C9D0E1F20314253647586A /* PromptBudget.swift */; };
+		A7B8C9D0E1F2031425364759 /* VeraRuntimeEvent.swift in Sources */ = {isa = PBXBuildFile; fileRef = B8C9D0E1F20314253647586B /* VeraRuntimeEvent.swift */; };
 		9DCFD4E2D0AFE14BC6507578 /* SelfUpdater.swift.patch in Resources */ = {isa = PBXBuildFile; fileRef = B2E9B6CE70755640BEF14537 /* SelfUpdater.swift.patch */; };
 		9E8D6A814ED802A47816F3B3 /* GatekeeperStatusPill.swift in Sources */ = {isa = PBXBuildFile; fileRef = F8C5FC3977F3C5C0744E20DF /* GatekeeperStatusPill.swift */; };
 		9FACB868D7B1ACC2D6C67C17 /* GitHubPREngine.swift in Sources */ = {isa = PBXBuildFile; fileRef = 892959B83A4902F0E159A8D3 /* GitHubPREngine.swift */; };
@@ -237,6 +239,7 @@
 		FD982B53C35792247076B68D /* NSLockExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 678D827D3C1D544C20F0232D /* NSLockExtension.swift */; };
 		FEFCB05405C03DAA13B2EC4A /* JCrossPatchValidator.swift in Sources */ = {isa = PBXBuildFile; fileRef = AD5C5CDDD9AD4603570A6E8E /* JCrossPatchValidator.swift */; };
 		FF66D98B3AE3259064C28D2B /* SearchGate.swift in Sources */ = {isa = PBXBuildFile; fileRef = CA4BE668CB8CC9C29C1AAA35 /* SearchGate.swift */; };
+		FBEBE79E02FB7BEDBA68D83B /* JGenGPUSafety.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9F62F32038DC977A7C3A9836 /* JGenGPUSafety.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -303,6 +306,7 @@
 		54BE799B901D4FED83EA00D5 /* ExecutionAgent.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExecutionAgent.swift; sourceTree = "<group>"; };
 		AB3A76B225E14E188C59FD26 /* JGenSpeakAgent.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = JGenSpeakAgent.swift; sourceTree = "<group>"; };
 		B2C3D4E5F60718293A4B5C6D /* JGenActAgent.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = JGenActAgent.swift; sourceTree = "<group>"; };
+		C1D2E3F405162738495A6B7C /* MissionKindClassifier.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MissionKindClassifier.swift; sourceTree = "<group>"; };
 		D1E2F3A4B5C6A7988796A5B5 /* ScreenCapturePermission.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScreenCapturePermission.swift; sourceTree = "<group>"; };
 		D4E5F60718293A4B5C6D7E8F /* JGenVectorBusMemory.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = JGenVectorBusMemory.swift; sourceTree = "<group>"; };
 		A9C32260F6774C4C93FBDA96 /* HiddenWindowMirrorView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HiddenWindowMirrorView.swift; sourceTree = "<group>"; };
@@ -380,6 +384,7 @@
 		8CE028571C7727001A93D813 /* ParanoiaModeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ParanoiaModeView.swift; sourceTree = "<group>"; };
 		8D373F57072F08514D5CEAB6 /* ContextBudgetManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContextBudgetManager.swift; sourceTree = "<group>"; };
 		B8C9D0E1F20314253647586A /* PromptBudget.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PromptBudget.swift; sourceTree = "<group>"; };
+		B8C9D0E1F20314253647586B /* VeraRuntimeEvent.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VeraRuntimeEvent.swift; sourceTree = "<group>"; };
 		8DF2C2D7BE640032534C82B6 /* SessionHistoryView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SessionHistoryView.swift; sourceTree = "<group>"; };
 		8E251102E6551353AB9E01A2 /* GatekeeperPromptBuilder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GatekeeperPromptBuilder.swift; sourceTree = "<group>"; };
 		8F147916A4803AD39B29AE9A /* JCrossObfuscationEngine.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = JCrossObfuscationEngine.swift; sourceTree = "<group>"; };
@@ -469,6 +474,7 @@
 		C9BFB8B0DCE74E31969A7D1F /* libjcross_engine_glm.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libjcross_engine_glm.dylib; path = Vendor/libjcross_engine_glm.dylib; sourceTree = SOURCE_ROOT; };
 		4A5FCC5DD38841D6AFAC7274 /* jcross_engine.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = jcross_engine.h; sourceTree = "<group>"; };
 		4E67A4D08F6F4A5982F7CDF3 /* Verantyx-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "Verantyx-Bridging-Header.h"; sourceTree = "<group>"; };
+		9F62F32038DC977A7C3A9836 /* JGenGPUSafety.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = JGenGPUSafety.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -666,6 +672,7 @@
 				9D36BF87217C8FFC0D2167A8 /* ConfusionDetector.swift */,
 				8D373F57072F08514D5CEAB6 /* ContextBudgetManager.swift */,
 				B8C9D0E1F20314253647586A /* PromptBudget.swift */,
+				B8C9D0E1F20314253647586B /* VeraRuntimeEvent.swift */,
 				DC25A03DB54A65B9B740D72A /* CortexEngine.swift */,
 				7CD56C73912B6F627FB42759 /* JCrossSwarmRunner.swift */,
 				1368F7D4BD6464D1EBD8C201 /* VeraMemoryBridge.swift */,
@@ -733,6 +740,7 @@
 				470599AF829E40DFAA604ED5 /* JCrossEngine.swift */,
 				86DA980AC45244118FC34A65 /* JGenConverter.swift */,
 				6F5CEA13580847D580F704BE /* JCrossChatManager.swift */,
+				9F62F32038DC977A7C3A9836 /* JGenGPUSafety.swift */,
 				6B43E093C864441FAECE6F42 /* CouncilOrchestrator.swift */,
 				44B8AA2D4671411593288718 /* ContextUsageTracker.swift */,
 				CBA26E6331B041BD9310E07B /* VisualDiffRegion.swift */,
@@ -761,6 +769,7 @@
 				54BE799B901D4FED83EA00D5 /* ExecutionAgent.swift */,
 				AB3A76B225E14E188C59FD26 /* JGenSpeakAgent.swift */,
 				B2C3D4E5F60718293A4B5C6D /* JGenActAgent.swift */,
+				C1D2E3F405162738495A6B7C /* MissionKindClassifier.swift */,
 				D1E2F3A4B5C6A7988796A5B5 /* ScreenCapturePermission.swift */,
 				D4E5F60718293A4B5C6D7E8F /* JGenVectorBusMemory.swift */,
 				802C57C641342AF0523401B9 /* ParanoiaEngine.swift */,
@@ -1047,6 +1056,7 @@
 				3F9E4EF9271386BF6A52DCD3 /* ConfusionDetector.swift in Sources */,
 				9C9ED81BDF308D02E607AF29 /* ContextBudgetManager.swift in Sources */,
 				A7B8C9D0E1F2031425364758 /* PromptBudget.swift in Sources */,
+				A7B8C9D0E1F2031425364759 /* VeraRuntimeEvent.swift in Sources */,
 				DCE174A0A5C275ADA7206152 /* CortexEngine.swift in Sources */,
 				AF6DB78C6C3A0BDCBC55930C /* JCrossSwarmRunner.swift in Sources */,
 				FEC444BED0006C5B2F3B258B /* VeraMemoryBridge.swift in Sources */,
@@ -1132,6 +1142,7 @@
 				C14A4A31A3ED4B2ABFEED797 /* JCrossEngine.swift in Sources */,
 				2BE17EA2E7E2436EB65EE247 /* JGenConverter.swift in Sources */,
 				B6141B510C384239811D985F /* JCrossChatManager.swift in Sources */,
+				FBEBE79E02FB7BEDBA68D83B /* JGenGPUSafety.swift in Sources */,
 				B2E7A7191E1745FCA3C59411 /* CouncilOrchestrator.swift in Sources */,
 				D7AB4E8493144C8DA06D472C /* ContextUsageTracker.swift in Sources */,
 				7118455FDBCA4B45B854F371 /* ContextUsageIndicator.swift in Sources */,
@@ -1166,6 +1177,7 @@
 				9CDD8ABD4D0148E48C9FD3D2 /* ExecutionAgent.swift in Sources */,
 				D44BB0835250449092B3C042 /* JGenSpeakAgent.swift in Sources */,
 				A1B2C3D4E5F60718293A4B5C /* JGenActAgent.swift in Sources */,
+				D2E3F405162738495A6B7C8D /* MissionKindClassifier.swift in Sources */,
 				C0D1E2F3A4B5968778695A4C /* ScreenCapturePermission.swift in Sources */,
 				C3D4E5F60718293A4B5C6D7E /* JGenVectorBusMemory.swift in Sources */,
 				8E6BC7DE963A41809F5C8B79 /* JGenSettingsSection.swift in Sources */,

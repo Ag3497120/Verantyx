@@ -737,8 +737,10 @@ final class AppState: ObservableObject {
             CouncilSettingsStore.shared.config.escalationModel = value
         case "council_use_for_chat":
             CouncilSettingsStore.shared.useCouncilForChat = (value == "true" || value == "1" || value == "yes")
+        case "vector_only_sense", "council_vector_only_sense":
+            CouncilSettingsStore.shared.vectorOnlySense = (value == "true" || value == "1" || value == "yes")
         default:
-            return "⚠️ Unknown setting key: '\(key)'. Valid keys: system_prompt, operation_mode, temperature, max_tokens_ollama, max_tokens_mlx, ollama_endpoint, inference_mode, agent_loop_enabled, streaming_enabled, anthropic_api_key, active_ollama_model, active_auditor_model, is_auditor_enabled, context_window_override, active_mlx_model, council_execution_model, council_escalation_model, council_use_for_chat"
+            return "⚠️ Unknown setting key: '\(key)'. Valid keys: system_prompt, operation_mode, temperature, max_tokens_ollama, max_tokens_mlx, ollama_endpoint, inference_mode, agent_loop_enabled, streaming_enabled, anthropic_api_key, active_ollama_model, active_auditor_model, is_auditor_enabled, context_window_override, active_mlx_model, council_execution_model, council_escalation_model, council_use_for_chat, vector_only_sense"
         }
         return "✓ \(key) = \(value.prefix(80))"
     }
@@ -2308,6 +2310,15 @@ final class AppState: ObservableObject {
                     )
                 }
             }
+        case .jcrossReady(let m):
+            modelStatus = .none
+            addSystemMessage(self.t(
+                "⏏ Ejected JGEN \(m) (purging Metal/CPU caches…)",
+                "⏏ JGEN \(m) をリジェクト（Metal/CPU キャッシュ解放中…）"
+            ))
+            Task {
+                await JCrossChatManager.shared.unload()
+            }
         default:
             // Nothing loaded — just reset
             modelStatus = .none
@@ -2582,15 +2593,65 @@ final class AppState: ObservableObject {
         Task {
             do {
                 try await JCrossChatManager.shared.load(modelFileName: name)
+                let device = await JCrossChatManager.shared.lastLoadDeviceLabel ?? "?"
+                let reasonJA = await JCrossChatManager.shared.lastLoadReasonJA
+                let reasonEN = await JCrossChatManager.shared.lastLoadReasonEN
                 await MainActor.run {
                     self.jgenLoadingModel = nil
                     self.modelStatus = .jcrossReady(model: name)
-                    self.addSystemMessage("🧠 JGEN \(name) をロードしました")
+                    let detail = self.t(
+                        reasonEN ?? "device \(device)",
+                        reasonJA ?? "デバイス \(device)"
+                    )
+                    self.addSystemMessage("🧠 JGEN \(name) loaded on \(device) — \(detail)")
+                    if device == "CPU" {
+                        ToastManager.shared.show(
+                            self.t(
+                                "JGEN on CPU (safe mode) — Metal skipped to protect WindowServer",
+                                "JGEN は CPU（安全モード）— WindowServer 保護のため Metal を回避"
+                            ),
+                            icon: "thermometer.medium",
+                            color: .orange,
+                            duration: 5
+                        )
+                    } else if device == "Metal" {
+                        ToastManager.shared.show(
+                            self.t(
+                                "JGEN loaded on Metal — GPU path active",
+                                "JGEN を Metal でロード — GPU パス有効"
+                            ),
+                            icon: "bolt.fill",
+                            color: .green,
+                            duration: 4
+                        )
+                    }
                 }
             } catch {
                 await MainActor.run {
                     self.jgenLoadingModel = nil
                     self.jgenLoadError = error.localizedDescription
+                }
+            }
+        }
+    }
+
+    /// Unload the in-process JGEN engine and purge GPU/CPU weight caches.
+    func unloadJGenModel() {
+        let name: String? = {
+            if case .jcrossReady(let m) = modelStatus { return m }
+            return nil
+        }()
+        Task {
+            await JCrossChatManager.shared.unload()
+            await MainActor.run {
+                if case .jcrossReady = self.modelStatus {
+                    self.modelStatus = .none
+                }
+                if let name {
+                    self.addSystemMessage(self.t(
+                        "⏏ Ejected JGEN \(name) (Metal/CPU caches purged)",
+                        "⏏ JGEN \(name) をリジェクト（Metal/CPU キャッシュ解放）"
+                    ))
                 }
             }
         }

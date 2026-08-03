@@ -55,7 +55,8 @@ actor UITestVectorTrace {
     func recordMoment(sessionId: String, stepIndex: Int, actionLabel: String, changedRegion: CGRect?) async throws {
         try ensureDirectory()
 
-        let prompt = "This sentence: \"\(actionLabel)\" means in one word:\""
+        let clipped = PromptBudget.truncateForEncode(actionLabel)
+        let prompt = "This sentence: \"\(clipped)\" means in one word:\""
         let raw = try await JCrossChatManager.shared.encodeText(prompt)
         let vec = Self.fitVec(Self.l2Normalize(raw))
 
