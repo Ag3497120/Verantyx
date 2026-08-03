@@ -244,6 +244,9 @@ actor SkillLibrary {
     /// All registered skill names.
     var allNames: [String] { Array(index.keys).sorted() }
 
+    /// Snapshot of every loaded skill (for embedding re-rank / exploration filter).
+    func allNodes() -> [SkillNode] { Array(index.values) }
+
     /// Total number of skills in the library.
     var count: Int { index.count }
 

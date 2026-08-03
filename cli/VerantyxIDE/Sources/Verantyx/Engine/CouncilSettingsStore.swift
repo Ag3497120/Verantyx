@@ -96,6 +96,7 @@ final class CouncilSettingsStore: ObservableObject {
     /// Act mirror UI may still capture for the human; those frames must not
     /// be copied into conversation / `CognitiveAnchorEngine.lastVisionScreenshot`.
     /// Opt-out restores legacy vision_browse / screenshot-inject behaviour.
+    /// DNA default ON — see `ActDNA` invariant checklist.
     @Published var vectorOnlySense: Bool {
         didSet {
             UserDefaults.standard.set(vectorOnlySense, forKey: Self.vectorOnlySenseKey)
@@ -171,6 +172,23 @@ final class CouncilSettingsStore: ObservableObject {
         didSet { UserDefaults.standard.set(actUnlimitedTurns, forKey: Self.actUnlimitedTurnsKey) }
     }
 
+    /// Hierarchical exploration with user choice (default ON).
+    /// When true, after a sense yields a list of navigable destinations
+    /// (search results / AX links), Act and AgentLoop pause and ask which to
+    /// open — they do not auto-click the first guess. Off restores legacy
+    /// autonomous first-guess navigation.
+    /// DNA default ON — policy gate via `ActDNA.shouldPauseForCandidates`, not a new limb.
+    nonisolated static let hierarchicalExploreKey = "council_hierarchical_explore"
+
+    @Published var hierarchicalExplore: Bool {
+        didSet { UserDefaults.standard.set(hierarchicalExplore, forKey: Self.hierarchicalExploreKey) }
+    }
+
+    /// Thread-safe read for actors / non-MainActor call sites.
+    nonisolated static var isHierarchicalExplore: Bool {
+        (UserDefaults.standard.object(forKey: hierarchicalExploreKey) as? Bool) ?? true
+    }
+
     /// Effective turn budget passed to `JGenActAgent.run(maxTurns:)`.
     var resolvedActMaxTurns: Int { Self.resolveActMaxTurns(unlimited: actUnlimitedTurns, stored: actMaxTurns) }
 
@@ -197,6 +215,8 @@ final class CouncilSettingsStore: ObservableObject {
         actMaxTurns = storedTurns ?? Self.actMaxTurnsDefault
         actUnlimitedTurns = ud.bool(forKey: Self.actUnlimitedTurnsKey)
             || (storedTurns.map { $0 <= 0 } ?? false)
+        // Default ON: missing key → hierarchical explore (ask before navigating lists).
+        hierarchicalExplore = (ud.object(forKey: Self.hierarchicalExploreKey) as? Bool) ?? true
     }
 
     /// Thread-safe read for actors / non-MainActor call sites (UserDefaults).

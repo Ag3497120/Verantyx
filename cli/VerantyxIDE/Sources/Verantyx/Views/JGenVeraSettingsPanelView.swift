@@ -227,13 +227,28 @@ struct JGenVeraSettingsPanelView: View {
                         .font(.system(size: 10))
                     } else {
                         Text(app.t(
-                            "Unlimited: practical cap \(CouncilSettingsStore.actUnlimitedPracticalCap). Still stops on DONE, identical-action streak, or cancel.",
-                            "無制限: 実務上限 \(CouncilSettingsStore.actUnlimitedPracticalCap)。DONE・同一操作連打・キャンセルで停止します。"
+                            "Unlimited: practical cap \(CouncilSettingsStore.actUnlimitedPracticalCap). Still stops on DONE, identical-action streak, hierarchical user-choice pause, or cancel.",
+                            "無制限: 実務上限 \(CouncilSettingsStore.actUnlimitedPracticalCap)。DONE・同一操作連打・階層探索の選択待ち・キャンセルで停止します。"
                         ))
                         .font(.system(size: 9))
                         .foregroundStyle(.secondary)
                         .fixedSize(horizontal: false, vertical: true)
                     }
+
+                    Toggle(app.t("Hierarchical explore (ask before opening results)", "階層探索（候補を開く前に確認）"),
+                           isOn: Binding(
+                            get: { council.hierarchicalExplore },
+                            set: { council.hierarchicalExplore = $0 }
+                           ))
+                    .toggleStyle(.checkbox)
+                    .font(.system(size: 10))
+                    Text(app.t(
+                        "Default ON. After search/AX yields a list of destinations, pause and ask which to open (number or name). Off = legacy autonomous first-guess click.",
+                        "既定ON。検索やAXで行き先リストが出たら一時停止し、番号・名前で開く先を確認します。OFFは従来どおり自律クリックです。"
+                    ))
+                    .font(.system(size: 9))
+                    .foregroundStyle(.secondary)
+                    .fixedSize(horizontal: false, vertical: true)
 
                     ollamaModelPicker(
                         label: app.t("Execution model", "実行モデル"),

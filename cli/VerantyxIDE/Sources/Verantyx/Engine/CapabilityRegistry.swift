@@ -30,7 +30,7 @@ enum CapabilityRegistry {
 
         case "vera.wake_summary":
             let since = (args["since_seconds"] as? Double) ?? 43200
-            let raw = await VeraMemoryBridge.wakeSummary(sinceSeconds: since)
+            let raw = await EternalVeraBridge.wakeMerged(sinceSeconds: since)
             return ["ok": true, "result": raw]
 
         case "vera.list_pending_domain_modules":

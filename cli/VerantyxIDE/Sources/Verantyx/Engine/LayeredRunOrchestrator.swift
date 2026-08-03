@@ -101,7 +101,8 @@ enum LayeredRunOrchestrator {
         let allowDesktop = policy?.allowDesktop ?? wantJGenNative
         if wantJGenNative, case .jcrossReady = app.modelStatus {
             let sessionId = app.vxChatSessionId
-            // Deterministic mission kind first; JGEN classify is weak tie-break only.
+            // DNA: MissionKind thin gate before 0.5B freeform (see ActDNA).
+            // Deterministic first; JGEN classify is weak tie-break only.
             let decision = await MissionKindClassifier.resolve(
                 question: modelQuestion,
                 handoff: handoff,

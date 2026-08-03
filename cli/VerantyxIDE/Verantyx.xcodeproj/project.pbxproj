@@ -45,7 +45,10 @@
 		9CDD8ABD4D0148E48C9FD3D2 /* ExecutionAgent.swift in Sources */ = {isa = PBXBuildFile; fileRef = 54BE799B901D4FED83EA00D5 /* ExecutionAgent.swift */; };
 		D44BB0835250449092B3C042 /* JGenSpeakAgent.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB3A76B225E14E188C59FD26 /* JGenSpeakAgent.swift */; };
 		A1B2C3D4E5F60718293A4B5C /* JGenActAgent.swift in Sources */ = {isa = PBXBuildFile; fileRef = B2C3D4E5F60718293A4B5C6D /* JGenActAgent.swift */; };
+		E7F8A9B0C1D2031425364758 /* HierarchicalExploreGate.swift in Sources */ = {isa = PBXBuildFile; fileRef = F8A9B0C1D2E3041526374859 /* HierarchicalExploreGate.swift */; };
 		D2E3F405162738495A6B7C8D /* MissionKindClassifier.swift in Sources */ = {isa = PBXBuildFile; fileRef = C1D2E3F405162738495A6B7C /* MissionKindClassifier.swift */; };
+		A0C7DNA015162738495A6B7C /* ActDNA.swift in Sources */ = {isa = PBXBuildFile; fileRef = B0C7DNA015162738495A6B7D /* ActDNA.swift */; };
+		E7E8E9F0A1B2C3D4E5F60718 /* EternalVeraBridge.swift in Sources */ = {isa = PBXBuildFile; fileRef = F7F8F9A0B1C2D3E4F5A60719 /* EternalVeraBridge.swift */; };
 		C0D1E2F3A4B5968778695A4C /* ScreenCapturePermission.swift in Sources */ = {isa = PBXBuildFile; fileRef = D1E2F3A4B5C6A7988796A5B5 /* ScreenCapturePermission.swift */; };
 		C3D4E5F60718293A4B5C6D7E /* JGenVectorBusMemory.swift in Sources */ = {isa = PBXBuildFile; fileRef = D4E5F60718293A4B5C6D7E8F /* JGenVectorBusMemory.swift */; };
 		1BFBE895CAE1467F9EA3C08A /* VectorLabView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AF45453E82814584AEECDC2C /* VectorLabView.swift */; };
@@ -306,7 +309,10 @@
 		54BE799B901D4FED83EA00D5 /* ExecutionAgent.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExecutionAgent.swift; sourceTree = "<group>"; };
 		AB3A76B225E14E188C59FD26 /* JGenSpeakAgent.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = JGenSpeakAgent.swift; sourceTree = "<group>"; };
 		B2C3D4E5F60718293A4B5C6D /* JGenActAgent.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = JGenActAgent.swift; sourceTree = "<group>"; };
+		F8A9B0C1D2E3041526374859 /* HierarchicalExploreGate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HierarchicalExploreGate.swift; sourceTree = "<group>"; };
 		C1D2E3F405162738495A6B7C /* MissionKindClassifier.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MissionKindClassifier.swift; sourceTree = "<group>"; };
+		B0C7DNA015162738495A6B7D /* ActDNA.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ActDNA.swift; sourceTree = "<group>"; };
+		F7F8F9A0B1C2D3E4F5A60719 /* EternalVeraBridge.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EternalVeraBridge.swift; sourceTree = "<group>"; };
 		D1E2F3A4B5C6A7988796A5B5 /* ScreenCapturePermission.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScreenCapturePermission.swift; sourceTree = "<group>"; };
 		D4E5F60718293A4B5C6D7E8F /* JGenVectorBusMemory.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = JGenVectorBusMemory.swift; sourceTree = "<group>"; };
 		A9C32260F6774C4C93FBDA96 /* HiddenWindowMirrorView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HiddenWindowMirrorView.swift; sourceTree = "<group>"; };
@@ -680,6 +686,7 @@
 				A3A75195818E4D40ADBF55E7 /* VectorGrowthHooks.swift */,
 				786677E8663CF9F60DB0575C /* VeraSkillForge.swift */,
 				39A6009A87A0CAB7BB027C41 /* ExplorationAssetStore.swift */,
+				F8A9B0C1D2E3041526374859 /* HierarchicalExploreGate.swift */,
 				09F07917B97E16DE546E140E /* CortexHandshakeServer.swift */,
 				CEE54E7C0348CE92B4AE07FD /* Counter.swift */,
 				2F0FC932ADF2ABBA8A040888 /* DesktopVisionBridge.swift */,
@@ -769,6 +776,8 @@
 				54BE799B901D4FED83EA00D5 /* ExecutionAgent.swift */,
 				AB3A76B225E14E188C59FD26 /* JGenSpeakAgent.swift */,
 				B2C3D4E5F60718293A4B5C6D /* JGenActAgent.swift */,
+				B0C7DNA015162738495A6B7D /* ActDNA.swift */,
+				F7F8F9A0B1C2D3E4F5A60719 /* EternalVeraBridge.swift */,
 				C1D2E3F405162738495A6B7C /* MissionKindClassifier.swift */,
 				D1E2F3A4B5C6A7988796A5B5 /* ScreenCapturePermission.swift */,
 				D4E5F60718293A4B5C6D7E8F /* JGenVectorBusMemory.swift */,
@@ -1062,6 +1071,7 @@
 				FEC444BED0006C5B2F3B258B /* VeraMemoryBridge.swift in Sources */,
 				B7A68088DD5EA071EE6C4E9F /* VeraSkillForge.swift in Sources */,
 				0EDE5691062DEA7E9D789D37 /* ExplorationAssetStore.swift in Sources */,
+				E7F8A9B0C1D2031425364758 /* HierarchicalExploreGate.swift in Sources */,
 				B647FE2A2148F681D583C701 /* CortexHandshakeServer.swift in Sources */,
 				FD5F0162AED44E829748DF5F /* CortexOnboardingSheet.swift in Sources */,
 				F999748874AF05602BF67DCB /* Counter.swift in Sources */,
@@ -1177,6 +1187,8 @@
 				9CDD8ABD4D0148E48C9FD3D2 /* ExecutionAgent.swift in Sources */,
 				D44BB0835250449092B3C042 /* JGenSpeakAgent.swift in Sources */,
 				A1B2C3D4E5F60718293A4B5C /* JGenActAgent.swift in Sources */,
+				A0C7DNA015162738495A6B7C /* ActDNA.swift in Sources */,
+				E7E8E9F0A1B2C3D4E5F60718 /* EternalVeraBridge.swift in Sources */,
 				D2E3F405162738495A6B7C8D /* MissionKindClassifier.swift in Sources */,
 				C0D1E2F3A4B5968778695A4C /* ScreenCapturePermission.swift in Sources */,
 				C3D4E5F60718293A4B5C6D7E /* JGenVectorBusMemory.swift in Sources */,

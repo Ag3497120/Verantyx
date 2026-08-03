@@ -115,19 +115,90 @@ enum JGenVectorBusMemory {
         ]
     }
 
+    /// Carve the compact Act `[DIRECTIVE]` into JGEN eternal space so later
+    /// missions retrieve directive-shaped memories by cosine — not only the
+    /// textual tag the 0.5B executor needs each turn.
+    static func stampDirective(
+        compactText: String,
+        goalShort: String,
+        kind: MissionKind,
+        openHint: String?,
+        sessionId: String? = nil
+    ) async {
+        guard await JCrossChatManager.shared.isLoaded else { return }
+        var concepts = [
+            "directive",
+            MissionKindClassifier.assetTag(for: kind),
+            "jgen-act",
+        ]
+        if let hint = openHint?.trimmingCharacters(in: .whitespacesAndNewlines), !hint.isEmpty {
+            concepts.append("open_hint")
+        }
+        let stamp = """
+        DIRECTIVE kind=\(kind.rawValue) goal=\(String(goalShort.prefix(120)))
+        \(compactText)
+        """
+        try? await EternalMemoryStore.shared.add(
+            text: String(stamp.prefix(800)),
+            concepts: concepts
+        )
+        // Soft UI-trace breadcrumb (no second eternal write — stampObservation
+        // would duplicate). Session id kept for timeline continuity only.
+        _ = sessionId
+    }
+
+    /// Short prior-directive summaries for Act ChatML. Cosine neighbors of
+    /// `goalShort` among stamped DIRECTIVE moments — never an essay dump.
+    static func recallDirectiveSteer(for goalShort: String, k: Int = 2) async -> String {
+        guard await JCrossChatManager.shared.isLoaded else { return "" }
+        let q = PromptBudget.truncateForEncode("DIRECTIVE \(goalShort)")
+        guard let hits = try? await EternalMemoryStore.shared.search(query: q, k: max(k, 2)),
+              !hits.isEmpty
+        else { return "" }
+
+        var lines: [String] = []
+        for hit in hits {
+            let text = hit.text
+            guard text.contains("DIRECTIVE") || text.lowercased().contains("directive") else { continue }
+            let first = text.split(whereSeparator: \.isNewline).first.map(String.init) ?? text
+            let clipped = String(first.prefix(110))
+                .trimmingCharacters(in: .whitespacesAndNewlines)
+            guard !clipped.isEmpty else { continue }
+            if lines.contains(clipped) { continue }
+            lines.append(clipped)
+            if lines.count >= k { break }
+        }
+        guard !lines.isEmpty else { return "" }
+        return "[VECTOR_STEER]\n"
+            + lines.map { "  · \($0)" }.joined(separator: "\n")
+            + "\n[/VECTOR_STEER]"
+    }
+
     /// Assemble recall blocks for L1/L2: eternal (JGEN) + recent visual
     /// **text labels** + recent UI-trace moments. Never injects Vision dims.
+    /// Prefer directive-shaped hits when `preferDirective` (Act turns) by
+    /// querying with a DIRECTIVE-biased prefix first, then the plain goal.
     static func recallBundle(
         for query: String,
         sessionId: String?,
         useEternal: Bool,
-        k: Int = 3
+        k: Int = 3,
+        preferDirective: Bool = false
     ) async -> String {
         let boundedQuery = PromptBudget.truncateForEncode(query)
         var parts: [String] = []
         if useEternal {
+            if preferDirective {
+                let steered = await EternalMemoryStore.shared.recallBlock(
+                    for: PromptBudget.truncateForEncode("DIRECTIVE \(boundedQuery)"),
+                    k: min(k, 2)
+                )
+                if !steered.isEmpty { parts.append(steered) }
+            }
             let eternal = await EternalMemoryStore.shared.recallBlock(for: boundedQuery, k: k)
-            if !eternal.isEmpty { parts.append(eternal) }
+            if !eternal.isEmpty, eternal != parts.last {
+                parts.append(eternal)
+            }
         }
         let visual = await VisualMemoryStore.shared.recallRecentLabelsBlock(k: k)
         if !visual.isEmpty { parts.append(visual) }
