@@ -18,6 +18,7 @@
 		7118455FDBCA4B45B854F371 /* ContextUsageIndicator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5ECBDA437BA7412292AF0CCC /* ContextUsageIndicator.swift */; };
 		0F3663BC0D16492284CA971B /* ModelSelectorBarView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8EB9F313965C4D1ABFB9E358 /* ModelSelectorBarView.swift */; };
 		C4DF5FB0E125A926454C8EC4 /* JGenVeraSettingsPanelView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6BCC75316FB4B9AA50E92460 /* JGenVeraSettingsPanelView.swift */; };
+		4A11C0DE000100000000000D /* PipeConnectSheet.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4A11C0DE000200000000000D /* PipeConnectSheet.swift */; };
 		3AFC13BC104E4A739D802CA6 /* TemplateSetupApprovalSheet.swift in Sources */ = {isa = PBXBuildFile; fileRef = D9555DAA6AC44813B12713BB /* TemplateSetupApprovalSheet.swift */; };
 		8A6E32FBE2B74F3195D5DEFF /* PendingToolCallsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C16E38036B4B4210973D4410 /* PendingToolCallsView.swift */; };
 		9B0A185F90D14161AE858177 /* VisualDiffRegion.swift in Sources */ = {isa = PBXBuildFile; fileRef = CBA26E6331B041BD9310E07B /* VisualDiffRegion.swift */; };
@@ -54,6 +55,7 @@
 		1BFBE895CAE1467F9EA3C08A /* VectorLabView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AF45453E82814584AEECDC2C /* VectorLabView.swift */; };
 		B6141B510C384239811D985F /* JCrossChatManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6F5CEA13580847D580F704BE /* JCrossChatManager.swift */; };
 		2BE17EA2E7E2436EB65EE247 /* JGenConverter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 86DA980AC45244118FC34A65 /* JGenConverter.swift */; };
+		4A11C0DE000100000000000C /* PipeClient.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4A11C0DE000200000000000C /* PipeClient.swift */; };
 		4A11C0DE000100000000000B /* ModelTransfer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4A11C0DE000200000000000B /* ModelTransfer.swift */; };
 		4A11C0DE000100000000000A /* SplitPlanner.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4A11C0DE000200000000000A /* SplitPlanner.swift */; };
 		4A11C0DE0001000000000009 /* PipeFrame.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4A11C0DE0002000000000009 /* PipeFrame.swift */; };
@@ -279,6 +281,7 @@
 		090D8363C2ED4D0E94738EE9 /* HiddenWindowAutomation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HiddenWindowAutomation.swift; sourceTree = "<group>"; };
 		470599AF829E40DFAA604ED5 /* JCrossEngine.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = JCrossEngine.swift; sourceTree = "<group>"; };
 		86DA980AC45244118FC34A65 /* JGenConverter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = JGenConverter.swift; sourceTree = "<group>"; };
+		4A11C0DE000200000000000C /* PipeClient.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PipeClient.swift; sourceTree = "<group>"; };
 		4A11C0DE000200000000000B /* ModelTransfer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ModelTransfer.swift; sourceTree = "<group>"; };
 		4A11C0DE000200000000000A /* SplitPlanner.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SplitPlanner.swift; sourceTree = "<group>"; };
 		4A11C0DE0002000000000009 /* PipeFrame.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PipeFrame.swift; sourceTree = "<group>"; };
@@ -299,6 +302,7 @@
 		5ECBDA437BA7412292AF0CCC /* ContextUsageIndicator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContextUsageIndicator.swift; sourceTree = "<group>"; };
 		8EB9F313965C4D1ABFB9E358 /* ModelSelectorBarView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ModelSelectorBarView.swift; sourceTree = "<group>"; };
 		6BCC75316FB4B9AA50E92460 /* JGenVeraSettingsPanelView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = JGenVeraSettingsPanelView.swift; sourceTree = "<group>"; };
+		4A11C0DE000200000000000D /* PipeConnectSheet.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PipeConnectSheet.swift; sourceTree = "<group>"; };
 		D9555DAA6AC44813B12713BB /* TemplateSetupApprovalSheet.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TemplateSetupApprovalSheet.swift; sourceTree = "<group>"; };
 		C16E38036B4B4210973D4410 /* PendingToolCallsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PendingToolCallsView.swift; sourceTree = "<group>"; };
 		CBA26E6331B041BD9310E07B /* VisualDiffRegion.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VisualDiffRegion.swift; sourceTree = "<group>"; };
@@ -629,6 +633,7 @@
 				5ECBDA437BA7412292AF0CCC /* ContextUsageIndicator.swift */,
 				8EB9F313965C4D1ABFB9E358 /* ModelSelectorBarView.swift */,
 				6BCC75316FB4B9AA50E92460 /* JGenVeraSettingsPanelView.swift */,
+				4A11C0DE000200000000000D /* PipeConnectSheet.swift */,
 				D9555DAA6AC44813B12713BB /* TemplateSetupApprovalSheet.swift */,
 				C16E38036B4B4210973D4410 /* PendingToolCallsView.swift */,
 				1AE4220F14D01AD7EC75770E /* ReasoningTimelineView.swift */,
@@ -754,6 +759,7 @@
 				4E67A4D08F6F4A5982F7CDF3 /* Verantyx-Bridging-Header.h */,
 				470599AF829E40DFAA604ED5 /* JCrossEngine.swift */,
 				86DA980AC45244118FC34A65 /* JGenConverter.swift */,
+				4A11C0DE000200000000000C /* PipeClient.swift */,
 				4A11C0DE000200000000000B /* ModelTransfer.swift */,
 				4A11C0DE000200000000000A /* SplitPlanner.swift */,
 				4A11C0DE0002000000000009 /* PipeFrame.swift */,
@@ -1165,6 +1171,7 @@
 				7A6B14C9F6CD4D7C9A2569EE /* HiddenWindowAutomation.swift in Sources */,
 				C14A4A31A3ED4B2ABFEED797 /* JCrossEngine.swift in Sources */,
 				2BE17EA2E7E2436EB65EE247 /* JGenConverter.swift in Sources */,
+				4A11C0DE000100000000000C /* PipeClient.swift in Sources */,
 				4A11C0DE000100000000000B /* ModelTransfer.swift in Sources */,
 				4A11C0DE000100000000000A /* SplitPlanner.swift in Sources */,
 				4A11C0DE0001000000000009 /* PipeFrame.swift in Sources */,
@@ -1183,6 +1190,7 @@
 				7118455FDBCA4B45B854F371 /* ContextUsageIndicator.swift in Sources */,
 				0F3663BC0D16492284CA971B /* ModelSelectorBarView.swift in Sources */,
 				C4DF5FB0E125A926454C8EC4 /* JGenVeraSettingsPanelView.swift in Sources */,
+				4A11C0DE000100000000000D /* PipeConnectSheet.swift in Sources */,
 				3AFC13BC104E4A739D802CA6 /* TemplateSetupApprovalSheet.swift in Sources */,
 				8A6E32FBE2B74F3195D5DEFF /* PendingToolCallsView.swift in Sources */,
 				FD56391C9605CF5946289609 /* ReasoningTimelineView.swift in Sources */,

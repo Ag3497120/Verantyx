@@ -6,6 +6,9 @@ import SwiftUI
 
 struct SettingsView: View {
     @EnvironmentObject var app: AppState
+    @ObservedObject private var pipeSession = PipeSession.shared
+    @ObservedObject private var pipeCoordinator = PipeCoordinator.shared
+    @State private var showPipeSheet = false
     @State private var lmStudioReachable: Bool? = nil
     @State private var lmStudioModelCount = 0
     @State private var selectedTab: SettingsTab = .model
@@ -466,12 +469,59 @@ struct SettingsView: View {
             sectionHeader("Inference Parameters", icon: "slider.horizontal.3")
             inferenceParametersCard
 
+            sectionHeader(app.t("Two-Mac Model", "2台構成"), icon: "rectangle.connected.to.line.below")
+            pipeCard
+
             sectionHeader("LM Studio", icon: "desktopcomputer")
             lmStudioCard
 
             sectionHeader("System Prompt", icon: "text.bubble")
             systemPromptCard
         }
+    }
+
+    /// Running one model across two Macs.
+    ///
+    /// The card stays deliberately thin — status and a way in. Everything that
+    /// needs explaining lives in the sheet, which can afford to be linear and
+    /// wordy; a settings card that tried to hold the whole flow is how the
+    /// previous attempt at this became unusable.
+    private var pipeCard: some View {
+        settingsCard {
+            VStack(alignment: .leading, spacing: 12) {
+                rowLabel(app.t("Status", "状態")) {
+                    HStack(spacing: 6) {
+                        Circle()
+                            .fill(pipeSession.isPaired ? Color.green
+                                  : (pipeCoordinator.isEnabled ? Color.orange : Color.gray))
+                            .frame(width: 6, height: 6)
+                        Text(pipeStatusText).font(.system(size: 11)).foregroundStyle(.secondary)
+                        Button(app.t("Set up…", "設定…")) { showPipeSheet = true }
+                            .buttonStyle(.bordered).controlSize(.small)
+                    }
+                }
+                Text(app.t(
+                    "Splits one model's layers across two Macs so a model too large for either alone can run. It does not make replies faster — only one Mac computes at a time.",
+                    "1つのモデルの層を2台のMacに分けて、単体では大きすぎるモデルを動かせるようにします。返答が速くなる機能ではありません — 計算するのは常に片方だけです。"))
+                    .font(.system(size: 10)).foregroundStyle(.tertiary)
+                    .fixedSize(horizontal: false, vertical: true)
+            }
+        }
+        .sheet(isPresented: $showPipeSheet) {
+            PipeConnectSheet().environmentObject(app)
+        }
+    }
+
+    private var pipeStatusText: String {
+        if pipeSession.isPaired {
+            let role = pipeSession.role == .master
+                ? app.t("running the first half", "前半を担当")
+                : app.t("running the second half", "後半を担当")
+            return "\(pipeSession.peer?.deviceName ?? "") — \(role)"
+        }
+        return pipeCoordinator.isEnabled
+            ? app.t("Visible, not connected", "検出可能・未接続")
+            : app.t("Off", "オフ")
     }
 
     /// LM Studio's OpenAI-compatible server.

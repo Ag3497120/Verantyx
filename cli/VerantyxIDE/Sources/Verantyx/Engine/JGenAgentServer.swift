@@ -409,7 +409,11 @@ actor JGenAgentServer {
         models.map { m in
             var d: [String: Any] = [
                 "name": m.name,
-                "size_bytes": String(m.sizeBytes),   // exceeds JS-safe integers
+                // As a string so no JSON parser can hand it back as a Double.
+                // Belt-and-braces rather than a fix for an observed problem: the
+                // sizes here (tens of GB, ~6e10) are five orders of magnitude
+                // below 2^53, so a Double would represent them exactly anyway.
+                "size_bytes": String(m.sizeBytes),
                 "structural_hash": m.structuralHash,
                 "meta_hash": m.metaHash,
                 "arch_supported": m.archSupported,
