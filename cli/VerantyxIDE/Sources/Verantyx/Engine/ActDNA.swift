@@ -40,8 +40,142 @@ import Foundation
 //
 // 9. Structured events — VeraRuntimeEvent kinds stay shared CLI + future GUI language.
 //
+// 10. Gap-driven persistence — ActGapController is the loop contract:
+//     openGap → while open: act → on mismatch/cycle update gap → on success resolve.
+//     GAP observations are not terminal. Identical-limb cycles are honesty brakes
+//     (force a different limb), not early surrender. Vera GapGraph MCP is best-effort;
+//     the local mirror always drives the body when MCP is down.
+//
 // InstalledAppIndex = proprioception for OPEN_APP, not mission scripting.
 // Defaults ON: vectorOnlySense, hierarchicalExplore; act turns configurable.
+
+// MARK: - ActGapController (GapNode-shaped loop driver)
+
+/// Local GapNode mirror that **drives** Act persistence.
+/// Vera GapGraph (`bootstrap_unknown_task` / `record_ui_transition`) is best-effort
+/// sync — never required for the loop to keep trying.
+struct ActGapController: Sendable {
+    enum Status: String, Sendable {
+        case open = "DETECTED"
+        case inProgress = "ACQUIRING"
+        case resolved = "RESOLVED"
+        case blocked = "BLOCKED"
+    }
+
+    var subject: String
+    var status: Status
+    var gapId: String?
+    var failureType: String?
+    var lastAction: String?
+    var mismatchCount: Int
+    var distinctStrategies: Set<String>
+    var cycleHits: Int
+
+    /// True while the mission gap is unresolved — forbids surrender DONE / early quit.
+    var isOpen: Bool {
+        status == .open || status == .inProgress
+    }
+
+    static func open(subject: String, gapId: String? = nil) -> ActGapController {
+        ActGapController(
+            subject: String(subject.prefix(120)),
+            status: .open,
+            gapId: gapId,
+            failureType: nil,
+            lastAction: nil,
+            mismatchCount: 0,
+            distinctStrategies: [],
+            cycleHits: 0
+        )
+    }
+
+    mutating func noteMismatch(action: String, failureType: String = "mismatch") {
+        status = .inProgress
+        lastAction = String(action.prefix(80))
+        self.failureType = failureType
+        mismatchCount += 1
+        if !action.isEmpty { distinctStrategies.insert(action) }
+    }
+
+    mutating func noteCycle(cycleKey: String) {
+        status = .inProgress
+        lastAction = String(cycleKey.prefix(80))
+        failureType = "cycle"
+        cycleHits += 1
+        distinctStrategies.insert("cycle:\(cycleKey)")
+    }
+
+    mutating func noteStrategy(_ key: String) {
+        if !key.isEmpty { distinctStrategies.insert(key) }
+        if status == .open { status = .inProgress }
+    }
+
+    mutating func resolve(via: String = "DONE") {
+        status = .resolved
+        lastAction = via
+        failureType = nil
+    }
+
+    /// Only after distinct strategies are exhausted (caller decides threshold).
+    mutating func markBlocked(reason: String) {
+        status = .blocked
+        failureType = reason
+    }
+
+    /// Observation line for the next ChatML turn (not a stop signal).
+    func observationLine() -> String {
+        let gid = gapId.map { " id=\($0)" } ?? ""
+        let fail = failureType.map { " failure=\($0)" } ?? ""
+        let last = lastAction.map { " last=\(String($0.prefix(40)))" } ?? ""
+        return "GAP subject=\"\(subject)\" status=\(status.rawValue)\(gid)\(fail) streak=\(mismatchCount) strategies=\(distinctStrategies.count)\(last) — keep trying a DIFFERENT limb until RESOLVED or turn budget"
+    }
+
+    /// True when DONE text looks like premature surrender while gap still open.
+    static func looksLikeSurrenderDONE(_ message: String) -> Bool {
+        let t = message.lowercased()
+        let keys = [
+            "couldn't", "could not", "cannot", "can't", "unable", "failed", "give up",
+            "できません", "できなかった", "失敗", "諦め", "無理", "わからない", "分からない",
+            "開けません", "送れません", "clone", "クローン",
+        ]
+        return keys.contains { t.contains($0) }
+    }
+}
+
+// MARK: - Action cycle detection (length 2–3)
+
+enum ActCycleDetector {
+    /// Detect ABAB… (len 2) or ABCABC… (len 3) in the recent action-key ring.
+    /// Returns the repeating unit when a cycle of at least `minRepeats` full periods is present.
+    nonisolated static func detectCycle(
+        recentKeys: [String],
+        period: Int? = nil,
+        minRepeats: Int = 2
+    ) -> [String]? {
+        let keys = recentKeys.filter { !$0.isEmpty }
+        guard keys.count >= 4 else { return nil }
+        let periods: [Int]
+        if let period { periods = [period] }
+        else { periods = [2, 3] }
+        for p in periods {
+            let need = p * minRepeats
+            guard keys.count >= need else { continue }
+            let window = Array(keys.suffix(need))
+            let unit = Array(window.prefix(p))
+            guard Set(unit).count == p else { continue } // trivial AAAA is identical-streak, not ABAB
+            var ok = true
+            for i in 0..<need {
+                if window[i] != unit[i % p] { ok = false; break }
+            }
+            if ok { return unit }
+        }
+        return nil
+    }
+
+    nonisolated static func cycleKey(_ unit: [String]) -> String {
+        unit.joined(separator: "↔")
+    }
+}
 
 /// Fixed Act limb set — the body's thin hands. Not a product catalog.
 enum ActLimb: String, Sendable, CaseIterable {
@@ -415,6 +549,26 @@ enum ActDNA {
         if ActLimb.allCases.count != 5 {
             fails.append("ActLimb must stay at 5 primitives (got \(ActLimb.allCases.count))")
         }
+
+        // ── Cycle detection (Safari↔SNAPSHOT) ──
+        let abab = ["open_app:safari", "desktop_snapshot", "open_app:safari", "desktop_snapshot"]
+        if ActCycleDetector.detectCycle(recentKeys: abab) == nil {
+            fails.append("cycle detector must catch Safari↔SNAPSHOT ABAB")
+        }
+        let noCycle = ["open_app:safari", "desktop_snapshot", "ax_act:#btn1", "desktop_snapshot"]
+        if ActCycleDetector.detectCycle(recentKeys: noCycle) != nil {
+            fails.append("cycle detector must not false-positive distinct limbs")
+        }
+
+        // ── Gap controller: open ≠ surrender ──
+        var gap = ActGapController.open(subject: "open Messages")
+        if !gap.isOpen { fails.append("fresh gap must be open") }
+        gap.noteMismatch(action: "open_app:JGEN", failureType: "mismatch")
+        if ActGapController.looksLikeSurrenderDONE("couldn't open Messages") == false {
+            fails.append("surrender DONE detector missed english give-up")
+        }
+        gap.resolve(via: "DONE")
+        if gap.isOpen { fails.append("resolved gap must not stay open") }
 
         // ── Defaults documented ──
         // Missing UserDefaults key → ON (read helpers already default true).

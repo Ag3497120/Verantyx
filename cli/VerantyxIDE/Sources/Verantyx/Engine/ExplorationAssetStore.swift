@@ -565,13 +565,13 @@ struct ExplorationNarrator: Sendable {
         if !unlimited, turn == lastStatusTurn { return nil }
         if japanese {
             let note = unlimited
-                ? "まだ探索中（ターン \(turn)/\(turnsLabel)）。同一操作の連打や DONE で止まります"
-                : "探索が続いています（ターン \(turn)/\(turnsLabel)）"
+                ? "まだ探索中（ターン \(turn)/\(turnsLabel)）。GAP未解決の間は同一CYCLEのみ遮断し、別の肢で継続します"
+                : "探索が続いています（ターン \(turn)/\(turnsLabel)）— GAPが開いている限り諦めません"
             return "🗣 [現状] \(note)"
         } else {
             let note = unlimited
-                ? "Still exploring (turn \(turn)/\(turnsLabel)). Stops on identical-action streak or DONE"
-                : "Exploration continuing (turn \(turn)/\(turnsLabel))"
+                ? "Still exploring (turn \(turn)/\(turnsLabel)). Cycle limbs blocked; GAP open ⇒ keep trying different limbs"
+                : "Exploration continuing (turn \(turn)/\(turnsLabel)) — no early surrender while GAP open"
             return "🗣 [status] \(note)"
         }
     }

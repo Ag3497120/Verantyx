@@ -272,6 +272,56 @@ enum VeraMemoryBridge {
         return obj["ok"] as? Bool ?? false
     }
 
+    /// Act-loop convenience: record a gap observation using the session cognition mode.
+    /// Best-effort — never throws; local ActGapController remains the loop driver.
+    @discardableResult
+    static func recordActGapObservation(sessionId: String, actionLabel: String, changed: Bool) async -> Bool {
+        let mode = CouncilSettingsStore.shared.cognitionMode.rawValue
+        return await recordUITransition(
+            sessionId: sessionId,
+            actionLabel: actionLabel,
+            changed: changed,
+            cognitionMode: mode
+        )
+    }
+
+    /// Milestone R2: structure an unfamiliar Act/harness mission into GapNodes.
+    /// Returns the first gap_id when present, else nil. Never blocks the Act loop.
+    /// `cognitionMode` is forwarded as-is — the Python tool itself is the one
+    /// that enforces "normal" as a guaranteed no-op (same contract as
+    /// `recordUITransition`/Milestone S), so callers must not bypass this by
+    /// gating on unrelated state (e.g. which memory layer is selected).
+    static func bootstrapUnknownTask(
+        name: String,
+        description: String = "",
+        userGoal: String = "",
+        availableTools: String = "",
+        successCriteria: String = "",
+        constraints: String = "",
+        cognitionMode: String = "normal"
+    ) async -> String? {
+        let trimmed = name.trimmingCharacters(in: .whitespacesAndNewlines)
+        guard !trimmed.isEmpty else { return nil }
+        var args: [String: Any] = ["name": trimmed, "cognition_mode": cognitionMode]
+        if !description.isEmpty { args["description"] = description }
+        if !userGoal.isEmpty { args["user_goal"] = userGoal }
+        if !availableTools.isEmpty { args["available_tools"] = availableTools }
+        if !successCriteria.isEmpty { args["success_criteria"] = successCriteria }
+        if !constraints.isEmpty { args["constraints"] = constraints }
+        let raw = await MCPEngine.shared.callTool(
+            serverName: serverName, toolName: "bootstrap_unknown_task",
+            arguments: args,
+            mode: .human
+        )
+        guard let data = raw.data(using: .utf8),
+              let obj = try? JSONSerialization.jsonObject(with: data) as? [String: Any] else { return nil }
+        if let ids = obj["gap_ids"] as? [String], let first = ids.first, !first.isEmpty {
+            return first
+        }
+        if let id = obj["gap_id"] as? String, !id.isEmpty { return id }
+        return nil
+    }
+
     struct VerifiedUIElementLookup {
         let x: Double
         let y: Double

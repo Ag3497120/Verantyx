@@ -179,8 +179,8 @@ actor JGenActAgent {
         If [PAYLOAD] ready: focus an editable text field (AX preferred), then [PASTE_PAYLOAD]. \
         Never dump long text via DESKTOP_ACT type. Never invent coords. \
         Never emit literal X Y (schema placeholders). Never prose without a tag. \
-        On MISMATCH / NO VISUAL CHANGE / DESKTOP_BLOCKED: try a different AX target or DONE. \
-        Never repeat the same click. \
+        On MISMATCH / NO VISUAL CHANGE / DESKTOP_BLOCKED: try a DIFFERENT limb (other OPEN_APP name from the installed sample, other AX target, or SNAPSHOT) — do NOT surrender with DONE while GAP status is open. \
+        Never repeat the same click or the same OPEN_APP↔SNAPSHOT cycle. \
         If [PRIOR_ASSET] is present, prefer that learned tool sequence (adapt AX ids if UI shifted).
         """
         if hierarchicalOn {
@@ -196,14 +196,20 @@ actor JGenActAgent {
         var lastErrorFingerprint = ""
         var lastActionKey = ""
         var identicalActionStreak = 0
+        /// Recent action keys for length-2/3 cycle detection (Safari↔SNAPSHOT).
+        var recentActionKeys: [String] = []
+        /// Last blocked cycle unit — refuse immediate re-entry into the same ABAB.
+        var lastBlockedCycleKey = ""
         /// True after a successful OPEN_APP (bootstrap or model) for this run.
         var openAppSucceeded = false
         /// Successful tool tags collected for forge-on-DONE (exploration asset).
         var successfulTags: [String] = []
         var completedWithDone = false
-        /// Consecutive MISMATCH / fail observations — emit GAP when streak grows.
+        /// Consecutive MISMATCH / fail observations — update GapNode; never end the loop.
         var mismatchStreak = 0
         var gapEmittedForStreak = 0
+        /// GapNode-shaped driver: while open, no surrender DONE / no early quit on MISMATCH.
+        var gap = ActGapController.open(subject: goalShort)
         // User-configurable budget (no hard 8…18 clamp). ≤0 / practical ceiling → unlimited label.
         let turnsCap = Self.resolveTurnsCap(maxTurns)
         let turnsUnlimited = Self.isUnlimitedTurns(maxTurns)
@@ -212,6 +218,21 @@ actor JGenActAgent {
         await onProgress(.systemLog(AppLanguage.shared.t(
             "🧭 [L2 JGEN Act] exploration turn budget: \(turnsLabel)\(turnsUnlimited ? " (unlimited practical cap \(turnsCap))" : "")",
             "🧭 [L2 JGEN操作] 探索ターン上限: \(turnsLabel)\(turnsUnlimited ? "（無制限・実務上限 \(turnsCap)）" : "")")))
+
+        // Open GapNode (local mirror always; Vera MCP when layer/experiment is on).
+        let veraGapId = await Self.bootstrapActGap(goalShort: goalShort, goal: goal, sessionId: sid)
+        if let veraGapId { gap.gapId = veraGapId }
+        await onProgress(.systemLog(AppLanguage.shared.t(
+            "🕳 [GAP] open subject=\"\(goalShort)\" — keep trying until RESOLVED or turn budget",
+            "🕳 [GAP] open subject=\"\(goalShort)\" — RESOLVED かターン上限まで試行継続")))
+        VeraEventBus.emit(VeraRuntimeEvent(
+            kind: .gap,
+            missionId: sid,
+            summary: gap.observationLine(),
+            turn: 0,
+            detail: ["subject": goalShort, "status": gap.status.rawValue, "driver": "act_gap"],
+            tags: ["gap", "jgen-act", "gap-open"]
+        ))
 
         await executor.resetLoopGuards()
 
@@ -238,7 +259,11 @@ actor JGenActAgent {
         // path below. Named Chrome/Firefox/Edge open THAT browser (never force
         // Safari). Safari Smart Search / DeepL UI is Safari-only.
         let namedBrowser = requiredOpenApp.flatMap { Self.isBrowserAppName($0) ? $0 : nil }
+        // Never host-bootstrap Safari for phone/message/mail-style goals — even if
+        // the tiny model later invents Safari, the host must not force it.
+        let rejectsBrowserBoot = Self.goalRejectsBrowserBootstrap(goal)
         let safariSearchBootstrap = needsBrowser
+            && !rejectsBrowserBoot
             && (requiredOpenApp == nil || Self.isSafariFamilyBrowser(namedBrowser ?? ""))
         if toolCount == 0, !skipBootstrap, safariSearchBootstrap {
             let browserName = namedBrowser ?? "Safari"
@@ -579,13 +604,15 @@ actor JGenActAgent {
             if let priorHint = ExplorationAssetStore.hintFromPriorAsset(priorAsset),
                turn <= 3, openAppSucceeded || !needsOpenApp {
                 hint = priorHint
-            } else if !openAppSucceeded, needsOpenApp || needsBrowser {
+            } else if !openAppSucceeded, needsOpenApp || (needsBrowser && !rejectsBrowserBoot) {
                 let appHint = requiredOpenApp
-                    ?? (needsBrowser ? "Safari" : nil)
+                    ?? (needsBrowser && !rejectsBrowserBoot ? "Safari" : nil)
                 if let appHint {
                     hint = "First required tag is [OPEN_APP: \(appHint)]. Do not click yet."
                 } else {
-                    hint = "First required tag is [OPEN_APP: <installed app name>]. Do not invent names; on MISMATCH use the installed sample in the observation."
+                    let sample = AgentToolParser.sampleInstalledAppNames(limit: 8, rotateBy: turn)
+                    let sampleBit = sample.isEmpty ? "" : " Sample: \(sample.prefix(6).joined(separator: ", "))."
+                    hint = "First required tag is [OPEN_APP: <installed app name>]. Do not invent names; on MISMATCH use the installed sample.\(sampleBit) Do NOT open Safari unless the goal is web/browser."
                 }
             } else if observations.last?.localizedCaseInsensitiveContains("opened") == true
                         || observations.last?.localizedCaseInsensitiveContains("open_app") == true
@@ -602,15 +629,16 @@ actor JGenActAgent {
                 } else {
                     hint = "Search was typed. Click a relevant result, take [DESKTOP_SNAPSHOT], or [DONE: short summary of what you see]."
                 }
-            } else if observations.last?.localizedCaseInsensitiveContains("NO VISUAL CHANGE") == true
+            } else if observations.last?.localizedCaseInsensitiveContains("CYCLE:") == true
+                        || observations.last?.localizedCaseInsensitiveContains("NO VISUAL CHANGE") == true
                         || observations.last?.localizedCaseInsensitiveContains("DESKTOP_BLOCKED") == true
                         || observations.last?.contains("MISMATCH") == true {
-                hint = "MISMATCH — do NOT repeat. Prefer a different [AX_ACT: …] target, [DESKTOP_SNAPSHOT], or [DONE: …]."
+                hint = "MISMATCH/CYCLE — do NOT repeat the same limb. Prefer a different [OPEN_APP: installed name], [AX_ACT: …], or [DESKTOP_SNAPSHOT]. GAP is still open — do not surrender DONE."
             } else if observations.last?.localizedCaseInsensitiveContains("NO SCREENSHOT") == true
                         || observations.last.map(ScreenCapturePermission.looksLikeDenied) == true {
-                hint = "Screenshot blocked. Prefer [AX_ACT: …] or [DONE: …]. Do not repeat the same click."
+                hint = "Screenshot blocked. Prefer [AX_ACT: …]. Do not repeat the same click. GAP still open."
             } else {
-                hint = "Emit one valid NEW tool tag from DIRECTIVE/PRIOR_ASSET/OBSERVATION names, or [DONE: …]. Never paste mission prose."
+                hint = "Emit one valid NEW tool tag from DIRECTIVE/PRIOR_ASSET/OBSERVATION names. GAP open ⇒ keep trying; never paste mission prose."
             }
             userParts.append("Turn \(turn)/\(turnsLabel). \(hint)")
 
@@ -696,14 +724,31 @@ actor JGenActAgent {
 
             let tool = tools[0]
             if case .done(let message) = tool {
-                finalAnswer = JCrossChatManager.collapsePhraseRepetition(message)
+                let collapsed = JCrossChatManager.collapsePhraseRepetition(message)
+                // Gap still open + surrender-shaped DONE → refuse; keep exploring.
+                if gap.isOpen, ActGapController.looksLikeSurrenderDONE(collapsed) {
+                    gap.noteMismatch(action: "DONE_surrender", failureType: "premature_done")
+                    let sample = AgentToolParser.sampleInstalledAppNames(limit: 12, rotateBy: mismatchStreak)
+                    let sampleLine = sample.isEmpty ? "" : " Installed sample: \(sample.joined(separator: ", "))."
+                    observations.append(
+                        "\(gap.observationLine()) — refused surrender DONE while GAP open. Try a different [OPEN_APP] name or AX_ACT.\(sampleLine)"
+                    )
+                    lastObservations = observations
+                    await onProgress(.systemLog(AppLanguage.shared.t(
+                        "🕳 [GAP] refused surrender DONE — still open",
+                        "🕳 [GAP] 諦めDONEを拒否 — ギャップ未解決のまま継続")))
+                    continue
+                }
+                finalAnswer = collapsed
                 completedWithDone = true
+                gap.resolve(via: "DONE")
                 break
             }
 
             // Reject schema-placeholder clicks (literal X Y) — never execute.
             if case .desktopAct(let action) = tool, Self.isPlaceholderDesktopAct(action) {
-                let appHint = requiredOpenApp ?? (needsBrowser ? "Safari" : nil)
+                let appHint = requiredOpenApp
+                    ?? (needsBrowser && !rejectsBrowserBoot ? "Safari" : nil)
                 let nudge = appHint.map { " Prefer [OPEN_APP: \($0)] then [DESKTOP_SNAPSHOT]/[AX_ACT]." }
                     ?? " Prefer [OPEN_APP]/[DESKTOP_SNAPSHOT]/[AX_ACT]; never invent coords."
                 observations.append(
@@ -714,8 +759,9 @@ actor JGenActAgent {
             }
 
             // Refuse DESKTOP_ACT before OPEN_APP when the goal requires opening an app.
-            if case .desktopAct = tool, !openAppSucceeded, needsOpenApp || needsBrowser {
-                let appHint = requiredOpenApp ?? (needsBrowser ? "Safari" : nil)
+            if case .desktopAct = tool, !openAppSucceeded, needsOpenApp || (needsBrowser && !rejectsBrowserBoot) {
+                let appHint = requiredOpenApp
+                    ?? (needsBrowser && !rejectsBrowserBoot ? "Safari" : nil)
                 if let appHint {
                     observations.append("(blocked DESKTOP_ACT before OPEN_APP — open \(appHint) first)")
                 } else {
@@ -752,23 +798,62 @@ actor JGenActAgent {
             }
 
             let actionKey = Self.actionKey(tool)
-            if !actionKey.isEmpty, actionKey == lastActionKey {
-                identicalActionStreak += 1
-            } else {
-                identicalActionStreak = 1
-                lastActionKey = actionKey
+            if !actionKey.isEmpty {
+                // Successful identical OPEN_APP of the same app still counts — reopening
+                // Safari forever is not progress (feeds cycle / streak, not a free pass).
+                if actionKey == lastActionKey {
+                    identicalActionStreak += 1
+                } else {
+                    identicalActionStreak = 1
+                    lastActionKey = actionKey
+                }
+                recentActionKeys.append(actionKey)
+                if recentActionKeys.count > 12 {
+                    recentActionKeys.removeFirst(recentActionKeys.count - 12)
+                }
             }
-            if identicalActionStreak >= 2 {
+
+            // Length-2/3 cycles (OPEN_APP Safari ↔ DESKTOP_SNAPSHOT): honesty brake, not quit.
+            if let unit = ActCycleDetector.detectCycle(recentKeys: recentActionKeys),
+               unit.count >= 2 {
+                let ckey = ActCycleDetector.cycleKey(unit)
+                if ckey == lastBlockedCycleKey || recentActionKeys.suffix(unit.count * 2).count >= unit.count * 2 {
+                    gap.noteCycle(cycleKey: ckey)
+                    lastBlockedCycleKey = ckey
+                    // Drop the repeating tip so the model cannot immediately re-enter.
+                    if recentActionKeys.count >= unit.count {
+                        recentActionKeys.removeLast(min(unit.count, recentActionKeys.count))
+                    }
+                    identicalActionStreak = 0
+                    lastActionKey = ""
+                    let sample = AgentToolParser.sampleInstalledAppNames(limit: 12, rotateBy: gap.cycleHits)
+                    let sampleLine = sample.isEmpty
+                        ? ""
+                        : " Installed-name sample: \(sample.joined(separator: ", "))."
+                    observations.append(
+                        "MISMATCH: CYCLE: repeating limbs [\(ckey)] — try a different OPEN_APP name or AX_ACT/DONE (not the same cycle).\(sampleLine)\n\(gap.observationLine())"
+                    )
+                    lastObservations = observations
+                    await onProgress(.systemLog(AppLanguage.shared.t(
+                        "🕳 [GAP] CYCLE blocked \(ckey) — keep exploring with a different limb",
+                        "🕳 [GAP] CYCLE遮断 \(ckey) — 別の肢で継続探索")))
+                    continue
+                }
+            }
+
+            if identicalActionStreak >= 2, !actionKey.isEmpty {
+                gap.noteMismatch(action: actionKey, failureType: "identical_action")
+                let sample = AgentToolParser.sampleInstalledAppNames(limit: 10, rotateBy: identicalActionStreak)
+                let sampleHint = sample.isEmpty ? "" : " Sample: \(sample.joined(separator: ", "))."
                 observations.append(
-                    "(blocked repeated action \(actionKey) ×\(identicalActionStreak) — try a different tool or DONE)"
+                    "(blocked repeated action \(actionKey) ×\(identicalActionStreak) — try a different tool; GAP still open.\(sampleHint))"
                 )
                 lastObservations = observations
+                // Cap identical spam: block & continue while gap open. Never end the Act loop
+                // solely because of identical repeats — only turn budget / user cancel / true BLOCKED.
                 if identicalActionStreak >= 3 {
-                    finalAnswer = AppLanguage.shared.t(
-                        "Stopped: the model kept repeating \(actionKey). Open the hidden-window mirror to continue manually, or retry with a larger JGEN.",
-                        "停止: モデルが \(actionKey) を繰り返し続けました。隠れ窓ミラーで手動継続するか、より大きな JGEN で再試行してください。"
-                    )
-                    break
+                    identicalActionStreak = 0
+                    lastActionKey = ""
                 }
                 continue
             }
@@ -785,8 +870,31 @@ actor JGenActAgent {
             )
             observations.append(stamped)
             lastObservations = observations
-            if case .openApp = tool, ActDNA.openAppSucceeded(fromObservation: observations.last) {
-                openAppSucceeded = true
+            var openCountedAsProgress = false
+            var openRejectedAsWrongApp = false
+            if case .openApp(let openedName) = tool, ActDNA.openAppSucceeded(fromObservation: observations.last) {
+                // Phone/message goals: opening Safari is not progress — keep GAP chasing a native app.
+                if rejectsBrowserBoot, Self.isBrowserAppName(openedName) {
+                    openRejectedAsWrongApp = true
+                    gap.noteMismatch(action: "open_app:\(openedName)", failureType: "wrong_app_class")
+                    mismatchStreak += 1
+                    let sample = AgentToolParser.sampleInstalledAppNames(limit: 10, rotateBy: mismatchStreak)
+                    observations.append(
+                        "MISMATCH: opened browser \"\(openedName)\" but goal is native app (phone/message/mail) — try a different [OPEN_APP] from sample: \(sample.joined(separator: ", "))\n\(gap.observationLine())"
+                    )
+                    lastObservations = observations
+                    openAppSucceeded = false
+                } else if let required = requiredOpenApp,
+                          !Self.appNamesMatch(openedName, required) {
+                    openRejectedAsWrongApp = true
+                    openAppSucceeded = false
+                    gap.noteMismatch(action: "open_app:\(openedName)", failureType: "wrong_app")
+                    mismatchStreak += 1
+                } else {
+                    openAppSucceeded = true
+                    openCountedAsProgress = true
+                    gap.noteStrategy("open_app:\(openedName)")
+                }
             }
             await onProgress(.toolResult(AgentToolCall(tool: tool, result: trimmed, succeeded: !result.contains("ERROR"))))
 
@@ -807,8 +915,12 @@ actor JGenActAgent {
             }
 
             // Exploration asset: log failures; collect successful tags for forge-on-DONE.
-            if ExplorationAssetStore.looksLikeFailure(stamped) {
-                mismatchStreak += 1
+            // GAP updates the driver — never ends the Act loop.
+            if openRejectedAsWrongApp || ExplorationAssetStore.looksLikeFailure(stamped) {
+                if !openRejectedAsWrongApp {
+                    mismatchStreak += 1
+                    gap.noteMismatch(action: call.displayLabel, failureType: "mismatch")
+                }
                 await ExplorationAssetStore.logFailure(
                     goal: goalShort,
                     actionTried: call.displayLabel,
@@ -817,10 +929,17 @@ actor JGenActAgent {
                     sessionId: sid
                 )
                 await onProgress(.systemLog(narrator.failAnnounce(action: call.displayLabel)))
-                // Repeated MISMATCH → short GAP observation (subject = goal_short).
+                // Repeated MISMATCH → Gap observation (subject = goal_short). Loop continues.
                 if mismatchStreak >= 2, mismatchStreak > gapEmittedForStreak {
                     gapEmittedForStreak = mismatchStreak
-                    let gapLine = "GAP subject=\"\(goalShort)\" status=open streak=\(mismatchStreak) last=\(String(call.displayLabel.prefix(40)))"
+                    // Fresh installed-name sample every few OPEN_APP fails (proprioception).
+                    var gapLine = gap.observationLine()
+                    if case .openApp = tool, mismatchStreak % 2 == 0 {
+                        let sample = AgentToolParser.sampleInstalledAppNames(limit: 12, rotateBy: mismatchStreak)
+                        if !sample.isEmpty {
+                            gapLine += "\nOPEN_APP sample (try a DIFFERENT name): \(sample.joined(separator: ", "))"
+                        }
+                    }
                     observations.append(gapLine)
                     lastObservations = observations
                     await onProgress(.systemLog(AppLanguage.shared.t(
@@ -842,11 +961,18 @@ actor JGenActAgent {
                         turn: turn,
                         detail: [
                             "subject": goalShort,
-                            "status": "open",
+                            "status": gap.status.rawValue,
                             "streak": "\(mismatchStreak)",
+                            "driver": "act_gap",
                         ],
                         tags: ["gap", "jgen-act"]
                     ))
+                    // Best-effort Vera GapGraph sync (non-terminal).
+                    await VeraMemoryBridge.recordActGapObservation(
+                        sessionId: sid,
+                        actionLabel: call.displayLabel,
+                        changed: false
+                    )
                 }
                 if let mutter = narrator.mutterIfDue(
                     turn: turn,
@@ -856,8 +982,14 @@ actor JGenActAgent {
                 ) {
                     await onProgress(.systemLog(mutter))
                 }
+            } else if openCountedAsProgress, let tag = ExplorationAssetStore.toolTag(tool) {
+                mismatchStreak = 0
+                if !successfulTags.contains(tag) {
+                    successfulTags.append(tag)
+                }
             } else if let tag = ExplorationAssetStore.toolTag(tool) {
                 mismatchStreak = 0
+                gap.noteStrategy(tag)
                 if !successfulTags.contains(tag) {
                     successfulTags.append(tag)
                 }
@@ -894,12 +1026,17 @@ actor JGenActAgent {
                     identicalErrorStreak = 1
                     lastErrorFingerprint = fingerprint
                 }
+                // Identical error spam: block that fingerprint, keep exploring while GAP open.
+                // Do NOT end the loop after 2 identical failures — that was premature surrender.
                 if identicalErrorStreak >= 2 {
-                    finalAnswer = AppLanguage.shared.t(
-                        "Stopped repeating the same failing action (\(identicalErrorStreak)×). Last error:\n\(String(trimmed.prefix(500)))\n\nSay 「続けて」 after changing strategy, or use a larger JGEN.",
-                        "同じ失敗操作を \(identicalErrorStreak) 回繰り返したため停止しました。最後のエラー:\n\(String(trimmed.prefix(500)))\n\n方針を変えて「続けて」か、より大きな JGEN を使ってください。"
+                    gap.noteMismatch(action: call.displayLabel, failureType: "identical_error")
+                    observations.append(
+                        "(identical failure ×\(identicalErrorStreak) blocked — \(gap.observationLine()) Try a different limb.)"
                     )
-                    break
+                    lastObservations = observations
+                    identicalErrorStreak = 0
+                    lastErrorFingerprint = ""
+                    continue
                 }
             } else {
                 identicalErrorStreak = 0
@@ -908,8 +1045,11 @@ actor JGenActAgent {
         }
 
         if finalAnswer.isEmpty {
+            let gapNote = gap.isOpen
+                ? " GAP still \(gap.status.rawValue) — say 「続けて」 to keep trying."
+                : ""
             finalAnswer = observations.last.map {
-                "Act loop paused after \(toolCount) tools (say 「続けて」 to resume). Last: \(String($0.prefix(400)))"
+                "Act loop paused after \(toolCount) tools (budget/pause).\(gapNote) Last: \(String($0.prefix(400)))"
             } ?? (handoff.detail.isEmpty ? handoff.asText : handoff.detail)
             finalAnswer = JCrossChatManager.collapsePhraseRepetition(finalAnswer)
         } else if completedWithDone {
@@ -921,6 +1061,11 @@ actor JGenActAgent {
             awaitingUserChoice = false
             pendingCandidates = []
             await executor.clearMissionPayload()
+            await VeraMemoryBridge.recordActGapObservation(
+                sessionId: sid,
+                actionLabel: "DONE_resolved",
+                changed: true
+            )
         }
         // Hierarchical pause leaves lastGoal / pendingCandidates intact for resume.
 
@@ -1147,6 +1292,25 @@ actor JGenActAgent {
         return count
     }
 
+    /// Best-effort GapNode open via Vera MCP; always returns nil on failure (local gap still drives).
+    private static func bootstrapActGap(goalShort: String, goal: String, sessionId: String) async -> String? {
+        let mode = await MainActor.run { CouncilSettingsStore.shared.cognitionMode.rawValue }
+        // cognitionMode is the ONLY gate for GapNode writes (Milestone O contract).
+        // Which memory layer is selected for chat recall is unrelated and must not
+        // bypass "normal" — the Python tool also enforces this independently, this
+        // check just avoids a pointless MCP round-trip when it will no-op anyway.
+        guard mode == "experiment" || mode == "sleep" else { return nil }
+        return await VeraMemoryBridge.bootstrapUnknownTask(
+            name: "act:\(String(goalShort.prefix(80)))",
+            description: "JGEN Act mission gap",
+            userGoal: String(goal.prefix(240)),
+            availableTools: "OPEN_APP,DESKTOP_SNAPSHOT,AX_ACT,DESKTOP_ACT,PASTE_PAYLOAD,DONE",
+            successCriteria: "goal completed with honest DONE",
+            constraints: "no invented app names; cycle limbs blocked; keep trying while gap open",
+            cognitionMode: mode
+        )
+    }
+
     nonisolated static func isContinueRequest(_ question: String) -> Bool {
         let t = question.trimmingCharacters(in: .whitespacesAndNewlines).lowercased()
         let keys = ["続けて", "つづけて", "続行", "再開", "continue", "keep going", "resume", "次へ", "つづき"]
@@ -1154,6 +1318,7 @@ actor JGenActAgent {
     }
 
     nonisolated static func goalNeedsBrowser(_ goal: String) -> Bool {
+        if goalRejectsBrowserBootstrap(goal) { return false }
         let t = goal.lowercased()
         let keys = [
             "safari", "ブラウザ", "chrome", "firefox", "ニュース", "news",
@@ -1161,6 +1326,22 @@ actor JGenActAgent {
             "deepl", "翻訳", "translate", "英訳", "和訳",
         ]
         return keys.contains { t.contains($0) }
+    }
+
+    /// Phone / Messages / Mail / FaceTime goals must not host-bootstrap Safari.
+    /// General rule: named native-app intent without browser keywords.
+    nonisolated static func goalRejectsBrowserBootstrap(_ goal: String) -> Bool {
+        let t = goal.lowercased()
+        let native = [
+            "電話", "phone", "facetime", "フェイスタイム",
+            "メッセージ", "messages", "imessage",
+            "メール", "mail", "contacts", "連絡先",
+            "リマインダー", "reminders", "カレンダー", "calendar",
+        ]
+        let hasNative = native.contains { t.contains($0) }
+        guard hasNative else { return false }
+        let browser = ["safari", "ブラウザ", "chrome", "firefox", "http", "url", "web", "検索", "search", "ニュース", "news"]
+        return !browser.contains { t.contains($0) }
     }
 
     /// True when the goal asks to open/launch something (even if we cannot
@@ -1285,6 +1466,15 @@ actor JGenActAgent {
             }
         }
 
+        // Loose JP app nouns even without を開いて (電話アプリ / メッセージアプリ).
+        if candidates.isEmpty {
+            let loose = ["電話アプリ", "電話", "メッセージアプリ", "メッセージ", "メールアプリ", "メール",
+                         "facetime", "FaceTime", "Phone", "Messages", "Mail"]
+            for token in loose where clipped.localizedCaseInsensitiveContains(token) {
+                candidates.append(token)
+            }
+        }
+
         let stop: Set<String> = [
             "app", "apps", "アプリ", "application", "the", "a", "an",
             "window", "ウィンドウ", "desktop", "デスクトップ",
@@ -1298,6 +1488,14 @@ actor JGenActAgent {
             // Strip trailing JP particles if a loose pattern ate them.
             while let last = token.last, "をはがのにへでも".contains(last) {
                 token.removeLast()
+            }
+            // 「電話アプリ」→ try 「電話アプリ」 then 「電話」
+            if token.hasSuffix("アプリ"), token.count > 3 {
+                let stripped = String(token.dropLast(3))
+                if let resolved = Self.resolveExistingAppName(token) {
+                    return resolved
+                }
+                if !stripped.isEmpty { token = stripped }
             }
             token = token.trimmingCharacters(in: .whitespacesAndNewlines)
             guard token.count >= 2 else { continue }

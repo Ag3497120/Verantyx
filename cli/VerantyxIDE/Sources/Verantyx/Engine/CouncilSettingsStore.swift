@@ -179,6 +179,7 @@ final class CouncilSettingsStore: ObservableObject {
     /// autonomous first-guess navigation.
     /// DNA default ON — policy gate via `ActDNA.shouldPauseForCandidates`, not a new limb.
     nonisolated static let hierarchicalExploreKey = "council_hierarchical_explore"
+    nonisolated static let forceJGenMetalKey = "council_force_jgen_metal"
 
     @Published var hierarchicalExplore: Bool {
         didSet { UserDefaults.standard.set(hierarchicalExplore, forKey: Self.hierarchicalExploreKey) }
@@ -187,6 +188,22 @@ final class CouncilSettingsStore: ObservableObject {
     /// Thread-safe read for actors / non-MainActor call sites.
     nonisolated static var isHierarchicalExplore: Bool {
         (UserDefaults.standard.object(forKey: hierarchicalExploreKey) as? Bool) ?? true
+    }
+
+    /// User override for `JGenGPUSafety`'s CPU-safety default. That default
+    /// exists because of a real observed WindowServer/IOGPU kernel panic on
+    /// M1 Pro under unified-memory pressure — this toggle does not disable
+    /// the mitigation's judgment, it just makes the existing
+    /// `JCROSS_FORCE_METAL=1` escape hatch reachable without an env var.
+    /// Off by default: the safe CPU path stays the default on every Mac,
+    /// including ones the panic was never confirmed on.
+    @Published var forceJGenMetal: Bool {
+        didSet { UserDefaults.standard.set(forceJGenMetal, forKey: Self.forceJGenMetalKey) }
+    }
+
+    /// Thread-safe read for the JGEN load path (not necessarily MainActor).
+    nonisolated static var isForceJGenMetal: Bool {
+        UserDefaults.standard.bool(forKey: forceJGenMetalKey)
     }
 
     /// Effective turn budget passed to `JGenActAgent.run(maxTurns:)`.
@@ -217,6 +234,8 @@ final class CouncilSettingsStore: ObservableObject {
             || (storedTurns.map { $0 <= 0 } ?? false)
         // Default ON: missing key → hierarchical explore (ask before navigating lists).
         hierarchicalExplore = (ud.object(forKey: Self.hierarchicalExploreKey) as? Bool) ?? true
+        // Default OFF: missing key → keep JGenGPUSafety's own CPU-safety judgment.
+        forceJGenMetal = ud.bool(forKey: Self.forceJGenMetalKey)
     }
 
     /// Thread-safe read for actors / non-MainActor call sites (UserDefaults).

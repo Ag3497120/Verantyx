@@ -62,5 +62,28 @@ final class ActDNATests: XCTestCase {
         XCTAssertTrue(ActDNA.isAllowedActLimb(.done(message: "ok")))
         XCTAssertFalse(ActDNA.isAllowedActLimb(.search(query: "x")))
     }
+
+    func testCycleDetectorCatchesSafariSnapshot() {
+        let keys = ["open_app:safari", "desktop_snapshot", "open_app:safari", "desktop_snapshot"]
+        let unit = ActCycleDetector.detectCycle(recentKeys: keys)
+        XCTAssertEqual(unit, ["open_app:safari", "desktop_snapshot"])
+    }
+
+    func testPhoneGoalRejectsSafariBootstrap() {
+        XCTAssertTrue(JGenActAgent.goalRejectsBrowserBootstrap("電話アプリを開いて本西朋子に電話して"))
+        XCTAssertTrue(JGenActAgent.goalRejectsBrowserBootstrap("メッセージを開いてらにメッセージを送って"))
+        XCTAssertFalse(JGenActAgent.goalNeedsBrowser("電話アプリを開いて本西朋子に電話して"))
+        XCTAssertFalse(JGenActAgent.goalRejectsBrowserBootstrap("Safariでニュースを検索して"))
+        XCTAssertTrue(JGenActAgent.goalNeedsBrowser("Safariでニュースを検索して"))
+    }
+
+    func testGapControllerBlocksSurrender() {
+        var gap = ActGapController.open(subject: "open Messages")
+        XCTAssertTrue(gap.isOpen)
+        gap.noteMismatch(action: "open_app:JGEN", failureType: "mismatch")
+        XCTAssertTrue(ActGapController.looksLikeSurrenderDONE("couldn't open the app"))
+        gap.resolve()
+        XCTAssertFalse(gap.isOpen)
+    }
 }
 #endif

@@ -65,6 +65,27 @@ struct JGenVeraSettingsPanelView: View {
                     .foregroundStyle(.secondary)
                     .fixedSize(horizontal: false, vertical: true)
 
+                    Toggle(app.t("Force Metal (GPU) for JGEN", "JGENをMetal(GPU)で強制実行"), isOn: Binding(
+                        get: { council.forceJGenMetal },
+                        set: { council.forceJGenMetal = $0 }
+                    )).toggleStyle(.checkbox)
+                    Text(app.t(
+                        "Default OFF. JGenGPUSafety defaults to CPU on tighter-memory Macs to avoid a real WindowServer/IOGPU crash seen on M1 Pro under memory pressure. Turning this on is the same as JCROSS_FORCE_METAL=1 — try it if your Mac has ample RAM; the setting takes effect on the next model load.",
+                        "既定OFF。JGenGPUSafetyはメモリが逼迫しやすいMacでCPUを既定にします(M1 ProでのWindowServer/IOGPUクラッシュを実際に確認済みのため)。ONにするとJCROSS_FORCE_METAL=1と同じ効果です — RAMに余裕があるMacでは試す価値があります。次回のモデルロードから反映されます。"
+                    ))
+                    .font(.system(size: 9))
+                    .foregroundStyle(.secondary)
+                    .fixedSize(horizontal: false, vertical: true)
+                    if let decision = JGenGPUSafety.lastDecision, let model = JGenGPUSafety.lastModelName {
+                        Text(app.t(
+                            "Last load: \(model) on \(decision.deviceLabel) (\(decision.reasonEN))",
+                            "直近のロード: \(model) を \(decision.deviceLabel) で(\(decision.reasonJA))"
+                        ))
+                        .font(.system(size: 9))
+                        .foregroundStyle(.tertiary)
+                        .fixedSize(horizontal: false, vertical: true)
+                    }
+
                     keyframeEyePermissionBlock()
 
                     Toggle(app.t("Vera as harness (Vera drives the turn)", "Veraをハーネスにする(Veraが主導)"), isOn: Binding(
