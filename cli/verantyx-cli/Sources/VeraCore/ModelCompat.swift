@@ -106,7 +106,28 @@ public struct ModelCompat: Sendable {
             notes.append("Re-run jgen_forge: a partial meta.json means the conversion did not finish.")
         }
 
+        // Hybrid (Gated DeltaNet) models need their GDN geometry named too.
+        // Checking only the attention fields let a Qwen3.5 converted before
+        // jgen_forge emitted them report PASS here and then die inside layer 0
+        // with a shape mismatch — a preflight that misses the one thing that
+        // actually blocks the run is worse than no preflight.
         let support = (meta?["arch"] as? String) ?? "unknown"
+        if support == "hybrid_ssm" {
+            let gdnKeys = ["ssm_dt_rank", "linear_num_value_heads",
+                           "ssm_n_group", "linear_num_key_heads",
+                           "ssm_d_state", "linear_key_head_dim"]
+            let hasGDN = gdnKeys.contains { meta?[$0] != nil }
+            checks.append(Check(
+                name: "Hybrid GDN geometry specified",
+                passed: hasGDN,
+                detail: hasGDN
+                    ? "ssm/linear dims present"
+                    : "missing — engine would be guessing; re-run jgen_forge"
+            ))
+            if !hasGDN {
+                notes.append("This .jgen predates jgen_forge emitting hybrid dims. Re-convert before use.")
+            }
+        }
         let modelArch = (meta?["model_arch"] as? String)
             ?? (meta?["hf_arch"] as? String)
             ?? "unknown"
