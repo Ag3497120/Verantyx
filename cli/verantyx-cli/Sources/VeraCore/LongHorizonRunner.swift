@@ -156,6 +156,23 @@ public final class LongHorizonRunner {
         return try await loop(goalGapId: gap.gapId, goal: gap.subject, resumed: true)
     }
 
+    /// Migrates vector memory written by a previous model into the currently
+    /// loaded model's space. `GapStore` needs no equivalent — it is text.
+    @discardableResult
+    public func reembedMemory() throws -> VectorMemory.ReembedResult? {
+        guard let memory else { return nil }
+        let before = memory.foreignRecordCount
+        let result = try memory.reembed(using: { try self.encodeText($0) })
+        _ = sink.emit(.policy, summary: "vector memory re-embedded for model swap", turn: 0, detail: [
+            "foreign_before": String(before),
+            "migrated": String(result.migrated),
+            "kept": String(result.kept),
+            "failed": String(result.failed),
+            "model": URL(fileURLWithPath: config.modelPath).lastPathComponent,
+        ], tags: ["memory", "model-swap"])
+        return result
+    }
+
     // MARK: - Turn loop
 
     private func loop(goalGapId: String, goal: String, resumed: Bool) async throws -> Outcome {
@@ -227,7 +244,7 @@ public final class LongHorizonRunner {
                 try memory.add(text: reply, kind: "step", vector: vector)
             }
 
-            if Self.looksComplete(reply) {
+            if Self.looksComplete(reply, goal: goal) {
                 try gaps.resolve(goalGapId, note: String(reply.prefix(400)))
                 _ = sink.emit(.result, summary: "gap RESOLVED", turn: turn,
                               detail: ["gap_id": goalGapId], tags: ["resolved"])
@@ -300,23 +317,42 @@ public final class LongHorizonRunner {
         return (lines.first ?? "").trimmingCharacters(in: .whitespacesAndNewlines)
     }
 
-    /// Only an explicit marker *carrying a result* counts as completion.
+    /// Only an explicit marker *carrying a new result* counts as completion.
     ///
-    /// A bare `DONE:` is rejected on purpose: small models routinely echo the
-    /// completion token straight out of the system prompt, and accepting that
-    /// would mark a mission solved on the strength of the instruction that
-    /// described how to end it. Inferring success from prose is how agents come
-    /// to report work they never did.
-    static func looksComplete(_ reply: String) -> Bool {
+    /// Three ways a small model fakes completion, all rejected here:
+    ///   1. a bare `DONE:` — the token echoed out of the system prompt
+    ///   2. `DONE:` followed by the instruction text ("state one concrete…")
+    ///   3. `DONE:` followed by the goal restated verbatim — observed in a real
+    ///      run as "DONE: Trace the cause of the CI packaging failure", which
+    ///      reports the task as its own outcome
+    ///
+    /// A genuine completion has to say something the goal does not already say.
+    /// Inferring success from prose is how agents come to report work they
+    /// never did.
+    static func looksComplete(_ reply: String, goal: String) -> Bool {
         let upper = reply.uppercased()
         guard upper.hasPrefix("DONE:") else { return false }
         let payload = reply.dropFirst("DONE:".count)
             .trimmingCharacters(in: .whitespacesAndNewlines)
-        // Needs real content, and must not just parrot the instruction text.
         guard payload.count >= 12 else { return false }
-        let instructionEcho = ["state one concrete next step", "short result line"]
+
         let lowered = payload.lowercased()
-        return !instructionEcho.contains { lowered.contains($0) }
+        let instructionEcho = ["state one concrete next step", "short result line"]
+        if instructionEcho.contains(where: { lowered.contains($0) }) { return false }
+
+        // Reject when the payload adds essentially nothing to the goal.
+        let goalWords = Set(Self.words(goal))
+        let payloadWords = Set(Self.words(payload))
+        guard !payloadWords.isEmpty else { return false }
+        let novel = payloadWords.subtracting(goalWords)
+        return Double(novel.count) / Double(payloadWords.count) >= 0.4
+    }
+
+    static func words(_ text: String) -> [String] {
+        text.lowercased()
+            .split { !$0.isLetter && !$0.isNumber }
+            .map(String.init)
+            .filter { $0.count > 2 }
     }
 
     /// Short signature of an approach, used to keep a resumed run from

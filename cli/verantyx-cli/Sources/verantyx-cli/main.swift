@@ -26,6 +26,8 @@ struct VeraCLI {
             exit(runCompat(Array(args.dropFirst())))
         case "resume":
             exit(await runLongHorizon(Array(args.dropFirst()), resume: true))
+        case "reembed":
+            exit(await runLongHorizon(Array(args.dropFirst()), resume: false, reembedOnly: true))
         case "schema":
             printSchema()
             exit(0)
@@ -96,7 +98,7 @@ struct VeraCLI {
     ///
     /// Separate from the demo runner: this one actually loads JGEN and drives
     /// the gap-backed loop, so it is the path any published claim rests on.
-    static func runLongHorizon(_ args: [String], resume: Bool) async -> Int32 {
+    static func runLongHorizon(_ args: [String], resume: Bool, reembedOnly: Bool = false) async -> Int32 {
         var modelPath: String?
         var memoryDir = "./memory"
         var goal: String?
@@ -149,7 +151,7 @@ struct VeraCLI {
             fputs("--model is required (use `vera run --demo` for the model-free demo)\n", stderr)
             return 2
         }
-        if !resume, goal == nil {
+        if !resume, !reembedOnly, goal == nil {
             fputs("--goal is required for `vera run --model …`\n", stderr)
             return 2
         }
@@ -180,6 +182,23 @@ struct VeraCLI {
                 ),
                 sink: sink
             )
+
+            if reembedOnly {
+                guard let result = try runner.reembedMemory() else {
+                    fputs("vector memory is disabled — nothing to re-embed\n", stderr)
+                    return 0
+                }
+                fputs("""
+                re-embedded: \(result.migrated) migrated, \(result.kept) already in this space, \(result.failed) failed
+
+                """, stderr)
+                return result.failed == 0 ? 0 : 1
+            }
+
+            // A swap is detected, not assumed: run/resume migrate on sight so a
+            // user who simply passes a new --model does not silently lose the
+            // recall half of memory.
+            try runner.reembedMemory()
 
             let outcome = resume
                 ? try await runner.resume()

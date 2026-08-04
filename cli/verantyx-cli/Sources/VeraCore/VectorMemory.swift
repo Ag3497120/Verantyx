@@ -24,6 +24,13 @@ public final class VectorMemory {
         public var lastAccess: Double
         /// Which model produced the vector — the guard against cross-space recall.
         public var modelId: String
+        /// Width of this record's vector. Models differ (896 / 1024 / 2048 /
+        /// 2560 across the converted set), so the file is heterogeneous and a
+        /// single global stride would read into a neighbouring record.
+        public var dim: Int
+        /// Byte offset into `vectors.f16`. Stored rather than derived for the
+        /// same reason.
+        public var offset: Int
     }
 
     public struct Hit: Sendable {
@@ -95,12 +102,25 @@ public final class VectorMemory {
     /// dot product.
     public func add(text: String, kind: String, vector: [Float]) throws {
         let normalised = Self.l2Normalised(Self.fit(vector, to: dim))
-        let half = normalised.map { Float16($0) }
+        let now = Date().timeIntervalSince1970
+        let offset = try appendVector(normalised)
+        records.append(Record(
+            id: "v_" + UUID().uuidString.prefix(8).lowercased(),
+            text: text, kind: kind, ts: now,
+            accessCount: 0, lastAccess: now, modelId: modelId,
+            dim: dim, offset: offset
+        ))
+        try rewriteIndex()
+    }
 
+    /// Appends fp16 values and returns the byte offset they were written at.
+    private func appendVector(_ values: [Float]) throws -> Int {
+        let half = values.map { Float16($0) }
         let handle: FileHandle
+        var offset = 0
         if FileManager.default.fileExists(atPath: vectorsURL.path) {
             handle = try FileHandle(forWritingTo: vectorsURL)
-            try handle.seekToEnd()
+            offset = Int(try handle.seekToEnd())
         } else {
             FileManager.default.createFile(atPath: vectorsURL.path, contents: nil)
             handle = try FileHandle(forWritingTo: vectorsURL)
@@ -109,14 +129,7 @@ public final class VectorMemory {
         try half.withUnsafeBufferPointer { buf in
             try handle.write(contentsOf: Data(buffer: buf))
         }
-
-        let now = Date().timeIntervalSince1970
-        records.append(Record(
-            id: "v_" + UUID().uuidString.prefix(8).lowercased(),
-            text: text, kind: kind, ts: now,
-            accessCount: 0, lastAccess: now, modelId: modelId
-        ))
-        try rewriteIndex()
+        return offset
     }
 
     // MARK: - Read
@@ -129,23 +142,25 @@ public final class VectorMemory {
         guard let data = FileManager.default.contents(atPath: vectorsURL.path) else { return [] }
 
         let query = Self.l2Normalised(Self.fit(vector, to: dim))
-        let stride = dim * MemoryLayout<Float16>.size
         let now = Date().timeIntervalSince1970
 
         var scored: [(index: Int, score: Float)] = []
         scored.reserveCapacity(records.count)
 
         for (i, record) in records.enumerated() {
-            // Never score across hidden spaces (see `needsReembed`).
+            // Never score across hidden spaces (see `needsReembed`). This also
+            // guarantees `record.dim == dim` below, since one model has one
+            // hidden size.
             guard record.modelId == modelId else { continue }
-            let start = i * stride
-            guard start + stride <= data.count else { break }
+            let start = record.offset
+            let byteCount = record.dim * MemoryLayout<Float16>.size
+            guard start >= 0, start + byteCount <= data.count else { continue }
 
             var dot: Float = 0
             data.withUnsafeBytes { raw in
                 let base = raw.baseAddress!.advanced(by: start)
                     .assumingMemoryBound(to: Float16.self)
-                for j in 0..<dim {
+                for j in 0..<min(record.dim, query.count) {
                     dot += Float(base[j]) * query[j]
                 }
             }
@@ -189,6 +204,82 @@ public final class VectorMemory {
                                 String(text.prefix(maxCharsPerHit))))
         }
         return lines.joined(separator: "\n")
+    }
+
+    // MARK: - Model swap
+
+    public struct ReembedResult: Sendable {
+        public let migrated: Int
+        public let kept: Int
+        public let failed: Int
+    }
+
+    /// Re-encodes every foreign record's **text** with the currently loaded
+    /// model, so accumulated experience survives a model swap.
+    ///
+    /// This is the piece that makes "the model forgets, the agent does not"
+    /// true of the vector half of memory as well. `GapStore` carries over for
+    /// free because it is text; vectors cannot, because a hidden state is only
+    /// meaningful inside the space that produced it. Storing the source text
+    /// next to each vector is what makes re-embedding possible at all —
+    /// without it a swap would silently discard everything learned.
+    ///
+    /// Preserved across the migration: `ts`, `accessCount`, `lastAccess`. How
+    /// old a memory is and how often it proved useful are properties of the
+    /// experience, not of the model that encoded it.
+    ///
+    /// The store is rewritten in place via a temporary file, so an interrupted
+    /// migration leaves the original intact rather than half-converted.
+    @discardableResult
+    public func reembed(using encode: (String) throws -> [Float]) throws -> ReembedResult {
+        guard needsReembed else { return ReembedResult(migrated: 0, kept: records.count, failed: 0) }
+
+        let tempURL = vectorsURL.appendingPathExtension("migrating")
+        FileManager.default.createFile(atPath: tempURL.path, contents: nil)
+        let handle = try FileHandle(forWritingTo: tempURL)
+
+        var rebuilt: [Record] = []
+        rebuilt.reserveCapacity(records.count)
+        var migrated = 0, kept = 0, failed = 0
+        let existing = FileManager.default.contents(atPath: vectorsURL.path) ?? Data()
+
+        for record in records {
+            var updated = record
+            var values: [Float]
+
+            if record.modelId == modelId {
+                // Already in this space — copy the bytes across unchanged.
+                let byteCount = record.dim * MemoryLayout<Float16>.size
+                guard record.offset + byteCount <= existing.count else { failed += 1; continue }
+                let slice = existing[record.offset ..< record.offset + byteCount]
+                var half = [Float16](repeating: 0, count: record.dim)
+                _ = half.withUnsafeMutableBytes { slice.copyBytes(to: $0) }
+                values = half.map { Float($0) }
+                kept += 1
+            } else {
+                guard let fresh = try? encode(record.text) else { failed += 1; continue }
+                values = Self.l2Normalised(Self.fit(fresh, to: dim))
+                updated.modelId = modelId
+                updated.dim = dim
+                migrated += 1
+            }
+
+            updated.offset = Int(try handle.seekToEnd())
+            let half = values.map { Float16($0) }
+            try half.withUnsafeBufferPointer { try handle.write(contentsOf: Data(buffer: $0)) }
+            rebuilt.append(updated)
+        }
+
+        try handle.close()
+        _ = try FileManager.default.replaceItemAt(vectorsURL, withItemAt: tempURL)
+        records = rebuilt
+        try rewriteIndex()
+        return ReembedResult(migrated: migrated, kept: kept, failed: failed)
+    }
+
+    /// Distinct models that have written into this store.
+    public var modelIds: [String] {
+        Array(Set(records.map(\.modelId))).sorted()
     }
 
     // MARK: - Helpers
