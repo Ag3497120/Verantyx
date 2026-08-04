@@ -1504,7 +1504,8 @@ final class AppState: ObservableObject {
                 userGoal: String(instruction.prefix(400)),
                 availableTools: "vera_git_clone,vera_code_ingest,web_search,fetch_url,vera_ask",
                 successCriteria: "task completed without premature surrender",
-                constraints: "identical tool spam blocked; keep trying distinct strategies while gap open"
+                constraints: "identical tool spam blocked; keep trying distinct strategies while gap open",
+                cognitionMode: mode.rawValue
             )
             if let gapId {
                 addSystemMessage(t(

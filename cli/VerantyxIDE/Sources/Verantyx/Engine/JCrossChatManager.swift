@@ -117,6 +117,14 @@ actor JCrossChatManager {
         let mirrorWatching = await MainActor.run {
             HiddenWindowAutomation.shared.isMirrorWatching
         }
+        // Settings-driven escape hatch for JGenGPUSafety's CPU-safety default
+        // (see CouncilSettingsStore.forceJGenMetal) — equivalent to setting
+        // JCROSS_FORCE_METAL=1 by hand, just reachable from the UI.
+        if CouncilSettingsStore.isForceJGenMetal {
+            setenv("JCROSS_FORCE_METAL", "1", 1)
+        } else if ProcessInfo.processInfo.environment["JCROSS_FORCE_METAL"] == "1" {
+            unsetenv("JCROSS_FORCE_METAL")
+        }
         let decision = JGenGPUSafety.prepareEnvironmentForLoad(
             modelFileName: modelFileName,
             mirrorWatching: mirrorWatching

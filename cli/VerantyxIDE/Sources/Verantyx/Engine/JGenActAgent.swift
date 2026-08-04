@@ -1295,18 +1295,19 @@ actor JGenActAgent {
     /// Best-effort GapNode open via Vera MCP; always returns nil on failure (local gap still drives).
     private static func bootstrapActGap(goalShort: String, goal: String, sessionId: String) async -> String? {
         let mode = await MainActor.run { CouncilSettingsStore.shared.cognitionMode.rawValue }
-        let isVeraLayer = await MainActor.run {
-            AppState.shared?.sessions.activeSession?.activeLayer == .vera
-        }
-        // MCP GapGraph writes are no-ops in "normal" — still try when Vera layer or experiment/sleep.
-        guard isVeraLayer || mode == "experiment" || mode == "sleep" else { return nil }
+        // cognitionMode is the ONLY gate for GapNode writes (Milestone O contract).
+        // Which memory layer is selected for chat recall is unrelated and must not
+        // bypass "normal" — the Python tool also enforces this independently, this
+        // check just avoids a pointless MCP round-trip when it will no-op anyway.
+        guard mode == "experiment" || mode == "sleep" else { return nil }
         return await VeraMemoryBridge.bootstrapUnknownTask(
             name: "act:\(String(goalShort.prefix(80)))",
             description: "JGEN Act mission gap",
             userGoal: String(goal.prefix(240)),
             availableTools: "OPEN_APP,DESKTOP_SNAPSHOT,AX_ACT,DESKTOP_ACT,PASTE_PAYLOAD,DONE",
             successCriteria: "goal completed with honest DONE",
-            constraints: "no invented app names; cycle limbs blocked; keep trying while gap open"
+            constraints: "no invented app names; cycle limbs blocked; keep trying while gap open",
+            cognitionMode: mode
         )
     }
 

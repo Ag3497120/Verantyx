@@ -287,17 +287,22 @@ enum VeraMemoryBridge {
 
     /// Milestone R2: structure an unfamiliar Act/harness mission into GapNodes.
     /// Returns the first gap_id when present, else nil. Never blocks the Act loop.
+    /// `cognitionMode` is forwarded as-is — the Python tool itself is the one
+    /// that enforces "normal" as a guaranteed no-op (same contract as
+    /// `recordUITransition`/Milestone S), so callers must not bypass this by
+    /// gating on unrelated state (e.g. which memory layer is selected).
     static func bootstrapUnknownTask(
         name: String,
         description: String = "",
         userGoal: String = "",
         availableTools: String = "",
         successCriteria: String = "",
-        constraints: String = ""
+        constraints: String = "",
+        cognitionMode: String = "normal"
     ) async -> String? {
         let trimmed = name.trimmingCharacters(in: .whitespacesAndNewlines)
         guard !trimmed.isEmpty else { return nil }
-        var args: [String: Any] = ["name": trimmed]
+        var args: [String: Any] = ["name": trimmed, "cognition_mode": cognitionMode]
         if !description.isEmpty { args["description"] = description }
         if !userGoal.isEmpty { args["user_goal"] = userGoal }
         if !availableTools.isEmpty { args["available_tools"] = availableTools }
