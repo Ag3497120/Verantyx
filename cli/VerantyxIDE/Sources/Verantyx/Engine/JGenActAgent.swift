@@ -562,6 +562,19 @@ actor JGenActAgent {
         }
 
         turnLoop: for turn in 1...turnsCap {
+            // The Stop button cancels `AppState.inferenceTask`, and this loop
+            // runs as a plain `await` chain inside that same Task — but until
+            // now nothing here ever checked `Task.isCancelled`, so pressing
+            // Stop left this actor still looping (more OPEN_APP/AX_ACT/
+            // DESKTOP_SNAPSHOT calls, more JGEN generates) with no way to
+            // observe it from the UI. Mirrors the same check AgentLoop.swift
+            // already has in its own turn loop.
+            if Task.isCancelled {
+                await onProgress(.systemLog(AppLanguage.shared.t(
+                    "⏹ Stopped by user.", "⏹ ユーザーによって停止されました。")))
+                lastObservations = observations
+                return Outcome(text: "", turns: turn - 1, toolCount: toolCount)
+            }
             let memory = await JGenVectorBusMemory.recallBundle(
                 for: goalShort, sessionId: sid, useEternal: useEternalMemory, k: 3,
                 preferDirective: true
@@ -685,6 +698,10 @@ actor JGenActAgent {
                     // trailing junk from 0.5B models.
                     if Self.hasCompleteToolTag(streamed) { return false }
                     if JCrossChatManager.isPhraseLooping(streamed) { return false }
+                    // Per-token cancellation check: generate is the slowest
+                    // single step in a turn, so this is what makes Stop feel
+                    // responsive instead of waiting out the whole token budget.
+                    if Task.isCancelled { return false }
                     return true
                 }
             } catch {
@@ -692,6 +709,13 @@ actor JGenActAgent {
                 await onProgress(.error(msg))
                 lastObservations = observations
                 return Outcome(text: msg, turns: turn, toolCount: toolCount)
+            }
+
+            if Task.isCancelled {
+                await onProgress(.systemLog(AppLanguage.shared.t(
+                    "⏹ Stopped by user.", "⏹ ユーザーによって停止されました。")))
+                lastObservations = observations
+                return Outcome(text: "", turns: turn, toolCount: toolCount)
             }
 
             let cleaned = JCrossChatManager.collapsePhraseRepetition(
