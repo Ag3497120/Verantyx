@@ -628,6 +628,30 @@ actor JCrossChatManager {
             startPos: startPos, flags: JCrossEngine.SegmentFlags(rawValue: rawFlags))
     }
 
+    /// Raw generation with vector-injected memory, over pre-tokenized ids.
+    ///
+    /// Deliberately raw (no ChatML wrapping, no reply cleanup): the A/B compares
+    /// conditions that differ only in how memory arrives, so anything else this
+    /// path might normally do would be a confound.
+    ///
+    /// Does not reset — the caller must, and the harness does before every run.
+    /// Making it reset here would hide the contract that bit the Rust-side test.
+    func generateInjectedRaw(
+        promptTokens: [UInt32],
+        soft: [[Float]] = [],
+        layerInjections: [(layer: Int, vector: [Float], alpha: Float)] = [],
+        injectEachStep: Bool = false,
+        maxTokens: Int
+    ) throws -> [UInt32] {
+        guard let engine else { throw ChatError.notLoaded }
+        return try withCapturePaused {
+            try engine.generateInjected(
+                promptTokens: promptTokens, soft: soft,
+                layerInjections: layerInjections,
+                injectEachStep: injectEachStep, maxTokens: maxTokens)
+        }
+    }
+
     /// Layer count of the loaded model, for the split planner.
     var loadedLayerCount: Int { engine?.numLayers ?? 0 }
 

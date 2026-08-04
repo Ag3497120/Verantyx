@@ -14,6 +14,7 @@ import Foundation
 ///
 ///     VERANTYX_PIPE_SELFTEST=worker
 ///     VERANTYX_PIPE_SELFTEST=master:127.0.0.1:8790:<model.jgen>
+///     VERANTYX_PIPE_SELFTEST=memoryab:<model.jgen>   (memory injection A/B)
 ///
 /// The master writes its verdict to `~/pipe_selftest_result.txt` and exits.
 enum PipeSelfTest {
@@ -30,6 +31,39 @@ enum PipeSelfTest {
 
     private static func run(spec: String) async {
         let parts = spec.split(separator: ":", maxSplits: 3).map(String.init)
+
+        // Memory A/B shares this launcher because it has the same shape of
+        // need: a real engine, a real store, and no GUI in the way.
+        if parts[0] == "memoryab" {
+            let model = parts.count > 1 ? parts[1] : ""
+            if !model.isEmpty { await loadModel(model) }
+            var settings = VectorMemoryInjection.Settings()
+            let env = ProcessInfo.processInfo.environment
+            if let a = env["VERANTYX_AB_ALPHA"], let v = Float(a) { settings.alpha = v }
+            if let l = env["VERANTYX_AB_LAYER"], let v = Int(l) { settings.layer = v }
+            do {
+                let tokens = Int(env["VERANTYX_AB_TOKENS"] ?? "") ?? 48
+                let report = try await MemoryABHarness.shared.run(settings: settings, maxTokens: tokens)
+                var lines = ["model: \(report.model)",
+                             "alpha: \(report.settings.alpha)  layer: \(report.settings.layer.map(String.init) ?? "auto(N/3)")",
+                             ""]
+                for o in report.outcomes {
+                    lines.append(String(format: "[%-6@] %@  prompt %d chars, %d tok, %.1fs",
+                                        o.mode as NSString,
+                                        (o.correct ? "PASS" : "fail") as NSString,
+                                        o.promptChars, o.generatedTokens, o.seconds))
+                    lines.append("         Q: \(o.question)")
+                    lines.append("         A: \(o.answer.prefix(160))")
+                }
+                lines.append("")
+                lines.append(report.summary)
+                for l in lines { log(l) }
+                write(lines)
+            } catch {
+                log("memoryab FAILED: \(error.localizedDescription)")
+            }
+            return
+        }
 
         if parts[0] == "worker" {
             // The worker only needs the model loaded and the channel listening;

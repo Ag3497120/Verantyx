@@ -102,6 +102,37 @@ int32_t jcross_engine_encode_layers(
     float *out_ptr, size_t out_len
 );
 
+// Generation with memory supplied as vectors rather than as prompt text.
+//
+// Two independent routes, both optional, usable together:
+//   soft_ptr    n_soft * hidden_dim f32, prepended as virtual tokens before the
+//               prompt (embedding space -- these occupy real positions)
+//   inject_*    n_inject (layer, hidden_dim vector, alpha) triples, blended into
+//               that layer's residual during prefill (norm-matched, so alpha is
+//               a mix ratio and not an amount added)
+//
+// inject_each_step != 0 re-applies the layer blend on every decode step instead
+// of conditioning once during prefill.
+//
+// Measured on qwen2.5-0.5b: alpha up to ~0.4 keeps generation coherent; 0.5 and
+// above degrades, and 1.0 collapses to a repeated token. alpha=1 means "replace
+// the residual with this direction", so that is correct behaviour rather than a
+// defect -- but it does mean the useful band is narrow.
+//
+// Returns the number of tokens written, or a negative error code.
+int32_t jcross_engine_generate_injected(
+    void *engine,
+    const uint32_t *prompt_ptr, size_t prompt_len,
+    const float *soft_ptr, size_t n_soft,
+    const uint32_t *inject_layers_ptr,
+    const float *inject_vecs_ptr,
+    const float *inject_alphas_ptr,
+    size_t n_inject,
+    int32_t inject_each_step,
+    size_t max_tokens,
+    uint32_t *out_ptr, size_t out_len
+);
+
 // ---------------------------------------------------------------------------
 // Layer-range execution (pipeline parallelism across two machines)
 // ---------------------------------------------------------------------------

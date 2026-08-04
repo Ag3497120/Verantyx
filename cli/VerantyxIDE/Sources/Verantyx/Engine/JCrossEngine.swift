@@ -265,6 +265,58 @@ final class JCrossEngine {
     /// Returns a dictionary keyed by observe layer index (not an array --
     /// callers shouldn't need to track index<->layer correspondence
     /// themselves).
+    // MARK: - Vector-injected generation
+
+    /// Memory supplied as vectors instead of prompt text.
+    ///
+    /// `alpha` is a mix ratio into a norm-matched blend, not an amount added.
+    /// The measured usable band on a 0.5B model runs to about 0.4; above that
+    /// generation thins and then collapses, which is correct for a ratio that
+    /// approaches "replace the residual entirely" but does mean the window is
+    /// narrow enough to be worth respecting.
+    func generateInjected(
+        promptTokens: [UInt32],
+        soft: [[Float]] = [],
+        layerInjections: [(layer: Int, vector: [Float], alpha: Float)] = [],
+        injectEachStep: Bool = false,
+        maxTokens: Int
+    ) throws -> [UInt32] {
+        var prompt = promptTokens
+        var softFlat = soft.flatMap { $0 }
+        var layers = layerInjections.map { UInt32($0.layer) }
+        var vecs = layerInjections.flatMap { $0.vector }
+        var alphas = layerInjections.map { $0.alpha }
+        var out = [UInt32](repeating: 0, count: maxTokens)
+
+        let n: Int32 = prompt.withUnsafeMutableBufferPointer { pBuf in
+            softFlat.withUnsafeMutableBufferPointer { sBuf in
+                layers.withUnsafeMutableBufferPointer { lBuf in
+                    vecs.withUnsafeMutableBufferPointer { vBuf in
+                        alphas.withUnsafeMutableBufferPointer { aBuf in
+                            out.withUnsafeMutableBufferPointer { oBuf in
+                                jcross_engine_generate_injected(
+                                    handle,
+                                    pBuf.baseAddress, pBuf.count,
+                                    soft.isEmpty ? nil : sBuf.baseAddress, soft.count,
+                                    layerInjections.isEmpty ? nil : lBuf.baseAddress,
+                                    layerInjections.isEmpty ? nil : vBuf.baseAddress,
+                                    layerInjections.isEmpty ? nil : aBuf.baseAddress,
+                                    layerInjections.count,
+                                    injectEachStep ? 1 : 0,
+                                    maxTokens,
+                                    oBuf.baseAddress, oBuf.count)
+                            }
+                        }
+                    }
+                }
+            }
+        }
+        guard n >= 0 else {
+            throw JCrossError.ffiError(function: "jcross_engine_generate_injected", code: n)
+        }
+        return Array(out.prefix(Int(n)))
+    }
+
     // MARK: - Layer-range execution (pipeline parallelism)
 
     /// Flags for `segment(...)`. Mirrors SEG_FLAG_* in the Rust engine.
