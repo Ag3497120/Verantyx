@@ -17,9 +17,19 @@ let package = Package(
         .library(name: "VeraCore", targets: ["VeraCore"]),
         .executable(name: "vera", targets: ["verantyx-cli"]),
     ],
+    dependencies: [
+        // Same tokenizer the IDE uses, at the same major version, so a trace
+        // produced here and a run in the GUI tokenize identically — otherwise
+        // "same agent, different model" comparisons would be confounded by
+        // a different tokenization.
+        .package(url: "https://github.com/huggingface/swift-transformers", from: "0.1.15"),
+    ],
     targets: [
         .target(
             name: "VeraCore",
+            dependencies: [
+                .product(name: "Transformers", package: "swift-transformers"),
+            ],
             path: "Sources/VeraCore"
         ),
         .executableTarget(

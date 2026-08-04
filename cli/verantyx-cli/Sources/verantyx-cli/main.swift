@@ -12,10 +12,20 @@ struct VeraCLI {
 
         switch command {
         case "run":
-            exit(await runMission(Array(args.dropFirst())))
+            // `--model` selects the real JGEN-backed long-horizon loop;
+            // without it, `run` stays the model-free demo runner.
+            let rest = Array(args.dropFirst())
+            if rest.contains("--model") {
+                exit(await runLongHorizon(rest, resume: false))
+            }
+            exit(await runMission(rest))
         case "demo":
             // Alias: reproducible first-publish demo
             exit(await runMission(["--demo"] + Array(args.dropFirst())))
+        case "compat":
+            exit(runCompat(Array(args.dropFirst())))
+        case "resume":
+            exit(await runLongHorizon(Array(args.dropFirst()), resume: true))
         case "schema":
             printSchema()
             exit(0)
@@ -37,15 +47,34 @@ struct VeraCLI {
         vera — Verantyx research / repro CLI (GUI stays intact; CLI owns structured logs)
 
         Usage:
-          vera run --demo [--trace PATH] [--dry-run]
-          vera run --goal "…" [--app Calculator] [--trace PATH] [--dry-run]
-          vera demo [--trace PATH] [--dry-run]
+          vera compat --model M.jgen
+          vera run    --model M.jgen --memory DIR --goal "…" [--trace T.jsonl] [--max-turns N] [--no-vector-memory]
+          vera resume --model M.jgen --memory DIR [--trace T.jsonl] [--max-turns N]
+          vera run --demo [--trace PATH] [--dry-run]      # model-free demo
           vera schema
           vera version
 
+        Long-horizon runtime:
+          Every turn is an independent forward pass — the KV cache is reset before
+          each one and no conversation history is kept. Purpose and prior attempts
+          live in DIR/gaps.json; recalled experience in DIR/vectors.*. `resume`
+          therefore continues a mission in a fresh process from an empty model.
+
+          The model forgets every turn. The agent does not.
+
+        Model support:
+          Runtime is model-agnostic. Published/validated target is Qwen3.6-27B
+          (hybrid Gated DeltaNet), with Qwen3.8-27B as the planned swap test.
+          `vera compat` reports which tier a given .jgen falls into.
+
         Examples:
-          swift run vera run --demo --trace traces/demo.jsonl
-          vera run --demo --dry-run --trace traces/demo.jsonl
+          vera compat --model qwen3.6-27b.jgen
+          vera run --model qwen3.6-27b.jgen --memory ./memory \\
+                   --goal "Audit this repository for unresolved bugs" \\
+                   --trace runs/qwen36.jsonl
+          vera resume --model qwen3.6-27b.jgen --memory ./memory
+          # A/B the memory itself:
+          vera run … --no-vector-memory
 
         Event kinds (stdout + JSONL):
           MISSION / OBSERVATION / PROPOSED_ACTION / POLICY / RESULT / GAP / SKILL_RECALL
@@ -61,6 +90,158 @@ struct VeraCLI {
         TODO(gui): thin-visualize JSONL / SSE from this CLI — do not rebuild GUI as brain.
         """
         print(text)
+    }
+
+    /// `vera run --model … --memory …` and `vera resume --model … --memory …`.
+    ///
+    /// Separate from the demo runner: this one actually loads JGEN and drives
+    /// the gap-backed loop, so it is the path any published claim rests on.
+    static func runLongHorizon(_ args: [String], resume: Bool) async -> Int32 {
+        var modelPath: String?
+        var memoryDir = "./memory"
+        var goal: String?
+        var tracePath: String?
+        var maxTurns = 8
+        var noVectorMemory = false
+
+        var i = 0
+        while i < args.count {
+            func value(_ flag: String) -> String? {
+                i += 1
+                guard i < args.count else {
+                    fputs("\(flag) requires a value\n", stderr)
+                    return nil
+                }
+                return args[i]
+            }
+            switch args[i] {
+            case "--model":
+                guard let v = value("--model") else { return 2 }
+                modelPath = v
+            case "--memory":
+                guard let v = value("--memory") else { return 2 }
+                memoryDir = v
+            case "--goal":
+                guard let v = value("--goal") else { return 2 }
+                goal = v
+            case "--trace":
+                guard let v = value("--trace") else { return 2 }
+                tracePath = v
+            case "--max-turns":
+                guard let v = value("--max-turns"), let n = Int(v) else { return 2 }
+                maxTurns = n
+            case "--no-vector-memory":
+                noVectorMemory = true
+            case "-h", "--help":
+                print("""
+                vera run    --model M.jgen --memory DIR --goal "…" [--trace T.jsonl] [--max-turns N] [--no-vector-memory]
+                vera resume --model M.jgen --memory DIR [--trace T.jsonl] [--max-turns N]
+                """)
+                return 0
+            default:
+                fputs("unknown flag: \(args[i])\n", stderr)
+                return 2
+            }
+            i += 1
+        }
+
+        guard let modelPath else {
+            fputs("--model is required (use `vera run --demo` for the model-free demo)\n", stderr)
+            return 2
+        }
+        if !resume, goal == nil {
+            fputs("--goal is required for `vera run --model …`\n", stderr)
+            return 2
+        }
+
+        // Refuse to start on a model the engine cannot load, rather than
+        // failing deep inside the first forward pass.
+        let compat = VeraCore.ModelCompat.inspect(modelPath: modelPath)
+        guard compat.allBlockingChecksPassed else {
+            fputs(compat.report() + "\n", stderr)
+            fputs("\npreflight failed — not starting\n", stderr)
+            return 1
+        }
+
+        let missionId = "m-" + String(UUID().uuidString.prefix(8)).lowercased()
+        let traceURL = tracePath.map { URL(fileURLWithPath: $0, relativeTo: cwdURL()).standardizedFileURL }
+        let memoryURL = URL(fileURLWithPath: memoryDir, relativeTo: cwdURL()).standardizedFileURL
+
+        do {
+            let sink = try VeraEventSink(missionId: missionId, traceURL: traceURL, writeStdout: true)
+            defer { sink.close() }
+
+            let runner = try await VeraCore.LongHorizonRunner(
+                config: .init(
+                    modelPath: modelPath,
+                    memoryDirectory: memoryURL,
+                    maxTurns: maxTurns,
+                    useVectorMemory: !noVectorMemory
+                ),
+                sink: sink
+            )
+
+            let outcome = resume
+                ? try await runner.resume()
+                : try await runner.run(goal: goal!)
+
+            if let traceURL {
+                fputs("trace written: \(traceURL.path)\n", stderr)
+            }
+            guard let outcome else { return 0 }
+            fputs("""
+            turns=\(outcome.turns) open_gaps=\(outcome.openGaps) resolved=\(outcome.resolvedGaps)
+            prompt tokens/turn: \(outcome.promptTokensPerTurn.map(String.init).joined(separator: ", "))
+
+            """, stderr)
+            return 0
+        } catch {
+            fputs("vera \(resume ? "resume" : "run") failed: \(error)\n", stderr)
+            return 1
+        }
+    }
+
+    static func cwdURL() -> URL {
+        URL(fileURLWithPath: FileManager.default.currentDirectoryPath)
+    }
+
+    /// Step 0 of the release plan: report what a model *would* need, without
+    /// loading it and without claiming it runs.
+    static func runCompat(_ args: [String]) -> Int32 {
+        var modelPath: String?
+        var i = 0
+        while i < args.count {
+            switch args[i] {
+            case "--model":
+                i += 1
+                guard i < args.count else {
+                    fputs("--model requires a path\n", stderr)
+                    return 2
+                }
+                modelPath = args[i]
+            case "-h", "--help":
+                print("vera compat --model PATH/TO/model.jgen")
+                return 0
+            default:
+                // Allow a bare path: `vera compat model.jgen`
+                if modelPath == nil, !args[i].hasPrefix("-") {
+                    modelPath = args[i]
+                } else {
+                    fputs("unknown flag: \(args[i])\n", stderr)
+                    return 2
+                }
+            }
+            i += 1
+        }
+
+        guard let modelPath else {
+            fputs("usage: vera compat --model PATH/TO/model.jgen\n", stderr)
+            return 2
+        }
+
+        let report = VeraCore.ModelCompat.inspect(modelPath: modelPath)
+        print(report.report())
+        return report.allBlockingChecksPassed ? 0 : 1
     }
 
     static func printSchema() {
