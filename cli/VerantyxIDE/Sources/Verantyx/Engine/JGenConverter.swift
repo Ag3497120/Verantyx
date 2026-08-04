@@ -147,8 +147,22 @@ final class JGenConverter: ObservableObject {
         refreshConvertedModelsList()
     }
 
+    /// Suppresses the delete sweep while something is writing a `.jgen` that
+    /// does not have its sidecar yet.
+    ///
+    /// Counted rather than boolean because a transfer and a conversion can
+    /// overlap. Model transfer stages outside this directory precisely so it
+    /// never depends on this guard — but `refreshConvertedModelsList` runs on
+    /// every inventory refresh, which the model picker triggers routinely, and
+    /// the next person to add a write path here should not have to rediscover
+    /// that a partial file gets deleted out from under them.
+    private var protectedWrites = 0
+
+    func beginProtectedWrite() { protectedWrites += 1 }
+    func endProtectedWrite() { protectedWrites = max(0, protectedWrites - 1) }
+
     func refreshConvertedModelsList() {
-        let sweep = !isRunning
+        let sweep = !isRunning && protectedWrites == 0
         let dir = appSupportBaseDir.appendingPathComponent("converted_models").path
         var names = Set<String>()
         if let entries = try? FileManager.default.contentsOfDirectory(atPath: dir) {

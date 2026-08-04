@@ -631,7 +631,33 @@ actor JCrossChatManager {
     /// Layer count of the loaded model, for the split planner.
     var loadedLayerCount: Int { engine?.numLayers ?? 0 }
 
-    func trimMemory() {
+    /// Releases composed-weight caches and the KV cache.
+    ///
+    /// Refuses while a pipeline turn is in flight. `trim` clears `kv_cache`,
+    /// `gpu_kv` and `hybrid_state` — which is correct between turns and
+    /// catastrophic during one: this machine's slice of the KV cache vanishes
+    /// and every subsequent token is computed against an empty cache, producing
+    /// fluent, wrong text with no error and no crash. It is the second of the
+    /// two silent-corruption modes in this design (the first being a turn that
+    /// starts without a RESET ack), and unlike that one it is entirely internal
+    /// — no network involved, so nothing else would surface it.
+    ///
+    /// Skipping a trim costs memory that gets reclaimed at the next turn
+    /// boundary. Performing one mid-turn costs the answer.
+    @discardableResult
+    func trimMemory() -> Bool {
+        guard pipelineTurnsInFlight == 0 else { return false }
         engine?.trim()
+        return true
     }
+
+    // MARK: - Pipeline turn guard
+
+    private var pipelineTurnsInFlight = 0
+
+    /// Marks a distributed turn as running. Counted rather than boolean because
+    /// a Council round and a chat turn can overlap on the same engine.
+    func beginPipelineTurn() { pipelineTurnsInFlight += 1 }
+    func endPipelineTurn() { pipelineTurnsInFlight = max(0, pipelineTurnsInFlight - 1) }
+    var isPipelineTurnInFlight: Bool { pipelineTurnsInFlight > 0 }
 }
