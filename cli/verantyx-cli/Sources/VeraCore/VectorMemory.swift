@@ -31,6 +31,13 @@ public final class VectorMemory {
         /// Byte offset into `vectors.f16`. Stored rather than derived for the
         /// same reason.
         public var offset: Int
+        /// Shape of the situation this was recorded under. Lets recall be
+        /// driven by structure rather than clock time alone.
+        public var signature: StructuralSignature?
+        /// Which agent wrote it. Subagents sharing one model share one vector
+        /// space by construction — this records provenance, it does not
+        /// partition the store.
+        public var agentId: String?
     }
 
     public struct Hit: Sendable {
@@ -100,7 +107,10 @@ public final class VectorMemory {
     /// Stores one memory. `vector` is expected to come from
     /// `JGenBackend.encode` and is L2-normalised here so recall is a plain
     /// dot product.
-    public func add(text: String, kind: String, vector: [Float]) throws {
+    public func add(
+        text: String, kind: String, vector: [Float],
+        signature: StructuralSignature? = nil, agentId: String? = nil
+    ) throws {
         let normalised = Self.l2Normalised(Self.fit(vector, to: dim))
         let now = Date().timeIntervalSince1970
         let offset = try appendVector(normalised)
@@ -108,7 +118,8 @@ public final class VectorMemory {
             id: "v_" + UUID().uuidString.prefix(8).lowercased(),
             text: text, kind: kind, ts: now,
             accessCount: 0, lastAccess: now, modelId: modelId,
-            dim: dim, offset: offset
+            dim: dim, offset: offset,
+            signature: signature, agentId: agentId
         ))
         try rewriteIndex()
     }
@@ -137,7 +148,16 @@ public final class VectorMemory {
     /// Cosine similarity re-ranked by a recency/frequency gravity term, so a
     /// memory that keeps proving useful stays reachable while a one-off from
     /// months ago fades without being deleted.
-    public func search(vector: [Float], k: Int) throws -> [Hit] {
+    ///
+    /// When `against` is supplied, a memory recorded under a structurally
+    /// matching situation is lifted. This is the answer to "how should memory
+    /// age": not purely by the clock. A six-month-old record of the same
+    /// failure shape you are stuck on now is more use than yesterday's
+    /// unrelated note, and time decay alone would have it the other way round.
+    /// Time still participates — it just stops being the only judge.
+    public func search(
+        vector: [Float], k: Int, against signature: StructuralSignature? = nil
+    ) throws -> [Hit] {
         guard !records.isEmpty, k > 0 else { return [] }
         guard let data = FileManager.default.contents(atPath: vectorsURL.path) else { return [] }
 
@@ -165,10 +185,20 @@ public final class VectorMemory {
                 }
             }
 
+            let level: StructuralSignature.MatchLevel = {
+                guard let signature, let recorded = record.signature else { return .notComparable }
+                return signature.match(recorded)
+            }()
+
             let days = max(0, (now - record.lastAccess) / 86_400)
-            let halfLife = Self.gravityHalfLifeDays * Double(1 + record.accessCount)
+            // Three things resist forgetting: being recent, having proved
+            // useful before, and matching the shape of the current problem.
+            // The third is what stops the clock alone deciding relevance.
+            let halfLife = Self.gravityHalfLifeDays
+                * Double(1 + record.accessCount)
+                * level.ageResistance
             let gravity = Float(pow(0.5, days / halfLife))
-            scored.append((i, dot * (0.7 + 0.3 * gravity)))
+            scored.append((i, dot * (0.7 + 0.3 * gravity) + level.recallBoost))
         }
 
         scored.sort { $0.score > $1.score }
@@ -193,9 +223,11 @@ public final class VectorMemory {
     /// unbounded store, otherwise remembering more would silently cost more
     /// per turn and the flat-cost property this runtime claims would not hold.
     public func recallBlock(
-        vector: [Float], k: Int = 3, minScore: Float = 0.2, maxCharsPerHit: Int = 160
+        vector: [Float], k: Int = 3, minScore: Float = 0.2, maxCharsPerHit: Int = 160,
+        against signature: StructuralSignature? = nil
     ) throws -> String {
-        let hits = try search(vector: vector, k: k).filter { $0.score >= minScore }
+        let hits = try search(vector: vector, k: k, against: signature)
+            .filter { $0.score >= minScore }
         guard !hits.isEmpty else { return "" }
         var lines = ["[RECALLED] from prior work on this mission"]
         for hit in hits {
@@ -281,6 +313,18 @@ public final class VectorMemory {
     public var modelIds: [String] {
         Array(Set(records.map(\.modelId))).sorted()
     }
+
+    #if DEBUG
+    /// Backdates every record so decay behaviour can be tested without waiting
+    /// months. Test-only; not part of the public contract.
+    func debugSetAge(days: Double) {
+        let then = Date().timeIntervalSince1970 - days * 86_400
+        for i in records.indices {
+            records[i].ts = then
+            records[i].lastAccess = then
+        }
+    }
+    #endif
 
     // MARK: - Helpers
 

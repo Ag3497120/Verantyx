@@ -26,19 +26,37 @@ public final class LongHorizonRunner {
         /// Set false to measure the counterfactual: same loop, same gaps, no
         /// vector recall. This is the A/B the release plan asks for.
         public var useVectorMemory: Bool
+        /// Where tools operate. Separate from `memoryDirectory` so a run cannot
+        /// edit its own memory through the file tools.
+        public var workspace: URL
+        public var toolPolicy: ToolPolicy
+        /// Names this runner in shared memory.
+        ///
+        /// Subagents pointed at the same `--memory` directory and the same
+        /// model share one vector space by construction — same hidden space,
+        /// same store, so what one learns the next can recall. This field
+        /// records who wrote a memory; it deliberately does **not** partition
+        /// the store, because partitioning it would defeat the sharing.
+        public var agentId: String?
 
         public init(
             modelPath: String,
             memoryDirectory: URL,
             maxTurns: Int = 8,
             maxTokensPerTurn: Int = 96,
-            useVectorMemory: Bool = true
+            useVectorMemory: Bool = true,
+            workspace: URL = URL(fileURLWithPath: FileManager.default.currentDirectoryPath),
+            toolPolicy: ToolPolicy = .readOnly,
+            agentId: String? = nil
         ) {
             self.modelPath = modelPath
             self.memoryDirectory = memoryDirectory
             self.maxTurns = maxTurns
             self.maxTokensPerTurn = maxTokensPerTurn
             self.useVectorMemory = useVectorMemory
+            self.workspace = workspace
+            self.toolPolicy = toolPolicy
+            self.agentId = agentId
         }
     }
 
@@ -58,12 +76,14 @@ public final class LongHorizonRunner {
     private let gaps: GapStore
     private let memory: VectorMemory?
     private let sink: VeraEventSink
+    private let tools: ToolExecutor
 
     public init(config: Config, sink: VeraEventSink) async throws {
         self.config = config
         self.sink = sink
         self.backend = try JGenBackend(modelPath: config.modelPath)
         self.gaps = try GapStore(directory: config.memoryDirectory)
+        self.tools = ToolExecutor(workspace: config.workspace, policy: config.toolPolicy)
 
         // Tokenizer comes from the sidecar meta written at conversion time —
         // the model file itself carries no vocabulary.
@@ -195,7 +215,11 @@ public final class LongHorizonRunner {
 
             if let memory {
                 let probe = try encodeText(goal + " " + (current.failureType ?? ""))
-                let recalled = try memory.recallBlock(vector: probe, k: 3)
+                // Recall is judged by shape as well as similarity: a memory of
+                // the same failure shape stays reachable however old it is.
+                let recalled = try memory.recallBlock(
+                    vector: probe, k: 3, against: StructuralSignature(gap: current)
+                )
                 if !recalled.isEmpty {
                     blocks.append(recalled)
                     _ = sink.emit(.skill_recall, summary: "recalled prior experience",
@@ -239,9 +263,44 @@ public final class LongHorizonRunner {
                 continue
             }
 
+            // ── Act, if the turn proposed a tool ──────────────────────────
+            // The observation — not the model's prose about it — is what gets
+            // stored and recalled. A step is only "experience" once something
+            // outside the model confirmed it.
+            var observation: String? = nil
+            if let tool = CLIToolParser.parseFirst(reply), !Self.isDone(tool) {
+                let result = tools.execute(tool)
+                observation = result.text
+                _ = sink.emit(.result, summary: String(result.text.prefix(200)), turn: turn,
+                              detail: ["tool": tool.label,
+                                       "ok": result.ok ? "yes" : "no",
+                                       "refused": result.refused ? "yes" : "no"],
+                              tags: result.ok ? ["tool"] : ["tool", "mismatch"])
+                if !result.ok {
+                    try gaps.recordAttempt(goalGapId, strategy: tool.label,
+                                           failureType: result.refused ? "refused_by_policy" : "tool_failed")
+                    if let memory {
+                        let vector = try encodeText("\(tool.label) -> \(result.text)")
+                        try memory.add(
+                            text: "\(tool.label) -> \(result.text.prefix(200))",
+                            kind: "failure", vector: vector,
+                            signature: gaps.get(goalGapId).map(StructuralSignature.init(gap:)),
+                            agentId: config.agentId
+                        )
+                    }
+                    continue
+                }
+            }
+
             if let memory {
-                let vector = try encodeText(reply)
-                try memory.add(text: reply, kind: "step", vector: vector)
+                let record = observation.map { "\(reply)\n-> \($0.prefix(300))" } ?? reply
+                let vector = try encodeText(record)
+                try memory.add(
+                    text: record, kind: observation == nil ? "step" : "observation",
+                    vector: vector,
+                    signature: gaps.get(goalGapId).map(StructuralSignature.init(gap:)),
+                    agentId: config.agentId
+                )
             }
 
             if Self.looksComplete(reply, goal: goal) {
@@ -290,9 +349,18 @@ public final class LongHorizonRunner {
     static let systemPrompt = """
     You are a long-horizon agent. You have no memory of previous turns; \
     everything you know is in the blocks below, recovered from persistent storage. \
-    Do not repeat an approach listed as already tried. \
-    Answer with one concrete next step. \
-    When the goal is genuinely achieved, begin your reply with DONE:
+    Do not repeat an approach listed as already tried.
+
+    Emit exactly one tool call per turn:
+    [READ_FILE: path]
+    [LIST_DIR: path]
+    [WRITE_FILE: path
+    <content>]
+    [MAKE_DIR: path]
+    [RUN: shell command]
+
+    When the goal is genuinely achieved, reply with DONE: followed by what you \
+    actually found. Restating the goal is not a result.
     """
 
     static func chatML(system: String, user: String) -> String {
@@ -346,6 +414,11 @@ public final class LongHorizonRunner {
         guard !payloadWords.isEmpty else { return false }
         let novel = payloadWords.subtracting(goalWords)
         return Double(novel.count) / Double(payloadWords.count) >= 0.4
+    }
+
+    static func isDone(_ tool: CLITool) -> Bool {
+        if case .done = tool { return true }
+        return false
     }
 
     static func words(_ text: String) -> [String] {

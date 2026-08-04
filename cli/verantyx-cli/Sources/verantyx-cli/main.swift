@@ -105,6 +105,11 @@ struct VeraCLI {
         var tracePath: String?
         var maxTurns = 8
         var noVectorMemory = false
+        var workspace = FileManager.default.currentDirectoryPath
+        // Read-only unless the operator opts in: an unattended agent that can
+        // write files and run shell commands is a different risk category.
+        var policy: VeraCore.ToolPolicy = .readOnly
+        var agentId: String?
 
         var i = 0
         while i < args.count {
@@ -134,6 +139,16 @@ struct VeraCLI {
                 maxTurns = n
             case "--no-vector-memory":
                 noVectorMemory = true
+            case "--workspace":
+                guard let v = value("--workspace") else { return 2 }
+                workspace = v
+            case "--allow-write":
+                policy = .allowWrite
+            case "--allow-shell":
+                policy = .allowShell
+            case "--agent":
+                guard let v = value("--agent") else { return 2 }
+                agentId = v
             case "-h", "--help":
                 print("""
                 vera run    --model M.jgen --memory DIR --goal "…" [--trace T.jsonl] [--max-turns N] [--no-vector-memory]
@@ -178,7 +193,10 @@ struct VeraCLI {
                     modelPath: modelPath,
                     memoryDirectory: memoryURL,
                     maxTurns: maxTurns,
-                    useVectorMemory: !noVectorMemory
+                    useVectorMemory: !noVectorMemory,
+                    workspace: URL(fileURLWithPath: workspace, relativeTo: cwdURL()).standardizedFileURL,
+                    toolPolicy: policy,
+                    agentId: agentId
                 ),
                 sink: sink
             )
