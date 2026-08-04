@@ -41,11 +41,14 @@ struct JGenSettingsSection: View {
                 }
             }
 
-            // ── Auto-discovered models (Ollama/LM Studio/HF cache) ──
+            // ── Auto-discovered models (LM Studio / HF cache) ──
             // No typing needed: this lists what jgen_forge.py's own
             // `sources --json` already finds on disk, and Convert calls
             // `pull` with the exact discovered name (never an ambiguous
             // hand-typed substring).
+            //
+            // Ollama is filtered out upstream in JGenConverter — its GGUF exports
+            // produced silently lossy .jgen files. See the comment there.
             HStack(spacing: 6) {
                 sectionHeader(app.t("Detected Models", "検出済みモデル"), icon: "magnifyingglass")
                 if converter.isDiscovering {
@@ -62,12 +65,20 @@ struct JGenSettingsSection: View {
             }
             card {
                 if converter.discoveredSources.isEmpty {
-                    Text(app.t(
-                        "No models found yet in Ollama / LM Studio / the HF cache.",
-                        "Ollama・LM Studio・HFキャッシュにまだモデルが見つかっていません。"
-                    ))
+                    VStack(alignment: .leading, spacing: 4) {
+                        Text(app.t(
+                            "No models found yet in LM Studio or the HF cache.",
+                            "LM Studio・HFキャッシュにまだモデルが見つかっていません。"
+                        ))
+                        Text(app.t(
+                            "Ollama models are not offered for conversion: its GGUF exports produced .jgen files with missing tensors that still appeared to load. Download the model in LM Studio instead.",
+                            "OllamaのモデルはJGEN変換の対象外です。GGUF書き出しから作った.jgenでテンソルが欠落したまま読み込めてしまう例が続いたためです。LM Studioで取得したものをお使いください。"
+                        ))
+                        .foregroundStyle(.tertiary)
+                    }
                     .font(.system(size: 10))
                     .foregroundStyle(.secondary)
+                    .fixedSize(horizontal: false, vertical: true)
                 } else {
                     VStack(alignment: .leading, spacing: 8) {
                         ForEach(converter.discoveredSources) { src in

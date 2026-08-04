@@ -33,10 +33,7 @@ public actor OllamaClient {
     public static let shared = OllamaClient()
     private func getBaseURL() async -> String {
         return await MainActor.run {
-            if let state = AppState.shared, state.exoEnabled, !state.exoEndpoint.isEmpty {
-                return state.exoEndpoint
-            }
-            return AppState.shared?.ollamaEndpoint ?? "http://127.0.0.1:11434"
+            AppState.shared?.ollamaEndpoint ?? "http://127.0.0.1:11434"
         }
     }
     private var _available: Bool? = nil

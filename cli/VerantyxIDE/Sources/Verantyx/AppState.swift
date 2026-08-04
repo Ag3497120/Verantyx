@@ -454,23 +454,21 @@ final class AppState: ObservableObject {
     @Published var inferenceMode: InferenceMode = .localOnly {
         didSet { UserDefaults.standard.set(inferenceMode.rawValue, forKey: "inference_mode") }
     }
-    public enum ExoRole: String, Codable, CaseIterable {
-        case idle = "Idle"
-        case master = "Master"
-        case worker = "Worker"
-    }
-    
-    @Published var exoEndpoint: String = ""
-    @Published var exoEnabled: Bool = false {
-        didSet { UserDefaults.standard.set(exoEnabled, forKey: "exo_enabled") }
-    }
-    @Published var exoRole: ExoRole = .idle {
-        didSet { UserDefaults.standard.set(exoRole.rawValue, forKey: "exo_role") }
-    }
-    @Published var exoDeviceId: String = {
-        if let id = UserDefaults.standard.string(forKey: "exo_device_id") { return id }
+    /// Stable identity for this Mac, used by the distributed-inference pairing
+    /// handshake (Milestone U) to name a peer and to break a both-claim-master
+    /// tie deterministically.
+    ///
+    /// Migrated from the removed Exo integration's `exo_device_id` so existing
+    /// installs keep the identity they already advertised, rather than looking
+    /// like a brand-new machine after an update.
+    @Published var pipeDeviceId: String = {
+        if let id = UserDefaults.standard.string(forKey: "pipe_device_id") { return id }
+        if let legacy = UserDefaults.standard.string(forKey: "exo_device_id") {
+            UserDefaults.standard.set(legacy, forKey: "pipe_device_id")
+            return legacy
+        }
         let newId = UUID().uuidString
-        UserDefaults.standard.set(newId, forKey: "exo_device_id")
+        UserDefaults.standard.set(newId, forKey: "pipe_device_id")
         return newId
     }()
     @Published var cloudProvider: CloudProvider = .claude {
@@ -510,11 +508,36 @@ final class AppState: ObservableObject {
         case .mlxDownloading(let model): return model
         case .bitnetReady(let model): return model
         case .jcrossReady(let model): return model
+        case .lmStudioReady(let model): return model
         case .none, .connecting, .downloading, .error: return nil
         }
     }
     @Published var ollamaEndpoint: String = "http://localhost:11434" {
         didSet { UserDefaults.standard.set(ollamaEndpoint, forKey: "ollama_endpoint") }
+    }
+    /// LM Studio's OpenAI-compatible server. Unlike Ollama it is not started
+    /// automatically, so an unreachable endpoint here is the normal state until
+    /// the user turns the Local Server on.
+    /// Distributed inference pairing. Strictly opt-in: enabling it opens a port
+    /// to the local network, so it must never default on.
+    @Published var pipePairingEnabled: Bool = UserDefaults.standard.bool(forKey: "pipe_pairing_enabled") {
+        didSet {
+            UserDefaults.standard.set(pipePairingEnabled, forKey: "pipe_pairing_enabled")
+            Task { @MainActor in
+                if pipePairingEnabled { await PipeCoordinator.shared.enable() }
+                else { PipeCoordinator.shared.disable() }
+            }
+        }
+    }
+    @Published var lmStudioEndpoint: String = {
+        UserDefaults.standard.string(forKey: "lmstudio_endpoint") ?? LMStudioClient.defaultEndpoint
+    }() {
+        didSet { UserDefaults.standard.set(lmStudioEndpoint, forKey: "lmstudio_endpoint") }
+    }
+    @Published var activeLMStudioModel: String = {
+        UserDefaults.standard.string(forKey: "active_lmstudio_model") ?? ""
+    }() {
+        didSet { UserDefaults.standard.set(activeLMStudioModel, forKey: "active_lmstudio_model") }
     }
     @Published var systemPrompt: String = "You are Verantyx, an expert AI coding assistant running on Apple Silicon. Be concise and precise. Prefer code over prose." {
         didSet { UserDefaults.standard.set(systemPrompt, forKey: "system_prompt") }
@@ -664,6 +687,7 @@ final class AppState: ObservableObject {
         case mlxDownloading(model: String)    // mlx_lm download in progress
         case bitnetReady(model: String)       // BitNet local subprocess
         case jcrossReady(model: String)       // JGEN/RustBrain in-process engine (JCrossEngine)
+        case lmStudioReady(model: String)     // LM Studio's OpenAI-compatible local server
         case error(String)
     }
 
@@ -2504,7 +2528,7 @@ final class AppState: ObservableObject {
 
     var isReady: Bool {
         switch modelStatus {
-        case .ready, .ollamaReady, .mlxReady, .bitnetReady: return true
+        case .ready, .ollamaReady, .mlxReady, .bitnetReady, .lmStudioReady: return true
         default: return false
         }
     }
@@ -2521,13 +2545,15 @@ final class AppState: ObservableObject {
         case .mlxDownloading(let m):        return "⏬ \(m.components(separatedBy: "/").last ?? m)"
         case .bitnetReady(let m):           return "BitNet: \(m)"
         case .jcrossReady(let m):           return "JGEN: \(m)"
+        case .lmStudioReady(let m):         return "LM Studio: \(m)"
         case .error(let e):                  return "Error: \(e)"
         }
     }
 
     var statusColor: Color {
         switch modelStatus {
-        case .ready, .ollamaReady, .mlxReady, .anthropicReady, .bitnetReady, .jcrossReady: return .green
+        case .ready, .ollamaReady, .mlxReady, .anthropicReady, .bitnetReady, .jcrossReady,
+             .lmStudioReady:                   return .green
         case .error:                           return .red
         case .downloading, .connecting,
              .mlxDownloading:                  return .orange

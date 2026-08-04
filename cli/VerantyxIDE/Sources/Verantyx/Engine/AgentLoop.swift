@@ -1055,7 +1055,7 @@ SYS.ENFORCE("logical_verification_before_acceptance")
             // with vxCleanResponse after streaming completes.
             let isStreamingModel: Bool
             switch modelStatus {
-            case .ollamaReady, .mlxReady, .jcrossReady: isStreamingModel = true
+            case .ollamaReady, .mlxReady, .jcrossReady, .lmStudioReady: isStreamingModel = true
             default:                                    isStreamingModel = false
             }
 
@@ -2042,6 +2042,25 @@ SYS.ENFORCE("logical_verification_before_acceptance")
                 model: model,
                 messages: mutableConversation,
                 imagesForLastUserMessage: anchorImages,
+                maxTokens: profile.tier.maxTokens,
+                temperature: profile.tier.temperature,
+                onToken: { token in
+                    Task { @MainActor in
+                        await onProgress(.streamToken(token))
+                    }
+                }
+            )
+
+        case .lmStudioReady(let model):
+            // LM Studio speaks the OpenAI chat shape, so the conversation array
+            // goes across unchanged — no prompt-string flattening like the MLX
+            // path needs. Images are not forwarded: LM Studio's vision support
+            // depends on the loaded model and silently ignores the field
+            // otherwise, and a silently-dropped anchor image is worse than not
+            // offering it.
+            return await LMStudioClient.shared.generateConversation(
+                model: model,
+                messages: mutableConversation,
                 maxTokens: profile.tier.maxTokens,
                 temperature: profile.tier.temperature,
                 onToken: { token in

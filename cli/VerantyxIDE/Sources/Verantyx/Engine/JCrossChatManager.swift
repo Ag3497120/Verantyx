@@ -591,6 +591,46 @@ actor JCrossChatManager {
 
     /// Release composed weight caches without unloading the model (between
     /// council rounds / after a heavy Vera-a turn).
+    // MARK: - Pipeline segments (Milestone U)
+
+    /// Clears this side's KV and GDN state. Called by the worker on RESET.
+    ///
+    /// The engine's own `reset` already clears `kv_cache`, `metal_kv_cache`,
+    /// `gpu_kv` and `hybrid_state`, which is exactly right for a machine holding
+    /// only part of the stack: the containers are per-layer indexed and the
+    /// unused slots were empty to begin with.
+    func resetEngine() {
+        engine?.reset()
+    }
+
+    /// Runs layers `[startLayer, endLayer)` over a residual received from the
+    /// other machine.
+    ///
+    /// `rawFlags` is passed through from the wire rather than re-derived, so the
+    /// master decides once whether this segment ends in a token or a hidden
+    /// state and both sides cannot disagree about it.
+    func runSegment(
+        hidden: [[Float]], startLayer: Int, endLayer: Int, startPos: Int, rawFlags: UInt32
+    ) throws -> JCrossEngine.SegmentResult {
+        guard let engine else { throw ChatError.notLoaded }
+        return try engine.segment(
+            hidden: hidden, startLayer: startLayer, endLayer: endLayer,
+            startPos: startPos, flags: JCrossEngine.SegmentFlags(rawValue: rawFlags))
+    }
+
+    /// Master half: tokens in, residual (or token) out.
+    func runSegment(
+        tokens: [UInt32], startLayer: Int, endLayer: Int, startPos: Int, rawFlags: UInt32
+    ) throws -> JCrossEngine.SegmentResult {
+        guard let engine else { throw ChatError.notLoaded }
+        return try engine.segment(
+            tokens: tokens, startLayer: startLayer, endLayer: endLayer,
+            startPos: startPos, flags: JCrossEngine.SegmentFlags(rawValue: rawFlags))
+    }
+
+    /// Layer count of the loaded model, for the split planner.
+    var loadedLayerCount: Int { engine?.numLayers ?? 0 }
+
     func trimMemory() {
         engine?.trim()
     }

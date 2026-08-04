@@ -102,6 +102,50 @@ int32_t jcross_engine_encode_layers(
     float *out_ptr, size_t out_len
 );
 
+// ---------------------------------------------------------------------------
+// Layer-range execution (pipeline parallelism across two machines)
+// ---------------------------------------------------------------------------
+//
+// Runs layers [start_layer, end_layer) only. Two entry points differing solely
+// in what the range starts from: token ids for a head segment, a caller-supplied
+// residual for anything downstream of one. Every other forward path in this
+// engine begins at token embeddings and ends at the final norm, which is why a
+// split model needs these.
+//
+// flags:
+//   1  FINAL_NORM      apply the model's final RMSNorm after end_layer
+//   2  LM_HEAD_ARGMAX  project the last row through lm_head, greedy-argmax, and
+//                      write the token id to out_token_ptr (implies FINAL_NORM;
+//                      out_ptr/out_len are then unused)
+//   4  LAST_TOKEN_ONLY return only the final row of the hidden state
+//
+// out_ptr must hold (rows * hidden_dim) floats, row-major, where rows is
+// seq_len unless LAST_TOKEN_ONLY is set.
+//
+// Returns 0 on success; -1 bad args, -2 engine error, -3 out_len/shape
+// mismatch, -4 layer range invalid for this model, -5 architecture unsupported
+// (gemma4 -- its per-layer embeddings cannot be rebuilt from a mid-stack
+// residual, so it is refused rather than silently approximated).
+int32_t jcross_engine_segment_from_tokens(
+    void *engine,
+    const uint32_t *tokens_ptr, size_t tokens_len,
+    uint32_t start_layer, uint32_t end_layer,
+    size_t start_pos, uint32_t flags,
+    float *out_ptr, size_t out_len,
+    uint32_t *out_token_ptr
+);
+
+// Same, but fed by a [seq_len, hidden_dim] residual (row-major f32) produced by
+// an earlier segment -- possibly on another machine.
+int32_t jcross_engine_segment_from_hidden(
+    void *engine,
+    const float *hidden_ptr, size_t seq_len,
+    uint32_t start_layer, uint32_t end_layer,
+    size_t start_pos, uint32_t flags,
+    float *out_ptr, size_t out_len,
+    uint32_t *out_token_ptr
+);
+
 // Blends inject_ptr (length inject_len == hidden_dim) into the residual
 // stream immediately before inject_layer, continues the forward pass to
 // the final norm, and writes the resulting last-token hidden state into

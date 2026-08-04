@@ -46,6 +46,12 @@ final class AppDelegate: NSObject, NSApplicationDelegate {
         safeModeWindowController = wc
     }
     func applicationDidFinishLaunching(_ notification: Notification) {
+        // Distributed-inference pairing, if the user left it on. Deliberately
+        // here rather than in the main window's onAppear: a peer must be able to
+        // reach this Mac whether or not a window happens to be on screen, and
+        // the window's onAppear does not fire until one actually opens.
+        Task { @MainActor in PipeCoordinator.shared.restoreIfEnabled() }
+
         // Request Accessibility (for CGEvent HID clicks)
         DispatchQueue.main.asyncAfter(deadline: .now() + 1.0) {
             if !AXIsProcessTrusted() {

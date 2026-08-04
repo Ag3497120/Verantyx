@@ -265,6 +265,103 @@ final class JCrossEngine {
     /// Returns a dictionary keyed by observe layer index (not an array --
     /// callers shouldn't need to track index<->layer correspondence
     /// themselves).
+    // MARK: - Layer-range execution (pipeline parallelism)
+
+    /// Flags for `segment(...)`. Mirrors SEG_FLAG_* in the Rust engine.
+    struct SegmentFlags: OptionSet {
+        let rawValue: UInt32
+        static let finalNorm     = SegmentFlags(rawValue: 1 << 0)
+        /// Implies `finalNorm`; returns a token id instead of a hidden state.
+        static let lmHeadArgmax  = SegmentFlags(rawValue: 1 << 1)
+        static let lastTokenOnly = SegmentFlags(rawValue: 1 << 2)
+    }
+
+    enum SegmentResult {
+        /// `[rows][hiddenDim]`.
+        case hidden([[Float]])
+        case token(UInt32)
+    }
+
+    /// Runs layers `[startLayer, endLayer)` from token ids. `startLayer` must be 0.
+    ///
+    /// This is the master half of a split model: it turns tokens into a residual
+    /// and stops, leaving the rest to whoever holds the remaining layers.
+    func segment(
+        tokens: [UInt32],
+        startLayer: Int, endLayer: Int,
+        startPos: Int,
+        flags: SegmentFlags
+    ) throws -> SegmentResult {
+        let rows = flags.contains(.lastTokenOnly) ? 1 : tokens.count
+        return try runSegment(rows: rows, flags: flags) { outBuf, tokenPtr in
+            var t = tokens
+            return t.withUnsafeMutableBufferPointer { tb in
+                jcross_engine_segment_from_tokens(
+                    self.handle, tb.baseAddress, tb.count,
+                    UInt32(startLayer), UInt32(endLayer), startPos, flags.rawValue,
+                    outBuf?.baseAddress, outBuf?.count ?? 0, tokenPtr)
+            }
+        }
+    }
+
+    /// Runs layers `[startLayer, endLayer)` from a residual produced upstream.
+    ///
+    /// `hidden` is `[seqLen][hiddenDim]`. This is the worker half: it never sees
+    /// the tokens, only the vectors, and (with `.lmHeadArgmax`) returns the
+    /// chosen token id — four bytes rather than a vocab-sized distribution.
+    func segment(
+        hidden: [[Float]],
+        startLayer: Int, endLayer: Int,
+        startPos: Int,
+        flags: SegmentFlags
+    ) throws -> SegmentResult {
+        guard let first = hidden.first, first.count == hiddenDim else {
+            throw JCrossError.ffiError(function: "segment_from_hidden(dim)", code: -3)
+        }
+        let rows = flags.contains(.lastTokenOnly) ? 1 : hidden.count
+        var flat = hidden.flatMap { $0 }
+        return try runSegment(rows: rows, flags: flags) { outBuf, tokenPtr in
+            flat.withUnsafeMutableBufferPointer { hb in
+                jcross_engine_segment_from_hidden(
+                    self.handle, hb.baseAddress, hidden.count,
+                    UInt32(startLayer), UInt32(endLayer), startPos, flags.rawValue,
+                    outBuf?.baseAddress, outBuf?.count ?? 0, tokenPtr)
+            }
+        }
+    }
+
+    /// Shared buffer handling. When `.lmHeadArgmax` is set the engine writes a
+    /// token id and never touches the float buffer, so none is allocated.
+    private func runSegment(
+        rows: Int,
+        flags: SegmentFlags,
+        _ call: (inout UnsafeMutableBufferPointer<Float>?, UnsafeMutablePointer<UInt32>?) -> Int32
+    ) throws -> SegmentResult {
+        var token: UInt32 = 0
+        if flags.contains(.lmHeadArgmax) {
+            var none: UnsafeMutableBufferPointer<Float>? = nil
+            let code = withUnsafeMutablePointer(to: &token) { call(&none, $0) }
+            guard code == 0 else {
+                throw JCrossError.ffiError(function: "jcross_engine_segment", code: code)
+            }
+            return .token(token)
+        }
+        var out = [Float](repeating: 0, count: rows * hiddenDim)
+        let code: Int32 = out.withUnsafeMutableBufferPointer { buf in
+            var opt: UnsafeMutableBufferPointer<Float>? = buf
+            return call(&opt, nil)
+        }
+        guard code == 0 else {
+            throw JCrossError.ffiError(function: "jcross_engine_segment", code: code)
+        }
+        var result: [[Float]] = []
+        result.reserveCapacity(rows)
+        for r in 0..<rows {
+            result.append(Array(out[(r * hiddenDim)..<((r + 1) * hiddenDim)]))
+        }
+        return .hidden(result)
+    }
+
     func injectMultiLayer(
         tokens: [UInt32],
         injections: [(layer: Int, vector: [Float], alpha: Float)],

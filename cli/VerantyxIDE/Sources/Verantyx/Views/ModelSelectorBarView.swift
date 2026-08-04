@@ -28,6 +28,10 @@ struct ModelSelectorBarView: View {
 
     @ObservedObject private var council = CouncilSettingsStore.shared
     @State private var showJGenOptions = false
+    /// LM Studio's server is not started automatically, so this stays empty --
+    /// and the section stays hidden -- until the user turns it on. Refreshed
+    /// when the bar appears rather than polled.
+    @State private var lmStudioModels: [String] = []
     @State private var showPendingToolCalls = false
     @State private var showReasoningTimeline = false
 
@@ -40,6 +44,7 @@ struct ModelSelectorBarView: View {
         case ollama(String)
         case bitnet(String)
         case jgen(String)
+        case lmStudio(String)
     }
 
     private var currentSelection: SelectableModel? {
@@ -48,13 +53,15 @@ struct ModelSelectorBarView: View {
         case .ollamaReady(let m): return .ollama(m)
         case .bitnetReady(let m): return .bitnet(m)
         case .jcrossReady(let m): return .jgen(m)
+        case .lmStudioReady(let m): return .lmStudio(m)
         default: return nil
         }
     }
 
     private var currentLabel: String {
         switch currentSelection {
-        case .mlx(let m), .ollama(let m), .bitnet(let m), .jgen(let m): return m
+        case .mlx(let m), .ollama(let m), .bitnet(let m), .jgen(let m), .lmStudio(let m):
+            return m
         case nil:
             // Nothing loaded yet -- fall back to whatever Gatekeeper has
             // configured, matching the old picker's behavior.
@@ -80,6 +87,10 @@ struct ModelSelectorBarView: View {
             }
         case .jgen(let name):
             app.loadJGenModel(name)
+        case .lmStudio(let name):
+            GatekeeperModeState.shared.commanderModel = name
+            app.activeLMStudioModel = name
+            app.modelStatus = .lmStudioReady(model: name)
         }
     }
 
@@ -165,6 +176,10 @@ struct ModelSelectorBarView: View {
             // the section would stay empty until the user opened Settings.
             if bitnet.installedConfigs.isEmpty { await bitnet.checkInstallation() }
             jgen.refreshConvertedModelsList()
+            // Cheap and bounded (2 s timeout): if LM Studio's Local Server is
+            // off this returns nothing and the section simply does not appear,
+            // rather than showing a section that fails on click.
+            lmStudioModels = await LMStudioClient.shared.listModels()
         }
     }
 
@@ -203,6 +218,13 @@ struct ModelSelectorBarView: View {
                         // JGEN settings section.
                         Button(name) { select(.jgen(name)) }
                             .disabled(!jgen.isArchSupported(name))
+                    }
+                }
+            }
+            if !lmStudioModels.isEmpty {
+                Section("LM Studio (Local Server)") {
+                    ForEach(lmStudioModels, id: \.self) { m in
+                        Button(m) { select(.lmStudio(m)) }
                     }
                 }
             }
@@ -273,6 +295,8 @@ struct ModelSelectorBarView: View {
                 return ("BITNET", Color(red: 0.4, green: 0.75, blue: 1.0))
             case .jcrossReady:
                 return ("JGEN", Color(red: 1.0, green: 0.72, blue: 0.35))
+            case .lmStudioReady:
+                return ("LMSTUDIO", Color(red: 0.35, green: 0.8, blue: 0.85))
             case .anthropicReady:
                 return ("API", Color(red: 0.9, green: 0.6, blue: 0.4))
             case .ready:

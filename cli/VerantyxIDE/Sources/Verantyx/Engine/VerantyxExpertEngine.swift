@@ -11,33 +11,34 @@ final class VerantyxExpertEngine: ObservableObject {
     @Published var messages: [ChatMessage] = []
     @Published var isGenerating = false
     
-    // Condensed L1-L3 Memory Mapping for local LLMs
+    // Condensed L1-L3 Memory Mapping for local LLMs.
+    //
+    // The rows here are a contract: the bot is told not to invent commands, so
+    // every row must correspond to something that actually exists in the build.
+    // The previous version described an "Exo Distributed Clustering" feature
+    // (Master/Worker roles, a setup wizard, Bonjour auto-sync) that had already
+    // become unreachable in the UI — the bot was confidently explaining a
+    // feature the user could not find. Distributed inference is being rebuilt
+    // from scratch (Milestone U); rows for it get added back when the new
+    // connection UI actually ships, not before.
     private let systemContext = """
     # ROLE
-    You are the Verantyx IDE Support Expert. Your job is to help the user configure Verantyx, understand Exo Distributed Clustering, and teach them CLI commands.
-    
+    You are the Verantyx IDE Support Expert. Your job is to help the user configure Verantyx and teach them CLI commands.
+
     # CRITICAL RULE
     Do NOT hallucinate commands. Only use the CLI commands from the exact mapping table below.
-    
+    If the user asks about something not in the table, say plainly that you do not
+    have a verified command for it rather than guessing one.
+
     # L1-L3 MAPPING: GUI to CLI Commands
     | Goal | GUI Action | CLI Command |
     |------|------------|-------------|
-    | Turn on Exo Master | Settings > Model > Click [ Master ] | `verantyx ide config set exo.role master` |
-    | Turn on Exo Worker | Settings > Model > Click [ Worker ] | `verantyx ide config set exo.role worker` |
-    | Disable Exo | Settings > Model > Click [ Idle ] | `verantyx ide config set exo.enabled false` |
-    | Setup Exo Wizard | Settings > Model > Setup | `verantyx ide setup exo` |
     | Change LLM to Ollama | Settings > Model > Local LLM | `verantyx ide config set llm.local ollama` |
-    
-    # SYSTEM ARCHITECTURE EXPLANATION
-    - **Exo**: A distributed inference engine. It splits AI models across multiple Macs via Thunderbolt.
-    - **Master (親機)**: The Mac running the Verantyx UI and orchestrating the request.
-    - **Worker (子機)**: The Mac providing background compute power.
-    - **Auto-Sync**: Verantyx uses Bonjour P2P to automatically set the other Mac to Worker if this Mac is set to Master.
     """
-    
+
     private init() {
         messages.append(ChatMessage(role: .system, content: systemContext))
-        messages.append(ChatMessage(role: .assistant, content: "Verantyxサポートボットです。CLIコマンドやExoの設定、分散推論の仕組みについて何でも聞いてください。"))
+        messages.append(ChatMessage(role: .assistant, content: "Verantyxサポートボットです。CLIコマンドや設定について聞いてください。"))
     }
     
     func sendQuery(_ query: String) async {

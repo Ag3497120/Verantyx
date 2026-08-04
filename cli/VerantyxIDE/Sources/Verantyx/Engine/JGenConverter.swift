@@ -116,25 +116,26 @@ final class JGenConverter: ObservableObject {
             }
         }
 
-        let convertedNames = Set(convertedModels)
-        let ollamaModels = await OllamaClient.shared.listModelsDetailed()
-        let knownNames = Set(forgeSources.map(\.name))
-        let ollamaOnly = ollamaModels
-            .filter { !knownNames.contains($0.name) }
-            .map { model in
-                DiscoveredSource(
-                    name: model.name,
-                    path: "",
-                    source: "ollama",
-                    size_bytes: model.sizeBytes,
-                    converted: convertedNames.contains { $0.contains(Self.sanitized(model.name)) }
-                )
+        // Ollama is deliberately excluded as a *conversion source*.
+        //
+        // Its GGUF exports repeatedly produced .jgen files that were subtly wrong
+        // rather than obviously broken: qwen3.5 names the linear-attention dt bias
+        // `ssm_dt` where the mapping expected `ssm_dt.bias`, so it landed under a
+        // passthrough name the engine never looks for and the model died on layer
+        // 0; other pulls came through with GDN geometry missing from the sidecar
+        // entirely. Those are the ones that were caught. A conversion that loses a
+        // tensor and still loads is the failure mode that matters, and there is no
+        // general way to detect it from the GGUF alone.
+        //
+        // LM Studio and the HF cache ship the original safetensors plus a real
+        // config, so they convert without this class of guesswork. Ollama remains
+        // a first-class *chat* provider — this only removes it as conversion input.
+        discoveredSources = forgeSources
+            .filter { $0.source != "ollama" }
+            .sorted { a, b in
+                if a.looksHybrid != b.looksHybrid { return a.looksHybrid && !b.looksHybrid }
+                return a.size_bytes > b.size_bytes
             }
-
-        discoveredSources = (forgeSources + ollamaOnly).sorted { a, b in
-            if a.looksHybrid != b.looksHybrid { return a.looksHybrid && !b.looksHybrid }
-            return a.size_bytes > b.size_bytes
-        }
     }
 
     private static func sanitized(_ name: String) -> String {
