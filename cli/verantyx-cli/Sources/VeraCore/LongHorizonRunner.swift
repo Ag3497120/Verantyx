@@ -77,10 +77,23 @@ public final class LongHorizonRunner {
     private let memory: VectorMemory?
     private let sink: VeraEventSink
     private let tools: ToolExecutor
+    private let devicePolicy: DevicePolicy
 
     public init(config: Config, sink: VeraEventSink) async throws {
         self.config = config
         self.sink = sink
+        // Decide device/cache before the engine reads the environment.
+        // Without this the CLI inherited the engine's bare defaults: hybrid
+        // models on CPU and an 8 GB weight cache regardless of model size.
+        let compat = ModelCompat.inspect(modelPath: config.modelPath)
+        let policy = DevicePolicy.decide(
+            modelPath: config.modelPath,
+            isHybrid: compat.isHybrid,
+            weightBytes: compat.weightBytes
+        )
+        policy.apply()
+        self.devicePolicy = policy
+
         self.backend = try JGenBackend(modelPath: config.modelPath)
         self.gaps = try GapStore(directory: config.memoryDirectory)
         self.tools = ToolExecutor(workspace: config.workspace, policy: config.toolPolicy)
@@ -141,6 +154,13 @@ public final class LongHorizonRunner {
             "gap_id": gap.gapId,
             "vector_memory": config.useVectorMemory ? "on" : "off",
             "memory_dir": config.memoryDirectory.path,
+            // Which device the forward actually runs on is the difference
+            // between seconds and half an hour per turn; a trace that omits it
+            // makes every timing number unreadable.
+            "device": devicePolicy.device.rawValue,
+            "hybrid_gpu": devicePolicy.hybridOnGPU ? "on" : "off",
+            "weight_cache_gb": String(format: "%.1f", devicePolicy.cacheGB),
+            "device_reason": devicePolicy.reason,
         ], tags: ["mission"])
 
         if let memory, memory.needsReembed {

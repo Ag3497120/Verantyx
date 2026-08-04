@@ -46,6 +46,9 @@ public struct ModelCompat: Sendable {
     public let architecture: String
     public let checks: [Check]
     public let weightBytes: Int64
+    /// Gated DeltaNet family. Drives the device decision as well as the
+    /// geometry check — the engine gates hybrid GPU separately.
+    public let isHybrid: Bool
     public let estimatedResidentGB: Double
     public let machineRAMGB: Double
     public let notes: [String]
@@ -195,6 +198,7 @@ public struct ModelCompat: Sendable {
             architecture: modelArch,
             checks: checks,
             weightBytes: weightBytes,
+            isHybrid: support == "hybrid_ssm",
             estimatedResidentGB: estimatedResidentGB,
             machineRAMGB: ramGB,
             notes: notes
@@ -231,6 +235,13 @@ public struct ModelCompat: Sendable {
         case .unsupported:
             lines.append("The engine has no forward pass for this architecture — loading is expected to fail.")
         }
+        // Predicting the device here is what turns "why is this taking half an
+        // hour" into something you know before starting.
+        let policy = DevicePolicy.decide(
+            modelPath: modelPath, isHybrid: isHybrid, weightBytes: weightBytes
+        )
+        lines.append("")
+        lines.append("Planned execution: \(policy.summary)")
         lines.append("")
         lines.append("Preflight only. NOT verified by this command:")
         lines.append("  - full-weight conversion fidelity")
