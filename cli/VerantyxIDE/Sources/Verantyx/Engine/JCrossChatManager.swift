@@ -206,6 +206,66 @@ actor JCrossChatManager {
         return collapsed.count * 3 <= trimmed.count
     }
 
+    // MARK: - Reasoning models (`<think>…</think>`)
+
+    /// Qwen3 / Qwen3.5 / Qwen3.6 reason before answering. Treating that stream
+    /// as the reply is what produced `매우!!!!!!` from qwen3-4b, with council
+    /// conclusions of `:` and `is` — mid-thought tokens shown as answers.
+    ///
+    /// Mirrors `VeraCore.ThinkingFilter` in verantyx-cli. Duplicated rather
+    /// than shared because the IDE is an Xcode target and VeraCore is an SPM
+    /// package; the standing plan is to link VeraCore here and delete this
+    /// copy, and until then a change to one has to be made to both.
+    nonisolated static let thinkOpenTags = ["<think>", "<thinking>", "<reasoning>"]
+    nonisolated static let thinkCloseTags = ["</think>", "</thinking>", "</reasoning>"]
+
+    nonisolated static func containsThinking(_ text: String) -> Bool {
+        let lower = text.lowercased()
+        return thinkOpenTags.contains { lower.contains($0) }
+    }
+
+    /// Splits reasoning from reply.
+    ///
+    /// `truncated` means the block never closed: the model was still thinking
+    /// when the budget ran out, so **no answer exists**. Returning the partial
+    /// thought as a reply would be inventing one, so callers get an empty
+    /// answer and the truncated flag instead.
+    nonisolated static func extractAnswer(_ raw: String) -> (answer: String, truncated: Bool) {
+        let lower = raw.lowercased()
+
+        // Prefer the last close tag: a model occasionally reopens thinking and
+        // only the final segment is addressed to the user.
+        var closeEnd: String.Index? = nil
+        for tag in thinkCloseTags {
+            var from = lower.startIndex
+            while let r = lower.range(of: tag, range: from..<lower.endIndex) {
+                closeEnd = r.upperBound
+                from = r.upperBound
+            }
+        }
+        if let closeEnd {
+            let answer = String(raw[closeEnd...]).trimmingCharacters(in: .whitespacesAndNewlines)
+            // Closed with nothing after it is still an unfinished turn.
+            return (answer, answer.isEmpty)
+        }
+        for tag in thinkOpenTags where lower.contains(tag) {
+            return ("", true)
+        }
+        return (raw.trimmingCharacters(in: .whitespacesAndNewlines), false)
+    }
+
+    /// A budget sized for a direct reply is spent entirely inside the thinking
+    /// block, so the turn can never reach an answer — 96 tokens on qwen3-4b
+    /// produced only `<think>`.
+    nonisolated static func expandedThinkingBudget(_ base: Int) -> Int {
+        max(base * 6, 512)
+    }
+
+    /// Set once a `<think>` tag is seen from the loaded model, so subsequent
+    /// calls get a budget that can actually reach an answer. Learned at runtime
+    /// rather than inferred from the model name.
+    private(set) var isReasoningModel = false
+
     /// Short social openers where a full council handoff dump hurts more than
     /// it helps on 0.5B–2B models.
     nonisolated static func isSimpleGreeting(_ question: String) -> Bool {
@@ -226,7 +286,8 @@ actor JCrossChatManager {
         // Bound each turn — council/act already truncate, but VectorLab /
         // Vera harness callers may still pass a huge paste into ChatML.
         let bounded = PromptBudget.boundConversation(conversation)
-        let cappedMax = JGenGPUSafety.cappedMaxTokens(maxTokens)
+        let requested = isReasoningModel ? Self.expandedThinkingBudget(maxTokens) : maxTokens
+        let cappedMax = JGenGPUSafety.cappedMaxTokens(requested)
         let prompt = Self.formatChatML(bounded)
         let promptTokens = tokenizer.encode(text: prompt).map { UInt32($0) }
         return try withCapturePaused {
@@ -234,8 +295,21 @@ actor JCrossChatManager {
             defer { if MachineProfile.current().totalRAMGB <= 24 { engine.trim() } }
             let outputTokens = try engine.generate(prompt: promptTokens, maxTokens: cappedMax)
             let raw = tokenizer.decode(tokens: outputTokens.map { Int($0) }, skipSpecialTokens: true)
-            return Self.collapsePhraseRepetition(raw)
+            return finishReply(raw)
         }
+    }
+
+    /// Shared tail for both generate paths: learn whether this model reasons,
+    /// drop the thinking, and collapse loops in whatever answer remains.
+    private func finishReply(_ raw: String) -> String {
+        if !isReasoningModel, Self.containsThinking(raw) {
+            isReasoningModel = true
+        }
+        let (answer, truncated) = Self.extractAnswer(raw)
+        // Still reasoning when the budget ran out — there is no answer to
+        // report, and a fragment of the thought is not one.
+        if truncated { return "" }
+        return Self.collapsePhraseRepetition(answer)
     }
 
     /// Streaming generation with ChatML. Callers should return `false` from
@@ -249,7 +323,8 @@ actor JCrossChatManager {
         // Same turn budgets as `generate` — AgentLoop / Act used to bypass
         // PromptBudget via this path and re-introduce the paste × ChatML OOM.
         let bounded = PromptBudget.boundConversation(conversation)
-        let cappedMax = JGenGPUSafety.cappedMaxTokens(maxTokens)
+        let requested = isReasoningModel ? Self.expandedThinkingBudget(maxTokens) : maxTokens
+        let cappedMax = JGenGPUSafety.cappedMaxTokens(requested)
         let prompt = Self.formatChatML(bounded)
         let promptTokens = tokenizer.encode(text: prompt).map { UInt32($0) }
 
@@ -258,16 +333,28 @@ actor JCrossChatManager {
             defer { if MachineProfile.current().totalRAMGB <= 24 { engine.trim() } }
             var allTokens: [Int] = []
             var lastDecoded = ""
+            // Suppress streaming while inside a thinking block: the chat bubble
+            // should not fill with private reasoning that is not the reply.
+            var insideThinking = false
             let outputTokens = try engine.generateStreaming(prompt: promptTokens, maxTokens: cappedMax) { token in
                 allTokens.append(Int(token))
                 let decoded = tokenizer.decode(tokens: allTokens, skipSpecialTokens: true)
                 guard decoded.count > lastDecoded.count else { return true }
                 let delta = String(decoded.dropFirst(lastDecoded.count))
                 lastDecoded = decoded
+                let (_, stillThinking) = Self.extractAnswer(decoded)
+                if stillThinking {
+                    insideThinking = true
+                    return true
+                }
+                // First tokens after `</think>` — the answer starts here.
+                if insideThinking {
+                    insideThinking = false
+                }
                 return onToken(delta)
             }
             let raw = tokenizer.decode(tokens: outputTokens.map { Int($0) }, skipSpecialTokens: true)
-            return Self.collapsePhraseRepetition(raw)
+            return finishReply(raw)
         }
     }
 

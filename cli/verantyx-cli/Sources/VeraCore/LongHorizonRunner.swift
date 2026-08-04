@@ -217,6 +217,10 @@ public final class LongHorizonRunner {
 
     private func loop(goalGapId: String, goal: String, resumed: Bool) async throws -> Outcome {
         var promptTokensPerTurn: [Int] = []
+        // Set once a `<think>` block is seen. Detected at runtime rather than
+        // inferred from the model name, so a reasoning model nobody listed
+        // still gets a budget that can reach an answer.
+        var reasoningModel = false
 
         for turn in 1...max(1, config.maxTurns) {
             if Task.isCancelled {
@@ -262,20 +266,53 @@ public final class LongHorizonRunner {
 
             // ── Independent forward pass ──────────────────────────────────
             backend.reset()
+            let budget = reasoningModel
+                ? ThinkingFilter.expandedBudget(config.maxTokensPerTurn)
+                : config.maxTokensPerTurn
             let outputTokens = try backend.generate(
-                promptTokens: promptTokens, maxTokens: config.maxTokensPerTurn
+                promptTokens: promptTokens, maxTokens: budget
             )
-            let reply = Self.cleanReply(
-                tokenizer.decode(tokens: outputTokens.map { Int($0) }, skipSpecialTokens: true)
-            )
+            let decoded = tokenizer.decode(tokens: outputTokens.map { Int($0) },
+                                           skipSpecialTokens: true)
+
+            // Reasoning models put `<think>…</think>` before the reply. The
+            // answer is what follows the block — never the block itself.
+            let thought = ThinkingFilter.split(Self.stripChatML(decoded))
+            if !reasoningModel, ThinkingFilter.containsThinking(decoded) {
+                // Learned at runtime rather than guessed from the model name:
+                // the next turn gets a budget that can actually reach an answer.
+                reasoningModel = true
+                _ = sink.emit(.policy, summary: "reasoning model detected — raising token budget",
+                              turn: turn,
+                              detail: ["from": String(config.maxTokensPerTurn),
+                                       "to": String(ThinkingFilter.expandedBudget(config.maxTokensPerTurn))],
+                              tags: ["model"])
+            }
+            let reply = Self.firstLine(thought.answer)
 
             _ = sink.emit(.proposed_action, summary: String(reply.prefix(200)), turn: turn,
-                          detail: ["output_tokens": String(outputTokens.count)],
+                          detail: ["output_tokens": String(outputTokens.count),
+                                   "budget": String(budget),
+                                   "thinking_chars": String(thought.thinking.count),
+                                   "thinking_truncated": thought.truncatedThinking ? "yes" : "no"],
                           tags: ["model"])
 
             // ── Settle or record the attempt ──────────────────────────────
             // Honesty rule carried over from ActDNA: a turn that produced
             // nothing usable is a failed attempt, never a quiet success.
+            if thought.truncatedThinking, reply.isEmpty {
+                // The model never finished reasoning, so there is no answer to
+                // report. Showing the truncated thought as a reply is what
+                // produced "<think>" and mid-sentence fragments as answers.
+                try gaps.recordAttempt(goalGapId, strategy: "turn \(turn)",
+                                       failureType: "thinking_budget_exhausted")
+                _ = sink.emit(.result, summary: "still reasoning when the budget ran out — no answer yet",
+                              turn: turn,
+                              detail: ["thinking_chars": String(thought.thinking.count),
+                                       "budget": String(budget)],
+                              tags: ["mismatch"])
+                continue
+            }
             if reply.isEmpty {
                 try gaps.recordAttempt(goalGapId, strategy: "turn \(turn)", failureType: "empty_output")
                 _ = sink.emit(.result, summary: "no usable output", turn: turn,
@@ -389,20 +426,33 @@ public final class LongHorizonRunner {
         + "<|im_start|>assistant\n"
     }
 
-    /// Strips ChatML scaffolding a small model echoes back, and keeps only the
-    /// first turn's worth of text. Without this, a 0.5B reply that re-emits
-    /// `<|im_start|>` blocks gets stored as "experience" and recalled forever.
-    static func cleanReply(_ raw: String) -> String {
+    /// Strips ChatML scaffolding a small model echoes back. Without this, a
+    /// 0.5B reply that re-emits `<|im_start|>` blocks gets stored as
+    /// "experience" and recalled forever.
+    static func stripChatML(_ raw: String) -> String {
         var text = raw
         for marker in ["<|im_end|>", "<|im_start|>", "<|endoftext|>"] {
             text = text.replacingOccurrences(of: marker, with: "\n")
         }
-        // Keep the first non-empty paragraph: everything after the model's
-        // first stop is continuation noise, not a second proposal.
-        let lines = text.split(whereSeparator: \.isNewline)
+        return text
+    }
+
+    /// Keeps the first non-empty line: everything after the model's first stop
+    /// is continuation noise, not a second proposal.
+    ///
+    /// Must run *after* `ThinkingFilter` — applied to raw reasoning output it
+    /// returns the literal `<think>` opening tag, which is exactly how a
+    /// thinking model's reply came to be reported as "<think>".
+    static func firstLine(_ text: String) -> String {
+        text.split(whereSeparator: \.isNewline)
             .map { $0.trimmingCharacters(in: .whitespaces) }
-            .filter { !$0.isEmpty }
-        return (lines.first ?? "").trimmingCharacters(in: .whitespacesAndNewlines)
+            .first { !$0.isEmpty }?
+            .trimmingCharacters(in: .whitespacesAndNewlines) ?? ""
+    }
+
+    /// Retained for callers that want both steps in the non-reasoning case.
+    static func cleanReply(_ raw: String) -> String {
+        firstLine(ThinkingFilter.split(stripChatML(raw)).answer)
     }
 
     /// Only an explicit marker *carrying a new result* counts as completion.
