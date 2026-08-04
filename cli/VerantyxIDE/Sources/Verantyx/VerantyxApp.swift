@@ -51,6 +51,7 @@ final class AppDelegate: NSObject, NSApplicationDelegate {
         // reach this Mac whether or not a window happens to be on screen, and
         // the window's onAppear does not fire until one actually opens.
         Task { @MainActor in PipeCoordinator.shared.restoreIfEnabled() }
+        PipeSelfTest.runIfRequested()
 
         // Request Accessibility (for CGEvent HID clicks)
         DispatchQueue.main.asyncAfter(deadline: .now() + 1.0) {

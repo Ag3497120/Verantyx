@@ -631,6 +631,45 @@ actor JCrossChatManager {
     /// Layer count of the loaded model, for the split planner.
     var loadedLayerCount: Int { engine?.numLayers ?? 0 }
 
+    /// EOS ids from the model's sidecar.
+    ///
+    /// The distributed path needs these explicitly: the worker returns bare
+    /// token ids and has no tokenizer, so deciding when a reply has ended is the
+    /// master's job. Single-machine generation gets this inside the engine's own
+    /// loop, which is why it is not exposed anywhere else.
+    var eosTokenIds: Set<UInt32> {
+        guard let name = loadedModelName else { return [] }
+        let meta = JGenPaths.convertedModelsDir.appendingPathComponent(name).path + ".meta.json"
+        guard let d = FileManager.default.contents(atPath: meta),
+              let j = try? JSONSerialization.jsonObject(with: d) as? [String: Any],
+              let ids = j["eos_tokens"] as? [Int] else { return [] }
+        return Set(ids.map { UInt32($0) })
+    }
+
+    /// Tokenizes with the same ChatML formatting a local turn uses, so a
+    /// distributed run and a single-machine run start from identical ids.
+    func promptTokens(conversation: [(role: String, content: String)]) throws -> [UInt32] {
+        guard let tokenizer else { throw ChatError.notLoaded }
+        return tokenizer.encode(text: Self.formatChatML(PromptBudget.boundConversation(conversation)))
+            .map { UInt32($0) }
+    }
+
+    func decode(tokens: [UInt32]) throws -> String {
+        guard let tokenizer else { throw ChatError.notLoaded }
+        return tokenizer.decode(tokens: tokens.map { Int($0) }, skipSpecialTokens: true)
+    }
+
+    /// Raw single-machine generation over pre-tokenized ids — the reference a
+    /// distributed run is compared against. Deliberately skips ChatML formatting
+    /// and reply cleanup so the comparison is over token ids, not prose.
+    func generateRaw(promptTokens: [UInt32], maxTokens: Int) throws -> [UInt32] {
+        guard let engine else { throw ChatError.notLoaded }
+        return try withCapturePaused {
+            engine.reset()
+            return try engine.generate(prompt: promptTokens, maxTokens: maxTokens)
+        }
+    }
+
     /// Releases composed-weight caches and the KV cache.
     ///
     /// Refuses while a pipeline turn is in flight. `trim` clears `kv_cache`,
