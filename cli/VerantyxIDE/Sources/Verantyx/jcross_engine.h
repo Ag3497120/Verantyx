@@ -129,6 +129,10 @@ int32_t jcross_engine_generate_injected(
     const float *inject_alphas_ptr,
     size_t n_inject,
     int32_t inject_each_step,
+    // 0 = blend the last prompt position only (execute_inject_at_layer's
+    // convention, measured inert for generation); 1 = blend every prompt
+    // position, which is the variant that actually steers.
+    int32_t blend_all_positions,
     size_t max_tokens,
     uint32_t *out_ptr, size_t out_len
 );

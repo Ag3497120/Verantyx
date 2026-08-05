@@ -641,6 +641,7 @@ actor JCrossChatManager {
         soft: [[Float]] = [],
         layerInjections: [(layer: Int, vector: [Float], alpha: Float)] = [],
         injectEachStep: Bool = false,
+        blendAllPositions: Bool = true,
         maxTokens: Int
     ) throws -> [UInt32] {
         guard let engine else { throw ChatError.notLoaded }
@@ -648,7 +649,8 @@ actor JCrossChatManager {
             try engine.generateInjected(
                 promptTokens: promptTokens, soft: soft,
                 layerInjections: layerInjections,
-                injectEachStep: injectEachStep, maxTokens: maxTokens)
+                injectEachStep: injectEachStep,
+                blendAllPositions: blendAllPositions, maxTokens: maxTokens)
         }
     }
 

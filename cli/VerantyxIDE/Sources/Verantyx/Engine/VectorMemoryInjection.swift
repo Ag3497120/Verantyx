@@ -55,10 +55,30 @@ enum VectorMemoryInjection {
     /// usefully — early enough that later layers can act on the nudge, late
     /// enough that the representation is not still mostly lexical.
     struct Settings: Codable, Equatable {
-        var alpha: Float = 0.25
+        /// Measured, not chosen by feel. Sweeping a real encode vector at a
+        /// third of the way up a 24-layer model: coherent to alpha 0.3, thinning
+        /// at 0.4, one repeated token by 1.0. Identical band on CPU and GPU.
+        /// 0.2 sits inside it with room, since the per-hit score scales it down
+        /// further anyway.
+        var alpha: Float = 0.2
         /// `nil` = one third of the model's depth.
         var layer: Int? = nil
-        var maxMemories: Int = 3
+        /// One by default because one is what was measured.
+        ///
+        /// Stacking blends is not a smaller version of the same thing — an
+        /// earlier build applied the same alpha nine times without meaning to,
+        /// and its apparent "usable band" was an artefact of that. Until
+        /// stacking is swept the same way, more than one memory is an untested
+        /// region, not a bigger dose.
+        var maxMemories: Int = 1
+        /// Blend across every prompt position rather than only the last.
+        ///
+        /// Not a preference. Last-position-only is `execute_inject_at_layer`'s
+        /// convention and was measured to be completely inert for generation —
+        /// even at alpha 1.0 the output came back byte-identical. That
+        /// convention was written for *observation*, where nudging one row
+        /// enough to read it back is the whole requirement.
+        var blendAllPositions: Bool = true
         var injectEachStep: Bool = false
 
         func resolvedLayer(numLayers: Int) -> Int {

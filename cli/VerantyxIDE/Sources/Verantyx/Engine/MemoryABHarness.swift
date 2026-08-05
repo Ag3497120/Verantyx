@@ -144,7 +144,8 @@ actor MemoryABHarness {
         await chat.resetEngine()
         let out = try await chat.generateInjectedRaw(
             promptTokens: tokens, layerInjections: injections,
-            injectEachStep: settings.injectEachStep, maxTokens: maxTokens)
+            injectEachStep: settings.injectEachStep,
+            blendAllPositions: settings.blendAllPositions, maxTokens: maxTokens)
         let answer = (try? await chat.decode(tokens: out)) ?? ""
 
         return Outcome(

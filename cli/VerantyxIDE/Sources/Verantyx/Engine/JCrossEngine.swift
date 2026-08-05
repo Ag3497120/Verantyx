@@ -279,6 +279,7 @@ final class JCrossEngine {
         soft: [[Float]] = [],
         layerInjections: [(layer: Int, vector: [Float], alpha: Float)] = [],
         injectEachStep: Bool = false,
+        blendAllPositions: Bool = true,
         maxTokens: Int
     ) throws -> [UInt32] {
         var prompt = promptTokens
@@ -303,6 +304,7 @@ final class JCrossEngine {
                                     layerInjections.isEmpty ? nil : aBuf.baseAddress,
                                     layerInjections.count,
                                     injectEachStep ? 1 : 0,
+                                    blendAllPositions ? 1 : 0,
                                     maxTokens,
                                     oBuf.baseAddress, oBuf.count)
                             }
