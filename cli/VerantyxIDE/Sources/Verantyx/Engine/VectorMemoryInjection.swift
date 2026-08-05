@@ -55,21 +55,37 @@ enum VectorMemoryInjection {
     /// usefully — early enough that later layers can act on the nudge, late
     /// enough that the representation is not still mostly lexical.
     struct Settings: Codable, Equatable {
-        /// Measured, not chosen by feel. Sweeping a real encode vector at a
-        /// third of the way up a 24-layer model: coherent to alpha 0.3, thinning
-        /// at 0.4, one repeated token by 1.0. Identical band on CPU and GPU.
-        /// 0.2 sits inside it with room, since the per-hit score scales it down
-        /// further anyway.
-        var alpha: Float = 0.2
+        /// Measured, and deliberately inside the band rather than at its edge.
+        ///
+        /// Swept across three prompts at a third of the way up a 24-layer model,
+        /// a single injection is coherent from 0.05 to 0.2 and degrades beyond.
+        /// 0.15 sits inside that with margin; the per-hit similarity score
+        /// scales it down further still.
+        ///
+        /// An earlier value of 0.2 came from a single-prompt sweep that read
+        /// coherent to 0.3. Repeating it across three prompts moved the edge
+        /// down — one prompt at one strength is one sample, and the band was
+        /// narrower than a single sample suggested.
+        var alpha: Float = 0.15
         /// `nil` = one third of the model's depth.
         var layer: Int? = nil
-        /// One by default because one is what was measured.
+        /// One, because stacking was swept and came back **unresolved**.
         ///
-        /// Stacking blends is not a smaller version of the same thing — an
-        /// earlier build applied the same alpha nine times without meaning to,
-        /// and its apparent "usable band" was an artefact of that. Until
-        /// stacking is swept the same way, more than one memory is an untested
-        /// region, not a bigger dose.
+        /// The sweep asked which quantity governs the limit: total alpha across
+        /// injections (so the rule would be a budget, alpha = budget / count) or
+        /// per-layer alpha (so stacking is free). The answer at this measurement
+        /// scale is neither — the safe band did not vary monotonically with
+        /// count, and at three injections there was no contiguous healthy band
+        /// at all (0.05 failed while 0.1 passed).
+        ///
+        /// A first pass did produce a tidy-looking law, "budget 0.56 total", by
+        /// comparing the spread of two noisy quantities and calling the less
+        /// noisy one conserved. It was not a finding; two noisy numbers always
+        /// have one smaller than the other.
+        ///
+        /// So this stays at one until the measurement can answer the question.
+        /// The limiting factor is the health heuristic — sixteen greedy tokens
+        /// either loop or do not, which is too blunt to resolve a band edge.
         var maxMemories: Int = 1
         /// Blend across every prompt position rather than only the last.
         ///
