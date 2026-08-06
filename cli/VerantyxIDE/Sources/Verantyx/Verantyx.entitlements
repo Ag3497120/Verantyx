@@ -6,21 +6,27 @@
     <true/>
 
     <!-- The app runs with the hardened runtime, which turns on library
-         validation: a loaded dylib must be signed by the same Team ID as the
+         validation: a loaded dylib must carry the same Team ID as the
          process. libjcross_engine_glm.dylib is built by Cargo and embedded
-         ad-hoc, so it has no Team ID and never matches — dyld refuses it with
-         "different Team IDs" and the app dies at launch before any UI.
+         ad hoc, so it has no Team ID and can never match. dyld then refuses
+         it and the app aborts at launch before any UI appears.
 
          The failure is worth naming because it reads as something else: the
          first line dyld prints is "Library not loaded", which points at a
-         missing file, and the actual cause is three lines down in the list of
+         missing file, while the real cause sits further down in the list of
          paths it tried.
 
-         The alternative — dropping the hardened runtime so validation stops
-         applying — is what an ad-hoc `codesign --deep` re-sign does, and it
-         silently gives up notarisation and every other hardened-runtime
-         protection to fix one dylib. This entitlement gives up only library
-         validation, which is the part actually in the way. -->
+         The alternative fix is an ad hoc deep re-sign of the bundle, which
+         also makes it launch. It works by dropping the hardened runtime
+         altogether, giving up notarisation and every other protection the
+         runtime carries in order to load one dylib. This entitlement gives
+         up library validation alone.
+
+         Note for editors: XML forbids a double hyphen inside a comment, and
+         codesign passes this file to AMFI, whose parser enforces that. A
+         comment mentioning a command line flag verbatim breaks signing with
+         "AMFIUnserializeXML: syntax error", pointing at the comment's line
+         rather than at anything wrong with the entitlements themselves. -->
     <key>com.apple.security.cs.disable-library-validation</key>
     <true/>
 </dict>
