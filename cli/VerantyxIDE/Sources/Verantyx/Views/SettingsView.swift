@@ -6,6 +6,11 @@ import SwiftUI
 
 struct SettingsView: View {
     @EnvironmentObject var app: AppState
+    @ObservedObject private var pipeSession = PipeSession.shared
+    @ObservedObject private var pipeCoordinator = PipeCoordinator.shared
+    @State private var showPipeSheet = false
+    @State private var lmStudioReachable: Bool? = nil
+    @State private var lmStudioModelCount = 0
     @State private var selectedTab: SettingsTab = .model
     @State private var testingConnection = false
     @State private var connectionTestResult: String? = nil
@@ -464,8 +469,114 @@ struct SettingsView: View {
             sectionHeader("Inference Parameters", icon: "slider.horizontal.3")
             inferenceParametersCard
 
+            sectionHeader(app.t("Two-Mac Model", "2台構成"), icon: "rectangle.connected.to.line.below")
+            pipeCard
+
+            sectionHeader("LM Studio", icon: "desktopcomputer")
+            lmStudioCard
+
             sectionHeader("System Prompt", icon: "text.bubble")
             systemPromptCard
+        }
+    }
+
+    /// Running one model across two Macs.
+    ///
+    /// The card stays deliberately thin — status and a way in. Everything that
+    /// needs explaining lives in the sheet, which can afford to be linear and
+    /// wordy; a settings card that tried to hold the whole flow is how the
+    /// previous attempt at this became unusable.
+    private var pipeCard: some View {
+        settingsCard {
+            VStack(alignment: .leading, spacing: 12) {
+                rowLabel(app.t("Status", "状態")) {
+                    HStack(spacing: 6) {
+                        Circle()
+                            .fill(pipeSession.isPaired ? Color.green
+                                  : (pipeCoordinator.isEnabled ? Color.orange : Color.gray))
+                            .frame(width: 6, height: 6)
+                        Text(pipeStatusText).font(.system(size: 11)).foregroundStyle(.secondary)
+                        Button(app.t("Set up…", "設定…")) { showPipeSheet = true }
+                            .buttonStyle(.bordered).controlSize(.small)
+                    }
+                }
+                Text(app.t(
+                    "Splits one model's layers across two Macs so a model too large for either alone can run. It does not make replies faster — only one Mac computes at a time.",
+                    "1つのモデルの層を2台のMacに分けて、単体では大きすぎるモデルを動かせるようにします。返答が速くなる機能ではありません — 計算するのは常に片方だけです。"))
+                    .font(.system(size: 10)).foregroundStyle(.tertiary)
+                    .fixedSize(horizontal: false, vertical: true)
+            }
+        }
+        .sheet(isPresented: $showPipeSheet) {
+            PipeConnectSheet().environmentObject(app)
+        }
+    }
+
+    private var pipeStatusText: String {
+        if pipeSession.isPaired {
+            let role = pipeSession.role == .master
+                ? app.t("running the first half", "前半を担当")
+                : app.t("running the second half", "後半を担当")
+            return "\(pipeSession.peer?.deviceName ?? "") — \(role)"
+        }
+        return pipeCoordinator.isEnabled
+            ? app.t("Visible, not connected", "検出可能・未接続")
+            : app.t("Off", "オフ")
+    }
+
+    /// LM Studio's OpenAI-compatible server.
+    ///
+    /// It is not started automatically — unlike Ollama, nothing runs until the
+    /// user turns on Local Server inside LM Studio. That single fact accounts for
+    /// essentially every "LM Studio doesn't work" report, so the status line
+    /// leads and says what to do rather than just showing a red dot.
+    private var lmStudioCard: some View {
+        settingsCard {
+            VStack(alignment: .leading, spacing: 12) {
+                rowLabel(app.t("Server", "サーバー")) {
+                    HStack(spacing: 6) {
+                        Circle()
+                            .fill(lmStudioReachable == true ? Color.green
+                                  : (lmStudioReachable == false ? Color.orange : Color.gray))
+                            .frame(width: 6, height: 6)
+                        Text(lmStudioStatusText)
+                            .font(.system(size: 11))
+                            .foregroundStyle(.secondary)
+                        Button(app.t("Check", "確認")) {
+                            Task {
+                                lmStudioReachable = await LMStudioClient.shared.isAvailable()
+                                lmStudioModelCount = lmStudioReachable == true
+                                    ? await LMStudioClient.shared.listModels().count : 0
+                            }
+                        }
+                        .buttonStyle(.bordered).controlSize(.small)
+                    }
+                }
+                Text(app.t(
+                    "Models are chosen from the model bar above the chat input. If nothing appears there, open LM Studio → Developer → Start Server.",
+                    "モデルはチャット入力欄の上のモデルバーから選びます。そこに出てこない場合は LM Studio → Developer → Start Server を実行してください。"
+                ))
+                .font(.system(size: 10)).foregroundStyle(.tertiary)
+                .fixedSize(horizontal: false, vertical: true)
+
+                Divider().opacity(0.2)
+
+                rowLabel(app.t("Endpoint", "エンドポイント")) {
+                    TextField(LMStudioClient.defaultEndpoint, text: $app.lmStudioEndpoint)
+                        .textFieldStyle(.roundedBorder)
+                        .font(.system(size: 11, design: .monospaced))
+                        .frame(width: 240)
+                }
+            }
+        }
+    }
+
+    private var lmStudioStatusText: String {
+        switch lmStudioReachable {
+        case .some(true):  return app.t("Running — \(lmStudioModelCount) model(s)",
+                                        "起動中 — モデル\(lmStudioModelCount)件")
+        case .some(false): return app.t("Not running", "未起動")
+        case nil:          return app.t("Not checked", "未確認")
         }
     }
 
@@ -738,61 +849,6 @@ struct SettingsView: View {
                 }
                 Text("Token-by-token streaming display. Disable only for debugging.")
                     .font(.system(size: 10)).foregroundStyle(.tertiary)
-            }
-        }
-    }
-
-    private var exoClusterCard: some View {
-        settingsCard {
-            VStack(alignment: .leading, spacing: 14) {
-                HStack {
-                    VStack(alignment: .leading, spacing: 4) {
-                        Text("Enable Exo Cluster (Thunderbolt)")
-                            .font(.system(size: 13, weight: .medium))
-                            .foregroundStyle(Color.white.opacity(0.9))
-                        Text("Distribute inference across multiple Macs.")
-                            .font(.system(size: 11))
-                            .foregroundStyle(Color.white.opacity(0.5))
-                    }
-                    Spacer()
-                    
-                    Picker("Role", selection: $app.exoRole) {
-                        Text("Idle").tag(AppState.ExoRole.idle)
-                        Text("Master 👑").tag(AppState.ExoRole.master)
-                        Text("Worker 🛠️").tag(AppState.ExoRole.worker)
-                    }
-                    .pickerStyle(.segmented)
-                    .frame(width: 200)
-                    .onChange(of: app.exoRole) { newValue in
-                        if newValue == .idle {
-                            app.exoEnabled = false
-                            ExoEngine.shared.stop()
-                        } else {
-                            app.exoEnabled = true
-                            ExoEngine.shared.start()
-                        }
-                        ExoClusterSync.shared.updateRole(newValue)
-                    }
-                    
-                    Button("Setup Wizard") {
-                        // Handled by parent view passing state, here we trigger defaults
-                        let process = Process()
-                        process.executableURL = URL(fileURLWithPath: "/usr/bin/defaults")
-                        process.arguments = ["write", "com.verantyx.ide", "trigger_setup", "exo"]
-                        try? process.run()
-                    }
-                    .buttonStyle(.bordered)
-                    .font(.system(size: 11))
-                }
-                
-                if app.exoRole != .idle {
-                    Divider().opacity(0.2)
-                    rowLabel("Exo Endpoint") {
-                        Text(app.exoEndpoint.isEmpty ? "Starting / Connecting..." : app.exoEndpoint)
-                            .font(.system(size: 11, design: .monospaced))
-                            .foregroundStyle(app.exoEndpoint.isEmpty ? Color.gray : Color.green)
-                    }
-                }
             }
         }
     }

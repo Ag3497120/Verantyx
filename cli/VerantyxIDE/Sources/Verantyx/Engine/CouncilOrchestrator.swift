@@ -29,6 +29,41 @@ import Foundation
 /// - No `ConceptLexicon` soft-lock (a learned per-concept direction) --
 ///   no equivalent learned-concept store exists on the Swift side.
 /// - No cross-machine "2台" council -- all roles share one `JCrossEngine`.
+///
+/// KNOWN INCOMPATIBILITY — reasoning models (Qwen3 / Qwen3.5 / Qwen3.6, the
+/// published target): every per-role "opinion" here is a single-token
+/// distribution from `chat.topKDistributionText`, sampled at the position
+/// right after the prompt. That is a sound proxy for a direct-answer model
+/// (Qwen2.5 family), where the first predicted token already reflects an
+/// opinion. It is not sound for a reasoning model: the first token after
+/// any prompt is unconditionally the start of a `<think>` block, never a
+/// real answer, so the "opinion" each role contributes is effectively the
+/// distribution over how to begin thinking, not the distribution over what
+/// to conclude.
+///
+/// Observed on qwen3-abliterated_4b (2026-08-04): council conclusions of
+/// `:` / `is`, evidence lines like "Commander: :" / "Scout-A: is" — exactly
+/// the shape this predicts. The same model produced coherent output through
+/// `JCrossChatManager.generate`/`generateStreaming` (full multi-token
+/// generation, thinking stripped by `ThinkingFilter`/`extractAnswer`) in
+/// both the CLI long-horizon runner and `JGenSpeakAgent`'s direct-reply
+/// path, which rules out conversion corruption — the defect is specific to
+/// this single-token consensus mechanism, not the model or the engine.
+///
+/// Not fixed as of this note (deliberate — the fix touches the core
+/// consensus mechanism and needs a design decision, not a quick patch).
+/// Options on the table, roughly in order of invasiveness:
+///   1. Suppress thinking in each role's prompt for a detected reasoning
+///      model (needs per-model prompt-suffix support to be verified).
+///   2. Generate past the first `</think>` before sampling the consensus
+///      distribution — correct, but turns one FFI call into a small
+///      generation loop per role per round; changes the cost model.
+///   3. Route reasoning models around Council entirely (Speak/Act's full-
+///      generation path only) — safe, but gives up the "same-architecture
+///      JGEN council core" property for exactly the model family (Qwen3.6)
+///      this project is meant to validate against.
+/// Until one of these lands, treat Council results as unreliable for any
+/// reasoning-family model; Speak and Act remain trustworthy for them.
 actor CouncilOrchestrator {
     static let shared = CouncilOrchestrator()
 

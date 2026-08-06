@@ -28,8 +28,14 @@ public enum ThinkingFilter {
         public var hasAnswer: Bool { !answer.isEmpty }
     }
 
-    static let openTags = ["<think>", "<thinking>", "<reasoning>"]
-    static let closeTags = ["</think>", "</thinking>", "</reasoning>"]
+    /// Reasoning-block tag names seen in the wild. Not a guess list: each was
+    /// added after a real model emitted it. Ornith-1.0-9B uses `<analysis>`,
+    /// which slipped through when only the Qwen-style `<think>` was known and
+    /// produced a "reply" of `<analysis>` — the same failure `<think>` caused,
+    /// under a different name.
+    static let tagNames = ["think", "thinking", "reasoning", "analysis", "scratchpad"]
+    static let openTags = tagNames.map { "<\($0)>" }
+    static let closeTags = tagNames.map { "</\($0)>" }
 
     /// True when `text` looks like it came from a reasoning model, whether or
     /// not the block is closed.

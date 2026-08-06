@@ -18,6 +18,13 @@ struct MachineProfile: Sendable {
     /// memory on Apple Silicon is shared with the GPU.
     var usableModelRAMGB: Double { totalRAMGB * 0.6 }
 
+    /// Budget for pipeline mode, where the model does not fit on one machine.
+    ///
+    /// Higher than `usableModelRAMGB` on purpose — see `SplitPlanner.pipelineRAMFactor`
+    /// for the arithmetic. Applying the conservative factor here would make the
+    /// feature unable to run the models it exists for.
+    var usablePipelineRAMGB: Double { totalRAMGB * SplitPlanner.pipelineRAMFactor }
+
     static func current() -> MachineProfile {
         let ram = Double(ProcessInfo.processInfo.physicalMemory) / Double(1 << 30)
 

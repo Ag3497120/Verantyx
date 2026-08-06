@@ -27,6 +27,20 @@
 	<string>1778912964</string>
 	<key>LSMinimumSystemVersion</key>
 	<string>13.0</string>
+	<!--
+		Required on macOS 15+ for any local-network access, including Bonjour.
+		Without these two keys discovery does not fail with an error and does not
+		prompt -- it simply never returns a result, which is indistinguishable from
+		"no other Mac on this network". PipeDiscovery infers the denied state and
+		points at System Settings, but it cannot recover from the keys being
+		absent. Do not remove them.
+	-->
+	<key>NSLocalNetworkUsageDescription</key>
+	<string>Verantyx finds your other Mac on this network so the two can run one model together.</string>
+	<key>NSBonjourServices</key>
+	<array>
+		<string>_verantyx-pipe._tcp</string>
+	</array>
 	<key>NSAppTransportSecurity</key>
 	<dict>
 		<key>NSAllowsLocalNetworking</key>

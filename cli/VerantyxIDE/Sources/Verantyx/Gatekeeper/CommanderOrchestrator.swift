@@ -1644,11 +1644,24 @@ Rule: think semantically in <thought>, output JCROSS_* in <action><payload>.
         }
 
         let result = await terminal.run(command, in: executionDir, initiatedByAI: true)
-        
+
         if result.succeeded {
             return (true, result.stdout)
         } else {
             let errorMsg = result.stderr.isEmpty ? result.stdout : result.stderr
+            // Feed the typed-failure ledger. "Build failed" alone teaches the
+            // system nothing; the classified verdict (signing / dependency /
+            // test / disk / ...) accumulates in Vera's growth signals, where
+            // recurrences surface through failure_stats and the boundary
+            // classifier. Fire-and-forget on purpose: recording a failure
+            // must never be able to fail the build path itself.
+            let source = command.hasPrefix("cargo") ? "cargo"
+                : command.hasPrefix("swift") ? "swift_build"
+                : command.hasPrefix("npx") ? "tsc" : "xcodebuild"
+            Task.detached(priority: .utility) {
+                _ = await VeraMemoryBridge.recordBuildFailure(
+                    source: source, logExcerpt: String(errorMsg.prefix(4000)))
+            }
             return (false, errorMsg)
         }
     }

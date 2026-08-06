@@ -30,7 +30,8 @@ struct HumanPriorityModeView: View {
     // separate from the normal mode's (ModelSelectorBarView's popover has
     // its own showPendingToolCalls/showReasoningTimeline @State) so the
     // two layouts' sheets never fight over the same flag.
-    @State private var veraAPanelTab: VeraAPanelTab = .settings
+    @State private var veraAPanelTab: VeraAPanelTab = .memory
+    @State private var veraAShowConnectSheet = false
     @State private var veraAShowPendingToolCalls = false
     @State private var veraAShowReasoningTimeline = false
 
@@ -185,33 +186,98 @@ struct HumanPriorityModeView: View {
     // is deliberately not a code-editing surface.
 
     private enum VeraAPanelTab: String, CaseIterable, Identifiable {
-        case settings, stereoCross, mirror, vectorLab
+        // Memory first: this screen exists for the qwen + JGEN memory workflow,
+        // and the console is the only tab that shows what memory actually did.
+        case memory, research, distributed, settings, stereoCross, mirror, vectorLab
         var id: String { rawValue }
         @MainActor
         func title(_ app: AppState) -> String {
             switch self {
+            case .memory:      return app.t("Memory", "記憶")
+            case .research:    return app.t("Failure types", "失敗の型")
+            case .distributed: return app.t("Two Macs", "2台構成")
             case .settings:    return app.t("Settings", "設定")
             case .stereoCross: return app.t("3D Graph", "立体十字構造体")
             case .mirror:      return app.t("Mirror", "ミラー")
             case .vectorLab:   return app.t("Vector Lab", "ベクトルラボ")
             }
         }
+        /// The left rail is icon-first, so every tab needs one that reads at
+        /// 16pt without a label.
+        var icon: String {
+            switch self {
+            case .memory:      return "tray.full"
+            case .research:    return "list.bullet.rectangle"
+            case .distributed: return "rectangle.connected.to.line.below"
+            case .settings:    return "slider.horizontal.3"
+            case .stereoCross: return "cube.transparent"
+            case .mirror:      return "macwindow.on.rectangle"
+            case .vectorLab:   return "waveform.path"
+            }
+        }
     }
 
     private var veraAModeLayout: some View {
-        ResizableHSplit(
-            // Inverted from centerAndRightPanes: chat is the large/primary
-            // side here, the feature panel is the small/secondary one.
-            minLeft: 400, maxLeft: 99999, minRight: 260, initialLeft: 900
-        ) {
-            aiChatPanel
-        } right: {
-            veraAFeaturePanel
+        HStack(spacing: 0) {
+            // A rail built for this mode rather than the file-oriented one the
+            // normal layout uses. There is no workspace here — no tree, no
+            // editor — so explorer/search/source-control icons would point at
+            // nothing. These are the things this mode is actually about.
+            veraARail
+            Divider().opacity(0.2)
+            ResizableHSplit(
+                // Inverted from centerAndRightPanes: chat is the large/primary
+                // side here, the feature panel is the small/secondary one.
+                minLeft: 360, maxLeft: 99999, minRight: 280, initialLeft: 820
+            ) {
+                aiChatPanel
+            } right: {
+                veraAFeaturePanel
+            }
         }
         .background(Color(red: 0.10, green: 0.10, blue: 0.13))
+        .sheet(isPresented: $veraAShowConnectSheet) {
+            PipeConnectSheet().environmentObject(app)
+        }
         .sheet(isPresented: $veraAShowPendingToolCalls) { PendingToolCallsView() }
         .sheet(isPresented: $veraAShowReasoningTimeline) { ReasoningTimelineView() }
         .toastOverlay()
+    }
+
+    /// Icon rail. Same width as the normal activity bar so switching modes
+    /// does not shift the whole window.
+    private var veraARail: some View {
+        VStack(spacing: 4) {
+            ForEach(VeraAPanelTab.allCases) { tab in
+                Button { veraAPanelTab = tab } label: {
+                    Image(systemName: tab.icon)
+                        .font(.system(size: 15))
+                        .foregroundStyle(veraAPanelTab == tab
+                            ? Color(red: 0.55, green: 0.8, blue: 1.0)
+                            : Color(red: 0.45, green: 0.45, blue: 0.55))
+                        .frame(width: 40, height: 34)
+                        .background(
+                            RoundedRectangle(cornerRadius: 6)
+                                .fill(veraAPanelTab == tab ? Color.white.opacity(0.07) : .clear)
+                        )
+                }
+                .buttonStyle(.plain)
+                .help(tab.title(app))
+            }
+            Spacer()
+            // Way back out, in the same place the way in was.
+            Button { app.isVeraAMode = false } label: {
+                Image(systemName: "arrow.uturn.backward")
+                    .font(.system(size: 13))
+                    .foregroundStyle(Color(red: 0.45, green: 0.45, blue: 0.55))
+                    .frame(width: 40, height: 34)
+            }
+            .buttonStyle(.plain)
+            .help(app.t("Back to the editor layout", "エディタ表示に戻る"))
+        }
+        .padding(.vertical, 8)
+        .frame(width: 48)
+        .background(Color(red: 0.08, green: 0.08, blue: 0.11))
     }
 
     private var veraAFeaturePanel: some View {
@@ -245,6 +311,12 @@ struct HumanPriorityModeView: View {
 
             Group {
                 switch veraAPanelTab {
+                case .memory:
+                    MemoryConsoleView()
+                case .research:
+                    FailureDomainsView()
+                case .distributed:
+                    PipeControlPanelView(showConnectSheet: $veraAShowConnectSheet)
                 case .settings:
                     JGenVeraSettingsPanelView(
                         showPendingToolCalls: $veraAShowPendingToolCalls,

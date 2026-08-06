@@ -384,6 +384,29 @@ actor JCrossChatManager {
         }
     }
 
+    /// `encodeText`, but stopping at `layer` instead of running to the end.
+    ///
+    /// Exists because a memory vector and the residual it gets blended into
+    /// have to live in the same space for the blend to mean anything, and
+    /// `encodeText` returns the post-final-norm state — the far end of the
+    /// stack — while `VectorMemoryInjection` blends it in a third of the way
+    /// up. Norm matching makes the magnitudes agree and leaves the harder
+    /// question untouched: whether a direction that means something at the
+    /// output means the same thing in the middle.
+    func encodeTextAtLayer(_ text: String, layer: Int) throws -> [Float] {
+        guard let engine, let tokenizer else { throw ChatError.notLoaded }
+        let bounded = PromptBudget.truncateForEncode(text)
+        let tokens = PromptBudget.capEncodeTokens(
+            tokenizer.encode(text: bounded).map { UInt32($0) }
+        )
+        return try withCapturePaused {
+            engine.reset()
+            let rows = try engine.encodeLayers(tokens: tokens, layers: [layer])
+            guard let first = rows.first else { throw ChatError.notLoaded }
+            return first
+        }
+    }
+
     /// Decodes a vector (from `encodeText`, `optimizeVector`, or anything
     /// else) back into the single nearest token, as text.
     func resynthesizeToText(vector: [Float], layerName: String = "lm_head", temperature: Float = 1.0) throws -> String {
@@ -477,6 +500,33 @@ actor JCrossChatManager {
             }
             if MachineProfile.current().totalRAMGB <= 24 { engine.trim() }
             return out
+        }
+    }
+
+    /// Raw residuals from one injected forward pass, without decoding them.
+    ///
+    /// `reflect` and `reflectRawVector` both collapse each observation to its
+    /// argmax token before returning, which is the right shape for showing a
+    /// person what a layer is "thinking" but throws away everything a margin
+    /// measurement needs: the argmax is the last thing an injection moves, and
+    /// a measurement that only sees it reports inert for steers that are in
+    /// fact shifting a large share of the distribution.
+    ///
+    /// Does not reset. The caller must, and `MemoryDiscrimination` does before
+    /// every arm — the same contract `generateInjectedRaw` keeps, and for the
+    /// same reason: a stale cache here produces confident, wrong numbers with
+    /// no error.
+    func injectMultiLayerRaw(
+        tokens: [UInt32],
+        soft: [[Float]] = [],
+        injections: [(layer: Int, vector: [Float], alpha: Float)],
+        observeLayers: [Int]
+    ) throws -> [Int: [Float]] {
+        guard let engine else { throw ChatError.notLoaded }
+        return try withCapturePaused {
+            try engine.injectMultiLayer(
+                tokens: PromptBudget.capEncodeTokens(tokens), soft: soft,
+                injections: injections, observeLayers: observeLayers)
         }
     }
 
@@ -591,7 +641,138 @@ actor JCrossChatManager {
 
     /// Release composed weight caches without unloading the model (between
     /// council rounds / after a heavy Vera-a turn).
-    func trimMemory() {
-        engine?.trim()
+    // MARK: - Pipeline segments (Milestone U)
+
+    /// Clears this side's KV and GDN state. Called by the worker on RESET.
+    ///
+    /// The engine's own `reset` already clears `kv_cache`, `metal_kv_cache`,
+    /// `gpu_kv` and `hybrid_state`, which is exactly right for a machine holding
+    /// only part of the stack: the containers are per-layer indexed and the
+    /// unused slots were empty to begin with.
+    func resetEngine() {
+        engine?.reset()
     }
+
+    /// Runs layers `[startLayer, endLayer)` over a residual received from the
+    /// other machine.
+    ///
+    /// `rawFlags` is passed through from the wire rather than re-derived, so the
+    /// master decides once whether this segment ends in a token or a hidden
+    /// state and both sides cannot disagree about it.
+    func runSegment(
+        hidden: [[Float]], startLayer: Int, endLayer: Int, startPos: Int, rawFlags: UInt32
+    ) throws -> JCrossEngine.SegmentResult {
+        guard let engine else { throw ChatError.notLoaded }
+        return try engine.segment(
+            hidden: hidden, startLayer: startLayer, endLayer: endLayer,
+            startPos: startPos, flags: JCrossEngine.SegmentFlags(rawValue: rawFlags))
+    }
+
+    /// Master half: tokens in, residual (or token) out.
+    func runSegment(
+        tokens: [UInt32], startLayer: Int, endLayer: Int, startPos: Int, rawFlags: UInt32
+    ) throws -> JCrossEngine.SegmentResult {
+        guard let engine else { throw ChatError.notLoaded }
+        return try engine.segment(
+            tokens: tokens, startLayer: startLayer, endLayer: endLayer,
+            startPos: startPos, flags: JCrossEngine.SegmentFlags(rawValue: rawFlags))
+    }
+
+    /// Raw generation with vector-injected memory, over pre-tokenized ids.
+    ///
+    /// Deliberately raw (no ChatML wrapping, no reply cleanup): the A/B compares
+    /// conditions that differ only in how memory arrives, so anything else this
+    /// path might normally do would be a confound.
+    ///
+    /// Does not reset — the caller must, and the harness does before every run.
+    /// Making it reset here would hide the contract that bit the Rust-side test.
+    func generateInjectedRaw(
+        promptTokens: [UInt32],
+        soft: [[Float]] = [],
+        layerInjections: [(layer: Int, vector: [Float], alpha: Float)] = [],
+        injectEachStep: Bool = false,
+        blendAllPositions: Bool = true,
+        maxTokens: Int
+    ) throws -> [UInt32] {
+        guard let engine else { throw ChatError.notLoaded }
+        return try withCapturePaused {
+            try engine.generateInjected(
+                promptTokens: promptTokens, soft: soft,
+                layerInjections: layerInjections,
+                injectEachStep: injectEachStep,
+                blendAllPositions: blendAllPositions, maxTokens: maxTokens)
+        }
+    }
+
+    /// Layer count of the loaded model, for the split planner.
+    var loadedLayerCount: Int { engine?.numLayers ?? 0 }
+
+    /// EOS ids from the model's sidecar.
+    ///
+    /// The distributed path needs these explicitly: the worker returns bare
+    /// token ids and has no tokenizer, so deciding when a reply has ended is the
+    /// master's job. Single-machine generation gets this inside the engine's own
+    /// loop, which is why it is not exposed anywhere else.
+    var eosTokenIds: Set<UInt32> {
+        guard let name = loadedModelName else { return [] }
+        let meta = JGenPaths.convertedModelsDir.appendingPathComponent(name).path + ".meta.json"
+        guard let d = FileManager.default.contents(atPath: meta),
+              let j = try? JSONSerialization.jsonObject(with: d) as? [String: Any],
+              let ids = j["eos_tokens"] as? [Int] else { return [] }
+        return Set(ids.map { UInt32($0) })
+    }
+
+    /// Tokenizes with the same ChatML formatting a local turn uses, so a
+    /// distributed run and a single-machine run start from identical ids.
+    func promptTokens(conversation: [(role: String, content: String)]) throws -> [UInt32] {
+        guard let tokenizer else { throw ChatError.notLoaded }
+        return tokenizer.encode(text: Self.formatChatML(PromptBudget.boundConversation(conversation)))
+            .map { UInt32($0) }
+    }
+
+    func decode(tokens: [UInt32]) throws -> String {
+        guard let tokenizer else { throw ChatError.notLoaded }
+        return tokenizer.decode(tokens: tokens.map { Int($0) }, skipSpecialTokens: true)
+    }
+
+    /// Raw single-machine generation over pre-tokenized ids — the reference a
+    /// distributed run is compared against. Deliberately skips ChatML formatting
+    /// and reply cleanup so the comparison is over token ids, not prose.
+    func generateRaw(promptTokens: [UInt32], maxTokens: Int) throws -> [UInt32] {
+        guard let engine else { throw ChatError.notLoaded }
+        return try withCapturePaused {
+            engine.reset()
+            return try engine.generate(prompt: promptTokens, maxTokens: maxTokens)
+        }
+    }
+
+    /// Releases composed-weight caches and the KV cache.
+    ///
+    /// Refuses while a pipeline turn is in flight. `trim` clears `kv_cache`,
+    /// `gpu_kv` and `hybrid_state` — which is correct between turns and
+    /// catastrophic during one: this machine's slice of the KV cache vanishes
+    /// and every subsequent token is computed against an empty cache, producing
+    /// fluent, wrong text with no error and no crash. It is the second of the
+    /// two silent-corruption modes in this design (the first being a turn that
+    /// starts without a RESET ack), and unlike that one it is entirely internal
+    /// — no network involved, so nothing else would surface it.
+    ///
+    /// Skipping a trim costs memory that gets reclaimed at the next turn
+    /// boundary. Performing one mid-turn costs the answer.
+    @discardableResult
+    func trimMemory() -> Bool {
+        guard pipelineTurnsInFlight == 0 else { return false }
+        engine?.trim()
+        return true
+    }
+
+    // MARK: - Pipeline turn guard
+
+    private var pipelineTurnsInFlight = 0
+
+    /// Marks a distributed turn as running. Counted rather than boolean because
+    /// a Council round and a chat turn can overlap on the same engine.
+    func beginPipelineTurn() { pipelineTurnsInFlight += 1 }
+    func endPipelineTurn() { pipelineTurnsInFlight = max(0, pipelineTurnsInFlight - 1) }
+    var isPipelineTurnInFlight: Bool { pipelineTurnsInFlight > 0 }
 }

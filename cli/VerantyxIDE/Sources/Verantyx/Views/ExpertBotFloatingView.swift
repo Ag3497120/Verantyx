@@ -77,7 +77,7 @@ struct ExpertBotFloatingView: View {
                             Divider().opacity(0.3)
                             
                             HStack {
-                                TextField("Ask about Exo, Setup, CLI...", text: $inputText)
+                                TextField("Ask about Setup, CLI...", text: $inputText)
                                     .textFieldStyle(.plain)
                                     .font(.system(size: 12))
                                     .padding(8)

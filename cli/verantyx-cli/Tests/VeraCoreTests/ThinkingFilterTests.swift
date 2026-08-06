@@ -52,6 +52,24 @@ final class ThinkingFilterTests: XCTestCase {
         XCTAssertFalse(ThinkingFilter.containsThinking("no tags here"))
     }
 
+    /// Ornith-1.0-9B reasons inside `<analysis>`, not `<think>`. With only the
+    /// Qwen-style tag known, its reply came back as the literal `<analysis>` —
+    /// the same defect as `<think>`, under a name the filter did not know.
+    /// Every tag in the list was added after a real model emitted it.
+    func testRecognisesNonQwenReasoningTags() {
+        for tag in ["analysis", "scratchpad", "reasoning"] {
+            XCTAssertTrue(ThinkingFilter.containsThinking("<\(tag)>considering"),
+                          "<\(tag)> should count as thinking")
+            let open = ThinkingFilter.split("<\(tag)>considering the log")
+            XCTAssertEqual(open.answer, "", "<\(tag)> left open must yield no answer")
+            XCTAssertTrue(open.truncatedThinking)
+
+            let closed = ThinkingFilter.split("<\(tag)>reasoned</\(tag)>[READ_FILE: ci.log]")
+            XCTAssertEqual(closed.answer, "[READ_FILE: ci.log]")
+            XCTAssertFalse(closed.truncatedThinking)
+        }
+    }
+
     func testExpandedBudgetIsBigEnoughToReachAnAnswer() {
         // 96 was the budget that produced "<think>" and nothing else.
         XCTAssertGreaterThanOrEqual(ThinkingFilter.expandedBudget(96), 512)

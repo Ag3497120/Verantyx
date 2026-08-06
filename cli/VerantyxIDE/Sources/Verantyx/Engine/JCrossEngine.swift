@@ -265,13 +265,180 @@ final class JCrossEngine {
     /// Returns a dictionary keyed by observe layer index (not an array --
     /// callers shouldn't need to track index<->layer correspondence
     /// themselves).
+    // MARK: - Vector-injected generation
+
+    /// Memory supplied as vectors instead of prompt text.
+    ///
+    /// `alpha` is a mix ratio into a norm-matched blend, not an amount added.
+    /// The measured usable band on a 0.5B model runs to about 0.4; above that
+    /// generation thins and then collapses, which is correct for a ratio that
+    /// approaches "replace the residual entirely" but does mean the window is
+    /// narrow enough to be worth respecting.
+    func generateInjected(
+        promptTokens: [UInt32],
+        soft: [[Float]] = [],
+        layerInjections: [(layer: Int, vector: [Float], alpha: Float)] = [],
+        injectEachStep: Bool = false,
+        blendAllPositions: Bool = true,
+        maxTokens: Int
+    ) throws -> [UInt32] {
+        var prompt = promptTokens
+        var softFlat = soft.flatMap { $0 }
+        var layers = layerInjections.map { UInt32($0.layer) }
+        var vecs = layerInjections.flatMap { $0.vector }
+        var alphas = layerInjections.map { $0.alpha }
+        var out = [UInt32](repeating: 0, count: maxTokens)
+
+        let n: Int32 = prompt.withUnsafeMutableBufferPointer { pBuf in
+            softFlat.withUnsafeMutableBufferPointer { sBuf in
+                layers.withUnsafeMutableBufferPointer { lBuf in
+                    vecs.withUnsafeMutableBufferPointer { vBuf in
+                        alphas.withUnsafeMutableBufferPointer { aBuf in
+                            out.withUnsafeMutableBufferPointer { oBuf in
+                                jcross_engine_generate_injected(
+                                    handle,
+                                    pBuf.baseAddress, pBuf.count,
+                                    soft.isEmpty ? nil : sBuf.baseAddress, soft.count,
+                                    layerInjections.isEmpty ? nil : lBuf.baseAddress,
+                                    layerInjections.isEmpty ? nil : vBuf.baseAddress,
+                                    layerInjections.isEmpty ? nil : aBuf.baseAddress,
+                                    layerInjections.count,
+                                    injectEachStep ? 1 : 0,
+                                    blendAllPositions ? 1 : 0,
+                                    maxTokens,
+                                    oBuf.baseAddress, oBuf.count)
+                            }
+                        }
+                    }
+                }
+            }
+        }
+        guard n >= 0 else {
+            throw JCrossError.ffiError(function: "jcross_engine_generate_injected", code: n)
+        }
+        return Array(out.prefix(Int(n)))
+    }
+
+    // MARK: - Layer-range execution (pipeline parallelism)
+
+    /// Flags for `segment(...)`. Mirrors SEG_FLAG_* in the Rust engine.
+    struct SegmentFlags: OptionSet {
+        let rawValue: UInt32
+        static let finalNorm     = SegmentFlags(rawValue: 1 << 0)
+        /// Implies `finalNorm`; returns a token id instead of a hidden state.
+        static let lmHeadArgmax  = SegmentFlags(rawValue: 1 << 1)
+        static let lastTokenOnly = SegmentFlags(rawValue: 1 << 2)
+    }
+
+    enum SegmentResult {
+        /// `[rows][hiddenDim]`.
+        case hidden([[Float]])
+        case token(UInt32)
+    }
+
+    /// Runs layers `[startLayer, endLayer)` from token ids. `startLayer` must be 0.
+    ///
+    /// This is the master half of a split model: it turns tokens into a residual
+    /// and stops, leaving the rest to whoever holds the remaining layers.
+    func segment(
+        tokens: [UInt32],
+        startLayer: Int, endLayer: Int,
+        startPos: Int,
+        flags: SegmentFlags
+    ) throws -> SegmentResult {
+        let rows = flags.contains(.lastTokenOnly) ? 1 : tokens.count
+        return try runSegment(rows: rows, flags: flags) { outBuf, tokenPtr in
+            var t = tokens
+            return t.withUnsafeMutableBufferPointer { tb in
+                jcross_engine_segment_from_tokens(
+                    self.handle, tb.baseAddress, tb.count,
+                    UInt32(startLayer), UInt32(endLayer), startPos, flags.rawValue,
+                    outBuf?.baseAddress, outBuf?.count ?? 0, tokenPtr)
+            }
+        }
+    }
+
+    /// Runs layers `[startLayer, endLayer)` from a residual produced upstream.
+    ///
+    /// `hidden` is `[seqLen][hiddenDim]`. This is the worker half: it never sees
+    /// the tokens, only the vectors, and (with `.lmHeadArgmax`) returns the
+    /// chosen token id — four bytes rather than a vocab-sized distribution.
+    func segment(
+        hidden: [[Float]],
+        startLayer: Int, endLayer: Int,
+        startPos: Int,
+        flags: SegmentFlags
+    ) throws -> SegmentResult {
+        guard let first = hidden.first, first.count == hiddenDim else {
+            throw JCrossError.ffiError(function: "segment_from_hidden(dim)", code: -3)
+        }
+        let rows = flags.contains(.lastTokenOnly) ? 1 : hidden.count
+        var flat = hidden.flatMap { $0 }
+        return try runSegment(rows: rows, flags: flags) { outBuf, tokenPtr in
+            flat.withUnsafeMutableBufferPointer { hb in
+                jcross_engine_segment_from_hidden(
+                    self.handle, hb.baseAddress, hidden.count,
+                    UInt32(startLayer), UInt32(endLayer), startPos, flags.rawValue,
+                    outBuf?.baseAddress, outBuf?.count ?? 0, tokenPtr)
+            }
+        }
+    }
+
+    /// Shared buffer handling. When `.lmHeadArgmax` is set the engine writes a
+    /// token id and never touches the float buffer, so none is allocated.
+    private func runSegment(
+        rows: Int,
+        flags: SegmentFlags,
+        _ call: (inout UnsafeMutableBufferPointer<Float>?, UnsafeMutablePointer<UInt32>?) -> Int32
+    ) throws -> SegmentResult {
+        var token: UInt32 = 0
+        if flags.contains(.lmHeadArgmax) {
+            var none: UnsafeMutableBufferPointer<Float>? = nil
+            let code = withUnsafeMutablePointer(to: &token) { call(&none, $0) }
+            guard code == 0 else {
+                throw JCrossError.ffiError(function: "jcross_engine_segment", code: code)
+            }
+            return .token(token)
+        }
+        var out = [Float](repeating: 0, count: rows * hiddenDim)
+        let code: Int32 = out.withUnsafeMutableBufferPointer { buf in
+            var opt: UnsafeMutableBufferPointer<Float>? = buf
+            return call(&opt, nil)
+        }
+        guard code == 0 else {
+            throw JCrossError.ffiError(function: "jcross_engine_segment", code: code)
+        }
+        var result: [[Float]] = []
+        result.reserveCapacity(rows)
+        for r in 0..<rows {
+            result.append(Array(out[(r * hiddenDim)..<((r + 1) * hiddenDim)]))
+        }
+        return .hidden(result)
+    }
+
+    /// One forward pass carrying any combination of the two injection routes,
+    /// returning the residual at each observed layer.
+    ///
+    /// Both routes go through this one call on purpose. The comparison it
+    /// exists to serve — does a memory reach the model better as a soft prefix
+    /// or as a mid-layer blend — is only a comparison of the routes if
+    /// everything else about the two runs is identical. Taking the soft arm
+    /// through `encodeSoft` and the blend arm through here would make the code
+    /// path a difference between them, and there would be no way afterwards to
+    /// say which difference the numbers came from.
+    ///
+    /// Observing `numLayers` returns the state after the final norm, which is
+    /// what `topKDistributionText` expects; observing a layer index returns the
+    /// post-layer residual, unnormalised.
     func injectMultiLayer(
         tokens: [UInt32],
+        soft: [[Float]] = [],
         injections: [(layer: Int, vector: [Float], alpha: Float)],
         observeLayers: [Int]
     ) throws -> [Int: [Float]] {
         guard !observeLayers.isEmpty else { return [:] }
         var tokensCopy = tokens
+        var softFlat = soft.flatMap { $0 }
         var injectLayersCopy = injections.map { UInt32($0.layer) }
         var injectVecsFlat = injections.flatMap { $0.vector }
         var alphasCopy = injections.map { $0.alpha }
@@ -279,6 +446,7 @@ final class JCrossEngine {
         var out = [Float](repeating: 0, count: observeLayers.count * hiddenDim)
 
         let code: Int32 = tokensCopy.withUnsafeMutableBufferPointer { tokBuf in
+            softFlat.withUnsafeMutableBufferPointer { softBuf in
             injectLayersCopy.withUnsafeMutableBufferPointer { injLayerBuf in
                 injectVecsFlat.withUnsafeMutableBufferPointer { injVecBuf in
                     alphasCopy.withUnsafeMutableBufferPointer { alphaBuf in
@@ -286,7 +454,8 @@ final class JCrossEngine {
                             out.withUnsafeMutableBufferPointer { outBuf in
                                 jcross_engine_inject_multi_layer(
                                     handle,
-                                    tokBuf.baseAddress, tokBuf.count,
+                                    tokens.isEmpty ? nil : tokBuf.baseAddress, tokBuf.count,
+                                    soft.isEmpty ? nil : softBuf.baseAddress, soft.count,
                                     injections.isEmpty ? nil : injLayerBuf.baseAddress,
                                     injections.isEmpty ? nil : injVecBuf.baseAddress,
                                     injections.isEmpty ? nil : alphaBuf.baseAddress,
@@ -297,6 +466,7 @@ final class JCrossEngine {
                             }
                         }
                     }
+                }
                 }
             }
         }

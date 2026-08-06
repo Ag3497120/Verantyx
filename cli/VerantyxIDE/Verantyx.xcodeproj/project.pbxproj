@@ -18,6 +18,9 @@
 		7118455FDBCA4B45B854F371 /* ContextUsageIndicator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5ECBDA437BA7412292AF0CCC /* ContextUsageIndicator.swift */; };
 		0F3663BC0D16492284CA971B /* ModelSelectorBarView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8EB9F313965C4D1ABFB9E358 /* ModelSelectorBarView.swift */; };
 		C4DF5FB0E125A926454C8EC4 /* JGenVeraSettingsPanelView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6BCC75316FB4B9AA50E92460 /* JGenVeraSettingsPanelView.swift */; };
+		4A11C0DE0001000000000011 /* PipeControlPanelView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4A11C0DE0002000000000011 /* PipeControlPanelView.swift */; };
+		4A11C0DE0001000000000010 /* MemoryConsoleView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4A11C0DE0002000000000010 /* MemoryConsoleView.swift */; };
+		4A11C0DE000100000000000D /* PipeConnectSheet.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4A11C0DE000200000000000D /* PipeConnectSheet.swift */; };
 		3AFC13BC104E4A739D802CA6 /* TemplateSetupApprovalSheet.swift in Sources */ = {isa = PBXBuildFile; fileRef = D9555DAA6AC44813B12713BB /* TemplateSetupApprovalSheet.swift */; };
 		8A6E32FBE2B74F3195D5DEFF /* PendingToolCallsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C16E38036B4B4210973D4410 /* PendingToolCallsView.swift */; };
 		9B0A185F90D14161AE858177 /* VisualDiffRegion.swift in Sources */ = {isa = PBXBuildFile; fileRef = CBA26E6331B041BD9310E07B /* VisualDiffRegion.swift */; };
@@ -54,6 +57,24 @@
 		1BFBE895CAE1467F9EA3C08A /* VectorLabView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AF45453E82814584AEECDC2C /* VectorLabView.swift */; };
 		B6141B510C384239811D985F /* JCrossChatManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6F5CEA13580847D580F704BE /* JCrossChatManager.swift */; };
 		2BE17EA2E7E2436EB65EE247 /* JGenConverter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 86DA980AC45244118FC34A65 /* JGenConverter.swift */; };
+		4A11C0DE0001000000000013 /* MemoryABHarness.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4A11C0DE0002000000000013 /* MemoryABHarness.swift */; };
+		4A11C0DE0001000000000031 /* MemoryDiscrimination.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4A11C0DE0002000000000031 /* MemoryDiscrimination.swift */; };
+		4A11C0DE0001000000000032 /* FailureDomainsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4A11C0DE0002000000000032 /* FailureDomainsView.swift */; };
+		4A11C0DE0001000000000012 /* VectorMemoryInjection.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4A11C0DE0002000000000012 /* VectorMemoryInjection.swift */; };
+		4A11C0DE000100000000000F /* PipeSelfTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4A11C0DE000200000000000F /* PipeSelfTest.swift */; };
+		4A11C0DE000100000000000E /* PipelineRunner.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4A11C0DE000200000000000E /* PipelineRunner.swift */; };
+		4A11C0DE000100000000000C /* PipeClient.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4A11C0DE000200000000000C /* PipeClient.swift */; };
+		4A11C0DE000100000000000B /* ModelTransfer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4A11C0DE000200000000000B /* ModelTransfer.swift */; };
+		4A11C0DE000100000000000A /* SplitPlanner.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4A11C0DE000200000000000A /* SplitPlanner.swift */; };
+		4A11C0DE0001000000000009 /* PipeFrame.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4A11C0DE0002000000000009 /* PipeFrame.swift */; };
+		4A11C0DE0001000000000008 /* PipeChannel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4A11C0DE0002000000000008 /* PipeChannel.swift */; };
+		4A11C0DE0001000000000007 /* PipeStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4A11C0DE0002000000000007 /* PipeStore.swift */; };
+		4A11C0DE0001000000000006 /* PipeCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4A11C0DE0002000000000006 /* PipeCoordinator.swift */; };
+		4A11C0DE0001000000000005 /* PipeSession.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4A11C0DE0002000000000005 /* PipeSession.swift */; };
+		4A11C0DE0001000000000004 /* PipeDiscovery.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4A11C0DE0002000000000004 /* PipeDiscovery.swift */; };
+		4A11C0DE0001000000000003 /* NetworkInterfaces.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4A11C0DE0002000000000003 /* NetworkInterfaces.swift */; };
+		4A11C0DE0001000000000002 /* LMStudioClient.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4A11C0DE0002000000000002 /* LMStudioClient.swift */; };
+		4A11C0DE0001000000000001 /* JGenIdentity.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4A11C0DE0002000000000001 /* JGenIdentity.swift */; };
 		8E6BC7DE963A41809F5C8B79 /* JGenSettingsSection.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A6820690E9749F989927A71 /* JGenSettingsSection.swift */; };
 		C14A4A31A3ED4B2ABFEED797 /* JCrossEngine.swift in Sources */ = {isa = PBXBuildFile; fileRef = 470599AF829E40DFAA604ED5 /* JCrossEngine.swift */; };
 		837C1C0AFB2D4B9D8BBD0E03 /* libjcross_engine_glm.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = C9BFB8B0DCE74E31969A7D1F /* libjcross_engine_glm.dylib */; };
@@ -112,7 +133,6 @@
 		5501BBD59DC8AA6357BA1F92 /* MCPView.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA5721938F21F94496234B39 /* MCPView.swift */; };
 		5569CAB30AF2182A310F2EEC /* VSIXPackageManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 37801484CD89AA2C31BB003B /* VSIXPackageManager.swift */; };
 		56C84CFCE34DEB7E57B8F7A6 /* SessionHistoryView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8DF2C2D7BE640032534C82B6 /* SessionHistoryView.swift */; };
-		5788D9C1AABE0CC19AA6C24E /* ExoEngine.swift in Sources */ = {isa = PBXBuildFile; fileRef = 942F7CEBBA44DC0AF6ADE1CE /* ExoEngine.swift */; };
 		57CC8D875A2870E56B674276 /* MainSplitView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B5F0016C4911F099545301D /* MainSplitView.swift */; };
 		582245E341F93D3E1ECE5CBF /* WorkspaceManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = DD8BBB55D4627EE66EB79331 /* WorkspaceManager.swift */; };
 		594BC611B1DEF191393D59F9 /* SelfEvolutionEngine.swift in Sources */ = {isa = PBXBuildFile; fileRef = FD764117A5A2F1DF19239197 /* SelfEvolutionEngine.swift */; };
@@ -134,10 +154,8 @@
 		72662D2EC9F582795A04936C /* SimpleJCrossTranspiler.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1B99ABA9CD8F1879B2BFA33E /* SimpleJCrossTranspiler.swift */; };
 		74716BFE363BFF66BF180656 /* ResizableSplit.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2123AA8E95CFC74CF0FA42F4 /* ResizableSplit.swift */; };
 		767AECB5C753A290ADB44E93 /* AppLanguage.swift in Sources */ = {isa = PBXBuildFile; fileRef = E93C2041C7D910D0DCA7A80B /* AppLanguage.swift */; };
-		7811761DE7F5C33C0E54B544 /* ExoSetupWizard.swift in Sources */ = {isa = PBXBuildFile; fileRef = 20D5F40CB9C69ABE4975DCA2 /* ExoSetupWizard.swift */; };
 		7C76F52B3661495C92048C93 /* LanguageManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 674A38A3D3F9A65C3671CB3A /* LanguageManager.swift */; };
 		7CA969BFE91C612D890DBE8B /* VXTimeline.swift in Sources */ = {isa = PBXBuildFile; fileRef = 738FB55C5C3A6DA181BBAC71 /* VXTimeline.swift */; };
-		7FC84CB6FC1B7CDA0E29BF6D /* ThunderboltDetector.swift in Sources */ = {isa = PBXBuildFile; fileRef = 278E0DB21C22D6D9BC20F6B5 /* ThunderboltDetector.swift */; };
 		8088A5981BA947F3189B5916 /* OSAssetMemoryVault.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1953688F5F43B24A7944408F /* OSAssetMemoryVault.swift */; };
 		7A6B14C9F6CD4D7C9A2569EE /* HiddenWindowAutomation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 090D8363C2ED4D0E94738EE9 /* HiddenWindowAutomation.swift */; };
 		50B438252B974476AC9AE86B /* HiddenWindowMirrorView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A9C32260F6774C4C93FBDA96 /* HiddenWindowMirrorView.swift */; };
@@ -147,7 +165,6 @@
 		830E1B4FD07FA788D91A09C0 /* VerantyxApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 17D6335B9FE38BA61EA5696E /* VerantyxApp.swift */; };
 		8459317BDA672E4A74B7A880 /* MCPQuickPanel.swift in Sources */ = {isa = PBXBuildFile; fileRef = E54EB9A5249E83F7D28508B5 /* MCPQuickPanel.swift */; };
 		84E07638A34525D2EF5AC9FF /* KanjiTopologyRenderer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F86116D25D35F156EF04465 /* KanjiTopologyRenderer.swift */; };
-		8564650632129BC3D017FF2F /* ExoSetupSheet.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8F98DBBE00C1FAA514471A8C /* ExoSetupSheet.swift */; };
 		85B7A15BC456245C0297FB00 /* GatekeeperPipelineOrchestrator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 25F7D481204D749C37825CCC /* GatekeeperPipelineOrchestrator.swift */; };
 		873D3FC00C4F078899FDC94A /* AgentChatView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7FAD3FEA3C1BF9C20D0FBE9C /* AgentChatView.swift */; };
 		89F758C8A96BFEF3E252E975 /* VerantyxExpertEngine.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0C571C9A15299F7D311B8731 /* VerantyxExpertEngine.swift */; };
@@ -187,7 +204,6 @@
 		B647FE2A2148F681D583C701 /* CortexHandshakeServer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 09F07917B97E16DE546E140E /* CortexHandshakeServer.swift */; };
 		B884045A274BBF1ED1CC5671 /* CognitiveAnchorEngine.swift in Sources */ = {isa = PBXBuildFile; fileRef = 61729DFC383313B9C592BBF0 /* CognitiveAnchorEngine.swift */; };
 		BAA142F996EB155712321FA7 /* AgentEngine.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8900CE64BBFB018EC941426D /* AgentEngine.swift */; };
-		BE9D3C6C06B3F775931693B4 /* ExoClusterSync.swift in Sources */ = {isa = PBXBuildFile; fileRef = 203CB24368B9B8228037C6A0 /* ExoClusterSync.swift */; };
 		BEFAC3E82238F03FD6B3A382 /* VaultPatcher.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0872E99CA0A75E2F56494EBA /* VaultPatcher.swift */; };
 		C7B051056F7615D4787680A5 /* TwinCriticEngine.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE88E2EA9C5144E9FED50649 /* TwinCriticEngine.swift */; };
 		C800E90F93B8858A3599F8EB /* PrivacyGateway.swift in Sources */ = {isa = PBXBuildFile; fileRef = 331E574E58724DD018686E55 /* PrivacyGateway.swift */; };
@@ -273,6 +289,24 @@
 		090D8363C2ED4D0E94738EE9 /* HiddenWindowAutomation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HiddenWindowAutomation.swift; sourceTree = "<group>"; };
 		470599AF829E40DFAA604ED5 /* JCrossEngine.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = JCrossEngine.swift; sourceTree = "<group>"; };
 		86DA980AC45244118FC34A65 /* JGenConverter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = JGenConverter.swift; sourceTree = "<group>"; };
+		4A11C0DE0002000000000013 /* MemoryABHarness.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MemoryABHarness.swift; sourceTree = "<group>"; };
+		4A11C0DE0002000000000031 /* MemoryDiscrimination.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MemoryDiscrimination.swift; sourceTree = "<group>"; };
+		4A11C0DE0002000000000032 /* FailureDomainsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FailureDomainsView.swift; sourceTree = "<group>"; };
+		4A11C0DE0002000000000012 /* VectorMemoryInjection.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VectorMemoryInjection.swift; sourceTree = "<group>"; };
+		4A11C0DE000200000000000F /* PipeSelfTest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PipeSelfTest.swift; sourceTree = "<group>"; };
+		4A11C0DE000200000000000E /* PipelineRunner.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PipelineRunner.swift; sourceTree = "<group>"; };
+		4A11C0DE000200000000000C /* PipeClient.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PipeClient.swift; sourceTree = "<group>"; };
+		4A11C0DE000200000000000B /* ModelTransfer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ModelTransfer.swift; sourceTree = "<group>"; };
+		4A11C0DE000200000000000A /* SplitPlanner.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SplitPlanner.swift; sourceTree = "<group>"; };
+		4A11C0DE0002000000000009 /* PipeFrame.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PipeFrame.swift; sourceTree = "<group>"; };
+		4A11C0DE0002000000000008 /* PipeChannel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PipeChannel.swift; sourceTree = "<group>"; };
+		4A11C0DE0002000000000007 /* PipeStore.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PipeStore.swift; sourceTree = "<group>"; };
+		4A11C0DE0002000000000006 /* PipeCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PipeCoordinator.swift; sourceTree = "<group>"; };
+		4A11C0DE0002000000000005 /* PipeSession.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PipeSession.swift; sourceTree = "<group>"; };
+		4A11C0DE0002000000000004 /* PipeDiscovery.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PipeDiscovery.swift; sourceTree = "<group>"; };
+		4A11C0DE0002000000000003 /* NetworkInterfaces.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkInterfaces.swift; sourceTree = "<group>"; };
+		4A11C0DE0002000000000002 /* LMStudioClient.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LMStudioClient.swift; sourceTree = "<group>"; };
+		4A11C0DE0002000000000001 /* JGenIdentity.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = JGenIdentity.swift; sourceTree = "<group>"; };
 		6F5CEA13580847D580F704BE /* JCrossChatManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = JCrossChatManager.swift; sourceTree = "<group>"; };
 		6B43E093C864441FAECE6F42 /* CouncilOrchestrator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CouncilOrchestrator.swift; sourceTree = "<group>"; };
 		7DD0CF9E9F56A2FF9A6D39DB /* ReasoningTimeline.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReasoningTimeline.swift; sourceTree = "<group>"; };
@@ -282,6 +316,9 @@
 		5ECBDA437BA7412292AF0CCC /* ContextUsageIndicator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContextUsageIndicator.swift; sourceTree = "<group>"; };
 		8EB9F313965C4D1ABFB9E358 /* ModelSelectorBarView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ModelSelectorBarView.swift; sourceTree = "<group>"; };
 		6BCC75316FB4B9AA50E92460 /* JGenVeraSettingsPanelView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = JGenVeraSettingsPanelView.swift; sourceTree = "<group>"; };
+		4A11C0DE0002000000000011 /* PipeControlPanelView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PipeControlPanelView.swift; sourceTree = "<group>"; };
+		4A11C0DE0002000000000010 /* MemoryConsoleView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MemoryConsoleView.swift; sourceTree = "<group>"; };
+		4A11C0DE000200000000000D /* PipeConnectSheet.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PipeConnectSheet.swift; sourceTree = "<group>"; };
 		D9555DAA6AC44813B12713BB /* TemplateSetupApprovalSheet.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TemplateSetupApprovalSheet.swift; sourceTree = "<group>"; };
 		C16E38036B4B4210973D4410 /* PendingToolCallsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PendingToolCallsView.swift; sourceTree = "<group>"; };
 		CBA26E6331B041BD9310E07B /* VisualDiffRegion.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VisualDiffRegion.swift; sourceTree = "<group>"; };
@@ -321,14 +358,11 @@
 		1B99ABA9CD8F1879B2BFA33E /* SimpleJCrossTranspiler.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SimpleJCrossTranspiler.swift; sourceTree = "<group>"; };
 		1D2BF39536A4169EC367F0A5 /* SkillLibrary.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SkillLibrary.swift; sourceTree = "<group>"; };
 		1F86116D25D35F156EF04465 /* KanjiTopologyRenderer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KanjiTopologyRenderer.swift; sourceTree = "<group>"; };
-		203CB24368B9B8228037C6A0 /* ExoClusterSync.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExoClusterSync.swift; sourceTree = "<group>"; };
-		20D5F40CB9C69ABE4975DCA2 /* ExoSetupWizard.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExoSetupWizard.swift; sourceTree = "<group>"; };
 		2123AA8E95CFC74CF0FA42F4 /* ResizableSplit.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ResizableSplit.swift; sourceTree = "<group>"; };
 		22B0F334C1BF16C8A60C5017 /* PrivacyProxy.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PrivacyProxy.swift; sourceTree = "<group>"; };
 		238D55123A3C10747F1E2D53 /* WebSearchEngine.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WebSearchEngine.swift; sourceTree = "<group>"; };
 		25F7D481204D749C37825CCC /* GatekeeperPipelineOrchestrator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GatekeeperPipelineOrchestrator.swift; sourceTree = "<group>"; };
 		263AF59FC377D184685C7A9F /* FileTreeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FileTreeView.swift; sourceTree = "<group>"; };
-		278E0DB21C22D6D9BC20F6B5 /* ThunderboltDetector.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ThunderboltDetector.swift; sourceTree = "<group>"; };
 		2A055FB8B02337A8C823F7AB /* VideoSpinnerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VideoSpinnerView.swift; sourceTree = "<group>"; };
 		2A7DCA57A2244AE68DD5782C /* ReActRetryEngine.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReActRetryEngine.swift; sourceTree = "<group>"; };
 		2C104D5FD2ECBC5A28DAD5DB /* CommanderOrchestrator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CommanderOrchestrator.swift; sourceTree = "<group>"; };
@@ -395,11 +429,9 @@
 		8E251102E6551353AB9E01A2 /* GatekeeperPromptBuilder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GatekeeperPromptBuilder.swift; sourceTree = "<group>"; };
 		8F147916A4803AD39B29AE9A /* JCrossObfuscationEngine.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = JCrossObfuscationEngine.swift; sourceTree = "<group>"; };
 		8F542870A057959E5B83A9A4 /* LanguageDetector.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LanguageDetector.swift; sourceTree = "<group>"; };
-		8F98DBBE00C1FAA514471A8C /* ExoSetupSheet.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExoSetupSheet.swift; sourceTree = "<group>"; };
 		912679EC0A7C2086CAB2481C /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		91CC363258520DDB5548056F /* TerminalPanelView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TerminalPanelView.swift; sourceTree = "<group>"; };
 		92AED536E86FE739129AF444 /* HybridEngine.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HybridEngine.swift; sourceTree = "<group>"; };
-		942F7CEBBA44DC0AF6ADE1CE /* ExoEngine.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExoEngine.swift; sourceTree = "<group>"; };
 		958BAC7C28485B57B8645293 /* GatekeeperModeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GatekeeperModeView.swift; sourceTree = "<group>"; };
 		963D2E75D48C41E73EAE0FD6 /* ExtensionHostManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExtensionHostManager.swift; sourceTree = "<group>"; };
 		97873491BA99A272B899E86A /* WHYHookInstaller.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WHYHookInstaller.swift; sourceTree = "<group>"; };
@@ -586,7 +618,6 @@
 				57CFECC2C82E892A9FB5DEF5 /* CodeView.swift */,
 				025E206375BC2AD36FD097AF /* CortexOnboardingSheet.swift */,
 				0676432D69FA1C167E518CC9 /* DiffPanelView.swift */,
-				8F98DBBE00C1FAA514471A8C /* ExoSetupSheet.swift */,
 				7714734A3A28F8DE034C77EE /* ExpertBotFloatingView.swift */,
 				47FA680F5734A82C0C9DEF07 /* ExtensionStoreView.swift */,
 				18ADC885663D166B988131F6 /* ExtensionUIPanelView.swift */,
@@ -618,6 +649,10 @@
 				5ECBDA437BA7412292AF0CCC /* ContextUsageIndicator.swift */,
 				8EB9F313965C4D1ABFB9E358 /* ModelSelectorBarView.swift */,
 				6BCC75316FB4B9AA50E92460 /* JGenVeraSettingsPanelView.swift */,
+				4A11C0DE0002000000000011 /* PipeControlPanelView.swift */,
+				4A11C0DE0002000000000010 /* MemoryConsoleView.swift */,
+				4A11C0DE0002000000000032 /* FailureDomainsView.swift */,
+				4A11C0DE000200000000000D /* PipeConnectSheet.swift */,
 				D9555DAA6AC44813B12713BB /* TemplateSetupApprovalSheet.swift */,
 				C16E38036B4B4210973D4410 /* PendingToolCallsView.swift */,
 				1AE4220F14D01AD7EC75770E /* ReasoningTimelineView.swift */,
@@ -691,9 +726,6 @@
 				CEE54E7C0348CE92B4AE07FD /* Counter.swift */,
 				2F0FC932ADF2ABBA8A040888 /* DesktopVisionBridge.swift */,
 				4BEAFD1ACA2A20312B98C1A6 /* DiffEngine.swift */,
-				203CB24368B9B8228037C6A0 /* ExoClusterSync.swift */,
-				942F7CEBBA44DC0AF6ADE1CE /* ExoEngine.swift */,
-				20D5F40CB9C69ABE4975DCA2 /* ExoSetupWizard.swift */,
 				963D2E75D48C41E73EAE0FD6 /* ExtensionHostManager.swift */,
 				C5556F027C38828945F45A56 /* ExtensionUIManager.swift */,
 				7080AB9210D9A7D70EA9EE4B /* FileApprovalRequest.swift */,
@@ -746,6 +778,23 @@
 				4E67A4D08F6F4A5982F7CDF3 /* Verantyx-Bridging-Header.h */,
 				470599AF829E40DFAA604ED5 /* JCrossEngine.swift */,
 				86DA980AC45244118FC34A65 /* JGenConverter.swift */,
+				4A11C0DE0002000000000013 /* MemoryABHarness.swift */,
+				4A11C0DE0002000000000031 /* MemoryDiscrimination.swift */,
+				4A11C0DE0002000000000012 /* VectorMemoryInjection.swift */,
+				4A11C0DE000200000000000F /* PipeSelfTest.swift */,
+				4A11C0DE000200000000000E /* PipelineRunner.swift */,
+				4A11C0DE000200000000000C /* PipeClient.swift */,
+				4A11C0DE000200000000000B /* ModelTransfer.swift */,
+				4A11C0DE000200000000000A /* SplitPlanner.swift */,
+				4A11C0DE0002000000000009 /* PipeFrame.swift */,
+				4A11C0DE0002000000000008 /* PipeChannel.swift */,
+				4A11C0DE0002000000000007 /* PipeStore.swift */,
+				4A11C0DE0002000000000006 /* PipeCoordinator.swift */,
+				4A11C0DE0002000000000005 /* PipeSession.swift */,
+				4A11C0DE0002000000000004 /* PipeDiscovery.swift */,
+				4A11C0DE0002000000000003 /* NetworkInterfaces.swift */,
+				4A11C0DE0002000000000002 /* LMStudioClient.swift */,
+				4A11C0DE0002000000000001 /* JGenIdentity.swift */,
 				6F5CEA13580847D580F704BE /* JCrossChatManager.swift */,
 				9F62F32038DC977A7C3A9836 /* JGenGPUSafety.swift */,
 				6B43E093C864441FAECE6F42 /* CouncilOrchestrator.swift */,
@@ -802,7 +851,6 @@
 				CC64605A62447966FFDB2270 /* SystemStatusProvider.swift */,
 				B4976E6D13CC771F9E13A094 /* TalkieModel.swift */,
 				A5E5B4F881C230B229B05580 /* TerminalRunner.swift */,
-				278E0DB21C22D6D9BC20F6B5 /* ThunderboltDetector.swift */,
 				9D4599129F5B80289E52A083 /* TranspilationPipeline.swift */,
 				BE88E2EA9C5144E9FED50649 /* TwinCriticEngine.swift */,
 				655FD24EF92407F08324D31D /* UserProfiler.swift */,
@@ -984,7 +1032,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "set -e\nexport PATH=\"$PATH:$HOME/.cargo/bin\"\n\nBUNDLE_MACOS=\"$BUILT_PRODUCTS_DIR/$PRODUCT_NAME.app/Contents/MacOS\"\nDEST=\"$BUNDLE_MACOS/verantyx-browser\"\n\n# バイナリのソースを探す（優先順）\nBROWSER_DIR=\"$SRCROOT/../verantyx-browser\"\nif [ ! -d \"$BROWSER_DIR\" ]; then\n  echo \"warning: verantyx-browser ディレクトリが見つかりません: $BROWSER_DIR\"\nfi\n\nSRC=\"\"\n# ① Resources/ に既にコピー済みのバイナリ\nif [ -f \"$SRCROOT/Resources/verantyx-browser\" ]; then\n  SRC=\"$SRCROOT/Resources/verantyx-browser\"\n# ② Cargo release\nelif [ -f \"$BROWSER_DIR/target/release/verantyx-browser\" ]; then\n  SRC=\"$BROWSER_DIR/target/release/verantyx-browser\"\n# ③ Cargo debug\nelif [ -f \"$BROWSER_DIR/target/debug/verantyx-browser\" ]; then\n  SRC=\"$BROWSER_DIR/target/debug/verantyx-browser\"\nfi\n\nif [ -z \"$SRC\" ]; then\n  echo \"⚠️  verantyx-browser バイナリが見つかりません。cargo build を先に実行してください。\"\n  echo \"   cd $BROWSER_DIR && cargo build --release -p vx-browser\"\n  exit 0\nfi\n\n# Contents/MacOS/ にコピーして実行権限を付与\nmkdir -p \"$BUNDLE_MACOS\"\ncp -f \"$SRC\" \"$DEST\"\nchmod +x \"$DEST\"\necho \"✅ verantyx-browser → $DEST\"\n";
+			shellScript = "set -e\nexport PATH=\"$PATH:$HOME/.cargo/bin\"\n\nBUNDLE_MACOS=\"$BUILT_PRODUCTS_DIR/$PRODUCT_NAME.app/Contents/MacOS\"\nDEST=\"$BUNDLE_MACOS/verantyx-browser\"\n\n# バイナリのソースを探す（優先順）\nBROWSER_DIR=\"$SRCROOT/../verantyx-browser\"\nif [ ! -d \"$BROWSER_DIR\" ]; then\n  echo \"warning: verantyx-browser ディレクトリが見つかりません: $BROWSER_DIR\"\nfi\n\nSRC=\"\"\n# ① Resources/ に既にコピー済みのバイナリ\nif [ -f \"$SRCROOT/Resources/verantyx-browser\" ]; then\n  SRC=\"$SRCROOT/Resources/verantyx-browser\"\n# ② Cargo release\nelif [ -f \"$BROWSER_DIR/target/release/verantyx-browser\" ]; then\n  SRC=\"$BROWSER_DIR/target/release/verantyx-browser\"\n# ③ Cargo debug\nelif [ -f \"$BROWSER_DIR/target/debug/verantyx-browser\" ]; then\n  SRC=\"$BROWSER_DIR/target/debug/verantyx-browser\"\nfi\n\nif [ -z \"$SRC\" ]; then\n  echo \"⚠️  verantyx-browser バイナリが見つかりません。cargo build を先に実行してください。\"\n  echo \"   cd $BROWSER_DIR && cargo build --release -p vx-browser\"\n  exit 0\nfi\n\n# A Git-LFS pointer is a 133-byte text file, and copying one into\n# Contents/MacOS/ makes the bundle unsignable: codesign refuses with\n# \"code object is not signed at all\" and the whole Release build fails.\n# That is exactly what happens in CI, where LFS objects are not fetched.\n# Check the file is a real Mach-O executable before embedding it.\nif ! file -b \"$SRC\" | grep -q \"Mach-O\"; then\n  echo \"warning: $SRC is not a Mach-O binary (Git-LFS pointer not fetched?) — skipping embed\"\n  rm -f \"$DEST\"\n  exit 0\nfi\n\n# Contents/MacOS/ にコピーして実行権限を付与\nmkdir -p \"$BUNDLE_MACOS\"\ncp -f \"$SRC\" \"$DEST\"\nchmod +x \"$DEST\"\necho \"✅ verantyx-browser → $DEST\"\n";
 		};
 		796605CDFB0D47B099D87B15 /* Embed jgen_forge into App Bundle */ = {
 			isa = PBXShellScriptBuildPhase;
@@ -1078,10 +1126,6 @@
 				2B83228E53624A1C671FEE77 /* DesktopVisionBridge.swift in Sources */,
 				3AEA0F47626531CB4448C096 /* DiffEngine.swift in Sources */,
 				05A047EA46A5C3ACB146C539 /* DiffPanelView.swift in Sources */,
-				BE9D3C6C06B3F775931693B4 /* ExoClusterSync.swift in Sources */,
-				5788D9C1AABE0CC19AA6C24E /* ExoEngine.swift in Sources */,
-				8564650632129BC3D017FF2F /* ExoSetupSheet.swift in Sources */,
-				7811761DE7F5C33C0E54B544 /* ExoSetupWizard.swift in Sources */,
 				CDDB6E8A9D194B13C993E342 /* ExpertBotFloatingView.swift in Sources */,
 				67220C2AC45C9B70A66D4AF7 /* ExtensionHostManager.swift in Sources */,
 				AD8566D92AA33E313920FE16 /* ExtensionStoreView.swift in Sources */,
@@ -1151,6 +1195,24 @@
 				7A6B14C9F6CD4D7C9A2569EE /* HiddenWindowAutomation.swift in Sources */,
 				C14A4A31A3ED4B2ABFEED797 /* JCrossEngine.swift in Sources */,
 				2BE17EA2E7E2436EB65EE247 /* JGenConverter.swift in Sources */,
+				4A11C0DE0001000000000013 /* MemoryABHarness.swift in Sources */,
+				4A11C0DE0001000000000031 /* MemoryDiscrimination.swift in Sources */,
+				4A11C0DE0001000000000032 /* FailureDomainsView.swift in Sources */,
+				4A11C0DE0001000000000012 /* VectorMemoryInjection.swift in Sources */,
+				4A11C0DE000100000000000F /* PipeSelfTest.swift in Sources */,
+				4A11C0DE000100000000000E /* PipelineRunner.swift in Sources */,
+				4A11C0DE000100000000000C /* PipeClient.swift in Sources */,
+				4A11C0DE000100000000000B /* ModelTransfer.swift in Sources */,
+				4A11C0DE000100000000000A /* SplitPlanner.swift in Sources */,
+				4A11C0DE0001000000000009 /* PipeFrame.swift in Sources */,
+				4A11C0DE0001000000000008 /* PipeChannel.swift in Sources */,
+				4A11C0DE0001000000000007 /* PipeStore.swift in Sources */,
+				4A11C0DE0001000000000006 /* PipeCoordinator.swift in Sources */,
+				4A11C0DE0001000000000005 /* PipeSession.swift in Sources */,
+				4A11C0DE0001000000000004 /* PipeDiscovery.swift in Sources */,
+				4A11C0DE0001000000000003 /* NetworkInterfaces.swift in Sources */,
+				4A11C0DE0001000000000002 /* LMStudioClient.swift in Sources */,
+				4A11C0DE0001000000000001 /* JGenIdentity.swift in Sources */,
 				B6141B510C384239811D985F /* JCrossChatManager.swift in Sources */,
 				FBEBE79E02FB7BEDBA68D83B /* JGenGPUSafety.swift in Sources */,
 				B2E7A7191E1745FCA3C59411 /* CouncilOrchestrator.swift in Sources */,
@@ -1158,6 +1220,9 @@
 				7118455FDBCA4B45B854F371 /* ContextUsageIndicator.swift in Sources */,
 				0F3663BC0D16492284CA971B /* ModelSelectorBarView.swift in Sources */,
 				C4DF5FB0E125A926454C8EC4 /* JGenVeraSettingsPanelView.swift in Sources */,
+				4A11C0DE0001000000000011 /* PipeControlPanelView.swift in Sources */,
+				4A11C0DE0001000000000010 /* MemoryConsoleView.swift in Sources */,
+				4A11C0DE000100000000000D /* PipeConnectSheet.swift in Sources */,
 				3AFC13BC104E4A739D802CA6 /* TemplateSetupApprovalSheet.swift in Sources */,
 				8A6E32FBE2B74F3195D5DEFF /* PendingToolCallsView.swift in Sources */,
 				FD56391C9605CF5946289609 /* ReasoningTimelineView.swift in Sources */,
@@ -1237,7 +1302,6 @@
 				92FCF716C85EB142F0F687C0 /* TerminalPanelView.swift in Sources */,
 				F3B24E9BE65F23A9DE26AEE2 /* TerminalRunner.swift in Sources */,
 				302978F1B371B48CF5673CC8 /* ThinkingLogView.swift in Sources */,
-				7FC84CB6FC1B7CDA0E29BF6D /* ThunderboltDetector.swift in Sources */,
 				3D65C40A8DC505214322CDD0 /* ToastView.swift in Sources */,
 				CC3E778B05DF8F656B61629C /* TranspilationPipeline.swift in Sources */,
 				C7B051056F7615D4787680A5 /* TwinCriticEngine.swift in Sources */,

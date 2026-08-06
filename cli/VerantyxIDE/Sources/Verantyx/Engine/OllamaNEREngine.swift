@@ -278,8 +278,7 @@ final class OllamaNEREngineManager: ObservableObject {
     func refresh() async {
         status = .checking
         do {
-            let base = AppState.shared?.exoEnabled == true && !(AppState.shared?.exoEndpoint.isEmpty ?? true)
-                ? AppState.shared!.exoEndpoint : "http://localhost:11434"
+            let base = AppState.shared?.ollamaEndpoint ?? "http://localhost:11434"
             let url = URL(string: "\(base)/api/tags")!
             let (data, _) = try await URLSession.shared.data(from: url)
 

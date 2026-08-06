@@ -250,6 +250,154 @@ enum VeraMemoryBridge {
         return obj["recorded"] != nil
     }
 
+    // MARK: - Milestone Y: typed build/CI failures + capacity review
+
+    /// Sends a failed build/conversion log to Vera-alpha's typed-failure
+    /// classifier. The verdict (UNKNOWN_SIGNING / UNKNOWN_DEPENDENCY /
+    /// UNKNOWN_MODEL_GEOMETRY / ...) accumulates in the same growth-signal
+    /// store as every other typed unknown, so recurrences surface through
+    /// `failureStats` with no IDE-side bookkeeping. Returns the verdict
+    /// string, or nil if the bridge was unavailable — callers treat this
+    /// as fire-and-forget; a failure to record must never matter to the
+    /// build path that produced the log.
+    @discardableResult
+    static func recordBuildFailure(source: String, logExcerpt: String) async -> String? {
+        let raw = await MCPEngine.shared.callTool(
+            serverName: serverName, toolName: "record_build_failure",
+            arguments: ["source": source, "log_excerpt": logExcerpt], mode: .human
+        )
+        guard let data = raw.data(using: .utf8),
+              let obj = try? JSONSerialization.jsonObject(with: data) as? [String: Any],
+              let verdict = obj["verdict"] as? String else { return nil }
+        return verdict
+    }
+
+    /// The "which kind of failure dominates" view: verdict histogram plus
+    /// the boundary classifier's current reading of each bucket. Raw JSON
+    /// string; the console renders it.
+    static func failureStats() async -> String {
+        await MCPEngine.shared.callTool(
+            serverName: serverName, toolName: "failure_stats",
+            arguments: [:], mode: .human
+        )
+    }
+
+    // MARK: - Multi-source documents (deep search)
+
+    /// Ingest several sources about one event, preserving their
+    /// disagreements. `documents` is [(source, text)] — the source label is
+    /// what a disputed claim gets cited to, so it must be something a
+    /// reader can act on (outlet, agency, URL), not "doc1".
+    @discardableResult
+    static func ingestDocuments(_ documents: [(source: String, text: String)]) async -> String {
+        let payload = documents.map { ["source": $0.source, "text": $0.text] }
+        guard let data = try? JSONSerialization.data(withJSONObject: payload),
+              let json = String(data: data, encoding: .utf8) else { return "" }
+        return await MCPEngine.shared.callTool(
+            serverName: serverName, toolName: "ingest_documents",
+            arguments: ["documents_json": json], mode: .human)
+    }
+
+    /// Settled / disputed / missing for a topic. The three stay unblended:
+    /// a responder needs to know which parts are agreed, which are contested
+    /// and by whom, and which nobody checked — a summary erases exactly that.
+    static func deepReport(topic: String) async -> String {
+        await MCPEngine.shared.callTool(
+            serverName: serverName, toolName: "deep_report",
+            arguments: ["topic": topic], mode: .human)
+    }
+
+    /// The six-question completeness checklist for a topic.
+    static func armCompleteness(topic: String) async -> String {
+        await MCPEngine.shared.callTool(
+            serverName: serverName, toolName: "arm_completeness",
+            arguments: ["topic": topic], mode: .human)
+    }
+
+    // MARK: - Failure-domain packs (the research-platform surface)
+
+    /// Every registered pack with its maturity, provenance per verdict, and
+    /// whether it is data-defined (editable) or built into code. Also
+    /// carries `load_errors`: a pack an expert edited into an invalid state
+    /// is reported, never silently missing.
+    static func listFailureDomains() async -> String {
+        await MCPEngine.shared.callTool(
+            serverName: serverName, toolName: "list_failure_domains",
+            arguments: [:], mode: .human)
+    }
+
+    /// Run a pack over real log samples. Coverage is the number that
+    /// matters — a seeded taxonomy that types almost nothing real is not a
+    /// taxonomy of that field yet.
+    static func testFailurePack(pack: String, logSamples: String) async -> String {
+        await MCPEngine.shared.callTool(
+            serverName: serverName, toolName: "test_failure_pack",
+            arguments: ["pack": pack, "log_samples": logSamples], mode: .human)
+    }
+
+    /// Propose a verdict FROM EXAMPLES. The author pastes real failure lines
+    /// and counter-examples; the pattern is derived and refused, with the
+    /// offending counter-example, if it would claim anything else. Only a
+    /// proposal that passes every check is queued.
+    static func proposeFailureVerdict(
+        pack: String, verdict: String, note: String,
+        positives: String, negatives: String,
+        remedyKind: String, remedyOwner: String, verify: String, author: String
+    ) async -> String {
+        await MCPEngine.shared.callTool(
+            serverName: serverName, toolName: "propose_failure_verdict",
+            arguments: ["pack": pack, "verdict": verdict, "note": note,
+                        "positive_examples": positives,
+                        "negative_examples": negatives,
+                        "remedy_kind": remedyKind, "remedy_owner": remedyOwner,
+                        "verify": verify, "author": author], mode: .human)
+    }
+
+    static func listPendingPackVerdicts() async -> String {
+        await MCPEngine.shared.callTool(
+            serverName: serverName, toolName: "list_pending_pack_verdicts",
+            arguments: [:], mode: .human)
+    }
+
+    /// The only path from a proposal to a live classifier: writes the pack
+    /// into the overlay directory and reloads the registry.
+    static func acceptPackVerdict(index: Int) async -> String {
+        await MCPEngine.shared.callTool(
+            serverName: serverName, toolName: "accept_pack_verdict",
+            arguments: ["index": index], mode: .human)
+    }
+
+    static func rejectPackVerdict(index: Int) async -> String {
+        await MCPEngine.shared.callTool(
+            serverName: serverName, toolName: "reject_pack_verdict",
+            arguments: ["index": index], mode: .human)
+    }
+
+    /// Calibrated limit increases awaiting review — each carries the probe
+    /// evidence (which failing queries were re-run, at which multipliers).
+    static func listPendingCapacityLimits() async -> String {
+        await MCPEngine.shared.callTool(
+            serverName: serverName, toolName: "list_pending_capacity_limits",
+            arguments: [:], mode: .human
+        )
+    }
+
+    /// The ONLY path by which a proposed limit becomes a running limit —
+    /// same human-approval contract as facts and generated modules.
+    static func acceptCapacityLimit(index: Int) async -> String {
+        await MCPEngine.shared.callTool(
+            serverName: serverName, toolName: "accept_capacity_limit",
+            arguments: ["index": index], mode: .human
+        )
+    }
+
+    static func rejectCapacityLimit(index: Int) async -> String {
+        await MCPEngine.shared.callTool(
+            serverName: serverName, toolName: "reject_capacity_limit",
+            arguments: ["index": index], mode: .human
+        )
+    }
+
     /// Milestone S: the first wire between the IDE's "body" (UI-automation
     /// action/observation, already recorded to UITestVectorTrace at the
     /// same call site) and Vera-alpha's "mind" (GapGraph). Unlike

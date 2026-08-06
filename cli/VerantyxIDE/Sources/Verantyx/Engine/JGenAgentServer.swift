@@ -84,22 +84,71 @@ actor JGenAgentServer {
             connection.cancel()
             return
         }
-        guard request.method == "POST" else {
-            await Self.writeResponse(connection: connection, status: 404, body: ["ok": false, "error": "not_found"])
+        let fromLoopback = Self.isLoopback(connection)
+
+        // `/pipe/*` is the only surface a peer Mac may reach. Everything else
+        // exposes this machine's own model to whoever asks.
+        //
+        // This gate is new and it closes a real hole rather than guarding a
+        // hypothetical one: the listener has never had an interface filter, so
+        // `/jgen/generate` was already reachable from the LAN by anyone who
+        // guessed the port. The class comment called it "loopback-only", but
+        // that was a convention, not an enforcement. Advertising the port over
+        // Bonjour would have turned "guessed the port" into "was told the port",
+        // so it is enforced now.
+        if !fromLoopback && !request.path.hasPrefix("/pipe/") {
+            await Self.writeResponse(connection: connection, status: 403,
+                                     body: ["ok": false, "error": "local_only"])
             connection.cancel()
             return
         }
-        switch request.path {
-        case "/jgen/generate":
+
+        switch (request.method, request.path) {
+        // GET is new: the server was POST-only, and a liveness probe that has to
+        // POST cannot be issued by curl or a browser without ceremony.
+        case ("GET", "/pipe/hello"):
+            await handlePipeHello(connection: connection)
+        case ("POST", "/pipe/pair"):
+            await handlePipePair(request: request, connection: connection, fromLoopback: fromLoopback)
+        case ("POST", "/pipe/unpair"):
+            await handlePipeUnpair(request: request, connection: connection)
+        case ("GET", "/pipe/models"), ("POST", "/pipe/models"):
+            await handlePipeModels(connection: connection)
+        case ("GET", "/pipe/state"), ("POST", "/pipe/state"):
+            await handlePipeState(request: request, connection: connection)
+        case ("POST", "/pipe/split"):
+            await handlePipeSplit(request: request, connection: connection)
+
+        case ("POST", "/jgen/generate"):
             await handleJGenGenerate(request: request, connection: connection)
-        case "/browser/fetch":
+        case ("POST", "/browser/fetch"):
             await handleBrowserFetch(request: request, connection: connection)
-        case "/jgen/inject_multi_layer":
+        case ("POST", "/jgen/inject_multi_layer"):
             await handleInjectMultiLayer(request: request, connection: connection)
         default:
             await Self.writeResponse(connection: connection, status: 404, body: ["ok": false, "error": "not_found"])
         }
         connection.cancel()
+    }
+
+    /// True when the peer address is 127.0.0.1 / ::1.
+    ///
+    /// Note this is *not* an authentication mechanism — anything on this Mac can
+    /// reach loopback. It only separates "same machine" from "over the network",
+    /// which is the distinction the endpoint split above needs.
+    private static func isLoopback(_ connection: NWConnection) -> Bool {
+        guard let remote = connection.currentPath?.remoteEndpoint ?? Optional(connection.endpoint) else {
+            return false
+        }
+        if case let .hostPort(host, _) = remote {
+            switch host {
+            case .ipv4(let a): return a.isLoopback
+            case .ipv6(let a): return a.isLoopback
+            case .name(let n, _): return n == "localhost"
+            @unknown default: return false
+            }
+        }
+        return false
     }
 
     /// Milestone P: Vera's "reflection" tool (agent_tools.py's jgen_reflect)
@@ -219,6 +268,159 @@ actor JGenAgentServer {
             await Self.writeResponse(connection: connection, status: 200, body: ["ok": true, "text": text])
         } catch {
             await Self.writeResponse(connection: connection, status: 500, body: ["ok": false, "error": "\(error)"])
+        }
+    }
+
+    // MARK: - Distributed inference control plane (Milestone U4)
+    //
+    // Low-frequency JSON only: pairing, roles, model inventory, split ratio.
+    // Per-token hidden states never come through here — one TCP handshake and a
+    // JSON encode of 5120 floats per decode step would cost more than the layer
+    // arithmetic. That traffic gets its own persistent binary channel (U5).
+
+    /// Liveness plus everything a peer needs to decide whether pairing is even
+    /// possible, so a version mismatch is reported before any state changes.
+    ///
+    /// Every `/pipe/*` handler reads `PipeStore` and never hops to the main
+    /// actor. That is not a style choice: the first version did hop, and a
+    /// permission dialog at launch parked the main thread in `[NSAlert runModal]`
+    /// — connections were accepted and then answered with nothing until the
+    /// client timed out. A peer must not be able to tell whether this Mac's user
+    /// has a modal open.
+    private func handlePipeHello(connection: NWConnection) async {
+        let store = PipeStore.shared
+        let v = store.localVersion()
+        let s = store.snapshot()
+        await Self.writeResponse(connection: connection, status: 200, body: [
+            "ok": true,
+            "protocol_version": v.protocolVersion,
+            "app_version": v.appVersion,
+            "engine_build": v.engineBuild,
+            "device_id": store.localDeviceId,
+            "device_name": store.deviceName,
+            "ram_gb": store.ramGB,
+            "free_disk_gb": PipeStore.freeDiskGB(),
+            "role": s.role.rawValue,
+            "paired": s.isPaired,
+            "peer_name": s.peer?.deviceName ?? "",
+        ])
+    }
+
+    /// The caller declares itself master; this Mac answers with the role it took.
+    /// Deliberately the only way a role is ever assigned — nothing infers one
+    /// from a Bonjour record.
+    private func handlePipePair(request: ParsedRequest, connection: NWConnection, fromLoopback: Bool) async {
+        guard let body = request.body,
+              let json = try? JSONSerialization.jsonObject(with: body) as? [String: Any],
+              let incomingSession = json["session_id"] as? String,
+              let deviceId = json["device_id"] as? String
+        else {
+            await Self.writeResponse(connection: connection, status: 400,
+                                     body: ["ok": false, "error": "bad_request"])
+            return
+        }
+        let store = PipeStore.shared
+        let remote = PipeStore.PeerInfo(
+            deviceId: deviceId,
+            deviceName: json["device_name"] as? String ?? "Mac",
+            appVersion: json["app_version"] as? String ?? "?",
+            engineBuild: json["engine_build"] as? String ?? "?",
+            protocolVersion: json["protocol_version"] as? Int ?? 0,
+            ramGB: json["ram_gb"] as? Int ?? 0,
+            freeDiskGB: json["free_disk_gb"] as? Double ?? 0,
+            host: json["host"] as? String ?? (fromLoopback ? "127.0.0.1" : ""),
+            controlPort: UInt16(json["control_port"] as? Int ?? 0)
+        )
+
+        switch store.acceptPairing(from: remote, sessionId: incomingSession, local: store.localVersion()) {
+        case .accepted(let role):
+            await Self.writeResponse(connection: connection, status: 200, body: [
+                "ok": true,
+                "role": role.rawValue,
+                "device_id": store.localDeviceId,
+                "device_name": store.deviceName,
+                "ram_gb": store.ramGB,
+                "free_disk_gb": PipeStore.freeDiskGB(),
+                "models": Self.encode(store.localModels()),
+            ])
+        case .tiebreakWon(let reason):
+            // Not a failure: the asker becomes worker instead. Kept distinct from
+            // a refusal so the UI can name the winner rather than just reporting
+            // that something went wrong.
+            await Self.writeResponse(connection: connection, status: 409, body: [
+                "ok": false, "error": "tiebreak_lost", "reason": reason,
+                "winner_device_id": store.localDeviceId,
+            ])
+        case .rejected(let reason):
+            await Self.writeResponse(connection: connection, status: 403,
+                                     body: ["ok": false, "error": "rejected", "reason": reason])
+        }
+    }
+
+    private func handlePipeUnpair(request: ParsedRequest, connection: NWConnection) async {
+        PipeStore.shared.unpair()
+        await Self.writeResponse(connection: connection, status: 200, body: ["ok": true])
+    }
+
+    private func handlePipeModels(connection: NWConnection) async {
+        await Self.writeResponse(connection: connection, status: 200,
+                                 body: ["ok": true, "models": Self.encode(PipeStore.shared.localModels())])
+    }
+
+    /// GET reports the resolved split; POST accepts one pushed by the master.
+    private func handlePipeState(request: ParsedRequest, connection: NWConnection) async {
+        if request.method == "POST", let body = request.body,
+           let json = try? JSONSerialization.jsonObject(with: body) as? [String: Any] {
+            let mode = PipeStore.SplitMode(rawValue: json["mode"] as? String ?? "auto") ?? .auto
+            PipeStore.shared.applyRemoteState(mode: mode, k: json["k"] as? Int ?? 0)
+        }
+        let s = PipeStore.shared.snapshot()
+        await Self.writeResponse(connection: connection, status: 200, body: [
+            "ok": true, "role": s.role.rawValue, "session_id": s.sessionId,
+            "mode": s.splitMode.rawValue, "k": s.splitK,
+            "peer_name": s.peer?.deviceName ?? "",
+        ])
+    }
+
+    /// A worker asking the master to change the split. The master is the only
+    /// writer, so this is a request, not an assignment.
+    private func handlePipeSplit(request: ParsedRequest, connection: NWConnection) async {
+        guard let body = request.body,
+              let json = try? JSONSerialization.jsonObject(with: body) as? [String: Any],
+              let k = json["k"] as? Int
+        else {
+            await Self.writeResponse(connection: connection, status: 400,
+                                     body: ["ok": false, "error": "bad_request"])
+            return
+        }
+        let mode = PipeStore.SplitMode(rawValue: json["mode"] as? String ?? "manual") ?? .manual
+        guard PipeStore.shared.setSplit(mode: mode, k: k) else {
+            await Self.writeResponse(connection: connection, status: 409, body: [
+                "ok": false, "error": "not_master", "reason": "Only the Master resolves the split.",
+            ])
+            return
+        }
+        let s = PipeStore.shared.snapshot()
+        await Self.writeResponse(connection: connection, status: 200,
+                                 body: ["ok": true, "mode": s.splitMode.rawValue, "k": s.splitK])
+    }
+
+    private static func encode(_ models: [PipeStore.ModelEntry]) -> [[String: Any]] {
+        models.map { m in
+            var d: [String: Any] = [
+                "name": m.name,
+                // As a string so no JSON parser can hand it back as a Double.
+                // Belt-and-braces rather than a fix for an observed problem: the
+                // sizes here (tens of GB, ~6e10) are five orders of magnitude
+                // below 2^53, so a Double would represent them exactly anyway.
+                "size_bytes": String(m.sizeBytes),
+                "structural_hash": m.structuralHash,
+                "meta_hash": m.metaHash,
+                "arch_supported": m.archSupported,
+            ]
+            if let c = m.contentHash { d["content_hash"] = c }
+            if let k = m.contentHashKind { d["content_hash_kind"] = k }
+            return d
         }
     }
 
