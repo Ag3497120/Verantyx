@@ -222,7 +222,16 @@ struct VerantyxApp: App {
                     }
 
                     // ── L2.5変換の自動起動を削除し、UI側の確認ダイアログに従うように変更 ──
-                    
+
+                    // ── 保存済み MCP サーバーへ接続し直す ──
+                    // ここまで connectAll はユーザーが MCP パネルを開くまで
+                    // 走らなかったため、設定済みのサーバーが起動直後は存在しない
+                    // のと同じ扱いになっていた。detached にしているのは、
+                    // 応答しないサーバー1つがウィンドウ表示を待たせないため。
+                    Task.detached(priority: .utility) {
+                        await MCPEngine.shared.autoConnectOnLaunch()
+                    }
+
                     // ── Initialize OS Agent Spotlight UI ──
                     SpotlightPanelManager.shared.setup(appState: appState)
                 }

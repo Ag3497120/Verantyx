@@ -783,6 +783,29 @@ final class AppState: ObservableObject {
         didSet { UserDefaults.standard.set(agentLoopEnabled, forKey: "agent_loop_enabled") }
     }
 
+    // ── Navigation requested from outside the settings screens ───────────
+    //
+    // The support bot answers with "Settings › Model › Ollama model", which
+    // is only useful to someone who can already find it. Setting this opens
+    // Settings on that tab, so an answer can end at the screen rather than at
+    // a description of where the screen is.
+    //
+    // Deliberately a String rather than SettingsTab: the value comes from
+    // Vera's registry over MCP, and matching it to the enum is the settings
+    // screen's job. A tab name that no longer exists then falls back to the
+    // default tab instead of failing to compile against a moving enum.
+    @Published var requestedSettingsTab: String? = nil
+
+    /// Ask the UI to open Settings at `tab` (a SettingsTab raw value).
+    func openSettings(tab: String) {
+        requestedSettingsTab = tab
+        showSettingsRequested = true
+    }
+
+    /// Raised by `openSettings`; the mode layouts observe it and present the
+    /// settings sheet. Cleared by the layout once it has acted.
+    @Published var showSettingsRequested: Bool = false
+
     // ── VX-Loop: Chat session-level persistent ID for VXTimeline ─────────
     // nano/small モデル使用時、全ターンで同一IDを共有することで
     // VXTimeline内の履歴記録を次のターンで参照できる。

@@ -1,9 +1,14 @@
 import SwiftUI
 
 struct ExpertBotFloatingView: View {
+    @EnvironmentObject var app: AppState
     @StateObject private var engine = VerantyxExpertEngine.shared
     @State private var isOpen = false
     @State private var inputText = ""
+    /// Per-step outcome of the last Apply, keyed by step number. Shown inline
+    /// so "I pressed it and nothing visible happened" cannot occur — including
+    /// when the answer is that the app declined to set it.
+    @State private var stepResults: [Int: String] = [:]
     
     var body: some View {
         VStack(spacing: 0) {
@@ -57,6 +62,9 @@ struct ExpertBotFloatingView: View {
                                             .padding(.horizontal)
                                             .id("generating")
                                         }
+                                        if let recipe = engine.activeRecipe {
+                                            recipeSteps(recipe)
+                                        }
                                     }
                                     .padding()
                                 }
@@ -100,7 +108,7 @@ struct ExpertBotFloatingView: View {
                             .padding()
                             .background(Color(red: 0.1, green: 0.1, blue: 0.13))
                         }
-                        .frame(width: 340, height: 420)
+                        .frame(width: 380, height: 520)
                         .background(Color(red: 0.12, green: 0.12, blue: 0.15))
                         .cornerRadius(12)
                         .shadow(color: Color.black.opacity(0.5), radius: 10, x: 0, y: 5)
@@ -138,10 +146,60 @@ struct ExpertBotFloatingView: View {
         }
     }
     
+    /// A recipe rendered as things you can do, not things to read. Each row
+    /// carries why it matters, a button to the screen, and — only where the
+    /// app can set it correctly — a button that sets it.
+    @ViewBuilder
+    private func recipeSteps(_ recipe: RecipeDTO) -> some View {
+        VStack(alignment: .leading, spacing: 8) {
+            ForEach(recipe.steps) { step in
+                VStack(alignment: .leading, spacing: 4) {
+                    Text("\(step.n). " + app.t(step.title, step.title_ja))
+                        .font(.system(size: 11, weight: .semibold))
+                    Text(step.why)
+                        .font(.system(size: 10))
+                        .foregroundStyle(.secondary)
+                        .fixedSize(horizontal: false, vertical: true)
+                    if let v = step.value {
+                        Text(app.t("Set to: ", "設定値: ") + v)
+                            .font(.system(size: 10, design: .monospaced))
+                            .foregroundStyle(Color.accentColor)
+                    }
+                    HStack(spacing: 6) {
+                        Button(app.t("Open", "開く")) {
+                            engine.openScreen(for: step, app: app)
+                        }
+                        .controlSize(.mini)
+                        if step.canApply {
+                            Button(app.t("Apply", "設定する")) {
+                                stepResults[step.n] = engine.applyStep(step, app: app)
+                            }
+                            .controlSize(.mini)
+                        }
+                        Text("Settings › \(step.tab)")
+                            .font(.system(size: 9, design: .monospaced))
+                            .foregroundStyle(.tertiary)
+                    }
+                    if let result = stepResults[step.n] {
+                        Text(result)
+                            .font(.system(size: 10))
+                            .foregroundStyle(result.hasPrefix("✓") ? Color.green : Color.orange)
+                            .fixedSize(horizontal: false, vertical: true)
+                    }
+                }
+                .padding(8)
+                .frame(maxWidth: .infinity, alignment: .leading)
+                .background(Color.white.opacity(0.05))
+                .clipShape(RoundedRectangle(cornerRadius: 6))
+            }
+        }
+    }
+
     private func sendMessage() {
         guard !inputText.isEmpty else { return }
         let query = inputText
         inputText = ""
+        stepResults.removeAll()
         Task {
             await engine.sendQuery(query)
         }
