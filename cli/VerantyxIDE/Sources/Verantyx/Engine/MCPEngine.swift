@@ -677,6 +677,25 @@ final class MCPEngine: ObservableObject {
 
     init() { loadServers() }
 
+    /// 起動時に、保存済みで有効なサーバーへ接続し直す。
+    ///
+    /// これが無かったため、`connectAll` はユーザーが MCP パネルを開いて
+    /// ボタンを押したときにしか走らなかった。つまり毎回の起動で MCP ツールは
+    /// ゼロ本から始まり、AgentLoop や CloudAPIClient が `connectedTools` を
+    /// 読む時点では空だった — 設定済みのサーバーが、UI を訪れるまで存在しない
+    /// のと同じ状態になる。
+    ///
+    /// 失敗しても投げない。到達不能なサーバーは `connectionStatus` に
+    /// `.error` として残り、MCP パネルにそのまま表示される。起動を止めたり
+    /// 黙って消したりするより、そこに理由が出ている方が直せる。
+    func autoConnectOnLaunch() async {
+        guard !hasAutoConnected else { return }
+        hasAutoConnected = true
+        await connectAll()
+    }
+
+    private var hasAutoConnected = false
+
     // MARK: - Server CRUD
 
     func addServer(_ config: MCPServerConfig) { servers.append(config) }

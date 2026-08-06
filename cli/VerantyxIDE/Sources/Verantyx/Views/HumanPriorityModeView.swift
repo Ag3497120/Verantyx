@@ -16,6 +16,9 @@ struct HumanPriorityModeView: View {
     @State private var showMCPQuick     = false
     @State private var showL25ConversionAlert = false
     @State private var targetWorkspaceForL25: URL? = nil
+    /// 起動時のワークスペース復元と、ユーザー自身の切り替えを区別するためのもの。
+    /// onChange はどちらでも発火するので、この一段が無いと毎回の起動で尋ねてしまう。
+    @State private var hasSeenInitialWorkspace = false
 
     // Editor state
     @State private var editorContent: String = ""
@@ -36,6 +39,26 @@ struct HumanPriorityModeView: View {
     @State private var veraAShowReasoningTimeline = false
 
     enum SaveStatus { case saved, unsaved, saving }
+
+    // MARK: - L2.5 の確認を一度だけにする記録
+    //
+    // パス単位で覚える。返事の内容(開始/キャンセル)は保存しない —
+    // 覚えたいのは「もう尋ねた」ことだけで、キャンセルは拒否ではなく
+    // 「今はしない」だからである。あとから PipelineLaunchSheet の Start
+    // でいつでも実行できる。
+    private static let l25AskedKey = "l25_conversion_asked_paths"
+
+    private static func hasAskedAboutL25(for ws: URL) -> Bool {
+        let asked = UserDefaults.standard.stringArray(forKey: l25AskedKey) ?? []
+        return asked.contains(ws.path)
+    }
+
+    private static func markAskedAboutL25(for ws: URL) {
+        var asked = UserDefaults.standard.stringArray(forKey: l25AskedKey) ?? []
+        guard !asked.contains(ws.path) else { return }
+        asked.append(ws.path)
+        UserDefaults.standard.set(asked, forKey: l25AskedKey)
+    }
 
     var body: some View {
         // Milestone T: Vera-a mode is a completely separate top-level
@@ -150,16 +173,29 @@ struct HumanPriorityModeView: View {
             // ProcessMonitor 起動 (CPU 監視開始)
             ProcessMonitor.shared.start()
         }
-        // ── ワークスペースが変わったら L2.5 変換の確認ダイアログを出す ──────────────────────
+        // ── L2.5 変換の確認は「ユーザーがワークスペースを切り替えたとき」だけ ─────────
+        //
+        // 以前は onChange が起動時の復元でも発火していたため、毎回の起動で必ず
+        // このダイアログが出ていた。復元は選択ではないので尋ねる相手がいない。
+        //
+        // さらに一度返事をしたワークスペースは記憶する。同じ問いを繰り返す確認は
+        // 読まれずに閉じられるようになり、確認として機能しなくなる。変換したく
+        // なったときは PipelineLaunchSheet の Start から明示的に実行できる。
         .onChange(of: app.workspaceURL) { _, newWS in
             guard let ws = newWS else { return }
+            defer { hasSeenInitialWorkspace = true }
+            guard hasSeenInitialWorkspace else { return }   // 起動時の復元
+            guard !Self.hasAskedAboutL25(for: ws) else { return }
             targetWorkspaceForL25 = ws
             showL25ConversionAlert = true
         }
         .alert(app.t("L2.5 Semantic Conversion", "L2.5 セマンティック変換"), isPresented: $showL25ConversionAlert) {
-            Button(app.t("Cancel", "キャンセル"), role: .cancel) { }
+            Button(app.t("Cancel", "キャンセル"), role: .cancel) {
+                if let ws = targetWorkspaceForL25 { Self.markAskedAboutL25(for: ws) }
+            }
             Button(app.t("Start Conversion", "変換を開始する")) {
                 if let ws = targetWorkspaceForL25 {
+                    Self.markAskedAboutL25(for: ws)
                     Task { @MainActor in
                         await L25IndexEngine.shared.loadAndIncrementalUpdate(workspaceURL: ws)
                     }
@@ -188,7 +224,7 @@ struct HumanPriorityModeView: View {
     private enum VeraAPanelTab: String, CaseIterable, Identifiable {
         // Memory first: this screen exists for the qwen + JGEN memory workflow,
         // and the console is the only tab that shows what memory actually did.
-        case memory, research, distributed, settings, stereoCross, mirror, vectorLab
+        case memory, research, distributed, settings, modes, stereoCross, mirror, vectorLab
         var id: String { rawValue }
         @MainActor
         func title(_ app: AppState) -> String {
@@ -197,6 +233,7 @@ struct HumanPriorityModeView: View {
             case .research:    return app.t("Failure types", "失敗の型")
             case .distributed: return app.t("Two Macs", "2台構成")
             case .settings:    return app.t("Settings", "設定")
+            case .modes:       return app.t("Modes", "モード")
             case .stereoCross: return app.t("3D Graph", "立体十字構造体")
             case .mirror:      return app.t("Mirror", "ミラー")
             case .vectorLab:   return app.t("Vector Lab", "ベクトルラボ")
@@ -210,6 +247,7 @@ struct HumanPriorityModeView: View {
             case .research:    return "list.bullet.rectangle"
             case .distributed: return "rectangle.connected.to.line.below"
             case .settings:    return "slider.horizontal.3"
+            case .modes:       return "square.grid.2x2"
             case .stereoCross: return "cube.transparent"
             case .mirror:      return "macwindow.on.rectangle"
             case .vectorLab:   return "waveform.path"
@@ -322,6 +360,8 @@ struct HumanPriorityModeView: View {
                         showPendingToolCalls: $veraAShowPendingToolCalls,
                         showReasoningTimeline: $veraAShowReasoningTimeline
                     )
+                case .modes:
+                    ModesOverviewView()
                 case .stereoCross:
                     StereoCrossGraphView()
                 case .mirror:
