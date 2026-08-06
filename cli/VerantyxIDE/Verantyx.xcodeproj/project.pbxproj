@@ -58,6 +58,8 @@
 		B6141B510C384239811D985F /* JCrossChatManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6F5CEA13580847D580F704BE /* JCrossChatManager.swift */; };
 		2BE17EA2E7E2436EB65EE247 /* JGenConverter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 86DA980AC45244118FC34A65 /* JGenConverter.swift */; };
 		4A11C0DE0001000000000013 /* MemoryABHarness.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4A11C0DE0002000000000013 /* MemoryABHarness.swift */; };
+		4A11C0DE0001000000000031 /* MemoryDiscrimination.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4A11C0DE0002000000000031 /* MemoryDiscrimination.swift */; };
+		4A11C0DE0001000000000032 /* FailureDomainsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4A11C0DE0002000000000032 /* FailureDomainsView.swift */; };
 		4A11C0DE0001000000000012 /* VectorMemoryInjection.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4A11C0DE0002000000000012 /* VectorMemoryInjection.swift */; };
 		4A11C0DE000100000000000F /* PipeSelfTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4A11C0DE000200000000000F /* PipeSelfTest.swift */; };
 		4A11C0DE000100000000000E /* PipelineRunner.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4A11C0DE000200000000000E /* PipelineRunner.swift */; };
@@ -288,6 +290,8 @@
 		470599AF829E40DFAA604ED5 /* JCrossEngine.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = JCrossEngine.swift; sourceTree = "<group>"; };
 		86DA980AC45244118FC34A65 /* JGenConverter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = JGenConverter.swift; sourceTree = "<group>"; };
 		4A11C0DE0002000000000013 /* MemoryABHarness.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MemoryABHarness.swift; sourceTree = "<group>"; };
+		4A11C0DE0002000000000031 /* MemoryDiscrimination.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MemoryDiscrimination.swift; sourceTree = "<group>"; };
+		4A11C0DE0002000000000032 /* FailureDomainsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FailureDomainsView.swift; sourceTree = "<group>"; };
 		4A11C0DE0002000000000012 /* VectorMemoryInjection.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VectorMemoryInjection.swift; sourceTree = "<group>"; };
 		4A11C0DE000200000000000F /* PipeSelfTest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PipeSelfTest.swift; sourceTree = "<group>"; };
 		4A11C0DE000200000000000E /* PipelineRunner.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PipelineRunner.swift; sourceTree = "<group>"; };
@@ -647,6 +651,7 @@
 				6BCC75316FB4B9AA50E92460 /* JGenVeraSettingsPanelView.swift */,
 				4A11C0DE0002000000000011 /* PipeControlPanelView.swift */,
 				4A11C0DE0002000000000010 /* MemoryConsoleView.swift */,
+				4A11C0DE0002000000000032 /* FailureDomainsView.swift */,
 				4A11C0DE000200000000000D /* PipeConnectSheet.swift */,
 				D9555DAA6AC44813B12713BB /* TemplateSetupApprovalSheet.swift */,
 				C16E38036B4B4210973D4410 /* PendingToolCallsView.swift */,
@@ -774,6 +779,7 @@
 				470599AF829E40DFAA604ED5 /* JCrossEngine.swift */,
 				86DA980AC45244118FC34A65 /* JGenConverter.swift */,
 				4A11C0DE0002000000000013 /* MemoryABHarness.swift */,
+				4A11C0DE0002000000000031 /* MemoryDiscrimination.swift */,
 				4A11C0DE0002000000000012 /* VectorMemoryInjection.swift */,
 				4A11C0DE000200000000000F /* PipeSelfTest.swift */,
 				4A11C0DE000200000000000E /* PipelineRunner.swift */,
@@ -1026,7 +1032,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "set -e\nexport PATH=\"$PATH:$HOME/.cargo/bin\"\n\nBUNDLE_MACOS=\"$BUILT_PRODUCTS_DIR/$PRODUCT_NAME.app/Contents/MacOS\"\nDEST=\"$BUNDLE_MACOS/verantyx-browser\"\n\n# バイナリのソースを探す（優先順）\nBROWSER_DIR=\"$SRCROOT/../verantyx-browser\"\nif [ ! -d \"$BROWSER_DIR\" ]; then\n  echo \"warning: verantyx-browser ディレクトリが見つかりません: $BROWSER_DIR\"\nfi\n\nSRC=\"\"\n# ① Resources/ に既にコピー済みのバイナリ\nif [ -f \"$SRCROOT/Resources/verantyx-browser\" ]; then\n  SRC=\"$SRCROOT/Resources/verantyx-browser\"\n# ② Cargo release\nelif [ -f \"$BROWSER_DIR/target/release/verantyx-browser\" ]; then\n  SRC=\"$BROWSER_DIR/target/release/verantyx-browser\"\n# ③ Cargo debug\nelif [ -f \"$BROWSER_DIR/target/debug/verantyx-browser\" ]; then\n  SRC=\"$BROWSER_DIR/target/debug/verantyx-browser\"\nfi\n\nif [ -z \"$SRC\" ]; then\n  echo \"⚠️  verantyx-browser バイナリが見つかりません。cargo build を先に実行してください。\"\n  echo \"   cd $BROWSER_DIR && cargo build --release -p vx-browser\"\n  exit 0\nfi\n\n# Contents/MacOS/ にコピーして実行権限を付与\nmkdir -p \"$BUNDLE_MACOS\"\ncp -f \"$SRC\" \"$DEST\"\nchmod +x \"$DEST\"\necho \"✅ verantyx-browser → $DEST\"\n";
+			shellScript = "set -e\nexport PATH=\"$PATH:$HOME/.cargo/bin\"\n\nBUNDLE_MACOS=\"$BUILT_PRODUCTS_DIR/$PRODUCT_NAME.app/Contents/MacOS\"\nDEST=\"$BUNDLE_MACOS/verantyx-browser\"\n\n# バイナリのソースを探す（優先順）\nBROWSER_DIR=\"$SRCROOT/../verantyx-browser\"\nif [ ! -d \"$BROWSER_DIR\" ]; then\n  echo \"warning: verantyx-browser ディレクトリが見つかりません: $BROWSER_DIR\"\nfi\n\nSRC=\"\"\n# ① Resources/ に既にコピー済みのバイナリ\nif [ -f \"$SRCROOT/Resources/verantyx-browser\" ]; then\n  SRC=\"$SRCROOT/Resources/verantyx-browser\"\n# ② Cargo release\nelif [ -f \"$BROWSER_DIR/target/release/verantyx-browser\" ]; then\n  SRC=\"$BROWSER_DIR/target/release/verantyx-browser\"\n# ③ Cargo debug\nelif [ -f \"$BROWSER_DIR/target/debug/verantyx-browser\" ]; then\n  SRC=\"$BROWSER_DIR/target/debug/verantyx-browser\"\nfi\n\nif [ -z \"$SRC\" ]; then\n  echo \"⚠️  verantyx-browser バイナリが見つかりません。cargo build を先に実行してください。\"\n  echo \"   cd $BROWSER_DIR && cargo build --release -p vx-browser\"\n  exit 0\nfi\n\n# A Git-LFS pointer is a 133-byte text file, and copying one into\n# Contents/MacOS/ makes the bundle unsignable: codesign refuses with\n# \"code object is not signed at all\" and the whole Release build fails.\n# That is exactly what happens in CI, where LFS objects are not fetched.\n# Check the file is a real Mach-O executable before embedding it.\nif ! file -b \"$SRC\" | grep -q \"Mach-O\"; then\n  echo \"warning: $SRC is not a Mach-O binary (Git-LFS pointer not fetched?) — skipping embed\"\n  rm -f \"$DEST\"\n  exit 0\nfi\n\n# Contents/MacOS/ にコピーして実行権限を付与\nmkdir -p \"$BUNDLE_MACOS\"\ncp -f \"$SRC\" \"$DEST\"\nchmod +x \"$DEST\"\necho \"✅ verantyx-browser → $DEST\"\n";
 		};
 		796605CDFB0D47B099D87B15 /* Embed jgen_forge into App Bundle */ = {
 			isa = PBXShellScriptBuildPhase;
@@ -1190,6 +1196,8 @@
 				C14A4A31A3ED4B2ABFEED797 /* JCrossEngine.swift in Sources */,
 				2BE17EA2E7E2436EB65EE247 /* JGenConverter.swift in Sources */,
 				4A11C0DE0001000000000013 /* MemoryABHarness.swift in Sources */,
+				4A11C0DE0001000000000031 /* MemoryDiscrimination.swift in Sources */,
+				4A11C0DE0001000000000032 /* FailureDomainsView.swift in Sources */,
 				4A11C0DE0001000000000012 /* VectorMemoryInjection.swift in Sources */,
 				4A11C0DE000100000000000F /* PipeSelfTest.swift in Sources */,
 				4A11C0DE000100000000000E /* PipelineRunner.swift in Sources */,

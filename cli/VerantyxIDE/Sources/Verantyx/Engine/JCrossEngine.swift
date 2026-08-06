@@ -416,13 +416,29 @@ final class JCrossEngine {
         return .hidden(result)
     }
 
+    /// One forward pass carrying any combination of the two injection routes,
+    /// returning the residual at each observed layer.
+    ///
+    /// Both routes go through this one call on purpose. The comparison it
+    /// exists to serve — does a memory reach the model better as a soft prefix
+    /// or as a mid-layer blend — is only a comparison of the routes if
+    /// everything else about the two runs is identical. Taking the soft arm
+    /// through `encodeSoft` and the blend arm through here would make the code
+    /// path a difference between them, and there would be no way afterwards to
+    /// say which difference the numbers came from.
+    ///
+    /// Observing `numLayers` returns the state after the final norm, which is
+    /// what `topKDistributionText` expects; observing a layer index returns the
+    /// post-layer residual, unnormalised.
     func injectMultiLayer(
         tokens: [UInt32],
+        soft: [[Float]] = [],
         injections: [(layer: Int, vector: [Float], alpha: Float)],
         observeLayers: [Int]
     ) throws -> [Int: [Float]] {
         guard !observeLayers.isEmpty else { return [:] }
         var tokensCopy = tokens
+        var softFlat = soft.flatMap { $0 }
         var injectLayersCopy = injections.map { UInt32($0.layer) }
         var injectVecsFlat = injections.flatMap { $0.vector }
         var alphasCopy = injections.map { $0.alpha }
@@ -430,6 +446,7 @@ final class JCrossEngine {
         var out = [Float](repeating: 0, count: observeLayers.count * hiddenDim)
 
         let code: Int32 = tokensCopy.withUnsafeMutableBufferPointer { tokBuf in
+            softFlat.withUnsafeMutableBufferPointer { softBuf in
             injectLayersCopy.withUnsafeMutableBufferPointer { injLayerBuf in
                 injectVecsFlat.withUnsafeMutableBufferPointer { injVecBuf in
                     alphasCopy.withUnsafeMutableBufferPointer { alphaBuf in
@@ -437,7 +454,8 @@ final class JCrossEngine {
                             out.withUnsafeMutableBufferPointer { outBuf in
                                 jcross_engine_inject_multi_layer(
                                     handle,
-                                    tokBuf.baseAddress, tokBuf.count,
+                                    tokens.isEmpty ? nil : tokBuf.baseAddress, tokBuf.count,
+                                    soft.isEmpty ? nil : softBuf.baseAddress, soft.count,
                                     injections.isEmpty ? nil : injLayerBuf.baseAddress,
                                     injections.isEmpty ? nil : injVecBuf.baseAddress,
                                     injections.isEmpty ? nil : alphaBuf.baseAddress,
@@ -448,6 +466,7 @@ final class JCrossEngine {
                             }
                         }
                     }
+                }
                 }
             }
         }

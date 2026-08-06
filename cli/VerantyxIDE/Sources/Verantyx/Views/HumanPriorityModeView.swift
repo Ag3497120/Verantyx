@@ -188,12 +188,13 @@ struct HumanPriorityModeView: View {
     private enum VeraAPanelTab: String, CaseIterable, Identifiable {
         // Memory first: this screen exists for the qwen + JGEN memory workflow,
         // and the console is the only tab that shows what memory actually did.
-        case memory, distributed, settings, stereoCross, mirror, vectorLab
+        case memory, research, distributed, settings, stereoCross, mirror, vectorLab
         var id: String { rawValue }
         @MainActor
         func title(_ app: AppState) -> String {
             switch self {
             case .memory:      return app.t("Memory", "記憶")
+            case .research:    return app.t("Failure types", "失敗の型")
             case .distributed: return app.t("Two Macs", "2台構成")
             case .settings:    return app.t("Settings", "設定")
             case .stereoCross: return app.t("3D Graph", "立体十字構造体")
@@ -206,6 +207,7 @@ struct HumanPriorityModeView: View {
         var icon: String {
             switch self {
             case .memory:      return "tray.full"
+            case .research:    return "list.bullet.rectangle"
             case .distributed: return "rectangle.connected.to.line.below"
             case .settings:    return "slider.horizontal.3"
             case .stereoCross: return "cube.transparent"
@@ -311,6 +313,8 @@ struct HumanPriorityModeView: View {
                 switch veraAPanelTab {
                 case .memory:
                     MemoryConsoleView()
+                case .research:
+                    FailureDomainsView()
                 case .distributed:
                     PipeControlPanelView(showConnectSheet: $veraAShowConnectSheet)
                 case .settings:

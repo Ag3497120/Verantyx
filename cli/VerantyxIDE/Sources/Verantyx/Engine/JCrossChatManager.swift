@@ -384,6 +384,29 @@ actor JCrossChatManager {
         }
     }
 
+    /// `encodeText`, but stopping at `layer` instead of running to the end.
+    ///
+    /// Exists because a memory vector and the residual it gets blended into
+    /// have to live in the same space for the blend to mean anything, and
+    /// `encodeText` returns the post-final-norm state — the far end of the
+    /// stack — while `VectorMemoryInjection` blends it in a third of the way
+    /// up. Norm matching makes the magnitudes agree and leaves the harder
+    /// question untouched: whether a direction that means something at the
+    /// output means the same thing in the middle.
+    func encodeTextAtLayer(_ text: String, layer: Int) throws -> [Float] {
+        guard let engine, let tokenizer else { throw ChatError.notLoaded }
+        let bounded = PromptBudget.truncateForEncode(text)
+        let tokens = PromptBudget.capEncodeTokens(
+            tokenizer.encode(text: bounded).map { UInt32($0) }
+        )
+        return try withCapturePaused {
+            engine.reset()
+            let rows = try engine.encodeLayers(tokens: tokens, layers: [layer])
+            guard let first = rows.first else { throw ChatError.notLoaded }
+            return first
+        }
+    }
+
     /// Decodes a vector (from `encodeText`, `optimizeVector`, or anything
     /// else) back into the single nearest token, as text.
     func resynthesizeToText(vector: [Float], layerName: String = "lm_head", temperature: Float = 1.0) throws -> String {
@@ -477,6 +500,33 @@ actor JCrossChatManager {
             }
             if MachineProfile.current().totalRAMGB <= 24 { engine.trim() }
             return out
+        }
+    }
+
+    /// Raw residuals from one injected forward pass, without decoding them.
+    ///
+    /// `reflect` and `reflectRawVector` both collapse each observation to its
+    /// argmax token before returning, which is the right shape for showing a
+    /// person what a layer is "thinking" but throws away everything a margin
+    /// measurement needs: the argmax is the last thing an injection moves, and
+    /// a measurement that only sees it reports inert for steers that are in
+    /// fact shifting a large share of the distribution.
+    ///
+    /// Does not reset. The caller must, and `MemoryDiscrimination` does before
+    /// every arm — the same contract `generateInjectedRaw` keeps, and for the
+    /// same reason: a stale cache here produces confident, wrong numbers with
+    /// no error.
+    func injectMultiLayerRaw(
+        tokens: [UInt32],
+        soft: [[Float]] = [],
+        injections: [(layer: Int, vector: [Float], alpha: Float)],
+        observeLayers: [Int]
+    ) throws -> [Int: [Float]] {
+        guard let engine else { throw ChatError.notLoaded }
+        return try withCapturePaused {
+            try engine.injectMultiLayer(
+                tokens: PromptBudget.capEncodeTokens(tokens), soft: soft,
+                injections: injections, observeLayers: observeLayers)
         }
     }
 

@@ -42,6 +42,26 @@ struct MemoryConsoleView: View {
     @State private var probing = false
     @State private var probeError: String?
 
+    // Milestone Y: the failure taxonomy and its review queue, surfaced where
+    // the person already looks. Raw counts from Vera's failure_stats plus the
+    // pending capacity proposals with their probe evidence — the approve
+    // button here is the human half of the loop; nothing below it applies a
+    // limit on its own.
+    @State private var failureVerdicts: [(String, Int)] = []
+    @State private var failureClasses: [(String, Int)] = []
+    @State private var capacityPending: [CapacityProposal] = []
+    @State private var failureLoading = false
+    @State private var capacityActionResult: String?
+
+    struct CapacityProposal: Identifiable {
+        let id: Int
+        let parameter: String
+        let current: Int
+        let proposed: Int
+        let reason: String
+        let probeCount: Int
+    }
+
     var body: some View {
         ScrollView {
             VStack(alignment: .leading, spacing: 18) {
@@ -50,11 +70,115 @@ struct MemoryConsoleView: View {
                 recallSection
                 Divider().opacity(0.2)
                 probeSection
+                Divider().opacity(0.2)
+                failureSection
             }
             .padding(14)
             .frame(maxWidth: .infinity, alignment: .leading)
         }
         .background(Color(red: 0.10, green: 0.10, blue: 0.14))
+        .task { await refreshFailures() }
+    }
+
+    // MARK: - Failure taxonomy + capacity review
+
+    private var failureSection: some View {
+        VStack(alignment: .leading, spacing: 10) {
+            HStack {
+                header("失敗の型 (Vera-α)", icon: "waveform.path.ecg")
+                Spacer()
+                Button {
+                    Task { await refreshFailures() }
+                } label: {
+                    Image(systemName: "arrow.clockwise")
+                }
+                .buttonStyle(.plain)
+                .disabled(failureLoading)
+            }
+
+            if failureVerdicts.isEmpty && capacityPending.isEmpty {
+                Text(failureLoading ? "読み込み中…"
+                     : "記録された型付き失敗はまだありません。ビルド・変換の失敗は自動でここに集まります。")
+                    .font(.system(size: 11))
+                    .foregroundStyle(.secondary)
+            }
+
+            ForEach(failureVerdicts, id: \.0) { verdict, count in
+                HStack(spacing: 8) {
+                    Text(verdict)
+                        .font(.system(size: 11, design: .monospaced))
+                    Spacer()
+                    Text("\(count)")
+                        .font(.system(size: 11, weight: .semibold, design: .monospaced))
+                }
+            }
+
+            if !capacityPending.isEmpty {
+                Text("限界値の引き上げ提案(承認待ち)")
+                    .font(.system(size: 11, weight: .semibold))
+                    .padding(.top, 4)
+                ForEach(capacityPending) { p in
+                    VStack(alignment: .leading, spacing: 4) {
+                        HStack {
+                            Text("\(p.parameter): \(p.current) → \(p.proposed)")
+                                .font(.system(size: 11, weight: .semibold, design: .monospaced))
+                            Spacer()
+                            Button("承認") { Task { await actOnCapacity(p.id, accept: true) } }
+                                .font(.system(size: 10))
+                            Button("却下") { Task { await actOnCapacity(p.id, accept: false) } }
+                                .font(.system(size: 10))
+                        }
+                        // The evidence, not just the number: what was re-run
+                        // and that it answered. A reviewer approving a bare
+                        // integer is not reviewing anything.
+                        Text("\(p.reason) — 再実行 \(p.probeCount) 件の証拠つき")
+                            .font(.system(size: 10))
+                            .foregroundStyle(.secondary)
+                    }
+                    .padding(6)
+                    .background(Color.white.opacity(0.05), in: RoundedRectangle(cornerRadius: 6))
+                }
+            }
+
+            if let msg = capacityActionResult {
+                Text(msg).font(.system(size: 10)).foregroundStyle(.secondary)
+            }
+        }
+    }
+
+    private func refreshFailures() async {
+        failureLoading = true
+        defer { failureLoading = false }
+        let statsRaw = await VeraMemoryBridge.failureStats()
+        if let data = statsRaw.data(using: .utf8),
+           let obj = try? JSONSerialization.jsonObject(with: data) as? [String: Any] {
+            let verdicts = (obj["verdicts"] as? [String: Int]) ?? [:]
+            failureVerdicts = verdicts.sorted { $0.value > $1.value }.map { ($0.key, $0.value) }
+            let classes = (obj["classifications"] as? [String: Int]) ?? [:]
+            failureClasses = classes.sorted { $0.value > $1.value }.map { ($0.key, $0.value) }
+        }
+        let pendRaw = await VeraMemoryBridge.listPendingCapacityLimits()
+        if let data = pendRaw.data(using: .utf8),
+           let arr = try? JSONSerialization.jsonObject(with: data) as? [[String: Any]] {
+            capacityPending = arr.compactMap { e in
+                guard let idx = e["index"] as? Int,
+                      let param = e["parameter"] as? String,
+                      let cur = e["current"] as? Int,
+                      let prop = e["proposed"] as? Int else { return nil }
+                return CapacityProposal(
+                    id: idx, parameter: param, current: cur, proposed: prop,
+                    reason: (e["reason"] as? String) ?? "",
+                    probeCount: ((e["probes"] as? [[String: Any]]) ?? []).count)
+            }
+        }
+    }
+
+    private func actOnCapacity(_ index: Int, accept: Bool) async {
+        let raw = accept
+            ? await VeraMemoryBridge.acceptCapacityLimit(index: index)
+            : await VeraMemoryBridge.rejectCapacityLimit(index: index)
+        capacityActionResult = raw.count > 200 ? String(raw.prefix(200)) : raw
+        await refreshFailures()
     }
 
     // MARK: - Upper half: what memory contributed

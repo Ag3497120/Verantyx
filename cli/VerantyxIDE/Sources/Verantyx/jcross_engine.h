@@ -205,9 +205,13 @@ int32_t jcross_engine_inject_at_layer(
 // the same "layer 0" -- see the Rust doc comment on
 // execute_inject_multi_layer for why). out_ptr must hold
 // n_observe * hidden_dim floats, row-major, same order as observe_layers_ptr.
+// soft_ptr is (n_soft x hidden, row-major) and prepends soft tokens. It was
+// missing from this signature while the Rust side always accepted it, which
+// left the soft-prefix route unreachable through this call.
 int32_t jcross_engine_inject_multi_layer(
     void *engine,
     const uint32_t *tokens_ptr, size_t tokens_len,
+    const float *soft_ptr, size_t n_soft,
     const uint32_t *inject_layers_ptr, const float *inject_vecs_ptr, const float *alphas_ptr, size_t n_inject,
     const uint32_t *observe_layers_ptr, size_t n_observe,
     float *out_ptr, size_t out_len

@@ -196,6 +196,25 @@ final class JGenConverter: ObservableObject {
         }
         let output = await runRaw(args: args)
         log += (log.isEmpty ? "" : "\n---\n") + output
+
+        // Conversion failures feed the same typed-failure ledger builds do.
+        // The classifier knows this pipeline's real failure shapes — missing
+        // GDN geometry, missing tokenizer, full disk — because its fixtures
+        // are this project's own confirmed incidents. Heuristic trigger on
+        // purpose: jgen_forge does not return a clean exit code through
+        // runRaw, and over-recording a success as a failure is caught
+        // downstream by the classifier returning UNCLASSIFIED, which is
+        // itself a signal worth counting. Fire-and-forget; recording must
+        // never affect the conversion path.
+        let lowered = output.lowercased()
+        if lowered.contains("error") || lowered.contains("refusing")
+            || lowered.contains("traceback") || output.contains("✗") {
+            let excerpt = String(output.suffix(4000))
+            Task.detached(priority: .utility) {
+                _ = await VeraMemoryBridge.recordBuildFailure(
+                    source: "jgen_convert", logExcerpt: excerpt)
+            }
+        }
     }
 
     private func runRaw(args: [String]) async -> String {
