@@ -4,5 +4,24 @@
 <dict>
     <key>com.apple.security.virtualization</key>
     <true/>
+
+    <!-- The app runs with the hardened runtime, which turns on library
+         validation: a loaded dylib must be signed by the same Team ID as the
+         process. libjcross_engine_glm.dylib is built by Cargo and embedded
+         ad-hoc, so it has no Team ID and never matches — dyld refuses it with
+         "different Team IDs" and the app dies at launch before any UI.
+
+         The failure is worth naming because it reads as something else: the
+         first line dyld prints is "Library not loaded", which points at a
+         missing file, and the actual cause is three lines down in the list of
+         paths it tried.
+
+         The alternative — dropping the hardened runtime so validation stops
+         applying — is what an ad-hoc `codesign --deep` re-sign does, and it
+         silently gives up notarisation and every other hardened-runtime
+         protection to fix one dylib. This entitlement gives up only library
+         validation, which is the part actually in the way. -->
+    <key>com.apple.security.cs.disable-library-validation</key>
+    <true/>
 </dict>
 </plist>
