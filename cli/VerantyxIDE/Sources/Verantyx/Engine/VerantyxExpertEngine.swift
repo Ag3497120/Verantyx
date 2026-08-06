@@ -48,10 +48,25 @@ final class VerantyxExpertEngine: ObservableObject {
                 + "存在しないものは捏造せずに「ありません」とお答えします。")))
     }
 
+    /// Steps of the recipe currently being walked, if any. The chat text says
+    /// what to do; these drive the buttons that do it.
+    @Published var activeRecipe: RecipeDTO? = nil
+
     func sendQuery(_ query: String) async {
         messages.append(ChatMessage(role: .user, content: query))
         isGenerating = true
         defer { isGenerating = false }
+
+        // Goals first. Someone asking "how do I build my own AI" does not know
+        // the thing they want is called `inference_mode`, so a lookup keyed on
+        // setting names cannot reach them — it would refuse a question the app
+        // has a complete answer for.
+        if let recipe = await matchGoal(query) {
+            activeRecipe = recipe
+            messages.append(ChatMessage(role: .assistant,
+                                        content: formatRecipe(recipe)))
+            return
+        }
 
         let raw = await MCPEngine.shared.callTool(
             serverName: veraServer, toolName: "settings_lookup",
@@ -77,6 +92,67 @@ final class VerantyxExpertEngine: ObservableObject {
         default:
             messages.append(ChatMessage(role: .assistant,
                                         content: await formatNoSetting(query, obj)))
+        }
+    }
+
+    // MARK: - Goals
+
+    private func matchGoal(_ query: String) async -> RecipeDTO? {
+        let raw = await MCPEngine.shared.callTool(
+            serverName: veraServer, toolName: "goal_recipe",
+            arguments: ["question": query])
+        guard let data = raw.data(using: .utf8),
+              let recipe = try? JSONDecoder().decode(RecipeDTO.self, from: data),
+              recipe.verdict == "ANSWER", !recipe.steps.isEmpty else {
+            // UNKNOWN_NO_RECIPE and friends fall through to settings_lookup
+            // rather than being reported here: "no goal matches" is not an
+            // answer to a question that was about one specific setting.
+            return nil
+        }
+        return recipe
+    }
+
+    private func formatRecipe(_ r: RecipeDTO) -> String {
+        let ja = AppLanguage.shared.isJapanese
+        var lines = ["**\(ja ? r.title.ja : r.title.en)**", r.summary, ""]
+        lines.append(ja
+            ? "\(r.steps.count) 手順です。各手順の「開く」で画面へ移動でき、"
+              + "「設定する」が出ているものはこの場で反映できます。"
+            : "\(r.steps.count) steps. Open takes you to the screen; where "
+              + "Apply is offered, it takes effect immediately.")
+        return lines.joined(separator: "\n")
+    }
+
+    /// Take the user to the screen a step names.
+    func openScreen(for step: RecipeStepDTO, app: AppState) {
+        app.openSettings(tab: step.tab)
+    }
+
+    /// Set a step's value, when the app can do it correctly.
+    ///
+    /// Only routes through SettingsApplier, which mutates the property that
+    /// owns each setting. Writing the UserDefaults key directly would leave
+    /// the running app on the old value — the change would look done and not
+    /// be, which is the failure this whole path exists to avoid.
+    func applyStep(_ step: RecipeStepDTO, app: AppState) -> String {
+        guard let value = step.value else {
+            return AppLanguage.shared.t(
+                "This step is a choice, not a fixed value — open the screen "
+                + "and pick what fits.",
+                "この手順は値が決まっているものではありません。画面を開いて選んでください。")
+        }
+        guard step.applicable else {
+            return AppLanguage.shared.t(
+                "This one you enter yourself — nothing else should type it "
+                + "for you.",
+                "これはご自身で入力してください。他のものが代わりに入力すべきではありません。")
+        }
+        switch SettingsApplier.apply(key: step.setting, value: value, app: app) {
+        case .applied(let what):     return "✓ " + what
+        case .notApplicable(let why): return why
+        case .badValue(let v):
+            return AppLanguage.shared.t("Cannot set '\(v)' here.",
+                                        "'\(v)' はここでは設定できません。")
         }
     }
 
@@ -149,5 +225,43 @@ final class VerantyxExpertEngine: ObservableObject {
             }
         }
         return lines.joined(separator: "\n")
+    }
+}
+
+// MARK: - Wire format for goal_recipe
+//
+// Mirrors `render()` in verantyx/task_recipes.py. Decoded rather than
+// hand-parsed so a shape change fails at the boundary instead of quietly
+// producing steps with blank screens attached.
+
+struct RecipeDTO: Decodable {
+    struct Title: Decodable { let en: String; let ja: String }
+    let verdict: String
+    let goal: String?
+    let title: Title
+    let summary: String
+    let steps: [RecipeStepDTO]
+}
+
+struct RecipeStepDTO: Decodable, Identifiable {
+    let n: Int
+    let kind: String            // "setting" | "mode"
+    let setting: String         // registry key, or "mode:<group>"
+    let tab: String             // SettingsTab raw value
+    let title: String
+    let title_ja: String
+    let why: String
+    let value: String?          // nil = the user chooses
+    let applicable: Bool
+
+    var id: Int { n }
+
+    /// Whether an Apply button should appear at all. Both halves have to
+    /// agree: Vera says whether it is proper to set this for the user, and
+    /// the applier says whether it can do it without leaving the app on a
+    /// stale in-memory value.
+    @MainActor
+    var canApply: Bool {
+        value != nil && applicable && SettingsApplier.canApply(key: setting)
     }
 }

@@ -173,6 +173,14 @@ struct HumanPriorityModeView: View {
             // ProcessMonitor 起動 (CPU 監視開始)
             ProcessMonitor.shared.start()
         }
+        // 設定サポートボットからの画面遷移要求。答えが「設定 › Model › …」で
+        // 終わるのは、その場所を既に知っている人にしか役に立たないので、
+        // 答えそのものが画面に着地できるようにしている。
+        .onChange(of: app.showSettingsRequested) { _, requested in
+            guard requested else { return }
+            withAnimation(.easeOut(duration: 0.18)) { showSettings = true }
+            app.showSettingsRequested = false
+        }
         // ── L2.5 変換の確認は「ユーザーがワークスペースを切り替えたとき」だけ ─────────
         //
         // 以前は onChange が起動時の復元でも発火していたため、毎回の起動で必ず

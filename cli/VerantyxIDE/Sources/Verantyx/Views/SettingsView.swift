@@ -12,6 +12,15 @@ struct SettingsView: View {
     @State private var lmStudioReachable: Bool? = nil
     @State private var lmStudioModelCount = 0
     @State private var selectedTab: SettingsTab = .model
+    /// Honours `AppState.requestedSettingsTab` so an answer from the support
+    /// bot can land on the screen it names instead of describing where it is.
+    /// An unrecognised name leaves the current tab alone rather than throwing,
+    /// because a tab that was renamed should not break navigation entirely.
+    private func applyRequestedTab() {
+        guard let name = app.requestedSettingsTab else { return }
+        if let tab = SettingsTab(rawValue: name) { selectedTab = tab }
+        app.requestedSettingsTab = nil
+    }
     @State private var testingConnection = false
     @State private var connectionTestResult: String? = nil
     @State private var testingAnthropic = false
@@ -240,6 +249,11 @@ struct SettingsView: View {
         .background(Color(red: 0.10, green: 0.10, blue: 0.13))
         .clipShape(RoundedRectangle(cornerRadius: 12))
         .sheet(isPresented: $showAssetMap) { AssetMapView(vault: vault) }
+        // Both, because the sheet is kept alive between presentations: onAppear
+        // alone misses a second request while it is already open, and onChange
+        // alone misses the first one that arrives with it.
+        .onAppear { applyRequestedTab() }
+        .onChange(of: app.requestedSettingsTab) { _, _ in applyRequestedTab() }
     }
 
     // MARK: - General Settings (Language, Appearance)
