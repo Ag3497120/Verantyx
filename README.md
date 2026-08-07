@@ -68,21 +68,53 @@ would not be growth you can trust.
 Every number below comes out of a check in CI that you can re-run. They are
 results, not claims.
 
+The measurement that matters is on **real published documents**, because a
+planted corpus is graded by whoever wrote it. Two government report series
+about the same live disaster — 令和8年熊本地震 — read revision by revision:
+
+| Corpus | Detections | True, by reading | False | Recall |
+|---|---|---|---|---|
+| 内閣府 damage reports, 4 revisions (252,575 chars) | 8 | **8** | **0** | **8 / 8** |
+| 国交省 第N報 series, 4 revisions — *blind* (61,083 chars) | 6 | **6** | **0** | **6 / 6** |
+
+Each detection is one a person can check against the source: 熊本市 listed as
+having no water on 29 July and restored by 6 August; 熊本刑務所's shelter
+opened on 3 August and closed on the 6th; 直轄国道 clearing after 29 July
+while 有料道路 gained a closure on the 6th. All are reported as **updates**
+with dates, not as conflicts.
+
+**Recall has a denominator here**, which is the part that is usually missing.
+The water table names every affected municipality on both dates, so it *is*
+an answer key: read by hand, then compared. The controls hold too —
+八代市・宇城市・氷川町, still without water on the last revision, are reported
+as still without water and never as restored.
+
+The second row is the one that tests whether any of this generalises. 国交省
+uses its own format, and it was ingested with **no code changes** and read
+only afterwards. Five of six landed on the first try; the sixth exposed two
+layout defects, both fixed structurally, neither mentioning an agency.
+
 | | | How |
 |---|---|---|
-| Contradiction precision | **100%** | Zero false positives across planted traps — compound nouns, prepositions, subordinate clauses, hypotheticals |
-| Recall, canonical forms | **100%** | Both languages, vocabulary the pipeline was never tuned on |
-| Recall, passive / formal register | **100%** | "was reported closed", 「開館しております」 |
-| False positives, real corpus | **0** | 2,633 documents · 211,989 sentences |
+| Precision, real documents | **14 / 14** | Both corpora above, every detection read against its source |
+| Recall, real documents | **8/8 and 6/6** | Against hand-read ground truth, with controls |
+| False positives, 21.6 M chars | **1** | 1,742 documents of mixed EN/JA prose · 5,304 polar claims |
+| Precision, planted traps | **100%** | Compound nouns, prepositions, subordinate clauses, hypotheticals |
+| Recall, planted forms | **100%** | Both languages, canonical and passive/formal register |
 | Ingestion | **34 MB in 14s** | CPU only, single-threaded, no GPU |
 | Reproducibility | **byte-identical** | Same corpus built twice: same output, same hash |
-| Automated checks | **83 + 8** | 83 behavioural forks and 8 eval suites, every CI run |
+| Automated checks | **83 + 9** | 83 behavioural forks and 9 eval suites, every CI run |
 
-**The limit, stated here rather than left to be discovered:** zero false
-positives on that corpus is *not* evidence the detector works. It is
-evidence it no longer fires on prose that disagrees about nothing.
-Measurement against real published documents with known disagreements is
-still ahead, and it is the next thing that matters.
+**The limits, stated here rather than left to be discovered.** Recall is
+measured against two corpora, not against every document ever written; both
+are Japanese government disaster reports, and a third format may well expose
+a third layout defect — that is what the blind run is for, and it will be run
+again. The one false positive in 21.6 M characters is English, and it is
+honest: two documents using the word *channels* generically about different
+situations. And 249 segments in the 内閣府 corpus hold a state word the
+vocabulary does not carry — the largest, 障害, is deliberately excluded,
+because 「障害のある方」 would otherwise read as a system failure in the
+documents written for them.
 
 ## What it does with documents
 
@@ -175,8 +207,10 @@ Not everywhere. It fits where **being wrong costs more than being silent**,
 and where "why is there no answer" is itself actionable:
 
 - **Disaster information** — several agencies, one event, and the question
-  "what is actually going on". Runs offline on a cheap laptop; no GPU,
-  because there is no matrix arithmetic anywhere in it.
+  "what is actually going on". This is the measured case above: two
+  ministries' report series about 令和8年熊本地震, 14 findings, all true, every
+  one traceable to the line it came from. Runs offline on a cheap laptop; no
+  GPU, because there is no matrix arithmetic anywhere in it.
 - **Build and CI failure triage** — 9 confirmed patterns; the failure's name
   points at its remedy
 - **Spec vs implementation drift** — where your own documents disagree with
@@ -206,11 +240,13 @@ Related repositories:
 
 ## Contributing
 
-The most useful contribution right now is **a corpus with disagreements you
-already know about**. Recall against planted ground truth is 100%; recall
-against real documents where a human has marked the real conflicts has never
-been measured, and that number decides whether any of this is trustworthy in
-the field.
+The most useful contribution right now is **a corpus in a format we have not
+read yet**. Recall on real documents is measured — 8/8 and 6/6 against
+hand-read ground truth — but on two corpora that are both Japanese government
+disaster reports. Every defect the second one exposed was in layout reading,
+which is exactly where format variation lives, so a third format is the
+cheapest way to find the next one. A corpus whose disagreements you already
+know about is worth more than any amount of code.
 
 Also welcome, in rough order of value:
 
