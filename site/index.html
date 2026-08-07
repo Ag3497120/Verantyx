@@ -67,6 +67,29 @@ td.num{font-family:var(--mono);color:var(--ok)}
 
 .note{border-left:3px solid var(--accent);padding:2px 0 2px 14px;color:var(--dim);
   margin:18px 0;font-size:14.5px}
+.bot{background:var(--panel);border:1px solid var(--line);border-radius:12px;overflow:hidden}
+.bot-head{padding:12px 16px;border-bottom:1px solid var(--line);display:flex;
+  align-items:center;gap:10px;font-size:14px;font-weight:600}
+.bot-log{height:330px;overflow-y:auto;padding:14px 16px;display:flex;
+  flex-direction:column;gap:12px}
+.msg{max-width:88%;font-size:14px;line-height:1.65}
+.msg.me{align-self:flex-end;background:var(--accent);color:#0b0d12;
+  padding:8px 12px;border-radius:10px 10px 2px 10px}
+.msg.bot{align-self:flex-start;background:#0e1117;border:1px solid var(--line);
+  padding:10px 13px;border-radius:10px 10px 10px 2px;white-space:pre-wrap}
+.msg.bot .v{font-family:var(--mono);font-weight:700;font-size:13px}
+.msg.bot .v.ok{color:var(--ok)} .msg.bot .v.no{color:var(--bad)}
+.msg.bot .v.amb{color:var(--warn)}
+.msg.bot .m{font-family:var(--mono);font-size:12.5px;color:var(--dim)}
+.bot-in{display:flex;gap:8px;padding:12px 14px;border-top:1px solid var(--line)}
+.bot-in input{flex:1;background:#0e1117;border:1px solid var(--line);border-radius:8px;
+  color:var(--ink);padding:9px 12px;font:inherit;font-size:14px}
+.bot-in button{background:var(--accent);border:0;border-radius:8px;color:#0b0d12;
+  font-weight:600;padding:9px 16px;cursor:pointer;font-size:14px}
+.chips{display:flex;gap:7px;flex-wrap:wrap;padding:0 14px 12px}
+.chip{background:#0e1117;border:1px solid var(--line);border-radius:14px;
+  padding:5px 11px;font-size:12.5px;color:var(--dim);cursor:pointer}
+.chip:hover{color:var(--ink);border-color:var(--accent)}
 footer{border-top:1px solid var(--line);padding:28px 0 46px;color:var(--dimmer);font-size:13.5px}
 [data-en]{display:none}
 html[lang="en"] [data-ja]{display:none}
@@ -80,6 +103,7 @@ html[lang="en"] [data-en]{display:revert}
   <nav>
     <a href="#what"    data-ja>特徴</a><a href="#what"    data-en>What it is</a>
     <a href="#modes"   data-ja>2つのエンジン</a><a href="#modes" data-en>Two engines</a>
+    <a href="#try" data-ja>試す</a><a href="#try" data-en>Try it</a>
     <a href="#growth"  data-ja>Growth</a><a href="#growth"  data-en>Growth</a>
     <a href="#numbers" data-ja>実測値</a><a href="#numbers" data-en>Measurements</a>
     <a href="#start"   data-ja>使い方</a><a href="#start"   data-en>Get started</a>
@@ -173,6 +197,33 @@ no_candidate_cross
     言い直した瞬間、その答えは再現も引用もできなくなるからです。</p>
   <p class="note" data-en>A refusal is deliberately never rewritten by a model: the moment it is,
     the answer stops being reproducible and citable — which was the entire point.</p>
+</section>
+
+<section id="try">
+  <h2 data-ja>ここで試す — サイト内で動く Vera</h2>
+  <h2 data-en>Try it here — Vera, running in this page</h2>
+  <p class="sub" data-ja>IDE に入っているのと同じボットです。サーバも API も使わず、
+    このページの中だけで動きます。設定を聞く・独自 AI の作り方を聞く・文がどこに
+    配置されるか調べる、が試せます。</p>
+  <p class="sub" data-en>The same bot that ships in the IDE. No server, no API — it runs
+    entirely in this page. Ask where a setting lives, how to build your own AI, or where
+    a sentence would be placed.</p>
+
+  <div class="bot">
+    <div class="bot-head">🧭 <span data-ja>Verantyx サポート(体験版)</span><span data-en>Verantyx support (demo)</span></div>
+    <div class="bot-log" id="log"></div>
+    <div class="chips" id="chips"></div>
+    <div class="bot-in">
+      <input id="q" autocomplete="off">
+      <button id="send" data-ja>送信</button><button id="send-en" data-en>Send</button>
+    </div>
+  </div>
+  <p class="cap" data-ja>体験版の範囲: 設定・モード・手順・<strong>日本語の</strong>配置と矛盾検出。
+    英語の文法分解はエンジン本体(Python)にあり、ここには移植していません。
+    移植部分は本体と同じ答えを返すことを 15 件の検査で確認しています。</p>
+  <p class="cap" data-en>Demo scope: settings, modes, recipes, and <strong>Japanese</strong> placement
+    and contradiction detection. The English decomposer stays in the full engine.
+    The ported parts are checked against it — 15 cases, identical answers.</p>
 </section>
 
 <section id="growth">
@@ -307,6 +358,8 @@ UNKNOWN_NO_EVIDENCE  ████████████████  <span cla
 
 </div>
 
+<script src="vera.js"></script>
+<script src="bot.js"></script>
 <script>
 (function(){
   var sel = document.getElementById('lang');
