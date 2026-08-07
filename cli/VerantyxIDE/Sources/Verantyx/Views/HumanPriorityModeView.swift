@@ -232,12 +232,13 @@ struct HumanPriorityModeView: View {
     private enum VeraAPanelTab: String, CaseIterable, Identifiable {
         // Memory first: this screen exists for the qwen + JGEN memory workflow,
         // and the console is the only tab that shows what memory actually did.
-        case memory, research, distributed, settings, modes, stereoCross, mirror, vectorLab
+        case memory, growth, research, distributed, settings, modes, stereoCross, mirror, vectorLab
         var id: String { rawValue }
         @MainActor
         func title(_ app: AppState) -> String {
             switch self {
             case .memory:      return app.t("Memory", "記憶")
+            case .growth:      return app.t("Growth", "成長")
             case .research:    return app.t("Failure types", "失敗の型")
             case .distributed: return app.t("Two Macs", "2台構成")
             case .settings:    return app.t("Settings", "設定")
@@ -252,6 +253,7 @@ struct HumanPriorityModeView: View {
         var icon: String {
             switch self {
             case .memory:      return "tray.full"
+            case .growth:      return "chart.line.uptrend.xyaxis"
             case .research:    return "list.bullet.rectangle"
             case .distributed: return "rectangle.connected.to.line.below"
             case .settings:    return "slider.horizontal.3"
@@ -368,6 +370,8 @@ struct HumanPriorityModeView: View {
                         showPendingToolCalls: $veraAShowPendingToolCalls,
                         showReasoningTimeline: $veraAShowReasoningTimeline
                     )
+                case .growth:
+                    GrowthDashboardView()
                 case .modes:
                     ModesOverviewView()
                 case .stereoCross:
@@ -735,6 +739,27 @@ struct HumanPriorityModeView: View {
                         .font(.system(size: 12, weight: .semibold))
                         .foregroundStyle(Color(red: 0.80, green: 0.80, blue: 0.92))
                         .lineLimit(1)
+
+                    // ── エンジン切替: jgen 合議 ⇄ 単体 Vera-a ──────────
+                    // ヘッダに置くのは、いま読んでいる答えがどちらの性格か
+                    // (LLM 合議か、決定論の型付き判定か)が常に見えるべき
+                    // だからです。
+                    Picker("", selection: Binding(
+                        get: { app.veraEngineMode },
+                        set: { app.veraEngineMode = $0 })) {
+                        Text(app.t("Council (jgen)", "jgen 合議"))
+                            .tag(AppState.VeraEngineMode.council)
+                        Text(app.t("Vera-a only", "単体 Vera-a"))
+                            .tag(AppState.VeraEngineMode.standalone)
+                    }
+                    .pickerStyle(.segmented)
+                    .frame(width: 200)
+                    .help(app.t(
+                        "Council routes through jgen/LLM agents. Vera-a only "
+                        + "answers deterministically from the store — typed "
+                        + "verdicts, no LLM.",
+                        "合議は jgen/LLM エージェント経路。単体 Vera-a は"
+                        + "ストアから決定論で答えます(型付き判定・LLM 不使用)。"))
 
                     Spacer(minLength: 0)
                 }
