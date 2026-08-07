@@ -1,6 +1,6 @@
 <div align="center">
-  <h1>🛡️ Verantyx (Verifiable & Auditable AI Engine)</h1>
-  <p><b>An experimental substrate for evolving Vera, a persistent neuro-symbolic intelligence</b></p>
+  <h1>🛡️ Verantyx</h1>
+  <p><b>A macOS IDE built around an engine that refuses to guess</b></p>
 
   <p>
     <a href="https://github.com/Ag3497120/Verantyx/releases/latest"><img src="https://img.shields.io/badge/version-2.4.6-blue?style=flat-square" alt="Version 2.4.6"></a>
@@ -15,319 +15,253 @@
 
 ---
 
-## What is this, really?
+## The one-sentence version
 
-> Verantyx is an experimental substrate for evolving Vera, a persistent
-> neuro-symbolic intelligence that learns from verified interaction with
-> code, tools, interfaces, and the external world.
+Verantyx is a macOS IDE carrying **Vera-α**, a deterministic knowledge
+engine that answers from stored facts or says — as a **type** — why it
+cannot. No language model sits in that path, so the same question always
+gets the same answer, and every answer walks back to the sentence it came
+from.
 
-Put more plainly: **Verantyx is not an IDE that generates answers for you.**
-It's a research environment where Vera discovers what it doesn't know, acts
-on the outside world to find out, verifies what comes back, and turns the
-experience into a reusable structure — so next time it doesn't need to ask
-an LLM at all.
-
-```text
-Verantyx
-└── unified experiment substrate
-    ├── Vera            — persistent structure, gaps, verification, reasoning, memory
-    ├── JGEN             — hypothesis generation, verbalization, hidden-state intervention
-    ├── Computer Use     — screen perception, mouse/keyboard, acting on the outside world
-    ├── Agent Runtime    — ReAct loop, tool execution, approval, retry
-    ├── Learning Infra   — trajectory storage, structural similarity, skill formation
-    └── IDE / CLI        — the interface a human observes and steers the experiment through
+```
+> 避難所
+🚫 UNKNOWN_NO_EVIDENCE
+no_candidate_cross
+Vera-a standalone does not guess. Pour documents in, or switch to council mode.
 ```
 
-In this framing, Computer Use inside the IDE isn't a convenience feature —
-it's Vera's **sense organs and effectors**: how it observes the outside
-world, acts on it, and updates its own structure from what it learns.
+That is a real transcript from the app against an empty store. An LLM asked
+the same question produces a paragraph about shelters, because producing a
+paragraph is what it does. Vera-α has nothing stored, so it says so.
 
-### Five layers
+## Two engines, switched in the header
 
-1. **Perception** — turn text, code, files, screens, UI state, and tool
-   results into structures Vera can actually reason over.
-2. **Reasoning** — track missing pieces, contradictions, structural
-   similarity, hypotheses, evidence, and typed `UNKNOWN` states.
-3. **Acting on the world** — edit files, run commands, search the web,
-   drive a browser, operate a GUI, control an application.
-4. **Learning** — persist `observe → act → state change → outcome →
-   reusable structure` from every real execution.
-5. **Evolution verification** — when a new capability is added to Vera,
-   measure whether it actually helped: fewer LLM calls, transfer to unseen
-   tasks, no growth in bad memories, safety boundaries still held.
+The switch sits in the chat header rather than in settings, because the two
+produce different **kinds** of answer, and which kind you are reading should
+never be something you go and check.
 
-The actual product here isn't the UI — it's this closed cognitive loop:
+| Mode | What it is | When |
+|---|---|---|
+| **jgen council** | LLM and agent deliberation, models loaded through JGEN | Exploration, drafting, unfamiliar problems |
+| **Vera-a only** | Deterministic. Typed verdicts from stored facts. No LLM in the path | Where being wrong is expensive; audit; citation |
 
-```text
-perceive → structure → detect a gap → hypothesize → act
-    → world changes → verify → remember → do better next time
+A refusal is never rewritten by a model. The moment it is, the answer stops
+being reproducible and citable — which was the entire point of the mode.
+
+## Growth — what the system does not know
+
+A dedicated screen for the typed unknowns: the failure histogram, recurring
+buckets with their classification (`growth_candidate` vs `needs_more_facts`),
+the gap graph, and the five review queues. Nothing here is a model's opinion;
+every number is a count of typed failures or pending human reviews.
+
+The reason it deserves its own screen: this system's distinctive claim is
+that it knows what it does not know, in types with counts. Watching those
+numbers shrink is what learning honestly means here — and a reader who
+cannot see the unknowns in one place has no way to watch.
+
+Quarantined proposals never act on their own. Growth that bypassed you
+would not be growth you can trust.
+
+## What is measured
+
+Every number below comes out of a check in CI that you can re-run. They are
+results, not claims.
+
+The measurement that matters is on **real published documents**, because a
+planted corpus is graded by whoever wrote it. Two government report series
+about the same live disaster — 令和8年熊本地震 — read revision by revision:
+
+| Corpus | Detections | True, by reading | False | Recall |
+|---|---|---|---|---|
+| 内閣府 damage reports, 4 revisions (252,575 chars) | 8 | **8** | **0** | **8 / 8** |
+| 国交省 第N報 series, 4 revisions — *blind* (61,083 chars) | 6 | **6** | **0** | **6 / 6** |
+
+Each detection is one a person can check against the source: 熊本市 listed as
+having no water on 29 July and restored by 6 August; 熊本刑務所's shelter
+opened on 3 August and closed on the 6th; 直轄国道 clearing after 29 July
+while 有料道路 gained a closure on the 6th. All are reported as **updates**
+with dates, not as conflicts.
+
+**Recall has a denominator here**, which is the part that is usually missing.
+The water table names every affected municipality on both dates, so it *is*
+an answer key: read by hand, then compared. The controls hold too —
+八代市・宇城市・氷川町, still without water on the last revision, are reported
+as still without water and never as restored.
+
+The second row is the one that tests whether any of this generalises. 国交省
+uses its own format, and it was ingested with **no code changes** and read
+only afterwards. Five of six landed on the first try; the sixth exposed two
+layout defects, both fixed structurally, neither mentioning an agency.
+
+| | | How |
+|---|---|---|
+| Precision, real documents | **14 / 14** | Both corpora above, every detection read against its source |
+| Recall, real documents | **8/8 and 6/6** | Against hand-read ground truth, with controls |
+| False positives, 21.6 M chars | **1** | 1,742 documents of mixed EN/JA prose · 5,304 polar claims |
+| Precision, planted traps | **100%** | Compound nouns, prepositions, subordinate clauses, hypotheticals |
+| Recall, planted forms | **100%** | Both languages, canonical and passive/formal register |
+| Ingestion | **34 MB in 14s** | CPU only, single-threaded, no GPU |
+| Reproducibility | **byte-identical** | Same corpus built twice: same output, same hash |
+| Automated checks | **83 + 9** | 83 behavioural forks and 9 eval suites, every CI run |
+
+**The limits, stated here rather than left to be discovered.** Recall is
+measured against two corpora, not against every document ever written; both
+are Japanese government disaster reports, and a third format may well expose
+a third layout defect — that is what the blind run is for, and it will be run
+again. The one false positive in 21.6 M characters is English, and it is
+honest: two documents using the word *channels* generically about different
+situations. And 249 segments in the 内閣府 corpus hold a state word the
+vocabulary does not carry — the largest, 障害, is deliberately excluded,
+because 「障害のある方」 would otherwise read as a system failure in the
+documents written for them.
+
+## What it does with documents
+
+Point it at PDFs, Word files, HTML, CSV, JSON or text — a folder at a time —
+and it separates four things it will never blend together:
+
+- **settled** — every source that spoke agrees
+- **updated** — the same story told twice, ordered by publication time
+- **contested** — sources disagree, with *which source said which side*
+- **missing** — a question nobody answered, named as a typed gap
+
+Blending those is what a summary does, and it is what makes a summary
+unusable for a decision: the reader cannot tell what is agreed from what is
+disputed from what nobody checked.
+
+Time is what separates an update from a dispute. A road closed at 09:00 and
+reopened at 15:00 is one story; showing it as a conflict is how an
+information officer stops trusting the board. The bar for calling it an
+update is deliberately high — every side stamped, stamps comparable,
+ordering strict — because demoting a real conflict hides exactly what the
+report exists to surface. An unparseable date fails safe: it can leave a
+dispute standing, never invent an update.
+
+## Placement is inspectable, and adjustable without code
+
+Every placement decision has a stateable reason, so the bot will state it:
+
+```
+> 「本町の避難所は閉鎖されました」
+ANSWER  Placement
+Core: 避難所   ← the last noun of the topic phrase (Japanese is head-final)
+Facets: 本町、閉鎖
+Pole: 開設／閉鎖 (−)  placed — the core is the subject of this predicate
 ```
 
-### Why "low-cost" matters here
+Adjusting it means adjusting the **grammar**, not hand-moving facts. Drop a
+`ja_grammar.json` beside your store and it loads at startup:
 
-Not just API-bill savings — four distinct kinds of cost this architecture
-is built to cut:
-
-- **Inference cost** — reuse an action that already worked instead of
-  asking an LLM to re-derive it every time.
-- **Development cost** — text, code, GUI, and ARC-style tasks all run
-  through one shared Vera loop instead of being built as separate,
-  one-off agents.
-- **Learning cost** — instead of retraining a whole model, update
-  structural memory, vector interventions, skills, and reflexes from the
-  outside.
-- **Experiment cost** — compare model swaps, Vera on/off, intervention
-  on/off, memory on/off, and structural-similarity on/off, all inside the
-  same IDE.
-
-In that sense Verantyx is closer to an **experiment OS for neuro-symbolic
-cognitive architectures** than a general-purpose AI IDE.
-
-### CLI and IDE are two interfaces to one core
-
-```text
-Verantyx Core
-├── Vera runtime
-├── gap graph
-├── structural similarity
-├── intervention
-├── tool protocol
-└── experiment logging
-
-Interfaces
-├── Verantyx CLI
-└── Verantyx IDE
+```json
+{ "antonym_pairs": [["点灯", "消灯"]],
+  "predicates": {"点灯": "は点灯しています。"} }
 ```
 
-The CLI is a reproducible research interface: easy to review, easy to keep
-safety boundaries explicit, easy to script and automate, easy to compare
-results across runs. The IDE is a high-degrees-of-freedom experiment
-device: screen perception, GUI operation, visual-vector intervention,
-long-running agents working alongside a human. Neither is a "lite" version
-of the other — they're different interfaces onto the same core.
+The validator refuses bad vocabulary loudly, with every problem named: terms
+under two characters (開 lives inside 開始, 公開, 展開), a term carrying both
+poles, references pointing at nothing. Nothing half-loads.
 
-### On BotGuard-style refusals
+There is deliberately **no hand-reordering tool**. Hand-placed facts cannot
+be re-derived from their sentences, and reproducibility — the property the
+whole system rests on — requires placement to be a pure function of text
+plus grammar data.
 
-Because of this framing, "defeat every obstacle in the outside world at any
-cost" isn't actually the goal. What matters for a research substrate is the
-capability to recognize the boundary of what it's allowed to do, run the
-experiment inside that boundary, stop cleanly at the edge, hand off to a
-human, and resume later without losing state. Turning a raw `CLICK_FAILED`
-into a structured `EXTERNAL_POLICY_BOUNDARY` / `HUMAN_VERIFICATION_REQUIRED`
-state — Vera understanding a real-world refusal as a *permission boundary*
-rather than an *operation failure* — is itself the more interesting
-neuro-symbolic research question, independent of whether any particular
-site's automated-traffic detection gets bypassed.
+## Install
 
----
-
-## 30-second example
-
-```text
-$ verantyx gatekeeper ./my_secret_repo
-→ source is rewritten into an Opaque Topology puzzle
-→ the puzzle (not your code) is sent to the cloud LLM
-→ the LLM's suggestion is de-obfuscated and shown as a diff
-→ you approve or reject the patch before anything touches disk
-```
-
-## What actually works today
-
-- **Gatekeeper mode**: obfuscate → cloud LLM → de-obfuscate → diff review,
-  end to end.
-- **Agent mode**: an autonomous loop over local models (Ollama/MLX/BitNet/
-  JGEN), triple-key activation, tool calling, file read/write/patch.
-- **Vera-harness chat**: Vera-alpha drives `Agent.run()`'s whole ReAct loop
-  and streams progress to the IDE over HTTP+SSE. Toggle it from the chat
-  input, switch cognition mode (Normal/Experiment/Sleep).
-- **Persistent cognitive gap tracking**: anything Vera couldn't answer is
-  recorded as a typed `GapNode` and kept, not discarded — you can search
-  across structurally similar past gaps.
-- **Approval queue for mutating tools**: any tool call with a side effect
-  (writing a file, etc.) waits for explicit human approval before it runs.
-  The IDE has a dedicated pending-approvals screen.
-- **Direct intervention on JGEN's hidden states (experimental)**: structural
-  inconsistencies Vera detects get injected into JGEN's hidden layers as
-  text labels, and the reaction is observed in a closed loop. Still in the
-  tuning stage — see [Wiki: Hidden-State-Reflection](https://github.com/Ag3497120/Verantyx/wiki/Hidden-State-Reflection).
-- **Vera-α memory bridge**: a hallucination-free, verified fact store used
-  alongside the LLM's own working memory. Facts, procedures, and domain
-  modules only become trusted after passing through a human-approval
-  quarantine queue.
-- **Stereo-cross 3D graph view**: a live SceneKit visualization of what's
-  actually stored in memory.
-
-Still rough / in progress: a Windows/Linux port, full VR-bridge immersive
-mode, unresolved hang cases with some large local models. Known issues
-found through real usage are tracked in [Issues](https://github.com/Ag3497120/Verantyx/issues).
-Design background lives in the [Wiki](https://github.com/Ag3497120/Verantyx/wiki);
-open design discussion happens in [Discussions](https://github.com/Ag3497120/Verantyx/discussions).
-
-## One thing I actually need help with
-
-**Try the 30-second demo above on a clean macOS machine and tell me whether
-it worked.** That's it — not a code review, not a co-maintainer commitment.
-See below for how much time each way of helping actually takes.
-
----
-
-## 🙋 Ways to help (pick your time budget)
-
-### 10 minutes
-- Read this README and tell me, in one sentence, what product you think
-  this is.
-- Report anything unclear in the install steps.
-- Clone it, open it in Xcode, and tell me whether it builds on your
-  machine (macOS version, Apple Silicon or Intel).
-
-### 30 minutes
-- Run the Gatekeeper-mode example above on one small repo of your own.
-- Try the Agent-mode triple-key activation and describe what happened.
-- Hand it one file with a known bug and see if it localizes the right
-  spot.
-
-### Help with translation
-- Every non-English README ([日本語](./README-ja.md), and the others linked
-  above) is currently a machine-translation draft. If you're a native
-  speaker of any of those languages, a PR that rewrites even one paragraph
-  into natural phrasing is genuinely useful — you don't need to redo the
-  whole file at once.
-
-### Technical contribution
-- [Issues](https://github.com/Ag3497120/Verantyx/issues) lists real,
-  usage-verified problems (startup errors, hangs waiting on repro, unbuilt
-  design items). Look for `good first issue` / `help wanted`.
-- Open-ended design questions or ideas go in
-  [Discussions](https://github.com/Ag3497120/Verantyx/discussions).
-- Read [CONTRIBUTING.md](./CONTRIBUTING.md) for how to send a PR/Issue,
-  and the [Wiki](https://github.com/Ag3497120/Verantyx/wiki) for
-  architecture background first.
-
-If you've starred this repo and have five minutes, a one-sentence reply
-about what you think this project is would genuinely help more than the
-star itself.
-
----
-
-Verantyx is a next-generation neuro-symbolic logic engine aimed at making
-AI-driven software development fully controllable and safe. On top of one
-core engine (JCross / L3.5 Memory) it offers **two different frontends** —
-pick whichever matches what you're trying to do.
-
----
-
-## 1. 🖥️ Verantyx Gatekeeper (IDE Mode)
-**"I want the cloud LLM to safely read my company's confidential code."**
-
-Gatekeeper mode is the secure IDE that obfuscates your source code into
-meaningless mathematical puzzles (Opaque Topology) before it ever reaches
-the AI.
-👉 [Details on Gatekeeper mode and the obfuscation mechanism (README-Gatekeeper.md)](./docs/README-Gatekeeper.md)
-
-## 2. ⚡ Verantyx Agent (Spotlight Mode)
-**"I want to use the strongest local AI as a genuine extension of my brain."**
-
-A hyper-autonomous agent activated by pressing `Control` three times. It
-carries internal auditing via Dual Twin, hallucination blocking via the
-1930 metaphor, and a thinking engine that treats your machine's own assets
-as "its own memory (L3.5)."
-👉 [Details and architecture of Agent mode (README-Agent.md)](./docs/README-Agent.md)
-
-## 3. 🥽 Verantyx VR Bridge (PCVR Streaming)
-**"Run Half-Life: Alyx on a Mac, play it on Vision Pro."**
-
-A new sub-project: an ultra-low-latency VR bridge that streams SteamVR
-games running on a Mac (via D3DMetal/GPTK) directly to Apple Vision Pro.
-- **Mac side (HardwareEncoder)**: a custom OpenVR emulator
-  (`openvr_emulator.cpp`) intercepts DirectX 11 textures from the game
-  engine (Source 2) and hardware-encodes them to HEVC (H.265) via macOS
-  VideoToolbox, streamed straight to Vision Pro over UDP.
-- **Input mapping**: gamepad input (e.g. Joy-Con) is converted to a
-  virtual VR controller via a Python script (`joycon_mapper.py`) and fed
-  back into the game.
-- **Status**: 2D window rendering on Vision Pro works today; full
-  immersive VR via CompositorServices (Metal) is the next target, not yet
-  done.
-
----
-
-## 💻 Installation (build from source)
-
-**Requirements:**
-- macOS 14.0 or later (Apple Silicon strongly recommended)
-- Xcode 15.0 or later
+Requires macOS 14+ on Apple Silicon and Xcode.
 
 ```bash
 git clone https://github.com/Ag3497120/Verantyx.git
 cd Verantyx/cli/VerantyxIDE
-open Verantyx.xcodeproj
-# Select the Verantyx scheme and press Cmd+R to build and run
+xcodebuild -project Verantyx.xcodeproj -scheme Verantyx -configuration Release build
 ```
 
-*Note: a Windows/Linux port (Rust core + llama.cpp) is on the long-term
-roadmap, but current effort is focused entirely on the native macOS/MLX
-architecture.*
+Or download the DMG from [Releases](https://github.com/Ag3497120/Verantyx/releases/latest).
 
----
+The engine ships inside the app as a self-contained binary — no Python
+install needed to run it. To work on the engine itself, see
+[Verantyx-Vera-alpha](https://github.com/Ag3497120/Verantyx-Vera-alpha):
+it has zero third-party dependencies for its base install, and CI proves it
+by importing every module before installing anything.
 
-## 📖 About Verantyx
+## Try it without installing
 
-This project started from an earlier, failed attempt to build a
-rule-based symbolic AI by hand — building the whole thing solo turned out
-to be unrealistic, so I decided to instead build and control the harness
-layer around today's mainstream AI myself (around the time openclaw was
-getting attention). The first concrete goal that came out of that was
-defensive: obfuscate source code and user requests into a puzzle-like
-state before handing them to a high-performance cloud AI, so nothing
-leaks.
+[`site/`](site/) is a single-page site with the same bot running **in the
+page** — no server, no API, no model. Ask where a setting lives, how to
+build your own AI, or what a sentence's placement would be.
 
-That harness kept growing, and at some point it stopped being just "a
-safe way to call an LLM" and became something else: Vera, a persistent
-structure that remembers what it doesn't know, tracks it as a typed gap
-instead of forgetting it, and slowly turns verified experience into
-reusable knowledge instead of re-deriving everything from a prompt every
-time. Verantyx, as it exists today, is the experimental substrate built
-around growing that structure — the neuro-symbolic framing at the top of
-this README isn't marketing language layered on afterward; it's the
-actual reason most of the current architecture (GapNode tracking, the
-tool-call approval queue, hidden-state intervention, structural-similarity
-transfer) exists.
+```bash
+cd site && python3 -m http.server 8899
+```
 
-The reason this repo sat at zero stars for a while: it briefly went
-private because it contained a folder with sensitive material, which reset
-its star count from 9 to 0. It's since been fully restored, and I've
-cleaned up parts that overlapped with my other repos. I'd been mostly
-pushing releases here while source updates lagged behind; that's now
-fixed.
+The bot's vocabulary and rules are exported from the engine rather than
+retyped, and the port is checked against the Python implementation on 15
+cases. Its scope is stated on the page: settings, modes, recipes, and
+**Japanese** placement. The English grammatical decomposer stays in the full
+engine.
 
-I write and think primarily in Japanese day to day, so [README-ja.md](./README-ja.md)
-is the version I maintain most directly; this English README is the one I
-keep current for the project's public face. The other language versions
-are still machine-translation drafts — see "Help with translation" above
-if you'd like to fix that for your own language.
+## Where this is genuinely useful
 
----
+Not everywhere. It fits where **being wrong costs more than being silent**,
+and where "why is there no answer" is itself actionable:
 
-## 🔧 Repository settings and history
+- **Disaster information** — several agencies, one event, and the question
+  "what is actually going on". This is the measured case above: two
+  ministries' report series about 令和8年熊本地震, 14 findings, all true, every
+  one traceable to the line it came from. Runs offline on a cheap laptop; no
+  GPU, because there is no matrix arithmetic anywhere in it.
+- **Build and CI failure triage** — 9 confirmed patterns; the failure's name
+  points at its remedy
+- **Spec vs implementation drift** — where your own documents disagree with
+  each other
+- **Regulated decisions** — an adverse outcome that must name the missing
+  document rather than gesture at a model
 
-**Note on Git settings:** early commits in this repository were made under
-the local Git username `kofdai`, derived from the developer's macOS
-account name. This was fixed as of May 24, 2026, and all commits are now
-correctly attributed to `@Ag3497120`. This is a common local
-dev-environment setup issue, not a bot or automation artifact. All future
-contributions will be recorded under the correct author name.
+And where it does not fit, said plainly: free-form writing, summarisation,
+translation, open-domain chat. It does not generate prose. That is not a
+weakness being worked on; it is the trade that buys everything above.
 
----
+## Repository layout
 
-## 📚 Docs & community
+```
+cli/VerantyxIDE/     the macOS app (Swift, 242 files)
+  Sources/Verantyx/Engine/    JGEN, agents, MCP, memory bridge
+  Sources/Verantyx/Views/     UI, including Growth and the mode overview
+  Vendor/                     the engine, frozen as a binary
+site/                the bilingual site with the in-page bot
+docs/                design notes
+```
 
-- **[Wiki](https://github.com/Ag3497120/Verantyx/wiki)** — architecture and
-  design background (Vera-as-harness, GapNode, hidden-state intervention
-  experiment results, and more)
-- **[Issues](https://github.com/Ag3497120/Verantyx/issues)** — known
-  issues found through real usage
-- **[Discussions](https://github.com/Ag3497120/Verantyx/discussions)** —
-  open design discussion
-- **[CONTRIBUTING.md](./CONTRIBUTING.md)** — how to contribute
-- **[SECURITY.md](./SECURITY.md)** — how to report a vulnerability
-- **[CODE_OF_CONDUCT.md](./CODE_OF_CONDUCT.md)** — code of conduct
+Related repositories:
+
+- [Verantyx-Vera-alpha](https://github.com/Ag3497120/Verantyx-Vera-alpha) — the engine (Python, zero dependencies)
+- [verantyx-cli](https://github.com/Ag3497120/verantyx-cli) — v6, origin of the six-axis cross structure
+
+## Contributing
+
+The most useful contribution right now is **a corpus in a format we have not
+read yet**. Recall on real documents is measured — 8/8 and 6/6 against
+hand-read ground truth — but on two corpora that are both Japanese government
+disaster reports. Every defect the second one exposed was in layout reading,
+which is exactly where format variation lives, so a third format is the
+cheapest way to find the next one. A corpus whose disagreements you already
+know about is worth more than any amount of code.
+
+Also welcome, in rough order of value:
+
+- Domain vocabulary packs, with the compound-noun traps they need to survive
+- Failure-domain packs for fields we have only seeded (15 of the 17 packs are
+  seeded by an AI and explicitly cannot self-calibrate until an expert
+  supplies a confirmed case)
+- Translations — the site and README are bilingual; more languages welcome
+- Speed. The engine is Python and rewrites its store wholesale. Both are
+  known and deliberately deprioritised: correctness first, and the failure
+  modes are already fenced (WAL journaling, atomic replace) so that
+  optimising is safe rather than dangerous.
+
+See [CONTRIBUTING.md](CONTRIBUTING.md).
+
+## License
+
+MIT. See [LICENSE](LICENSE).

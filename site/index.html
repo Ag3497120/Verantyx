@@ -67,6 +67,25 @@ td.num{font-family:var(--mono);color:var(--ok)}
 
 .note{border-left:3px solid var(--accent);padding:2px 0 2px 14px;color:var(--dim);
   margin:18px 0;font-size:14.5px}
+.board{background:var(--panel);border:1px solid var(--line);border-radius:12px;padding:16px}
+.needs{display:flex;gap:7px;flex-wrap:wrap;margin:10px 0 16px}
+.need{background:#0e1117;border:1px solid var(--line);border-radius:14px;
+  padding:6px 12px;font-size:13px;color:var(--dim);cursor:pointer;user-select:none}
+.need.on{background:var(--accent);color:#0b0d12;border-color:var(--accent);font-weight:600}
+.find{border:1px solid var(--line);border-radius:8px;padding:11px 13px;margin-bottom:9px;
+  background:#0e1117}
+.find .top{display:flex;align-items:baseline;gap:9px;flex-wrap:wrap}
+.find .pl{font-weight:700;font-size:14.5px}
+.find .vd{font-family:var(--mono);font-size:11.5px;font-weight:700;
+  padding:2px 7px;border-radius:4px}
+.vd.CONFIRMED{background:rgba(74,222,128,.16);color:var(--ok)}
+.vd.REPORTED{background:rgba(124,156,255,.16);color:var(--accent)}
+.vd.CONFLICT{background:rgba(248,113,113,.16);color:var(--bad)}
+.vd.EXPIRED{background:rgba(251,191,36,.16);color:var(--warn)}
+.vd.UNKNOWN_NO_REPORT{background:rgba(154,163,184,.14);color:var(--dim)}
+.find .age{font-size:12px;color:var(--dimmer);margin-left:auto;font-family:var(--mono)}
+.find .why{font-size:12.5px;color:var(--dim);margin-top:5px}
+.find .side{font-size:13px;margin-top:5px}
 .bot{background:var(--panel);border:1px solid var(--line);border-radius:12px;overflow:hidden}
 .bot-head{padding:12px 16px;border-bottom:1px solid var(--line);display:flex;
   align-items:center;gap:10px;font-size:14px;font-weight:600}
@@ -103,6 +122,7 @@ html[lang="en"] [data-en]{display:revert}
   <nav>
     <a href="#what"    data-ja>特徴</a><a href="#what"    data-en>What it is</a>
     <a href="#modes"   data-ja>2つのエンジン</a><a href="#modes" data-en>Two engines</a>
+    <a href="#board" data-ja>災害板</a><a href="#board" data-en>Board</a>
     <a href="#try" data-ja>試す</a><a href="#try" data-en>Try it</a>
     <a href="#growth"  data-ja>Growth</a><a href="#growth"  data-en>Growth</a>
     <a href="#numbers" data-ja>実測値</a><a href="#numbers" data-en>Measurements</a>
@@ -197,6 +217,41 @@ no_candidate_cross
     言い直した瞬間、その答えは再現も引用もできなくなるからです。</p>
   <p class="note" data-en>A refusal is deliberately never rewritten by a model: the moment it is,
     the answer stops being reproducible and citable — which was the entire point.</p>
+</section>
+
+<section id="board">
+  <h2 data-ja>災害時の状況板 — 「今、確実に何が分かっているか」</h2>
+  <h2 data-en>The disaster board — what is certain right now</h2>
+  <p class="sub" data-ja>状態は<strong>選ぶ</strong>ものにしています。住民が実際に書く
+    「ここ給水やってる」のような文は、解析すると10件中0件しか状態を取り出せませんでした。
+    選択式なら解析が要らなくなります。<strong>誰であるかではなく、何が必要かで選びます。</strong></p>
+  <p class="sub" data-en>Statuses are <strong>chosen</strong>, not written. Ten realistic
+    resident postings yielded a usable state in zero of ten when parsed, so choosing removes
+    the parse instead of climbing it. <strong>You pick what you need, never who you are.</strong></p>
+
+  <div class="board">
+    <div data-ja style="font-size:13.5px;color:var(--dim)">いま必要なものを選んでください</div>
+    <div data-en style="font-size:13.5px;color:var(--dim)">What do you need right now?</div>
+    <div class="needs" id="needs"></div>
+    <div id="findings"></div>
+  </div>
+  <p class="cap" data-ja><strong>EXPIRED は「閉まっている」ではありません。</strong>
+    「その情報が古すぎて、責任を持って言えない」という意味です。3日前の「給水やってた」が
+    残っていると人は歩いてしまうので、鮮度切れを検出結果として出します。
+    鮮度の基準は種類ごとに違います(給水90分、避難所24時間)。</p>
+  <p class="cap" data-en><strong>EXPIRED does not mean closed.</strong> It means nothing
+    recent enough to stand behind. A three-day-old "water was flowing" sends someone
+    walking, so staleness is a finding. The window differs by category —
+    90 minutes for a water queue, 24 hours for whether a shelter exists.</p>
+  <p class="cap" data-ja>公式発表も一つの側であって、答えではありません。市の掲示が「営業」で、
+    現地の人が「終了」なら、それは<strong>見せるべき食い違い</strong>です。多数決もしません
+    — 一人だけ違うことを言う人が、その後に行った唯一の人かもしれないからです。
+    そして<strong>信頼度の数値は出しません</strong>。数字は根拠のない精密さを演出し、
+    読み手はそれを許可として受け取るからです。</p>
+  <p class="cap" data-en>An official notice is one side, not the answer — and there is no
+    majority vote, because the lone dissenter may be the only person who has been since.
+    No confidence score, either: a number performs a precision nobody has, and a reader
+    takes it as permission.</p>
 </section>
 
 <section id="try">
@@ -359,6 +414,8 @@ UNKNOWN_NO_EVIDENCE  ████████████████  <span cla
 </div>
 
 <script src="vera.js"></script>
+<script src="field.js"></script>
+<script src="board.js"></script>
 <script src="bot.js"></script>
 <script>
 (function(){
