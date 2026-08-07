@@ -40,3 +40,16 @@ PY
 ```
 cd site && python3 -m http.server 8899
 ```
+
+## 災害板 / The disaster board
+
+`field.js` は `verantyx/field_reports.py` の移植で、カテゴリと鮮度は
+`data/field.json` にエンジンから書き出しています。移植の等価性は11件で確認済み
+(CONFIRMED / CONFLICT / EXPIRED / SUPERSEDED / 古い報告は投票しない /
+公式は一方の側 / 必要の展開 / 不正 status の拒否)。
+
+板の投稿データは**架空**です。公開ページに実在の場所を載せると、デモが
+実データとしてスクリーンショットされて共有されるためです。
+
+Ported from the Python engine; categories and TTLs are exported, not retyped.
+Equivalence checked on 11 cases. The sample posts are fictional on purpose.
