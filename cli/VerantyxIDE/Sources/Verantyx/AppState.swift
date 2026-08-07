@@ -806,6 +806,22 @@ final class AppState: ObservableObject {
     /// settings sheet. Cleared by the layout once it has acted.
     @Published var showSettingsRequested: Bool = false
 
+    // ── Vera engine mode: 単体 Vera-a か、jgen 合議か ─────────────────────
+    //
+    // 単体(standalone)は決定論の経路だけで答える: 質問は vera-memory の
+    // `ask` に直行し、型付き判定(ANSWER / UNKNOWN_*)がそのまま返る。LLM は
+    // 一切呼ばれない。合議(council)は従来のエージェント/LLM 経路。
+    // 二つを「モデルの設定」ではなくモードにしたのは、答えの性格が変わる
+    // からで、いま読んでいる答えがどちらの性格かは常に見えるべきだからです。
+    enum VeraEngineMode: String, CaseIterable {
+        case council = "council"        // jgen 合議 (LLM/エージェント)
+        case standalone = "standalone"  // 単体 Vera-a (決定論のみ)
+    }
+    @Published var veraEngineMode: VeraEngineMode = .council {
+        didSet { UserDefaults.standard.set(veraEngineMode.rawValue,
+                                           forKey: "vera_engine_mode") }
+    }
+
     // ── VX-Loop: Chat session-level persistent ID for VXTimeline ─────────
     // nano/small モデル使用時、全ターンで同一IDを共有することで
     // VXTimeline内の履歴記録を次のターンで参照できる。
@@ -1136,6 +1152,29 @@ final class AppState: ObservableObject {
 
     // MARK: - Agent actions
 
+    /// 単体 Vera-a の応答整形: 型付き判定を、型を隠さずに読みやすくする。
+    static func formatVeraAnswer(_ raw: String) -> String {
+        guard let data = raw.data(using: .utf8),
+              let obj = try? JSONSerialization.jsonObject(with: data) as? [String: Any],
+              let verdict = obj["verdict"] as? String else {
+            return "⚠️ vera-memory から応答がありません。設定 › MCP を確認してください。\n\(raw.prefix(200))"
+        }
+        var lines: [String] = []
+        if verdict == "ANSWER" {
+            lines.append("🧭 **ANSWER**（決定論・出典遡及可能）")
+            if let t = obj["text"] as? String, !t.isEmpty { lines.append(t) }
+            if let core = obj["core"] as? String { lines.append("コア: \(core)") }
+            if let toks = obj["tokens"] as? [String], !toks.isEmpty {
+                lines.append("根拠ファセット: " + toks.prefix(8).joined(separator: ", "))
+            }
+        } else {
+            lines.append("🚫 **\(verdict)**")
+            if let reason = obj["reason"] as? String { lines.append(reason) }
+            lines.append("単体 Vera-a は知らないことを推測しません。文書を投入するか、jgen 合議モードに切り替えてください。")
+        }
+        return lines.joined(separator: "\n")
+    }
+
     func sendMessage(with overrideText: String? = nil, forceBypassGatekeeper: Bool = false, isSpotlight: Bool = false) {
         let text = (overrideText ?? inputText).trimmingCharacters(in: .whitespacesAndNewlines)
         let hasAttachments = !attachedImages.isEmpty || !attachedFiles.isEmpty
@@ -1161,6 +1200,26 @@ final class AppState: ObservableObject {
         messages.append(ChatMessage(role: .user, content: displayContent, isSpotlight: isSpotlight))
         currentGenerationIsSpotlight = isSpotlight
         isGenerating = true
+
+        // ── 単体 Vera-a: 決定論の経路のみ ────────────────────────────────
+        // vera-memory の `ask` に直行。ANSWER は根拠つき、UNKNOWN_* は型つき
+        // 拒否のまま表示する。ここで LLM に「言い直させる」ことはしない —
+        // それをした瞬間、答えの再現性と引用可能性が消えるからです。
+        if veraEngineMode == .standalone && !isSpotlight {
+            inferenceTask = Task {
+                let raw = await MCPEngine.shared.callTool(
+                    serverName: "vera-memory", toolName: "ask",
+                    arguments: ["query": text])
+                await MainActor.run {
+                    self.isGenerating = false
+                    self.messages.append(ChatMessage(
+                        role: .assistant,
+                        content: Self.formatVeraAnswer(raw),
+                        isSpotlight: false))
+                }
+            }
+            return
+        }
 
         // Auto-create session if there isn't one yet
         if sessions.activeSessionId == nil {
@@ -2438,6 +2497,11 @@ final class AppState: ObservableObject {
                 // ここで呼ぶと onAppear 側と二重起動になり MainActor デッドロックが発生する。
             }
 
+        }
+
+        if let raw = ud.string(forKey: "vera_engine_mode"),
+           let mode = VeraEngineMode(rawValue: raw) {
+            veraEngineMode = mode
         }
 
         // ── Anthropic ──────────────────────────────────────────────────────
