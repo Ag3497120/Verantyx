@@ -1,0 +1,388 @@
+<!doctype html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Verantyx IDE — 推測しない開発環境 / The IDE that refuses to guess</title>
+<meta name="description" content="決定論的な知識エンジン Vera-α を積んだ IDE。答えられないときは型で理由を返します。">
+<style>
+:root{
+  --bg:#0b0d12; --panel:#12151d; --line:#232838; --ink:#e8eaf2;
+  --dim:#9aa3b8; --dimmer:#6b7488; --accent:#7c9cff; --ok:#4ade80;
+  --warn:#fbbf24; --bad:#f87171; --mono:ui-monospace,SFMono-Regular,Menlo,monospace;
+}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--ink);
+  font:16px/1.75 -apple-system,BlinkMacSystemFont,"Hiragino Sans","Noto Sans JP",sans-serif;}
+.wrap{max-width:920px;margin:0 auto;padding:0 24px}
+a{color:var(--accent)}
+code,.mono{font-family:var(--mono);font-size:.9em}
+
+header{border-bottom:1px solid var(--line);position:sticky;top:0;background:rgba(11,13,18,.92);
+  backdrop-filter:blur(8px);z-index:10}
+.bar{display:flex;align-items:center;gap:16px;padding:14px 0}
+.brand{font-weight:700;letter-spacing:.02em}
+.brand span{color:var(--accent)}
+nav{margin-left:auto;display:flex;gap:14px;align-items:center;flex-wrap:wrap}
+nav a{color:var(--dim);text-decoration:none;font-size:14px}
+nav a:hover{color:var(--ink)}
+#lang{background:var(--panel);color:var(--ink);border:1px solid var(--line);
+  border-radius:6px;padding:5px 10px;font:inherit;font-size:13px;cursor:pointer}
+
+.hero{padding:64px 0 40px}
+h1{font-size:clamp(28px,5vw,44px);line-height:1.25;margin:0 0 16px;letter-spacing:-.01em}
+.lede{font-size:clamp(16px,2.4vw,19px);color:var(--dim);margin:0 0 28px;max-width:44em}
+.cta{display:flex;gap:12px;flex-wrap:wrap}
+.btn{display:inline-block;padding:11px 20px;border-radius:8px;text-decoration:none;font-size:15px;
+  border:1px solid var(--line);color:var(--ink)}
+.btn.primary{background:var(--accent);border-color:var(--accent);color:#0b0d12;font-weight:600}
+
+section{padding:44px 0;border-top:1px solid var(--line)}
+h2{font-size:24px;margin:0 0 8px;letter-spacing:-.01em}
+h3{font-size:16px;margin:26px 0 8px}
+.sub{color:var(--dim);margin:0 0 24px;max-width:46em}
+p{max-width:46em}
+
+.grid{display:grid;gap:14px;grid-template-columns:repeat(auto-fit,minmax(260px,1fr))}
+.card{background:var(--panel);border:1px solid var(--line);border-radius:10px;padding:16px}
+.card h3{margin:0 0 6px;font-size:15px}
+.card p{margin:0;color:var(--dim);font-size:14px}
+
+.term{background:#0e1117;border:1px solid var(--line);border-radius:10px;padding:16px 18px;
+  font-family:var(--mono);font-size:13.5px;line-height:1.7;overflow-x:auto;white-space:pre-wrap}
+.term .u{color:var(--dimmer)}
+.term .bad{color:var(--bad);font-weight:600}
+.term .ok{color:var(--ok);font-weight:600}
+.term .warn{color:var(--warn)}
+.cap{color:var(--dimmer);font-size:13px;margin-top:8px}
+
+table{width:100%;border-collapse:collapse;margin:14px 0;font-size:14px}
+th,td{text-align:left;padding:9px 10px;border-bottom:1px solid var(--line);vertical-align:top}
+th{color:var(--dim);font-weight:600;font-size:13px}
+td.num{font-family:var(--mono);color:var(--ok)}
+
+.shot{background:var(--panel);border:1px dashed var(--line);border-radius:10px;
+  padding:26px;text-align:center;color:var(--dimmer);font-size:14px}
+.shot img{max-width:100%;border-radius:8px;display:block}
+
+.note{border-left:3px solid var(--accent);padding:2px 0 2px 14px;color:var(--dim);
+  margin:18px 0;font-size:14.5px}
+.bot{background:var(--panel);border:1px solid var(--line);border-radius:12px;overflow:hidden}
+.bot-head{padding:12px 16px;border-bottom:1px solid var(--line);display:flex;
+  align-items:center;gap:10px;font-size:14px;font-weight:600}
+.bot-log{height:330px;overflow-y:auto;padding:14px 16px;display:flex;
+  flex-direction:column;gap:12px}
+.msg{max-width:88%;font-size:14px;line-height:1.65}
+.msg.me{align-self:flex-end;background:var(--accent);color:#0b0d12;
+  padding:8px 12px;border-radius:10px 10px 2px 10px}
+.msg.bot{align-self:flex-start;background:#0e1117;border:1px solid var(--line);
+  padding:10px 13px;border-radius:10px 10px 10px 2px;white-space:pre-wrap}
+.msg.bot .v{font-family:var(--mono);font-weight:700;font-size:13px}
+.msg.bot .v.ok{color:var(--ok)} .msg.bot .v.no{color:var(--bad)}
+.msg.bot .v.amb{color:var(--warn)}
+.msg.bot .m{font-family:var(--mono);font-size:12.5px;color:var(--dim)}
+.bot-in{display:flex;gap:8px;padding:12px 14px;border-top:1px solid var(--line)}
+.bot-in input{flex:1;background:#0e1117;border:1px solid var(--line);border-radius:8px;
+  color:var(--ink);padding:9px 12px;font:inherit;font-size:14px}
+.bot-in button{background:var(--accent);border:0;border-radius:8px;color:#0b0d12;
+  font-weight:600;padding:9px 16px;cursor:pointer;font-size:14px}
+.chips{display:flex;gap:7px;flex-wrap:wrap;padding:0 14px 12px}
+.chip{background:#0e1117;border:1px solid var(--line);border-radius:14px;
+  padding:5px 11px;font-size:12.5px;color:var(--dim);cursor:pointer}
+.chip:hover{color:var(--ink);border-color:var(--accent)}
+footer{border-top:1px solid var(--line);padding:28px 0 46px;color:var(--dimmer);font-size:13.5px}
+[data-en]{display:none}
+html[lang="en"] [data-ja]{display:none}
+html[lang="en"] [data-en]{display:revert}
+</style>
+</head>
+<body>
+
+<header><div class="wrap bar">
+  <div class="brand">Verantyx <span>IDE</span></div>
+  <nav>
+    <a href="#what"    data-ja>特徴</a><a href="#what"    data-en>What it is</a>
+    <a href="#modes"   data-ja>2つのエンジン</a><a href="#modes" data-en>Two engines</a>
+    <a href="#try" data-ja>試す</a><a href="#try" data-en>Try it</a>
+    <a href="#growth"  data-ja>Growth</a><a href="#growth"  data-en>Growth</a>
+    <a href="#numbers" data-ja>実測値</a><a href="#numbers" data-en>Measurements</a>
+    <a href="#start"   data-ja>使い方</a><a href="#start"   data-en>Get started</a>
+    <select id="lang" aria-label="Language">
+      <option value="ja">日本語</option><option value="en">English</option>
+    </select>
+  </nav>
+</div></header>
+
+<div class="wrap">
+
+<div class="hero">
+  <h1 data-ja>知らないことを、知らないと言える開発環境</h1>
+  <h1 data-en>The IDE that can say it does not know</h1>
+  <p class="lede" data-ja>Verantyx IDE には決定論的な知識エンジン <strong>Vera-α</strong> が入っています。
+    答えられないとき、それらしい文章を作らず、<strong>なぜ答えられないか</strong>を型で返します。
+    LLM は一切使いません。同じ入力からは必ず同じ答えが出ます。</p>
+  <p class="lede" data-en>Verantyx IDE ships <strong>Vera-α</strong>, a deterministic knowledge engine.
+    When it cannot answer it does not produce plausible prose — it returns
+    <strong>why</strong> it cannot, as a type. No LLM anywhere. The same input always gives the same answer.</p>
+  <div class="cta">
+    <a class="btn primary" href="https://github.com/Ag3497120/Verantyx-Vera-alpha" data-ja>エンジンを見る (GitHub)</a>
+    <a class="btn primary" href="https://github.com/Ag3497120/Verantyx-Vera-alpha" data-en>See the engine (GitHub)</a>
+    <a class="btn" href="#start" data-ja>使い方</a><a class="btn" href="#start" data-en>Get started</a>
+  </div>
+</div>
+
+<section id="what">
+  <h2 data-ja>ハルシネーションを「減らす」のではなく、構造的に起こせなくする</h2>
+  <h2 data-en>Not fewer hallucinations — structurally none</h2>
+  <p class="sub" data-ja>LLM は分布から次の語を選ぶので、知識が無くても文は出ます。
+    Vera-α は文を作りません。保存された事実から答えるか、拒否するかのどちらかです。</p>
+  <p class="sub" data-en>An LLM picks the next token from a distribution, so text appears whether or not
+    the knowledge does. Vera-α does not generate. It either answers from stored facts, or refuses.</p>
+
+  <div class="term"><span class="u">&gt; 避難所</span>
+
+<span class="bad">🚫 UNKNOWN_NO_EVIDENCE</span>
+no_candidate_cross
+<span data-ja>単体 Vera-a は知らないことを推測しません。文書を投入するか、jgen 合議モードに切り替えてください。</span><span data-en>Vera-a standalone does not guess. Pour documents in, or switch to jgen council mode.</span></div>
+  <p class="cap" data-ja>実際の出力です。空のストアに聞くと、作り話ではなく型付きの拒否が返ります。</p>
+  <p class="cap" data-en>Real output. Asked against an empty store, it returns a typed refusal rather than an invention.</p>
+
+  <div class="grid" style="margin-top:26px">
+    <div class="card">
+      <h3 data-ja>型付き拒否</h3><h3 data-en>Typed refusal</h3>
+      <p data-ja>UNKNOWN_NO_EVIDENCE / UNKNOWN_NO_CAUSE_RECORDED など、
+        「何が足りないか」が名前になります。次の一手が決まります。</p>
+      <p data-en>UNKNOWN_NO_EVIDENCE, UNKNOWN_NO_CAUSE_RECORDED — the missing thing
+        becomes the name, so the next step is decided.</p>
+    </div>
+    <div class="card">
+      <h3 data-ja>出典まで遡れる</h3><h3 data-en>Traceable to the sentence</h3>
+      <p data-ja>すべての主張は、元の文書の元の文まで戻れます。要約ではなく原文が返ります。</p>
+      <p data-en>Every claim walks back to the sentence in the source document — the original, not a paraphrase.</p>
+    </div>
+    <div class="card">
+      <h3 data-ja>完全な再現性</h3><h3 data-en>Fully reproducible</h3>
+      <p data-ja>同じ文書群からは、バイト単位で同じ結果が出ます。コーパスのハッシュが結論に紐づきます。</p>
+      <p data-en>The same documents produce byte-identical output. A corpus hash ties the inputs to the conclusion.</p>
+    </div>
+    <div class="card">
+      <h3 data-ja>矛盾が消えない</h3><h3 data-en>Disagreement survives</h3>
+      <p data-ja>複数の資料が食い違うとき、要約せずに<strong>両方を出典付きで</strong>並べます。</p>
+      <p data-en>When sources conflict it does not blend them — it shows <strong>both sides with their sources</strong>.</p>
+    </div>
+  </div>
+</section>
+
+<section id="modes">
+  <h2 data-ja>2つのエンジンを、ヘッダで切り替える</h2>
+  <h2 data-en>Two engines, switched in the header</h2>
+  <p class="sub" data-ja>答えの<em>性格</em>が変わるので、設定の奥ではなくヘッダに置いています。
+    いま読んでいる答えがどちらのものかは、常に見えているべきです。</p>
+  <p class="sub" data-en>The two produce different <em>kinds</em> of answer, so the switch sits in the header
+    rather than deep in settings: which kind you are reading should never be something you go and check.</p>
+  <table>
+    <tr><th data-ja>モード</th><th data-en>Mode</th>
+        <th data-ja>中身</th><th data-en>What it is</th>
+        <th data-ja>向いている場面</th><th data-en>When</th></tr>
+    <tr><td><strong data-ja>jgen 合議</strong><strong data-en>jgen council</strong></td>
+        <td data-ja>LLM とエージェントの合議。JGEN でモデルを読み込み、複数の視点で検討します。</td>
+        <td data-en>LLM and agent council. Loads models through JGEN and deliberates across viewpoints.</td>
+        <td data-ja>探索・下書き・未知の課題</td><td data-en>Exploration, drafting, unfamiliar problems</td></tr>
+    <tr><td><strong data-ja>単体 Vera-a</strong><strong data-en>Vera-a only</strong></td>
+        <td data-ja>決定論のみ。保存された事実から型付きで答えます。LLM を経由しません。</td>
+        <td data-en>Deterministic only. Typed answers from stored facts. No LLM in the path.</td>
+        <td data-ja>間違いが高くつく場面・監査・引用</td><td data-en>Where being wrong is expensive; audit; citation</td></tr>
+  </table>
+  <p class="note" data-ja>拒否を LLM に言い直させることは意図的にしていません。
+    言い直した瞬間、その答えは再現も引用もできなくなるからです。</p>
+  <p class="note" data-en>A refusal is deliberately never rewritten by a model: the moment it is,
+    the answer stops being reproducible and citable — which was the entire point.</p>
+</section>
+
+<section id="try">
+  <h2 data-ja>ここで試す — サイト内で動く Vera</h2>
+  <h2 data-en>Try it here — Vera, running in this page</h2>
+  <p class="sub" data-ja>IDE に入っているのと同じボットです。サーバも API も使わず、
+    このページの中だけで動きます。設定を聞く・独自 AI の作り方を聞く・文がどこに
+    配置されるか調べる、が試せます。</p>
+  <p class="sub" data-en>The same bot that ships in the IDE. No server, no API — it runs
+    entirely in this page. Ask where a setting lives, how to build your own AI, or where
+    a sentence would be placed.</p>
+
+  <div class="bot">
+    <div class="bot-head">🧭 <span data-ja>Verantyx サポート(体験版)</span><span data-en>Verantyx support (demo)</span></div>
+    <div class="bot-log" id="log"></div>
+    <div class="chips" id="chips"></div>
+    <div class="bot-in">
+      <input id="q" autocomplete="off">
+      <button id="send" data-ja>送信</button><button id="send-en" data-en>Send</button>
+    </div>
+  </div>
+  <p class="cap" data-ja>体験版の範囲: 設定・モード・手順・<strong>日本語の</strong>配置と矛盾検出。
+    英語の文法分解はエンジン本体(Python)にあり、ここには移植していません。
+    移植部分は本体と同じ答えを返すことを 15 件の検査で確認しています。</p>
+  <p class="cap" data-en>Demo scope: settings, modes, recipes, and <strong>Japanese</strong> placement
+    and contradiction detection. The English decomposer stays in the full engine.
+    The ported parts are checked against it — 15 cases, identical answers.</p>
+</section>
+
+<section id="growth">
+  <h2 data-ja>Growth — システムが「知らないこと」を1画面に</h2>
+  <h2 data-en>Growth — what the system does not know, on one screen</h2>
+  <p class="sub" data-ja>型付き未知の内訳、繰り返す未知のバケット、ギャップグラフ、承認待ちの提案。
+    ここの数字が減ることが、この系での「学習」の正直な意味です。</p>
+  <p class="sub" data-en>Typed unknowns, recurring buckets, the gap graph, and pending proposals.
+    These numbers shrinking is what learning honestly means here.</p>
+
+  <div class="term"><span data-ja>型付き失敗の内訳</span><span data-en>Typed failures</span>
+UNKNOWN_NO_EVIDENCE  ████████████████  <span class="ok">72</span>
+
+<span data-ja>繰り返す未知のバケット</span><span data-en>Recurring unknown buckets</span>
+  safari を開いてニュースを検索して   ×9   <span class="warn">growth_candidate</span>
+  こんにちは                        ×8   <span class="warn">growth_candidate</span>
+  続けて                            ×3   <span class="warn">needs_more_facts</span></div>
+  <p class="cap" data-ja>実際の画面の内容です。分類(growth_candidate / needs_more_facts)は、
+    その未知を埋めるべきか・事実が足りないだけかを型で示します。</p>
+  <p class="cap" data-en>Real screen contents. The classification says, as a type, whether an unknown is
+    worth growing into or merely short of facts.</p>
+
+  <div class="shot" style="margin-top:20px" id="shot-growth">
+    <span data-ja>スクリーンショット差し込み口 — <code>site/img/growth.png</code> を置くと表示されます</span>
+    <span data-en>Screenshot slot — drop <code>site/img/growth.png</code> here</span>
+  </div>
+</section>
+
+<section id="numbers">
+  <h2 data-ja>実測値</h2><h2 data-en>Measurements</h2>
+  <p class="sub" data-ja>すべて再実行できる検査の結果です。主張ではなく、走らせて出た数字です。</p>
+  <p class="sub" data-en>All from re-runnable checks. Not claims — numbers that came out of running them.</p>
+  <table>
+    <tr><th data-ja>指標</th><th data-en>Metric</th><th data-ja>値</th><th data-en>Value</th>
+        <th data-ja>測り方</th><th data-en>How</th></tr>
+    <tr><td data-ja>矛盾検出の精度</td><td data-en>Contradiction precision</td>
+        <td class="num">100%</td>
+        <td data-ja>仕込み罠(複合語・条件節・前置詞)で1件も誤検出なし</td>
+        <td data-en>Zero false positives across planted traps</td></tr>
+    <tr><td data-ja>検出率(正規形)</td><td data-en>Recall, canonical forms</td>
+        <td class="num">100%</td>
+        <td data-ja>日英とも、未学習の語彙に対して</td>
+        <td data-en>Both languages, on never-tuned vocabulary</td></tr>
+    <tr><td data-ja>検出率(受動態・敬体)</td><td data-en>Recall, passive / formal</td>
+        <td class="num">100%</td>
+        <td data-ja>「〜と報告された」「〜しております」等</td>
+        <td data-en>"was reported closed", 「開館しております」</td></tr>
+    <tr><td data-ja>実文書での誤検出</td><td data-en>False positives, real corpus</td>
+        <td class="num">0</td>
+        <td data-ja>2,633 文書 / 211,989 文</td>
+        <td data-en>2,633 documents / 211,989 sentences</td></tr>
+    <tr><td data-ja>取り込み速度</td><td data-en>Ingestion speed</td>
+        <td class="num">14s</td>
+        <td data-ja>34MB を CPU のみ・シングルスレッドで</td>
+        <td data-en>34 MB, CPU only, single thread</td></tr>
+    <tr><td data-ja>再現性</td><td data-en>Reproducibility</td>
+        <td class="num">100%</td>
+        <td data-ja>2回のビルドで出力・ハッシュとも完全一致</td>
+        <td data-en>Two builds, identical output and hash</td></tr>
+    <tr><td data-ja>自動検査</td><td data-en>Automated checks</td>
+        <td class="num">83 + 8</td>
+        <td data-ja>83 フォーク + 8 評価スイート(CI で毎回)</td>
+        <td data-en>83 forks + 8 eval suites, every CI run</td></tr>
+  </table>
+  <p class="note" data-ja><strong>正直な限界</strong>:
+    実文書での「0件」は検出器が働く証拠ではなく、何も食い違っていない文書で誤爆しない証拠です。
+    実地の防災資料での測定はこれからです。</p>
+  <p class="note" data-en><strong>Stated limit</strong>: zero on the real corpus is not evidence the detector
+    works — it is evidence it no longer fires on prose that disagrees about nothing.
+    Measurement on real published emergency documents is still ahead.</p>
+</section>
+
+<section id="disaster">
+  <h2 data-ja>被災地支援での使い方</h2><h2 data-en>Use in disaster response</h2>
+  <p class="sub" data-ja>複数の発表が食い違うとき、要約は食い違いを溶かします。
+    それは現場の人が最も必要としている情報です。</p>
+  <p class="sub" data-en>When announcements conflict, a summary dissolves the conflict —
+    which is exactly the information a responder needs most.</p>
+  <div class="term"><span class="ok">🔄 <span data-ja>更新</span><span data-en>UPDATED</span></span>
+  <span data-ja>現在は</span> <strong>通行可能</strong>（<span data-ja>架空放送・15:00 時点</span><span data-en>Broadcast B, as of 15:00</span>）
+  <span class="u" data-ja>それ以前: 通行止（架空新聞・09:00）</span><span class="u" data-en>Earlier: closed (Paper A, 09:00)</span>
+
+<span class="bad">🔴 <span data-ja>係争</span><span data-en>CONTESTED</span></span>
+  <span data-ja>避難所は</span> <strong>開設</strong>（<span data-ja>架空新聞</span>） <span class="u">対</span> <strong>閉鎖</strong>（<span data-ja>架空放送</span>）
+  <span class="u" data-ja>この点は未確定です</span><span class="u" data-en>This point is unresolved</span></div>
+  <p class="cap" data-ja>時刻が順序づくものは「更新」、順序づかないものは「係争」。
+    日時が読めないときは安全側に倒し、係争のまま残します。</p>
+  <p class="cap" data-en>Ordered in time becomes an update; unordered stays a dispute.
+    An unreadable date fails safe — it can only leave a dispute standing, never invent an update.</p>
+  <p data-ja>オフラインで動き、電源の不安定な場所の安価なノート PC でも数分で終わります。
+    GPU は不要です — 行列演算を一切しないためです。</p>
+  <p data-en>It runs offline and finishes in minutes on a cheap laptop where power is unreliable.
+    No GPU needed — there is no matrix arithmetic anywhere in it.</p>
+</section>
+
+<section id="start">
+  <h2 data-ja>使ってみる</h2><h2 data-en>Get started</h2>
+  <div class="grid">
+    <div class="card">
+      <h3 data-ja>1. 文書を入れる</h3><h3 data-en>1. Pour documents in</h3>
+      <p data-ja>PDF・Word・HTML・CSV・JSON・テキスト。フォルダごと投入できます。</p>
+      <p data-en>PDF, Word, HTML, CSV, JSON, text. Whole folders at once.</p>
+    </div>
+    <div class="card">
+      <h3 data-ja>2. 配置を見る</h3><h3 data-en>2. See the placement</h3>
+      <p data-ja>文をボットに「」付きで渡すと、どこに・なぜ入るかが理由付きで返ります。</p>
+      <p data-en>Quote a sentence to the bot and it states where the claim lands, and why.</p>
+    </div>
+    <div class="card">
+      <h3 data-ja>3. 語彙を足す</h3><h3 data-en>3. Extend the vocabulary</h3>
+      <p data-ja>ストアの隣に JSON を置くだけ。コード編集は不要で、検証器が誤りを名指しします。</p>
+      <p data-en>Drop a JSON file beside your store. No code; the validator names every problem.</p>
+    </div>
+  </div>
+  <h3 data-ja>関連リポジトリ</h3><h3 data-en>Repositories</h3>
+  <ul>
+    <li><a href="https://github.com/Ag3497120/Verantyx-Vera-alpha">Verantyx-Vera-alpha</a>
+      — <span data-ja>知識エンジン本体(Python・依存ゼロ)</span><span data-en>the engine (Python, zero dependencies)</span></li>
+    <li><a href="https://github.com/Ag3497120/Verantyx">Verantyx</a>
+      — <span data-ja>macOS IDE(Swift)</span><span data-en>the macOS IDE (Swift)</span></li>
+    <li><a href="https://github.com/Ag3497120/verantyx-cli">verantyx-cli (v6)</a>
+      — <span data-ja>6軸クロス構造と階層エージェントの原型</span><span data-en>origin of the six-axis cross structure and hierarchical agents</span></li>
+  </ul>
+</section>
+
+<footer>
+  <p data-ja>Verantyx — 決定論的な知識エンジンと、それを積んだ開発環境。MIT ライセンス。<br>
+    このページの数値はすべて再実行可能な検査から出たものです。</p>
+  <p data-en>Verantyx — a deterministic knowledge engine and the IDE built around it. MIT licensed.<br>
+    Every number on this page came out of a check you can re-run.</p>
+</footer>
+
+</div>
+
+<script src="vera.js"></script>
+<script src="bot.js"></script>
+<script>
+(function(){
+  var sel = document.getElementById('lang');
+  var saved = localStorage.getItem('vx-lang');
+  var lang = saved || (navigator.language || 'ja').slice(0,2);
+  if (lang !== 'en') lang = 'ja';
+  function apply(l){
+    document.documentElement.lang = l;
+    sel.value = l;
+    localStorage.setItem('vx-lang', l);
+  }
+  apply(lang);
+  sel.addEventListener('change', function(){ apply(sel.value); });
+
+  // Screenshot slots fill themselves when the image exists, so the page is
+  // honest before the images are added rather than showing an empty frame.
+  [['shot-growth','img/growth.png']].forEach(function(pair){
+    var el = document.getElementById(pair[0]); if(!el) return;
+    var im = new Image();
+    im.onload = function(){ el.innerHTML=''; el.style.borderStyle='solid'; el.appendChild(im); };
+    im.src = pair[1];
+  });
+})();
+</script>
+</body>
+</html>
