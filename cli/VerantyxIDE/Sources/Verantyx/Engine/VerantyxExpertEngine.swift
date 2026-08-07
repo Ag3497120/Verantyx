@@ -57,6 +57,26 @@ final class VerantyxExpertEngine: ObservableObject {
         isGenerating = true
         defer { isGenerating = false }
 
+        // A quoted sentence is a placement question about THAT sentence:
+        // 「避難所は閉鎖されました」はどこに入る? — run it through the
+        // placement inspector and show the decision with its reasons. This
+        // is the explain → overlay → re-explain loop's front door, and the
+        // routing is a literal quote check, not a model's guess about intent.
+        if let quoted = Self.extractQuoted(query) {
+            messages.append(ChatMessage(role: .assistant,
+                                        content: await explainPlacement(quoted)))
+            return
+        }
+
+        // Placement/how-do-I-teach-it questions get the build-your-own-AI
+        // guide — the document that explains cores, poles, the overlay file,
+        // and why there is no hand-reordering tool.
+        if Self.looksLikePlacementQuestion(query) {
+            messages.append(ChatMessage(role: .assistant,
+                                        content: await fetchGuide()))
+            return
+        }
+
         // Goals first. Someone asking "how do I build my own AI" does not know
         // the thing they want is called `inference_mode`, so a lookup keyed on
         // setting names cannot reach them — it would refuse a question the app
@@ -93,6 +113,78 @@ final class VerantyxExpertEngine: ObservableObject {
             messages.append(ChatMessage(role: .assistant,
                                         content: await formatNoSetting(query, obj)))
         }
+    }
+
+    // MARK: - Placement inspection
+
+    /// Text inside 「…」 or "…" — the sentence the user wants explained.
+    /// Requires ≥6 characters so quoting a setting name ("MCP") does not
+    /// hijack an ordinary settings question.
+    static func extractQuoted(_ query: String) -> String? {
+        for (open, close) in [("「", "」"), ("\"", "\""), ("『", "』")] {
+            guard let a = query.range(of: open),
+                  let b = query.range(of: close,
+                                      range: a.upperBound..<query.endIndex)
+            else { continue }
+            let inner = String(query[a.upperBound..<b.lowerBound])
+                .trimmingCharacters(in: .whitespaces)
+            if inner.count >= 6 { return inner }
+        }
+        return nil
+    }
+
+    static func looksLikePlacementQuestion(_ query: String) -> Bool {
+        let keys = ["配置", "覚えさせ", "データの入れ", "どう入れ", "入れ方",
+                    "作り方", "ガイド", "placement", "how do i teach",
+                    "own ai guide", "オーバーレイ", "overlay", "語彙の追加"]
+        let q = query.lowercased()
+        return keys.contains { q.contains($0) }
+    }
+
+    private func explainPlacement(_ sentence: String) async -> String {
+        let raw = await MCPEngine.shared.callTool(
+            serverName: veraServer, toolName: "explain_placement",
+            arguments: ["sentence": sentence])
+        guard let data = raw.data(using: .utf8),
+              let obj = try? JSONSerialization.jsonObject(with: data) as? [String: Any],
+              obj["verdict"] as? String == "ANSWER" else {
+            return AppLanguage.shared.t(
+                "The placement inspector did not answer — check Settings › MCP.",
+                "配置説明ツールから応答がありません。設定 › MCP を確認してください。")
+        }
+        let ja = AppLanguage.shared.isJapanese
+        var lines: [String] = []
+        lines.append((ja ? "**この文の配置**: " : "**Placement**: ") + "「\(sentence)」")
+        let core = obj["core"] as? String ?? "—"
+        lines.append((ja ? "コア: " : "Core: ") + "**\(core)**")
+        if let note = obj["core_rule_note"] as? String { lines.append("  " + note) }
+        if let facets = obj["facets"] as? [String], !facets.isEmpty {
+            lines.append((ja ? "ファセット: " : "Facets: ")
+                         + facets.map { "`\($0)`" }.joined(separator: ", "))
+        }
+        let poles = obj["poles"] as? [[String: Any]] ?? []
+        for p in poles {
+            let aspect = p["aspect"] as? String ?? ""
+            let value = p["value"] as? String ?? ""
+            let placed = p["placed"] as? Bool ?? false
+            let note = p["gate_note"] as? String ?? ""
+            lines.append((ja ? "極: " : "Pole: ")
+                         + "\(aspect)/\(value) — "
+                         + (placed ? (ja ? "配置される" : "placed") : (ja ? "配置されない" : "not placed"))
+                         + " (\(note))")
+        }
+        if let pn = obj["pole_note"] as? String { lines.append((ja ? "補足: " : "Note: ") + pn) }
+        if let an = obj["arm_note"] as? String { lines.append((ja ? "アーム: " : "Arm: ") + an) }
+        return lines.joined(separator: "\n")
+    }
+
+    private func fetchGuide() async -> String {
+        let raw = await MCPEngine.shared.callTool(
+            serverName: veraServer, toolName: "own_ai_guide", arguments: [:])
+        if raw.contains("配置") { return raw }
+        return AppLanguage.shared.t(
+            "The guide is unavailable — check Settings › MCP.",
+            "ガイドを取得できません。設定 › MCP を確認してください。")
     }
 
     // MARK: - Goals
