@@ -236,9 +236,9 @@ struct VerantyxApp: App {
 
     var body: some Scene {
         MenuBarExtra("Verantyx OS Agent", systemImage: "asterisk") {
-            Button(ideWindows.isFrontmost ? "verantyx-ide は起動中"
-                   : ideWindows.isOpen ? "verantyx-ide を前面に"
-                   : "verantyx-ideを起動") {
+            Button(ideWindows.isFrontmost ? L("verantyx-ide is running", "verantyx-ide は起動中")
+                   : ideWindows.isOpen ? L("Bring verantyx-ide to front", "verantyx-ide を前面に")
+                   : L("Launch verantyx-ide", "verantyx-ideを起動")) {
                 if !ideWindows.isOpen { openWindow(id: "main-ide") }
                 NSApp.activate(ignoringOtherApps: true)
                 IDEWindowMonitor.ideWindow()?.makeKeyAndOrderFront(nil)
@@ -589,14 +589,14 @@ struct SpotlightView: View {
                 }
                 VStack(alignment: .leading, spacing: 4) {
                     Toggle(isOn: $useInternalWeights) {
-                        Text("🧠 内部知識優先")
+                        Text(L("🧠 Prefer internal knowledge", "🧠 内部知識優先"))
                             .font(.system(size: 10, weight: .bold))
                             .foregroundColor(useInternalWeights ? .red : .gray)
                     }
                     .toggleStyle(SwitchToggleStyle(tint: .red))
                     
                     Toggle(isOn: $isDetailedMode) {
-                        Text("詳細モード")
+                        Text(L("Verbose mode", "詳細モード"))
                             .font(.system(size: 10, weight: .bold))
                             .foregroundColor(isDetailedMode ? .blue : .gray)
                     }

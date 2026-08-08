@@ -262,7 +262,7 @@ struct ModelSelectorBarView: View {
     @ViewBuilder
     private var auditorControls: some View {
         Toggle(isOn: $app.isAuditorEnabled) {
-            Text("監視 (Auditor)")
+            Text(L("Auditor", "監視 (Auditor)"))
                 .font(.system(size: 11, weight: .bold))
                 .foregroundStyle(app.isAuditorEnabled ? Color.yellow : Color.gray)
         }

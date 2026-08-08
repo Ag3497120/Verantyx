@@ -411,7 +411,7 @@ struct AgentL1PopoverView: View {
                 }) {
                     HStack(spacing: 4) {
                         Image(systemName: "arrow.up.left.and.arrow.down.right")
-                        Text("拡大")
+                        Text(L("Expand", "拡大"))
                     }
                 }
                 .buttonStyle(.plain)
@@ -468,7 +468,7 @@ struct AgentL1PopoverView: View {
                         }
                         .buttonStyle(.bordered)
                         
-                        Button("ずっと承認") {
+                        Button(L("Always approve", "ずっと承認")) {
                             SwarmEngine.shared.approveDiffAlways(agentId: agent.id)
                         }
                         .buttonStyle(.bordered)
@@ -503,7 +503,7 @@ struct AgentL1PopoverView: View {
             
             // Input Field
             HStack {
-                TextField("ここから先はswitchで書いて...", text: $interruptionText)
+                TextField(L("From here on, write it with a switch…", "ここから先はswitchで書いて…"), text: $interruptionText)
                     .textFieldStyle(.roundedBorder)
                     .onSubmit { submitInterruption() }
                 

@@ -114,7 +114,7 @@ struct MemoryConsoleView: View {
             }
 
             if !capacityPending.isEmpty {
-                Text("限界値の引き上げ提案(承認待ち)")
+                Text(L("Proposed limit increases (awaiting approval)", "限界値の引き上げ提案(承認待ち)"))
                     .font(.system(size: 11, weight: .semibold))
                     .padding(.top, 4)
                 ForEach(capacityPending) { p in
@@ -123,15 +123,15 @@ struct MemoryConsoleView: View {
                             Text("\(p.parameter): \(p.current) → \(p.proposed)")
                                 .font(.system(size: 11, weight: .semibold, design: .monospaced))
                             Spacer()
-                            Button("承認") { Task { await actOnCapacity(p.id, accept: true) } }
+                            Button(L("Approve", "承認")) { Task { await actOnCapacity(p.id, accept: true) } }
                                 .font(.system(size: 10))
-                            Button("却下") { Task { await actOnCapacity(p.id, accept: false) } }
+                            Button(L("Reject", "却下")) { Task { await actOnCapacity(p.id, accept: false) } }
                                 .font(.system(size: 10))
                         }
                         // The evidence, not just the number: what was re-run
                         // and that it answered. A reviewer approving a bare
                         // integer is not reviewing anything.
-                        Text("\(p.reason) — 再実行 \(p.probeCount) 件の証拠つき")
+                        Text(L("\(p.reason) — re-run, with \(p.probeCount) pieces of evidence", "\(p.reason) — 再実行 \(p.probeCount) 件の証拠つき"))
                             .font(.system(size: 10))
                             .foregroundStyle(.secondary)
                     }

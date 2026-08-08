@@ -1104,10 +1104,10 @@ struct L25StatusBar: View {
                         isPresented: $showCancelConfirm,
                         titleVisibility: .visible
                     ) {
-                        Button("停止する", role: .destructive) {
+                        Button(L("Stop", "停止する"), role: .destructive) {
                             L25IndexEngine.shared.cancelIndexing()
                         }
-                        Button("続ける", role: .cancel) { }
+                        Button(L("Continue", "続ける"), role: .cancel) { }
                     } message: {
                         Text(AppLanguage.shared.t("Converted files will be kept.\nYou can resume from where you left off.", "変換済みのファイルは保持されます。\n再開ボタンで続きから再開できます。"))
                     }

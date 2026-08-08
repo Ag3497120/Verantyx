@@ -114,7 +114,7 @@ struct KanjiTopologyView: View {
                 .overlay(Circle().stroke(Color.cyan, lineWidth: 3))
                 .position(x: 512, y: 512)
             
-            Text("核")
+            Text(L("Core", "核"))
                 .font(.system(size: 50, weight: .black))
                 .foregroundStyle(Color.cyan)
                 .position(x: 512, y: 500)
