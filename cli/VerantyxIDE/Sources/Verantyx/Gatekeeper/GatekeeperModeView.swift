@@ -144,7 +144,7 @@ struct GatekeeperModeView: View {
 
     private var architectureCard: some View {
         VStack(alignment: .leading, spacing: 8) {
-            Label("動作フローとデータの位置", systemImage: "arrow.triangle.branch")
+            Label(L("Flow and where the data sits", "動作フローとデータの位置"), systemImage: "arrow.triangle.branch")
                 .font(.subheadline.bold())
                 .foregroundStyle(.secondary)
 
@@ -233,7 +233,7 @@ struct GatekeeperModeView: View {
     private var accessLogCard: some View {
         VStack(alignment: .leading, spacing: 8) {
             HStack {
-                Label("アクセスログ", systemImage: "eye.slash.fill")
+                Label(L("Access log", "アクセスログ"), systemImage: "eye.slash.fill")
                     .font(.subheadline.bold())
                     .foregroundStyle(.red)
                 Spacer()
@@ -354,7 +354,7 @@ struct GatekeeperVaultCard: View {
                     Button {
                         Task { await state.initializeVault() }
                     } label: {
-                        Label("一括変換を開始", systemImage: "arrow.clockwise")
+                        Label(L("Start bulk conversion", "一括変換を開始"), systemImage: "arrow.clockwise")
                             .frame(maxWidth: .infinity)
                     }
                     .buttonStyle(.borderedProminent)
@@ -395,7 +395,7 @@ struct GatekeeperVaultCard: View {
             case .ready(let fileCount, let lastConverted):
                 HStack {
                     VStack(alignment: .leading, spacing: 2) {
-                        Label("\(fileCount) ファイル変換済み", systemImage: "checkmark.circle.fill")
+                        Label(L("\(fileCount) files converted", "\(fileCount) ファイル変換済み"), systemImage: "checkmark.circle.fill")
                             .foregroundStyle(.green)
                             .font(.caption.bold())
                         Text(AppLanguage.shared.t("Last Updated: \(lastConverted.formatted(.relative(presentation: .named)))", "最終更新: \(lastConverted.formatted(.relative(presentation: .named)))"))
@@ -406,7 +406,7 @@ struct GatekeeperVaultCard: View {
                     Button {
                         Task { await vault.rebuildVault() }
                     } label: {
-                        Label("再変換", systemImage: "arrow.triangle.2.circlepath")
+                        Label(L("Re-convert", "再変換"), systemImage: "arrow.triangle.2.circlepath")
                     }
                     .buttonStyle(.bordered)
                     .tint(.red)
@@ -415,7 +415,7 @@ struct GatekeeperVaultCard: View {
                     Button {
                         Task { await vault.updateDelta() }
                     } label: {
-                        Label("差分更新", systemImage: "arrow.clockwise")
+                        Label(L("Incremental update", "差分更新"), systemImage: "arrow.clockwise")
                     }
                     .buttonStyle(.bordered)
                     .font(.caption)

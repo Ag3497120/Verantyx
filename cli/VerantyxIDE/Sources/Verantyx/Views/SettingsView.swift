@@ -1526,11 +1526,11 @@ struct SettingsView: View {
                             .tint(.purple)
                             
                             if vault.isBitNetModeEnabled {
-                                Text("⚠️ 警告: ファイルの中身をLLMで解釈するため、スキャンに数十分〜数時間かかる場合があります。")
+                                Text(L("⚠️ Warning: the scan reads file contents with an LLM, so it can take tens of minutes to several hours.", "⚠️ 警告: ファイルの中身をLLMで解釈するため、スキャンに数十分〜数時間かかる場合があります。"))
                                     .font(.system(size: 10))
                                     .foregroundStyle(.orange)
                             } else {
-                                Text("ファイルの中身をLLMで読み取り、実装目的を要約して地図に記録します。非常に時間がかかります。")
+                                Text(L("Reads file contents with an LLM, summarises what each is for, and records it on the map. Very slow.", "ファイルの中身をLLMで読み取り、実装目的を要約して地図に記録します。非常に時間がかかります。"))
                                     .font(.system(size: 10))
                                     .foregroundStyle(.secondary)
                             }
@@ -1542,7 +1542,7 @@ struct SettingsView: View {
                             Button {
                                 addCustomFolder()
                             } label: {
-                                Label("フォルダを追加", systemImage: "folder.badge.plus")
+                                Label(L("Add folder", "フォルダを追加"), systemImage: "folder.badge.plus")
                                     .font(.system(size: 11))
                             }
                             .buttonStyle(.borderedProminent)
@@ -1551,7 +1551,7 @@ struct SettingsView: View {
                             Button {
                                 vault.scanBackground()
                             } label: {
-                                Label("再変換 (フルスキャン)", systemImage: "arrow.triangle.2.circlepath")
+                                Label(L("Re-convert (full scan)", "再変換 (フルスキャン)"), systemImage: "arrow.triangle.2.circlepath")
                                     .font(.system(size: 11))
                             }
                             .buttonStyle(.bordered)
@@ -1559,7 +1559,7 @@ struct SettingsView: View {
                             Button(role: .destructive) {
                                 vault.deleteMap()
                             } label: {
-                                Label("削除", systemImage: "trash")
+                                Label(L("Delete", "削除"), systemImage: "trash")
                                     .font(.system(size: 11))
                             }
                             .buttonStyle(.bordered).tint(.red)
@@ -1568,7 +1568,7 @@ struct SettingsView: View {
                                 Button {
                                     showAssetMap = true
                                 } label: {
-                                    Label("地図を見る", systemImage: "map")
+                                    Label(L("View map", "地図を見る"), systemImage: "map")
                                         .font(.system(size: 11))
                                 }
                                 .buttonStyle(.borderedProminent)
@@ -1581,11 +1581,11 @@ struct SettingsView: View {
                                 .joined(separator: ", ")
                             
                             VStack(alignment: .leading, spacing: 4) {
-                                Text("変換済み対象:")
+                                Text(L("Converted targets:", "変換済み対象:"))
                                     .font(.caption).foregroundStyle(.secondary)
-                                Text("• /Applications\n• /System/Applications\n• Safari History\n• 起動中プロセス\n• システム設定")
+                                Text(L("• /Applications\n• /System/Applications\n• Safari History\n• Running processes\n• System Settings", "• /Applications\n• /System/Applications\n• Safari History\n• 起動中プロセス\n• システム設定"))
                                     .font(.caption2).foregroundStyle(.tertiary)
-                                Text("詳細: \(stats)")
+                                Text(L("Details: \(stats)", "詳細: \(stats)"))
                                     .font(.caption2).foregroundStyle(.secondary)
                                     .padding(.top, 2)
                             }
@@ -1953,7 +1953,7 @@ struct SettingsView: View {
                         }
                         .font(.system(size: 10))
                         Spacer()
-                        Button("詳細") { showFullView = true }
+                        Button(L("Details", "詳細")) { showFullView = true }
                             .buttonStyle(.bordered)
                             .controlSize(.small)
                             .font(.system(size: 10))
@@ -2521,7 +2521,7 @@ struct AssetMapView: View {
                 Text("L3.5 PC Asset Map (JCross)")
                     .font(.headline)
                 Spacer()
-                Button("閉じる") { dismiss() }
+                Button(L("Close", "閉じる")) { dismiss() }
             }
             .padding()
             .background(Color(NSColor.windowBackgroundColor))

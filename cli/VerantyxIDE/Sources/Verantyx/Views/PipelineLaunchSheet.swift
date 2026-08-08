@@ -105,7 +105,7 @@ struct PipelineLaunchSheet: View {
 
                     // タスク入力
                     VStack(alignment: .leading, spacing: 6) {
-                        Label("Task (BitNetがTODO化します)", systemImage: "text.cursor")
+                        Label(L("Task (BitNet turns this into TODOs)", "Task (BitNetがTODO化します)"), systemImage: "text.cursor")
                             .font(.subheadline.bold())
                         TextEditor(text: $taskText)
                             .font(.system(size: 12, design: .monospaced))
@@ -203,7 +203,7 @@ struct PipelineLaunchSheet: View {
 
     private var l25StatusCard: some View {
         VStack(alignment: .leading, spacing: 8) {
-            Label("L2.5 Project Map (BitNet生成)", systemImage: "map.fill")
+            Label(L("L2.5 Project Map (BitNet-generated)", "L2.5 Project Map (BitNet生成)"), systemImage: "map.fill")
                 .font(.subheadline.bold())
                 .foregroundStyle(Color(red: 0.4, green: 0.85, blue: 1.0))
 
@@ -224,7 +224,7 @@ struct PipelineLaunchSheet: View {
                         .font(.caption)
                         .foregroundStyle(.orange)
                     Spacer()
-                    Button("今すぐ生成") {
+                    Button(L("Generate now", "今すぐ生成")) {
                         if let ws = app.workspaceURL {
                             Task { await L25IndexEngine.shared.loadAndIncrementalUpdate(workspaceURL: ws) }
                         }
@@ -243,7 +243,7 @@ struct PipelineLaunchSheet: View {
 
     private var memoryLayerInfo: some View {
         VStack(alignment: .leading, spacing: 4) {
-            Label("5層記憶システムの役割", systemImage: "cpu")
+            Label(L("What each of the five memory layers does", "5層記憶システムの役割"), systemImage: "cpu")
                 .font(.caption.bold())
                 .foregroundStyle(.secondary)
             ForEach([

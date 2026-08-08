@@ -450,7 +450,7 @@ struct GatekeeperPipelineSettingsView: View {
                 .foregroundColor(.gray)
 
             // プロバイダー選択
-            Picker("プロバイダー", selection: $state.config.cloudProvider) {
+            Picker(L("Provider", "プロバイダー"), selection: $state.config.cloudProvider) {
                 ForEach(GatekeeperCloudProvider.allCases, id: \.self) { provider in
                     Text(provider.rawValue).tag(provider)
                 }

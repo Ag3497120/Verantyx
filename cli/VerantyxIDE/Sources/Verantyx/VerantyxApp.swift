@@ -172,7 +172,7 @@ struct VerantyxApp: App {
 
     var body: some Scene {
         MenuBarExtra("Verantyx OS Agent", systemImage: "asterisk") {
-            Button("verantyx-ideを起動") {
+            Button(L("Launch verantyx-ide", "verantyx-ideを起動")) {
                 openWindow(id: "main-ide")
                 NSApp.activate(ignoringOtherApps: true)
                 if let window = NSApp.windows.first(where: { $0.title != "" && $0.title != "Window" }) {
@@ -520,14 +520,14 @@ struct SpotlightView: View {
                 }
                 VStack(alignment: .leading, spacing: 4) {
                     Toggle(isOn: $useInternalWeights) {
-                        Text("🧠 内部知識優先")
+                        Text(L("🧠 Prefer internal knowledge", "🧠 内部知識優先"))
                             .font(.system(size: 10, weight: .bold))
                             .foregroundColor(useInternalWeights ? .red : .gray)
                     }
                     .toggleStyle(SwitchToggleStyle(tint: .red))
                     
                     Toggle(isOn: $isDetailedMode) {
-                        Text("詳細モード")
+                        Text(L("Verbose mode", "詳細モード"))
                             .font(.system(size: 10, weight: .bold))
                             .foregroundColor(isDetailedMode ? .blue : .gray)
                     }
