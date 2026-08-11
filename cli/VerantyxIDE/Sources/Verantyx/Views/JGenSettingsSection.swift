@@ -242,6 +242,24 @@ struct JGenSettingsSection: View {
                                             "このアーキテクチャはまだJCrossEngineで推論できません（辞書/Vector Labのみ）。"
                                         ))
                                 } else {
+                                    // Requantize sits beside Load, not behind a
+                                    // menu: an f16 27B on this Mac is unusable
+                                    // until this is pressed, so it must be
+                                    // discoverable at the exact moment the user
+                                    // wonders why Load is a bad idea.
+                                    if converter.canRequantize(name) {
+                                        Button {
+                                            Task { await converter.requantize(name) }
+                                        } label: {
+                                            Text(app.t("Quantize (q4_k)", "量子化 (q4_k)"))
+                                        }
+                                        .buttonStyle(.bordered)
+                                        .controlSize(.small)
+                                        .disabled(converter.isRunning)
+                                        .help(app.t(
+                                            "f16 → q4_k blocks: ~1/3 the size, runs resident on Metal. The f16 original is kept.",
+                                            "f16 → q4_kブロック。約1/3のサイズになりMetal常駐で動きます。f16版は残ります。"))
+                                    }
                                     Button {
                                         loadModel(name)
                                     } label: {

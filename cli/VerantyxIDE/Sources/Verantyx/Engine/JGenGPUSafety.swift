@@ -198,6 +198,28 @@ enum JGenGPUSafety {
             )
         }
 
+        // Quantized model that fits: Metal, no debate. The composed-weight
+        // cache is irrelevant to it (QMatMul holds blocks directly), the
+        // f16-era OOM classes cannot happen at its size, and the hybrid GDN
+        // projections run through the same QMatMul — so the engine's mixed
+        // path is enabled rather than suppressed. 0.7 leaves headroom for KV
+        // and the window server on unified memory.
+        if let facts = modelFacts(fileName: modelFileName), facts.quantized,
+           facts.sizeGB <= profile.totalRAMGB * 0.7 {
+            return Decision(
+                device: .metal,
+                cacheGB: max(2.0, cacheGB),
+                maxCouncilRoles: maxRoles,
+                maxCouncilRounds: maxRounds,
+                maxGenTokens: maxGenTokens,
+                allowEternalEncode: allowEternal,
+                reasonEN: String(format: "quantized %.1f GB fits %.0f GB unified memory — Metal, resident",
+                                 facts.sizeGB, profile.totalRAMGB),
+                reasonJA: String(format: "量子化 %.1f GB は統合メモリ %.0f GB に常駐可 — Metal",
+                                 facts.sizeGB, profile.totalRAMGB)
+            )
+        }
+
         if forceMetal {
             return Decision(
                 device: .metal,
@@ -281,8 +303,15 @@ enum JGenGPUSafety {
         // Always set (overwrite) so a prior CPU load cannot leave HYBRID_GPU=0
         // sticky across a subsequent Metal mid-size load in the same process.
         if ProcessInfo.processInfo.environment["JCROSS_HYBRID_GPU_LOCK"] != "1" {
-            let hybridGPU = decision.device == .metal && !Self.modelLooksLarge(modelFileName)
-            setenv("JCROSS_HYBRID_GPU", hybridGPU ? "1" : "0", 1)
+            // Quantized: the engine's own default is correct (mixed path on),
+            // and setting "0" here would override it — unset instead of
+            // guessing. f16: the old rule stands.
+            if modelFacts(fileName: modelFileName)?.quantized == true {
+                unsetenv("JCROSS_HYBRID_GPU")
+            } else {
+                let hybridGPU = decision.device == .metal && !Self.modelLooksLarge(modelFileName)
+                setenv("JCROSS_HYBRID_GPU", hybridGPU ? "1" : "0", 1)
+            }
         }
         // Never silently thrash Metal→CPU mid-forward on pressure Macs:
         // prefer a visible failure / CPU-from-start over WindowServer death.
@@ -291,6 +320,31 @@ enum JGenGPUSafety {
         } else {
             setenv("JCROSS_GPU", "1", 1)
         }
+    }
+
+    /// What the model actually is, read from disk — not guessed from its name.
+    ///
+    /// The name heuristic ("27b" in the filename → large → CPU) was right for
+    /// f16 files and exactly wrong for quantized ones: a requantized 27B is
+    /// ~17 GB and belongs on Metal, but its name still says 27b, so it was
+    /// sentenced to the CPU path by a substring match. Size and quantization
+    /// are both knowable in microseconds; guess neither.
+    struct ModelFacts {
+        let sizeGB: Double
+        let quantized: Bool
+    }
+
+    static func modelFacts(fileName: String) -> ModelFacts? {
+        let url = JGenPaths.convertedModelsDir.appendingPathComponent(fileName)
+        guard let attrs = try? FileManager.default.attributesOfItem(atPath: url.path),
+              let bytes = attrs[.size] as? UInt64 else { return nil }
+        // The requantizer stamps "quantized": true into the sidecar.
+        var quant = false
+        if let d = try? Data(contentsOf: URL(fileURLWithPath: url.path + ".meta.json")),
+           let j = try? JSONSerialization.jsonObject(with: d) as? [String: Any] {
+            quant = (j["quantized"] as? Bool) ?? false
+        }
+        return ModelFacts(sizeGB: Double(bytes) / Double(1 << 30), quantized: quant)
     }
 
     /// Heuristic from filename only (no weight I/O).

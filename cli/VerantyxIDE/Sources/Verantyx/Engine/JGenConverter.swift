@@ -142,6 +142,84 @@ final class JGenConverter: ObservableObject {
         name.replacingOccurrences(of: ":", with: "_").replacingOccurrences(of: "/", with: "_")
     }
 
+    // MARK: - Requantization
+
+    /// The standalone requantizer (ships beside jgen_forge in the app bundle;
+    /// falls back to the engine workspace build on a dev machine).
+    static func requantBinaryURL() -> URL? {
+        if let exe = Bundle.main.executableURL {
+            let bundled = exe.deletingLastPathComponent().appendingPathComponent("requant_jgen")
+            if FileManager.default.isExecutableFile(atPath: bundled.path) { return bundled }
+        }
+        let dev = FileManager.default.homeDirectoryForCurrentUser
+            .appendingPathComponent("Projects/verantyx-cli/jcross_engine_glm/target/release/requant_jgen")
+        return FileManager.default.isExecutableFile(atPath: dev.path) ? dev : nil
+    }
+
+    /// Whether this converted model would benefit from requantization: f16
+    /// (no `"quantized": true` in the sidecar) and big enough that residency
+    /// is at stake. Small f16 models load fine as they are.
+    func canRequantize(_ modelFileName: String) -> Bool {
+        guard Self.requantBinaryURL() != nil else { return false }
+        guard let meta = metaJSON(for: modelFileName) else { return false }
+        if (meta["quantized"] as? Bool) == true { return false }
+        let url = JGenPaths.convertedModelsDir.appendingPathComponent(modelFileName)
+        let size = (try? FileManager.default.attributesOfItem(atPath: url.path)[.size] as? UInt64) ?? 0
+        return (size ?? 0) > 8 << 30
+    }
+
+    /// f16 JGEN → quantized JGEN (q4_k body, q6_k head), written beside the
+    /// original as `<name>-q4k.jgen`. The original is left in place — deleting
+    /// a 50 GB source the user may still want is their decision, not this
+    /// function's.
+    func requantize(_ modelFileName: String) async {
+        guard let bin = Self.requantBinaryURL() else {
+            log += "\n✗ requant_jgen not found"
+            return
+        }
+        isRunning = true
+        beginProtectedWrite()
+        defer { isRunning = false; endProtectedWrite() }
+
+        let src = JGenPaths.convertedModelsDir.appendingPathComponent(modelFileName)
+        let outName = modelFileName
+            .replacingOccurrences(of: "_full.jgen", with: "")
+            .replacingOccurrences(of: ".jgen", with: "") + "-q4k.jgen"
+        let dst = JGenPaths.convertedModelsDir.appendingPathComponent(outName)
+
+        // Space check up front — the failure mode already happened once: the
+        // write died at "No space left on device" two thirds through.
+        let free = (try? URL(fileURLWithPath: "/").resourceValues(
+            forKeys: [.volumeAvailableCapacityForImportantUsageKey])
+            .volumeAvailableCapacityForImportantUsage).flatMap { $0 } ?? 0
+        let srcSize = (try? FileManager.default.attributesOfItem(atPath: src.path)[.size] as? UInt64)
+            .flatMap { $0 } ?? 0
+        let needed = Int64(Double(srcSize) * 0.4)
+        if free < needed {
+            log += String(format: "\n✗ 空き容量不足: %.1f GB 必要、%.1f GB しかありません",
+                          Double(needed) / Double(1 << 30), Double(free) / Double(1 << 30))
+            return
+        }
+
+        log += "\n⏳ 量子化中: \(modelFileName) → \(outName) (数分〜十数分)"
+        let out = await Task.detached(priority: .userInitiated) { () -> String in
+            let proc = Process()
+            proc.executableURL = bin
+            proc.arguments = [src.path, dst.path]
+            let pipe = Pipe()
+            proc.standardOutput = pipe
+            proc.standardError = pipe
+            do { try proc.run() } catch { return "✗ \(error.localizedDescription)" }
+            proc.waitUntilExit()
+            let data = pipe.fileHandleForReading.readDataToEndOfFile()
+            let text = String(data: data, encoding: .utf8) ?? ""
+            return proc.terminationStatus == 0 ? "✓ " + (text.split(separator: "\n").last.map(String.init) ?? "done")
+                                              : "✗ " + text
+        }.value
+        log += "\n" + out
+        refreshConvertedModelsList()
+    }
+
     func scanDropzone() async {
         await run(args: ["scan"])
         refreshConvertedModelsList()

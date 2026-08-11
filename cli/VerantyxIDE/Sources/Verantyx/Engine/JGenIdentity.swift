@@ -30,7 +30,7 @@ enum JGenIdentity {
 
     struct TensorEntry {
         let name: String
-        let type: UInt8          // 1 SVDLossless, 2 Dense2D, 3 Dense1D
+        let type: UInt8          // 1 SVDLossless, 2 Dense2D, 3 Dense1D, 4 QuantBlocks
         let dims: [UInt32]
         let dataOffset: UInt64
         let byteLength: UInt64
@@ -189,6 +189,14 @@ enum JGenIdentity {
                 dims = [UInt32(n)]
                 byteLength = n * 2
                 p += 4
+            case 4: // QuantBlocks — GGML q4_k/q6_k blocks, byte length explicit
+                let r = UInt64(u32(win, p)), c = UInt64(u32(win, p + 4))
+                dims = [UInt32(r), UInt32(c)]
+                // ggml dtype id at p+8 (1 byte), then u64 payload length.
+                // Length is read, never derived: block size varies by dtype.
+                byteLength = win.subdata(in: (win.startIndex + p + 9)..<(win.startIndex + p + 17))
+                    .withUnsafeBytes { $0.loadUnaligned(as: UInt64.self) }
+                p += 17
             default:
                 throw IdentityError.unknownTensorType(type, name)
             }
