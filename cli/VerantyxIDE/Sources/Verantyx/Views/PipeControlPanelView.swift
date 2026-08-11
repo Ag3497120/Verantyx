@@ -16,6 +16,7 @@ struct PipeControlPanelView: View {
 
     @EnvironmentObject var app: AppState
     @ObservedObject private var session = PipeSession.shared
+    @ObservedObject private var transfer = TransferProgress.shared
     @ObservedObject private var coordinator = PipeCoordinator.shared
     @ObservedObject private var discovery = PipeDiscovery.shared
 
@@ -186,7 +187,31 @@ struct PipeControlPanelView: View {
                     Spacer()
                     Text(String(format: "%.1f GB", m.sizeGB))
                         .font(.system(size: 9, design: .monospaced)).foregroundStyle(.tertiary)
+                    // The other direction of the transfer feature: this Mac
+                    // pulls. Same loop the peer runs when its user presses
+                    // Send — the receiver always pulls, whichever button
+                    // started it.
+                    if transfer.phase == .fetching || transfer.phase == .verifying {
+                        if transfer.name == m.name {
+                            ProgressView(value: transfer.fraction).frame(width: 70)
+                        }
+                    } else if !localModelNames.contains(m.name) {
+                        Button(app.t("Fetch", "取り寄せ")) {
+                            guard let peer = session.peer else { return }
+                            guard TransferProgress.shared.beginIfIdle(name: m.name) else { return }
+                            let host = peer.host, port = peer.controlPort
+                            Task.detached(priority: .utility) {
+                                await ModelTransfer.shared.pull(name: m.name, host: host, port: port)
+                            }
+                        }
+                        .buttonStyle(.plain).font(.system(size: 9))
+                        .foregroundStyle(Color(red: 0.5, green: 0.7, blue: 0.95))
+                    }
                 }
+            }
+            if transfer.phase == .failed, let e = transfer.error {
+                Text(e).font(.system(size: 9)).foregroundStyle(.orange)
+                    .fixedSize(horizontal: false, vertical: true)
             }
             Button(app.t("Refresh", "更新")) { Task { await refresh() } }
                 .buttonStyle(.plain).font(.system(size: 9))
@@ -220,6 +245,10 @@ struct PipeControlPanelView: View {
                     "層 \(first) はこちら · \(second) は \(other)")
             : app.t("Layers \(first) on \(other) · \(second) here",
                     "層 \(first) は \(other) · \(second) はこちら")
+    }
+
+    private var localModelNames: Set<String> {
+        Set(JGenConverter.shared.convertedModels)
     }
 
     private var loadedLayerCount: Int? {

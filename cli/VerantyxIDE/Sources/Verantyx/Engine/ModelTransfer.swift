@@ -1,5 +1,49 @@
 import Foundation
 import CryptoKit
+import SwiftUI
+
+/// Live transfer state, observable by any screen on either machine.
+///
+/// Lives outside the `ModelTransfer` actor because a `@Published` property on
+/// an actor is unreachable from SwiftUI (the earlier one sat here unread,
+/// which is how "transfer" shipped as a stub without anyone noticing — no
+/// screen could have shown it anyway).
+@MainActor
+final class TransferProgress: ObservableObject {
+    static let shared = TransferProgress()
+
+    enum Phase: String { case idle, fetching, verifying, done, failed }
+
+    @Published private(set) var phase: Phase = .idle
+    @Published private(set) var name = ""
+    @Published private(set) var bytesDone: UInt64 = 0
+    @Published private(set) var bytesTotal: UInt64 = 0
+    @Published private(set) var error: String?
+
+    var fraction: Double {
+        bytesTotal > 0 ? Double(bytesDone) / Double(bytesTotal) : 0
+    }
+
+    /// One transfer at a time; two 16 GB pulls onto one disk is how a resumable
+    /// transfer becomes two failed ones.
+    func beginIfIdle(name: String) -> Bool {
+        if phase == .fetching || phase == .verifying { return false }
+        self.name = name; phase = .fetching
+        bytesDone = 0; bytesTotal = 0; error = nil
+        return true
+    }
+
+    func update(done: UInt64, total: UInt64) { bytesDone = done; bytesTotal = total }
+    func verify() { phase = .verifying }
+    func finish() { phase = .done }
+    func fail(_ message: String) { phase = .failed; error = message }
+
+    func snapshot() -> [String: Any] {
+        ["ok": true, "phase": phase.rawValue, "name": name,
+         "done": String(bytesDone), "total": String(bytesTotal),
+         "error": error ?? ""]
+    }
+}
 
 /// Copies a converted model from the master to the worker.
 ///
@@ -61,8 +105,6 @@ actor ModelTransfer {
             }
         }
     }
-
-    @Published private(set) var progress: Double = 0
 
     private init() {}
 
@@ -233,6 +275,112 @@ actor ModelTransfer {
     }
 
     static let spaceRecheckInterval: UInt64 = 5 * UInt64(1 << 30)
+
+    // MARK: - The pull loop (receiver side)
+
+    /// Fetches every file in the sender's manifest into staging, resumably,
+    /// then verifies and publishes. Progress goes to `TransferProgress.shared`
+    /// so both this machine's UI and the sender (via /pipe/model/pull_status)
+    /// can watch the same numbers.
+    func pull(name: String, host: String, port: UInt16) async {
+        func fail(_ msg: String) async {
+            await MainActor.run { TransferProgress.shared.fail(msg) }
+        }
+        do {
+            // 1. Manifest.
+            guard let mURL = URL(string: "http://\(host):\(port)/pipe/model/manifest?name="
+                                 + (name.addingPercentEncoding(withAllowedCharacters: .urlQueryAllowed) ?? name))
+            else { await fail("bad host"); return }
+            let (mData, _) = try await URLSession.shared.data(from: mURL)
+            guard let mJSON = try JSONSerialization.jsonObject(with: mData) as? [String: Any],
+                  let mObj = mJSON["manifest"],
+                  let manifest = try? JSONDecoder().decode(
+                      Manifest.self, from: JSONSerialization.data(withJSONObject: mObj))
+            else { await fail("the other Mac has no model named \(name)"); return }
+
+            // 2. Space, counting what is already staged as done.
+            let already = manifest.files.reduce(UInt64(0)) {
+                $0 + min(Self.resumeOffset(name: name, relPath: $1.relPath), $1.size)
+            }
+            try Self.checkSpace(needBytes: manifest.totalBytes - already)
+            try FileManager.default.createDirectory(at: Self.stagingDir(for: name),
+                                                    withIntermediateDirectories: true)
+            let tokDir = Self.stagingDir(for: name).appendingPathComponent("tokenizer")
+            try? FileManager.default.createDirectory(at: tokDir, withIntermediateDirectories: true)
+
+            var done = already
+            await MainActor.run { TransferProgress.shared.update(done: done, total: manifest.totalBytes) }
+
+            // 3. Files, largest last so the cheap ones cannot be stranded
+            //    behind a 16 GB failure.
+            var lastSpaceCheck = done
+            for entry in manifest.files.sorted(by: { $0.size < $1.size }) {
+                let staged = Self.stagedURL(for: name, relPath: entry.relPath)
+                var offset = Self.resumeOffset(name: name, relPath: entry.relPath)
+                if offset > entry.size {
+                    // Staged file is LONGER than the source says — stale from a
+                    // different version. Start that file over.
+                    try? FileManager.default.removeItem(at: staged)
+                    offset = 0
+                }
+                if offset == entry.size { continue }
+
+                if !FileManager.default.fileExists(atPath: staged.path) {
+                    FileManager.default.createFile(atPath: staged.path, contents: nil)
+                }
+                let fh = try FileHandle(forWritingTo: staged)
+                defer { try? fh.close() }
+                try fh.seekToEnd()
+
+                let esc = { (s: String) in
+                    s.addingPercentEncoding(withAllowedCharacters: .urlQueryAllowed) ?? s
+                }
+                guard let fURL = URL(string: "http://\(host):\(port)/pipe/model/file?name=\(esc(name))&rel=\(esc(entry.relPath))&off=\(offset)")
+                else { await fail("bad host"); return }
+                var req = URLRequest(url: fURL)
+                req.timeoutInterval = 3600
+                let (bytes, resp) = try await URLSession.shared.bytes(for: req)
+                guard (resp as? HTTPURLResponse)?.statusCode == 200 else {
+                    await fail("the other Mac refused \(entry.relPath.isEmpty ? name : entry.relPath)")
+                    return
+                }
+
+                // Buffer ~4 MB between writes: per-byte FileHandle writes are
+                // three orders of magnitude too slow for a 16 GB stream.
+                var buf = Data(capacity: 4 << 20)
+                for try await b in bytes {
+                    buf.append(b)
+                    if buf.count >= 4 << 20 {
+                        try fh.write(contentsOf: buf)
+                        done += UInt64(buf.count)
+                        buf.removeAll(keepingCapacity: true)
+                        await MainActor.run {
+                            TransferProgress.shared.update(done: done, total: manifest.totalBytes)
+                        }
+                        if done - lastSpaceCheck > Self.spaceRecheckInterval {
+                            lastSpaceCheck = done
+                            try Self.checkSpace(needBytes: manifest.totalBytes - done)
+                        }
+                    }
+                }
+                if !buf.isEmpty {
+                    try fh.write(contentsOf: buf)
+                    done += UInt64(buf.count)
+                    await MainActor.run {
+                        TransferProgress.shared.update(done: done, total: manifest.totalBytes)
+                    }
+                }
+            }
+
+            // 4. Verify + publish (hashes re-checked inside).
+            await MainActor.run { TransferProgress.shared.verify() }
+            try await publish(name: name, manifest: manifest)
+            await MainActor.run { TransferProgress.shared.finish() }
+            await MainActor.run { JGenConverter.shared.refreshConvertedModelsList() }
+        } catch {
+            await fail(error.localizedDescription)
+        }
+    }
 
     // MARK: - The large-model escape hatch
 

@@ -43,6 +43,8 @@ struct PipeConnectSheet: View {
     @State private var problem: String?
     @State private var link: (rttMs: Double, mbPerSec: Double)?
     @State private var verifying: String?
+    /// The receiving Mac's live numbers, mirrored here (name, done, total, phase).
+    @State private var remoteTransfer: (name: String, done: UInt64, total: UInt64, phase: String)?
 
     var body: some View {
         VStack(alignment: .leading, spacing: 0) {
@@ -482,7 +484,19 @@ struct PipeConnectSheet: View {
 
     @ViewBuilder
     private func transferButton(name: String, sizeBytes: UInt64) -> some View {
-        if ModelTransfer.shouldUseRsync(totalBytes: sizeBytes) {
+        if let t = remoteTransfer, t.name == name, t.phase != "done", t.phase != "failed" {
+            HStack(spacing: 6) {
+                ProgressView(value: t.total > 0 ? Double(t.done) / Double(t.total) : 0)
+                    .frame(width: 120)
+                Text(t.phase == "verifying"
+                     ? app.t("verifying…", "検証中…")
+                     : String(format: "%.1f / %.1f GB",
+                              Double(t.done) / Double(1 << 30),
+                              Double(t.total) / Double(1 << 30)))
+                    .font(.system(size: 9, design: .monospaced))
+                    .foregroundStyle(.secondary)
+            }
+        } else if ModelTransfer.shouldUseRsync(totalBytes: sizeBytes) {
             Button(app.t("How to send", "送る方法")) { showRsync(name: name) }
                 .buttonStyle(.bordered).controlSize(.small)
         } else {
@@ -687,10 +701,84 @@ struct PipeConnectSheet: View {
         }
     }
 
+    /// "Send" is really "ask the other Mac to pull from me": the receiver
+    /// knows its own free space and resume offsets, the sender does not. We
+    /// then poll its /pipe/model/pull_status so the button that was pressed
+    /// shows the same numbers the receiving Mac sees.
     private func startTransfer(_ name: String) async {
-        problem = app.t(
-            "In-app transfer is not wired up yet — use the command shown by \"How to send\", or convert the model on the other Mac.",
-            "アプリ内転送はまだ配線されていません。「送る方法」のコマンドを使うか、相手のMacで変換してください。")
+        guard let peer = session.peer else { return }
+        problem = nil
+        // The address the PEER should pull from: the interface we share with
+        // it, best-first (Thunderbolt bridge when it is up).
+        guard let myAddr = NetworkInterfaces.candidates().first?.ip else {
+            problem = app.t("No network interface is up.", "有効なネットワークが見つかりません。")
+            return
+        }
+        do {
+            var req = URLRequest(url: URL(string: "http://\(peer.host):\(peer.controlPort)/pipe/model/pull")!)
+            req.httpMethod = "POST"
+            req.setValue("application/json", forHTTPHeaderField: "Content-Type")
+            req.httpBody = try JSONSerialization.data(withJSONObject: [
+                "name": name, "host": myAddr, "port": Int(coordinator.controlPort)])
+            req.timeoutInterval = 10
+            let (data, resp) = try await URLSession.shared.data(for: req)
+            guard (resp as? HTTPURLResponse)?.statusCode == 200 else {
+                let j = (try? JSONSerialization.jsonObject(with: data)) as? [String: Any]
+                let why = (j?["error"] as? String) ?? "HTTP \((resp as? HTTPURLResponse)?.statusCode ?? 0)"
+                problem = why == "transfer_in_progress"
+                    ? app.t("The other Mac is already receiving a model.", "相手のMacは別の転送を受信中です。")
+                    : app.t("The other Mac refused (\(why)). Its app may be an older build — update it and retry.",
+                            "相手が拒否しました (\(why))。相手のアプリが古い可能性があります。更新して再試行してください。")
+                return
+            }
+            await pollPeerTransfer(name: name, peer: peer)
+        } catch {
+            problem = error.localizedDescription
+        }
+    }
+
+    /// Mirrors the receiver's progress into this sheet's failure/progress slot.
+    private func pollPeerTransfer(name: String, peer: PipeStore.PeerInfo) async {
+        remoteTransfer = (name, 0, 0, "fetching")
+        defer { if remoteTransfer?.phase != "done" && remoteTransfer?.phase != "failed" { remoteTransfer = nil } }
+        while true {
+            try? await Task.sleep(nanoseconds: 1_000_000_000)
+            guard let url = URL(string: "http://\(peer.host):\(peer.controlPort)/pipe/model/pull_status"),
+                  let (data, _) = try? await URLSession.shared.data(from: url),
+                  let j = (try? JSONSerialization.jsonObject(with: data)) as? [String: Any],
+                  let phase = j["phase"] as? String
+            else {
+                problem = app.t("Lost contact with the other Mac mid-transfer. It resumes when you press Send again.",
+                                "転送中に相手と切断しました。もう一度「送る」で続きから再開します。")
+                return
+            }
+            let done = UInt64(j["done"] as? String ?? "0") ?? 0
+            let total = UInt64(j["total"] as? String ?? "0") ?? 0
+            remoteTransfer = (name, done, total, phase)
+            switch phase {
+            case "done":
+                problem = nil
+                await refreshRemoteModels()
+                return
+            case "failed":
+                problem = app.t("Transfer failed on the other Mac: ", "相手側で転送失敗: ")
+                    + ((j["error"] as? String) ?? "")
+                return
+            case "idle":
+                // Receiver finished so fast we missed every non-idle poll, or
+                // it never started. One more poll decides which.
+                return
+            default:
+                continue
+            }
+        }
+    }
+
+    private func refreshRemoteModels() async {
+        guard let peer = session.peer else { return }
+        if let models = try? await PipeClient.shared.models(host: peer.host, port: peer.controlPort) {
+            remoteModels = models
+        }
     }
 
     private func showRsync(name: String) {

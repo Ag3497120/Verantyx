@@ -103,6 +103,14 @@ actor JGenAgentServer {
             return
         }
 
+        // Model transfer routes carry query strings, which the exact-match
+        // switch below cannot see past. Prefix-dispatch them first.
+        if request.path.hasPrefix("/pipe/model/") {
+            await handleModelRoute(request: request, connection: connection)
+            connection.cancel()
+            return
+        }
+
         switch (request.method, request.path) {
         // GET is new: the server was POST-only, and a liveness probe that has to
         // POST cannot be issued by curl or a browser without ceremony.
@@ -421,6 +429,130 @@ actor JGenAgentServer {
             if let c = m.contentHash { d["content_hash"] = c }
             if let k = m.contentHashKind { d["content_hash_kind"] = k }
             return d
+        }
+    }
+
+    // MARK: - Model transfer (in-app, receiver pulls)
+    //
+    // The shape ModelTransfer's doc promised but nothing implemented: the
+    // control plane negotiates over JSON, and the weights go out as a raw
+    // streamed response that never exists in memory as one Data. Three routes:
+    //
+    //   GET  /pipe/model/manifest?name=X          sender: files + sizes + hashes
+    //   GET  /pipe/model/file?name=X&rel=R&off=N  sender: raw bytes from offset
+    //   POST /pipe/model/pull {name, host, port}  receiver: start pulling from
+    //                                             the named sender ("send" on
+    //                                             the UI is really "please pull
+    //                                             from me" — the receiver knows
+    //                                             its own free space and resume
+    //                                             offsets, the sender does not)
+    //   GET  /pipe/model/pull_status              receiver: progress, so the
+    //                                             Mac whose button was pressed
+    //                                             can show a real bar
+
+    private func handleModelRoute(request: ParsedRequest, connection: NWConnection) async {
+        guard let comps = URLComponents(string: "http://x\(request.path)") else {
+            await Self.writeResponse(connection: connection, status: 400,
+                                     body: ["ok": false, "error": "bad_path"])
+            return
+        }
+        let q: [String: String] = (comps.queryItems ?? []).reduce(into: [:]) { $0[$1.name] = $1.value }
+
+        switch (request.method, comps.path) {
+        case ("GET", "/pipe/model/manifest"):
+            guard let name = q["name"], !name.contains("/"),
+                  let manifest = try? ModelTransfer.buildManifest(for: name),
+                  let data = try? JSONEncoder().encode(manifest),
+                  let obj = try? JSONSerialization.jsonObject(with: data) as? [String: Any]
+            else {
+                await Self.writeResponse(connection: connection, status: 404,
+                                         body: ["ok": false, "error": "no_such_model"])
+                return
+            }
+            await Self.writeResponse(connection: connection, status: 200,
+                                     body: ["ok": true, "manifest": obj])
+
+        case ("GET", "/pipe/model/file"):
+            guard let name = q["name"], !name.contains("/"),
+                  let rel = q["rel"], !rel.contains("..") else {
+                await Self.writeResponse(connection: connection, status: 400,
+                                         body: ["ok": false, "error": "bad_request"])
+                return
+            }
+            let url = ModelTransfer.sourceURL(name: name, relPath: rel)
+            let offset = UInt64(q["off"] ?? "0") ?? 0
+            await Self.writeFileResponse(connection: connection, url: url, offset: offset)
+
+        case ("POST", "/pipe/model/pull"):
+            guard let body = request.body,
+                  let json = try? JSONSerialization.jsonObject(with: body) as? [String: Any],
+                  let name = json["name"] as? String, !name.contains("/"),
+                  let host = json["host"] as? String,
+                  let port = (json["port"] as? Int).map({ UInt16($0) }) ?? nil
+            else {
+                await Self.writeResponse(connection: connection, status: 400,
+                                         body: ["ok": false, "error": "bad_request"])
+                return
+            }
+            let started = await MainActor.run { TransferProgress.shared.beginIfIdle(name: name) }
+            guard started else {
+                await Self.writeResponse(connection: connection, status: 409,
+                                         body: ["ok": false, "error": "transfer_in_progress"])
+                return
+            }
+            Task.detached(priority: .utility) {
+                await ModelTransfer.shared.pull(name: name, host: host, port: port)
+            }
+            await Self.writeResponse(connection: connection, status: 200, body: ["ok": true])
+
+        case ("GET", "/pipe/model/pull_status"):
+            let st = await MainActor.run { TransferProgress.shared.snapshot() }
+            await Self.writeResponse(connection: connection, status: 200, body: st)
+
+        default:
+            await Self.writeResponse(connection: connection, status: 404,
+                                     body: ["ok": false, "error": "not_found"])
+        }
+    }
+
+    /// Streams a file as an HTTP response in 4 MB reads. This exists because
+    /// `writeResponse` (and `readRequest` on the other side) hold the whole
+    /// body in one Data — fine for JSON, memory-fatal for 16 GB of weights.
+    private static func writeFileResponse(connection: NWConnection, url: URL, offset: UInt64) async {
+        guard let fh = try? FileHandle(forReadingFrom: url),
+              let total = try? FileManager.default.attributesOfItem(atPath: url.path)[.size] as? UInt64,
+              offset <= total
+        else {
+            await writeResponse(connection: connection, status: 404,
+                                body: ["ok": false, "error": "no_such_file"])
+            return
+        }
+        defer { try? fh.close() }
+        try? fh.seek(toOffset: offset)
+        let remaining = total - offset
+
+        let header = "HTTP/1.1 200 OK\r\n"
+            + "Content-Type: application/octet-stream\r\n"
+            + "Content-Length: \(remaining)\r\n"
+            + "Connection: close\r\n\r\n"
+        let sentHeader: Bool = await withCheckedContinuation { cont in
+            connection.send(content: Data(header.utf8), completion: .contentProcessed { err in
+                cont.resume(returning: err == nil)
+            })
+        }
+        guard sentHeader else { return }
+
+        var left = remaining
+        while left > 0 {
+            let chunkLen = Int(min(left, 4 << 20))
+            guard let chunk = try? fh.read(upToCount: chunkLen), !chunk.isEmpty else { return }
+            let ok: Bool = await withCheckedContinuation { cont in
+                connection.send(content: chunk, completion: .contentProcessed { err in
+                    cont.resume(returning: err == nil)
+                })
+            }
+            guard ok else { return }   // receiver went away; it can resume later
+            left -= UInt64(chunk.count)
         }
     }
 
