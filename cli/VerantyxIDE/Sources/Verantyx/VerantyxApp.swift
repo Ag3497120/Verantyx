@@ -156,6 +156,69 @@ final class AppDelegate: NSObject, NSApplicationDelegate {
     }
 }
 
+// MARK: - IDE window state, for the menu bar
+
+/// Whether the main IDE window exists, and whether it is already in front.
+///
+/// The menu bar item used to say "verantyx-ideを起動" forever — pressing it a
+/// second time did nothing visible, because the window was already open, and
+/// nothing in the item's appearance said so. A menu item that stays enabled
+/// while its action is a no-op reads as a broken build.
+///
+/// Two states, not one: a window can be OPEN but behind another app, and then
+/// bringing it forward is still real work. So the item disables itself only
+/// when it is genuinely already showing.
+@MainActor
+final class IDEWindowMonitor: ObservableObject {
+    static let shared = IDEWindowMonitor()
+
+    @Published private(set) var isOpen = false
+    @Published private(set) var isFrontmost = false
+
+    private var observers: [NSObjectProtocol] = []
+
+    private init() {
+        let center = NotificationCenter.default
+        for name: Notification.Name in [NSWindow.didBecomeKeyNotification,
+                                        NSWindow.didResignKeyNotification,
+                                        NSWindow.willCloseNotification,
+                                        NSWindow.didMiniaturizeNotification,
+                                        NSWindow.didDeminiaturizeNotification] {
+            observers.append(center.addObserver(forName: name, object: nil,
+                                                queue: .main) { [weak self] _ in
+                // willClose fires BEFORE the window leaves `NSApp.windows`, so
+                // recomputing synchronously would still count the dying window.
+                DispatchQueue.main.async { self?.refresh() }
+            })
+        }
+        for name: Notification.Name in [NSApplication.didBecomeActiveNotification,
+                                        NSApplication.didResignActiveNotification] {
+            observers.append(center.addObserver(forName: name, object: nil,
+                                                queue: .main) { [weak self] _ in
+                self?.refresh()
+            })
+        }
+        refresh()
+    }
+
+    /// The main IDE window, matched on the scene id first and the title only as
+    /// a fallback — SwiftUI stamps the `Window` scene's id into the NSWindow
+    /// identifier, and matching on title alone breaks the moment the window
+    /// shows a document name.
+    static func ideWindow() -> NSWindow? {
+        NSApp.windows.first {
+            ($0.identifier?.rawValue.contains("main-ide") ?? false)
+                || $0.title == "Verantyx IDE"
+        }
+    }
+
+    func refresh() {
+        let w = Self.ideWindow()
+        isOpen = w?.isVisible ?? false
+        isFrontmost = isOpen && NSApp.isActive && (w?.isKeyWindow ?? false)
+    }
+}
+
 // MARK: - VerantyxApp
 
 @main
@@ -169,16 +232,22 @@ struct VerantyxApp: App {
     @State private var showCortexOnboarding = false
 
     @Environment(\.openWindow) private var openWindow
+    @StateObject private var ideWindows = IDEWindowMonitor.shared
 
     var body: some Scene {
         MenuBarExtra("Verantyx OS Agent", systemImage: "asterisk") {
-            Button("verantyx-ideを起動") {
-                openWindow(id: "main-ide")
+            Button(ideWindows.isFrontmost ? "verantyx-ide は起動中"
+                   : ideWindows.isOpen ? "verantyx-ide を前面に"
+                   : "verantyx-ideを起動") {
+                if !ideWindows.isOpen { openWindow(id: "main-ide") }
                 NSApp.activate(ignoringOtherApps: true)
-                if let window = NSApp.windows.first(where: { $0.title != "" && $0.title != "Window" }) {
-                    window.makeKeyAndOrderFront(nil)
-                }
+                IDEWindowMonitor.ideWindow()?.makeKeyAndOrderFront(nil)
+                // The window is ordered in on the next runloop pass; refresh
+                // after it, or the item would still read "起動" until the
+                // next unrelated notification.
+                DispatchQueue.main.async { ideWindows.refresh() }
             }
+            .disabled(ideWindows.isFrontmost)
             Button("Toggle Spotlight (Control x3)") {
                 SpotlightPanelManager.shared.panel?.toggle()
             }

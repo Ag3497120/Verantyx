@@ -263,8 +263,10 @@ struct PipeConnectSheet: View {
         VStack(alignment: .leading, spacing: 14) {
             if let c = candidate {
                 explainer(app.t(
-                    "Connected to \"\(c.deviceName)\" (\(c.ramGB) GB). One Mac runs the first half of the model's layers and the other runs the rest.",
-                    "「\(c.deviceName)」(\(c.ramGB) GB) に接続しました。片方がモデルの前半の層を、もう片方が残りを担当します。"))
+                    "Connected to \"\(c.deviceName)\" (\(c.ramGB) GB). The layers are cut where memory says, not down the middle — the smaller Mac gets fewer layers.",
+                    "「\(c.deviceName)」(\(c.ramGB) GB) に接続しました。層は真ん中ではなくメモリに応じて切ります — メモリの少ない側の担当層が少なくなります。"))
+
+                memoryLadder(peerRAM: Double(c.ramGB))
 
                 notFasterNotice
 
@@ -276,21 +278,108 @@ struct PipeConnectSheet: View {
                 // Master, and the other side becomes Worker automatically. There
                 // is no separate "make them master" — that is done from the
                 // other machine, which is where its user is.
-                Button {
-                    Task { await becomeMaster() }
-                } label: {
-                    Label(app.t("This Mac runs the first half",
-                                "このMacが前半を担当する"),
-                          systemImage: "1.circle.fill")
-                }
+                //
+                // The button carries the recommendation rather than sitting
+                // beside it. The first half is not a symmetric job: its machine
+                // also holds the embedding table, and in a tied-embedding model
+                // (no `lm_head` tensor at all) the second half's fixed cost is
+                // ZERO. Presenting this as a free choice let someone put the
+                // whole fixed cost on the 24 GB Mac and lose layers that the
+                // 64 GB Mac had room for.
+                leadButton(recommended: thisMacShouldLead(peerRAM: Double(c.ramGB)))
+
+                Text(thisMacShouldLead(peerRAM: Double(c.ramGB))
+                     ? app.t("To let \"\(c.deviceName)\" take the first half instead, press this on that Mac.",
+                             "「\(c.deviceName)」に前半を任せる場合は、そのMac側でこのボタンを押してください。")
+                     : app.t("Recommended: press the same button on \"\(c.deviceName)\" — it has more memory, so it absorbs the embedding table and leaves this Mac's budget for layers.",
+                             "推奨は「\(c.deviceName)」側で同じボタンを押すことです。メモリが多い側が埋め込み表を引き受け、このMacの予算を層に回せます。"))
+                    .font(.system(size: 10))
+                    .foregroundStyle(thisMacShouldLead(peerRAM: Double(c.ramGB))
+                                     ? AnyShapeStyle(.tertiary)
+                                     : AnyShapeStyle(Color(red: 0.95, green: 0.72, blue: 0.35)))
+                    .fixedSize(horizontal: false, vertical: true)
+            }
+        }
+    }
+
+    /// Whether THIS Mac is the right one to hold the first half.
+    ///
+    /// The first half is not the symmetric job the name suggests. Its machine
+    /// also holds `embed_tokens`, and a tied-embedding model has no `lm_head`
+    /// tensor at all — so the second half's fixed cost can be zero while the
+    /// first half's never is. Giving the fixed cost to the machine with more
+    /// memory is therefore never worse and is sometimes the difference between
+    /// fitting and not. Equal memory (within 2 GB, so a 32 vs 32 pair with
+    /// different reported totals does not flip) leaves it a real free choice,
+    /// and this Mac is then a fine answer.
+    private func thisMacShouldLead(peerRAM: Double) -> Bool {
+        MachineProfile.current().totalRAMGB >= peerRAM - 2
+    }
+
+    @ViewBuilder
+    private func leadButton(recommended: Bool) -> some View {
+        let label = Label(
+            app.t(recommended ? "This Mac runs the first half (recommended)"
+                              : "This Mac runs the first half anyway",
+                  recommended ? "このMacが前半を担当する(推奨)"
+                              : "それでもこのMacが前半を担当する"),
+            systemImage: "1.circle.fill")
+        if recommended {
+            Button { Task { await becomeMaster() } } label: { label }
                 .buttonStyle(.borderedProminent)
                 .disabled(busy)
+        } else {
+            Button { Task { await becomeMaster() } } label: { label }
+                .buttonStyle(.bordered)
+                .disabled(busy)
+        }
+    }
 
-                Text(app.t(
-                    "To let \"\(c.deviceName)\" take the first half instead, press this on that Mac.",
-                    "「\(c.deviceName)」に前半を任せる場合は、そのMac側でこのボタンを押してください。"))
-                    .font(.system(size: 10)).foregroundStyle(.tertiary)
-                    .fixedSize(horizontal: false, vertical: true)
+    /// Both machines' memory, side by side, with the larger one marked.
+    ///
+    /// Shown before the role choice because the choice is made on exactly this
+    /// number and the user could not previously see both at once.
+    private func memoryLadder(peerRAM: Double) -> some View {
+        let mine = MachineProfile.current().totalRAMGB
+        let peerName = candidate?.deviceName ?? app.t("the other Mac", "もう一方のMac")
+        return VStack(alignment: .leading, spacing: 6) {
+            memoryRow(name: app.t("This Mac", "このMac"), gb: mine,
+                      larger: mine >= peerRAM)
+            memoryRow(name: peerName, gb: peerRAM, larger: peerRAM > mine)
+            Text(app.t(String(format: "Pipeline budget is %.0f%% of each total (%.1f GB + %.1f GB = %.1f GB usable).",
+                              SplitPlanner.pipelineRAMFactor * 100,
+                              mine * SplitPlanner.pipelineRAMFactor,
+                              peerRAM * SplitPlanner.pipelineRAMFactor,
+                              (mine + peerRAM) * SplitPlanner.pipelineRAMFactor),
+                       String(format: "パイプライン時の予算は各機の%.0f%%(%.1f GB + %.1f GB = 使用可能 %.1f GB)。",
+                              SplitPlanner.pipelineRAMFactor * 100,
+                              mine * SplitPlanner.pipelineRAMFactor,
+                              peerRAM * SplitPlanner.pipelineRAMFactor,
+                              (mine + peerRAM) * SplitPlanner.pipelineRAMFactor)))
+                .font(.system(size: 10)).foregroundStyle(.tertiary)
+                .fixedSize(horizontal: false, vertical: true)
+        }
+        .padding(10)
+        .background(RoundedRectangle(cornerRadius: 8).fill(Color.white.opacity(0.04)))
+    }
+
+    private func memoryRow(name: String, gb: Double, larger: Bool) -> some View {
+        HStack(spacing: 8) {
+            Image(systemName: larger ? "memorychip.fill" : "memorychip")
+                .font(.system(size: 11))
+                .foregroundStyle(larger ? Color(red: 0.45, green: 0.8, blue: 0.5)
+                                        : Color.secondary)
+            Text(name).font(.system(size: 11, weight: larger ? .semibold : .regular))
+                .lineLimit(1).truncationMode(.middle)
+            Spacer()
+            Text(String(format: "%.0f GB", gb))
+                .font(.system(size: 11, design: .monospaced))
+                .foregroundStyle(larger ? .primary : .secondary)
+            if larger {
+                Text(app.t("more memory", "メモリ多"))
+                    .font(.system(size: 9))
+                    .padding(.horizontal, 5).padding(.vertical, 1)
+                    .background(Capsule().fill(Color(red: 0.45, green: 0.8, blue: 0.5).opacity(0.18)))
             }
         }
     }
@@ -575,7 +664,24 @@ struct PipeConnectSheet: View {
             await PipeClient.shared.pushState(host: peer.host, port: peer.controlPort,
                                               mode: "auto", k: plan.k)
         case .doesNotFit(let reason, _, _):
-            problem = reason
+            // Before reporting a dead end, check the OTHER orientation. The
+            // fixed costs are asymmetric (embedding table on the first half,
+            // `lm_head` — possibly absent — on the second), so a pair that
+            // does not fit this way around can fit the other way, and the
+            // remedy is one button press on the other Mac. Saying only "it
+            // does not fit" would send someone looking for a smaller model
+            // when the model they have would run.
+            if case .fits(let swapped) = SplitPlanner.auto(shape: shape,
+                                                           master: theirs,
+                                                           worker: mine) {
+                problem = reason + "\n" + app.t(
+                    "It DOES fit with the roles reversed (\(swapped.k)/\(shape.numLayers - swapped.k) layers). "
+                    + "Press \"This Mac runs the first half\" on \"\(peer.deviceName)\" instead.",
+                    "役割を入れ替えれば入ります(\(swapped.k)/\(shape.numLayers - swapped.k) 層)。"
+                    + "「\(peer.deviceName)」側で「このMacが前半を担当する」を押してください。")
+            } else {
+                problem = reason
+            }
         case .modelTooSmall(let reason):
             problem = reason
         }

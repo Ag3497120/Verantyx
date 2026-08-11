@@ -263,7 +263,14 @@ struct VeraAuditView: View {
             }
         }
         .sheet(isPresented: $showSettings) {
-            SettingsView().environmentObject(app)
+            // SettingsView closes through `onDismiss`, not through
+            // @Environment(\.dismiss) — every other call site passes one,
+            // and this one did not, so Done and Cancel called nothing and
+            // the sheet could not be closed at all. A sheet whose buttons
+            // are wired to an optional callback is trapped when the
+            // callback is nil.
+            SettingsView(onDismiss: { showSettings = false })
+                .environmentObject(app)
                 .frame(minWidth: 720, minHeight: 520)
         }
         .sheet(isPresented: $showPair) {

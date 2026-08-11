@@ -11,6 +11,9 @@ struct SettingsView: View {
     @State private var showPipeSheet = false
     @State private var lmStudioReachable: Bool? = nil
     @State private var lmStudioModelCount = 0
+    @State private var lmStudioDiagnosis: LMStudioClient.Diagnosis?
+    @State private var lmStudioBusy = false
+    @State private var lmStudioProblem: String?
     @State private var selectedTab: SettingsTab = .model
     /// Honours `AppState.requestedSettingsTab` so an answer from the support
     /// bot can land on the screen it names instead of describing where it is.
@@ -550,48 +553,137 @@ struct SettingsView: View {
                 rowLabel(app.t("Server", "サーバー")) {
                     HStack(spacing: 6) {
                         Circle()
-                            .fill(lmStudioReachable == true ? Color.green
-                                  : (lmStudioReachable == false ? Color.orange : Color.gray))
+                            .fill(lmStudioDotColor)
                             .frame(width: 6, height: 6)
                         Text(lmStudioStatusText)
                             .font(.system(size: 11))
                             .foregroundStyle(.secondary)
-                        Button(app.t("Check", "確認")) {
-                            Task {
-                                lmStudioReachable = await LMStudioClient.shared.isAvailable()
-                                lmStudioModelCount = lmStudioReachable == true
-                                    ? await LMStudioClient.shared.listModels().count : 0
+                        Button(app.t("Check", "確認")) { Task { await checkLMStudio() } }
+                            .buttonStyle(.bordered).controlSize(.small)
+                            .disabled(lmStudioBusy)
+                        // The remedy sits beside the diagnosis, not in a
+                        // paragraph three lines down. `lms server start`
+                        // launches the app too, so this one button covers
+                        // "closed" and "open with the server off" alike.
+                        if case .serverOff(let canStart) = lmStudioDiagnosis, canStart {
+                            Button(app.t("Start server", "サーバーを起動")) {
+                                Task { await startLMStudio() }
                             }
+                            .buttonStyle(.borderedProminent).controlSize(.small)
+                            .disabled(lmStudioBusy)
                         }
-                        .buttonStyle(.bordered).controlSize(.small)
+                        if lmStudioBusy { ProgressView().controlSize(.small) }
                     }
                 }
-                Text(app.t(
-                    "Models are chosen from the model bar above the chat input. If nothing appears there, open LM Studio → Developer → Start Server.",
-                    "モデルはチャット入力欄の上のモデルバーから選びます。そこに出てこない場合は LM Studio → Developer → Start Server を実行してください。"
-                ))
+                if let lmStudioProblem {
+                    Text(lmStudioProblem)
+                        .font(.system(size: 10))
+                        .foregroundStyle(Color(red: 0.95, green: 0.6, blue: 0.4))
+                        .fixedSize(horizontal: false, vertical: true)
+                }
+                Text(lmStudioAdvice)
                 .font(.system(size: 10)).foregroundStyle(.tertiary)
                 .fixedSize(horizontal: false, vertical: true)
 
                 Divider().opacity(0.2)
 
                 rowLabel(app.t("Endpoint", "エンドポイント")) {
-                    TextField(LMStudioClient.defaultEndpoint, text: $app.lmStudioEndpoint)
-                        .textFieldStyle(.roundedBorder)
-                        .font(.system(size: 11, design: .monospaced))
-                        .frame(width: 240)
+                    VStack(alignment: .leading, spacing: 3) {
+                        TextField(LMStudioClient.defaultEndpoint, text: $app.lmStudioEndpoint)
+                            .textFieldStyle(.roundedBorder)
+                            .font(.system(size: 11, design: .monospaced))
+                            .frame(width: 240)
+                        // Shown whenever the typed text is not what will be
+                        // requested. `127.0.0.1:1234` and `localhost/v1/` both
+                        // used to fail with no explanation; now the rewrite is
+                        // visible instead of silent.
+                        let resolved = LMStudioClient.normalized(app.lmStudioEndpoint)
+                        if resolved != app.lmStudioEndpoint.trimmingCharacters(in: .whitespacesAndNewlines) {
+                            Text(app.t("Will connect to ", "接続先: ") + resolved)
+                                .font(.system(size: 9, design: .monospaced))
+                                .foregroundStyle(.tertiary)
+                        }
+                    }
                 }
             }
         }
     }
 
     private var lmStudioStatusText: String {
-        switch lmStudioReachable {
-        case .some(true):  return app.t("Running — \(lmStudioModelCount) model(s)",
-                                        "起動中 — モデル\(lmStudioModelCount)件")
-        case .some(false): return app.t("Not running", "未起動")
-        case nil:          return app.t("Not checked", "未確認")
+        switch lmStudioDiagnosis {
+        case .ready(let n):
+            return app.t("Running — \(n) model(s)", "起動中 — モデル\(n)件")
+        case .noModels:
+            return app.t("Running — no chat model loaded", "起動中 — チャットモデル未読込")
+        case .serverOff:
+            return app.t("LM Studio's Local Server is off", "LM Studio のローカルサーバーが停止中")
+        case .notInstalled:
+            return app.t("LM Studio not found", "LM Studio が見つかりません")
+        case .badEndpoint(let status, _):
+            return status == 0
+                ? app.t("Endpoint is not a valid URL", "エンドポイントが不正です")
+                : app.t("Answered HTTP \(status) — wrong endpoint?",
+                        "HTTP \(status) — エンドポイント違い?")
+        case nil:
+            return app.t("Not checked", "未確認")
         }
+    }
+
+    private var lmStudioDotColor: Color {
+        switch lmStudioDiagnosis {
+        case .ready:        return .green
+        case .noModels:     return .yellow
+        case .serverOff, .badEndpoint: return .orange
+        case .notInstalled: return .red
+        case nil:           return .gray
+        }
+    }
+
+    /// One sentence, matched to the diagnosis — not the same generic
+    /// instruction under every state.
+    private var lmStudioAdvice: String {
+        switch lmStudioDiagnosis {
+        case .ready:
+            return app.t("Models are chosen from the model bar above the chat input.",
+                         "モデルはチャット入力欄の上のモデルバーから選びます。")
+        case .noModels:
+            return app.t("The server is up but holds no chat model. Download or load one in LM Studio; embedding models are not offered here.",
+                         "サーバーは動いていますがチャットモデルがありません。LM Studio でモデルを読み込んでください(埋め込みモデルは対象外です)。")
+        case .serverOff(let canStart):
+            return canStart
+                ? app.t("Press Start server, or open LM Studio → Developer → Start Server.",
+                        "「サーバーを起動」を押すか、LM Studio → Developer → Start Server を実行してください。")
+                : app.t("Open LM Studio → Developer → Start Server.",
+                        "LM Studio → Developer → Start Server を実行してください。")
+        case .notInstalled:
+            return app.t("Nothing is listening and LM Studio is not installed at /Applications. Install it, or point the endpoint at any OpenAI-compatible server.",
+                         "接続先に応答がなく、/Applications に LM Studio もありません。導入するか、OpenAI互換サーバーのエンドポイントを指定してください。")
+        case .badEndpoint(_, let resolved):
+            return app.t("Something answered at \(resolved) but not with a model list. LM Studio's is \(LMStudioClient.defaultEndpoint).",
+                         "\(resolved) から応答はありましたがモデル一覧ではありません。LM Studio の既定は \(LMStudioClient.defaultEndpoint) です。")
+        case nil:
+            return app.t("Press Check. LM Studio does not start its server on its own.",
+                         "「確認」を押してください。LM Studio はサーバーを自動起動しません。")
+        }
+    }
+
+    private func checkLMStudio() async {
+        lmStudioBusy = true; lmStudioProblem = nil
+        defer { lmStudioBusy = false }
+        let d = await LMStudioClient.shared.diagnose()
+        lmStudioDiagnosis = d
+        lmStudioReachable = d.isReady
+        if case .ready(let n) = d { lmStudioModelCount = n } else { lmStudioModelCount = 0 }
+    }
+
+    private func startLMStudio() async {
+        lmStudioBusy = true; lmStudioProblem = nil
+        defer { lmStudioBusy = false }
+        lmStudioProblem = await LMStudioClient.shared.startServer()
+        let d = await LMStudioClient.shared.diagnose()
+        lmStudioDiagnosis = d
+        lmStudioReachable = d.isReady
+        if case .ready(let n) = d { lmStudioModelCount = n } else { lmStudioModelCount = 0 }
     }
 
     private var modelConfigurationCard: some View {

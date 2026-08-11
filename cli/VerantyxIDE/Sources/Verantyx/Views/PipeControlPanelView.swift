@@ -121,8 +121,7 @@ struct PipeControlPanelView: View {
             }
 
             if session.splitK > 0, let layers = loadedLayerCount {
-                Text(app.t("Layers 0–\(session.splitK - 1) here · \(session.splitK)–\(layers - 1) on \(session.peer?.deviceName ?? "the other Mac")",
-                           "層 0〜\(session.splitK - 1) はこちら · \(session.splitK)〜\(layers - 1) は \(session.peer?.deviceName ?? "相手")"))
+                Text(layerRangeText(splitK: session.splitK, layers: layers))
                     .font(.system(size: 10)).foregroundStyle(.secondary)
                     .fixedSize(horizontal: false, vertical: true)
             }
@@ -136,9 +135,12 @@ struct PipeControlPanelView: View {
                 }
                 if let plan {
                     // Real numbers from the real tensor table, not an estimate.
-                    Text(String(format: app.t("This Mac %.1f GB · other Mac %.1f GB",
-                                              "このMac %.1f GB · 相手 %.1f GB"),
-                                plan.masterNeedGB, plan.workerNeedGB))
+                    Text(String(format: app.t("This Mac %.1f GB / %.1f GB · other Mac %.1f GB / %.1f GB",
+                                              "このMac %.1f GB / %.1f GB · 相手 %.1f GB / %.1f GB"),
+                                thisMacRunsFirstHalf ? plan.masterNeedGB : plan.workerNeedGB,
+                                budgets.map { thisMacRunsFirstHalf ? $0.master.usableGB : $0.worker.usableGB } ?? 0,
+                                thisMacRunsFirstHalf ? plan.workerNeedGB : plan.masterNeedGB,
+                                budgets.map { thisMacRunsFirstHalf ? $0.worker.usableGB : $0.master.usableGB } ?? 0))
                         .font(.system(size: 9, design: .monospaced))
                         .foregroundStyle(plan.masterHeadroomGB < 0 || plan.workerHeadroomGB < 0
                                          ? Color.orange
@@ -210,6 +212,16 @@ struct PipeControlPanelView: View {
         }
     }
 
+    private func layerRangeText(splitK: Int, layers: Int) -> String {
+        let other = session.peer?.deviceName ?? app.t("the other Mac", "相手")
+        let first = "0–\(splitK - 1)", second = "\(splitK)–\(layers - 1)"
+        return thisMacRunsFirstHalf
+            ? app.t("Layers \(first) here · \(second) on \(other)",
+                    "層 \(first) はこちら · \(second) は \(other)")
+            : app.t("Layers \(first) on \(other) · \(second) here",
+                    "層 \(first) は \(other) · \(second) はこちら")
+    }
+
     private var loadedLayerCount: Int? {
         guard case .jcrossReady(let name) = app.modelStatus else { return nil }
         let url = JGenPaths.convertedModelsDir.appendingPathComponent(name)
@@ -223,10 +235,28 @@ struct PipeControlPanelView: View {
         return SplitPlanner.ModelShape.from(layout)
     }
 
-    private func recompute(k: Int) {
-        guard let shape, let peer = session.peer else { plan = nil; return }
+    /// Which machine's memory is the Master's budget, and which the Worker's.
+    ///
+    /// This panel is shown on BOTH Macs, and every calculation in it used to
+    /// pass `master: mine, worker: theirs` unconditionally. On the worker that
+    /// is exactly backwards: with a 24 GB worker and a 64 GB master, the fit
+    /// check validated the first half against 24 GB and the second against
+    /// 64 GB — approving splits that overflow the small Mac and rejecting ones
+    /// that fit. The layer ranges and the two GB readouts were inverted with
+    /// it, so the screen agreed with itself while being wrong.
+    private var budgets: (master: SplitPlanner.Budget, worker: SplitPlanner.Budget)? {
+        guard let peer = session.peer else { return nil }
         let mine = SplitPlanner.Budget(totalRAMGB: MachineProfile.current().totalRAMGB)
         let theirs = SplitPlanner.Budget(totalRAMGB: Double(peer.ramGB))
+        return session.role == .master ? (mine, theirs) : (theirs, mine)
+    }
+
+    /// True when this Mac runs layers `[0, k)`.
+    private var thisMacRunsFirstHalf: Bool { session.role == .master }
+
+    private func recompute(k: Int) {
+        guard let shape, let b = budgets else { plan = nil; return }
+        let (mine, theirs) = (b.master, b.worker)
         switch SplitPlanner.manual(shape: shape, k: k, master: mine, worker: theirs) {
         case .fits(let p):            plan = p; planProblem = nil
         case .doesNotFit(let r, _, _): plan = SplitPlanner.evaluate(shape: shape, k: k, master: mine, worker: theirs); planProblem = r
@@ -249,10 +279,11 @@ struct PipeControlPanelView: View {
 
     private func applyAuto() async {
         pushing = true; defer { pushing = false }
-        guard let shape, let peer = session.peer else { return }
-        let mine = SplitPlanner.Budget(totalRAMGB: MachineProfile.current().totalRAMGB)
-        let theirs = SplitPlanner.Budget(totalRAMGB: Double(peer.ramGB))
-        switch SplitPlanner.auto(shape: shape, master: mine, worker: theirs) {
+        guard let shape, let peer = session.peer, let b = budgets else { return }
+        // Same orientation as `recompute`: the worker asking for an automatic
+        // split must compute it with the MASTER's budget as the master's, or
+        // it requests a k that the other Mac cannot hold.
+        switch SplitPlanner.auto(shape: shape, master: b.master, worker: b.worker) {
         case .fits(let p):
             planProblem = nil
             manualK = Double(p.k)

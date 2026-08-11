@@ -27,8 +27,129 @@ actor LMStudioClient {
 
     private func baseURL() async -> String {
         let configured = await MainActor.run { AppState.shared?.lmStudioEndpoint ?? "" }
-        let trimmed = configured.trimmingCharacters(in: .whitespacesAndNewlines)
-        return trimmed.isEmpty ? Self.defaultEndpoint : trimmed
+        return Self.normalized(configured)
+    }
+
+    /// What the user typed, turned into a URL that actually works.
+    ///
+    /// Every one of these forms was reachable in the UI and every one of them
+    /// failed silently, because the string was concatenated with "/models" and
+    /// handed to `URL(string:)`:
+    ///
+    ///   `127.0.0.1:1234`        → `URL(string:)` reads "127.0.0.1" as the SCHEME
+    ///   `localhost:1234/v1`     → same, and `localhost` may resolve to `::1`
+    ///                              first while LM Studio binds IPv4 loopback
+    ///   `http://127.0.0.1:1234` → `…:1234/models`, which is not a route
+    ///   `…/v1/`                 → `…/v1//models`, likewise
+    ///
+    /// So: force a scheme, force IPv4 loopback for the loopback names, force
+    /// exactly one `/v1`, and strip the trailing slash. Left as a pure static
+    /// function so the settings screen can show the result of the rewrite —
+    /// a silent correction the user cannot see is its own kind of bug.
+    nonisolated static func normalized(_ raw: String) -> String {
+        var t = raw.trimmingCharacters(in: .whitespacesAndNewlines)
+        if t.isEmpty { return defaultEndpoint }
+        if !t.contains("://") { t = "http://" + t }
+        while t.hasSuffix("/") { t.removeLast() }
+        // `localhost` is not a synonym here: LM Studio listens on 127.0.0.1,
+        // and a `::1`-first resolution gives "Connection refused" with no clue.
+        t = t.replacingOccurrences(of: "://localhost", with: "://127.0.0.1")
+        if t.hasSuffix("/v1") { return t }
+        if let r = t.range(of: "/v1/") { return String(t[t.startIndex..<r.upperBound].dropLast()) }
+        return t + "/v1"
+    }
+
+    // MARK: - Diagnosis
+
+    /// Why LM Studio is not answering — with the remedy attached.
+    ///
+    /// `isAvailable() -> Bool` could only ever produce "not running", which is
+    /// the same sentence for four different situations: the app is not
+    /// installed, the app is closed, the app is open with its server off, and
+    /// the server is up but the endpoint points somewhere else. The remedies
+    /// are all different, and three of the four are one press.
+    enum Diagnosis: Equatable {
+        case ready(models: Int)
+        /// Server answered, but no chat model is loaded or loadable.
+        case noModels
+        case serverOff(canStart: Bool)
+        case notInstalled
+        /// Reachable, wrong shape — usually a hand-edited endpoint.
+        case badEndpoint(status: Int, resolved: String)
+
+        var isReady: Bool { if case .ready = self { return true }; return false }
+    }
+
+    static let appPath = "/Applications/LM Studio.app"
+
+    /// LM Studio's own CLI, which ships inside the app's data directory.
+    nonisolated static func lmsBinary() -> String? {
+        let home = FileManager.default.homeDirectoryForCurrentUser.path
+        for p in ["\(home)/.lmstudio/bin/lms",
+                  "/usr/local/bin/lms",
+                  "/opt/homebrew/bin/lms"] where FileManager.default.isExecutableFile(atPath: p) {
+            return p
+        }
+        return nil
+    }
+
+    func diagnose() async -> Diagnosis {
+        let base = await baseURL()
+        guard let url = URL(string: "\(base)/models") else {
+            return .badEndpoint(status: 0, resolved: base)
+        }
+        var req = URLRequest(url: url)
+        req.timeoutInterval = 3
+        do {
+            let (data, resp) = try await URLSession.shared.data(for: req)
+            guard let http = resp as? HTTPURLResponse else {
+                return .badEndpoint(status: 0, resolved: base)
+            }
+            guard http.statusCode == 200 else {
+                return .badEndpoint(status: http.statusCode, resolved: base)
+            }
+            let json = try? JSONSerialization.jsonObject(with: data) as? [String: Any]
+            let items = (json?["data"] as? [[String: Any]]) ?? []
+            let chat = items.compactMap { $0["id"] as? String }.filter { !isEmbeddingModel($0) }
+            return chat.isEmpty ? .noModels : .ready(models: chat.count)
+        } catch {
+            // Nothing listening. Separate "no LM Studio at all" from "LM Studio
+            // is there and its server is off", because only the second one has
+            // a button.
+            guard FileManager.default.fileExists(atPath: Self.appPath)
+                    || Self.lmsBinary() != nil else { return .notInstalled }
+            return .serverOff(canStart: Self.lmsBinary() != nil)
+        }
+    }
+
+    /// Starts the local server through LM Studio's CLI. Returns nil on success.
+    ///
+    /// `lms server start` launches the app headlessly if it is not already
+    /// running, so this covers "closed" and "open but server off" with one
+    /// action. Polls afterwards rather than trusting the exit code: the CLI
+    /// returns before the port is accepting.
+    func startServer() async -> String? {
+        guard let lms = Self.lmsBinary() else {
+            return "LM Studio's `lms` CLI was not found. Open LM Studio → Developer → Start Server."
+        }
+        let proc = Process()
+        proc.executableURL = URL(fileURLWithPath: lms)
+        proc.arguments = ["server", "start"]
+        let pipe = Pipe()
+        proc.standardOutput = pipe
+        proc.standardError = pipe
+        do { try proc.run() } catch { return error.localizedDescription }
+        proc.waitUntilExit()
+        for _ in 0..<20 {
+            if await diagnose().isReady { return nil }
+            if case .noModels = await diagnose() { return nil }
+            try? await Task.sleep(nanoseconds: 500_000_000)
+        }
+        let out = String(data: pipe.fileHandleForReading.readDataToEndOfFile(),
+                         encoding: .utf8) ?? ""
+        return out.isEmpty
+            ? "The server did not come up within 10 seconds."
+            : out.trimmingCharacters(in: .whitespacesAndNewlines)
     }
 
     /// No timeout — a large local model can spend minutes on one reply, and the
