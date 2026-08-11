@@ -72,6 +72,9 @@ private struct DemandReply: Decodable {
 struct VeraAuditView: View {
     @EnvironmentObject var app: AppState
 
+    @StateObject private var engine = LocalVeraServer.shared
+    @State private var showSettings = false
+    @State private var showPair = false
     @State private var web = AuditWebRequest(
         url: URL(string: "https://verantyx.ai/vera3d/")!)
     @State private var demand: [DemandRow] = []
@@ -103,20 +106,31 @@ struct VeraAuditView: View {
             // Run side — the published page, live.
             VStack(spacing: 0) {
                 HStack(spacing: 8) {
-                    Text(app.t("Live: verantyx.ai/vera3d",
-                               "本番: verantyx.ai/vera3d"))
-                        .font(.system(size: 11, weight: .semibold))
+                    Circle()
+                        .fill(engineColor).frame(width: 7, height: 7)
+                    Text(engineLabel).font(.system(size: 11, weight: .semibold))
                     Spacer()
-                    Button(app.t("Reload live", "本番を再読込")) {
+                    // Pair launch only — the configuration itself stays in
+                    // Settings. A screen that both configures and launches
+                    // invites half-configured launches.
+                    Button(app.t("2-Mac", "2台で動かす")) { showPair = true }
+                        .font(.system(size: 10))
+                    Button(app.t("Local", "ローカル")) { useLocal() }
+                        .font(.system(size: 10))
+                    Button(app.t("Live site", "本番")) {
                         web = AuditWebRequest(
                             url: URL(string: "https://verantyx.ai/vera3d/")!,
                             stamp: web.stamp + 1)
                     }
                     .font(.system(size: 10))
-                    Button(app.t("Exit Vera-a", "Vera-a を終了")) {
-                        app.isVeraAMode = false
+                    // Vera-a had no way to reach Settings at all; this mode
+                    // replaces the whole layout, activity bar included.
+                    Button { showSettings = true } label: {
+                        Image(systemName: "gearshape")
                     }
                     .font(.system(size: 10))
+                    Button(app.t("Exit", "終了")) { app.isVeraAMode = false }
+                        .font(.system(size: 10))
                 }
                 .padding(.horizontal, 10).padding(.vertical, 6)
                 Divider().opacity(0.3)
@@ -145,7 +159,51 @@ struct VeraAuditView: View {
             .frame(width: 380)
             .background(Color(red: 0.11, green: 0.11, blue: 0.14))
         }
-        .task { await refreshDemand() }
+        .task {
+            await refreshDemand()
+            // Native host, native engine: start it and point the view at
+            // it. No download, no boot button, and the SSE channel the
+            // browser build cannot have.
+            engine.start()
+        }
+        .onChange(of: engine.state) { st in
+            if case .ready = st, let u = engine.url {
+                web = AuditWebRequest(url: u, stamp: web.stamp + 1)
+            }
+        }
+        .sheet(isPresented: $showSettings) {
+            SettingsView().environmentObject(app)
+                .frame(minWidth: 720, minHeight: 520)
+        }
+        .sheet(isPresented: $showPair) {
+            PipeConnectSheet().environmentObject(app)
+        }
+    }
+
+    private var engineLabel: String {
+        switch engine.state {
+        case .idle:      return app.t("engine idle", "エンジン停止中")
+        case .starting:  return app.t("engine starting…", "エンジン起動中…")
+        case .ready:     return app.t("local engine — full artifact, live trace",
+                                      "ローカルエンジン — 完全版・推論を実況")
+        case .failed(let m): return app.t("live site (local: \(m))",
+                                          "本番表示(ローカル: \(m))")
+        }
+    }
+    private var engineColor: Color {
+        switch engine.state {
+        case .ready: return .green
+        case .starting: return .orange
+        case .failed: return .secondary
+        case .idle: return .secondary
+        }
+    }
+    private func useLocal() {
+        if let u = engine.url {
+            web = AuditWebRequest(url: u, stamp: web.stamp + 1)
+        } else {
+            engine.start()
+        }
     }
 
     // MARK: Gaps — the demand ranking, resolved through the page itself
