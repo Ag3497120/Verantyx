@@ -266,6 +266,15 @@ struct HumanPriorityModeView: View {
     }
 
     private var veraAModeLayout: some View {
+        // Milestone U: the mode's body is the audit screen — the published
+        // page live on one side, its source and the publish lever on the
+        // other, gap resolution through the page's own governed flow. The
+        // previous chat layout is preserved below as veraALegacyLayout,
+        // unmounted: replacing a screen should not delete its history.
+        VeraAuditView().environmentObject(app)
+    }
+
+    private var veraALegacyLayout: some View {
         HStack(spacing: 0) {
             // A rail built for this mode rather than the file-oriented one the
             // normal layout uses. There is no workspace here — no tree, no
