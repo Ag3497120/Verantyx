@@ -90,6 +90,11 @@ struct VeraAuditView: View {
     @State private var jgenBusy = false
     @State private var jgenNote = ""
     @State private var distNote = ""
+    @State private var vecHits: [VectorHit] = []
+    @State private var vecBasis = ""
+    @State private var vecNote = ""
+    @State private var peerHost = ""
+    @State private var shardProc: Process?
 
     private enum Tab { case gaps, edit, memory }
 
@@ -185,13 +190,46 @@ struct VeraAuditView: View {
                 Text(demandNote).font(.system(size: 10))
                     .foregroundStyle(.secondary).padding(.horizontal, 10)
             }
+            Divider().opacity(0.2)
+            // Vector index — jgen's own encoder ranks which pending gaps a
+            // document actually resolves. The basis is always shown: a
+            // similarity whose basis is unknown is worse than none.
+            Text(app.t("Which gaps does a document resolve?",
+                       "この文書はどの欠落を埋めるか"))
+                .font(.system(size: 10, weight: .semibold))
+                .padding(.horizontal, 10)
+            HStack(spacing: 6) {
+                TextField(app.t("paste text or a subject…", "文章か主題を貼る…"),
+                          text: $editRequest)
+                    .textFieldStyle(.roundedBorder).font(.system(size: 10.5))
+                Button(app.t("Rank", "順位")) { rankGaps() }
+                    .font(.system(size: 10)).disabled(editRequest.isEmpty)
+            }
+            .padding(.horizontal, 10)
+            if !vecNote.isEmpty {
+                Text(vecNote).font(.system(size: 9.5))
+                    .foregroundStyle(.secondary).padding(.horizontal, 10)
+            }
+            ForEach(vecHits) { h in
+                HStack {
+                    Text(h.subject).font(.system(size: 10.5))
+                    Spacer()
+                    Text(String(format: "%.3f", h.score))
+                        .font(.system(size: 9.5, design: .monospaced))
+                        .foregroundStyle(.secondary)
+                }
+                .padding(.horizontal, 12)
+            }
+
             HStack {
                 Button(app.t("Refresh", "更新")) {
                     Task { await refreshDemand() }
                 }
+                Button(app.t("Index gaps", "欠落を索引化")) { indexGaps() }
                 .font(.system(size: 10.5))
                 Spacer()
             }
+            .font(.system(size: 10.5))
             .padding(10)
         }
     }
@@ -433,14 +471,17 @@ struct VeraAuditView: View {
                        "分散 jgen(2台Mac / Thunderbolt)"))
                 .font(.system(size: 10, weight: .semibold)).padding(.horizontal, 10)
             HStack(spacing: 6) {
-                TextField("http://<peer-mac>.local:11434",
-                          text: Binding(
-                            get: { app.ollamaEndpoint },
-                            set: { app.ollamaEndpoint = $0 }))
+                TextField(app.t("peer host (e.g. mac2.local)", "ピアのホスト(例 mac2.local)"),
+                          text: $peerHost)
                     .textFieldStyle(.roundedBorder)
                     .font(.system(size: 10, design: .monospaced))
-                Button(app.t("Probe", "確認")) { probePeer() }
+                Button(app.t("Check", "点検")) { checkSharding() }
                     .font(.system(size: 10))
+                Button(shardProc == nil ? app.t("Start 27B", "27B起動")
+                                        : app.t("Stop", "停止")) {
+                    toggleShard()
+                }
+                .font(.system(size: 10))
             }
             .padding(.horizontal, 10)
             if !distNote.isEmpty {
@@ -456,6 +497,104 @@ struct VeraAuditView: View {
         case "gap_resolved": return .green
         case "edit_applied": return .orange
         default:             return .secondary
+        }
+    }
+
+    // MARK: Vector index — jgen's encoder over the pending gaps
+
+    private func indexGaps() {
+        let subjects = demand.map(\.subject)
+        guard !subjects.isEmpty else {
+            vecNote = app.t("Nothing to index yet.", "索引化する欠落がありません。")
+            return
+        }
+        vecNote = app.t("indexing…", "索引化中…")
+        Task {
+            await AuditVectorIndex.shared.load()
+            let n = await AuditVectorIndex.shared.index(subjects: subjects,
+                                                        preferJGen: true)
+            let basis = await AuditVectorIndex.shared.currentBasis()
+            let total = await AuditVectorIndex.shared.count()
+            await MainActor.run {
+                vecBasis = basis.label
+                vecNote = app.t("indexed \(n) new, \(total) total — basis: \(basis.label)",
+                                "新規 \(n) 件・計 \(total) 件を索引化 — 基底: \(basis.label)")
+            }
+        }
+    }
+
+    private func rankGaps() {
+        let q = editRequest
+        vecNote = app.t("ranking…", "順位付け中…")
+        Task {
+            await AuditVectorIndex.shared.load()
+            let (hits, basis) = await AuditVectorIndex.shared
+                .nearest(to: q, limit: 8, preferJGen: true)
+            await MainActor.run {
+                vecHits = hits
+                vecBasis = basis.label
+                vecNote = hits.isEmpty
+                    ? app.t("No ranking: index empty, or query and index are "
+                            + "in different spaces (index the gaps first).",
+                            "順位なし: 索引が空か、問いと索引の空間が違います"
+                            + "(先に欠落を索引化してください)。")
+                    : app.t("basis: \(basis.label)", "基底: \(basis.label)")
+            }
+        }
+    }
+
+    // MARK: Sharded jgen across two Macs
+
+    private func checkSharding() {
+        distNote = app.t("checking…", "点検中…")
+        let host = peerHost
+        Task {
+            let r = await DistributedJGen.check(peerHost: host)
+            await MainActor.run {
+                if r.canShard {
+                    distNote = app.t(
+                        "Ready to shard: bridge \(r.bridge?.device ?? "-") "
+                        + "\(r.bridge?.address ?? ""), peer up, mlx both sides.",
+                        "分散可能: bridge \(r.bridge?.device ?? "-") "
+                        + "\(r.bridge?.address ?? "")・ピア稼働・両側 mlx あり。")
+                } else {
+                    distNote = r.notes.joined(separator: "\n")
+                }
+            }
+        }
+    }
+
+    private func toggleShard() {
+        if let p = shardProc {
+            p.terminate()
+            shardProc = nil
+            distNote = app.t("sharded server stopped", "分散サーバを停止しました")
+            return
+        }
+        guard let bridge = DistributedJGen.thunderboltBridge() else {
+            distNote = app.t("No Thunderbolt Bridge address — check first.",
+                             "Thunderbolt Bridge のアドレスがありません — 先に点検を。")
+            return
+        }
+        guard !peerHost.isEmpty else {
+            distNote = app.t("Set the peer host first.", "先にピアのホストを設定してください。")
+            return
+        }
+        if let p = DistributedJGen.launchSharded(
+            model: "mlx-community/Qwen3-27B-4bit",
+            local: bridge.address, peer: peerHost) {
+            shardProc = p
+            app.ollamaEndpoint = "http://127.0.0.1:8081"
+            distNote = app.t(
+                "Sharded server starting on the ring; drafting now points at "
+                + "127.0.0.1:8081. First load takes minutes.",
+                "リング上で分散サーバを起動中。下書きは 127.0.0.1:8081 を"
+                + "使います。初回ロードは数分かかります。")
+            memory.remember(kind: "note", subject: "sharded jgen",
+                            detail: "ring \(bridge.address) + \(peerHost)")
+        } else {
+            distNote = app.t("Launch failed — is python3 -m mlx_lm.launch available?",
+                             "起動に失敗 — python3 -m mlx_lm.launch はありますか?")
         }
     }
 
