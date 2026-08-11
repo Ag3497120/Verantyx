@@ -210,8 +210,7 @@ struct PipeConnectSheet: View {
             Spacer()
             if mismatch == nil {
                 Button(app.t("Connect", "接続")) {
-                    Task { await connect(host: peer.host ?? peer.deviceName,
-                                         port: peer.controlPort) }
+                    Task { await connectDiscovered(peer) }
                 }
                 .buttonStyle(.borderedProminent).controlSize(.small)
                 .disabled(busy)
@@ -450,6 +449,43 @@ struct PipeConnectSheet: View {
     private func enterFind() async {
         if app.pipePairingEnabled && !coordinator.isEnabled { await coordinator.enable() }
         if session.isPaired { step = .ready; await refreshLink() }
+    }
+
+    /// Resolve the Bonjour result to an address, then connect.
+    ///
+    /// The old call passed `peer.host ?? peer.deviceName`, and `peer.host`
+    /// was never set — browse results carry names, not addresses. So every
+    /// discovered connect handed a display name to `URL(string:)`, which
+    /// returns nil for "本西航大のMacBook Pro", and the pairing failed as
+    /// "Bad address". Resolving first is the fix; when resolution fails the
+    /// message points at the manual field instead of retrying with a name
+    /// that cannot work.
+    private func connectDiscovered(_ peer: PipeDiscovery.Peer) async {
+        if let host = peer.host, !host.isEmpty {
+            await connect(host: host, port: peer.controlPort)
+            return
+        }
+        busy = true
+        problem = nil
+        verifying = app.t("Resolving \(peer.deviceName)…",
+                          "\(peer.deviceName) のアドレスを解決中…")
+        let resolved = await PipeDiscovery.shared.resolve(peer)
+        busy = false
+        verifying = nil
+        guard let r = resolved else {
+            problem = app.t(
+                "Could not resolve \(peer.deviceName) to an address. Enter "
+                + "its Thunderbolt IP in the field below — discovery found "
+                + "the Mac but not a route to it.",
+                "\(peer.deviceName) のアドレスを解決できません。下の欄に"
+                + "そのMacの Thunderbolt IP を入力してください — 発見は"
+                + "できていますが経路が取れていません。")
+            return
+        }
+        // The advertised control port is authoritative; the resolved port is
+        // whatever the browser happened to connect to.
+        await connect(host: r.host,
+                      port: peer.controlPort != 0 ? peer.controlPort : r.port)
     }
 
     private func connect(host: String, port: UInt16) async {

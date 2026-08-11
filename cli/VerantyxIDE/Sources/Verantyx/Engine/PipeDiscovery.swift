@@ -51,6 +51,11 @@ final class PipeDiscovery: ObservableObject {
         var controlPort: UInt16         // TXT `cp`
         var host: String?               // resolved address, when known
         var interfaceKind: NetworkInterfaces.LinkKind
+        /// The Bonjour endpoint this result came from, kept so the address
+        /// can be resolved when the user actually connects. Without it the
+        /// only thing the UI had to offer was `deviceName`, and a display
+        /// name is not a hostname — see `resolve`.
+        var endpoint: NWEndpoint?
 
         var id: String { deviceId.isEmpty ? endpointName : deviceId }
 
@@ -276,12 +281,73 @@ final class PipeDiscovery: ObservableObject {
                 role: txt["role"] ?? "idle",
                 controlPort: UInt16(txt["cp"] ?? "") ?? 0,
                 host: nil,
-                interfaceKind: kind(of: r.interfaces)
+                interfaceKind: kind(of: r.interfaces),
+                endpoint: r.endpoint
             ))
         }
 
         peers = found.sorted { $0.deviceName < $1.deviceName }
         if !peers.isEmpty { likelyBlockedByPrivacy = false }
+    }
+
+    /// Turn a Bonjour result into an address you can actually open.
+    ///
+    /// `NWBrowser` reports service NAMES, never addresses — every peer this
+    /// class produced carried `host: nil`, and the sheet fell back to the
+    /// display name, so `URL(string: "http://本西航大のMacBook Pro:8766/…")`
+    /// returned nil and the pairing failed as "Bad address". Discovery-based
+    /// connect had therefore never worked; only the manual-IP path did.
+    ///
+    /// Resolution is what NWConnection does on the way to being ready: open
+    /// one to the service endpoint, read `currentPath.remoteEndpoint`, and
+    /// cancel. A numeric address survives the trip to `URL`, which a name
+    /// with spaces and kanji cannot.
+    func resolve(_ peer: Peer, timeout: TimeInterval = 6) async
+        -> (host: String, port: UInt16)? {
+        guard let endpoint = peer.endpoint else { return nil }
+        return await withCheckedContinuation { cont in
+            var done = false
+            let conn = NWConnection(to: endpoint, using: .tcp)
+            let finish: ((host: String, port: UInt16)?) -> Void = { result in
+                guard !done else { return }
+                done = true
+                conn.cancel()
+                cont.resume(returning: result)
+            }
+            conn.stateUpdateHandler = { state in
+                switch state {
+                case .ready:
+                    if case let .hostPort(host, port) =
+                        conn.currentPath?.remoteEndpoint {
+                        // `.name(...)` carries an interface suffix like
+                        // "%en1" on link-local IPv6; strip it or URL rejects
+                        // the string.
+                        var h: String
+                        switch host {
+                        case .ipv4(let a): h = "\(a)"
+                        case .ipv6(let a): h = "[\(a)]"
+                        case .name(let n, _): h = n
+                        @unknown default: h = "\(host)"
+                        }
+                        if let pct = h.firstIndex(of: "%") {
+                            h = String(h[h.startIndex..<pct])
+                            if h.hasPrefix("[") { h += "]" }
+                        }
+                        finish((host: h, port: port.rawValue))
+                    } else {
+                        finish(nil)
+                    }
+                case .failed, .cancelled:
+                    finish(nil)
+                default:
+                    break
+                }
+            }
+            conn.start(queue: .global())
+            DispatchQueue.global().asyncAfter(deadline: .now() + timeout) {
+                finish(nil)
+            }
+        }
     }
 
     /// Which physical link a result arrived over, so the UI can say so.

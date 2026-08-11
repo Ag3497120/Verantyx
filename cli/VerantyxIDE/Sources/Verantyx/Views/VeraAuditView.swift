@@ -470,8 +470,22 @@ struct VeraAuditView: View {
             Text(app.t("Distributed jgen (2-Mac / Thunderbolt)",
                        "分散 jgen(2台Mac / Thunderbolt)"))
                 .font(.system(size: 10, weight: .semibold)).padding(.horizontal, 10)
+            // The IDE already discovers the other Mac (PipeDiscovery /
+            // PipeConnectSheet, Bonjour over Thunderbolt). This panel used
+            // to ask for the host again — a second path to the same peer,
+            // which is exactly the duplication this project keeps refusing.
+            // Prefer the paired peer; the field remains for the case
+            // discovery cannot route.
+            if let paired = PipeSession.shared.peer?.host, !paired.isEmpty {
+                Text(app.t("paired peer: \(paired)", "接続中のピア: \(paired)"))
+                    .font(.system(size: 10, design: .monospaced))
+                    .foregroundStyle(.secondary)
+                    .padding(.horizontal, 10)
+                    .onAppear { if peerHost.isEmpty { peerHost = paired } }
+            }
             HStack(spacing: 6) {
-                TextField(app.t("peer host (e.g. mac2.local)", "ピアのホスト(例 mac2.local)"),
+                TextField(app.t("peer host (or pair in Vera-a → connect)",
+                                "ピアのホスト(または Vera-a の接続画面でペア)"),
                           text: $peerHost)
                     .textFieldStyle(.roundedBorder)
                     .font(.system(size: 10, design: .monospaced))
