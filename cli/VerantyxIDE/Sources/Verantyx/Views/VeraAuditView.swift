@@ -84,8 +84,14 @@ struct VeraAuditView: View {
     @State private var commitMessage = "vera3d: audited edit"
     @State private var busy = false
     @State private var tab: Tab = .gaps
+    @State private var memory = AuditMemory.load(task: "verantyx-ai-vera3d")
+    @State private var jgenModel = "qwen3.5:4b"
+    @State private var editRequest = ""
+    @State private var jgenBusy = false
+    @State private var jgenNote = ""
+    @State private var distNote = ""
 
-    private enum Tab { case gaps, edit }
+    private enum Tab { case gaps, edit, memory }
 
     var body: some View {
         HStack(spacing: 0) {
@@ -120,13 +126,15 @@ struct VeraAuditView: View {
                 Picker("", selection: $tab) {
                     Text(app.t("Gaps", "欠落の解消")).tag(Tab.gaps)
                     Text(app.t("Edit & publish", "編集と公開")).tag(Tab.edit)
+                    Text(app.t("Memory", "永遠の記憶")).tag(Tab.memory)
                 }
                 .pickerStyle(.segmented)
                 .padding(8)
 
                 switch tab {
-                case .gaps: gapsPanel
-                case .edit: editPanel
+                case .gaps:   gapsPanel
+                case .edit:   editPanel
+                case .memory: memoryPanel
                 }
             }
             .frame(width: 380)
@@ -164,6 +172,9 @@ struct VeraAuditView: View {
                                               value: "取得 " + row.subject)]
                         web = AuditWebRequest(url: c.url!,
                                               stamp: web.stamp + 1)
+                        memory.remember(kind: "gap_resolved",
+                                        subject: row.subject,
+                                        detail: "opened in page for approval")
                     }
                     .font(.system(size: 10))
                 }
@@ -252,6 +263,26 @@ struct VeraAuditView: View {
             .font(.system(size: 10.5))
             .padding(.horizontal, 10)
 
+            // jgen draft: plain-language edit request -> HTML patch, which
+            // the human then PREVIEWS and publishes. jgen shapes, the
+            // person decides — the model never reaches the push.
+            HStack(spacing: 6) {
+                TextField(app.t("describe the edit for jgen…",
+                                "編集内容を jgen に説明…"), text: $editRequest)
+                    .textFieldStyle(.roundedBorder)
+                    .font(.system(size: 10.5))
+                Button(jgenBusy ? "…" : app.t("Draft", "下書き")) {
+                    draftWithJGen()
+                }
+                .disabled(jgenBusy || !editorLoaded || editRequest.isEmpty)
+                .font(.system(size: 10))
+            }
+            .padding(.horizontal, 10)
+            if !jgenNote.isEmpty {
+                Text(jgenNote).font(.system(size: 9.5))
+                    .foregroundStyle(.secondary).padding(.horizontal, 10)
+            }
+
             TextField(app.t("commit message", "コミットメッセージ"),
                       text: $commitMessage)
                 .textFieldStyle(.roundedBorder)
@@ -322,12 +353,138 @@ struct VeraAuditView: View {
                 ["push", "origin", "main"],
             ]
             for s in steps { runGitSync(s, in: repoPath, log: appendLog) }
-            DispatchQueue.main.async { busy = false }
+            DispatchQueue.main.async {
+                busy = false
+                memory.remember(kind: "edit_applied", subject: "vera3d/index.html",
+                                detail: msg)
+            }
         }
     }
 
     private func appendLog(_ line: String) {
         DispatchQueue.main.async { gitLog = line + "\n" + gitLog }
+    }
+
+    private func draftWithJGen() {
+        jgenBusy = true
+        jgenNote = app.t("jgen drafting the edit…", "jgen が編集を下書き中…")
+        let req = editRequest, cur = editorText, model = jgenModel
+        let ep = app.ollamaEndpoint
+        Task {
+            if let out = await AuditJGen.draftEdit(endpoint: ep, request: req,
+                                                   currentHTML: cur, model: model) {
+                await MainActor.run {
+                    editorText = out
+                    jgenNote = app.t("Drafted — preview before publishing.",
+                                     "下書き完了 — 公開前にプレビューを。")
+                    jgenBusy = false
+                }
+            } else {
+                await MainActor.run {
+                    jgenNote = app.t("jgen unavailable (is ollama running?).",
+                                     "jgen 未応答(ollama は起動していますか?)。")
+                    jgenBusy = false
+                }
+            }
+        }
+    }
+
+    // MARK: Memory — the task's context, forever
+
+    private var memoryPanel: some View {
+        VStack(alignment: .leading, spacing: 6) {
+            Text(app.t(
+                "Everlasting task memory. Every gap resolved and edit "
+                + "published is recorded in a durable file and survives "
+                + "restarts — the audit context is never lost, and re-reading "
+                + "yields the same state (the memory is data).",
+                "このタスクの永遠の記憶。解消した欠落と公開した編集はすべて"
+                + "耐久ファイルに記録され、再起動しても失われません — 監査の"
+                + "文脈は消えず、読み直せば同じ状態になります(記憶はデータ)。"))
+                .font(.system(size: 10.5)).foregroundStyle(.secondary)
+                .padding(.horizontal, 10)
+
+            List(Array(memory.entries.reversed())) { e in
+                VStack(alignment: .leading, spacing: 2) {
+                    HStack {
+                        Text(e.kind).font(.system(size: 9.5, weight: .semibold))
+                            .foregroundStyle(kindColor(e.kind))
+                        Text(e.subject).font(.system(size: 11))
+                        Spacer()
+                        Text(e.at, style: .time)
+                            .font(.system(size: 9, design: .monospaced))
+                            .foregroundStyle(.secondary)
+                    }
+                    if !e.detail.isEmpty {
+                        Text(e.detail).font(.system(size: 9.5))
+                            .foregroundStyle(.secondary).lineLimit(2)
+                    }
+                }
+            }
+            .listStyle(.plain)
+
+            // Distributed jgen — declared, not faked. This machine has one
+            // node; a 27B model across two Thunderbolt-linked Macs needs the
+            // second node and its endpoint. The field is where that endpoint
+            // goes, and until it answers, the panel says so instead of
+            // pretending a large model is loaded.
+            Divider().opacity(0.2)
+            Text(app.t("Distributed jgen (2-Mac / Thunderbolt)",
+                       "分散 jgen(2台Mac / Thunderbolt)"))
+                .font(.system(size: 10, weight: .semibold)).padding(.horizontal, 10)
+            HStack(spacing: 6) {
+                TextField("http://<peer-mac>.local:11434",
+                          text: Binding(
+                            get: { app.ollamaEndpoint },
+                            set: { app.ollamaEndpoint = $0 }))
+                    .textFieldStyle(.roundedBorder)
+                    .font(.system(size: 10, design: .monospaced))
+                Button(app.t("Probe", "確認")) { probePeer() }
+                    .font(.system(size: 10))
+            }
+            .padding(.horizontal, 10)
+            if !distNote.isEmpty {
+                Text(distNote).font(.system(size: 9.5))
+                    .foregroundStyle(.secondary).padding(.horizontal, 10)
+                    .padding(.bottom, 8)
+            }
+        }
+    }
+
+    private func kindColor(_ k: String) -> Color {
+        switch k {
+        case "gap_resolved": return .green
+        case "edit_applied": return .orange
+        default:             return .secondary
+        }
+    }
+
+    private func probePeer() {
+        distNote = app.t("probing…", "確認中…")
+        Task {
+            guard let url = URL(string: app.ollamaEndpoint + "/api/tags") else { return }
+            if let (data, _) = try? await URLSession.shared.data(from: url),
+               let s = String(data: data, encoding: .utf8) {
+                let big = s.contains("27b") || s.contains("32b") || s.contains("70b")
+                await MainActor.run {
+                    distNote = big
+                        ? app.t("peer up, large model present — set jgen model to it",
+                                "ピア稼働・大型モデルあり — jgen モデルに指定してください")
+                        : app.t("peer up; no ≥27B model listed there yet",
+                                "ピア稼働・27B以上のモデルは未登録")
+                }
+            } else {
+                await MainActor.run {
+                    distNote = app.t(
+                        "no peer at that endpoint. Link two Macs by "
+                        + "Thunderbolt, run `OLLAMA_HOST=0.0.0.0 ollama serve` "
+                        + "on the peer, pull qwen3.6:27b there, and point here.",
+                        "そのエンドポイントにピアがいません。2台をThunderboltで"
+                        + "接続し、ピア側で `OLLAMA_HOST=0.0.0.0 ollama serve` を"
+                        + "実行、qwen3.6:27b を pull してここに指定してください。")
+                }
+            }
+        }
     }
 
     private func runGit(_ args: [String], in dir: String?) {
