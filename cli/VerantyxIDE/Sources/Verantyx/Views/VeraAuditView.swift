@@ -23,11 +23,88 @@ import WebKit
 
 // MARK: - Web view wrapper
 
+/// What the 3D is currently saying. The right-hand panels read this and
+/// nothing else, so the picture and the panels cannot disagree — they are
+/// the same signal rendered twice, once as geometry and once as text.
+@MainActor
+final class VeraSignals: ObservableObject {
+    @Published var verdict: String = ""
+    @Published var core: String = ""
+    @Published var path: String = ""
+    @Published var tier: String = ""
+    @Published var grain: String = ""
+    @Published var witnesses: String = ""
+    @Published var order: String = ""
+    @Published var faces: Int = 0
+    @Published var edges: Int = 0
+    @Published var rungs: [(String, String)] = []
+    @Published var grownCount: Int = 0
+    @Published var lastGrown: String = ""
+    @Published var selectedGap: String = ""
+    @Published var trace: [String] = []
+
+    func apply(_ m: [String: Any]) {
+        let type = m["type"] as? String ?? ""
+        switch type {
+        case "ask":
+            rungs = []; faces = 0; edges = 0
+            note("問 " + (m["query"] as? String ?? ""))
+        case "reading":
+            let name = m["setting"] as? String ?? ""
+            let v = m["verdict"] as? String ?? ""
+            let item = m["item"] as? String ?? "—"
+            rungs.append((name, v.hasPrefix("ANSWER") ? item : "—"))
+        case "cross":
+            faces = (m["faces"] as? [String])?.count ?? 0
+            edges = (m["edges"] as? [Any])?.count ?? 0
+            order = m["order"] as? String ?? ""
+        case "verdict":
+            verdict = m["verdict"] as? String ?? ""
+            core = m["item"] as? String ?? ""
+            path = m["path"] as? String ?? ""
+            if let t = m["tier"] as? [String: Any] {
+                tier = (t["label"] as? String ?? "")
+                    + " (" + ((t["why"] as? [String])?.joined(separator: ", ") ?? "") + ")"
+            } else { tier = "" }
+            if let g = m["grain"] as? [String: Any],
+               let a = g["agree"], let o = g["of"] {
+                grain = "\(a)/\(o)"
+            } else { grain = "" }
+            if let w = m["witness"] as? [String: Any],
+               let a = w["agree"], let n = w["answered"] {
+                witnesses = "\(a)/\(n)"
+            } else { witnesses = "" }
+            note(verdict + " " + core)
+        case "grown":
+            grownCount += (m["count"] as? Int ?? 0)
+            lastGrown = m["subject"] as? String ?? ""
+            note("成長 " + lastGrown + " +" + String(m["count"] as? Int ?? 0))
+        case "gap_click":
+            selectedGap = m["subject"] as? String ?? ""
+            note("欠落を選択 " + selectedGap)
+        case "grow_offer":
+            note("提案 " + (m["subject"] as? String ?? ""))
+        default:
+            break
+        }
+    }
+
+    private func note(_ s: String) {
+        trace.insert(s, at: 0)
+        if trace.count > 40 { trace.removeLast() }
+    }
+}
+
 private struct AuditWebView: NSViewRepresentable {
     @Binding var request: AuditWebRequest
+    var signals: VeraSignals
 
     func makeNSView(context: Context) -> WKWebView {
         let cfg = WKWebViewConfiguration()
+        // The page posts every SSE event here; without the handler the
+        // page's `toHost` is a no-op and it runs standalone, which is what
+        // verantyx.ai does.
+        cfg.userContentController.add(context.coordinator, name: "veraSignal")
         let v = WKWebView(frame: .zero, configuration: cfg)
         v.load(URLRequest(url: request.url))
         context.coordinator.lastStamp = request.stamp
@@ -44,8 +121,19 @@ private struct AuditWebView: NSViewRepresentable {
         }
     }
 
-    func makeCoordinator() -> Coord { Coord() }
-    final class Coord { var lastStamp = 0 }
+    func makeCoordinator() -> Coord { Coord(signals: signals) }
+
+    final class Coord: NSObject, WKScriptMessageHandler {
+        var lastStamp = 0
+        let signals: VeraSignals
+        init(signals: VeraSignals) { self.signals = signals }
+
+        func userContentController(_ c: WKUserContentController,
+                                   didReceive message: WKScriptMessage) {
+            guard let body = message.body as? [String: Any] else { return }
+            Task { @MainActor in self.signals.apply(body) }
+        }
+    }
 }
 
 private struct AuditWebRequest {
@@ -73,6 +161,7 @@ struct VeraAuditView: View {
     @EnvironmentObject var app: AppState
 
     @StateObject private var engine = LocalVeraServer.shared
+    @StateObject private var sig = VeraSignals()
     @State private var showSettings = false
     @State private var showPair = false
     @State private var web = AuditWebRequest(
@@ -134,7 +223,7 @@ struct VeraAuditView: View {
                 }
                 .padding(.horizontal, 10).padding(.vertical, 6)
                 Divider().opacity(0.3)
-                AuditWebView(request: $web)
+                AuditWebView(request: $web, signals: sig)
             }
             .frame(minWidth: 480, maxWidth: .infinity)
 
@@ -150,6 +239,8 @@ struct VeraAuditView: View {
                 .pickerStyle(.segmented)
                 .padding(8)
 
+                signalHeader
+                Divider().opacity(0.2)
                 switch tab {
                 case .gaps:   gapsPanel
                 case .edit:   editPanel
@@ -180,6 +271,71 @@ struct VeraAuditView: View {
         }
     }
 
+    /// What the picture is currently saying, above every tab — because the
+    /// decision each tab asks for (approve this fetch? publish this edit?
+    /// trust this answer?) is a decision about THIS, and reading it off the
+    /// 3D by eye is not reading it.
+    private var signalHeader: some View {
+        VStack(alignment: .leading, spacing: 3) {
+            if sig.verdict.isEmpty {
+                Text(app.t("Ask something — the panels follow the 3D.",
+                           "何か訊いてください — パネルは3Dに従います。"))
+                    .font(.system(size: 10)).foregroundStyle(.secondary)
+            } else {
+                HStack(spacing: 6) {
+                    Text(sig.verdict)
+                        .font(.system(size: 10.5, weight: .semibold))
+                        .foregroundStyle(sig.verdict.hasPrefix("UNKNOWN")
+                                         ? Color.orange : Color.green)
+                    if !sig.core.isEmpty {
+                        Text(sig.core).font(.system(size: 11))
+                    }
+                    Spacer()
+                    if sig.faces > 0 {
+                        Text("面\(sig.faces)/辺\(sig.edges)")
+                            .font(.system(size: 9.5, design: .monospaced))
+                            .foregroundStyle(.secondary)
+                    }
+                }
+                if !sig.path.isEmpty {
+                    Text(sig.path).font(.system(size: 10))
+                        .foregroundStyle(.secondary).lineLimit(2)
+                }
+                HStack(spacing: 8) {
+                    if !sig.tier.isEmpty {
+                        Text(app.t("confidence ", "確からしさ ") + sig.tier)
+                            .foregroundStyle(sig.tier.hasPrefix("strong")
+                                             ? Color.green
+                                             : sig.tier.hasPrefix("weak")
+                                               ? Color.secondary : Color.orange)
+                    }
+                    if !sig.grain.isEmpty { Text(app.t("grain ", "粒度 ") + sig.grain) }
+                    if !sig.witnesses.isEmpty { Text(app.t("wit ", "合議 ") + sig.witnesses) }
+                    if sig.order == "arbitrary" {
+                        Text(app.t("unordered", "順不同")).foregroundStyle(.orange)
+                    }
+                }
+                .font(.system(size: 9.5)).foregroundStyle(.secondary)
+                if !sig.rungs.isEmpty {
+                    // The staircase, rung by rung — the abstainers are the
+                    // reason a 2/6 is not a failure, and seeing them is the
+                    // only way that reads as evidence rather than as noise.
+                    HStack(spacing: 4) {
+                        ForEach(Array(sig.rungs.enumerated()), id: \.offset) { _, r in
+                            Text(r.1 == "—" ? "·" : "●")
+                                .foregroundStyle(r.1 == "—" ? Color.secondary
+                                                            : Color.green)
+                                .help("\(r.0): \(r.1)")
+                        }
+                        Text(app.t("rungs", "段")).foregroundStyle(.secondary)
+                    }
+                    .font(.system(size: 9))
+                }
+            }
+        }
+        .padding(.horizontal, 10).padding(.bottom, 6)
+    }
+
     private var engineLabel: String {
         switch engine.state {
         case .idle:      return app.t("engine idle", "エンジン停止中")
@@ -198,6 +354,15 @@ struct VeraAuditView: View {
         case .idle: return .secondary
         }
     }
+    /// Whichever surface is currently live — so a "Resolve" click drives
+    /// the page the reader is actually looking at, not a second one.
+    private func webBase() -> String {
+        if case .ready(let p) = engine.state {
+            return "http://127.0.0.1:\(p)/vera3d.html"
+        }
+        return "https://verantyx.ai/vera3d/"
+    }
+
     private func useLocal() {
         if let u = engine.url {
             web = AuditWebRequest(url: u, stamp: web.stamp + 1)
@@ -221,6 +386,26 @@ struct VeraAuditView: View {
                 .foregroundStyle(.secondary)
                 .padding(.horizontal, 10)
 
+            if !sig.selectedGap.isEmpty {
+                HStack {
+                    Text(app.t("from the 3D: ", "3Dで選択: ") + sig.selectedGap)
+                        .font(.system(size: 11, weight: .medium))
+                    Spacer()
+                    Button(app.t("Resolve", "解消する")) {
+                        var c = URLComponents(string: webBase())!
+                        c.queryItems = [.init(name: "q",
+                                              value: "取得 " + sig.selectedGap)]
+                        web = AuditWebRequest(url: c.url!, stamp: web.stamp + 1)
+                        memory.remember(kind: "gap_resolved",
+                                        subject: sig.selectedGap,
+                                        detail: "picked in 3D")
+                    }
+                    .font(.system(size: 10))
+                }
+                .padding(.horizontal, 10).padding(.vertical, 4)
+                .background(Color.orange.opacity(0.12))
+            }
+
             List(demand) { row in
                 HStack {
                     Text(row.subject).font(.system(size: 12))
@@ -229,8 +414,7 @@ struct VeraAuditView: View {
                         .font(.system(size: 10, design: .monospaced))
                         .foregroundStyle(.secondary)
                     Button(app.t("Resolve", "解消する")) {
-                        var c = URLComponents(
-                            string: "https://verantyx.ai/vera3d/")!
+                        var c = URLComponents(string: webBase())!
                         c.queryItems = [.init(name: "q",
                                               value: "取得 " + row.subject)]
                         web = AuditWebRequest(url: c.url!,
@@ -499,6 +683,13 @@ struct VeraAuditView: View {
                 + "文脈は消えず、読み直せば同じ状態になります(記憶はデータ)。"))
                 .font(.system(size: 10.5)).foregroundStyle(.secondary)
                 .padding(.horizontal, 10)
+
+            if sig.grownCount > 0 {
+                Text(app.t("this session: +\(sig.grownCount) cores, last \(sig.lastGrown)",
+                           "本セッション: +\(sig.grownCount)核・直近 \(sig.lastGrown)"))
+                    .font(.system(size: 10)).foregroundStyle(.green)
+                    .padding(.horizontal, 10)
+            }
 
             List(Array(memory.entries.reversed())) { e in
                 VStack(alignment: .leading, spacing: 2) {
