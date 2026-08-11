@@ -49,7 +49,7 @@ final class VeraSignals: ObservableObject {
         switch type {
         case "ask":
             rungs = []; faces = 0; edges = 0
-            note("問 " + (m["query"] as? String ?? ""))
+            note(AppLanguage.shared.t("ask ", "問 ") + (m["query"] as? String ?? ""))
         case "reading":
             let name = m["setting"] as? String ?? ""
             let v = m["verdict"] as? String ?? ""
@@ -79,15 +79,15 @@ final class VeraSignals: ObservableObject {
         case "grown":
             grownCount += (m["count"] as? Int ?? 0)
             lastGrown = m["subject"] as? String ?? ""
-            note("成長 " + lastGrown + " +" + String(m["count"] as? Int ?? 0))
+            note(AppLanguage.shared.t("grown ", "成長 ") + lastGrown + " +" + String(m["count"] as? Int ?? 0))
         case "gap_click":
             selectedGap = m["subject"] as? String ?? ""
-            note("欠落を選択 " + selectedGap)
+            note(AppLanguage.shared.t("gap selected ", "欠落を選択 ") + selectedGap)
         case "edit_click":
             editClickStamp += 1
-            note("編集と公開を確認")
+            note(AppLanguage.shared.t("edit & publish opened", "編集と公開を確認"))
         case "grow_offer":
-            note("提案 " + (m["subject"] as? String ?? ""))
+            note(AppLanguage.shared.t("offer ", "提案 ") + (m["subject"] as? String ?? ""))
         default:
             break
         }
@@ -269,7 +269,7 @@ struct VeraAuditView: View {
     /// through the same veraSignal bridge the page already uses.
     private func refreshOverlay() {
         let gapRows = demand.prefix(3).map { d in
-            "{t:'gap',s:'\(Self.jsEscape(d.subject))',l:'欠落 \(Self.jsEscape(d.subject)) ×\(d.count)'}"
+            "{t:'gap',s:'\(Self.jsEscape(d.subject))',l:'\(Self.jsEscape(app.t("gap", "欠落"))) \(Self.jsEscape(d.subject)) ×\(d.count)'}"
         }.joined(separator: ",")
         let js = """
         (function(){
@@ -281,7 +281,7 @@ struct VeraAuditView: View {
             document.body.appendChild(host);
           }
           var items = [\(gapRows)\(gapRows.isEmpty ? "" : ",")
-                       {t:'edit',s:'',l:'編集と公開を確認'}];
+                       {t:'edit',s:'',l:'\(Self.jsEscape(app.t("edit & publish", "編集と公開を確認")))'}];
           host.innerHTML = '';
           items.forEach(function(it){
             var b = document.createElement('div');
@@ -433,8 +433,8 @@ struct VeraAuditView: View {
                     .font(.system(size: 9)).foregroundStyle(.quaternary)
             }
             Spacer()
-            if sig.faces > 0 { Text("面\(sig.faces) 辺\(sig.edges)").font(.system(size: 9, design: .monospaced)).foregroundStyle(.tertiary) }
-            if !sig.grain.isEmpty { Text("粒\(sig.grain)").font(.system(size: 9, design: .monospaced)).foregroundStyle(.tertiary) }
+            if sig.faces > 0 { Text(app.t("faces \(sig.faces) edges \(sig.edges)", "面\(sig.faces) 辺\(sig.edges)")).font(.system(size: 9, design: .monospaced)).foregroundStyle(.tertiary) }
+            if !sig.grain.isEmpty { Text(app.t("grain \(sig.grain)", "粒\(sig.grain)")).font(.system(size: 9, design: .monospaced)).foregroundStyle(.tertiary) }
         }
         .padding(.horizontal, 10).padding(.vertical, 4)
     }
@@ -445,7 +445,7 @@ struct VeraAuditView: View {
         ScrollView(.horizontal, showsIndicators: false) {
             HStack(spacing: 6) {
                 ForEach(demand.prefix(4)) { d in
-                    chip("欠落 \(d.subject) ×\(d.count)", color: .orange) {
+                    chip(app.t("gap \(d.subject) ×\(d.count)", "欠落 \(d.subject) ×\(d.count)"), color: .orange) {
                         chatInput = app.t("Gap: \(d.subject) (asked \(d.count)×) — plan the fix.",
                                           "欠落「\(d.subject)」(要望\(d.count)件) — 解消の段取りを。")
                     }
@@ -454,7 +454,7 @@ struct VeraAuditView: View {
                     chatInput = app.t("Summarize the open vera-suggest issues and what each needs.",
                                       "openのvera-suggest issueを要約し、それぞれ何が必要か。")
                 }
-                chip("記憶 \(memory.entries.count)", color: .purple) {
+                chip(app.t("memory \(memory.entries.count)", "記憶 \(memory.entries.count)"), color: .purple) {
                     chatInput = app.t("What has this task remembered, and what is missing from memory?",
                                       "このタスクの記憶には何があり、何が欠けている?")
                 }
@@ -749,7 +749,7 @@ final class VeraAAgent: ObservableObject {
         busy = true
         defer { busy = false; phase = "" }
 
-        phase = "文脈を集めています…"
+        phase = AppLanguage.shared.t("gathering context…", "文脈を集めています…")
         await refreshIssues()
 
         // Vector recall over everything nameable: memory subjects, demand
@@ -766,34 +766,49 @@ final class VeraAAgent: ObservableObject {
         let gitState = Self.gitOneliner(repoPath: repoPath)
 
         var context: [String] = []
+        let L = AppLanguage.shared
         if !demand.isEmpty {
-            context.append("未解消の欠落(要望順): "
+            context.append(L.t("Unresolved gaps (by demand): ", "未解消の欠落(要望順): ")
                 + demand.prefix(8).map { "\($0.0)×\($0.1)" }.joined(separator: ", "))
         }
-        if !selectedGap.isEmpty { context.append("3Dで選択中の欠落: \(selectedGap)") }
-        if let signal { context.append("3Dの直近の判定: \(signal)") }
+        if !selectedGap.isEmpty { context.append(L.t("Gap selected in the 3D: ", "3Dで選択中の欠落: ") + selectedGap) }
+        if let signal { context.append(L.t("Latest 3D verdict: ", "3Dの直近の判定: ") + signal) }
         if !issues.isEmpty {
             context.append("open issues (vera-suggest): "
                 + issues.prefix(6).map { "#\($0.id) \($0.title) (@\($0.by))" }.joined(separator: " / "))
         }
-        if !gitState.isEmpty { context.append("vera3dリポジトリ: \(gitState)") }
+        if !gitState.isEmpty { context.append(L.t("vera3d repo: ", "vera3dリポジトリ: ") + gitState) }
         if !memory.entries.isEmpty {
             let recent = memory.entries.suffix(5)
                 .map { "[\($0.kind)] \($0.subject): \($0.detail)" }.joined(separator: "\n")
-            context.append("永遠の記憶(直近):\n\(recent)")
+            context.append(L.t("Eternal memory (recent):\n", "永遠の記憶(直近):\n") + recent)
         }
-        if !recall.isEmpty { context.append("ベクトル想起: " + recall.joined(separator: ", ")) }
+        if !recall.isEmpty { context.append(L.t("Vector recall: ", "ベクトル想起: ") + recall.joined(separator: ", ")) }
 
-        let system = """
+        // The whole app speaks one language, chosen in Settings — Vera-a is
+        // not an exception, so the agent's instructions AND its replies
+        // follow the same switch as every label.
+        let ja = AppLanguage.shared.isJapanese
+        let system = ja ? """
         あなたは Vera-a 監査エージェント。Vera(立体十字構造の知識エンジン)の欠落の解消・編集と公開・記憶の管理だけを目的とする。
         規則:
         1. どんな入力にも、現在の文脈(欠落・issue・未公開の編集・記憶)に結びつけて答える。挨拶や雑談にも「今必要な直し」を返す。
         2. 提案はするが実行はしない。取り込み・公開は人間が承認する。
         3. 知らないことは知らないと言う。文脈に無い事実を作らない。
-        4. 簡潔に。箇条書きを好む。
+        4. 簡潔に。箇条書きを好む。必ず日本語で答える。
 
         現在の文脈:
         \(context.isEmpty ? "(文脈なし — まず欠落一覧の取得やモデルのロードを提案せよ)" : context.joined(separator: "\n"))
+        """ : """
+        You are the Vera-a audit agent. Your sole purpose is managing Vera (the stereo-cross knowledge engine): resolving gaps, editing & publishing, and keeping memory.
+        Rules:
+        1. Tie every reply to the current context (gaps, issues, unpublished edits, memory). Even a greeting gets "here is what needs fixing now".
+        2. Propose, never execute. Ingestion and publishing are approved by a human.
+        3. Say so when you do not know. Never invent facts absent from the context.
+        4. Be concise; prefer bullet points. Always answer in English.
+
+        Current context:
+        \(context.isEmpty ? "(no context — suggest fetching the gap list or loading a model first)" : context.joined(separator: "\n"))
         """
 
         var convo: [(role: String, content: String)] = [("system", system)]
@@ -801,12 +816,13 @@ final class VeraAAgent: ObservableObject {
             convo.append((m.role == .user ? "user" : "assistant", m.text))
         }
 
-        phase = "JGENで推論中…"
+        phase = AppLanguage.shared.t("thinking (JGEN)…", "JGENで推論中…")
         do {
             let reply = try await JCrossChatManager.shared.generate(
                 conversation: convo, maxTokens: 700)
             append(.assistant, reply.isEmpty
-                   ? "（思考が予算内に収まりませんでした — もう一度、短く聞いてください）"
+                   ? AppLanguage.shared.t("(Thinking exceeded the budget — ask again, shorter.)",
+                                          "（思考が予算内に収まりませんでした — もう一度、短く聞いてください）")
                    : reply)
 
             // The turn itself becomes memory, so the next question stands on
@@ -816,7 +832,9 @@ final class VeraAAgent: ObservableObject {
                          detail: String((reply.isEmpty ? "" : reply).prefix(200)))
             mem.save()
         } catch {
-            append(.assistant, "JGENが応答できません: \(error.localizedDescription)\nモデルバーからJGENモデルをロードしてください。")
+            append(.assistant, AppLanguage.shared.t(
+                "JGEN cannot answer: \(error.localizedDescription)\nLoad a JGEN model from the toolbar.",
+                "JGENが応答できません: \(error.localizedDescription)\nモデルバーからJGENモデルをロードしてください。"))
         }
     }
 
@@ -837,8 +855,10 @@ final class VeraAAgent: ObservableObject {
         let dirty = git(["status", "--porcelain"]).split(separator: "\n").count
         let ahead = git(["rev-list", "--count", "@{upstream}..HEAD"])
         var bits: [String] = []
-        if dirty > 0 { bits.append("未コミット\(dirty)件") }
-        if let n = Int(ahead), n > 0 { bits.append("未push \(n)コミット") }
-        return bits.isEmpty ? "クリーン(公開済みと一致)" : bits.joined(separator: "・")
+        let L = AppLanguage.shared
+        if dirty > 0 { bits.append(L.t("\(dirty) uncommitted", "未コミット\(dirty)件")) }
+        if let n = Int(ahead), n > 0 { bits.append(L.t("\(n) unpushed commits", "未push \(n)コミット")) }
+        return bits.isEmpty ? L.t("clean (matches published)", "クリーン(公開済みと一致)")
+                            : bits.joined(separator: L.t(", ", "・"))
     }
 }

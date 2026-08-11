@@ -719,7 +719,8 @@ struct PipeConnectSheet: View {
             req.httpMethod = "POST"
             req.setValue("application/json", forHTTPHeaderField: "Content-Type")
             req.httpBody = try JSONSerialization.data(withJSONObject: [
-                "name": name, "host": myAddr, "port": Int(coordinator.controlPort)])
+                "name": name, "host": myAddr, "port": Int(coordinator.controlPort),
+                "sid": PipeStore.shared.snapshot().sessionId])
             req.timeoutInterval = 10
             let (data, resp) = try await URLSession.shared.data(for: req)
             guard (resp as? HTTPURLResponse)?.statusCode == 200 else {

@@ -458,6 +458,26 @@ actor JGenAgentServer {
         }
         let q: [String: String] = (comps.queryItems ?? []).reduce(into: [:]) { $0[$1.name] = $1.value }
 
+        // Weights only move inside an established pairing. Every /pipe/model
+        // route (except the progress readout, which carries no model data)
+        // must present the session id both machines agreed on in /pipe/pair —
+        // without this, anything on the LAN that guessed a model's name could
+        // download it. The id is a bearer secret shared over the local link;
+        // for a paired two-Mac setup that is the right size of lock.
+        if comps.path != "/pipe/model/pull_status" {
+            let sid = PipeStore.shared.snapshot().sessionId
+            let presented = q["sid"]
+                ?? (request.body.flatMap {
+                    (try? JSONSerialization.jsonObject(with: $0) as? [String: Any])
+                        .flatMap { $0?["sid"] as? String }
+                })
+            guard !sid.isEmpty, presented == sid else {
+                await Self.writeResponse(connection: connection, status: 403,
+                                         body: ["ok": false, "error": "not_paired"])
+                return
+            }
+        }
+
         switch (request.method, comps.path) {
         case ("GET", "/pipe/model/manifest"):
             guard let name = q["name"], !name.contains("/"),

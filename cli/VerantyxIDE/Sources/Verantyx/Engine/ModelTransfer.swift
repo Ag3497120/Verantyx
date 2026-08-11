@@ -283,12 +283,15 @@ actor ModelTransfer {
     /// so both this machine's UI and the sender (via /pipe/model/pull_status)
     /// can watch the same numbers.
     func pull(name: String, host: String, port: UInt16) async {
+        // Session id first: the sender's model routes are locked to the
+        // pairing, and asking without it is a guaranteed 403.
+        let sid = await MainActor.run { PipeStore.shared.snapshot().sessionId }
         func fail(_ msg: String) async {
             await MainActor.run { TransferProgress.shared.fail(msg) }
         }
         do {
             // 1. Manifest.
-            guard let mURL = URL(string: "http://\(host):\(port)/pipe/model/manifest?name="
+            guard let mURL = URL(string: "http://\(host):\(port)/pipe/model/manifest?sid=\(sid)&name="
                                  + (name.addingPercentEncoding(withAllowedCharacters: .urlQueryAllowed) ?? name))
             else { await fail("bad host"); return }
             let (mData, _) = try await URLSession.shared.data(from: mURL)
@@ -335,7 +338,7 @@ actor ModelTransfer {
                 let esc = { (s: String) in
                     s.addingPercentEncoding(withAllowedCharacters: .urlQueryAllowed) ?? s
                 }
-                guard let fURL = URL(string: "http://\(host):\(port)/pipe/model/file?name=\(esc(name))&rel=\(esc(entry.relPath))&off=\(offset)")
+                guard let fURL = URL(string: "http://\(host):\(port)/pipe/model/file?sid=\(sid)&name=\(esc(name))&rel=\(esc(entry.relPath))&off=\(offset)")
                 else { await fail("bad host"); return }
                 var req = URLRequest(url: fURL)
                 req.timeoutInterval = 3600
