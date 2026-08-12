@@ -259,6 +259,13 @@ struct JGenSettingsSection: View {
                                         .help(app.t(
                                             "f16 → q4_k blocks: ~1/3 the size, runs resident on Metal. The f16 original is kept.",
                                             "f16 → q4_kブロック。約1/3のサイズになりMetal常駐で動きます。f16版は残ります。"))
+                                    } else if let why = converter.requantHint(name) {
+                                        // Absent button + no explanation read as
+                                        // "won't regenerate". Say why instead.
+                                        Text(why)
+                                            .font(.system(size: 9))
+                                            .foregroundStyle(.secondary)
+                                            .help(why)
                                     }
                                     Button {
                                         loadModel(name)

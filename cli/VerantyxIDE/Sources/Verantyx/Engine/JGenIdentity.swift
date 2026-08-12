@@ -65,7 +65,8 @@ enum JGenIdentity {
         let structuralHash: String
         var contentHash: String?
         var contentHashKind: ContentHashKind?
-        let metaHash: String
+        /// Mutable: refreshed from disk on every cache hit — see `identity(forModelAt:)`.
+        var metaHash: String
 
         /// True when both sides have a content hash computed the same way.
         func contentComparable(with other: Identity) -> Bool {
@@ -359,7 +360,11 @@ enum JGenIdentity {
 
         let tokDir = URL(fileURLWithPath: modelURL.path + ".tokenizer")
         if let files = try? FileManager.default.contentsOfDirectory(atPath: tokDir.path) {
-            for f in files.sorted() {
+            // Hidden files excluded: a Finder visit drops .DS_Store into the
+            // directory on one Mac only, and identical tokenizers then hash
+            // differently — reported as "Same weights, different settings
+            // file" with nothing actually different.
+            for f in files.sorted() where !f.hasPrefix(".") {
                 guard let d = try? Data(contentsOf: tokDir.appendingPathComponent(f)) else { continue }
                 h.update(data: Data(f.utf8))
                 h.update(data: Data(SHA256.hash(data: d)))
@@ -438,7 +443,17 @@ enum JGenIdentity {
     /// `contentHash` is left `nil` unless a cached one is still valid — computing
     /// it is a separate, explicitly-requested step.
     static func identity(forModelAt modelURL: URL) throws -> Identity {
-        if let cached = loadCache(forModelAt: modelURL) { return cached }
+        if var cached = loadCache(forModelAt: modelURL) {
+            // The cache envelope validates the WEIGHTS (size/inode/mtime of
+            // the .jgen) — it knows nothing about the sidecar. A transfer's
+            // publish step rewrites meta.json while the .jgen stays put, so
+            // a cached metaHash survives every sidecar change and the sheet
+            // reports "Same weights, different settings file" forever.
+            // metaHash is a few MB of hashing at most: recompute it fresh.
+            cached.metaHash = (try? metaHash(forModelAt: modelURL)) ?? cached.metaHash
+            saveCache(cached, forModelAt: modelURL)
+            return cached
+        }
         let layout = try readLayout(at: modelURL)
         let identity = Identity(
             fileSize: layout.fileSize,

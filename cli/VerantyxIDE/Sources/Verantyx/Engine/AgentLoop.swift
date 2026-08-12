@@ -1119,9 +1119,13 @@ SYS.ENFORCE("logical_verification_before_acceptance")
 
                 // ── Vera-α: preview-before-save popup, AFTER the answer is
                 // already visible in the transcript -- never gates display.
-                if memoryLayer == .vera {
+                // Reasoning is not an answer: a think-only turn has nothing
+                // worth remembering, and popping the save sheet over it read
+                // as "the output was cut off and replaced by a popup".
+                let (saveAnswer, thinkOnly) = JCrossChatManager.extractAnswer(cleanText)
+                if memoryLayer == .vera, !thinkOnly, !saveAnswer.isEmpty {
                     await VeraMemoryBridge.requestSaveApproval(
-                        userPrompt: instruction, aiResponse: cleanText
+                        userPrompt: instruction, aiResponse: saveAnswer
                     )
                 }
                 return
@@ -1281,10 +1285,12 @@ SYS.ENFORCE("logical_verification_before_acceptance")
                     await onProgress(.done(message: msg, workspace: currentWorkspace))
 
                     // ── Vera-α: same as the tools.isEmpty branch above --
-                    // only after the answer is already visible.
-                    if memoryLayer == .vera {
+                    // only after the answer is already visible, and only
+                    // when there is an actual answer (not reasoning).
+                    let (saveAnswer, thinkOnly) = JCrossChatManager.extractAnswer(msg)
+                    if memoryLayer == .vera, !thinkOnly, !saveAnswer.isEmpty {
                         await VeraMemoryBridge.requestSaveApproval(
-                            userPrompt: instruction, aiResponse: msg
+                            userPrompt: instruction, aiResponse: saveAnswer
                         )
                     }
                     isDone = true

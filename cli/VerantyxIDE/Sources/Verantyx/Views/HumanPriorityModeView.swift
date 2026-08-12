@@ -84,35 +84,14 @@ struct HumanPriorityModeView: View {
                     ActivityBarView(selectedSection: $activitySection)
                         .frame(width: 48)
 
-                    // ② Outer split: [Left panel] | [Center + Right]
-                    if let section = activitySection {
-                        ResizableHSplit(
-                            minLeft: 50, maxLeft: 400, minRight: 150, initialLeft: 220
-                        ) {
-                            // ── Left: File Tree / MCP / Evolution ─────────────────
-                            Group {
-                                switch section {
-                                case .mcp:       MCPView()
-                                case .vera:      VeraFeatureDock().environmentObject(app)
-                                case .growth:    GrowthConsolePanel()
-                                case .evolution: SelfEvolutionView().environmentObject(app)
-                                case .search:    GlobalSearchView().environmentObject(app)
-                                case .git:       GitPanelView().environmentObject(app)
-                                // VRBridgePanelView's source was never
-                                // committed to this repo (dead reference,
-                                // unrelated to this change) -- falls
-                                // through to the default.
-                                default:         MultiPurposePanel().environmentObject(app)
-                                }
-                            }
-                            .frame(maxHeight: .infinity)
-
-                        } right: {
-                            centerAndRightPanes
-                        }
-                    } else {
-                        centerAndRightPanes
-                    }
+                    // ② One surface + chat. An activity selection used to
+                    // dock as a THIRD column with its own divider, showing
+                    // (for example) memory beside the stage's own memory
+                    // tab. Now the selection opens IN the single center
+                    // surface — same place the stage, the AI's terminal,
+                    // and its named panels live — and Explorer returns to
+                    // the stage. One window, one border: the chat's.
+                    centerAndRightPanes
                 }
                 .frame(maxWidth: .infinity, maxHeight: .infinity)
 
@@ -401,15 +380,35 @@ struct HumanPriorityModeView: View {
 
     @ViewBuilder
     private var centerAndRightPanes: some View {
-        // ③ Inner split: [Code Editor] | [AI Chat]
+        // ③ Inner split: [surface] | [AI Chat]
         ResizableHSplit(
             // minRight raised from 100 -- same reasoning as MainSplitView's
             // centerAndRightPanes: the chat pane's own layout needs more
             // room before its elements start crushing together.
             minLeft: 100, maxLeft: 99999, minRight: 300, initialLeft: 600
         ) {
-            // ── Center: Code Editor ────────────────────────────
-            codeEditorPanel
+            // ── Center: the one surface ────────────────────────
+            // Activity sections render here full-size instead of as a
+            // docked side column; Explorer (or deselecting) shows the
+            // stage.
+            if let section = activitySection, section != .explorer {
+                Group {
+                    switch section {
+                    case .mcp:       MCPView()
+                    case .vera:      VeraFeatureDock().environmentObject(app)
+                    case .growth:    GrowthConsolePanel()
+                    case .evolution: SelfEvolutionView().environmentObject(app)
+                    case .search:    GlobalSearchView().environmentObject(app)
+                    case .git:       GitPanelView().environmentObject(app)
+                    // VRBridgePanelView's source was never committed to
+                    // this repo (dead reference) -- default covers it.
+                    default:         codeEditorPanel
+                    }
+                }
+                .frame(maxWidth: .infinity, maxHeight: .infinity)
+            } else {
+                codeEditorPanel
+            }
         } right: {
             // ── Right: AI Chat ─────────────────────────────────
             aiChatPanel
@@ -432,7 +431,9 @@ struct HumanPriorityModeView: View {
             // inspector no longer a separate tab bar.
             ScrollView(.horizontal, showsIndicators: false) {
                 HStack(spacing: 4) {
-                    stageChip(app.t("Files", "ファイル"), .files)
+                    // Files chip removed by request — the editor tab bar and
+                    // the toolbar's Open Folder cover file access, and the
+                    // stage stays about what's being worked ON.
                     stageChip(app.t("Editor", "エディタ"), .editor)
                     stageChip(app.t("Terminal", "ターミナル"), .terminal)
                     if !app.stageDiff.isEmpty { stageChip("diff", .diff) }
@@ -1669,12 +1670,13 @@ struct VeraFeatureDock: View {
     @EnvironmentObject var app: AppState
 
     private enum Tab: String, CaseIterable, Identifiable {
-        case memory, growth, research, distributed, settings, modes, stereoCross, mirror, vectorLab
+        // .memory removed: the stage's own 記憶 chip is the one memory
+        // view — showing it here too meant two memory readouts at once.
+        case growth, research, distributed, settings, modes, stereoCross, mirror, vectorLab
         var id: String { rawValue }
         @MainActor
         func title(_ app: AppState) -> String {
             switch self {
-            case .memory:      return app.t("Memory", "記憶")
             case .growth:      return app.t("Growth", "成長")
             case .research:    return app.t("Failure types", "失敗の型")
             case .distributed: return app.t("Two Macs", "2台構成")
@@ -1687,7 +1689,7 @@ struct VeraFeatureDock: View {
         }
     }
 
-    @State private var tab: Tab = .memory
+    @State private var tab: Tab = .settings
     @State private var showConnectSheet = false
     @State private var showPendingToolCalls = false
     @State private var showReasoningTimeline = false
@@ -1708,7 +1710,6 @@ struct VeraFeatureDock: View {
 
             Group {
                 switch tab {
-                case .memory:      MemoryConsoleView()
                 case .growth:      GrowthDashboardView()
                 case .research:    FailureDomainsView()
                 case .distributed: PipeControlPanelView(showConnectSheet: $showConnectSheet)

@@ -160,12 +160,42 @@ final class JGenConverter: ObservableObject {
     /// (no `"quantized": true` in the sidecar) and big enough that residency
     /// is at stake. Small f16 models load fine as they are.
     func canRequantize(_ modelFileName: String) -> Bool {
-        guard Self.requantBinaryURL() != nil else { return false }
-        guard let meta = metaJSON(for: modelFileName) else { return false }
-        if (meta["quantized"] as? Bool) == true { return false }
+        requantUnavailableReason(modelFileName) == nil
+    }
+
+    /// Why the Quantize button is absent — but only for models big enough
+    /// that someone would look for it. Small models return nil (no note).
+    /// The button used to just silently not exist, which read as "the app
+    /// refuses to generate this model" with no way to learn which
+    /// precondition failed.
+    func requantHint(_ modelFileName: String) -> String? {
         let url = JGenPaths.convertedModelsDir.appendingPathComponent(modelFileName)
-        let size = (try? FileManager.default.attributesOfItem(atPath: url.path)[.size] as? UInt64) ?? 0
-        return (size ?? 0) > 8 << 30
+        let size = (try? FileManager.default.attributesOfItem(atPath: url.path)[.size] as? UInt64)
+            .flatMap { $0 } ?? 0
+        guard size > 8 << 30 else { return nil }
+        return requantUnavailableReason(modelFileName)
+    }
+
+    func requantUnavailableReason(_ modelFileName: String) -> String? {
+        guard Self.requantBinaryURL() != nil else {
+            return L("requant_jgen binary not bundled in this build",
+                     "requant_jgen バイナリがこのビルドに同梱されていません")
+        }
+        guard let meta = metaJSON(for: modelFileName) else {
+            return L("no .meta.json sidecar", ".meta.json サイドカーがありません")
+        }
+        if (meta["quantized"] as? Bool) == true {
+            return L("already quantized — nothing to shrink",
+                     "既に量子化済みです — これ以上小さくなりません")
+        }
+        let url = JGenPaths.convertedModelsDir.appendingPathComponent(modelFileName)
+        let size = (try? FileManager.default.attributesOfItem(atPath: url.path)[.size] as? UInt64)
+            .flatMap { $0 } ?? 0
+        if size <= 8 << 30 {
+            return L("f16 under 8 GB loads fine as-is",
+                     "8GB未満のf16はそのまま問題なく動きます")
+        }
+        return nil
     }
 
     /// f16 JGEN → quantized JGEN (q4_k body, q6_k head), written beside the

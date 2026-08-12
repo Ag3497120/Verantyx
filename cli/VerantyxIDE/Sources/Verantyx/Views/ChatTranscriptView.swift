@@ -398,10 +398,17 @@ private enum Transcript {
         cp.tailIndent = -12
 
         for part in parseThink(content) {
+            let trimmed = part.text.trimmingCharacters(in: .whitespacesAndNewlines)
+            guard !trimmed.isEmpty else { continue }
             if part.isThink {
-                // HIDE think blocks in the IDE view per user request
-                continue
-            } else if !part.text.trimmingCharacters(in: .whitespacesAndNewlines).isEmpty {
+                // Thinking is SHOWN (smaller, teal) — hiding it made a
+                // reasoning-only turn look like an empty reply with a save
+                // popup on top, which read as "the answer was eaten".
+                r.append(NSAttributedString(string: trimmed + "\n",
+                    attributes: [.font: NSFont.systemFont(ofSize: 11),
+                                 .foregroundColor: Palette.thinkText,
+                                 .paragraphStyle: cp]))
+            } else {
                 appendBold(r, text: part.text,
                            font: NSFont.systemFont(ofSize: 13),
                            color: Palette.assiText, para: cp)
@@ -472,7 +479,19 @@ private enum Transcript {
                 cursor = fr.upperBound
             }
         }
-        if cursor < text.endIndex { parts.append(Part(text: String(text[cursor...]), isThink: false)) }
+        if cursor < text.endIndex {
+            // A still-open <think> (mid-stream) renders as thinking too —
+            // otherwise live reasoning shows as raw tagged text until the
+            // close tag arrives.
+            let tail = String(text[cursor...])
+            if let open = tail.range(of: "<think>") {
+                let before = String(tail[tail.startIndex..<open.lowerBound])
+                if !before.isEmpty { parts.append(Part(text: before, isThink: false)) }
+                parts.append(Part(text: String(tail[open.upperBound...]), isThink: true))
+            } else {
+                parts.append(Part(text: tail, isThink: false))
+            }
+        }
         return parts.isEmpty ? [Part(text: text, isThink: false)] : parts
     }
 
