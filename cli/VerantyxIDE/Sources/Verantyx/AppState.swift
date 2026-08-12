@@ -496,6 +496,14 @@ final class AppState: ObservableObject {
         didSet { UserDefaults.standard.set(contextWindowOverride, forKey: "context_window_override") }
     }
 
+    /// 0 = auto (tier table). Any positive value overrides the per-turn
+    /// generation budget EVERYWHERE — the tier table stops being a ceiling
+    /// the moment the user sets this, including the JGen safety clamp.
+    @Published var maxTokensOverride: Int =
+        UserDefaults.standard.integer(forKey: "max_tokens_override") {
+        didSet { UserDefaults.standard.set(maxTokensOverride, forKey: "max_tokens_override") }
+    }
+
     /// The model-name string used for tier/budget lookups (e.g.
     /// `ContextBudgetManager.budget(for:)`), extracted from whichever
     /// `ModelStatus` case is currently active. `nil` when no model is loaded.

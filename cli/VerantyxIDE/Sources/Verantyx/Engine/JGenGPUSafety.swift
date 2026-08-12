@@ -372,6 +372,13 @@ enum JGenGPUSafety {
     /// Cap generate maxTokens so Vera harness / AgentLoop cannot ask for a
     /// multi-k decode residency window on tight Macs.
     static func cappedMaxTokens(_ requested: Int) -> Int {
+        // An explicit user override outranks the RAM heuristics — the user
+        // asked for every ceiling to yield to the manual setting, and a cap
+        // that silently shrinks a requested budget is exactly the "manual
+        // setting doesn't take" bug.
+        if UserDefaults.standard.integer(forKey: "max_tokens_override") > 0 {
+            return max(requested, 64)
+        }
         let cap = lastDecision?.maxGenTokens ?? fallbackMaxGenTokens
         return min(max(requested, 64), cap)
     }

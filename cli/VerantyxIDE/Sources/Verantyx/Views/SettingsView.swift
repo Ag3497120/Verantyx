@@ -914,8 +914,30 @@ struct SettingsView: View {
                     rowLabel("Max tokens (MLX)") {
                         Text("\(app.maxTokensMLX)").font(.system(size: 11, design: .monospaced)).foregroundStyle(.secondary).frame(width: 48)
                     }
-                    Slider(value: Binding(get: { Double(app.maxTokensMLX) }, set: { app.maxTokensMLX = Int($0) }), in: 512...16384, step: 512)
+                    Slider(value: Binding(get: { Double(app.maxTokensMLX) }, set: { app.maxTokensMLX = Int($0) }), in: 512...131072, step: 512)
                         .tint(Color(red: 0.4, green: 0.9, blue: 0.6))
+                }
+
+                Divider().opacity(0.2)
+
+                VStack(alignment: .leading, spacing: 6) {
+                    rowLabel(app.t("Max tokens per reply", "1回答のMax tokens")) {
+                        Picker("", selection: Binding(
+                            get: { app.maxTokensOverride },
+                            set: { app.maxTokensOverride = $0 }
+                        )) {
+                            Text(app.t("Auto (by model size)", "自動(モデルサイズ)")).tag(0)
+                            Text("8192").tag(8_192)
+                            Text("16384").tag(16_384)
+                            Text("32768").tag(32_768)
+                            Text("65536").tag(65_536)
+                            Text("131072").tag(131_072)
+                        }
+                        .labelsHidden().frame(width: 180)
+                    }
+                    Text(app.t("Overrides every ceiling, including the tier table and the JGEN safety clamp.",
+                               "ティア表・JGEN安全上限を含む全ての上限より優先されます。"))
+                        .font(.system(size: 9)).foregroundStyle(.tertiary)
                 }
 
                 Divider().opacity(0.2)

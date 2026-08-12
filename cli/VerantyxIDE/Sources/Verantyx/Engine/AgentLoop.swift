@@ -173,7 +173,7 @@ actor AgentLoop {
             ContextUsageTracker.shared.setContextWindowCharBudget(compressThreshold)
         }
         await onProgress(.aiMessage(
-            AppLanguage.shared.t("🤖 Model Profile: \(activeModel) → \(profile.tier.displayName) | Max tokens: \(profile.tier.maxTokens) | Temp: \(profile.tier.temperature) | Context: \(compressThreshold)\(contextOverride > 0 ? " (manual)" : "")", "🤖 モデルプロファイル: \(activeModel) → \(profile.tier.displayName) | Max tokens: \(profile.tier.maxTokens) | Temp: \(profile.tier.temperature) | コンテキスト: \(compressThreshold)\(contextOverride > 0 ? "（手動設定）" : "")"
+            AppLanguage.shared.t("🤖 Model Profile: \(activeModel) → \(profile.tier.displayName) | Max tokens: \(profile.effectiveMaxTokens)\(UserDefaults.standard.integer(forKey: "max_tokens_override") > 0 ? " (manual)" : "") | Temp: \(profile.tier.temperature) | Context: \(compressThreshold)\(contextOverride > 0 ? " (manual)" : "")", "🤖 モデルプロファイル: \(activeModel) → \(profile.tier.displayName) | Max tokens: \(profile.effectiveMaxTokens)\(UserDefaults.standard.integer(forKey: "max_tokens_override") > 0 ? " (manual)" : "") | Temp: \(profile.tier.temperature) | コンテキスト: \(compressThreshold)\(contextOverride > 0 ? "（手動設定）" : "")"
             )
         ))
 
@@ -1405,7 +1405,7 @@ SYS.ENFORCE("logical_verification_before_acceptance")
                                     model: model,
                                     messages: msgs,
                                     imagesForLastUserMessage: [anchorBase64],
-                                    maxTokens: profile.tier.maxTokens,
+                                    maxTokens: profile.effectiveMaxTokens,
                                     temperature: profile.tier.temperature,
                                     onToken: { _ in }
                                 )
@@ -1415,7 +1415,7 @@ SYS.ENFORCE("logical_verification_before_acceptance")
                                 return await AnthropicClient.shared.generate(
                                     model: model, systemPrompt: sys, messages: chat,
                                     imagesForLastUserMessage: [anchorBase64],
-                                    maxTokens: profile.tier.maxTokens,
+                                    maxTokens: profile.effectiveMaxTokens,
                                     temperature: profile.tier.temperature,
                                     enableThinking: false,
                                     onToken: { _ in }, onThinking: { _ in }
@@ -2042,7 +2042,7 @@ SYS.ENFORCE("logical_verification_before_acceptance")
                 model: model,
                 messages: mutableConversation,
                 imagesForLastUserMessage: anchorImages,
-                maxTokens: profile.tier.maxTokens,
+                maxTokens: profile.effectiveMaxTokens,
                 temperature: profile.tier.temperature,
                 onToken: { token in
                     Task { @MainActor in
@@ -2061,7 +2061,7 @@ SYS.ENFORCE("logical_verification_before_acceptance")
             return await LMStudioClient.shared.generateConversation(
                 model: model,
                 messages: mutableConversation,
-                maxTokens: profile.tier.maxTokens,
+                maxTokens: profile.effectiveMaxTokens,
                 temperature: profile.tier.temperature,
                 onToken: { token in
                     Task { @MainActor in
@@ -2080,7 +2080,7 @@ SYS.ENFORCE("logical_verification_before_acceptance")
                 systemPrompt: systemContent,
                 messages: chatMessages,
                 imagesForLastUserMessage: anchorImages,
-                maxTokens: max(profile.tier.maxTokens, 8096),  // Anthropic は大きめに
+                maxTokens: max(profile.effectiveMaxTokens, 8096),  // Anthropic は大きめに
                 temperature: profile.tier.temperature,
                 enableThinking: isThinking,
                 onToken: { token in
@@ -2103,7 +2103,7 @@ SYS.ENFORCE("logical_verification_before_acceptance")
                 try await MLXRunner.shared.streamGenerateTokens(
                     prompt: prompt,
                     images: anchorImages,
-                    maxTokens: profile.tier.maxTokens,
+                    maxTokens: profile.effectiveMaxTokens,
                     temperature: profile.tier.temperature,
                     onToken: { @Sendable piece in
                         // Streaming deltas → UI display only
@@ -2185,7 +2185,7 @@ SYS.ENFORCE("logical_verification_before_acceptance")
             do {
                 let result = try await JCrossChatManager.shared.generateStreaming(
                     conversation: conversation,
-                    maxTokens: profile.tier.maxTokens,
+                    maxTokens: profile.effectiveMaxTokens,
                     onToken: { fragment in
                         Task { @MainActor in
                             await onProgress(.streamToken(fragment))
@@ -2523,6 +2523,17 @@ struct ModelProfile: Sendable {
 }
 
 // MARK: - ModelProfileDetector
+
+extension ModelProfile {
+    /// The tier table is a default, not a ceiling: a manual Max-tokens
+    /// setting (Settings → Model) wins everywhere this is read. The 16384
+    /// "Large" figure looked like a hard limit precisely because nothing
+    /// consulted the user before this existed.
+    var effectiveMaxTokens: Int {
+        let o = UserDefaults.standard.integer(forKey: "max_tokens_override")
+        return o > 0 ? o : tier.maxTokens
+    }
+}
 
 enum ModelProfileDetector {
 
