@@ -1473,6 +1473,7 @@ final class AppState: ObservableObject {
                 // asked. Evidence arrives before the agent thinks.
                 var webEvidence = ""
                 var webQueryUsed = ""
+                var webSourceHost = ""
                 if !hasVerifiedAnswer {
                     let (plannerNeeds, planned) = await self.planWebQueries(for: text)
                     // Vera's rule outranks the planner's self-assessment:
@@ -1490,8 +1491,17 @@ final class AppState: ObservableObject {
                         let snippet = r.contextSnippet.trimmingCharacters(in: .whitespacesAndNewlines)
                         if !snippet.isEmpty {
                             webQueryUsed = q
+                            // The grounding rule rides INSIDE the evidence
+                            // block: a real run blended fresh evidence with
+                            // stale training prose ("100K tokens") with no
+                            // way to tell which was which.
                             webEvidence = "[WEB EVIDENCE — query chosen by Vera: \(q)]\n"
-                                + "Source: \(r.url)\n\(String(snippet.prefix(1800)))\n[END WEB EVIDENCE]"
+                                + "Source: \(r.url)\n\(String(snippet.prefix(1800)))\n"
+                                + "RULES: For claims about current products, versions, prices or dates, "
+                                + "use ONLY this evidence and name the source. If the evidence does not "
+                                + "cover a point, write (未検証) after that claim instead of reciting "
+                                + "training data as fact.\n[END WEB EVIDENCE]"
+                            webSourceHost = URL(string: r.url)?.host ?? ""
                             // Feed the query memory: this question→query
                             // pairing worked; next time it is reused, and
                             // the pair table learns the mapping.
@@ -1505,7 +1515,9 @@ final class AppState: ObservableObject {
                 // The parallel drive, visible but faint: one think-styled
                 // status line, not a wall of verdict text.
                 let recallHits = recall.components(separatedBy: "🧠").count - 1
-                let webNote = webQueryUsed.isEmpty ? "" : " · web \"\(webQueryUsed)\""
+                let webNote = webQueryUsed.isEmpty
+                    ? ""
+                    : " · web \"\(webQueryUsed)\"\(webSourceHost.isEmpty ? "" : " (\(webSourceHost))")"
                 await MainActor.run {
                     self.addSystemMessage(self.t(
                         "<think>\n🧿 Vera-a parallel: verdict \(verdict.isEmpty ? "-" : verdict) · recall \(max(recallHits, 0)) hit(s)\(webNote) → injected; learning runs after the reply\n</think>",
