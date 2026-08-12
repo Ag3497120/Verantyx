@@ -2540,6 +2540,9 @@ enum ModelProfileDetector {
 
         // ── Large ~26-32B (check BEFORE small/mid to stop "6b" in "26b" matching) ──
         let largeKeywords = ["26b", "27b", "32b", "gemma-3-27", "gemma-4-26",
+                             // Meta Muse Glimmer (2026-08): 29.6B dense
+                             // agentic model, no size marker in its id.
+                             "muse-glimmer",
                              "gemma4-26", "qwen2.5-32", "deepseek-r1-32",
                              // Ollama short names that represent large models
                              "gemma4:26", "gemma4:27", "gemma3:27", "gemma3:26"]

@@ -895,6 +895,22 @@ final class AppState: ObservableObject {
 
     // MARK: - Workspace actions
 
+    /// The model that will actually generate this turn — named by the ACTIVE
+    /// backend, not by whatever Ollama model happens to be configured. The
+    /// profile banner used to read `activeOllamaModel` unconditionally, so a
+    /// selected LM Studio model (muse-glimmer) generated the reply while the
+    /// banner — and the tier/token/temperature budgets derived from it —
+    /// described gemma4:26b.
+    var effectiveModelName: String {
+        switch modelStatus {
+        case .lmStudioReady(let m), .mlxReady(let m),
+             .bitnetReady(let m), .jcrossReady(let m):
+            return m
+        default:
+            return activeOllamaModel
+        }
+    }
+
     func openWorkspace() {
         guard let url = workspace.pickFolder() else { return }
         workspaceURL = url
@@ -1452,7 +1468,7 @@ final class AppState: ObservableObject {
 
         let snap_mode     = inferenceMode
         let snap_provider = cloudProvider
-        let snap_model    = activeOllamaModel
+        let snap_model    = effectiveModelName
         let snap_status   = modelStatus
 
         // ── Privacy Shield / Paranoia Mode: PrivacyGateway (Phase 1 + Phase 2 + JCross) ──
@@ -1905,7 +1921,7 @@ final class AppState: ObservableObject {
         let context = selectedFileContent.isEmpty ? nil : selectedFileContent
         let contextFile = selectedFile
         let snap_workspace = workspaceURL
-        let snap_model = isTalkieMode ? "kofdai/talkie-1930-13b-it-mlx-8bit" : activeOllamaModel
+        let snap_model = isTalkieMode ? "kofdai/talkie-1930-13b-it-mlx-8bit" : effectiveModelName
         let snap_status = modelStatus
 
         // selfFixMode persists until the user explicitly toggles it off.
