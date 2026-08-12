@@ -268,6 +268,31 @@ struct VeraAuditView: View {
     /// ships unmodified — this is host-injected DOM, and clicks come back
     /// through the same veraSignal bridge the page already uses.
     private func refreshOverlay() {
+        // The page follows the IDE, not its own chips: same language switch
+        // as every other surface, and no browser boot button — the engine
+        // is native here, there is nothing to download.
+        let wantEn = !AppLanguage.shared.isJapanese
+        let syncJS = """
+        (function(){
+          try {
+            if (typeof LANGUI !== 'undefined' && LANGUI !== '\(wantEn ? "en" : "ja")') {
+              var b = document.getElementById('b-lang'); if (b) b.click();
+            }
+            if (b = document.getElementById('b-lang')) b.style.display = 'none';
+            ['b-boot'].forEach(function(id){
+              var el = document.getElementById(id); if (el) el.style.display='none';
+            });
+            // Hide any control whose label is the browser boot (起動 (~45MB)).
+            document.querySelectorAll('button').forEach(function(el){
+              if (/起動\\s*\\(~?45MB\\)|Boot\\s*\\(~?45MB\\)/.test(el.textContent)) el.style.display='none';
+            });
+          } catch (e) {}
+        })();
+        """
+        paintAuditOverlay(prefix: syncJS)
+    }
+
+    private func paintAuditOverlay(prefix: String = "") {
         let gapRows = demand.prefix(3).map { d in
             "{t:'gap',s:'\(Self.jsEscape(d.subject))',l:'\(Self.jsEscape(app.t("gap", "欠落"))) \(Self.jsEscape(d.subject)) ×\(d.count)'}"
         }.joined(separator: ",")
@@ -295,7 +320,7 @@ struct VeraAuditView: View {
           });
         })();
         """
-        overlay = OverlayRequest(js: js, stamp: overlay.stamp + 1)
+        overlay = OverlayRequest(js: prefix + "\n" + js, stamp: overlay.stamp + 1)
     }
 
     private static func jsEscape(_ s: String) -> String {

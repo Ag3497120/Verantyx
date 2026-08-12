@@ -33,7 +33,6 @@ struct ActivityBarView: View {
 
             // Bottom icons
             VStack(spacing: 2) {
-                activityButton(.extensions)
                 activityButton(.settings)
 
                 // Avatar placeholder
