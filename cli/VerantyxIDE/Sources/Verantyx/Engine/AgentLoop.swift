@@ -1059,7 +1059,11 @@ SYS.ENFORCE("logical_verification_before_acceptance")
             // (a real transcript looped three times). When the model asks
             // to search without saying what for, Vera supplies the query:
             // the user's own task line.
-            if tools.isEmpty, AgentToolParser.isBareSearchRequest(cleanText) {
+            // No rescue when the VX-Loop already ran this turn's SEARCH_GATE
+            // — a real transcript double-searched: the model's own good
+            // query via the gate AND the rescue's keyword fallback.
+            if tools.isEmpty, vxLastSearchResult.isEmpty,
+               AgentToolParser.isBareSearchRequest(cleanText) {
                 var q = instruction
                 if let r = q.range(of: "[TASK]\n", options: .backwards) {
                     q = String(q[r.upperBound...])
