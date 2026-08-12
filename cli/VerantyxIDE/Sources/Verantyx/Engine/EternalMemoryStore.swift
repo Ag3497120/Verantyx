@@ -201,6 +201,48 @@ actor EternalMemoryStore {
         exec("ALTER TABLE nodes ADD COLUMN quarantined INTEGER NOT NULL DEFAULT 0")
         // Store-level facts, e.g. which JGEN owns this vector space.
         exec("CREATE TABLE IF NOT EXISTS meta (key TEXT PRIMARY KEY, value TEXT NOT NULL)")
+        // Vera-planned web searches and what they fetched: the raw
+        // material for query analysis. Reused directly (same question →
+        // last successful query) and mirrored into supervision_pairs so
+        // the question→query mapping is learnable later.
+        exec("""
+        CREATE TABLE IF NOT EXISTS query_log (
+          ts REAL NOT NULL,
+          question TEXT NOT NULL,
+          query TEXT NOT NULL,
+          url TEXT NOT NULL
+        )
+        """)
+    }
+
+    /// One planned search that produced substantive evidence.
+    func recordQueryPlan(question: String, query: String, url: String) {
+        try? ensureLoaded()
+        var stmt: OpaquePointer?
+        guard sqlite3_prepare_v2(db,
+            "INSERT INTO query_log (ts, question, query, url) VALUES (?,?,?,?)",
+            -1, &stmt, nil) == SQLITE_OK else { return }
+        defer { sqlite3_finalize(stmt) }
+        sqlite3_bind_double(stmt, 1, Date().timeIntervalSince1970)
+        sqlite3_bind_text(stmt, 2, String(question.prefix(300)), -1, Self.sqliteTransient)
+        sqlite3_bind_text(stmt, 3, String(query.prefix(120)), -1, Self.sqliteTransient)
+        sqlite3_bind_text(stmt, 4, String(url.prefix(500)), -1, Self.sqliteTransient)
+        sqlite3_step(stmt)
+        recordSupervisionPair(kind: "search-plan", textA: question, textB: query, core: nil)
+    }
+
+    /// The most recent query that already worked for this exact question —
+    /// query analysis in its simplest honest form: reuse before replanning.
+    func reusableQuery(forQuestion question: String) -> String? {
+        try? ensureLoaded()
+        var stmt: OpaquePointer?
+        guard sqlite3_prepare_v2(db,
+            "SELECT query FROM query_log WHERE question = ? ORDER BY ts DESC LIMIT 1",
+            -1, &stmt, nil) == SQLITE_OK else { return nil }
+        defer { sqlite3_finalize(stmt) }
+        sqlite3_bind_text(stmt, 1, String(question.prefix(300)), -1, Self.sqliteTransient)
+        guard sqlite3_step(stmt) == SQLITE_ROW else { return nil }
+        return sqlite3_column_text(stmt, 0).map { String(cString: $0) }
     }
 
     private func metaGet(_ key: String) -> String? {

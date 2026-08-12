@@ -1328,6 +1328,12 @@ final class AppState: ObservableObject {
     /// {"needs": false} verdict (greetings, file edits, tasks) skips the
     /// web entirely.
     private func planWebQueries(for question: String) async -> [String] {
+        // Query analysis, simplest honest form first: a query that already
+        // produced evidence for this exact question is reused without
+        // replanning — Vera's accumulated log outranks a fresh guess.
+        if let proven = await EternalMemoryStore.shared.reusableQuery(forQuestion: question) {
+            return [proven]
+        }
         let system = """
         You plan web searches. Reply ONLY with JSON, no prose:
         {"needs": true|false, "queries": ["q1", "q2"]}
@@ -1457,6 +1463,11 @@ final class AppState: ObservableObject {
                             webQueryUsed = q
                             webEvidence = "[WEB EVIDENCE — query chosen by Vera: \(q)]\n"
                                 + "Source: \(r.url)\n\(String(snippet.prefix(1800)))\n[END WEB EVIDENCE]"
+                            // Feed the query memory: this question→query
+                            // pairing worked; next time it is reused, and
+                            // the pair table learns the mapping.
+                            await EternalMemoryStore.shared.recordQueryPlan(
+                                question: text, query: q, url: r.url)
                             break
                         }
                     }
