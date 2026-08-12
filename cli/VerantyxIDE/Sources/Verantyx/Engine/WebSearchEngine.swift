@@ -1,4 +1,6 @@
 import Foundation
+import Vision
+import CoreGraphics
 #if canImport(AppKit)
 import AppKit
 #endif
@@ -445,6 +447,24 @@ actor WebSearchEngine {
             let text = try await applescript.getPageText(from: browser)
             let currentURL = (try? await applescript.getCurrentURL(from: browser)) ?? url
 
+            // The DOM route can fail while the RENDER is fine — Google's
+            // consent/JS shell gave AppleScript nothing although Safari
+            // showed a full results page. When extraction comes back thin,
+            // read the rendered window instead: screenshot + on-device
+            // Vision OCR. Not JGEN multimodality (that is the vision-tower
+            // work in verantyx-cli) — just reading what is on screen.
+            if text.count < 200,
+               let ocr = Self.ocrBrowserWindow(appName: Self.windowOwnerName(for: browser)),
+               ocr.count > text.count {
+                return WebSearchResult(
+                    query: query ?? url,
+                    url: currentURL,
+                    markdown: "[OCR — rendered page text]\n" + String(ocr.prefix(6000)),
+                    source: browser == .safari ? .safari : .safari,
+                    truncated: ocr.count > 6000
+                )
+            }
+
             return WebSearchResult(
                 query: query ?? url,
                 url: currentURL,
@@ -453,6 +473,19 @@ actor WebSearchEngine {
                 truncated: text.count > 6000
             )
         } catch {
+            // Same rescue on hard AppleScript failure (error 37:126 in a
+            // real run): the page may be rendered even though scripting
+            // against it is blocked.
+            if let ocr = Self.ocrBrowserWindow(appName: Self.windowOwnerName(for: browser)),
+               ocr.count >= 200 {
+                return WebSearchResult(
+                    query: query ?? url,
+                    url: url,
+                    markdown: "[OCR — rendered page text]\n" + String(ocr.prefix(6000)),
+                    source: browser == .safari ? .safari : .safari,
+                    truncated: ocr.count > 6000
+                )
+            }
             return WebSearchResult(
                 query: query ?? url,
                 url: url,
@@ -461,6 +494,38 @@ actor WebSearchEngine {
                 truncated: false
             )
         }
+    }
+
+    private static func windowOwnerName(for browser: AppleScriptBridge.SystemBrowser) -> String {
+        browser.rawValue   // the raw values ARE the app names
+    }
+
+    /// Screenshot the browser's frontmost window and read it with Apple
+    /// Vision — deterministic, on-device, needs only the screen-recording
+    /// permission the app already requests at startup. Returns nil when no
+    /// window is found, capture is not permitted, or OCR finds nothing.
+    nonisolated private static func ocrBrowserWindow(appName: String) -> String? {
+        guard let infos = CGWindowListCopyWindowInfo(
+                [.optionOnScreenOnly, .excludeDesktopElements],
+                kCGNullWindowID) as? [[String: Any]] else { return nil }
+        guard let win = infos.first(where: {
+            ($0[kCGWindowOwnerName as String] as? String) == appName
+                && (($0[kCGWindowLayer as String] as? Int) ?? 1) == 0
+        }), let windowNumber = win[kCGWindowNumber as String] as? UInt32 else { return nil }
+
+        guard let image = CGWindowListCreateImage(
+                .null, .optionIncludingWindow, CGWindowID(windowNumber),
+                [.boundsIgnoreFraming, .bestResolution]) else { return nil }
+
+        let request = VNRecognizeTextRequest()
+        request.recognitionLevel = .accurate
+        request.recognitionLanguages = ["ja-JP", "en-US"]
+        request.usesLanguageCorrection = true
+        let handler = VNImageRequestHandler(cgImage: image, options: [:])
+        guard (try? handler.perform([request])) != nil else { return nil }
+        let lines = (request.results ?? []).compactMap { $0.topCandidates(1).first?.string }
+        let joined = lines.joined(separator: "\n").trimmingCharacters(in: .whitespacesAndNewlines)
+        return joined.isEmpty ? nil : joined
     }
 
     // MARK: - Firefox Bridge (Python)
