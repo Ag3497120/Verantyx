@@ -287,6 +287,11 @@ actor WebSearchEngine {
         }
         guard lines.count >= 2 else { return nil }
 
+        // These URLs came from somewhere, so BROWSE may use them — the
+        // refusal only stops destinations the model invented.
+        let resultURLs = titles.prefix(5).map(\.1)
+        await MainActor.run { BrowserSession.shared.register(urls: resultURLs) }
+
         // These are result LISTINGS, not page content. Saying so keeps the
         // agent in the loop it is supposed to run — open a result, read it,
         // follow what it finds — instead of answering from snippets and

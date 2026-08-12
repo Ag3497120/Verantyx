@@ -66,6 +66,37 @@ final class BrowserSession: ObservableObject {
         persist()
     }
 
+    // ── URLs this session actually saw ───────────────────────────────
+    // The difference between a destination that exists and one the model
+    // assembled from a site name. `https://zenn.dev/login` looked
+    // perfectly reasonable and was a 404; the agent had never seen it
+    // anywhere, it just built it. Anything that arrived from a search
+    // result, a verified-URL lookup, or a page the browser actually
+    // reached is known; nothing else is.
+    private var knownURLs = Set<String>()
+
+    func register(urls: [String]) {
+        for u in urls { knownURLs.insert(Self.key(u)) }
+    }
+
+    func isKnown(_ url: String) -> Bool {
+        let k = Self.key(url)
+        if knownURLs.contains(k) { return true }
+        // The site you are already on is known by definition, including
+        // its root — going "back to the top" is not an invention.
+        guard state.isOpen, let host = URL(string: url)?.host,
+              let openHost = URL(string: state.url)?.host else { return false }
+        return host == openHost && (URL(string: url)?.path ?? "/") == "/"
+    }
+
+    private static func key(_ url: String) -> String {
+        var u = url.lowercased()
+        for p in ["https://", "http://"] where u.hasPrefix(p) { u = String(u.dropFirst(p.count)) }
+        if u.hasPrefix("www.") { u = String(u.dropFirst(4)) }
+        while u.hasSuffix("/") { u.removeLast() }
+        return u
+    }
+
     func closed() {
         state = State()
         persist()

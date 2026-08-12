@@ -1280,6 +1280,37 @@ actor AgentToolExecutor {
     /// never terminates is worse than one that reports not finding.
     static let scrollFindMaxPasses = 8
 
+    static let browserAppName = "Safari"
+
+    /// The browser has to be in front for a pointer click to land on it,
+    /// and its AX tree is only the right tree to search once it is.
+    static func activateBrowser() async {
+        await MainActor.run {
+            NSWorkspace.shared.runningApplications
+                .first { $0.localizedName == browserAppName }?
+                .activate(options: [])
+        }
+        try? await Task.sleep(nanoseconds: 500_000_000)
+    }
+
+    /// The link texts actually present on the open page — what to offer
+    /// an agent that just tried to invent a URL.
+    static func visibleLinkTexts(limit: Int = 14) async -> [String] {
+        let snapshot = (try? await AXVisionBridge.shared.getSemanticSnapshot(appName: browserAppName)) ?? ""
+        guard let re = try? NSRegularExpression(
+            pattern: #"<link[^>]*title="([^"]{2,60})""#, options: [.caseInsensitive]) else { return [] }
+        let ns = snapshot as NSString
+        var out: [String] = []
+        var seen = Set<String>()
+        for m in re.matches(in: snapshot, range: NSRange(location: 0, length: ns.length)) {
+            let title = ns.substring(with: m.range(at: 1)).trimmingCharacters(in: .whitespacesAndNewlines)
+            guard !title.isEmpty, seen.insert(title.lowercased()).inserted else { continue }
+            out.append(title)
+            if out.count >= limit { break }
+        }
+        return out
+    }
+
     private let fileManager = FileManager.default
     private var lastVisionClickTarget: CGPoint?
     private var consecutiveClickLoopCount = 0
@@ -1675,6 +1706,27 @@ actor AgentToolExecutor {
         // ── Web / Grounding ───────────────────────────────────────────────
 
         case .browse(let url):
+            // ── Invented URLs are refused outright ───────────────────
+            // Told to reach a login page, the agent assembled
+            // https://zenn.dev/login and jumped — a 404 it had never seen
+            // anywhere. A destination is legitimate when it CAME from
+            // somewhere: a search result, a verified-URL lookup, or the
+            // page already open. When a page is open and the URL is not
+            // one of those, the answer is the list of links actually on
+            // that page, because clicking one is what was asked for.
+            let (pageIsOpen, urlIsKnown) = await MainActor.run {
+                (BrowserSession.shared.state.isOpen, BrowserSession.shared.isKnown(url))
+            }
+            if pageIsOpen && !urlIsKnown {
+                let links = await Self.visibleLinkTexts()
+                let offer = links.isEmpty
+                    ? "Take a [DESKTOP_SNAPSHOT] to see what is on the page."
+                    : "Links on this page: " + links.map { "\"\($0)\"" }.joined(separator: ", ")
+                return "[BROWSE REFUSED] \(url) was not found in any search result, verified URL, "
+                    + "or link on the open page — do not assemble URLs from a site name. "
+                    + "Navigate by clicking: [CLICK_LINK: text] or [SCROLL_FIND: text].\n\(offer)"
+            }
+
             // Auto mode opens without asking, so it looks first: one
             // plain fetch, no browser, no JavaScript. A malformed host
             // (`https://z/dev/`) or a redirect onto another site is
@@ -1705,8 +1757,9 @@ actor AgentToolExecutor {
             // scroll count. Each pass costs one AX snapshot, no pixels.
             var notches = 0
             var lastDigest = ""
+            await Self.activateBrowser()
             for pass in 0...Self.scrollFindMaxPasses {
-                _ = try? await AXVisionBridge.shared.getSemanticSnapshot()
+                _ = try? await AXVisionBridge.shared.getSemanticSnapshot(appName: Self.browserAppName)
                 if let id = await AXVisionBridge.shared.findElementID(matching: text),
                    let point = await AXVisionBridge.shared.screenPoint(forElementID: id) {
                     await MainActor.run { BrowserSession.shared.scrolled(by: notches) }
@@ -1732,11 +1785,13 @@ actor AgentToolExecutor {
                 + "The page may load more on demand; scroll again, or reconsider the wording."
 
         case .clickLink(let text):
-            // Populate the AX cache for the frontmost browser, find the
-            // link by what it says, then travel there with the pointer —
-            // the motion the perception loop needs, and the human-learned
-            // trajectory it now moves along.
-            _ = try? await AXVisionBridge.shared.getSemanticSnapshot()
+            // Snapshot the BROWSER, not whatever is frontmost. A real run
+            // failed to find "Log in" on a page whose own text listed it:
+            // the user was typing in the IDE, so the frontmost app was the
+            // IDE and the AX tree searched was the IDE's. The browser is
+            // brought forward first — the click has to land on it anyway.
+            await Self.activateBrowser()
+            _ = try? await AXVisionBridge.shared.getSemanticSnapshot(appName: Self.browserAppName)
             guard let id = await AXVisionBridge.shared.findElementID(matching: text),
                   let point = await AXVisionBridge.shared.screenPoint(forElementID: id) else {
                 return "[CLICK_LINK] No link matching \"\(text)\" on the current page. "

@@ -301,7 +301,11 @@ enum VeraMemoryBridge {
         guard let data = raw.data(using: .utf8),
               let obj = try? JSONSerialization.jsonObject(with: data) as? [String: Any],
               obj["verdict"] as? String == "ANSWER" else { return nil }
-        return obj["url"] as? String
+        guard let url = obj["url"] as? String else { return nil }
+        // A URL the human verified is a real destination, so BROWSE may
+        // use it — the invented-URL refusal must not block it.
+        await MainActor.run { BrowserSession.shared.register(urls: [url]) }
+        return url
     }
 
     // MARK: - Verified UI element registry (for the manual re-verification pass)

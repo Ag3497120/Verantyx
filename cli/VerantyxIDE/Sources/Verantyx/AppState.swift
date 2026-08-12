@@ -1356,6 +1356,20 @@ final class AppState: ObservableObject {
         return markers.contains { lower.contains($0) }
     }
 
+    /// True when the message answers a question this app asked — picking
+    /// a candidate rather than posing a new one.
+    nonisolated static func looksLikeChoiceReply(_ text: String) -> String? {
+        let t = text.trimmingCharacters(in: .whitespacesAndNewlines)
+        guard t.count <= 12 else { return nil }
+        if HierarchicalExploreGate.isAutopilotChoice(t) { return "autopilot" }
+        let folded = HierarchicalExploreGate.halfwidthDigits(t)
+        if Int(folded) != nil { return "number" }
+        if folded.range(of: #"^\d+\s*(番|つめ|つ目|番目)?$"#, options: .regularExpression) != nil {
+            return "ordinal"
+        }
+        return nil
+    }
+
     private func planWebQueries(for question: String) async -> (needs: Bool, queries: [String]) {
         // Query analysis, simplest honest form first: a query that already
         // produced evidence for this exact question is reused without
@@ -1485,7 +1499,11 @@ final class AppState: ObservableObject {
                 var webEvidence = ""
                 var webQueryUsed = ""
                 var webSourceHost = ""
-                if !hasVerifiedAnswer {
+                // A reply that picks from a list this app just offered is
+                // an answer, not a question: a real run web-searched
+                // "１番 意味" because the selection went through the
+                // planner like any other message.
+                if !hasVerifiedAnswer, Self.looksLikeChoiceReply(text) == nil {
                     let (plannerNeeds, planned) = await self.planWebQueries(for: text)
                     // Vera's rule outranks the planner's self-assessment:
                     // an informational question with an UNKNOWN store gets
