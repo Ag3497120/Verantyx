@@ -108,7 +108,10 @@ struct HumanPriorityModeView: View {
 
             Group {
                 switch surface {
-                case .mcp:          MCPView().environmentObject(app)
+                // The MCP pick opens the external-operation hub (memory
+                // stores, JGEN picker, connection export) — the raw server
+                // list lives inside it as an advanced disclosure.
+                case .mcp:          ExternalOpsView().environmentObject(app)
                 case .veraSettings: VeraFeatureDock().environmentObject(app)
                 case .growth:       GrowthConsolePanel()
                 case .evolution:    SelfEvolutionView().environmentObject(app)

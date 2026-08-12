@@ -113,7 +113,7 @@ struct ModelSelectorBarView: View {
                     Divider()
                     // Each surface takes the FULL window (like the Vera-a
                     // audit screen), not a pane beside the chat.
-                    Button(app.t("MCP settings", "MCP設定")) {
+                    Button(app.t("MCP / external operation", "MCP・外部運用")) {
                         app.isVeraAMode = false
                         app.fullSurface = .mcp
                     }

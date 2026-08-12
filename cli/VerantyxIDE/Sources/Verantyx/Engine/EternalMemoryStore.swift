@@ -76,7 +76,7 @@ actor EternalMemoryStore {
         var quarantined: Bool = false
     }
 
-    private let directory: URL
+    private var directory: URL
     private var vectorsURL: URL { directory.appendingPathComponent("cortex.vectors") }
     private var legacyNodesURL: URL { directory.appendingPathComponent("cortex.nodes.jsonl") }
     private var dbURL: URL { directory.appendingPathComponent("cortex.db") }
@@ -101,9 +101,42 @@ actor EternalMemoryStore {
     private var hotCount = 0
     private var accessesSinceReorder = 0
 
+    /// Root/profile layout mirrors VeraMemoryPaths: "default" is the
+    /// legacy root directory (existing stores keep working untouched),
+    /// named profiles live under stores/<name>.
+    private static func directoryFor(profile: String) -> URL {
+        let root = FileManager.default.homeDirectoryForCurrentUser
+            .appendingPathComponent(".verantyx_chrono_swift", isDirectory: true)
+        return profile == "default"
+            ? root
+            : root.appendingPathComponent("stores/\(profile)", isDirectory: true)
+    }
+
     private init() {
-        let home = FileManager.default.homeDirectoryForCurrentUser
-        directory = home.appendingPathComponent(".verantyx_chrono_swift", isDirectory: true)
+        directory = Self.directoryFor(profile: VeraMemoryPaths.activeProfile)
+    }
+
+    /// Live-switches to the profile currently named in UserDefaults
+    /// (VeraMemoryPaths.profileDefaultsKey): closes the DB, drops every
+    /// cache, and lets the next access load the other store. The embed
+    /// pin travels with the store — each profile can be owned by a
+    /// different JGEN.
+    func switchToActiveProfile() {
+        let newDir = Self.directoryFor(profile: VeraMemoryPaths.activeProfile)
+        guard newDir != directory || !loaded else {
+            directory = newDir
+            return
+        }
+        if db != nil { sqlite3_close(db); db = nil }
+        directory = newDir
+        nodes = []
+        vecCache = []
+        vecCount = 0
+        hotOrder = []
+        hotCount = 0
+        accessesSinceReorder = 0
+        warnedModelMismatch = false
+        loaded = false
     }
 
     // MARK: - SQLite plumbing

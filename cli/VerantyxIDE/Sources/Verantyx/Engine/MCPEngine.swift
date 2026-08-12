@@ -13,8 +13,51 @@ enum VeraMemoryPaths {
         return base.appendingPathComponent("Verantyx/vera-memory", isDirectory: true)
     }
 
+    // ── Memory profiles ──────────────────────────────────────────────
+    // One Mac can keep several independent memories ("default" plus named
+    // stores under stores/<name>) and point BOTH the vera-memory MCP store
+    // and the IDE's eternal-vector store at the active one. The active
+    // name lives in UserDefaults so a fresh launch — and the exported MCP
+    // config — follow the same choice.
+    static let profileDefaultsKey = "vera_memory_profile"
+
+    static var activeProfile: String {
+        UserDefaults.standard.string(forKey: profileDefaultsKey) ?? "default"
+    }
+
+    static func profileDir(_ name: String) -> URL {
+        name == "default"
+            ? appSupportDir
+            : appSupportDir.appendingPathComponent("stores/\(name)", isDirectory: true)
+    }
+
+    /// default + every named store on disk.
+    static func listProfiles() -> [String] {
+        var names = ["default"]
+        let stores = appSupportDir.appendingPathComponent("stores")
+        if let subs = try? FileManager.default.contentsOfDirectory(atPath: stores.path) {
+            names += subs.filter { !$0.hasPrefix(".") }.sorted()
+        }
+        return names
+    }
+
+    /// Creates an empty named store. Returns the sanitized name, or nil if
+    /// nothing valid remained after sanitizing.
+    @discardableResult
+    static func createProfile(_ rawName: String) -> String? {
+        let name = String(rawName.lowercased().map { c -> Character in
+            (c.isLetter || c.isNumber || c == "-" || c == "_") ? c : "-"
+        }).trimmingCharacters(in: CharacterSet(charactersIn: "-_"))
+        guard !name.isEmpty, name != "default" else { return nil }
+        try? FileManager.default.createDirectory(
+            at: profileDir(name), withIntermediateDirectories: true)
+        return name
+    }
+
     static var storeFile: URL {
-        appSupportDir.appendingPathComponent("vera_store.json")
+        let dir = profileDir(activeProfile)
+        try? FileManager.default.createDirectory(at: dir, withIntermediateDirectories: true)
+        return dir.appendingPathComponent("vera_store.json")
     }
 
     /// Resolve the portable bundled `vera-memory` binary relative to the

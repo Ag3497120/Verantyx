@@ -957,3 +957,172 @@ struct MCPApiKeySheet: View {
         .background(Color(red: 0.10, green: 0.10, blue: 0.14))
     }
 }
+
+// MARK: - ExternalOpsView
+//
+// The full-window "run Vera outside this IDE" hub — what the Gatekeeper
+// menu's MCP pick opens. Not the server-management list (that stays
+// available below as an advanced disclosure): this screen is for the
+// OUTWARD direction, complete in one place with no trip to Settings:
+//
+//   1. connection — the two-server config other tools paste
+//   2. memory stores — create a new memory, mark one as 普段の参照
+//      (the active store both MCP and the IDE read), switch any time
+//   3. the memory-organ JGEN — select/convert/quantize/load, embedded
+//
+struct ExternalOpsView: View {
+    @EnvironmentObject var app: AppState
+    @ObservedObject private var mcp = MCPEngine.shared
+    @State private var profiles: [String] = VeraMemoryPaths.listProfiles()
+    @State private var active: String = VeraMemoryPaths.activeProfile
+    @State private var newStoreName = ""
+    @State private var copiedConfig = false
+    @State private var showAdvanced = false
+
+    var body: some View {
+        ScrollView {
+            VStack(alignment: .leading, spacing: 18) {
+
+                // ── 1. Connection ────────────────────────────────────
+                sectionHeader(app.t("Connection for other tools", "他ツールからの接続"))
+                VStack(alignment: .leading, spacing: 6) {
+                    Text(app.t(
+                        "Paste this into OpenCode / Claude Code (.mcp.json), Claude Desktop or Cursor. It carries both servers: vera-memory (truth store, stdio) and vera-jgen-memory (eternal recall over http://127.0.0.1:8766/mcp — the IDE must be running).",
+                        "OpenCode / Claude Code (.mcp.json)、Claude Desktop、Cursor に貼り付けてください。2サーバー入りです: vera-memory（正のストア・stdio）と vera-jgen-memory（永遠記憶・http://127.0.0.1:8766/mcp — IDE起動中のみ）。"
+                    ))
+                    .font(.system(size: 10)).foregroundStyle(.secondary)
+                    .fixedSize(horizontal: false, vertical: true)
+                    Button {
+                        if let json = VeraMemoryPaths.externalMCPConfigJSON() {
+                            NSPasteboard.general.clearContents()
+                            NSPasteboard.general.setString(json, forType: .string)
+                            copiedConfig = true
+                            DispatchQueue.main.asyncAfter(deadline: .now() + 2) { copiedConfig = false }
+                        }
+                    } label: {
+                        Label(copiedConfig ? app.t("Copied", "コピーしました")
+                                           : app.t("Copy MCP config", "MCP設定をコピー"),
+                              systemImage: copiedConfig ? "checkmark" : "doc.on.doc")
+                            .font(.system(size: 11))
+                    }
+                }
+
+                Divider().opacity(0.3)
+
+                // ── 2. Memory stores ─────────────────────────────────
+                sectionHeader(app.t("Memory stores", "記憶ストア"))
+                Text(app.t(
+                    "The checked store is 普段の参照 — what MCP clients and this IDE both read and write. Switching re-points vera-memory and the eternal store together; each store carries its own JGEN pin.",
+                    "チェックの付いたストアが「普段の参照」— MCPクライアントとこのIDEの両方が読み書きする先です。切り替えると vera-memory と永遠記憶が一緒に切り替わります。ストアごとに独自のJGENピンを持ちます。"
+                ))
+                .font(.system(size: 10)).foregroundStyle(.secondary)
+                .fixedSize(horizontal: false, vertical: true)
+
+                VStack(spacing: 4) {
+                    ForEach(profiles, id: \.self) { name in
+                        HStack(spacing: 8) {
+                            Button {
+                                activate(name)
+                            } label: {
+                                Image(systemName: active == name
+                                      ? "checkmark.circle.fill" : "circle")
+                                    .foregroundStyle(active == name ? Color.green : .secondary)
+                            }
+                            .buttonStyle(.plain)
+                            .help(app.t("Use as the everyday store", "普段の参照にする"))
+                            Text(name == "default" ? app.t("default (original)", "default（従来の記憶）") : name)
+                                .font(.system(size: 11, weight: active == name ? .bold : .regular))
+                            if active == name {
+                                Text(app.t("in use", "使用中"))
+                                    .font(.system(size: 9))
+                                    .foregroundStyle(Color.green)
+                            }
+                            Spacer()
+                        }
+                        .padding(.horizontal, 10).padding(.vertical, 6)
+                        .background(RoundedRectangle(cornerRadius: 6)
+                            .fill(Color.white.opacity(active == name ? 0.06 : 0.02)))
+                    }
+                }
+
+                HStack(spacing: 8) {
+                    TextField(app.t("new memory name…", "新しい記憶の名前…"), text: $newStoreName)
+                        .textFieldStyle(.roundedBorder)
+                        .frame(maxWidth: 240)
+                        .font(.system(size: 11))
+                    Button(app.t("Create", "新規メモリ作成")) {
+                        guard let created = VeraMemoryPaths.createProfile(newStoreName) else { return }
+                        newStoreName = ""
+                        profiles = VeraMemoryPaths.listProfiles()
+                        // Created, not yet activated — the 普段の参照 check
+                        // is the explicit second step, as specified.
+                        _ = created
+                    }
+                    .disabled(newStoreName.trimmingCharacters(in: .whitespaces).isEmpty)
+                }
+
+                Divider().opacity(0.3)
+
+                // ── 3. The memory-organ JGEN ─────────────────────────
+                sectionHeader(app.t("Memory-organ JGEN (select / convert)", "記憶器官のJGEN（選択・変換）"))
+                Text(app.t(
+                    "Convert and load here — no Settings trip. The first save through a loaded JGEN pins the ACTIVE store's vector space to it; it then autoloads at launch.",
+                    "変換もロードもここで完結します（設定画面は不要）。ロード中のJGENで最初の保存が走ると、アクティブなストアの意味空間がそのJGENにピン留めされ、以後は起動時に自動ロードされます。"
+                ))
+                .font(.system(size: 10)).foregroundStyle(.secondary)
+                .fixedSize(horizontal: false, vertical: true)
+                JGenSettingsSection()
+                    .environmentObject(app)
+
+                Divider().opacity(0.3)
+
+                // ── Advanced: raw server list ────────────────────────
+                DisclosureGroup(isExpanded: $showAdvanced) {
+                    MCPView()
+                        .environmentObject(app)
+                        .frame(minHeight: 420)
+                } label: {
+                    Text(app.t("MCP servers (advanced)", "MCPサーバー一覧（上級）"))
+                        .font(.system(size: 11, weight: .semibold))
+                }
+            }
+            .padding(16)
+            .frame(maxWidth: 760, alignment: .leading)
+            .frame(maxWidth: .infinity)
+        }
+        .background(Color(red: 0.10, green: 0.10, blue: 0.13))
+        .onAppear {
+            profiles = VeraMemoryPaths.listProfiles()
+            active = VeraMemoryPaths.activeProfile
+        }
+    }
+
+    /// The 普段の参照 switch: persist the choice, live-switch the eternal
+    /// store, and re-point + reconnect the vera-memory MCP server.
+    private func activate(_ name: String) {
+        guard name != active else { return }
+        UserDefaults.standard.set(name, forKey: VeraMemoryPaths.profileDefaultsKey)
+        active = name
+        Task {
+            await EternalMemoryStore.shared.switchToActiveProfile()
+            if let binary = VeraMemoryPaths.resolveBundledBinary(),
+               let idx = MCPEngine.shared.servers.firstIndex(where: { $0.name == "vera-memory" }) {
+                var server = MCPEngine.shared.servers[idx]
+                server.command = VeraMemoryPaths.bundledMCPCommand(binary: binary)
+                MCPEngine.shared.updateServer(server)
+                await MCPEngine.shared.connect(server: server)
+            }
+            await MainActor.run {
+                app.addSystemMessage(app.t(
+                    "🗂 Everyday memory store switched to '\(name)' (vera-memory + eternal store)",
+                    "🗂 普段の参照を『\(name)』に切り替えました（vera-memory＋永遠記憶）"))
+            }
+        }
+    }
+
+    private func sectionHeader(_ title: String) -> some View {
+        Text(title)
+            .font(.system(size: 12, weight: .bold))
+            .foregroundStyle(Color(red: 0.55, green: 0.8, blue: 1.0))
+    }
+}
