@@ -226,7 +226,12 @@ final class AppState: ObservableObject {
     @Published var persistentTaskAnchor: String = "" // 毎ターン自動注入されるタスクの画像アンカー
     /// Set to true when the AI calls [RESTART_IDE] — triggers a restart alert in the UI.
     @Published var showRestartAlert: Bool = false
-    @Published var requiresHumanPuzzle: Bool = false
+    @Published var requiresHumanPuzzle: Bool = false {
+        didSet {
+            guard oldValue != requiresHumanPuzzle else { return }
+            if requiresHumanPuzzle { AgentActivityCenter.shared.set(.waitingUser) }
+        }
+    }
     @Published var isAgentControllingMouse: Bool = false {
         didSet {
             guard oldValue != isAgentControllingMouse else { return }
@@ -2331,14 +2336,19 @@ final class AppState: ObservableObject {
                 case .start:
                     // Reset per-turn streaming ID when a new loop turn starts
                     self.streamingMsgId = nil
+                    AgentActivityCenter.shared.set(.thinking)
 
                 case .streamToken(let token):
+                    // Tokens arriving is the only proof of generation; the
+                    // other states are inferred from what the loop is doing.
+                    AgentActivityCenter.shared.set(.generating)
                     self.streamTokenBuffer += token
                     if Date().timeIntervalSince(self.lastStreamFlush) >= 0.04 {
                         self.flushStreamTokenBuffer()
                     }
 
                 case .thinking(let t):
+                    AgentActivityCenter.shared.set(.thinking)
                     if t > 1 {
                         self.messages.append(ChatMessage(role: .system,
                             content: "<think>\n🔄 Agent loop turn \(t)…\n</think>"))
@@ -2404,6 +2414,10 @@ final class AppState: ObservableObject {
                     }
 
                 case .toolCall(let call):
+                    // The tool the agent picked IS what it is doing — asking
+                    // it beats maintaining a separate flag that every call
+                    // site has to remember to set and clear.
+                    AgentActivityCenter.shared.enter(for: call.tool)
                     self.messages.append(ChatMessage(role: .system,
                         content: "<think>\n⚙️ \(call.displayLabel)\n</think>"))
                     if case .runCommand(let cmd) = call.tool {
@@ -2465,10 +2479,18 @@ final class AppState: ObservableObject {
                             ? (self.messages.last?.content ?? "")
                             : msg
                         ClipboardChatRelay.shared.send(answer)
+                        // The relay only moves when the user pastes and
+                        // copies, so the run is genuinely blocked on them.
+                        AgentActivityCenter.shared.set(.waitingUser)
+                    } else {
+                        // .done also fires when the loop STOPS to ask
+                        // something. finish() knows which of the two this is.
+                        AgentActivityCenter.shared.finish()
                     }
 
                 case .error(let err):
                     self.isGenerating = false
+                    AgentActivityCenter.shared.set(.error(String(err.prefix(80))))
                     self.addSystemMessage("❌ Agent error: \(err)")
                     if ClipboardChatRelay.shared.isRunning {
                         ClipboardChatRelay.shared.send("❌ \(err)")

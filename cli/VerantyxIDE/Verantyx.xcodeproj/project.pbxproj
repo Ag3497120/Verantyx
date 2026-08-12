@@ -87,6 +87,7 @@
 		BEB2D8F77F124454B117DC11 /* libjcross_engine_glm.dylib in Embed Libraries */ = {isa = PBXBuildFile; fileRef = C9BFB8B0DCE74E31969A7D1F /* libjcross_engine_glm.dylib */; settings = {ATTRIBUTES = (CodeSignOnCopy, ); }; };
 		009AA89ACB24F3C04940719B /* CIValidationEngine.swift in Sources */ = {isa = PBXBuildFile; fileRef = 82124E09CAF3AD73FCD889F2 /* CIValidationEngine.swift */; };
 		01CE941270A2625978ADF74A /* SettingsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 851696E9486FDE35D2146141 /* SettingsView.swift */; };
+		A1C0FF33D0E7B41ACB12001D /* AgentPerimeterGlow.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1C0FF33D0E7B41ACB12001E /* AgentPerimeterGlow.swift */; };
 		A1C0FF33D0E7B41ACB120019 /* MenuBarController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1C0FF33D0E7B41ACB12001A /* MenuBarController.swift */; };
 		A1C0FF33D0E7B41ACB120017 /* PhoneRelayPanel.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1C0FF33D0E7B41ACB120018 /* PhoneRelayPanel.swift */; };
 		A1C0FF33D0E7B41ACB120011 /* CloudModelRow.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1C0FF33D0E7B41ACB120012 /* CloudModelRow.swift */; };
@@ -237,6 +238,7 @@
 		FEC444BED0006C5B2F3B258B /* VeraMemoryBridge.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1368F7D4BD6464D1EBD8C201 /* VeraMemoryBridge.swift */; };
 		B7A68088DD5EA071EE6C4E9F /* VeraSkillForge.swift in Sources */ = {isa = PBXBuildFile; fileRef = 786677E8663CF9F60DB0575C /* VeraSkillForge.swift */; };
 		A1C0FF33D0E7B41ACB120001 /* ClaimGrounding.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1C0FF33D0E7B41ACB120002 /* ClaimGrounding.swift */; };
+		A1C0FF33D0E7B41ACB12001B /* AgentActivityState.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1C0FF33D0E7B41ACB12001C /* AgentActivityState.swift */; };
 		A1C0FF33D0E7B41ACB120015 /* ClipboardChatRelay.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1C0FF33D0E7B41ACB120016 /* ClipboardChatRelay.swift */; };
 		A1C0FF33D0E7B41ACB120013 /* ForegroundAppOperator.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1C0FF33D0E7B41ACB120014 /* ForegroundAppOperator.swift */; };
 		A1C0FF33D0E7B41ACB120003 /* BrowserSession.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1C0FF33D0E7B41ACB120004 /* BrowserSession.swift */; };
@@ -440,6 +442,7 @@
 		807C6DAE84DFE832657E26B8 /* JCrossIRGenerator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = JCrossIRGenerator.swift; sourceTree = "<group>"; };
 		82124E09CAF3AD73FCD889F2 /* CIValidationEngine.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CIValidationEngine.swift; sourceTree = "<group>"; };
 		851696E9486FDE35D2146141 /* SettingsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsView.swift; sourceTree = "<group>"; };
+		A1C0FF33D0E7B41ACB12001E /* AgentPerimeterGlow.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AgentPerimeterGlow.swift; sourceTree = "<group>"; };
 		A1C0FF33D0E7B41ACB12001A /* MenuBarController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MenuBarController.swift; sourceTree = "<group>"; };
 		A1C0FF33D0E7B41ACB120018 /* PhoneRelayPanel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PhoneRelayPanel.swift; sourceTree = "<group>"; };
 		A1C0FF33D0E7B41ACB120012 /* CloudModelRow.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CloudModelRow.swift; sourceTree = "<group>"; };
@@ -506,6 +509,7 @@
 		1368F7D4BD6464D1EBD8C201 /* VeraMemoryBridge.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VeraMemoryBridge.swift; sourceTree = "<group>"; };
 		786677E8663CF9F60DB0575C /* VeraSkillForge.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VeraSkillForge.swift; sourceTree = "<group>"; };
 		A1C0FF33D0E7B41ACB120002 /* ClaimGrounding.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ClaimGrounding.swift; sourceTree = "<group>"; };
+		A1C0FF33D0E7B41ACB12001C /* AgentActivityState.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AgentActivityState.swift; sourceTree = "<group>"; };
 		A1C0FF33D0E7B41ACB120016 /* ClipboardChatRelay.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ClipboardChatRelay.swift; sourceTree = "<group>"; };
 		A1C0FF33D0E7B41ACB120014 /* ForegroundAppOperator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ForegroundAppOperator.swift; sourceTree = "<group>"; };
 		A1C0FF33D0E7B41ACB120004 /* BrowserSession.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BrowserSession.swift; sourceTree = "<group>"; };
@@ -692,6 +696,7 @@
 				61F1FE98023D9A7A9A50C88E /* VeraSaveApprovalView.swift */,
 				3BA9EA72A0804A6E880516F3 /* VeraAuditView.swift */,
 				851696E9486FDE35D2146141 /* SettingsView.swift */,
+				A1C0FF33D0E7B41ACB12001E /* AgentPerimeterGlow.swift */,
 				A1C0FF33D0E7B41ACB12001A /* MenuBarController.swift */,
 				A1C0FF33D0E7B41ACB120018 /* PhoneRelayPanel.swift */,
 				A1C0FF33D0E7B41ACB120012 /* CloudModelRow.swift */,
@@ -757,6 +762,7 @@
 				A3A75195818E4D40ADBF55E7 /* VectorGrowthHooks.swift */,
 				786677E8663CF9F60DB0575C /* VeraSkillForge.swift */,
 				A1C0FF33D0E7B41ACB120002 /* ClaimGrounding.swift */,
+				A1C0FF33D0E7B41ACB12001C /* AgentActivityState.swift */,
 				A1C0FF33D0E7B41ACB120016 /* ClipboardChatRelay.swift */,
 				A1C0FF33D0E7B41ACB120014 /* ForegroundAppOperator.swift */,
 				A1C0FF33D0E7B41ACB120004 /* BrowserSession.swift */,
@@ -1164,6 +1170,7 @@
 				FEC444BED0006C5B2F3B258B /* VeraMemoryBridge.swift in Sources */,
 				B7A68088DD5EA071EE6C4E9F /* VeraSkillForge.swift in Sources */,
 				A1C0FF33D0E7B41ACB120001 /* ClaimGrounding.swift in Sources */,
+				A1C0FF33D0E7B41ACB12001B /* AgentActivityState.swift in Sources */,
 				A1C0FF33D0E7B41ACB120015 /* ClipboardChatRelay.swift in Sources */,
 				A1C0FF33D0E7B41ACB120013 /* ForegroundAppOperator.swift in Sources */,
 				A1C0FF33D0E7B41ACB120003 /* BrowserSession.swift in Sources */,
@@ -1346,6 +1353,7 @@
 				063C31681BE4EF7B25545E70 /* SessionMemoryArchiver.swift in Sources */,
 				A5CE60DC514964475C1E016D /* SessionStore.swift in Sources */,
 				01CE941270A2625978ADF74A /* SettingsView.swift in Sources */,
+				A1C0FF33D0E7B41ACB12001D /* AgentPerimeterGlow.swift in Sources */,
 				A1C0FF33D0E7B41ACB120019 /* MenuBarController.swift in Sources */,
 				A1C0FF33D0E7B41ACB120017 /* PhoneRelayPanel.swift in Sources */,
 				A1C0FF33D0E7B41ACB120011 /* CloudModelRow.swift in Sources */,

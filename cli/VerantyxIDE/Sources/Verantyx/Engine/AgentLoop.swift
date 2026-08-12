@@ -1705,6 +1705,10 @@ SYS.ENFORCE("logical_verification_before_acceptance")
                     // A goal that names its target has no ambiguity to resolve.
                     if isListTool, !HierarchicalExploreGate.goalNamesTarget(instruction) {
                         if let candidates = ActDNA.shouldPauseForCandidates(observation: result) {
+                            // This .done is a pause, not a finish — mark it so
+                            // the indicator shows "waiting for you" instead of
+                            // going dark as though the work were over.
+                            await MainActor.run { AgentActivityCenter.shared.expectUserGate() }
                             pendingExplore = HierarchicalExploreGate.PendingState(
                                 candidates: candidates,
                                 goal: instruction,

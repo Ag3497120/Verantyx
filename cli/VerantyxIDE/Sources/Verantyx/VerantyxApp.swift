@@ -266,6 +266,9 @@ struct VerantyxApp: App {
                 // scroll toolbar, flexible-width chat input, resizable
                 // split) can actually do their job.
                 .frame(minWidth: 900, maxWidth: .infinity, minHeight: 600, maxHeight: .infinity)
+                // The window edge carries the agent's state — put it on the
+                // root so it frames everything, whichever pane is showing.
+                .agentPerimeterGlow()
                 .environmentObject(appState)
                 .onAppear {
                     AppState.shared = appState

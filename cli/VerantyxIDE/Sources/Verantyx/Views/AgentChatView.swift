@@ -9,18 +9,17 @@ struct AgentChatView: View {
     @State private var showingHistory: Bool = false
     @State private var inputText: String = ""
 
-    /// Drives the composer glow while the agent works. Separate from
-    /// `isGenerating` so the animation can ease out after the run ends.
+    /// Drives the composer glow. Eases out after the state settles.
     @State private var glowPulse: Bool = false
 
-    static let runningGlowColor = Color(red: 0.35, green: 0.85, blue: 1.0)
+    /// The composer reads the same state machine as the window edge and the
+    /// menu-bar icon. It used to read `isGenerating || isAgentControllingMouse`
+    /// directly, which made three indicators that could disagree and gave
+    /// planning, generating, exploring and operating one identical colour.
+    @ObservedObject private var activity = AgentActivityCenter.shared
 
-    /// Working means either generating a reply or out driving the screen —
-    /// the mouse phase is exactly when the window is likely covered and the
-    /// user cannot see the icon at all.
-    private var runningGlowActive: Bool {
-        app.isGenerating || app.isAgentControllingMouse
-    }
+    private var runningGlowColor: Color { activity.state.color }
+    private var runningGlowActive: Bool { activity.state.glows }
     @FocusState private var inputFocused: Bool
     
     @State private var showVisualAnchorPrompt: Bool = false
@@ -849,14 +848,14 @@ struct AgentChatView: View {
         .overlay(
             RoundedRectangle(cornerRadius: 16, style: .continuous)
                 .stroke(runningGlowActive
-                        ? Self.runningGlowColor.opacity(glowPulse ? 0.95 : 0.35)
+                        ? runningGlowColor.opacity(glowPulse ? 0.95 : 0.35)
                         : (app.selfFixMode
                            ? Color(red: 1.0, green: 0.60, blue: 0.10).opacity(0.8)
                            : Color.white.opacity(0.12)),
                         lineWidth: runningGlowActive ? 2 : 1)
         )
         .shadow(color: runningGlowActive
-                ? Self.runningGlowColor.opacity(glowPulse ? 0.55 : 0.12) : .clear,
+                ? runningGlowColor.opacity(glowPulse ? 0.55 : 0.12) : .clear,
                 radius: runningGlowActive ? (glowPulse ? 16 : 4) : 0)
         .padding(.horizontal, 16)
         .padding(.bottom, 16)

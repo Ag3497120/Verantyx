@@ -47,17 +47,20 @@ final class MenuBarController: NSObject {
         // whether anything is happening.
         Task { @MainActor in
             for await _ in NotificationCenter.default.notifications(named: .veraRunStateChanged) {
-                self.refreshIcon(running: appState.isGenerating || appState.isAgentControllingMouse)
+                self.refreshIcon(AgentActivityCenter.shared.state)
             }
         }
     }
 
-    private func refreshIcon(running: Bool) {
+    /// The icon is the run indicator that survives the window being buried,
+    /// so it carries the state rather than a running/not-running boolean.
+    private func refreshIcon(_ state: AgentState) {
         guard let button = statusItem?.button else { return }
-        button.image = NSImage(
-            systemSymbolName: running ? "circle.hexagongrid.circle.fill" : "circle.hexagongrid.fill",
-            accessibilityDescription: "Verantyx")
+        button.image = NSImage(systemSymbolName: state == .idle
+                               ? "circle.hexagongrid.fill" : state.icon,
+                               accessibilityDescription: "Verantyx — \(state.label)")
         button.image?.isTemplate = true
+        button.toolTip = "Verantyx — \(state.label)"
     }
 
     @objc private func toggle(_ sender: Any?) {
@@ -84,20 +87,18 @@ struct MenuBarPanel: View {
     @EnvironmentObject var app: AppState
     @ObservedObject private var relay = ClipboardChatRelay.shared
 
-    private var running: Bool { app.isGenerating || app.isAgentControllingMouse }
+    @ObservedObject private var activity = AgentActivityCenter.shared
+    private var running: Bool { activity.state.glows }
 
     var body: some View {
         VStack(alignment: .leading, spacing: 0) {
 
             // ── Run state ────────────────────────────────────────────────
             HStack(spacing: 8) {
-                Circle()
-                    .fill(running ? Color(red: 0.35, green: 0.85, blue: 1.0)
-                                  : Color.secondary.opacity(0.4))
-                    .frame(width: 8, height: 8)
-                Text(running
-                     ? AppLanguage.shared.t("Running", "実行中")
-                     : AppLanguage.shared.t("Idle", "待機中"))
+                Image(systemName: activity.state.icon)
+                    .font(.system(size: 11, weight: .semibold))
+                    .foregroundStyle(running ? activity.state.color : Color.secondary)
+                Text(activity.state.label)
                     .font(.system(size: 12, weight: .semibold))
                 Spacer()
                 if running {
