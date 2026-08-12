@@ -22,12 +22,38 @@ enum CloudProvider: String, CaseIterable, Codable {
         }
     }
 
-    var defaultModel: String {
+    var modelDefaultsKey: String {
         switch self {
-        case .claude:   return UserDefaults.standard.string(forKey: "anthropic_model") ?? "claude-sonnet-4-5"
-        case .openai:   return UserDefaults.standard.string(forKey: "openai_model") ?? "gpt-4o"
-        case .gemini:   return UserDefaults.standard.string(forKey: "gemini_model") ?? "gemini-3.1-pro"
-        case .deepseek: return UserDefaults.standard.string(forKey: "deepseek_model") ?? "deepseek-coder"
+        case .claude:   return "anthropic_model"
+        case .openai:   return "openai_model"
+        case .gemini:   return "gemini_model"
+        case .deepseek: return "deepseek_model"
+        }
+    }
+
+    /// The saved choice, or a fallback. A model id compiled into a build
+    /// is stale the day the provider ships the next one — which is why
+    /// `CloudAPIClient.listModels` asks the provider what it currently
+    /// serves, and these only stand in until it answers once.
+    var defaultModel: String {
+        if let saved = UserDefaults.standard.string(forKey: modelDefaultsKey), !saved.isEmpty {
+            return saved
+        }
+        switch self {
+        case .claude:   return "claude-sonnet-5"
+        case .openai:   return "gpt-4o"
+        case .gemini:   return "gemini-3.1-pro"
+        case .deepseek: return "deepseek-chat"
+        }
+    }
+
+    /// Where the provider publishes what it is serving today.
+    var modelsEndpoint: String {
+        switch self {
+        case .claude:   return "https://api.anthropic.com/v1/models"
+        case .openai:   return "https://api.openai.com/v1/models"
+        case .gemini:   return "https://generativelanguage.googleapis.com/v1beta/models"
+        case .deepseek: return "https://api.deepseek.com/models"
         }
     }
 
@@ -56,6 +82,58 @@ actor CloudAPIClient {
         case .gemini:   return UserDefaults.standard.string(forKey: "gemini_api_key")
         case .deepseek: return UserDefaults.standard.string(forKey: "api_key_DeepSeek")
         }
+    }
+
+    // MARK: - What the provider is serving today
+    //
+    // The model list was a switch statement, so every new release made
+    // the app wrong until someone edited it and shipped a build. Each
+    // provider publishes what it currently serves; asking costs one GET
+    // and removes the maintenance entirely. Returns [] rather than
+    // guessing when there is no key or the call fails — an empty list
+    // means "could not ask", and the caller keeps the saved value.
+    func listModels(for provider: CloudProvider) async -> [String] {
+        guard let key = apiKey(for: provider)?.trimmingCharacters(in: .whitespaces),
+              !key.isEmpty else { return [] }
+
+        var urlString = provider.modelsEndpoint
+        if provider == .gemini { urlString += "?key=\(key)" }
+        guard let url = URL(string: urlString) else { return [] }
+
+        var request = URLRequest(url: url)
+        request.timeoutInterval = 12
+        switch provider {
+        case .claude:
+            request.setValue(key, forHTTPHeaderField: "x-api-key")
+            request.setValue("2023-06-01", forHTTPHeaderField: "anthropic-version")
+        case .openai, .deepseek:
+            request.setValue("Bearer \(key)", forHTTPHeaderField: "Authorization")
+        case .gemini:
+            break   // key travels in the query string
+        }
+
+        guard let (data, response) = try? await URLSession.shared.data(for: request),
+              (response as? HTTPURLResponse)?.statusCode == 200,
+              let json = try? JSONSerialization.jsonObject(with: data) as? [String: Any]
+        else { return [] }
+
+        // Anthropic, OpenAI and DeepSeek answer with `data: [{id: …}]`;
+        // Gemini with `models: [{name: "models/…"}]`.
+        var ids: [String] = []
+        if let items = json["data"] as? [[String: Any]] {
+            ids = items.compactMap { $0["id"] as? String }
+        } else if let items = json["models"] as? [[String: Any]] {
+            ids = items.compactMap { item in
+                guard let name = item["name"] as? String else { return nil }
+                return name.hasPrefix("models/") ? String(name.dropFirst(7)) : name
+            }
+        }
+        // Embedding, moderation and TTS entries are not chat models and
+        // only make the picker harder to read.
+        let noise = ["embed", "moderation", "tts", "whisper", "dall-e", "aqa", "imagen", "veo"]
+        return ids
+            .filter { id in !noise.contains { id.lowercased().contains($0) } }
+            .sorted()
     }
 
     func setAPIKey(_ key: String, for provider: CloudProvider) {
@@ -135,10 +213,16 @@ actor CloudAPIClient {
             }
 
             guard let json = try JSONSerialization.jsonObject(with: data) as? [String: Any],
-                  let content = json["content"] as? [[String: Any]],
-                  let firstBlock = content.first,
-                  let text = firstBlock["text"] as? String
+                  let content = json["content"] as? [[String: Any]]
             else { return .failure(.parseError) }
+
+            // Only the text blocks. Reading `content.first` failed outright on
+            // any model that puts a thinking or tool_use block first.
+            let text = content
+                .filter { ($0["type"] as? String) == "text" }
+                .compactMap { $0["text"] as? String }
+                .joined(separator: "\n")
+            guard !text.isEmpty else { return .failure(.parseError) }
 
             return .success(text)
         } catch {
@@ -166,12 +250,21 @@ actor CloudAPIClient {
             userContent = userMessage
         }
 
+        // The reasoning models (o1, o3, gpt-5 …) reject `max_tokens` outright
+        // with a 400 and want `max_completion_tokens`, and take the system text
+        // as a `developer` message. Sending the older shape to them fails the
+        // request, so pick the shape from the model id.
+        let isReasoning = model.hasPrefix("o1") || model.hasPrefix("o3")
+            || model.hasPrefix("o4") || model.hasPrefix("gpt-5")
+        let tokenKey = isReasoning ? "max_completion_tokens" : "max_tokens"
+        let systemRole = isReasoning ? "developer" : "system"
+
         let body: [String: Any] = [
             "model": model,
-            "max_tokens": CloudProvider.openai.maxTokens,
+            tokenKey: CloudProvider.openai.maxTokens,
             "messages": [
-                ["role": "system", "content": systemPrompt],
-                ["role": "user",   "content": userContent]
+                ["role": systemRole, "content": systemPrompt],
+                ["role": "user",     "content": userContent]
             ]
         ]
 
@@ -241,9 +334,16 @@ actor CloudAPIClient {
                   let candidates = json["candidates"] as? [[String: Any]],
                   let first = candidates.first,
                   let content = first["content"] as? [String: Any],
-                  let parts = content["parts"] as? [[String: Any]],
-                  let text = parts.first?["text"] as? String
+                  let parts = content["parts"] as? [[String: Any]]
             else { return .failure(.parseError) }
+
+            // Skip parts flagged as thought; `parts.first` returned the
+            // model's reasoning (or nil) on the thinking-capable models.
+            let text = parts
+                .filter { ($0["thought"] as? Bool) != true }
+                .compactMap { $0["text"] as? String }
+                .joined(separator: "\n")
+            guard !text.isEmpty else { return .failure(.parseError) }
 
             return .success(text)
         } catch {

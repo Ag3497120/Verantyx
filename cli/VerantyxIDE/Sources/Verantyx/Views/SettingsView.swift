@@ -1063,7 +1063,7 @@ struct SettingsView: View {
                         }
                         VStack(alignment: .leading, spacing: 2) {
                             Text("Anthropic").font(.system(size: 13, weight: .semibold)).foregroundStyle(.white)
-                            Text("Claude 3.5 / 3.7 Sonnet, claude-opus-4-5")
+                            Text("Anthropic Messages API")
                                 .font(.system(size: 10)).foregroundStyle(.secondary)
                         }
                         Spacer()
@@ -1103,15 +1103,7 @@ struct SettingsView: View {
                         }
                     }
 
-                    rowLabel("Model") {
-                        Picker("", selection: $app.activeAnthropicModel) {
-                            Text("claude-sonnet-4-5").tag("claude-sonnet-4-5")
-                            Text("claude-3-7-sonnet-20250219").tag("claude-3-7-sonnet-20250219")
-                            Text("claude-opus-4-5").tag("claude-opus-4-5")
-                            Text("claude-3-5-haiku-20241022").tag("claude-3-5-haiku-20241022")
-                        }
-                        .frame(width: 240)
-                    }
+                    CloudModelRow(provider: .claude, selection: $app.activeAnthropicModel)
 
                     HStack(spacing: 8) {
                         Button {
@@ -1153,7 +1145,7 @@ struct SettingsView: View {
                         }
                         VStack(alignment: .leading, spacing: 2) {
                             Text("OpenAI").font(.system(size: 13, weight: .semibold)).foregroundStyle(.white)
-                            Text("GPT-4o, GPT-4 Turbo, o1, o3-mini")
+                            Text("OpenAI Chat Completions API")
                                 .font(.system(size: 10)).foregroundStyle(.secondary)
                         }
                         Spacer()
@@ -1194,15 +1186,7 @@ struct SettingsView: View {
                         }
                     }
 
-                    rowLabel("Model") {
-                        Picker("", selection: $app.activeOpenAIModel) {
-                            Text("gpt-4o").tag("gpt-4o")
-                            Text("gpt-4-turbo").tag("gpt-4-turbo")
-                            Text("o1").tag("o1")
-                            Text("o3-mini").tag("o3-mini")
-                        }
-                        .frame(width: 240)
-                    }
+                    CloudModelRow(provider: .openai, selection: $app.activeOpenAIModel)
                 }
             }
 
@@ -1220,7 +1204,7 @@ struct SettingsView: View {
                         }
                         VStack(alignment: .leading, spacing: 2) {
                             Text("DeepSeek").font(.system(size: 13, weight: .semibold)).foregroundStyle(.white)
-                            Text("deepseek-coder, deepseek-chat")
+                            Text("DeepSeek Chat Completions API")
                                 .font(.system(size: 10)).foregroundStyle(.secondary)
                         }
                         Spacer()
@@ -1261,14 +1245,7 @@ struct SettingsView: View {
                         }
                     }
 
-                    rowLabel("Model") {
-                        Picker("", selection: $app.activeDeepSeekModel) {
-                            Text("deepseek-coder").tag("deepseek-coder")
-                            Text("deepseek-chat").tag("deepseek-chat")
-                            Text("deepseek-reasoner").tag("deepseek-reasoner")
-                        }
-                        .frame(width: 240)
-                    }
+                    CloudModelRow(provider: .deepseek, selection: $app.activeDeepSeekModel)
                 }
             }
 
@@ -1286,7 +1263,7 @@ struct SettingsView: View {
                         }
                         VStack(alignment: .leading, spacing: 2) {
                             Text("Gemini").font(.system(size: 13, weight: .semibold)).foregroundStyle(.white)
-                            Text("gemini-2.5-pro, gemini-1.5-flash")
+                            Text("Google Generative Language API")
                                 .font(.system(size: 10)).foregroundStyle(.secondary)
                         }
                         Spacer()
@@ -1327,15 +1304,7 @@ struct SettingsView: View {
                         }
                     }
 
-                    rowLabel("Model") {
-                        Picker("", selection: $app.activeGeminiModel) {
-                            Text("gemini-3.1-pro").tag("gemini-3.1-pro")
-                            Text("gemini-2.5-pro").tag("gemini-2.5-pro")
-                            Text("gemini-2.5-flash").tag("gemini-2.5-flash")
-                            Text("gemini-1.5-pro").tag("gemini-1.5-pro")
-                        }
-                        .frame(width: 240)
-                    }
+                    CloudModelRow(provider: .gemini, selection: $app.activeGeminiModel)
                 }
             }
 
