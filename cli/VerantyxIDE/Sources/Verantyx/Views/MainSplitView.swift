@@ -25,23 +25,12 @@ struct MainSplitView: View {
         ZStack {
             Group {
                     // ── Enterprise Gatekeeper Mode Layout ─
-                    ZStack {
-                        HumanPriorityModeView()
-                            .environmentObject(app)
-                        // Persistent green border — makes mode boundary unmistakable
-                        RoundedRectangle(cornerRadius: 0)
-                            .strokeBorder(
-                                LinearGradient(
-                                    colors: [Color(red: 0.1, green: 0.9, blue: 0.45).opacity(0.85),
-                                             Color(red: 0.1, green: 0.6, blue: 0.35).opacity(0.5)],
-                                    startPoint: .topLeading, endPoint: .bottomTrailing
-                                ),
-                                lineWidth: 2.5
-                            )
-                            .ignoresSafeArea()
-                            .allowsHitTesting(false)
-                        // (Gatekeeper status pill removed)
-                    }
+                    // (The persistent green mode border is gone by request —
+                    // the Gatekeeper chip in the chat bar already names the
+                    // mode, and a painted frame around the whole window read
+                    // as decoration, not information.)
+                    HumanPriorityModeView()
+                        .environmentObject(app)
 
                 // ── MCP Quick Panel global overlay (⌘⇧M) ────────────────────────
                 if showMCPQuick {
@@ -317,30 +306,8 @@ struct MainSplitView: View {
 
 
 
-        // ── MCP Quick Panel toggle (⌘⇧M) ───────────────────────────────────
-        ToolbarItem(placement: .primaryAction) {
-            Button {
-                withAnimation(.easeOut(duration: 0.18)) { showMCPQuick.toggle() }
-            } label: {
-                ZStack(alignment: .topTrailing) {
-                    Image(systemName: "puzzlepiece.extension")
-                        .foregroundStyle(showMCPQuick
-                                         ? Color(red: 0.4, green: 0.85, blue: 1.0)
-                                         : MCPEngine.shared.activeCall != nil
-                                             ? Color(red: 1.0, green: 0.4, blue: 0.4)
-                                             : .secondary)
-                    // Dot badge if MCP tool is running
-                    if MCPEngine.shared.activeCall != nil {
-                        Circle()
-                            .fill(Color.red)
-                            .frame(width: 6, height: 6)
-                            .offset(x: 2, y: -2)
-                    }
-                }
-            }
-            .keyboardShortcut("m", modifiers: [.command, .shift])
-            .help(app.t("MCP Quick Panel (⌘⇧M)", "MCP クイックパネル (⌘⇧M)"))
-        }
+        // (MCP toolbar icon removed — the activity bar's MCP section is the
+        // one entry point now, so the same control existed twice.)
 
         // ── Terminal toggle ─────────────────────────────────────────────────
         ToolbarItem(placement: .primaryAction) {
@@ -356,36 +323,7 @@ struct MainSplitView: View {
             .help(app.t("Toggle Terminal (⌘⇧L)", "ターミナル切替 (⌘⇧L)"))
         }
 
-        // ── Load VS Code Extension ──────────────────────────────────────────
-        ToolbarItem(placement: .primaryAction) {
-            Menu {
-                Button(app.t("Extension Store (Open VSX)", "拡張機能ストア (Open VSX)")) {
-                    withAnimation(.easeOut(duration: 0.18)) { showExtensionStore = true }
-                }
-                Button(app.t("Install from VSIX...", "VSIXからインストール...")) {
-                    let panel = NSOpenPanel()
-                    panel.allowedContentTypes = [UTType(filenameExtension: "vsix")].compactMap { $0 }
-                    panel.allowsMultipleSelection = false
-                    panel.canChooseDirectories = false
-                    if panel.runModal() == .OK, let url = panel.url {
-                        Task {
-                            do {
-                                try await VSIXPackageManager.shared.installExtension(from: url)
-                                app.addSystemMessage(app.t("✅ Loaded VS Code Extension: ", "✅ VS Code 拡張をロード: ") + url.lastPathComponent)
-                            } catch {
-                                app.addSystemMessage(app.t("❌ Failed to load extension: ", "❌ 拡張機能のロードに失敗: ") + error.localizedDescription)
-                            }
-                        }
-                    }
-                }
-            } label: {
-                Image(systemName: "shippingbox")
-                    .foregroundStyle(.secondary)
-            }
-            .help(app.t("VS Code Extensions", "VS Code 拡張機能"))
-        }
-
-
+        // (Extension-store toolbar icon removed by request.)
     }
 
     private var shortModelLabel: String {

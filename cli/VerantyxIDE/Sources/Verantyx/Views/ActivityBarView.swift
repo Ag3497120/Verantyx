@@ -34,13 +34,8 @@ struct ActivityBarView: View {
             // Bottom icons
             VStack(spacing: 2) {
                 activityButton(.settings)
-
-                // Avatar placeholder
-                Circle()
-                    .fill(Color(red: 0.3, green: 0.5, blue: 0.9))
-                    .frame(width: 22, height: 22)
-                    .overlay(Text("A").font(.system(size: 11, weight: .bold)).foregroundStyle(.white))
-                    .padding(.top, 8)
+                // (The "A" avatar placeholder is gone — it was a dummy with
+                // no account behind it.)
             }
             .padding(.bottom, 10)
         }

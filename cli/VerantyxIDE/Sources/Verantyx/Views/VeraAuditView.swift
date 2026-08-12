@@ -251,6 +251,19 @@ struct VeraAuditView: View {
                     refreshOverlay()
                 }
             }
+            // The live-site fallback path never repainted: the .task ran
+            // refreshOverlay before the page existed, and no later state
+            // change retriggered it — so the page kept its own language
+            // and its own boot button, looking like "the sync is broken".
+            // Repaint on failure too, twice (load timing varies).
+            if case .failed = st {
+                Task {
+                    try? await Task.sleep(nanoseconds: 1_500_000_000)
+                    refreshOverlay()
+                    try? await Task.sleep(nanoseconds: 4_000_000_000)
+                    refreshOverlay()
+                }
+            }
         }
         .onChange(of: demand.map(\.subject)) { _ in refreshOverlay() }
         .onChange(of: sig.editClickStamp) { _ in
@@ -283,6 +296,7 @@ struct VeraAuditView: View {
         // as every other surface, and no browser boot button — the engine
         // is native here, there is nothing to download.
         let wantEn = !AppLanguage.shared.isJapanese
+        let localReady: Bool = { if case .ready = engine.state { return true }; return false }()
         let syncJS = """
         (function(){
           try {
@@ -290,13 +304,30 @@ struct VeraAuditView: View {
               var b = document.getElementById('b-lang'); if (b) b.click();
             }
             if (b = document.getElementById('b-lang')) b.style.display = 'none';
+            \(localReady ? """
+            // Local engine answers — the page's own browser-engine boot is
+            // dead weight, hide it.
             ['b-boot'].forEach(function(id){
               var el = document.getElementById(id); if (el) el.style.display='none';
             });
-            // Hide any control whose label is the browser boot (起動 (~45MB)).
             document.querySelectorAll('button').forEach(function(el){
               if (/起動\\s*\\(~?45MB\\)|Boot\\s*\\(~?45MB\\)/.test(el.textContent)) el.style.display='none';
             });
+            """ : """
+            // No local engine on this Mac (no dev checkout — the released
+            // IDE cannot assume one). Boot the page's own in-browser engine
+            // automatically so the screen still fully starts; the flag keeps
+            // repeated repaints from clicking it again.
+            if (!window.__vxAutoBooted) {
+              var bb = document.getElementById('b-boot');
+              if (!bb) {
+                document.querySelectorAll('button').forEach(function(el){
+                  if (/起動\\s*\\(~?45MB\\)|Boot\\s*\\(~?45MB\\)/.test(el.textContent)) bb = el;
+                });
+              }
+              if (bb) { window.__vxAutoBooted = true; bb.click(); bb.style.display='none'; }
+            }
+            """)
           } catch (e) {}
         })();
         """
@@ -698,8 +729,11 @@ struct VeraAuditView: View {
         case .starting:  return app.t("engine starting…", "エンジン起動中…")
         case .ready:     return app.t("local engine — full artifact, live trace",
                                       "ローカルエンジン — 完全版・推論を実況")
-        case .failed(let m): return app.t("live site (local: \(m))",
-                                          "本番表示(ローカル: \(m))")
+        // A dev-checkout path in the header reads as a broken product.
+        // The page auto-boots its in-browser engine in this state (see
+        // refreshOverlay), so say what the reader actually has.
+        case .failed: return app.t("live site — in-browser engine",
+                                   "本番表示 — ブラウザ内エンジン")
         }
     }
     private var engineColor: Color {

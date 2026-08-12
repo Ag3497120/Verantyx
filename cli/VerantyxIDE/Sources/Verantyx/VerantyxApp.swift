@@ -303,6 +303,16 @@ struct VerantyxApp: App {
 
                     // ── Initialize OS Agent Spotlight UI ──
                     SpotlightPanelManager.shared.setup(appState: appState)
+
+                    // ── Green-button fullscreen ──
+                    // The IDE window would not enter macOS fullscreen; make
+                    // the capability explicit instead of relying on whatever
+                    // behavior the hidden-title-bar scene got by default.
+                    DispatchQueue.main.async {
+                        if let w = IDEWindowMonitor.ideWindow() {
+                            w.collectionBehavior.insert(.fullScreenPrimary)
+                        }
+                    }
                 }
                 .onOpenURL { url in
                     if url.scheme == "verantyx" {
