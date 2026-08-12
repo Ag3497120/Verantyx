@@ -867,6 +867,50 @@ struct AgentToolParser {
         return (inner, "")
     }
 
+    // MARK: - Tool tags the parser did not take
+    //
+    // When nothing parses, the loop treats the turn as a conversational answer
+    // and stops. That is right for prose and catastrophic for a tool call: the
+    // run ends, the tag is printed to the user as if it were the reply, and
+    // nothing anywhere says a tool was missed. This exact failure has been
+    // found and fixed at least three times in this file — kanji shorthand,
+    // inline OSASCRIPT, `[RUN:]` truncated at the first `]` — each time by
+    // someone noticing the symptom by eye, because there is no detector.
+    //
+    // So: detect it. If the "answer" still looks like a tool tag, say so.
+
+    /// Every tag name the single-line chain can take. Used to tell "you asked
+    /// for a tool that does not exist" apart from "this tool exists and the
+    /// parser failed to take it" — a distinction worth having, because the
+    /// second is a bug here and the first is a bug in the model's output.
+    nonisolated static let knownToolTags: Set<String> = [
+        "MKDIR", "WRITE", "RUN", "RUN_COGNITIVE", "WORKSPACE", "DONE", "READ",
+        "LIST_DIR", "EDIT_LINES", "OSASCRIPT", "OPEN_APP", "VERIFIED_URL_LOOKUP",
+        "REGISTER_UI_ELEMENT", "USE_APP", "CLICK_LINK", "SCROLL_FIND",
+        "SEARCH_PAGE", "BROWSE", "SEARCH_MULTI", "SEARCH", "EVAL_JS", "SAFARI",
+        "CHROME", "VISION_BROWSE", "VISION_SEARCH_FLOW", "VISION_SNAPSHOT",
+        "VISION_ACT", "WAIT_UNTIL_STABLE", "DESKTOP_SNAPSHOT", "DESKTOP_ACT",
+        "AX_ACT", "PASTE_PAYLOAD", "JCROSS_QUERY", "JCROSS_STORE",
+        "OS_ASSET_QUERY", "GIT_COMMIT", "GIT_RESTORE", "ASK_HUMAN",
+        "SWARM_EXECUTE", "SET_MODEL", "PULL_MODEL", "REMOVE_MCP_SERVER",
+        "MCP_CALL", "APPLY_PATCH", "FORGE_SKILL", "BUILD_IDE", "RESTART_IDE"
+    ]
+
+    /// A tag-shaped thing left in text that produced no tool call.
+    /// Returns the tag name and whether it is one we claim to support.
+    nonisolated static func strayToolTag(in text: String) -> (name: String, known: Bool)? {
+        guard let re = try? NSRegularExpression(pattern: #"\[([A-Z][A-Z0-9_]{2,30})\s*[:\]]"#)
+        else { return nil }
+        let ns = text as NSString
+        for m in re.matches(in: text, range: NSRange(location: 0, length: ns.length)) {
+            let name = ns.substring(with: m.range(at: 1))
+            // Section headers the model writes as labels, not calls.
+            if ["TASK", "NOTE", "WARNING", "SOURCE", "END", "OK", "INFO"].contains(name) { continue }
+            return (name, knownToolTags.contains(name))
+        }
+        return nil
+    }
+
     private static func match(_ text: String, pattern: String) -> String? {
         guard let regex = try? NSRegularExpression(pattern: pattern, options: []),
               let m = regex.firstMatch(in: text, range: NSRange(text.startIndex..., in: text)),

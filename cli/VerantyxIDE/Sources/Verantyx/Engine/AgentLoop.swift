@@ -230,6 +230,9 @@ actor AgentLoop {
         // One retry when a turn ends as evaluation-only meta text with no
         // actual answer (see isMetaEvaluationOnly).
         var metaRetryUsed = false
+        /// One retry only. If the model writes an unparseable tag twice, the
+        /// second one is shown rather than looping on it forever.
+        var strayTagRetryUsed = false
         /// IDE Fix sandbox: consecutive blocked tool calls (loop circuit breaker)
         var consecutiveBlockedCalls = 0
         /// Total chars in conversation (for OOM guard)
@@ -1212,6 +1215,29 @@ SYS.ENFORCE("logical_verification_before_acceptance")
                         "<think>\n🔁 評価メタのみの出力 — 本回答を要求します\n</think>")))
                     continue
                 }
+                // A tool tag that produced no tool call is not an answer. Left
+                // alone it ends the run and prints the tag to the user as the
+                // reply — which is exactly how "[CLICK_LINK: 投稿を作成]"
+                // reached the transcript with the pointer never moving.
+                if !strayTagRetryUsed, let stray = AgentToolParser.strayToolTag(in: cleanText) {
+                    strayTagRetryUsed = true
+                    await onProgress(.aiMessage(AppLanguage.shared.t(
+                        stray.known
+                            ? "⚠️ [\(stray.name)] was written but did not run — the tag reached the parser in a form it could not read. Retrying with it on its own line."
+                            : "⚠️ [\(stray.name)] is not a tool. Retrying with the available ones.",
+                        stray.known
+                            ? "⚠️ [\(stray.name)] が実行されませんでした（パーサが読めない形で書かれています）。単独行で書き直して再試行します。"
+                            : "⚠️ [\(stray.name)] というツールはありません。使用可能なツールで再試行します。")))
+                    conversation.append((role: "assistant", content: rawResponse))
+                    conversation.append((role: "user", content: stray.known
+                        ? "Your [\(stray.name)] call did not execute — it must be the ONLY thing on its "
+                          + "line, with nothing before or after it on that line, and no code fence or "
+                          + "quoting around it. Write it again exactly that way now, and write nothing else."
+                        : "[\(stray.name)] is not an available tool. Re-read the TOOLS list and use one "
+                          + "that exists, or answer directly."))
+                    continue
+                }
+
                 // VX-Loop: If SearchGate executed successfully, inject the result and continue the loop
                 if vxLoopEnabled, !vxLastSearchResult.isEmpty {
                     conversation.append((role: "assistant", content: vxCleanResponse))
