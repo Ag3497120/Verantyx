@@ -187,6 +187,10 @@ actor AgentLoop {
         // answer. One repeat is allowed (retry after a bad fetch); the
         // second identical repeat is refused with a "answer now" note.
         var searchQueryCounts: [String: Int] = [:]
+        // The last substantive prose the model produced — what the save
+        // gate should remember when the run ends with a bare [DONE: Task
+        // complete.] label.
+        var lastProse = ""
         /// IDE Fix sandbox: consecutive blocked tool calls (loop circuit breaker)
         var consecutiveBlockedCalls = 0
         /// Total chars in conversation (for OOM guard)
@@ -1078,11 +1082,21 @@ SYS.ENFORCE("logical_verification_before_acceptance")
                 // otherwise sit on screen looking like a finished answer.
                 // Replace it with a plain tool-call notice; the real answer (if
                 // any) lands in a later turn once tool results are back.
-                let toolNote = AppLanguage.shared.t(
-                    "🔧 Calling \(tools.count) tool(s) — any answer text written before the results return is not shown.",
-                    "🔧 ツール呼び出し中（\(tools.count)件）— 結果が返る前に書かれた回答文は表示しません。"
-                )
-                await onProgress(.aiMessage(toolNote))
+                // EXCEPT the final turn: prose written alongside [DONE] is
+                // the model's actual closing answer — there are no pending
+                // results left to fabricate against. Suppressing it ended
+                // real runs with a bare "Task complete." and nothing else.
+                let containsDone = tools.contains { if case .done = $0 { return true }; return false }
+                if containsDone, !cleanText.isEmpty {
+                    lastProse = cleanText
+                    await onProgress(.aiMessage(cleanText))
+                } else {
+                    let toolNote = AppLanguage.shared.t(
+                        "🔧 Calling \(tools.count) tool(s) — any answer text written before the results return is not shown.",
+                        "🔧 ツール呼び出し中（\(tools.count)件）— 結果が返る前に書かれた回答文は表示しません。"
+                    )
+                    await onProgress(.aiMessage(toolNote))
+                }
             } else if isStreamingModel && vxLoopEnabled {
                 // Streaming + VX-Loop: patch the bubble to strip SearchGate tokens.
                 // cleanText already has gate tokens removed via vxCleanResponse.
@@ -1309,8 +1323,12 @@ SYS.ENFORCE("logical_verification_before_acceptance")
 
                     // ── Vera-α: same as the tools.isEmpty branch above --
                     // only after the answer is already visible, and only
-                    // when there is an actual answer (not reasoning).
-                    let (saveAnswer, thinkOnly) = JCrossChatManager.extractAnswer(msg)
+                    // when there is an actual answer (not reasoning). A
+                    // bare completion label ("Task complete.") defers to
+                    // the last real prose the model wrote — saving the
+                    // label instead of the answer is what a real run did.
+                    let saveSource = lastProse.isEmpty ? msg : lastProse
+                    let (saveAnswer, thinkOnly) = JCrossChatManager.extractAnswer(saveSource)
                     if memoryLayer == .vera, !thinkOnly, !saveAnswer.isEmpty {
                         await VeraMemoryBridge.requestSaveApproval(
                             userPrompt: instruction, aiResponse: saveAnswer

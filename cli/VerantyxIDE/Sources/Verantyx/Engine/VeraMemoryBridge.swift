@@ -53,7 +53,16 @@ enum VeraMemoryBridge {
     ///     rewrite) where blocking on a popup every turn would otherwise
     ///     stall the whole task at turn 1 until someone notices and clicks.
     static func requestSaveApproval(userPrompt: String, aiResponse: String) async {
-        let prompt = userPrompt.trimmingCharacters(in: .whitespacesAndNewlines)
+        // Vera-a mode prepends injected background ([VERIFIED MEMORY] /
+        // [ETERNAL MEMORY] / [WEB EVIDENCE]) with a "[TASK]" marker before
+        // the user's real words. Only the real words are the memory — a
+        // real run saved the whole injection block and even forged a skill
+        // named after it.
+        var stripped = userPrompt
+        if let r = stripped.range(of: "[TASK]\n", options: .backwards) {
+            stripped = String(stripped[r.upperBound...])
+        }
+        let prompt = stripped.trimmingCharacters(in: .whitespacesAndNewlines)
         let response = aiResponse.trimmingCharacters(in: .whitespacesAndNewlines)
         guard !prompt.isEmpty || !response.isEmpty else { return }
 
