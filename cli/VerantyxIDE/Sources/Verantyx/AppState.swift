@@ -1327,21 +1327,40 @@ final class AppState: ObservableObject {
     /// unparseable falls back to the bare pattern-extracted target, and a
     /// {"needs": false} verdict (greetings, file edits, tasks) skips the
     /// web entirely.
-    private func planWebQueries(for question: String) async -> [String] {
+    /// Informational questions get searched when the store is UNKNOWN —
+    /// REGARDLESS of what the planner model thinks of its own knowledge.
+    /// A real run skipped the web on "OpenAI vs Anthropic の AGI 比較"
+    /// because a 4B model judged itself sufficiently informed, then
+    /// confidently answered with years-stale facts. Self-assessment of
+    /// knowledge freshness is exactly the judgment small models get wrong,
+    /// so Vera's rule outranks it.
+    nonisolated static func looksInformational(_ text: String) -> Bool {
+        let t = text.trimmingCharacters(in: .whitespacesAndNewlines)
+        guard t.count <= 300 else { return false }
+        let lower = t.lowercased()
+        let markers = ["教えて", "とは", "について", "比較", "説明して", "まとめて",
+                       "調べ", "何", "誰", "いつ", "どこ", "なぜ", "どう", "?", "？",
+                       "what", "how", "why", "who", "when", "explain", "compare",
+                       "tell me", "latest"]
+        return markers.contains { lower.contains($0) }
+    }
+
+    private func planWebQueries(for question: String) async -> (needs: Bool, queries: [String]) {
         // Query analysis, simplest honest form first: a query that already
         // produced evidence for this exact question is reused without
         // replanning — Vera's accumulated log outranks a fresh guess.
         if let proven = await EternalMemoryStore.shared.reusableQuery(forQuestion: question) {
-            return [proven]
+            return (true, [proven])
         }
         let system = """
         You plan web searches. Reply ONLY with JSON, no prose:
         {"needs": true|false, "queries": ["q1", "q2"]}
-        needs=false for greetings, coding/file tasks, or questions answerable \
-        without fresh external facts. Queries: max 2, short keyword strings \
+        ALWAYS provide 1-2 queries, even when needs=false. needs=false only \
+        for greetings and coding/file tasks. Queries: short keyword strings \
         matched to the question's INTENT — weather → place + weather + today; \
-        a concept → the concept + explanation; a product/project → its name + \
-        official or GitHub. Use the question's language or English.
+        a concept → the concept + explanation; a company position or anything \
+        that changes over time → the topic + latest. Use the question's \
+        language or English.
         """
         let user = "Question: \(String(question.prefix(300)))"
 
@@ -1375,18 +1394,18 @@ final class AppState: ObservableObject {
            let end = out.lastIndex(of: "}"),
            let d = String(out[start...end]).data(using: .utf8),
            let obj = try? JSONSerialization.jsonObject(with: d) as? [String: Any] {
-            guard (obj["needs"] as? Bool) ?? false else { return [] }
+            let needs = (obj["needs"] as? Bool) ?? false
             let queries = ((obj["queries"] as? [Any]) ?? [])
                 .compactMap { $0 as? String }
                 .map { $0.trimmingCharacters(in: .whitespacesAndNewlines) }
                 .filter { !$0.isEmpty && $0.count <= 80 }
-            if !queries.isEmpty { return Array(queries.prefix(2)) }
+            if !queries.isEmpty { return (needs, Array(queries.prefix(2))) }
         }
         // Planner unavailable or unparseable: the bare extracted target is
         // the only safe static fallback (no GitHub/official templates —
         // wrong for concepts).
-        if let target = Self.searchTarget(from: question) { return [target] }
-        return []
+        if let target = Self.searchTarget(from: question) { return (true, [target]) }
+        return (false, [])
     }
 
     func sendMessage(with overrideText: String? = nil, forceBypassGatekeeper: Bool = false, isSpotlight: Bool = false) {
@@ -1455,7 +1474,16 @@ final class AppState: ObservableObject {
                 var webEvidence = ""
                 var webQueryUsed = ""
                 if !hasVerifiedAnswer {
-                    let queries = await self.planWebQueries(for: text)
+                    let (plannerNeeds, planned) = await self.planWebQueries(for: text)
+                    // Vera's rule outranks the planner's self-assessment:
+                    // an informational question with an UNKNOWN store gets
+                    // searched even if the model thinks it already knows.
+                    let mustSearch = plannerNeeds || Self.looksInformational(text)
+                    let queries = mustSearch
+                        ? (planned.isEmpty
+                            ? (Self.searchTarget(from: text).map { [$0] } ?? [String(text.prefix(80))])
+                            : planned)
+                        : []
                     for q in queries {
                         let r = await WebSearchEngine.shared.search(query: q)
                         let snippet = r.contextSnippet.trimmingCharacters(in: .whitespacesAndNewlines)
