@@ -2280,6 +2280,13 @@ enum ModelTier: String, Sendable {
     case giant  = "giant"   // ~70B+ — 最大
 
     // 使えるツールのサブセット（nano ほど少ない）
+    //
+    // ハーネスの区別: JGEN(自社エンジン)は「自由ハーネス」— ティアの全手足
+    // (ツール)を持つ。それ以外のバックエンドは「固定ハーネス」— ファイル+
+    // Web+完了の固定セットに制限される。自由に動いてよいのは、隠れ状態まで
+    // 監査できる自前のエンジンだけ、という線引き。
+    static let fixedHarness: Set<ToolCategory> = [.filesystem, .web_simple, .done]
+
     var enabledToolCategories: Set<ToolCategory> {
         switch self {
         case .nano:

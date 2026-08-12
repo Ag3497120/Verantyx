@@ -113,6 +113,7 @@ private struct AuditWebView: NSViewRepresentable {
         // verantyx.ai does.
         cfg.userContentController.add(context.coordinator, name: "veraSignal")
         let v = WKWebView(frame: .zero, configuration: cfg)
+        v.navigationDelegate = context.coordinator
         v.load(URLRequest(url: request.url))
         context.coordinator.lastStamp = request.stamp
         return v
@@ -121,6 +122,7 @@ private struct AuditWebView: NSViewRepresentable {
     func updateNSView(_ v: WKWebView, context: Context) {
         if context.coordinator.lastOverlayStamp != overlay.stamp {
             context.coordinator.lastOverlayStamp = overlay.stamp
+            context.coordinator.pendingJS = overlay.js
             v.evaluateJavaScript(overlay.js, completionHandler: nil)
         }
         guard context.coordinator.lastStamp != request.stamp else { return }
@@ -134,9 +136,17 @@ private struct AuditWebView: NSViewRepresentable {
 
     func makeCoordinator() -> Coord { Coord(signals: signals) }
 
-    final class Coord: NSObject, WKScriptMessageHandler {
+    final class Coord: NSObject, WKScriptMessageHandler, WKNavigationDelegate {
         var lastStamp = 0
         var lastOverlayStamp = 0
+        /// Last overlay JS, re-run on every page load — the prod-site
+        /// fallback never fires the engine-ready hook, which is why the
+        /// page stayed Japanese while the app was English.
+        var pendingJS = ""
+
+        func webView(_ webView: WKWebView, didFinish navigation: WKNavigation!) {
+            if !pendingJS.isEmpty { webView.evaluateJavaScript(pendingJS, completionHandler: nil) }
+        }
         let signals: VeraSignals
         init(signals: VeraSignals) { self.signals = signals }
 
@@ -227,6 +237,7 @@ struct VeraAuditView: View {
         }
         .task {
             await refreshDemand()
+            refreshOverlay()   // language + boot-button sync, even on prod fallback
             engine.start()
             await agent.refreshIssues()
         }

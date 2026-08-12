@@ -835,7 +835,7 @@ final class AppState: ObservableObject {
     // and splits; they are now ONE area whose content the agent (or the
     // user) switches. The chat is the other pane — two screens total.
     enum StageMode: Equatable {
-        case editor, terminal, diff, artifact, memory
+        case editor, terminal, diff, artifact, memory, files
         case aiPanel(String)   // id of an agent-defined panel
     }
     @Published var stageMode: StageMode = .editor

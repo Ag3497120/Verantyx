@@ -11,7 +11,9 @@ import Highlightr
 
 struct HumanPriorityModeView: View {
     @EnvironmentObject var app: AppState
-    @State private var activitySection: ActivityBarView.ActivitySection? = .explorer
+    // Two panes by default: the stage and the chat. Files live as a stage
+    // face now; a left column appears only when an activity icon is opened.
+    @State private var activitySection: ActivityBarView.ActivitySection? = nil
     @State private var showSettings     = false
     @State private var showMCPQuick     = false
     @State private var showL25ConversionAlert = false
@@ -430,6 +432,7 @@ struct HumanPriorityModeView: View {
             // inspector no longer a separate tab bar.
             ScrollView(.horizontal, showsIndicators: false) {
                 HStack(spacing: 4) {
+                    stageChip(app.t("Files", "ファイル"), .files)
                     stageChip(app.t("Editor", "エディタ"), .editor)
                     stageChip(app.t("Terminal", "ターミナル"), .terminal)
                     if !app.stageDiff.isEmpty { stageChip("diff", .diff) }
@@ -451,6 +454,8 @@ struct HumanPriorityModeView: View {
 
             Group {
                 switch app.stageMode {
+                case .files:
+                    MultiPurposePanel().environmentObject(app)
                 case .editor:
                     editorBody
                 case .terminal:

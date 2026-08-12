@@ -23,7 +23,7 @@ struct ActivityBarView: View {
         VStack(spacing: 0) {
             // Top icons
             VStack(spacing: 2) {
-                ForEach([ActivitySection.explorer, .git, .mcp, .growth, .vera, .evolution], id: \.self) { section in
+                ForEach([ActivitySection.explorer, .git, .mcp, .vera, .evolution], id: \.self) { section in
                     activityButton(section)
                 }
             }
