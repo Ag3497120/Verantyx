@@ -197,7 +197,24 @@ final class AppState: ObservableObject {
     // Chat
     @Published var messages: [ChatMessage] = []
     @Published var inputText: String = ""
-    @Published var isGenerating = false
+    @Published var isGenerating = false {
+        didSet {
+            // Holding another app in front is only defensible while we are
+            // actually driving it. The run ends in a dozen different places
+            // (done, error, cancel, fallback), so release here rather than
+            // trusting every one of them to remember.
+            if oldValue && !isGenerating {
+                ForegroundAppOperator.shared.stopHoldingFocus()
+            }
+        }
+    }
+
+    /// Whether tool/system log lines are shown in the transcript. Answers are
+    /// always shown; this only folds away the running commentary, which on a
+    /// long agent run buries the reply it was working towards.
+    @Published var showSystemLogs: Bool = UserDefaults.standard.object(forKey: "show_system_logs") as? Bool ?? true {
+        didSet { UserDefaults.standard.set(showSystemLogs, forKey: "show_system_logs") }
+    }
 
     // Self-Fix mode — when true, next message(s) target IDE self-modification
     // Must be explicitly toggled by user pressing the "Self Fix" button.
@@ -1572,6 +1589,11 @@ final class AppState: ObservableObject {
                 // failure this prevents.
                 let openPage = await MainActor.run { BrowserSession.shared.contextBlock() }
                 if !openPage.isEmpty { bg.append(openPage) }
+                // "この画面を操作して" points at something we can see but the
+                // model cannot. Name it, so the reference resolves to the app
+                // the user is actually in — any app, not just a browser.
+                let pointing = await MainActor.run { ForegroundAppOperator.pointingContext(for: text) }
+                if !pointing.isEmpty { bg.append(pointing) }
                 if hasVerifiedAnswer {
                     bg.append("[VERIFIED MEMORY — deterministic, citable]\n\(String(raw.prefix(1200)))")
                 }

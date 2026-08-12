@@ -8,6 +8,19 @@ struct AgentChatView: View {
     @EnvironmentObject var app: AppState
     @State private var showingHistory: Bool = false
     @State private var inputText: String = ""
+
+    /// Drives the composer glow while the agent works. Separate from
+    /// `isGenerating` so the animation can ease out after the run ends.
+    @State private var glowPulse: Bool = false
+
+    static let runningGlowColor = Color(red: 0.35, green: 0.85, blue: 1.0)
+
+    /// Working means either generating a reply or out driving the screen —
+    /// the mouse phase is exactly when the window is likely covered and the
+    /// user cannot see the icon at all.
+    private var runningGlowActive: Bool {
+        app.isGenerating || app.isAgentControllingMouse
+    }
     @FocusState private var inputFocused: Bool
     
     @State private var showVisualAnchorPrompt: Bool = false
@@ -246,12 +259,63 @@ struct AgentChatView: View {
 
     // MARK: - Workspace (main chat)
 
+    /// The transcript with tool/system logs folded away when the user has
+    /// collapsed them. Replies are never hidden — only the running commentary.
+    private var visibleMessages: [ChatMessage] {
+        app.messages.filter {
+            !$0.isSpotlight && (app.showSystemLogs || $0.role != .system)
+        }
+    }
+
+    private var hiddenLogCount: Int {
+        app.showSystemLogs ? 0 : app.messages.filter { !$0.isSpotlight && $0.role == .system }.count
+    }
+
+    /// A disclosure arrow over the transcript: collapse the log chatter and
+    /// read only the answers, or open it back up. Sits at the top-right so it
+    /// never covers the newest message.
+    private var logToggleChip: some View {
+        VStack {
+            HStack {
+                Spacer()
+                Button {
+                    withAnimation(.easeInOut(duration: 0.15)) {
+                        app.showSystemLogs.toggle()
+                    }
+                } label: {
+                    HStack(spacing: 4) {
+                        Image(systemName: app.showSystemLogs ? "chevron.down" : "chevron.right")
+                            .font(.system(size: 9, weight: .bold))
+                        Text(app.showSystemLogs
+                             ? AppLanguage.shared.t("logs", "ログ")
+                             : AppLanguage.shared.t("logs (\(hiddenLogCount))", "ログ \(hiddenLogCount)件"))
+                            .font(.system(size: 10, weight: .medium))
+                    }
+                    .foregroundStyle(app.showSystemLogs ? .secondary : .tertiary)
+                    .padding(.horizontal, 8)
+                    .padding(.vertical, 4)
+                    .background(Color.white.opacity(0.06), in: Capsule())
+                    .overlay(Capsule().strokeBorder(Color.white.opacity(0.10), lineWidth: 0.5))
+                }
+                .buttonStyle(.plain)
+                .contentShape(Capsule())
+                .help(AppLanguage.shared.t("Show or hide tool and system logs",
+                                           "ツール・システムログの表示を切り替え"))
+                .padding(.trailing, 14)
+                .padding(.top, 10)
+            }
+            Spacer()
+        }
+    }
+
     private var chatTranscriptArea: some View {
         ZStack(alignment: .bottom) {
             // NSTextView ベースのトランスクリプト。
             // 単一テキストストレージのためメッセージをまたいでドラッグ選択・コピーができる。
-            ChatTranscriptView(messages: app.messages.filter { !$0.isSpotlight }, isGenerating: app.isGenerating)
+            ChatTranscriptView(messages: visibleMessages, isGenerating: app.isGenerating)
                 .frame(maxWidth: .infinity, maxHeight: .infinity)
+
+            logToggleChip
 
             // LiveTerminalView used to pop up here inline on every generating
             // turn. Removed -- actual command output already routes to
@@ -779,16 +843,41 @@ struct AgentChatView: View {
                 : Color(red: 0.17, green: 0.17, blue: 0.21),
             in: RoundedRectangle(cornerRadius: 16, style: .continuous)
         )
+        // While the agent is working the whole composer breathes. The small
+        // activity icon stays where it was, but it loses to an overlapping
+        // window — a glow the width of the input bar does not.
         .overlay(
             RoundedRectangle(cornerRadius: 16, style: .continuous)
-                .stroke(app.selfFixMode
-                        ? Color(red: 1.0, green: 0.60, blue: 0.10).opacity(0.8)
-                        : Color.white.opacity(0.12), lineWidth: 1)
+                .stroke(runningGlowActive
+                        ? Self.runningGlowColor.opacity(glowPulse ? 0.95 : 0.35)
+                        : (app.selfFixMode
+                           ? Color(red: 1.0, green: 0.60, blue: 0.10).opacity(0.8)
+                           : Color.white.opacity(0.12)),
+                        lineWidth: runningGlowActive ? 2 : 1)
         )
+        .shadow(color: runningGlowActive
+                ? Self.runningGlowColor.opacity(glowPulse ? 0.55 : 0.12) : .clear,
+                radius: runningGlowActive ? (glowPulse ? 16 : 4) : 0)
         .padding(.horizontal, 16)
         .padding(.bottom, 16)
         .padding(.top, 8)
         .animation(.easeInOut(duration: 0.2), value: app.selfFixMode)
+        .onChange(of: runningGlowActive) { _, running in
+            if running {
+                withAnimation(.easeInOut(duration: 1.1).repeatForever(autoreverses: true)) {
+                    glowPulse = true
+                }
+            } else {
+                withAnimation(.easeOut(duration: 0.25)) { glowPulse = false }
+            }
+        }
+        .onAppear {
+            if runningGlowActive {
+                withAnimation(.easeInOut(duration: 1.1).repeatForever(autoreverses: true)) {
+                    glowPulse = true
+                }
+            }
+        }
         // Drag-and-drop images onto the input bar
         .onDrop(of: [.image, .fileURL], isTargeted: nil) { providers in
             handleDrop(providers: providers)
