@@ -191,6 +191,9 @@ actor AgentLoop {
         // gate should remember when the run ends with a bare [DONE: Task
         // complete.] label.
         var lastProse = ""
+        // One retry when a turn ends as evaluation-only meta text with no
+        // actual answer (see isMetaEvaluationOnly).
+        var metaRetryUsed = false
         /// IDE Fix sandbox: consecutive blocked tool calls (loop circuit breaker)
         var consecutiveBlockedCalls = 0
         /// Total chars in conversation (for OOM guard)
@@ -1149,6 +1152,20 @@ SYS.ENFORCE("logical_verification_before_acceptance")
 
             // If no tools → conversational answer → done
             if tools.isEmpty {
+                // Evaluation-only turn ("[内部知識の評価]: Yes … answer
+                // directly") with no answer written: send it back once.
+                if !metaRetryUsed, AgentToolParser.isMetaEvaluationOnly(cleanText) {
+                    metaRetryUsed = true
+                    conversation.append((role: "assistant", content: rawResponse))
+                    conversation.append((role: "user", content:
+                        "You printed only your internal evaluation. Do NOT print "
+                        + "[内部知識の評価]/[アクション] blocks again — write the actual "
+                        + "answer for the user now, in the user's language."))
+                    await onProgress(.systemLog(AppLanguage.shared.t(
+                        "<think>\n🔁 Evaluation-only output — asking for the real answer\n</think>",
+                        "<think>\n🔁 評価メタのみの出力 — 本回答を要求します\n</think>")))
+                    continue
+                }
                 // VX-Loop: If SearchGate executed successfully, inject the result and continue the loop
                 if vxLoopEnabled, !vxLastSearchResult.isEmpty {
                     conversation.append((role: "assistant", content: vxCleanResponse))

@@ -448,6 +448,16 @@ struct AgentToolParser {
         return clipped.isEmpty ? String(text.prefix(60)) : clipped
     }
 
+    /// True when the reply is ONLY the anchor-elicited self-evaluation
+    /// ("[内部知識の評価]: Yes … [アクション]: answer directly") with no
+    /// actual answer — a real run ended on exactly that. The loop retries
+    /// once with an explicit "now write the answer".
+    static func isMetaEvaluationOnly(_ text: String) -> Bool {
+        let t = text.trimmingCharacters(in: .whitespacesAndNewlines)
+        guard !t.isEmpty, t.count < 700 else { return false }
+        return t.contains("[内部知識の評価]")
+    }
+
     /// True when the text is a search REQUEST without a query — the
     /// self-evaluation format searchForce anchors elicit ("[アクション]:
     /// [SEARCH]", a bare "[SEARCH]") that the tag parser cannot turn into
