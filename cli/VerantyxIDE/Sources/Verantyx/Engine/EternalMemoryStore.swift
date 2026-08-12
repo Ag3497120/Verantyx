@@ -207,6 +207,10 @@ actor EternalMemoryStore {
         // The join key. Without it a trajectory records how the pointer
         // moved and nothing about why.
         exec("ALTER TABLE mouse_trace ADD COLUMN episode_id TEXT")
+        // 'browser' when the run actually drove a page, 'headless' when a
+        // fetch answered it. Recorded so routing can be learned from what
+        // WORKED rather than re-derived from a keyword list.
+        exec("ALTER TABLE act_episode ADD COLUMN route TEXT NOT NULL DEFAULT ''")
 
         // ── One act, whole ────────────────────────────────────────────
         // Each of these already existed somewhere: the goal in ActDNA's
@@ -372,15 +376,15 @@ actor EternalMemoryStore {
                           targetLabel: String,
                           screenBefore: String, screenAfter: String,
                           visualDistance: Double, changed: Bool, ok: Bool,
-                          note: String) {
+                          note: String, route: String = "") {
         try? ensureDB()
         var stmt: OpaquePointer?
         guard sqlite3_prepare_v2(db, """
             INSERT OR REPLACE INTO act_episode
               (episode_id, ts, session_id, app, goal, rationale, action,
                target_label, screen_before, screen_after, visual_distance,
-               changed, ok, note)
-            VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?)
+               changed, ok, note, route)
+            VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)
             """, -1, &stmt, nil) == SQLITE_OK else { return }
         defer { sqlite3_finalize(stmt) }
         sqlite3_bind_text(stmt, 1, episodeId, -1, Self.sqliteTransient)
@@ -397,7 +401,64 @@ actor EternalMemoryStore {
         sqlite3_bind_int64(stmt, 12, changed ? 1 : 0)
         sqlite3_bind_int64(stmt, 13, ok ? 1 : 0)
         sqlite3_bind_text(stmt, 14, String(note.prefix(300)), -1, Self.sqliteTransient)
+        sqlite3_bind_text(stmt, 15, route, -1, Self.sqliteTransient)
         sqlite3_step(stmt)
+    }
+
+    /// A route that produced a real result, recorded without a full act
+    /// episode — the search paths have a goal and an outcome but no
+    /// screen or pointer to report.
+    func recordRouteOutcome(goal: String, route: String, ok: Bool, note: String) {
+        guard !goal.trimmingCharacters(in: .whitespaces).isEmpty else { return }
+        recordActEpisode(episodeId: UUID().uuidString, sessionId: "", app: "",
+                         goal: goal, rationale: "", action: "search",
+                         targetLabel: "", screenBefore: "", screenAfter: "",
+                         visualDistance: -1, changed: ok, ok: ok,
+                         note: note, route: route)
+    }
+
+    /// Which route past goals LIKE this one actually needed.
+    ///
+    /// The structural half of routing: instead of asking a keyword list
+    /// whether "githubのissueを見て" is browsing, ask what happened the
+    /// last times a goal sharing its distinctive words was run. The label
+    /// is the outcome — a run that really drove a page counts as browser
+    /// — so a mis-route is not learned as truth just because it was
+    /// chosen. Deliberately lexical rather than embedded: it needs no
+    /// model loaded, survives a model swap, and can state its reason
+    /// ("3 of 4 similar goals used the browser") in words.
+    func routeEvidence(for goal: String, minOverlap: Int = 2)
+            -> (browser: Int, headless: Int, example: String)? {
+        try? ensureDB()
+        let wanted = ClaimGrounding.anchorTokens(goal)
+            .union(ClaimGrounding.lexicalTokens(goal))
+        guard wanted.count >= minOverlap else { return nil }
+
+        var stmt: OpaquePointer?
+        guard sqlite3_prepare_v2(db, """
+            SELECT goal, route FROM act_episode
+            WHERE route <> '' AND ok = 1 AND goal <> ''
+            ORDER BY ts DESC LIMIT 400
+            """, -1, &stmt, nil) == SQLITE_OK else { return nil }
+        defer { sqlite3_finalize(stmt) }
+
+        var browser = 0, headless = 0, example = ""
+        while sqlite3_step(stmt) == SQLITE_ROW {
+            let pastGoal = sqlite3_column_text(stmt, 0).map { String(cString: $0) } ?? ""
+            let route = sqlite3_column_text(stmt, 1).map { String(cString: $0) } ?? ""
+            let past = ClaimGrounding.anchorTokens(pastGoal)
+                .union(ClaimGrounding.lexicalTokens(pastGoal))
+            guard wanted.intersection(past).count >= minOverlap else { continue }
+            if route == "browser" {
+                browser += 1
+                if example.isEmpty { example = String(pastGoal.prefix(50)) }
+            } else if route == "headless" {
+                headless += 1
+                if example.isEmpty { example = String(pastGoal.prefix(50)) }
+            }
+        }
+        guard browser + headless > 0 else { return nil }
+        return (browser, headless, example)
     }
 
     /// What happened last time this app was in this screen state and an

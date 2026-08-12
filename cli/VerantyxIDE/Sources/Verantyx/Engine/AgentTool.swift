@@ -1337,6 +1337,47 @@ actor AgentToolExecutor {
         return MainActor.assumeIsolated { BrowserSession.shared.state.isOpen }
     }
 
+    /// Routing decided by what happened before, with the keyword list as
+    /// the floor rather than the authority.
+    ///
+    /// Three layers, in order of how much they know:
+    ///  1. an open page — continuing a session is browsing, structurally
+    ///  2. vera-a's own record: goals sharing this one's distinctive words,
+    ///     and which route actually WORKED for them. Learned from outcomes,
+    ///     so a mis-route is not promoted to truth by having been chosen.
+    ///  3. the keyword list, which is all there is on day one.
+    ///
+    /// The bias is deliberate: routing a lookup to the browser costs a
+    /// window; routing a browsing task headlessly costs the task, which is
+    /// the failure this whole path exists to stop. Evidence has to be
+    /// clearly against the browser to send a run headless.
+    static func browsingRoute(for goal: String) async -> (browser: Bool, why: String) {
+        let sessionOpen = await MainActor.run { BrowserSession.shared.state.isOpen }
+        if sessionOpen { return (true, AppLanguage.shared.t(
+            "a page is already open", "ページが開いているため")) }
+
+        if let ev = await EternalMemoryStore.shared.routeEvidence(for: goal),
+           ev.browser + ev.headless >= 2 {
+            if ev.browser > ev.headless {
+                return (true, AppLanguage.shared.t(
+                    "vera-a: \(ev.browser)/\(ev.browser + ev.headless) similar goals needed the browser (e.g. \"\(ev.example)\")",
+                    "vera-a: 類似の目的 \(ev.browser + ev.headless) 件中 \(ev.browser) 件がブラウザ経路（例:「\(ev.example)」）"))
+            }
+            if ev.headless > ev.browser * 2 {
+                return (false, AppLanguage.shared.t(
+                    "vera-a: \(ev.headless)/\(ev.browser + ev.headless) similar goals were answered headlessly",
+                    "vera-a: 類似の目的 \(ev.browser + ev.headless) 件中 \(ev.headless) 件がヘッドレスで解決"))
+            }
+        }
+
+        let byWords = isBrowsingGoal(goal)
+        return (byWords, byWords
+                ? AppLanguage.shared.t("wording asks for a site to be operated",
+                                       "サイトを操作する語のため")
+                : AppLanguage.shared.t("nothing indicates a page needs driving",
+                                       "ページ操作の必要を示すものが無いため"))
+    }
+
     /// Put a search on screen: the results page opens in the browser and
     /// the candidates are the links that are really there.
     func openSearchInBrowser(query: String) async -> String {
@@ -1914,10 +1955,23 @@ actor AgentToolExecutor {
             // one to be clicked. The route is chosen from the goal, not
             // from which tool the model happened to type.
             let goalForSearch = await MainActor.run { AppState.shared?.currentActGoal ?? "" }
-            if Self.isBrowsingGoal(goalForSearch) {
-                return await openSearchInBrowser(query: query)
+            let route = await Self.browsingRoute(for: goalForSearch.isEmpty ? query : goalForSearch)
+            await MainActor.run {
+                AppState.shared?.addSystemMessage(AppLanguage.shared.t(
+                    "<think>\n🧭 Route: \(route.browser ? "browser" : "headless") — \(route.why)\n</think>",
+                    "<think>\n🧭 経路: \(route.browser ? "ブラウザ" : "ヘッドレス") — \(route.why)\n</think>"))
+            }
+            if route.browser {
+                let out = await openSearchInBrowser(query: query)
+                await EternalMemoryStore.shared.recordRouteOutcome(
+                    goal: goalForSearch.isEmpty ? query : goalForSearch,
+                    route: "browser", ok: !out.contains("could not be read"), note: "")
+                return out
             }
             let result = await WebSearchEngine.shared.search(query: query)
+            await EternalMemoryStore.shared.recordRouteOutcome(
+                goal: goalForSearch.isEmpty ? query : goalForSearch,
+                route: "headless", ok: !result.isFailure, note: "")
             // Auto-store in JCross (importance 0.7, zone near)
             let snippet = String(result.contextSnippet.prefix(200))
             await persistSearchResult(key: "web_\(query.prefix(30))", value: snippet)
