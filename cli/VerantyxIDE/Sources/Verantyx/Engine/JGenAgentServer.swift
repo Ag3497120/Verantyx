@@ -127,6 +127,9 @@ actor JGenAgentServer {
         case ("POST", "/pipe/split"):
             await handlePipeSplit(request: request, connection: connection)
 
+        case ("POST", "/mcp"):
+            await handleMCP(request: request, connection: connection)
+
         case ("POST", "/jgen/generate"):
             await handleJGenGenerate(request: request, connection: connection)
         case ("POST", "/browser/fetch"):
@@ -575,6 +578,137 @@ actor JGenAgentServer {
             }
             guard ok else { return }   // receiver went away; it can resume later
             left -= UInt64(chunk.count)
+        }
+    }
+
+    // MARK: - MCP over HTTP (the memory organ as tools)
+    //
+    // POST /mcp speaks JSON-RPC per the MCP streamable-HTTP transport, so
+    // external agents (OpenCode, Claude Code, Cursor) can use THIS Mac's
+    // pinned small JGEN as their memory organ — the dual setup "chat with
+    // anything, remember with one JGEN" turned into a protocol.
+    //
+    // Deliberately text-in/text-out only (Milestone L: JGEN's raw vectors
+    // never leave the process): `eternal_recall` returns remembered TEXTS,
+    // `eternal_remember` accepts text. The embed_model pin inside
+    // EternalMemoryStore still governs — with the wrong JGEN loaded these
+    // tools answer with the pin notice instead of mixing spaces. Loopback
+    // gate applies (the /mcp path is not under /pipe/).
+    private func handleMCP(request: ParsedRequest, connection: NWConnection) async {
+        guard let body = request.body,
+              let obj = try? JSONSerialization.jsonObject(with: body) as? [String: Any] else {
+            await Self.writeResponse(connection: connection, status: 400,
+                                     body: ["ok": false, "error": "bad_json"])
+            return
+        }
+        let method = (obj["method"] as? String) ?? ""
+        let id = obj["id"]   // Int or String; absent for notifications
+
+        func reply(result: [String: Any]) async {
+            var out: [String: Any] = ["jsonrpc": "2.0", "result": result]
+            if let id { out["id"] = id }
+            await Self.writeResponse(connection: connection, status: 200, body: out)
+        }
+        func replyError(_ code: Int, _ message: String) async {
+            var out: [String: Any] = ["jsonrpc": "2.0",
+                                      "error": ["code": code, "message": message]]
+            if let id { out["id"] = id }
+            await Self.writeResponse(connection: connection, status: 200, body: out)
+        }
+
+        switch method {
+        case "initialize":
+            let requested = ((obj["params"] as? [String: Any])?["protocolVersion"] as? String)
+                ?? "2024-11-05"
+            await reply(result: [
+                "protocolVersion": requested,
+                "capabilities": ["tools": [String: Any]()],
+                "serverInfo": ["name": "verantyx-jgen-memory", "version": "1.0.0"],
+            ])
+
+        case "notifications/initialized", "notifications/cancelled":
+            // Notifications carry no id and expect no JSON-RPC reply.
+            await Self.writeResponse(connection: connection, status: 202, body: [:])
+
+        case "ping":
+            await reply(result: [:])
+
+        case "tools/list":
+            await reply(result: ["tools": [
+                [
+                    "name": "eternal_recall",
+                    "description": "Recall from this Mac's eternal memory (3 years of "
+                        + "JGEN hidden-state experience, gravity-ordered). Returns the "
+                        + "remembered texts with similarity scores.",
+                    "inputSchema": [
+                        "type": "object",
+                        "properties": [
+                            "query": ["type": "string"],
+                            "k": ["type": "integer", "description": "top-K, default 3"],
+                        ],
+                        "required": ["query"],
+                    ],
+                ],
+                [
+                    "name": "eternal_remember",
+                    "description": "Store one text into eternal memory through the pinned "
+                        + "memory-organ JGEN. Subject to the same governance as IDE-side "
+                        + "writes (vera core tags, quarantine).",
+                    "inputSchema": [
+                        "type": "object",
+                        "properties": ["text": ["type": "string"]],
+                        "required": ["text"],
+                    ],
+                ],
+            ]])
+
+        case "tools/call":
+            let params = (obj["params"] as? [String: Any]) ?? [:]
+            let name = (params["name"] as? String) ?? ""
+            let args = (params["arguments"] as? [String: Any]) ?? [:]
+            func toolText(_ text: String, isError: Bool = false) async {
+                await reply(result: [
+                    "content": [["type": "text", "text": text]],
+                    "isError": isError,
+                ])
+            }
+            guard await JCrossChatManager.shared.isLoaded else {
+                await toolText("No JGEN model is loaded in Verantyx — the memory organ "
+                               + "is offline. Load the pinned model in the IDE first.",
+                               isError: true)
+                return
+            }
+            switch name {
+            case "eternal_recall":
+                let query = (args["query"] as? String) ?? ""
+                let k = (args["k"] as? Int) ?? 3
+                guard !query.isEmpty else { await toolText("query is required", isError: true); return }
+                let hits = (try? await EternalMemoryStore.shared.search(
+                    query: query, k: max(1, min(k, 10)))) ?? []
+                if hits.isEmpty {
+                    await toolText("(no eternal memory matched — possibly the pinned "
+                                   + "memory model is not the one loaded)")
+                } else {
+                    let lines = hits.map {
+                        String(format: "[%.2f] %@", $0.score, $0.text)
+                    }.joined(separator: "\n")
+                    await toolText(lines)
+                }
+            case "eternal_remember":
+                let text = (args["text"] as? String) ?? ""
+                guard !text.isEmpty else { await toolText("text is required", isError: true); return }
+                do {
+                    try await EternalMemoryStore.shared.add(text: text, concepts: [])
+                    await toolText("remembered")
+                } catch {
+                    await toolText("store refused: \(error.localizedDescription)", isError: true)
+                }
+            default:
+                await replyError(-32602, "unknown tool: \(name)")
+            }
+
+        default:
+            await replyError(-32601, "method not supported: \(method)")
         }
     }
 

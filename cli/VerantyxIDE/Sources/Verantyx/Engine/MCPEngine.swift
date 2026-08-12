@@ -60,12 +60,20 @@ enum VeraMemoryPaths {
     /// remaining job is exporting Vera's memory to OTHER tools.
     static func externalMCPConfigJSON() -> String? {
         guard let binary = resolveBundledBinary() else { return nil }
+        // vera-jgen-memory is the memory ORGAN (eternal recall/remember
+        // through the pinned small JGEN) served over HTTP by the running
+        // IDE's JGenAgentServer — see its handleMCP. Port 8766 is the
+        // server's preferred bind; it only moves if something else took it.
         return """
         {
           "mcpServers": {
             "vera-memory": {
               "command": "\(binary.path)",
               "args": ["--store", "\(storeFile.path)", "mcp"]
+            },
+            "vera-jgen-memory": {
+              "type": "http",
+              "url": "http://127.0.0.1:8766/mcp"
             }
           }
         }

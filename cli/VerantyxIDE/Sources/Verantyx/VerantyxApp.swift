@@ -304,6 +304,13 @@ struct VerantyxApp: App {
                     // ── Initialize OS Agent Spotlight UI ──
                     SpotlightPanelManager.shared.setup(appState: appState)
 
+                    // ── Memory-organ MCP endpoint ──
+                    // External agents reach eternal memory at
+                    // http://127.0.0.1:8766/mcp (JGenAgentServer.handleMCP),
+                    // so the server must be up from launch — not only once
+                    // a harness or pipe flow happens to start it.
+                    Task { try? await JGenAgentServer.shared.start() }
+
                     // ── Green-button fullscreen ──
                     // The IDE window would not enter macOS fullscreen; make
                     // the capability explicit instead of relying on whatever
