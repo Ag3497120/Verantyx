@@ -2489,6 +2489,17 @@ final class AppState: ObservableObject {
         req.reject()
         advanceVeraSaveQueue()
         addSystemMessage(self.t("⏸ Discarded (not saved to Vera)", "⏸ 破棄しました（Vera には保存されません）"))
+
+        // A rejection is supervision too: this prompt↔response pairing is
+        // one the human judged NOT to belong together in memory — the
+        // negative half of the projector's training signal.
+        let prompt = req.userPrompt, response = req.aiResponse
+        if !prompt.isEmpty, !response.isEmpty {
+            Task {
+                await EternalMemoryStore.shared.recordSupervisionPair(
+                    kind: "rejected", textA: prompt, textB: response, core: nil)
+            }
+        }
     }
 
     private func advanceVeraSaveQueue() {

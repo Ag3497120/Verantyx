@@ -119,6 +119,45 @@ enum VeraMemoryBridge {
             }
         }
 
+        // ── vera-a governs the vector space (mechanisms 1–4) ──────────
+        // The approved save is the moment vera-a's symbolic structure
+        // reaches into eternal memory: the ask verdict tags recent nodes
+        // with their core (cluster seed) and quarantines contradictions;
+        // older same-core nodes cool so the fresh fact outranks them; and
+        // the approval itself becomes a supervision pair — the
+        // model-independent ground truth a retrieval projector can be
+        // (re)trained from after any model swap.
+        if let primaryCore = newCoreKeys.first, !req.userPrompt.isEmpty {
+            let askRaw = await MCPEngine.shared.callTool(
+                serverName: serverName, toolName: "ask",
+                arguments: ["query": String(req.userPrompt.prefix(300))],
+                mode: .human
+            )
+            var verdict = "ANSWER"
+            var contradiction = 0
+            if let data = askRaw.data(using: .utf8),
+               let obj = try? JSONSerialization.jsonObject(with: data) as? [String: Any] {
+                verdict = (obj["verdict"] as? String) ?? verdict
+                contradiction = (obj["contradiction"] as? Int) ?? 0
+            }
+            let store = EternalMemoryStore.shared
+            await store.applyVeraJudgment(
+                promptPrefix: req.userPrompt, core: primaryCore,
+                verdict: verdict, contradiction: contradiction)
+            await store.coolCore(primaryCore, before: Date().timeIntervalSince1970)
+            await store.recordSupervisionPair(
+                kind: "approved", textA: req.userPrompt,
+                textB: req.aiResponse.isEmpty ? req.userPrompt : req.aiResponse,
+                core: primaryCore)
+            if contradiction > 0 {
+                await MainActor.run {
+                    AppState.shared?.addSystemMessage(L(
+                        "🧿 Vera reported a contradiction — related eternal memories quarantined pending review.",
+                        "🧿 Veraが矛盾を検知 — 関連する永遠記憶を検疫し、レビュー待ちにしました。"))
+                }
+            }
+        }
+
         // If the stereo-cross 3D graph demo is active, trigger its
         // "connection" animation for this save instead of (or in addition
         // to) the ordinary system message -- StereoCrossGraphView observes

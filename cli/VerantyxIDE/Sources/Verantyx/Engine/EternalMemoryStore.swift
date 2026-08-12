@@ -66,6 +66,14 @@ actor EternalMemoryStore {
         var concepts: [String]
         var accessCount: Int
         var lastAccess: Double
+        // ── vera-a governance (mechanism 2/4) ─────────────────────────
+        // The typed verdict and core this node was judged into at save
+        // time — the symbolic anchor that survives model swaps and seeds
+        // clusters. `quarantined` nodes (vera-a reported a contradiction)
+        // are excluded from scans until a human clears them.
+        var veraVerdict: String? = nil
+        var veraCore: String? = nil
+        var quarantined: Bool = false
     }
 
     private let directory: URL
@@ -139,6 +147,25 @@ actor EternalMemoryStore {
           departed INTEGER NOT NULL
         )
         """)
+        // Mechanism 1's ground truth: the pairs themselves are the asset
+        // (the projector trained from them is derived state, re-trainable
+        // after any model swap). Populated by save approvals/rejections.
+        exec("""
+        CREATE TABLE IF NOT EXISTS supervision_pairs (
+          ts REAL NOT NULL,
+          kind TEXT NOT NULL,       -- approved | rejected | superseded
+          text_a TEXT NOT NULL,
+          text_b TEXT NOT NULL,
+          core TEXT
+        )
+        """)
+        // Governance columns (mechanism 2/4) — added after the table first
+        // shipped, so bring old DBs up to shape. SQLite has no IF NOT
+        // EXISTS for columns; the failed ALTER on an up-to-date DB is the
+        // no-op we want.
+        exec("ALTER TABLE nodes ADD COLUMN vera_verdict TEXT")
+        exec("ALTER TABLE nodes ADD COLUMN vera_core TEXT")
+        exec("ALTER TABLE nodes ADD COLUMN quarantined INTEGER NOT NULL DEFAULT 0")
     }
 
     /// One-time import of the pre-SQLite JSONL index. The file is kept
@@ -173,8 +200,10 @@ actor EternalMemoryStore {
     private func insertNodeRow(_ n: Node) {
         var stmt: OpaquePointer?
         guard sqlite3_prepare_v2(db, """
-            INSERT OR REPLACE INTO nodes (id, ts, text, concepts, access_count, last_access)
-            VALUES (?,?,?,?,?,?)
+            INSERT OR REPLACE INTO nodes
+              (id, ts, text, concepts, access_count, last_access,
+               vera_verdict, vera_core, quarantined)
+            VALUES (?,?,?,?,?,?,?,?,?)
             """, -1, &stmt, nil) == SQLITE_OK else { return }
         defer { sqlite3_finalize(stmt) }
         let concepts = (try? JSONEncoder().encode(n.concepts))
@@ -185,6 +214,11 @@ actor EternalMemoryStore {
         sqlite3_bind_text(stmt, 4, concepts, -1, Self.sqliteTransient)
         sqlite3_bind_int64(stmt, 5, Int64(n.accessCount))
         sqlite3_bind_double(stmt, 6, n.lastAccess)
+        if let v = n.veraVerdict { sqlite3_bind_text(stmt, 7, v, -1, Self.sqliteTransient) }
+        else { sqlite3_bind_null(stmt, 7) }
+        if let c = n.veraCore { sqlite3_bind_text(stmt, 8, c, -1, Self.sqliteTransient) }
+        else { sqlite3_bind_null(stmt, 8) }
+        sqlite3_bind_int64(stmt, 9, n.quarantined ? 1 : 0)
         sqlite3_step(stmt)
     }
 
@@ -192,7 +226,8 @@ actor EternalMemoryStore {
         nodes = []
         var stmt: OpaquePointer?
         guard sqlite3_prepare_v2(db, """
-            SELECT id, ts, text, concepts, access_count, last_access
+            SELECT id, ts, text, concepts, access_count, last_access,
+                   vera_verdict, vera_core, quarantined
             FROM nodes ORDER BY id
             """, -1, &stmt, nil) == SQLITE_OK else { return }
         defer { sqlite3_finalize(stmt) }
@@ -206,7 +241,10 @@ actor EternalMemoryStore {
                 text: sqlite3_column_text(stmt, 2).map { String(cString: $0) } ?? "",
                 concepts: concepts,
                 accessCount: Int(sqlite3_column_int64(stmt, 4)),
-                lastAccess: sqlite3_column_double(stmt, 5)
+                lastAccess: sqlite3_column_double(stmt, 5),
+                veraVerdict: sqlite3_column_text(stmt, 6).map { String(cString: $0) },
+                veraCore: sqlite3_column_text(stmt, 7).map { String(cString: $0) },
+                quarantined: sqlite3_column_int64(stmt, 8) != 0
             ))
         }
     }
@@ -349,6 +387,100 @@ actor EternalMemoryStore {
         insertNodeRow(node)
     }
 
+    // MARK: - vera-a governance (mechanisms 1–4)
+
+    /// Mechanism 2 + 4: after a save approval, vera-a's `ask` verdict for
+    /// the saved prompt lands here. Recent nodes whose text contains the
+    /// prompt (or vice versa) get the core/verdict tag; a reported
+    /// contradiction quarantines them out of the scan until a human looks.
+    func applyVeraJudgment(promptPrefix: String, core: String,
+                           verdict: String, contradiction: Int) {
+        try? ensureLoaded()
+        let needle = String(promptPrefix.prefix(80))
+        guard !needle.isEmpty else { return }
+        let quarantine = contradiction > 0
+        var touched: [Int] = []
+        // Only the recent tail — the save being judged just happened.
+        for i in nodes.indices.suffix(50)
+        where nodes[i].text.contains(needle) || needle.contains(nodes[i].text.prefix(80)) {
+            nodes[i].veraCore = core
+            nodes[i].veraVerdict = verdict
+            nodes[i].quarantined = quarantine
+            touched.append(i)
+        }
+        guard !touched.isEmpty else { return }
+        var stmt: OpaquePointer?
+        guard sqlite3_prepare_v2(db, """
+            UPDATE nodes SET vera_verdict = ?, vera_core = ?, quarantined = ? WHERE id = ?
+            """, -1, &stmt, nil) == SQLITE_OK else { return }
+        defer { sqlite3_finalize(stmt) }
+        exec("BEGIN")
+        for i in touched {
+            sqlite3_reset(stmt)
+            sqlite3_bind_text(stmt, 1, verdict, -1, Self.sqliteTransient)
+            sqlite3_bind_text(stmt, 2, core, -1, Self.sqliteTransient)
+            sqlite3_bind_int64(stmt, 3, quarantine ? 1 : 0)
+            sqlite3_bind_int64(stmt, 4, Int64(nodes[i].id))
+            sqlite3_step(stmt)
+        }
+        exec("COMMIT")
+        if quarantine {
+            logPlacement(reason: "vera-quarantine", total: nodes.count, hot: hotCount,
+                         entered: 0, departed: touched.count,
+                         now: Date().timeIntervalSince1970)
+        }
+    }
+
+    /// Mechanism 3 (supersession proxy): a new approved fact just landed in
+    /// `core`, so older eternal nodes tagged with the same core cool — their
+    /// gravity drops by ~4 half-lives so the fresh fact outranks them in
+    /// placement and (later) injection, without deleting anything.
+    func coolCore(_ core: String, before ts: Double) {
+        try? ensureLoaded()
+        let pushback = Self.gravityHalfLifeDays * 4 * 86_400
+        var cooled: [Int] = []
+        for i in nodes.indices
+        where nodes[i].veraCore == core && nodes[i].ts < ts && !nodes[i].quarantined {
+            nodes[i].lastAccess = min(nodes[i].lastAccess, ts - pushback)
+            cooled.append(i)
+        }
+        guard !cooled.isEmpty else { return }
+        var stmt: OpaquePointer?
+        guard sqlite3_prepare_v2(db,
+            "UPDATE nodes SET last_access = ? WHERE id = ?", -1, &stmt, nil) == SQLITE_OK else { return }
+        defer { sqlite3_finalize(stmt) }
+        exec("BEGIN")
+        for i in cooled {
+            sqlite3_reset(stmt)
+            sqlite3_bind_double(stmt, 1, nodes[i].lastAccess)
+            sqlite3_bind_int64(stmt, 2, Int64(nodes[i].id))
+            sqlite3_step(stmt)
+        }
+        exec("COMMIT")
+        rebuildHotOrder(reason: "vera-supersede")
+    }
+
+    /// Mechanism 1's collection side: the pair table IS the asset — the
+    /// projector eventually trained from it is derived state, re-trainable
+    /// after any model swap. `kind`: approved / rejected / superseded.
+    func recordSupervisionPair(kind: String, textA: String, textB: String, core: String?) {
+        try? ensureLoaded()
+        let a = String(textA.prefix(500)), b = String(textB.prefix(500))
+        guard !a.isEmpty, !b.isEmpty else { return }
+        var stmt: OpaquePointer?
+        guard sqlite3_prepare_v2(db, """
+            INSERT INTO supervision_pairs (ts, kind, text_a, text_b, core) VALUES (?,?,?,?,?)
+            """, -1, &stmt, nil) == SQLITE_OK else { return }
+        defer { sqlite3_finalize(stmt) }
+        sqlite3_bind_double(stmt, 1, Date().timeIntervalSince1970)
+        sqlite3_bind_text(stmt, 2, kind, -1, Self.sqliteTransient)
+        sqlite3_bind_text(stmt, 3, a, -1, Self.sqliteTransient)
+        sqlite3_bind_text(stmt, 4, b, -1, Self.sqliteTransient)
+        if let core { sqlite3_bind_text(stmt, 5, core, -1, Self.sqliteTransient) }
+        else { sqlite3_bind_null(stmt, 5) }
+        sqlite3_step(stmt)
+    }
+
     // MARK: - Fluid placement
 
     private func gravity(daysSinceAccess: Double, accessCount: Int) -> Double {
@@ -419,7 +551,9 @@ actor EternalMemoryStore {
         scored.reserveCapacity(min(nodes.count, 4096))
 
         func scan(_ slice: ArraySlice<Int>) {
-            for i in slice where i < vecCount {
+            // Quarantined nodes (vera-a reported a contradiction) stay out
+            // of recall until a human clears them.
+            for i in slice where i < vecCount && !nodes[i].quarantined {
                 let sim = dot(qv, at: i)
                 let daysSince = max((now - nodes[i].lastAccess) / 86400.0, 0)
                 let grav = Float(gravity(daysSinceAccess: daysSince, accessCount: nodes[i].accessCount))
