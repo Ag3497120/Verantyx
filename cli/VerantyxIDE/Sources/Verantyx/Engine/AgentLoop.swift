@@ -193,13 +193,23 @@ actor AgentLoop {
         // the user override this directly instead of relying solely on
         // auto-detected tier.
         let contextOverride = await MainActor.run { AppState.shared?.contextWindowOverride ?? 0 }
-        let compressThreshold = contextOverride > 0 ? contextOverride : profile.tier.compressThreshold
+        // ── The manual number means TOKENS, and it is the last word ──
+        // It was being used as a CHARACTER budget, so a setting that
+        // reads "32000" next to "Max tokens: 4096" bought about 8k tokens
+        // of history — and the run compressed every second turn while the
+        // label claimed the context was manual. The number is now read as
+        // tokens (~4 chars each), and a value at or above 999999 turns
+        // compression off outright.
+        let unlimitedContext = contextOverride >= 999_999
+        let compressThreshold = contextOverride > 0
+            ? (unlimitedContext ? Int.max / 4 : contextOverride * 4)
+            : profile.tier.compressThreshold
         await MainActor.run {
             ContextUsageTracker.shared.beginTurn()
             ContextUsageTracker.shared.setContextWindowCharBudget(compressThreshold)
         }
         await onProgress(.aiMessage(
-            AppLanguage.shared.t("🤖 Model Profile: \(activeModel) → \(profile.tier.displayName) | Max tokens: \(profile.effectiveMaxTokens)\(UserDefaults.standard.integer(forKey: "max_tokens_override") > 0 ? " (manual)" : "") | Temp: \(profile.tier.temperature) | Context: \(compressThreshold)\(contextOverride > 0 ? " (manual)" : "")", "🤖 モデルプロファイル: \(activeModel) → \(profile.tier.displayName) | Max tokens: \(profile.effectiveMaxTokens)\(UserDefaults.standard.integer(forKey: "max_tokens_override") > 0 ? " (manual)" : "") | Temp: \(profile.tier.temperature) | コンテキスト: \(compressThreshold)\(contextOverride > 0 ? "（手動設定）" : "")"
+            AppLanguage.shared.t("🤖 Model Profile: \(activeModel) → \(profile.tier.displayName) | Max tokens: \(profile.effectiveMaxTokens)\(UserDefaults.standard.integer(forKey: "max_tokens_override") > 0 ? " (manual)" : "") | Temp: \(profile.tier.temperature) | Context: \(unlimitedContext ? "unlimited (no compression)" : contextOverride > 0 ? "\(contextOverride) tokens (manual)" : "\(compressThreshold / 4) tokens (auto)")", "🤖 モデルプロファイル: \(activeModel) → \(profile.tier.displayName) | Max tokens: \(profile.effectiveMaxTokens)\(UserDefaults.standard.integer(forKey: "max_tokens_override") > 0 ? "（手動）" : "") | Temp: \(profile.tier.temperature) | コンテキスト: \(unlimitedContext ? "無制限（圧縮なし）" : contextOverride > 0 ? "\(contextOverride)トークン（手動設定）" : "\(compressThreshold / 4)トークン（自動）")"
             )
         ))
 
@@ -546,8 +556,10 @@ SYS.ENFORCE("logical_verification_before_acceptance")
             await onProgress(.thinking(turn: turn))
 
             // ── OOM guard & KV Cache flush ──────────────────────────────
+            // A KV cache that is physically full still forces a flush when
+            // context is set to unlimited: that is hardware, not policy.
             let isKVCacheFull = await MLXRunner.shared.shouldFlushKVCache()
-            if totalConversationChars > compressThreshold || isKVCacheFull {
+            if (!unlimitedContext && totalConversationChars > compressThreshold) || isKVCacheFull {
                 let charsBeforeCompression = totalConversationChars
                 conversation = await compressConversation(
                     conversation,

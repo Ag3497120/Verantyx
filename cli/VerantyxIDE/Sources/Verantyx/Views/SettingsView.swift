@@ -943,30 +943,32 @@ struct SettingsView: View {
                 Divider().opacity(0.2)
 
                 VStack(alignment: .leading, spacing: 6) {
-                    rowLabel("Context window (characters)") {
+                    rowLabel(app.t("Context window (tokens)", "コンテキスト（トークン）")) {
                         Picker("", selection: Binding(
                             get: { app.contextWindowOverride },
                             set: { app.contextWindowOverride = $0 }
                         )) {
-                            Text("Auto (by model size)").tag(0)
-                            Text("~8K chars").tag(8_000)
-                            Text("~16K chars").tag(16_000)
-                            Text("~32K chars").tag(32_000)
-                            Text("~64K chars").tag(64_000)
-                            Text("~128K chars").tag(128_000)
+                            Text(app.t("Auto (by model size)", "自動（モデルサイズ）")).tag(0)
+                            Text("8K").tag(8_000)
+                            Text("16K").tag(16_000)
+                            Text("32K").tag(32_000)
+                            Text("64K").tag(64_000)
+                            Text("128K").tag(128_000)
+                            Text("256K").tag(256_000)
+                            Text(app.t("Unlimited (never compress)", "無制限（圧縮しない）")).tag(999_999)
                         }
                         .labelsHidden()
-                        .frame(width: 170)
+                        .frame(width: 200)
                     }
-                    // Deliberately labeled in characters, not tokens: this
-                    // value is compared directly against raw character
-                    // counts internally (AgentLoop.swift's
-                    // compressThreshold), not a real token count -- for
-                    // English that's roughly 1/4 as many tokens, less for
-                    // Japanese. See the context-usage indicator in the
-                    // chat input bar for real per-turn token counts where
-                    // the active backend reports them.
-                    Text("How much conversation history stays uncompressed before it's summarized. \"Auto\" picks a value based on the detected model's size. This is a character budget, not a token count -- see the context-usage indicator (chat input bar) for real token numbers.")
+                    // Labeled in tokens now, and converted internally
+                    // (~4 chars per token). It used to be a character
+                    // budget wearing a number that reads like tokens: a
+                    // setting of 32000 bought ~8k tokens of history, and
+                    // runs compressed every second turn while the profile
+                    // line claimed the context was manual.
+                    Text(app.t(
+                        "How much conversation history stays uncompressed before it is summarized. \"Auto\" picks a value from the detected model size; \"Unlimited\" never compresses (a physically full KV cache still flushes — that is hardware, not policy).",
+                        "要約される前に、会話履歴をどれだけ圧縮せずに保つか。「自動」は検出したモデルサイズから決定し、「無制限」は圧縮しません（KVキャッシュが物理的に満杯の場合のみフラッシュします — これは方針ではなくハードウェアの制約です）。"))
                         .font(.system(size: 10)).foregroundStyle(.tertiary)
                 }
 

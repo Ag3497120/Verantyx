@@ -1314,14 +1314,27 @@ actor AgentToolExecutor {
     /// search as a tool the model may choose has been tried; the model
     /// keeps choosing the headless one, and the run ends up reaching for
     /// URLs again.
+    /// It is a keyword test, and keyword tests have gaps — "githubのissue
+    /// を見て" reads as browsing to a person and not to this list. Two
+    /// things keep the gaps from mattering much: a page already being
+    /// open makes the next instruction browsing whatever it says (you do
+    /// not continue a session headlessly), and SEARCH_PAGE stays
+    /// available for the model to reach for directly. Widen the list when
+    /// a real run gets routed wrong; do not replace it with a model call,
+    /// which is the judgment that keeps failing.
     static func isBrowsingGoal(_ goal: String) -> Bool {
         let g = goal.lowercased()
         let verbs = ["開いて", "開く", "ひらいて", "アクセス", "移動して", "表示して",
                      "ログイン", "サインイン", "投稿", "書き込", "クリック", "押して",
-                     "スクロール", "入力して", "送信",
+                     "スクロール", "入力して", "送信", "見て", "読んで", "確認して",
+                     "選んで", "ページ", "サイト", "ブラウザ",
                      "open ", "log in", "login", "sign in", "post ", "click", "navigate",
-                     "go to ", "browse "]
-        return verbs.contains { g.contains($0) }
+                     "go to ", "browse ", "website", "web page", "webpage", "scroll"]
+        if verbs.contains(where: { g.contains($0) }) { return true }
+        // Continuing an open page is browsing by definition, whatever the
+        // wording — "次は?" after a site is open must not fall back to a
+        // headless fetch of something unrelated.
+        return MainActor.assumeIsolated { BrowserSession.shared.state.isOpen }
     }
 
     /// Put a search on screen: the results page opens in the browser and
