@@ -1,5 +1,6 @@
 import Foundation
 import Accelerate
+import SQLite3
 
 /// Swift-owned port of `verantyx_mind.py`'s `CortexMemory` (Milestone C).
 /// Both writing and reading eternal memory in the Python original use the
@@ -14,24 +15,29 @@ import Accelerate
 /// any risk of a format mismatch corrupting the Python tool's memory, at
 /// the cost of the IDE and CLI not sharing recall.
 ///
+/// ── Storage (mirrors vera-memory's own SQLite move) ──────────────────
+/// Node metadata and the placement log live in `cortex.db` (SQLite):
+/// an access bump is one row UPDATE inside a per-query transaction, so
+/// the old whole-file JSONL rewrite — and the batching machinery that
+/// existed only to soften it — is gone entirely. The vectors stay in the
+/// flat fp16 file: a BLOB per row would trade the single mapped scan
+/// for row-at-a-time reads, which is exactly the pattern the 3-year
+/// budget ruled out. A legacy `cortex.nodes.jsonl` is imported once and
+/// kept beside the DB as `cortex.nodes.jsonl.migrated`.
+///
 /// ── Scale (the 3-year budget) ────────────────────────────────────────
 /// This store gains ~1 node per turn; three years of heavy use is
-/// ~150k nodes. The original per-query costs — one FileHandle seek+read
-/// PER NODE, a scalar Swift dot loop, and a full JSONL rewrite after
-/// every hit — were invisible at 5k nodes and add up to seconds per turn
-/// (plus ~45 MB of SSD writes per query) at 150k. Three changes hold the
-/// same query at ~10 ms of scan regardless of age:
+/// ~150k nodes. Per-query costs that grow with N are held flat:
 ///
-///   1. the vectors file is memory-mapped once and scanned in place
-///   2. dot products go through vDSP against the fp32 cache
-///   3. access-count bumps batch in memory and flush every
-///      `rewriteEvery` hits (or on `flush()`), instead of rewriting the
-///      whole index per query
+///   1. the vectors file is loaded once into an fp32 cache and scanned
+///      in place
+///   2. dot products go through vDSP
+///   3. access bumps are row UPDATEs, not index rewrites
 ///
-/// On top of that sits the fluid placement layer (`hotOrder`): nodes are
+/// On top sits the fluid placement layer (`hotOrder`): nodes are
 /// scanned in gravity order, hottest first, and a query that finds a
 /// confident hit inside the hot bucket skips the cold tail entirely.
-/// Placement changes are appended to `placement.log.jsonl` so any
+/// Placement changes append to the `placement_log` table so any
 /// before/after answer difference can be attributed to a specific,
 /// replayable reorder — fluidity without unexplainable drift.
 actor EternalMemoryStore {
@@ -39,9 +45,6 @@ actor EternalMemoryStore {
 
     private static let dim = 1024
     private static let gravityHalfLifeDays: Double = 30.0
-
-    /// Flush the node index after this many un-persisted access bumps.
-    private static let rewriteEvery = 32
 
     /// The hot bucket is this fraction of the store (min 256 nodes) —
     /// sized from the Zipf shape of long-lived personal stores, where a
@@ -52,6 +55,9 @@ actor EternalMemoryStore {
     /// Below it, the cold tail is scanned too — correctness beats speed
     /// on unfamiliar queries.
     private static let hotConfidence: Float = 0.62
+
+    /// Re-sort the scan order after this many access bumps.
+    private static let reorderEvery = 128
 
     private struct Node: Codable {
         let id: Int
@@ -64,11 +70,12 @@ actor EternalMemoryStore {
 
     private let directory: URL
     private var vectorsURL: URL { directory.appendingPathComponent("cortex.vectors") }
-    private var nodesURL: URL { directory.appendingPathComponent("cortex.nodes.jsonl") }
-    private var placementLogURL: URL { directory.appendingPathComponent("placement.log.jsonl") }
+    private var legacyNodesURL: URL { directory.appendingPathComponent("cortex.nodes.jsonl") }
+    private var dbURL: URL { directory.appendingPathComponent("cortex.db") }
 
     private var nodes: [Node] = []
     private var loaded = false
+    private var db: OpaquePointer?
 
     // ── Vector cache ─────────────────────────────────────────────────
     // fp32 mirror of the fp16 vectors file, converted once per launch
@@ -78,13 +85,10 @@ actor EternalMemoryStore {
     private var vecCache: [Float] = []
     private var vecCount = 0
 
-    // ── Deferred index writes ────────────────────────────────────────
-    private var pendingAccessBumps = 0
-
     // ── Fluid placement ──────────────────────────────────────────────
     /// Node indices in scan order: hot bucket first (by gravity at last
     /// reorder), then the cold tail. Rebuilt lazily when enough access
-    /// activity accumulates; every rebuild is logged.
+    /// activity accumulates; every rebuild that moves anything is logged.
     private var hotOrder: [Int] = []
     private var hotCount = 0
     private var accessesSinceReorder = 0
@@ -94,16 +98,161 @@ actor EternalMemoryStore {
         directory = home.appendingPathComponent(".verantyx_chrono_swift", isDirectory: true)
     }
 
+    // MARK: - SQLite plumbing
+
+    /// `sqlite3_bind_text`'s "copy the bytes" destructor constant, which
+    /// the Swift importer cannot express directly.
+    private static let sqliteTransient = unsafeBitCast(-1, to: sqlite3_destructor_type.self)
+
+    private func exec(_ sql: String) {
+        sqlite3_exec(db, sql, nil, nil, nil)
+    }
+
+    private func openDB() throws {
+        guard db == nil else { return }
+        guard sqlite3_open(dbURL.path, &db) == SQLITE_OK else {
+            let msg = String(cString: sqlite3_errmsg(db))
+            sqlite3_close(db); db = nil
+            throw NSError(domain: "EternalMemoryStore", code: 1,
+                          userInfo: [NSLocalizedDescriptionKey: "cannot open cortex.db: \(msg)"])
+        }
+        // WAL: a reader (scan) and a writer (access bump) do not block
+        // each other, and a crash mid-transaction cannot corrupt the DB.
+        exec("PRAGMA journal_mode=WAL")
+        exec("""
+        CREATE TABLE IF NOT EXISTS nodes (
+          id INTEGER PRIMARY KEY,
+          ts REAL NOT NULL,
+          text TEXT NOT NULL,
+          concepts TEXT NOT NULL DEFAULT '[]',
+          access_count INTEGER NOT NULL DEFAULT 0,
+          last_access REAL NOT NULL
+        )
+        """)
+        exec("""
+        CREATE TABLE IF NOT EXISTS placement_log (
+          ts REAL NOT NULL,
+          reason TEXT NOT NULL,
+          total INTEGER NOT NULL,
+          hot INTEGER NOT NULL,
+          entered INTEGER NOT NULL,
+          departed INTEGER NOT NULL
+        )
+        """)
+    }
+
+    /// One-time import of the pre-SQLite JSONL index. The file is kept
+    /// beside the DB with a `.migrated` suffix rather than deleted — it is
+    /// the only backup of node metadata that predates the DB.
+    private func migrateLegacyJSONLIfNeeded() {
+        var count: Int64 = 0
+        var stmt: OpaquePointer?
+        if sqlite3_prepare_v2(db, "SELECT COUNT(*) FROM nodes", -1, &stmt, nil) == SQLITE_OK,
+           sqlite3_step(stmt) == SQLITE_ROW {
+            count = sqlite3_column_int64(stmt, 0)
+        }
+        sqlite3_finalize(stmt)
+        guard count == 0,
+              let data = FileManager.default.contents(atPath: legacyNodesURL.path),
+              let text = String(data: data, encoding: .utf8) else { return }
+
+        let legacy: [Node] = text.split(separator: "\n").compactMap { line in
+            guard let d = line.data(using: .utf8) else { return nil }
+            return try? JSONDecoder().decode(Node.self, from: d)
+        }
+        guard !legacy.isEmpty else { return }
+        exec("BEGIN")
+        for n in legacy { insertNodeRow(n) }
+        exec("COMMIT")
+        try? FileManager.default.moveItem(
+            at: legacyNodesURL,
+            to: directory.appendingPathComponent("cortex.nodes.jsonl.migrated"))
+        NSLog("[EternalMemory] migrated \(legacy.count) nodes from JSONL to cortex.db")
+    }
+
+    private func insertNodeRow(_ n: Node) {
+        var stmt: OpaquePointer?
+        guard sqlite3_prepare_v2(db, """
+            INSERT OR REPLACE INTO nodes (id, ts, text, concepts, access_count, last_access)
+            VALUES (?,?,?,?,?,?)
+            """, -1, &stmt, nil) == SQLITE_OK else { return }
+        defer { sqlite3_finalize(stmt) }
+        let concepts = (try? JSONEncoder().encode(n.concepts))
+            .flatMap { String(data: $0, encoding: .utf8) } ?? "[]"
+        sqlite3_bind_int64(stmt, 1, Int64(n.id))
+        sqlite3_bind_double(stmt, 2, n.ts)
+        sqlite3_bind_text(stmt, 3, n.text, -1, Self.sqliteTransient)
+        sqlite3_bind_text(stmt, 4, concepts, -1, Self.sqliteTransient)
+        sqlite3_bind_int64(stmt, 5, Int64(n.accessCount))
+        sqlite3_bind_double(stmt, 6, n.lastAccess)
+        sqlite3_step(stmt)
+    }
+
+    private func loadNodesFromDB() {
+        nodes = []
+        var stmt: OpaquePointer?
+        guard sqlite3_prepare_v2(db, """
+            SELECT id, ts, text, concepts, access_count, last_access
+            FROM nodes ORDER BY id
+            """, -1, &stmt, nil) == SQLITE_OK else { return }
+        defer { sqlite3_finalize(stmt) }
+        while sqlite3_step(stmt) == SQLITE_ROW {
+            let conceptsJSON = sqlite3_column_text(stmt, 3).map { String(cString: $0) } ?? "[]"
+            let concepts = (conceptsJSON.data(using: .utf8))
+                .flatMap { try? JSONDecoder().decode([String].self, from: $0) } ?? []
+            nodes.append(Node(
+                id: Int(sqlite3_column_int64(stmt, 0)),
+                ts: sqlite3_column_double(stmt, 1),
+                text: sqlite3_column_text(stmt, 2).map { String(cString: $0) } ?? "",
+                concepts: concepts,
+                accessCount: Int(sqlite3_column_int64(stmt, 4)),
+                lastAccess: sqlite3_column_double(stmt, 5)
+            ))
+        }
+    }
+
+    private func bumpAccess(ids: [Int], now: Double) {
+        guard !ids.isEmpty else { return }
+        var stmt: OpaquePointer?
+        guard sqlite3_prepare_v2(db,
+            "UPDATE nodes SET access_count = access_count + 1, last_access = ? WHERE id = ?",
+            -1, &stmt, nil) == SQLITE_OK else { return }
+        defer { sqlite3_finalize(stmt) }
+        exec("BEGIN")
+        for id in ids {
+            sqlite3_reset(stmt)
+            sqlite3_bind_double(stmt, 1, now)
+            sqlite3_bind_int64(stmt, 2, Int64(id))
+            sqlite3_step(stmt)
+        }
+        exec("COMMIT")
+    }
+
+    private func logPlacement(reason: String, total: Int, hot: Int,
+                              entered: Int, departed: Int, now: Double) {
+        var stmt: OpaquePointer?
+        guard sqlite3_prepare_v2(db, """
+            INSERT INTO placement_log (ts, reason, total, hot, entered, departed)
+            VALUES (?,?,?,?,?,?)
+            """, -1, &stmt, nil) == SQLITE_OK else { return }
+        defer { sqlite3_finalize(stmt) }
+        sqlite3_bind_double(stmt, 1, now)
+        sqlite3_bind_text(stmt, 2, reason, -1, Self.sqliteTransient)
+        sqlite3_bind_int64(stmt, 3, Int64(total))
+        sqlite3_bind_int64(stmt, 4, Int64(hot))
+        sqlite3_bind_int64(stmt, 5, Int64(entered))
+        sqlite3_bind_int64(stmt, 6, Int64(departed))
+        sqlite3_step(stmt)
+    }
+
+    // MARK: - Load
+
     private func ensureLoaded() throws {
         guard !loaded else { return }
         try FileManager.default.createDirectory(at: directory, withIntermediateDirectories: true)
-        if let data = FileManager.default.contents(atPath: nodesURL.path),
-           let text = String(data: data, encoding: .utf8) {
-            nodes = text.split(separator: "\n").compactMap { line in
-                guard let d = line.data(using: .utf8) else { return nil }
-                return try? JSONDecoder().decode(Node.self, from: d)
-            }
-        }
+        try openDB()
+        migrateLegacyJSONLIfNeeded()
+        loadNodesFromDB()
         loadVectorCache()
         rebuildHotOrder(reason: "load")
         loaded = true
@@ -128,6 +277,8 @@ actor EternalMemoryStore {
         vecCount = n
     }
 
+    // MARK: - Embedding
+
     /// Builds the same PromptEOL wrapper prompt as `embed_text()`, then
     /// forwards it through the JGEN engine and L2-normalizes -- the same
     /// vector space used for both writes and reads.
@@ -151,6 +302,8 @@ actor EternalMemoryStore {
         if v.count > dim { return Array(v.prefix(dim)) }
         return v + [Float](repeating: 0, count: dim - v.count)
     }
+
+    // MARK: - Write
 
     /// Embeds `text` and appends it as a new eternal-memory node. Call after
     /// a completed Council deliberation (consensus text) or, optionally, a
@@ -193,38 +346,10 @@ actor EternalMemoryStore {
             concepts: concepts, accessCount: 0, lastAccess: Date().timeIntervalSince1970
         )
         nodes.append(node)
-        try appendNodeLine(node)
+        insertNodeRow(node)
     }
 
-    private func appendNodeLine(_ node: Node) throws {
-        var data = try JSONEncoder().encode(node)
-        data.append(contentsOf: "\n".utf8)
-        if let handle = FileHandle(forWritingAtPath: nodesURL.path) {
-            handle.seekToEndOfFile()
-            handle.write(data)
-            handle.closeFile()
-        } else {
-            FileManager.default.createFile(atPath: nodesURL.path, contents: data)
-        }
-    }
-
-    private func rewriteIndex() throws {
-        var out = Data()
-        for node in nodes {
-            var data = try JSONEncoder().encode(node)
-            data.append(contentsOf: "\n".utf8)
-            out.append(data)
-        }
-        try out.write(to: nodesURL, options: .atomic)
-        pendingAccessBumps = 0
-    }
-
-    /// Persist any batched access bumps now. Called opportunistically from
-    /// the flush threshold; safe to call any time.
-    func flush() {
-        guard pendingAccessBumps > 0 else { return }
-        try? rewriteIndex()
-    }
+    // MARK: - Fluid placement
 
     private func gravity(daysSinceAccess: Double, accessCount: Int) -> Double {
         let halfLife = Self.gravityHalfLifeDays * Double(1 + accessCount)
@@ -232,12 +357,9 @@ actor EternalMemoryStore {
         return pow(0.5, daysSinceAccess / halfLife)
     }
 
-    // ── Fluid placement ──────────────────────────────────────────────
-
-    /// Re-sorts the scan order by current gravity and appends one line to
-    /// the placement log: when, why, how many nodes moved into/out of the
-    /// hot bucket, and the new hot membership. The structure moves, but
-    /// every move is replayable.
+    /// Re-sorts the scan order by current gravity and records the move in
+    /// the `placement_log` table: when, why, how many nodes entered/left
+    /// the hot bucket. The structure moves, but every move is replayable.
     private func rebuildHotOrder(reason: String) {
         let now = Date().timeIntervalSince1970
         let ranked = nodes.indices.sorted { a, b in
@@ -259,21 +381,13 @@ actor EternalMemoryStore {
         // Only log actual movement — a reorder that changed nothing is not
         // an event.
         let entered = newHot.subtracting(oldHot).count
-        let left = oldHot.subtracting(newHot).count
-        guard entered > 0 || left > 0 else { return }
-        let entry: [String: Any] = [
-            "ts": now, "reason": reason, "total": nodes.count,
-            "hot": newHotCount, "entered": entered, "left": left,
-        ]
-        if var line = try? JSONSerialization.data(withJSONObject: entry, options: [.sortedKeys]) {
-            line.append(contentsOf: "\n".utf8)
-            if let h = FileHandle(forWritingAtPath: placementLogURL.path) {
-                h.seekToEndOfFile(); h.write(line); h.closeFile()
-            } else {
-                FileManager.default.createFile(atPath: placementLogURL.path, contents: line)
-            }
-        }
+        let departed = oldHot.subtracting(newHot).count
+        guard entered > 0 || departed > 0 else { return }
+        logPlacement(reason: reason, total: nodes.count, hot: newHotCount,
+                     entered: entered, departed: departed, now: now)
     }
+
+    // MARK: - Search
 
     /// vDSP cosine of the query against one cached vector.
     private func dot(_ qv: [Float], at index: Int) -> Float {
@@ -290,7 +404,7 @@ actor EternalMemoryStore {
     /// Cosine similarity in gravity scan order, re-ranked by the same
     /// gravity decay, top-K returned. The hot bucket is scanned first; a
     /// confident hot hit skips the cold tail (see the class doc). Access
-    /// bumps batch in memory and flush every `rewriteEvery` hits.
+    /// bumps are row UPDATEs inside one transaction.
     func search(query: String, k: Int) async throws -> [(text: String, score: Float)] {
         try ensureLoaded()
         guard !nodes.isEmpty else { return [] }
@@ -315,7 +429,7 @@ actor EternalMemoryStore {
 
         scan(hotOrder.prefix(hotCount))
         let bestHot = scored.max(by: { $0.sim < $1.sim })?.sim ?? -1
-        // Cold tail only when the hot bucket is not confidently enough —
+        // Cold tail only when the hot bucket is not confident enough —
         // or when there is no meaningful hot bucket yet.
         if bestHot < Self.hotConfidence || hotCount == 0 || scored.count < k {
             scan(hotOrder.dropFirst(hotCount))
@@ -324,17 +438,16 @@ actor EternalMemoryStore {
         scored.sort { $0.eff > $1.eff }
         let top = Array(scored.prefix(k))
 
-        for hit in top {
-            nodes[hit.index].accessCount += 1
-            nodes[hit.index].lastAccess = now
-        }
         if !top.isEmpty {
-            pendingAccessBumps += top.count
+            for hit in top {
+                nodes[hit.index].accessCount += 1
+                nodes[hit.index].lastAccess = now
+            }
+            bumpAccess(ids: top.map { nodes[$0.index].id }, now: now)
             accessesSinceReorder += top.count
-            if pendingAccessBumps >= Self.rewriteEvery { try rewriteIndex() }
             // Let placement drift with real usage: reorder after enough
             // access activity, not per query.
-            if accessesSinceReorder >= Self.rewriteEvery * 4 {
+            if accessesSinceReorder >= Self.reorderEvery {
                 rebuildHotOrder(reason: "access-drift")
             }
         }
