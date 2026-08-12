@@ -201,6 +201,9 @@ actor EternalMemoryStore {
         exec("ALTER TABLE nodes ADD COLUMN quarantined INTEGER NOT NULL DEFAULT 0")
         // Store-level facts, e.g. which JGEN owns this vector space.
         exec("CREATE TABLE IF NOT EXISTS meta (key TEXT PRIMARY KEY, value TEXT NOT NULL)")
+        // 'agent' by default; 'human' marks a demonstration the person
+        // actually drove, which is the ground truth the motion model wants.
+        exec("ALTER TABLE mouse_trace ADD COLUMN source TEXT NOT NULL DEFAULT 'agent'")
         // Vera-planned web searches and what they fetched: the raw
         // material for query analysis. Reused directly (same question →
         // last successful query) and mirrored into supervision_pairs so
@@ -261,14 +264,15 @@ actor EternalMemoryStore {
                           reqX: Double, reqY: Double,
                           reachedX: Double, reachedY: Double,
                           calibX: Double, calibY: Double,
-                          path: String, ok: Bool) {
+                          path: String, ok: Bool,
+                          source: String = "agent") {
         try? ensureDB()
         var stmt: OpaquePointer?
         guard sqlite3_prepare_v2(db, """
             INSERT INTO mouse_trace
               (ts, app, cell, screen_w, screen_h, req_x, req_y,
-               reached_x, reached_y, calib_x, calib_y, path, ok)
-            VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?)
+               reached_x, reached_y, calib_x, calib_y, path, ok, source)
+            VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?)
             """, -1, &stmt, nil) == SQLITE_OK else { return }
         defer { sqlite3_finalize(stmt) }
         sqlite3_bind_double(stmt, 1, Date().timeIntervalSince1970)
@@ -284,7 +288,23 @@ actor EternalMemoryStore {
         sqlite3_bind_double(stmt, 11, calibY)
         sqlite3_bind_text(stmt, 12, String(path.prefix(2000)), -1, Self.sqliteTransient)
         sqlite3_bind_int64(stmt, 13, ok ? 1 : 0)
+        sqlite3_bind_text(stmt, 14, source, -1, Self.sqliteTransient)
         sqlite3_step(stmt)
+    }
+
+    /// A trajectory the PERSON drove — the ground truth the agent's motion
+    /// is supposed to resemble. Recorded whole, without a target or a
+    /// calibration, because what matters is its shape.
+    func recordHumanDemonstration(points: [(x: Double, y: Double)],
+                                  screenW: Double, screenH: Double) {
+        guard points.count >= 3, let first = points.first, let last = points.last else { return }
+        let path = points.suffix(64).map { "\(Int($0.x)),\(Int($0.y))" }.joined(separator: ";")
+        recordMouseTrace(app: "human-demo", cell: "demo",
+                         screenW: screenW, screenH: screenH,
+                         reqX: first.x, reqY: first.y,
+                         reachedX: last.x, reachedY: last.y,
+                         calibX: 1.0, calibY: 1.0,
+                         path: path, ok: true, source: "human")
     }
 
     /// The most recent trajectory that reached its target for this app,
@@ -353,13 +373,17 @@ actor EternalMemoryStore {
         let samples: Int
     }
 
+    /// Human demonstrations dominate the sample the moment any exist:
+    /// an agent imitating its own synthetic motion would only compound
+    /// whatever was already wrong with it. 'human' sorts before 'agent',
+    /// so the ordering does that without a second query.
     func motionModel(screenW: Double, screenH: Double, limit: Int = 50) -> MotionModel? {
         try? ensureDB()
         var stmt: OpaquePointer?
         guard sqlite3_prepare_v2(db, """
             SELECT path FROM mouse_trace
             WHERE screen_w = ? AND screen_h = ? AND ok = 1
-            ORDER BY ts DESC LIMIT ?
+            ORDER BY source ASC, ts DESC LIMIT ?
             """, -1, &stmt, nil) == SQLITE_OK else { return nil }
         defer { sqlite3_finalize(stmt) }
         sqlite3_bind_double(stmt, 1, screenW)

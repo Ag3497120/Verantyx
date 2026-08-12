@@ -5,12 +5,20 @@ import AppKit
 class DesktopVisionBridge {
     static let shared = DesktopVisionBridge()
 
-    /// Landings at the same neighbourhood before the approach stops being
-    /// rehearsed (no calibration hop, no animated path — straight there).
-    /// Low on purpose: the route is re-verified on every use, so a wrong
-    /// guess costs one click, while the animation costs a second of
-    /// pointer theatre on every click forever.
-    static let directRouteAfter = 3
+    /// Landings at the same neighbourhood before the *calibration probe*
+    /// is skipped. The probe is a 50pt hop and back that teaches the
+    /// multimodal loop nothing; once a calibration is established here it
+    /// is pure overhead on every click.
+    ///
+    /// The APPROACH itself is never skipped, and that is deliberate.
+    /// Teleporting the cursor breaks the perception loop this agent runs
+    /// on: with no intermediate motion there are no hover states, no
+    /// frame-to-frame delta for a video model to attribute, and nothing
+    /// in the screenshot that says where the pointer went — so the model
+    /// mis-reads the result, retries, and the mistakes stack up as what
+    /// looks like latency. Motion is not decoration here; it is the
+    /// signal the next decision is made from.
+    static let skipProbeAfter = 3
 
     func takeScreenshot() async throws -> String {
         if !ScreenCapturePermission.isGranted {
@@ -152,67 +160,38 @@ class DesktopVisionBridge {
         let successes = await EternalMemoryStore.shared.mouseSuccessCount(
             app: app, cell: cell, screenW: logicalWidth, screenH: logicalHeight)
 
-        // ── Established route: stop rehearsing it ─────────────────────
-        // Every click otherwise pays for a calibration probe (a visible
-        // 50pt hop and back) plus a ~30-step human-like approach — a
-        // second of pointer theatre, repeated on a target this Mac has
-        // already hit reliably. Once the same neighbourhood in the same
-        // app on the same display has landed `directRouteAfter` times, go
-        // straight there. The trace is still recorded and still verified,
-        // so a route that stops working stops being trusted.
-        if successes >= Self.directRouteAfter, let hint {
-            let target = CGPoint(x: hint.reachedX, y: hint.reachedY)
-            if let move = CGEvent(mouseEventSource: nil, mouseType: .mouseMoved,
-                                  mouseCursorPosition: target, mouseButton: .left) {
-                move.post(tap: .cghidEventTap)
-            }
-            try? await Task.sleep(nanoseconds: 30_000_000)
-            let landedAt = NSEvent.mouseLocation
-            let reached = CGPoint(x: landedAt.x, y: screenHeight - landedAt.y)
-            let ok = hypot(reached.x - target.x, reached.y - target.y) <= 4.0
-
-            if ok, let down = CGEvent(mouseEventSource: nil, mouseType: .leftMouseDown,
-                                      mouseCursorPosition: target, mouseButton: .left),
-               let up = CGEvent(mouseEventSource: nil, mouseType: .leftMouseUp,
-                                mouseCursorPosition: target, mouseButton: .left) {
-                down.post(tap: .cghidEventTap)
-                try? await Task.sleep(nanoseconds: 50_000_000)
-                up.post(tap: .cghidEventTap)
-            }
-            await EternalMemoryStore.shared.recordMouseTrace(
-                app: app, cell: cell,
-                screenW: logicalWidth, screenH: logicalHeight,
-                reqX: x, reqY: y,
-                reachedX: reached.x, reachedY: reached.y,
-                calibX: hint.calibX, calibY: hint.calibY,
-                path: "\(Int(target.x)),\(Int(target.y))", ok: ok)
+        // ── Skip the probe, keep the approach ─────────────────────────
+        // Only the calibration hop is dropped once this neighbourhood has
+        // an established calibration: it teaches the perception loop
+        // nothing and costs a visible jump on every click. The approach
+        // itself still runs — see `skipProbeAfter` for why teleporting
+        // the cursor is not an optimization here but a way to blind the
+        // model that has to read the result.
+        let probeEstablished = successes >= Self.skipProbeAfter && hint != nil
+        if probeEstablished {
             await MainActor.run {
-                AppState.shared?.isAgentControllingMouse = false
                 AppState.shared?.addSystemMessage(AppLanguage.shared.t(
-                    ok ? "<think>\n🖱 Established route (\(successes) landings) — approach animation skipped\n</think>"
-                       : "<think>\n🖱 Established route failed to land; the next click re-measures from scratch\n</think>",
-                    ok ? "<think>\n🖱 確立した経路（成功\(successes)回）— 接近アニメーションを省略しました\n</think>"
-                       : "<think>\n🖱 確立経路が着地せず。次回は最初から測り直します\n</think>"))
+                    "<think>\n🖱 Calibration established here (\(successes) landings) — probe skipped, approach still driven\n</think>",
+                    "<think>\n🖱 この位置の校正は確立済み（成功\(successes)回）— プローブを省略し、接近動作は実行します\n</think>"))
             }
-            if ok { return }
-            // Fall through to the full measured approach on failure.
-            await MainActor.run { AppState.shared?.isAgentControllingMouse = true }
         }
 
         let calibDelta: Double = 50.0
-        let calibTest = CGPoint(x: currentPoint.x + calibDelta, y: currentPoint.y + calibDelta)
-        
-        if let moveEvent = CGEvent(mouseEventSource: nil, mouseType: .mouseMoved, mouseCursorPosition: calibTest, mouseButton: .left) {
-            moveEvent.post(tap: .cghidEventTap)
+        var actualDx = 0.0
+        var actualDy = 0.0
+        if !probeEstablished {
+            let calibTest = CGPoint(x: currentPoint.x + calibDelta, y: currentPoint.y + calibDelta)
+            if let moveEvent = CGEvent(mouseEventSource: nil, mouseType: .mouseMoved, mouseCursorPosition: calibTest, mouseButton: .left) {
+                moveEvent.post(tap: .cghidEventTap)
+            }
+            try? await Task.sleep(nanoseconds: 30_000_000)
+
+            let calibEndPoint = NSEvent.mouseLocation
+            let actualPoint = CGPoint(x: calibEndPoint.x, y: screenHeight - calibEndPoint.y)
+            actualDx = actualPoint.x - currentPoint.x
+            actualDy = actualPoint.y - currentPoint.y
         }
-        try? await Task.sleep(nanoseconds: 30_000_000)
-        
-        let calibEndPoint = NSEvent.mouseLocation
-        let actualPoint = CGPoint(x: calibEndPoint.x, y: screenHeight - calibEndPoint.y)
-        
-        let actualDx = actualPoint.x - currentPoint.x
-        let actualDy = actualPoint.y - currentPoint.y
-        
+
         // ── Calibration, with vera-a's remembered trajectories as backup ──
         // The probe measures how far the cursor ACTUALLY moved for a known
         // synthetic delta. When the system swallows the motion (the very
@@ -244,10 +223,13 @@ class DesktopVisionBridge {
             }
         }
         
-        if let retEvent = CGEvent(mouseEventSource: nil, mouseType: .mouseMoved, mouseCursorPosition: currentPoint, mouseButton: .left) {
-            retEvent.post(tap: .cghidEventTap)
+        // Return hop only matters when the probe actually moved the cursor.
+        if !probeEstablished {
+            if let retEvent = CGEvent(mouseEventSource: nil, mouseType: .mouseMoved, mouseCursorPosition: currentPoint, mouseButton: .left) {
+                retEvent.post(tap: .cghidEventTap)
+            }
+            try? await Task.sleep(nanoseconds: 20_000_000)
         }
-        try? await Task.sleep(nanoseconds: 20_000_000)
 
         var targetPoint = CGPoint(
             x: currentPoint.x + (logicalClickX - currentPoint.x) * calibScaleX,

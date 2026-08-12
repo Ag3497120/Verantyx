@@ -70,6 +70,19 @@ struct AgentChatView: View {
                     app.lastEntropy = entropy
                     app.lastVideoFrames = frames
                     app.lastEntropyTimestamp = Date()
+
+                    // The person just drove a real trajectory. It used to be
+                    // spent on one search and discarded; now it also lands in
+                    // vera-a as a demonstration, and the motion model prefers
+                    // demonstrations over the agent's own synthetic paths —
+                    // imitating itself would only compound its own error.
+                    let pts = entropy.map { (x: Double($0.x), y: Double($0.y)) }
+                    let screen = NSScreen.main?.frame.size ?? .zero
+                    Task {
+                        await EternalMemoryStore.shared.recordHumanDemonstration(
+                            points: pts,
+                            screenW: Double(screen.width), screenH: Double(screen.height))
+                    }
                     // Hide puzzle after solve
                     app.requiresHumanPuzzle = false
                     
