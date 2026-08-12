@@ -10,7 +10,19 @@ final class AppLanguage {
     private init() {}
 
     /// Current language — updated by AppState whenever appLanguage changes.
-    var isJapanese: Bool = false
+    ///
+    /// Seeded from the same UserDefaults key AppState reads, because
+    /// AppState's `didSet` does not fire for the stored initial value: with
+    /// only `= false` here, every L()-routed string rendered in English at
+    /// launch regardless of the saved choice, until the user touched the
+    /// language picker once.
+    var isJapanese: Bool = {
+        switch UserDefaults.standard.string(forKey: "app_language") {
+        case "日本語":  return true
+        case "English": return false
+        default:        return Locale.current.language.languageCode?.identifier == "ja"
+        }
+    }()
 
     /// Translate: returns `en` when English is active, `ja` otherwise.
     func t(_ en: String, _ ja: String) -> String {

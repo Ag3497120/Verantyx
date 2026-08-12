@@ -271,7 +271,9 @@ actor JGenAgentServer {
         conversation.append((role: "user", content: PromptBudget.truncateForModel(prompt)))
 
         do {
-            let text = try await JCrossChatManager.shared.generate(conversation: conversation, maxTokens: maxTokens)
+            let text = try await JCrossChatManager.shared.generate(
+                conversation: conversation, maxTokens: maxTokens,
+                keepThinking: false)   // machine consumer: answer-only
             await JCrossChatManager.shared.trimMemory()
             await Self.writeResponse(connection: connection, status: 200, body: ["ok": true, "text": text])
         } catch {

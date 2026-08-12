@@ -526,7 +526,8 @@ actor CouncilOrchestrator {
                     ("system", "You restate a council decision in one short sentence. No control tags. Match the user's language. Never repeat a phrase."),
                     ("user", detailPromptUser)
                 ],
-                maxTokens: 48
+                maxTokens: 48,
+                keepThinking: false   // one-sentence restatement, no reasoning dump
             ))?.trimmingCharacters(in: .whitespacesAndNewlines) ?? ""
             let collapsed = JCrossChatManager.collapsePhraseRepetition(rawDetail)
             detail = JCrossChatManager.isPhraseLooping(rawDetail) ? "" : collapsed

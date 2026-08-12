@@ -217,17 +217,23 @@ actor LMStudioClient {
         var req = URLRequest(url: url)
         req.httpMethod = "POST"
         req.setValue("application/json", forHTTPHeaderField: "Content-Type")
+        // No token budget: -1 is LM Studio's "generate until the model stops".
+        // A fixed budget turned every long-thinking turn into a failure
+        // ("spent its whole budget thinking"); the reply now runs to EOS, the
+        // same behavior as LM Studio's own chat window. `maxTokens` is kept in
+        // the signature so callers don't churn, but it no longer caps anything.
+        _ = maxTokens
         let body: [String: Any] = [
             "model": model,
             "messages": messages.map { ["role": $0.role, "content": $0.content] },
-            "max_tokens": maxTokens,
+            "max_tokens": -1,
             "temperature": temperature,
             "stream": true,
         ]
         req.httpBody = try? JSONSerialization.data(withJSONObject: body)
 
         var accumulated = ""
-        var reasoningChars = 0
+        var inReasoning = false
         do {
             let (stream, response) = try await session.bytes(for: req)
             if let http = response as? HTTPURLResponse, http.statusCode != 200 {
@@ -243,12 +249,26 @@ actor LMStudioClient {
                       let delta = choices.first?["delta"] as? [String: Any]
                 else { continue }
                 // Reasoning models (muse-glimmer, qwen3.x) stream their
-                // thinking as `reasoning_content`, not `content`. Count it
-                // so an all-thinking turn can be diagnosed instead of
-                // reported as "nil response".
-                if let r = delta["reasoning_content"] as? String { reasoningChars += r.count }
+                // thinking as `reasoning_content`, not `content`. Show it —
+                // wrapped in <think> tags so the transcript styles it as
+                // reasoning — instead of silently dropping it and then
+                // reporting an all-thinking turn as a failure.
+                if let r = delta["reasoning_content"] as? String, !r.isEmpty {
+                    if !inReasoning {
+                        inReasoning = true
+                        accumulated += "<think>"
+                        onToken?("<think>")
+                    }
+                    accumulated += r
+                    onToken?(r)
+                }
                 guard let content = delta["content"] as? String, !content.isEmpty
                 else { continue }
+                if inReasoning {
+                    inReasoning = false
+                    accumulated += "</think>\n"
+                    onToken?("</think>\n")
+                }
                 accumulated += content
                 onToken?(content)
             }
@@ -262,17 +282,12 @@ actor LMStudioClient {
             }
             return "LM Studio error: \(error.localizedDescription)"
         }
-        if accumulated.isEmpty {
-            // Say what actually happened. nil here surfaced as the opaque
-            // "Model returned nil response (or was interrupted)" — when the
-            // truth was usually "it spent the whole token budget thinking".
-            if reasoningChars > 0 {
-                return AppLanguage.shared.t(
-                    "(The model spent its whole budget thinking (\(reasoningChars) chars of reasoning, no final answer). Ask a shorter question, or raise Max tokens in Settings.)",
-                    "（モデルが推論だけでトークン上限に達しました(思考\(reasoningChars)文字・最終回答なし)。質問を短くするか、設定でMax tokensを上げてください。）")
-            }
-            return nil
+        // Stream ended mid-thought (stop button, disconnect): close the tag so
+        // the transcript still styles what did arrive as reasoning.
+        if inReasoning {
+            accumulated += "</think>"
+            onToken?("</think>")
         }
-        return accumulated
+        return accumulated.isEmpty ? nil : accumulated
     }
 }

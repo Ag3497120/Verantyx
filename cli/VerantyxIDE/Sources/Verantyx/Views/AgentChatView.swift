@@ -130,7 +130,11 @@ struct AgentChatView: View {
             }
         }
         .onReceive(NotificationCenter.default.publisher(for: NSNotification.Name("ChatTranscriptClicked"))) { _ in
-            if !SpotlightPanelManager.shared.isPresented {
+            // Only offer the Spotlight panel when a Control x3 conversation
+            // actually exists in the background — a plain click (or a copy
+            // press) in a normal chat used to raise this alert every time.
+            if !SpotlightPanelManager.shared.isPresented,
+               app.messages.contains(where: { $0.isSpotlight }) {
                 showSpotlightPrompt = true
             }
         }

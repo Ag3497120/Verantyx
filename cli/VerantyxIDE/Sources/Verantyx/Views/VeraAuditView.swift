@@ -941,9 +941,11 @@ final class VeraAAgent: ObservableObject {
         do {
             let reply = try await JCrossChatManager.shared.generate(
                 conversation: convo, maxTokens: 700)
+            // A mid-thought turn now returns the reasoning itself (styled as
+            // <think>), so empty means the model genuinely produced nothing.
             let final = reply.isEmpty
-                ? AppLanguage.shared.t("(Thinking exceeded the budget — ask again, shorter.)",
-                                       "（思考が予算内に収まりませんでした — もう一度、短く聞いてください）")
+                ? AppLanguage.shared.t("(The model produced no output.)",
+                                       "（モデルは何も出力しませんでした）")
                 : reply
             var m2 = AuditMemory.load(task: AppState.shared?.veraMemoryTask ?? "verantyx-ai-vera3d")
             m2.remember(kind: "note", subject: String(text.prefix(40)),

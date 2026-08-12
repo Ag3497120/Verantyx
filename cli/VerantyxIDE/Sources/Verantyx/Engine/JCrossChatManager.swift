@@ -298,7 +298,14 @@ actor JCrossChatManager {
     }
 
     /// Non-streaming generation with ChatML + phrase-loop collapse.
-    func generate(conversation: [(role: String, content: String)], maxTokens: Int) throws -> String {
+    ///
+    /// `keepThinking` (default): the model's reasoning stays in the reply,
+    /// inside `<think>…</think>` — the transcript styles it, the user reads
+    /// it, and a turn that ended mid-thought shows the thought instead of a
+    /// "budget exceeded" apology. Pass `false` only for machine consumers
+    /// (JGenAgentServer) that need an answer-only string.
+    func generate(conversation: [(role: String, content: String)], maxTokens: Int,
+                  keepThinking: Bool = true) throws -> String {
         guard let engine, let tokenizer else { throw ChatError.notLoaded }
         // Bound each turn — council/act already truncate, but VectorLab /
         // Vera harness callers may still pass a huge paste into ChatML.
@@ -312,21 +319,43 @@ actor JCrossChatManager {
             defer { if MachineProfile.current().totalRAMGB <= 24 { engine.trim() } }
             let outputTokens = try engine.generate(prompt: promptTokens, maxTokens: cappedMax)
             let raw = tokenizer.decode(tokens: outputTokens.map { Int($0) }, skipSpecialTokens: true)
-            return finishReply(raw)
+            return finishReply(raw, keepThinking: keepThinking)
         }
     }
 
     /// Shared tail for both generate paths: learn whether this model reasons,
-    /// drop the thinking, and collapse loops in whatever answer remains.
-    private func finishReply(_ raw: String) -> String {
+    /// then either keep the reasoning visible (chat) or strip it (server).
+    private func finishReply(_ raw: String, keepThinking: Bool = true) -> String {
         if !isReasoningModel, Self.containsThinking(raw) {
             isReasoningModel = true
         }
         let (answer, truncated) = Self.extractAnswer(raw)
-        // Still reasoning when the budget ran out — there is no answer to
-        // report, and a fragment of the thought is not one.
-        if truncated { return "" }
-        return Self.collapsePhraseRepetition(answer)
+        if truncated {
+            // The generation cap hit mid-thought. Showing the reasoning is
+            // the honest outcome — inventing an answer or returning ""
+            // ("thinking exceeded the budget") both hide what happened.
+            guard keepThinking else { return "" }
+            var shown = raw.trimmingCharacters(in: .whitespacesAndNewlines)
+            if !shown.isEmpty { shown += "\n</think>" }   // close for styling
+            return shown
+        }
+        let cleaned = Self.collapsePhraseRepetition(answer)
+        guard keepThinking, Self.containsThinking(raw) else { return cleaned }
+        // Reasoning + answer: keep the thinking block verbatim, ahead of the
+        // loop-collapsed answer.
+        let lower = raw.lowercased()
+        var closeEnd: String.Index? = nil
+        for tag in Self.thinkCloseTags {
+            var from = lower.startIndex
+            while let r = lower.range(of: tag, range: from..<lower.endIndex) {
+                closeEnd = r.upperBound
+                from = r.upperBound
+            }
+        }
+        guard let closeEnd else { return cleaned }
+        let thinking = String(raw[raw.startIndex..<closeEnd])
+            .trimmingCharacters(in: .whitespacesAndNewlines)
+        return thinking + "\n" + cleaned
     }
 
     /// Streaming generation with ChatML. Callers should return `false` from
@@ -350,24 +379,15 @@ actor JCrossChatManager {
             defer { if MachineProfile.current().totalRAMGB <= 24 { engine.trim() } }
             var allTokens: [Int] = []
             var lastDecoded = ""
-            // Suppress streaming while inside a thinking block: the chat bubble
-            // should not fill with private reasoning that is not the reply.
-            var insideThinking = false
+            // Thinking streams too: the transcript styles <think> blocks, so
+            // reasoning renders as reasoning instead of being held back until
+            // (or lost at) the end of the turn.
             let outputTokens = try engine.generateStreaming(prompt: promptTokens, maxTokens: cappedMax) { token in
                 allTokens.append(Int(token))
                 let decoded = tokenizer.decode(tokens: allTokens, skipSpecialTokens: true)
                 guard decoded.count > lastDecoded.count else { return true }
                 let delta = String(decoded.dropFirst(lastDecoded.count))
                 lastDecoded = decoded
-                let (_, stillThinking) = Self.extractAnswer(decoded)
-                if stillThinking {
-                    insideThinking = true
-                    return true
-                }
-                // First tokens after `</think>` — the answer starts here.
-                if insideThinking {
-                    insideThinking = false
-                }
                 return onToken(delta)
             }
             let raw = tokenizer.decode(tokens: outputTokens.map { Int($0) }, skipSpecialTokens: true)

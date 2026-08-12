@@ -65,7 +65,8 @@ enum JGenSpeakActRouter {
                     ("system", system),
                     ("user", user),
                 ],
-                maxTokens: 8
+                maxTokens: 8,
+                keepThinking: false   // one-word routing verdict only
             )
             return parse(raw)
         } catch {

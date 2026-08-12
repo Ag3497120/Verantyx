@@ -204,6 +204,11 @@ private final class SelectableTextView: NSTextView {
     /// did nothing"), and a hit-test cannot be opted out of by AppKit.
     var onCopyIndex: ((Int) -> Void)?
 
+    /// Set when mouseDown consumed the click as a copy-button press, so the
+    /// paired mouseUp doesn't also announce a "transcript clicked" event —
+    /// that notification opened the Spotlight prompt on every copy.
+    private var consumedAsCopyPress = false
+
     override func mouseDown(with event: NSEvent) {
         let pt = convert(event.locationInWindow, from: nil)
         if let lm = layoutManager, let tc = textContainer {
@@ -216,6 +221,7 @@ private final class SelectableTextView: NSTextView {
                let url = link as? URL, url.scheme == "verantyx-copy",
                let n = url.host.flatMap(Int.init) {
                 onCopyIndex?(n)
+                consumedAsCopyPress = true
                 // Brief visual receipt: flash the link run.
                 NSSound(named: "Tink")?.play()
                 return   // consume; no selection change for a button press
@@ -237,6 +243,10 @@ private final class SelectableTextView: NSTextView {
     }
     
     override func mouseUp(with event: NSEvent) {
+        if consumedAsCopyPress {
+            consumedAsCopyPress = false
+            return   // copy-button press: copy already happened, nothing else
+        }
         super.mouseUp(with: event)
         // If it's a simple click (no text selection)
         if self.selectedRange().length == 0 {
