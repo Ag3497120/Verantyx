@@ -416,6 +416,25 @@ struct AgentToolParser {
 
     // MARK: - Main parse method
 
+    /// A search whose "query" is actually SearchGate's whole decision JSON
+    /// gets its real query pulled out; every other tool passes through.
+    static func unwrapSearchJSON(_ tool: AgentTool) -> AgentTool {
+        func unwrap(_ q: String) -> String {
+            let t = q.trimmingCharacters(in: .whitespacesAndNewlines)
+            guard t.hasPrefix("{"),
+                  let d = t.data(using: .utf8),
+                  let obj = try? JSONSerialization.jsonObject(with: d) as? [String: Any],
+                  let inner = obj["query"] as? String,
+                  !inner.trimmingCharacters(in: .whitespaces).isEmpty else { return q }
+            return inner
+        }
+        switch tool {
+        case .search(let q):      return .search(query: unwrap(q))
+        case .searchMulti(let q): return .searchMulti(query: unwrap(q))
+        default:                  return tool
+        }
+    }
+
     static func parse(from rawText: String) -> (toolCalls: [AgentTool], cleanText: String) {
         // Normalize kanji-topology shorthand (taught in the system prompt's
         // legend: 読=READ 書=WRITE 木=LIST_DIR 実=RUN 域=WORKSPACE 完=DONE

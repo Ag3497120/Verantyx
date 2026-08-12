@@ -1373,7 +1373,14 @@ final class AppState: ObservableObject {
                     : bg.joined(separator: "\n\n") + "\n\n[TASK]\n" + text
 
                 let history = await MainActor.run { Array(self.messages.dropLast()) }
-                let useLayered = CouncilSettingsStore.shared.useCouncilForChat
+                // Council only when the CHAT model is a JGEN — the memory
+                // organ being loaded is not a council; asking for one just
+                // printed "Council needs a JGEN" every turn.
+                let chatIsJGen = await MainActor.run {
+                    if case .jcrossReady = self.modelStatus { return true }
+                    return false
+                }
+                let useLayered = CouncilSettingsStore.shared.useCouncilForChat && chatIsJGen
                 await self.runAgentLoop(instruction: instruction,
                                         images: snapshotImages,
                                         files: snapshotFiles,

@@ -182,6 +182,11 @@ actor AgentLoop {
         var recentResponseHashes: [Int] = []
         /// Yield counter: consecutive turns where AI only called tools (Human Mode)
         var consecutiveToolOnlyTurns = 0
+        // Loop brake for repeated identical web searches: turn 2 and 3 of a
+        // real transcript re-ran the same query verbatim and drowned the
+        // answer. One repeat is allowed (retry after a bad fetch); the
+        // second identical repeat is refused with a "answer now" note.
+        var searchQueryCounts: [String: Int] = [:]
         /// IDE Fix sandbox: consecutive blocked tool calls (loop circuit breaker)
         var consecutiveBlockedCalls = 0
         /// Total chars in conversation (for OOM guard)
@@ -1143,11 +1148,29 @@ SYS.ENFORCE("logical_verification_before_acceptance")
             // (non-UI-automation) turns, so nothing extra gets written then.
             var uiAutomationLog: [String] = []
 
-            for tool in tools {
+            for rawTool in tools {
+                // SearchGate's decision JSON sometimes leaks into
+                // [SEARCH: …] verbatim ({"needs":true,"type":"web",
+                // "query":"…"}); searching the wrapper returns garbage and
+                // the model then repeats it forever. Unwrap the real query.
+                let tool = AgentToolParser.unwrapSearchJSON(rawTool)
+
                 let call = AgentToolCall(tool: tool)
                 await onProgress(.toolCall(call))
 
                 var result: String
+
+                // ── Identical-search brake ─────────────────────────────
+                if case .search(let q) = tool {
+                    let n = (searchQueryCounts[q] ?? 0) + 1
+                    searchQueryCounts[q] = n
+                    if n > 2 {
+                        let note = "[SEARCH REFUSED] The query \"\(q.prefix(80))\" already ran \(n - 1) times this session. Do not search again — answer NOW from the results above."
+                        await onProgress(.toolResult(AgentToolCall(tool: tool, result: note, succeeded: false)))
+                        toolResults.append(note)
+                        continue
+                    }
+                }
 
                 // ── IDE Fix sandbox ────────────────────────────────────
                 // Allowed: readFile, gitCommit, applyPatch, buildIDE, restartIDE,
