@@ -1317,41 +1317,58 @@ final class AppState: ObservableObject {
         isGenerating = true
 
         // ── Vera-a: the dual path ────────────────────────────────────────
-        // "Chat with anything, remember with one JGEN, truth from vera."
-        // Three layers, app-side and unconditional (no tool-call to forget):
-        //   1. vera-memory `ask` — the typed verdict stays FIRST and
-        //      VERBATIM. ANSWER keeps its provenance, UNKNOWN_* stays a
-        //      typed refusal; no model gets to rewrite it, because that is
-        //      the moment reproducibility and citability die.
-        //   2. eternal recall through the pinned memory-organ JGEN (when
-        //      loaded) — injected as context, silently skipped when the
-        //      organ is offline.
-        //   3. the ACTIVE chat backend (LM Studio / Ollama / JGEN)
-        //      composes the conversational reply UNDER the verdict —
-        //      instructed to honor it, never contradict it.
-        // The turn ends with the same save-approval flow as the agent
-        // path, so Vera-a conversations accumulate memory too.
+        // "Chat with anything; Vera manages its memory in parallel."
+        // The conversation model answers the question NORMALLY — full
+        // quality, its own knowledge. Vera is not a gate in front of it
+        // but the memory manager running alongside, app-side and
+        // unconditional (nothing for a model to forget to call):
+        //   ・before the reply: ask + eternal recall run in parallel;
+        //     verified facts and associations are injected as background
+        //     the model may use. An UNKNOWN verdict stays SILENT — it
+        //     must never become the reply.
+        //   ・with the reply: when the store actually knows something
+        //     (ANSWER), its provenance appears as a small footnote.
+        //   ・after the reply: the save gate → approval → core tags,
+        //     cooling, quarantine, skill proposal — the learning loop —
+        //     runs exactly as in the agent path.
         if veraEngineMode == .standalone && !isSpotlight {
             inferenceTask = Task {
-                let raw = await MCPEngine.shared.callTool(
+                // Truth and association gathered concurrently, app-side.
+                async let askTask = MCPEngine.shared.callTool(
                     serverName: "vera-memory", toolName: "ask",
                     arguments: ["query": text])
-                var content = Self.formatVeraAnswer(raw)
+                async let recallTask = EternalMemoryStore.shared.recallBlock(for: text, k: 3)
+                let raw = await askTask
+                let recall = await recallTask
 
-                // 2 — the memory organ's association layer.
-                let recall = await EternalMemoryStore.shared.recallBlock(for: text, k: 3)
+                var verdict = ""
+                if let d = raw.data(using: .utf8),
+                   let obj = try? JSONSerialization.jsonObject(with: d) as? [String: Any] {
+                    verdict = (obj["verdict"] as? String) ?? ""
+                }
+                let hasVerifiedAnswer = verdict == "ANSWER"
 
-                // 3 — conversational composition by whatever model the
-                // user actually chats with. The verdict is context it
-                // must honor, not material to rewrite.
+                // The parallel drive, visible but faint: one think-styled
+                // status line, not a wall of verdict text.
+                let recallHits = recall.components(separatedBy: "🧠").count - 1
+                await MainActor.run {
+                    self.addSystemMessage(self.t(
+                        "<think>\n🧿 Vera-a parallel: verdict \(verdict.isEmpty ? "-" : verdict) · recall \(max(recallHits, 0)) hit(s) → injected; learning runs after the reply\n</think>",
+                        "<think>\n🧿 Vera-a並行駆動: 判定 \(verdict.isEmpty ? "-" : verdict)・想起 \(max(recallHits, 0))件を注入 → 応答後に学習ループ\n</think>"))
+                }
+
                 let system = """
-                You are Vera-a. A deterministic verdict from the Vera knowledge \
-                store is provided; it is ground truth. Honor it verbatim — if it \
-                says UNKNOWN, say the store does not know; never invent facts to \
-                fill it. Use the eternal-memory recall as background. Answer the \
-                user's question conversationally, in the user's language, briefly.
+                You are the user's assistant. Answer the question directly and \
+                naturally, in the user's language. Background context from a \
+                local memory system may follow — use it when relevant, ignore \
+                it otherwise. Never answer "the store does not know": when the \
+                background is empty, answer from your own knowledge. Do not \
+                mention the memory system unless the user asks about it.
                 """
-                var userParts: [String] = ["[VERA VERDICT]\n\(String(raw.prefix(1200)))"]
+                var userParts: [String] = []
+                if hasVerifiedAnswer {
+                    userParts.append("[VERIFIED MEMORY]\n\(String(raw.prefix(1200)))")
+                }
                 if !recall.isEmpty { userParts.append(recall) }
                 userParts.append("[QUESTION]\n\(text)")
                 let user = userParts.joined(separator: "\n\n")
@@ -1392,13 +1409,26 @@ final class AppState: ObservableObject {
                         composed = await MainActor.run { VeraAAgent.engineShared }
                             .composeReply(text, veraVerdict: String(raw.prefix(1200)))
                     default:
-                        break   // no chat model: the verdict alone is the reply
+                        break   // no chat model at all
                     }
                 }
                 let cleanComposed = composed.trimmingCharacters(in: .whitespacesAndNewlines)
+
+                // The reply IS the chat model's answer. Vera only surfaces
+                // when it verifiably knows (provenance footnote) — an
+                // UNKNOWN verdict adds nothing to what the user reads.
+                var content: String
                 if !cleanComposed.isEmpty {
-                    content += "\n\n— \(composerName) (Vera-a):\n" + cleanComposed
+                    content = cleanComposed
+                    if hasVerifiedAnswer {
+                        content += "\n\n📌 " + Self.formatVeraAnswer(raw)
+                    }
+                } else {
+                    // No chat model loaded: the typed verdict is all there
+                    // is — the pre-parallel behavior.
+                    content = Self.formatVeraAnswer(raw)
                 }
+                _ = composerName
 
                 let final = content
                 await MainActor.run {
