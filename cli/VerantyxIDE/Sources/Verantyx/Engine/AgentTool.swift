@@ -35,6 +35,10 @@ enum AgentTool {
     /// agent kept choosing — inventing a URL from the site name — produced
     /// `https://z/dev/` in a real run.
     case clickLink(text: String)
+    /// Look for something down the page: read, scroll, read again, until
+    /// it appears or the page stops moving. What a person does when the
+    /// thing they want is not in the first screenful.
+    case scrollFind(text: String)
     case search(query: String)
     case searchMulti(query: String)               // NEW: parallel top-3 URLs + synthesis
     case evalJS(script: String)
@@ -103,6 +107,7 @@ struct AgentToolCall: Identifiable {
         case .registerUIElement(let app, let el, let x, let y): return "📍 register_ui_element: \(app)/\(el) @ (\(Int(x)),\(Int(y)))"
         case .browse(let url):              return "🌐 browse \(url)"
         case .clickLink(let t):            return "🖱 click link: \(t)"
+        case .scrollFind(let t):           return "🔎 scroll to find: \(t)"
         case .search(let q):               return "🔍 search: \(q)"
         case .searchMulti(let q):          return "🔍× search: \(q)"
         case .evalJS(let s):               return "⚡ eval_js: \(s.prefix(40))"
@@ -196,6 +201,7 @@ struct AgentToolParser {
     [SEARCH: q]               網×1: 単一検索 (同上)
     [BROWSE: url]             覧: URLをMarkdownで取得（新しい場所へ行くときだけ。URLを推測して組み立てるのは禁止）
     [CLICK_LINK: 表示文字]     押: 開いているページ上のリンクを、その文字で探してマウスで押す（サイト内の移動はこれ）
+    [SCROLL_FIND: 表示文字]    探: 画面内に無ければスクロールしながら探す。見つかったら CLICK_LINK で開く
     [EVAL_JS: script]         JS実: ブラウザでJS実行
     [SAFARI: url] [CHROME: url]    ブラウザで開く（Cookie利用可）
     [VISION_BROWSE: url]      視覧: ブラウザでURLを開きスクショ撮影
@@ -680,6 +686,8 @@ struct AgentToolParser {
             // ── Web ─────────────────────────────────────────────────────
             } else if let m = match(trimmed, pattern: #"\[CLICK_LINK:\s*([^\]]+)\]"#) {
                 tools.append(.clickLink(text: m))
+            } else if let m = match(trimmed, pattern: #"\[SCROLL_FIND:\s*([^\]]+)\]"#) {
+                tools.append(.scrollFind(text: m))
             } else if let m = match(trimmed, pattern: #"\[BROWSE:\s*([^\]]+)\]"#) {
                 tools.append(.browse(url: m))
             } else if let m = match(trimmed, pattern: #"\[SEARCH_MULTI:\s*([^\]]+)\]"#) {
@@ -1267,6 +1275,11 @@ private final class InstalledAppIndex: @unchecked Sendable {
 
 actor AgentToolExecutor {
 
+    /// Scroll passes SCROLL_FIND will spend before giving up. Bounded
+    /// because an infinite-scroll feed never ends, and a search that
+    /// never terminates is worse than one that reports not finding.
+    static let scrollFindMaxPasses = 8
+
     private let fileManager = FileManager.default
     private var lastVisionClickTarget: CGPoint?
     private var consecutiveClickLoopCount = 0
@@ -1684,6 +1697,39 @@ actor AgentToolExecutor {
                 BrowserSession.shared.opened(url: result.url, title: "")
             }
             return "[WEB PAGE: \(result.url)]\n\(result.contextSnippet)\n[END WEB PAGE]"
+
+        case .scrollFind(let text):
+            // Read what is on screen, scroll, read again — stopping when
+            // the thing appears, or when the page stops changing, which is
+            // how you know you have reached the end rather than guessing a
+            // scroll count. Each pass costs one AX snapshot, no pixels.
+            var notches = 0
+            var lastDigest = ""
+            for pass in 0...Self.scrollFindMaxPasses {
+                _ = try? await AXVisionBridge.shared.getSemanticSnapshot()
+                if let id = await AXVisionBridge.shared.findElementID(matching: text),
+                   let point = await AXVisionBridge.shared.screenPoint(forElementID: id) {
+                    await MainActor.run { BrowserSession.shared.scrolled(by: notches) }
+                    return "[SCROLL_FIND: \(text)] found as \(id) after \(pass) scroll(s), "
+                        + "at (\(Int(point.x)), \(Int(point.y))). Use [CLICK_LINK: \(text)] to open it."
+                }
+                let snapshot = (try? await AXVisionBridge.shared.getSemanticSnapshot()) ?? ""
+                let digest = String(snapshot.prefix(4000)).hashValue.description
+                if pass > 0 && digest == lastDigest {
+                    await MainActor.run { BrowserSession.shared.scrolled(by: notches) }
+                    return "[SCROLL_FIND: \(text)] not found; the page stopped changing after "
+                        + "\(pass) scroll(s) — this is the end of it. Try different wording, "
+                        + "or search the web instead."
+                }
+                lastDigest = digest
+                guard pass < Self.scrollFindMaxPasses else { break }
+                try? await SafariVisionBridge.shared.scrollDown()
+                notches += 1
+                try? await Task.sleep(nanoseconds: 400_000_000)   // let the page settle
+            }
+            await MainActor.run { BrowserSession.shared.scrolled(by: notches) }
+            return "[SCROLL_FIND: \(text)] not found within \(Self.scrollFindMaxPasses) scrolls. "
+                + "The page may load more on demand; scroll again, or reconsider the wording."
 
         case .clickLink(let text):
             // Populate the AX cache for the frontmost browser, find the
