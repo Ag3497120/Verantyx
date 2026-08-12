@@ -1299,10 +1299,21 @@ final class AppState: ObservableObject {
         currentGenerationIsSpotlight = isSpotlight
         isGenerating = true
 
-        // ── 単体 Vera-a: 決定論の経路のみ ────────────────────────────────
-        // vera-memory の `ask` に直行。ANSWER は根拠つき、UNKNOWN_* は型つき
-        // 拒否のまま表示する。ここで LLM に「言い直させる」ことはしない —
-        // それをした瞬間、答えの再現性と引用可能性が消えるからです。
+        // ── Vera-a: the dual path ────────────────────────────────────────
+        // "Chat with anything, remember with one JGEN, truth from vera."
+        // Three layers, app-side and unconditional (no tool-call to forget):
+        //   1. vera-memory `ask` — the typed verdict stays FIRST and
+        //      VERBATIM. ANSWER keeps its provenance, UNKNOWN_* stays a
+        //      typed refusal; no model gets to rewrite it, because that is
+        //      the moment reproducibility and citability die.
+        //   2. eternal recall through the pinned memory-organ JGEN (when
+        //      loaded) — injected as context, silently skipped when the
+        //      organ is offline.
+        //   3. the ACTIVE chat backend (LM Studio / Ollama / JGEN)
+        //      composes the conversational reply UNDER the verdict —
+        //      instructed to honor it, never contradict it.
+        // The turn ends with the same save-approval flow as the agent
+        // path, so Vera-a conversations accumulate memory too.
         if veraEngineMode == .standalone && !isSpotlight {
             inferenceTask = Task {
                 let raw = await MCPEngine.shared.callTool(
@@ -1310,19 +1321,50 @@ final class AppState: ObservableObject {
                     arguments: ["query": text])
                 var content = Self.formatVeraAnswer(raw)
 
-                // The SAME agent that answers in Vera-a mode answers here —
-                // VeraAAgent.composeReply is the single definition of the
-                // audit framing (memory, demand, issues, repo state, vector
-                // recall), so the 単体 segment can no longer drift from the
-                // mode. The typed verdict stays first and verbatim; the
-                // agent receives it as context it must honor, not rewrite.
-                // With no JGEN loaded the mode behaves exactly as before.
-                if case .jcrossReady(let modelName) = await MainActor.run(body: { self.modelStatus }) {
-                    let read = await MainActor.run { VeraAAgent.engineShared }
+                // 2 — the memory organ's association layer.
+                let recall = await EternalMemoryStore.shared.recallBlock(for: text, k: 3)
+
+                // 3 — conversational composition by whatever model the
+                // user actually chats with. The verdict is context it
+                // must honor, not material to rewrite.
+                let system = """
+                You are Vera-a. A deterministic verdict from the Vera knowledge \
+                store is provided; it is ground truth. Honor it verbatim — if it \
+                says UNKNOWN, say the store does not know; never invent facts to \
+                fill it. Use the eternal-memory recall as background. Answer the \
+                user's question conversationally, in the user's language, briefly.
+                """
+                var userParts: [String] = ["[VERA VERDICT]\n\(String(raw.prefix(1200)))"]
+                if !recall.isEmpty { userParts.append(recall) }
+                userParts.append("[QUESTION]\n\(text)")
+                let user = userParts.joined(separator: "\n\n")
+
+                let status = await MainActor.run { self.modelStatus }
+                var composed = ""
+                var composerName = ""
+                switch status {
+                case .lmStudioReady(let model):
+                    composerName = model
+                    composed = await LMStudioClient.shared.generateConversation(
+                        model: model,
+                        messages: [("system", system), ("user", user)],
+                        maxTokens: 1024, temperature: 0.3) ?? ""
+                case .ollamaReady(let model):
+                    composerName = model
+                    composed = await OllamaClient.shared.generateConversation(
+                        model: model,
+                        messages: [("system", system), ("user", user)]) ?? ""
+                case .jcrossReady(let model):
+                    // Same-engine composition — the audit agent's framing.
+                    composerName = model
+                    composed = await MainActor.run { VeraAAgent.engineShared }
                         .composeReply(text, veraVerdict: String(raw.prefix(1200)))
-                    if !read.isEmpty {
-                        content += "\n\n— \(modelName) (Vera-a):\n" + read
-                    }
+                default:
+                    break   // no chat model: the verdict alone is the reply
+                }
+                let cleanComposed = composed.trimmingCharacters(in: .whitespacesAndNewlines)
+                if !cleanComposed.isEmpty {
+                    content += "\n\n— \(composerName) (Vera-a):\n" + cleanComposed
                 }
 
                 let final = content
@@ -1332,6 +1374,15 @@ final class AppState: ObservableObject {
                         role: .assistant,
                         content: final,
                         isSpotlight: false))
+                }
+
+                // 4 — the same save gate as the agent path: preview popup
+                // (or batched queue), then remember/propose + governance.
+                let (saveAnswer, thinkOnly) = JCrossChatManager.extractAnswer(
+                    cleanComposed.isEmpty ? final : cleanComposed)
+                if !thinkOnly, !saveAnswer.isEmpty {
+                    await VeraMemoryBridge.requestSaveApproval(
+                        userPrompt: text, aiResponse: saveAnswer)
                 }
             }
             return

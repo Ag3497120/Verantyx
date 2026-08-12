@@ -792,7 +792,7 @@ struct HumanPriorityModeView: View {
                         set: { app.veraEngineMode = $0 })) {
                         Text(app.t("Council (jgen)", "jgen 合議"))
                             .tag(AppState.VeraEngineMode.council)
-                        Text(app.t("Vera-a only", "単体 Vera-a"))
+                        Text("Vera-a")
                             .tag(AppState.VeraEngineMode.standalone)
                         Text(app.t("Local LLM", "ローカルLLM"))
                             .tag(AppState.VeraEngineMode.localLLM)
@@ -800,11 +800,15 @@ struct HumanPriorityModeView: View {
                     .pickerStyle(.segmented)
                     .frame(width: 280)
                     .help(app.t(
-                        "Council routes through jgen/LLM agents. Vera-a only "
-                        + "answers deterministically from the store — typed "
-                        + "verdicts, no LLM.",
-                        "合議は jgen/LLM エージェント経路。単体 Vera-a は"
-                        + "ストアから決定論で答えます(型付き判定・LLM 不使用)。"))
+                        "Council routes through jgen/LLM agents. Vera-a is the "
+                        + "dual path: the store's typed verdict first (verbatim), "
+                        + "eternal recall injected, and your active chat model "
+                        + "(LM Studio / Ollama / JGEN) composes under it; the "
+                        + "turn ends with the save gate.",
+                        "合議は jgen/LLM エージェント経路。Vera-a は併用経路: "
+                        + "型付き判定を原文のまま先頭に、永遠記憶を注入し、"
+                        + "会話中のモデル(LM Studio / Ollama / JGEN)がその下で"
+                        + "回答を合成。最後に保存ゲートが走ります。"))
 
                     Spacer(minLength: 0)
                 }
