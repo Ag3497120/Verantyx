@@ -100,7 +100,7 @@ struct HumanPriorityModeView: View {
                                 // committed to this repo (dead reference,
                                 // unrelated to this change) -- falls
                                 // through to the default.
-                                default:         FileTreeView()
+                                default:         MultiPurposePanel().environmentObject(app)
                                 }
                             }
                             .frame(maxHeight: .infinity)
@@ -707,9 +707,11 @@ struct HumanPriorityModeView: View {
                             .tag(AppState.VeraEngineMode.council)
                         Text(app.t("Vera-a only", "単体 Vera-a"))
                             .tag(AppState.VeraEngineMode.standalone)
+                        Text(app.t("Local LLM", "ローカルLLM"))
+                            .tag(AppState.VeraEngineMode.localLLM)
                     }
                     .pickerStyle(.segmented)
-                    .frame(width: 200)
+                    .frame(width: 280)
                     .help(app.t(
                         "Council routes through jgen/LLM agents. Vera-a only "
                         + "answers deterministically from the store — typed "

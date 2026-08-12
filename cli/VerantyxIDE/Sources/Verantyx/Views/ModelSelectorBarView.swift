@@ -171,6 +171,12 @@ struct ModelSelectorBarView: View {
                 RateLimitStatusView()
             }
         }
+        // The one row that must never disappear: at the 900×600 minimum the
+        // surrounding VStack used to squeeze this to zero height, hiding the
+        // model picker entirely. A fixed height + layoutPriority makes the
+        // TRANSCRIPT give way instead; horizontal overflow already scrolls.
+        .frame(height: 34)
+        .layoutPriority(1)
         .task {
             // BitNet models are discovered from disk sidecars; without this
             // the section would stay empty until the user opened Settings.
@@ -243,7 +249,7 @@ struct ModelSelectorBarView: View {
                     .lineLimit(1)
                     .truncationMode(.middle)
             }
-            .frame(width: 170, alignment: .leading)
+            .frame(minWidth: 90, maxWidth: 170, alignment: .leading)
         }
         .menuStyle(.borderlessButton)
         .help(app.jgenLoadError.map { "JGEN load failed: \($0)" }

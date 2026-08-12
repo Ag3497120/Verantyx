@@ -816,7 +816,20 @@ final class AppState: ObservableObject {
     enum VeraEngineMode: String, CaseIterable {
         case council = "council"        // jgen 合議 (LLM/エージェント)
         case standalone = "standalone"  // 単体 Vera-a (決定論のみ)
+        case localLLM = "local_llm"     // 通常のローカルLLM (合議もVeraも通さない)
     }
+    /// Which AuditMemory store Vera-a reads and writes. "Fresh memory" at
+    /// session start swaps this to a dated task name; old stores stay on
+    /// disk untouched, so switching back is choosing the old name again.
+    /// AI-writable surface in the left multi-purpose panel.
+    @Published var flexPanelTitle: String = ""
+    @Published var flexPanelText: String = ""
+
+    @Published var veraMemoryTask: String =
+        UserDefaults.standard.string(forKey: "vera_memory_task") ?? "verantyx-ai-vera3d" {
+        didSet { UserDefaults.standard.set(veraMemoryTask, forKey: "vera_memory_task") }
+    }
+
     @Published var veraEngineMode: VeraEngineMode = .council {
         didSet { UserDefaults.standard.set(veraEngineMode.rawValue,
                                            forKey: "vera_engine_mode") }
@@ -1382,7 +1395,8 @@ final class AppState: ObservableObject {
                 let question = isCouncilCommand
                     ? String(trimmed.dropFirst("/council".count)).trimmingCharacters(in: .whitespaces)
                     : text
-                let useLayered = isCouncilCommand || CouncilSettingsStore.shared.useCouncilForChat
+                let useLayered = (isCouncilCommand || CouncilSettingsStore.shared.useCouncilForChat)
+                    && self.veraEngineMode != .localLLM
 
                 let history = Array(self.messages.dropLast())
                 await runAgentLoop(instruction: question.isEmpty ? text : question,
@@ -1872,12 +1886,14 @@ final class AppState: ObservableObject {
             "↩️ Continuing on the local JGEN/council path…",
             "↩️ ローカルのJGEN/合議経路で続行します…"
         ))
-        let useLayered = CouncilSettingsStore.shared.useCouncilForChat
+        // ローカルLLMモード: 合議もJGENも通さず通常のエージェント経路のみ。
+        let useLayered = veraEngineMode != .localLLM
+            && (CouncilSettingsStore.shared.useCouncilForChat
             || LayeredRunOrchestrator.isAvailable
             || {
                 if case .jcrossReady = modelStatus { return true }
                 return false
-            }()
+            }())
         let history = Array(messages.dropLast())
         await runAgentLoop(
             instruction: instruction,

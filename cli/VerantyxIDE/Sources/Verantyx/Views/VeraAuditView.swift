@@ -190,7 +190,7 @@ struct VeraAuditView: View {
     @State private var demand: [DemandRow] = []
     @State private var repoPath =
         NSString(string: "~/Projects/verantyx-v6").expandingTildeInPath
-    @State private var memory = AuditMemory.load(task: "verantyx-ai-vera3d")
+    @State private var memory = AuditMemory.load(task: AppState.shared?.veraMemoryTask ?? "verantyx-ai-vera3d")
 
     var body: some View {
         HStack(spacing: 0) {
@@ -587,7 +587,7 @@ struct VeraAuditView: View {
                              selectedGap: sig.selectedGap,
                              signal: sig.verdict.isEmpty ? nil : "\(sig.verdict) \(sig.core)",
                              repoPath: repoPath)
-            memory = AuditMemory.load(task: "verantyx-ai-vera3d")
+            memory = AuditMemory.load(task: AppState.shared?.veraMemoryTask ?? "verantyx-ai-vera3d")
         }
     }
 
@@ -862,7 +862,7 @@ final class VeraAAgent: ObservableObject {
 
             // The turn itself becomes memory, so the next question stands on
             // this one — this is the "previous memories" the injection carries.
-            var mem = AuditMemory.load(task: "verantyx-ai-vera3d")
+            var mem = AuditMemory.load(task: AppState.shared?.veraMemoryTask ?? "verantyx-ai-vera3d")
             mem.remember(kind: "note", subject: String(text.prefix(40)),
                          detail: String((reply.isEmpty ? "" : reply).prefix(200)))
             mem.save()

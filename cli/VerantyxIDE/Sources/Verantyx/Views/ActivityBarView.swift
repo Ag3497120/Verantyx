@@ -23,7 +23,7 @@ struct ActivityBarView: View {
         VStack(spacing: 0) {
             // Top icons
             VStack(spacing: 2) {
-                ForEach([ActivitySection.explorer, .search, .git, .mcp, .growth, .vera, .evolution], id: \.self) { section in
+                ForEach([ActivitySection.explorer, .git, .mcp, .growth, .vera, .evolution], id: \.self) { section in
                     activityButton(section)
                 }
             }
@@ -117,6 +117,61 @@ struct ActivityBarView: View {
         case .vera:      return app.t("Vera-a features (memory/3D/two-Mac…)", "Vera-a機能（記憶・3D・2台…）")
         case .extensions: return app.t("Extensions", "拡張機能")
         case .settings:  return app.t("Settings", "設定")
+        }
+    }
+}
+
+
+// MARK: - Multi-purpose left panel
+
+/// The left column, no longer only a file tree. Three surfaces:
+/// ファイル (the tree, when a workspace is open), メモ (a scratch pad that
+/// persists), and AI (a surface the agent can write into via
+/// `AppState.flexPanelText` — "define what this area shows" is now an
+/// instruction the model can follow rather than a fixed layout decision).
+struct MultiPurposePanel: View {
+    @EnvironmentObject var app: AppState
+    @AppStorage("flex_panel_tab") private var tab = "files"
+    @AppStorage("flex_panel_note") private var note = ""
+
+    var body: some View {
+        VStack(spacing: 0) {
+            Picker("", selection: $tab) {
+                Text(app.t("Files", "ファイル")).tag("files")
+                Text(app.t("Notes", "メモ")).tag("notes")
+                Text("AI").tag("ai")
+            }
+            .pickerStyle(.segmented)
+            .labelsHidden()
+            .padding(6)
+            Divider().opacity(0.25)
+            switch tab {
+            case "notes":
+                TextEditor(text: $note)
+                    .font(.system(size: 12, design: .monospaced))
+                    .scrollContentBackground(.hidden)
+                    .background(Color(red: 0.1, green: 0.1, blue: 0.13))
+            case "ai":
+                ScrollView {
+                    VStack(alignment: .leading, spacing: 6) {
+                        if !app.flexPanelTitle.isEmpty {
+                            Text(app.flexPanelTitle)
+                                .font(.system(size: 11, weight: .semibold))
+                        }
+                        Text(app.flexPanelText.isEmpty
+                             ? app.t("The agent can write here (flex panel).",
+                                     "エージェントがここに表示を書き込めます(フレックスパネル)。")
+                             : app.flexPanelText)
+                            .font(.system(size: 11))
+                            .textSelection(.enabled)
+                            .fixedSize(horizontal: false, vertical: true)
+                    }
+                    .frame(maxWidth: .infinity, alignment: .leading)
+                    .padding(8)
+                }
+            default:
+                FileTreeView()
+            }
         }
     }
 }

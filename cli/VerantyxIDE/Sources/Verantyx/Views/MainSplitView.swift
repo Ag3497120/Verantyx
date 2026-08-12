@@ -168,7 +168,7 @@ struct MainSplitView: View {
                             // VRBridgePanelView's source was never committed
                             // to this repo (dead reference, unrelated to
                             // this change) -- falls through to the default.
-                            default:         FileTreeView()
+                            default:         MultiPurposePanel().environmentObject(app)
                             }
                         }
                         .frame(maxHeight: .infinity)

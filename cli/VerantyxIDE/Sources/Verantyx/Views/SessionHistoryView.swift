@@ -10,6 +10,7 @@ struct SessionHistoryView: View {
     @State private var editTitle: String = ""
     @State private var confirmDeleteId: UUID? = nil
     @State private var showLayerPickerFor: UUID? = nil
+    @State private var showNewSessionSheet = false
 
     var body: some View {
         VStack(spacing: 0) {
@@ -23,7 +24,7 @@ struct SessionHistoryView: View {
                     .foregroundStyle(Color(red: 0.85, green: 0.85, blue: 0.95))
                 Spacer()
                 Button {
-                    app.newChatSession()
+                    showNewSessionSheet = true
                 } label: {
                     Image(systemName: "plus.circle.fill")
                         .font(.system(size: 14))
@@ -43,17 +44,26 @@ struct SessionHistoryView: View {
                 emptyState
             } else {
                 ScrollView {
-                    LazyVStack(spacing: 2) {
-                        ForEach(app.sessions.sessions) { session in
-                            SessionRowView(
-                                session: session,
-                                isActive: session.id == app.sessions.activeSessionId,
-                                editingId: $editingId,
-                                editTitle: $editTitle,
-                                showLayerPickerFor: $showLayerPickerFor,
-                                confirmDeleteId: $confirmDeleteId
-                            )
-                            .environmentObject(app)
+                    LazyVStack(alignment: .leading, spacing: 2) {
+                        // Workspace sections, the way Claude's sidebar groups
+                        // by project: the folder a conversation belonged to is
+                        // usually how it is remembered.
+                        ForEach(groupedSessions, id: \.key) { group in
+                            Text(group.key)
+                                .font(.system(size: 10, weight: .semibold))
+                                .foregroundStyle(Color(red: 0.5, green: 0.5, blue: 0.62))
+                                .padding(.horizontal, 12).padding(.top, 8)
+                            ForEach(group.sessions) { session in
+                                SessionRowView(
+                                    session: session,
+                                    isActive: session.id == app.sessions.activeSessionId,
+                                    editingId: $editingId,
+                                    editTitle: $editTitle,
+                                    showLayerPickerFor: $showLayerPickerFor,
+                                    confirmDeleteId: $confirmDeleteId
+                                )
+                                .environmentObject(app)
+                            }
                         }
                     }
                     .padding(.vertical, 4)
@@ -61,6 +71,9 @@ struct SessionHistoryView: View {
             }
         }
         .background(Color(red: 0.11, green: 0.11, blue: 0.14))
+        .sheet(isPresented: $showNewSessionSheet) {
+            NewSessionSheet().environmentObject(app)
+        }
         .confirmationDialog(
             app.t("Delete this session?", "セッションを削除しますか？"),
             isPresented: Binding(
@@ -75,6 +88,22 @@ struct SessionHistoryView: View {
             }
             Button(app.t("Cancel", "キャンセル"), role: .cancel) { confirmDeleteId = nil }
         }
+    }
+
+    private struct SessionGroup { let key: String; let sessions: [ChatSession] }
+
+    /// Sessions bucketed by their workspace's folder name, most recent group
+    /// first; sessions started without a workspace live under 一般/General.
+    private var groupedSessions: [SessionGroup] {
+        var order: [String] = []
+        var buckets: [String: [ChatSession]] = [:]
+        for sn in app.sessions.sessions {
+            let key = sn.workspacePath.map { ($0 as NSString).lastPathComponent }
+                ?? app.t("General", "一般")
+            if buckets[key] == nil { order.append(key) }
+            buckets[key, default: []].append(sn)
+        }
+        return order.map { SessionGroup(key: $0, sessions: buckets[$0] ?? []) }
     }
 
     private var emptyState: some View {
@@ -333,4 +362,84 @@ struct SessionRowView: View {
     SessionHistoryView()
         .environmentObject(AppState())
         .frame(width: 260, height: 500)
+}
+
+
+// MARK: - New session sheet
+
+/// Two decisions a new conversation actually has, asked up front:
+/// where it lives (a workspace folder, or nowhere) and what it remembers
+/// (continue the accumulated Vera-a memory, or start a fresh store).
+/// Neither can be changed retroactively without confusion, which is why
+/// this is a sheet and not two hidden defaults.
+struct NewSessionSheet: View {
+    @EnvironmentObject var app: AppState
+    @Environment(\.dismiss) private var dismiss
+
+    private enum Place: String, CaseIterable { case workspace, none }
+    private enum Memory: String, CaseIterable { case carry, fresh }
+
+    @State private var place: Place = .none
+    @State private var memory: Memory = .carry
+
+    var body: some View {
+        VStack(alignment: .leading, spacing: 14) {
+            Text(app.t("New session", "新しいセッション"))
+                .font(.system(size: 14, weight: .semibold))
+
+            VStack(alignment: .leading, spacing: 6) {
+                Text(app.t("Where", "どこで"))
+                    .font(.system(size: 10, weight: .semibold)).foregroundStyle(.secondary)
+                Picker("", selection: $place) {
+                    Text(app.t("No workspace — just chat", "何も開かずに始める")).tag(Place.none)
+                    Text(app.t("Open a workspace folder…", "ワークスペースを開いてから")).tag(Place.workspace)
+                }
+                .pickerStyle(.radioGroup).labelsHidden()
+            }
+
+            VStack(alignment: .leading, spacing: 6) {
+                Text(app.t("Vera-a memory", "Vera-aの記憶"))
+                    .font(.system(size: 10, weight: .semibold)).foregroundStyle(.secondary)
+                Picker("", selection: $memory) {
+                    Text(app.t("Continue accumulated memory", "これまでの記憶を引き継ぐ")).tag(Memory.carry)
+                    Text(app.t("Start a fresh memory store", "新規の記憶で最初から蓄積")).tag(Memory.fresh)
+                }
+                .pickerStyle(.radioGroup).labelsHidden()
+                Text(app.t("Fresh stores are kept side by side — nothing is deleted.",
+                           "新規にしても既存の記憶は消えません(並存します)。"))
+                    .font(.system(size: 9)).foregroundStyle(.tertiary)
+            }
+
+            HStack {
+                Spacer()
+                Button(app.t("Cancel", "キャンセル")) { dismiss() }
+                Button(app.t("Start", "開始")) { start() }
+                    .buttonStyle(.borderedProminent)
+            }
+        }
+        .padding(18)
+        .frame(width: 340)
+    }
+
+    private func start() {
+        if memory == .fresh {
+            let df = DateFormatter(); df.dateFormat = "yyyyMMdd-HHmmss"
+            app.veraMemoryTask = "vera-mem-" + df.string(from: Date())
+        }
+        if place == .workspace {
+            let panel = NSOpenPanel()
+            panel.canChooseDirectories = true
+            panel.canChooseFiles = false
+            panel.allowsMultipleSelection = false
+            if panel.runModal() == .OK, let url = panel.url {
+                app.workspaceURL = url
+                app.terminal.workingDirectory = url
+                UserDefaults.standard.set(url.path, forKey: "last_workspace_path")
+                GatekeeperModeState.shared.configure(workspaceURL: url)
+                app.refreshFiles()
+            }
+        }
+        app.newChatSession()
+        dismiss()
+    }
 }
