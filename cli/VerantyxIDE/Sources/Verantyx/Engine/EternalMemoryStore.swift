@@ -461,6 +461,99 @@ actor EternalMemoryStore {
         return (browser, headless, example)
     }
 
+    // MARK: - Closing the loop: how to drive a given app
+    //
+    // The methods were being written and never read. Writing alone is a log;
+    // reading it back before choosing is what makes it memory. These three
+    // steps are the loop:
+    //
+    //   record   → every menu/keys/click attempt, with its outcome
+    //   read     → before choosing, ask what worked here before
+    //   general  → when one app has enough history, turn the rows into a
+    //              sentence and put it where recall can find it
+    //
+    // The third step is the one that turns experience into knowledge. Rows
+    // only answer questions someone thought to ask; a consolidated fact in the
+    // node index participates in ordinary similarity recall, so it surfaces
+    // for a question nobody anticipated — including about an app it was never
+    // written about, when that app is close enough in the same space.
+
+    struct MethodTally {
+        let method: String
+        let attempts: Int
+        let successes: Int
+        var rate: Double { attempts == 0 ? 0 : Double(successes) / Double(attempts) }
+        var display: String { "\(method) \(successes)/\(attempts)" }
+    }
+
+    /// What has actually worked for this app, newest 200 attempts.
+    func methodEvidence(app: String) -> [MethodTally] {
+        try? ensureDB()
+        var stmt: OpaquePointer?
+        guard sqlite3_prepare_v2(db, """
+            SELECT action, COUNT(*), SUM(ok) FROM (
+              SELECT action, ok FROM act_episode
+              WHERE app = ? AND route LIKE 'method:%'
+              ORDER BY ts DESC LIMIT 200
+            ) GROUP BY action
+            """, -1, &stmt, nil) == SQLITE_OK else { return [] }
+        defer { sqlite3_finalize(stmt) }
+        sqlite3_bind_text(stmt, 1, app, -1, Self.sqliteTransient)
+
+        var out: [MethodTally] = []
+        while sqlite3_step(stmt) == SQLITE_ROW {
+            let method = sqlite3_column_text(stmt, 0).map { String(cString: $0) } ?? ""
+            let attempts = Int(sqlite3_column_int64(stmt, 1))
+            let successes = Int(sqlite3_column_int64(stmt, 2))
+            guard !method.isEmpty, attempts > 0 else { continue }
+            out.append(MethodTally(method: method, attempts: attempts, successes: successes))
+        }
+        // Best first, and a method tried more often breaks a tie — one lucky
+        // success should not outrank nine out of ten.
+        return out.sorted {
+            $0.rate == $1.rate ? $0.attempts > $1.attempts : $0.rate > $1.rate
+        }
+    }
+
+    /// How many attempts exist for an app at all. Used to decide when there is
+    /// enough history to be worth generalizing.
+    func methodAttemptCount(app: String) -> Int {
+        methodEvidence(app: app).reduce(0) { $0 + $1.attempts }
+    }
+
+    /// Turn the rows for one app into a durable, recallable sentence.
+    ///
+    /// Called after an attempt once there is enough history. Deliberately
+    /// written as plain language rather than a structured blob: it goes into
+    /// the same node index as everything else vera-a knows, so it has to be
+    /// something recall can match a question against.
+    func consolidateMethodKnowledge(app: String, minAttempts: Int = 6) async {
+        let tallies = methodEvidence(app: app)
+        let total = tallies.reduce(0) { $0 + $1.attempts }
+        guard total >= minAttempts, let best = tallies.first else { return }
+
+        // Nothing worth asserting when everything failed equally — a fact that
+        // says "we know nothing" is worse than no fact.
+        guard best.successes > 0 else { return }
+
+        let worked = tallies.filter { $0.rate >= 0.6 && $0.successes > 0 }
+        let failed = tallies.filter { $0.rate < 0.4 && $0.attempts >= 2 }
+
+        var sentence = "\(app) を操作するには \(best.method) が有効"
+            + "（\(best.successes)/\(best.attempts) 成功）。"
+        if worked.count > 1 {
+            sentence += " 他に使えた方法: "
+                + worked.dropFirst().map(\.display).joined(separator: "、") + "。"
+        }
+        if !failed.isEmpty {
+            sentence += " 失敗が多い方法: "
+                + failed.map(\.display).joined(separator: "、") + "。"
+        }
+
+        try? await add(text: sentence,
+                       concepts: [app, "操作方法", best.method, "app-control"])
+    }
+
     /// What happened last time this app was in this screen state and an
     /// act like this was tried — the question a log cannot answer.
     /// Returns compact lines for injection, newest first.
