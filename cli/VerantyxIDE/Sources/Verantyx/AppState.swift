@@ -199,6 +199,7 @@ final class AppState: ObservableObject {
     @Published var inputText: String = ""
     @Published var isGenerating = false {
         didSet {
+            guard oldValue != isGenerating else { return }
             // Holding another app in front is only defensible while we are
             // actually driving it. The run ends in a dozen different places
             // (done, error, cancel, fallback), so release here rather than
@@ -206,6 +207,9 @@ final class AppState: ObservableObject {
             if oldValue && !isGenerating {
                 ForegroundAppOperator.shared.stopHoldingFocus()
             }
+            // The menu-bar icon is the run indicator you can still see when
+            // the window is buried, so it has to hear about this.
+            NotificationCenter.default.post(name: .veraRunStateChanged, object: nil)
         }
     }
 
@@ -223,7 +227,12 @@ final class AppState: ObservableObject {
     /// Set to true when the AI calls [RESTART_IDE] — triggers a restart alert in the UI.
     @Published var showRestartAlert: Bool = false
     @Published var requiresHumanPuzzle: Bool = false
-    @Published var isAgentControllingMouse: Bool = false
+    @Published var isAgentControllingMouse: Bool = false {
+        didSet {
+            guard oldValue != isAgentControllingMouse else { return }
+            NotificationCenter.default.post(name: .veraRunStateChanged, object: nil)
+        }
+    }
     @Published var isSwarmMode: Bool = false // 🐝 Swarm Pipeline Mode
     @Published var lastEntropy: [CGPoint]? = nil
     @Published var lastVideoFrames: [String]? = nil

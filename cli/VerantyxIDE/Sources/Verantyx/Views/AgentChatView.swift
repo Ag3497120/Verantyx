@@ -981,8 +981,67 @@ struct AgentChatView: View {
     private func sendMessage() {
         let text = inputText.trimmingCharacters(in: .whitespacesAndNewlines)
         guard !text.isEmpty, !app.isGenerating else { return }
+
+        // Typing here while the agent is out driving the screen is allowed,
+        // but it is worth one sentence first: the run may not finish. This is
+        // a warning, not a lock — the user decides.
+        if needsScreenContentionWarning, !confirmScreenContention() { return }
+
         inputText = ""          // ローカル state を即時クリア（@Published を触る前）
         app.sendMessage(with: text)
+    }
+
+    /// True when sending from the Mac would compete with what the agent is
+    /// doing on screen, or with the phone relay's own input path.
+    private var needsScreenContentionWarning: Bool {
+        app.isAgentControllingMouse || ClipboardChatRelay.shared.isRunning
+    }
+
+    /// Returns true to go ahead. Named rather than inlined so the reason the
+    /// dialog exists stays attached to the text it shows.
+    private func confirmScreenContention() -> Bool {
+        let relayOn = ClipboardChatRelay.shared.isRunning
+        let alert = NSAlert()
+        alert.alertStyle = .warning
+        alert.messageText = AppLanguage.shared.t(
+            "The agent may not finish what it is doing",
+            "エージェントが探索を完遂できない可能性があります")
+
+        var reasons: [String] = []
+        if app.isAgentControllingMouse {
+            reasons.append(AppLanguage.shared.t(
+                "• The agent is driving the screen. Typing here brings this window forward, "
+                + "and a click meant for the app it is operating can land on the wrong window — "
+                + "the run may stop partway.",
+                "• エージェントが画面を操作中です。ここへ入力するとこのウィンドウが前面に出るため、"
+                + "操作対象のアプリに向けたクリックが別のウィンドウに当たり、途中で探索が止まることがあります。"))
+        }
+        if relayOn {
+            reasons.append(AppLanguage.shared.t(
+                "• The phone relay is running. Sending from both sides interleaves two "
+                + "conversations into one thread.",
+                "• iPhoneリレーが稼働中です。両方から送ると、ひとつの会話に二系統の入力が混ざります。"))
+        }
+        reasons.append(AppLanguage.shared.t(
+            "You can send anyway.", "このまま送信することもできます。"))
+        alert.informativeText = reasons.joined(separator: "\n\n")
+
+        alert.addButton(withTitle: AppLanguage.shared.t("Send anyway", "このまま送信"))
+        alert.addButton(withTitle: AppLanguage.shared.t("Cancel", "やめる"))
+        if relayOn {
+            alert.addButton(withTitle: AppLanguage.shared.t("Stop relay and send",
+                                                            "リレーを止めて送信"))
+        }
+
+        switch alert.runModal() {
+        case .alertFirstButtonReturn:
+            return true
+        case .alertThirdButtonReturn:
+            ClipboardChatRelay.shared.stop()
+            return true
+        default:
+            return false
+        }
     }
 
     private var modelDisplayName: String {

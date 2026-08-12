@@ -271,6 +271,13 @@ struct VerantyxApp: App {
                     AppState.shared = appState
                     delegate.appState = appState
 
+                    // Installed here, not in applicationDidFinishLaunching:
+                    // AppState.shared is assigned on this line, so installing
+                    // any earlier reads nil and the menu bar silently never
+                    // appears. The status item outlives this window — that is
+                    // the point of it — but it needs the state to exist first.
+                    MenuBarController.shared.install(appState: appState)
+
                     // ── 永続化設定を最初に復元（モデル/ワークスペース/APIキー等） ──
                     appState.loadPersistedSettings()
 
