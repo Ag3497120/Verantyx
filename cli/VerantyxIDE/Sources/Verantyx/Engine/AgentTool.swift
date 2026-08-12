@@ -416,6 +416,38 @@ struct AgentToolParser {
 
     // MARK: - Main parse method
 
+    /// Deterministic keyword extraction for when a natural-language
+    /// sentence must become a search query (planner returned nothing, or a
+    /// bare [SEARCH] needs rescuing). "最近でたsakana fuguについて…比較して
+    /// 教えて" went to the engine VERBATIM in a real run; stripping the
+    /// question/request boilerplate leaves the content words ("sakana
+    /// fugu") that engines actually match.
+    static func keywordQuery(from text: String) -> String {
+        var t = String(text.prefix(200))
+        // Longest first, so "について教えて" goes before "について".
+        let boilerplate = [
+            "についてどのようなものかについて", "どのようなものかについて",
+            "について教えてください", "について教えて", "について説明して",
+            "とは何ですか", "どのようなものか", "他のものと比較して",
+            "と比較して", "する形で", "の形で", "を教えてください",
+            "を教えて", "教えてください", "教えて", "説明してください",
+            "説明して", "まとめてください", "まとめて", "について",
+            "とは", "ですか", "ください", "最近でた", "最近出た",
+            "tell me about", "compared to others", "compared to",
+            "please explain", "explain", "what is", "what's", "please",
+        ]
+        for phrase in boilerplate {
+            t = t.replacingOccurrences(of: phrase, with: " ",
+                                       options: [.caseInsensitive])
+        }
+        let words = t.split(whereSeparator: { $0 == " " || $0 == "　" || $0 == "、" || $0 == "。" || $0 == "?" || $0 == "？" || $0 == "\n" })
+            .map(String.init)
+            .filter { !$0.isEmpty }
+        let joined = words.joined(separator: " ")
+        let clipped = String(joined.prefix(60)).trimmingCharacters(in: .whitespaces)
+        return clipped.isEmpty ? String(text.prefix(60)) : clipped
+    }
+
     /// True when the text is a search REQUEST without a query — the
     /// self-evaluation format searchForce anchors elicit ("[アクション]:
     /// [SEARCH]", a bare "[SEARCH]") that the tag parser cannot turn into

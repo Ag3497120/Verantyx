@@ -1061,7 +1061,9 @@ SYS.ENFORCE("logical_verification_before_acceptance")
                 if let r = q.range(of: "[TASK]\n", options: .backwards) {
                     q = String(q[r.upperBound...])
                 }
-                q = String(q.prefix(90)).trimmingCharacters(in: .whitespacesAndNewlines)
+                // Keywords, not the sentence: engines match content words,
+                // and the raw question went to the engine verbatim once.
+                q = AgentToolParser.keywordQuery(from: q)
                 if !q.isEmpty {
                     tools = [.search(query: q)]
                     cleanText = ""

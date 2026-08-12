@@ -1481,7 +1481,8 @@ final class AppState: ObservableObject {
                     let mustSearch = plannerNeeds || Self.looksInformational(text)
                     let queries = mustSearch
                         ? (planned.isEmpty
-                            ? (Self.searchTarget(from: text).map { [$0] } ?? [String(text.prefix(80))])
+                            ? (Self.searchTarget(from: text).map { [$0] }
+                                ?? [AgentToolParser.keywordQuery(from: text)])
                             : planned)
                         : []
                     for q in queries {
