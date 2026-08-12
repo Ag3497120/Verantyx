@@ -75,7 +75,29 @@ enum VeraMemoryBridge {
         // instruction to the agent, not a fact about the world.
         if prompt.count <= 12,
            prompt.lowercased().contains("search") || prompt.contains("検索") { return }
-        let response = aiResponse.trimmingCharacters(in: .whitespacesAndNewlines)
+        var response = aiResponse.trimmingCharacters(in: .whitespacesAndNewlines)
+
+        // ── Separate facts by origin before any of them can be stored ──
+        // The AI half of a turn mixes claims this turn actually grounded
+        // with claims recited from training data — a real run received
+        // fresh evidence about Claude and still wrote "100K tokens".
+        // ClaimGrounding classifies each sentence against the sources the
+        // turn carried (and Vera's own store) and only the backed ones go
+        // on to `propose_ai_facts`; the rest are reported, not stored.
+        if !response.isEmpty {
+            let sources = ClaimGrounding.sources(fromInjectedPrompt: userPrompt)
+            let classified = await ClaimGrounding.classify(reply: response, sources: sources)
+            let summary = ClaimGrounding.summary(
+                classified, japanese: AppLanguage.shared.isJapanese)
+            let grounded = ClaimGrounding.groundedText(from: classified)
+            if !summary.isEmpty {
+                await MainActor.run {
+                    AppState.shared?.addSystemMessage("<think>\n🧾 " + summary + "\n</think>")
+                }
+            }
+            response = grounded
+        }
+
         guard !prompt.isEmpty || !response.isEmpty else { return }
 
         let req = VeraSaveApprovalRequest(userPrompt: prompt, aiResponse: response)
