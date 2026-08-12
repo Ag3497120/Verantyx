@@ -416,6 +416,19 @@ struct AgentToolParser {
 
     // MARK: - Main parse method
 
+    /// True when the text is a search REQUEST without a query — the
+    /// self-evaluation format searchForce anchors elicit ("[アクション]:
+    /// [SEARCH]", a bare "[SEARCH]") that the tag parser cannot turn into
+    /// a tool. The caller supplies the missing query.
+    static func isBareSearchRequest(_ text: String) -> Bool {
+        let t = text.trimmingCharacters(in: .whitespacesAndNewlines)
+        guard !t.isEmpty, t.count < 600 else { return false }
+        // A parameterized [SEARCH: q] never lands here (the parser would
+        // have consumed it) — look for the empty forms only.
+        return t.contains("[SEARCH]") || t.hasSuffix("[SEARCH")
+            || (t.contains("[アクション]") && t.contains("SEARCH"))
+    }
+
     /// A search whose "query" is actually SearchGate's whole decision JSON
     /// gets its real query pulled out; every other tool passes through.
     static func unwrapSearchJSON(_ tool: AgentTool) -> AgentTool {

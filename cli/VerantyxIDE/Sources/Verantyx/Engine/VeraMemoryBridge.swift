@@ -63,6 +63,18 @@ enum VeraMemoryBridge {
             stripped = String(stripped[r.upperBound...])
         }
         let prompt = stripped.trimmingCharacters(in: .whitespacesAndNewlines)
+
+        // Control/meta output is not memory. A real run saved
+        // "[内部知識の評価]: No … [アクション]: [SEARCH]" three times and
+        // minted skills named 検索を行なって and search from it — plumbing
+        // must never reach the store, with or without approval.
+        let metaMarkers = ["[内部知識の評価]", "[アクション]", "[SEARCH",
+                           "SEARCH_GATE", "[MEM:", "[CTRL"]
+        if metaMarkers.contains(where: { aiResponse.contains($0) }) { return }
+        // A bare command with no content ("検索を行なって", "SEARCH") is an
+        // instruction to the agent, not a fact about the world.
+        if prompt.count <= 12,
+           prompt.lowercased().contains("search") || prompt.contains("検索") { return }
         let response = aiResponse.trimmingCharacters(in: .whitespacesAndNewlines)
         guard !prompt.isEmpty || !response.isEmpty else { return }
 

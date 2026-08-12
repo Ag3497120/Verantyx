@@ -111,10 +111,15 @@ enum VeraJGenSkillProposer {
         return nil
     }
 
-    /// Builds the proposal, or nil when the saved turn is too short to name.
+    /// Builds the proposal, or nil when the saved turn is too short to name
+    /// — or too thin to be worth a skill: a command-like prompt with a
+    /// near-empty answer minted skills like `vera_mem_検索を行なって` in a
+    /// real run. A skill wraps a memory worth recalling; if the turn
+    /// produced no substance, there is nothing to wrap.
     static func propose(userPrompt: String, aiResponse: String) -> Proposal? {
         let subject = userPrompt.trimmingCharacters(in: .whitespacesAndNewlines)
         guard subject.count >= 4 else { return nil }
+        guard aiResponse.trimmingCharacters(in: .whitespacesAndNewlines).count >= 60 else { return nil }
         let short = String(subject.prefix(80))
         let name = "vera_mem_" + skillNameSanitize(short)
         let hint = limbHint(for: subject + " " + aiResponse)

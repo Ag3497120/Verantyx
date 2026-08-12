@@ -1047,7 +1047,29 @@ SYS.ENFORCE("logical_verification_before_acceptance")
             // ── Parse tool calls ──────────────────────────────────────────
             // vxCleanResponse = SearchGate トークンをストリップ済み
             // rawResponse     = ツールパーサー内部でも SearchGate を除去してから渡す
-            let (tools, cleanText) = AgentToolParser.parse(from: vxCleanResponse)
+            var (tools, cleanText) = AgentToolParser.parse(from: vxCleanResponse)
+
+            // ── Bare [SEARCH] rescue ─────────────────────────────────────
+            // searchForce anchors make small models emit "[アクション]:
+            // [SEARCH]" with NO query — the parser sees no tool, the turn
+            // ends, and the user answers "検索を行なって" into the same wall
+            // (a real transcript looped three times). When the model asks
+            // to search without saying what for, Vera supplies the query:
+            // the user's own task line.
+            if tools.isEmpty, AgentToolParser.isBareSearchRequest(cleanText) {
+                var q = instruction
+                if let r = q.range(of: "[TASK]\n", options: .backwards) {
+                    q = String(q[r.upperBound...])
+                }
+                q = String(q.prefix(90)).trimmingCharacters(in: .whitespacesAndNewlines)
+                if !q.isEmpty {
+                    tools = [.search(query: q)]
+                    cleanText = ""
+                    await onProgress(.systemLog(AppLanguage.shared.t(
+                        "<think>\n🔍 Model asked to search without a query — Vera supplied: \"\(q)\"\n</think>",
+                        "<think>\n🔍 モデルがクエリ無しで検索を要求 — Veraが補完: \"\(q)\"\n</think>")))
+                }
+            }
 
             // ── aiMessage emission strategy ──────────────────────────────
             // Ollama and MLX both use streaming (streamToken callbacks).

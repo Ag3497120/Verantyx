@@ -2329,8 +2329,14 @@ final class AppState: ObservableObject {
                     // Only show .done text when there was no streaming at all
                     // (e.g. non-streaming model or tool-only turns with no text).
                     if !msg.isEmpty && self.streamingMsgId == nil {
+                        // Duplicate guard: suffix matching missed the case
+                        // where the streamed bubble carried a trailing
+                        // SearchGate line the cleaned .done text lacks —
+                        // the same essay then appeared twice. Containment
+                        // of a healthy prefix is the honest test.
                         let lastContent = self.messages.last?.content ?? ""
-                        if !lastContent.hasSuffix(msg) {
+                        let probe = String(msg.prefix(160))
+                        if !lastContent.contains(probe) {
                             self.messages.append(ChatMessage(role: .assistant,
                                                             content: "✅ \(msg)",
                                                             isSpotlight: self.currentGenerationIsSpotlight))
