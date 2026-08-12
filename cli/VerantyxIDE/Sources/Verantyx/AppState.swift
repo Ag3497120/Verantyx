@@ -313,6 +313,16 @@ final class AppState: ObservableObject {
         didSet { UserDefaults.standard.set(veraSaveApprovalMode.rawValue, forKey: "vera_save_approval_mode") }
     }
 
+    /// jgen × vera-a: after an APPROVED save, Vera proposes a skill from
+    /// the memory and applies it where the JGEN harness recalls from
+    /// (SkillLibrary for the Act limbs, eternal memory for Speak). See
+    /// VeraJGenSkillProposer. Default ON; the applied skill only wraps a
+    /// vera-memory lookup of the memory the human just approved.
+    @Published var veraProposeSkillsToJGen: Bool =
+        UserDefaults.standard.object(forKey: "vera_propose_skills_jgen") as? Bool ?? true {
+        didSet { UserDefaults.standard.set(veraProposeSkillsToJGen, forKey: "vera_propose_skills_jgen") }
+    }
+
     /// Stereo-cross 3D graph demo mode: replaces the code editor pane with
     /// a live SceneKit visualization of Vera's CrossStore (StereoCrossGraphView).
     /// While active, the Vera-α save-approval UI moves from a center-screen
@@ -2453,6 +2463,24 @@ final class AppState: ObservableObject {
         req.approve()
         advanceVeraSaveQueue()
         addSystemMessage(self.t("✅ Saved to Vera", "✅ Vera に保存しました"))
+
+        // jgen × vera-a: the approved memory becomes a skill proposal,
+        // applied where the JGEN harness actually recalls (SkillLibrary /
+        // eternal memory). Reported in chat so the loop stays visible.
+        if veraProposeSkillsToJGen,
+           let proposal = VeraJGenSkillProposer.propose(
+               userPrompt: req.userPrompt, aiResponse: req.aiResponse) {
+            Task { [weak self] in
+                await VeraJGenSkillProposer.apply(proposal)
+                await MainActor.run {
+                    guard let self else { return }
+                    let limb = proposal.limbHint.map { " → \($0.rawValue)" } ?? ""
+                    self.addSystemMessage(self.t(
+                        "🧬 Vera proposed and applied skill '\(proposal.skill.name)' to JGEN\(limb)",
+                        "🧬 Veraがスキル『\(proposal.skill.name)』を提案し、JGENに適用しました\(limb)"))
+                }
+            }
+        }
     }
 
     /// User tapped "破棄" — resume with false, nothing is written to Vera.

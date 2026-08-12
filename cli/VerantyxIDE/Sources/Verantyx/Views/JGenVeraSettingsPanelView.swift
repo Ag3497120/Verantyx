@@ -48,6 +48,18 @@ struct JGenVeraSettingsPanelView: View {
                         set: { council.config.useEternalMemory = $0; council.markCustom() }
                     )).toggleStyle(.checkbox)
 
+                    Toggle(app.t("Vera proposes skills → apply to JGEN", "Veraがスキル提案→JGENへ適用"), isOn: Binding(
+                        get: { app.veraProposeSkillsToJGen },
+                        set: { app.veraProposeSkillsToJGen = $0 }
+                    )).toggleStyle(.checkbox)
+                    Text(app.t(
+                        "After you approve a Vera memory save, the memory becomes a skill (vera-memory lookup + Act-limb hint) applied where the JGEN harness recalls from: SkillLibrary for the Act limbs, eternal memory for Speak.",
+                        "Vera保存を承認すると、その記憶がスキル（vera-memory参照＋Act手足ヒント）になり、JGENハーネスの想起元へ適用されます: Act手足はSkillLibrary、発話は永遠記憶。"
+                    ))
+                    .font(.system(size: 9))
+                    .foregroundStyle(.secondary)
+                    .fixedSize(horizontal: false, vertical: true)
+
                     Toggle(app.t("Visual memory (screen recall)", "視覚記憶(画面リコール)"), isOn: Binding(
                         get: { council.useVisualMemory },
                         set: { council.useVisualMemory = $0 }

@@ -61,9 +61,88 @@ enum VeraSkillForge {
     }
 
     private static func sanitize(_ s: String) -> String {
-        let mapped = s.lowercased().map { c -> Character in
-            (c.isLetter || c.isNumber) ? c : "_"
-        }
-        return String(String(mapped).prefix(40))
+        skillNameSanitize(s)
+    }
+}
+
+/// Shared by VeraSkillForge and VeraJGenSkillProposer (same file on purpose).
+fileprivate func skillNameSanitize(_ s: String) -> String {
+    let mapped = s.lowercased().map { c -> Character in
+        (c.isLetter || c.isNumber) ? c : "_"
+    }
+    return String(String(mapped).prefix(40))
+}
+
+// MARK: - VeraJGenSkillProposer
+//
+// jgen × vera-a の接続点。An APPROVED Vera memory save (AppState.
+// approveVeraSave) is the trigger: the just-saved memory is turned into a
+// skill proposal and applied to the two places the JGEN-only harness
+// actually recalls from —
+//
+//   • SkillLibrary       → the Act limbs' prior-asset recall
+//                          (ActDNA.prepareActContext → ExplorationAssetStore)
+//   • EternalMemoryStore → the Speak path's vector-bus recall
+//                          (JGenSpeakAgent → JGenVectorBusMemory.recallBundle)
+//
+// Bounded risk, same argument as VeraSkillForge above: the applied skill
+// only wraps a `vera-memory.ask` for a memory the human just approved —
+// it cannot invent a fact or take a new action. The limb hint is a tag,
+// not an executor: it tells the Act harness which of its FIXED limbs
+// (ActDNA's OPEN_APP / SENSE / ACT / PASTE_PAYLOAD) this memory serves,
+// it never adds a new limb.
+@MainActor
+enum VeraJGenSkillProposer {
+
+    struct Proposal: Sendable {
+        let skill: SkillNode
+        let limbHint: ActLimb?
+        let eternalStamp: String
+    }
+
+    /// Which fixed Act limb this memory most plausibly strengthens.
+    /// Keyword heuristic over BOTH languages — mirrors MissionKindClassifier's
+    /// approach (the Japanese words are detectors, do not translate them).
+    static func limbHint(for text: String) -> ActLimb? {
+        let t = text.lowercased()
+        if ["開いて", "開け", "起動", "open ", "launch "].contains(where: t.contains) { return .openApp }
+        if ["クリック", "入力して", "押して", "貼り付け", "click", "type ", "paste"].contains(where: t.contains) { return .act }
+        if ["画面", "スクリーン", "screen", "見て"].contains(where: t.contains) { return .sense }
+        return nil
+    }
+
+    /// Builds the proposal, or nil when the saved turn is too short to name.
+    static func propose(userPrompt: String, aiResponse: String) -> Proposal? {
+        let subject = userPrompt.trimmingCharacters(in: .whitespacesAndNewlines)
+        guard subject.count >= 4 else { return nil }
+        let short = String(subject.prefix(80))
+        let name = "vera_mem_" + skillNameSanitize(short)
+        let hint = limbHint(for: subject + " " + aiResponse)
+
+        var node = SkillNode(
+            name: name,
+            description: "Proposed by Vera-α from an approved memory save: "
+                + "answers '\(short)' from Vera's store first, no LLM call.",
+            version: 1,
+            createdAt: Date(),
+            updatedAt: Date(),
+            tags: ["vera-propose", "jgen"] + (hint.map { [$0.rawValue.lowercased()] } ?? []),
+            executionType: .macro,
+            payload: ["[MCP_CALL: vera-memory.ask]{\"query\": \"\(short.replacingOccurrences(of: "\"", with: ""))\"}[/MCP_CALL]"]
+        )
+        node.source = "vera-propose"
+        node.forgedBy = "vera-alpha-save-hook"
+
+        let stamp = "SKILL \(name): \(short) → vera-memory.ask"
+            + (hint.map { " [limb:\($0.rawValue)]" } ?? "")
+        return Proposal(skill: node, limbHint: hint, eternalStamp: stamp)
+    }
+
+    /// Applies to JGEN: SkillLibrary for the Act limbs, eternal memory for
+    /// the Speak path. Refinement (same name) bumps the version instead of
+    /// duplicating.
+    static func apply(_ p: Proposal) async {
+        _ = await SkillLibrary.shared.save(p.skill)
+        try? await EternalMemoryStore.shared.add(text: p.eternalStamp, concepts: [])
     }
 }
