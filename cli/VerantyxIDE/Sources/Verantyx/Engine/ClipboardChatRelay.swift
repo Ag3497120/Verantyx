@@ -14,16 +14,31 @@ import Cocoa
 // local pasteboard and reads from the local pasteboard, and Continuity does
 // the rest. Apple Notes (or any editor on the phone) is the window.
 //
-// The protocol is one bit: did the user paste?
+// ── Why the payload carries an input box ──────────────────────────────────
 //
-//   Mac writes chunk 1  →  you paste it in Notes  →  Mac writes chunk 2  →  …
-//   …  you type a reply and copy it  →  Mac picks it up as your message.
+// The first cut treated any clipboard change as the user's message. That is
+// wrong in a way that matters: copy a password, a URL, a block of code
+// anywhere on the Mac while the relay is on, and it would have been typed
+// straight into the agent. "The clipboard changed" is not "the user spoke".
 //
-// Detecting a paste is the whole trick. macOS has no "someone pasted"
-// notification, but a pasteboard item can be written *lazily*: the data is not
-// produced until a reader asks for it, and asking is what pasting does. That
-// callback is the paste signal. Verified: it does not fire on write, fires on
-// the first read, and does not fire again afterwards — one paste, one advance.
+// The fix is not to guess where a copy came from — that cannot be done
+// reliably, and trying is the wrong question anyway. Instead, ship an input
+// box as part of the payload and ask a question that CAN be answered exactly:
+// did this text come out of a Verantyx input box, for this session, for the
+// reply I am currently waiting on?
+//
+//   [VX:9f31a2c4#42]   session · expected input id
+//
+// A match is proof. Anything else is somebody else's clipboard, and is
+// ignored without a trace.
+//
+// ── Why plain text only ───────────────────────────────────────────────────
+//
+// Copying from a web page carries several representations at once (HTML, RTF,
+// attributed variants), and which one a target picks is what turns pasted text
+// into garbage. Notes normalizes to real characters, which is exactly why it
+// works as the middle step. This relay writes and reads `.string` only, so
+// nothing downstream has a representation to choose wrongly.
 @MainActor
 final class ClipboardChatRelay: ObservableObject {
 
@@ -38,11 +53,17 @@ final class ClipboardChatRelay: ObservableObject {
     @Published private(set) var cursor: Int = 0
     @Published private(set) var lastEvent: String = ""
 
+    /// Identifies this relay session. Regenerated on every start so a stale
+    /// input box left in Notes from a previous session cannot be re-sent.
+    @Published private(set) var sessionId: String = ""
+
+    /// The reply we are currently waiting for. Incremented after each accepted
+    /// message, so copying the same box twice does not send it twice.
+    @Published private(set) var expectedInputId: Int = 0
+
     /// Set when the pasteboard resolves lazy data immediately on copy rather
     /// than on paste. Handoff may pre-fetch to have the content ready on the
-    /// other device, which would fire the provider with no user involved. When
-    /// that is observed once, the paste signal is not trustworthy on this Mac
-    /// and the relay falls back to advancing on the reply instead.
+    /// other device, which would fire the provider with no user involved.
     @Published private(set) var eagerPasteboard = false
 
     var isRunning: Bool { mode != .off }
@@ -50,30 +71,28 @@ final class ClipboardChatRelay: ObservableObject {
         chunks.isEmpty ? "" : "\(min(cursor + 1, chunks.count))/\(chunks.count)"
     }
 
-    /// Delivered to the chat as if typed. Set by whoever starts the relay.
+    /// Delivered to the chat as if typed.
     var onUserMessage: ((String) -> Void)?
 
     // MARK: Internals
 
-    /// Marks our own chunks so a chunk copied back is never mistaken for the
-    /// user's reply — on the phone, "select all, copy" is one slip away.
-    private static let marker = "〔Vera"
-
     private var poll: Timer?
     private var lastChangeCount: Int = 0
     private var writtenAt: Date = .distantPast
-
-    /// Chunk size. Small enough that a paste into Notes stays readable, large
-    /// enough that an ordinary reply is one or two pastes.
     private let chunkLimit = 1600
 
     // MARK: - Lifecycle
 
     func start() {
         guard mode == .off else { return }
+        sessionId = String(UUID().uuidString.replacingOccurrences(of: "-", with: "")
+            .prefix(8)).lowercased()
+        expectedInputId = 1
         lastChangeCount = NSPasteboard.general.changeCount
         mode = .waitingForReply
-        lastEvent = "待機中 — iPhone のメモから送ってください"
+        // Put an empty input box out immediately, so the phone has something
+        // to paste before the agent has said anything.
+        writeInputOnly()
         poll = Timer.scheduledTimer(withTimeInterval: 1.0, repeats: true) { [weak self] _ in
             MainActor.assumeIsolated { self?.tick() }
         }
@@ -85,65 +104,79 @@ final class ClipboardChatRelay: ObservableObject {
         mode = .off
         chunks = []
         cursor = 0
+        sessionId = ""
         lastEvent = ""
     }
 
-    // MARK: - Outbound: the agent's reply becomes pasteable chunks
+    // MARK: - Outbound
 
     func send(_ reply: String) {
         guard isRunning else { return }
         let body = reply.trimmingCharacters(in: .whitespacesAndNewlines)
-        guard !body.isEmpty else { return }
+        guard !body.isEmpty else { writeInputOnly(); return }
         chunks = Self.split(body, limit: chunkLimit)
         cursor = 0
         writeCurrentChunk()
     }
 
-    /// Manual advance, for when the paste signal cannot be trusted (see
-    /// `eagerPasteboard`) or a paste did not land.
+    /// Manual advance, for when the paste signal cannot be trusted.
     func advance() {
         guard isRunning, cursor + 1 < chunks.count else { return }
         cursor += 1
         writeCurrentChunk()
     }
 
+    /// Just the input box — used at session start and after a message is
+    /// accepted, so there is always somewhere to type.
+    private func writeInputOnly() {
+        writePayload(VXInputTemplate.inputBox(session: sessionId, inputId: expectedInputId),
+                     lazily: false)
+        mode = .waitingForReply
+        lastEvent = "入力欄をクリップボードへ — メモに貼って書いてください"
+    }
+
     private func writeCurrentChunk() {
-        guard cursor < chunks.count else {
-            mode = .waitingForReply
-            lastEvent = "全て送信しました — 返信をコピーしてください"
-            return
+        guard cursor < chunks.count else { writeInputOnly(); return }
+
+        let isLast = cursor == chunks.count - 1
+        var payload = "〔Vera \(cursor + 1)/\(chunks.count)〕\n" + chunks[cursor]
+        if isLast {
+            // The input box rides on the final chunk only. Putting it on every
+            // chunk would leave three boxes in the note after three pastes.
+            payload += "\n\n" + VXInputTemplate.inputBox(session: sessionId,
+                                                        inputId: expectedInputId)
+        } else {
+            payload += "\n\n… 続きがあります。もう一度貼り付けてください。"
         }
 
-        let header = "\(Self.marker) \(cursor + 1)/\(chunks.count)〕"
-        let payload = header + "\n" + chunks[cursor]
+        writePayload(payload, lazily: !eagerPasteboard)
+        writtenAt = Date()
+        mode = isLast ? .waitingForReply : .waitingForPaste
+        lastEvent = isLast
+            ? "\(progressLabel)（最後）— 貼り付けて、入力欄に返信を書いてください"
+            : "\(progressLabel) をクリップボードへ — メモに貼り付けてください"
+    }
 
+    private func writePayload(_ text: String, lazily: Bool) {
         let pb = NSPasteboard.general
         pb.clearContents()
-
-        if eagerPasteboard {
-            // The lazy path is useless here; write plainly and let the reply
-            // (or the Next button) drive the advance.
-            pb.setString(payload, forType: .string)
-        } else {
+        if lazily {
             let item = NSPasteboardItem()
-            item.setDataProvider(LazyChunk(payload: payload) { [weak self] in
+            item.setDataProvider(LazyChunk(payload: text) { [weak self] in
                 MainActor.assumeIsolated { self?.pasteObserved() }
             }, forTypes: [.string])
             pb.writeObjects([item])
+        } else {
+            pb.setString(text, forType: .string)
         }
-
-        writtenAt = Date()
         lastChangeCount = pb.changeCount
-        mode = .waitingForPaste
-        lastEvent = "\(progressLabel) をクリップボードへ — メモに貼り付けてください"
     }
 
     /// The pasteboard handed our data to someone. That is a paste.
     private func pasteObserved() {
-        // Handoff pre-fetching would fire this within a moment of the copy,
-        // with no human in between. Treat a near-instant read as the system
-        // staging the content, not as the user pasting, and stop trusting the
-        // signal on this machine.
+        // Handoff pre-fetching would fire this moments after the copy with no
+        // human in between. A near-instant read is the system staging content,
+        // not a paste — and once seen, the signal is not trusted again.
         if Date().timeIntervalSince(writtenAt) < 1.5 {
             eagerPasteboard = true
             lastEvent = "貼り付け検知は使えません（システムが先読みしています）— 「次へ」で進めます"
@@ -152,49 +185,51 @@ final class ClipboardChatRelay: ObservableObject {
         guard mode == .waitingForPaste else { return }
 
         // Do NOT write the next chunk from inside this callback. The paste
-        // that triggered it is still in flight, and `writeCurrentChunk` starts
-        // with `clearContents()` — which pulls the pasteboard out from under
-        // the read that is happening right now. Tested: doing it synchronously
-        // makes the user's paste come back EMPTY, every time, for every chunk
-        // but the last. Let the current read finish, then advance.
-        //
-        // The delay also covers readers that ask for several types in a row
-        // (a rich-text target requests RTF, then plain) — all of those belong
-        // to the one paste.
+        // that triggered it is still in flight, and writing begins with
+        // clearContents() — which pulls the pasteboard out from under the read
+        // happening right now. Tested: doing it synchronously makes the user's
+        // paste come back EMPTY for every chunk but the last. The delay also
+        // covers readers that ask for several types for one paste.
         DispatchQueue.main.asyncAfter(deadline: .now() + 0.4) { [weak self] in
             MainActor.assumeIsolated {
                 guard let self, self.mode == .waitingForPaste else { return }
                 if self.cursor + 1 < self.chunks.count {
                     self.cursor += 1
                     self.writeCurrentChunk()
-                } else {
-                    self.mode = .waitingForReply
-                    self.lastEvent = "全て送信しました — 返信をコピーしてください"
                 }
             }
         }
     }
 
-    // MARK: - Inbound: something the user copied
+    // MARK: - Inbound
 
     private func tick() {
         let pb = NSPasteboard.general
         guard pb.changeCount != lastChangeCount else { return }
         lastChangeCount = pb.changeCount
 
-        guard let text = pb.string(forType: .string)?
-            .trimmingCharacters(in: .whitespacesAndNewlines), !text.isEmpty
+        guard let raw = pb.string(forType: .string) else { return }
+
+        // The only thing that counts as the user speaking: text that came out
+        // of THIS session's input box, for the reply we are waiting on.
+        // Everything else — a copied password, a URL, our own chunk pasted
+        // back — fails this and is ignored silently.
+        guard let filled = VXInputTemplate.parse(raw,
+                                                 session: sessionId,
+                                                 inputId: expectedInputId)
         else { return }
 
-        // Our own chunk coming back is not a message.
-        guard !text.hasPrefix(Self.marker) else { return }
+        guard !filled.isEmpty else {
+            lastEvent = "入力欄が空のままコピーされました — 本文を書いてからコピーしてください"
+            return
+        }
 
-        // A copy from the user means they are done reading whatever was there.
-        mode = .waitingForReply
+        expectedInputId += 1
         chunks = []
         cursor = 0
-        lastEvent = "受信: \(String(text.prefix(40)))…"
-        onUserMessage?(text)
+        mode = .waitingForReply
+        lastEvent = "受信: \(String(filled.prefix(40)))…"
+        onUserMessage?(filled)
     }
 
     // MARK: - Splitting
@@ -208,17 +243,12 @@ final class ClipboardChatRelay: ObservableObject {
 
         for paragraph in text.components(separatedBy: "\n") {
             let candidate = current.isEmpty ? paragraph : current + "\n" + paragraph
-            if candidate.count <= limit {
-                current = candidate
-                continue
-            }
+            if candidate.count <= limit { current = candidate; continue }
             if !current.isEmpty { out.append(current); current = "" }
 
             if paragraph.count <= limit {
                 current = paragraph
             } else {
-                // A single paragraph longer than the limit: cut it at the
-                // limit, since there is no better boundary inside it.
                 var rest = Substring(paragraph)
                 while rest.count > limit {
                     out.append(String(rest.prefix(limit)))
@@ -232,10 +262,65 @@ final class ClipboardChatRelay: ObservableObject {
     }
 }
 
-// MARK: - Lazy pasteboard item
+// MARK: - The input box
 //
-// Kept as its own object because NSPasteboard holds the provider weakly-ish
-// and calls it from AppKit; the closure is the only thing the relay needs back.
+// Deliberately visible, plain ASCII framing. An invisible marker (zero-width
+// characters, private-use codepoints) is exactly what a normalizing editor
+// strips — and normalization is the reason Notes is in this loop at all. A
+// marker that survives being retyped by hand is worth more than a pretty one.
+enum VXInputTemplate {
+
+    static let rule = "━━━━━━━━━━━━━━━━"
+    static let title = "VERANTYX INPUT"
+    static let placeholder = "（ここに入力してコピーしてください）"
+
+    static func tag(session: String, inputId: Int) -> String {
+        "[VX:\(session)#\(inputId)]"
+    }
+
+    static func inputBox(session: String, inputId: Int) -> String {
+        """
+        \(rule)
+        \(title)  \(tag(session: session, inputId: inputId))
+        \(rule)
+
+        \(placeholder)
+
+        \(rule)
+        """
+    }
+
+    /// Pull the typed text out of a copied input box.
+    ///
+    /// Returns nil when this is not our box — wrong session, wrong reply, or
+    /// not one of our boxes at all. nil means "ignore this clipboard entirely",
+    /// which is what keeps unrelated copying out of the conversation.
+    nonisolated static func parse(_ raw: String, session: String, inputId: Int) -> String? {
+        guard !session.isEmpty, raw.contains(tag(session: session, inputId: inputId))
+        else { return nil }
+
+        // Body is what sits between the last two rules. Taking the LAST pair
+        // matters: the payload the user pasted has the reply above the box,
+        // and the reply may itself contain rule-like characters.
+        let parts = raw.components(separatedBy: rule)
+        guard parts.count >= 2 else { return nil }
+
+        let body = parts[parts.count - 2]
+        var text = body.trimmingCharacters(in: .whitespacesAndNewlines)
+
+        // The user typed around the placeholder instead of replacing it.
+        text = text.replacingOccurrences(of: placeholder, with: "")
+        // A line still carrying the tag means they typed above the box.
+        text = text.components(separatedBy: "\n")
+            .filter { !$0.contains("[VX:") && !$0.contains(title) }
+            .joined(separator: "\n")
+
+        return text.trimmingCharacters(in: .whitespacesAndNewlines)
+    }
+}
+
+// MARK: - Lazy pasteboard item
+
 private final class LazyChunk: NSObject, NSPasteboardItemDataProvider {
     private let payload: String
     private let onRead: () -> Void

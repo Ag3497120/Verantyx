@@ -68,10 +68,19 @@ struct PhoneRelayPanel: View {
                 }
 
                 Text("""
-                使い方: ① 開始 → ② iPhone の「メモ」を開く → ③ 貼り付けると返答が読めます \
-                （長い場合は続けて貼り付け）→ ④ 返信を書いてコピーすると、Mac 側が受け取ります。
+                使い方: ① 開始 → ② iPhone の「メモ」に貼り付け（返答＋入力欄が入ります）\
+                → ③ 入力欄に返信を書く → ④ 全選択してコピー → Mac が受け取ります。\
+                長い返答は続けて貼り付けると次が出ます。
                 """)
                     .font(.system(size: 10)).foregroundStyle(.tertiary).lineSpacing(2)
+
+                if !relay.sessionId.isEmpty {
+                    Text("受付中の入力: [VX:\(relay.sessionId)#\(relay.expectedInputId)] — "
+                         + "この印を含むものだけをユーザー入力として扱います。"
+                         + "他でコピーした内容がエージェントに渡ることはありません。")
+                        .font(.system(size: 10, design: .monospaced))
+                        .foregroundStyle(.tertiary).lineSpacing(2)
+                }
 
                 Text("""
                 前提: 同じ Apple ID・Handoff/Bluetooth/Wi-Fi が有効（ユニバーサルクリップボード）。\
