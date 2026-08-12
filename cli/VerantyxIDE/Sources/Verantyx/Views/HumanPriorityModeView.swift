@@ -1327,7 +1327,12 @@ struct CodeEditorView: NSViewRepresentable {
     // fall back to a plain (unhighlighted) NSTextStorage, keeping full
     // content, scrolling, and editing intact -- they just lose syntax
     // coloring.
-    private static let highlightMaxChars = 200_000
+    // 200_000 was the old bound; Highlightr (highlight.js in JSCore) takes
+    // seconds on files that size, and the synchronous ensureLayout below
+    // turned every open+scroll into a beachball. 60K keeps highlight+layout
+    // instant; bigger files drop to plain text, which lays out fast enough
+    // to do so synchronously (see buildTextView).
+    private static let highlightMaxChars = 60_000
 
     private static func buildTextView(highlighted: Bool, language: String, isEditable: Bool) -> NSTextView {
         let textStorage: NSTextStorage
@@ -1340,7 +1345,11 @@ struct CodeEditorView: NSViewRepresentable {
         }
 
         let layoutManager = NSLayoutManager()
-        layoutManager.allowsNonContiguousLayout = true
+        // Highlighted tier defers layout (Highlightr is the slow part);
+        // plain tier lays out contiguously — plain text is fast, and a
+        // deferred height is exactly the "scrolls a little then stops,
+        // bottom unreachable" bug for big files.
+        layoutManager.allowsNonContiguousLayout = highlighted
         layoutManager.backgroundLayoutEnabled = true
         textStorage.addLayoutManager(layoutManager)
 
