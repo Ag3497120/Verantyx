@@ -50,6 +50,28 @@ enum VeraMemoryPaths {
         "\"\(binary.path)\" --store \"\(storeFile.path)\" mcp"
     }
 
+    /// The `mcpServers` JSON snippet other IDEs paste to reach the SAME
+    /// bundled binary and the SAME store this app uses. One shape covers
+    /// Claude Code (`.mcp.json`), Claude Desktop
+    /// (`claude_desktop_config.json`) and Cursor (`.cursor/mcp.json`).
+    ///
+    /// Exists because the IDE itself no longer needs Settings › MCP to
+    /// reach Vera — Vera-a runs natively in-process — so the MCP surface's
+    /// remaining job is exporting Vera's memory to OTHER tools.
+    static func externalMCPConfigJSON() -> String? {
+        guard let binary = resolveBundledBinary() else { return nil }
+        return """
+        {
+          "mcpServers": {
+            "vera-memory": {
+              "command": "\(binary.path)",
+              "args": ["--store", "\(storeFile.path)", "mcp"]
+            }
+          }
+        }
+        """
+    }
+
     /// True when the helper is Hardened Runtime but lacks
     /// `disable-library-validation` — the pre-97e8fd230 DMG failure mode
     /// ("different Team IDs" loading PyInstaller's extracted Python.framework).

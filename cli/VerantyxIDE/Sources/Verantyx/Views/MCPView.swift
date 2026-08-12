@@ -13,6 +13,7 @@ struct MCPView: View {
     @State private var selectedServerId: UUID? = nil
     @State private var showCatalogPicker  = false
     @State private var apiKeyTargetServer: MCPServerConfig? = nil
+    @State private var copiedVeraConfig   = false
 
     var body: some View {
         VStack(spacing: 0) {
@@ -21,6 +22,7 @@ struct MCPView: View {
             // ── Server list (top section) ──────────────────────────
             serverListHeader
             Divider().opacity(0.3)
+            veraExternalExportBanner
 
             // ── Scrollable content: server rows + inline detail ────
             if mcp.servers.isEmpty {
@@ -184,6 +186,54 @@ struct MCPView: View {
     }
 
     // MARK: - Server List Header
+
+    // ── Vera memory → other IDEs ────────────────────────────────────────
+    // The IDE runs Vera-a natively (loaded model + bundled store), so this
+    // MCP row needs nothing configured here anymore — it is auto-managed by
+    // MCPEngine.loadServers(). What remains useful is the outward direction:
+    // one paste connects Claude Code / Claude Desktop / Cursor to the same
+    // binary and the same store.
+    @ViewBuilder
+    private var veraExternalExportBanner: some View {
+        if let json = VeraMemoryPaths.externalMCPConfigJSON() {
+            VStack(alignment: .leading, spacing: 4) {
+                HStack(spacing: 6) {
+                    Image(systemName: "square.and.arrow.up")
+                        .font(.system(size: 10))
+                        .foregroundStyle(Color(red: 0.5, green: 0.85, blue: 0.6))
+                    Text(app.t("Use Vera memory in other IDEs", "Veraの記憶を他のIDEで使う"))
+                        .font(.system(size: 10, weight: .semibold))
+                    Spacer()
+                    Button {
+                        NSPasteboard.general.clearContents()
+                        NSPasteboard.general.setString(json, forType: .string)
+                        copiedVeraConfig = true
+                        DispatchQueue.main.asyncAfter(deadline: .now() + 2) {
+                            copiedVeraConfig = false
+                        }
+                    } label: {
+                        Label(copiedVeraConfig
+                                ? app.t("Copied", "コピーしました")
+                                : app.t("Copy MCP config", "MCP設定をコピー"),
+                              systemImage: copiedVeraConfig ? "checkmark" : "doc.on.doc")
+                            .font(.system(size: 10))
+                    }
+                    .buttonStyle(.borderless)
+                }
+                Text(app.t(
+                    "Vera-a runs natively inside this IDE — nothing to configure here. Paste the copied snippet into Claude Code (.mcp.json), Claude Desktop (claude_desktop_config.json) or Cursor (.cursor/mcp.json) to point them at the same vera-memory binary and the same store.",
+                    "このIDE内のVera-aはネイティブ動作なので、ここでの設定は不要です。コピーした設定を Claude Code (.mcp.json)、Claude Desktop (claude_desktop_config.json)、Cursor (.cursor/mcp.json) に貼ると、同じ vera-memory バイナリ・同じ記憶ストアに繋がります。"
+                ))
+                .font(.system(size: 9))
+                .foregroundStyle(.secondary)
+                .fixedSize(horizontal: false, vertical: true)
+            }
+            .padding(.horizontal, 10)
+            .padding(.vertical, 6)
+            .background(Color(red: 0.10, green: 0.13, blue: 0.11))
+            Divider().opacity(0.3)
+        }
+    }
 
     private var serverListHeader: some View {
         HStack {
