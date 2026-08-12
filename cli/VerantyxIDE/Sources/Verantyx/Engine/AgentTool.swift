@@ -39,6 +39,14 @@ enum AgentTool {
     /// it appears or the page stops moving. What a person does when the
     /// thing they want is not in the first screenful.
     case scrollFind(text: String)
+    /// Search WITH THE BROWSER: the results page opens in Safari and the
+    /// candidates come from the links actually on it.
+    ///
+    /// `search` fetches DuckDuckGo headlessly, which answers factual
+    /// questions well but leaves the browser showing nothing — so a
+    /// chosen result can only be reached by URL, and "scroll the results
+    /// and click one" was never possible. This is the browsing path.
+    case searchPage(query: String)
     case search(query: String)
     case searchMulti(query: String)               // NEW: parallel top-3 URLs + synthesis
     case evalJS(script: String)
@@ -108,6 +116,7 @@ struct AgentToolCall: Identifiable {
         case .browse(let url):              return "🌐 browse \(url)"
         case .clickLink(let t):            return "🖱 click link: \(t)"
         case .scrollFind(let t):           return "🔎 scroll to find: \(t)"
+        case .searchPage(let q):           return "🌐 search in browser: \(q)"
         case .search(let q):               return "🔍 search: \(q)"
         case .searchMulti(let q):          return "🔍× search: \(q)"
         case .evalJS(let s):               return "⚡ eval_js: \(s.prefix(40))"
@@ -202,6 +211,8 @@ struct AgentToolParser {
     [BROWSE: url]             覧: URLをMarkdownで取得（新しい場所へ行くときだけ。URLを推測して組み立てるのは禁止）
     [CLICK_LINK: 表示文字]     押: 開いているページ上のリンクを、その文字で探してマウスで押す（サイト内の移動はこれ）
     [SCROLL_FIND: 表示文字]    探: 画面内に無ければスクロールしながら探す。見つかったら CLICK_LINK で開く
+    [SEARCH_PAGE: 語]         browse: 検索結果を「ブラウザで」開く。サイトを開く/操作する目的ならこれを使い、
+                              出てきたリンクを CLICK_LINK で押して進む。[SEARCH]は事実確認用（画面には出ない）
     [EVAL_JS: script]         JS実: ブラウザでJS実行
     [SAFARI: url] [CHROME: url]    ブラウザで開く（Cookie利用可）
     [VISION_BROWSE: url]      視覧: ブラウザでURLを開きスクショ撮影
@@ -688,6 +699,8 @@ struct AgentToolParser {
                 tools.append(.clickLink(text: m))
             } else if let m = match(trimmed, pattern: #"\[SCROLL_FIND:\s*([^\]]+)\]"#) {
                 tools.append(.scrollFind(text: m))
+            } else if let m = match(trimmed, pattern: #"\[SEARCH_PAGE:\s*([^\]]+)\]"#) {
+                tools.append(.searchPage(query: m))
             } else if let m = match(trimmed, pattern: #"\[BROWSE:\s*([^\]]+)\]"#) {
                 tools.append(.browse(url: m))
             } else if let m = match(trimmed, pattern: #"\[SEARCH_MULTI:\s*([^\]]+)\]"#) {
@@ -1749,6 +1762,36 @@ actor AgentToolExecutor {
                 BrowserSession.shared.opened(url: result.url, title: "")
             }
             return "[WEB PAGE: \(result.url)]\n\(result.contextSnippet)\n[END WEB PAGE]"
+
+        case .searchPage(let query):
+            // The results end up ON SCREEN, in the browser, and the
+            // candidates are the links that are really there — so the
+            // choice can be reached by pointing at it, which is the whole
+            // point of browsing rather than fetching.
+            let encoded = query.addingPercentEncoding(withAllowedCharacters: .urlQueryAllowed) ?? query
+            let serp = "https://duckduckgo.com/?q=\(encoded)"
+            await MainActor.run { BrowserSession.shared.register(urls: [serp]) }
+            _ = try? await AppleScriptBridge.shared.open(serp, in: .safari)
+            await Self.activateBrowser()
+            try? await Task.sleep(nanoseconds: 2_500_000_000)
+            await MainActor.run { BrowserSession.shared.opened(url: serp, title: "search: \(query)") }
+
+            let axMap = (try? await AXVisionBridge.shared.getSemanticSnapshot(
+                appName: Self.browserAppName)) ?? ""
+            let links = await Self.visibleLinkTexts(limit: 16)
+            if links.isEmpty && axMap.isEmpty {
+                return "[SEARCH_PAGE: \(query)] opened \(serp) but the page could not be read. "
+                    + "Accessibility permission may be missing; try [DESKTOP_SNAPSHOT]."
+            }
+            return """
+            [SEARCH_PAGE: \(query)] results are open in \(Self.browserAppName).
+            Choose one by its text and click it: [CLICK_LINK: text].
+            If what you want is further down, [SCROLL_FIND: text].
+            == LINKS ON THE RESULTS PAGE ==
+            \(links.map { "• \($0)" }.joined(separator: "\n"))
+            == SEMANTIC UI MAP ==
+            \(String(axMap.prefix(1500)))
+            """
 
         case .scrollFind(let text):
             // Read what is on screen, scroll, read again — stopping when

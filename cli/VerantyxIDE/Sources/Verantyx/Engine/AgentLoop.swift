@@ -99,13 +99,33 @@ actor AgentLoop {
         // Policy gate via ActDNA — not a new limb.
         var hierarchicalResumeInject: String? = nil
         var hierarchicalBrowsePrefetch: (tool: AgentTool, result: String)? = nil
+        // What this run is actually for. After a choice reply it is NOT
+        // the message: "１番" is an answer to a question this app asked,
+        // and using it as the task turned a Reddit run into a web search
+        // for 一番くじ. The original goal is carried in the pending state.
+        var effectiveGoal = instruction
         if hierarchicalOn, let pending = pendingExplore {
+            // Match against what the USER typed, not the whole prompt.
+            // Vera-a prepends its background (open page, recall, evidence)
+            // and marks the real message with [TASK]; passing all of it
+            // made "おまかせ" fail its anchored comparison — the list came
+            // back unchanged twice — while a stray "3番" anywhere in the
+            // injected text could have selected candidate 3 outright.
+            var userMessage = instruction
+            if let r = userMessage.range(of: "[TASK]\n", options: .backwards) {
+                userMessage = String(userMessage[r.upperBound...])
+            }
+            userMessage = userMessage.trimmingCharacters(in: .whitespacesAndNewlines)
+
             if let matched = HierarchicalExploreGate.matchChoice(
-                instruction,
+                userMessage,
                 in: pending.candidates,
                 goalHint: pending.goal
             ) {
                 pendingExplore = nil
+                if !pending.goal.trimmingCharacters(in: .whitespaces).isEmpty {
+                    effectiveGoal = pending.goal
+                }
                 let selLine = HierarchicalExploreGate.selectedDirectiveLine(matched)
                 await onProgress(.systemLog(AppLanguage.shared.t(
                     "👆 [Hierarchical explore] selected: \(matched.title)",
@@ -145,7 +165,13 @@ actor AgentLoop {
                     """
                 }
             } else {
-                let prompt = HierarchicalExploreGate.formatChoicePrompt(pending.candidates)
+                // Say WHY the list is coming back. Re-printing it
+                // unchanged reads as the app ignoring the answer, which is
+                // exactly how it looked when "おまかせ" silently failed.
+                let note = AppLanguage.shared.t(
+                    "↩️ \"\(String(userMessage.prefix(40)))\" did not match any candidate — reply with a number (1–\(pending.candidates.count)), a title, or おまかせ.",
+                    "↩️「\(String(userMessage.prefix(40)))」は候補に一致しませんでした — 番号(1〜\(pending.candidates.count))・名前・「おまかせ」で指定してください。")
+                let prompt = note + "\n\n" + HierarchicalExploreGate.formatChoicePrompt(pending.candidates)
                 await onProgress(.aiMessage(prompt))
                 await onProgress(.done(message: prompt, workspace: currentWorkspace))
                 return
@@ -1064,7 +1090,11 @@ SYS.ENFORCE("logical_verification_before_acceptance")
             // query via the gate AND the rescue's keyword fallback.
             if tools.isEmpty, vxLastSearchResult.isEmpty,
                AgentToolParser.isBareSearchRequest(cleanText) {
-                var q = instruction
+                // The GOAL, never the message: after a choice reply the
+                // message is "１番", and a real run searched for it,
+                // returning 一番くじ and a candidate list about lottery
+                // tickets.
+                var q = effectiveGoal
                 if let r = q.range(of: "[TASK]\n", options: .backwards) {
                     q = String(q[r.upperBound...])
                 }
@@ -1211,7 +1241,7 @@ SYS.ENFORCE("logical_verification_before_acceptance")
             // was picked — neither survives inside the tool call itself.
             // Recorded here, joined into one episode where the act happens.
             let actGoal = { () -> String in
-                var g = instruction
+                var g = effectiveGoal
                 if let r = g.range(of: "[TASK]\n", options: .backwards) {
                     g = String(g[r.upperBound...])
                 }
