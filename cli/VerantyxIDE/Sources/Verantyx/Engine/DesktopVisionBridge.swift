@@ -5,6 +5,13 @@ import AppKit
 class DesktopVisionBridge {
     static let shared = DesktopVisionBridge()
 
+    /// Landings at the same neighbourhood before the approach stops being
+    /// rehearsed (no calibration hop, no animated path — straight there).
+    /// Low on purpose: the route is re-verified on every use, so a wrong
+    /// guess costs one click, while the animation costs a second of
+    /// pointer theatre on every click forever.
+    static let directRouteAfter = 3
+
     func takeScreenshot() async throws -> String {
         if !ScreenCapturePermission.isGranted {
             ScreenCapturePermission.request()
@@ -136,6 +143,62 @@ class DesktopVisionBridge {
         let screenHeight = NSScreen.screens.first?.frame.height ?? 0
         let currentPoint = CGPoint(x: calibStartPoint.x, y: screenHeight - calibStartPoint.y)
 
+        let app = await MainActor.run {
+            NSWorkspace.shared.frontmostApplication?.localizedName ?? "unknown"
+        }
+        let cell = "\(Int(x / 50))_\(Int(y / 50))"
+        let hint = await EternalMemoryStore.shared.mouseHint(
+            app: app, cell: cell, screenW: logicalWidth, screenH: logicalHeight)
+        let successes = await EternalMemoryStore.shared.mouseSuccessCount(
+            app: app, cell: cell, screenW: logicalWidth, screenH: logicalHeight)
+
+        // ── Established route: stop rehearsing it ─────────────────────
+        // Every click otherwise pays for a calibration probe (a visible
+        // 50pt hop and back) plus a ~30-step human-like approach — a
+        // second of pointer theatre, repeated on a target this Mac has
+        // already hit reliably. Once the same neighbourhood in the same
+        // app on the same display has landed `directRouteAfter` times, go
+        // straight there. The trace is still recorded and still verified,
+        // so a route that stops working stops being trusted.
+        if successes >= Self.directRouteAfter, let hint {
+            let target = CGPoint(x: hint.reachedX, y: hint.reachedY)
+            if let move = CGEvent(mouseEventSource: nil, mouseType: .mouseMoved,
+                                  mouseCursorPosition: target, mouseButton: .left) {
+                move.post(tap: .cghidEventTap)
+            }
+            try? await Task.sleep(nanoseconds: 30_000_000)
+            let landedAt = NSEvent.mouseLocation
+            let reached = CGPoint(x: landedAt.x, y: screenHeight - landedAt.y)
+            let ok = hypot(reached.x - target.x, reached.y - target.y) <= 4.0
+
+            if ok, let down = CGEvent(mouseEventSource: nil, mouseType: .leftMouseDown,
+                                      mouseCursorPosition: target, mouseButton: .left),
+               let up = CGEvent(mouseEventSource: nil, mouseType: .leftMouseUp,
+                                mouseCursorPosition: target, mouseButton: .left) {
+                down.post(tap: .cghidEventTap)
+                try? await Task.sleep(nanoseconds: 50_000_000)
+                up.post(tap: .cghidEventTap)
+            }
+            await EternalMemoryStore.shared.recordMouseTrace(
+                app: app, cell: cell,
+                screenW: logicalWidth, screenH: logicalHeight,
+                reqX: x, reqY: y,
+                reachedX: reached.x, reachedY: reached.y,
+                calibX: hint.calibX, calibY: hint.calibY,
+                path: "\(Int(target.x)),\(Int(target.y))", ok: ok)
+            await MainActor.run {
+                AppState.shared?.isAgentControllingMouse = false
+                AppState.shared?.addSystemMessage(AppLanguage.shared.t(
+                    ok ? "<think>\n🖱 Established route (\(successes) landings) — approach animation skipped\n</think>"
+                       : "<think>\n🖱 Established route failed to land; the next click re-measures from scratch\n</think>",
+                    ok ? "<think>\n🖱 確立した経路（成功\(successes)回）— 接近アニメーションを省略しました\n</think>"
+                       : "<think>\n🖱 確立経路が着地せず。次回は最初から測り直します\n</think>"))
+            }
+            if ok { return }
+            // Fall through to the full measured approach on failure.
+            await MainActor.run { AppState.shared?.isAgentControllingMouse = true }
+        }
+
         let calibDelta: Double = 50.0
         let calibTest = CGPoint(x: currentPoint.x + calibDelta, y: currentPoint.y + calibDelta)
         
@@ -159,12 +222,6 @@ class DesktopVisionBridge {
         // that verifiably worked on this display is a far better default
         // than 1.0, so the memory is consulted first and the fresh probe
         // overrides it only when the probe actually measured something.
-        let app = await MainActor.run {
-            NSWorkspace.shared.frontmostApplication?.localizedName ?? "unknown"
-        }
-        let cell = "\(Int(x / 50))_\(Int(y / 50))"
-        let hint = await EternalMemoryStore.shared.mouseHint(
-            app: app, cell: cell, screenW: logicalWidth, screenH: logicalHeight)
         var fallbackCalib: (Double, Double)? = hint.map { ($0.calibX, $0.calibY) }
         if fallbackCalib == nil {
             fallbackCalib = await EternalMemoryStore.shared.lastGoodCalibration(
@@ -229,9 +286,23 @@ class DesktopVisionBridge {
             path.append(targetPoint)
         } else {
             path.append(currentPoint)
-            let steps = 30
-            let cx = (currentPoint.x + targetPoint.x) / 2.0 + Double.random(in: -50...50)
-            let cy = (currentPoint.y + targetPoint.y) / 2.0 + Double.random(in: -50...50)
+            // Human uncertainty, measured instead of assumed. ±50pt was a
+            // guess about how far a pointer strays; vera-a has every
+            // trajectory this Mac actually drove, so the stray is computed
+            // from them (peak deviation ÷ distance travelled) and scaled to
+            // THIS move's length. Falls back to the old constant until
+            // enough trajectories exist to measure.
+            let model = await EternalMemoryStore.shared.motionModel(
+                screenW: logicalWidth, screenH: logicalHeight)
+            let span = hypot(targetPoint.x - currentPoint.x, targetPoint.y - currentPoint.y)
+            // jitterRatio is peak deviation ÷ distance, so × span puts it
+            // back in points. A quadratic Bézier peaks at half its control
+            // offset, hence the doubling.
+            let stray = model.map { $0.jitterRatio * span * 2.0 } ?? 50.0
+            let bounded = min(max(stray, 4.0), 120.0)
+            let steps = model?.steps ?? 30
+            let cx = (currentPoint.x + targetPoint.x) / 2.0 + Double.random(in: -bounded...bounded)
+            let cy = (currentPoint.y + targetPoint.y) / 2.0 + Double.random(in: -bounded...bounded)
             for i in 1..<steps {
                 let t = Double(i) / Double(steps)
                 let inv = 1.0 - t

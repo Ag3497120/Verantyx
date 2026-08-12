@@ -312,6 +312,89 @@ actor EternalMemoryStore {
                          ts: sqlite3_column_double(stmt, 4))
     }
 
+    /// How many times a click at this neighbourhood has verifiably landed.
+    /// Past a threshold the caller may stop rehearsing the approach — the
+    /// route is established, and the human-like animation costs a second
+    /// of visible cursor motion on every single click.
+    func mouseSuccessCount(app: String, cell: String,
+                           screenW: Double, screenH: Double) -> Int {
+        try? ensureDB()
+        var stmt: OpaquePointer?
+        guard sqlite3_prepare_v2(db, """
+            SELECT COUNT(*) FROM mouse_trace
+            WHERE app = ? AND cell = ? AND screen_w = ? AND screen_h = ? AND ok = 1
+            """, -1, &stmt, nil) == SQLITE_OK else { return 0 }
+        defer { sqlite3_finalize(stmt) }
+        sqlite3_bind_text(stmt, 1, app, -1, Self.sqliteTransient)
+        sqlite3_bind_text(stmt, 2, cell, -1, Self.sqliteTransient)
+        sqlite3_bind_double(stmt, 3, screenW)
+        sqlite3_bind_double(stmt, 4, screenH)
+        guard sqlite3_step(stmt) == SQLITE_ROW else { return 0 }
+        return Int(sqlite3_column_int64(stmt, 0))
+    }
+
+    // MARK: - The uncertainty of a human hand, as data
+
+    /// How much a real pointer wanders on its way somewhere, measured
+    /// rather than invented.
+    ///
+    /// The path generator used `Double.random(in: -50...50)` for its
+    /// control point — a guess about human motion baked in as a constant.
+    /// Every trajectory this Mac has actually driven is stored, so the
+    /// same quantity can be measured: how far, in proportion to the
+    /// distance travelled, the pointer strayed from the straight line.
+    struct MotionModel: Sendable {
+        /// Peak perpendicular deviation ÷ straight-line distance.
+        let jitterRatio: Double
+        /// Waypoints a real trajectory used, averaged.
+        let steps: Int
+        /// Trajectories the numbers came from — below a handful, treat
+        /// the model as a hint rather than a measurement.
+        let samples: Int
+    }
+
+    func motionModel(screenW: Double, screenH: Double, limit: Int = 50) -> MotionModel? {
+        try? ensureDB()
+        var stmt: OpaquePointer?
+        guard sqlite3_prepare_v2(db, """
+            SELECT path FROM mouse_trace
+            WHERE screen_w = ? AND screen_h = ? AND ok = 1
+            ORDER BY ts DESC LIMIT ?
+            """, -1, &stmt, nil) == SQLITE_OK else { return nil }
+        defer { sqlite3_finalize(stmt) }
+        sqlite3_bind_double(stmt, 1, screenW)
+        sqlite3_bind_double(stmt, 2, screenH)
+        sqlite3_bind_int64(stmt, 3, Int64(limit))
+
+        var ratios: [Double] = []
+        var stepCounts: [Int] = []
+        while sqlite3_step(stmt) == SQLITE_ROW {
+            guard let raw = sqlite3_column_text(stmt, 0).map({ String(cString: $0) }) else { continue }
+            let pts: [(Double, Double)] = raw.split(separator: ";").compactMap {
+                let xy = $0.split(separator: ",")
+                guard xy.count == 2, let x = Double(xy[0]), let y = Double(xy[1]) else { return nil }
+                return (x, y)
+            }
+            guard pts.count >= 3, let first = pts.first, let last = pts.last else { continue }
+            let dx = last.0 - first.0, dy = last.1 - first.1
+            let span = (dx * dx + dy * dy).squareRoot()
+            guard span > 20 else { continue }   // a nudge has no shape to measure
+            // Perpendicular distance from the straight line, peak over the path.
+            var peak = 0.0
+            for p in pts.dropFirst().dropLast() {
+                let cross = abs(dx * (p.1 - first.1) - dy * (p.0 - first.0))
+                peak = max(peak, cross / span)
+            }
+            ratios.append(peak / span)
+            stepCounts.append(pts.count)
+        }
+        guard !ratios.isEmpty else { return nil }
+        return MotionModel(
+            jitterRatio: ratios.reduce(0, +) / Double(ratios.count),
+            steps: max(8, stepCounts.reduce(0, +) / stepCounts.count),
+            samples: ratios.count)
+    }
+
     /// Any calibration that worked on this display recently, regardless of
     /// where on screen it was measured — the fallback when the probe fails
     /// somewhere this app has never clicked before.
