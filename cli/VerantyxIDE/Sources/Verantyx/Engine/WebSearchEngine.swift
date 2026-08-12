@@ -214,9 +214,86 @@ actor WebSearchEngine {
         }
 
         let encodedQuery = cleanQuery.addingPercentEncoding(withAllowedCharacters: .urlQueryAllowed) ?? cleanQuery
-        let searchURL = engine.searchURL(for: encodedQuery)
 
+        // ── DuckDuckGo HTML first ────────────────────────────────────────
+        // The Safari→Google route fetches the SERP itself, and in this
+        // environment Google answers with a JS/consent shell — a real run
+        // searched twice, injected that shell, and the model honestly
+        // reported "no information obtained" while the same query in
+        // html.duckduckgo.com returned rich results. DDG's HTML endpoint
+        // needs no JS and no browser: one URLSession GET, parsed titles +
+        // snippets. Safari/Google remains the fallback, not the default.
+        if let ddg = await duckDuckGoHTMLSearch(query: cleanQuery, encoded: encodedQuery) {
+            return ddg
+        }
+
+        let searchURL = engine.searchURL(for: encodedQuery)
         return await browse(url: searchURL, preferredSource: preferredSource, originalQuery: cleanQuery, entropy: entropy, keyboardEntropy: keyboardEntropy, videoFrames: videoFrames)
+    }
+
+    /// One GET against html.duckduckgo.com, no JS, no browser. Returns nil
+    /// when the fetch fails or yields fewer than two substantive results —
+    /// the caller then falls back to the browser route.
+    private func duckDuckGoHTMLSearch(query: String, encoded: String) async -> WebSearchResult? {
+        guard let url = URL(string: "https://html.duckduckgo.com/html/?q=\(encoded)") else { return nil }
+        var req = URLRequest(url: url)
+        req.timeoutInterval = 12
+        req.setValue("Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) Version/17.0 Safari/605.1.15",
+                     forHTTPHeaderField: "User-Agent")
+        guard let (data, resp) = try? await URLSession.shared.data(for: req),
+              (resp as? HTTPURLResponse)?.statusCode == 200,
+              let html = String(data: data, encoding: .utf8) else { return nil }
+
+        func strip(_ s: String) -> String {
+            var t = s.replacingOccurrences(of: "<[^>]+>", with: "", options: .regularExpression)
+            for (ent, ch) in [("&amp;", "&"), ("&lt;", "<"), ("&gt;", ">"),
+                              ("&quot;", "\""), ("&#x27;", "'"), ("&nbsp;", " ")] {
+                t = t.replacingOccurrences(of: ent, with: ch)
+            }
+            return t.trimmingCharacters(in: .whitespacesAndNewlines)
+        }
+
+        // result__a carries the title (and the redirect href), result__snippet
+        // the summary — stable for years on the html endpoint.
+        let titleRe = try? NSRegularExpression(
+            pattern: #"<a[^>]*class="result__a"[^>]*href="([^"]*)"[^>]*>([\s\S]*?)</a>"#)
+        let snippetRe = try? NSRegularExpression(
+            pattern: #"class="result__snippet"[^>]*>([\s\S]*?)</a>"#)
+        let range = NSRange(html.startIndex..., in: html)
+        let titles = (titleRe?.matches(in: html, range: range) ?? []).compactMap { m -> (String, String)? in
+            guard let hr = Range(m.range(at: 1), in: html),
+                  let tr = Range(m.range(at: 2), in: html) else { return nil }
+            var href = String(html[hr])
+            // uddg redirect → the real URL is in the uddg= parameter.
+            if let r = href.range(of: "uddg="),
+               let decoded = String(href[r.upperBound...])
+                    .components(separatedBy: "&").first?
+                    .removingPercentEncoding {
+                href = decoded
+            }
+            return (strip(String(html[tr])), href)
+        }
+        let snippets = (snippetRe?.matches(in: html, range: range) ?? []).compactMap { m -> String? in
+            guard let sr = Range(m.range(at: 1), in: html) else { return nil }
+            return strip(String(html[sr]))
+        }
+
+        var lines: [String] = []
+        for (i, t) in titles.prefix(5).enumerated() where !t.0.isEmpty {
+            let snippet = i < snippets.count ? snippets[i] : ""
+            lines.append("[\(i + 1)] \(t.0)\n    \(t.1)\n    \(snippet)")
+        }
+        guard lines.count >= 2 else { return nil }
+
+        return WebSearchResult(
+            query: query,
+            url: "https://html.duckduckgo.com/html/?q=\(encoded)",
+            markdown: lines.joined(separator: "\n\n"),
+            source: .fetch,
+            truncated: false,
+            httpStatus: 200,
+            resultCount: lines.count
+        )
     }
 
     // MARK: - Main: browse URL
