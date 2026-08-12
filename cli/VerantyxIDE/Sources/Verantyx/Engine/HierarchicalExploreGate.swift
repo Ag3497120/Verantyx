@@ -65,10 +65,25 @@ enum HierarchicalExploreGate {
     nonisolated static func extractCandidates(from text: String, limit: Int = 12) -> [Candidate] {
         var found: [Candidate] = []
         var seenTitles = Set<String>()
+        var seenURLs = Set<String>()
 
         func push(title raw: String, axId: String?, url: String?, role: String, source: String) {
             let title = normalizeTitle(raw)
             guard isUsableTitle(title) else { return }
+            // The result page's own "Source: https://…search?q=…" line was
+            // being offered as candidate 1, and picking it re-opened the
+            // search instead of a result. A search URL is never a
+            // destination.
+            if let url, isSearchEngineURL(url) { return }
+            if title.lowercased().hasPrefix("source") && (url?.isEmpty == false) { return }
+            // Real listings repeat the same destination under different
+            // titles ("Official site" and the full site name both pointing
+            // at zenn.dev). One destination, one candidate.
+            if let url {
+                let key = normalizeURLKey(url)
+                guard !seenURLs.contains(key) else { return }
+                seenURLs.insert(key)
+            }
             let key = title.lowercased()
             guard !seenTitles.contains(key) else { return }
             seenTitles.insert(key)
@@ -173,6 +188,30 @@ enum HierarchicalExploreGate {
         }
     }
 
+    /// Search-result pages are how candidates are FOUND; they are never
+    /// one of the candidates.
+    nonisolated static func isSearchEngineURL(_ url: String) -> Bool {
+        let u = url.lowercased()
+        if u.contains("duckduckgo.com") { return true }
+        for engine in ["google.", "bing.com", "search.yahoo", "ecosia.org", "startpage.com"]
+        where u.contains(engine) && (u.contains("/search") || u.contains("?q=") || u.contains("&q=")) {
+            return true
+        }
+        return false
+    }
+
+    /// Scheme, "www." and a trailing slash are not differences in
+    /// destination.
+    nonisolated static func normalizeURLKey(_ url: String) -> String {
+        var u = url.lowercased()
+        for prefix in ["https://", "http://"] where u.hasPrefix(prefix) {
+            u = String(u.dropFirst(prefix.count))
+        }
+        if u.hasPrefix("www.") { u = String(u.dropFirst(4)) }
+        while u.hasSuffix("/") { u.removeLast() }
+        return u
+    }
+
     /// True when observation looks like a **list of destinations** worth asking about.
     nonisolated static func shouldAskUser(_ candidates: [Candidate]) -> Bool {
         guard isEnabled else { return false }
@@ -223,9 +262,24 @@ enum HierarchicalExploreGate {
     }
 
     /// Match user reply to a candidate (1-based number, ordinal JP, fuzzy title).
+    /// ０-９ → 0-9. A Japanese keyboard produces full-width digits by
+    /// default, `Int("１")` is nil, and every numeric branch below fell
+    /// through — "１番" re-showed the same list instead of selecting.
+    /// Only digits are folded: full-width katakana must survive for the
+    /// title matching further down.
+    nonisolated static func halfwidthDigits(_ s: String) -> String {
+        String(s.map { ch -> Character in
+            guard let scalar = ch.unicodeScalars.first,
+                  ch.unicodeScalars.count == 1,
+                  scalar.value >= 0xFF10, scalar.value <= 0xFF19,
+                  let ascii = UnicodeScalar(scalar.value - 0xFF10 + 48) else { return ch }
+            return Character(ascii)
+        })
+    }
+
     nonisolated static func matchChoice(_ message: String, in candidates: [Candidate], goalHint: String? = nil) -> Candidate? {
         guard !candidates.isEmpty else { return nil }
-        let t = message.trimmingCharacters(in: .whitespacesAndNewlines)
+        let t = halfwidthDigits(message.trimmingCharacters(in: .whitespacesAndNewlines))
         guard !t.isEmpty else { return nil }
 
         if isAutopilotChoice(t) {

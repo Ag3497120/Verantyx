@@ -523,10 +523,31 @@ actor WebSearchEngine {
                     truncated: ocr.count > 6000
                 )
             }
+            // AppleScript error 37:126 is not a transient failure and not
+            // the agent's fault: Safari refuses scripted DOM access until
+            // "Allow JavaScript from Apple Events" is enabled. A real run
+            // burned four turns rewriting URLs against this wall. Say what
+            // it is and how to clear it, once, in words the reader can act
+            // on — OCR above already salvages the page text meanwhile.
+            let raw = error.localizedDescription
+            let isJSBlocked = raw.contains("Allow JavaScript from Apple Events")
+                || raw.contains("JavaScript from Apple Events")
+                || raw.contains("37:126")
+            let message = isJSBlocked
+                ? AppLanguage.shared.t(
+                    "❌ \(browser.rawValue) blocks scripted page access. Enable it once: "
+                    + "\(browser.rawValue) → Settings → Advanced → \"Show features for web developers\", "
+                    + "then Develop → \"Allow JavaScript from Apple Events\". "
+                    + "Until then only screen OCR can read pages, and it misses anything off-screen.",
+                    "❌ \(browser.rawValue) がスクリプトからのページ取得を拒否しています。1度だけ有効化してください: "
+                    + "\(browser.rawValue) → 設定 → 詳細 →「Web デベロッパ用の機能を表示」をオン、"
+                    + "その後「開発」メニュー →「Apple Events からの JavaScript を許可」。"
+                    + "それまでは画面OCRでしか読めず、画面外の内容は取得できません。")
+                : "❌ \(browser.rawValue) error: \(raw)"
             return WebSearchResult(
                 query: query ?? url,
                 url: url,
-                markdown: "❌ \(browser.rawValue) error: \(error.localizedDescription)",
+                markdown: message,
                 source: browser == .safari ? .safari : .safari,
                 truncated: false
             )
@@ -545,10 +566,22 @@ actor WebSearchEngine {
         guard let infos = CGWindowListCopyWindowInfo(
                 [.optionOnScreenOnly, .excludeDesktopElements],
                 kCGNullWindowID) as? [[String: Any]] else { return nil }
-        guard let win = infos.first(where: {
+        // The LARGEST window, not the first: a real run OCR'd Safari's
+        // downloads popover and fed the agent "VerantyxIDE-…dmg" as the
+        // page text. Popovers, panels and toolbars all belong to the same
+        // app; only the document window is page-sized.
+        let candidates = infos.filter {
             ($0[kCGWindowOwnerName as String] as? String) == appName
                 && (($0[kCGWindowLayer as String] as? Int) ?? 1) == 0
-        }), let windowNumber = win[kCGWindowNumber as String] as? UInt32 else { return nil }
+        }
+        func area(_ info: [String: Any]) -> Double {
+            guard let b = info[kCGWindowBounds as String] as? [String: Any],
+                  let w = b["Width"] as? Double, let h = b["Height"] as? Double else { return 0 }
+            return w * h
+        }
+        guard let win = candidates.max(by: { area($0) < area($1) }),
+              area(win) > 200_000,   // ~500×400: smaller is not a page
+              let windowNumber = win[kCGWindowNumber as String] as? UInt32 else { return nil }
 
         guard let image = CGWindowListCreateImage(
                 .null, .optionIncludingWindow, CGWindowID(windowNumber),
