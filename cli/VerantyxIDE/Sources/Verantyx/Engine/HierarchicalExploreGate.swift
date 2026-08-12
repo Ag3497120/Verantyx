@@ -218,6 +218,31 @@ enum HierarchicalExploreGate {
         return u
     }
 
+    // MARK: - When there is nothing to ask
+    //
+    // The gate exists for one situation: a list of destinations appeared and
+    // picking the first one would be a guess. It is not a general "pause and
+    // confirm" — every time it fires on something else, it stops a run that
+    // was about to do the right thing, and the user sees a machine that does
+    // nothing.
+    //
+    // 「作成ボタンを押して投稿画面に遷移して」 named the target. Asking "which
+    // of these 2 would you like to open?" answers a question the user already
+    // answered, and the pointer never moves.
+
+    nonisolated private static let pressVerbs: [String] = [
+        "を押し", "をクリック", "をタップ", "ボタンを", "を選んで", "を選択",
+        "押して", "クリックして", "タップして",
+        "click", "press", "tap", "hit the", "push the"
+    ]
+
+    /// True when the goal already names what to act on, so there is no
+    /// destination ambiguity for the user to resolve.
+    nonisolated static func goalNamesTarget(_ goal: String) -> Bool {
+        let g = goal.lowercased()
+        return pressVerbs.contains { g.contains($0.lowercased()) }
+    }
+
     /// True when observation looks like a **list of destinations** worth asking about.
     nonisolated static func shouldAskUser(_ candidates: [Candidate]) -> Bool {
         guard isEnabled else { return false }

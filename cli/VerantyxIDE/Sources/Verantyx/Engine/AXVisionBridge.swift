@@ -162,14 +162,27 @@ class AXVisionBridge {
             }
             return nil
         }
-        
+
+        /// Read an attribute as text.
+        ///
+        /// `getAttribute` was being called with `T == Any`, and casting an
+        /// `Optional` to `Any` succeeds by boxing the optional itself — so
+        /// `String(describing:)` printed the wrapper. Every value in every
+        /// semantic map came out as `Optional(Create Post)`, and an empty
+        /// CFString came out as the literal `Optional()`, which reached the
+        /// user as a numbered candidate to choose from. Asking for `String`
+        /// directly is the whole fix; there is no describing to do.
+        func stringAttribute(_ element: AXUIElement, _ attribute: String) -> String {
+            guard let s: String = getAttribute(element, attribute) else { return "" }
+            return s
+        }
+
         func traverse(_ element: AXUIElement, depth: Int = 0) -> String {
             if depth > 15 { return "" } // Prevent infinite recursion
-            
+
             let role: String = getAttribute(element, kAXRoleAttribute) ?? "Unknown"
             let title: String = getAttribute(element, kAXTitleAttribute) ?? ""
-            let valueRaw: Any? = getAttribute(element, kAXValueAttribute)
-            let value = String(describing: valueRaw ?? "")
+            let value = stringAttribute(element, kAXValueAttribute)
             let isEnabled: Bool = getAttribute(element, kAXEnabledAttribute) ?? false
             
             var xml = ""
@@ -198,7 +211,7 @@ class AXVisionBridge {
             if let id = actionableID {
                 elementCache[id] = element
                 let titleAttr = title.isEmpty ? "" : " title=\"\(title.replacingOccurrences(of: "\"", with: "'"))\""
-                let valAttr = (valueRaw == nil || value.isEmpty) ? "" : " value=\"\(value.replacingOccurrences(of: "\"", with: "'").prefix(30))\""
+                let valAttr = value.isEmpty ? "" : " value=\"\(value.replacingOccurrences(of: "\"", with: "'").prefix(30))\""
                 let stateAttr = !isEnabled ? " disabled=\"true\"" : ""
                 xml += "\(indent)<\(role.replacingOccurrences(of: "AX", with: "").lowercased()) id=\"\(id)\"\(titleAttr)\(valAttr)\(stateAttr) />\n"
             }

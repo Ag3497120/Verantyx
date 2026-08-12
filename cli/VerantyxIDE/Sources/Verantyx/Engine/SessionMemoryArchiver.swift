@@ -20,6 +20,14 @@ final class SessionMemoryArchiver {
 
     static let shared = SessionMemoryArchiver()
 
+    /// Whether the L1–L3 zone layers inject into prompts. Off by default:
+    /// vera-a is the memory system, and running both meant two stores writing
+    /// past context into the same turn with no rule for which one is right.
+    /// Archiving continues regardless — this gates injection only.
+    static var zoneLayersEnabled: Bool {
+        UserDefaults.standard.object(forKey: "zone_layer_memory_enabled") as? Bool ?? false
+    }
+
     // Legacy archive dir (backward compat)
     private let archiveDir: URL = {
         let appSupport = FileManager.default.urls(
@@ -497,6 +505,14 @@ final class SessionMemoryArchiver {
     ///   mid:   1500 chars (L2)
     ///   large/giant: 3000 chars (L3)
     func buildZonePriorityInjection(layer: JCrossLayer, useNanoStore: Bool = false) -> String {
+        // The L1–L3 zone layers predate vera-a and now duplicate it: both
+        // inject past context at the top of a turn, from different stores,
+        // with no agreement about which wins. Two memories disagreeing in the
+        // same prompt is worse than one, so the zone layers are off by default
+        // and vera-a is the memory. Everything still archives — this only
+        // stops the injection, so turning it back on loses nothing.
+        guard Self.zoneLayersEnabled else { return "" }
+
         // ── Tier budget ────────────────────────────────────────────────────
         let totalBudget: Int
         let itemCap: Int

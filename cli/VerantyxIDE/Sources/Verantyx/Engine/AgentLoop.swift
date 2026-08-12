@@ -1663,12 +1663,21 @@ SYS.ENFORCE("logical_verification_before_acceptance")
                     switch tool {
                     case .search, .searchMulti, .desktopSnapshot, .visionSearchFlow:
                         isListTool = true
+                    case .useApp:
+                        // Attaching to the app the user pointed at is not a
+                        // menu of places to go — it is the place. Its control
+                        // map carries #link ids, and the generic check below
+                        // read those as a destination list: the run paused to
+                        // ask which link to open when the user had asked for a
+                        // button to be pressed, and the pointer never moved.
+                        isListTool = false
                     default:
                         isListTool = result.uppercased().contains("SEARCH RESULTS")
                             || result.contains("#link")
                             || result.localizedCaseInsensitiveContains("SEMANTIC UI MAP")
                     }
-                    if isListTool {
+                    // A goal that names its target has no ambiguity to resolve.
+                    if isListTool, !HierarchicalExploreGate.goalNamesTarget(instruction) {
                         if let candidates = ActDNA.shouldPauseForCandidates(observation: result) {
                             pendingExplore = HierarchicalExploreGate.PendingState(
                                 candidates: candidates,

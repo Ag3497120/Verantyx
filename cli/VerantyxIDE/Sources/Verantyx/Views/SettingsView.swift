@@ -1522,6 +1522,22 @@ struct SettingsView: View {
                             .font(.system(size: 11, weight: .semibold))
                             .foregroundStyle(Color(red: 1.0, green: 0.65, blue: 0.2))
                     }
+
+                    Divider().opacity(0.2)
+
+                    Toggle(isOn: Binding(
+                        get: { UserDefaults.standard.object(forKey: "zone_layer_memory_enabled") as? Bool ?? false },
+                        set: { UserDefaults.standard.set($0, forKey: "zone_layer_memory_enabled") }
+                    )) {
+                        VStack(alignment: .leading, spacing: 2) {
+                            Text("Also inject L1–L3 zone memory")
+                                .font(.system(size: 12))
+                            Text("Off by default. Vera-α is the memory; running both put two stores' past context in the same prompt with no rule for which wins. Archiving continues either way.")
+                                .font(.system(size: 10)).foregroundStyle(.secondary).lineSpacing(1)
+                        }
+                    }
+                    .toggleStyle(.switch)
+                    .controlSize(.small)
                 }
             }
 
