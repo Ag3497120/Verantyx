@@ -281,6 +281,11 @@ struct VerantyxApp: App {
                     // the point of it — but it needs the state to exist first.
                     MenuBarController.shared.install(appState: appState)
 
+                    // The screen-rim glow is a set of overlay windows above
+                    // every app, so like the menu bar it belongs to the
+                    // application rather than to this window.
+                    ScreenEdgeGlowController.shared.start()
+
                     // ── 永続化設定を最初に復元（モデル/ワークスペース/APIキー等） ──
                     appState.loadPersistedSettings()
 
