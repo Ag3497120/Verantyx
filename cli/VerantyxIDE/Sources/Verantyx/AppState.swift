@@ -1290,6 +1290,36 @@ final class AppState: ObservableObject {
         return lines.joined(separator: "\n")
     }
 
+    /// Vera-side search planning: when a short info-seeking question
+    /// ("Xとは", "Xについて", "what is X") finds no verified answer, VERA
+    /// decides the target and the queries — deterministically, from the
+    /// question's structure — and the web runs BEFORE the model ever
+    /// thinks. The model reads evidence; it no longer has to remember to
+    /// search, and it cannot leak a decision JSON into a query.
+    nonisolated static func searchTarget(from text: String) -> String? {
+        let t = text.trimmingCharacters(in: .whitespacesAndNewlines)
+        guard t.count <= 60 else { return nil }
+        let patterns: [(suffixes: [String], prefixes: [String])] = [(
+            ["とは", "とは?", "とは？", "って何", "って何?", "って何？",
+             "について教えて", "について", "を教えて"],
+            ["what is ", "what's ", "who is ", "tell me about "]
+        )]
+        for p in patterns {
+            for s in p.suffixes where t.hasSuffix(s) {
+                let target = String(t.dropLast(s.count))
+                    .trimmingCharacters(in: .whitespacesAndNewlines)
+                if !target.isEmpty, target.count <= 40 { return target }
+            }
+            let lower = t.lowercased()
+            for pre in p.prefixes where lower.hasPrefix(pre) {
+                let target = String(t.dropFirst(pre.count))
+                    .trimmingCharacters(in: CharacterSet(charactersIn: " ?？"))
+                if !target.isEmpty, target.count <= 40 { return target }
+            }
+        }
+        return nil
+    }
+
     func sendMessage(with overrideText: String? = nil, forceBypassGatekeeper: Bool = false, isSpotlight: Bool = false) {
         let text = (overrideText ?? inputText).trimmingCharacters(in: .whitespacesAndNewlines)
         let hasAttachments = !attachedImages.isEmpty || !attachedFiles.isEmpty
@@ -1348,13 +1378,33 @@ final class AppState: ObservableObject {
                 }
                 let hasVerifiedAnswer = verdict == "ANSWER"
 
+                // Vera plans the search, not the model: an info-seeking
+                // question with no verified answer gets its target and
+                // query candidates derived structurally, and the fetch
+                // happens HERE — evidence arrives before the model thinks.
+                var webEvidence = ""
+                var webQueryUsed = ""
+                if !hasVerifiedAnswer, let target = Self.searchTarget(from: text) {
+                    for q in [target, "\(target) GitHub", "\(target) official"].prefix(2) {
+                        let r = await WebSearchEngine.shared.search(query: q)
+                        let snippet = r.contextSnippet.trimmingCharacters(in: .whitespacesAndNewlines)
+                        if !snippet.isEmpty {
+                            webQueryUsed = q
+                            webEvidence = "[WEB EVIDENCE — query chosen by Vera: \(q)]\n"
+                                + "Source: \(r.url)\n\(String(snippet.prefix(1800)))\n[END WEB EVIDENCE]"
+                            break
+                        }
+                    }
+                }
+
                 // The parallel drive, visible but faint: one think-styled
                 // status line, not a wall of verdict text.
                 let recallHits = recall.components(separatedBy: "🧠").count - 1
+                let webNote = webQueryUsed.isEmpty ? "" : " · web \"\(webQueryUsed)\""
                 await MainActor.run {
                     self.addSystemMessage(self.t(
-                        "<think>\n🧿 Vera-a parallel: verdict \(verdict.isEmpty ? "-" : verdict) · recall \(max(recallHits, 0)) hit(s) → injected; learning runs after the reply\n</think>",
-                        "<think>\n🧿 Vera-a並行駆動: 判定 \(verdict.isEmpty ? "-" : verdict)・想起 \(max(recallHits, 0))件を注入 → 応答後に学習ループ\n</think>"))
+                        "<think>\n🧿 Vera-a parallel: verdict \(verdict.isEmpty ? "-" : verdict) · recall \(max(recallHits, 0)) hit(s)\(webNote) → injected; learning runs after the reply\n</think>",
+                        "<think>\n🧿 Vera-a並行駆動: 判定 \(verdict.isEmpty ? "-" : verdict)・想起 \(max(recallHits, 0))件\(webNote) → 注入済み・応答後に学習ループ\n</think>"))
                 }
 
                 // This is NOT a Q&A shortcut: the FULL agent loop runs —
@@ -1368,6 +1418,7 @@ final class AppState: ObservableObject {
                     bg.append("[VERIFIED MEMORY — deterministic, citable]\n\(String(raw.prefix(1200)))")
                 }
                 if !recall.isEmpty { bg.append(recall) }
+                if !webEvidence.isEmpty { bg.append(webEvidence) }
                 let instruction = bg.isEmpty
                     ? text
                     : bg.joined(separator: "\n\n") + "\n\n[TASK]\n" + text
