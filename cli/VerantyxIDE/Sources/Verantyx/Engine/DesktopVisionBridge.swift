@@ -5,6 +5,27 @@ import AppKit
 class DesktopVisionBridge {
     static let shared = DesktopVisionBridge()
 
+    /// The semantic name of whatever sits under a screen point, via
+    /// accessibility. A click record that says only "(512, 300)" cannot
+    /// be reasoned about later; one that says "Send button" can.
+    /// Returns "" when AX is unavailable or the element is anonymous.
+    static func elementLabel(atScreenX x: Double, atScreenY y: Double) -> String {
+        let system = AXUIElementCreateSystemWide()
+        var element: AXUIElement?
+        guard AXUIElementCopyElementAtPosition(system, Float(x), Float(y), &element) == .success,
+              let element else { return "" }
+        for attribute in [kAXTitleAttribute, kAXDescriptionAttribute, kAXValueAttribute,
+                          kAXRoleDescriptionAttribute] {
+            var value: CFTypeRef?
+            if AXUIElementCopyAttributeValue(element, attribute as CFString, &value) == .success,
+               let text = value as? String,
+               !text.trimmingCharacters(in: .whitespacesAndNewlines).isEmpty {
+                return String(text.prefix(120))
+            }
+        }
+        return ""
+    }
+
     /// Landings at the same neighbourhood before the *calibration probe*
     /// is skipped. The probe is a 50pt hop and back that teaches the
     /// multimodal loop nothing; once a calibration is established here it
@@ -346,7 +367,8 @@ class DesktopVisionBridge {
             reqX: x, reqY: y,
             reachedX: reached.x, reachedY: reached.y,
             calibX: calibScaleX, calibY: calibScaleY,
-            path: traceString, ok: landed)
+            path: traceString, ok: landed,
+            episodeId: await MainActor.run { AppState.shared?.currentEpisodeId ?? "" })
         if !landed {
             await MainActor.run {
                 AppState.shared?.addSystemMessage(AppLanguage.shared.t(

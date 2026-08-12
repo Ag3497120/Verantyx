@@ -1207,6 +1207,22 @@ SYS.ENFORCE("logical_verification_before_acceptance")
             // (non-UI-automation) turns, so nothing extra gets written then.
             var uiAutomationLog: [String] = []
 
+            // The act about to run needs to know what it is for and why it
+            // was picked — neither survives inside the tool call itself.
+            // Recorded here, joined into one episode where the act happens.
+            let actGoal = { () -> String in
+                var g = instruction
+                if let r = g.range(of: "[TASK]\n", options: .backwards) {
+                    g = String(g[r.upperBound...])
+                }
+                return String(g.prefix(300)).trimmingCharacters(in: .whitespacesAndNewlines)
+            }()
+            let actRationale = cleanText.trimmingCharacters(in: .whitespacesAndNewlines)
+            await MainActor.run {
+                AppState.shared?.currentActGoal = actGoal
+                AppState.shared?.currentActRationale = String(actRationale.prefix(600))
+            }
+
             for rawTool in tools {
                 // SearchGate's decision JSON sometimes leaks into
                 // [SEARCH: …] verbatim ({"needs":true,"type":"web",

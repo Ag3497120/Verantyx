@@ -1,5 +1,6 @@
 import Foundation
 import SwiftUI
+import CryptoKit
 #if canImport(AppKit)
 import AppKit
 #endif
@@ -1980,12 +1981,25 @@ actor AgentToolExecutor {
                     return "[DESKTOP ERROR] DESKTOP_BLOCKED: You have clicked near these coordinates multiple times without the screen visually changing. DO NOT click here again. Try a different tool (scroll, type, or a different location) or ask the human."
                 }
 
+                // One episode per act: minted before the pointer moves so
+                // the trajectory records under it, closed after the result
+                // screen is known. See EternalMemoryStore.recordActEpisode.
+                let episodeId = UUID().uuidString
+                await MainActor.run { AppState.shared?.currentEpisodeId = episodeId }
+                var episodeTarget = ""
+
                 if cmd == "click" && parts.count >= 3 {
                     let x = Double(parts[1]) ?? 0.0
                     let y = Double(parts[2]) ?? 0.0
                     if hiddenActive {
                         await HiddenWindowAutomation.shared.clickInWindow(relativeX: x, relativeY: y)
                     } else {
+                        // Name the thing under the point BEFORE clicking:
+                        // afterwards the element may be gone or replaced.
+                        let display = CGMainDisplayID()
+                        let sx = x <= 1000 ? (x / 1000.0) * Double(CGDisplayPixelsWide(display)) : x
+                        let sy = y <= 1000 ? (y / 1000.0) * Double(CGDisplayPixelsHigh(display)) : y
+                        episodeTarget = DesktopVisionBridge.elementLabel(atScreenX: sx, atScreenY: sy)
                         try await SafariVisionBridge.shared.hidClick(x: x, y: y, enforceSafari: false)
                     }
                 } else if cmd == "type" && parts.count >= 2 {
@@ -2059,8 +2073,10 @@ actor AgentToolExecutor {
                 // single-point target to loop-detect against.
                 var noVisualChange = false
                 var changedRegion: CGRect? = nil
+                var visualDistance: Double = -1
                 if cmd == "click", let before = frameBeforeAction, let frame {
                     let distance = SafariVisionBridge.shared.computeVisualSimilarity(base64A: before, base64B: frame)
+                    visualDistance = Double(distance)
                     if distance < 10.0 {
                         noVisualChange = true
                         consecutiveDesktopClickLoopCount += 1
@@ -2081,14 +2097,53 @@ actor AgentToolExecutor {
                     }
                 }
 
+                // ── Close the episode ────────────────────────────────
+                // Goal, reason, action, target, both screens and the
+                // outcome land as ONE row. The frames themselves are not
+                // stored — a digest identifies a screen state without
+                // keeping megabytes per click, and the visual distance
+                // already measured says how much it moved.
+                let (ctxGoal, ctxWhy, ctxSession) = await MainActor.run {
+                    (AppState.shared?.currentActGoal ?? "",
+                     AppState.shared?.currentActRationale ?? "",
+                     AppState.shared?.vxChatSessionId ?? "")
+                }
+                let actApp = await MainActor.run {
+                    NSWorkspace.shared.frontmostApplication?.localizedName ?? "unknown"
+                }
+                func digest(_ b64: String?) -> String {
+                    guard let b64, !b64.isEmpty else { return "" }
+                    return String(SHA256.hash(data: Data(b64.utf8))
+                        .compactMap { String(format: "%02x", $0) }.joined().prefix(16))
+                }
+                await EternalMemoryStore.shared.recordActEpisode(
+                    episodeId: episodeId, sessionId: ctxSession, app: actApp,
+                    goal: ctxGoal, rationale: ctxWhy, action: action,
+                    targetLabel: episodeTarget,
+                    screenBefore: digest(frameBeforeAction), screenAfter: digest(frame),
+                    visualDistance: visualDistance, changed: !noVisualChange,
+                    ok: !noVisualChange, note: captureDeniedNote)
+
                 if cmd == "click" {
                     let changeNote = noVisualChange
                         ? "NO VISUAL CHANGE was detected (NO_VISUAL_CHANGE) -- you probably missed the target. Try a different location, or scroll first."
                         : "🔴 A red circle shows where your mouse clicked."
+                    // What this same screen state did to earlier acts. This
+                    // is the join earning its keep: not "here is what you
+                    // did" but "here is what choosing that did last time",
+                    // which is the only form of this record a next decision
+                    // can use.
+                    let priorActs = await EternalMemoryStore.shared.actEpisodeRecall(
+                        app: actApp, screenBefore: digest(frameBeforeAction))
+                    let priorNote = priorActs.isEmpty ? "" : """
+
+                    == THIS SCREEN, EARLIER ==
+                    \(priorActs.map { "• " + $0 }.joined(separator: "\n"))
+                    """
                     let resultText = """
                     [DESKTOP_ACT: \(action)]
                     Action performed. New screenshot injected\(hiddenActive ? " (Act target window)" : "").\(captureDeniedNote)
-                    \(changeNote)
+                    \(changeNote)\(priorNote)
                     """
                     if !noVisualChange, await JCrossChatManager.shared.isLoaded {
                         let sessionId = await MainActor.run { AppState.shared?.vxChatSessionId }

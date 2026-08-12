@@ -204,6 +204,35 @@ actor EternalMemoryStore {
         // 'agent' by default; 'human' marks a demonstration the person
         // actually drove, which is the ground truth the motion model wants.
         exec("ALTER TABLE mouse_trace ADD COLUMN source TEXT NOT NULL DEFAULT 'agent'")
+        // The join key. Without it a trajectory records how the pointer
+        // moved and nothing about why.
+        exec("ALTER TABLE mouse_trace ADD COLUMN episode_id TEXT")
+
+        // ── One act, whole ────────────────────────────────────────────
+        // Each of these already existed somewhere: the goal in ActDNA's
+        // directive, the action in the tool call, the outcome in the
+        // honesty verdict, the screens in frames that were captured and
+        // then dropped. Separately they are logs. Joined by episode_id
+        // they answer the question logs cannot: why was this action
+        // chosen, against what screen, and what did it actually do.
+        exec("""
+        CREATE TABLE IF NOT EXISTS act_episode (
+          episode_id TEXT PRIMARY KEY,
+          ts REAL NOT NULL,
+          session_id TEXT NOT NULL DEFAULT '',
+          app TEXT NOT NULL DEFAULT '',
+          goal TEXT NOT NULL DEFAULT '',
+          rationale TEXT NOT NULL DEFAULT '',
+          action TEXT NOT NULL DEFAULT '',
+          target_label TEXT NOT NULL DEFAULT '',
+          screen_before TEXT NOT NULL DEFAULT '',
+          screen_after TEXT NOT NULL DEFAULT '',
+          visual_distance REAL NOT NULL DEFAULT -1,
+          changed INTEGER NOT NULL DEFAULT 0,
+          ok INTEGER NOT NULL DEFAULT 0,
+          note TEXT NOT NULL DEFAULT ''
+        )
+        """)
         // Vera-planned web searches and what they fetched: the raw
         // material for query analysis. Reused directly (same question →
         // last successful query) and mirrored into supervision_pairs so
@@ -265,14 +294,15 @@ actor EternalMemoryStore {
                           reachedX: Double, reachedY: Double,
                           calibX: Double, calibY: Double,
                           path: String, ok: Bool,
-                          source: String = "agent") {
+                          source: String = "agent",
+                          episodeId: String = "") {
         try? ensureDB()
         var stmt: OpaquePointer?
         guard sqlite3_prepare_v2(db, """
             INSERT INTO mouse_trace
               (ts, app, cell, screen_w, screen_h, req_x, req_y,
-               reached_x, reached_y, calib_x, calib_y, path, ok, source)
-            VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?)
+               reached_x, reached_y, calib_x, calib_y, path, ok, source, episode_id)
+            VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)
             """, -1, &stmt, nil) == SQLITE_OK else { return }
         defer { sqlite3_finalize(stmt) }
         sqlite3_bind_double(stmt, 1, Date().timeIntervalSince1970)
@@ -289,7 +319,74 @@ actor EternalMemoryStore {
         sqlite3_bind_text(stmt, 12, String(path.prefix(2000)), -1, Self.sqliteTransient)
         sqlite3_bind_int64(stmt, 13, ok ? 1 : 0)
         sqlite3_bind_text(stmt, 14, source, -1, Self.sqliteTransient)
+        sqlite3_bind_text(stmt, 15, episodeId, -1, Self.sqliteTransient)
         sqlite3_step(stmt)
+    }
+
+    // MARK: - Act episodes (the join)
+
+    /// One complete act: why it was chosen, what it did, what changed.
+    func recordActEpisode(episodeId: String, sessionId: String, app: String,
+                          goal: String, rationale: String, action: String,
+                          targetLabel: String,
+                          screenBefore: String, screenAfter: String,
+                          visualDistance: Double, changed: Bool, ok: Bool,
+                          note: String) {
+        try? ensureDB()
+        var stmt: OpaquePointer?
+        guard sqlite3_prepare_v2(db, """
+            INSERT OR REPLACE INTO act_episode
+              (episode_id, ts, session_id, app, goal, rationale, action,
+               target_label, screen_before, screen_after, visual_distance,
+               changed, ok, note)
+            VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?)
+            """, -1, &stmt, nil) == SQLITE_OK else { return }
+        defer { sqlite3_finalize(stmt) }
+        sqlite3_bind_text(stmt, 1, episodeId, -1, Self.sqliteTransient)
+        sqlite3_bind_double(stmt, 2, Date().timeIntervalSince1970)
+        sqlite3_bind_text(stmt, 3, sessionId, -1, Self.sqliteTransient)
+        sqlite3_bind_text(stmt, 4, app, -1, Self.sqliteTransient)
+        sqlite3_bind_text(stmt, 5, String(goal.prefix(300)), -1, Self.sqliteTransient)
+        sqlite3_bind_text(stmt, 6, String(rationale.prefix(600)), -1, Self.sqliteTransient)
+        sqlite3_bind_text(stmt, 7, String(action.prefix(200)), -1, Self.sqliteTransient)
+        sqlite3_bind_text(stmt, 8, String(targetLabel.prefix(200)), -1, Self.sqliteTransient)
+        sqlite3_bind_text(stmt, 9, screenBefore, -1, Self.sqliteTransient)
+        sqlite3_bind_text(stmt, 10, screenAfter, -1, Self.sqliteTransient)
+        sqlite3_bind_double(stmt, 11, visualDistance)
+        sqlite3_bind_int64(stmt, 12, changed ? 1 : 0)
+        sqlite3_bind_int64(stmt, 13, ok ? 1 : 0)
+        sqlite3_bind_text(stmt, 14, String(note.prefix(300)), -1, Self.sqliteTransient)
+        sqlite3_step(stmt)
+    }
+
+    /// What happened last time this app was in this screen state and an
+    /// act like this was tried — the question a log cannot answer.
+    /// Returns compact lines for injection, newest first.
+    func actEpisodeRecall(app: String, screenBefore: String, limit: Int = 3) -> [String] {
+        try? ensureDB()
+        var stmt: OpaquePointer?
+        guard sqlite3_prepare_v2(db, """
+            SELECT action, target_label, changed, ok, rationale FROM act_episode
+            WHERE app = ? AND screen_before = ?
+            ORDER BY ts DESC LIMIT ?
+            """, -1, &stmt, nil) == SQLITE_OK else { return [] }
+        defer { sqlite3_finalize(stmt) }
+        sqlite3_bind_text(stmt, 1, app, -1, Self.sqliteTransient)
+        sqlite3_bind_text(stmt, 2, screenBefore, -1, Self.sqliteTransient)
+        sqlite3_bind_int64(stmt, 3, Int64(limit))
+        var out: [String] = []
+        while sqlite3_step(stmt) == SQLITE_ROW {
+            let action = sqlite3_column_text(stmt, 0).map { String(cString: $0) } ?? ""
+            let target = sqlite3_column_text(stmt, 1).map { String(cString: $0) } ?? ""
+            let changed = sqlite3_column_int64(stmt, 2) != 0
+            let ok = sqlite3_column_int64(stmt, 3) != 0
+            let why = sqlite3_column_text(stmt, 4).map { String(cString: $0) } ?? ""
+            out.append("\(action)\(target.isEmpty ? "" : " → \(target)"): "
+                + (changed ? "screen changed" : "NO CHANGE")
+                + (ok ? "" : " (failed)")
+                + (why.isEmpty ? "" : " — chosen because: \(String(why.prefix(120)))"))
+        }
+        return out
     }
 
     /// A trajectory the PERSON drove — the ground truth the agent's motion

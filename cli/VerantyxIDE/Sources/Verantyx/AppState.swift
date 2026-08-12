@@ -99,6 +99,17 @@ final class AppState: ObservableObject {
     /// showStereoCrossGraph, etc.) are untouched either way.
     @Published var isVeraAMode: Bool = false
 
+    // ── Act episode context ─────────────────────────────────────────────
+    // The three things an action record needs that the action itself does
+    // not carry: what the run is for, why the model picked this step, and
+    // which episode the pointer trajectory belongs to. Set by AgentLoop
+    // before tools run and read where the act is executed — see
+    // EternalMemoryStore.recordActEpisode for why they are stored joined
+    // rather than in three separate logs.
+    @Published var currentActGoal: String = ""
+    @Published var currentActRationale: String = ""
+    @Published var currentEpisodeId: String = ""
+
     /// A non-chat surface shown FULL-WINDOW, the same way Vera-a mode
     /// takes over the layout — picked from the Gatekeeper chip's menu.
     /// nil = normal layout. See HumanPriorityModeView.fullSurfaceLayout.
