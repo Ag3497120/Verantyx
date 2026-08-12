@@ -213,6 +213,121 @@ actor EternalMemoryStore {
           url TEXT NOT NULL
         )
         """)
+        // Mouse trajectories the Act limbs actually drove. Synthetic
+        // cursor motion is the least reliable thing this app does — the
+        // calibration probe can measure nothing and silently fall back to
+        // a scale of 1.0, which puts the click somewhere else entirely.
+        // A trajectory that verifiably REACHED its target is therefore
+        // worth remembering: next time the probe fails, the remembered
+        // calibration replaces the blind guess.
+        exec("""
+        CREATE TABLE IF NOT EXISTS mouse_trace (
+          ts REAL NOT NULL,
+          app TEXT NOT NULL,
+          cell TEXT NOT NULL,
+          screen_w REAL NOT NULL,
+          screen_h REAL NOT NULL,
+          req_x REAL NOT NULL, req_y REAL NOT NULL,
+          reached_x REAL NOT NULL, reached_y REAL NOT NULL,
+          calib_x REAL NOT NULL, calib_y REAL NOT NULL,
+          path TEXT NOT NULL,
+          ok INTEGER NOT NULL
+        )
+        """)
+    }
+
+    /// Opens the database without loading the node index or the vector
+    /// cache — for callers that only touch a side table (query log, mouse
+    /// traces) and must not pay a 600 MB cache load to write one row.
+    private func ensureDB() throws {
+        guard db == nil else { return }
+        try FileManager.default.createDirectory(at: directory, withIntermediateDirectories: true)
+        try openDB()
+    }
+
+    // MARK: - Mouse traces (Act limb hints)
+
+    /// A trajectory that worked, offered back as a starting point.
+    struct MouseHint: Sendable {
+        let reachedX: Double
+        let reachedY: Double
+        let calibX: Double
+        let calibY: Double
+        let ts: Double
+    }
+
+    func recordMouseTrace(app: String, cell: String,
+                          screenW: Double, screenH: Double,
+                          reqX: Double, reqY: Double,
+                          reachedX: Double, reachedY: Double,
+                          calibX: Double, calibY: Double,
+                          path: String, ok: Bool) {
+        try? ensureDB()
+        var stmt: OpaquePointer?
+        guard sqlite3_prepare_v2(db, """
+            INSERT INTO mouse_trace
+              (ts, app, cell, screen_w, screen_h, req_x, req_y,
+               reached_x, reached_y, calib_x, calib_y, path, ok)
+            VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?)
+            """, -1, &stmt, nil) == SQLITE_OK else { return }
+        defer { sqlite3_finalize(stmt) }
+        sqlite3_bind_double(stmt, 1, Date().timeIntervalSince1970)
+        sqlite3_bind_text(stmt, 2, app, -1, Self.sqliteTransient)
+        sqlite3_bind_text(stmt, 3, cell, -1, Self.sqliteTransient)
+        sqlite3_bind_double(stmt, 4, screenW)
+        sqlite3_bind_double(stmt, 5, screenH)
+        sqlite3_bind_double(stmt, 6, reqX)
+        sqlite3_bind_double(stmt, 7, reqY)
+        sqlite3_bind_double(stmt, 8, reachedX)
+        sqlite3_bind_double(stmt, 9, reachedY)
+        sqlite3_bind_double(stmt, 10, calibX)
+        sqlite3_bind_double(stmt, 11, calibY)
+        sqlite3_bind_text(stmt, 12, String(path.prefix(2000)), -1, Self.sqliteTransient)
+        sqlite3_bind_int64(stmt, 13, ok ? 1 : 0)
+        sqlite3_step(stmt)
+    }
+
+    /// The most recent trajectory that reached its target for this app,
+    /// screen and neighbourhood. Screen size is part of the key because a
+    /// calibration measured on one display means nothing on another.
+    func mouseHint(app: String, cell: String,
+                   screenW: Double, screenH: Double) -> MouseHint? {
+        try? ensureDB()
+        var stmt: OpaquePointer?
+        guard sqlite3_prepare_v2(db, """
+            SELECT reached_x, reached_y, calib_x, calib_y, ts FROM mouse_trace
+            WHERE app = ? AND cell = ? AND screen_w = ? AND screen_h = ? AND ok = 1
+            ORDER BY ts DESC LIMIT 1
+            """, -1, &stmt, nil) == SQLITE_OK else { return nil }
+        defer { sqlite3_finalize(stmt) }
+        sqlite3_bind_text(stmt, 1, app, -1, Self.sqliteTransient)
+        sqlite3_bind_text(stmt, 2, cell, -1, Self.sqliteTransient)
+        sqlite3_bind_double(stmt, 3, screenW)
+        sqlite3_bind_double(stmt, 4, screenH)
+        guard sqlite3_step(stmt) == SQLITE_ROW else { return nil }
+        return MouseHint(reachedX: sqlite3_column_double(stmt, 0),
+                         reachedY: sqlite3_column_double(stmt, 1),
+                         calibX: sqlite3_column_double(stmt, 2),
+                         calibY: sqlite3_column_double(stmt, 3),
+                         ts: sqlite3_column_double(stmt, 4))
+    }
+
+    /// Any calibration that worked on this display recently, regardless of
+    /// where on screen it was measured — the fallback when the probe fails
+    /// somewhere this app has never clicked before.
+    func lastGoodCalibration(screenW: Double, screenH: Double) -> (x: Double, y: Double)? {
+        try? ensureDB()
+        var stmt: OpaquePointer?
+        guard sqlite3_prepare_v2(db, """
+            SELECT calib_x, calib_y FROM mouse_trace
+            WHERE screen_w = ? AND screen_h = ? AND ok = 1
+            ORDER BY ts DESC LIMIT 1
+            """, -1, &stmt, nil) == SQLITE_OK else { return nil }
+        defer { sqlite3_finalize(stmt) }
+        sqlite3_bind_double(stmt, 1, screenW)
+        sqlite3_bind_double(stmt, 2, screenH)
+        guard sqlite3_step(stmt) == SQLITE_ROW else { return nil }
+        return (sqlite3_column_double(stmt, 0), sqlite3_column_double(stmt, 1))
     }
 
     /// One planned search that produced substantive evidence.
@@ -418,8 +533,7 @@ actor EternalMemoryStore {
 
     private func ensureLoaded() throws {
         guard !loaded else { return }
-        try FileManager.default.createDirectory(at: directory, withIntermediateDirectories: true)
-        try openDB()
+        try ensureDB()
         migrateLegacyJSONLIfNeeded()
         loadNodesFromDB()
         loadVectorCache()

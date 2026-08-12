@@ -287,10 +287,16 @@ actor WebSearchEngine {
         }
         guard lines.count >= 2 else { return nil }
 
+        // These are result LISTINGS, not page content. Saying so keeps the
+        // agent in the loop it is supposed to run — open a result, read it,
+        // follow what it finds — instead of answering from snippets and
+        // treating the question as researched.
+        let guidance = "\n\n[NOTE] Search results only: titles and snippets, not page content. "
+            + "Before stating anything specific, open one of the URLs above with [BROWSE: url] and read it."
         return WebSearchResult(
             query: query,
             url: "https://html.duckduckgo.com/html/?q=\(encoded)",
-            markdown: lines.joined(separator: "\n\n"),
+            markdown: lines.joined(separator: "\n\n") + guidance,
             source: .fetch,
             truncated: false,
             httpStatus: 200,

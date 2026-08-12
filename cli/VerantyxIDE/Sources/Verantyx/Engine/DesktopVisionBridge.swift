@@ -150,12 +150,41 @@ class DesktopVisionBridge {
         let actualDx = actualPoint.x - currentPoint.x
         let actualDy = actualPoint.y - currentPoint.y
         
-        var calibScaleX: Double = 1.0
-        var calibScaleY: Double = 1.0
-        
+        // ── Calibration, with vera-a's remembered trajectories as backup ──
+        // The probe measures how far the cursor ACTUALLY moved for a known
+        // synthetic delta. When the system swallows the motion (the very
+        // "the agent cannot move the mouse" failure), both deltas come back
+        // ~0, the guard below fails, and the scale used to stay a blind
+        // 1.0 — putting the click somewhere else entirely. A calibration
+        // that verifiably worked on this display is a far better default
+        // than 1.0, so the memory is consulted first and the fresh probe
+        // overrides it only when the probe actually measured something.
+        let app = await MainActor.run {
+            NSWorkspace.shared.frontmostApplication?.localizedName ?? "unknown"
+        }
+        let cell = "\(Int(x / 50))_\(Int(y / 50))"
+        let hint = await EternalMemoryStore.shared.mouseHint(
+            app: app, cell: cell, screenW: logicalWidth, screenH: logicalHeight)
+        var fallbackCalib: (Double, Double)? = hint.map { ($0.calibX, $0.calibY) }
+        if fallbackCalib == nil {
+            fallbackCalib = await EternalMemoryStore.shared.lastGoodCalibration(
+                screenW: logicalWidth, screenH: logicalHeight)
+        }
+
+        var calibScaleX: Double = fallbackCalib?.0 ?? 1.0
+        var calibScaleY: Double = fallbackCalib?.1 ?? 1.0
+        var calibratedNow = false
+
         if abs(actualDx) > 1.0 && abs(actualDy) > 1.0 {
             calibScaleX = calibDelta / actualDx
             calibScaleY = calibDelta / actualDy
+            calibratedNow = true
+        } else if fallbackCalib != nil {
+            await MainActor.run {
+                AppState.shared?.addSystemMessage(AppLanguage.shared.t(
+                    "<think>\n🖱 Calibration probe measured nothing — using a trajectory vera-a remembers working here\n</think>",
+                    "<think>\n🖱 校正プローブが反応なし — vera-aが覚えている成功時の軌跡を使用します\n</think>"))
+            }
         }
         
         if let retEvent = CGEvent(mouseEventSource: nil, mouseType: .mouseMoved, mouseCursorPosition: currentPoint, mouseButton: .left) {
@@ -163,10 +192,16 @@ class DesktopVisionBridge {
         }
         try? await Task.sleep(nanoseconds: 20_000_000)
 
-        let targetPoint = CGPoint(
+        var targetPoint = CGPoint(
             x: currentPoint.x + (logicalClickX - currentPoint.x) * calibScaleX,
             y: currentPoint.y + (logicalClickY - currentPoint.y) * calibScaleY
         )
+        // Strongest hint available: a click at this very neighbourhood that
+        // previously LANDED. Trusted only when the probe could not measure —
+        // a live measurement always beats a remembered one.
+        if !calibratedNow, let hint {
+            targetPoint = CGPoint(x: hint.reachedX, y: hint.reachedY)
+        }
         
         let entropy = await MainActor.run { AppState.shared?.lastEntropy }
         
@@ -213,8 +248,35 @@ class DesktopVisionBridge {
             }
             try? await Task.sleep(nanoseconds: 10_000_000)
         }
-        
+
         try? await Task.sleep(nanoseconds: 50_000_000)
+
+        // ── Did the cursor actually get there? ────────────────────────
+        // Read the real position back rather than assuming the posted
+        // events took effect — that assumption is exactly what makes a
+        // failed move look like a successful click. The verdict decides
+        // whether this trajectory is worth remembering as a hint.
+        let afterPoint = NSEvent.mouseLocation
+        let reached = CGPoint(x: afterPoint.x, y: screenHeight - afterPoint.y)
+        let drift = hypot(reached.x - targetPoint.x, reached.y - targetPoint.y)
+        let landed = drift <= 4.0
+        let traceString = path.suffix(24)
+            .map { "\(Int($0.x)),\(Int($0.y))" }
+            .joined(separator: ";")
+        await EternalMemoryStore.shared.recordMouseTrace(
+            app: app, cell: cell,
+            screenW: logicalWidth, screenH: logicalHeight,
+            reqX: x, reqY: y,
+            reachedX: reached.x, reachedY: reached.y,
+            calibX: calibScaleX, calibY: calibScaleY,
+            path: traceString, ok: landed)
+        if !landed {
+            await MainActor.run {
+                AppState.shared?.addSystemMessage(AppLanguage.shared.t(
+                    "<think>\n🖱 Cursor stopped \(Int(drift))pt short of the target — recorded as a failed trajectory, not offered as a hint\n</think>",
+                    "<think>\n🖱 カーソルが目標から\(Int(drift))pt ずれて停止 — 失敗軌跡として記録し、ヒントには使いません\n</think>"))
+            }
+        }
         
         guard let mouseDown = CGEvent(mouseEventSource: nil, mouseType: .leftMouseDown, mouseCursorPosition: targetPoint, mouseButton: .left),
               let mouseUp = CGEvent(mouseEventSource: nil, mouseType: .leftMouseUp, mouseCursorPosition: targetPoint, mouseButton: .left) else {
