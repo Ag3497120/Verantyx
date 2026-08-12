@@ -1320,6 +1320,69 @@ final class AppState: ObservableObject {
         return nil
     }
 
+    /// Dynamic web-query planning, invoked by the APP on every Vera-a turn
+    /// whose store verdict is UNKNOWN — the model fills in the queries but
+    /// never decides whether to be asked (that judgment call is what kept
+    /// getting forgotten). Output contract is JSON only; anything
+    /// unparseable falls back to the bare pattern-extracted target, and a
+    /// {"needs": false} verdict (greetings, file edits, tasks) skips the
+    /// web entirely.
+    private func planWebQueries(for question: String) async -> [String] {
+        let system = """
+        You plan web searches. Reply ONLY with JSON, no prose:
+        {"needs": true|false, "queries": ["q1", "q2"]}
+        needs=false for greetings, coding/file tasks, or questions answerable \
+        without fresh external facts. Queries: max 2, short keyword strings \
+        matched to the question's INTENT — weather → place + weather + today; \
+        a concept → the concept + explanation; a product/project → its name + \
+        official or GitHub. Use the question's language or English.
+        """
+        let user = "Question: \(String(question.prefix(300)))"
+
+        var out: String? = nil
+        let choice = veraAComposerModel
+        if choice.hasPrefix("lmstudio:") {
+            out = await LMStudioClient.shared.generateConversation(
+                model: String(choice.dropFirst("lmstudio:".count)),
+                messages: [("system", system), ("user", user)],
+                maxTokens: 120, temperature: 0.0)
+        } else if choice.hasPrefix("ollama:") {
+            out = await OllamaClient.shared.generateConversation(
+                model: String(choice.dropFirst("ollama:".count)),
+                messages: [("system", system), ("user", user)])
+        } else {
+            switch modelStatus {
+            case .lmStudioReady(let m):
+                out = await LMStudioClient.shared.generateConversation(
+                    model: m, messages: [("system", system), ("user", user)],
+                    maxTokens: 120, temperature: 0.0)
+            case .ollamaReady(let m):
+                out = await OllamaClient.shared.generateConversation(
+                    model: m, messages: [("system", system), ("user", user)])
+            default:
+                break
+            }
+        }
+
+        if let out,
+           let start = out.firstIndex(of: "{"),
+           let end = out.lastIndex(of: "}"),
+           let d = String(out[start...end]).data(using: .utf8),
+           let obj = try? JSONSerialization.jsonObject(with: d) as? [String: Any] {
+            guard (obj["needs"] as? Bool) ?? false else { return [] }
+            let queries = ((obj["queries"] as? [Any]) ?? [])
+                .compactMap { $0 as? String }
+                .map { $0.trimmingCharacters(in: .whitespacesAndNewlines) }
+                .filter { !$0.isEmpty && $0.count <= 80 }
+            if !queries.isEmpty { return Array(queries.prefix(2)) }
+        }
+        // Planner unavailable or unparseable: the bare extracted target is
+        // the only safe static fallback (no GitHub/official templates —
+        // wrong for concepts).
+        if let target = Self.searchTarget(from: question) { return [target] }
+        return []
+    }
+
     func sendMessage(with overrideText: String? = nil, forceBypassGatekeeper: Bool = false, isSpotlight: Bool = false) {
         let text = (overrideText ?? inputText).trimmingCharacters(in: .whitespacesAndNewlines)
         let hasAttachments = !attachedImages.isEmpty || !attachedFiles.isEmpty
@@ -1378,14 +1441,16 @@ final class AppState: ObservableObject {
                 }
                 let hasVerifiedAnswer = verdict == "ANSWER"
 
-                // Vera plans the search, not the model: an info-seeking
-                // question with no verified answer gets its target and
-                // query candidates derived structurally, and the fetch
-                // happens HERE — evidence arrives before the model thinks.
+                // The search plan runs HERE, app-invoked on every UNKNOWN
+                // turn — the model fills in queries (dynamic, intent-
+                // matched: weather gets place+today, a concept gets
+                // concept+explanation) but never decides whether to be
+                // asked. Evidence arrives before the agent thinks.
                 var webEvidence = ""
                 var webQueryUsed = ""
-                if !hasVerifiedAnswer, let target = Self.searchTarget(from: text) {
-                    for q in [target, "\(target) GitHub", "\(target) official"].prefix(2) {
+                if !hasVerifiedAnswer {
+                    let queries = await self.planWebQueries(for: text)
+                    for q in queries {
                         let r = await WebSearchEngine.shared.search(query: q)
                         let snippet = r.contextSnippet.trimmingCharacters(in: .whitespacesAndNewlines)
                         if !snippet.isEmpty {
