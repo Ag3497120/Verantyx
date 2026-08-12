@@ -160,6 +160,7 @@ struct MainSplitView: View {
                         Group {
                             switch section {
                             case .mcp:       MCPView()
+                            case .vera:      VeraFeatureDock().environmentObject(app)
                             case .growth:    GrowthConsolePanel()
                             case .evolution: SelfEvolutionView().environmentObject(app)
                             case .search:    GlobalSearchView().environmentObject(app)

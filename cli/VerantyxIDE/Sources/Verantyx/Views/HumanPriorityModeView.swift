@@ -91,6 +91,7 @@ struct HumanPriorityModeView: View {
                             Group {
                                 switch section {
                                 case .mcp:       MCPView()
+                                case .vera:      VeraFeatureDock().environmentObject(app)
                                 case .growth:    GrowthConsolePanel()
                                 case .evolution: SelfEvolutionView().environmentObject(app)
                                 case .search:    GlobalSearchView().environmentObject(app)
@@ -1667,6 +1668,113 @@ struct IsolatedPipelineHeaderButton: View {
                 )
             }
             .buttonStyle(.plain)
+        }
+    }
+}
+
+
+// MARK: - Vera feature dock (the old Vera-a side panel, now a normal-mode section)
+
+/// The panels the pre-audit Vera-a layout carried (記憶 / 成長 / 失敗の型 /
+/// 2台構成 / 設定 / モード / 立体十字 / ミラー / ベクトルラボ), reachable
+/// from the NORMAL layout's activity bar. When Vera-a mode became a single
+/// conversation, these screens lost their only home; they belong beside the
+/// editor anyway — configuring memory or the two-Mac split is something you
+/// do while working, not something worth switching modes for.
+struct VeraFeatureDock: View {
+    @EnvironmentObject var app: AppState
+
+    private enum Tab: String, CaseIterable, Identifiable {
+        case memory, growth, research, distributed, settings, modes, stereoCross, mirror, vectorLab
+        var id: String { rawValue }
+        @MainActor
+        func title(_ app: AppState) -> String {
+            switch self {
+            case .memory:      return app.t("Memory", "記憶")
+            case .growth:      return app.t("Growth", "成長")
+            case .research:    return app.t("Failure types", "失敗の型")
+            case .distributed: return app.t("Two Macs", "2台構成")
+            case .settings:    return app.t("Settings", "設定")
+            case .modes:       return app.t("Modes", "モード")
+            case .stereoCross: return app.t("3D Graph", "立体十字")
+            case .mirror:      return app.t("Mirror", "ミラー")
+            case .vectorLab:   return app.t("Vector Lab", "ベクトルラボ")
+            }
+        }
+    }
+
+    @State private var tab: Tab = .memory
+    @State private var showConnectSheet = false
+    @State private var showPendingToolCalls = false
+    @State private var showReasoningTimeline = false
+
+    var body: some View {
+        VStack(spacing: 0) {
+            // Wrapping chips instead of the legacy single row: this dock
+            // lives in a 220–400pt column, and nine tabs in one row would
+            // scroll off it.
+            FlowChips(items: Tab.allCases.map { ($0.rawValue, $0.title(app)) },
+                      selected: tab.rawValue) { raw in
+                if let t = Tab(rawValue: raw) { tab = t }
+            }
+            .padding(.horizontal, 6).padding(.vertical, 5)
+            .background(Color(red: 0.10, green: 0.10, blue: 0.13))
+
+            Divider().opacity(0.25)
+
+            Group {
+                switch tab {
+                case .memory:      MemoryConsoleView()
+                case .growth:      GrowthDashboardView()
+                case .research:    FailureDomainsView()
+                case .distributed: PipeControlPanelView(showConnectSheet: $showConnectSheet)
+                case .settings:
+                    JGenVeraSettingsPanelView(
+                        showPendingToolCalls: $showPendingToolCalls,
+                        showReasoningTimeline: $showReasoningTimeline)
+                case .modes:       ModesOverviewView()
+                case .stereoCross: StereoCrossGraphView()
+                case .mirror:      HiddenWindowMirrorView()
+                case .vectorLab:   VectorLabView()
+                }
+            }
+            .frame(maxWidth: .infinity, maxHeight: .infinity)
+        }
+        .background(Color(red: 0.10, green: 0.10, blue: 0.14))
+        .sheet(isPresented: $showConnectSheet) {
+            PipeConnectSheet().environmentObject(app)
+        }
+        .sheet(isPresented: $showPendingToolCalls) {
+            PendingToolCallsView().environmentObject(app)
+        }
+    }
+}
+
+/// Minimal wrapping chip row. Exists because the dock's nine tabs must fit a
+/// narrow column; kept dumb on purpose.
+private struct FlowChips: View {
+    let items: [(id: String, label: String)]
+    let selected: String
+    let pick: (String) -> Void
+
+    var body: some View {
+        // Simple fixed 3-column grid: predictable in a resizable pane.
+        let cols = [GridItem(.flexible()), GridItem(.flexible()), GridItem(.flexible())]
+        LazyVGrid(columns: cols, spacing: 3) {
+            ForEach(items, id: \.id) { it in
+                Button { pick(it.id) } label: {
+                    Text(it.label)
+                        .font(.system(size: 9.5, weight: selected == it.id ? .bold : .regular))
+                        .lineLimit(1).minimumScaleFactor(0.7)
+                        .frame(maxWidth: .infinity)
+                        .padding(.vertical, 4)
+                        .background(RoundedRectangle(cornerRadius: 4)
+                            .fill(selected == it.id ? Color.white.opacity(0.1) : Color.white.opacity(0.02)))
+                        .foregroundStyle(selected == it.id ? Color.white
+                                         : Color(red: 0.6, green: 0.6, blue: 0.7))
+                }
+                .buttonStyle(.plain)
+            }
         }
     }
 }
