@@ -752,157 +752,22 @@ class SafariVisionBridge {
         return jpegData.base64EncodedString()
     }
 
+    /// Safari's click, delegated to the one implementation that learns.
+    ///
+    /// This was a second, older copy of the whole click routine — its own
+    /// calibration probe, its own synthetic path — and it is the copy the
+    /// agent actually calls. Every improvement made to clicking (the
+    /// remembered calibration, the trajectory recorded in vera-a, the
+    /// human-demonstrated motion, the read-back that proves the pointer
+    /// arrived) lived in DesktopVisionBridge and never ran. Keeping two
+    /// implementations is how that happens, so there is now one: Safari's
+    /// window is brought into bounds here, and the click itself is the
+    /// shared path.
     func hidClick(x: Double, y: Double, enforceSafari: Bool = true) async throws {
         if enforceSafari {
             try await enforceSafariBounds()
         }
-
-        let mainDisplay = CGMainDisplayID()
-        let logicalWidth = Double(CGDisplayBounds(mainDisplay).width)
-        let logicalHeight = Double(CGDisplayBounds(mainDisplay).height)
-        let windowX: Double = 0.0
-        let windowY: Double = 0.0
-
-        // Coordinate resolution calculation based on Retina scaling factor
-        guard let image = CGDisplayCreateImage(mainDisplay) else {
-            throw BrowserError.ioError("Failed to create image for coordinate calc")
-        }
-        
-        let pixelWidth = Double(image.width)
-        let pixelHeight = Double(image.height)
-        
-        // Assume VLM outputs 1000-based normalized coords if x,y <= 1000 and the image is larger.
-        // Or if it outputs absolute pixels, divide by Retina scale factor.
-        let logicalClickX: Double
-        let logicalClickY: Double
-        
-        if x <= 1000 && y <= 1000 && (pixelWidth >= 1000 || pixelHeight >= 1000) {
-            // 1000-based Normalized Coordinates (Qwen-VL style)
-            logicalClickX = (x / 1000.0) * logicalWidth
-            logicalClickY = (y / 1000.0) * logicalHeight
-        } else {
-            // Absolute Pixel Coordinates (scaled by Retina factor)
-            let scaleX = pixelWidth / logicalWidth
-            let scaleY = pixelHeight / logicalHeight
-            logicalClickX = x / scaleX
-            logicalClickY = y / scaleY
-        }
-
-        // Do not force Safari activation, let it click anywhere on OS
-        // Block mouse events UI overlay early for calibration
-        await MainActor.run { AppState.shared?.isAgentControllingMouse = true }
-
-        // --- Coordinate Calibration Phase ---
-        // Verify how much a CGEvent physical coordinate actually moves the NSEvent logical coordinate.
-        let calibStartPoint = NSEvent.mouseLocation
-        let screenHeight = NSScreen.screens.first?.frame.height ?? 0
-        let currentPoint = CGPoint(x: calibStartPoint.x, y: screenHeight - calibStartPoint.y)
-
-        let calibDelta: Double = 50.0
-        let calibTest = CGPoint(x: currentPoint.x + calibDelta, y: currentPoint.y + calibDelta)
-        
-        if let moveEvent = CGEvent(mouseEventSource: nil, mouseType: .mouseMoved, mouseCursorPosition: calibTest, mouseButton: .left) {
-            moveEvent.post(tap: .cghidEventTap)
-        }
-        try? await Task.sleep(nanoseconds: 30_000_000)
-        
-        let calibEndPoint = NSEvent.mouseLocation
-        let actualPoint = CGPoint(x: calibEndPoint.x, y: screenHeight - calibEndPoint.y)
-        
-        let actualDx = actualPoint.x - currentPoint.x
-        let actualDy = actualPoint.y - currentPoint.y
-        
-        var calibScaleX: Double = 1.0
-        var calibScaleY: Double = 1.0
-        
-        if abs(actualDx) > 1.0 && abs(actualDy) > 1.0 {
-            calibScaleX = calibDelta / actualDx
-            calibScaleY = calibDelta / actualDy
-            print("[Verantyx] Safari Calibration: Expected (\(calibDelta), \(calibDelta)), Got (\(actualDx), \(actualDy)) -> Adjust (\(calibScaleX), \(calibScaleY))")
-        } else {
-            print("[Verantyx] Safari Calibration: move failed or was zero: (\(actualDx), \(actualDy)). Keeping scale 1.0")
-        }
-        
-        // Return cursor to start
-        if let retEvent = CGEvent(mouseEventSource: nil, mouseType: .mouseMoved, mouseCursorPosition: currentPoint, mouseButton: .left) {
-            retEvent.post(tap: .cghidEventTap)
-        }
-        try? await Task.sleep(nanoseconds: 20_000_000)
-
-        // Apply Calibration
-        let uncalibratedScreenX = windowX + logicalClickX
-        let uncalibratedScreenY = windowY + logicalClickY
-        let targetPoint = CGPoint(
-            x: currentPoint.x + (uncalibratedScreenX - currentPoint.x) * calibScaleX,
-            y: currentPoint.y + (uncalibratedScreenY - currentPoint.y) * calibScaleY
-        )
-        
-        let entropy = await MainActor.run { AppState.shared?.lastEntropy }
-        
-        // Generate trajectory
-        var path: [CGPoint] = []
-        if let ent = entropy, ent.count > 5 {
-            // Use biometric entropy to shape the path
-            // Normalizing entropy shape into start->target vector
-            path.append(currentPoint)
-            let dx = targetPoint.x - currentPoint.x
-            let dy = targetPoint.y - currentPoint.y
-            
-            let entStart = ent.first!
-            let entEnd = ent.last!
-            let entDx = entEnd.x - entStart.x
-            let entDy = entEnd.y - entStart.y
-            let entDist = sqrt(entDx*entDx + entDy*entDy)
-            
-            for i in 1..<(ent.count - 1) {
-                let p = ent[i]
-                let pctX = entDist > 0 ? (p.x - entStart.x) / entDist : Double(i)/Double(ent.count)
-                let pctY = entDist > 0 ? (p.y - entStart.y) / entDist : Double(i)/Double(ent.count)
-                
-                let px = currentPoint.x + dx * pctX
-                let py = currentPoint.y + dy * pctY
-                path.append(CGPoint(x: px, y: py))
-            }
-            path.append(targetPoint)
-        } else {
-            // Bezier curve fallback
-            path.append(currentPoint)
-            let steps = 30
-            let cx = (currentPoint.x + targetPoint.x) / 2.0 + Double.random(in: -50...50)
-            let cy = (currentPoint.y + targetPoint.y) / 2.0 + Double.random(in: -50...50)
-            for i in 1..<steps {
-                let t = Double(i) / Double(steps)
-                let inv = 1.0 - t
-                let px = inv * inv * currentPoint.x + 2 * inv * t * cx + t * t * targetPoint.x
-                let py = inv * inv * currentPoint.y + 2 * inv * t * cy + t * t * targetPoint.y
-                path.append(CGPoint(x: px, y: py))
-            }
-            path.append(targetPoint)
-        }
-        
-        // Perform movement animation
-        for p in path {
-            if let moveEvent = CGEvent(mouseEventSource: nil, mouseType: .mouseMoved, mouseCursorPosition: p, mouseButton: .left) {
-                moveEvent.post(tap: .cghidEventTap)
-            }
-            try? await Task.sleep(nanoseconds: 10_000_000) // 10ms per step
-        }
-        
-        try? await Task.sleep(nanoseconds: 50_000_000)
-        
-        // Click
-        guard let mouseDown = CGEvent(mouseEventSource: nil, mouseType: .leftMouseDown, mouseCursorPosition: targetPoint, mouseButton: .left),
-              let mouseUp = CGEvent(mouseEventSource: nil, mouseType: .leftMouseUp, mouseCursorPosition: targetPoint, mouseButton: .left) else {
-            await MainActor.run { AppState.shared?.isAgentControllingMouse = false }
-            throw BrowserError.ioError("Failed to create CGEvent")
-        }
-
-        mouseDown.post(tap: .cghidEventTap)
-        try? await Task.sleep(nanoseconds: 50_000_000)
-        mouseUp.post(tap: .cghidEventTap)
-        
-        // End mouse control
-        await MainActor.run { AppState.shared?.isAgentControllingMouse = false }
+        try await DesktopVisionBridge.shared.hidClick(x: x, y: y)
     }
 
     func typeText(_ text: String) async throws {

@@ -75,7 +75,13 @@ enum HierarchicalExploreGate {
             // search instead of a result. A search URL is never a
             // destination.
             if let url, isSearchEngineURL(url) { return }
-            if title.lowercased().hasPrefix("source") && (url?.isEmpty == false) { return }
+            // "[Source 3: https://…]" is SEARCH_MULTI's own section header,
+            // not a result. The earlier prefix check missed it because the
+            // title still carried its bracket, so it kept appearing as the
+            // last candidate with a broken URL.
+            let bare = title.trimmingCharacters(in: CharacterSet(charactersIn: "[]（）() "))
+                .lowercased()
+            if bare.hasPrefix("source") { return }
             // Real listings repeat the same destination under different
             // titles ("Official site" and the full site name both pointing
             // at zenn.dev). One destination, one candidate.
@@ -268,7 +274,15 @@ enum HierarchicalExploreGate {
     /// Only digits are folded: full-width katakana must survive for the
     /// title matching further down.
     nonisolated static func halfwidthDigits(_ s: String) -> String {
-        String(s.map { ch -> Character in
+        // Kanji numerals too: "一番" is how the choice actually gets
+        // typed, and it fell through to fuzzy title matching, which
+        // picked candidate 3 for a request that plainly said one.
+        let kanji: [Character: Character] = [
+            "一": "1", "二": "2", "三": "3", "四": "4", "五": "5",
+            "六": "6", "七": "7", "八": "8", "九": "9",
+        ]
+        return String(s.map { ch -> Character in
+            if let digit = kanji[ch] { return digit }
             guard let scalar = ch.unicodeScalars.first,
                   ch.unicodeScalars.count == 1,
                   scalar.value >= 0xFF10, scalar.value <= 0xFF19,

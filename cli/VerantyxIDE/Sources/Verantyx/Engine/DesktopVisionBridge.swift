@@ -5,6 +5,95 @@ import AppKit
 class DesktopVisionBridge {
     static let shared = DesktopVisionBridge()
 
+    /// Click a point that is ALREADY in screen coordinates.
+    ///
+    /// `hidClick` guesses what its arguments mean: values ≤1000 are read
+    /// as a vision model's 0–1000 normalized space, larger ones are
+    /// divided by the Retina scale. Accessibility returns neither — it
+    /// returns real logical screen points, and a link in a nav bar at
+    /// (940, 45) got read as normalized and clicked somewhere else
+    /// entirely. That is why CLICK_LINK reported success on links that
+    /// never opened. This path does no interpretation: the point is the
+    /// point. Motion, landing check and trace recording are the same as
+    /// every other click.
+    func clickAtScreenPoint(_ target: CGPoint, label: String = "") async throws {
+        await MainActor.run { AppState.shared?.isAgentControllingMouse = true }
+        defer { Task { @MainActor in AppState.shared?.isAgentControllingMouse = false } }
+
+        let screenHeight = NSScreen.screens.first?.frame.height ?? 0
+        let start = NSEvent.mouseLocation
+        let currentPoint = CGPoint(x: start.x, y: screenHeight - start.y)
+        let display = CGMainDisplayID()
+        let logicalWidth = Double(CGDisplayPixelsWide(display))
+        let logicalHeight = Double(CGDisplayPixelsHigh(display))
+
+        let app = await MainActor.run {
+            NSWorkspace.shared.frontmostApplication?.localizedName ?? "unknown"
+        }
+        let cell = "ax_\(Int(target.x / 50))_\(Int(target.y / 50))"
+
+        let model = await EternalMemoryStore.shared.motionModel(
+            screenW: logicalWidth, screenH: logicalHeight)
+        let span = hypot(target.x - currentPoint.x, target.y - currentPoint.y)
+        let ux = span > 0 ? (target.x - currentPoint.x) / span : 0
+        let uy = span > 0 ? (target.y - currentPoint.y) / span : 0
+        let nx = -uy, ny = ux
+        let stray = model.map { $0.jitterRatio * span } ?? 25.0
+        let bounded = min(max(stray, 2.0), 90.0) * (Bool.random() ? 1.0 : -1.0)
+        let peakAt = model?.peakAt ?? 0.5
+        let steps = model?.steps ?? 30
+
+        var path: [CGPoint] = [currentPoint]
+        for i in 1..<steps {
+            let u = Double(i) / Double(steps)
+            let t = model?.progress(at: u) ?? u
+            let shaped = t < peakAt
+                ? sin((t / max(peakAt, 0.01)) * .pi / 2)
+                : cos(((t - peakAt) / max(1 - peakAt, 0.01)) * .pi / 2)
+            let offset = bounded * shaped
+            path.append(CGPoint(x: currentPoint.x + ux * span * t + nx * offset,
+                                y: currentPoint.y + uy * span * t + ny * offset))
+        }
+        if let overshoot = model?.overshoot, overshoot > 0.005, span > 40 {
+            let past = min(overshoot, 0.06) * span
+            path.append(CGPoint(x: target.x + ux * past, y: target.y + uy * past))
+        }
+        path.append(target)
+
+        for p in path {
+            CGEvent(mouseEventSource: nil, mouseType: .mouseMoved,
+                    mouseCursorPosition: p, mouseButton: .left)?.post(tap: .cghidEventTap)
+            try? await Task.sleep(nanoseconds: 10_000_000)
+        }
+        try? await Task.sleep(nanoseconds: 60_000_000)
+
+        let after = NSEvent.mouseLocation
+        let reached = CGPoint(x: after.x, y: screenHeight - after.y)
+        let landed = hypot(reached.x - target.x, reached.y - target.y) <= 6.0
+
+        if landed {
+            CGEvent(mouseEventSource: nil, mouseType: .leftMouseDown,
+                    mouseCursorPosition: target, mouseButton: .left)?.post(tap: .cghidEventTap)
+            try? await Task.sleep(nanoseconds: 50_000_000)
+            CGEvent(mouseEventSource: nil, mouseType: .leftMouseUp,
+                    mouseCursorPosition: target, mouseButton: .left)?.post(tap: .cghidEventTap)
+        }
+
+        await EternalMemoryStore.shared.recordMouseTrace(
+            app: app, cell: cell, screenW: logicalWidth, screenH: logicalHeight,
+            reqX: target.x, reqY: target.y,
+            reachedX: reached.x, reachedY: reached.y,
+            calibX: 1.0, calibY: 1.0,
+            path: path.suffix(24).map { "\(Int($0.x)),\(Int($0.y))" }.joined(separator: ";"),
+            ok: landed,
+            episodeId: await MainActor.run { AppState.shared?.currentEpisodeId ?? "" })
+
+        if !landed {
+            throw BrowserError.ioError(
+                "pointer stopped \(Int(hypot(reached.x - target.x, reached.y - target.y)))pt short of \(label.isEmpty ? "the target" : label)")
+        }
+    }
+
     /// The semantic name of whatever sits under a screen point, via
     /// accessibility. A click record that says only "(512, 300)" cannot
     /// be reasoned about later; one that says "Send button" can.

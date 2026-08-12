@@ -1798,17 +1798,39 @@ actor AgentToolExecutor {
                     + "Use [DESKTOP_SNAPSHOT] to see what is actually there, or scroll first."
             }
             do {
-                try await SafariVisionBridge.shared.hidClick(x: point.x, y: point.y, enforceSafari: false)
+                // Accessibility hands back real screen points, so they go
+                // to the path that treats them as such — hidClick would
+                // read a nav-bar link at (940, 45) as a normalized 0–1000
+                // coordinate and click elsewhere.
+                try await DesktopVisionBridge.shared.clickAtScreenPoint(point, label: text)
             } catch {
                 return "[CLICK_LINK] Pointer could not reach \(id): \(error.localizedDescription)"
             }
-            try? await Task.sleep(nanoseconds: 1_500_000_000)
-            let landed = (try? await AppleScriptBridge.shared.getCurrentURL(from: .safari)) ?? ""
-            if !landed.isEmpty {
-                await MainActor.run { BrowserSession.shared.opened(url: landed, title: text) }
+            // Navigation takes longer than the click: poll rather than
+            // assume, or the URL read back is the page we just left.
+            var landedURL = ""
+            for _ in 0..<6 {
+                try? await Task.sleep(nanoseconds: 700_000_000)
+                let now = (try? await AppleScriptBridge.shared.getCurrentURL(from: .safari)) ?? ""
+                if !now.isEmpty { landedURL = now }
+                let before = await MainActor.run { BrowserSession.shared.state.url }
+                if !landedURL.isEmpty && landedURL != before { break }
             }
-            return "[CLICK_LINK: \(text)] clicked \(id)"
-                + (landed.isEmpty ? " (destination unknown — take a snapshot)" : " → now at \(landed)")
+            let previousURL = await MainActor.run { BrowserSession.shared.state.url }
+            if !landedURL.isEmpty {
+                await MainActor.run { BrowserSession.shared.opened(url: landedURL, title: text) }
+            }
+            if landedURL.isEmpty {
+                return "[CLICK_LINK: \(text)] clicked \(id), destination unknown — take a snapshot."
+            }
+            if landedURL == previousURL {
+                // Saying "clicked" when nothing moved is how a run spends
+                // three turns clicking the same thing.
+                return "[CLICK_LINK: \(text)] clicked \(id) but the page did NOT change "
+                    + "(still \(landedURL)). It may be a menu that needs a second click, or the "
+                    + "wrong element. Take a [DESKTOP_SNAPSHOT] before trying again."
+            }
+            return "[CLICK_LINK: \(text)] clicked \(id) → now at \(landedURL)"
 
         case .search(let query):
             let result = await WebSearchEngine.shared.search(query: query)
