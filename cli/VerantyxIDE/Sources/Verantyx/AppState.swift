@@ -1357,96 +1357,29 @@ final class AppState: ObservableObject {
                         "<think>\n🧿 Vera-a並行駆動: 判定 \(verdict.isEmpty ? "-" : verdict)・想起 \(max(recallHits, 0))件を注入 → 応答後に学習ループ\n</think>"))
                 }
 
-                let system = """
-                You are the user's assistant. Answer the question directly and \
-                naturally, in the user's language. Background context from a \
-                local memory system may follow — use it when relevant, ignore \
-                it otherwise. Never answer "the store does not know": when the \
-                background is empty, answer from your own knowledge. Do not \
-                mention the memory system unless the user asks about it.
-                """
-                var userParts: [String] = []
+                // This is NOT a Q&A shortcut: the FULL agent loop runs —
+                // file edits, tools, everything — with Vera's background
+                // (verified fact + associations) prepended to the task and
+                // the memory layer forced to .vera inside runAgentLoop, so
+                // recall/save/governance/skill-proposal all fire while the
+                // agent works. An UNKNOWN verdict injects nothing.
+                var bg: [String] = []
                 if hasVerifiedAnswer {
-                    userParts.append("[VERIFIED MEMORY]\n\(String(raw.prefix(1200)))")
+                    bg.append("[VERIFIED MEMORY — deterministic, citable]\n\(String(raw.prefix(1200)))")
                 }
-                if !recall.isEmpty { userParts.append(recall) }
-                userParts.append("[QUESTION]\n\(text)")
-                let user = userParts.joined(separator: "\n\n")
+                if !recall.isEmpty { bg.append(recall) }
+                let instruction = bg.isEmpty
+                    ? text
+                    : bg.joined(separator: "\n\n") + "\n\n[TASK]\n" + text
 
-                var composed = ""
-                var composerName = ""
-                // The Vera-a composer can be chosen separately (model
-                // roles UI); "auto" follows whatever the user chats with.
-                let choice = await MainActor.run { self.veraAComposerModel }
-                if choice.hasPrefix("lmstudio:") {
-                    composerName = String(choice.dropFirst("lmstudio:".count))
-                    composed = await LMStudioClient.shared.generateConversation(
-                        model: composerName,
-                        messages: [("system", system), ("user", user)],
-                        maxTokens: 1024, temperature: 0.3) ?? ""
-                } else if choice.hasPrefix("ollama:") {
-                    composerName = String(choice.dropFirst("ollama:".count))
-                    composed = await OllamaClient.shared.generateConversation(
-                        model: composerName,
-                        messages: [("system", system), ("user", user)]) ?? ""
-                } else {
-                    let status = await MainActor.run { self.modelStatus }
-                    switch status {
-                    case .lmStudioReady(let model):
-                        composerName = model
-                        composed = await LMStudioClient.shared.generateConversation(
-                            model: model,
-                            messages: [("system", system), ("user", user)],
-                            maxTokens: 1024, temperature: 0.3) ?? ""
-                    case .ollamaReady(let model):
-                        composerName = model
-                        composed = await OllamaClient.shared.generateConversation(
-                            model: model,
-                            messages: [("system", system), ("user", user)]) ?? ""
-                    case .jcrossReady(let model):
-                        // Same-engine composition — the audit agent's framing.
-                        composerName = model
-                        composed = await MainActor.run { VeraAAgent.engineShared }
-                            .composeReply(text, veraVerdict: String(raw.prefix(1200)))
-                    default:
-                        break   // no chat model at all
-                    }
-                }
-                let cleanComposed = composed.trimmingCharacters(in: .whitespacesAndNewlines)
-
-                // The reply IS the chat model's answer. Vera only surfaces
-                // when it verifiably knows (provenance footnote) — an
-                // UNKNOWN verdict adds nothing to what the user reads.
-                var content: String
-                if !cleanComposed.isEmpty {
-                    content = cleanComposed
-                    if hasVerifiedAnswer {
-                        content += "\n\n📌 " + Self.formatVeraAnswer(raw)
-                    }
-                } else {
-                    // No chat model loaded: the typed verdict is all there
-                    // is — the pre-parallel behavior.
-                    content = Self.formatVeraAnswer(raw)
-                }
-                _ = composerName
-
-                let final = content
-                await MainActor.run {
-                    self.isGenerating = false
-                    self.messages.append(ChatMessage(
-                        role: .assistant,
-                        content: final,
-                        isSpotlight: false))
-                }
-
-                // 4 — the same save gate as the agent path: preview popup
-                // (or batched queue), then remember/propose + governance.
-                let (saveAnswer, thinkOnly) = JCrossChatManager.extractAnswer(
-                    cleanComposed.isEmpty ? final : cleanComposed)
-                if !thinkOnly, !saveAnswer.isEmpty {
-                    await VeraMemoryBridge.requestSaveApproval(
-                        userPrompt: text, aiResponse: saveAnswer)
-                }
+                let history = await MainActor.run { Array(self.messages.dropLast()) }
+                let useLayered = CouncilSettingsStore.shared.useCouncilForChat
+                await self.runAgentLoop(instruction: instruction,
+                                        images: snapshotImages,
+                                        files: snapshotFiles,
+                                        previousMessages: history,
+                                        useLayered: useLayered)
+                await MainActor.run { self.isGenerating = false }
             }
             return
         }
@@ -2297,7 +2230,11 @@ final class AppState: ObservableObject {
             cortex: cortex,
             selfFixMode: snap_selfFix,
             operationMode: snap_operationMode,
-            memoryLayer: sessions.activeSession?.activeLayer ?? .l2,
+            // Vera-a mode forces the Vera memory layer: recall and the
+            // save gate route through vera-memory regardless of what the
+            // session had, because managing that memory IS the mode.
+            memoryLayer: veraEngineMode == .standalone
+                ? .vera : (sessions.activeSession?.activeLayer ?? .l2),
             chatSessionId: vxChatSessionId,
             previousMessages: previousMessages,
             onProgress: handler
