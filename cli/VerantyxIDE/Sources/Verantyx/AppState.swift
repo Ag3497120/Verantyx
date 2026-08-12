@@ -1503,7 +1503,14 @@ final class AppState: ObservableObject {
                 // an answer, not a question: a real run web-searched
                 // "１番 意味" because the selection went through the
                 // planner like any other message.
-                if !hasVerifiedAnswer, Self.looksLikeChoiceReply(text) == nil {
+                //
+                // A browsing task ("hackernewsを開いて…") is also not a
+                // question for this planner. Fetching its answer headlessly
+                // here would satisfy the agent with text and leave the
+                // browser showing nothing — the site never gets opened,
+                // which was the actual instruction.
+                if !hasVerifiedAnswer, Self.looksLikeChoiceReply(text) == nil,
+                   !AgentToolExecutor.isBrowsingGoal(text) {
                     let (plannerNeeds, planned) = await self.planWebQueries(for: text)
                     // Vera's rule outranks the planner's self-assessment:
                     // an informational question with an UNKNOWN store gets

@@ -1306,6 +1306,53 @@ actor AgentToolExecutor {
         try? await Task.sleep(nanoseconds: 500_000_000)
     }
 
+    /// True when the run is here to OPERATE a site rather than to learn a
+    /// fact — open it, log in, post, click, scroll. Such a task cannot be
+    /// served by a headless fetch: the thing to click has to be on screen.
+    ///
+    /// Deterministic and goal-based on purpose. Offering the browser
+    /// search as a tool the model may choose has been tried; the model
+    /// keeps choosing the headless one, and the run ends up reaching for
+    /// URLs again.
+    static func isBrowsingGoal(_ goal: String) -> Bool {
+        let g = goal.lowercased()
+        let verbs = ["開いて", "開く", "ひらいて", "アクセス", "移動して", "表示して",
+                     "ログイン", "サインイン", "投稿", "書き込", "クリック", "押して",
+                     "スクロール", "入力して", "送信",
+                     "open ", "log in", "login", "sign in", "post ", "click", "navigate",
+                     "go to ", "browse "]
+        return verbs.contains { g.contains($0) }
+    }
+
+    /// Put a search on screen: the results page opens in the browser and
+    /// the candidates are the links that are really there.
+    func openSearchInBrowser(query: String) async -> String {
+        let encoded = query.addingPercentEncoding(withAllowedCharacters: .urlQueryAllowed) ?? query
+        let serp = "https://duckduckgo.com/?q=\(encoded)"
+        await MainActor.run { BrowserSession.shared.register(urls: [serp]) }
+        _ = try? await AppleScriptBridge.shared.open(serp, in: .safari)
+        await Self.activateBrowser()
+        try? await Task.sleep(nanoseconds: 2_500_000_000)
+        await MainActor.run { BrowserSession.shared.opened(url: serp, title: "search: \(query)") }
+
+        let axMap = (try? await AXVisionBridge.shared.getSemanticSnapshot(
+            appName: Self.browserAppName)) ?? ""
+        let links = await Self.visibleLinkTexts(limit: 16)
+        if links.isEmpty && axMap.isEmpty {
+            return "[SEARCH_PAGE: \(query)] opened \(serp) but the page could not be read. "
+                + "Accessibility permission may be missing; try [DESKTOP_SNAPSHOT]."
+        }
+        return """
+        [SEARCH_PAGE: \(query)] results are open in \(Self.browserAppName).
+        Choose one by its text and click it: [CLICK_LINK: text].
+        If what you want is further down, [SCROLL_FIND: text].
+        == LINKS ON THE RESULTS PAGE ==
+        \(links.map { "• \($0)" }.joined(separator: "\n"))
+        == SEMANTIC UI MAP ==
+        \(String(axMap.prefix(1500)))
+        """
+    }
+
     /// The link texts actually present on the open page — what to offer
     /// an agent that just tried to invent a URL.
     static func visibleLinkTexts(limit: Int = 14) async -> [String] {
@@ -1764,34 +1811,7 @@ actor AgentToolExecutor {
             return "[WEB PAGE: \(result.url)]\n\(result.contextSnippet)\n[END WEB PAGE]"
 
         case .searchPage(let query):
-            // The results end up ON SCREEN, in the browser, and the
-            // candidates are the links that are really there — so the
-            // choice can be reached by pointing at it, which is the whole
-            // point of browsing rather than fetching.
-            let encoded = query.addingPercentEncoding(withAllowedCharacters: .urlQueryAllowed) ?? query
-            let serp = "https://duckduckgo.com/?q=\(encoded)"
-            await MainActor.run { BrowserSession.shared.register(urls: [serp]) }
-            _ = try? await AppleScriptBridge.shared.open(serp, in: .safari)
-            await Self.activateBrowser()
-            try? await Task.sleep(nanoseconds: 2_500_000_000)
-            await MainActor.run { BrowserSession.shared.opened(url: serp, title: "search: \(query)") }
-
-            let axMap = (try? await AXVisionBridge.shared.getSemanticSnapshot(
-                appName: Self.browserAppName)) ?? ""
-            let links = await Self.visibleLinkTexts(limit: 16)
-            if links.isEmpty && axMap.isEmpty {
-                return "[SEARCH_PAGE: \(query)] opened \(serp) but the page could not be read. "
-                    + "Accessibility permission may be missing; try [DESKTOP_SNAPSHOT]."
-            }
-            return """
-            [SEARCH_PAGE: \(query)] results are open in \(Self.browserAppName).
-            Choose one by its text and click it: [CLICK_LINK: text].
-            If what you want is further down, [SCROLL_FIND: text].
-            == LINKS ON THE RESULTS PAGE ==
-            \(links.map { "• \($0)" }.joined(separator: "\n"))
-            == SEMANTIC UI MAP ==
-            \(String(axMap.prefix(1500)))
-            """
+            return await openSearchInBrowser(query: query)
 
         case .scrollFind(let text):
             // Read what is on screen, scroll, read again — stopping when
@@ -1876,6 +1896,14 @@ actor AgentToolExecutor {
             return "[CLICK_LINK: \(text)] clicked \(id) → now at \(landedURL)"
 
         case .search(let query):
+            // "hackernewsを開いて…" is a browsing task, and a headless
+            // fetch cannot serve it: the results have to be on screen for
+            // one to be clicked. The route is chosen from the goal, not
+            // from which tool the model happened to type.
+            let goalForSearch = await MainActor.run { AppState.shared?.currentActGoal ?? "" }
+            if Self.isBrowsingGoal(goalForSearch) {
+                return await openSearchInBrowser(query: query)
+            }
             let result = await WebSearchEngine.shared.search(query: query)
             // Auto-store in JCross (importance 0.7, zone near)
             let snippet = String(result.contextSnippet.prefix(200))
