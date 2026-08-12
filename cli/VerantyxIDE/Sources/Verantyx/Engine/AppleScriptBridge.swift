@@ -152,6 +152,14 @@ actor AppleScriptBridge {
         SystemBrowser.allCases.filter { $0.isRunning || FileManager.default.fileExists(atPath: "/Applications/\($0.rawValue).app") }
     }
 
+    /// For callers that need a one-off script this bridge has no verb for
+    /// (window geometry, for instance) without each of them re-inventing
+    /// the osascript plumbing.
+    @discardableResult
+    func runScriptPublic(_ script: String) async throws -> String {
+        try await runAppleScript(script)
+    }
+
     // MARK: - Core AppleScript runner
 
     @discardableResult

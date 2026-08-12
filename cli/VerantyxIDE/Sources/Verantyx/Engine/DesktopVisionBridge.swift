@@ -280,17 +280,41 @@ class DesktopVisionBridge {
             // jitterRatio is peak deviation ÷ distance, so × span puts it
             // back in points. A quadratic Bézier peaks at half its control
             // offset, hence the doubling.
-            let stray = model.map { $0.jitterRatio * span * 2.0 } ?? 50.0
-            let bounded = min(max(stray, 4.0), 120.0)
+            // Every measured feature is applied, not just the stray: where
+            // the curve bulges (peakAt), how much distance each moment
+            // covers (easing — the slow-fast-slow a machine does not
+            // have), and whether the hand goes past its target before
+            // settling (overshoot). Without demonstrations this degrades
+            // to a symmetric, constant-speed arc.
+            let ux = span > 0 ? (targetPoint.x - currentPoint.x) / span : 0
+            let uy = span > 0 ? (targetPoint.y - currentPoint.y) / span : 0
+            let nx = -uy, ny = ux      // the axis a hand strays along
+            let stray = model.map { $0.jitterRatio * span } ?? 25.0
+            let bounded = min(max(stray, 2.0), 90.0) * (Bool.random() ? 1.0 : -1.0)
+            let peakAt = model?.peakAt ?? 0.5
             let steps = model?.steps ?? 30
-            let cx = (currentPoint.x + targetPoint.x) / 2.0 + Double.random(in: -bounded...bounded)
-            let cy = (currentPoint.y + targetPoint.y) / 2.0 + Double.random(in: -bounded...bounded)
+
             for i in 1..<steps {
-                let t = Double(i) / Double(steps)
-                let inv = 1.0 - t
-                let px = inv * inv * currentPoint.x + 2 * inv * t * cx + t * t * targetPoint.x
-                let py = inv * inv * currentPoint.y + 2 * inv * t * cy + t * t * targetPoint.y
-                path.append(CGPoint(x: px, y: py))
+                let u = Double(i) / Double(steps)
+                // Progress is not the clock: the measured easing decides
+                // how much of the distance this moment covers.
+                let t = model?.progress(at: u) ?? u
+                // A sine arch peaking at the measured fraction rather than
+                // at the midpoint, so the bulge leans where a hand leans.
+                let shaped = t < peakAt
+                    ? sin((t / max(peakAt, 0.01)) * .pi / 2)
+                    : cos(((t - peakAt) / max(1 - peakAt, 0.01)) * .pi / 2)
+                let offset = bounded * shaped
+                path.append(CGPoint(x: currentPoint.x + ux * span * t + nx * offset,
+                                    y: currentPoint.y + uy * span * t + ny * offset))
+            }
+
+            // Overshoot and settle, when the demonstrations did that.
+            if let overshoot = model?.overshoot, overshoot > 0.005, span > 40 {
+                let past = min(overshoot, 0.06) * span
+                path.append(CGPoint(x: targetPoint.x + ux * past, y: targetPoint.y + uy * past))
+                path.append(CGPoint(x: targetPoint.x + ux * past * 0.4,
+                                    y: targetPoint.y + uy * past * 0.4))
             }
             path.append(targetPoint)
         }

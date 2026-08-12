@@ -446,9 +446,40 @@ actor WebSearchEngine {
 
     // MARK: - AppleScript (Safari / Chrome)
 
+    /// Puts the IDE on the left half of the screen and the browser on the
+    /// right, so the run stays watchable: the reasoning and the pointer
+    /// driving the page are on screen at the same time instead of the
+    /// browser taking over and hiding the agent that is steering it.
+    ///
+    /// AppleScript window bounds are {left, top, right, bottom} measured
+    /// from the top of the screen; NSWindow frames measure from the
+    /// bottom, hence the flip.
+    @MainActor
+    private static func splitScreenWithIDE(_ browser: AppleScriptBridge.SystemBrowser) async {
+        guard UserDefaults.standard.object(forKey: "browser_split_screen") as? Bool ?? true,
+              let screen = NSScreen.main else { return }
+        let visible = screen.visibleFrame
+        let halfWidth = visible.width / 2
+
+        IDEWindowMonitor.ideWindow()?.setFrame(
+            NSRect(x: visible.minX, y: visible.minY, width: halfWidth, height: visible.height),
+            display: true, animate: true)
+
+        let topFromScreenTop = screen.frame.maxY - visible.maxY
+        let script = """
+        tell application "\(browser.rawValue)"
+            if (count of windows) > 0 then
+                set bounds of front window to {\(Int(visible.minX + halfWidth)), \(Int(topFromScreenTop)), \(Int(visible.maxX)), \(Int(topFromScreenTop + visible.height))}
+            end if
+        end tell
+        """
+        _ = try? await AppleScriptBridge.shared.runScriptPublic(script)
+    }
+
     private func browseWithAppleScript(url: String, browser: AppleScriptBridge.SystemBrowser, query: String?) async -> WebSearchResult {
         do {
             _ = try await applescript.open(url, in: browser)
+            await Self.splitScreenWithIDE(browser)
             try await Task.sleep(nanoseconds: 4_000_000_000) // wait for load
             let text = try await applescript.getPageText(from: browser)
             let currentURL = (try? await applescript.getCurrentURL(from: browser)) ?? url

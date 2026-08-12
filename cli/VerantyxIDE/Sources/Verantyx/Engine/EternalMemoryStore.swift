@@ -366,11 +366,39 @@ actor EternalMemoryStore {
     struct MotionModel: Sendable {
         /// Peak perpendicular deviation ÷ straight-line distance.
         let jitterRatio: Double
+        /// Where along the chord that peak falls (0…1). A hand does not
+        /// bulge symmetrically; the curve leans toward where it started.
+        let peakAt: Double
+        /// How far past the target the pointer travelled before settling,
+        /// as a fraction of the distance. 0 when the demonstrations did
+        /// not overshoot.
+        let overshoot: Double
+        /// Travelled distance ÷ straight-line distance. Above 1 for any
+        /// real hand.
+        let lengthRatio: Double
+        /// Normalized progress at equally spaced moments — the shape of
+        /// slow-fast-slow. Sampled at 9 points including both ends, so
+        /// index 4 is the halfway moment: a machine would read 0.5 there,
+        /// a hand reads higher.
+        let easing: [Double]
         /// Waypoints a real trajectory used, averaged.
         let steps: Int
         /// Trajectories the numbers came from — below a handful, treat
         /// the model as a hint rather than a measurement.
         let samples: Int
+        /// True when human demonstrations, not the agent's own paths,
+        /// dominated the sample.
+        let fromHuman: Bool
+
+        /// Progress at fraction `u` of the way through the movement.
+        func progress(at u: Double) -> Double {
+            guard easing.count >= 2 else { return u }
+            let clamped = min(max(u, 0), 1)
+            let scaled = clamped * Double(easing.count - 1)
+            let i = min(Int(scaled), easing.count - 2)
+            let frac = scaled - Double(i)
+            return easing[i] + (easing[i + 1] - easing[i]) * frac
+        }
     }
 
     /// Human demonstrations dominate the sample the moment any exist:
@@ -381,7 +409,7 @@ actor EternalMemoryStore {
         try? ensureDB()
         var stmt: OpaquePointer?
         guard sqlite3_prepare_v2(db, """
-            SELECT path FROM mouse_trace
+            SELECT path, source FROM mouse_trace
             WHERE screen_w = ? AND screen_h = ? AND ok = 1
             ORDER BY source ASC, ts DESC LIMIT ?
             """, -1, &stmt, nil) == SQLITE_OK else { return nil }
@@ -390,10 +418,18 @@ actor EternalMemoryStore {
         sqlite3_bind_double(stmt, 2, screenH)
         sqlite3_bind_int64(stmt, 3, Int64(limit))
 
+        let easingSamples = 9
         var ratios: [Double] = []
+        var peaks: [Double] = []
+        var overshoots: [Double] = []
+        var lengths: [Double] = []
+        var easingSum = [Double](repeating: 0, count: easingSamples)
         var stepCounts: [Int] = []
+        var humanCount = 0
+
         while sqlite3_step(stmt) == SQLITE_ROW {
             guard let raw = sqlite3_column_text(stmt, 0).map({ String(cString: $0) }) else { continue }
+            let source = sqlite3_column_text(stmt, 1).map { String(cString: $0) } ?? "agent"
             let pts: [(Double, Double)] = raw.split(separator: ";").compactMap {
                 let xy = $0.split(separator: ",")
                 guard xy.count == 2, let x = Double(xy[0]), let y = Double(xy[1]) else { return nil }
@@ -403,20 +439,64 @@ actor EternalMemoryStore {
             let dx = last.0 - first.0, dy = last.1 - first.1
             let span = (dx * dx + dy * dy).squareRoot()
             guard span > 20 else { continue }   // a nudge has no shape to measure
-            // Perpendicular distance from the straight line, peak over the path.
+
+            // Deviation from the chord: how big, and where along it.
             var peak = 0.0
-            for p in pts.dropFirst().dropLast() {
-                let cross = abs(dx * (p.1 - first.1) - dy * (p.0 - first.0))
-                peak = max(peak, cross / span)
+            var peakAt = 0.5
+            var maxProjection = 0.0
+            for (i, p) in pts.enumerated() where i > 0 && i < pts.count - 1 {
+                let perp = abs(dx * (p.1 - first.1) - dy * (p.0 - first.0)) / span
+                if perp > peak {
+                    peak = perp
+                    // Projection onto the chord, as a fraction of it.
+                    peakAt = ((p.0 - first.0) * dx + (p.1 - first.1) * dy) / (span * span)
+                }
+                let proj = ((p.0 - first.0) * dx + (p.1 - first.1) * dy) / (span * span)
+                maxProjection = max(maxProjection, proj)
             }
             ratios.append(peak / span)
+            peaks.append(min(max(peakAt, 0.05), 0.95))
+            // Anything beyond the endpoint is overshoot the hand corrected.
+            overshoots.append(max(0, maxProjection - 1.0))
+
+            // Travelled distance, and the shape of progress over time. The
+            // waypoints are sampled at a fixed interval, so their spacing
+            // IS the speed: cumulative distance against index gives the
+            // slow-fast-slow curve without needing timestamps.
+            var cumulative: [Double] = [0]
+            var travelled = 0.0
+            for i in 1..<pts.count {
+                travelled += ((pts[i].0 - pts[i-1].0) * (pts[i].0 - pts[i-1].0)
+                            + (pts[i].1 - pts[i-1].1) * (pts[i].1 - pts[i-1].1)).squareRoot()
+                cumulative.append(travelled)
+            }
+            guard travelled > 0 else { continue }
+            lengths.append(travelled / span)
+            for k in 0..<easingSamples {
+                let u = Double(k) / Double(easingSamples - 1)
+                let idx = u * Double(cumulative.count - 1)
+                let lo = min(Int(idx), cumulative.count - 2)
+                let f = idx - Double(lo)
+                let value = cumulative[lo] + (cumulative[lo + 1] - cumulative[lo]) * f
+                easingSum[k] += value / travelled
+            }
             stepCounts.append(pts.count)
+            if source == "human" { humanCount += 1 }
         }
         guard !ratios.isEmpty else { return nil }
+        let n = Double(ratios.count)
+        var easing = easingSum.map { $0 / n }
+        easing[0] = 0
+        easing[easingSamples - 1] = 1
         return MotionModel(
-            jitterRatio: ratios.reduce(0, +) / Double(ratios.count),
+            jitterRatio: ratios.reduce(0, +) / n,
+            peakAt: peaks.reduce(0, +) / n,
+            overshoot: overshoots.reduce(0, +) / n,
+            lengthRatio: lengths.isEmpty ? 1.0 : lengths.reduce(0, +) / Double(lengths.count),
+            easing: easing,
             steps: max(8, stepCounts.reduce(0, +) / stepCounts.count),
-            samples: ratios.count)
+            samples: ratios.count,
+            fromHuman: humanCount * 2 >= ratios.count)
     }
 
     /// Any calibration that worked on this display recently, regardless of
