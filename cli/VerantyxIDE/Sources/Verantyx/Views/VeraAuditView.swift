@@ -817,6 +817,10 @@ final class VeraAAgent: ObservableObject {
                       repoPath: String = NSString(string: "~/Projects/verantyx-v6").expandingTildeInPath,
                       history: [(String, String)] = []) async -> String {
         phase = AppLanguage.shared.t("gathering context…", "文脈を集めています…")
+        // Asked about memory → SHOW the memory, not just words about it.
+        if text.contains("記憶") || text.lowercased().contains("memory") {
+            AppState.shared?.aiShowMemory()
+        }
         await refreshIssues()
 
         let mem = memory ?? AuditMemory.load(

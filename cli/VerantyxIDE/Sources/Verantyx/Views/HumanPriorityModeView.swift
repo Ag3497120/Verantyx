@@ -418,67 +418,89 @@ struct HumanPriorityModeView: View {
 
     private var codeEditorPanel: some View {
         VStack(spacing: 0) {
-            // Tab bar
             editorTabBar
-
-            // L2.5 / BitNet ステータスバー (ゲートキーパーバーと同スタイル)
             L25StatusBar()
                 .environmentObject(app)
-
             Divider().opacity(0.3)
 
-            // Editor body & Terminal
-            if app.showProcessLog {
-                ResizableVSplit(
-                    minTop: 50, maxTop: 99999, minBottom: 50, initialTop: 600
-                ) {
+            // ── The stage strip: what this single surface is showing ────
+            // Editor / terminal / diff / artifact / memory plus every panel
+            // the agent has defined and named. One surface, many faces —
+            // the terminal is no longer a bottom split, the memory
+            // inspector no longer a separate tab bar.
+            ScrollView(.horizontal, showsIndicators: false) {
+                HStack(spacing: 4) {
+                    stageChip(app.t("Editor", "エディタ"), .editor)
+                    stageChip(app.t("Terminal", "ターミナル"), .terminal)
+                    if !app.stageDiff.isEmpty { stageChip("diff", .diff) }
+                    if !app.stageArtifactText.isEmpty {
+                        stageChip(app.stageArtifactTitle.isEmpty
+                                  ? app.t("Artifact", "成果物") : app.stageArtifactTitle, .artifact)
+                    }
+                    stageChip(app.t("Memory", "記憶"), .memory)
+                    ForEach(app.aiPanels) { panel in
+                        stageChip(panel.title, .aiPanel(panel.id))
+                    }
+                    Spacer()
+                }
+                .padding(.horizontal, 8).padding(.vertical, 4)
+            }
+            .frame(height: 26)
+            .background(Color(red: 0.10, green: 0.10, blue: 0.13))
+            Divider().opacity(0.25)
+
+            Group {
+                switch app.stageMode {
+                case .editor:
                     editorBody
-                } bottom: {
-                    VStack(spacing: 0) {
-                        Divider().opacity(0.3)
-
-                        // Bottom-panel tab switcher: "下部から表示を切り替え"
-                        // for the memory-layer inspector, alongside the
-                        // existing terminal.
-                        HStack(spacing: 4) {
-                            ForEach(BottomPanelTab.allCases) { tab in
-                                Button {
-                                    app.bottomPanelTab = tab
-                                } label: {
-                                    Text(tab.displayName(app))
-                                        .font(.system(size: 10, weight: app.bottomPanelTab == tab ? .bold : .regular))
-                                        .foregroundStyle(app.bottomPanelTab == tab
-                                            ? Color.white
-                                            : Color(red: 0.55, green: 0.55, blue: 0.65))
-                                        .padding(.horizontal, 8).padding(.vertical, 3)
-                                        .background(
-                                            RoundedRectangle(cornerRadius: 4)
-                                                .fill(app.bottomPanelTab == tab ? Color.white.opacity(0.08) : Color.clear)
-                                        )
-                                }
-                                .buttonStyle(.plain)
-                            }
-                            Spacer()
-                        }
-                        .padding(.horizontal, 8)
-                        .padding(.top, 4)
-                        .background(Color(red: 0.10, green: 0.10, blue: 0.13))
-
-                        switch app.bottomPanelTab {
-                        case .terminal:
-                            TerminalPanelView(terminal: app.terminal)
-                                .environmentObject(app)
-                        case .memoryLayers:
-                            MemoryLayerInspectorView()
-                                .environmentObject(app)
-                        }
+                case .terminal:
+                    TerminalPanelView(terminal: app.terminal)
+                        .environmentObject(app)
+                case .diff:
+                    ScrollView {
+                        Text(app.stageDiff)
+                            .font(.system(size: 11, design: .monospaced))
+                            .textSelection(.enabled)
+                            .frame(maxWidth: .infinity, alignment: .leading)
+                            .padding(10)
+                    }
+                case .artifact:
+                    ScrollView {
+                        Text(app.stageArtifactText)
+                            .font(.system(size: 12))
+                            .textSelection(.enabled)
+                            .frame(maxWidth: .infinity, alignment: .leading)
+                            .padding(12)
+                    }
+                case .memory:
+                    MemoryConsoleView()
+                case .aiPanel(let id):
+                    ScrollView {
+                        Text(app.aiPanels.first(where: { $0.id == id })?.text ?? "")
+                            .font(.system(size: 12))
+                            .textSelection(.enabled)
+                            .frame(maxWidth: .infinity, alignment: .leading)
+                            .padding(12)
                     }
                 }
-            } else {
-                editorBody
             }
+            .frame(maxWidth: .infinity, maxHeight: .infinity)
         }
-        .background(Color(red: 0.10, green: 0.10, blue: 0.13))
+    }
+
+    private func stageChip(_ label: String, _ mode: AppState.StageMode) -> some View {
+        Button {
+            app.stageMode = mode
+        } label: {
+            Text(label)
+                .font(.system(size: 10, weight: app.stageMode == mode ? .bold : .regular))
+                .foregroundStyle(app.stageMode == mode ? Color.white
+                                 : Color(red: 0.55, green: 0.55, blue: 0.65))
+                .padding(.horizontal, 8).padding(.vertical, 3)
+                .background(RoundedRectangle(cornerRadius: 4)
+                    .fill(app.stageMode == mode ? Color.white.opacity(0.1) : Color.clear))
+        }
+        .buttonStyle(.plain)
     }
 
     @ViewBuilder

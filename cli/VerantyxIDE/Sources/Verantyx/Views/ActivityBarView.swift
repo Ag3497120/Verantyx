@@ -136,15 +136,32 @@ struct MultiPurposePanel: View {
 
     var body: some View {
         VStack(spacing: 0) {
-            Picker("", selection: $tab) {
-                Text(app.t("Files", "ファイル")).tag("files")
-                Text(app.t("Notes", "メモ")).tag("notes")
-                Text("AI").tag("ai")
+            // Fixed tabs plus every panel the AI has created and NAMED —
+            // the agent decides what this column holds, not the layout.
+            ScrollView(.horizontal, showsIndicators: false) {
+                HStack(spacing: 4) {
+                    ForEach([("files", app.t("Files", "ファイル")),
+                             ("notes", app.t("Notes", "メモ"))], id: \.0) { key, label in
+                        tabChip(label, key)
+                    }
+                    ForEach(app.aiPanels) { panel in
+                        tabChip(panel.title, "ai:" + panel.id)
+                    }
+                }
+                .padding(6)
             }
-            .pickerStyle(.segmented)
-            .labelsHidden()
-            .padding(6)
+            .frame(height: 30)
             Divider().opacity(0.25)
+            if tab.hasPrefix("ai:") {
+                let pid = String(tab.dropFirst(3))
+                ScrollView {
+                    Text(app.aiPanels.first(where: { $0.id == pid })?.text ?? "")
+                        .font(.system(size: 11))
+                        .textSelection(.enabled)
+                        .frame(maxWidth: .infinity, alignment: .leading)
+                        .padding(8)
+                }
+            } else {
             switch tab {
             case "notes":
                 TextEditor(text: $note)
@@ -172,6 +189,19 @@ struct MultiPurposePanel: View {
             default:
                 FileTreeView()
             }
+            }
         }
+    }
+
+    private func tabChip(_ label: String, _ key: String) -> some View {
+        Button { tab = key } label: {
+            Text(label)
+                .font(.system(size: 10, weight: tab == key ? .bold : .regular))
+                .foregroundStyle(tab == key ? Color.white : Color(red: 0.55, green: 0.55, blue: 0.65))
+                .padding(.horizontal, 8).padding(.vertical, 3)
+                .background(RoundedRectangle(cornerRadius: 4)
+                    .fill(tab == key ? Color.white.opacity(0.1) : Color.clear))
+        }
+        .buttonStyle(.plain)
     }
 }

@@ -821,6 +821,48 @@ final class AppState: ObservableObject {
     /// Which AuditMemory store Vera-a reads and writes. "Fresh memory" at
     /// session start swaps this to a dated task name; old stores stay on
     /// disk untouched, so switching back is choosing the old name again.
+    // ── The stage: one surface, many faces ──────────────────────────────
+    //
+    // Editor, terminal, diff, artifact and memory used to be separate panes
+    // and splits; they are now ONE area whose content the agent (or the
+    // user) switches. The chat is the other pane — two screens total.
+    enum StageMode: Equatable {
+        case editor, terminal, diff, artifact, memory
+        case aiPanel(String)   // id of an agent-defined panel
+    }
+    @Published var stageMode: StageMode = .editor
+    @Published var stageDiff: String = ""
+    @Published var stageArtifactTitle: String = ""
+    @Published var stageArtifactText: String = ""
+
+    /// Panels the AI names and fills itself — both the left column and the
+    /// stage can show them. "The agent defines what this space is" is an
+    /// API, not a fixed layout decision.
+    struct AIPanel: Identifiable, Equatable {
+        let id: String
+        var title: String
+        var text: String
+    }
+    @Published var aiPanels: [AIPanel] = []
+
+    /// Agent API: create or update a named panel (and optionally front it).
+    func aiShowPanel(title: String, text: String, front: Bool = true) {
+        if let i = aiPanels.firstIndex(where: { $0.title == title }) {
+            aiPanels[i].text = text
+        } else {
+            aiPanels.append(AIPanel(id: UUID().uuidString, title: title, text: text))
+        }
+        if front, let panel = aiPanels.first(where: { $0.title == title }) {
+            stageMode = .aiPanel(panel.id)
+        }
+    }
+    func aiShowDiff(_ diff: String) { stageDiff = diff; stageMode = .diff }
+    func aiShowArtifact(title: String, text: String) {
+        stageArtifactTitle = title; stageArtifactText = text; stageMode = .artifact
+    }
+    func aiShowTerminal() { stageMode = .terminal }
+    func aiShowMemory() { stageMode = .memory }
+
     /// AI-writable surface in the left multi-purpose panel.
     @Published var flexPanelTitle: String = ""
     @Published var flexPanelText: String = ""
@@ -2044,8 +2086,13 @@ final class AppState: ObservableObject {
                     self.messages.append(ChatMessage(role: .system,
                         content: "<think>\n⚙️ \(call.displayLabel)\n</think>"))
                     if case .runCommand(let cmd) = call.tool {
+                        // The stage follows the work: a command fronts the
+                        // terminal so the user watches it run, not a stale
+                        // editor. Same rule the diff/artifact APIs follow.
+                        self.aiShowTerminal()
                         Task { await self.terminal.run(cmd, in: self.workspaceURL, initiatedByAI: true) }
                     }
+
 
                 case .toolResult(let call):
                     if !call.result.isEmpty {
