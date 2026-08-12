@@ -1672,12 +1672,13 @@ struct VeraFeatureDock: View {
     private enum Tab: String, CaseIterable, Identifiable {
         // .memory removed: the stage's own 記憶 chip is the one memory
         // view — showing it here too meant two memory readouts at once.
-        case growth, research, distributed, settings, modes, stereoCross, mirror, vectorLab
+        // .growth removed likewise: growth lives in the Vera-a audit
+        // screen's right panel now.
+        case research, distributed, settings, modes, stereoCross, mirror, vectorLab
         var id: String { rawValue }
         @MainActor
         func title(_ app: AppState) -> String {
             switch self {
-            case .growth:      return app.t("Growth", "成長")
             case .research:    return app.t("Failure types", "失敗の型")
             case .distributed: return app.t("Two Macs", "2台構成")
             case .settings:    return app.t("Settings", "設定")
@@ -1710,7 +1711,6 @@ struct VeraFeatureDock: View {
 
             Group {
                 switch tab {
-                case .growth:      GrowthDashboardView()
                 case .research:    FailureDomainsView()
                 case .distributed: PipeControlPanelView(showConnectSheet: $showConnectSheet)
                 case .settings:

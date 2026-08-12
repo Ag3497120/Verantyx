@@ -166,6 +166,55 @@ actor EternalMemoryStore {
         exec("ALTER TABLE nodes ADD COLUMN vera_verdict TEXT")
         exec("ALTER TABLE nodes ADD COLUMN vera_core TEXT")
         exec("ALTER TABLE nodes ADD COLUMN quarantined INTEGER NOT NULL DEFAULT 0")
+        // Store-level facts, e.g. which JGEN owns this vector space.
+        exec("CREATE TABLE IF NOT EXISTS meta (key TEXT PRIMARY KEY, value TEXT NOT NULL)")
+    }
+
+    private func metaGet(_ key: String) -> String? {
+        var stmt: OpaquePointer?
+        guard sqlite3_prepare_v2(db, "SELECT value FROM meta WHERE key = ?",
+                                 -1, &stmt, nil) == SQLITE_OK else { return nil }
+        defer { sqlite3_finalize(stmt) }
+        sqlite3_bind_text(stmt, 1, key, -1, Self.sqliteTransient)
+        guard sqlite3_step(stmt) == SQLITE_ROW else { return nil }
+        return sqlite3_column_text(stmt, 0).map { String(cString: $0) }
+    }
+
+    private func metaSet(_ key: String, _ value: String) {
+        var stmt: OpaquePointer?
+        guard sqlite3_prepare_v2(db, "INSERT OR REPLACE INTO meta (key, value) VALUES (?,?)",
+                                 -1, &stmt, nil) == SQLITE_OK else { return }
+        defer { sqlite3_finalize(stmt) }
+        sqlite3_bind_text(stmt, 1, key, -1, Self.sqliteTransient)
+        sqlite3_bind_text(stmt, 2, value, -1, Self.sqliteTransient)
+        sqlite3_step(stmt)
+    }
+
+    // ── Memory-organ pinning ─────────────────────────────────────────
+    // The embedding space belongs to whichever JGEN wrote the first
+    // vector. Encoding with a DIFFERENT loaded JGEN would silently mix
+    // spaces — cosines between them are noise — so reads and writes are
+    // refused (with one chat notice per launch) until the pinned model is
+    // loaded again or the store is re-embedded. The chat model is free:
+    // this pin only concerns the memory organ.
+    private var warnedModelMismatch = false
+
+    private func embedModelAllowed() async -> Bool {
+        guard let current = await JCrossChatManager.shared.loadedModelName else { return false }
+        if let pinned = metaGet("embed_model") {
+            if pinned == current { return true }
+            if !warnedModelMismatch {
+                warnedModelMismatch = true
+                let msg = L(
+                    "🧠 Eternal memory is pinned to '\(pinned)' but '\(current)' is loaded — memory reads/writes are paused so the vector space stays coherent. Load the pinned model, or re-embed the store to switch organs.",
+                    "🧠 永遠記憶は『\(pinned)』の空間に固定されていますが、現在は『\(current)』がロード中です — 空間の混線を防ぐため記憶の読み書きを一時停止します。固定モデルをロードするか、ストアを再埋め込みしてください。")
+                await MainActor.run { AppState.shared?.addSystemMessage(msg) }
+            }
+            return false
+        }
+        // First write claims the space.
+        metaSet("embed_model", current)
+        return true
     }
 
     /// One-time import of the pre-SQLite JSONL index. The file is kept
@@ -355,6 +404,7 @@ actor EternalMemoryStore {
             return
         }
         try ensureLoaded()
+        guard await embedModelAllowed() else { return }
         let clippedText = PromptBudget.truncateForModel(
             text, maxChars: PromptBudget.maxStoredMemoryChars, headChars: 2_800, tailChars: 800
         )
@@ -544,6 +594,7 @@ actor EternalMemoryStore {
             NSLog("[EternalMemory] skipped search encode under GPU/memory safety policy")
             return []
         }
+        guard await embedModelAllowed() else { return [] }
         let qv = Self.fitVec(try await embed(query))
         let now = Date().timeIntervalSince1970
 

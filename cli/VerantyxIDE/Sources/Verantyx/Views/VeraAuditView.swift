@@ -202,6 +202,22 @@ struct VeraAuditView: View {
         NSString(string: "~/Projects/verantyx-v6").expandingTildeInPath
     @State private var memory = AuditMemory.load(task: AppState.shared?.veraMemoryTask ?? "verantyx-ai-vera3d")
 
+    /// The audit screen's right panel is the one home for Vera-adjacent
+    /// surfaces: the agent chat, growth, and MCP moved here from the
+    /// activity bar / feature dock (which used to duplicate them).
+    private enum RightTab: String, CaseIterable, Identifiable {
+        case chat, growth, mcp
+        var id: String { rawValue }
+        @MainActor func title(_ app: AppState) -> String {
+            switch self {
+            case .chat:   return app.t("Chat", "チャット")
+            case .growth: return app.t("Growth", "成長")
+            case .mcp:    return "MCP"
+            }
+        }
+    }
+    @State private var rightTab: RightTab = .chat
+
     var body: some View {
         HStack(spacing: 0) {
             // Run side — the published page, live. The 3D is the agent's
@@ -231,9 +247,32 @@ struct VeraAuditView: View {
 
             Divider().opacity(0.3)
 
-            chatPanel
-                .frame(width: 400)
-                .background(Color(red: 0.11, green: 0.11, blue: 0.14))
+            VStack(spacing: 0) {
+                HStack(spacing: 4) {
+                    ForEach(RightTab.allCases) { tab in
+                        Button { rightTab = tab } label: {
+                            Text(tab.title(app))
+                                .font(.system(size: 10, weight: rightTab == tab ? .bold : .regular))
+                                .foregroundStyle(rightTab == tab ? Color.white
+                                                 : Color(red: 0.55, green: 0.55, blue: 0.65))
+                                .padding(.horizontal, 8).padding(.vertical, 3)
+                                .background(RoundedRectangle(cornerRadius: 4)
+                                    .fill(rightTab == tab ? Color.white.opacity(0.08) : .clear))
+                        }
+                        .buttonStyle(.plain)
+                    }
+                    Spacer()
+                }
+                .padding(.horizontal, 8).padding(.vertical, 4)
+                Divider().opacity(0.25)
+                switch rightTab {
+                case .chat:   chatPanel
+                case .growth: GrowthDashboardView()
+                case .mcp:    MCPView().environmentObject(app)
+                }
+            }
+            .frame(width: 400)
+            .background(Color(red: 0.11, green: 0.11, blue: 0.14))
         }
         .task {
             await refreshDemand()

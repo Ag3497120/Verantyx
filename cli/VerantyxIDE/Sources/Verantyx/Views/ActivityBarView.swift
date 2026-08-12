@@ -23,7 +23,9 @@ struct ActivityBarView: View {
         VStack(spacing: 0) {
             // Top icons
             VStack(spacing: 2) {
-                ForEach([ActivitySection.explorer, .git, .mcp, .vera, .evolution], id: \.self) { section in
+                // .mcp left the rail — MCP now lives in the Vera-a audit
+                // screen's right panel, its one home.
+                ForEach([ActivitySection.explorer, .git, .vera, .evolution], id: \.self) { section in
                     activityButton(section)
                 }
             }
