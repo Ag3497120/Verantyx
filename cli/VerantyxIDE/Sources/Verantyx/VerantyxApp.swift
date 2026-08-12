@@ -304,6 +304,17 @@ struct VerantyxApp: App {
                     // ── Initialize OS Agent Spotlight UI ──
                     SpotlightPanelManager.shared.setup(appState: appState)
 
+                    // ── Safari scripting block, if a previous run hit one ──
+                    // Shown from evidence, not from a preference read (the
+                    // preference is unreadable — see SafariScriptingAccess).
+                    // Clears itself the next time a page reads correctly.
+                    if AppleScriptBridge.SafariScriptingAccess.isKnownBlocked {
+                        DispatchQueue.main.asyncAfter(deadline: .now() + 2) {
+                            appState.addSystemMessage(
+                                AppleScriptBridge.SafariScriptingAccess.guidance())
+                        }
+                    }
+
                     // ── Memory-organ MCP endpoint ──
                     // External agents reach eternal memory at
                     // http://127.0.0.1:8766/mcp (JGenAgentServer.handleMCP),

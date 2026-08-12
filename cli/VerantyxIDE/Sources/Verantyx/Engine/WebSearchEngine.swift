@@ -483,6 +483,10 @@ actor WebSearchEngine {
             try await Task.sleep(nanoseconds: 4_000_000_000) // wait for load
             let text = try await applescript.getPageText(from: browser)
             let currentURL = (try? await applescript.getCurrentURL(from: browser)) ?? url
+            // A real DOM read is the only proof the scripting block is
+            // gone; the preference itself cannot be read (see
+            // SafariScriptingAccess).
+            if text.count >= 200 { AppleScriptBridge.SafariScriptingAccess.recordWorking() }
 
             // The DOM route can fail while the RENDER is fine — Google's
             // consent/JS shell gave AppleScript nothing although Safari
@@ -533,6 +537,7 @@ actor WebSearchEngine {
             let isJSBlocked = raw.contains("Allow JavaScript from Apple Events")
                 || raw.contains("JavaScript from Apple Events")
                 || raw.contains("37:126")
+            if isJSBlocked { AppleScriptBridge.SafariScriptingAccess.recordBlocked() }
             let message = isJSBlocked
                 ? AppLanguage.shared.t(
                     "❌ \(browser.rawValue) blocks scripted page access. Enable it once: "

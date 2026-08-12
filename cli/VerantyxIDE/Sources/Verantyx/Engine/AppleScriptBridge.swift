@@ -160,6 +160,56 @@ actor AppleScriptBridge {
         try await runAppleScript(script)
     }
 
+    // MARK: - Safari scripting access
+    //
+    // "Allow JavaScript from Apple Events" decides whether page text can
+    // be read from the DOM at all; without it every browse falls back to
+    // screen OCR, which misses everything off-screen.
+    //
+    // The obvious implementation — read the preference at launch — does
+    // not work and would be worse than nothing. Safari keeps it in a
+    // TCC-protected container: CFPreferencesCopyAppValue returns nil and
+    // the plist is unreadable REGARDLESS of the actual setting (verified
+    // on this machine). A check built on that would tell everyone their
+    // setting was off, including the people who had already turned it on.
+    //
+    // So the signal is behavioural, not declarative: the flag is set when
+    // Safari actually refuses a script (AppleScript error 37:126) and
+    // cleared the moment a DOM read succeeds. The guidance then shows at
+    // launch while the block is real, and stops by itself once it is
+    // fixed — no dismissal to remember, and nothing written to Safari.
+    enum SafariScriptingAccess {
+        private static let blockedKey = "safari_js_blocked"
+
+        static var isKnownBlocked: Bool {
+            UserDefaults.standard.bool(forKey: blockedKey)
+        }
+
+        static func recordBlocked() {
+            UserDefaults.standard.set(true, forKey: blockedKey)
+        }
+
+        /// A DOM read worked, so whatever was blocking it is gone.
+        static func recordWorking() {
+            guard UserDefaults.standard.bool(forKey: blockedKey) else { return }
+            UserDefaults.standard.set(false, forKey: blockedKey)
+        }
+
+        static func guidance() -> String {
+            AppLanguage.shared.t(
+                "🧩 Safari is blocking scripted page reads, so browsing falls back to screen OCR "
+                + "(anything off-screen is invisible). Enable it once — Verantyx will not change "
+                + "another app's security setting for you: Safari → Settings → Advanced → "
+                + "\"Show features for web developers\", then Develop → \"Allow JavaScript from "
+                + "Apple Events\". This notice disappears by itself once a page reads correctly.",
+                "🧩 Safari がスクリプトからのページ取得を拒否しているため、閲覧は画面OCRに頼っています"
+                + "（画面外の内容は取得できません）。1度だけ有効化してください — 他アプリのセキュリティ設定を"
+                + "Verantyxが代わりに変更することはしません: Safari → 設定 → 詳細 →「Webデベロッパ用の機能を表示」、"
+                + "その後 開発メニュー →「Apple EventsからのJavaScriptを許可」。"
+                + "ページが正しく読めた時点で、この案内は自動的に出なくなります。")
+        }
+    }
+
     // MARK: - Core AppleScript runner
 
     @discardableResult
