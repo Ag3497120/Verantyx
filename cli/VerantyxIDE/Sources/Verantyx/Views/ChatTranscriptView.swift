@@ -52,6 +52,11 @@ struct ChatTranscriptView: NSViewRepresentable {
 
         context.coordinator.textView   = tv
         context.coordinator.scrollView = sv
+        tv.onCopyIndex = { [weak co = context.coordinator] idx in
+            guard let co, idx >= 0, idx < co.currentMessages.count else { return }
+            NSPasteboard.general.clearContents()
+            NSPasteboard.general.setString(co.currentMessages[idx].content, forType: .string)
+        }
         return sv
     }
 
@@ -192,6 +197,33 @@ struct ChatTranscriptView: NSViewRepresentable {
 
 // MARK: - SelectableTextView (NSTextView subclass)
 private final class SelectableTextView: NSTextView {
+    /// Called with a message index when the per-message copy link is
+    /// clicked. Handled HERE via a mouseDown hit-test rather than through
+    /// `textView(_:clickedOnLink:at:)` — the delegate route silently never
+    /// fired for the custom scheme (which is why the button "existed but
+    /// did nothing"), and a hit-test cannot be opted out of by AppKit.
+    var onCopyIndex: ((Int) -> Void)?
+
+    override func mouseDown(with event: NSEvent) {
+        let pt = convert(event.locationInWindow, from: nil)
+        if let lm = layoutManager, let tc = textContainer {
+            let adjusted = NSPoint(x: pt.x - textContainerInset.width,
+                                   y: pt.y - textContainerInset.height)
+            let idx = lm.characterIndex(for: adjusted, in: tc,
+                                        fractionOfDistanceBetweenInsertionPoints: nil)
+            if idx < (textStorage?.length ?? 0),
+               let link = textStorage?.attribute(.link, at: idx, effectiveRange: nil),
+               let url = link as? URL, url.scheme == "verantyx-copy",
+               let n = url.host.flatMap(Int.init) {
+                onCopyIndex?(n)
+                // Brief visual receipt: flash the link run.
+                NSSound(named: "Tink")?.play()
+                return   // consume; no selection change for a button press
+            }
+        }
+        super.mouseDown(with: event)
+    }
+
     // コンテキストメニューから "Copy" だけに絞る (オプション)
     override func menu(for event: NSEvent) -> NSMenu? {
         let m = NSMenu()
@@ -291,50 +323,69 @@ private enum Transcript {
     // "verantyx-copy://<index>" は本物のURLではなく、
     // ChatTranscriptView.Coordinator.textView(_:clickedOnLink:at:) が
     // 拾って該当メッセージの内容をクリップボードにコピーするだけの合図。
-    private static func appendCopyLink(_ r: NSMutableAttributedString, index: Int) {
+    private static func appendCopyLink(_ r: NSMutableAttributedString, index: Int,
+                                       rightAligned: Bool = false) {
         guard let url = URL(string: "verantyx-copy://\(index)") else { return }
-        r.append(str("\n"))
-        let cp = para(spacing: 2)
-        r.append(NSAttributedString(string: "コピー",
+        let cp = mutablePara(); cp.paragraphSpacing = 2
+        if rightAligned { cp.alignment = .right }
+        r.append(NSAttributedString(string: "\n", attributes: [.paragraphStyle: cp]))
+        r.append(NSAttributedString(
+            string: AppLanguage.shared.t("copy", "コピー"),
             attributes: [.font: NSFont.systemFont(ofSize: 10),
                          .foregroundColor: Palette.copyLinkColor,
                          .link: url,
+                         .cursor: NSCursor.pointingHand,
                          .paragraphStyle: cp]))
     }
 
     // ─────────────────────────────────────────────────────────────
-    // ユーザーメッセージ
+    // ユーザーメッセージ — 右揃えの「囲い」。Claude/ChatGPT の作法:
+    // 人間の発言は右に寄った塗り付きの塊、AI の答えは中央のカラム。
+    // NSTextView では alignment .right + 左側の大きな headIndent が
+    // その形になる(塗りは従来どおり .backgroundColor が行の字形の
+    // 背後に矩形を描く)。
     private static func appendUser(_ r: NSMutableAttributedString, _ content: String, index: Int) {
-        let lp = para(spacing: 3)
+        let lp = mutablePara(); lp.alignment = .right; lp.paragraphSpacing = 3
         r.append(NSAttributedString(string: "You",
             attributes: [.font: NSFont.systemFont(ofSize: 10, weight: .semibold),
                          .foregroundColor: Palette.userLabel,
                          .paragraphStyle: lp]))
-        r.append(str("\n"))
+        r.append(NSAttributedString(string: "\n", attributes: [.paragraphStyle: lp]))
 
-        // .backgroundColor draws a filled rect behind this run's glyphs —
-        // the "bubble" for user messages (see Palette.userBubbleBg's doc
-        // comment for why this isn't a rounded SwiftUI bubble).
-        let cp = para(lineSpacing: 2)
+        let cp = mutablePara()
+        cp.alignment = .right
+        cp.lineSpacing = 2
+        // The indent is what keeps a long user message from becoming a
+        // full-width right-aligned wall: it can only occupy the right
+        // two-thirds, like a bubble.
+        cp.headIndent = 90
+        cp.firstLineHeadIndent = 90
         r.append(NSAttributedString(string: " \(content) ",
             attributes: [.font: NSFont.systemFont(ofSize: 13),
                          .foregroundColor: Palette.userText,
                          .backgroundColor: Palette.userBubbleBg,
                          .paragraphStyle: cp]))
-        appendCopyLink(r, index: index)
+        appendCopyLink(r, index: index, rightAligned: true)
     }
 
     // ─────────────────────────────────────────────────────────────
     // アシスタントメッセージ（<think> タグ対応 + **bold** マークダウン）
     private static func appendAssistant(_ r: NSMutableAttributedString, _ content: String, index: Int) {
         let lp = para(spacing: 3)
+        // The reply reads as a centre column, not a left-hugging block:
+        // small symmetric margins, text itself stays natural-aligned —
+        // centring the GLYPHS would make prose unreadable.
         r.append(NSAttributedString(string: "Verantyx",
             attributes: [.font: NSFont.systemFont(ofSize: 10, weight: .semibold),
                          .foregroundColor: Palette.assiLabel,
                          .paragraphStyle: lp]))
         r.append(str("\n"))
 
-        let cp = para(lineSpacing: 2)
+        let cp = mutablePara()
+        cp.lineSpacing = 2
+        cp.headIndent = 12
+        cp.firstLineHeadIndent = 12
+        cp.tailIndent = -12
 
         for part in parseThink(content) {
             if part.isThink {

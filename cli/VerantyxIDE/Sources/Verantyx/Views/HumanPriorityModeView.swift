@@ -575,33 +575,6 @@ struct HumanPriorityModeView: View {
 
             // Save button / status
             HStack(spacing: 8) {
-                Button {
-                    withAnimation(.easeInOut(duration: 0.2)) {
-                        app.showStereoCrossGraph.toggle()
-                    }
-                } label: {
-                    HStack(spacing: 4) {
-                        Image(systemName: "cube.transparent")
-                            .font(.system(size: 11))
-                        Text(app.t("3D Graph", "立体十字構造体"))
-                            .font(.system(size: 11, weight: .medium))
-                    }
-                    .foregroundStyle(app.showStereoCrossGraph
-                        ? Color(red: 0.5, green: 0.85, blue: 1.0)
-                        : Color(red: 0.6, green: 0.6, blue: 0.7))
-                    .padding(.horizontal, 10)
-                    .padding(.vertical, 4)
-                    .contentShape(Rectangle())
-                    .background(
-                        RoundedRectangle(cornerRadius: 5)
-                            .fill(app.showStereoCrossGraph
-                                ? Color(red: 0.15, green: 0.28, blue: 0.38).opacity(0.9)
-                                : Color.white.opacity(0.04))
-                    )
-                }
-                .contentShape(Rectangle())
-                .buttonStyle(.plain)
-                .help(app.t("Visualize Vera's stereo-cross structure", "Veraの立体十字構造体を可視化"))
 
                 Button {
                     withAnimation(.easeInOut(duration: 0.2)) {
@@ -631,33 +604,6 @@ struct HumanPriorityModeView: View {
                 .buttonStyle(.plain)
                 .help(app.t("Watch the window the agent parked off-screen", "エージェントがオフスクリーンに退避させたウィンドウを表示"))
 
-                Button {
-                    withAnimation(.easeInOut(duration: 0.2)) {
-                        app.showVectorLab.toggle()
-                    }
-                } label: {
-                    HStack(spacing: 4) {
-                        Image(systemName: "atom")
-                            .font(.system(size: 11))
-                        Text(app.t("Vector Lab", "ベクトルラボ"))
-                            .font(.system(size: 11, weight: .medium))
-                    }
-                    .foregroundStyle(app.showVectorLab
-                        ? Color(red: 0.6, green: 0.85, blue: 1.0)
-                        : Color(red: 0.6, green: 0.6, blue: 0.7))
-                    .padding(.horizontal, 10)
-                    .padding(.vertical, 4)
-                    .contentShape(Rectangle())
-                    .background(
-                        RoundedRectangle(cornerRadius: 5)
-                            .fill(app.showVectorLab
-                                ? Color(red: 0.12, green: 0.28, blue: 0.38).opacity(0.9)
-                                : Color.white.opacity(0.04))
-                    )
-                }
-                .contentShape(Rectangle())
-                .buttonStyle(.plain)
-                .help(app.t("Explore JGEN hidden-state vectors directly (encode/resynthesize/entropy/optimize)", "JGENの隠れ状態ベクトルを直接操作(encode/resynthesize/entropy/optimize)"))
 
                 Divider().frame(height: 16).opacity(0.4)
 

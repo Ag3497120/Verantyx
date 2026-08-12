@@ -479,21 +479,56 @@ struct VeraAuditView: View {
         .buttonStyle(.plain)
     }
 
+    /// Same conventions as the main transcript: the human's words sit in a
+    /// right-aligned enclosure, the agent's answer occupies the column, and
+    /// every message is selectable and has a working copy control.
+    @ViewBuilder
     private func chatBubble(_ m: VeraAAgent.Message) -> some View {
-        VStack(alignment: .leading, spacing: 3) {
-            Text(m.role == .user ? app.t("You", "あなた") : "Vera-a")
-                .font(.system(size: 8, weight: .bold))
-                .foregroundStyle(m.role == .user ? Color.blue : Color.purple)
-            Text(m.text)
-                .font(.system(size: 11.5))
-                .textSelection(.enabled)
-                .fixedSize(horizontal: false, vertical: true)
+        if m.role == .user {
+            HStack(alignment: .bottom, spacing: 4) {
+                Spacer(minLength: 50)
+                copyButton(m.text)
+                VStack(alignment: .trailing, spacing: 3) {
+                    Text(app.t("You", "あなた"))
+                        .font(.system(size: 8, weight: .bold)).foregroundStyle(Color.blue)
+                    Text(m.text)
+                        .font(.system(size: 11.5))
+                        .textSelection(.enabled)
+                        .fixedSize(horizontal: false, vertical: true)
+                }
+                .padding(8)
+                .background(RoundedRectangle(cornerRadius: 10).fill(Color.blue.opacity(0.14)))
+            }
+            .padding(.horizontal, 8)
+        } else {
+            VStack(alignment: .leading, spacing: 3) {
+                HStack(spacing: 6) {
+                    Text("Vera-a")
+                        .font(.system(size: 8, weight: .bold)).foregroundStyle(Color.purple)
+                    copyButton(m.text)
+                }
+                Text(m.text)
+                    .font(.system(size: 11.5))
+                    .textSelection(.enabled)
+                    .fixedSize(horizontal: false, vertical: true)
+            }
+            .padding(8)
+            .frame(maxWidth: .infinity, alignment: .leading)
+            .padding(.horizontal, 8)
         }
-        .padding(8)
-        .frame(maxWidth: .infinity, alignment: .leading)
-        .background(RoundedRectangle(cornerRadius: 8)
-            .fill(m.role == .user ? Color.blue.opacity(0.08) : Color.white.opacity(0.04)))
-        .padding(.horizontal, 8)
+    }
+
+    private func copyButton(_ text: String) -> some View {
+        Button {
+            NSPasteboard.general.clearContents()
+            NSPasteboard.general.setString(text, forType: .string)
+        } label: {
+            Image(systemName: "doc.on.doc")
+                .font(.system(size: 9))
+                .foregroundStyle(Color.gray.opacity(0.7))
+        }
+        .buttonStyle(.plain)
+        .help(app.t("Copy", "コピー"))
     }
 
     private var chatInputBar: some View {
