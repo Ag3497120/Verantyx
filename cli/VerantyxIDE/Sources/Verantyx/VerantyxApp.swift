@@ -321,9 +321,16 @@ struct VerantyxApp: App {
                     // organ is supposed to be small, and silently loading
                     // a 60 GB model at launch is not a favor.
                     Task.detached(priority: .utility) {
-                        guard await !JCrossChatManager.shared.isLoaded,
-                              let pinned = await EternalMemoryStore.shared.pinnedEmbedModel()
-                        else { return }
+                        guard await !JCrossChatManager.shared.isLoaded else { return }
+                        // Explicit role selection (記憶用モデル) wins over
+                        // the store's pin; the pin remains the fallback.
+                        let chosen = UserDefaults.standard.string(forKey: "memory_organ_model")
+                        let pinned: String
+                        if let chosen, !chosen.isEmpty {
+                            pinned = chosen
+                        } else if let p = await EternalMemoryStore.shared.pinnedEmbedModel() {
+                            pinned = p
+                        } else { return }
                         let url = JGenPaths.convertedModelsDir.appendingPathComponent(pinned)
                         guard let size = (try? FileManager.default.attributesOfItem(
                                 atPath: url.path)[.size] as? NSNumber)?.uint64Value,

@@ -28,6 +28,7 @@ struct ModelSelectorBarView: View {
 
     @ObservedObject private var council = CouncilSettingsStore.shared
     @State private var showJGenOptions = false
+    @State private var showModelRoles = false
     /// LM Studio's server is not started automatically, so this stays empty --
     /// and the section stays hidden -- until the user turns it on. Refreshed
     /// when the bar appears rather than polled.
@@ -149,6 +150,19 @@ struct ModelSelectorBarView: View {
 
                 modelMenu
 
+                // ── Model roles: 会話用 / 記憶用 / Vera-a用 ──────────
+                Button {
+                    showModelRoles = true
+                } label: {
+                    Image(systemName: "square.stack.3d.up")
+                        .font(.system(size: 11))
+                        .foregroundStyle(Color(red: 0.55, green: 0.8, blue: 1.0))
+                }
+                .buttonStyle(.plain)
+                .help(app.t("Model roles: chat / memory organ / Vera-a composer",
+                             "モデルの役割: 会話用・記憶用・Vera-a用"))
+                .popover(isPresented: $showModelRoles) { modelRolesPopover }
+
                 // JGEN-only: the memory sources and layer knobs only mean
                 // anything when the hidden-state engine is actually driving
                 // the model, so this chip appears only for .jcrossReady.
@@ -216,6 +230,120 @@ struct ModelSelectorBarView: View {
             // off this returns nothing and the section simply does not appear,
             // rather than showing a section that fails on click.
             lmStudioModels = await LMStudioClient.shared.listModels()
+        }
+    }
+
+    // MARK: - Model roles popover (会話用 / 記憶用 / Vera-a用)
+
+    @ViewBuilder
+    private var modelRolesPopover: some View {
+        VStack(alignment: .leading, spacing: 12) {
+            Text(app.t("Model roles", "モデルの役割"))
+                .font(.system(size: 12, weight: .bold))
+
+            // 会話用 — the same menu as the bar, reused.
+            HStack(spacing: 8) {
+                Text(app.t("Chat", "会話用"))
+                    .font(.system(size: 11)).frame(width: 70, alignment: .leading)
+                modelMenu
+            }
+
+            // 記憶用 — loads the ENGINE only; the chat backend stays put.
+            HStack(spacing: 8) {
+                Text(app.t("Memory", "記憶用"))
+                    .font(.system(size: 11)).frame(width: 70, alignment: .leading)
+                Menu {
+                    ForEach(jgen.convertedModels, id: \.self) { name in
+                        Button(name) { selectMemoryOrgan(name) }
+                            .disabled(!jgen.isArchSupported(name))
+                    }
+                    if jgen.convertedModels.isEmpty {
+                        Text(app.t("No converted JGEN — convert one in MCP / external operation",
+                                   "変換済みJGENなし — MCP・外部運用で変換してください"))
+                    }
+                } label: {
+                    Text(app.memoryOrganModel.isEmpty
+                         ? app.t("(pin decides)", "（ピン任せ）")
+                         : app.memoryOrganModel)
+                        .font(.system(size: 10, design: .monospaced))
+                        .lineLimit(1).truncationMode(.middle)
+                }
+                .menuStyle(.borderlessButton)
+                .frame(maxWidth: 220, alignment: .leading)
+            }
+            Text(app.t(
+                "Small JGEN recommended (autoloads at launch, ≤9 GB). Loads the engine only — chat is untouched. Note: JGEN chat shares this one engine slot.",
+                "小型JGEN推奨（起動時に自動ロード・9GB以下）。エンジンのみロードし、会話モデルには触れません。注: 会話にJGENを使う場合はこの1エンジンを共有します。"
+            ))
+            .font(.system(size: 9)).foregroundStyle(.secondary)
+            .fixedSize(horizontal: false, vertical: true)
+
+            // Vera-a用 — who composes under the verdict.
+            HStack(spacing: 8) {
+                Text("Vera-a")
+                    .font(.system(size: 11)).frame(width: 70, alignment: .leading)
+                Menu {
+                    Button(app.t("Follow chat model (auto)", "会話用に従う（自動）")) {
+                        app.veraAComposerModel = "auto"
+                    }
+                    if !lmStudioModels.isEmpty {
+                        Section("LM Studio") {
+                            ForEach(lmStudioModels, id: \.self) { m in
+                                Button(m) { app.veraAComposerModel = "lmstudio:\(m)" }
+                            }
+                        }
+                    }
+                    if !app.ollamaModels.isEmpty {
+                        Section("Ollama") {
+                            ForEach(app.ollamaModels, id: \.self) { m in
+                                Button(m) { app.veraAComposerModel = "ollama:\(m)" }
+                            }
+                        }
+                    }
+                } label: {
+                    Text(app.veraAComposerModel == "auto"
+                         ? app.t("auto (chat model)", "自動（会話用と同じ）")
+                         : app.veraAComposerModel
+                             .replacingOccurrences(of: "lmstudio:", with: "LM Studio: ")
+                             .replacingOccurrences(of: "ollama:", with: "Ollama: "))
+                        .font(.system(size: 10, design: .monospaced))
+                        .lineLimit(1).truncationMode(.middle)
+                }
+                .menuStyle(.borderlessButton)
+                .frame(maxWidth: 220, alignment: .leading)
+            }
+            Text(app.t(
+                "Composes the conversational part of Vera-a mode, under the verbatim verdict.",
+                "Vera-aモードで型付き判定の下に会話文を合成するモデルです。"
+            ))
+            .font(.system(size: 9)).foregroundStyle(.secondary)
+            .fixedSize(horizontal: false, vertical: true)
+        }
+        .padding(14)
+        .frame(width: 330)
+    }
+
+    /// Loads the chosen JGEN as the memory organ — engine only, chat
+    /// backend untouched. The store pin still guards writes: picking a
+    /// model that differs from an existing pin surfaces the notice
+    /// instead of mixing spaces.
+    private func selectMemoryOrgan(_ name: String) {
+        app.memoryOrganModel = name
+        Task {
+            do {
+                try await JCrossChatManager.shared.load(modelFileName: name)
+                await MainActor.run {
+                    app.addSystemMessage(app.t(
+                        "🧠 Memory organ loaded: \(name)",
+                        "🧠 記憶器官をロード: \(name)"))
+                }
+            } catch {
+                await MainActor.run {
+                    app.addSystemMessage(app.t(
+                        "❌ Memory organ load failed: \(error.localizedDescription)",
+                        "❌ 記憶器官のロード失敗: \(error.localizedDescription)"))
+                }
+            }
         }
     }
 

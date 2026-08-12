@@ -899,6 +899,23 @@ final class AppState: ObservableObject {
         didSet { UserDefaults.standard.set(veraMemoryTask, forKey: "vera_memory_task") }
     }
 
+    // ── Model roles ─────────────────────────────────────────────────────
+    // The dual setup, made explicit: three separately chosen models.
+    //   会話用  — modelStatus (the existing model menu)
+    //   記憶用  — which JGEN the memory organ loads (engine only; never
+    //             touches modelStatus). Autoload prefers this over the pin.
+    //   Vera-a用 — who composes under the verdict in Vera-a mode:
+    //             "auto" follows the chat model; "lmstudio:<id>" /
+    //             "ollama:<id>" override it.
+    @Published var memoryOrganModel: String =
+        UserDefaults.standard.string(forKey: "memory_organ_model") ?? "" {
+        didSet { UserDefaults.standard.set(memoryOrganModel, forKey: "memory_organ_model") }
+    }
+    @Published var veraAComposerModel: String =
+        UserDefaults.standard.string(forKey: "vera_a_composer") ?? "auto" {
+        didSet { UserDefaults.standard.set(veraAComposerModel, forKey: "vera_a_composer") }
+    }
+
     @Published var veraEngineMode: VeraEngineMode = .council {
         didSet { UserDefaults.standard.set(veraEngineMode.rawValue,
                                            forKey: "vera_engine_mode") }
@@ -1339,28 +1356,44 @@ final class AppState: ObservableObject {
                 userParts.append("[QUESTION]\n\(text)")
                 let user = userParts.joined(separator: "\n\n")
 
-                let status = await MainActor.run { self.modelStatus }
                 var composed = ""
                 var composerName = ""
-                switch status {
-                case .lmStudioReady(let model):
-                    composerName = model
+                // The Vera-a composer can be chosen separately (model
+                // roles UI); "auto" follows whatever the user chats with.
+                let choice = await MainActor.run { self.veraAComposerModel }
+                if choice.hasPrefix("lmstudio:") {
+                    composerName = String(choice.dropFirst("lmstudio:".count))
                     composed = await LMStudioClient.shared.generateConversation(
-                        model: model,
+                        model: composerName,
                         messages: [("system", system), ("user", user)],
                         maxTokens: 1024, temperature: 0.3) ?? ""
-                case .ollamaReady(let model):
-                    composerName = model
+                } else if choice.hasPrefix("ollama:") {
+                    composerName = String(choice.dropFirst("ollama:".count))
                     composed = await OllamaClient.shared.generateConversation(
-                        model: model,
+                        model: composerName,
                         messages: [("system", system), ("user", user)]) ?? ""
-                case .jcrossReady(let model):
-                    // Same-engine composition — the audit agent's framing.
-                    composerName = model
-                    composed = await MainActor.run { VeraAAgent.engineShared }
-                        .composeReply(text, veraVerdict: String(raw.prefix(1200)))
-                default:
-                    break   // no chat model: the verdict alone is the reply
+                } else {
+                    let status = await MainActor.run { self.modelStatus }
+                    switch status {
+                    case .lmStudioReady(let model):
+                        composerName = model
+                        composed = await LMStudioClient.shared.generateConversation(
+                            model: model,
+                            messages: [("system", system), ("user", user)],
+                            maxTokens: 1024, temperature: 0.3) ?? ""
+                    case .ollamaReady(let model):
+                        composerName = model
+                        composed = await OllamaClient.shared.generateConversation(
+                            model: model,
+                            messages: [("system", system), ("user", user)]) ?? ""
+                    case .jcrossReady(let model):
+                        // Same-engine composition — the audit agent's framing.
+                        composerName = model
+                        composed = await MainActor.run { VeraAAgent.engineShared }
+                            .composeReply(text, veraVerdict: String(raw.prefix(1200)))
+                    default:
+                        break   // no chat model: the verdict alone is the reply
+                    }
                 }
                 let cleanComposed = composed.trimmingCharacters(in: .whitespacesAndNewlines)
                 if !cleanComposed.isEmpty {
