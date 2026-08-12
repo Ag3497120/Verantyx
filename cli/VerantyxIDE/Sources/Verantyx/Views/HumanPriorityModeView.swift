@@ -135,6 +135,17 @@ struct HumanPriorityModeView: View {
         .onReceive(NotificationCenter.default.publisher(for: Notification.Name("OpenMCPPanel"))) { _ in
             activitySection = .mcp
         }
+        // The Gatekeeper chip's menu (ModelSelectorBarView) opens surfaces
+        // in the center pane through these — same pattern as OpenMCPPanel.
+        .onReceive(NotificationCenter.default.publisher(for: Notification.Name("OpenVeraDock"))) { _ in
+            activitySection = .vera
+        }
+        .onReceive(NotificationCenter.default.publisher(for: Notification.Name("OpenGrowthPanel"))) { _ in
+            activitySection = .growth
+        }
+        .onReceive(NotificationCenter.default.publisher(for: Notification.Name("OpenEvolutionPanel"))) { _ in
+            activitySection = .evolution
+        }
         // ── Settings を開く ──────────────────────────────────────────────────
         .onChange(of: activitySection) { _, section in
             if section == .settings {

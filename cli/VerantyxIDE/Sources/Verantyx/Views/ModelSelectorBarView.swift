@@ -97,13 +97,38 @@ struct ModelSelectorBarView: View {
     var body: some View {
         ScrollView(.horizontal, showsIndicators: false) {
             HStack(spacing: 8) {
-                // Milestone T: tap to switch into Vera-a mode (chat
-                // full-screen + a feature side panel, no file browser --
-                // see HumanPriorityModeView.veraAModeLayout). Label/color
-                // swap is the only visual change; nothing else in this
-                // bar's behavior differs based on the mode.
-                Button {
-                    app.isVeraAMode.toggle()
+                // The Gatekeeper chip is the door to every non-chat
+                // surface: a menu whose picks swap the CENTER surface
+                // (MCP/model settings, Vera-a settings, growth,
+                // self-evolution) — plus the Vera-a mode switch it always
+                // carried. Selections land in HumanPriorityModeView via
+                // the same notification pattern OpenMCPPanel already used.
+                Menu {
+                    Button(app.isVeraAMode
+                           ? app.t("Leave Vera-a mode", "Vera-aモードを終了")
+                           : app.t("Vera-a mode (audit screen)", "Vera-aモード（監査画面）")) {
+                        app.isVeraAMode.toggle()
+                    }
+                    Divider()
+                    Button(app.t("MCP settings", "MCP設定")) {
+                        app.isVeraAMode = false
+                        NotificationCenter.default.post(name: Notification.Name("OpenMCPPanel"), object: nil)
+                    }
+                    Button(app.t("Model / API settings", "モデル・API設定")) {
+                        app.showSettingsRequested = true
+                    }
+                    Button(app.t("Vera-a settings", "Vera-a設定")) {
+                        app.isVeraAMode = false
+                        NotificationCenter.default.post(name: Notification.Name("OpenVeraDock"), object: nil)
+                    }
+                    Button(app.t("Learning / Growth", "学習（成長）")) {
+                        app.isVeraAMode = false
+                        NotificationCenter.default.post(name: Notification.Name("OpenGrowthPanel"), object: nil)
+                    }
+                    Button(app.t("Self-evolution", "自己進化")) {
+                        app.isVeraAMode = false
+                        NotificationCenter.default.post(name: Notification.Name("OpenEvolutionPanel"), object: nil)
+                    }
                 } label: {
                     Text(app.isVeraAMode ? "Vera-a" : "Gatekeeper")
                         .font(.system(size: 11, weight: .bold))
@@ -113,9 +138,11 @@ struct ModelSelectorBarView: View {
                         .background((app.isVeraAMode ? Color.purple : Color.green).opacity(0.1))
                         .cornerRadius(4)
                 }
-                .buttonStyle(.plain)
-                .help(app.t("Switch to Vera-a mode (full-screen chat + feature panel)",
-                             "Vera-aモードへ切り替え(チャット全画面+機能パネル)"))
+                .menuStyle(.borderlessButton)
+                .menuIndicator(.hidden)
+                .fixedSize()
+                .help(app.t("Mode & surfaces: Vera-a, MCP, model settings, learning",
+                             "モードと画面: Vera-a・MCP・モデル設定・学習"))
 
                 modelMenu
 
