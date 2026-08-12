@@ -2448,9 +2448,22 @@ final class AppState: ObservableObject {
                     }
                     self.streamingMsgId = nil  // Always reset at turn end
 
+                    // Hand the finished answer to the phone relay when it is
+                    // running. The streamed bubble is the real text when there
+                    // was streaming; `msg` is empty in that case.
+                    if ClipboardChatRelay.shared.isRunning {
+                        let answer = msg.isEmpty
+                            ? (self.messages.last?.content ?? "")
+                            : msg
+                        ClipboardChatRelay.shared.send(answer)
+                    }
+
                 case .error(let err):
                     self.isGenerating = false
                     self.addSystemMessage("❌ Agent error: \(err)")
+                    if ClipboardChatRelay.shared.isRunning {
+                        ClipboardChatRelay.shared.send("❌ \(err)")
+                    }
                 }
             }
         }

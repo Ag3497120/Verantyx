@@ -1541,6 +1541,12 @@ struct SettingsView: View {
                 }
             }
 
+            sectionHeader("Phone Relay", icon: "iphone.gen3.radiowaves.left.and.right")
+
+            settingsCard {
+                PhoneRelayPanel().environmentObject(app)
+            }
+
             sectionHeader("L3.5 PC Asset Map (System Memory)", icon: "macwindow")
 
             settingsCard {
