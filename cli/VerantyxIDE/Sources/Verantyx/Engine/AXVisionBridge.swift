@@ -66,6 +66,61 @@ class AXVisionBridge {
     }
     
     // Perform an action on an element by its ID
+    /// Screen point at the centre of a cached element.
+    ///
+    /// Exists so a link can be reached the way a person reaches it — the
+    /// pointer travels there and clicks — rather than by AXPress, which
+    /// activates the element with no cursor motion at all. Motion is what
+    /// the multimodal loop reads: without it there are no hover states and
+    /// no frame-to-frame delta to attribute the change to.
+    func screenPoint(forElementID id: String) -> CGPoint? {
+        guard let element = elementCache[id] else { return nil }
+        var positionValue: CFTypeRef?
+        var sizeValue: CFTypeRef?
+        guard AXUIElementCopyAttributeValue(element, kAXPositionAttribute as CFString, &positionValue) == .success,
+              AXUIElementCopyAttributeValue(element, kAXSizeAttribute as CFString, &sizeValue) == .success
+        else { return nil }
+        var origin = CGPoint.zero
+        var size = CGSize.zero
+        guard let p = positionValue, let s = sizeValue,
+              AXValueGetValue(p as! AXValue, .cgPoint, &origin),
+              AXValueGetValue(s as! AXValue, .cgSize, &size),
+              size.width > 1, size.height > 1
+        else { return nil }
+        return CGPoint(x: origin.x + size.width / 2, y: origin.y + size.height / 2)
+    }
+
+    /// The cached actionable element whose title best matches `text`.
+    /// Exact match wins, then containment, then the shortest title that
+    /// contains every word — a link is chosen by what it says, the way a
+    /// reader picks one.
+    func findElementID(matching text: String, preferLinks: Bool = true) -> String? {
+        let needle = text.lowercased().trimmingCharacters(in: .whitespacesAndNewlines)
+        guard !needle.isEmpty else { return nil }
+        var titles: [(id: String, title: String)] = []
+        for (id, element) in elementCache {
+            var value: CFTypeRef?
+            for attribute in [kAXTitleAttribute, kAXDescriptionAttribute, kAXValueAttribute] {
+                if AXUIElementCopyAttributeValue(element, attribute as CFString, &value) == .success,
+                   let t = value as? String, !t.isEmpty {
+                    titles.append((id, t.lowercased()))
+                    break
+                }
+            }
+        }
+        let pool = preferLinks
+            ? (titles.filter { $0.id.hasPrefix("#link") }.isEmpty ? titles
+               : titles.filter { $0.id.hasPrefix("#link") })
+            : titles
+        if let exact = pool.first(where: { $0.title == needle }) { return exact.id }
+        let contains = pool.filter { $0.title.contains(needle) || needle.contains($0.title) }
+        if let best = contains.min(by: { $0.title.count < $1.title.count }) { return best.id }
+        let words = needle.split(whereSeparator: { $0.isWhitespace }).map(String.init)
+        guard words.count > 1 else { return nil }
+        let allWords = pool.filter { entry in words.allSatisfy { entry.title.contains($0) } }
+        return allWords.min(by: { $0.title.count < $1.title.count })?.id
+    }
+
     func performAction(id: String, action: String, text: String? = nil) async throws -> String {
         guard let element = elementCache[id] else {
             return "[AX_ERROR] Element ID \(id) not found in the current semantic snapshot."

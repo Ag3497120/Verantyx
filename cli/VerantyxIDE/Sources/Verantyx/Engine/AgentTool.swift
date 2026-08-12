@@ -30,6 +30,11 @@ enum AgentTool {
     case registerUIElement(app: String, element: String, x: Double, y: Double) // NEW: agent self-registers a UI element it identified
     // ── Web / Grounding ──────────────────────────────────────────────────────
     case browse(url: String)
+    /// Reach a link the way a reader does: find it on the page that is
+    /// already open and travel the pointer to it. The alternative the
+    /// agent kept choosing — inventing a URL from the site name — produced
+    /// `https://z/dev/` in a real run.
+    case clickLink(text: String)
     case search(query: String)
     case searchMulti(query: String)               // NEW: parallel top-3 URLs + synthesis
     case evalJS(script: String)
@@ -97,6 +102,7 @@ struct AgentToolCall: Identifiable {
         case .verifiedURLLookup(let n):     return "🔗 verified_url_lookup: \(n)"
         case .registerUIElement(let app, let el, let x, let y): return "📍 register_ui_element: \(app)/\(el) @ (\(Int(x)),\(Int(y)))"
         case .browse(let url):              return "🌐 browse \(url)"
+        case .clickLink(let t):            return "🖱 click link: \(t)"
         case .search(let q):               return "🔍 search: \(q)"
         case .searchMulti(let q):          return "🔍× search: \(q)"
         case .evalJS(let s):               return "⚡ eval_js: \(s.prefix(40))"
@@ -188,7 +194,8 @@ struct AgentToolParser {
     [DONE: msg]               完: タスク完了を宣言
     [SEARCH_MULTI: q]         網並×3→統: 上位3URL並列取得→統合回答 ★推奨 (q=語の列5-8語, 文禁, 引用符禁, URL禁)
     [SEARCH: q]               網×1: 単一検索 (同上)
-    [BROWSE: url]             覧: URLをMarkdownで取得
+    [BROWSE: url]             覧: URLをMarkdownで取得（新しい場所へ行くときだけ。URLを推測して組み立てるのは禁止）
+    [CLICK_LINK: 表示文字]     押: 開いているページ上のリンクを、その文字で探してマウスで押す（サイト内の移動はこれ）
     [EVAL_JS: script]         JS実: ブラウザでJS実行
     [SAFARI: url] [CHROME: url]    ブラウザで開く（Cookie利用可）
     [VISION_BROWSE: url]      視覧: ブラウザでURLを開きスクショ撮影
@@ -671,6 +678,8 @@ struct AgentToolParser {
                     tools.append(.registerUIElement(app: parts[0], element: parts[1], x: x, y: y))
                 }
             // ── Web ─────────────────────────────────────────────────────
+            } else if let m = match(trimmed, pattern: #"\[CLICK_LINK:\s*([^\]]+)\]"#) {
+                tools.append(.clickLink(text: m))
             } else if let m = match(trimmed, pattern: #"\[BROWSE:\s*([^\]]+)\]"#) {
                 tools.append(.browse(url: m))
             } else if let m = match(trimmed, pattern: #"\[SEARCH_MULTI:\s*([^\]]+)\]"#) {
@@ -1653,8 +1662,52 @@ actor AgentToolExecutor {
         // ── Web / Grounding ───────────────────────────────────────────────
 
         case .browse(let url):
+            // Auto mode opens without asking, so it looks first: one
+            // plain fetch, no browser, no JavaScript. A malformed host
+            // (`https://z/dev/`) or a redirect onto another site is
+            // refused before Safari is ever involved.
+            let autoMode = await MainActor.run { AppState.shared?.operationMode == .automatic }
+            let verdict = await URLPreflight.check(url)
+            if !verdict.allowsOpen {
+                let text = AppLanguage.shared.isJapanese ? verdict.describedJP : verdict.describedEN
+                if autoMode || verdict == .malformed(url) {
+                    return "[BROWSE REFUSED] \(text)\n"
+                        + "Do not invent URLs. Search for the destination, or use "
+                        + "[CLICK_LINK: visible text] on the page already open."
+                }
+                await MainActor.run {
+                    AppState.shared?.addSystemMessage("<think>\n🛡 \(text)\n</think>")
+                }
+            }
             let result = await WebSearchEngine.shared.browse(url: url, preferredSource: .safari)
+            await MainActor.run {
+                BrowserSession.shared.opened(url: result.url, title: "")
+            }
             return "[WEB PAGE: \(result.url)]\n\(result.contextSnippet)\n[END WEB PAGE]"
+
+        case .clickLink(let text):
+            // Populate the AX cache for the frontmost browser, find the
+            // link by what it says, then travel there with the pointer —
+            // the motion the perception loop needs, and the human-learned
+            // trajectory it now moves along.
+            _ = try? await AXVisionBridge.shared.getSemanticSnapshot()
+            guard let id = await AXVisionBridge.shared.findElementID(matching: text),
+                  let point = await AXVisionBridge.shared.screenPoint(forElementID: id) else {
+                return "[CLICK_LINK] No link matching \"\(text)\" on the current page. "
+                    + "Use [DESKTOP_SNAPSHOT] to see what is actually there, or scroll first."
+            }
+            do {
+                try await SafariVisionBridge.shared.hidClick(x: point.x, y: point.y, enforceSafari: false)
+            } catch {
+                return "[CLICK_LINK] Pointer could not reach \(id): \(error.localizedDescription)"
+            }
+            try? await Task.sleep(nanoseconds: 1_500_000_000)
+            let landed = (try? await AppleScriptBridge.shared.getCurrentURL(from: .safari)) ?? ""
+            if !landed.isEmpty {
+                await MainActor.run { BrowserSession.shared.opened(url: landed, title: text) }
+            }
+            return "[CLICK_LINK: \(text)] clicked \(id)"
+                + (landed.isEmpty ? " (destination unknown — take a snapshot)" : " → now at \(landed)")
 
         case .search(let query):
             let result = await WebSearchEngine.shared.search(query: query)

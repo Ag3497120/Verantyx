@@ -323,6 +323,47 @@ actor EternalMemoryStore {
         sqlite3_step(stmt)
     }
 
+    // MARK: - Browser session (what is open right now)
+
+    func saveBrowserSession(url: String, title: String, scrollNotches: Int,
+                            candidates: [String], updatedAt: Double) {
+        try? ensureDB()
+        exec("CREATE TABLE IF NOT EXISTS browser_session (id INTEGER PRIMARY KEY CHECK (id = 1), url TEXT, title TEXT, scroll INTEGER, candidates TEXT, updated_at REAL)")
+        var stmt: OpaquePointer?
+        guard sqlite3_prepare_v2(db, """
+            INSERT OR REPLACE INTO browser_session (id, url, title, scroll, candidates, updated_at)
+            VALUES (1,?,?,?,?,?)
+            """, -1, &stmt, nil) == SQLITE_OK else { return }
+        defer { sqlite3_finalize(stmt) }
+        let joined = candidates.joined(separator: "\u{1}")
+        sqlite3_bind_text(stmt, 1, url, -1, Self.sqliteTransient)
+        sqlite3_bind_text(stmt, 2, title, -1, Self.sqliteTransient)
+        sqlite3_bind_int64(stmt, 3, Int64(scrollNotches))
+        sqlite3_bind_text(stmt, 4, joined, -1, Self.sqliteTransient)
+        sqlite3_bind_double(stmt, 5, updatedAt)
+        sqlite3_step(stmt)
+    }
+
+    func loadBrowserSession() -> (url: String, title: String, scrollNotches: Int,
+                                  candidates: [String], updatedAt: Double)? {
+        try? ensureDB()
+        exec("CREATE TABLE IF NOT EXISTS browser_session (id INTEGER PRIMARY KEY CHECK (id = 1), url TEXT, title TEXT, scroll INTEGER, candidates TEXT, updated_at REAL)")
+        var stmt: OpaquePointer?
+        guard sqlite3_prepare_v2(db,
+            "SELECT url, title, scroll, candidates, updated_at FROM browser_session WHERE id = 1",
+            -1, &stmt, nil) == SQLITE_OK else { return nil }
+        defer { sqlite3_finalize(stmt) }
+        guard sqlite3_step(stmt) == SQLITE_ROW else { return nil }
+        let url = sqlite3_column_text(stmt, 0).map { String(cString: $0) } ?? ""
+        guard !url.isEmpty else { return nil }
+        let raw = sqlite3_column_text(stmt, 3).map { String(cString: $0) } ?? ""
+        return (url,
+                sqlite3_column_text(stmt, 1).map { String(cString: $0) } ?? "",
+                Int(sqlite3_column_int64(stmt, 2)),
+                raw.isEmpty ? [] : raw.components(separatedBy: "\u{1}"),
+                sqlite3_column_double(stmt, 4))
+    }
+
     // MARK: - Act episodes (the join)
 
     /// One complete act: why it was chosen, what it did, what changed.

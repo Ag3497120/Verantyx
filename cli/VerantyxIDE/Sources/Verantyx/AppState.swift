@@ -1542,6 +1542,11 @@ final class AppState: ObservableObject {
                 // recall/save/governance/skill-proposal all fire while the
                 // agent works. An UNKNOWN verdict injects nothing.
                 var bg: [String] = []
+                // What is already open comes FIRST: a run that searched
+                // from scratch for a page it had just opened is the
+                // failure this prevents.
+                let openPage = await MainActor.run { BrowserSession.shared.contextBlock() }
+                if !openPage.isEmpty { bg.append(openPage) }
                 if hasVerifiedAnswer {
                     bg.append("[VERIFIED MEMORY — deterministic, citable]\n\(String(raw.prefix(1200)))")
                 }
