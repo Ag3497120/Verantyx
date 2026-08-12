@@ -311,6 +311,40 @@ struct VerantyxApp: App {
                     // a harness or pipe flow happens to start it.
                     Task { try? await JGenAgentServer.shared.start() }
 
+                    // ── Memory-organ autoload ──
+                    // The store knows which JGEN owns its vector space
+                    // (embed_model pin); load it at launch so eternal
+                    // recall — including over MCP — works without a manual
+                    // trip to Settings. The chat backend is untouched:
+                    // this loads the ENGINE only, modelStatus stays
+                    // whatever the user chats with. Capped at 9 GB — the
+                    // organ is supposed to be small, and silently loading
+                    // a 60 GB model at launch is not a favor.
+                    Task.detached(priority: .utility) {
+                        guard await !JCrossChatManager.shared.isLoaded,
+                              let pinned = await EternalMemoryStore.shared.pinnedEmbedModel()
+                        else { return }
+                        let url = JGenPaths.convertedModelsDir.appendingPathComponent(pinned)
+                        guard let size = (try? FileManager.default.attributesOfItem(
+                                atPath: url.path)[.size] as? NSNumber)?.uint64Value,
+                              size > 0 else { return }
+                        guard size < 9 << 30 else {
+                            NSLog("[MemoryOrgan] pinned model %@ is %.1f GB — not autoloading",
+                                  pinned, Double(size) / Double(1 << 30))
+                            return
+                        }
+                        do {
+                            try await JCrossChatManager.shared.load(modelFileName: pinned)
+                            await MainActor.run {
+                                AppState.shared?.addSystemMessage(L(
+                                    "🧠 Memory organ loaded: \(pinned) (eternal recall active)",
+                                    "🧠 記憶器官をロード: \(pinned)（永遠記憶が有効）"))
+                            }
+                        } catch {
+                            NSLog("[MemoryOrgan] autoload failed: %@", "\(error)")
+                        }
+                    }
+
                     // ── Green-button fullscreen ──
                     // The IDE window would not enter macOS fullscreen; make
                     // the capability explicit instead of relying on whatever

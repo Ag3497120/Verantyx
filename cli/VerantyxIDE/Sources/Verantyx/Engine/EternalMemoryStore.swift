@@ -190,6 +190,13 @@ actor EternalMemoryStore {
         sqlite3_step(stmt)
     }
 
+    /// The JGEN this store's vector space belongs to, if one has claimed
+    /// it — read by the launch-time memory-organ autoloader.
+    func pinnedEmbedModel() -> String? {
+        try? ensureLoaded()
+        return metaGet("embed_model")
+    }
+
     // ── Memory-organ pinning ─────────────────────────────────────────
     // The embedding space belongs to whichever JGEN wrote the first
     // vector. Encoding with a DIFFERENT loaded JGEN would silently mix
