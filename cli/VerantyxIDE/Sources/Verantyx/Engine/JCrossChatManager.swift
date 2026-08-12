@@ -42,6 +42,7 @@ actor JCrossChatManager {
         case tokenizerPathMissing(String)
         case architectureUnsupported(model: String, arch: String)
         case noRealTokenizer(model: String)
+        case loadRefused(String)
 
         var errorDescription: String? {
             switch self {
@@ -53,6 +54,8 @@ actor JCrossChatManager {
                 return "\(path).meta.json has no \"tokenizer\" field -- this model was converted without a known tokenizer (e.g. --parts lexicon)."
             case .architectureUnsupported(let model, let arch):
                 return "\(model) is architecture \"\(arch)\" -- JCrossEngine's Rust forward pass only supports \"standard\"/\"moe_standard\"/\"hybrid_ssm\" architectures. jgen_forge still converted it as a static weight lexicon (usable in the Vector Lab's project/resynthesize), but it can't be loaded here for chat/encode/council -- pick a different (supported-architecture) model instead."
+            case .loadRefused(let why):
+                return why
             case .noRealTokenizer(let model):
                 return "\(model) has no real HuggingFace tokenizer -- jgen_forge fell back to a GGUF vocabulary sidecar (not a full tokenizer.json/config.json), which JCrossChatManager can't load directly. Convert with --tokenizer pointing at a matching HF tokenizer folder, or pick a model whose tokenizer was auto-discovered."
             }
@@ -64,6 +67,20 @@ actor JCrossChatManager {
     /// the tokenizer its .meta.json sidecar points at. Does real weight
     /// I/O -- call from a background context, never assume it's fast.
     func load(modelFileName: String) async throws {
+        // Refuse to load what cannot possibly run well, and say why. An f16
+        // hybrid bigger than usable RAM (the 50 GB qwen3.6 expansion is the
+        // motivating case) "loads" fine and then streams the disk at 0.2
+        // tok/s — which reads as "fell back to CPU" and gets reported as a
+        // bug. The honest behavior is a clear door: quantize first.
+        if let facts = JGenGPUSafety.modelFacts(fileName: modelFileName), !facts.quantized {
+            let usable = MachineProfile.current().usableModelRAMGB
+            if facts.sizeGB > usable {
+                throw ChatError.loadRefused(String(format: AppLanguage.shared.t(
+                    "%@ is %.0f GB of f16 — it cannot stay resident in %.0f GB of usable memory and would stream from disk. Press 量子化 (q4_k) in Settings → JGEN first (→ ~%.0f GB, runs resident).",
+                    "%@ は f16 のまま %.0f GB あり、使用可能メモリ %.0f GB に常駐できず、ディスクから流し読みになります。先に 設定 → JGEN の「量子化 (q4_k)」を実行してください(約 %.0f GB になり常駐で動きます)。"),
+                    modelFileName, facts.sizeGB, usable, facts.sizeGB * 0.33))
+            }
+        }
         JGenGPUSafety.beginModelLoad()
         defer { JGenGPUSafety.endModelLoad() }
 

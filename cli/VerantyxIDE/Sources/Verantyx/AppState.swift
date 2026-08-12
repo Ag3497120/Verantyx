@@ -1225,24 +1225,18 @@ final class AppState: ObservableObject {
                     arguments: ["query": text])
                 var content = Self.formatVeraAnswer(raw)
 
-                // The model the audit screen loaded runs HERE too. The typed
-                // verdict stays first and verbatim — that is this mode's
-                // whole identity — and the JGEN's reading is appended as a
-                // clearly separated, clearly attributed second voice. It may
-                // rephrase and relate; it may not overwrite the verdict.
+                // The SAME agent that answers in Vera-a mode answers here —
+                // VeraAAgent.composeReply is the single definition of the
+                // audit framing (memory, demand, issues, repo state, vector
+                // recall), so the 単体 segment can no longer drift from the
+                // mode. The typed verdict stays first and verbatim; the
+                // agent receives it as context it must honor, not rewrite.
                 // With no JGEN loaded the mode behaves exactly as before.
                 if case .jcrossReady(let modelName) = await MainActor.run(body: { self.modelStatus }) {
-                    let ja = AppLanguage.shared.isJapanese
-                    let system = ja
-                        ? "あなたはVera-aの読み手。以下の決定論的判定を要約・敷衍して答える。判定に無い事実を足さない。判定がUNKNOWN系なら、何を投入すれば答えられるかを1-2行で示す。日本語で簡潔に。"
-                        : "You are Vera-a's reader. Summarize and elaborate the deterministic verdict below. Add no facts absent from it. If the verdict is an UNKNOWN type, say in 1-2 lines what ingesting would make it answerable. Be brief, in English."
-                    let convo: [(role: String, content: String)] = [
-                        ("system", system),
-                        ("user", "質問: \(text)\n判定: \(String(raw.prefix(1500)))"),
-                    ]
-                    if let read = try? await JCrossChatManager.shared.generate(
-                        conversation: convo, maxTokens: 300), !read.isEmpty {
-                        content += "\n\n— \(modelName) " + (ja ? "の読み:" : "reads:") + "\n" + read
+                    let read = await MainActor.run { VeraAAgent.engineShared }
+                        .composeReply(text, veraVerdict: String(raw.prefix(1200)))
+                    if !read.isEmpty {
+                        content += "\n\n— \(modelName) (Vera-a):\n" + read
                     }
                 }
 

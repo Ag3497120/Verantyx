@@ -726,6 +726,10 @@ struct VeraAuditView: View {
 @MainActor
 final class VeraAAgent: ObservableObject {
 
+    /// The instance the normal chat's 単体 Vera-a segment uses, so both
+    /// surfaces share issue caches and phrasing — one agent, two doors.
+    static let engineShared = VeraAAgent()
+
     struct Message: Identifiable {
         enum Role { case user, assistant }
         let id = UUID()
@@ -783,25 +787,71 @@ final class VeraAAgent: ObservableObject {
         append(.user, text)
         busy = true
         defer { busy = false; phase = "" }
+        let history = messages.suffix(12).map {
+            (($0.role == .user ? "user" : "assistant"), $0.text)
+        }
+        let reply = await composeReply(text,
+                                       veraVerdict: nil,
+                                       memory: memory,
+                                       demand: demand,
+                                       selectedGap: selectedGap,
+                                       signal: signal,
+                                       repoPath: repoPath,
+                                       history: history)
+        append(.assistant, reply)
+    }
 
+    /// One engine turn under the audit framing, usable from anywhere.
+    ///
+    /// This is THE definition of what "Vera-a" answers like — the audit
+    /// screen's send() and the normal chat's 単体 Vera-a segment both call
+    /// it, so the two can no longer drift apart (they had: the segment was
+    /// still a bare verdict-reader while the mode had grown memory, demand,
+    /// issues and repo context).
+    func composeReply(_ text: String,
+                      veraVerdict: String?,
+                      memory: AuditMemory? = nil,
+                      demand demandIn: [(String, Int)]? = nil,
+                      selectedGap: String = "",
+                      signal: String? = nil,
+                      repoPath: String = NSString(string: "~/Projects/verantyx-v6").expandingTildeInPath,
+                      history: [(String, String)] = []) async -> String {
         phase = AppLanguage.shared.t("gathering context…", "文脈を集めています…")
         await refreshIssues()
 
-        // Vector recall over everything nameable: memory subjects, demand
-        // subjects, issue titles. Indexed on demand so a first question does
-        // not require a setup step.
-        let subjects = memory.entries.map(\.subject)
+        let mem = memory ?? AuditMemory.load(
+            task: AppState.shared?.veraMemoryTask ?? "verantyx-ai-vera3d")
+        var demand = demandIn ?? []
+        if demandIn == nil {
+            // Callers outside the audit screen have no demand list — fetch a
+            // fresh one so the segment sees the same world the screen does.
+            if let url = URL(string: "https://verantyx.ai/api/vera/demand"),
+               let (data, _) = try? await URLSession.shared.data(from: url),
+               let j = try? JSONSerialization.jsonObject(with: data) as? [String: Any],
+               let rows = j["demand"] as? [[String: Any]] {
+                demand = rows.compactMap { r in
+                    guard let s0 = r["subject"] as? String, let c = r["count"] as? Int
+                    else { return nil }
+                    return (s0, c)
+                }
+            }
+        }
+
+        let subjects = mem.entries.map(\.subject)
             + demand.map(\.0)
             + issues.map(\.title)
         _ = await AuditVectorIndex.shared.index(subjects: Array(Set(subjects)), preferJGen: false)
         let recall = await AuditVectorIndex.shared.nearest(to: text, limit: 6, preferJGen: false)
             .hits.map { String(format: "%@ (%.2f)", $0.subject, $0.score) }
 
-        // Unpublished state, read-only and bounded.
         let gitState = Self.gitOneliner(repoPath: repoPath)
 
         var context: [String] = []
         let L = AppLanguage.shared
+        if let veraVerdict {
+            context.append(L.t("Vera's deterministic verdict for this question: ",
+                               "この質問へのVera決定論判定: ") + veraVerdict)
+        }
         if !demand.isEmpty {
             context.append(L.t("Unresolved gaps (by demand): ", "未解消の欠落(要望順): ")
                 + demand.prefix(8).map { "\($0.0)×\($0.1)" }.joined(separator: ", "))
@@ -813,23 +863,20 @@ final class VeraAAgent: ObservableObject {
                 + issues.prefix(6).map { "#\($0.id) \($0.title) (@\($0.by))" }.joined(separator: " / "))
         }
         if !gitState.isEmpty { context.append(L.t("vera3d repo: ", "vera3dリポジトリ: ") + gitState) }
-        if !memory.entries.isEmpty {
-            let recent = memory.entries.suffix(5)
+        if !mem.entries.isEmpty {
+            let recent = mem.entries.suffix(5)
                 .map { "[\($0.kind)] \($0.subject): \($0.detail)" }.joined(separator: "\n")
             context.append(L.t("Eternal memory (recent):\n", "永遠の記憶(直近):\n") + recent)
         }
         if !recall.isEmpty { context.append(L.t("Vector recall: ", "ベクトル想起: ") + recall.joined(separator: ", ")) }
 
-        // The whole app speaks one language, chosen in Settings — Vera-a is
-        // not an exception, so the agent's instructions AND its replies
-        // follow the same switch as every label.
         let ja = AppLanguage.shared.isJapanese
         let system = ja ? """
         あなたは Vera-a 監査エージェント。Vera(立体十字構造の知識エンジン)の欠落の解消・編集と公開・記憶の管理だけを目的とする。
         規則:
         1. どんな入力にも、現在の文脈(欠落・issue・未公開の編集・記憶)に結びつけて答える。挨拶や雑談にも「今必要な直し」を返す。
         2. 提案はするが実行はしない。取り込み・公開は人間が承認する。
-        3. 知らないことは知らないと言う。文脈に無い事実を作らない。
+        3. 知らないことは知らないと言う。文脈に無い事実を作らない。決定論判定があるときはそれを言い換えず先に活かす。
         4. 簡潔に。箇条書きを好む。必ず日本語で答える。
 
         現在の文脈:
@@ -839,7 +886,7 @@ final class VeraAAgent: ObservableObject {
         Rules:
         1. Tie every reply to the current context (gaps, issues, unpublished edits, memory). Even a greeting gets "here is what needs fixing now".
         2. Propose, never execute. Ingestion and publishing are approved by a human.
-        3. Say so when you do not know. Never invent facts absent from the context.
+        3. Say so when you do not know. Never invent facts absent from the context; when a deterministic verdict is present, honor it verbatim first.
         4. Be concise; prefer bullet points. Always answer in English.
 
         Current context:
@@ -847,29 +894,26 @@ final class VeraAAgent: ObservableObject {
         """
 
         var convo: [(role: String, content: String)] = [("system", system)]
-        for m in messages.suffix(12) {
-            convo.append((m.role == .user ? "user" : "assistant", m.text))
-        }
+        for (r, t) in history { convo.append((r, t)) }
+        if history.last?.1 != text { convo.append(("user", text)) }
 
         phase = AppLanguage.shared.t("thinking (JGEN)…", "JGENで推論中…")
         do {
             let reply = try await JCrossChatManager.shared.generate(
                 conversation: convo, maxTokens: 700)
-            append(.assistant, reply.isEmpty
-                   ? AppLanguage.shared.t("(Thinking exceeded the budget — ask again, shorter.)",
-                                          "（思考が予算内に収まりませんでした — もう一度、短く聞いてください）")
-                   : reply)
-
-            // The turn itself becomes memory, so the next question stands on
-            // this one — this is the "previous memories" the injection carries.
-            var mem = AuditMemory.load(task: AppState.shared?.veraMemoryTask ?? "verantyx-ai-vera3d")
-            mem.remember(kind: "note", subject: String(text.prefix(40)),
-                         detail: String((reply.isEmpty ? "" : reply).prefix(200)))
-            mem.save()
+            let final = reply.isEmpty
+                ? AppLanguage.shared.t("(Thinking exceeded the budget — ask again, shorter.)",
+                                       "（思考が予算内に収まりませんでした — もう一度、短く聞いてください）")
+                : reply
+            var m2 = AuditMemory.load(task: AppState.shared?.veraMemoryTask ?? "verantyx-ai-vera3d")
+            m2.remember(kind: "note", subject: String(text.prefix(40)),
+                        detail: String(final.prefix(200)))
+            m2.save()
+            return final
         } catch {
-            append(.assistant, AppLanguage.shared.t(
+            return AppLanguage.shared.t(
                 "JGEN cannot answer: \(error.localizedDescription)\nLoad a JGEN model from the toolbar.",
-                "JGENが応答できません: \(error.localizedDescription)\nモデルバーからJGENモデルをロードしてください。"))
+                "JGENが応答できません: \(error.localizedDescription)\nモデルバーからJGENモデルをロードしてください。")
         }
     }
 
