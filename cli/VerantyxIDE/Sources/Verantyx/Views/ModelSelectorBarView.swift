@@ -107,27 +107,30 @@ struct ModelSelectorBarView: View {
                     Button(app.isVeraAMode
                            ? app.t("Leave Vera-a mode", "Vera-aモードを終了")
                            : app.t("Vera-a mode (audit screen)", "Vera-aモード（監査画面）")) {
+                        app.fullSurface = nil
                         app.isVeraAMode.toggle()
                     }
                     Divider()
+                    // Each surface takes the FULL window (like the Vera-a
+                    // audit screen), not a pane beside the chat.
                     Button(app.t("MCP settings", "MCP設定")) {
                         app.isVeraAMode = false
-                        NotificationCenter.default.post(name: Notification.Name("OpenMCPPanel"), object: nil)
+                        app.fullSurface = .mcp
                     }
                     Button(app.t("Model / API settings", "モデル・API設定")) {
                         app.showSettingsRequested = true
                     }
                     Button(app.t("Vera-a settings", "Vera-a設定")) {
                         app.isVeraAMode = false
-                        NotificationCenter.default.post(name: Notification.Name("OpenVeraDock"), object: nil)
+                        app.fullSurface = .veraSettings
                     }
                     Button(app.t("Learning / Growth", "学習（成長）")) {
                         app.isVeraAMode = false
-                        NotificationCenter.default.post(name: Notification.Name("OpenGrowthPanel"), object: nil)
+                        app.fullSurface = .growth
                     }
                     Button(app.t("Self-evolution", "自己進化")) {
                         app.isVeraAMode = false
-                        NotificationCenter.default.post(name: Notification.Name("OpenEvolutionPanel"), object: nil)
+                        app.fullSurface = .evolution
                     }
                 } label: {
                     Text(app.isVeraAMode ? "Vera-a" : "Gatekeeper")

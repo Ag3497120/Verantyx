@@ -98,6 +98,15 @@ final class AppState: ObservableObject {
     /// additive -- the existing layout and its state (activitySection,
     /// showStereoCrossGraph, etc.) are untouched either way.
     @Published var isVeraAMode: Bool = false
+
+    /// A non-chat surface shown FULL-WINDOW, the same way Vera-a mode
+    /// takes over the layout — picked from the Gatekeeper chip's menu.
+    /// nil = normal layout. See HumanPriorityModeView.fullSurfaceLayout.
+    enum FullSurface: String, Identifiable {
+        case mcp, veraSettings, growth, evolution
+        var id: String { rawValue }
+    }
+    @Published var fullSurface: FullSurface? = nil
     
     // ── Distributed Cortex Connectivity (Handshake) ──
     @Published var cortexWorkspacePath: String? = nil

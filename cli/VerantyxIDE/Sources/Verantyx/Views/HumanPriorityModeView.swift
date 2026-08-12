@@ -70,9 +70,54 @@ struct HumanPriorityModeView: View {
         // when this is off (the default).
         if app.isVeraAMode {
             veraAModeLayout
+        } else if let surface = app.fullSurface {
+            // Gatekeeper-menu surfaces take the WHOLE window, exactly like
+            // Vera-a mode does — not a pane swap beside the chat.
+            fullSurfaceLayout(surface)
         } else {
             normalModeBody
         }
+    }
+
+    /// One full-window surface with a header naming it and the way back.
+    private func fullSurfaceLayout(_ surface: AppState.FullSurface) -> some View {
+        VStack(spacing: 0) {
+            HStack(spacing: 8) {
+                Button {
+                    app.fullSurface = nil
+                } label: {
+                    Label(app.t("Back", "戻る"), systemImage: "chevron.left")
+                        .font(.system(size: 11, weight: .semibold))
+                }
+                .buttonStyle(.plain)
+                .foregroundStyle(Color(red: 0.55, green: 0.8, blue: 1.0))
+                Text({
+                    switch surface {
+                    case .mcp:          return app.t("MCP", "MCP")
+                    case .veraSettings: return app.t("Vera-a settings", "Vera-a設定")
+                    case .growth:       return app.t("Learning / Growth", "学習（成長）")
+                    case .evolution:    return app.t("Self-evolution", "自己進化")
+                    }
+                }())
+                .font(.system(size: 12, weight: .bold))
+                Spacer()
+            }
+            .padding(.horizontal, 12).padding(.vertical, 8)
+            .background(Color(red: 0.08, green: 0.08, blue: 0.11))
+            Divider().opacity(0.3)
+
+            Group {
+                switch surface {
+                case .mcp:          MCPView().environmentObject(app)
+                case .veraSettings: VeraFeatureDock().environmentObject(app)
+                case .growth:       GrowthConsolePanel()
+                case .evolution:    SelfEvolutionView().environmentObject(app)
+                }
+            }
+            .frame(maxWidth: .infinity, maxHeight: .infinity)
+        }
+        .background(Color(red: 0.10, green: 0.10, blue: 0.13))
+        .toastOverlay()
     }
 
     private var normalModeBody: some View {
