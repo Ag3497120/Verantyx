@@ -60,6 +60,21 @@ struct PhoneRelayPanel: View {
                     }
                 }
 
+                HStack(spacing: 8) {
+                    Button {
+                        relay.copyInputBox()
+                    } label: {
+                        Label("入力欄をコピー", systemImage: "doc.on.clipboard")
+                    }
+                    .buttonStyle(.borderedProminent)
+                    .controlSize(.small)
+                    .help("新しい入力欄をクリップボードに置きます。メモに貼り付けて書き、全選択してコピーしてください。")
+
+                    Text("毎回の出力ごとに黄色（入力待ち）になります — そこで意見を言うか、止められます。")
+                        .font(.system(size: 10)).foregroundStyle(.tertiary)
+                    Spacer()
+                }
+
                 if relay.eagerPasteboard {
                     Text("このMacでは貼り付けの検知ができません（システムが内容を先読みするため）。"
                          + "長い返信は「次へ」で送ってください。")

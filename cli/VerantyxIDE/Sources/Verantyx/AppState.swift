@@ -2414,6 +2414,14 @@ final class AppState: ObservableObject {
                     }
 
                 case .aiMessage(let text):
+                    // The phone was only ever sent the final answer, so a long
+                    // run showed "Task complete." and nothing of how it got
+                    // there — no way to comment, and no way to stop it. Every
+                    // step goes out now, each with its own input box, so the
+                    // relay is a conversation rather than a receipt.
+                    if !text.isEmpty, ClipboardChatRelay.shared.isRunning {
+                        ClipboardChatRelay.shared.send(text)
+                    }
                     if !text.isEmpty {
                         // Detect PATCH_FILE blocks → register in SelfEvolutionEngine
                         let patches = PatchFileParser.extract(from: text)

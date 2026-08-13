@@ -114,9 +114,26 @@ final class ClipboardChatRelay: ObservableObject {
         guard isRunning else { return }
         let body = reply.trimmingCharacters(in: .whitespacesAndNewlines)
         guard !body.isEmpty else { writeInputOnly(); return }
+
+        // Every step the model takes is offered, not just the last one. The
+        // indicator goes yellow on each, which is the cue that there is
+        // something new to paste and a moment where a word from the user still
+        // changes what happens next.
+        AgentActivityCenter.shared.set(.waitingUser)
         chunks = Self.split(body, limit: chunkLimit)
         cursor = 0
         writeCurrentChunk()
+    }
+
+    /// Put a fresh input box on the clipboard on demand.
+    ///
+    /// Selecting just the box out of a note is fiddly on a phone, and getting
+    /// it slightly wrong means the marker does not match and the message is
+    /// silently ignored. One button removes the selecting entirely.
+    func copyInputBox() {
+        guard isRunning else { return }
+        writeInputOnly()
+        lastEvent = "入力欄をコピーしました — メモに貼って書いてください"
     }
 
     /// Manual advance, for when the paste signal cannot be trusted.
