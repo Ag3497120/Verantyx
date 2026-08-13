@@ -1222,6 +1222,12 @@ struct SettingsView: View {
                 }
             }
 
+            sectionHeader("人間の操作データ", icon: "hand.draw")
+
+            settingsCard {
+                DemonstrationSettingsView().environmentObject(app)
+            }
+
             sectionHeader("Phone Relay", icon: "iphone.gen3.radiowaves.left.and.right")
 
             settingsCard {

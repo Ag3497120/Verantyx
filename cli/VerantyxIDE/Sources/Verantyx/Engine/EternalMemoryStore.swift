@@ -790,6 +790,89 @@ actor EternalMemoryStore {
     /// A trajectory the PERSON drove — the ground truth the agent's motion
     /// is supposed to resemble. Recorded whole, without a target or a
     /// calibration, because what matters is its shape.
+    // MARK: - The demonstration set, as something the user manages
+    //
+    // The puzzle used to appear mid-run, as an overlay, because the agent had
+    // hit something it needed a human trajectory for. That only works if the
+    // IDE is on screen and the person is sitting in front of it — which is
+    // exactly the assumption everything else this week removed. The agent now
+    // takes the screen, the window is deliberately not kept in front, and the
+    // conversation may be happening on a phone. An overlay nobody is looking
+    // at is not a prompt; it is a stall.
+    //
+    // So collection moves to a place the user goes on purpose, with time set
+    // aside for it. That makes the demonstrations a dataset rather than an
+    // interruption — and a dataset is something you can see the size of, add
+    // to deliberately, and remove bad samples from.
+
+    struct DemonstrationStats: Sendable {
+        let human: Int
+        let agent: Int
+        let screens: [String]
+
+        /// The motion model prefers human paths but will fall back to the
+        /// agent's own, and imitating itself only compounds its own error.
+        /// Below this, the model is mostly the agent copying the agent.
+        static let enoughHuman = 8
+        var sufficient: Bool { human >= Self.enoughHuman }
+    }
+
+    func demonstrationStats() -> DemonstrationStats {
+        try? ensureDB()
+        var human = 0, agent = 0
+        var screens: [String] = []
+
+        var stmt: OpaquePointer?
+        if sqlite3_prepare_v2(db, """
+            SELECT source, COUNT(*) FROM mouse_trace GROUP BY source
+            """, -1, &stmt, nil) == SQLITE_OK {
+            while sqlite3_step(stmt) == SQLITE_ROW {
+                let src = sqlite3_column_text(stmt, 0).map { String(cString: $0) } ?? ""
+                let n = Int(sqlite3_column_int64(stmt, 1))
+                if src == "human" { human += n } else { agent += n }
+            }
+        }
+        sqlite3_finalize(stmt)
+
+        // Trajectories are only comparable within one screen geometry, so the
+        // count that matters is per resolution, not overall.
+        var s2: OpaquePointer?
+        if sqlite3_prepare_v2(db, """
+            SELECT screen_w, screen_h, COUNT(*) FROM mouse_trace
+            WHERE source = 'human' GROUP BY screen_w, screen_h
+            """, -1, &s2, nil) == SQLITE_OK {
+            while sqlite3_step(s2) == SQLITE_ROW {
+                let w = Int(sqlite3_column_double(s2, 0))
+                let h = Int(sqlite3_column_double(s2, 1))
+                let n = Int(sqlite3_column_int64(s2, 2))
+                screens.append("\(w)×\(h): \(n)件")
+            }
+        }
+        sqlite3_finalize(s2)
+
+        return DemonstrationStats(human: human, agent: agent, screens: screens)
+    }
+
+    /// Remove the most recent human demonstration — the one just recorded,
+    /// when the user knows they moved badly. Undo is why recording is safe to
+    /// do casually.
+    func deleteLastDemonstration() {
+        try? ensureDB()
+        exec("""
+            DELETE FROM mouse_trace WHERE rowid = (
+              SELECT rowid FROM mouse_trace WHERE source = 'human'
+              ORDER BY ts DESC LIMIT 1
+            )
+            """)
+    }
+
+    /// Clear the human demonstrations. The agent's own traces are left: they
+    /// are the fallback, and deleting them would leave nothing at all.
+    func deleteAllDemonstrations() {
+        try? ensureDB()
+        exec("DELETE FROM mouse_trace WHERE source = 'human'")
+    }
+
     func recordHumanDemonstration(points: [(x: Double, y: Double)],
                                   screenW: Double, screenH: Double) {
         guard points.count >= 3, let first = points.first, let last = points.last else { return }
@@ -906,7 +989,16 @@ actor EternalMemoryStore {
         guard sqlite3_prepare_v2(db, """
             SELECT path, source FROM mouse_trace
             WHERE screen_w = ? AND screen_h = ? AND ok = 1
-            ORDER BY source ASC, ts DESC LIMIT ?
+            -- Human demonstrations FIRST. This was `ORDER BY source ASC`,
+            -- and 'agent' sorts before 'human', so the limit was filled with
+            -- the agent's own traces and the demonstrations were never read
+            -- once a resolution had 50 agent clicks — which is one session.
+            -- The comment above this query said human demos dominate; the
+            -- query did the exact opposite, and the agent has been imitating
+            -- itself, compounding its own error, the whole time.
+            -- Written out rather than DESC so it does not depend on where
+            -- a future source value lands in the alphabet.
+            ORDER BY CASE source WHEN 'human' THEN 0 ELSE 1 END, ts DESC LIMIT ?
             """, -1, &stmt, nil) == SQLITE_OK else { return nil }
         defer { sqlite3_finalize(stmt) }
         sqlite3_bind_double(stmt, 1, screenW)
