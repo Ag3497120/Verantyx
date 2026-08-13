@@ -554,6 +554,52 @@ actor EternalMemoryStore {
                        concepts: [app, "操作方法", best.method, "app-control"])
     }
 
+    /// Which dismissal has cleared THIS overlay before, best first.
+    ///
+    /// Keyed on the overlay's signature rather than the app, because one app
+    /// has several overlays and they do not all close the same way — Safari's
+    /// downloads popover and its permission sheet are different problems.
+    func dismissEvidence(signature: String) -> [MethodTally] {
+        try? ensureDB()
+        var stmt: OpaquePointer?
+        guard sqlite3_prepare_v2(db, """
+            SELECT action, COUNT(*), SUM(ok) FROM (
+              SELECT action, ok FROM act_episode
+              WHERE target_label = ? AND route LIKE 'dismiss:%'
+              ORDER BY ts DESC LIMIT 60
+            ) GROUP BY action
+            """, -1, &stmt, nil) == SQLITE_OK else { return [] }
+        defer { sqlite3_finalize(stmt) }
+        sqlite3_bind_text(stmt, 1, signature, -1, Self.sqliteTransient)
+
+        var out: [MethodTally] = []
+        while sqlite3_step(stmt) == SQLITE_ROW {
+            let method = sqlite3_column_text(stmt, 0).map { String(cString: $0) } ?? ""
+            let attempts = Int(sqlite3_column_int64(stmt, 1))
+            let successes = Int(sqlite3_column_int64(stmt, 2))
+            guard !method.isEmpty, attempts > 0 else { continue }
+            out.append(MethodTally(method: method, attempts: attempts, successes: successes))
+        }
+        return out.sorted {
+            $0.rate == $1.rate ? $0.attempts > $1.attempts : $0.rate > $1.rate
+        }
+    }
+
+    /// Turn repeated dismissals of one overlay into a recallable sentence, so
+    /// it stops being a table lookup and becomes something the agent can be
+    /// reminded of for an overlay it has never seen but which sits nearby in
+    /// the same space.
+    func consolidateDismissKnowledge(signature: String, appName: String,
+                                     overlay: String, minAttempts: Int = 3) async {
+        let tallies = dismissEvidence(signature: signature)
+        let total = tallies.reduce(0) { $0 + $1.attempts }
+        guard total >= minAttempts, let best = tallies.first, best.successes > 0 else { return }
+        try? await add(
+            text: "\(appName) の「\(overlay)」が邪魔なときは \(best.method) で閉じられる"
+                + "（\(best.successes)/\(best.attempts)）。",
+            concepts: [appName, overlay, "障害物", "閉じ方"])
+    }
+
     /// What happened last time this app was in this screen state and an
     /// act like this was tried — the question a log cannot answer.
     /// Returns compact lines for injection, newest first.

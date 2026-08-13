@@ -109,6 +109,157 @@ enum OSControl {
         return links + buttons < 3
     }
 
+    // MARK: - Things in the way
+    //
+    // A menu the user left open, Safari's downloads popover, a sheet, a
+    // notification: all of them sit over the thing the agent is trying to
+    // reach, and none of them can be enumerated in advance. Writing "if the
+    // downloads popover is open, press Escape" does not converge — there is no
+    // end to the list, and every entry is wrong for the next app.
+    //
+    // What generalizes is that macOS already classifies these. A transient
+    // overlay is not "the downloads popup"; it is an AXPopover, an AXMenu, an
+    // AXSheet or a dialog window. That is a closed set, published by the
+    // system, and it does not grow when an app ships a new panel.
+    //
+    // So the agent does not learn WHICH overlays exist. It learns, per app and
+    // per overlay signature, WHICH DISMISSAL WORKS — from the same act-episode
+    // loop that already learns menus-versus-clicks. The knowledge is
+    // "Safari のダウンロードポップオーバーは Escape で閉じる", and it is acquired by
+    // trying, observing, and recording, not by being told.
+
+    struct Obstruction {
+        let role: String
+        let title: String
+        let element: AXUIElement
+        /// What vera-a learns against. Not the app alone — one app has several
+        /// overlays and they do not all close the same way.
+        let signature: String
+    }
+
+    /// Roles macOS uses for things that sit on top of the content. Closed set,
+    /// defined by the platform, so it does not need maintaining per app.
+    private static let overlayRoles: Set<String> = [
+        "AXMenu", "AXPopover", "AXSheet", "AXDrawer", "AXHelpTag"
+    ]
+
+    /// Overlays currently covering this app's content.
+    static func obstructions(of appName: String) -> [Obstruction] {
+        guard AXIsProcessTrusted(), let (ax, _) = appElement(appName) else { return [] }
+        var found: [Obstruction] = []
+
+        func scan(_ element: AXUIElement, depth: Int) {
+            guard depth <= 4, found.count < 6 else { return }
+            guard let children: [AXUIElement] = attr(element, kAXChildrenAttribute as String)
+            else { return }
+            for child in children {
+                let role: String = attr(child, kAXRoleAttribute as String) ?? ""
+                let subrole: String = attr(child, kAXSubroleAttribute as String) ?? ""
+                let title: String = attr(child, kAXTitleAttribute as String)
+                    ?? attr(child, kAXDescriptionAttribute as String) ?? ""
+
+                if overlayRoles.contains(role) || subrole == "AXDialog" || subrole == "AXSystemDialog" {
+                    found.append(Obstruction(
+                        role: subrole.isEmpty ? role : subrole,
+                        title: title,
+                        element: child,
+                        signature: "\(appName)|\(subrole.isEmpty ? role : subrole)|\(title.prefix(30))"))
+                    continue    // do not descend into the overlay itself
+                }
+                scan(child, depth: depth + 1)
+            }
+        }
+        scan(ax, depth: 1)
+
+        // An open menu hangs off the menu bar rather than off a window.
+        if let bar: AXUIElement = attr(ax, kAXMenuBarAttribute as String),
+           let tops: [AXUIElement] = attr(bar, kAXChildrenAttribute as String) {
+            for top in tops {
+                guard let menus: [AXUIElement] = attr(top, kAXChildrenAttribute as String),
+                      let menu = menus.first,
+                      (attr(menu, "AXVisible") as Bool?) == true
+                else { continue }
+                let title: String = attr(top, kAXTitleAttribute as String) ?? ""
+                found.append(Obstruction(role: "AXMenu", title: title, element: menu,
+                                         signature: "\(appName)|AXMenu|\(title)"))
+            }
+        }
+        return found
+    }
+
+    /// Ways to make an overlay go away, cheapest and safest first.
+    ///
+    /// Every move here must be incapable of CONFIRMING anything. Escape and a
+    /// cancel button back out; pressing whatever button happens to be in the
+    /// panel could accept a dialog the user never saw. That is why there is no
+    /// "press the first button" move, even though it would close more things.
+    enum Dismissal: String, CaseIterable {
+        case escape       // ⎋ — backs out of nearly every transient overlay
+        case cancelButton // the overlay's own cancel/close control
+        case clickAway    // click empty space outside it
+
+        var ja: String {
+            switch self {
+            case .escape:       return "Escape キー"
+            case .cancelButton: return "閉じる/キャンセルボタン"
+            case .clickAway:    return "外側をクリック"
+            }
+        }
+    }
+
+    /// Try one dismissal. Returns whether the overlay is gone afterwards —
+    /// measured, not assumed, because "I pressed Escape" is not evidence.
+    static func attempt(_ move: Dismissal, on obstruction: Obstruction,
+                        in appName: String) -> Bool {
+        switch move {
+        case .escape:
+            _ = sendShortcut(to: appName, combo: "esc")
+
+        case .cancelButton:
+            guard let button = findCancelLikeButton(in: obstruction.element) else { return false }
+            AXUIElementPerformAction(button, kAXPressAction as CFString)
+
+        case .clickAway:
+            // Deliberately not implemented as a synthetic click here: a click
+            // at an arbitrary point is the one move that can hit something
+            // real. It stays declared so the model can be told it exists and
+            // choose it explicitly with coordinates it has actually looked at.
+            return false
+        }
+
+        usleep(400_000)
+        return !obstructions(of: appName).contains { $0.signature == obstruction.signature }
+    }
+
+    /// Only controls that back out. Never OK, Delete, Send, Allow.
+    private static func findCancelLikeButton(in element: AXUIElement) -> AXUIElement? {
+        let safe = ["cancel", "close", "done", "dismiss", "not now",
+                    "キャンセル", "閉じる", "完了", "あとで", "今はしない"]
+        var result: AXUIElement?
+
+        func walk(_ e: AXUIElement, depth: Int) {
+            guard depth <= 3, result == nil else { return }
+            guard let kids: [AXUIElement] = attr(e, kAXChildrenAttribute as String) else { return }
+            for k in kids {
+                if result != nil { return }
+                let role: String = attr(k, kAXRoleAttribute as String) ?? ""
+                let subrole: String = attr(k, kAXSubroleAttribute as String) ?? ""
+                let title: String = attr(k, kAXTitleAttribute as String)
+                    ?? attr(k, kAXDescriptionAttribute as String) ?? ""
+                if subrole == "AXCloseButton" || subrole == "AXCancelButton" {
+                    result = k; return
+                }
+                if role == kAXButtonRole as String,
+                   safe.contains(where: { title.lowercased().contains($0) }) {
+                    result = k; return
+                }
+                walk(k, depth: depth + 1)
+            }
+        }
+        walk(element, depth: 1)
+        return result
+    }
+
     // MARK: - Menus
 
     struct MenuItem {

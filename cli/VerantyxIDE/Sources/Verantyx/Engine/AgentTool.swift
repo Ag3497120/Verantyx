@@ -1503,6 +1503,69 @@ actor AgentToolExecutor {
         return rest
     }
 
+    /// Clear anything sitting over the app's content, and learn what worked.
+    ///
+    /// Called when a lookup fails, because that is the moment an obstruction
+    /// actually costs something — running it speculatively on every action
+    /// would press Escape at people for no reason.
+    ///
+    /// The order of attempts is not hardcoded: whatever cleared THIS overlay
+    /// before is tried first, and the rest follow as fallbacks. With no
+    /// history the built-in order applies, and the outcome becomes the history.
+    /// Returns a description of what it cleared, or nil.
+    static func clearTheWay(in appName: String) async -> String? {
+        let blockers = await MainActor.run { OSControl.obstructions(of: appName) }
+        guard !blockers.isEmpty else { return nil }
+
+        var cleared: [String] = []
+        for blocker in blockers {
+            let learned = await EternalMemoryStore.shared
+                .dismissEvidence(signature: blocker.signature)
+                .filter { $0.successes > 0 }
+                .compactMap { OSControl.Dismissal(rawValue: $0.method) }
+
+            // Experience first, then the remaining moves. `clickAway` is
+            // declared but never auto-attempted — a click at a guessed point
+            // is the one move that can hit something real.
+            let order = learned + OSControl.Dismissal.allCases.filter {
+                !learned.contains($0) && $0 != .clickAway
+            }
+
+            for move in order {
+                let ok = await MainActor.run {
+                    OSControl.attempt(move, on: blocker, in: appName)
+                }
+                await rememberDismissal(app: appName, blocker: blocker, move: move, ok: ok)
+                if ok {
+                    cleared.append("\(blocker.role)「\(blocker.title)」→ \(move.ja)")
+                    break
+                }
+            }
+        }
+        return cleared.isEmpty ? nil : cleared.joined(separator: " / ")
+    }
+
+    private static func rememberDismissal(app: String, blocker: OSControl.Obstruction,
+                                          move: OSControl.Dismissal, ok: Bool) async {
+        let (goal, session) = await MainActor.run {
+            (AppState.shared?.currentActGoal ?? "",
+             AppState.shared?.vxChatSessionId ?? "")
+        }
+        await EternalMemoryStore.shared.recordActEpisode(
+            episodeId: UUID().uuidString, sessionId: session, app: app,
+            goal: goal,
+            rationale: "\(blocker.role)「\(blocker.title)」が操作対象を覆っていたため",
+            action: move.rawValue,
+            targetLabel: blocker.signature,
+            screenBefore: "", screenAfter: "",
+            visualDistance: 0, changed: ok, ok: ok,
+            note: ok ? "閉じられた" : "閉じられなかった",
+            route: "dismiss:\(move.rawValue)")
+
+        await EternalMemoryStore.shared.consolidateDismissKnowledge(
+            signature: blocker.signature, appName: app, overlay: blocker.title)
+    }
+
     /// Only a browser has a URL to verify a click against.
     static func isBrowserApp(_ name: String) -> Bool {
         let n = name.lowercased()
@@ -2142,7 +2205,20 @@ actor AgentToolExecutor {
                 _ = try? await AXVisionBridge.shared.getSemanticSnapshot(appName: clickTarget)
             }
 
-            guard let id = await AXVisionBridge.shared.findElementID(matching: text),
+            // A lookup that fails may be a lookup that cannot see past
+            // something. Clear it and look once more before reporting.
+            var lookup = await AXVisionBridge.shared.findElementID(matching: text)
+            if lookup == nil, let removed = await Self.clearTheWay(in: clickTarget) {
+                await MainActor.run {
+                    AppState.shared?.addSystemMessage(AppLanguage.shared.t(
+                        "<think>\n🧹 Cleared: \(removed)\n</think>",
+                        "<think>\n🧹 邪魔なものを閉じました: \(removed)\n</think>"))
+                }
+                _ = try? await AXVisionBridge.shared.getSemanticSnapshot(appName: clickTarget)
+                lookup = await AXVisionBridge.shared.findElementID(matching: text)
+            }
+
+            guard let id = lookup,
                   let point = await AXVisionBridge.shared.screenPoint(forElementID: id) else {
                 // Say which of the two failures this is. "Not found" in an
                 // empty tree is not the same problem as "not found" among 40
