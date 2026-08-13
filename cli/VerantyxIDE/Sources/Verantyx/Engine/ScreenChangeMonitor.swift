@@ -1,6 +1,7 @@
 import Foundation
 import CoreGraphics
 import AppKit
+import ScreenCaptureKit
 
 // MARK: - An oracle the model cannot write
 //
@@ -110,7 +111,21 @@ final class ScreenChangeMonitor: ObservableObject {
     // MARK: Sampling
 
     private func sample() {
-        guard let grid = captureLuminanceGrid() else { return }
+        Task { @MainActor in
+            guard let image = await DisplayCapture.mainDisplay() else {
+                if canSee || blindReason == nil {
+                    canSee = false
+                    blindReason = DisplayCapture.failureReason
+                }
+                return
+            }
+            if !canSee { canSee = true; blindReason = nil }
+            compare(image)
+        }
+    }
+
+    private func compare(_ image: CGImage) {
+        guard let grid = captureLuminanceGrid(image) else { return }
         defer { previous = grid }
         guard let prev = previous, prev.count == grid.count else { return }
 
@@ -137,16 +152,7 @@ final class ScreenChangeMonitor: ObservableObject {
     /// compiles it because it targets 14.0 — on a newer system it returns
     /// nothing. CGWindowListCreateImage is deprecated but still functioning,
     /// and is what the rest of this codebase already captures with.
-    private func captureLuminanceGrid() -> [Double]? {
-        guard let full = CGWindowListCreateImage(
-            .infinite, .optionOnScreenOnly, kCGNullWindowID, []) else {
-            if canSee || blindReason == nil {
-                canSee = false
-                blindReason = "画面をキャプチャできません（画面収録の許可、またはOSの対応状況）"
-            }
-            return nil
-        }
-        if !canSee { canSee = true; blindReason = nil }
+    private func captureLuminanceGrid(_ full: CGImage) -> [Double]? {
 
         let n = side
         var pixels = [UInt8](repeating: 0, count: n * n)
@@ -158,5 +164,59 @@ final class ScreenChangeMonitor: ObservableObject {
         ctx.interpolationQuality = .low          // averaging is the point
         ctx.draw(full, in: CGRect(x: 0, y: 0, width: n, height: n))
         return pixels.map { Double($0) / 255.0 }
+    }
+}
+
+// MARK: - Capturing the display, on an OS that removed the old way
+//
+// Both CoreGraphics capture APIs carry SCREEN_CAPTURE_OBSOLETE(10.5, 14.0,
+// 15.0): deprecated in macOS 14, GONE in 15. This app targets 14.0, so they
+// still COMPILE and return nothing at runtime on anything newer — and three
+// call sites reported that as "screen capture permission", which is the wrong
+// diagnosis and sends the user to a settings pane that was already correct.
+//
+// The first attempt at this swapped CGDisplayCreateImage for
+// CGWindowListCreateImage. That was no fix: they are obsoleted by the same
+// macro on the same version. ScreenCaptureKit is the only path that works,
+// and SCScreenshotManager is available from macOS 14.0 — exactly this app's
+// deployment target, so there is no version fork to maintain.
+//
+// One helper, so the next time this moves there is one place to change.
+enum DisplayCapture {
+
+    /// The whole main display. Async because ScreenCaptureKit is.
+    static func mainDisplay() async -> CGImage? {
+        guard #available(macOS 14.0, *) else { return nil }
+        do {
+            // excludingDesktopWindows: false keeps the wallpaper, so a
+            // luminance diff still sees a window opening over an empty desktop.
+            let content = try await SCShareableContent.excludingDesktopWindows(
+                false, onScreenWindowsOnly: true)
+            guard let display = content.displays.first else { return nil }
+
+            let filter = SCContentFilter(display: display, excludingWindows: [])
+            let config = SCStreamConfiguration()
+            config.width = display.width
+            config.height = display.height
+            config.captureResolution = .best
+            config.showsCursor = true
+
+            return try await SCScreenshotManager.captureImage(
+                contentFilter: filter, configuration: config)
+        } catch {
+            lastError = error.localizedDescription
+            return nil
+        }
+    }
+
+    nonisolated(unsafe) private static var lastError: String?
+
+    /// Why a capture came back empty. Permission is the usual cause but not
+    /// the only one, and reporting it as the only one is how a working
+    /// permission gets toggled pointlessly.
+    static var failureReason: String {
+        if !ScreenCapturePermission.isGranted { return ScreenCapturePermission.shortError }
+        if let e = lastError { return "画面をキャプチャできませんでした: \(e)" }
+        return "画面をキャプチャできませんでした（権限は許可済み）"
     }
 }

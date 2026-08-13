@@ -139,8 +139,8 @@ class DesktopVisionBridge {
         let logicalWidth = Double(CGDisplayPixelsWide(mainDisplay))
         let logicalHeight = Double(CGDisplayPixelsHigh(mainDisplay))
 
-        guard let image = CGDisplayCreateImage(mainDisplay) else {
-            throw BrowserError.ioError(ScreenCapturePermission.shortError)
+        guard let image = await DisplayCapture.mainDisplay() else {
+            throw BrowserError.ioError(DisplayCapture.failureReason)
         }
 
         let pixelWidth = Double(image.width)
@@ -235,8 +235,8 @@ class DesktopVisionBridge {
         let logicalWidth = Double(CGDisplayPixelsWide(mainDisplay))
         let logicalHeight = Double(CGDisplayPixelsHigh(mainDisplay))
 
-        guard let image = CGDisplayCreateImage(mainDisplay) else {
-            throw BrowserError.ioError("Failed to create image for coordinate calc")
+        guard let image = await DisplayCapture.mainDisplay() else {
+            throw BrowserError.ioError("座標計算用の画面取得に失敗: \(DisplayCapture.failureReason)")
         }
         
         let pixelWidth = Double(image.width)

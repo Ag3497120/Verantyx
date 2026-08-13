@@ -653,8 +653,8 @@ class SafariVisionBridge {
         let windowX: Double = 0.0
         let windowY: Double = 0.0
 
-        guard let image = CGDisplayCreateImage(mainDisplay) else {
-            throw BrowserError.ioError(ScreenCapturePermission.shortError)
+        guard let image = await DisplayCapture.mainDisplay() else {
+            throw BrowserError.ioError(DisplayCapture.failureReason)
         }
 
         let pixelWidth = Double(image.width)
