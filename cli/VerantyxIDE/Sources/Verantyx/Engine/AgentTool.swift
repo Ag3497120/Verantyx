@@ -231,7 +231,7 @@ struct AgentToolParser {
     [VISION_BROWSE: url]      視覧: ブラウザでURLを開きスクショ撮影
     [VISION_SEARCH_FLOW: q]   視索: Google検索を開き、複数回スクロールして動画フレームを撮影
     [VISION_SNAPSHOT]         視撮: 現在の画面を再スクショして更新
-    [VISION_ACT: action]      視動: "click x y" や "type text" を実行しスクショ
+    [VISION_ACT: action]      視動: "click x y" / "type 入力したい文字列" を実行しスクショ
     [USE_APP] / [USE_APP: Chrome]  今使: ユーザーが「いま開いている」アプリに取り付いて中身を読む。
                               「このChromeのページを見て操作して」のような依頼はまずこれ。名前省略時は
                               ユーザーが直前にいたアプリ。IDEと画面を左右半分に並べ、押せるものを一覧で返す。
@@ -243,7 +243,8 @@ struct AgentToolParser {
                               画面に出ていない命令も呼べる。区切りは ▸ / > どちらでも可。
     [KEYS: cmd+s]             鍵: 取り付いたアプリにキー操作を送る（⌘S も可）。前面でなくても届く。
     [DESKTOP_SNAPSHOT]        卓撮: OSデスクトップ全体のスクショとセマンティックなAX UI構造マップを取得
-    [DESKTOP_ACT: action]     卓動: デスクトップ全体に対して "click x y", "type text", "scroll up/down" を実行
+    [DESKTOP_ACT: action]     卓動: 画面全体に対して "click x y" / "type 入力したい文字列" / "scroll up|down"
+                              ※ type の後ろは打ち込む文字そのもの。"type text ..." と書くと "text" まで入力される
     [AX_ACT: id action text?] AX動: [DESKTOP_SNAPSHOT]で得たUI要素ID(#btn1等)に対して操作 (click または type "テキスト")。座標ズレがなく確実。
     [PASTE_PAYLOAD]           貼付: 任務ペイロード（プロンプト外に保持された本文）をクリップボード経由でフォーカス中のUIへ貼り付け。長文はDESKTOP_ACT typeで打ち込まない。
     [WAIT_UNTIL_STABLE]       待安: 1fps画面監視(許可時)で画面が約2秒安定するまで待つ。任意で [WAIT_UNTIL_STABLE: stable timeout]（秒）
@@ -1455,6 +1456,42 @@ actor AgentToolExecutor {
         return lines.joined(separator: "\n")
     }
 
+    /// What "type …" should actually put on the keyboard.
+    ///
+    /// The tool docs used to read `"type text"`, with `text` meant as a
+    /// placeholder. Models read it as a required literal and wrote
+    /// `type text chatgpt.com`, and `dropFirst(5)` — which only removes
+    /// `"type "` — typed `text chatgpt.com` into Chrome's address bar. The
+    /// docs are fixed; this catches the models that already learned the wrong
+    /// shape, and any that read it that way again.
+    ///
+    /// Also drops the first token properly rather than a hardcoded 5
+    /// characters, so `TYPE x` or extra spaces do not shift the payload.
+    static func textToType(from action: String) -> String {
+        var rest = action.trimmingCharacters(in: .whitespaces)
+        // Remove the leading command word, whatever its casing/spacing.
+        if let space = rest.firstIndex(where: { $0 == " " }) {
+            rest = String(rest[rest.index(after: space)...])
+        } else {
+            return ""
+        }
+        rest = rest.trimmingCharacters(in: .whitespaces)
+
+        // A leading bare "text" is the placeholder leaking through. Nobody
+        // means to type the word "text" before a URL, and the alternative —
+        // typing it and letting the run fail somewhere later — is what
+        // actually happened.
+        for placeholder in ["text ", "<text> ", "\"text\" ", "文字列 "] where rest.hasPrefix(placeholder) {
+            rest = String(rest.dropFirst(placeholder.count)).trimmingCharacters(in: .whitespaces)
+            break
+        }
+        // Quoted payloads: type "hello world"
+        if rest.count >= 2, rest.hasPrefix("\""), rest.hasSuffix("\"") {
+            rest = String(rest.dropFirst().dropLast())
+        }
+        return rest
+    }
+
     /// Only a browser has a URL to verify a click against.
     static func isBrowserApp(_ name: String) -> Bool {
         let n = name.lowercased()
@@ -2308,7 +2345,7 @@ actor AgentToolExecutor {
                         let y = Double(parts[2]) ?? 0.0
                         try await SafariVisionBridge.shared.hidClick(x: x, y: y)
                     } else if cmd == "type" && parts.count >= 2 {
-                        let text = action.dropFirst(5).trimmingCharacters(in: .whitespaces)
+                        let text = Self.textToType(from: action)
                         try await SafariVisionBridge.shared.typeText(text)
                     } else if cmd == "scroll" {
                         try await SafariVisionBridge.shared.scrollDown()
@@ -2341,7 +2378,7 @@ actor AgentToolExecutor {
                     
                     try await SafariVisionBridge.shared.hidClick(x: x, y: y)
                 } else if cmd == "type" && parts.count >= 2 {
-                    let text = action.dropFirst(5).trimmingCharacters(in: .whitespaces)
+                    let text = Self.textToType(from: action)
                     try await SafariVisionBridge.shared.typeText(text)
                 } else if cmd == "scroll" {
                     try await SafariVisionBridge.shared.scrollDown()
@@ -2661,7 +2698,7 @@ actor AgentToolExecutor {
                         try await SafariVisionBridge.shared.hidClick(x: x, y: y, enforceSafari: false)
                     }
                 } else if cmd == "type" && parts.count >= 2 {
-                    let text = action.dropFirst(5).trimmingCharacters(in: .whitespaces)
+                    let text = Self.textToType(from: action)
                     if hiddenActive {
                         await HiddenWindowAutomation.shared.typeInWindow(text)
                     } else {
