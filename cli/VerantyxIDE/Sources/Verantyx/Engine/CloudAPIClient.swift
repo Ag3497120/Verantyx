@@ -7,62 +7,172 @@ import Foundation
 
 // MARK: - CloudProvider
 
-enum CloudProvider: String, CaseIterable, Codable {
-    case claude   = "Claude (Anthropic)"
-    case openai   = "GPT-4 (OpenAI)"
-    case gemini   = "Gemini (Google)"
-    case deepseek = "DeepSeek"
+/// How a provider expects to be talked to. Almost everyone shipping an API
+/// today speaks OpenAI's wire format, so this is three shapes rather than one
+/// per vendor — which is what makes adding a provider one line instead of a
+/// new request builder, a new parser and four new switch cases.
+enum CloudWire {
+    case openAICompatible   // /chat/completions, Bearer, {choices:[{message}]}
+    case anthropic          // /messages, x-api-key, {content:[blocks]}
+    case gemini             // :generateContent, ?key=, {candidates:[...]}
+}
 
-    var icon: String {
+/// Everything that differs between providers, declared once.
+struct CloudProviderSpec {
+    let display: String
+    let icon: String
+    /// Root of the API, no trailing slash: "https://api.x.ai/v1"
+    let baseURL: String
+    let wire: CloudWire
+    /// UserDefaults key holding the API key.
+    let keyDefaults: String
+    /// Stand-in until `listModels` asks the provider what it actually serves.
+    let fallbackModel: String
+    let maxTokens: Int
+    /// Where the user gets a key. Shown in settings so it is not a search.
+    let consoleURL: String
+}
+
+enum CloudProvider: String, CaseIterable, Codable {
+    // The original four keep their raw values: they are persisted in
+    // UserDefaults and appear in saved settings, so renaming them would
+    // silently drop the user's existing configuration.
+    case claude     = "Claude (Anthropic)"
+    case openai     = "GPT (OpenAI)"
+    case gemini     = "Gemini (Google)"
+    case deepseek   = "DeepSeek"
+    // Added because the wire format made it nearly free to do so.
+    case xai        = "Grok (xAI)"
+    case qwen       = "Qwen (Alibaba)"
+    case moonshot   = "Kimi (Moonshot)"
+    case openrouter = "OpenRouter"
+    case groq       = "Groq"
+    case mistral    = "Mistral"
+    case together   = "Together AI"
+    case fireworks  = "Fireworks AI"
+    case cerebras   = "Cerebras"
+    case perplexity = "Perplexity"
+    case zhipu      = "GLM (Zhipu)"
+
+    var spec: CloudProviderSpec {
         switch self {
-        case .claude:   return "sparkles"
-        case .openai:   return "circlebadge.2"
-        case .gemini:   return "star.circle"
-        case .deepseek: return "waveform.circle"
+        case .claude:
+            return .init(display: rawValue, icon: "sparkles",
+                         baseURL: "https://api.anthropic.com/v1", wire: .anthropic,
+                         keyDefaults: "anthropic_api_key", fallbackModel: "claude-sonnet-5",
+                         maxTokens: 8192, consoleURL: "https://console.anthropic.com/settings/keys")
+        case .openai:
+            return .init(display: rawValue, icon: "circlebadge.2",
+                         baseURL: "https://api.openai.com/v1", wire: .openAICompatible,
+                         keyDefaults: "openai_api_key", fallbackModel: "gpt-4o",
+                         maxTokens: 4096, consoleURL: "https://platform.openai.com/api-keys")
+        case .gemini:
+            return .init(display: rawValue, icon: "star.circle",
+                         baseURL: "https://generativelanguage.googleapis.com/v1beta", wire: .gemini,
+                         keyDefaults: "gemini_api_key", fallbackModel: "gemini-3.1-pro",
+                         maxTokens: 8192, consoleURL: "https://aistudio.google.com/apikey")
+        case .deepseek:
+            return .init(display: rawValue, icon: "waveform.circle",
+                         baseURL: "https://api.deepseek.com", wire: .openAICompatible,
+                         keyDefaults: "api_key_DeepSeek", fallbackModel: "deepseek-chat",
+                         maxTokens: 8192, consoleURL: "https://platform.deepseek.com/api_keys")
+        case .xai:
+            return .init(display: rawValue, icon: "x.circle",
+                         baseURL: "https://api.x.ai/v1", wire: .openAICompatible,
+                         keyDefaults: "xai_api_key", fallbackModel: "grok-4",
+                         maxTokens: 8192, consoleURL: "https://console.x.ai")
+        case .qwen:
+            return .init(display: rawValue, icon: "q.circle",
+                         baseURL: "https://dashscope-intl.aliyuncs.com/compatible-mode/v1",
+                         wire: .openAICompatible,
+                         keyDefaults: "qwen_api_key", fallbackModel: "qwen-max",
+                         maxTokens: 8192, consoleURL: "https://bailian.console.alibabacloud.com")
+        case .moonshot:
+            return .init(display: rawValue, icon: "moon.circle",
+                         baseURL: "https://api.moonshot.ai/v1", wire: .openAICompatible,
+                         keyDefaults: "moonshot_api_key", fallbackModel: "kimi-k2-0905-preview",
+                         maxTokens: 8192, consoleURL: "https://platform.moonshot.ai/console/api-keys")
+        case .openrouter:
+            return .init(display: rawValue, icon: "arrow.triangle.branch",
+                         baseURL: "https://openrouter.ai/api/v1", wire: .openAICompatible,
+                         keyDefaults: "openrouter_api_key", fallbackModel: "openai/gpt-4o",
+                         maxTokens: 8192, consoleURL: "https://openrouter.ai/keys")
+        case .groq:
+            return .init(display: rawValue, icon: "bolt.circle",
+                         baseURL: "https://api.groq.com/openai/v1", wire: .openAICompatible,
+                         keyDefaults: "groq_api_key", fallbackModel: "llama-3.3-70b-versatile",
+                         maxTokens: 8192, consoleURL: "https://console.groq.com/keys")
+        case .mistral:
+            return .init(display: rawValue, icon: "wind",
+                         baseURL: "https://api.mistral.ai/v1", wire: .openAICompatible,
+                         keyDefaults: "mistral_api_key", fallbackModel: "mistral-large-latest",
+                         maxTokens: 8192, consoleURL: "https://console.mistral.ai/api-keys")
+        case .together:
+            return .init(display: rawValue, icon: "square.stack.3d.up",
+                         baseURL: "https://api.together.xyz/v1", wire: .openAICompatible,
+                         keyDefaults: "together_api_key",
+                         fallbackModel: "deepseek-ai/DeepSeek-V3",
+                         maxTokens: 8192, consoleURL: "https://api.together.ai/settings/api-keys")
+        case .fireworks:
+            return .init(display: rawValue, icon: "flame",
+                         baseURL: "https://api.fireworks.ai/inference/v1", wire: .openAICompatible,
+                         keyDefaults: "fireworks_api_key",
+                         fallbackModel: "accounts/fireworks/models/deepseek-v3",
+                         maxTokens: 8192, consoleURL: "https://fireworks.ai/account/api-keys")
+        case .cerebras:
+            return .init(display: rawValue, icon: "cpu",
+                         baseURL: "https://api.cerebras.ai/v1", wire: .openAICompatible,
+                         keyDefaults: "cerebras_api_key", fallbackModel: "llama-3.3-70b",
+                         maxTokens: 8192, consoleURL: "https://cloud.cerebras.ai")
+        case .perplexity:
+            return .init(display: rawValue, icon: "magnifyingglass.circle",
+                         baseURL: "https://api.perplexity.ai", wire: .openAICompatible,
+                         keyDefaults: "perplexity_api_key", fallbackModel: "sonar-pro",
+                         maxTokens: 8192, consoleURL: "https://www.perplexity.ai/settings/api")
+        case .zhipu:
+            return .init(display: rawValue, icon: "z.circle",
+                         baseURL: "https://open.bigmodel.cn/api/paas/v4", wire: .openAICompatible,
+                         keyDefaults: "zhipu_api_key", fallbackModel: "glm-4.6",
+                         maxTokens: 8192, consoleURL: "https://open.bigmodel.cn/usercenter/apikeys")
         }
     }
 
+    var icon: String { spec.icon }
+    var maxTokens: Int { spec.maxTokens }
+    var consoleURL: String { spec.consoleURL }
+
     var modelDefaultsKey: String {
+        // The original four keep their historical keys so an existing
+        // selection survives this refactor.
         switch self {
         case .claude:   return "anthropic_model"
         case .openai:   return "openai_model"
         case .gemini:   return "gemini_model"
         case .deepseek: return "deepseek_model"
+        default:        return "model_\(spec.keyDefaults)"
         }
     }
 
-    /// The saved choice, or a fallback. A model id compiled into a build
-    /// is stale the day the provider ships the next one — which is why
-    /// `CloudAPIClient.listModels` asks the provider what it currently
-    /// serves, and these only stand in until it answers once.
+    /// The saved choice, or a fallback. A model id compiled into a build is
+    /// stale the day the provider ships the next one — which is why
+    /// `CloudAPIClient.listModels` asks what it currently serves, and these
+    /// only stand in until it answers once.
     var defaultModel: String {
         if let saved = UserDefaults.standard.string(forKey: modelDefaultsKey), !saved.isEmpty {
             return saved
         }
-        switch self {
-        case .claude:   return "claude-sonnet-5"
-        case .openai:   return "gpt-4o"
-        case .gemini:   return "gemini-3.1-pro"
-        case .deepseek: return "deepseek-chat"
-        }
+        return spec.fallbackModel
     }
 
     /// Where the provider publishes what it is serving today.
-    var modelsEndpoint: String {
-        switch self {
-        case .claude:   return "https://api.anthropic.com/v1/models"
-        case .openai:   return "https://api.openai.com/v1/models"
-        case .gemini:   return "https://generativelanguage.googleapis.com/v1beta/models"
-        case .deepseek: return "https://api.deepseek.com/models"
-        }
-    }
+    var modelsEndpoint: String { "\(spec.baseURL)/models" }
 
-    var maxTokens: Int {
-        switch self {
-        case .claude:   return 8192
-        case .openai:   return 4096
-        case .gemini:   return 8192
-        case .deepseek: return 8192
+    /// Where a chat completion is posted.
+    var chatEndpoint: String {
+        switch spec.wire {
+        case .openAICompatible: return "\(spec.baseURL)/chat/completions"
+        case .anthropic:        return "\(spec.baseURL)/messages"
+        case .gemini:           return spec.baseURL     // model goes in the path
         }
     }
 }
@@ -76,12 +186,7 @@ actor CloudAPIClient {
     // MARK: - Retrieve API key
 
     func apiKey(for provider: CloudProvider) -> String? {
-        switch provider {
-        case .claude:   return UserDefaults.standard.string(forKey: "anthropic_api_key")
-        case .openai:   return UserDefaults.standard.string(forKey: "openai_api_key")
-        case .gemini:   return UserDefaults.standard.string(forKey: "gemini_api_key")
-        case .deepseek: return UserDefaults.standard.string(forKey: "api_key_DeepSeek")
-        }
+        UserDefaults.standard.string(forKey: provider.spec.keyDefaults)
     }
 
     // MARK: - What the provider is serving today
@@ -97,16 +202,16 @@ actor CloudAPIClient {
               !key.isEmpty else { return [] }
 
         var urlString = provider.modelsEndpoint
-        if provider == .gemini { urlString += "?key=\(key)" }
+        if provider.spec.wire == .gemini { urlString += "?key=\(key)" }
         guard let url = URL(string: urlString) else { return [] }
 
         var request = URLRequest(url: url)
         request.timeoutInterval = 12
-        switch provider {
-        case .claude:
+        switch provider.spec.wire {
+        case .anthropic:
             request.setValue(key, forHTTPHeaderField: "x-api-key")
             request.setValue("2023-06-01", forHTTPHeaderField: "anthropic-version")
-        case .openai, .deepseek:
+        case .openAICompatible:
             request.setValue("Bearer \(key)", forHTTPHeaderField: "Authorization")
         case .gemini:
             break   // key travels in the query string
@@ -137,13 +242,8 @@ actor CloudAPIClient {
     }
 
     func setAPIKey(_ key: String, for provider: CloudProvider) {
-        let trimmed = key.trimmingCharacters(in: .whitespaces)
-        switch provider {
-        case .claude:   UserDefaults.standard.set(trimmed, forKey: "anthropic_api_key")
-        case .openai:   UserDefaults.standard.set(trimmed, forKey: "openai_api_key")
-        case .gemini:   UserDefaults.standard.set(trimmed, forKey: "gemini_api_key")
-        case .deepseek: UserDefaults.standard.set(trimmed, forKey: "api_key_DeepSeek")
-        }
+        UserDefaults.standard.set(key.trimmingCharacters(in: .whitespaces),
+                                  forKey: provider.spec.keyDefaults)
     }
 
     func hasAPIKey(for provider: CloudProvider) -> Bool {
@@ -167,18 +267,31 @@ actor CloudAPIClient {
 
         let model = modelOverride ?? provider.defaultModel
 
-        switch provider {
-        case .claude:   return await callClaude(systemPrompt: systemPrompt, userMessage: userMessage, imageBase64: imageBase64, model: model, apiKey: key)
-        case .openai:   return await callOpenAI(systemPrompt: systemPrompt, userMessage: userMessage, imageBase64: imageBase64, model: model, apiKey: key)
-        case .gemini:   return await callGemini(systemPrompt: systemPrompt, userMessage: userMessage, imageBase64: imageBase64, model: model, apiKey: key)
-        case .deepseek: return await callDeepSeek(systemPrompt: systemPrompt, userMessage: userMessage, model: model, apiKey: key)
+        // Dispatch on the wire format, not the vendor. Adding a provider that
+        // speaks OpenAI's shape needs no code here at all — which is the point
+        // of the spec table above.
+        switch provider.spec.wire {
+        case .anthropic:
+            return await callClaude(systemPrompt: systemPrompt, userMessage: userMessage,
+                                    imageBase64: imageBase64, model: model, apiKey: key,
+                                    provider: provider)
+        case .openAICompatible:
+            return await callOpenAI(systemPrompt: systemPrompt, userMessage: userMessage,
+                                    imageBase64: imageBase64, model: model, apiKey: key,
+                                    provider: provider)
+        case .gemini:
+            return await callGemini(systemPrompt: systemPrompt, userMessage: userMessage,
+                                    imageBase64: imageBase64, model: model, apiKey: key,
+                                    provider: provider)
         }
     }
 
     // MARK: - Anthropic Claude
 
-    private func callClaude(systemPrompt: String, userMessage: String, imageBase64: String?, model: String, apiKey: String) async -> Result<String, CloudError> {
-        let url = URL(string: "https://api.anthropic.com/v1/messages")!
+    private func callClaude(systemPrompt: String, userMessage: String, imageBase64: String?,
+                            model: String, apiKey: String,
+                            provider: CloudProvider) async -> Result<String, CloudError> {
+        guard let url = URL(string: provider.chatEndpoint) else { return .failure(.invalidResponse) }
         var request = URLRequest(url: url)
         request.httpMethod = "POST"
         request.setValue(apiKey, forHTTPHeaderField: "x-api-key")
@@ -193,7 +306,7 @@ actor CloudAPIClient {
 
         let body: [String: Any] = [
             "model": model,
-            "max_tokens": CloudProvider.claude.maxTokens,
+            "max_tokens": provider.maxTokens,
             "system": systemPrompt,
             "messages": [
                 ["role": "user", "content": userContent]
@@ -232,8 +345,10 @@ actor CloudAPIClient {
 
     // MARK: - OpenAI GPT
 
-    private func callOpenAI(systemPrompt: String, userMessage: String, imageBase64: String?, model: String, apiKey: String) async -> Result<String, CloudError> {
-        let url = URL(string: "https://api.openai.com/v1/chat/completions")!
+    private func callOpenAI(systemPrompt: String, userMessage: String, imageBase64: String?,
+                            model: String, apiKey: String,
+                            provider: CloudProvider) async -> Result<String, CloudError> {
+        guard let url = URL(string: provider.chatEndpoint) else { return .failure(.invalidResponse) }
         var request = URLRequest(url: url)
         request.httpMethod = "POST"
         request.setValue("Bearer \(apiKey)", forHTTPHeaderField: "Authorization")
@@ -261,7 +376,7 @@ actor CloudAPIClient {
 
         let body: [String: Any] = [
             "model": model,
-            tokenKey: CloudProvider.openai.maxTokens,
+            tokenKey: provider.maxTokens,
             "messages": [
                 ["role": systemRole, "content": systemPrompt],
                 ["role": "user",     "content": userContent]
@@ -295,8 +410,11 @@ actor CloudAPIClient {
 
     // MARK: - Google Gemini
 
-    private func callGemini(systemPrompt: String, userMessage: String, imageBase64: String?, model: String, apiKey: String) async -> Result<String, CloudError> {
-        let url = URL(string: "https://generativelanguage.googleapis.com/v1beta/models/\(model):generateContent?key=\(apiKey)")!
+    private func callGemini(systemPrompt: String, userMessage: String, imageBase64: String?,
+                            model: String, apiKey: String,
+                            provider: CloudProvider) async -> Result<String, CloudError> {
+        guard let url = URL(string: "\(provider.spec.baseURL)/models/\(model):generateContent?key=\(apiKey)")
+        else { return .failure(.invalidResponse) }
         var request = URLRequest(url: url)
         request.httpMethod = "POST"
         request.setValue("application/json", forHTTPHeaderField: "Content-Type")
@@ -313,7 +431,7 @@ actor CloudAPIClient {
                 ["role": "user", "parts": parts]
             ],
             "generationConfig": [
-                "maxOutputTokens": CloudProvider.gemini.maxTokens,
+                "maxOutputTokens": provider.maxTokens,
                 "temperature": 0.1
             ]
         ]

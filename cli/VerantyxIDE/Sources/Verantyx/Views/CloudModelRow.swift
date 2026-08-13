@@ -78,6 +78,13 @@ final class CloudModelCatalog: ObservableObject {
         return list
     }
 
+    /// Whether a key is configured. The selector uses this to hide providers
+    /// that would fail the moment they were chosen.
+    func hasKey(_ provider: CloudProvider) -> Bool {
+        let k = UserDefaults.standard.string(forKey: provider.spec.keyDefaults) ?? ""
+        return !k.trimmingCharacters(in: .whitespaces).isEmpty
+    }
+
     func lastRefreshed(_ provider: CloudProvider) -> Date? {
         let stamp = UserDefaults.standard.double(forKey: Self.stampKey(provider))
         return stamp > 0 ? Date(timeIntervalSince1970: stamp) : nil

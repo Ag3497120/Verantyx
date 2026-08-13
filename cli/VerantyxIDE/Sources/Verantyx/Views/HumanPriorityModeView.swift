@@ -794,7 +794,7 @@ struct HumanPriorityModeView: View {
                             .tag(AppState.VeraEngineMode.council)
                         Text("Vera-a")
                             .tag(AppState.VeraEngineMode.standalone)
-                        Text(app.t("Local LLM", "ローカルLLM"))
+                        Text("LLM")
                             .tag(AppState.VeraEngineMode.localLLM)
                     }
                     .pickerStyle(.segmented)

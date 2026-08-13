@@ -27,6 +27,7 @@ struct ModelSelectorBarView: View {
     @State private var showVRAM = false
 
     @ObservedObject private var council = CouncilSettingsStore.shared
+    @ObservedObject private var cloudCatalog = CloudModelCatalog.shared
     @State private var showJGenOptions = false
     @State private var showModelRoles = false
     /// LM Studio's server is not started automatically, so this stays empty --
@@ -46,6 +47,10 @@ struct ModelSelectorBarView: View {
         case bitnet(String)
         case jgen(String)
         case lmStudio(String)
+        /// A model served by a cloud provider. Keys were configurable long
+        /// before this existed, so the API could be set up and then never
+        /// chosen — the menu simply had no row for it.
+        case cloud(CloudProvider, String)
     }
 
     private var currentSelection: SelectableModel? {
@@ -55,6 +60,7 @@ struct ModelSelectorBarView: View {
         case .bitnetReady(let m): return .bitnet(m)
         case .jcrossReady(let m): return .jgen(m)
         case .lmStudioReady(let m): return .lmStudio(m)
+        case .anthropicReady(let m, _): return .cloud(app.activeCloudProvider, m)
         default: return nil
         }
     }
@@ -62,6 +68,8 @@ struct ModelSelectorBarView: View {
     private var currentLabel: String {
         switch currentSelection {
         case .mlx(let m), .ollama(let m), .bitnet(let m), .jgen(let m), .lmStudio(let m):
+            return m
+        case .cloud(_, let m):
             return m
         case nil:
             // Nothing loaded yet -- fall back to whatever Gatekeeper has
@@ -92,6 +100,9 @@ struct ModelSelectorBarView: View {
             GatekeeperModeState.shared.commanderModel = name
             app.activeLMStudioModel = name
             app.modelStatus = .lmStudioReady(model: name)
+        case .cloud(let provider, let name):
+            GatekeeperModeState.shared.commanderModel = name
+            app.selectCloudModel(provider: provider, model: name)
         }
     }
 
@@ -349,6 +360,27 @@ struct ModelSelectorBarView: View {
 
     // MARK: - Model menu
 
+    /// Cloud providers with a key configured. Listing one without a key would
+    /// offer a choice that fails the moment it is used.
+    @ViewBuilder
+    private var cloudSections: some View {
+        ForEach(configuredProviders, id: \.self) { provider in
+            Section(provider.rawValue) {
+                ForEach(cloudModels(provider), id: \.self) { m in
+                    Button(m) { select(.cloud(provider, m)) }
+                }
+            }
+        }
+    }
+
+    private var configuredProviders: [CloudProvider] {
+        CloudProvider.allCases.filter { cloudCatalog.hasKey($0) }
+    }
+
+    private func cloudModels(_ p: CloudProvider) -> [String] {
+        Array(cloudCatalog.options(for: p, including: p.defaultModel).prefix(40))
+    }
+
     private var modelMenu: some View {
         Menu {
             if !MLXRunner.popularModels.isEmpty {
@@ -392,6 +424,7 @@ struct ModelSelectorBarView: View {
                     }
                 }
             }
+            cloudSections
             if app.ollamaModels.isEmpty && jgen.convertedModels.isEmpty && bitnet.installedConfigs.isEmpty {
                 Section("Ollama (Not Connected)") {
                     Button("gemma4:26b") { select(.ollama("gemma4:26b")) }

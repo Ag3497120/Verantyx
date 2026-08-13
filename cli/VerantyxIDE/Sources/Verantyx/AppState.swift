@@ -885,7 +885,11 @@ final class AppState: ObservableObject {
     enum VeraEngineMode: String, CaseIterable {
         case council = "council"        // jgen 合議 (LLM/エージェント)
         case standalone = "standalone"  // 単体 Vera-a (決定論のみ)
-        case localLLM = "local_llm"     // 通常のローカルLLM (合議もVeraも通さない)
+        // Named `localLLM` for its stored value only — the mode is "just an
+        // LLM", and since cloud providers became selectable in the model menu
+        // that LLM can equally be Claude or Grok. The raw value stays as it is
+        // because it is persisted.
+        case localLLM = "local_llm"     // 通常のLLM (合議もVeraも通さない)
     }
     /// Which AuditMemory store Vera-a reads and writes. "Fresh memory" at
     /// session start swaps this to a dated task name; old stores stay on
@@ -958,8 +962,23 @@ final class AppState: ObservableObject {
         didSet { UserDefaults.standard.set(veraAComposerModel, forKey: "vera_a_composer") }
     }
 
+    /// Vera-a drives the machine the user is actually looking at.
+    ///
+    /// The hidden-window path mirrors an app into a private surface, which is
+    /// the right tool when the agent must not disturb the screen. Vera-a is
+    /// the opposite case: it operates the user's own apps through [USE_APP],
+    /// menus and keys, and a mirrored copy is not what those act on. Entering
+    /// the mode therefore ends any offscreen session rather than leaving two
+    /// notions of "the window" in play.
+    private func applyVeraAOperatingDefaults() {
+        guard veraEngineMode == .standalone else { return }
+        showHiddenWindowMirror = false
+        Task { @MainActor in await HiddenWindowAutomation.shared.endOffscreenSession() }
+    }
+
     @Published var veraEngineMode: VeraEngineMode = .council {
-        didSet { UserDefaults.standard.set(veraEngineMode.rawValue,
+        didSet { applyVeraAOperatingDefaults()
+                 UserDefaults.standard.set(veraEngineMode.rawValue,
                                            forKey: "vera_engine_mode") }
     }
 
@@ -1797,6 +1816,33 @@ final class AppState: ObservableObject {
 
     // (sendMessage本体のクロージングブレースはここに続く)
     // MARK: - Cancel generation
+    /// Make a cloud model the active chat model.
+    ///
+    /// Keys were configurable long before this existed, so a provider could be
+    /// fully set up and still unusable — the selector had no row for it and
+    /// nothing ever set modelStatus to a cloud value.
+    func selectCloudModel(provider: CloudProvider, model: String) {
+        UserDefaults.standard.set(model, forKey: provider.modelDefaultsKey)
+        activeCloudProvider = provider
+        let key = UserDefaults.standard.string(forKey: provider.spec.keyDefaults) ?? ""
+        let masked = key.count > 8 ? "…\(key.suffix(4))" : "set"
+        modelStatus = .anthropicReady(model: model, maskedKey: masked)
+        addSystemMessage(t("☁️ \(provider.rawValue): \(model)",
+                           "☁️ \(provider.rawValue): \(model) を選択しました"))
+    }
+
+    /// Which provider `.anthropicReady` currently refers to. That case predates
+    /// multi-provider support and its name is now historical; this says who is
+    /// actually being called.
+    @Published var activeCloudProvider: CloudProvider = {
+        if let raw = UserDefaults.standard.string(forKey: "active_cloud_provider"),
+           let p = CloudProvider(rawValue: raw) { return p }
+        return .claude
+    }() {
+        didSet { UserDefaults.standard.set(activeCloudProvider.rawValue,
+                                           forKey: "active_cloud_provider") }
+    }
+
     func cancelGeneration() {
         inferenceTask?.cancel()
         inferenceTask = nil
