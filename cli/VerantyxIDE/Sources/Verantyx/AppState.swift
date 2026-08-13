@@ -742,8 +742,39 @@ final class AppState: ObservableObject {
             return mm.contains("vision") || mm.contains("gemma-4")
                 || mm.contains("qwen-vl") || mm.contains("llava") || mm.contains("llm3.2")
                 || mm.contains("ornith")
+
+        // Cloud models were never considered here at all, so every one of them
+        // fell to `default: false` and was declared text-only — Claude, GPT-4o,
+        // Gemini included. A run on a cloud model printed 「テキスト専用モデル」
+        // on every turn and threw the screenshot away before sending, which
+        // means the vision path was off precisely when it was most capable.
+        case .anthropicReady(let m, _):
+            return Self.cloudModelSeesImages(m)
+        case .claudeAgentReady(let m):
+            return Self.cloudModelSeesImages(m)
+
         default: return false
         }
+    }
+
+    /// Whether a cloud model accepts images. Stated per family rather than
+    /// assumed true: DeepSeek's chat models are text-only, and sending an
+    /// image to one is an HTTP 400, which surfaces as a nil response — the
+    /// same silent failure this guard exists to prevent.
+    static func cloudModelSeesImages(_ model: String) -> Bool {
+        let m = model.lowercased()
+        // Text-only, stated first because some share a prefix with vision ones.
+        if m.contains("deepseek-chat") || m.contains("deepseek-reasoner")
+            || m.contains("deepseek-v3") || m.contains("deepseek-v4") { return false }
+        if m.contains("o1-mini") || m.contains("text-") { return false }
+
+        return m.contains("claude")     // every current Claude accepts images
+            || m.contains("gpt-4o") || m.contains("gpt-4.1") || m.contains("gpt-5")
+            || m.contains("o3") || m.contains("o4")
+            || m.contains("gemini")
+            || m.contains("grok")       // grok-2-vision and later
+            || m.contains("-vl") || m.contains("vision")
+            || m.contains("pixtral") || m.contains("llama-4")
     }
 
     enum ModelStatus: Equatable {

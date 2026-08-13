@@ -130,9 +130,34 @@ class AXVisionBridge {
             let err = AXUIElementPerformAction(element, kAXPressAction as CFString)
             if err == .success {
                 return "Successfully clicked \(id)."
-            } else {
-                return "[AX_ERROR] Failed to click \(id) (Error code: \(err.rawValue))."
             }
+
+            // -25206 is kAXErrorActionUnsupported: the element has no press.
+            // A text field is the common case — Safari's address bar cannot be
+            // "pressed", it is focused and typed into. Reporting the raw code
+            // and stopping is what sent a run down a much worse path: the
+            // click failed, focus stayed on the page, the follow-up ⌘A
+            // selected the entire Wikipedia article, and the URL was typed
+            // into nothing.
+            if err.rawValue == -25206 {
+                // Focus is what "click this field" actually means.
+                let focusErr = AXUIElementSetAttributeValue(
+                    element, kAXFocusedAttribute as CFString, kCFBooleanTrue)
+                if focusErr == .success {
+                    return "Focused \(id) (this element has no press action; "
+                        + "focus is the equivalent). You can type into it now."
+                }
+                // Otherwise put a real pointer on it, which works on anything
+                // drawn on screen regardless of what actions it publishes.
+                if let point = screenPoint(forElementID: id) {
+                    try? await DesktopVisionBridge.shared.clickAtScreenPoint(point, label: id)
+                    return "Clicked \(id) with the pointer (no press action available)."
+                }
+                return "[AX_ERROR] \(id) supports neither press nor focus, and its "
+                    + "position could not be read. Use [DESKTOP_SNAPSHOT] then "
+                    + "[DESKTOP_ACT: click x y]."
+            }
+            return "[AX_ERROR] Failed to click \(id) (Error code: \(err.rawValue))."
         } else if action == "type" {
             guard let textToType = text else {
                 return "[AX_ERROR] Text is required for type action."
