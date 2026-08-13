@@ -1830,7 +1830,21 @@ actor AgentToolExecutor {
             }
 
         case .runCommand(let cmd):
-            return await runShell(cmd, workingDir: workspaceURL)
+            let shellOut = await runShell(cmd, workingDir: workspaceURL)
+            // A build or test invocation that worked here is expensive to
+            // rediscover — project-specific, long, and wrong several ways
+            // before it is right. Remember it against this workspace so the
+            // next session starts from it instead of from `ls`.
+            if let ws = workspaceURL {
+                let ok = !shellOut.hasPrefix("✗") && !shellOut.lowercased().contains("command not found")
+                let sid = await MainActor.run { AppState.shared?.vxChatSessionId ?? "" }
+                await EternalMemoryStore.shared.recordWorkspaceCommand(
+                    path: ws.path, command: cmd, ok: ok, sessionId: sid)
+                if ok {
+                    await EternalMemoryStore.shared.consolidateWorkspaceKnowledge(path: ws.path)
+                }
+            }
+            return shellOut
 
         case .runCognitive(let cmd, let expect, let doubt):
             let result = await runShell(cmd, workingDir: workspaceURL)

@@ -554,6 +554,91 @@ actor EternalMemoryStore {
                        concepts: [app, "操作方法", best.method, "app-control"])
     }
 
+    // MARK: - What this workspace IS, not just where it is
+    //
+    // The system prompt states CURRENT WORKSPACE ROOT and nothing else. The
+    // model knows the path and must rediscover everything behind it — the
+    // layout, the build command, which directory the real source lives in —
+    // by listing directories again, every session, forever. The knowledge is
+    // produced every time and kept none of the times.
+    //
+    // vera-a already holds facts in a similarity space. A workspace is a
+    // subject like any other, so what was learned about it is recalled the
+    // same way, and the path is only the key that starts the lookup.
+
+    /// A compact block about this workspace for the system prompt.
+    /// Empty when nothing is known — silence beats a heading with no content.
+    func workspaceContext(path: String, k: Int = 5) async -> String {
+        let name = URL(fileURLWithPath: path).lastPathComponent
+        // Query by name AND path: the name carries the meaning, the path
+        // disambiguates two checkouts of the same project.
+        guard let hits = try? await search(query: "\(name) \(path) プロジェクト 構成 ビルド", k: k),
+              !hits.isEmpty else { return "" }
+
+        // Only reasonably confident matches. A weak hit is a different project
+        // that happens to share a word, and a wrong fact about the layout is
+        // worse than no fact — it sends the agent to a path that is not there.
+        let good = hits.filter { $0.score >= 0.35 }
+        guard !good.isEmpty else { return "" }
+
+        return """
+
+        [THIS WORKSPACE — vera-a に蓄積された理解]
+        \(good.map { "  • \($0.text)" }.joined(separator: "\n"))
+        これらは過去のセッションで確かめた内容です。現状と矛盾する場合は実際のファイルを優先してください。
+        [/THIS WORKSPACE]
+        """
+    }
+
+    /// A command that actually worked here. Build and test invocations are the
+    /// expensive things to rediscover: they are project-specific, long, and
+    /// wrong in a dozen ways before they are right.
+    func recordWorkspaceCommand(path: String, command: String, ok: Bool,
+                                sessionId: String) {
+        // Only commands worth remembering. `ls` and `pwd` are not knowledge.
+        let c = command.lowercased()
+        let interesting = ["build", "test", "run", "make", "xcodebuild", "swift",
+                           "npm", "yarn", "pnpm", "cargo", "go ", "pytest",
+                           "python", "gradle", "mvn", "docker"]
+        guard interesting.contains(where: { c.contains($0) }) else { return }
+
+        recordActEpisode(
+            episodeId: UUID().uuidString, sessionId: sessionId, app: path,
+            goal: "このワークスペースで有効なコマンド",
+            rationale: "同じ発見を毎回やり直さないため",
+            action: "shell", targetLabel: String(command.prefix(160)),
+            screenBefore: "", screenAfter: "",
+            visualDistance: 0, changed: ok, ok: ok,
+            note: ok ? "成功" : "失敗", route: "workspace:cmd")
+    }
+
+    /// Turn repeated successes into a sentence recall can find.
+    func consolidateWorkspaceKnowledge(path: String, minSuccesses: Int = 2) async {
+        try? ensureDB()
+        var stmt: OpaquePointer?
+        guard sqlite3_prepare_v2(db, """
+            SELECT target_label, COUNT(*) FROM act_episode
+            WHERE app = ? AND route = 'workspace:cmd' AND ok = 1
+            GROUP BY target_label ORDER BY COUNT(*) DESC LIMIT 3
+            """, -1, &stmt, nil) == SQLITE_OK else { return }
+        defer { sqlite3_finalize(stmt) }
+        sqlite3_bind_text(stmt, 1, path, -1, Self.sqliteTransient)
+
+        var lines: [String] = []
+        while sqlite3_step(stmt) == SQLITE_ROW {
+            let cmd = sqlite3_column_text(stmt, 0).map { String(cString: $0) } ?? ""
+            let n = Int(sqlite3_column_int64(stmt, 1))
+            guard n >= minSuccesses, !cmd.isEmpty else { continue }
+            lines.append("`\(cmd)`（\(n)回成功）")
+        }
+        guard !lines.isEmpty else { return }
+
+        let name = URL(fileURLWithPath: path).lastPathComponent
+        try? await add(
+            text: "\(name)（\(path)）で通るコマンド: " + lines.joined(separator: "、"),
+            concepts: [name, path, "プロジェクト", "ビルド", "コマンド"])
+    }
+
     // MARK: - Do our corrections actually work?
     //
     // The parser tells the model what it did wrong and asks again. Whether

@@ -301,6 +301,14 @@ actor AgentLoop {
         }()
         let memorySection = cortexMemorySection + veraMemorySection + visualMemorySection + keyframeEyeSection + memoryTrustNote
         let isWorkspaceless = workspaceURL == nil
+        // The prompt has always said WHERE the workspace is. What it is —
+        // layout, build command, where the real source lives — was
+        // rediscovered by listing directories every session and kept none of
+        // them. vera-a holds it now, and it is recalled here.
+        let workspaceKnowledge: String = await {
+            guard let ws = workspaceURL else { return "" }
+            return await EternalMemoryStore.shared.workspaceContext(path: ws.path)
+        }()
 
         // ── Self-evolution context ────────────────────────────────────────
         let selfEvoContext: String
@@ -455,7 +463,7 @@ SYS.ENFORCE("logical_verification_before_acceptance")
         \(searchGatePrompt)
         \(isWorkspaceless
             ? "\nNOTE: No workspace is open. If the task requires a project, create one with [WORKSPACE:] and [MKDIR:]."
-            : "\nCURRENT WORKSPACE ROOT: \(currentWorkspace!.path)\nAll relative paths and any new directories (e.g. for `git clone`) MUST be created under this exact path. Do NOT guess or invent a different path (e.g. a path under a username that doesn't match this one) -- if unsure, use [RUN: pwd] to double-check before running a command that creates files."
+            : "\nCURRENT WORKSPACE ROOT: \(currentWorkspace!.path)\nAll relative paths and any new directories (e.g. for `git clone`) MUST be created under this exact path. Do NOT guess or invent a different path (e.g. a path under a username that doesn't match this one) -- if unsure, use [RUN: pwd] to double-check before running a command that creates files.\(workspaceKnowledge)"
         )
         \(contextSection)
         """
