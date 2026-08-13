@@ -563,8 +563,8 @@ actor EternalMemoryStore {
                 + failed.map(\.display).joined(separator: "、") + "。"
         }
 
-        try? await add(text: sentence,
-                       concepts: [app, "操作方法", best.method, "app-control"])
+        try? await addFact(key: "method:\(app)", text: sentence,
+                           concepts: [app, "操作方法", best.method, "app-control"])
     }
 
     // MARK: - What this workspace IS, not just where it is
@@ -647,7 +647,8 @@ actor EternalMemoryStore {
         guard !lines.isEmpty else { return }
 
         let name = URL(fileURLWithPath: path).lastPathComponent
-        try? await add(
+        try? await addFact(
+            key: "workspace:\(path)",
             text: "\(name)（\(path)）で通るコマンド: " + lines.joined(separator: "、"),
             concepts: [name, path, "プロジェクト", "ビルド", "コマンド"])
     }
@@ -717,7 +718,8 @@ actor EternalMemoryStore {
         let tallies = correctionEvidence(signature: signature)
         let total = tallies.reduce(0) { $0 + $1.attempts }
         if total >= 4, let best = tallies.first, best.successes > 0, best.rate >= 0.6 {
-            try? await add(
+            try? await addFact(
+                key: "correction:\(signature)",
                 text: "\(signature) の誤りは「\(best.method)」で直る"
                     + "（\(best.successes)/\(best.attempts)）。",
                 concepts: [signature, "ツール指定", "訂正"])
@@ -764,7 +766,8 @@ actor EternalMemoryStore {
         let tallies = dismissEvidence(signature: signature)
         let total = tallies.reduce(0) { $0 + $1.attempts }
         guard total >= minAttempts, let best = tallies.first, best.successes > 0 else { return }
-        try? await add(
+        try? await addFact(
+            key: "dismiss:\(signature)",
             text: "\(appName) の「\(overlay)」が邪魔なときは \(best.method) で閉じられる"
                 + "（\(best.successes)/\(best.attempts)）。",
             concepts: [appName, overlay, "障害物", "閉じ方"])
@@ -1481,6 +1484,58 @@ actor EternalMemoryStore {
     /// Embeds `text` and appends it as a new eternal-memory node. Call after
     /// a completed Council deliberation (consensus text) or, optionally, a
     /// plain JGEN chat turn.
+    // MARK: - Facts that replace themselves
+    //
+    // The consolidators run on every attempt past their threshold, and `add`
+    // appends unconditionally. So a fact that is re-derived writes a new,
+    // near-identical node each time:
+    //
+    //   Safari を操作するには menu が有効（11/12 成功）。
+    //   Safari を操作するには menu が有効（12/13 成功）。
+    //   Safari を操作するには menu が有効（13/14 成功）。
+    //
+    // One per click, forever. Recall returns k results, so after a busy
+    // session all k are the same sentence at different counts, and genuinely
+    // different knowledge is crowded out of every answer. The store grows and
+    // gets less useful — the opposite of accumulating.
+    //
+    // A consolidated fact is a CURRENT SUMMARY, not an event: there should be
+    // exactly one live copy. Older versions are quarantined rather than
+    // deleted, because the vector file is append-only and index-aligned with
+    // the node rows — rewriting it to remove one entry would renumber
+    // everything. `search` already skips quarantined nodes, so exclusion is
+    // enough, and the superseded text stays on disk as history.
+
+    private static let factKeyPrefix = "factkey:"
+
+    /// Write a fact that replaces any previous version of itself.
+    func addFact(key: String, text: String, concepts: [String]) async throws {
+        supersedeFact(key: key)
+        try await add(text: text, concepts: concepts + [Self.factKeyPrefix + key])
+    }
+
+    /// Retire earlier copies of one fact.
+    private func supersedeFact(key: String) {
+        try? ensureLoaded()
+        let tag = Self.factKeyPrefix + key
+        var retired: [Int] = []
+        for i in nodes.indices where !nodes[i].quarantined && nodes[i].concepts.contains(tag) {
+            nodes[i].quarantined = true
+            retired.append(nodes[i].id)
+        }
+        guard !retired.isEmpty else { return }
+
+        var stmt: OpaquePointer?
+        guard sqlite3_prepare_v2(db, "UPDATE nodes SET quarantined = 1 WHERE id = ?",
+                                 -1, &stmt, nil) == SQLITE_OK else { return }
+        defer { sqlite3_finalize(stmt) }
+        for id in retired {
+            sqlite3_reset(stmt)
+            sqlite3_bind_int64(stmt, 1, Int64(id))
+            sqlite3_step(stmt)
+        }
+    }
+
     func add(text: String, concepts: [String]) async throws {
         // Under IOGPU/unified-memory pressure, skip the extra full forward
         // encode — Vera-a chat/council already hammers JGEN; eternal write
