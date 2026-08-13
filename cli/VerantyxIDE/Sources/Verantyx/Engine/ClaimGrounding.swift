@@ -101,10 +101,34 @@ enum ClaimGrounding {
             guard !line.isEmpty else { continue }
             // Table rules and horizontal rules carry no claim.
             if line.allSatisfy({ "-–—=: ".contains($0) }) { continue }
+            // A Latin full stop ends a sentence only when what FOLLOWS it is
+            // whitespace or the end of the line.
+            //
+            // The rule used to be `buffer.count > 24`, which asks how much text
+            // has accumulated — a question with no bearing on whether this
+            // particular dot is a terminator. It cut "https://status." away
+            // from "claude.com" and the annotator then wrote
+            // "check https://status.（未検証）claude.com.（未検証）" in front of a
+            // user who needed that URL to be usable. Version numbers (v2.0),
+            // decimals (1.5) and file names (foo.swift) broke the same way.
+            //
+            // A short minimum survives alongside it, for "e.g. " and "Mr. " —
+            // those are followed by a space and would otherwise split. Merging
+            // two sentences is harmless here; corrupting a URL is not.
             var buffer = ""
-            for ch in line {
+            let chars = Array(line)
+            for (i, ch) in chars.enumerated() {
                 buffer.append(ch)
-                if "。！？".contains(ch) || (".!?".contains(ch) && buffer.count > 24) {
+                let terminates: Bool
+                if "。！？".contains(ch) {
+                    terminates = true
+                } else if ".!?".contains(ch) {
+                    let nextIsBreak = i + 1 >= chars.count || chars[i + 1] == " " || chars[i + 1] == "\t"
+                    terminates = nextIsBreak && buffer.trimmingCharacters(in: .whitespaces).count >= 8
+                } else {
+                    terminates = false
+                }
+                if terminates {
                     out.append(buffer.trimmingCharacters(in: .whitespaces))
                     buffer = ""
                 }

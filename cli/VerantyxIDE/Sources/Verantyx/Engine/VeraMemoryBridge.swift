@@ -71,6 +71,21 @@ enum VeraMemoryBridge {
         let metaMarkers = ["[内部知識の評価]", "[アクション]", "[SEARCH",
                            "SEARCH_GATE", "[MEM:", "[CTRL"]
         if metaMarkers.contains(where: { aiResponse.contains($0) }) { return }
+
+        // A transport failure is not an utterance. "claude CLI: API Error: 529
+        // Overloaded." is the CLI reporting that the request never reached a
+        // model: there is no claim in it to ground, nothing about the world to
+        // remember, and no reviewer should be asked to approve it. Sending it
+        // through the annotator also mangled the one part the user needed —
+        // the status URL came back as "https://status.（未検証）claude.com".
+        //
+        // Same category error as the stray-tag detector firing on [AX_ERROR]:
+        // tool and transport output is machinery reporting on itself, and the
+        // discipline that applies to model prose does not apply to it.
+        let transportMarkers = ["API Error:", "claude CLI:", "[AX_ERROR]",
+                                "Model returned nil", "が終了コード"]
+        if aiResponse.hasPrefix("⚠️")
+            || transportMarkers.contains(where: { aiResponse.contains($0) }) { return }
         // A bare command with no content ("検索を行なって", "SEARCH") is an
         // instruction to the agent, not a fact about the world.
         if prompt.count <= 12,

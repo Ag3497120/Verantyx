@@ -222,6 +222,33 @@ actor ClaudeAgentSDKClient {
         let isError: Bool
     }
 
+    // MARK: - Transient failure
+    //
+    // A 529 means the request never reached a model: nothing was computed,
+    // nothing was charged, and the condition usually clears in seconds.
+    // Surfacing it straight to the user turns a hiccup into a dead run someone
+    // has to notice and restart by hand — the worst outcome for the unattended
+    // operation this app is built around.
+
+    nonisolated static let transientRetries = 3
+
+    /// Widening gaps. An overloaded service is made worse by clients that
+    /// retry immediately and in lockstep.
+    nonisolated static let retryDelays: [Double] = [2, 6, 15]
+
+    /// Whether a failure says "not right now" rather than "not like this".
+    /// Quota exhaustion is deliberately excluded: it is a real limit, and
+    /// retrying it three times only delays telling the user the truth.
+    nonisolated static func isTransient(_ message: String) -> Bool {
+        let m = message.lowercased()
+        let permanent = ["usage limit", "quota", "credit balance", "insufficient",
+                         "not logged in", "invalid api key", "authentication"]
+        if permanent.contains(where: { m.contains($0) }) { return false }
+        let transient = ["529", "overloaded", "503", "502", "504",
+                         "429", "rate limit", "temporarily", "try again"]
+        return transient.contains(where: { m.contains($0) })
+    }
+
     /// One turn. Conversation history is flattened into the prompt because
     /// print mode takes a prompt, not a message array; `--resume` exists for
     /// real session continuity and is a later step.
@@ -262,6 +289,12 @@ actor ClaudeAgentSDKClient {
             args += Self.toolDenyList
         }
 
+        var lastTransient = ""
+        for attempt in 0...Self.transientRetries {
+        if attempt > 0 {
+            let wait = Self.retryDelays[min(attempt - 1, Self.retryDelays.count - 1)]
+            try? await Task.sleep(nanoseconds: UInt64(wait * 1_000_000_000))
+        }
         do {
             let result = try await run(path: caps.path, args: args, input: prompt)
             let text = result.out.trimmingCharacters(in: .whitespacesAndNewlines)
@@ -274,8 +307,15 @@ actor ClaudeAgentSDKClient {
                 // leaving the user to guess — with the exact command to run by
                 // hand, which is the fastest way to see the real message.
                 let err = result.err.trimmingCharacters(in: .whitespacesAndNewlines)
-                if !err.isEmpty { return Reply(text: "claude CLI: \(err)", isError: true) }
-                if !text.isEmpty { return Reply(text: "claude CLI: \(text)", isError: true) }
+                let reason = err.isEmpty ? text : err
+                if Self.isTransient(reason), attempt < Self.transientRetries {
+                    lastTransient = reason
+                    continue
+                }
+                let tries = attempt > 0 ? "（\(attempt + 1) 回試行）" : ""
+                if !reason.isEmpty {
+                    return Reply(text: "claude CLI: \(reason)\(tries)", isError: true)
+                }
                 let modelFlag = model.map { " --model \($0)" } ?? ""
                 return Reply(text: """
                     claude CLI が終了コード \(result.status) を返しました（stderr は空でした）。
@@ -303,6 +343,15 @@ actor ClaudeAgentSDKClient {
             return Reply(text: "claude CLI を実行できません: \(error.localizedDescription)",
                          isError: true)
         }
+        }
+        // Every attempt hit the same "not right now". Say how many, so the
+        // difference between a blip and an outage is visible.
+        return Reply(text: """
+            claude CLI: \(lastTransient)
+            \(Self.transientRetries + 1) 回試行しましたが回復しませんでした。\
+            サーバー側の一時的な過負荷です。時間をおいて再実行してください。
+            状況: https://status.claude.com
+            """, isError: true)
     }
 
     // MARK: - Process plumbing
