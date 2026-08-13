@@ -67,6 +67,9 @@ enum AgentTool {
     case keys(combo: String)
     /// What the attached app can actually be driven with.
     case appCaps
+    /// Read the attached app's window as text, when it publishes no
+    /// accessibility tree to read instead.
+    case readScreen
     case desktopAct(action: String)
     case axAct(action: String)
     /// Paste held mission payload (clipboard + ⌘V) into the focused UI control.
@@ -128,6 +131,7 @@ struct AgentToolCall: Identifiable {
         case .menu(let p):                  return "☰ menu: \(p)"
         case .keys(let c):                  return "⌨️ keys: \(c)"
         case .appCaps:                      return "🔍 app capabilities"
+        case .readScreen:                   return "🔡 read screen text"
         case .clickLink(let t):            return "🖱 click link: \(t)"
         case .scrollFind(let t):           return "🔎 scroll to find: \(t)"
         case .searchPage(let q):           return "🌐 search in browser: \(q)"
@@ -2643,6 +2647,23 @@ actor AgentToolExecutor {
               ? "（このアプリの操作実績はまだありません — 試した結果は vera-a に残ります）"
               : learned)
             """
+
+        case .readScreen:
+            // The route out of an app that publishes nothing. Teams answered
+            // [DESKTOP_SNAPSHOT] with a title and three unnamed buttons, and
+            // refused AXManualAccessibility with -25205; without this the only
+            // way forward was for the model to install PyObjC mid-task and
+            // write its own OCR to /tmp, which it did, and which vanished.
+            let target = await Self.axTargetApp()
+            guard let reading = await ScreenTextReader.read(app: target), !reading.isEmpty else {
+                return """
+                [SCREEN_TEXT] \(target) の文字を読み取れませんでした。
+                \(ScreenTextReader.failureReason)
+                読めない理由が権限であれば、画面収録の許可が要ります。\
+                ウィンドウが他の窓に完全に隠れている場合も撮影できません。
+                """
+            }
+            return reading.rendered
 
         case .menu(let rawPath):
             let target = await Self.axTargetApp()

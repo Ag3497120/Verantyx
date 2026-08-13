@@ -544,7 +544,7 @@ actor WebSearchEngine {
             // Vision OCR. Not JGEN multimodality (that is the vision-tower
             // work in verantyx-cli) — just reading what is on screen.
             if text.count < 200,
-               let ocr = Self.ocrBrowserWindow(appName: Self.windowOwnerName(for: browser)),
+               let ocr = await Self.ocrBrowserWindow(appName: Self.windowOwnerName(for: browser)),
                ocr.count > text.count {
                 return WebSearchResult(
                     query: query ?? url,
@@ -566,7 +566,7 @@ actor WebSearchEngine {
             // Same rescue on hard AppleScript failure (error 37:126 in a
             // real run): the page may be rendered even though scripting
             // against it is blocked.
-            if let ocr = Self.ocrBrowserWindow(appName: Self.windowOwnerName(for: browser)),
+            if let ocr = await Self.ocrBrowserWindow(appName: Self.windowOwnerName(for: browser)),
                ocr.count >= 200 {
                 return WebSearchResult(
                     query: query ?? url,
@@ -614,43 +614,25 @@ actor WebSearchEngine {
 
     /// Screenshot the browser's frontmost window and read it with Apple
     /// Vision — deterministic, on-device, needs only the screen-recording
-    /// permission the app already requests at startup. Returns nil when no
-    /// window is found, capture is not permitted, or OCR finds nothing.
-    nonisolated private static func ocrBrowserWindow(appName: String) -> String? {
-        guard let infos = CGWindowListCopyWindowInfo(
-                [.optionOnScreenOnly, .excludeDesktopElements],
-                kCGNullWindowID) as? [[String: Any]] else { return nil }
-        // The LARGEST window, not the first: a real run OCR'd Safari's
-        // downloads popover and fed the agent "VerantyxIDE-…dmg" as the
-        // page text. Popovers, panels and toolbars all belong to the same
-        // app; only the document window is page-sized.
-        let candidates = infos.filter {
-            ($0[kCGWindowOwnerName as String] as? String) == appName
-                && (($0[kCGWindowLayer as String] as? Int) ?? 1) == 0
-        }
-        func area(_ info: [String: Any]) -> Double {
-            guard let b = info[kCGWindowBounds as String] as? [String: Any],
-                  let w = b["Width"] as? Double, let h = b["Height"] as? Double else { return 0 }
-            return w * h
-        }
-        guard let win = candidates.max(by: { area($0) < area($1) }),
-              area(win) > 200_000,   // ~500×400: smaller is not a page
-              let windowNumber = win[kCGWindowNumber as String] as? UInt32 else { return nil }
-
-        guard let image = CGWindowListCreateImage(
-                .null, .optionIncludingWindow, CGWindowID(windowNumber),
-                [.boundsIgnoreFraming, .bestResolution]) else { return nil }
-
-        let request = VNRecognizeTextRequest()
-        request.recognitionLevel = .accurate
-        request.recognitionLanguages = ["ja-JP", "en-US"]
-        request.usesLanguageCorrection = true
-        let handler = VNImageRequestHandler(cgImage: image, options: [:])
-        guard (try? handler.perform([request])) != nil else { return nil }
-        let lines = (request.results ?? []).compactMap { $0.topCandidates(1).first?.string }
-        let joined = lines.joined(separator: "\n").trimmingCharacters(in: .whitespacesAndNewlines)
+    /// permission the app already requests at startup.
+    ///
+    /// Delegated to ScreenTextReader for two reasons, both measured rather
+    /// than suspected. The capture here used CGWindowListCreateImage, which
+    /// carries SCREEN_CAPTURE_OBSOLETE(10.5, 14.0, 15.0): it compiles against
+    /// this app's 14.0 target and returns nothing at runtime on macOS 15, so
+    /// this rescue path had quietly stopped rescuing anything — which is why a
+    /// run that needed OCR concluded the app could not do it and wrote its own
+    /// in Python. And the single pass ran with usesLanguageCorrection on,
+    /// which reads "IA22" as "1A22" and "ajax" as "aijax". A results page is
+    /// made of exactly those strings.
+    private static func ocrBrowserWindow(appName: String) async -> String? {
+        guard let reading = await ScreenTextReader.read(app: appName), !reading.isEmpty
+        else { return nil }
+        let joined = reading.lines.map(\.text).joined(separator: "\n")
+            .trimmingCharacters(in: .whitespacesAndNewlines)
         return joined.isEmpty ? nil : joined
     }
+
 
     // MARK: - Firefox Bridge (Python)
 

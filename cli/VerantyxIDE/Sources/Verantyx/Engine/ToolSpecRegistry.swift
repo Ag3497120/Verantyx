@@ -47,6 +47,18 @@ enum ToolSpecRegistry {
             build: { arg in .visionAct(action: Self.unwrapVerbPayload(arg)) }
         ),
 
+        // The answer to an app with no accessibility tree. Declared here so
+        // the model is TOLD it exists — the run that needed it had to derive
+        // the whole approach itself, install PyObjC, and write a throwaway
+        // OCR script, because nothing in the documentation said the app could
+        // already do this.
+        ToolSpec(
+            name: "READ_SCREEN",
+            shape: .none,
+            ja: "取り付けたアプリの画面を文字として読む（AXが空のときに使う・座標つきで返る）",
+            build: { _ in .readScreen }
+        ),
+
         ToolSpec(
             name: "MENU",
             shape: .pathList(ja: "メニュー ▸ 項目", en: "Menu > Item"),
