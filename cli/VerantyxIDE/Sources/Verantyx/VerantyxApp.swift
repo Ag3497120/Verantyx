@@ -53,6 +53,17 @@ final class AppDelegate: NSObject, NSApplicationDelegate {
         Task { @MainActor in PipeCoordinator.shared.restoreIfEnabled() }
         PipeSelfTest.runIfRequested()
 
+        // Prove the tool docs and the tool parser still agree. They are
+        // generated from one declaration, so they cannot drift — but "cannot"
+        // is worth checking, and checking costs microseconds. A failure here
+        // means a tool is broken before anyone has used it, which is the whole
+        // point: the alternative is finding out when the word "text" appears
+        // in a browser's address bar.
+        let toolProblems = ToolSpecRegistry.selfCheck()
+        if !toolProblems.isEmpty {
+            NSLog("[ToolSpec] SELF-CHECK FAILED:\n%@", toolProblems.joined(separator: "\n"))
+        }
+
         // Request Accessibility (for CGEvent HID clicks)
         DispatchQueue.main.asyncAfter(deadline: .now() + 1.0) {
             if !AXIsProcessTrusted() {
