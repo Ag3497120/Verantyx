@@ -155,3 +155,92 @@ struct CloudModelRow: View {
         return "\(count) 件・\(fmt.string(from: at)) 取得"
     }
 }
+
+
+// MARK: - One card per provider: key and model in the same place
+//
+// These used to be two separate places — a "Cloud API Keys" section with four
+// hand-written cards, and the model choice somewhere else. So a provider could
+// be half-configured with no single view showing it, and the eleven providers
+// added later appeared in neither, because both were hand-written lists of the
+// original four.
+//
+// Generated from CloudProvider.allCases, so adding a provider to the table is
+// the whole change.
+struct CloudProviderCard: View {
+
+    let provider: CloudProvider
+    @ObservedObject private var catalog = CloudModelCatalog.shared
+    @State private var showKey = false
+    @State private var key: String = ""
+    @State private var model: String = ""
+
+    init(provider: CloudProvider) { self.provider = provider }
+
+    var body: some View {
+        VStack(alignment: .leading, spacing: 12) {
+            HStack(spacing: 10) {
+                Image(systemName: provider.icon)
+                    .font(.system(size: 14, weight: .semibold))
+                    .frame(width: 26, height: 26)
+                    .background(Color.white.opacity(0.06), in: RoundedRectangle(cornerRadius: 6))
+                VStack(alignment: .leading, spacing: 2) {
+                    Text(provider.rawValue)
+                        .font(.system(size: 13, weight: .semibold)).foregroundStyle(.white)
+                    Text(provider.spec.baseURL)
+                        .font(.system(size: 9, design: .monospaced)).foregroundStyle(.tertiary)
+                }
+                Spacer()
+                if catalog.hasKey(provider) {
+                    Text("✓")
+                        .font(.system(size: 11, weight: .bold))
+                        .foregroundStyle(Color(red: 0.3, green: 0.9, blue: 0.5))
+                }
+            }
+
+            HStack(spacing: 6) {
+                Group {
+                    if showKey {
+                        TextField("API key", text: $key)
+                    } else {
+                        SecureField("API key", text: $key)
+                    }
+                }
+                .textFieldStyle(.roundedBorder)
+                .font(.system(size: 11, design: .monospaced))
+                .onChange(of: key) { _, new in
+                    UserDefaults.standard.set(new.trimmingCharacters(in: .whitespaces),
+                                              forKey: provider.spec.keyDefaults)
+                }
+
+                Button { showKey.toggle() } label: {
+                    Image(systemName: showKey ? "eye.slash" : "eye").font(.system(size: 11))
+                }
+                .buttonStyle(.plain).foregroundStyle(.secondary)
+
+                Link(destination: URL(string: provider.spec.consoleURL)!) {
+                    Image(systemName: "arrow.up.right.square").font(.system(size: 11))
+                }
+                .help("キーを取得: \(provider.spec.consoleURL)")
+            }
+
+            // The model belongs next to the key it is billed against, not in a
+            // different section of the settings window.
+            CloudModelRow(provider: provider, selection: Binding(
+                get: { model.isEmpty ? provider.defaultModel : model },
+                set: { new in
+                    model = new
+                    UserDefaults.standard.set(new, forKey: provider.modelDefaultsKey)
+                }))
+            .disabled(!catalog.hasKey(provider))
+            .opacity(catalog.hasKey(provider) ? 1 : 0.45)
+        }
+        .padding(14)
+        .background(Color.white.opacity(0.04), in: RoundedRectangle(cornerRadius: 9))
+        .overlay(RoundedRectangle(cornerRadius: 9).strokeBorder(Color.white.opacity(0.08), lineWidth: 0.5))
+        .onAppear {
+            key = UserDefaults.standard.string(forKey: provider.spec.keyDefaults) ?? ""
+            model = UserDefaults.standard.string(forKey: provider.modelDefaultsKey) ?? ""
+        }
+    }
+}

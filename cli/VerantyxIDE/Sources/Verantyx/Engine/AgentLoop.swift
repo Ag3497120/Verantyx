@@ -2279,6 +2279,36 @@ SYS.ENFORCE("logical_verification_before_acceptance")
             let systemContent = mutableConversation.first(where: { $0.role == "system" })?.content ?? ""
             let chatMessages  = mutableConversation.filter { $0.role != "system" }
             let isThinking    = model.contains("3-7") || model.contains("claude-3-7")
+
+            // `.anthropicReady` is the status EVERY cloud provider was given,
+            // but this branch always called AnthropicClient — so choosing
+            // gpt-5-mini or deepseek-chat POSTed that model name to
+            // Anthropic's API, which rejects it. The call returned nil, and
+            // nil is reported upstream as "Model returned nil response",
+            // which names the symptom and hides the cause entirely.
+            let cloudProvider = await MainActor.run {
+                AppState.shared?.activeCloudProvider ?? .claude
+            }
+            if cloudProvider != .claude {
+                let result = await CloudAPIClient.shared.send(
+                    systemPrompt: systemContent,
+                    userMessage: chatMessages
+                        .map { "\($0.role == "user" ? "User" : "Assistant"): \($0.content)" }
+                        .joined(separator: "\n\n"),
+                    provider: cloudProvider,
+                    modelOverride: model)
+                switch result {
+                case .success(let text):
+                    await onProgress(.streamToken(text))
+                    return text
+                case .failure(let err):
+                    // The provider's own message — 401, 400, model not found,
+                    // out of credit. Returning nil here is what produced a
+                    // generic failure with no way to tell those apart.
+                    return "⚠️ \(cloudProvider.rawValue): \(err.errorDescription ?? "unknown error")"
+                }
+            }
+
             return await AnthropicClient.shared.generate(
                 model: model,
                 systemPrompt: systemContent,
