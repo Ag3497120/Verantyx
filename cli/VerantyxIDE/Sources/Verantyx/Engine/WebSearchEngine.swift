@@ -188,6 +188,32 @@ enum BrowseSource {
 
 actor WebSearchEngine {
 
+    // MARK: - Answering the BotGuard gate without a person present
+    //
+    // Both gate sites (here and AgentLoop's search gate) need the same two
+    // things, so they live together: a bound on how long a run may block
+    // waiting for a human, and a way to answer from the demonstrations already
+    // collected. Duplicating either one is how the two sites drifted apart in
+    // the first place — only this one ever incremented the sample counter the
+    // other one read.
+
+    /// How long a run may block on the puzzle overlay before continuing
+    /// degraded. Long enough for someone who IS at the window to notice and
+    /// answer, short enough that an unattended run is not simply lost.
+    static let puzzleWaitLimit: TimeInterval = 90
+
+    /// Entropy drawn from a stored human drag, in the shape the gate expects.
+    /// The box is nominal — the trajectory is normalised by its own extent, so
+    /// only the aspect of the requested box matters, not its size.
+    static func storedEntropy() async -> [[Double]]? {
+        guard let pts = await EternalMemoryStore.shared.humanTrajectory(width: 1000, height: 700),
+              pts.count >= 3 else { return nil }
+        let mapped = pts.map { [$0.x, $0.y] }
+        guard mapped.count > 100 else { return mapped }
+        let step = max(1, mapped.count / 100)
+        return stride(from: 0, to: mapped.count, by: step).prefix(100).map { mapped[$0] }
+    }
+
     static let shared = WebSearchEngine()
 
 
@@ -326,21 +352,22 @@ actor WebSearchEngine {
         var currentKeyboardEntropy = keyboardEntropy
         
         // ── 🧩 Biometric Entropy Collection & Fully Automatic Mode 🧩 ──
-        let (isAutoMode, isEntropyStale) = await MainActor.run { () -> (Bool, Bool) in
-            let savedSamplesCount = UserDefaults.standard.integer(forKey: "bio_samples_count")
-            if savedSamplesCount >= 200 {
-                return (true, false)
-            } else {
-                if let ts = AppState.shared?.lastEntropyTimestamp {
-                    return (false, Date().timeIntervalSince(ts) > 300)
-                } else {
-                    return (false, true)
-                }
-            }
+        //
+        // The gate used to count samples in a UserDefaults key,
+        // "bio_samples_count", which ONLY the mid-run puzzle incremented. Every
+        // demonstration recorded in Settings — the screen built specifically to
+        // collect them — counted for nothing, so the threshold of 200 was never
+        // approached and the puzzle appeared on every run forever. The dataset
+        // is the thing that exists; read that.
+        let demos = await EternalMemoryStore.shared.demonstrationStats()
+        let isAutoMode = demos.autonomous
+        let isEntropyStale = await MainActor.run { () -> Bool in
+            guard let ts = AppState.shared?.lastEntropyTimestamp else { return true }
+            return Date().timeIntervalSince(ts) > 300
         }
         
         if isAutoMode {
-            print("Telemetry: Fully Automatic Mode (200+ samples). Biometric lock bypassed.")
+            print("Telemetry: dataset has \(demos.human) human demonstrations. Gate answered from storage.")
             // Try to use any remaining recent entropy anyway, but do not wait
             let (points, frames, kb) = await MainActor.run {
                 (AppState.shared?.lastEntropy, AppState.shared?.lastVideoFrames, AppState.shared?.lastKeyboardEntropy)
@@ -349,24 +376,46 @@ actor WebSearchEngine {
                 let mapped = pts.map { [Double($0.x), Double($0.y)] }
                 finalEntropy = stride(from: 0, to: mapped.count, by: max(1, mapped.count / 100)).prefix(100).map { mapped[$0] }
             }
+            if finalEntropy == nil {
+                finalEntropy = await Self.storedEntropy()
+            }
             if currentVideoFrames == nil { currentVideoFrames = frames }
             if currentKeyboardEntropy == nil { currentKeyboardEntropy = kb }
-            
+
+        } else if isEntropyStale, let stored = await Self.storedEntropy() {
+            // Below the autonomy threshold but not empty. A drag a human really
+            // made is not less human for having been made on Tuesday, so it can
+            // answer the gate — which beats stalling the run to ask again.
+            print("Telemetry: entropy stale; using a stored human demonstration (\(demos.human) held).")
+            finalEntropy = stored
+
         } else if isEntropyStale {
             print("Telemetry: Biometric entropy stale or missing. Triggering puzzle.")
-            await MainActor.run { 
+            await MainActor.run {
                 AppState.shared?.requiresHumanPuzzle = true
                 #if os(macOS)
                 NSApp.requestUserAttention(.criticalRequest)
                 #endif
             }
-            var waitingForPuzzle = await MainActor.run { AppState.shared?.requiresHumanPuzzle == true }
-            while waitingForPuzzle {
-                // Unlimited wait time for biometric entropy as requested
+            // The wait used to be unbounded — "Unlimited wait time for
+            // biometric entropy as requested". An unbounded wait on an overlay
+            // inside a window that is deliberately NOT kept in front is not a
+            // prompt, it is a hang: the run stops and nothing ever says why.
+            // Bounded, then continue degraded and say so.
+            let deadline = Date().addingTimeInterval(Self.puzzleWaitLimit)
+            while await MainActor.run(body: { AppState.shared?.requiresHumanPuzzle == true }),
+                  Date() < deadline {
                 try? await Task.sleep(nanoseconds: 200_000_000)
-                waitingForPuzzle = await MainActor.run { AppState.shared?.requiresHumanPuzzle == true }
             }
-            
+            let answered = await MainActor.run { () -> Bool in
+                let done = AppState.shared?.requiresHumanPuzzle != true
+                AppState.shared?.requiresHumanPuzzle = false
+                return done
+            }
+            if !answered {
+                print("Telemetry: no human answered within \(Int(Self.puzzleWaitLimit))s. Continuing without human entropy — collect demonstrations in Settings to remove this wait.")
+            }
+
             // Retrieve the freshly captured entropy
             let (newPoints, newFrames, newKb) = await MainActor.run {
                 (AppState.shared?.lastEntropy, AppState.shared?.lastVideoFrames, AppState.shared?.lastKeyboardEntropy)
@@ -377,11 +426,6 @@ actor WebSearchEngine {
             }
             currentVideoFrames = newFrames
             currentKeyboardEntropy = newKb
-            
-            // Increment sample count
-            let newCount = UserDefaults.standard.integer(forKey: "bio_samples_count") + 1
-            UserDefaults.standard.set(newCount, forKey: "bio_samples_count")
-            print("Telemetry: Biometric sample saved. Total: \(newCount)/200 for Auto Mode")
         } else if finalEntropy == nil {
             // Fresh entropy available but not passed in directly
             let (points, frames, kb) = await MainActor.run {

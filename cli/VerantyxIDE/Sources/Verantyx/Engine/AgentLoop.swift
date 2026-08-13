@@ -1046,19 +1046,37 @@ SYS.ENFORCE("logical_verification_before_acceptance")
                             }
                             return stale
                         }
-                        
+
+                        // Same three-way shape as the other gate: prefer fresh
+                        // live entropy, fall back to a stored human drag, and
+                        // only interrupt a run when there is nothing at all.
+                        // This site never consulted the demonstration dataset
+                        // and never incremented the counter the other site
+                        // read, so it re-puzzled every five minutes forever
+                        // regardless of how much data had been collected.
+                        var storedFallback: [[Double]]? = nil
                         if isEntropyStale {
-                            await MainActor.run { AppState.shared?.requiresHumanPuzzle = true }
-                            
-                            var waitingForPuzzle = await MainActor.run { AppState.shared?.requiresHumanPuzzle == true }
-                            while waitingForPuzzle {
-                                try? await Task.sleep(nanoseconds: 200_000_000)
-                                waitingForPuzzle = await MainActor.run { AppState.shared?.requiresHumanPuzzle == true }
+                            storedFallback = await WebSearchEngine.storedEntropy()
+                            if storedFallback == nil {
+                                await MainActor.run { AppState.shared?.requiresHumanPuzzle = true }
+
+                                // Bounded. An unbounded wait here stalled the
+                                // whole run on an overlay in a window that is
+                                // deliberately not kept in front.
+                                let deadline = Date().addingTimeInterval(WebSearchEngine.puzzleWaitLimit)
+                                while await MainActor.run(body: { AppState.shared?.requiresHumanPuzzle == true }),
+                                      Date() < deadline {
+                                    try? await Task.sleep(nanoseconds: 200_000_000)
+                                }
+                                await MainActor.run { AppState.shared?.requiresHumanPuzzle = false }
                             }
                         }
-                        
+
                         let cgPoints = await MainActor.run { AppState.shared?.lastEntropy }
                         await MainActor.run { AppState.shared?.lastEntropy = nil } // Consume and clear
+                        if cgPoints == nil, let stored = storedFallback {
+                            entropyPoints = stored
+                        }
                         
                         if let points = cgPoints {
                             let mapped = points.map { [Double($0.x), Double($0.y)] }

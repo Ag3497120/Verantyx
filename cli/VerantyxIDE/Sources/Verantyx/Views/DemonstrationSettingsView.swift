@@ -13,16 +13,26 @@ import SwiftUI
 // aside. That turns the demonstrations into a dataset rather than an
 // interruption — and a dataset is something whose size you can see, add to
 // deliberately, and remove bad samples from.
+//
+// ── Why capture is continuous ─────────────────────────────────────────────
+//
+// Collecting one sample per sheet meant four clicks of overhead per drag, and
+// the target is dozens of drags. Nobody reaches forty that way, which made the
+// dataset permanently too small to switch the gate off — so the gate kept
+// interrupting, which was the complaint that started this. Continuous capture
+// re-arms straight after each solve; forty samples is a few minutes.
 struct DemonstrationSettingsView: View {
 
     @EnvironmentObject var app: AppState
     @State private var stats: EternalMemoryStore.DemonstrationStats?
     @State private var recording = false
+    @State private var sessionCount = 0
     @State private var lastAdded = false
     @State private var confirmClear = false
 
     private var human: Int { stats?.human ?? 0 }
-    private var target: Int { EternalMemoryStore.DemonstrationStats.enoughHuman }
+    private var imitationTarget: Int { EternalMemoryStore.DemonstrationStats.enoughHuman }
+    private var autonomyTarget: Int { EternalMemoryStore.DemonstrationStats.enoughForAutonomy }
 
     var body: some View {
         VStack(alignment: .leading, spacing: 14) {
@@ -31,26 +41,36 @@ struct DemonstrationSettingsView: View {
             HStack(spacing: 10) {
                 Image(systemName: "hand.draw")
                     .font(.system(size: 15))
-                    .foregroundStyle(sufficient ? Color(red: 0.3, green: 0.9, blue: 0.5)
+                    .foregroundStyle(autonomous ? Color(red: 0.3, green: 0.9, blue: 0.5)
                                                 : Color(red: 1.0, green: 0.75, blue: 0.2))
                 VStack(alignment: .leading, spacing: 2) {
                     Text("人間の操作データ")
                         .font(.system(size: 13, weight: .semibold)).foregroundStyle(.white)
-                    Text(sufficient
-                         ? "十分に集まっています。エージェントは人間の軌跡を真似ます。"
-                         : "あと \(max(0, target - human)) 件。不足のあいだはエージェント自身の軌跡を使います。")
+                    Text(statusLine)
                         .font(.system(size: 10)).foregroundStyle(.secondary)
                 }
                 Spacer()
-                Text("\(human) / \(target)")
+                Text("\(human) / \(autonomyTarget)")
                     .font(.system(size: 12, weight: .bold, design: .monospaced))
-                    .foregroundStyle(sufficient ? Color(red: 0.3, green: 0.9, blue: 0.5)
+                    .foregroundStyle(autonomous ? Color(red: 0.3, green: 0.9, blue: 0.5)
                                                 : Color(red: 1.0, green: 0.75, blue: 0.2))
             }
 
-            ProgressView(value: Double(min(human, target)), total: Double(target))
-                .tint(sufficient ? Color(red: 0.3, green: 0.9, blue: 0.5)
+            ProgressView(value: Double(min(human, autonomyTarget)), total: Double(autonomyTarget))
+                .tint(autonomous ? Color(red: 0.3, green: 0.9, blue: 0.5)
                                  : Color(red: 1.0, green: 0.75, blue: 0.2))
+
+            // Two thresholds do different jobs and conflating them hid the
+            // second one entirely — the user could pass 8, see "sufficient",
+            // and still be interrupted by the gate every five minutes.
+            VStack(alignment: .leading, spacing: 3) {
+                thresholdRow(reached: human >= imitationTarget,
+                             at: imitationTarget,
+                             text: "エージェントが人間の軌跡を真似る")
+                thresholdRow(reached: autonomous,
+                             at: autonomyTarget,
+                             text: "実行中のパズル確認が出なくなる")
+            }
 
             if let s = stats, !s.screens.isEmpty {
                 // Trajectories only compare within one screen geometry, so the
@@ -68,18 +88,21 @@ struct DemonstrationSettingsView: View {
             // ── Add ──────────────────────────────────────────────────────
             HStack(spacing: 8) {
                 Button {
+                    sessionCount = 0
                     recording = true
                 } label: {
-                    Label("データを追加（パズルを解く）", systemImage: "plus.circle")
+                    Label("連続で記録する", systemImage: "record.circle")
                 }
                 .buttonStyle(.borderedProminent)
                 .controlSize(.small)
 
                 if lastAdded {
                     Button {
-                        EternalMemoryStore.shared.deleteLastDemonstration()
-                        lastAdded = false
-                        refresh()
+                        Task {
+                            await EternalMemoryStore.shared.deleteLastDemonstration()
+                            await MainActor.run { lastAdded = false }
+                            refresh()
+                        }
                     } label: {
                         Label("直前を取り消す", systemImage: "arrow.uturn.backward")
                     }
@@ -100,9 +123,8 @@ struct DemonstrationSettingsView: View {
             }
 
             Text("""
-            パズルを解くと、そのときのマウスの軌跡が1件保存されます。普段どおりに動かしてください — \
-            速すぎても遅すぎても、それがあなたの動きなら有効なデータです。うまく動かせなかったときは \
-            「直前を取り消す」で消せます。
+            ノードを的まで運ぶたびに軌跡が1件保存され、すぐ次の的が出ます。普段どおりに動かしてください — \
+            速すぎても遅すぎても、それがあなたの動きなら有効なデータです。的に届かなかった試行は記録されません。
             """)
                 .font(.system(size: 10)).foregroundStyle(.tertiary).lineSpacing(2)
 
@@ -114,36 +136,14 @@ struct DemonstrationSettingsView: View {
                 .font(.system(size: 10)).foregroundStyle(.tertiary).lineSpacing(2)
         }
         .onAppear { refresh() }
-        .sheet(isPresented: $recording) {
-            VStack(spacing: 12) {
-                Text("いつも通りにマウスを動かしてください")
-                    .font(.system(size: 13, weight: .semibold))
-                HumanProofPuzzleView { entropy, duration, frames in
-                    let pts = entropy.map { (x: Double($0.x), y: Double($0.y)) }
-                    let screen = NSScreen.main?.frame.size ?? .zero
-                    Task {
-                        await EternalMemoryStore.shared.recordHumanDemonstration(
-                            points: pts,
-                            screenW: Double(screen.width), screenH: Double(screen.height))
-                        await MainActor.run {
-                            lastAdded = true
-                            recording = false
-                            refresh()
-                        }
-                    }
-                    _ = duration; _ = frames
-                }
-                .frame(width: 520, height: 380)
-                Button("やめる") { recording = false }
-                    .buttonStyle(.bordered).controlSize(.small)
-            }
-            .padding(20)
-        }
+        .sheet(isPresented: $recording) { captureSheet }
         .alert("人間の操作データを全て消しますか？", isPresented: $confirmClear) {
             Button("消去", role: .destructive) {
-                EternalMemoryStore.shared.deleteAllDemonstrations()
-                lastAdded = false
-                refresh()
+                Task {
+                    await EternalMemoryStore.shared.deleteAllDemonstrations()
+                    await MainActor.run { lastAdded = false }
+                    refresh()
+                }
             }
             Button("やめる", role: .cancel) {}
         } message: {
@@ -151,11 +151,92 @@ struct DemonstrationSettingsView: View {
         }
     }
 
-    private var sufficient: Bool { stats?.sufficient ?? false }
+    // MARK: - Capture session
+
+    private var captureSheet: some View {
+        VStack(spacing: 12) {
+            HStack {
+                Text("いつも通りにマウスを動かしてください")
+                    .font(.system(size: 13, weight: .semibold))
+                Spacer()
+                Text("この回で \(sessionCount) 件 ・ 合計 \(human) / \(autonomyTarget)")
+                    .font(.system(size: 11, design: .monospaced))
+                    .foregroundStyle(.secondary)
+            }
+
+            HumanProofPuzzleView(continuous: true) { entropy, _, _ in
+                let pts = entropy.map { (x: Double($0.x), y: Double($0.y)) }
+                let screen = NSScreen.main?.frame.size ?? .zero
+                Task {
+                    await EternalMemoryStore.shared.recordHumanDemonstration(
+                        points: pts,
+                        screenW: Double(screen.width), screenH: Double(screen.height))
+                    await MainActor.run {
+                        sessionCount += 1
+                        lastAdded = true
+                    }
+                    refresh()
+                }
+            }
+            .frame(width: 520, height: 380)
+
+            HStack(spacing: 8) {
+                // Undo stays reachable DURING the session. A bad sample is
+                // noticed the moment it is drawn, and a session that can only
+                // be corrected after it ends will not be corrected.
+                Button {
+                    Task {
+                        await EternalMemoryStore.shared.deleteLastDemonstration()
+                        await MainActor.run { sessionCount = max(0, sessionCount - 1) }
+                        refresh()
+                    }
+                } label: {
+                    Label("直前を取り消す", systemImage: "arrow.uturn.backward")
+                }
+                .buttonStyle(.bordered).controlSize(.small)
+                .disabled(sessionCount == 0)
+
+                Spacer()
+
+                if autonomous {
+                    Label("実行中の確認はもう出ません", systemImage: "checkmark.seal.fill")
+                        .font(.system(size: 11))
+                        .foregroundStyle(Color(red: 0.3, green: 0.9, blue: 0.5))
+                }
+
+                Button("終了") { recording = false }
+                    .buttonStyle(.borderedProminent).controlSize(.small)
+            }
+        }
+        .padding(20)
+    }
+
+    // MARK: - Bits
+
+    private func thresholdRow(reached: Bool, at n: Int, text: String) -> some View {
+        HStack(spacing: 6) {
+            Image(systemName: reached ? "checkmark.circle.fill" : "circle")
+                .font(.system(size: 9))
+                .foregroundStyle(reached ? Color(red: 0.3, green: 0.9, blue: 0.5) : .secondary)
+            Text("\(n) 件 — \(text)")
+                .font(.system(size: 10))
+                .foregroundStyle(reached ? .secondary : .tertiary)
+        }
+    }
+
+    private var autonomous: Bool { stats?.autonomous ?? false }
+
+    private var statusLine: String {
+        if autonomous { return "十分です。実行を中断してパズルを出すことはありません。" }
+        if human >= imitationTarget {
+            return "軌跡の模倣には足りています。あと \(autonomyTarget - human) 件で実行中の確認が不要になります。"
+        }
+        return "あと \(max(0, imitationTarget - human)) 件でエージェントが人間の軌跡を使い始めます。"
+    }
 
     private func refresh() {
         Task {
-            let s = EternalMemoryStore.shared.demonstrationStats()
+            let s = await EternalMemoryStore.shared.demonstrationStats()
             await MainActor.run { stats = s }
         }
     }

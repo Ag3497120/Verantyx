@@ -969,7 +969,21 @@ actor EternalMemoryStore {
         /// agent's own, and imitating itself only compounds its own error.
         /// Below this, the model is mostly the agent copying the agent.
         static let enoughHuman = 8
+
+        /// Above this, the BotGuard gate stops interrupting runs and draws its
+        /// entropy from the stored dataset instead.
+        ///
+        /// The old gate wanted 200, counted in a UserDefaults key that only the
+        /// mid-run puzzle ever incremented, with a five-minute freshness window
+        /// on top. Reaching 200 that way means solving a puzzle every five
+        /// minutes for the better part of a day, at the keyboard, watching —
+        /// so in practice the threshold was never reached and the puzzle
+        /// appeared forever. A number has to be attainable to be a threshold
+        /// rather than a wall. Forty varied drags is a few minutes in the
+        /// continuous capture screen.
+        static let enoughForAutonomy = 40
         var sufficient: Bool { human >= Self.enoughHuman }
+        var autonomous: Bool { human >= Self.enoughForAutonomy }
     }
 
     func demonstrationStats() -> DemonstrationStats {
@@ -1038,6 +1052,56 @@ actor EternalMemoryStore {
                          reachedX: last.x, reachedY: last.y,
                          calibX: 1.0, calibY: 1.0,
                          path: path, ok: true, source: "human")
+    }
+
+    /// One stored human trajectory, scaled into a box of the requested size.
+    ///
+    /// This is what makes the collected dataset worth collecting. The BotGuard
+    /// gate used to demand a LIVE drag every five minutes and block the run
+    /// until it got one, which requires the IDE window to be in front of a
+    /// person who is watching — the exact arrangement the rest of the app
+    /// removed. A trajectory a human actually drew is no less human for having
+    /// been drawn on Tuesday, so the gate can be answered from here.
+    ///
+    /// Samples are drawn at random rather than in order: replaying the same
+    /// stored path every time would be a single fixed signature, which is
+    /// worse than the varied synthetic paths it replaced.
+    func humanTrajectory(width: Double, height: Double) -> [(x: Double, y: Double)]? {
+        try? ensureDB()
+        var stmt: OpaquePointer?
+        // ORDER BY RANDOM() over a table of tens of rows is free, and the
+        // alternative — counting then offsetting — is two round trips for the
+        // same answer.
+        guard sqlite3_prepare_v2(db, """
+            SELECT path, screen_w, screen_h FROM mouse_trace
+            WHERE source = 'human' AND length(path) > 8
+            ORDER BY RANDOM() LIMIT 1
+            """, -1, &stmt, nil) == SQLITE_OK else { return nil }
+        defer { sqlite3_finalize(stmt) }
+        guard sqlite3_step(stmt) == SQLITE_ROW,
+              let raw = sqlite3_column_text(stmt, 0).map({ String(cString: $0) })
+        else { return nil }
+
+        let points: [(x: Double, y: Double)] = raw.split(separator: ";").compactMap { pair in
+            let xy = pair.split(separator: ",")
+            guard xy.count == 2, let x = Double(xy[0]), let y = Double(xy[1]) else { return nil }
+            return (x: x, y: y)
+        }
+        guard points.count >= 3 else { return nil }
+
+        // Normalise by the sample's own extent, not by the screen it was drawn
+        // on: the drag happened inside a small puzzle box, so the recorded
+        // coordinates never span the display and dividing by screen size would
+        // collapse every path into a dot.
+        let xs = points.map(\.x), ys = points.map(\.y)
+        let minX = xs.min() ?? 0, maxX = xs.max() ?? 1
+        let minY = ys.min() ?? 0, maxY = ys.max() ?? 1
+        let spanX = max(1, maxX - minX), spanY = max(1, maxY - minY)
+
+        return points.map { p in
+            (x: (p.x - minX) / spanX * width,
+             y: (p.y - minY) / spanY * height)
+        }
     }
 
     /// The most recent trajectory that reached its target for this app,
