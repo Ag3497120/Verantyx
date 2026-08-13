@@ -135,6 +135,16 @@ final class AgentActivityCenter: ObservableObject {
         settleTask?.cancel()
         guard state != next else { return }
         state = next
+
+        // The screen-change detector runs while the agent is out driving the
+        // machine, and only then. It is the independent check on claims about
+        // the screen — deliberately separate from anything the model produces,
+        // so "the page loaded" can be tested rather than believed.
+        if next == .operatingApp || next == .exploring {
+            ScreenChangeMonitor.shared.start()
+        } else if !next.glows {
+            ScreenChangeMonitor.shared.stop()
+        }
         NotificationCenter.default.post(name: .veraRunStateChanged, object: nil)
 
         // "Done" is a moment, not a state to sit in.

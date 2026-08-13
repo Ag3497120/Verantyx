@@ -569,6 +569,7 @@ SYS.ENFORCE("logical_verification_before_acceptance")
                 return
             }
             turn += 1
+            let turnStartedAt = Date()
             await onProgress(.thinking(turn: turn))
 
             // ── OOM guard & KV Cache flush ──────────────────────────────
@@ -1119,6 +1120,22 @@ SYS.ENFORCE("logical_verification_before_acceptance")
                     + "then stop; the real result will be given to you in the next turn. "
                     + "Never write 'TOOL RESULTS', a UI map, or a URL you have not been shown."))
             }
+            // The pixels get a vote. When the reply asserts a navigation or a
+            // successful click and the detector has seen a still screen the
+            // whole time, that is not a disagreement to resolve by preference
+            // — the measurement wins, and the model is told so before it
+            // builds anything else on the claim.
+            let claimsMovement = ["遷移", "移動しました", "開きました", "到達",
+                                  "navigated", "loaded", "opened", "reached"]
+                .contains { truthful.contains($0) }
+            if let note = await MainActor.run(body: {
+                ScreenChangeMonitor.shared.contradictionNote(
+                    claimedNavigation: claimsMovement, since: turnStartedAt)
+            }) {
+                await onProgress(.systemLog("<think>\n\(note)\n</think>"))
+                conversation.append((role: "user", content: note))
+            }
+
             var (tools, cleanText) = AgentToolParser.parse(from: truthful)
 
             // ── Bare [SEARCH] rescue ─────────────────────────────────────
