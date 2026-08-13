@@ -51,6 +51,64 @@ enum OSControl {
         return (AXUIElementCreateApplication(app.processIdentifier), app)
     }
 
+    // MARK: - Waking an app's accessibility tree
+    //
+    // Chromium does not publish its page content to accessibility at all
+    // unless it believes an assistive technology is listening. With Safari the
+    // tree is simply there; with Chrome, Edge, Brave, Arc, Opera and Vivaldi
+    // the window is readable and the page inside it is empty — no links, no
+    // buttons, nothing to match a click against.
+    //
+    // The symptom is not an error. Reading the tree succeeds, it is just
+    // barren, so a lookup returns "not found" and the pointer never moves. A
+    // run can sit in that state indefinitely, which is exactly what happened
+    // to "Chrome で ChatGPT を開いて…": Chrome opened, and then nothing.
+    //
+    // `AXManualAccessibility` is the documented way to say "publish it
+    // anyway". Set once per app, before the first read.
+
+    private static var wokenPIDs = Set<pid_t>()
+
+    static func isChromiumBrowser(_ name: String) -> Bool {
+        let n = name.lowercased()
+        return ["chrome", "chromium", "edge", "brave", "arc", "opera", "vivaldi"]
+            .contains { n.contains($0) }
+    }
+
+    /// Ask an app to publish its full accessibility tree. Returns true when a
+    /// request was actually made, so callers know to wait for it to build.
+    @discardableResult
+    static func wakeAccessibility(of appName: String) -> Bool {
+        guard let (ax, app) = appElement(appName) else { return false }
+        guard !wokenPIDs.contains(app.processIdentifier) else { return false }
+
+        // Only where it is needed. The attribute is harmless elsewhere, but
+        // its sibling AXEnhancedUserInterface is not — it makes some apps
+        // reposition their own windows — so nothing is set speculatively.
+        guard isChromiumBrowser(appName) else { return false }
+
+        AXUIElementSetAttributeValue(ax, "AXManualAccessibility" as CFString, kCFBooleanTrue)
+        wokenPIDs.insert(app.processIdentifier)
+        return true
+    }
+
+    /// Ask again, ignoring the once-per-process guard. Some Chromium builds
+    /// drop the request when it arrives before a window exists.
+    static func forceWakeAccessibility(of appName: String) {
+        guard let (ax, app) = appElement(appName), isChromiumBrowser(appName) else { return }
+        AXUIElementSetAttributeValue(ax, "AXManualAccessibility" as CFString, kCFBooleanTrue)
+        wokenPIDs.insert(app.processIdentifier)
+    }
+
+    /// Whether a snapshot looks like a browser that never woke up: a window,
+    /// but nothing inside it worth clicking.
+    static func looksUnwoken(_ appName: String, snapshot: String) -> Bool {
+        guard isChromiumBrowser(appName) else { return false }
+        let links = snapshot.components(separatedBy: "<link").count - 1
+        let buttons = snapshot.components(separatedBy: "<button").count - 1
+        return links + buttons < 3
+    }
+
     // MARK: - Menus
 
     struct MenuItem {

@@ -1565,8 +1565,13 @@ actor AgentToolExecutor {
 
     /// The link texts actually present on the open page — what to offer
     /// an agent that just tried to invent a URL.
-    static func visibleLinkTexts(limit: Int = 14) async -> [String] {
-        let snapshot = (try? await AXVisionBridge.shared.getSemanticSnapshot(appName: browserAppName)) ?? ""
+    static func visibleLinkTexts(limit: Int = 14, app: String? = nil) async -> [String] {
+        // Defaulting to Safari was fine while Safari was the only thing driven.
+        // Once [USE_APP] can attach anywhere, reporting Safari's links while
+        // operating Chrome is worse than reporting none.
+        let target: String
+        if let app { target = app } else { target = await axTargetApp() }
+        let snapshot = (try? await AXVisionBridge.shared.getSemanticSnapshot(appName: target)) ?? ""
         guard let re = try? NSRegularExpression(
             pattern: #"<link[^>]*title="([^"]{2,60})""#, options: [.caseInsensitive]) else { return [] }
         let ns = snapshot as NSString
@@ -2075,11 +2080,42 @@ actor AgentToolExecutor {
             // target is the user's own app; otherwise it stays the browser.
             let clickTarget = await Self.axTargetApp()
             await Self.activateApp(named: clickTarget)
-            _ = try? await AXVisionBridge.shared.getSemanticSnapshot(appName: clickTarget)
+            // Chromium hands back a window with an empty page unless asked to
+            // publish. Without this the lookup below finds nothing, forever,
+            // and reports it as "no such link" rather than "cannot see".
+            if await MainActor.run(body: { OSControl.wakeAccessibility(of: clickTarget) }) {
+                try? await Task.sleep(nanoseconds: 1_400_000_000)
+            }
+            let snapshot = (try? await AXVisionBridge.shared.getSemanticSnapshot(appName: clickTarget)) ?? ""
+
+            if await MainActor.run(body: { OSControl.looksUnwoken(clickTarget, snapshot: snapshot) }) {
+                await MainActor.run { OSControl.forceWakeAccessibility(of: clickTarget) }
+                try? await Task.sleep(nanoseconds: 1_200_000_000)
+                _ = try? await AXVisionBridge.shared.getSemanticSnapshot(appName: clickTarget)
+            }
+
             guard let id = await AXVisionBridge.shared.findElementID(matching: text),
                   let point = await AXVisionBridge.shared.screenPoint(forElementID: id) else {
-                return "[CLICK_LINK] No element matching \"\(text)\" in \(clickTarget). "
-                    + "Use [DESKTOP_SNAPSHOT] to see what is actually there, or scroll first."
+                // Say which of the two failures this is. "Not found" in an
+                // empty tree is not the same problem as "not found" among 40
+                // real links, and the fix is different.
+                let visible = await Self.visibleLinkTexts(limit: 12, app: clickTarget)
+                if visible.isEmpty {
+                    return """
+                    [CLICK_LINK] \(clickTarget) のページ内容を読み取れません（要素が0件）。
+                    リンクが無いのではなく、こちらから見えていません。
+                    次の手を使ってください:
+                      • [MENU: …] … アプリのメニュー命令は見えているので確実
+                      • [KEYS: …] … ⌘L でアドレスバー等、キーで操作
+                      • [DESKTOP_SNAPSHOT] → [DESKTOP_ACT: click x y] … 画面を見て座標で押す
+                    \(OSControl.isChromiumBrowser(clickTarget)
+                      ? "（Chrome系は本来アクセシビリティを公開しません。要求は送りましたが、"
+                        + "反映されない場合は Safari のほうが確実です）"
+                      : "")
+                    """
+                }
+                return "[CLICK_LINK] 「\(text)」に一致する要素が \(clickTarget) にありません。\n"
+                    + "見えているもの: " + visible.map { "「\($0)」" }.joined(separator: " ")
             }
             do {
                 // Accessibility hands back real screen points, so they go

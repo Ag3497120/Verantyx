@@ -77,6 +77,17 @@ final class ScreenEdgeGlowController {
             window.isReleasedWhenClosed = false
 
             window.contentView = NSHostingView(rootView: ScreenEdgeGlowView())
+
+            // Invisible to accessibility, not just to the mouse. This window
+            // covers the entire screen, and AXUIElementCopyElementAtPosition
+            // returns the topmost ACCESSIBLE element — which would be this one
+            // everywhere, breaking the landing read-back that verifies a click
+            // hit what it aimed at. Mouse transparency does not imply AX
+            // transparency; both have to be said.
+            window.contentView?.setAccessibilityElement(false)
+            window.contentView?.setAccessibilityHidden(true)
+            window.setAccessibilityHidden(true)
+
             window.setFrame(screen.frame, display: true)
             window.orderFrontRegardless()
             windows.append(window)

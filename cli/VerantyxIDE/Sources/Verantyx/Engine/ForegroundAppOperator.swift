@@ -223,9 +223,21 @@ final class ForegroundAppOperator {
         app.activate(options: [])
         try? await Task.sleep(nanoseconds: 600_000_000)
         splitWithIDE(app)
-        try? await Task.sleep(nanoseconds: 400_000_000)
 
-        let axMap = (try? await AXVisionBridge.shared.getSemanticSnapshot(appName: name)) ?? ""
+        // Chromium publishes nothing about its page until asked. Ask before
+        // the first read, and give it a moment to build the tree — otherwise
+        // the snapshot succeeds and is empty, and every later lookup fails
+        // for a reason nothing reports.
+        let woke = OSControl.wakeAccessibility(of: name)
+        try? await Task.sleep(nanoseconds: woke ? 1_400_000_000 : 400_000_000)
+
+        var axMap = (try? await AXVisionBridge.shared.getSemanticSnapshot(appName: name)) ?? ""
+        if OSControl.looksUnwoken(name, snapshot: axMap) {
+            // Some builds need the request repeated once the window exists.
+            OSControl.forceWakeAccessibility(of: name)
+            try? await Task.sleep(nanoseconds: 1_200_000_000)
+            axMap = (try? await AXVisionBridge.shared.getSemanticSnapshot(appName: name)) ?? ""
+        }
         guard !axMap.isEmpty, !axMap.hasPrefix("[AX_ERROR]") else {
             return .failed("\(name) のウィンドウを読み取れませんでした。\(axMap)")
         }
