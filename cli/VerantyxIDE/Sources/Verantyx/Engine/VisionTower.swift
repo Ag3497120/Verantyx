@@ -181,6 +181,10 @@ enum VisionTower {
     /// the same instance"; this asks "is this the same kind".
     static let kindThreshold = 0.14
 
+    /// Layout must agree before appearance is consulted at all. A gate, not a
+    /// weight — see the stacking note in `visualVerdict`.
+    static let layoutGate = 0.18
+
     /// At least this many agreeing neighbours before asserting anything. Two
     /// is a coincidence; the cost of a wrong assertion here is the agent
     /// acting on a screen it has misidentified.

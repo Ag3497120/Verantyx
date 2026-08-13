@@ -523,9 +523,33 @@ actor EternalMemoryStore {
         }
         // Best first, and a method tried more often breaks a tie — one lucky
         // success should not outrank nine out of ten.
+        //
+        // A genuine tie — same rate AND same attempts — is left in whatever
+        // order SQLite produced, and callers must not read the head of that
+        // as a preference. `preferredMethod` below refuses instead, because a
+        // deterministic tie-break manufactures agreement out of nothing: the
+        // research side measured that directly, where breaking ties by
+        // alphabet turned 30.9% fabrication into apparent confidence, and
+        // abstaining on ties took a 73.3% band to 100%.
         return out.sorted {
             $0.rate == $1.rate ? $0.attempts > $1.attempts : $0.rate > $1.rate
         }
+    }
+
+    /// The method to try first, or nil when the evidence does not choose one.
+    ///
+    /// Returning the head of a sorted list hides a tie behind an ordering.
+    /// When the top two are indistinguishable on both rate and attempts, the
+    /// store has no opinion and should say so — the caller then falls back to
+    /// its built-in order rather than to a coin flip wearing a number.
+    func preferredMethod(app: String) -> MethodTally? {
+        let t = methodEvidence(app: app)
+        guard let best = t.first, best.successes > 0 else { return nil }
+        if t.count >= 2 {
+            let second = t[1]
+            if best.rate == second.rate && best.attempts == second.attempts { return nil }
+        }
+        return best
     }
 
     /// How many attempts exist for an app at all. Used to decide when there is
@@ -876,12 +900,24 @@ actor EternalMemoryStore {
             let labText = sqlite3_column_text(stmt, 2).map { String(cString: $0) } ?? ""
             guard let past = ScreenSignature.decode(sigText) else { continue }
 
-            // Appearance and layout both count: two screens can share a
-            // brightness profile and be laid out completely differently.
-            var d = sig.distance(to: past)
+            // Layout GATES, appearance RANKS — stacked, not bundled.
+            //
+            // This was `d = appearance*0.7 + layout*0.3`, one score from two
+            // signals. That is the bundling operation, and the measurements on
+            // the research side put it at 6 failures out of 6 attempts against
+            // 5 improvements out of 5 for stacking. The reason applies here
+            // exactly: "same appearance" and "same layout" are different
+            // claims, and averaging them lets a strong showing on one cover a
+            // disagreement on the other — a screen with the wrong structure
+            // can pass on brightness alone.
+            //
+            // Stacked, layout decides WHICH screens are candidates and
+            // appearance orders them. One hands over to the other; neither
+            // votes in the other's election.
             if let pastLayout = VisionTower.Layout.decode(layText) {
-                d = d * 0.7 + layout.distance(to: pastLayout) * 0.3
+                guard layout.distance(to: pastLayout) <= VisionTower.layoutGate else { continue }
             }
+            let d = sig.distance(to: past)
             nearest = min(nearest, d)
             guard d <= VisionTower.kindThreshold else { continue }
             neighbours.append((d, labText.components(separatedBy: "\u{1F}")))

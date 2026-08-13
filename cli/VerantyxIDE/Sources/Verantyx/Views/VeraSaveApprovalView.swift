@@ -142,7 +142,14 @@ struct VeraSaveApprovalView: View {
             Text(note)
                 .font(.system(size: 10))
                 .foregroundStyle(Color(red: 0.5, green: 0.5, blue: 0.65))
-            Text(text.isEmpty ? "(empty)" : text)
+            // "(empty)" said nothing about why, so a deliberate exclusion and
+            // a broken pipeline looked identical — and this section was empty
+            // on every ordinary turn, which made it read as broken.
+            Text(text.isEmpty
+                 ? AppLanguage.shared.t(
+                    "(nothing to quarantine — this turn produced no storable claim)",
+                    "（検疫するものがありません — このターンには保存対象の主張がありません）")
+                 : text)
                 .font(.system(size: 12, design: .monospaced))
                 .foregroundStyle(Color(red: 0.85, green: 0.85, blue: 0.9))
                 .textSelection(.enabled)

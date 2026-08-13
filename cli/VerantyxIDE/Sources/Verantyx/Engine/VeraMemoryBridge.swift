@@ -89,13 +89,38 @@ enum VeraMemoryBridge {
             let classified = await ClaimGrounding.classify(reply: response, sources: sources)
             let summary = ClaimGrounding.summary(
                 classified, japanese: AppLanguage.shared.isJapanese)
-            let grounded = ClaimGrounding.groundedText(from: classified)
             if !summary.isEmpty {
                 await MainActor.run {
                     AppState.shared?.addSystemMessage("<think>\n🧾 " + summary + "\n</think>")
                 }
             }
-            response = grounded
+
+            // The AI half of the dialog was empty on every ordinary turn, and
+            // the cause is a category error rather than a formatting one.
+            //
+            // An ordinary chat turn injects no web block and no recall block,
+            // so `sources` is empty — and with nothing to check against,
+            // NOTHING can be grounded. The reply was then dropped as
+            // ungrounded, so the queue the human is asked to review was always
+            // empty. An absence of sources was being read as evidence of
+            // fabrication, which is the one inference vera-a's own discipline
+            // forbids: UNKNOWN_NO_EVIDENCE is not a negative answer.
+            //
+            // And the drop was redundant besides. propose_ai_facts IS the
+            // quarantine — it queues without trusting. Filtering before it
+            // does the quarantine's job twice and leaves nothing to approve.
+            if sources.isEmpty {
+                // Nothing to check against. Keep the text, labelled honestly,
+                // and let the human be the check — which is the entire reason
+                // this dialog exists.
+                response = "（このターンには照合できる出典がありませんでした — 未検証）\n" + response
+            } else {
+                let grounded = ClaimGrounding.groundedText(from: classified)
+                let annotated = ClaimGrounding.annotated(response, results: classified)
+                // Ungrounded sentences still reach quarantine, marked. A
+                // reviewer cannot approve what they were never shown.
+                response = grounded.isEmpty ? annotated : grounded
+            }
         }
 
         guard !prompt.isEmpty || !response.isEmpty else { return }
