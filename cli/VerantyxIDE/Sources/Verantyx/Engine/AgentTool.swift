@@ -2980,7 +2980,13 @@ actor AgentToolExecutor {
             }
 
         case .jcrossStore(let key, let value):
+            // Everything the agent chooses to remember lands in vera-a. The
+            // Cortex write stays only while the legacy layers are switched on,
+            // so there is one store by default rather than two that disagree.
+            try? await EternalMemoryStore.shared.add(text: "\(key): \(value)",
+                                                     concepts: [key, "agent-memo"])
             await MainActor.run {
+                guard SessionMemoryArchiver.zoneLayersEnabled else { return }
                 CortexEngine.shared?.remember(key: key, value: value, importance: 0.8, zone: .near)
             }
             return "✓ Stored in JCross memory: \(key) = \(value.prefix(60))"

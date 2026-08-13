@@ -81,6 +81,10 @@ final class SessionMemoryArchiver {
     /// Overwrites the existing .jcross for this session (no accumulation).
     @discardableResult
     func archiveProgressively(session: ChatSession) -> String? {
+        // Session distillation belongs to the zone layers. vera-a already
+        // receives the conversation through the save-approval path, so doing
+        // this too would store the same session twice under two schemes.
+        guard Self.zoneLayersEnabled else { return nil }
         let messages = session.messages
         // Only archive when there's meaningful content (≥4 messages)
         guard messages.filter({ $0.role != .system }).count >= 4 else { return nil }
@@ -293,6 +297,24 @@ final class SessionMemoryArchiver {
     ///   - Nano gets L1 (120 chars), Small/Mid get L2 (600 chars), Large gets L3 (2000 chars)
     ///   - No JCross tool access needed — passive injection via archiveSection
     func archiveConversationChunk(chunkId: String, taskTitle: String, l1: String, l2: String, l3: String) {
+        // vera-a is the memory. A compressed chunk is a thing worth
+        // remembering, so it goes there first and unconditionally — the L3
+        // layer carries the most, and it lands in the node index where
+        // ordinary recall can find it rather than in a file only this class
+        // knows how to read.
+        let forVera = [l3, l2, l1].first(where: { !$0.isEmpty }) ?? ""
+        if !forVera.isEmpty {
+            Task {
+                try? await EternalMemoryStore.shared.add(
+                    text: taskTitle.isEmpty ? forVera : "\(taskTitle): \(forVera)",
+                    concepts: ["会話", "圧縮", chunkId])
+            }
+        }
+        // The zone files are the legacy store; write them only while the
+        // toggle that also re-enables their injection is on. Keeping them
+        // current when nothing reads them is what made two memories drift.
+        guard Self.zoneLayersEnabled else { return }
+
         let timestamp = ISO8601DateFormatter().string(from: Date())
         let safeName  = chunkId
             .filter { $0.isLetter || $0.isNumber || $0 == "-" || $0 == "_" }

@@ -246,27 +246,11 @@ struct VerantyxApp: App {
     @StateObject private var ideWindows = IDEWindowMonitor.shared
 
     var body: some Scene {
-        MenuBarExtra("Verantyx OS Agent", systemImage: "asterisk") {
-            Button(ideWindows.isFrontmost ? L("verantyx-ide is running", "verantyx-ide は起動中")
-                   : ideWindows.isOpen ? L("Bring verantyx-ide to front", "verantyx-ide を前面に")
-                   : L("Launch verantyx-ide", "verantyx-ideを起動")) {
-                if !ideWindows.isOpen { openWindow(id: "main-ide") }
-                NSApp.activate(ignoringOtherApps: true)
-                IDEWindowMonitor.ideWindow()?.makeKeyAndOrderFront(nil)
-                // The window is ordered in on the next runloop pass; refresh
-                // after it, or the item would still read "起動" until the
-                // next unrelated notification.
-                DispatchQueue.main.async { ideWindows.refresh() }
-            }
-            .disabled(ideWindows.isFrontmost)
-            Button("Toggle Spotlight (Control x3)") {
-                SpotlightPanelManager.shared.panel?.toggle()
-            }
-            Divider()
-            Button("Quit Verantyx") {
-                NSApp.terminate(nil)
-            }
-        }
+        // The MenuBarExtra that used to live here put a SECOND Verantyx icon
+        // in the menu bar, next to MenuBarController's. Two icons for one app
+        // is two places to look for the same thing; its actions moved into
+        // that panel, which is also where the run state already lives.
+
         // Main IDE Window
         Window("Verantyx IDE", id: "main-ide") {
             MainSplitView()
@@ -290,6 +274,11 @@ struct VerantyxApp: App {
                     // any earlier reads nil and the menu bar silently never
                     // appears. The status item outlives this window — that is
                     // the point of it — but it needs the state to exist first.
+                    // `openWindow` is a SwiftUI environment action with no
+                    // AppKit equivalent, so the panel gets it as a closure —
+                    // otherwise the menu bar could raise an existing window
+                    // but never reopen a closed one.
+                    MenuBarController.shared.openIDEWindow = { openWindow(id: "main-ide") }
                     MenuBarController.shared.install(appState: appState)
 
                     // The screen-rim glow is a set of overlay windows above

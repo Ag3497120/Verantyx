@@ -22,6 +22,11 @@ final class MenuBarController: NSObject {
     private var statusItem: NSStatusItem?
     private var popover: NSPopover?
 
+    /// Supplied by the SwiftUI scene, which is the only place `openWindow`
+    /// exists. Without it the panel could raise a window that is already open
+    /// but never reopen one the user had closed.
+    var openIDEWindow: (() -> Void)?
+
     func install(appState: AppState) {
         guard statusItem == nil else { return }
 
@@ -88,6 +93,8 @@ struct MenuBarPanel: View {
     @ObservedObject private var relay = ClipboardChatRelay.shared
 
     @ObservedObject private var activity = AgentActivityCenter.shared
+    @ObservedObject private var ideWindows = IDEWindowMonitor.shared
+    @State private var showMore = false
     private var running: Bool { activity.state.glows }
 
     var body: some View {
@@ -160,25 +167,92 @@ struct MenuBarPanel: View {
 
             Divider()
 
-            // ── Into the window ──────────────────────────────────────────
-            Button {
-                MenuBarController.shared.closePanel()
-                NSApp.activate(ignoringOtherApps: true)
-                IDEWindowMonitor.ideWindow()?.makeKeyAndOrderFront(nil)
+            // ── Open the IDE ─────────────────────────────────────────────
+            action(icon: "macwindow",
+                   title: ideWindows.isFrontmost
+                        ? AppLanguage.shared.t("verantyx-ide is in front", "verantyx-ide は前面です")
+                        : ideWindows.isOpen
+                          ? AppLanguage.shared.t("Bring verantyx-ide to front", "verantyx-ide を前面に")
+                          : AppLanguage.shared.t("Open verantyx-ide", "verantyx-ide を開く"),
+                   disabled: ideWindows.isFrontmost) {
+                openIDE()
+            }
+
+            action(icon: "slider.horizontal.3",
+                   title: AppLanguage.shared.t("Settings in the IDE", "IDEで設定を開く")) {
+                openIDE()
                 app.fullSurface = .veraSettings
+            }
+
+            // ── More ─────────────────────────────────────────────────────
+            // Everything below is occasionally useful and never urgent, so it
+            // stays folded: a panel that opens during a run should show the
+            // run, not a list of commands.
+            Button {
+                withAnimation(.easeInOut(duration: 0.15)) { showMore.toggle() }
             } label: {
                 HStack(spacing: 8) {
-                    Image(systemName: "slider.horizontal.3").font(.system(size: 11))
-                    Text(AppLanguage.shared.t("Open all settings", "すべての設定を開く"))
+                    Image(systemName: showMore ? "chevron.down" : "chevron.right")
+                        .font(.system(size: 9, weight: .bold))
+                    Text(AppLanguage.shared.t("More", "もっと表示"))
                         .font(.system(size: 12))
                     Spacer()
                 }
                 .contentShape(Rectangle())
+                .foregroundStyle(.secondary)
             }
             .buttonStyle(.plain)
-            .padding(.horizontal, 14).padding(.vertical, 10)
+            .padding(.horizontal, 14).padding(.vertical, 8)
+
+            if showMore {
+                Divider()
+                action(icon: "sparkle.magnifyingglass",
+                       title: AppLanguage.shared.t("Spotlight (Control ×3)", "Spotlight（Control×3）")) {
+                    SpotlightPanelManager.shared.panel?.toggle()
+                }
+                action(icon: "brain",
+                       title: AppLanguage.shared.t("Vera-α audit", "Vera-α 監査画面")) {
+                    openIDE()
+                    app.fullSurface = .growth
+                }
+                action(icon: "network",
+                       title: AppLanguage.shared.t("MCP / external ops", "MCP・外部運用")) {
+                    openIDE()
+                    app.fullSurface = .mcp
+                }
+                Divider()
+                action(icon: "power",
+                       title: AppLanguage.shared.t("Quit Verantyx", "Verantyx を終了")) {
+                    NSApp.terminate(nil)
+                }
+            }
         }
         .frame(width: 320)
+    }
+
+    /// Raise the IDE, opening it first when the user had closed it.
+    private func openIDE() {
+        MenuBarController.shared.closePanel()
+        if !ideWindows.isOpen { MenuBarController.shared.openIDEWindow?() }
+        NSApp.activate(ignoringOtherApps: true)
+        IDEWindowMonitor.ideWindow()?.makeKeyAndOrderFront(nil)
+        DispatchQueue.main.async { ideWindows.refresh() }
+    }
+
+    private func action(icon: String, title: String, disabled: Bool = false,
+                        _ run: @escaping () -> Void) -> some View {
+        Button(action: run) {
+            HStack(spacing: 8) {
+                Image(systemName: icon).font(.system(size: 11)).frame(width: 16)
+                Text(title).font(.system(size: 12))
+                Spacer()
+            }
+            .contentShape(Rectangle())
+        }
+        .buttonStyle(.plain)
+        .disabled(disabled)
+        .foregroundStyle(disabled ? AnyShapeStyle(.tertiary) : AnyShapeStyle(.primary))
+        .padding(.horizontal, 14).padding(.vertical, 8)
     }
 
     private func row(icon: String, title: String, value: String) -> some View {
