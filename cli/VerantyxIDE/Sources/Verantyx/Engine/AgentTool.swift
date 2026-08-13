@@ -2771,6 +2771,30 @@ actor AgentToolExecutor {
                     captureNote = "\n[VECTOR-ONLY] Screen pixels not retained for model.\n"
                 }
 
+                // ── Vision tower supervision, taken for free ─────────────
+                //
+                // Pixels and the AX tree exist here at the same instant, which
+                // is the one thing a vision system almost never has: an exact,
+                // structured caption for the frame it is looking at, produced
+                // by the OS during ordinary work. Those pairs were being
+                // discarded. Now each one teaches the structural encoder what
+                // this kind of screen carries — and when AX later cannot see
+                // (Chrome refusing to publish, a canvas app, a remote desktop)
+                // the structure alone can still be recognised.
+                if let frame,
+                   let data = Data(base64Encoded: frame),
+                   let src = CGImageSourceCreateWithData(data as CFData, nil),
+                   let img = CGImageSourceCreateImageAtIndex(src, 0, nil) {
+                    let appName = await MainActor.run {
+                        NSWorkspace.shared.frontmostApplication?.localizedName ?? "unknown"
+                    }
+                    if let obs = await MainActor.run(body: {
+                        VisionTower.encode(image: img, app: appName, axMap: semanticXML)
+                    }) {
+                        await EternalMemoryStore.shared.recordVisualGround(obs)
+                    }
+                }
+
                 // JGEN can't consume raw images. Prefer AX/text → encode →
                 // inject (aligned JGEN space). Vision feature-print inject
                 // remains an experimental weak-signal fallback only (disabled

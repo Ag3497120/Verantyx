@@ -211,6 +211,19 @@ actor EternalMemoryStore {
         // fetch answered it. Recorded so routing can be learned from what
         // WORKED rather than re-derived from a keyword list.
         exec("ALTER TABLE act_episode ADD COLUMN route TEXT NOT NULL DEFAULT ''")
+        // Pixels paired with what Accessibility said was on them, at the same
+        // instant. The supervision for the vision tower, produced free during
+        // ordinary work and previously discarded.
+        exec("""
+        CREATE TABLE IF NOT EXISTS visual_ground (
+          ts REAL NOT NULL,
+          app TEXT NOT NULL DEFAULT '',
+          signature TEXT NOT NULL,
+          layout TEXT NOT NULL DEFAULT '',
+          window_title TEXT NOT NULL DEFAULT '',
+          labels TEXT NOT NULL DEFAULT ''
+        )
+        """)
 
         // ── One act, whole ────────────────────────────────────────────
         // Each of these already existed somewhere: the goal in ActDNA's
@@ -808,6 +821,86 @@ actor EternalMemoryStore {
         // relevant precedent.
         return scored.sorted { $0.distance < $1.distance }
             .prefix(limit).map(\.line)
+    }
+
+    // MARK: - The vision tower's memory
+    //
+    // Structure in, meaning accumulated. Nothing is learned by training: a
+    // screen's appearance is paired with the OS's own description of it, and
+    // enough agreeing pairs become a recognition.
+
+    func recordVisualGround(_ obs: VisionTower.Observation) {
+        // A screen with no labels teaches nothing — that is an unlabelled
+        // sample, and storing it only dilutes later agreement counts.
+        guard !obs.labels.isEmpty else { return }
+        try? ensureDB()
+        var stmt: OpaquePointer?
+        guard sqlite3_prepare_v2(db, """
+            INSERT INTO visual_ground (ts, app, signature, layout, window_title, labels)
+            VALUES (?, ?, ?, ?, ?, ?)
+            """, -1, &stmt, nil) == SQLITE_OK else { return }
+        defer { sqlite3_finalize(stmt) }
+        sqlite3_bind_double(stmt, 1, Date().timeIntervalSince1970)
+        sqlite3_bind_text(stmt, 2, obs.app, -1, Self.sqliteTransient)
+        sqlite3_bind_text(stmt, 3, obs.signature.encoded, -1, Self.sqliteTransient)
+        sqlite3_bind_text(stmt, 4, obs.layout.encoded, -1, Self.sqliteTransient)
+        sqlite3_bind_text(stmt, 5, obs.windowTitle, -1, Self.sqliteTransient)
+        sqlite3_bind_text(stmt, 6, obs.labels.joined(separator: "\u{1F}"), -1, Self.sqliteTransient)
+        sqlite3_step(stmt)
+    }
+
+    /// What this screen probably carries, or a named reason for not saying.
+    ///
+    /// Used when Accessibility cannot see — Chrome refusing to publish, a
+    /// canvas app, a remote desktop. The mapping was learned while AX could
+    /// see, which is what makes an answer possible at all here.
+    func visualVerdict(for sig: ScreenSignature, layout: VisionTower.Layout,
+                       app: String) -> VisionTower.Verdict {
+        try? ensureDB()
+        var stmt: OpaquePointer?
+        guard sqlite3_prepare_v2(db, """
+            SELECT signature, layout, labels FROM visual_ground
+            WHERE app = ? ORDER BY ts DESC LIMIT 400
+            """, -1, &stmt, nil) == SQLITE_OK else { return .unknownNoEvidence }
+        defer { sqlite3_finalize(stmt) }
+        sqlite3_bind_text(stmt, 1, app, -1, Self.sqliteTransient)
+
+        var neighbours: [(distance: Double, labels: [String])] = []
+        var nearest = Double.infinity
+        while sqlite3_step(stmt) == SQLITE_ROW {
+            let sigText = sqlite3_column_text(stmt, 0).map { String(cString: $0) } ?? ""
+            let layText = sqlite3_column_text(stmt, 1).map { String(cString: $0) } ?? ""
+            let labText = sqlite3_column_text(stmt, 2).map { String(cString: $0) } ?? ""
+            guard let past = ScreenSignature.decode(sigText) else { continue }
+
+            // Appearance and layout both count: two screens can share a
+            // brightness profile and be laid out completely differently.
+            var d = sig.distance(to: past)
+            if let pastLayout = VisionTower.Layout.decode(layText) {
+                d = d * 0.7 + layout.distance(to: pastLayout) * 0.3
+            }
+            nearest = min(nearest, d)
+            guard d <= VisionTower.kindThreshold else { continue }
+            neighbours.append((d, labText.components(separatedBy: "\u{1F}")))
+        }
+
+        guard !neighbours.isEmpty else { return .unknownNoEvidence }
+
+        // Agreement, not proximity, is what licenses an assertion. A label
+        // carried by one neighbour is that screen's detail; one carried by
+        // most of them is what this KIND of screen has.
+        var tally: [String: Int] = [:]
+        for n in neighbours { for l in Set(n.labels) where !l.isEmpty { tally[l, default: 0] += 1 } }
+        let quorum = max(2, neighbours.count / 2)
+        let agreed = tally.filter { $0.value >= quorum }
+            .sorted { $0.value > $1.value }
+            .map(\.key)
+
+        guard neighbours.count >= VisionTower.minSupport, !agreed.isEmpty else {
+            return .unknownInsufficient(nearest: nearest, support: neighbours.count)
+        }
+        return .recognised(labels: agreed, support: neighbours.count,
+                           distance: neighbours.map(\.distance).min() ?? nearest)
     }
 
     /// A trajectory the PERSON drove — the ground truth the agent's motion
