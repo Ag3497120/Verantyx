@@ -2890,6 +2890,31 @@ enum ModelProfileDetector {
     static func detect(modelId: String) -> ModelProfile {
         let id = modelId.lowercased()
 
+        // ── Hosted frontier models, checked FIRST ─────────────────────────
+        //
+        // Every keyword below is a local-weight size marker, and a cloud model
+        // name carries none — so claude-sonnet-5 matched nothing and fell to
+        // the default, while gpt-5-mini matched "mini" in the NANO list and
+        // was profiled as a 2B model. The tier decides which prompt is sent,
+        // and the small prompt lists ten tools with no USE_APP, OPEN_APP,
+        // DESKTOP_ACT, MENU or KEYS in it. Asked to open Teams, the model
+        // answered that it could not operate desktop applications — correctly,
+        // given what it had been told.
+        //
+        // "mini" and "flash" mean something different here: a cheaper tier of
+        // a frontier family, not a 2B local model. They are not size markers.
+        let frontier = ["claude", "gpt-4", "gpt-5", "o1", "o3", "o4",
+                        "gemini", "grok", "kimi", "moonshot", "deepseek-v",
+                        "deepseek-chat", "deepseek-reasoner", "qwen-max",
+                        "qwen-plus", "mistral-large", "command-r-plus",
+                        "glm-4", "sonar", "llama-3.3-70", "opus", "sonnet", "haiku"]
+        if frontier.contains(where: { id.contains($0) }) {
+            // Giant rather than large: these handle the full tool surface and
+            // a long context, which is the whole reason for choosing one.
+            return ModelProfile(modelId: modelId, tier: .giant,
+                                parameterBillions: 200.0, supportsThinkTags: true)
+        }
+
         // ── Giant 70B+ (must check BEFORE large to avoid substring collision) ──
         let giantKeywords = ["70b", "72b", "65b", "llama-3-70", "qwen2.5-72",
                              "mixtral-8x7", "mixtral-8x22", "deepseek-r1-70"]

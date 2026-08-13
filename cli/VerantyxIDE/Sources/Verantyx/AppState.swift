@@ -1084,12 +1084,26 @@ final class AppState: ObservableObject {
     /// selected LM Studio model (muse-glimmer) generated the reply while the
     /// banner — and the tier/token/temperature budgets derived from it —
     /// described gemma4:26b.
+    /// The model actually answering, for profile detection.
+    ///
+    /// Cloud and Agent SDK had no case here and fell through to
+    /// `activeOllamaModel` — a leftover local name. So selecting
+    /// claude-sonnet-5 profiled as "qwen3.5:4b → Small", and the Small tier
+    /// prompt lists ten tools with no USE_APP, OPEN_APP, DESKTOP_ACT, MENU or
+    /// KEYS in it. Asked to open Teams, the model correctly answered that it
+    /// could not operate desktop applications: nothing had told it otherwise.
+    /// It also capped a frontier model at 4096 tokens.
     var effectiveModelName: String {
         switch modelStatus {
         case .lmStudioReady(let m), .mlxReady(let m),
-             .bitnetReady(let m), .jcrossReady(let m):
+             .bitnetReady(let m), .jcrossReady(let m),
+             .ollamaReady(let m), .ready(let m):
             return m
-        default:
+        case .anthropicReady(let m, _), .claudeAgentReady(let m):
+            return m
+        case .mlxDownloading(let m):
+            return m
+        case .none, .connecting, .downloading, .error:
             return activeOllamaModel
         }
     }
