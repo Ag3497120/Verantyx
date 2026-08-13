@@ -28,6 +28,7 @@ struct ModelSelectorBarView: View {
 
     @ObservedObject private var council = CouncilSettingsStore.shared
     @ObservedObject private var cloudCatalog = CloudModelCatalog.shared
+    @State private var agentSDKAvailable = false
     @State private var showJGenOptions = false
     @State private var showModelRoles = false
     /// LM Studio's server is not started automatically, so this stays empty --
@@ -51,6 +52,9 @@ struct ModelSelectorBarView: View {
         /// before this existed, so the API could be set up and then never
         /// chosen — the menu simply had no row for it.
         case cloud(CloudProvider, String)
+        /// Claude via the Agent SDK, on the user's Claude Code login. No API
+        /// key is involved, which is why it is not a `.cloud` case.
+        case claudeAgent(String)
     }
 
     private var currentSelection: SelectableModel? {
@@ -61,6 +65,7 @@ struct ModelSelectorBarView: View {
         case .jcrossReady(let m): return .jgen(m)
         case .lmStudioReady(let m): return .lmStudio(m)
         case .anthropicReady(let m, _): return .cloud(app.activeCloudProvider, m)
+        case .claudeAgentReady(let m): return .claudeAgent(m)
         default: return nil
         }
     }
@@ -69,7 +74,7 @@ struct ModelSelectorBarView: View {
         switch currentSelection {
         case .mlx(let m), .ollama(let m), .bitnet(let m), .jgen(let m), .lmStudio(let m):
             return m
-        case .cloud(_, let m):
+        case .cloud(_, let m), .claudeAgent(let m):
             return m
         case nil:
             // Nothing loaded yet -- fall back to whatever Gatekeeper has
@@ -103,6 +108,9 @@ struct ModelSelectorBarView: View {
         case .cloud(let provider, let name):
             GatekeeperModeState.shared.commanderModel = name
             app.selectCloudModel(provider: provider, model: name)
+        case .claudeAgent(let name):
+            GatekeeperModeState.shared.commanderModel = name
+            app.selectClaudeAgentModel(name)
         }
     }
 
@@ -237,6 +245,9 @@ struct ModelSelectorBarView: View {
             // the section would stay empty until the user opened Settings.
             if bitnet.installedConfigs.isEmpty { await bitnet.checkInstallation() }
             jgen.refreshConvertedModelsList()
+            // Is the claude CLI actually installed? Asked once, so the
+            // subscription section appears only when it can be selected.
+            agentSDKAvailable = await ClaudeAgentSDKClient.shared.probe()?.usable ?? false
             // Cheap and bounded (2 s timeout): if LM Studio's Local Server is
             // off this returns nothing and the section simply does not appear,
             // rather than showing a section that fails on click.
@@ -360,6 +371,20 @@ struct ModelSelectorBarView: View {
 
     // MARK: - Model menu
 
+    /// Claude on the user's existing Claude Code subscription login. Shown
+    /// only when the CLI is actually installed — the row would otherwise
+    /// promise something that fails on selection.
+    @ViewBuilder
+    private var agentSDKSection: some View {
+        if agentSDKAvailable {
+            Section("Claude Agent SDK（サブスク）") {
+                ForEach(ClaudeAgentSDKClient.models, id: \.self) { m in
+                    Button(m) { select(.claudeAgent(m)) }
+                }
+            }
+        }
+    }
+
     /// Cloud providers with a key configured. Listing one without a key would
     /// offer a choice that fails the moment it is used.
     @ViewBuilder
@@ -424,6 +449,7 @@ struct ModelSelectorBarView: View {
                     }
                 }
             }
+            agentSDKSection
             cloudSections
             if app.ollamaModels.isEmpty && jgen.convertedModels.isEmpty && bitnet.installedConfigs.isEmpty {
                 Section("Ollama (Not Connected)") {
@@ -492,6 +518,8 @@ struct ModelSelectorBarView: View {
                 return ("BITNET", Color(red: 0.4, green: 0.75, blue: 1.0))
             case .jcrossReady:
                 return ("JGEN", Color(red: 1.0, green: 0.72, blue: 0.35))
+            case .claudeAgentReady:
+                return ("AGENT SDK", Color(red: 0.85, green: 0.55, blue: 0.95))
             case .lmStudioReady:
                 return ("LMSTUDIO", Color(red: 0.35, green: 0.8, blue: 0.85))
             case .anthropicReady:

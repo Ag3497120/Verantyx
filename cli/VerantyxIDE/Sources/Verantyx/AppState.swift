@@ -573,6 +573,7 @@ final class AppState: ObservableObject {
         case .ready(let name): return name
         case .ollamaReady(let model): return model
         case .anthropicReady(let model, _): return model
+        case .claudeAgentReady(let model): return model
         case .mlxReady(let model): return model
         case .mlxDownloading(let model): return model
         case .bitnetReady(let model): return model
@@ -752,6 +753,10 @@ final class AppState: ObservableObject {
         case ready(name: String)
         case ollamaReady(model: String)
         case anthropicReady(model: String, maskedKey: String)  // Anthropic API
+        /// Claude reached through the Agent SDK (the `claude` CLI), on the
+        /// user's own Claude Code login. Distinct from `.anthropicReady`
+        /// because no API key is involved and none is held here.
+        case claudeAgentReady(model: String)
         case mlxReady(model: String)          // MLX server running at localhost:8080
         case mlxDownloading(model: String)    // mlx_lm download in progress
         case bitnetReady(model: String)       // BitNet local subprocess
@@ -1821,6 +1826,14 @@ final class AppState: ObservableObject {
     /// Keys were configurable long before this existed, so a provider could be
     /// fully set up and still unusable — the selector had no row for it and
     /// nothing ever set modelStatus to a cloud value.
+    /// Use Claude through the Agent SDK on the existing Claude Code login.
+    func selectClaudeAgentModel(_ model: String) {
+        UserDefaults.standard.set(model, forKey: "claude_agent_model")
+        modelStatus = .claudeAgentReady(model: model)
+        addSystemMessage(t("🧩 Agent SDK: \(model)",
+                           "🧩 Agent SDK 経由で \(model) を選択しました（Claude Code のログインを使用）"))
+    }
+
     func selectCloudModel(provider: CloudProvider, model: String) {
         UserDefaults.standard.set(model, forKey: provider.modelDefaultsKey)
         activeCloudProvider = provider
@@ -3166,6 +3179,7 @@ final class AppState: ObservableObject {
         case .ready(let n):                  return n
         case .ollamaReady(let m):            return "Ollama: \(m.components(separatedBy: ":").first ?? m)"
         case .anthropicReady(let m, _):      return "Claude: \(m)"
+        case .claudeAgentReady(let m):       return "Agent SDK: \(m)"
         case .mlxReady(let m):              return "MLX: \(m.components(separatedBy: "/").last ?? m)"
         case .mlxDownloading(let m):        return "⏬ \(m.components(separatedBy: "/").last ?? m)"
         case .bitnetReady(let m):           return "BitNet: \(m)"
@@ -3178,7 +3192,7 @@ final class AppState: ObservableObject {
     var statusColor: Color {
         switch modelStatus {
         case .ready, .ollamaReady, .mlxReady, .anthropicReady, .bitnetReady, .jcrossReady,
-             .lmStudioReady:                   return .green
+             .lmStudioReady, .claudeAgentReady: return .green
         case .error:                           return .red
         case .downloading, .connecting,
              .mlxDownloading:                  return .orange

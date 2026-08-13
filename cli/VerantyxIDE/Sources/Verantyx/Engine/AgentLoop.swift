@@ -2259,6 +2259,21 @@ SYS.ENFORCE("logical_verification_before_acceptance")
                 }
             )
 
+        case .claudeAgentReady(let model):
+            // Claude through the Agent SDK — the route Anthropic reopened for
+            // third-party apps. The credentials belong to the user's Claude
+            // Code login; this process never reads, holds or forwards them.
+            let systemText = mutableConversation.first(where: { $0.role == "system" })?.content
+            let body = mutableConversation
+                .filter { $0.role != "system" }
+                .map { "\($0.role == "user" ? "User" : "Assistant"): \($0.content)" }
+                .joined(separator: "\n\n")
+            let reply = await ClaudeAgentSDKClient.shared.send(
+                prompt: body, systemPrompt: systemText, model: model)
+            if reply.isError { return "⚠️ \(reply.text)" }
+            await onProgress(.streamToken(reply.text))
+            return reply.text
+
         case .anthropicReady(let model, _):
             // system prompt を分離
             let systemContent = mutableConversation.first(where: { $0.role == "system" })?.content ?? ""
