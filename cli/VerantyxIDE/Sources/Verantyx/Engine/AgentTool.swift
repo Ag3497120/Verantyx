@@ -969,7 +969,21 @@ struct AgentToolParser {
         for m in re.matches(in: text, range: NSRange(location: 0, length: ns.length)) {
             let name = ns.substring(with: m.range(at: 1))
             // Section headers the model writes as labels, not calls.
-            if ["TASK", "NOTE", "WARNING", "SOURCE", "END", "OK", "INFO"].contains(name) { continue }
+            // Markers that tools EMIT, not ones a model calls. [AX_ERROR] is
+            // the error text of a failed click; reporting it as "there is no
+            // such tool" told the model its own error message was a mistaken
+            // tool name, which is confusing and true of nothing.
+            let outputMarkers: Set<String> = [
+                "TASK", "NOTE", "WARNING", "SOURCE", "END", "OK", "INFO",
+                "AX_ERROR", "AX_WARNING", "DESKTOP", "VISION", "SEARCH",
+                "MCP", "WEB", "BROWSER", "TOOL", "ERROR", "RESULT",
+                "VERIFIED", "JCROSS", "ETERNAL", "MEMORY", "CONFIRM",
+                "VECTOR", "SEMANTIC", "NO", "END_SEARCH", "SOURCE_1"
+            ]
+            if outputMarkers.contains(name) { continue }
+            // Anything ending in _ERROR / _WARNING / _RESULT is output too.
+            if name.hasSuffix("_ERROR") || name.hasSuffix("_WARNING")
+                || name.hasSuffix("_RESULT") || name.hasSuffix("_RESULTS") { continue }
             return (name, knownToolTags.contains(name))
         }
         return nil

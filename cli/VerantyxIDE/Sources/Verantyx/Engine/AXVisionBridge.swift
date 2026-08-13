@@ -139,7 +139,7 @@ class AXVisionBridge {
             // click failed, focus stayed on the page, the follow-up ⌘A
             // selected the entire Wikipedia article, and the URL was typed
             // into nothing.
-            if err.rawValue == -25206 {
+            if err.rawValue == -25206 || err.rawValue == -25205 {
                 // Focus is what "click this field" actually means.
                 let focusErr = AXUIElementSetAttributeValue(
                     element, kAXFocusedAttribute as CFString, kCFBooleanTrue)
@@ -162,9 +162,39 @@ class AXVisionBridge {
             guard let textToType = text else {
                 return "[AX_ERROR] Text is required for type action."
             }
+
+            // A newline here is a request to SUBMIT, not to type a character.
+            // This path sets the field's value, so `type "\n"` replaced
+            // "verantyx" with a newline and searched for nothing — the field
+            // read "\n" afterwards, which is exactly what happened in the App
+            // Store run. Setting a value is not a keystroke and can never
+            // trigger a search; Return has to be a real key event.
+            let submitAliases = ["\n", "\\n", "\r", "return", "enter", "\u{23CE}"]
+            if submitAliases.contains(textToType.trimmingCharacters(in: .whitespaces).lowercased()) {
+                AXUIElementSetAttributeValue(element, kAXFocusedAttribute as CFString, kCFBooleanTrue)
+                let app = await MainActor.run {
+                    NSWorkspace.shared.frontmostApplication?.localizedName ?? ""
+                }
+                let sent = await MainActor.run { OSControl.sendShortcut(to: app, combo: "return") }
+                if case .ok = sent {
+                    return "Pressed Return in \(id). (A newline cannot be typed into a "
+                        + "field by value — it is a key, so it was sent as one.)"
+                }
+                return "[AX_ERROR] Could not send Return to \(app). Use [KEYS: return]."
+            }
+
             let err = AXUIElementSetAttributeValue(element, kAXValueAttribute as CFString, textToType as CFTypeRef)
             if err == .success {
-                return "Successfully typed into \(id)."
+                // Say that it REPLACED, because the model reasonably assumes
+                // typing appends and then builds on a field it has emptied.
+                return "Set \(id) to \"\(textToType.prefix(40))\" — note this REPLACES the "
+                    + "whole field rather than appending. To submit, use [KEYS: return]."
+            } else if err.rawValue == -25205 {
+                // AttributeUnsupported: the element has no settable value.
+                // Focus it and type for real, the way a person would.
+                AXUIElementSetAttributeValue(element, kAXFocusedAttribute as CFString, kCFBooleanTrue)
+                try? await DesktopVisionBridge.shared.typeText(textToType)
+                return "\(id) has no settable value, so it was focused and typed into directly."
             } else {
                 // Some elements don't support setting value directly, try focused typing
                 AXUIElementSetAttributeValue(element, kAXFocusedAttribute as CFString, true as CFTypeRef)

@@ -170,9 +170,24 @@ actor ClaudeAgentSDKClient {
             if result.status != 0 {
                 // The CLI's own message is more useful than anything this
                 // layer could invent — not logged in, over quota, bad model.
+                // "exit code 1" names nothing anyone can act on. The CLI
+                // writes its reason to stderr; when it writes nothing, the
+                // common causes are knowable and worth listing rather than
+                // leaving the user to guess — with the exact command to run by
+                // hand, which is the fastest way to see the real message.
                 let err = result.err.trimmingCharacters(in: .whitespacesAndNewlines)
-                return Reply(text: err.isEmpty ? "claude CLI が終了コード \(result.status) を返しました" : err,
-                             isError: true)
+                if !err.isEmpty { return Reply(text: "claude CLI: \(err)", isError: true) }
+                if !text.isEmpty { return Reply(text: "claude CLI: \(text)", isError: true) }
+                let modelFlag = model.map { " --model \($0)" } ?? ""
+                return Reply(text: """
+                    claude CLI が終了コード \(result.status) を返しました（stderr は空でした）。
+                    考えられる原因:
+                      • Claude Code にログインしていない → ターミナルで `claude` を起動してログイン
+                      • 指定したモデルが使えない → 今回の指定: \(model ?? "(既定)")
+                      • 使用量の上限
+                    同じ条件を手元で再現するには:
+                      \(caps.path) -p "test"\(modelFlag)
+                    """, isError: true)
             }
             return Reply(text: text, isError: false)
         } catch {
