@@ -1484,6 +1484,100 @@ actor EternalMemoryStore {
     /// Embeds `text` and appends it as a new eternal-memory node. Call after
     /// a completed Council deliberation (consensus text) or, optionally, a
     /// plain JGEN chat turn.
+    // MARK: - What a word means HERE
+    //
+    // JGEN runs a forward pass, so an unfamiliar term does not fail — it
+    // produces a vector with no grounding, which is worse than failing because
+    // nothing marks it as uninformed. The measured limit on this lexicon is
+    // already known: usable for ranking and search, not for polarity. Asking
+    // it what a novel word means is outside that range.
+    //
+    // Accumulation answers it instead, and this is the part that improves
+    // purely by use. A term's sense here is the company it keeps in this
+    // store: every document that mentions it adds a context, and the estimate
+    // sharpens. That is distributional semantics, it needs no decoder, and it
+    // is grounded in the user's own corpus rather than in pretraining.
+    //
+    // With a verdict, because "I have seen this twice" and "I have never seen
+    // this" call for different responses, and neither is an answer.
+
+    struct TermSense: Sendable {
+        let term: String
+        let occurrences: Int
+        /// Concepts that keep appearing alongside it.
+        let neighbours: [String]
+        /// Short quotes, so the reader can judge the sense themselves.
+        let examples: [String]
+    }
+
+    enum TermVerdict: Sendable {
+        case grounded(TermSense)
+        /// Seen, but not often enough to characterise.
+        case insufficient(occurrences: Int)
+        /// Never seen in this store.
+        case unseen
+
+        var text: String {
+            switch self {
+            case .grounded(let s):
+                return "「\(s.term)」はこの記憶の中で \(s.occurrences) 回使われています。"
+                    + "共起: \(s.neighbours.prefix(6).joined(separator: "、"))\n"
+                    + s.examples.prefix(2).map { "  例: \($0)" }.joined(separator: "\n")
+            case .insufficient(let n):
+                return "UNKNOWN_INSUFFICIENT_EVIDENCE — \(n) 回しか現れておらず、"
+                    + "意味を特徴づけられません。"
+            case .unseen:
+                return "UNKNOWN_NO_EVIDENCE — この語は記憶にありません。"
+                    + "内部知識で答えるか、調べてください。"
+            }
+        }
+    }
+
+    /// At least this many occurrences before claiming to know a term's sense.
+    /// Two mentions are a coincidence; the co-occurrence set from two
+    /// documents is those documents, not the word's meaning.
+    static let termGroundingMin = 4
+
+    /// What this store knows about a term, from the company it keeps.
+    func groundTerm(_ term: String) -> TermVerdict {
+        try? ensureLoaded()
+        let needle = term.trimmingCharacters(in: .whitespacesAndNewlines)
+        guard needle.count >= 2 else { return .unseen }
+
+        var hits: [Node] = []
+        for n in nodes where !n.quarantined && n.text.localizedCaseInsensitiveContains(needle) {
+            hits.append(n)
+        }
+        guard !hits.isEmpty else { return .unseen }
+        guard hits.count >= Self.termGroundingMin else {
+            return .insufficient(occurrences: hits.count)
+        }
+
+        // The neighbours are what distinguishes a sense. A concept on one
+        // document describes that document; a concept on most of them is what
+        // the term travels with.
+        var tally: [String: Int] = [:]
+        for h in hits {
+            for c in Set(h.concepts) where !c.hasPrefix(Self.factKeyPrefix)
+                && c.localizedCaseInsensitiveCompare(needle) != .orderedSame {
+                tally[c, default: 0] += 1
+            }
+        }
+        let quorum = max(2, hits.count / 3)
+        let neighbours = tally.filter { $0.value >= quorum }
+            .sorted { $0.value > $1.value }.map(\.key)
+
+        // A sentence containing the term, trimmed to something readable.
+        let examples: [String] = hits.prefix(3).compactMap { n in
+            n.text.components(separatedBy: CharacterSet(charactersIn: "。\n"))
+                .first { $0.localizedCaseInsensitiveContains(needle) }
+                .map { String($0.trimmingCharacters(in: .whitespaces).prefix(90)) }
+        }
+
+        return .grounded(TermSense(term: needle, occurrences: hits.count,
+                                   neighbours: neighbours, examples: examples))
+    }
+
     // MARK: - Facts that replace themselves
     //
     // The consolidators run on every attempt past their threshold, and `add`
