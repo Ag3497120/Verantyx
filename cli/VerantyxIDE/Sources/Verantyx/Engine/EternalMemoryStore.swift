@@ -554,6 +554,78 @@ actor EternalMemoryStore {
                        concepts: [app, "操作方法", best.method, "app-control"])
     }
 
+    // MARK: - Do our corrections actually work?
+    //
+    // The parser tells the model what it did wrong and asks again. Whether
+    // that message ever produces a different attempt was never measured, and
+    // the cost of not measuring it was visible: an [MCP_CALL] missing its
+    // closing tag was told "write it on its own line" — which it already was —
+    // so the model rewrote the identical text and the turn repeated. A
+    // correction that cannot be acted on does not fail quietly; it loops.
+    //
+    // A correction is a METHOD for a DEFECT, exactly as a dismissal is a
+    // method for an overlay. Same table, same shape, same lesson: try what has
+    // worked for this defect before, and stop reissuing what never has.
+
+    /// Which correction has fixed this defect before, best first.
+    /// Signature is "TOOL|defectKind".
+    func correctionEvidence(signature: String) -> [MethodTally] {
+        try? ensureDB()
+        var stmt: OpaquePointer?
+        guard sqlite3_prepare_v2(db, """
+            SELECT action, COUNT(*), SUM(ok) FROM (
+              SELECT action, ok FROM act_episode
+              WHERE target_label = ? AND route LIKE 'correction:%'
+              ORDER BY ts DESC LIMIT 60
+            ) GROUP BY action
+            """, -1, &stmt, nil) == SQLITE_OK else { return [] }
+        defer { sqlite3_finalize(stmt) }
+        sqlite3_bind_text(stmt, 1, signature, -1, Self.sqliteTransient)
+
+        var out: [MethodTally] = []
+        while sqlite3_step(stmt) == SQLITE_ROW {
+            let method = sqlite3_column_text(stmt, 0).map { String(cString: $0) } ?? ""
+            let attempts = Int(sqlite3_column_int64(stmt, 1))
+            let successes = Int(sqlite3_column_int64(stmt, 2))
+            guard !method.isEmpty, attempts > 0 else { continue }
+            out.append(MethodTally(method: method, attempts: attempts, successes: successes))
+        }
+        return out.sorted {
+            $0.rate == $1.rate ? $0.attempts > $1.attempts : $0.rate > $1.rate
+        }
+    }
+
+    /// Corrections that have never once worked for this defect. Not merely
+    /// ranked last — reissuing them is the loop, so they are excluded.
+    func uselessCorrections(signature: String, minAttempts: Int = 2) -> Set<String> {
+        Set(correctionEvidence(signature: signature)
+            .filter { $0.successes == 0 && $0.attempts >= minAttempts }
+            .map(\.method))
+    }
+
+    func recordCorrection(signature: String, strategy: String, worked: Bool,
+                          sessionId: String, note: String) async {
+        recordActEpisode(
+            episodeId: UUID().uuidString, sessionId: sessionId, app: "parser",
+            goal: signature,
+            rationale: "ツール指定の誤りを直させるため",
+            action: strategy, targetLabel: signature,
+            screenBefore: "", screenAfter: "",
+            visualDistance: 0, changed: worked, ok: worked,
+            note: note, route: "correction:\(strategy)")
+
+        // Once a defect has a correction that reliably works, say so where
+        // recall can find it — the next session should not rediscover it.
+        let tallies = correctionEvidence(signature: signature)
+        let total = tallies.reduce(0) { $0 + $1.attempts }
+        if total >= 4, let best = tallies.first, best.successes > 0, best.rate >= 0.6 {
+            try? await add(
+                text: "\(signature) の誤りは「\(best.method)」で直る"
+                    + "（\(best.successes)/\(best.attempts)）。",
+                concepts: [signature, "ツール指定", "訂正"])
+        }
+    }
+
     /// Which dismissal has cleared THIS overlay before, best first.
     ///
     /// Keyed on the overlay's signature rather than the app, because one app

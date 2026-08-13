@@ -233,6 +233,11 @@ actor AgentLoop {
         /// One retry only. If the model writes an unparseable tag twice, the
         /// second one is shown rather than looping on it forever.
         var strayTagRetryUsed = false
+        /// The correction issued last turn, waiting to be judged. Resolved on
+        /// the next parse: tools came back → it worked; the same defect came
+        /// back → it did not. Without this the effectiveness of a correction is
+        /// never observed, and an ineffective one is reissued forever.
+        var pendingCorrection: (signature: String, strategy: String)?
         /// IDE Fix sandbox: consecutive blocked tool calls (loop circuit breaker)
         var consecutiveBlockedCalls = 0
         /// Total chars in conversation (for OOM guard)
@@ -1190,6 +1195,19 @@ SYS.ENFORCE("logical_verification_before_acceptance")
             // The streaming bubble (populated by streamToken) remains as-is.
             // Tool-call annotations (if any) are shown via toolCall/toolResult.
 
+            // A correction was outstanding: did it produce a working call?
+            // Recorded either way, because "this message never helps" is only
+            // learnable if the failures are counted too.
+            if let pending = pendingCorrection {
+                pendingCorrection = nil
+                let worked = !tools.isEmpty
+                let sid = await MainActor.run { AppState.shared?.vxChatSessionId ?? "" }
+                await EternalMemoryStore.shared.recordCorrection(
+                    signature: pending.signature, strategy: pending.strategy,
+                    worked: worked, sessionId: sid,
+                    note: worked ? "次のターンでツールが成立" : "同じ誤りが再発")
+            }
+
             // ── Auto-register Artifact from AI response ────────────────────
             // Detects <artifact> tags or large code blocks and publishes them
             // to the ArtifactPanelView immediately after the response completes.
@@ -1233,20 +1251,11 @@ SYS.ENFORCE("logical_verification_before_acceptance")
                     // them to move there is advice the model cannot act on: it
                     // rewrites the identical text and the run loops. That is
                     // exactly what [MCP_CALL: …]{…} without its closing tag did.
-                    let blockTools = ["MCP_CALL", "WRITE", "EDIT_LINES", "APPLY_PATCH", "FORGE_SKILL"]
-                    let advice: String
-                    if !stray.known {
-                        advice = "[\(stray.name)] is not an available tool. Re-read the TOOLS list and "
-                            + "use one that exists, or answer directly."
-                    } else if blockTools.contains(stray.name) {
-                        advice = "Your [\(stray.name)] block is incomplete — the closing "
-                            + "[/\(stray.name)] tag is missing, or the body is not the shape it expects. "
-                            + "Write the whole block, including the closing tag."
-                    } else {
-                        advice = "Your [\(stray.name)] call did not execute — it must be the ONLY thing "
-                            + "on its line, with nothing before or after it, and no code fence or quoting "
-                            + "around it. Write it again exactly that way now."
-                    }
+                    let signature = "\(stray.name)|unparsed"
+                    let useless = await EternalMemoryStore.shared.uselessCorrections(signature: signature)
+                    let (strategy, advice) = Self.correctionFor(
+                        tool: stray.name, known: stray.known, avoiding: useless)
+                    pendingCorrection = (signature, strategy)
                     conversation.append((role: "user", content: advice))
                     continue
                 }
@@ -2061,6 +2070,52 @@ SYS.ENFORCE("logical_verification_before_acceptance")
     //   - Ollama: stream:true + NDJSON + onToken コールバック
     //   - Anthropic: SSE + content_block_delta → text_delta
     // AgentLoop では UI へのリアルタイム配信のために onProgress(.streamToken) を emit
+
+    // MARK: - Corrections, ranked and ruled out
+    //
+    // A defect can be described several ways, and which description actually
+    // produces a different attempt is a fact about the model and the tool, not
+    // something knowable in advance. So the strategies are enumerated, one is
+    // chosen, the outcome is recorded, and the ones that have never worked for
+    // this defect are excluded rather than merely ranked last — reissuing them
+    // is the loop.
+    //
+    // The ladder ends at `showExact`, which stops describing the mistake and
+    // states the required form verbatim. If even that fails, the run says so
+    // instead of asking a fourth time.
+    static func correctionFor(tool: String, known: Bool,
+                              avoiding useless: Set<String>) -> (String, String) {
+        let blockTools = ["MCP_CALL", "WRITE", "EDIT_LINES", "APPLY_PATCH", "FORGE_SKILL"]
+
+        var ladder: [(String, String)] = []
+        if !known {
+            ladder.append(("noSuchTool",
+                "[\(tool)] is not an available tool. Re-read the TOOLS list and use one that "
+                + "exists, or answer the user directly."))
+        } else if blockTools.contains(tool) {
+            ladder.append(("closeBlock",
+                "Your [\(tool)] block is incomplete — the closing [/\(tool)] tag is missing, or "
+                + "the body is not the shape it expects. Write the whole block, closing tag included."))
+            ladder.append(("showExact",
+                "Write EXACTLY this shape, with your own values substituted and nothing else on "
+                + "the lines:\n[\(tool): server.tool]\n{ \"key\": \"value\" }\n[/\(tool)]"))
+        } else {
+            ladder.append(("ownLine",
+                "Your [\(tool)] call did not execute — it must be the ONLY thing on its line, with "
+                + "nothing before or after it, and no code fence or quoting around it."))
+            ladder.append(("dropBrackets",
+                "Write [\(tool): …] with the real value directly after the colon — no ⟨ ⟩ brackets, "
+                + "no quotes, no placeholder text."))
+            ladder.append(("showExact",
+                "Write EXACTLY one line, substituting your own value:\n[\(tool): YOUR_VALUE_HERE]"))
+        }
+
+        // The last rung is kept even if it has failed: dropping every option
+        // would leave the model with no instruction at all, which is worse
+        // than a repeated one.
+        if let pick = ladder.first(where: { !useless.contains($0.0) }) { return pick }
+        return ladder.last ?? ("none", "Re-read the TOOLS list.")
+    }
 
     private func callModel(
         conversation: [(role: String, content: String)],
