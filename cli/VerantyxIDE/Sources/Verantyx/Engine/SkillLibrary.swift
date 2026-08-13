@@ -525,6 +525,16 @@ actor SkillExecutor {
         onProgress: @escaping @Sendable (LoopEvent) async -> Void
     ) async -> String {
 
+        // Checked across the WHOLE payload before the first step, not per line.
+        // A per-line check would still have run the steps ahead of the bad one,
+        // and in the run this comes from those earlier steps were the ones that
+        // moved the user's browser.
+        let missing = unresolvedPlaceholders(skill.payload, args: args)
+        guard missing.isEmpty else {
+            await SkillLibrary.shared.recordFailure(name: skill.name)
+            return placeholderRefusal(skill.name, missing: missing)
+        }
+
         var results: [String] = []
         var stepIndex = 0
 
@@ -540,14 +550,42 @@ actor SkillExecutor {
             }
 
             for tool in toolCalls {
+                // A stop has to actually stop. Without this the loop runs to
+                // the end of the payload whatever the user does, which is how
+                // a misfiring skill kept clicking with nothing able to
+                // interrupt it.
+                if Task.isCancelled {
+                    await SkillLibrary.shared.recordFailure(name: skill.name)
+                    return """
+                    ✗ [Skill: \(skill.name)] step\(stepIndex) で中断されました
+                    \(results.joined(separator: "\n"))
+                    """
+                }
+
                 let call = AgentToolCall(tool: tool)
                 await onProgress(.toolCall(call))
 
                 let result = await toolExecutor.execute(tool, workspaceURL: workspaceURL)
                 results.append("  step\(stepIndex): \(result)")
 
-                let completed = AgentToolCall(tool: tool, result: result, succeeded: !result.hasPrefix("✗"))
+                let failed = Self.isFailure(result)
+                let completed = AgentToolCall(tool: tool, result: result, succeeded: !failed)
                 await onProgress(.toolResult(completed))
+
+                // Stop at the first failure. A macro is a sequence in which
+                // each step assumes the one before it landed; continuing past
+                // a failure means every later step acts on a screen that is
+                // not the one it was written for. A run that lost its target
+                // carried on clicking anyway, and the later clicks went to
+                // whatever happened to be in front — including this app.
+                if failed {
+                    await SkillLibrary.shared.recordFailure(name: skill.name)
+                    return """
+                    ✗ [Skill: \(skill.name)] step\(stepIndex) が失敗したため中断しました
+                    \(results.joined(separator: "\n"))
+                    以降のステップは、失敗した操作が成立した画面を前提にしているため実行していません。
+                    """
+                }
             }
         }
 
@@ -556,6 +594,32 @@ actor SkillExecutor {
         ✓ [Skill: \(skill.name)] completed \(results.count) step(s)
         \(results.joined(separator: "\n"))
         """
+    }
+
+    // MARK: - What counts as a failed step
+    //
+    // The test used to be `result.hasPrefix("✗")`, which is one of several
+    // ways this codebase reports a failure and not the one the OS tools use.
+    // [AX_ERROR], [VISION ERROR] and [AX_WARNING] all read as SUCCESS under
+    // that rule, so a skill whose every step errored still finished with
+    // recordSuccess — the statistics then rank a skill that has never worked
+    // as reliable and recommend it again.
+    //
+    // Markers rather than prefixes: tool results routinely lead with the echo
+    // of the call ("[AX_ACT: …]\n[AX_ERROR] …"), so the failure never sits at
+    // position zero.
+    private static let failureMarkers = [
+        "✗", "❌", "[AX_ERROR", "[AX ERROR", "[AX_WARNING",
+        "[VISION ERROR", "[DESKTOP ERROR", "[MCP ERROR", "[SKILL ERROR",
+    ]
+
+    static func isFailure(_ result: String) -> Bool {
+        if result.hasPrefix("✗") || result.hasPrefix("❌") { return true }
+        // Only the head is scanned: a successful step may quote an earlier
+        // error in the UI map it returns, and treating that as this step's
+        // failure would stop a run that is working.
+        let head = String(result.prefix(400))
+        return failureMarkers.contains { head.contains($0) }
     }
 
     // MARK: Script execution
@@ -568,6 +632,15 @@ actor SkillExecutor {
 
         guard let scriptBody = skill.payload.first else {
             return "✗ [Skill: \(skill.name)] Empty script payload"
+        }
+
+        // Same guard as the macro path. A shell script is if anything worse:
+        // "{{path}}" reaching rm or cp is not a wrong search, it is a wrong
+        // file.
+        let missing = unresolvedPlaceholders([scriptBody], args: args)
+        guard missing.isEmpty else {
+            await SkillLibrary.shared.recordFailure(name: skill.name)
+            return placeholderRefusal(skill.name, missing: missing)
         }
 
         let substituted = substitutePlaceholders(scriptBody, args: args)
@@ -602,6 +675,48 @@ actor SkillExecutor {
             result = result.replacingOccurrences(of: "{{\(k)}}", with: v)
         }
         return result
+    }
+
+    // MARK: - Placeholders that were never filled in
+    //
+    // Substitution replaces the keys it was GIVEN and leaves the rest standing.
+    // A forged skill carrying {{service}}, invoked without it, therefore ran
+    // with the literal characters "{{service}}" in place of a search term: the
+    // agent searched DuckDuckGo for "{{service}}", got results about the word
+    // "service", and — because this happened while the user was reading a
+    // Gemini conversation in that same Safari window — navigated their screen
+    // away from what they were looking at.
+    //
+    // The tool parser already refuses a call with a ⟨placeholder⟩ left in it.
+    // Skills are the same shape of mistake with more reach, because a skill is
+    // several actions and executes them against the real desktop.
+
+    /// Keys still unresolved after substitution. Order preserved, deduplicated.
+    private func unresolvedPlaceholders(_ lines: [String], args: [String: String]) -> [String] {
+        guard let re = try? NSRegularExpression(pattern: #"\{\{\s*([A-Za-z0-9_.\-]+)\s*\}\}"#)
+        else { return [] }
+        var found: [String] = []
+        var seen = Set<String>()
+        for line in lines {
+            let filled = substitutePlaceholders(line, args: args)
+            let ns = filled as NSString
+            for m in re.matches(in: filled, range: NSRange(location: 0, length: ns.length)) {
+                let key = ns.substring(with: m.range(at: 1))
+                if seen.insert(key).inserted { found.append(key) }
+            }
+        }
+        return found
+    }
+
+    private func placeholderRefusal(_ name: String, missing: [String]) -> String {
+        let shown = missing.map { "{{\($0)}}" }.joined(separator: ", ")
+        let example = missing.map { "\($0)=…" }.joined(separator: "|")
+        return """
+        ✗ [Skill: \(name)] 展開されていないプレースホルダーがあるため、1ステップも実行していません: \(shown)
+        引数を渡して呼び直してください: [USE_SKILL: \(name)|\(example)]
+        （このまま実行すると "{{…}}" という文字列そのものが検索語やパスとして使われ、\
+        関係のない画面へ遷移します。）
+        """
     }
 
     private func runShellScript(path: String, workingDir: URL?) async -> String {

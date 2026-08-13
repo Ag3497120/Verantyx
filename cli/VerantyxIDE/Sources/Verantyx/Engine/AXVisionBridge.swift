@@ -183,6 +183,34 @@ class AXVisionBridge {
                 return "[AX_ERROR] Could not send Return to \(app). Use [KEYS: return]."
             }
 
+            // Web content never gets the value set on it.
+            //
+            // Setting kAXValue on a contenteditable SUCCEEDS — the accessibility
+            // value changes, this function reports success, and the page's
+            // JavaScript never learns anything happened. No `input` event fires,
+            // so a framework-driven send button stays disabled and Return does
+            // nothing. Measured on Gemini: AX_ACT type reported success, the URL
+            // stayed at /app instead of advancing to a conversation, and no new
+            // element appeared. Typing the same text as real key events produced
+            // the send button immediately and the message sent.
+            //
+            // Because the call SUCCEEDS, the -25205 fallback below can never
+            // catch this. It has to be decided before the attempt.
+            //
+            // AXDOMIdentifier / AXDOMClassList are published by WebKit and
+            // Chromium for elements that came from a DOM, and by nothing else,
+            // which makes their presence a precise test for "this is a web
+            // control" — better than guessing from the application name, since
+            // Electron and WebView hosts are not called browsers.
+            if Self.isWebContent(element) {
+                AXUIElementSetAttributeValue(element, kAXFocusedAttribute as CFString, kCFBooleanTrue)
+                try? await DesktopVisionBridge.shared.typeText(textToType)
+                return "\(id) is web content, so it was focused and typed with real key "
+                    + "events. (Setting the value directly would change the accessibility "
+                    + "value without the page seeing an input event, leaving send buttons "
+                    + "disabled.) Note this APPENDS at the caret rather than replacing."
+            }
+
             let err = AXUIElementSetAttributeValue(element, kAXValueAttribute as CFString, textToType as CFTypeRef)
             if err == .success {
                 // Say that it REPLACED, because the model reasonably assumes
@@ -203,6 +231,37 @@ class AXVisionBridge {
         }
         
         return "[AX_ERROR] Unknown action: \(action)."
+    }
+
+    /// Whether this element came from a DOM.
+    ///
+    /// Checked on the element itself and a few ancestors: the node a snapshot
+    /// hands back is often an anonymous wrapper, and Gemini's prompt box is
+    /// exactly that — a group with no role of its own sitting inside the web
+    /// area. Four levels is enough to leave a web area and cheap enough not to
+    /// matter.
+    static func isWebContent(_ element: AXUIElement) -> Bool {
+        var current: AXUIElement? = element
+        for _ in 0..<4 {
+            guard let node = current else { return false }
+            for attribute in ["AXDOMIdentifier", "AXDOMClassList"] {
+                var value: CFTypeRef?
+                if AXUIElementCopyAttributeValue(node, attribute as CFString, &value) == .success {
+                    return true
+                }
+            }
+            var role: CFTypeRef?
+            if AXUIElementCopyAttributeValue(node, kAXRoleAttribute as CFString, &role) == .success,
+               (role as? String) == "AXWebArea" { return true }
+
+            var parent: CFTypeRef?
+            guard AXUIElementCopyAttributeValue(
+                    node, kAXParentAttribute as CFString, &parent) == .success,
+                  CFGetTypeID(parent) == AXUIElementGetTypeID()
+            else { return false }
+            current = (parent as! AXUIElement)
+        }
+        return false
     }
     
     // MARK: - Tree Building
