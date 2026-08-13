@@ -20,6 +20,57 @@ struct JGenVeraSettingsPanelView: View {
     /// itself. The side-panel usage (nothing to dismiss) passes nil.
     var onDismiss: (() -> Void)?
 
+    @State private var veraRepoPath =
+        UserDefaults.standard.string(forKey: "vera.repoPath") ?? ""
+    @State private var veraCorpusPath =
+        UserDefaults.standard.string(forKey: "vera.corpusPath") ?? ""
+
+    private var veraPathsBlock: some View {
+        VStack(alignment: .leading, spacing: 6) {
+            Text(app.t("Vera engine paths", "Veraエンジンのパス"))
+                .font(.system(size: 11, weight: .semibold))
+            pathRow(app.t("Checkout (Verantyx-Vera-alpha)", "チェックアウト (Verantyx-Vera-alpha)"),
+                    value: $veraRepoPath, key: "vera.repoPath",
+                    validate: { FileManager.default.fileExists(atPath: $0 + "/verantyx/serve_view3d.py") })
+            pathRow(app.t("Corpus (vera-corpus)", "コーパス (vera-corpus)"),
+                    value: $veraCorpusPath, key: "vera.corpusPath",
+                    validate: { FileManager.default.fileExists(atPath: $0 + "/build/vera.db") })
+            Text(app.t("Empty = the ~/Projects defaults. Takes effect on the next Vera-a engine start.",
+                       "空欄 = ~/Projects の既定。次回のVera-aエンジン起動から反映されます。"))
+                .font(.system(size: 9)).foregroundStyle(.tertiary)
+        }
+        .padding(8)
+        .background(RoundedRectangle(cornerRadius: 6).fill(Color.white.opacity(0.03)))
+    }
+
+    private func pathRow(_ label: String, value: Binding<String>, key: String,
+                         validate: @escaping (String) -> Bool) -> some View {
+        HStack(spacing: 6) {
+            Text(label).font(.system(size: 10)).frame(width: 150, alignment: .leading)
+            TextField("~/Projects/…", text: value)
+                .textFieldStyle(.roundedBorder)
+                .font(.system(size: 10, design: .monospaced))
+                .onSubmit { UserDefaults.standard.set(value.wrappedValue, forKey: key) }
+            // Validation dot: green = the folder answers the question the
+            // server will ask of it; red = it will fail the same way again.
+            Circle()
+                .fill(value.wrappedValue.isEmpty ? Color.gray
+                      : (validate(NSString(string: value.wrappedValue).expandingTildeInPath)
+                         ? Color.green : Color.red))
+                .frame(width: 6, height: 6)
+            Button(app.t("Choose…", "選択…")) {
+                let panel = NSOpenPanel()
+                panel.canChooseDirectories = true
+                panel.canChooseFiles = false
+                if panel.runModal() == .OK, let url = panel.url {
+                    value.wrappedValue = url.path
+                    UserDefaults.standard.set(url.path, forKey: key)
+                }
+            }
+            .controlSize(.small)
+        }
+    }
+
     var body: some View {
         ScrollView {
             VStack(alignment: .leading, spacing: 14) {
@@ -33,6 +84,13 @@ struct JGenVeraSettingsPanelView: View {
                         .font(.system(size: 9, design: .monospaced))
                         .foregroundStyle(.tertiary)
                 }
+
+                // ── Vera engine checkout / corpus ───────────────────────
+                // vera.repoPath was read by LocalVeraServer but nothing ever
+                // wrote it, so a Mac whose checkout lives anywhere but
+                // ~/Projects/Verantyx-Vera-alpha saw "Engine checkout not
+                // found" with no way to answer the question it was asking.
+                veraPathsBlock
 
                 layerBlock(
                     "Layer 0 — " + app.t("Memory", "記憶"),

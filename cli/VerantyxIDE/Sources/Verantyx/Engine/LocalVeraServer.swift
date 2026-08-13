@@ -50,6 +50,7 @@ final class LocalVeraServer: ObservableObject {
     /// reported as such instead of a server that starts and 404s.
     static func repoPath() -> String {
         let saved = UserDefaults.standard.string(forKey: "vera.repoPath")
+            .map { NSString(string: $0).expandingTildeInPath }
         if let saved, FileManager.default.fileExists(
             atPath: saved + "/verantyx/serve_view3d.py") { return saved }
         let guess = NSString(string: "~/Projects/Verantyx-Vera-alpha")
@@ -59,8 +60,16 @@ final class LocalVeraServer: ObservableObject {
 
     static func corpusPath() -> String {
         let saved = UserDefaults.standard.string(forKey: "vera.corpusPath")
+            .map { NSString(string: $0).expandingTildeInPath }
         if let saved, !saved.isEmpty { return saved }
         return NSString(string: "~/Projects/vera-corpus").expandingTildeInPath
+    }
+
+    /// Re-attempt after the user fixed the paths in Settings — a failed
+    /// state used to be terminal until the mode was re-entered.
+    func restart() {
+        state = .idle
+        start()
     }
 
     func start() {

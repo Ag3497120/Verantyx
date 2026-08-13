@@ -234,6 +234,13 @@ struct VeraAuditView: View {
                     // leaving the mode uses the same Vera-a/Gatekeeper chip
                     // that entered it, so there is exactly one way through
                     // the door in both directions.
+                    if case .failed = engine.state {
+                        // The failure names a path; Settings → Vera engine
+                        // paths is where to answer it, and this retries with
+                        // whatever was just saved.
+                        Button(app.t("Retry engine", "エンジン再試行")) { engine.restart() }
+                            .font(.system(size: 10))
+                    }
                     Button { showSettings = true } label: {
                         Image(systemName: "gearshape")
                     }
