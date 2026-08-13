@@ -46,8 +46,6 @@ struct SettingsView: View {
         case memory  = "Memory"
         case privacy = "Privacy"
         case mcp     = "MCP"
-        case bitnet  = "BitNet"
-        case jgen    = "JGEN"
 
         var icon: String {
             switch self {
@@ -59,8 +57,6 @@ struct SettingsView: View {
             case .memory:  return "brain"
             case .privacy: return "lock.shield"
             case .mcp:     return "network"
-            case .bitnet:  return "cpu.fill"
-            case .jgen:    return "shippingbox"
             }
         }
 
@@ -74,8 +70,6 @@ struct SettingsView: View {
             case .memory:  return Color(red: 0.8, green: 0.5, blue: 1.0)
             case .privacy: return Color(red: 0.4, green: 0.9, blue: 0.5)
             case .mcp:     return Color(red: 0.3, green: 0.8, blue: 1.0)
-            case .bitnet:  return Color(red: 0.7, green: 0.4, blue: 1.0)
-            case .jgen:    return Color(red: 1.0, green: 0.6, blue: 0.3)
             }
         }
     }
@@ -153,16 +147,6 @@ struct SettingsView: View {
                                         .fill(Color(red: 0.9, green: 0.4, blue: 0.2))
                                         .frame(width: 6, height: 6)
                                 }
-                                // BitNet not-installed indicator
-                                if tab == .bitnet {
-                                    let gkStatus = BitNetEngineManager.shared.status
-                                    if case .notInstalled = gkStatus {
-                                        Spacer()
-                                        Circle()
-                                            .fill(Color(red: 0.7, green: 0.4, blue: 1.0))
-                                            .frame(width: 6, height: 6)
-                                    }
-                                }
                             }
                             .foregroundStyle(selectedTab == tab ? .white : Color(red: 0.6, green: 0.6, blue: 0.7))
                             .padding(.horizontal, 12)
@@ -210,8 +194,6 @@ struct SettingsView: View {
                         case .memory:  memorySettings
                         case .privacy: privacySettings
                         case .mcp:     mcpSettings
-                        case .bitnet:  bitnetSettings
-                        case .jgen:    jgenSettings
                         }
                     }
                     .padding(22)
@@ -394,41 +376,6 @@ struct SettingsView: View {
                     Text("Verantyx uses a fixed high-contrast dark theme optimised for code editing.")
                         .font(.system(size: 10)).foregroundStyle(.tertiary)
 
-                    Divider().opacity(0.2)
-
-                    rowLabel("Font size (code)") {
-                        Text("\(app.codeFontSize)pt")
-                            .font(.system(size: 11, weight: .semibold, design: .monospaced))
-                            .foregroundStyle(Color(red: 0.4, green: 0.8, blue: 0.5))
-                            .frame(width: 40)
-                    }
-                    Slider(value: Binding(
-                        get: { Double(app.codeFontSize) },
-                        set: { app.codeFontSize = Int($0) }
-                    ), in: 9...18, step: 1)
-                    .tint(Color(red: 0.4, green: 0.7, blue: 1.0))
-                }
-            }
-
-            sectionHeader("Notifications", icon: "bell")
-
-            settingsCard {
-                VStack(alignment: .leading, spacing: 0) {
-                    toolToggleRow(
-                        icon: "checkmark.circle.fill",
-                        iconColor: Color(red: 0.3, green: 0.9, blue: 0.5),
-                        title: "Diff applied",
-                        description: "Notify when AI changes are applied to a file",
-                        isOn: $app.notifyOnDiffApply
-                    )
-                    Divider().opacity(0.15)
-                    toolToggleRow(
-                        icon: "exclamationmark.triangle.fill",
-                        iconColor: Color(red: 0.9, green: 0.7, blue: 0.2),
-                        title: "Agent errors",
-                        description: "Notify when the agent loop encounters an error",
-                        isOn: $app.notifyOnError
-                    )
                 }
             }
 
@@ -491,6 +438,13 @@ struct SettingsView: View {
 
             sectionHeader("LM Studio", icon: "desktopcomputer")
             lmStudioCard
+
+            // Grouped: a VStack with this many children exceeds what the
+            // type checker will chew through in reasonable time.
+            Group {
+                bitnetSettings
+                jgenSettings
+            }
 
             sectionHeader("System Prompt", icon: "text.bubble")
             systemPromptCard
@@ -972,13 +926,6 @@ struct SettingsView: View {
                         .font(.system(size: 10)).foregroundStyle(.tertiary)
                 }
 
-                Divider().opacity(0.2)
-
-                rowLabel("Streaming output") {
-                    Toggle("", isOn: $app.streamingEnabled).toggleStyle(.switch).scaleEffect(0.8)
-                }
-                Text("Token-by-token streaming display. Disable only for debugging.")
-                    .font(.system(size: 10)).foregroundStyle(.tertiary)
             }
         }
     }
@@ -1010,13 +957,6 @@ struct SettingsView: View {
                     .font(.system(size: 11))
                     .foregroundStyle(.secondary)
                 
-                rowLabel("Base Model") {
-                    TextField("e.g. llama3.1:8b", text: $app.fineTuningBaseModel)
-                        .textFieldStyle(.roundedBorder)
-                        .font(.system(size: 11, design: .monospaced))
-                        .frame(width: 200)
-                }
-                
                 HStack(spacing: 8) {
                     Image(systemName: "info.circle")
                         .font(.system(size: 10))
@@ -1040,6 +980,13 @@ struct SettingsView: View {
             }
         }
     }
+
+    // MARK: - Local engines, folded in from their former top-level tabs
+    //
+    // BitNet and JGEN are live backends with real generation paths, so they
+    // are not deleted — but a tab each put them at the same weight as Privacy
+    // and MCP, for engines most sessions never touch. They belong beside the
+    // other local engines they compete with.
 
     // MARK: - API Keys Settings
 

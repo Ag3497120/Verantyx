@@ -1566,6 +1566,38 @@ actor AgentToolExecutor {
             signature: blocker.signature, appName: app, overlay: blocker.title)
     }
 
+    /// Which switch, if any, forbids this tool right now.
+    ///
+    /// Named categories rather than per-tool flags, because that is what the
+    /// UI offers and what a person means by "no terminal".
+    static func disabledToolRefusal(for tool: AgentTool) async -> String? {
+        let (terminal, browser, web, jcross) = await MainActor.run {
+            (AppState.shared?.toolTerminalEnabled ?? true,
+             AppState.shared?.toolBrowserEnabled ?? true,
+             AppState.shared?.toolWebSearchEnabled ?? true,
+             AppState.shared?.toolJCrossEnabled ?? true)
+        }
+
+        func refuse(_ what: String, _ setting: String) -> String {
+            "⛔️ \(what)は設定で無効になっています（設定 → ツール → \(setting)）。"
+                + "使う必要がある場合は、ユーザーに有効化を依頼してください。"
+        }
+
+        switch tool {
+        case .runCommand, .runCognitive:
+            return terminal ? nil : refuse("ターミナル実行", "ターミナル")
+        case .browse, .openSafari, .openChrome, .visionBrowse, .visionSearchFlow,
+             .clickLink, .scrollFind, .searchPage, .evalJS, .useApp:
+            return browser ? nil : refuse("ブラウザ操作", "ブラウザ")
+        case .search, .searchMulti:
+            return web ? nil : refuse("Web検索", "Web検索")
+        case .jcrossQuery, .jcrossStore:
+            return jcross ? nil : refuse("JCross記憶", "JCross")
+        default:
+            return nil
+        }
+    }
+
     /// Only a browser has a URL to verify a click against.
     static func isBrowserApp(_ name: String) -> Bool {
         let n = name.lowercased()
@@ -1736,6 +1768,14 @@ actor AgentToolExecutor {
     }
 
     func execute(_ tool: AgentTool, workspaceURL: URL?) async -> String {
+        // The Tool Toggles in Settings were persisted, restored, and read by
+        // nothing. Four switches that looked like controls and changed no
+        // behaviour — and for "let the agent use the terminal" that is not a
+        // cosmetic bug: it is a safety control that reported a state it did
+        // not have. Deleting them would have been honest; enforcing them is
+        // what the user was promised.
+        if let refusal = await Self.disabledToolRefusal(for: tool) { return refusal }
+
         switch tool {
 
         // ── File system ───────────────────────────────────────────────────
