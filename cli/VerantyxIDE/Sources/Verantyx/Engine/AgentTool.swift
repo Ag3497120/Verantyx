@@ -1,4 +1,5 @@
 import Foundation
+import ImageIO
 import SwiftUI
 import CryptoKit
 #if canImport(AppKit)
@@ -2978,10 +2979,17 @@ actor AgentToolExecutor {
                 let actApp = await MainActor.run {
                     NSWorkspace.shared.frontmostApplication?.localizedName ?? "unknown"
                 }
+                // A structural signature, not a hash. A hash answers only
+                // "byte-identical", which no two screenshots of a live page
+                // ever are — which is why the recall keyed on it never fired.
                 func digest(_ b64: String?) -> String {
-                    guard let b64, !b64.isEmpty else { return "" }
-                    return String(SHA256.hash(data: Data(b64.utf8))
-                        .compactMap { String(format: "%02x", $0) }.joined().prefix(16))
+                    guard let b64, !b64.isEmpty,
+                          let data = Data(base64Encoded: b64),
+                          let src = CGImageSourceCreateWithData(data as CFData, nil),
+                          let img = CGImageSourceCreateImageAtIndex(src, 0, nil),
+                          let sig = ScreenSignature.from(img)
+                    else { return "" }
+                    return sig.encoded
                 }
                 await EternalMemoryStore.shared.recordActEpisode(
                     episodeId: episodeId, sessionId: ctxSession, app: actApp,

@@ -763,28 +763,51 @@ actor EternalMemoryStore {
     func actEpisodeRecall(app: String, screenBefore: String, limit: Int = 3) -> [String] {
         try? ensureDB()
         var stmt: OpaquePointer?
+        // Was `screen_before = ?` against a SHA256. Two captures of the same
+        // page differ by a caret blink, so the hashes differed completely and
+        // this never once matched — the question it exists to answer was
+        // unanswerable. Candidates are fetched and ranked by signature
+        // distance instead, which is what "the same screen" actually means.
         guard sqlite3_prepare_v2(db, """
-            SELECT action, target_label, changed, ok, rationale FROM act_episode
-            WHERE app = ? AND screen_before = ?
-            ORDER BY ts DESC LIMIT ?
+            SELECT action, target_label, changed, ok, rationale, screen_before
+            FROM act_episode
+            WHERE app = ? AND screen_before <> ''
+            ORDER BY ts DESC LIMIT 200
             """, -1, &stmt, nil) == SQLITE_OK else { return [] }
         defer { sqlite3_finalize(stmt) }
         sqlite3_bind_text(stmt, 1, app, -1, Self.sqliteTransient)
-        sqlite3_bind_text(stmt, 2, screenBefore, -1, Self.sqliteTransient)
-        sqlite3_bind_int64(stmt, 3, Int64(limit))
-        var out: [String] = []
+
+        let wanted = ScreenSignature.decode(screenBefore)
+        var scored: [(line: String, distance: Double)] = []
         while sqlite3_step(stmt) == SQLITE_ROW {
             let action = sqlite3_column_text(stmt, 0).map { String(cString: $0) } ?? ""
             let target = sqlite3_column_text(stmt, 1).map { String(cString: $0) } ?? ""
             let changed = sqlite3_column_int64(stmt, 2) != 0
             let ok = sqlite3_column_int64(stmt, 3) != 0
             let why = sqlite3_column_text(stmt, 4).map { String(cString: $0) } ?? ""
-            out.append("\(action)\(target.isEmpty ? "" : " → \(target)"): "
-                + (changed ? "screen changed" : "NO CHANGE")
-                + (ok ? "" : " (failed)")
-                + (why.isEmpty ? "" : " — chosen because: \(String(why.prefix(120)))"))
+            let storedSig = sqlite3_column_text(stmt, 5).map { String(cString: $0) } ?? ""
+
+            let distance: Double
+            if let wanted, let past = ScreenSignature.decode(storedSig) {
+                distance = wanted.distance(to: past)
+                guard distance <= ScreenSignature.sameScreenThreshold else { continue }
+            } else if wanted == nil && storedSig == screenBefore {
+                distance = 0            // legacy digest rows still match exactly
+            } else {
+                continue
+            }
+
+            scored.append((
+                "\(action)\(target.isEmpty ? "" : " → \(target)"): "
+                    + (changed ? "screen changed" : "NO CHANGE")
+                    + (ok ? "" : " (failed)")
+                    + (why.isEmpty ? "" : " — chosen because: \(String(why.prefix(120)))"),
+                distance))
         }
-        return out
+        // Closest screens first: the most similar past state is the most
+        // relevant precedent.
+        return scored.sorted { $0.distance < $1.distance }
+            .prefix(limit).map(\.line)
     }
 
     /// A trajectory the PERSON drove — the ground truth the agent's motion
