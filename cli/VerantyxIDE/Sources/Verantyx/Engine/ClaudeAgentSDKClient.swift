@@ -37,19 +37,74 @@ actor ClaudeAgentSDKClient {
         let supportsPrint: Bool
         let supportsModelFlag: Bool
         let supportsStreamJSON: Bool
+        /// `--system-prompt` REPLACES the CLI's own prompt. `--append-system-prompt`
+        /// only adds to it, which leaves the CLI's agent identity and its tool
+        /// roster in force — see the note above `toolDenyList`.
+        let supportsSystemPrompt: Bool
+        let supportsToolDenial: Bool
+        let supportsStrictMCP: Bool
         let notes: [String]
 
         var usable: Bool { supportsPrint }
+
+        /// Whether the CLI can be reduced to a plain model backend. Without
+        /// this, the CLI runs its own agent loop with its own tools and
+        /// Verantyx's OS layer is bypassed entirely.
+        var canBeSilenced: Bool { supportsSystemPrompt && supportsToolDenial }
 
         var summary: String {
             var out = ["claude CLI: \(path)", "  バージョン: \(version)"]
             out.append("  -p / --print: \(supportsPrint ? "対応" : "非対応")")
             out.append("  --model: \(supportsModelFlag ? "対応（モデル切替可）" : "非対応（既定モデルのみ）")")
             out.append("  --output-format stream-json: \(supportsStreamJSON ? "対応" : "非対応")")
+            out.append("  --system-prompt: \(supportsSystemPrompt ? "対応（Verantyx の規約で置換）" : "非対応（追記のみ）")")
+            out.append("  --disallowedTools: \(supportsToolDenial ? "対応（CLI 側ツールを無効化）" : "非対応")")
+            out.append("  モデルバックエンド化: \(canBeSilenced ? "可能" : "不可 — CLI が自前のエージェントとして動作します")")
             for n in notes { out.append("  ⚠️ \(n)") }
             return out.joined(separator: "\n")
         }
     }
+
+    // MARK: - Why every CLI-side tool is switched off
+    //
+    // The CLI is a complete agent, not a model endpoint. Left alone in print
+    // mode it runs its own loop with its own tools, and the observed result was
+    // exactly that: asked to open Teams and Safari it reached for `open`,
+    // `screencapture`, `WebSearch` and `WebFetch` — none of which belong to
+    // this app — then reported "This command requires approval" for all of
+    // them and told the user to edit `.claude/settings.json`.
+    //
+    // Two separate faults produced that:
+    //
+    //   1. `--append-system-prompt` APPENDS. The CLI's own prompt, including
+    //      its identity and tool roster, stayed in force and Verantyx's rules
+    //      were bolted on the end. The rules did apply — the transcript shows
+    //      ERROR STOP PROTOCOL firing — but the tools the model could actually
+    //      call were the CLI's.
+    //
+    //   2. Print mode cannot show a permission prompt. Anything gated fails
+    //      instantly and unrecoverably, so the run cannot even ask.
+    //
+    // The fix is not to grant those permissions. Handing the CLI's Bash a
+    // blanket approval would put an unsupervised shell on the user's machine
+    // AND still route the work around ForegroundAppOperator, OSControl,
+    // ScreenChangeMonitor and VisionTower — the layers that make an action
+    // checkable. It would trade the app's entire verification story for a
+    // shortcut.
+    //
+    // So the CLI is reduced to what every other provider here already is: a
+    // thing that returns text. Verantyx's own loop parses the tool tags out of
+    // that text and executes them through AX, where the screen oracle can
+    // contradict a false claim.
+    // Every name here is verified against the installed CLI: an unrecognised
+    // one makes it print "matches no known tool" to stderr, which this class
+    // surfaces as a failure reason on a non-zero exit and would read as a real
+    // error. ("SlashCommand" was in the first draft and is not a tool.)
+    private static let toolDenyList = [
+        "Bash", "BashOutput", "KillShell", "Edit", "Write", "NotebookEdit",
+        "Read", "Glob", "Grep", "WebFetch", "WebSearch", "Task", "TodoWrite",
+        "ExitPlanMode",
+    ]
 
     private var cached: Capabilities?
 
@@ -108,16 +163,42 @@ actor ClaudeAgentSDKClient {
         let hasPrint = help.contains("--print") || help.contains("-p,")
         let hasModel = help.contains("--model")
         let hasStream = help.contains("stream-json")
+        // `--system-prompt` and `--append-system-prompt` share a prefix, so a
+        // plain `contains` matches the append flag too and would report the
+        // replace flag as present on a CLI that only has the append one.
+        let hasSystemPrompt = help.contains("--system-prompt <")
+            || help.contains("--system-prompt ")
+            || help.range(of: #"--system-prompt\b(?!-)"#, options: .regularExpression) != nil
+        let hasToolDenial = help.contains("--disallowedTools")
+            || help.contains("--disallowed-tools")
+        let hasStrictMCP = help.contains("--strict-mcp-config")
+
         if !hasPrint {
             notes.append("--print が見つかりません。この CLI ではプログラム実行ができない可能性があります。")
         }
         if !hasModel {
             notes.append("--model が見つかりません。モデルは CLI 側の既定に従います。")
         }
+        // The loud one. Without both flags the CLI stays an agent in its own
+        // right, and every OS action bypasses this app's verification layers.
+        if !hasSystemPrompt || !hasToolDenial {
+            notes.append("""
+                この CLI をモデルバックエンドにできません\
+                （\(hasSystemPrompt ? "" : "--system-prompt 無し ")\
+                \(hasToolDenial ? "" : "--disallowedTools 無し")）。
+                  CLI が自前のツール（Bash / WebSearch など）で動くため、Verantyx の
+                  画面操作・画面変化検知・記憶の各層を経由しません。実行結果を検証できない\
+                ので、この経路ではなく API キー経路の利用を推奨します。
+                """)
+        }
 
         let caps = Capabilities(path: path, version: version,
                                 supportsPrint: hasPrint, supportsModelFlag: hasModel,
-                                supportsStreamJSON: hasStream, notes: notes)
+                                supportsStreamJSON: hasStream,
+                                supportsSystemPrompt: hasSystemPrompt,
+                                supportsToolDenial: hasToolDenial,
+                                supportsStrictMCP: hasStrictMCP,
+                                notes: notes)
         cached = caps
         return caps
     }
@@ -160,8 +241,25 @@ actor ClaudeAgentSDKClient {
 
         var args = ["-p"]
         if let model, caps.supportsModelFlag { args += ["--model", model] }
+
+        // Replace rather than append. Appending leaves the CLI's own prompt —
+        // and with it the belief that it is a coding agent holding a shell —
+        // ahead of Verantyx's rules, which is how a request to open Safari
+        // turned into `open -a Safari` instead of [USE_APP].
         if let systemPrompt, !systemPrompt.isEmpty {
-            args += ["--append-system-prompt", systemPrompt]
+            args += [caps.supportsSystemPrompt ? "--system-prompt" : "--append-system-prompt",
+                     systemPrompt]
+        }
+
+        // Do not inherit the user's MCP servers. They are a tool surface this
+        // app did not offer, cannot document to the model, and cannot verify.
+        if caps.supportsStrictMCP { args.append("--strict-mcp-config") }
+
+        // Last, because the flag is variadic: anything placed after it risks
+        // being read as another tool name.
+        if caps.supportsToolDenial {
+            args.append("--disallowedTools")
+            args += Self.toolDenyList
         }
 
         do {
@@ -188,6 +286,17 @@ actor ClaudeAgentSDKClient {
                     同じ条件を手元で再現するには:
                       \(caps.path) -p "test"\(modelFlag)
                     """, isError: true)
+            }
+            // An un-silenceable CLI still answers, but what it did to produce
+            // the answer happened outside this app. Say so on the turn rather
+            // than only in a settings pane nobody is looking at.
+            guard caps.canBeSilenced else {
+                return Reply(text: """
+                    ⚠️ この claude CLI はツールを無効化できないバージョンのため、CLI 自身の\
+                    エージェントとして実行されました。以下の内容は Verantyx の画面操作・\
+                    画面変化検知・記憶の各層を経由していないため、検証されていません。
+
+                    """ + text, isError: false)
             }
             return Reply(text: text, isError: false)
         } catch {
