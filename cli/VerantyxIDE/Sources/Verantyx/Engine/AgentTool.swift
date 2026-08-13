@@ -928,6 +928,37 @@ struct AgentToolParser {
         "MCP_CALL", "APPLY_PATCH", "FORGE_SKILL", "BUILD_IDE", "RESTART_IDE"
     ]
 
+    // MARK: - Output that pretends to be an observation
+    //
+    // A model with no stop sequence keeps going past its own turn and writes
+    // the conversation forward: "User: TOOL RESULTS:" and then a complete,
+    // plausible accessibility map it never received. A run navigated an
+    // invented Reddit to an invented Create Post screen and reported success
+    // while Safari never left the search results — and when the real tool said
+    // "the page did NOT change", the model called that a system error, because
+    // the fabrication was more coherent than the truth.
+    //
+    // Stop sequences are the fix. This is the belt: fabricated turns are cut
+    // out of the response before anything reads them as reasoning, so a
+    // missed stop degrades into a short answer rather than a confident lie.
+
+    nonisolated static let fabricatedTurnMarkers = [
+        "\nUser: TOOL RESULTS", "\nUser:TOOL RESULTS", "\nTOOL RESULTS:",
+        "\nUser:", "\nAssistant:", "\nHuman:", "\nObservation:"
+    ]
+
+    /// Where the model stopped answering and started ventriloquising, if it
+    /// did. Returns the text up to that point, and whether anything was cut.
+    nonisolated static func truncateFabricatedTurns(_ text: String) -> (kept: String, cut: Bool) {
+        var earliest: String.Index? = nil
+        for marker in fabricatedTurnMarkers {
+            guard let r = text.range(of: marker) else { continue }
+            if earliest == nil || r.lowerBound < earliest! { earliest = r.lowerBound }
+        }
+        guard let cutAt = earliest else { return (text, false) }
+        return (String(text[..<cutAt]).trimmingCharacters(in: .whitespacesAndNewlines), true)
+    }
+
     /// A tag-shaped thing left in text that produced no tool call.
     /// Returns the tag name and whether it is one we claim to support.
     nonisolated static func strayToolTag(in text: String) -> (name: String, known: Bool)? {

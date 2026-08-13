@@ -405,7 +405,20 @@ public actor OllamaClient {
                 "num_predict":   max(maxTokens, 512),
                 "temperature":   temperature,
                 "top_p":         0.9,
-                "repeat_penalty": 1.05
+                "repeat_penalty": 1.05,
+                // Stop at a turn boundary the model invented.
+                //
+                // Nothing stopped it before, so it wrote past its own turn and
+                // produced the NEXT turns too — "User: TOOL RESULTS:" followed
+                // by a complete, plausible, entirely fabricated accessibility
+                // map. A run then navigated an imaginary Reddit to an imaginary
+                // Create Post screen and declared the task complete, while
+                // Safari sat on the DuckDuckGo results the whole time. Worse,
+                // when the real CLICK_LINK reported "the page did NOT change",
+                // the model dismissed that as system confusion — it trusted its
+                // own invention over the one true observation it had.
+                "stop": ["\nUser:", "\nTOOL RESULTS:", "\nAssistant:",
+                         "\nHuman:", "\nObservation:"]
             ]
         ]
         guard let bodyData = try? JSONSerialization.data(withJSONObject: body) else {

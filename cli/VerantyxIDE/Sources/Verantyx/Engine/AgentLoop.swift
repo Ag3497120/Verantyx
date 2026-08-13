@@ -1104,7 +1104,22 @@ SYS.ENFORCE("logical_verification_before_acceptance")
             // ── Parse tool calls ──────────────────────────────────────────
             // vxCleanResponse = SearchGate トークンをストリップ済み
             // rawResponse     = ツールパーサー内部でも SearchGate を除去してから渡す
-            var (tools, cleanText) = AgentToolParser.parse(from: vxCleanResponse)
+            // Cut anything after an invented turn boundary BEFORE parsing.
+            // A fabricated "TOOL RESULTS" block contains tool tags too, and
+            // parsing them would execute calls the model dreamed up in
+            // response to observations it also dreamed up.
+            let (truthful, didFabricate) = AgentToolParser.truncateFabricatedTurns(vxCleanResponse)
+            if didFabricate {
+                await onProgress(.systemLog(AppLanguage.shared.t(
+                    "<think>\n🚫 The model wrote its own tool results — that section was discarded. Only real tool output counts.\n</think>",
+                    "<think>\n🚫 モデルが自分でツール結果を書いていました。その部分は破棄しました（実際のツール出力のみを採用します）。\n</think>")))
+                conversation.append((role: "user", content:
+                    "You wrote tool results yourself. Those observations did not happen — "
+                    + "nothing was executed and nothing was returned. Emit ONE tool call and "
+                    + "then stop; the real result will be given to you in the next turn. "
+                    + "Never write 'TOOL RESULTS', a UI map, or a URL you have not been shown."))
+            }
+            var (tools, cleanText) = AgentToolParser.parse(from: truthful)
 
             // ── Bare [SEARCH] rescue ─────────────────────────────────────
             // searchForce anchors make small models emit "[アクション]:
