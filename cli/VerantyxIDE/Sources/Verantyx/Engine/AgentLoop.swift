@@ -1229,12 +1229,25 @@ SYS.ENFORCE("logical_verification_before_acceptance")
                             ? "⚠️ [\(stray.name)] が実行されませんでした（パーサが読めない形で書かれています）。単独行で書き直して再試行します。"
                             : "⚠️ [\(stray.name)] というツールはありません。使用可能なツールで再試行します。")))
                     conversation.append((role: "assistant", content: rawResponse))
-                    conversation.append((role: "user", content: stray.known
-                        ? "Your [\(stray.name)] call did not execute — it must be the ONLY thing on its "
-                          + "line, with nothing before or after it on that line, and no code fence or "
-                          + "quoting around it. Write it again exactly that way now, and write nothing else."
-                        : "[\(stray.name)] is not an available tool. Re-read the TOOLS list and use one "
-                          + "that exists, or answer directly."))
+                    // Block tools already sit on their own line, so telling
+                    // them to move there is advice the model cannot act on: it
+                    // rewrites the identical text and the run loops. That is
+                    // exactly what [MCP_CALL: …]{…} without its closing tag did.
+                    let blockTools = ["MCP_CALL", "WRITE", "EDIT_LINES", "APPLY_PATCH", "FORGE_SKILL"]
+                    let advice: String
+                    if !stray.known {
+                        advice = "[\(stray.name)] is not an available tool. Re-read the TOOLS list and "
+                            + "use one that exists, or answer directly."
+                    } else if blockTools.contains(stray.name) {
+                        advice = "Your [\(stray.name)] block is incomplete — the closing "
+                            + "[/\(stray.name)] tag is missing, or the body is not the shape it expects. "
+                            + "Write the whole block, including the closing tag."
+                    } else {
+                        advice = "Your [\(stray.name)] call did not execute — it must be the ONLY thing "
+                            + "on its line, with nothing before or after it, and no code fence or quoting "
+                            + "around it. Write it again exactly that way now."
+                    }
+                    conversation.append((role: "user", content: advice))
                     continue
                 }
 

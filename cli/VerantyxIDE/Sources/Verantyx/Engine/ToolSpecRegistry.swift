@@ -30,7 +30,7 @@ enum ToolSpecRegistry {
                          ja: "スクロール"),
             ]),
             ja: "画面全体を直接操作する",
-            build: { arg in .desktopAct(action: arg) }
+            build: { arg in .desktopAct(action: Self.unwrapVerbPayload(arg)) }
         ),
 
         ToolSpec(
@@ -44,7 +44,7 @@ enum ToolSpecRegistry {
                          ja: "スクロールしてスクショ"),
             ]),
             ja: "操作して結果を撮影する",
-            build: { arg in .visionAct(action: arg) }
+            build: { arg in .visionAct(action: Self.unwrapVerbPayload(arg)) }
         ),
 
         ToolSpec(
@@ -91,8 +91,31 @@ enum ToolSpecRegistry {
     ]
 
     private static let byName: [String: ToolSpec] = {
-        Dictionary(uniqueKeysWithValues: specs.map { ($0.name, $0) })
+        // Publish every rendered label so the placeholder check is derived
+        // from the declarations rather than duplicating them.
+        var labels = Set<String>()
+        func collect(_ shape: ArgShape) {
+            switch shape {
+            case .none: break
+            case .freeText(let ja, let en), .optionalText(let ja, let en),
+                 .path(let ja, let en), .pathList(let ja, let en):
+                labels.insert(ja.lowercased()); labels.insert(en.lowercased())
+            case .verbs(let vs):
+                for v in vs { collect(v.argument) }
+            }
+        }
+        for s in specs { collect(s.shape) }
+        Placeholder.knownLabels = labels
+        return Dictionary(uniqueKeysWithValues: specs.map { ($0.name, $0) })
     }()
+
+    /// "type ⟨ChatGPT⟩" → "type ChatGPT". The verb stays; only its payload
+    /// carries the brackets the model copied from the rendered form.
+    static func unwrapVerbPayload(_ arg: String) -> String {
+        let parts = arg.split(separator: " ", maxSplits: 1, omittingEmptySubsequences: true)
+        guard parts.count == 2 else { return arg }
+        return "\(parts[0]) \(Placeholder.unwrap(String(parts[1])))"
+    }
 
     // MARK: - Documentation, generated
 
@@ -168,13 +191,18 @@ enum ToolSpecRegistry {
                 return .malformed(tool: name, why: "\(verb.verb) の内容がありません",
                                   expected: "[\(name): \(verb.verb) …]")
             }
+            if Placeholder.isUnfilled(verbArg) {
+                return .placeholderLeftIn(tool: name, placeholder: verbArg)
+            }
             if let firstWord = verbArg.split(separator: " ").first.map(String.init),
                Placeholder.isUnfilled(firstWord) {
                 return .placeholderLeftIn(tool: name, placeholder: firstWord)
             }
         }
 
-        guard let tool = spec.build(rawArg) else {
+        // A bracketed real value is accepted with the brackets removed.
+        let cleanArg = Placeholder.unwrap(rawArg)
+        guard let tool = spec.build(cleanArg) else {
             return .malformed(tool: name, why: "引数を解釈できません",
                               expected: spec.docLine.trimmingCharacters(in: .whitespaces))
         }

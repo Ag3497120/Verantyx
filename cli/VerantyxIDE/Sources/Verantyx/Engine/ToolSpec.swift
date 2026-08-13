@@ -79,15 +79,38 @@ enum Placeholder {
 
     static func render(_ label: String) -> String { "\(open)\(label)\(close)" }
 
-    /// True when a value is still the example rather than a real argument.
+    /// Labels the docs actually render. Filled in by ToolSpecRegistry at
+    /// startup so this stays derived from the declarations rather than being a
+    /// second list to keep in step.
+    nonisolated(unsafe) static var knownLabels: Set<String> = []
+
+    /// Strip the display brackets, if the value carries them.
+    ///
+    /// The brackets are a rendering convention, not syntax — but a model
+    /// reading `type ⟨打ち込む文字⟩` reasonably concludes they are part of the
+    /// form and writes `type ⟨ChatGPT⟩`, substituting the label and keeping
+    /// the brackets. That is a correct reading of the documentation and has to
+    /// work. Refusing it, which is what the first version did, blocks the tool
+    /// on a value the model got right.
+    static func unwrap(_ value: String) -> String {
+        var v = value.trimmingCharacters(in: .whitespaces)
+        guard v.hasPrefix(open), v.hasSuffix(close), v.count > 2 else { return v }
+        v.removeFirst(); v.removeLast()
+        return v.trimmingCharacters(in: .whitespaces)
+    }
+
+    /// True when a value is still the EXAMPLE — not merely bracketed.
+    ///
+    /// The distinction is the whole point: ⟨打ち込む文字⟩ is the documentation
+    /// copied verbatim, while ⟨ChatGPT⟩ is an argument the model bracketed.
+    /// Only the first is a refusal.
     static func isUnfilled(_ value: String) -> Bool {
-        let v = value.trimmingCharacters(in: .whitespaces)
-        guard v.contains(open) || v.contains(close) else {
-            // The old docs' bare placeholders, which some models learned.
-            return ["text", "action", "path", "url", "query", "combo",
-                    "入力する文字列", "文字列"].contains(v.lowercased())
-        }
-        return true
+        let inner = unwrap(value).lowercased()
+        // The old docs' bare placeholders, which some models learned.
+        let legacy = ["text", "action", "path", "url", "query", "combo",
+                      "入力する文字列", "文字列"]
+        if legacy.contains(inner) { return true }
+        return knownLabels.contains(inner)
     }
 }
 
