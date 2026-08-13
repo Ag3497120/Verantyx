@@ -3397,23 +3397,44 @@ actor AgentToolExecutor {
             let saved = await SkillLibrary.shared.save(node)
             await MainActor.run {
                 ToastManager.shared.show(
-                    "🔧 認証完了: \(name) (v\(saved.version))",
-                    icon: "checkmark.seal.fill",
+                    "🔧 スキルを保存: \(name) (v\(saved.version))",
+                    icon: "square.and.arrow.down",
                     color: .green,
                     duration: 3.0
                 )
             }
-            
-            // Automatically execute the certified skill
-            let executor = SkillExecutor()
-            let execResult = await executor.execute(
-                skill: saved,
-                args: [:],
-                workspaceURL: workspaceURL,
-                onProgress: { _ in }
-            )
-            
-            return "✓ [Skill Forged & Certified] '\(name)' v\(saved.version) saved to ~/.verantyx/skills/\n\n[AUTO-EXECUTION RESULT]\n\(execResult)"
+
+            // Forging registers a skill. It does not run one.
+            //
+            // This used to execute the new skill immediately, with `args: [:]`
+            // and a no-op progress handler. Every part of that was wrong at
+            // once. A skill forged from a single run is the least verified
+            // code in the system — it was invented moments ago from one
+            // successful path — and running it fires real GUI actions on the
+            // user's desktop with nothing displayed and no way to interrupt.
+            // Empty args guaranteed that any placeholder the model had written
+            // in went out as literal text: "{{service}}" was typed into a
+            // search box, and the Safari window the user was reading a Gemini
+            // conversation in was navigated away to results about the word
+            // "service".
+            //
+            // The placeholder gate in SkillExecutor now refuses that specific
+            // case, but the shape of the mistake is larger than the case.
+            // Registration and execution are separate decisions and the model
+            // can make the second one explicitly, in a turn that is visible as
+            // a tool call, with arguments it has chosen.
+            let placeholders = Self.placeholderKeys(in: payload)
+            let invocation = placeholders.isEmpty
+                ? "[USE_SKILL: \(name)]"
+                : "[USE_SKILL: \(name)|" + placeholders.map { "\($0)=…" }.joined(separator: "|") + "]"
+            return """
+            ✓ [Skill Saved] '\(name)' v\(saved.version) → ~/.verantyx/skills/
+            保存しただけで、実行はしていません。使うときは次のように呼んでください:
+              \(invocation)
+            \(placeholders.isEmpty
+              ? "（このスキルに引数はありません）"
+              : "（\(placeholders.count) 個のプレースホルダーがあります。値を渡さないと実行は拒否されます）")
+            """
 
         case .useSkill(let name, let args):
             guard let skill = await SkillLibrary.shared.skill(named: name) else {
@@ -3431,6 +3452,25 @@ actor AgentToolExecutor {
             )
             return result
         }
+    }
+
+    /// Placeholder names a forged skill carries, so the reply can show the
+    /// caller exactly how to invoke it. Same pattern the executor's gate uses;
+    /// naming them here means the model learns the arguments at forge time
+    /// rather than by being refused later.
+    static func placeholderKeys(in payload: [String]) -> [String] {
+        guard let re = try? NSRegularExpression(pattern: #"\{\{\s*([A-Za-z0-9_.\-]+)\s*\}\}"#)
+        else { return [] }
+        var found: [String] = []
+        var seen = Set<String>()
+        for line in payload {
+            let ns = line as NSString
+            for m in re.matches(in: line, range: NSRange(location: 0, length: ns.length)) {
+                let key = ns.substring(with: m.range(at: 1))
+                if seen.insert(key).inserted { found.append(key) }
+            }
+        }
+        return found
     }
 
     // MARK: - MCP 引数バリデーション
