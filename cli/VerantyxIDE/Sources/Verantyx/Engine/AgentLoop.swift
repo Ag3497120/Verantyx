@@ -309,6 +309,20 @@ actor AgentLoop {
         let veraMemorySection = memoryLayer == .vera
             ? await EternalVeraBridge.recallMerged(for: instruction)
             : ""
+        // Typed unknown as a control signal: only when Vera itself
+        // contributed no answer above. The hand-off is recorded on the
+        // demand ledger BEFORE the agent gets a chance to auto-resolve
+        // it — a refusal the branch resolves is a success, never a
+        // refusal that didn't happen. Resolution is re-measured at turn
+        // end by the one honest oracle (Vera answers now), see
+        // closeRefusalIfResolved at the .done paths below.
+        let veraUnknown: VeraMemoryBridge.TypedUnknown? =
+            (memoryLayer == .vera && !veraMemorySection.contains("[VERA MEMORY"))
+            ? await VeraMemoryBridge.typedUnknown(for: instruction)
+            : nil
+        let veraUnknownSection = veraUnknown.map {
+            VeraMemoryBridge.unknownSection($0)
+        } ?? ""
         // Milestone L: pseudo-multimodal visual memory. Reads
         // CouncilSettingsStore directly (a singleton) rather than adding a
         // new parameter to run() -- this is the plain (non-Council) chat
@@ -343,7 +357,7 @@ actor AgentLoop {
             }
             return "\n\n[MEMORY TRUST LEVELS]\n" + lines.joined(separator: "\n") + "\n[/MEMORY TRUST LEVELS]"
         }()
-        let memorySection = cortexMemorySection + veraMemorySection + visualMemorySection + keyframeEyeSection + memoryTrustNote
+        let memorySection = cortexMemorySection + veraMemorySection + veraUnknownSection + visualMemorySection + keyframeEyeSection + memoryTrustNote
         let isWorkspaceless = workspaceURL == nil
         // The prompt has always said WHERE the workspace is. What it is —
         // layout, build command, where the real source lives — was
@@ -1435,6 +1449,13 @@ SYS.ENFORCE("logical_verification_before_acceptance")
                         userPrompt: instruction, aiResponse: saveAnswer
                     )
                 }
+                // A refusal handed to a branch closes only when Vera
+                // answers the same query NOW — re-measured, not claimed.
+                if let unknown = veraUnknown {
+                    await VeraMemoryBridge.closeRefusalIfResolved(
+                        query: instruction, unknown: unknown
+                    )
+                }
                 return
             }
 
@@ -1665,6 +1686,13 @@ SYS.ENFORCE("logical_verification_before_acceptance")
                     if memoryLayer == .vera, !thinkOnly, !saveAnswer.isEmpty {
                         await VeraMemoryBridge.requestSaveApproval(
                             userPrompt: instruction, aiResponse: saveAnswer
+                        )
+                    }
+                    // Same re-measured close as the tools.isEmpty branch:
+                    // resolution is Vera answering now, never a claim.
+                    if let unknown = veraUnknown {
+                        await VeraMemoryBridge.closeRefusalIfResolved(
+                            query: instruction, unknown: unknown
                         )
                     }
                     isDone = true

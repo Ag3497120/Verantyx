@@ -822,6 +822,112 @@ enum VeraMemoryBridge {
         """
     }
 
+    // MARK: - Typed unknowns as control signals
+
+    /// A refusal, typed, with the action branch its type selects. Other
+    /// agents' "わからない" is a silent blank; Vera's refusal carries its
+    /// own next move. The branch NEVER invents an answer — it routes.
+    struct TypedUnknown: Sendable {
+        let verdict: String
+        let branch: String
+        let remedy: String
+    }
+
+    /// verdict -> action branch. The mapping is small on purpose: four
+    /// branches cover every refusal type, and an unmapped type routes to
+    /// the gap ledger rather than guessing.
+    private static func branchFor(_ verdict: String) -> String {
+        switch verdict {
+        case "UNKNOWN_NO_EVIDENCE", "UNKNOWN_NOT_PRESENT",
+             "UNKNOWN_SUBJECT_TOO_THIN":
+            return "gather-evidence"
+        case "UNKNOWN_INSUFFICIENT_EVIDENCE", "UNKNOWN_UNDERDETERMINED",
+             "UNKNOWN_UNRESOLVED_CONTRADICTION":
+            return "ask-user"
+        case "UNKNOWN_TIME_DEPENDENT":
+            return "resolve-time"
+        default:
+            return "record-gap"
+        }
+    }
+
+    /// Asks Vera; on a typed refusal, records the HAND-OFF to a branch
+    /// before anything tries to resolve it. The ordering is the point: a
+    /// refusal an agent later auto-resolves must already be on the
+    /// ledger, or the demand queue silently loses exactly the entries
+    /// the system handled best (the invisible-ingestion lie, relocated).
+    static func typedUnknown(for query: String) async -> TypedUnknown? {
+        let r = await askRaw(query)
+        guard r.verdict.hasPrefix("UNKNOWN"),
+              r.verdict != "UNKNOWN_CALL_FAILED" else { return nil }
+        let branch = branchFor(r.verdict)
+        // The refusal states its own repair (how_to_resolve); best-effort.
+        let remedy = await MCPEngine.shared.callTool(
+            serverName: serverName, toolName: "how_to_resolve",
+            arguments: ["verdict": r.verdict, "subject": query], mode: .human
+        )
+        _ = await MCPEngine.shared.callTool(
+            serverName: serverName, toolName: "record_refusal_outcome",
+            arguments: ["query": query, "verdict": r.verdict,
+                        "branch": branch, "resolved": false], mode: .human
+        )
+        return TypedUnknown(verdict: r.verdict, branch: branch,
+                            remedy: String(remedy.prefix(400)))
+    }
+
+    /// The prompt block a typed refusal becomes. Instructions per branch,
+    /// not knowledge: the block routes the agent's next action and never
+    /// supplies content the store does not hold. Pure string assembly,
+    /// hence nonisolated.
+    nonisolated static func unknownSection(_ u: TypedUnknown) -> String {
+        let action: String
+        switch u.branch {
+        case "gather-evidence":
+            action = """
+            Vera has no evidence on this subject. GATHER EVIDENCE FIRST: \
+            read the relevant files / run grep / run the command, and state \
+            only what you observed. If you verified a durable fact, record \
+            it (quarantined until a human approves) so this refusal can close.
+            """
+        case "ask-user":
+            action = """
+            Vera holds insufficient or conflicting evidence. ASK THE USER \
+            to disambiguate before asserting anything.
+            """
+        case "resolve-time":
+            action = """
+            The answer depends on WHEN this is asked and the store has no \
+            clock. Resolve the date/time first, then re-ask with it stated.
+            """
+        default:
+            action = """
+            This is a mapped gap. Say plainly that it is not known here; \
+            do not improvise an answer.
+            """
+        }
+        return """
+
+        [VERA UNKNOWN — a typed refusal, not a blank]
+          verdict: \(u.verdict) → branch: \(u.branch)
+          \(action)
+          remedy(server): \(u.remedy)
+        [/VERA UNKNOWN]
+        """
+    }
+
+    /// The one honest oracle for "resolved": Vera answers NOW. Re-asks
+    /// the original query after the turn and records the outcome either
+    /// way — never the agent's say-so, and never removing the refusal.
+    static func closeRefusalIfResolved(query: String, unknown: TypedUnknown) async {
+        let after = await askRaw(query)
+        _ = await MCPEngine.shared.callTool(
+            serverName: serverName, toolName: "record_refusal_outcome",
+            arguments: ["query": query, "verdict": unknown.verdict,
+                        "branch": unknown.branch,
+                        "resolved": after.verdict == "ANSWER"], mode: .human
+        )
+    }
+
     // MARK: - AI-fact quarantine (Milestone M companion)
 
     struct PendingAiFact: Identifiable {
