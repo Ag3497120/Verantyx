@@ -2316,6 +2316,57 @@ SYS.ENFORCE("logical_verification_before_acceptance")
     // The ladder ends at `showExact`, which stops describing the mistake and
     // states the required form verbatim. If even that fails, the run says so
     // instead of asking a fourth time.
+    // MARK: - The history's heaviest repeated payload
+    //
+    // Every [DESKTOP_SNAPSHOT] and every [AX_ACT] appends a full semantic UI
+    // map to its result, that result stays in the conversation, and nothing
+    // ever removes it. Turn N therefore re-sends the maps from turns 1…N-1,
+    // and a map twenty turns old describes a screen that no longer exists: the
+    // bulkiest thing in the transcript and the fastest to go stale, which is
+    // the worst possible ratio.
+    //
+    // Which currency that costs depends on the backend, and it is charged on
+    // every one of them because this sits above them all:
+    //
+    //   cloud   the prefix differs each turn, so it lands as cache CREATION
+    //           rather than cache READ — the expensive side of a gap wider
+    //           than an order of magnitude, paid again on every turn
+    //   local   prefill seconds, and pressure on num_ctx until the reduction
+    //           retry quietly lowers the context and the run gets worse with
+    //           no bill to notice it by
+    //
+    // Only the newest map survives. Older ones are replaced by a line saying
+    // so rather than deleted silently, because a model that remembers looking
+    // should not be led to conclude the observation never happened. Nothing
+    // that mattered is lost: what those screens were is what vera-a stores
+    // structurally — recordVisualGround, ScreenSignature-keyed episodes — and
+    // can recall on demand.
+    static let uiMapMarker = "SEMANTIC UI MAP"
+
+    static func withoutUIMap(_ text: String) -> String {
+        guard let marker = text.range(of: uiMapMarker) else { return text }
+        // Back up to the start of the marker's own line so the "== … ==" rule
+        // goes with the map instead of being left dangling.
+        let lineStart = text[..<marker.lowerBound].lastIndex(of: "\n")
+            .map { text.index(after: $0) } ?? text.startIndex
+        return String(text[..<lineStart])
+            + "（この時点のUIマップは省略 — 最新の1件のみ保持。過去の画面は vera-a が保存しています）"
+    }
+
+    static func keepingNewestUIMapOnly(
+        _ conversation: [(role: String, content: String)]
+    ) -> [(role: String, content: String)] {
+        let carrying = conversation.indices.filter {
+            conversation[$0].content.contains(uiMapMarker)
+        }
+        guard carrying.count > 1, let newest = carrying.last else { return conversation }
+        var out = conversation
+        for index in carrying where index != newest {
+            out[index].content = withoutUIMap(out[index].content)
+        }
+        return out
+    }
+
     static func correctionFor(tool: String, known: Bool,
                               avoiding useless: Set<String>) -> (String, String) {
         let blockTools = ["MCP_CALL", "WRITE", "EDIT_LINES", "APPLY_PATCH", "FORGE_SKILL"]
@@ -2359,7 +2410,7 @@ SYS.ENFORCE("logical_verification_before_acceptance")
         operationMode: OperationMode = .gatekeeper,
         onProgress: @escaping @Sendable (LoopEvent) async -> Void
     ) async -> String? {
-        var mutableConversation = conversation
+        var mutableConversation = Self.keepingNewestUIMapOnly(conversation)
         var anchorImages: [String]? = nil
         
         // ── Modality Hacking: Inject Cognitive Anchor or Vision Screenshot ──

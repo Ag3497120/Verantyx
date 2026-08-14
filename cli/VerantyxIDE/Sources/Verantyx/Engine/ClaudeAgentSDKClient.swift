@@ -43,6 +43,9 @@ actor ClaudeAgentSDKClient {
         let supportsSystemPrompt: Bool
         let supportsToolDenial: Bool
         let supportsStrictMCP: Bool
+        /// `--output-format json`, which is how a turn's real token split and
+        /// cost are read back instead of estimated.
+        let supportsJSONOutput: Bool
         let notes: [String]
 
         var usable: Bool { supportsPrint }
@@ -59,6 +62,7 @@ actor ClaudeAgentSDKClient {
             out.append("  --output-format stream-json: \(supportsStreamJSON ? "対応" : "非対応")")
             out.append("  --system-prompt: \(supportsSystemPrompt ? "対応（Verantyx の規約で置換）" : "非対応（追記のみ）")")
             out.append("  --disallowedTools: \(supportsToolDenial ? "対応（CLI 側ツールを無効化）" : "非対応")")
+            out.append("  --output-format json: \(supportsJSONOutput ? "対応（実測値を取得）" : "非対応（コストは推測のまま）")")
             out.append("  モデルバックエンド化: \(canBeSilenced ? "可能" : "不可 — CLI が自前のエージェントとして動作します")")
             for n in notes { out.append("  ⚠️ \(n)") }
             return out.joined(separator: "\n")
@@ -172,6 +176,7 @@ actor ClaudeAgentSDKClient {
         let hasToolDenial = help.contains("--disallowedTools")
             || help.contains("--disallowed-tools")
         let hasStrictMCP = help.contains("--strict-mcp-config")
+        let hasJSONOutput = help.contains("--output-format")
 
         if !hasPrint {
             notes.append("--print が見つかりません。この CLI ではプログラム実行ができない可能性があります。")
@@ -198,6 +203,7 @@ actor ClaudeAgentSDKClient {
                                 supportsSystemPrompt: hasSystemPrompt,
                                 supportsToolDenial: hasToolDenial,
                                 supportsStrictMCP: hasStrictMCP,
+                                supportsJSONOutput: hasJSONOutput,
                                 notes: notes)
         cached = caps
         return caps
@@ -220,7 +226,61 @@ actor ClaudeAgentSDKClient {
     struct Reply {
         let text: String
         let isError: Bool
+        /// What the turn actually cost, straight from the CLI. Nil when the
+        /// CLI could not report it.
+        var usage: TurnUsage?
     }
+
+    // MARK: - Measuring what a turn costs
+    //
+    // Everything said about this route's cost so far has been inference from
+    // the shape of the calls: history is re-flattened every turn, nothing is
+    // trimmed, `--resume` is a comment rather than code, so the prefix differs
+    // each time and lands as cache CREATION rather than cache READ. That
+    // reasoning is sound and still not a measurement.
+    //
+    // `--output-format json` ends the guessing: the CLI reports per-call token
+    // counts split by cache behaviour, plus its own cost figure. The split is
+    // the number that matters, because the gap between the two paths is not
+    // 1.25× over uncached input — it is cache-write against cache-read, and
+    // those differ by more than an order of magnitude. Whether this route is
+    // actually paying that, and how much of the history it re-creates each
+    // turn, stops being a matter of opinion the moment these fields are read.
+    //
+    // `session_id` is captured in the same parse because it is free here and
+    // is exactly what `--resume` needs to make the prefix stable.
+    struct TurnUsage: Equatable {
+        let inputTokens: Int
+        let cacheCreationTokens: Int
+        let cacheReadTokens: Int
+        let outputTokens: Int
+        let costUSD: Double
+        let turns: Int
+        let sessionID: String?
+
+        /// Tokens the model saw, however they were billed.
+        var totalInput: Int { inputTokens + cacheCreationTokens + cacheReadTokens }
+
+        /// Share of the prefix that had to be written rather than read. High
+        /// here means the prompt is changing shape every turn — the signature
+        /// of a flattened, untrimmed history.
+        var cacheWriteShare: Double {
+            let cached = cacheCreationTokens + cacheReadTokens
+            return cached == 0 ? 0 : Double(cacheCreationTokens) / Double(cached)
+        }
+
+        var summary: String {
+            let cost = String(format: "%.4f", costUSD)
+            let share = Int((cacheWriteShare * 100).rounded())
+            return "入力 \(totalInput) tok"
+                + "（新規 \(inputTokens) / キャッシュ書込 \(cacheCreationTokens) / 読出 \(cacheReadTokens)）"
+                + " ・ 出力 \(outputTokens) tok ・ $\(cost)"
+                + " ・ 書込率 \(share)%"
+        }
+    }
+
+    /// The most recent measured turn, for anything that wants to show it.
+    private(set) var lastUsage: TurnUsage?
 
     // MARK: - Transient failure
     //
@@ -278,6 +338,10 @@ actor ClaudeAgentSDKClient {
                      systemPrompt]
         }
 
+        // Ask for the measured numbers. Placed before the variadic deny list,
+        // which swallows anything that follows it.
+        if caps.supportsJSONOutput { args += ["--output-format", "json"] }
+
         // Do not inherit the user's MCP servers. They are a tool surface this
         // app did not offer, cannot document to the model, and cannot verify.
         if caps.supportsStrictMCP { args.append("--strict-mcp-config") }
@@ -297,7 +361,13 @@ actor ClaudeAgentSDKClient {
         }
         do {
             let result = try await run(path: caps.path, args: args, input: prompt)
-            let text = result.out.trimmingCharacters(in: .whitespacesAndNewlines)
+            // With --output-format json the reply is a field inside an
+            // envelope, not the whole of stdout. A parse failure falls back to
+            // the raw text rather than showing the user a wall of JSON.
+            let measured = caps.supportsJSONOutput ? Self.parseEnvelope(result.out) : nil
+            if let usage = measured?.usage { lastUsage = usage }
+            let text = (measured?.text ?? result.out)
+                .trimmingCharacters(in: .whitespacesAndNewlines)
             if result.status != 0 {
                 // The CLI's own message is more useful than anything this
                 // layer could invent — not logged in, over quota, bad model.
@@ -336,9 +406,9 @@ actor ClaudeAgentSDKClient {
                     エージェントとして実行されました。以下の内容は Verantyx の画面操作・\
                     画面変化検知・記憶の各層を経由していないため、検証されていません。
 
-                    """ + text, isError: false)
+                    """ + text, isError: false, usage: measured?.usage)
             }
-            return Reply(text: text, isError: false)
+            return Reply(text: text, isError: false, usage: measured?.usage)
         } catch {
             return Reply(text: "claude CLI を実行できません: \(error.localizedDescription)",
                          isError: true)
@@ -352,6 +422,32 @@ actor ClaudeAgentSDKClient {
             サーバー側の一時的な過負荷です。時間をおいて再実行してください。
             状況: https://status.claude.com
             """, isError: true)
+    }
+
+    /// Pull the reply and the measured usage out of `--output-format json`.
+    ///
+    /// Deliberately tolerant: an envelope whose shape changes with a CLI
+    /// version must not cost the user their answer. Anything unreadable
+    /// returns nil and the caller falls back to raw stdout — losing the
+    /// measurement, never the reply.
+    nonisolated static func parseEnvelope(_ stdout: String) -> (text: String?, usage: TurnUsage?)? {
+        guard let data = stdout.data(using: .utf8),
+              let root = (try? JSONSerialization.jsonObject(with: data)) as? [String: Any]
+        else { return nil }
+
+        let text = root["result"] as? String
+        guard let u = root["usage"] as? [String: Any] else { return (text, nil) }
+        func count(_ key: String) -> Int { (u[key] as? Int) ?? 0 }
+
+        let usage = TurnUsage(
+            inputTokens: count("input_tokens"),
+            cacheCreationTokens: count("cache_creation_input_tokens"),
+            cacheReadTokens: count("cache_read_input_tokens"),
+            outputTokens: count("output_tokens"),
+            costUSD: (root["total_cost_usd"] as? Double) ?? 0,
+            turns: (root["num_turns"] as? Int) ?? 0,
+            sessionID: root["session_id"] as? String)
+        return (text, usage)
     }
 
     // MARK: - Process plumbing
