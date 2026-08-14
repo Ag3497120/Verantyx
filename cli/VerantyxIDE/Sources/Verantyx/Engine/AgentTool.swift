@@ -103,6 +103,66 @@ enum AgentTool {
     case useSkill(name: String, args: [String: String])                                     // USE_SKILL
 }
 
+// MARK: - Harness category
+// Every tool belongs to exactly one ToolCategory. The harness gate in
+// AgentLoop consumes this: JGEN (the only backend whose hidden state we can
+// audit) runs the free harness — the tier's full enabledToolCategories.
+// Every other backend runs ModelTier.fixedHarness regardless of size.
+// The switch is exhaustive on purpose: a new tool that isn't given a seat
+// here fails to compile instead of silently bypassing the harness.
+extension AgentTool {
+    var category: ToolCategory {
+        switch self {
+        case .makeDir, .writeFile, .runCommand, .runCognitive, .setWorkspace,
+             .readFile, .listDir, .editLines:
+            return .filesystem
+        case .done:
+            return .done
+        case .search, .verifiedURLLookup:
+            return .web_simple
+        case .browse, .clickLink, .scrollFind, .searchPage, .searchMulti,
+             .evalJS, .openSafari, .openChrome, .visionBrowse,
+             .visionSearchFlow, .visionSnapshot, .visionAct:
+            return .web_full
+        case .osascript, .openApp, .registerUIElement, .desktopSnapshot,
+             .useApp, .menu, .keys, .appCaps, .readScreen, .desktopAct,
+             .axAct, .pastePayload, .waitUntilStable:
+            return .desktop
+        case .jcrossQuery, .jcrossStore, .osAssetQuery:
+            return .jcross
+        case .gitCommit, .gitRestore:
+            return .git
+        case .askHuman:
+            return .human
+        case .applyPatch, .buildIDE, .restartIDE:
+            return .selffix
+        case .swarmExecute, .setSetting, .addMCPServer, .removeMCPServer,
+             .setModel, .pullModel, .mcpCall, .forgeSkill, .useSkill:
+            return .admin
+        }
+    }
+
+    /// The tags a refused model is told it may still use — the refusal is
+    /// only actionable if it names the door that is open.
+    static func tagList(for categories: Set<ToolCategory>) -> String {
+        var tags: [String] = []
+        if categories.contains(.filesystem) {
+            tags += ["[READ:]", "[LIST_DIR:]", "[MKDIR:]", "[WRITE:]",
+                     "[EDIT_LINES:]", "[RUN:]", "[WORKSPACE:]"]
+        }
+        if categories.contains(.web_simple)  { tags += ["[SEARCH:]"] }
+        if categories.contains(.web_full)    { tags += ["[BROWSE:]", "[SEARCH_PAGE:]", "[SEARCH_MULTI:]", "[CLICK_LINK:]"] }
+        if categories.contains(.desktop)     { tags += ["[OPEN_APP:]", "[USE_APP:]", "[AX_ACT:]", "[VISION_ACT:]"] }
+        if categories.contains(.jcross)      { tags += ["[JCROSS_QUERY:]", "[JCROSS_STORE:]"] }
+        if categories.contains(.git)         { tags += ["[GIT_COMMIT:]", "[GIT_RESTORE:]"] }
+        if categories.contains(.human)       { tags += ["[ASK_HUMAN:]"] }
+        if categories.contains(.selffix)     { tags += ["[APPLY_PATCH:]", "[BUILD_IDE]"] }
+        if categories.contains(.admin)       { tags += ["[MCP_CALL:]", "[SET_SETTING:]", "[USE_SKILL:]"] }
+        if categories.contains(.done)        { tags += ["[DONE:]"] }
+        return tags.joined(separator: " ")
+    }
+}
+
 // MARK: - AgentToolCall (result wrapper)
 
 struct AgentToolCall: Identifiable {

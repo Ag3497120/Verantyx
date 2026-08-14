@@ -189,6 +189,21 @@ actor AgentLoop {
 
         // ── Model tier detection ──────────────────────────────────────────
         let profile = ModelProfileDetector.detect(modelId: activeModel)
+
+        // ── Harness selection ─────────────────────────────────────────────
+        // ModelTier.enabledToolCategories was declared and never consumed —
+        // every backend got every parsed tag. This is where it is consumed:
+        // JGEN (jcrossReady, the engine whose hidden state the audit screens
+        // can read) runs the FREE harness = the tier's full set. Every other
+        // backend (Ollama/MLX/LM Studio/cloud) runs the FIXED harness —
+        // files + simple search + done — no matter how large the model is.
+        let isFreeHarness: Bool = {
+            if case .jcrossReady = modelStatus { return true }
+            return false
+        }()
+        let harnessTools: Set<ToolCategory> = isFreeHarness
+            ? profile.tier.enabledToolCategories
+            : ModelTier.fixedHarness
         // 0 = auto (tier default); Settings > Model > Context Window lets
         // the user override this directly instead of relying solely on
         // auto-detected tier.
@@ -212,6 +227,9 @@ actor AgentLoop {
             AppLanguage.shared.t("🤖 Model Profile: \(activeModel) → \(profile.tier.displayName) | Max tokens: \(profile.effectiveMaxTokens)\(UserDefaults.standard.integer(forKey: "max_tokens_override") > 0 ? " (manual)" : "") | Temp: \(profile.tier.temperature) | Context: \(unlimitedContext ? "unlimited (no compression)" : contextOverride > 0 ? "\(contextOverride) tokens (manual)" : "\(compressThreshold / 4) tokens (auto)")", "🤖 モデルプロファイル: \(activeModel) → \(profile.tier.displayName) | Max tokens: \(profile.effectiveMaxTokens)\(UserDefaults.standard.integer(forKey: "max_tokens_override") > 0 ? "（手動）" : "") | Temp: \(profile.tier.temperature) | コンテキスト: \(unlimitedContext ? "無制限（圧縮なし）" : contextOverride > 0 ? "\(contextOverride)トークン（手動設定）" : "\(compressThreshold / 4)トークン（自動）")"
             )
         ))
+        await onProgress(.systemLog(AppLanguage.shared.t(
+            "<think>\n🦾 Harness: \(isFreeHarness ? "FREE — JGEN backend, full \(profile.tier.displayName) toolset" : "FIXED — non-JGEN backend, files + simple search + done only")\n</think>",
+            "<think>\n🦾 ハーネス: \(isFreeHarness ? "自由 — JGENバックエンド、\(profile.tier.displayName)の全ツール" : "固定 — 非JGENバックエンド、ファイル+単純検索+完了のみ")\n</think>")))
 
         // ── Safety state ──────────────────────────────────────────────────
         /// Circuit breaker: rolling hash of last N raw responses (AI Priority)
@@ -423,10 +441,27 @@ SYS.ENFORCE("logical_verification_before_acceptance")
         }
         // ── Capture live MCP tool snapshot + build profile system prompt ─────
         // MCPEngine is @MainActor — hop over to grab the snapshot safely.
+        // MCP tools sit in the .admin category: advertising them to a run
+        // whose harness will refuse [MCP_CALL:] teaches the model a door
+        // that is painted on, so the catalog is only injected when the
+        // harness actually opens it.
         let profileSystemPrompt = await MainActor.run {
-            let liveMCPTools = MCPEngine.shared.connectedTools
+            let liveMCPTools = harnessTools.contains(.admin)
+                ? MCPEngine.shared.connectedTools : []
             return profile.systemPromptWith(mcpTools: liveMCPTools)
         }
+
+        // ── Harness note (fixed harness only) ────────────────────────────
+        // The tier prompts advertise the tier's tools; on a non-JGEN backend
+        // the gate below will refuse most of them. Say so up front, in the
+        // prompt, so the refusals are the exception and not the norm.
+        let harnessSection = isFreeHarness ? "" : """
+
+        [HARNESS: FIXED]
+        This backend runs on the fixed harness. ONLY these tags are executed:
+        \(AgentTool.tagList(for: ModelTier.fixedHarness))
+        Browser, vision, desktop, git, JCross, MCP and admin tags are disabled here and will be refused. Do not emit them.
+        """
 
         // ── Skill Library: 注入方式別 ─────────────────────────────────────────
         // large/giant : 毎回システムプロンプトに静的注入（全スキル情報を多いトークンで歪えない）
@@ -480,6 +515,7 @@ SYS.ENFORCE("logical_verification_before_acceptance")
 
         let systemPrompt = """
         \(profileSystemPrompt)
+        \(harnessSection)
         \(identitySection)
         \(loopRules)
         \(languageRule)
@@ -1515,6 +1551,35 @@ SYS.ENFORCE("logical_verification_before_acceptance")
                     break
                 } else {
                     consecutiveBlockedCalls = 0  // Any allowed tool resets the counter
+                }
+
+                // ── Harness gate (fixed vs free) ─────────────────────────────
+                // The one place enabledToolCategories / fixedHarness actually
+                // bites. Runs before the Twin audit: a tool the harness does
+                // not hold should not spend an audit call.
+                if !harnessTools.contains(tool.category) {
+                    let refusedUI = AgentToolCall(
+                        tool: tool,
+                        result: AppLanguage.shared.t(
+                            "🚫 HARNESS: \(call.displayLabel) is not available on this \(isFreeHarness ? "tier" : "backend (fixed harness)").",
+                            "🚫 ハーネス: \(call.displayLabel) は\(isFreeHarness ? "このティア" : "このバックエンド（固定ハーネス）")では使用できません。"),
+                        succeeded: false)
+                    await onProgress(.toolResult(refusedUI))
+
+                    let correction = """
+                    [HARNESS] The tool you called (\(call.displayLabel)) is not wired to this \(isFreeHarness ? "model tier" : "backend — only the JGEN engine runs the free harness").
+                    Tags available in this run:
+                    \(AgentTool.tagList(for: harnessTools))
+                    Solve the task with those tags, or finish with [DONE: message] explaining what you could not do.
+                    """
+
+                    conversation.append((role: "assistant", content: rawResponse))
+                    conversation.append((role: "user", content: correction))
+                    toolResults.append("\(call.displayLabel) → HARNESS REFUSED")
+
+                    // Skip the rest of this batch; next turn carries the note.
+                    isDone = false
+                    break
                 }
 
                 // ── Twin-Agent Audit (Pre-execution Gate) ───────────────────
@@ -2719,7 +2784,8 @@ enum ModelTier: String, Sendable {
             return [.filesystem, .web_full, .done, .selffix]
         case .large, .giant:
             // large/giant: 全ツール有効
-            return [.filesystem, .web_full, .jcross, .git, .human, .done, .selffix]
+            return [.filesystem, .web_full, .jcross, .git, .human, .done, .selffix,
+                    .desktop, .admin]
         }
     }
 
@@ -2769,6 +2835,12 @@ enum ModelTier: String, Sendable {
 
 enum ToolCategory {
     case filesystem, web_simple, web_full, jcross, git, human, done, selffix
+    // desktop: GUI automation (OPEN_APP/AX_ACT/VISION_ACT/OSASCRIPT...).
+    // admin  : self-administration (SET_MODEL/MCP servers/skills/swarm).
+    // Neither existed when the tier sets were written, so every GUI and
+    // admin tag was invisible to the harness. They are the most dangerous
+    // limbs, which is exactly why they need a named seat here.
+    case desktop, admin
 }
 
 // MARK: - ModelProfile
