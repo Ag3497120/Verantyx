@@ -794,11 +794,13 @@ struct HumanPriorityModeView: View {
                             .tag(AppState.VeraEngineMode.council)
                         Text("Vera-a")
                             .tag(AppState.VeraEngineMode.standalone)
+                        Text("Vera")
+                            .tag(AppState.VeraEngineMode.veraModel)
                         Text("LLM")
                             .tag(AppState.VeraEngineMode.localLLM)
                     }
                     .pickerStyle(.segmented)
-                    .frame(width: 280)
+                    .frame(width: 340)
                     .help(app.t(
                         "Council routes through jgen/LLM agents. Vera-a is the "
                         + "dual path: the store's typed verdict first (verbatim), "
@@ -809,6 +811,32 @@ struct HumanPriorityModeView: View {
                         + "型付き判定を原文のまま先頭に、永遠記憶を注入し、"
                         + "会話中のモデル(LM Studio / Ollama / JGEN)がその下で"
                         + "回答を合成。最後に保存ゲートが走ります。"))
+
+                    // ── Vera model picker: which stamped release answers ──
+                    // Same menu as the 3D page's toggle (versions/index.json).
+                    if app.veraEngineMode == .veraModel {
+                        Picker("", selection: Binding(
+                            get: { app.selectedVeraVersionId },
+                            set: { id in Task { await app.selectVeraModelVersion(id) } })) {
+                            Text(app.t("local build", "ローカル")).tag("local")
+                            ForEach(app.veraModelVersions) { v in
+                                Text(v.id).tag(v.id)
+                            }
+                        }
+                        .pickerStyle(.menu)
+                        .frame(maxWidth: 190)
+                        .disabled(app.veraVersionBusy)
+                        .task { await app.refreshVeraModelVersions() }
+                        .help(app.t(
+                            "Which stamped Vera release answers. Switching "
+                            + "downloads the version and restarts the engine "
+                            + "process — never a silent reload.",
+                            "どの版のVeraが答えるか。切替は版の取得とエンジン"
+                            + "プロセスの再起動 — 静かな差し替えはしません。"))
+                        if app.veraVersionBusy {
+                            ProgressView().controlSize(.small)
+                        }
+                    }
 
                     Spacer(minLength: 0)
                 }

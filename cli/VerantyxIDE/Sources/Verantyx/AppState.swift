@@ -926,6 +926,92 @@ final class AppState: ObservableObject {
         // that LLM can equally be Claude or Grok. The raw value stays as it is
         // because it is persisted.
         case localLLM = "local_llm"     // 通常のLLM (合議もVeraも通さない)
+        // The Vera MODEL as the responder — no LLM anywhere in the turn.
+        // Vera-a above is the dual path (a model answers, Vera manages
+        // memory beside it); this mode is the store itself talking:
+        // typed verdicts verbatim, structural diff for 違い questions,
+        // constructed explanations and typo evidence on refusals. What
+        // the browser's ASK is to the 3D page, this is to the IDE.
+        case veraModel = "vera_model"   // Vera単体 (LLM不使用・型付き判定)
+    }
+
+    // ── Vera model versions: the same menu the 3D page's toggle reads ──
+    // (versions/index.json on the ask-vera Space). "local" is the build
+    // beside the engine checkout; a stamped id downloads its db/edges/
+    // writer into Application Support and pins the MCP process to it via
+    // VERA_PUBLISHED_DB, then restarts the session — switching models is
+    // switching which stamped release answers, never a silent reload.
+    struct VeraModelVersion: Identifiable, Codable, Equatable {
+        var id: String
+        var db: String
+        var edges: String?
+        var writer: String?
+        var notes: String?
+        var cores: Int?
+    }
+    @Published var veraModelVersions: [VeraModelVersion] = []
+    @Published var selectedVeraVersionId: String = "local"
+    @Published var veraVersionBusy: Bool = false
+    /// The last ANSWERED core in Vera model mode — the visible,
+    /// deterministic conversation context. Cleared with the chat.
+    var veraTrailCore: String? = nil
+
+    static let veraSpaceAssets = "https://kofdai-ask-vera.static.hf.space"
+
+    func refreshVeraModelVersions() async {
+        guard let url = URL(string: Self.veraSpaceAssets + "/versions/index.json"),
+              let (data, _) = try? await URLSession.shared.data(from: url),
+              let list = try? JSONDecoder().decode([VeraModelVersion].self, from: data)
+        else { return }
+        await MainActor.run { self.veraModelVersions = list.reversed() }
+    }
+
+    func selectVeraModelVersion(_ id: String) async {
+        await MainActor.run { self.veraVersionBusy = true }
+        defer { Task { @MainActor in self.veraVersionBusy = false } }
+        var envDB = ""
+        if id != "local",
+           let v = veraModelVersions.first(where: { $0.id == id }) {
+            let fm = FileManager.default
+            let dir = fm.urls(for: .applicationSupportDirectory, in: .userDomainMask)[0]
+                .appendingPathComponent("Verantyx/vera-models/\(id)", isDirectory: true)
+            try? fm.createDirectory(at: dir, withIntermediateDirectories: true)
+            let files: [(String?, String)] = [
+                (v.db, "vera.db"), (v.edges, "vera_edges.db"),
+                (v.writer, "writer.json")]
+            for (remote, name) in files {
+                guard let remote, !remote.isEmpty else { continue }
+                let dst = dir.appendingPathComponent(name)
+                if fm.fileExists(atPath: dst.path) { continue }
+                guard let u = URL(string: Self.veraSpaceAssets + "/" + remote),
+                      let (tmp, _) = try? await URLSession.shared.download(from: u)
+                else { continue }
+                // The Space stores gzip; expand with the system tool so a
+                // partial download never silently becomes a store.
+                let gz = dir.appendingPathComponent(name + ".gz")
+                try? fm.removeItem(at: gz)
+                try? fm.moveItem(at: tmp, to: gz)
+                let p = Process()
+                p.executableURL = URL(fileURLWithPath: "/usr/bin/gunzip")
+                p.arguments = ["-f", gz.path]
+                try? p.run(); p.waitUntilExit()
+            }
+            let db = dir.appendingPathComponent("vera.db")
+            guard fm.fileExists(atPath: db.path) else { return }
+            envDB = db.path
+        }
+        await MainActor.run { self.selectedVeraVersionId = id }
+        // Pin the MCP process and restart it — the model switch IS the
+        // process restart, so no call can answer from a mixed build.
+        if var cfg = MCPEngine.shared.servers.first(where: { $0.name == "vera-memory" }) {
+            if envDB.isEmpty {
+                cfg.envVars.removeValue(forKey: "VERA_PUBLISHED_DB")
+            } else {
+                cfg.envVars["VERA_PUBLISHED_DB"] = envDB
+            }
+            MCPEngine.shared.updateServer(cfg)
+            await MCPEngine.shared.restartServer(id: cfg.id)
+        }
     }
     /// Which AuditMemory store Vera-a reads and writes. "Fresh memory" at
     /// session start swaps this to a dated task name; old stores stay on
@@ -1558,6 +1644,26 @@ final class AppState: ObservableObject {
         messages.append(ChatMessage(role: .user, content: displayContent, isSpotlight: isSpotlight))
         currentGenerationIsSpotlight = isSpotlight
         isGenerating = true
+
+        // ── Vera model mode: the store itself answers, no LLM in the turn ──
+        // Typed verdicts verbatim; 違い questions get the structural diff;
+        // refusals wear their honest hand-offs. The trail core carries the
+        // conversation as a visible, deterministic context — see
+        // VeraMemoryBridge.veraModelTurn.
+        if veraEngineMode == .veraModel && !isSpotlight {
+            let trail = veraTrailCore
+            inferenceTask = Task {
+                let r = await VeraMemoryBridge.veraModelTurn(for: text, trail: trail)
+                await MainActor.run {
+                    if let c = r.core { self.veraTrailCore = c }
+                    self.messages.append(ChatMessage(
+                        role: .assistant, content: r.reply,
+                        isSpotlight: self.currentGenerationIsSpotlight))
+                    self.isGenerating = false
+                }
+            }
+            return
+        }
 
         // ── Vera-a: the dual path ────────────────────────────────────────
         // "Chat with anything; Vera manages its memory in parallel."
