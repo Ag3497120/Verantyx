@@ -1123,16 +1123,31 @@ final class MCPEngine: ObservableObject {
                 Task { await self.connect(server: config) }
             }
         } else if let existingIndex = servers.firstIndex(where: { $0.name == "vera-memory" }) {
-            // Bundle missing the helper (dev build without embed phase). Keep
-            // the row but stop auto-failing; surface why in connectionStatus.
-            var disabled = servers[existingIndex]
-            if disabled.isEnabled {
-                disabled.isEnabled = false
-                servers[existingIndex] = disabled
+            // Bundle missing the helper (dev build without embed phase).
+            let existing = servers[existingIndex]
+            if Self.commandLooksRunnable(existing.command),
+               !existing.command.isEmpty {
+                // The row points at a runnable engine the developer set up
+                // (e.g. python -m verantyx.cli over an editable install).
+                // Respect it: a working developer wiring beats a hard
+                // error, and disabling it silently was exactly how every
+                // Vera door in a Debug build died at once.
+                if !existing.isEnabled {
+                    var enabled = existing
+                    enabled.isEnabled = true
+                    servers[existingIndex] = enabled
+                }
+                Task { await self.connect(server: self.servers[existingIndex]) }
+            } else {
+                var disabled = existing
+                if disabled.isEnabled {
+                    disabled.isEnabled = false
+                    servers[existingIndex] = disabled
+                }
+                connectionStatus[servers[existingIndex].id] = .error(
+                    "vera-memory binary missing from Verantyx.app (expected Contents/MacOS/vera-memory). Reinstall from the DMG / rebuild with the embed phase."
+                )
             }
-            connectionStatus[servers[existingIndex].id] = .error(
-                "vera-memory binary missing from Verantyx.app (expected Contents/MacOS/vera-memory). Reinstall from the DMG / rebuild with the embed phase."
-            )
         }
 
         saveServers()

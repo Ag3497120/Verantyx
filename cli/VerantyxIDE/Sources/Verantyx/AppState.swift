@@ -1001,17 +1001,11 @@ final class AppState: ObservableObject {
             envDB = db.path
         }
         await MainActor.run { self.selectedVeraVersionId = id }
-        // Pin the MCP process and restart it — the model switch IS the
+        // Pin the NATIVE engine and restart it — the model switch IS the
         // process restart, so no call can answer from a mixed build.
-        if var cfg = MCPEngine.shared.servers.first(where: { $0.name == "vera-memory" }) {
-            if envDB.isEmpty {
-                cfg.envVars.removeValue(forKey: "VERA_PUBLISHED_DB")
-            } else {
-                cfg.envVars["VERA_PUBLISHED_DB"] = envDB
-            }
-            MCPEngine.shared.updateServer(cfg)
-            await MCPEngine.shared.restartServer(id: cfg.id)
-        }
+        await VeraModelProcess.shared.switchModel(
+            dbPath: envDB.isEmpty ? nil : envDB)
+        await MainActor.run { self.veraTrailCore = nil }
     }
     /// Which AuditMemory store Vera-a reads and writes. "Fresh memory" at
     /// session start swaps this to a dated task name; old stores stay on

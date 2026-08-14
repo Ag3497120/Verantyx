@@ -1,5 +1,128 @@
 import Foundation
 
+/// The Vera model's own engine process — NATIVE, owned by the mode.
+///
+/// The MCP registry route died three different deaths in one evening
+/// (a sanitizer rewriting the command, a dev build without the embed
+/// phase, a stale vendored binary), and every death silenced every
+/// Vera door at once. This actor removes the registry from the path:
+/// it spawns the bundled `vera-memory` engine directly, speaks the
+/// same stdio JSON-RPC, and owns the process lifecycle. Switching
+/// models (VERA_PUBLISHED_DB) IS a process restart here — never a
+/// silent reload — and the picker's semantics become literal.
+actor VeraModelProcess {
+    static let shared = VeraModelProcess()
+
+    private var process: Process?
+    private var stdinPipe: Pipe?
+    private var stdoutPipe: Pipe?
+    private var buffer = Data()
+    private var nextId = 10
+    /// Absolute path of the pinned release db; "" = the engine default.
+    private(set) var pinnedDB: String = ""
+
+    /// Kill and relaunch pinned to a release db (or the default when
+    /// nil). The next call relaunches lazily.
+    func switchModel(dbPath: String?) {
+        pinnedDB = dbPath ?? ""
+        terminate()
+    }
+
+    func terminate() {
+        process?.terminate()
+        process = nil
+        stdinPipe = nil
+        stdoutPipe = nil
+        buffer.removeAll()
+    }
+
+    private func ensureRunning() -> Bool {
+        if let p = process, p.isRunning { return true }
+        guard let binary = VeraMemoryPaths.resolveBundledBinary() else {
+            return false
+        }
+        let p = Process()
+        p.executableURL = binary
+        p.arguments = ["--store", VeraMemoryPaths.storeFile.path, "mcp"]
+        var env = ProcessInfo.processInfo.environment
+        if !pinnedDB.isEmpty { env["VERA_PUBLISHED_DB"] = pinnedDB }
+        p.environment = env
+        let inPipe = Pipe(); let outPipe = Pipe()
+        p.standardInput = inPipe
+        p.standardOutput = outPipe
+        p.standardError = FileHandle.nullDevice
+        do { try p.run() } catch { return false }
+        process = p; stdinPipe = inPipe; stdoutPipe = outPipe
+        buffer.removeAll()
+        // MCP handshake: initialize, then the initialized notification.
+        _ = requestSync(method: "initialize", params: [
+            "protocolVersion": "2024-11-05", "capabilities": [:],
+            "clientInfo": ["name": "verantyx-ide-native", "version": "1"],
+        ], timeout: 30)
+        send(["jsonrpc": "2.0",
+              "method": "notifications/initialized", "params": [:]])
+        return true
+    }
+
+    /// Call a tool; returns the parsed JSON object from its text
+    /// content, or nil (engine missing, tool missing, timeout).
+    func call(_ tool: String, _ args: [String: Any],
+              timeout: TimeInterval = 90) -> [String: Any]? {
+        guard ensureRunning() else { return nil }
+        guard let resp = requestSync(
+            method: "tools/call",
+            params: ["name": tool, "arguments": args],
+            timeout: timeout)
+        else { return nil }
+        // result.content[0].text carries the tool's JSON string.
+        guard let result = resp["result"] as? [String: Any],
+              let content = result["content"] as? [[String: Any]],
+              let text = content.first?["text"] as? String,
+              let data = text.data(using: .utf8),
+              let obj = try? JSONSerialization.jsonObject(with: data)
+                as? [String: Any]
+        else { return nil }
+        return obj
+    }
+
+    private func send(_ obj: [String: Any]) {
+        guard let data = try? JSONSerialization.data(withJSONObject: obj),
+              let stdin = stdinPipe
+        else { return }
+        stdin.fileHandleForWriting.write(data)
+        stdin.fileHandleForWriting.write(Data([0x0A]))
+    }
+
+    private func requestSync(
+        method: String, params: [String: Any], timeout: TimeInterval
+    ) -> [String: Any]? {
+        nextId += 1
+        let id = nextId
+        send(["jsonrpc": "2.0", "id": id,
+              "method": method, "params": params])
+        guard let out = stdoutPipe else { return nil }
+        let deadline = Date().addingTimeInterval(timeout)
+        while Date() < deadline {
+            // Scan buffered lines for our id; availableData blocks only
+            // while the engine is quiet, and the engine answers in order.
+            while let nl = buffer.firstIndex(of: 0x0A) {
+                let line = buffer.subdata(in: buffer.startIndex..<nl)
+                buffer.removeSubrange(buffer.startIndex...nl)
+                guard let obj = try? JSONSerialization.jsonObject(with: line)
+                        as? [String: Any] else { continue }
+                if (obj["id"] as? Int) == id { return obj }
+            }
+            let chunk = out.fileHandleForReading.availableData
+            if chunk.isEmpty {  // engine exited
+                terminate()
+                return nil
+            }
+            buffer.append(chunk)
+        }
+        return nil
+    }
+}
+
 // MARK: - VeraMemoryBridge
 //
 // Bridges the "Vera-α" `JCrossLayer` option to Vera's own deterministic,
@@ -824,13 +947,18 @@ enum VeraMemoryBridge {
 
     // MARK: - The three hand-off doors (diff / intent / typo)
 
-    /// Raw-JSON call for the newer `vera_*` doors. Same transport as
-    /// `askRaw`; an older server without the tool returns unparseable
+    /// Raw-JSON call for the `vera_*` doors. The Vera model's own NATIVE
+    /// process answers first (no MCP registry, no sanitizer, no config to
+    /// go stale); the MCP path remains as the fallback for builds without
+    /// the bundled engine. An engine without the tool returns unparseable
     /// output and every band tolerates that as nil — a band that errors
     /// is worse than no band.
-    private static func callDoor(
+    static func callDoor(
         _ tool: String, _ args: [String: Any]
     ) async -> [String: Any]? {
+        if let native = await VeraModelProcess.shared.call(tool, args) {
+            return native
+        }
         let raw = await MCPEngine.shared.callTool(
             serverName: serverName, toolName: tool,
             arguments: args, mode: .human
