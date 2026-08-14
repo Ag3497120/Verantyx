@@ -716,6 +716,21 @@ enum VeraMemoryBridge {
         let core: String?
         let text: String?
         let agreeFrac: Double?
+        /// Grain band — how many cut-varied staircase settings agreed on
+        /// an item, out of how many. Attached by the MCP `ask` tool as a
+        /// `grain` object BESIDE the verdict. The band annotates and never
+        /// votes: `tryDirectAnswer`'s gate stays on `agree_frac` alone,
+        /// because pooling structure (grain) with evidence (consensus
+        /// agreement) is the measured mistake the Vera side refuses.
+        let grainAgree: Int?
+        let grainOf: Int?
+
+        /// ", grain 3/6"-style suffix for display strings; empty when the
+        /// server sent no band (older server, or nothing to count).
+        var grainBadge: String {
+            guard let agree = grainAgree, let of = grainOf else { return "" }
+            return ", grain \(agree)/\(of)"
+        }
     }
 
     /// Every other function in this bridge that reads from Vera goes
@@ -723,7 +738,11 @@ enum VeraMemoryBridge {
     /// `verantyx.consensus.Verdict.as_dict()` via the `ask` MCP tool:
     /// {"verdict": "ANSWER"|"UNKNOWN_*", "core": str, "text": str,
     /// "agree_frac": float, ...} — verified against a live
-    /// `python3.11 -m verantyx.cli mcp` process, not guessed.
+    /// `python3.11 -m verantyx.cli mcp` process, not guessed. `grain`
+    /// ({"agree": int, "of": int, ...}) is optional: newer servers attach
+    /// it beside the verdict (fork GRAIN_BAND_ANNOTATES_NEVER_VOTES on
+    /// the Vera side pins that attaching it changes no verdict), older
+    /// servers simply omit it and every path here tolerates its absence.
     private static func askRaw(_ query: String) async -> AskResult {
         let raw = await MCPEngine.shared.callTool(
             serverName: serverName, toolName: "ask",
@@ -733,13 +752,19 @@ enum VeraMemoryBridge {
             let data = raw.data(using: .utf8),
             let obj = try? JSONSerialization.jsonObject(with: data) as? [String: Any],
             let verdict = obj["verdict"] as? String
-        else { return AskResult(verdict: "UNKNOWN_CALL_FAILED", core: nil, text: nil, agreeFrac: nil) }
+        else {
+            return AskResult(verdict: "UNKNOWN_CALL_FAILED", core: nil, text: nil,
+                             agreeFrac: nil, grainAgree: nil, grainOf: nil)
+        }
 
+        let grain = obj["grain"] as? [String: Any]
         let result = AskResult(
             verdict: verdict,
             core: obj["core"] as? String,
             text: obj["text"] as? String,
-            agreeFrac: obj["agree_frac"] as? Double
+            agreeFrac: obj["agree_frac"] as? Double,
+            grainAgree: grain?["agree"] as? Int,
+            grainOf: grain?["of"] as? Int
         )
         if verdict == "ANSWER", let core = result.core {
             await VeraSkillForge.recordAnswerAndMaybeForge(core: core)
@@ -763,7 +788,7 @@ enum VeraMemoryBridge {
         return """
 
         [VERA MEMORY — deterministic, typed-verdict store (ANSWER, not a guess)]
-          🧩 \(core): \(text)  (agreement: \(agreeFrac))
+          🧩 \(core): \(text)  (agreement: \(agreeFrac)\(r.grainBadge))
         [/VERA MEMORY]
         """
     }
@@ -793,7 +818,7 @@ enum VeraMemoryBridge {
         return """
         🧩 \(text)
 
-        (Vera direct answer — core: \(core), agreement: \(String(format: "%.2f", agree)) — no LLM call was made)
+        (Vera direct answer — core: \(core), agreement: \(String(format: "%.2f", agree))\(r.grainBadge) — no LLM call was made)
         """
     }
 
