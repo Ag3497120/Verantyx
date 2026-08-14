@@ -197,8 +197,8 @@ struct HiddenWindowMirrorView: View {
             )
         case .failed:
             return app.t(
-                "CGWindowListCreateImage returned nothing. Check Screen Recording TCC / codesign identity.",
-                "CGWindowListCreateImage が空を返しました。画面収録の TCC / 署名を確認してください。"
+                "ScreenCaptureKit could not capture the window. If Screen Recording is already granted, the window may have closed mid-capture — retry.",
+                "ScreenCaptureKit がウィンドウを撮影できませんでした。画面収録が許可済みなら、撮影中にウィンドウが閉じた可能性があります — 再試行してください。"
             )
         case .ok, .idle, .noTarget:
             return app.t(

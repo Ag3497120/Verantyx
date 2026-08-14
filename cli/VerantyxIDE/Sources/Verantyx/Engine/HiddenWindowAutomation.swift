@@ -1,6 +1,7 @@
 import Foundation
 import AppKit
 import CoreGraphics
+import ScreenCaptureKit
 
 /// Tracks an OS-agent automation session (OPEN_APP + DESKTOP_ACT) against a
 /// target app window and optionally mirrors it into the IDE.
@@ -18,10 +19,15 @@ import CoreGraphics
 ///   - clicks landing on the wrong surface / NO VISUAL CHANGE
 ///   - OPEN_APP never leaving Teams (etc.) usable in front
 ///
-/// Mirror preview still works via `CGWindowListCreateImage` against the
-/// visible front window (Screen Recording TCC required). The optional
-/// "park minimized" path remains available via
+/// Mirror preview captures through ScreenCaptureKit (Screen Recording TCC
+/// required), which composites the target window off-screen — so it works on a
+/// window that is fully covered by another, not only on the visible front one.
+/// The optional "park minimized" path remains available via
 /// `automationUsesVisibleFrontWindow = false` for experiments only.
+///
+/// The mirror is a READING surface. It does not make a background window
+/// operable: synthetic clicks land in whatever is actually frontmost, so
+/// acting without focus is the job of AX actions, not of this preview.
 @MainActor
 final class HiddenWindowAutomation: ObservableObject {
     static let shared = HiddenWindowAutomation()
@@ -305,14 +311,14 @@ final class HiddenWindowAutomation: ObservableObject {
             if let appName = targetAppName {
                 await refreshWindowGeometry(appName: appName)
             }
-            return encodeWindowJPEG()
+            return await encodeWindowJPEG()
         }
         guard targetWindowFrame != nil else {
             lastCaptureStatus = .noWindow
             return nil
         }
         return await withTargetReadyForAction { [self] in
-            encodeWindowJPEG()
+            await encodeWindowJPEG()
         }
     }
 
@@ -320,10 +326,69 @@ final class HiddenWindowAutomation: ObservableObject {
     @discardableResult
     func captureWindowImageQuiet() async -> String? {
         guard targetAppName != nil else { return nil }
-        return encodeWindowJPEG()
+        return await encodeWindowJPEG()
     }
 
-    private func encodeWindowJPEG() -> String? {
+    /// One window, composited off-screen by ScreenCaptureKit.
+    ///
+    /// `onScreenWindowsOnly: false` is the line that matters: it keeps windows
+    /// that are covered, or on another Space, in the list at all. Without it
+    /// the lookup fails for exactly the windows the mirror exists to show.
+    ///
+    /// Returns `windowGone` separately so the caller can tell a closed window
+    /// from a failed capture — they need different messages, and conflating
+    /// them is how a working permission gets blamed.
+    @available(macOS 14.0, *)
+    private static func captureWindow(id: CGWindowID) async -> (image: CGImage?, windowGone: Bool) {
+        do {
+            let content = try await SCShareableContent.excludingDesktopWindows(
+                true, onScreenWindowsOnly: false)
+            guard let window = content.windows.first(where: { $0.windowID == id }) else {
+                return (nil, true)
+            }
+            let filter = SCContentFilter(desktopIndependentWindow: window)
+            let config = SCStreamConfiguration()
+            // Backing scale: on small UI text most of the accuracy of anything
+            // downstream — OCR, the vision tower — is in the Retina pixels, and
+            // a point-sized capture throws half of them away.
+            let scale = await MainActor.run { NSScreen.main?.backingScaleFactor ?? 2 }
+            config.width = max(2, Int(window.frame.width * scale))
+            config.height = max(2, Int(window.frame.height * scale))
+            config.captureResolution = .best
+            config.showsCursor = false
+            let image = try await SCScreenshotManager.captureImage(
+                contentFilter: filter, configuration: config)
+            return (image, false)
+        } catch {
+            return (nil, false)
+        }
+    }
+
+    /// Capture the target window — including one that is completely covered.
+    ///
+    /// This used CGWindowListCreateImage, which carries
+    /// SCREEN_CAPTURE_OBSOLETE(10.5, 14.0, 15.0): it compiles against this
+    /// app's 14.0 target and returns nothing at runtime on macOS 15. The mirror
+    /// has therefore been showing a permanent empty frame and blaming it on
+    /// TCC — a status line that sends the user to a Screen Recording pane which
+    /// was already correct. Same call, same wrong diagnosis, as the two other
+    /// capture sites already migrated.
+    ///
+    /// The replacement is more than a working call. `onScreenWindowsOnly:
+    /// false` plus a desktop-independent filter composites the window
+    /// OFF-SCREEN, so a window buried behind others still yields a complete
+    /// picture. A screenshot never could: today a covered window returns
+    /// whatever is covering it, or nothing. That is the capability the mirror
+    /// was supposed to have, and it is the only reading path left for apps
+    /// which publish no accessibility tree at all — Teams answers
+    /// AXManualAccessibility with -25205 — where mirror plus OCR is the whole
+    /// toolchain.
+    ///
+    /// It does NOT make the window operable without focus. A mirror is a
+    /// picture; synthetic clicks land in whatever is actually frontmost. AX
+    /// actions are what act on a background window, and they never needed the
+    /// mirror.
+    private func encodeWindowJPEG() async -> String? {
         // JGEN Metal / load holds this latch so we do not compete with
         // WindowServer for IOGPUGroupMemory (kernel panic on AGX / T6000).
         if JGenGPUSafety.shouldPauseWindowServerCapture {
@@ -341,15 +406,18 @@ final class HiddenWindowAutomation: ObservableObject {
         }
         targetWindowID = windowID
 
-        // Use CGRectNull like BrowserBridge / VideoClipManager — capturing
-        // against a stale AX frame often intersects nothing and yields blank.
-        guard let image = CGWindowListCreateImage(
-            .null,
-            .optionIncludingWindow,
-            windowID,
-            [.boundsIgnoreFraming]
-        ) else {
-            lastCaptureStatus = ScreenCapturePermission.isGranted ? .failed : .permissionDenied
+        guard #available(macOS 14.0, *) else {
+            lastCaptureStatus = .failed
+            return nil
+        }
+        let shot = await Self.captureWindow(id: windowID)
+        guard let image = shot.image else {
+            // A window that closed since it was found is a different finding
+            // from a capture that failed, and only one of them is worth
+            // sending the user to a permissions pane over.
+            lastCaptureStatus = shot.windowGone
+                ? .noWindow
+                : (ScreenCapturePermission.isGranted ? .failed : .permissionDenied)
             return nil
         }
 
