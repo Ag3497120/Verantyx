@@ -822,6 +822,124 @@ enum VeraMemoryBridge {
         """
     }
 
+    // MARK: - The three hand-off doors (diff / intent / typo)
+
+    /// Raw-JSON call for the newer `vera_*` doors. Same transport as
+    /// `askRaw`; an older server without the tool returns unparseable
+    /// output and every band tolerates that as nil — a band that errors
+    /// is worse than no band.
+    private static func callDoor(
+        _ tool: String, _ args: [String: Any]
+    ) async -> [String: Any]? {
+        let raw = await MCPEngine.shared.callTool(
+            serverName: serverName, toolName: tool,
+            arguments: args, mode: .human
+        )
+        guard let data = raw.data(using: .utf8),
+              let obj = try? JSONSerialization.jsonObject(with: data)
+                as? [String: Any]
+        else { return nil }
+        return obj
+    }
+
+    /// 「AとBの違い」-shaped questions get a structural answer with no
+    /// LLM call: shared / A-only / B-only from the `vera_diff` door.
+    /// Two lines are load-bearing and mirror the Vera-side guards:
+    /// "Aのみ" always reads "Bについては実測なし" — never a negative
+    /// claim about B — and the abstained layers are named, not hidden.
+    /// The output is marked 構成的 so a reader can tell selection from
+    /// testimony, exactly like EXPLAINED_BY_UNITS.
+    static func tryDiffAnswer(for query: String) async -> String? {
+        let q = query.trimmingCharacters(in: .whitespacesAndNewlines)
+        guard let tail = q.range(of: "の違い") else { return nil }
+        let head = String(q[q.startIndex..<tail.lowerBound])
+        let parts = head.components(separatedBy: "と")
+        guard parts.count == 2 else { return nil }
+        let a = parts[0].trimmingCharacters(in: .whitespaces)
+        let b = parts[1].trimmingCharacters(in: .whitespaces)
+        guard !a.isEmpty, !b.isEmpty, a.count <= 12, b.count <= 12
+        else { return nil }
+
+        guard let obj = await callDoor("vera_diff", ["a": a, "b": b]),
+              obj["verdict"] as? String == "DIFF"
+        else { return nil }
+
+        func bundle(_ key: String) -> [String] {
+            guard let rows = obj[key] as? [[String: Any]] else { return [] }
+            return rows.compactMap { $0["token"] as? String }
+        }
+        let shared = bundle("shared")
+        let onlyA = bundle("only_a")
+        let onlyB = bundle("only_b")
+        guard !(shared.isEmpty && onlyA.isEmpty && onlyB.isEmpty)
+        else { return nil }
+
+        var lines: [String] = ["🧭 \(a) と \(b) の構造差分"]
+        if !shared.isEmpty {
+            lines.append("共有: " + shared.prefix(8).joined(separator: "・"))
+        }
+        if !onlyA.isEmpty {
+            lines.append("\(a)のみ実測: " + onlyA.prefix(8).joined(separator: "・")
+                         + "(\(b)については実測なし)")
+        }
+        if !onlyB.isEmpty {
+            lines.append("\(b)のみ実測: " + onlyB.prefix(8).joined(separator: "・")
+                         + "(\(a)については実測なし)")
+        }
+        if let abstain = obj["abstain"] as? [String], !abstain.isEmpty {
+            lines.append("棄権した層: " + abstain.joined(separator: "・"))
+        }
+        lines.append("")
+        lines.append("(Vera structural diff — 構成的比較・証言ではない — no LLM call was made)")
+        return lines.joined(separator: "\n")
+    }
+
+    /// The instruction's structural reading, when the measured frame
+    /// table covers it. INTENT frames become a one-line band the LLM
+    /// and the reader both see; UNKNOWN_INTENT stays silent — the
+    /// refusal IS the routing (the model takes the utterance).
+    static func intentBand(for text: String) async -> String? {
+        guard let obj = await callDoor("vera_intent", ["text": text]),
+              obj["verdict"] as? String == "INTENT",
+              let op = obj["op"] as? String
+        else { return nil }
+        let args = (obj["args"] as? [String: Any]) ?? [:]
+        let rendered = args
+            .sorted { $0.key < $1.key }
+            .map { "\($0.key)=\($0.value)" }
+            .joined(separator: ", ")
+        return "[VERA INTENT] \(op)(\(rendered)) — 47動詞×28操作の実測表による構造読み。表外なら出ない。\n"
+    }
+
+    /// Typo candidates for a refused single-term query. Fires only
+    /// beside a typed unknown (the caller gates it), only on short
+    /// particle-free terms, and NEVER rewrites — the band shows the
+    /// evidence (shared units, edit distance) and the reader decides.
+    static func typoBand(for query: String) async -> String? {
+        var term = query.trimmingCharacters(in: .whitespacesAndNewlines)
+        for suffix in ["について", "ですか", "とは", "？", "?"] {
+            if term.hasSuffix(suffix) {
+                term = String(term.dropLast(suffix.count))
+            }
+        }
+        guard (2...8).contains(term.count),
+              !term.contains(" "), !term.contains("　"),
+              !["は", "が", "を", "の", "に"].contains(where: term.contains)
+        else { return nil }
+
+        guard let obj = await callDoor("vera_typo", ["term": term]),
+              obj["verdict"] as? String == "TYPO_CANDIDATE",
+              let cands = obj["candidates"] as? [[String: Any]], !cands.isEmpty
+        else { return nil }
+        let rendered = cands.prefix(3).compactMap { c -> String? in
+            guard let w = c["word"] as? String else { return nil }
+            let d = (c["edit_distance"] as? Int).map { "距離\($0)" } ?? ""
+            return "\(w)(\(d))"
+        }.joined(separator: "・")
+        guard !rendered.isEmpty else { return nil }
+        return "[VERA TYPO] 「\(term)」は語彙に実測なし。近傍の実証語: \(rendered) — 書き換えは行っていない。\n"
+    }
+
     // MARK: - Typed unknowns as control signals
 
     /// A refusal, typed, with the action branch its type selects. Other
