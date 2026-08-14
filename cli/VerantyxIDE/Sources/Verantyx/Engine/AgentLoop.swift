@@ -230,9 +230,35 @@ actor AgentLoop {
         // One retry when a turn ends as evaluation-only meta text with no
         // actual answer (see isMetaEvaluationOnly).
         var metaRetryUsed = false
-        /// One retry only. If the model writes an unparseable tag twice, the
-        /// second one is shown rather than looping on it forever.
-        var strayTagRetryUsed = false
+        /// Corrections already spent on each unparseable tag, keyed by
+        /// signature.
+        ///
+        /// This used to be one Bool for the WHOLE run. The second stray tag of
+        /// any kind therefore skipped the check entirely and fell through to
+        /// the path below, which treats the text as the final answer — printing
+        /// the tag to the user as the reply and firing the save and
+        /// skill-forging hooks on it. A model that wrote [GEMINI] and then
+        /// [GEMINI_SNAPSHOT: chat_input_placeholder="…"] spent the budget on
+        /// the first and was cut off on the second: no report, no answer, a
+        /// fabricated tag in the transcript, and a skill minted from it.
+        ///
+        /// Capable models never hit it, because they rarely need the retry
+        /// twice — the budget was sized for a model that fixes the problem on
+        /// its second attempt. So the cliff exists only for weaker ones, which
+        /// is why a local run looks like it "gives up at the first wall" while
+        /// a cloud run keeps verifying. Watching only the cloud side, this is
+        /// invisible.
+        ///
+        /// The runaway it guarded against is real — see the block comment at
+        /// the retry — but it is a per-SIGNATURE loop: the SAME tag returning
+        /// after a correction. A different tag is a different problem and
+        /// deserves its own attempt.
+        var strayTagRetries: [String: Int] = [:]
+        /// Attempts per distinct signature before the run stops asking.
+        let strayTagRetryLimit = 2
+        /// Distinct signatures corrected in one run, so a model inventing an
+        /// endless supply of new tag names still terminates.
+        let strayTagSignatureLimit = 4
         /// The correction issued last turn, waiting to be judged. Resolved on
         /// the next parse: tools came back → it worked; the same defect came
         /// back → it did not. Without this the effectiveness of a correction is
@@ -1295,27 +1321,60 @@ SYS.ENFORCE("logical_verification_before_acceptance")
                 // alone it ends the run and prints the tag to the user as the
                 // reply — which is exactly how "[CLICK_LINK: 投稿を作成]"
                 // reached the transcript with the pointer never moving.
-                if !strayTagRetryUsed, let stray = AgentToolParser.strayToolTag(in: cleanText) {
-                    strayTagRetryUsed = true
-                    await onProgress(.aiMessage(AppLanguage.shared.t(
-                        stray.known
-                            ? "⚠️ [\(stray.name)] was written but did not run — the tag reached the parser in a form it could not read. Retrying with it on its own line."
-                            : "⚠️ [\(stray.name)] is not a tool. Retrying with the available ones.",
-                        stray.known
-                            ? "⚠️ [\(stray.name)] が実行されませんでした（パーサが読めない形で書かれています）。単独行で書き直して再試行します。"
-                            : "⚠️ [\(stray.name)] というツールはありません。使用可能なツールで再試行します。")))
-                    conversation.append((role: "assistant", content: rawResponse))
-                    // Block tools already sit on their own line, so telling
-                    // them to move there is advice the model cannot act on: it
-                    // rewrites the identical text and the run loops. That is
-                    // exactly what [MCP_CALL: …]{…} without its closing tag did.
+                if let stray = AgentToolParser.strayToolTag(in: cleanText) {
                     let signature = "\(stray.name)|unparsed"
-                    let useless = await EternalMemoryStore.shared.uselessCorrections(signature: signature)
-                    let (strategy, advice) = Self.correctionFor(
-                        tool: stray.name, known: stray.known, avoiding: useless)
-                    pendingCorrection = (signature, strategy)
-                    conversation.append((role: "user", content: advice))
-                    continue
+                    let spentOnThisTag = strayTagRetries[signature] ?? 0
+                    let outOfAttempts = spentOnThisTag >= strayTagRetryLimit
+                        || strayTagRetries.count >= strayTagSignatureLimit
+
+                    if !outOfAttempts {
+                        strayTagRetries[signature, default: 0] += 1
+                        await onProgress(.aiMessage(AppLanguage.shared.t(
+                            stray.known
+                                ? "⚠️ [\(stray.name)] was written but did not run — the tag reached the parser in a form it could not read. Retrying with it on its own line."
+                                : "⚠️ [\(stray.name)] is not a tool. Retrying with the available ones.",
+                            stray.known
+                                ? "⚠️ [\(stray.name)] が実行されませんでした（パーサが読めない形で書かれています）。単独行で書き直して再試行します。"
+                                : "⚠️ [\(stray.name)] というツールはありません。使用可能なツールで再試行します。")))
+                        conversation.append((role: "assistant", content: rawResponse))
+                        // Block tools already sit on their own line, so telling
+                        // them to move there is advice the model cannot act on: it
+                        // rewrites the identical text and the run loops. That is
+                        // exactly what [MCP_CALL: …]{…} without its closing tag did.
+                        // `avoiding:` is what actually breaks that loop — it picks
+                        // a strategy that has not already failed for this
+                        // signature — which is why the budget can be per-signature
+                        // rather than one for the whole run.
+                        let useless = await EternalMemoryStore.shared.uselessCorrections(signature: signature)
+                        let (strategy, advice) = Self.correctionFor(
+                            tool: stray.name, known: stray.known, avoiding: useless)
+                        pendingCorrection = (signature, strategy)
+                        conversation.append((role: "user", content: advice))
+                        continue
+                    }
+
+                    // Out of attempts — stop here, and do NOT fall through.
+                    //
+                    // Below this point the text is treated as the finished
+                    // answer: it is printed to the user and handed to the save
+                    // and skill-forging hooks. Falling through is how a
+                    // fabricated [GEMINI_SNAPSHOT: chat_input_placeholder="…"]
+                    // became both the visible reply and a minted skill, from a
+                    // run that had observed nothing. An unparseable tag is not
+                    // an answer, and it is not something to remember.
+                    //
+                    // `.done` still fires so the UI leaves its running state,
+                    // but with an honest message in place of the tag.
+                    await onProgress(.done(message: AppLanguage.shared.t("""
+                        ⚠️ Stopped. The model kept writing [\(stray.name)], which is not an \
+                        executable tool call, and produced no answer either. Nothing was \
+                        observed, so nothing has been saved or turned into a skill.
+                        """, """
+                        ⚠️ 実行を停止しました。モデルが [\(stray.name)] という実行できないタグを\
+                        出力し続け、ツール呼び出しにも回答にもなりませんでした。
+                        何も観測できていないため、保存もスキル化もしていません。
+                        """), workspace: currentWorkspace))
+                    return
                 }
 
                 // VX-Loop: If SearchGate executed successfully, inject the result and continue the loop
