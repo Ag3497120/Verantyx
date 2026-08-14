@@ -127,8 +127,15 @@ enum VisionTower {
     /// alone ("button", "link") describe every screen equally and identify
     /// none of them.
     static func labels(from axMap: String) -> [String] {
+        // `title` and `value` were the only names read, from a snapshot that
+        // only ever emitted those two. The tree now also carries `label`
+        // (AXDescription — where aria-label lands), `placeholder` and `help`,
+        // which on web and Electron controls are frequently the ONLY name a
+        // control has. Leaving them out would caption exactly the screens this
+        // tower exists for — the ones with no titles — as if they were blank.
         guard let re = try? NSRegularExpression(
-            pattern: #"(?:title|value)="([^"]{2,40})""#, options: [.caseInsensitive])
+            pattern: #"(?:title|label|placeholder|help|value)="([^"]{2,40})""#,
+            options: [.caseInsensitive])
         else { return [] }
         let ns = axMap as NSString
         var seen = Set<String>()

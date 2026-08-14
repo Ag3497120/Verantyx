@@ -291,14 +291,73 @@ class AXVisionBridge {
             return s
         }
 
+        /// The name a person would use for this control.
+        ///
+        /// Only AXTitle was read before, and web and Electron controls
+        /// routinely have none — their label lives in AXDescription (that is
+        /// where aria-label lands) or AXPlaceholderValue. So a snapshot of
+        /// Gemini came back as `#elem1`…`#elem7`, seven anonymous groups, and
+        /// the agent had to identify the prompt box by CLICKING each one: it
+        /// found the microphone (which opened a permission dialog), then the
+        /// tool menu, then the input on the third try. Every one of those
+        /// probes changed the screen it was trying to read.
+        ///
+        /// The placeholder is the sharpest case. Asked what the prompt box
+        /// was, a model INVENTED `chat_input_placeholder="メッセージを入力..."`
+        /// and it was never checked against anything. AXPlaceholderValue is
+        /// where the real string was sitting the whole time.
+        func labelOf(_ element: AXUIElement) -> (text: String, kind: String) {
+            for (attribute, kind) in [
+                (kAXTitleAttribute as String, "title"),
+                (kAXDescriptionAttribute as String, "label"),
+                ("AXPlaceholderValue", "placeholder"),
+                (kAXHelpAttribute as String, "help"),
+            ] {
+                let s = stringAttribute(element, attribute)
+                    .trimmingCharacters(in: .whitespacesAndNewlines)
+                if !s.isEmpty { return (s, kind) }
+            }
+            return ("", "")
+        }
+
+        /// Where the control actually is, in screen coordinates.
+        ///
+        /// The tree carried no geometry at all, so an agent that had found the
+        /// right element still had nothing to click and fell back to guessing
+        /// or to OCR — and OCR coordinates are in a different space than
+        /// [DESKTOP_ACT: click], which is how a run aiming at a sidebar tab
+        /// opened a chat row instead. Accessibility already knows the frame;
+        /// it simply was not being asked.
+        func frameOf(_ element: AXUIElement) -> CGRect? {
+            var posRef: CFTypeRef?
+            var sizeRef: CFTypeRef?
+            guard AXUIElementCopyAttributeValue(
+                    element, kAXPositionAttribute as CFString, &posRef) == .success,
+                  AXUIElementCopyAttributeValue(
+                    element, kAXSizeAttribute as CFString, &sizeRef) == .success,
+                  let pos = posRef, let size = sizeRef,
+                  CFGetTypeID(pos) == AXValueGetTypeID(),
+                  CFGetTypeID(size) == AXValueGetTypeID()
+            else { return nil }
+            var point = CGPoint.zero
+            var extent = CGSize.zero
+            guard AXValueGetValue(pos as! AXValue, .cgPoint, &point),
+                  AXValueGetValue(size as! AXValue, .cgSize, &extent)
+            else { return nil }
+            return CGRect(origin: point, size: extent)
+        }
+
         func traverse(_ element: AXUIElement, depth: Int = 0) -> String {
             if depth > 15 { return "" } // Prevent infinite recursion
 
             let role: String = getAttribute(element, kAXRoleAttribute) ?? "Unknown"
-            let title: String = getAttribute(element, kAXTitleAttribute) ?? ""
+            let subrole: String = getAttribute(element, kAXSubroleAttribute) ?? ""
+            let (label, labelKind) = labelOf(element)
             let value = stringAttribute(element, kAXValueAttribute)
             let isEnabled: Bool = getAttribute(element, kAXEnabledAttribute) ?? false
-            
+            let isFocused: Bool = getAttribute(element, kAXFocusedAttribute) ?? false
+            let frame = frameOf(element)
+
             var xml = ""
             let indent = String(repeating: "  ", count: depth)
             
@@ -322,12 +381,35 @@ class AXVisionBridge {
                 }
             }
             
-            if let id = actionableID {
+            // A control with no size cannot be seen or clicked. Emitting it
+            // only adds a candidate the agent can spend a destructive probe on.
+            // Children are still walked — a zero-size wrapper often holds real
+            // controls.
+            let hasSize = frame.map { $0.width >= 1 && $0.height >= 1 } ?? true
+
+            if let id = actionableID, hasSize {
                 elementCache[id] = element
-                let titleAttr = title.isEmpty ? "" : " title=\"\(title.replacingOccurrences(of: "\"", with: "'"))\""
-                let valAttr = value.isEmpty ? "" : " value=\"\(value.replacingOccurrences(of: "\"", with: "'").prefix(30))\""
-                let stateAttr = !isEnabled ? " disabled=\"true\"" : ""
-                xml += "\(indent)<\(role.replacingOccurrences(of: "AX", with: "").lowercased()) id=\"\(id)\"\(titleAttr)\(valAttr)\(stateAttr) />\n"
+                func quoted(_ s: String, limit: Int = 60) -> String {
+                    String(s.replacingOccurrences(of: "\"", with: "'").prefix(limit))
+                }
+                // The label keeps its own attribute name so the agent knows what
+                // kind of name it is looking at: a placeholder describes what to
+                // type, a title names the control. Collapsing both into `title`
+                // would lose that.
+                let labelAttr = label.isEmpty ? "" : " \(labelKind)=\"\(quoted(label))\""
+                let valAttr = value.isEmpty ? "" : " value=\"\(quoted(value, limit: 30))\""
+                let subroleAttr = subrole.isEmpty ? ""
+                    : " subrole=\"\(subrole.replacingOccurrences(of: "AX", with: ""))\""
+                // Screen coordinates, ready for [DESKTOP_ACT: click x y] with no
+                // conversion. The centre rather than the origin, because that is
+                // the point a click should land on.
+                let atAttr = frame.map {
+                    " at=\"\(Int($0.midX)),\(Int($0.midY))\" size=\"\(Int($0.width))x\(Int($0.height))\""
+                } ?? ""
+                let stateAttr = (!isEnabled ? " disabled=\"true\"" : "")
+                    + (isFocused ? " focused=\"true\"" : "")
+                xml += "\(indent)<\(role.replacingOccurrences(of: "AX", with: "").lowercased()) "
+                    + "id=\"\(id)\"\(labelAttr)\(valAttr)\(subroleAttr)\(atAttr)\(stateAttr) />\n"
             }
             
             // Traverse children
@@ -347,8 +429,14 @@ class AXVisionBridge {
                     if hasValidChildren {
                         let roleName = role.replacingOccurrences(of: "AX", with: "").lowercased()
                         if roleName == "window" || roleName == "group" || roleName == "scrollarea" || roleName == "webarea" {
-                            let titleAttr = title.isEmpty ? "" : " title=\"\(title.replacingOccurrences(of: "\"", with: "'"))\""
-                            xml += "\(indent)<\(roleName)\(titleAttr)>\n\(childrenXML)\(indent)</\(roleName)>\n"
+                            // Containers get the same widened label lookup as
+                            // controls: a web area's name is usually its
+                            // AXDescription, not a title, and naming the
+                            // container is what tells the agent which region of
+                            // the page it is looking at.
+                            let labelAttr = label.isEmpty ? ""
+                                : " \(labelKind)=\"\(label.replacingOccurrences(of: "\"", with: "'").prefix(60))\""
+                            xml += "\(indent)<\(roleName)\(labelAttr)>\n\(childrenXML)\(indent)</\(roleName)>\n"
                         } else {
                             // Flatten
                             xml += childrenXML
