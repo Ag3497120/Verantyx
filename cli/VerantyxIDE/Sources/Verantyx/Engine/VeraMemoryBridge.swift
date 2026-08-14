@@ -928,6 +928,76 @@ enum VeraMemoryBridge {
         )
     }
 
+    // MARK: - Covenant audit of the final answer
+
+    /// One covenant break, shaped for display. The audit is the
+    /// vera-memory `check_reply` tool — the register of things the user
+    /// SETTLED (「実装言語はTypeScriptを用いる」), checked against the
+    /// reply with the question as the scope. Measured before wiring
+    /// (tools/measure_check_reply.py on the Vera side): zero false
+    /// positives on out-of-scope and covenant-free replies; the one
+    /// noisy shape (an empty reply to an in-scope question reads
+    /// BROKEN) is fenced by the caller's !saveAnswer.isEmpty guard.
+    struct ReplyAudit: Sendable {
+        let covenant: String
+        let detail: String
+        let inject: String
+    }
+
+    /// Audits a final answer against the registered covenants. Returns
+    /// nil when the register keeps silent (KEPT, no covenants, or the
+    /// call failed) — an audit that cannot run must be silent, never a
+    /// false alarm. BROKEN is a finding about the REPLY, never about
+    /// the user: the rule may have been superseded one turn ago, which
+    /// is why this only ever DISPLAYS and never gates or rewrites.
+    static func auditReply(reply: String, asked: String) async -> ReplyAudit? {
+        let raw = await MCPEngine.shared.callTool(
+            serverName: serverName, toolName: "check_reply",
+            arguments: ["reply": String(reply.prefix(2000)),
+                        "asked": String(asked.prefix(500))], mode: .human
+        )
+        guard
+            let data = raw.data(using: .utf8),
+            let obj = try? JSONSerialization.jsonObject(with: data) as? [String: Any],
+            (obj["verdict"] as? String) == "BROKEN",
+            let violations = obj["violations"] as? [[String: Any]],
+            let first = violations.first,
+            let covenant = first["covenant"] as? String
+        else { return nil }
+
+        var parts: [String] = []
+        if let used = first["forbidden_used"] as? [String], !used.isEmpty {
+            parts.append("禁止語を使用: \(used.joined(separator: "、"))")
+        }
+        if let missing = first["required_missing"] as? [String], !missing.isEmpty {
+            parts.append("必須語が不在: \(missing.joined(separator: "、"))")
+        }
+        if let subs = first["substituted"] as? [[String: Any]], !subs.isEmpty,
+           let s = subs.first, let io = s["instead_of"] as? String,
+           let used = s["used"] as? String {
+            parts.append("推定代替: \(io) の代わりに \(used)")
+        }
+        return ReplyAudit(
+            covenant: covenant,
+            detail: String(parts.joined(separator: " / ").prefix(300)),
+            inject: (first["inject"] as? String) ?? covenant
+        )
+    }
+
+    /// The dispute block, appended to the answer message (one .done —
+    /// a second one would re-fire the UI's end-of-turn path). Pure
+    /// string assembly, hence nonisolated.
+    nonisolated static func auditSection(_ a: ReplyAudit) -> String {
+        return """
+
+        ⚖️ [VERA AUDIT — 誓約検査]
+        破られた誓約: \(a.covenant)
+        \(a.detail)
+        再注入候補: 「\(a.inject)」
+        (これは表示であって判定ではない — 回答は差し替えない。誓約が既に更新されている可能性もある)
+        """
+    }
+
     // MARK: - AI-fact quarantine (Milestone M companion)
 
     struct PendingAiFact: Identifiable {

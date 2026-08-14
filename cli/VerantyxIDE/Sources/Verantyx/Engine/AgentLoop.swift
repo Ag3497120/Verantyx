@@ -1436,14 +1436,28 @@ SYS.ENFORCE("logical_verification_before_acceptance")
                 
                 consecutiveToolOnlyTurns = 0
                 // Pass cleanText for the .done handler's duplicate-guard check
-                await onProgress(.done(message: cleanText, workspace: currentWorkspace))
+                // ── Vera-α: covenant audit rides the answer message itself.
+                // One .done only (a second would re-fire the UI end-of-turn
+                // path), so the extraction moves ahead of it. The audit
+                // DISPLAYS and never gates: measured zero false positives
+                // outside the empty-reply shape, which the isEmpty guard
+                // fences (see VeraMemoryBridge.auditReply).
+                let (saveAnswer, thinkOnly) = JCrossChatManager.extractAnswer(cleanText)
+                var doneMessage = cleanText
+                if memoryLayer == .vera, !thinkOnly, !saveAnswer.isEmpty,
+                   let audit = await VeraMemoryBridge.auditReply(
+                       reply: saveAnswer, asked: instruction) {
+                    doneMessage += "\n" + VeraMemoryBridge.auditSection(audit)
+                }
+                await onProgress(.done(message: doneMessage, workspace: currentWorkspace))
 
                 // ── Vera-α: preview-before-save popup, AFTER the answer is
                 // already visible in the transcript -- never gates display.
                 // Reasoning is not an answer: a think-only turn has nothing
                 // worth remembering, and popping the save sheet over it read
                 // as "the output was cut off and replaced by a popup".
-                let (saveAnswer, thinkOnly) = JCrossChatManager.extractAnswer(cleanText)
+                // The SAVED answer stays the model's own text — the audit
+                // block is display, not memory.
                 if memoryLayer == .vera, !thinkOnly, !saveAnswer.isEmpty {
                     await VeraMemoryBridge.requestSaveApproval(
                         userPrompt: instruction, aiResponse: saveAnswer
@@ -1673,16 +1687,25 @@ SYS.ENFORCE("logical_verification_before_acceptance")
                     }
                     
                     result = await executor.execute(tool, workspaceURL: currentWorkspace)
-                    await onProgress(.done(message: msg, workspace: currentWorkspace))
+                    // ── Vera-α: same audit-in-the-message as the
+                    // tools.isEmpty branch — extraction moves ahead of the
+                    // single .done, the audit block rides the message, and
+                    // the SAVED answer stays the model's own text.
+                    let saveSource = lastProse.isEmpty ? msg : lastProse
+                    let (saveAnswer, thinkOnly) = JCrossChatManager.extractAnswer(saveSource)
+                    var doneMessage = msg
+                    if memoryLayer == .vera, !thinkOnly, !saveAnswer.isEmpty,
+                       let audit = await VeraMemoryBridge.auditReply(
+                           reply: saveAnswer, asked: instruction) {
+                        doneMessage += "\n" + VeraMemoryBridge.auditSection(audit)
+                    }
+                    await onProgress(.done(message: doneMessage, workspace: currentWorkspace))
 
-                    // ── Vera-α: same as the tools.isEmpty branch above --
-                    // only after the answer is already visible, and only
+                    // Only after the answer is already visible, and only
                     // when there is an actual answer (not reasoning). A
                     // bare completion label ("Task complete.") defers to
                     // the last real prose the model wrote — saving the
                     // label instead of the answer is what a real run did.
-                    let saveSource = lastProse.isEmpty ? msg : lastProse
-                    let (saveAnswer, thinkOnly) = JCrossChatManager.extractAnswer(saveSource)
                     if memoryLayer == .vera, !thinkOnly, !saveAnswer.isEmpty {
                         await VeraMemoryBridge.requestSaveApproval(
                             userPrompt: instruction, aiResponse: saveAnswer
