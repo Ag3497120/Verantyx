@@ -112,7 +112,13 @@ struct HumanPriorityModeView: View {
                 // stores, JGEN picker, connection export) — the raw server
                 // list lives inside it as an advanced disclosure.
                 case .mcp:          ExternalOpsView().environmentObject(app)
-                case .veraSettings: VeraFeatureDock().environmentObject(app)
+                case .veraSettings:
+                    VeraFeatureDock(initialTab: app.requestedDockTab)
+                        .environmentObject(app)
+                        // Keyed on the tab so naming a different one while
+                        // the dock is already open rebuilds it there, rather
+                        // than leaving the previous tab showing.
+                        .id(app.requestedDockTab ?? "dock")
                 case .growth:       GrowthConsolePanel()
                 case .evolution:    SelfEvolutionView().environmentObject(app)
                 }
@@ -1728,7 +1734,13 @@ struct IsolatedPipelineHeaderButton: View {
 struct VeraFeatureDock: View {
     @EnvironmentObject var app: AppState
 
-    private enum Tab: String, CaseIterable, Identifiable {
+    /// Which tab to land on. Exists so each of these screens can be named
+    /// individually: a dock that always opens on 設定 makes 「ミラー」 mean
+    /// "open the dock and then find mirror yourself", which is not what the
+    /// person said.
+    var initialTab: String? = nil
+
+    enum Tab: String, CaseIterable, Identifiable {
         // .memory removed: the stage's own 記憶 chip is the one memory
         // view — showing it here too meant two memory readouts at once.
         // .growth removed likewise: growth lives in the Vera-a audit
@@ -1785,6 +1797,9 @@ struct VeraFeatureDock: View {
             .frame(maxWidth: .infinity, maxHeight: .infinity)
         }
         .background(Color(red: 0.10, green: 0.10, blue: 0.14))
+        .onAppear {
+            if let raw = initialTab, let t = Tab(rawValue: raw) { tab = t }
+        }
         .sheet(isPresented: $showConnectSheet) {
             PipeConnectSheet().environmentObject(app)
         }

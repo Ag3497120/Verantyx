@@ -19,6 +19,173 @@ import Foundation
 /// vocabulary, not language: the words name panels this app happens to
 /// have, and the engine must not learn them. But it keeps the engine's
 /// discipline — closed inventory, exact match, silent fall-through.
+// MARK: - Every settings screen, declared once
+//
+// The settings were in five different kinds of place: eight tabs inside
+// SettingsView, panels that only a typed word could raise, surfaces that took
+// the whole window, tabs buried inside the Vera dock, and one switch
+// (`jcross_menu_style`) living in the footer of a menu with no home at all.
+//
+// Five kinds of place means five things to remember, and the person who wants
+// to change something has to already know which kind it is. Worse, the two
+// lists that SHOULD exist — "everything you can configure" and "everything you
+// can say" — were about to be written by hand twice, which is the drift this
+// codebase keeps paying for (docs vs parser, tool list vs licence book).
+//
+// So: one declaration per screen, and both lists derived from it. A screen
+// added here appears in Settings AND becomes summonable in the same edit; a
+// screen present in only one of the two cannot be expressed.
+enum VeraSettingsRegistry {
+
+    /// Where a screen lives. Not a style choice — these behave differently
+    /// and the reader should be able to tell which one they are getting.
+    enum Destination {
+        /// Rendered into the conversation, under the line that asked.
+        case panel(VeraSummon.Panel)
+        /// Takes the whole window, with a way back.
+        case full(AppState.FullSurface)
+        /// A tab inside the Vera dock, opened directly on that tab.
+        case dock(String)
+        /// A tab of the SettingsView sheet.
+        case settingsTab(String)
+    }
+
+    struct Screen: Identifiable {
+        let id: String
+        let ja: String
+        let en: String
+        /// What it decides — written as the consequence, so the row is worth
+        /// reading to someone who does not already know the name.
+        let blurbJa: String
+        let words: [String]
+        let destination: Destination
+
+        var title: String { AppLanguage.shared.t(en, ja) }
+        /// The shortest word that reaches it, for the list.
+        var say: String { words.first ?? id }
+    }
+
+    static let screens: [Screen] = [
+
+        // ── 会話に出るもの ────────────────────────────────────────
+        Screen(id: "settings", ja: "設定", en: "Settings",
+               blurbJa: "モデル・API鍵・道具・記憶・プライバシーの本体",
+               words: ["設定", "せってい", "settings", "setting"],
+               destination: .panel(.settings)),
+        Screen(id: "screen", ja: "画面", en: "Screen",
+               blurbJa: "常に前面にするか、スクショに写すか、メニューの開き方",
+               words: ["画面", "がめん", "screen", "前面", "スクショ", "window"],
+               destination: .panel(.screen)),
+        Screen(id: "licences", ja: "免許", en: "Licences",
+               blurbJa: "どのアプリの、どの行為をVeraに許すか。実行の記録つき",
+               words: ["免許", "めんきょ", "licence", "license", "権限", "許可", "アプリ"],
+               destination: .panel(.licences)),
+        Screen(id: "jgen", ja: "JGEN層", en: "JGEN layers",
+               blurbJa: "記憶層・合議核・実行エージェント・エスカレーション",
+               words: ["jgen設定", "engine", "エンジン", "層", "レイヤ", "layers"],
+               destination: .panel(.jgen)),
+        Screen(id: "memory", ja: "記憶", en: "Memory",
+               blurbJa: "台帳の承認と、限界値の引き上げ提案",
+               words: ["記憶", "きおく", "memory", "記憶パネル"],
+               destination: .panel(.memory)),
+        Screen(id: "modes", ja: "モード", en: "Modes",
+               blurbJa: "どの性格が答えるか。合議 / Vera-a / Vera / Bot / LLM",
+               words: ["モード", "modes", "モード切替"],
+               destination: .panel(.modes)),
+        Screen(id: "model", ja: "モデル", en: "Model",
+               blurbJa: "会話に使うモデルの切り替え先の案内",
+               words: ["モデル", "model", "モデル切替"],
+               destination: .panel(.model)),
+        Screen(id: "cross", ja: "立体十字", en: "Stereo cross",
+               blurbJa: "答えが通った経路の図",
+               words: ["十字", "立体十字", "立体十字構造体", "構造", "cross"],
+               destination: .panel(.cross)),
+        Screen(id: "audit", ja: "監査", en: "Audit",
+               blurbJa: "直近の実行の要約と、証拠・矛盾・欠落の数",
+               words: ["監査", "audit"],
+               destination: .panel(.audit)),
+
+        // ── 全画面を取るもの ──────────────────────────────────────
+        Screen(id: "mcp", ja: "外部運用", en: "External operation",
+               blurbJa: "記憶ストア・JGENの選択・MCPサーバー一覧",
+               words: ["mcp", "外部運用", "外部"],
+               destination: .full(.mcp)),
+        Screen(id: "veraSettings", ja: "Vera-a設定", en: "Vera-a settings",
+               blurbJa: "Vera-a機能のドック全体",
+               words: ["vera-a設定", "vera設定", "ドック", "dock"],
+               destination: .full(.veraSettings)),
+        Screen(id: "growth", ja: "学習（成長）", en: "Learning",
+               blurbJa: "何を覚え、何が隔離されたか",
+               words: ["成長", "学習", "growth"],
+               destination: .full(.growth)),
+        Screen(id: "evolution", ja: "自己進化", en: "Self-evolution",
+               blurbJa: "IDE自身のソース改変とPR",
+               words: ["進化", "自己進化", "evolution"],
+               destination: .full(.evolution)),
+
+        // ── ドックの中に埋まっていたもの ────────────────────────
+        Screen(id: "research", ja: "失敗の型", en: "Failure types",
+               blurbJa: "どの種類の失敗を、何回踏んだか",
+               words: ["失敗", "失敗の型", "failures"],
+               destination: .dock("research")),
+        Screen(id: "distributed", ja: "2台構成", en: "Two Macs",
+               blurbJa: "もう一台への接続と役割分担",
+               words: ["2台", "二台", "2台構成", "pipe"],
+               destination: .dock("distributed")),
+        Screen(id: "stereoCross", ja: "立体十字グラフ", en: "3D graph",
+               blurbJa: "格子そのものを回して見る",
+               words: ["3d", "グラフ", "graph"],
+               destination: .dock("stereoCross")),
+        Screen(id: "mirror", ja: "ミラー", en: "Mirror",
+               blurbJa: "隠しウィンドウの人間用プレビュー",
+               words: ["ミラー", "mirror"],
+               destination: .dock("mirror")),
+        Screen(id: "vectorLab", ja: "ベクトルラボ", en: "Vector lab",
+               blurbJa: "ベクトル空間を直接触る",
+               words: ["ベクトル", "ラボ", "vectorlab"],
+               destination: .dock("vectorLab")),
+
+        // ── 設定シートのタブ ──────────────────────────────────────
+        Screen(id: "tab.model", ja: "モデル設定", en: "Model settings",
+               blurbJa: "エンドポイント・温度・最大トークン",
+               words: ["モデル設定", "推論", "temperature"],
+               destination: .settingsTab("Model")),
+        Screen(id: "tab.apiKeys", ja: "API鍵", en: "API keys",
+               blurbJa: "クラウド各社の鍵と接続確認",
+               words: ["api", "api設定", "鍵", "apikey"],
+               destination: .settingsTab("API Keys")),
+        Screen(id: "tab.tools", ja: "道具", en: "Tools",
+               blurbJa: "エージェントに許す道具の有効・無効",
+               words: ["道具", "ツール", "tools"],
+               destination: .settingsTab("Tools")),
+        Screen(id: "tab.agent", ja: "エージェント", en: "Agent",
+               blurbJa: "実演・パイプライン・振る舞い",
+               words: ["エージェント", "agent", "実演"],
+               destination: .settingsTab("Agent")),
+        Screen(id: "tab.privacy", ja: "プライバシー", en: "Privacy",
+               blurbJa: "外へ出す前に何を伏せるか",
+               words: ["プライバシー", "privacy", "秘匿"],
+               destination: .settingsTab("Privacy")),
+        Screen(id: "tab.general", ja: "一般", en: "General",
+               blurbJa: "言語・更新・その他",
+               words: ["一般", "general"],
+               destination: .settingsTab("General")),
+    ]
+
+    /// The word tables, generated. Both halves of the answer to "where do I
+    /// change this" come from `screens` above, so a screen cannot be in the
+    /// settings list without being sayable, or sayable without being listed.
+    static var wordToScreen: [String: Screen] {
+        var out: [String: Screen] = [:]
+        for screen in screens {
+            for word in screen.words where out[word] == nil {
+                out[word] = screen
+            }
+        }
+        return out
+    }
+}
+
 enum VeraSummon {
     enum Panel: String, Identifiable, CaseIterable {
         case settings, memory, cross, audit, modes, model, licences, screen, jgen
@@ -153,6 +320,10 @@ enum VeraSummon {
         var surface: AppState.FullSurface?
         var opensSettings = false
         var command: Command?
+        /// Which tab the surface or sheet should land on, when the word named
+        /// something more specific than the screen that holds it.
+        var dockTab: String?
+        var settingsTab: String?
     }
 
     // MARK: - Commanding an app by name
@@ -230,11 +401,23 @@ enum VeraSummon {
             if s.hasSuffix(tail) { s = String(s.dropLast(tail.count)); break }
         }
         s = s.trimmingCharacters(in: .whitespaces)
+        // Modes first: a word that names a mode has always meant the mode,
+        // and the registry must not quietly take one over.
         if let m = modes[s] { return Resolution(mode: m) }
-        if let f = surfaces[s] { return Resolution(surface: f) }
+        // Commands next: starting a run and opening a screen are different
+        // promises, and the table that hides both would make the safe half
+        // unsafe.
         if let c = commands[s] { return Resolution(command: c) }
-        if s == "モデル設定" || s == "api設定" || s == "api" {
-            return Resolution(opensSettings: true)
+        // Then every settings screen, from the one declaration.
+        if let screen = VeraSettingsRegistry.wordToScreen[s] {
+            switch screen.destination {
+            case .panel(let p):        return Resolution(panel: p)
+            case .full(let f):         return Resolution(surface: f)
+            case .dock(let tab):       return Resolution(surface: .veraSettings,
+                                                         dockTab: tab)
+            case .settingsTab(let t):  return Resolution(opensSettings: true,
+                                                         settingsTab: t)
+            }
         }
         if let p = table[s] { return Resolution(panel: p) }
         return nil

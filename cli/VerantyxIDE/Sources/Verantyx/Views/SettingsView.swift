@@ -15,6 +15,7 @@ struct SettingsView: View {
     @State private var lmStudioBusy = false
     @State private var lmStudioProblem: String?
     @State private var selectedTab: SettingsTab = .model
+    @AppStorage("jcross_menu_style") private var jcrossMenuStyle = JCrossMenuStyle.connect.rawValue
     /// Honours `AppState.requestedSettingsTab` so an answer from the support
     /// bot can land on the screen it names instead of describing where it is.
     /// An unrecognised name leaves the current tab alone rather than throwing,
@@ -38,6 +39,11 @@ struct SettingsView: View {
     @ObservedObject private var vault = OSAssetMemoryVault.shared
 
     enum SettingsTab: String, CaseIterable {
+        /// Every screen in the app, listed. First because the question this
+        /// sheet gets asked most is "where do I change X", and until now the
+        /// answer depended on which of five kinds of place X happened to
+        /// live in.
+        case allScreens = "All"
         case general = "General"
         case model   = "Model"
         case apiKeys = "API Keys"
@@ -49,6 +55,7 @@ struct SettingsView: View {
 
         var icon: String {
             switch self {
+            case .allScreens: return "square.grid.2x2"
             case .general: return "gearshape"
             case .model:   return "cpu"
             case .apiKeys: return "key.fill"
@@ -62,6 +69,7 @@ struct SettingsView: View {
 
         var color: Color {
             switch self {
+            case .allScreens: return Color(red: 0.55, green: 0.78, blue: 1.0)
             case .general: return Color(red: 0.7, green: 0.7, blue: 0.8)
             case .model:   return Color(red: 0.4, green: 0.7, blue: 1.0)
             case .apiKeys: return Color(red: 0.9, green: 0.7, blue: 0.3)
@@ -75,6 +83,91 @@ struct SettingsView: View {
     }
 
     var onDismiss: (() -> Void)? = nil
+
+    // MARK: - すべての画面
+    //
+    // Generated from `VeraSettingsRegistry`, which is also where the summon
+    // words come from. Two hand-written lists — "everything configurable" and
+    // "everything sayable" — would have to agree, and nothing would check
+    // that they did; this way a screen missing from one cannot exist.
+    //
+    // Each row shows the word as well as the button, because the button is
+    // the slow path. Someone who reads "ミラー" here once does not open this
+    // sheet again to reach it.
+    private var allScreensList: some View {
+        VStack(alignment: .leading, spacing: 14) {
+            Text(AppLanguage.shared.t(
+                "Every screen in the app, and the word that opens it.",
+                "このアプリの全画面と、それを開く語です。"))
+                .font(.system(size: 11)).foregroundStyle(.secondary)
+
+            // The one switch that had no home: it lived in the footer of the
+            // plus menu and nowhere else. It stays there too — a choice made
+            // twenty times a day belongs beside the thing it changes — and
+            // both read the same key, so they cannot disagree.
+            VStack(alignment: .leading, spacing: 5) {
+                Text(AppLanguage.shared.t("Menu opening", "メニューの開き方"))
+                    .font(.system(size: 12, weight: .semibold))
+                Picker("", selection: $jcrossMenuStyle) {
+                    ForEach(JCrossMenuStyle.allCases) { style in
+                        Text(style.label(japanese: AppLanguage.shared.isJapanese))
+                            .tag(style.rawValue)
+                    }
+                }
+                .pickerStyle(.segmented).labelsHidden().frame(width: 220)
+                Text(AppLanguage.shared.t(
+                    "How the plus menu opens. Also in the menu's own footer.",
+                    "＋メニューの開き方。メニュー内の脚注からも変えられます。"))
+                    .font(.system(size: 10)).foregroundStyle(.tertiary)
+            }
+            .padding(.bottom, 4)
+
+            Divider().opacity(0.2)
+
+            ForEach(VeraSettingsRegistry.screens) { screen in
+                HStack(alignment: .top, spacing: 10) {
+                    VStack(alignment: .leading, spacing: 2) {
+                        Text(screen.title)
+                            .font(.system(size: 12, weight: .semibold))
+                        Text(screen.blurbJa)
+                            .font(.system(size: 10)).foregroundStyle(.tertiary)
+                            .fixedSize(horizontal: false, vertical: true)
+                    }
+                    Spacer(minLength: 8)
+                    Text("「\(screen.say)」")
+                        .font(.system(size: 10, design: .monospaced))
+                        .foregroundStyle(Color(red: 0.55, green: 0.78, blue: 1.0))
+                    Button(AppLanguage.shared.t("Open", "開く")) { open(screen) }
+                        .buttonStyle(.bordered).controlSize(.small)
+                }
+                .padding(.vertical, 3)
+            }
+        }
+    }
+
+    /// Opening from the list does exactly what saying the word does — the
+    /// same destinations, so the two routes cannot drift into meaning
+    /// different things.
+    private func open(_ screen: VeraSettingsRegistry.Screen) {
+        switch screen.destination {
+        case .panel(let p):
+            onDismiss?()
+            app.veraEngineMode = .veraBot
+            app.sendMessage(with: p.title)
+        case .full(let f):
+            onDismiss?()
+            app.requestedDockTab = nil
+            app.isVeraAMode = false
+            app.fullSurface = f
+        case .dock(let tab):
+            onDismiss?()
+            app.requestedDockTab = tab
+            app.isVeraAMode = false
+            app.fullSurface = .veraSettings
+        case .settingsTab(let t):
+            if let tab = SettingsTab(rawValue: t) { selectedTab = tab }
+        }
+    }
 
     var body: some View {
         VStack(spacing: 0) {
@@ -186,6 +279,7 @@ struct SettingsView: View {
                 ScrollView {
                     VStack(alignment: .leading, spacing: 20) {
                         switch selectedTab {
+                        case .allScreens: allScreensList
                         case .general: generalSettings
                         case .model:   modelSettings
                         case .apiKeys: apiKeysSettings

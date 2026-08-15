@@ -918,6 +918,8 @@ final class AppState: ObservableObject {
     /// Raised by `openSettings`; the mode layouts observe it and present the
     /// settings sheet. Cleared by the layout once it has acted.
     @Published var showSettingsRequested: Bool = false
+    /// Which tab of the Vera dock a summon named, when it named one.
+    @Published var requestedDockTab: String? = nil
 
     // ── Vera engine mode: 単体 Vera-a か、jgen 合議か ─────────────────────
     //
@@ -1765,10 +1767,16 @@ final class AppState: ObservableObject {
             // again closes it, so the same word is both doors.
             if let s = r.surface {
                 isVeraAMode = false
-                fullSurface = (fullSurface == s) ? nil : s
+                // The word may have named a tab inside the surface. Landing
+                // on the surface's default instead would turn 「ミラー」 into
+                // "open the dock and find mirror yourself", which is not
+                // what was said.
+                requestedDockTab = r.dockTab
+                fullSurface = (fullSurface == s && r.dockTab == nil) ? nil : s
                 addSystemMessage("<think>\n▸ 召喚: \(s.rawValue)\n</think>")
             }
             if r.opensSettings {
+                requestedSettingsTab = r.settingsTab
                 showSettingsRequested = true
                 addSystemMessage("<think>\n▸ 召喚: 設定\n</think>")
             }
