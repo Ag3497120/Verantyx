@@ -31,10 +31,15 @@ struct ModelSelectorBarView: View {
     @State private var agentSDKAvailable = false
     @State private var showJGenOptions = false
     @State private var showModelRoles = false
-    /// LM Studio's server is not started automatically, so this stays empty --
-    /// and the section stays hidden -- until the user turns it on. Refreshed
-    /// when the bar appears rather than polled.
+    /// LM Studio's Local Server can be off while the app itself is running,
+    /// and it can be started at any time after the IDE. A single probe when the
+    /// bar appears therefore answers a question whose answer keeps changing —
+    /// and because the section was hidden whenever the answer was "no", the
+    /// user saw LM Studio running and no way to select it, with nothing on
+    /// screen saying why or offering to fix it.
     @State private var lmStudioModels: [String] = []
+    @State private var lmStudioState: LMStudioAvailability = .unknown
+    @State private var lmStudioStarting = false
     @State private var showPendingToolCalls = false
     @State private var showReasoningTimeline = false
 
@@ -251,7 +256,93 @@ struct ModelSelectorBarView: View {
             // Cheap and bounded (2 s timeout): if LM Studio's Local Server is
             // off this returns nothing and the section simply does not appear,
             // rather than showing a section that fails on click.
-            lmStudioModels = await LMStudioClient.shared.listModels()
+            await refreshLMStudio(autoStart: true)
+            // The server may come up after the IDE did. Keep looking — slowly
+            // while it is down, slower still once it is up. A refused
+            // connection returns immediately, so this costs almost nothing.
+            while !Task.isCancelled {
+                try? await Task.sleep(
+                    nanoseconds: lmStudioState == .ready ? 30_000_000_000 : 6_000_000_000)
+                if Task.isCancelled { break }
+                await refreshLMStudio(autoStart: false)
+            }
+        }
+    }
+
+    /// Ask LM Studio what it can do, and — when the only thing missing is the
+    /// server — start it. The CLI that starts it ships inside LM Studio itself,
+    /// so sending the user to a menu to do by hand what this can do is friction
+    /// for nothing. Auto-start is attempted on the first probe only; the
+    /// periodic re-probe never starts anything the user has since stopped.
+    private func refreshLMStudio(autoStart: Bool) async {
+        func adopt(_ diagnosis: LMStudioClient.Diagnosis) async {
+            switch diagnosis {
+            case .ready:
+                lmStudioModels = await LMStudioClient.shared.listModels()
+                lmStudioState = lmStudioModels.isEmpty ? .noModels : .ready
+            case .noModels:
+                lmStudioModels = []
+                lmStudioState = .noModels
+            case .notInstalled:
+                lmStudioModels = []
+                lmStudioState = .notInstalled
+            case .serverOff(let canStart):
+                lmStudioModels = []
+                lmStudioState = .serverOff(canStart: canStart)
+            case .badEndpoint:
+                // Reachable but the wrong shape — a hand-edited endpoint. Not
+                // something starting the server fixes, so it is reported as off
+                // with the start offer intact rather than silently retried.
+                lmStudioModels = []
+                lmStudioState = .serverOff(canStart: LMStudioClient.lmsBinary() != nil)
+            }
+        }
+
+        await adopt(await LMStudioClient.shared.diagnose())
+
+        guard autoStart, !lmStudioStarting,
+              case .serverOff(let canStart) = lmStudioState, canStart else { return }
+        lmStudioStarting = true
+        _ = await LMStudioClient.shared.startServer()
+        lmStudioStarting = false
+        await adopt(await LMStudioClient.shared.diagnose())
+    }
+
+    /// Always present, even with nothing to offer. A section that disappears
+    /// when the answer is "no" leaves the user with no way to tell a missing
+    /// install from a stopped server from an empty one — three different
+    /// problems with three different fixes.
+    @ViewBuilder
+    private var lmStudioSection: some View {
+        Section("LM Studio (Local Server)") {
+            if !lmStudioModels.isEmpty {
+                ForEach(lmStudioModels, id: \.self) { m in
+                    Button(m) { select(.lmStudio(m)) }
+                }
+            } else {
+                switch lmStudioState {
+                case .unknown, .ready:
+                    Button(app.t("Checking…", "確認中…")) {}.disabled(true)
+                case .noModels:
+                    Button(app.t("No model loaded — load one in LM Studio",
+                                 "モデル未読込 — LM Studio で読み込んでください")) {}
+                        .disabled(true)
+                case .serverOff(let canStart) where canStart:
+                    Button(lmStudioStarting
+                           ? app.t("Starting server…", "サーバーを起動中…")
+                           : app.t("Start Local Server", "ローカルサーバーを起動")) {
+                        Task { await refreshLMStudio(autoStart: true) }
+                    }
+                    .disabled(lmStudioStarting)
+                case .serverOff:
+                    Button(app.t("Server off — LM Studio ▸ Developer ▸ Start Server",
+                                 "サーバー停止中 — LM Studio ▸ Developer ▸ Start Server")) {}
+                        .disabled(true)
+                case .notInstalled:
+                    Button(app.t("LM Studio not found", "LM Studio が見つかりません")) {}
+                        .disabled(true)
+                }
+            }
         }
     }
 
@@ -442,13 +533,7 @@ struct ModelSelectorBarView: View {
                     }
                 }
             }
-            if !lmStudioModels.isEmpty {
-                Section("LM Studio (Local Server)") {
-                    ForEach(lmStudioModels, id: \.self) { m in
-                        Button(m) { select(.lmStudio(m)) }
-                    }
-                }
-            }
+            lmStudioSection
             agentSDKSection
             cloudSections
             if app.ollamaModels.isEmpty && jgen.convertedModels.isEmpty && bitnet.installedConfigs.isEmpty {
@@ -630,4 +715,16 @@ struct ModelSelectorBarView: View {
         }
         loadedModels = await OllamaClient.shared.loadedModels()
     }
+}
+
+
+/// What LM Studio can currently do for us. Kept apart from the model list so
+/// "no models" and "no server" stay distinguishable — they read the same in an
+/// empty array and need opposite fixes.
+private enum LMStudioAvailability: Equatable {
+    case unknown
+    case notInstalled
+    case serverOff(canStart: Bool)
+    case noModels
+    case ready
 }
