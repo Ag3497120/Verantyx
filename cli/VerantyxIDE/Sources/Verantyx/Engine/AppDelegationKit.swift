@@ -303,9 +303,12 @@ final class AppLicenceStore: ObservableObject {
         // Granted is granted, whichever control did it. Without this the
         // refusal card stayed up next to a switch that was already on —
         // the screen asking a question it had just been answered.
-        if on, let pending = AppDelegation.shared.pendingGrant,
-           pending.app == app, pending.verb == verb {
-            AppDelegation.shared.pendingGrant = nil
+        if on {
+            AppDelegation.shared.clearRefusals(app, verb)
+            if let pending = AppDelegation.shared.pendingGrant,
+               pending.app == app, pending.verb == verb {
+                AppDelegation.shared.pendingGrant = nil
+            }
         }
     }
 
@@ -343,6 +346,28 @@ final class AppDelegation: ObservableObject {
     // owns the history UI). It asks first, runs, then files the evidence —
     // rather than this class running a second copy of the command.
 
+    /// How many times each (app, verb) has been refused since the last grant.
+    /// Kept because "許可されるまで、この操作は繰り返さないでください" is advice,
+    /// and a model under pressure treats advice as a suggestion: one run
+    /// retried `open -a Safari` eight times against the same refusal. The
+    /// second identical refusal is not a new fact, so it stops being answered
+    /// and starts ending the run.
+    @Published private(set) var refusals: [String: Int] = [:]
+
+    func refusalCount(_ app: DelegatedApp, _ verb: LicenceVerb) -> Int {
+        refusals["\(app.rawValue).\(verb.rawValue)"] ?? 0
+    }
+
+    /// True once the same request has been refused twice — the caller should
+    /// stop the run and put the question to the person.
+    func isExhausted(_ app: DelegatedApp, _ verb: LicenceVerb) -> Bool {
+        refusalCount(app, verb) >= 2
+    }
+
+    func clearRefusals(_ app: DelegatedApp, _ verb: LicenceVerb) {
+        refusals["\(app.rawValue).\(verb.rawValue)"] = nil
+    }
+
     /// nil when the act may proceed. Otherwise the refusal, already filed.
     func authorise(_ request: DelegationRequest) -> DelegationEvidence? {
         if request.origin == .observedContent {
@@ -350,8 +375,11 @@ final class AppDelegation: ObservableObject {
         }
         guard AppLicenceStore.shared.isGranted(request.app, request.verb) else {
             pendingGrant = request
+            let key = "\(request.app.rawValue).\(request.verb.rawValue)"
+            refusals[key, default: 0] += 1
             return file(refusal: .refusedNoLicence, for: request)
         }
+        clearRefusals(request.app, request.verb)
         return nil
     }
 

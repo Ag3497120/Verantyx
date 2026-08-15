@@ -750,8 +750,26 @@ struct AgentToolParser {
                     tools.append(.runCommand(m)) // fallback
                 }
             } else if let m = match(trimmed, pattern: #"\[RUN:\s*(.+)\]"#) {
-                // Normalize: nano モデルが [RUN:LIST_DIR] のように型名をコマンド名と将揷して出力するハルシネーションを修正
-                if let normalized = normalizeRunToKnownTool(m) {
+                // The capture is greedy, so a line that QUOTES the tag list —
+                // 「[RUN:] [WORKSPACE:] [SEARCH:] [DONE:]」, which a model
+                // writes while reasoning about what it is allowed to use —
+                // was read as one command running to the last bracket. The
+                // shell then got `] [WORKSPACE:] [SEARCH:] [DONE:` and
+                // answered `zsh: no matches found`, over and over, in a run
+                // where the model never asked for a command at all.
+                //
+                // A payload containing another TOOL TAG is documentation
+                // being recited, not a command. Refused with a reason rather
+                // than executed, because a phantom command is worse than a
+                // rejected one: it produces a real error the model then tries
+                // to debug.
+                if m.range(of: #"\[[A-Z][A-Z0-9_]*:"#, options: .regularExpression) != nil {
+                    // Emit NOTHING. Not a command, and not a `.done` either —
+                    // a malformed line is not a completion, and calling it one
+                    // would end the run on a parse accident. With no tool the
+                    // line falls through as prose, which is what it was.
+                    continue
+                } else if let normalized = normalizeRunToKnownTool(m) {
                     tools.append(normalized)
                 } else {
                     tools.append(.runCommand(m))
@@ -3834,6 +3852,18 @@ actor AgentToolExecutor {
             goal: goal.isEmpty ? command : goal,
             origin: .model, directory: workingDir)
 
+        let exhausted = await MainActor.run {
+            AppDelegation.shared.isExhausted(app, .run)
+        }
+        if exhausted {
+            // Second refusal for the same thing. Nothing has changed, so
+            // trying again cannot inform anyone — the only thing that can
+            // move this forward is the person, and the run ends here so they
+            // are actually asked instead of watched.
+            return "STOP_AND_ASK: \(app.displayName) の「\(LicenceVerb.run.displayName)」"
+                 + "が二度拒否されました。ここで止めます。"
+                 + "ユーザーに「免許」と入力して許可してもらってください。"
+        }
         if let refusal = await MainActor.run(body: {
             AppDelegation.shared.authorise(request)
         }) {

@@ -498,6 +498,11 @@ SYS.ENFORCE("logical_verification_before_acceptance")
         [HARNESS: FIXED]
         This backend runs on the fixed harness. ONLY these tags are executed:
         \(AgentTool.tagList(for: ModelTier.fixedHarness))
+
+        行き詰まったとき、必要なものが人からしか得られないときは [ASK_HUMAN: 質問] で
+        止まってください。これは全ハーネスで常に使えます。散文で質問を書いてもターンは
+        終わらず、同じ問いを抱えたままループが回り続けます。止まるのは能力ではなく出口です。
+
         Browser, vision, desktop, git, JCross, MCP and admin tags are disabled here and will be refused. Do not emit them.
         """
 
@@ -1680,6 +1685,17 @@ SYS.ENFORCE("logical_verification_before_acceptance")
                     
                     await onProgress(.workspaceChanged(wsURL))
                     result = await executor.execute(tool, workspaceURL: currentWorkspace)
+                } else if case .askHuman(let question) = tool {
+                    // A question ends the turn. It does NOT go through the
+                    // auditor: the auditor exists to challenge a claim of
+                    // completion, and "I need something from you" is not a
+                    // claim — sending it back for review is how a stop
+                    // becomes another lap.
+                    result = await executor.execute(tool, workspaceURL: currentWorkspace)
+                    await onProgress(.done(message: question,
+                                           workspace: currentWorkspace))
+                    isDone = true
+                    break
                 } else if case .done(let msg) = tool {
                     // ── [NEW] B-to-A Auditor Handover ──
                     if !hasPassedAuditorReview {
@@ -1829,6 +1845,23 @@ SYS.ENFORCE("logical_verification_before_acceptance")
                     }
                 } else {
                     result = await executor.execute(tool, workspaceURL: currentWorkspace)
+                }
+
+                // ── 二度拒否されたら、そこで止める ──────────────────────
+                // The refusal text already said "do not repeat this until it
+                // is granted". A model under pressure reads that as a
+                // suggestion — one run retried the same blocked command eight
+                // times. Nothing about the world changed between attempts, so
+                // the second refusal is not new information: it is the point
+                // at which only the person can move this forward, and the run
+                // ends so they are asked rather than watched.
+                if result.hasPrefix("STOP_AND_ASK:") {
+                    let question = String(result.dropFirst("STOP_AND_ASK:".count))
+                        .trimmingCharacters(in: .whitespaces)
+                    await onProgress(.done(message: question,
+                                           workspace: currentWorkspace))
+                    isDone = true
+                    break
                 }
 
                 // ── ReAct 評価: 検索・ブラウズ系ツールの失敗検知 ────────────────
@@ -2844,19 +2877,28 @@ enum ModelTier: String, Sendable {
     // (ツール)を持つ。それ以外のバックエンドは「固定ハーネス」— ファイル+
     // Web+完了の固定セットに制限される。自由に動いてよいのは、隠れ状態まで
     // 監査できる自前のエンジンだけ、という線引き。
-    static let fixedHarness: Set<ToolCategory> = [.filesystem, .web_simple, .done]
+    //
+    // `.human` is in EVERY set below, including this one, and it is not a
+    // capability — it is the exit. A harness that withholds "stop and ask"
+    // does not make the agent safer, it makes it unable to stop: it observed
+    // that ASK_HUMAN was disabled, concluded it should "just ask in plain
+    // text", and prose does not end a turn. The loop ran to turn 9 asking
+    // the same question nobody could answer, because the door was removed.
+    static let fixedHarness: Set<ToolCategory> = [.filesystem, .web_simple, .done, .human]
 
     var enabledToolCategories: Set<ToolCategory> {
         switch self {
         case .nano:
-            // nano: ファイル操作のみ。Web/JCross/Gitは混乱するのでオフ
-            return [.filesystem, .done]
+            // nano: ファイル操作のみ。Web/JCross/Gitは混乱するのでオフ。
+            // ただし .human は外さない — 手が少ないモデルほど、行き詰まった
+            // ときに訊ける必要がある。
+            return [.filesystem, .done, .human]
         case .small:
             // small: ファイル + 単純な検索
-            return [.filesystem, .web_simple, .done]
+            return [.filesystem, .web_simple, .done, .human]
         case .mid:
             // mid: ほぼフル。JCrossとGitは除く
-            return [.filesystem, .web_full, .done, .selffix]
+            return [.filesystem, .web_full, .done, .selffix, .human]
         case .large, .giant:
             // large/giant: 全ツール有効
             return [.filesystem, .web_full, .jcross, .git, .human, .done, .selffix,
