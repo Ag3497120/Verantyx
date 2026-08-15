@@ -255,6 +255,14 @@ final class AppState: ObservableObject {
     @Published var attachedImages: [AttachedImage] = []
     @Published var attachedFiles: [URL] = []
 
+    /// Files attached in a turn that has been OFFERED to the store and
+    /// not yet answered. Ingest is never automatic: an attachment is a
+    /// file the person wanted the conversation to see, which is not the
+    /// same as a document they want the store to hold forever, and
+    /// deciding that for them is exactly the invisible ingest this
+    /// engine refuses everywhere else.
+    @Published var pendingIngest: [URL] = []
+
     // Inference task handle (for cancellation)
     private var inferenceTask: Task<Void, Never>? = nil
 
@@ -1671,6 +1679,55 @@ final class AppState: ObservableObject {
                 }
             }
             return
+        }
+
+        // ── Attached documents: offered, never taken ──────────────────
+        // Any mode. An attachment reaches the store only through a yes,
+        // and the yes is read from the same kind of closed table the
+        // summons use — 「はい」 opens the door, everything else leaves
+        // it shut and passes the line on as an ordinary turn.
+        if !pendingIngest.isEmpty, !text.isEmpty {
+            let answer = VeraSummon.resolveConsent(text)
+            if answer == .yes {
+                let files = pendingIngest
+                pendingIngest = []
+                inputText = ""
+                messages.append(ChatMessage(role: .user, content: text))
+                inferenceTask = Task {
+                    var docs: [(source: String, text: String)] = []
+                    for url in files {
+                        if let body = try? String(contentsOf: url, encoding: .utf8) {
+                            docs.append((source: url.lastPathComponent, text: body))
+                        }
+                    }
+                    let reply = docs.isEmpty
+                        ? "🚫 読めた文書がありません(テキストとして開けませんでした)。取り込んでいません。"
+                        : "📥 " + (await VeraMemoryBridge.ingestDocuments(docs))
+                    await MainActor.run {
+                        self.messages.append(ChatMessage(
+                            role: .assistant, content: reply))
+                        self.isGenerating = false
+                    }
+                }
+                return
+            }
+            if answer == .no {
+                pendingIngest = []
+                addSystemMessage("<think>\n▸ 取り込みません。会話の中だけで扱います。\n</think>")
+            }
+            // An unrelated line clears the offer rather than holding it
+            // open: a question waiting three turns for an answer becomes
+            // a trap the next 「はい」 falls into.
+            pendingIngest = []
+        }
+
+        // ── A new attachment asks first ───────────────────────────────
+        if !attachedFiles.isEmpty {
+            pendingIngest = attachedFiles
+            let names = attachedFiles.map { $0.lastPathComponent }
+                .prefix(3).joined(separator: "・")
+            addSystemMessage("<think>\n▸ \(names) を Vera-a に入れますか?"
+                + "「はい」で取り込み、それ以外は会話の中だけで扱います。\n</think>")
         }
 
         // ── Summon by name ────────────────────────────────────────────

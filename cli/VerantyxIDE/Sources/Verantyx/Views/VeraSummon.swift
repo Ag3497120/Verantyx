@@ -133,6 +133,20 @@ enum VeraSummon {
         return Panel(rawValue: String(content.dropFirst(7).dropLast()))
     }
 
+    enum Consent { case yes, no, unrelated }
+
+    /// Consent read from a closed table, like everything else here. A
+    /// document entering the store forever is exactly the decision that
+    /// must not be inferred from an enthusiastic-sounding sentence.
+    static func resolveConsent(_ raw: String) -> Consent {
+        let s = raw.trimmingCharacters(in: .whitespacesAndNewlines).lowercased()
+        if ["はい", "うん", "入れる", "いれる", "取り込む", "追加",
+            "yes", "y", "ok", "お願い", "おねがい"].contains(s) { return .yes }
+        if ["いいえ", "いや", "やめる", "入れない", "no", "n",
+            "不要", "けっこう"].contains(s) { return .no }
+        return .unrelated
+    }
+
     struct Resolution {
         var panel: Panel?
         var mode: AppState.VeraEngineMode?
