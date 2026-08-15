@@ -424,21 +424,6 @@ struct AgentChatView: View {
 
             // ── Send button ───────────────────────────────────────────
             if !app.isGenerating {
-                Button { sendMessage() } label: {
-                    Image(systemName: "paperplane.fill")
-                        .font(.system(size: 13))
-                        .foregroundStyle(
-                            (inputText.isEmpty && app.attachedImages.isEmpty && app.attachedFiles.isEmpty)
-                            ? Color(red: 0.4, green: 0.4, blue: 0.5)
-                            : Color(red: 0.4, green: 0.7, blue: 1.0)
-                        )
-                        .padding(8)
-                }
-                .contentShape(Rectangle())
-                .buttonStyle(.plain)
-                .disabled(inputText.trimmingCharacters(in: .whitespaces).isEmpty
-                          && app.attachedImages.isEmpty
-                          && app.attachedFiles.isEmpty)
             }
         }
         .padding(.horizontal, 10).padding(.vertical, 4)
@@ -549,15 +534,20 @@ struct AgentChatView: View {
             }
 
             // ── Text input + action buttons ───────────────────────────
-            HStack(alignment: .bottom, spacing: 8) {
+            HStack(alignment: .bottom, spacing: 6) {
 
                 // ── TextEditor + placeholder ───────────────────────────
                 // Placeholder padding must match NSTextView's internal insets:
                 //   lineFragmentPadding ≈ 5pt (leading)
                 //   textContainerInset.y ≈ 5-7pt (top)
                 composerTextField
+
+                // Send lives inside the box, against the text it sends —
+                // the shortest possible distance between writing and sending.
+                JCrossSendButton(enabled: canSend) { sendMessage() }
+                    .padding(.bottom, 1)
             }
-            .padding(.horizontal, 10).padding(.vertical, 6)
+            .padding(.leading, 10).padding(.trailing, 6).padding(.vertical, 6)
         }
         .background(
             app.selfFixMode
@@ -1029,6 +1019,11 @@ struct AgentChatView: View {
         }
         // FIXED width — never changes regardless of selfFixMode
         .frame(width: 142, alignment: .leading)
+    }
+
+    private var canSend: Bool {
+        !inputText.trimmingCharacters(in: .whitespaces).isEmpty
+            || !app.attachedImages.isEmpty || !app.attachedFiles.isEmpty
     }
 
     /// One line at rest, capped before it eats the transcript.
