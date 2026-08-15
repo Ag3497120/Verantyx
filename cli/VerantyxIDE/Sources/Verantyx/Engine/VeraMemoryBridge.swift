@@ -1288,6 +1288,57 @@ enum VeraMemoryBridge {
                 verdict.hasPrefix("UNKNOWN") ? nil : core)
     }
 
+    /// Veraぼっと: the app answering about itself.
+    ///
+    /// `settings_lookup` names the exact tab and field. When it cannot,
+    /// `settings_search` offers ranked candidates rather than a dead
+    /// end — an "I don't know" about your own settings screen is a
+    /// worse failure than an "I don't know" about the world, because
+    /// the answer is right there in the registry. Both doors read the
+    /// same registry the guide is generated from, so the reply and the
+    /// document cannot drift apart, and neither is a model recalling a
+    /// menu it saw once.
+    static func settingsAnswer(for question: String) async -> String {
+        guard let hit = await callDoor("settings_lookup",
+                                       ["question": question]) else {
+            return "⚠️ 設定レジストリに接続できません。"
+        }
+        let verdict = (hit["verdict"] as? String) ?? ""
+        if verdict == "ANSWER" {
+            var lines: [String] = []
+            if let tab = hit["tab"] as? String, let field = hit["field"] as? String {
+                lines.append("⚙️ 設定 › \(tab) › \(field)")
+            } else if let name = hit["setting"] as? String {
+                lines.append("⚙️ \(name)")
+            }
+            if let what = hit["what"] as? String, !what.isEmpty { lines.append(what) }
+            if let now = hit["current"] as? String, !now.isEmpty {
+                lines.append("現在: \(now)")
+            }
+            lines.append("")
+            lines.append("(設定レジストリより — 推測ではありません)")
+            return lines.joined(separator: "\n")
+        }
+
+        guard let near = await callDoor("settings_search",
+                                        ["question": question, "limit": 6]),
+              let rows = near["matches"] as? [[String: Any]] ?? near["results"] as? [[String: Any]],
+              !rows.isEmpty else {
+            return "🚫 \(verdict.isEmpty ? "UNKNOWN_NO_SETTING" : verdict)\n\n"
+                + "その設定は登録簿にありません。近いものも見つからないので、"
+                + "候補を作らずに黙ります。\n\n(型付き拒否 — 設定を発明しません)"
+        }
+        var lines = ["🔎 近い設定の候補:"]
+        for r in rows.prefix(6) {
+            let name = (r["field"] as? String) ?? (r["setting"] as? String) ?? "?"
+            let tab = (r["tab"] as? String).map { "\($0) › " } ?? ""
+            lines.append("・\(tab)\(name)")
+        }
+        lines.append("")
+        lines.append("(候補は登録簿の近傍 — どれかを名指せば確定します)")
+        return lines.joined(separator: "\n")
+    }
+
     // MARK: - Typed unknowns as control signals
 
     /// A refusal, typed, with the action branch its type selects. Other

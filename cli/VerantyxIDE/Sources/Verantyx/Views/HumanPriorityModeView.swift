@@ -714,7 +714,24 @@ struct HumanPriorityModeView: View {
                         Text("JCross IR").tag(false)
                         Text("Source File").tag(true)
                     }
+                    // The mode picker stays. Everything else can be
+                    // summoned by name, but the mode decides WHICH
+                    // vocabulary is deterministic — and a control you
+                    // must already be in the right mode to reach is a
+                    // control that can strand you.
+                    Picker("", selection: Binding(
+                        get: { app.veraEngineMode },
+                        set: { app.veraEngineMode = $0 })) {
+                        Text(app.t("Council (jgen)", "jgen 合議"))
+                            .tag(AppState.VeraEngineMode.council)
+                        Text("Vera-a").tag(AppState.VeraEngineMode.standalone)
+                        Text("Vera").tag(AppState.VeraEngineMode.veraModel)
+                        Text(app.t("Bot", "ぼっと"))
+                            .tag(AppState.VeraEngineMode.veraBot)
+                        Text("LLM").tag(AppState.VeraEngineMode.localLLM)
+                    }
                     .pickerStyle(.segmented)
+                    .frame(width: 380)
                     .labelsHidden()
                     .frame(width: 150)
                     
@@ -814,7 +831,24 @@ struct HumanPriorityModeView: View {
                         Text("LLM")
                             .tag(AppState.VeraEngineMode.localLLM)
                     }
+                    // The mode picker stays. Everything else can be
+                    // summoned by name, but the mode decides WHICH
+                    // vocabulary is deterministic — and a control you
+                    // must already be in the right mode to reach is a
+                    // control that can strand you.
+                    Picker("", selection: Binding(
+                        get: { app.veraEngineMode },
+                        set: { app.veraEngineMode = $0 })) {
+                        Text(app.t("Council (jgen)", "jgen 合議"))
+                            .tag(AppState.VeraEngineMode.council)
+                        Text("Vera-a").tag(AppState.VeraEngineMode.standalone)
+                        Text("Vera").tag(AppState.VeraEngineMode.veraModel)
+                        Text(app.t("Bot", "ぼっと"))
+                            .tag(AppState.VeraEngineMode.veraBot)
+                        Text("LLM").tag(AppState.VeraEngineMode.localLLM)
+                    }
                     .pickerStyle(.segmented)
+                    .frame(width: 380)
                     .frame(width: 340)
                     .help(app.t(
                         "Council routes through jgen/LLM agents. Vera-a is the "

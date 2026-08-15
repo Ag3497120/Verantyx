@@ -77,8 +77,20 @@ struct VeraSovereignLayout<Content: View>: View {
                         }
                         .frame(width: max(180, min(300, geo.size.width * 0.26)))
                     }
-                    content()
-                        .frame(maxWidth: .infinity, maxHeight: .infinity)
+                    VStack(spacing: 8) {
+                        content()
+                            .frame(maxWidth: .infinity, maxHeight: .infinity)
+                        // The summoned surface sits under what was just
+                        // read and over the line about to be typed —
+                        // where the person was already looking.
+                        if let panel = app.summonedPanel {
+                            VeraSummonedPanel(panel: panel)
+                                .environmentObject(app)
+                                .transition(.opacity)
+                        }
+                    }
+                    .frame(maxWidth: .infinity, maxHeight: .infinity)
+                    .animation(.easeInOut(duration: 0.2), value: app.summonedPanel)
                 }
                 .padding(10)
 

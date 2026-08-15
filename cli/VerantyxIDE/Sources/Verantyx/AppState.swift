@@ -933,6 +933,13 @@ final class AppState: ObservableObject {
         // constructed explanations and typo evidence on refusals. What
         // the browser's ASK is to the 3D page, this is to the IDE.
         case veraModel = "vera_model"   // Vera単体 (LLM不使用・型付き判定)
+        // The bot that answers ABOUT the app: settings, modes, where a
+        // control lives. The summon table is exact by design, so it can
+        // only ever cover names someone already knows — this mode is
+        // where 「フォントを大きくしたい」 goes, and it answers from the
+        // settings registry rather than from a model, so the whole
+        // surface stays deterministic instead of half of it.
+        case veraBot = "vera_bot"       // Veraぼっと (設定・UIの案内)
     }
 
     // ── Vera model versions: the same menu the 3D page's toggle reads ──
@@ -1091,6 +1098,11 @@ final class AppState: ObservableObject {
         showHiddenWindowMirror = false
         Task { @MainActor in await HiddenWindowAutomation.shared.endOffscreenSession() }
     }
+
+    /// The surface the person summoned by name. Nil is the resting
+    /// state: chrome is gone, so nothing is on screen that was not
+    /// asked for.
+    @Published var summonedPanel: VeraSummon.Panel? = nil
 
     @Published var veraEngineMode: VeraEngineMode = .council {
         didSet { applyVeraAOperatingDefaults()
@@ -1617,6 +1629,25 @@ final class AppState: ObservableObject {
         let text = (overrideText ?? inputText).trimmingCharacters(in: .whitespacesAndNewlines)
         let hasAttachments = !attachedImages.isEmpty || !attachedFiles.isEmpty
         guard !text.isEmpty || hasAttachments, !isGenerating else { return }
+
+        // ── Summon by name ────────────────────────────────────────────
+        // The chrome is gone, so the words are the controls. An exact
+        // match on a closed table opens a surface or changes the mode
+        // and the turn ENDS — no model is asked, because summoning is
+        // not a question. Everything else falls through untouched: the
+        // fall-through is what makes the table safe to have.
+        if !text.isEmpty, let r = VeraSummon.resolve(text) {
+            inputText = ""
+            if let mode = r.mode {
+                veraEngineMode = mode
+                addSystemMessage("<think>\n▸ モード: \(mode.rawValue)\n</think>")
+            }
+            if let panel = r.panel {
+                summonedPanel = (summonedPanel == panel) ? nil : panel
+                addSystemMessage("<think>\n▸ 召喚: \(panel.title)\n</think>")
+            }
+            return
+        }
         inputText = ""
 
         // Build the user message (with attachment summary if present)
@@ -1638,6 +1669,25 @@ final class AppState: ObservableObject {
         messages.append(ChatMessage(role: .user, content: displayContent, isSpotlight: isSpotlight))
         currentGenerationIsSpotlight = isSpotlight
         isGenerating = true
+
+        // ── Vera bot: the app answering about itself ──────────────
+        // settings_lookup names the exact tab and field; when it cannot,
+        // settings_search offers candidates instead of a dead end. Both
+        // read the same registry the guide is generated from, so the
+        // answer and the document cannot drift apart — and neither one
+        // is a model's recollection of a menu.
+        if veraEngineMode == .veraBot && !isSpotlight {
+            inferenceTask = Task {
+                let reply = await VeraMemoryBridge.settingsAnswer(for: text)
+                await MainActor.run {
+                    self.messages.append(ChatMessage(
+                        role: .assistant, content: reply,
+                        isSpotlight: self.currentGenerationIsSpotlight))
+                    self.isGenerating = false
+                }
+            }
+            return
+        }
 
         // ── Vera model mode: the store itself answers, no LLM in the turn ──
         // Typed verdicts verbatim; 違い questions get the structural diff;
