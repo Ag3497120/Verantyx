@@ -48,6 +48,79 @@ never be something you go and check.
 A refusal is never rewritten by a model. The moment it is, the answer stops
 being reproducible and citable — which was the entire point of the mode.
 
+## Five modes, one screen
+
+The header picks which character answers, and the screen stays the same
+because Vera runs under all of them:
+
+| mode | who answers |
+|---|---|
+| **jgen 合議** | the council of local models |
+| **Vera-a** | the dual path — a model composes, Vera manages memory beside it |
+| **Vera** | the store alone. **No LLM anywhere in the turn** |
+| **Bot** | the app about itself — settings and UI, from the registry |
+| **LLM** | the plain model path |
+
+### The cross is the route, not a logo
+
+The stereo cross is a watermark across the whole surface, lit by the real
+call — `VeraRouteState` publishes from the one code path every Vera door
+takes, so the light on screen and the work in the engine are the same event.
+Only the arms the answer actually evidenced take colour; an arm with no
+surface cue stays grey, because a fact without a cue has no arm and painting
+one would forge the very thing the gate exists to refuse.
+
+Two crosses exist and are never mixed: the **six arms** are structure
+(support/oppose, cause/effect, general/instance) and the **phase** is process
+(routing / answered / refused / saving).
+
+### The reply is a console, not a bubble
+
+A transcript of bubbles makes every answer look like the same kind of thing.
+Vera's are not:
+
+```text
+ANSWER     the reading — verdict, grain n/m, witnesses
+EVIDENCE   the named source files behind the shown facets
+CONFLICT   both poles held, sides named, verdict downgraded
+GAP        a typed refusal — never an error
+```
+
+**A refusal is a GAP.** The engine did not fail when it declined; declining
+*is* the answer, and rendering that in red beside a warning triangle would
+teach the reader that the most valuable behaviour here is a malfunction.
+
+### Memory a person can mark
+
+The ledger shows what the store actually holds. A row moves from 証言 to
+「ユーザーの校正」 when a person approves it, and from then on an agent reads
+it with that label. The review state lives *beside* the cross, never inside
+it: an approval is not testimony the corpus gave, and writing it into the
+facets would forge evidence.
+
+### Surfaces are summoned by name
+
+Say 設定 / 記憶 / 画面 / 免許 / モード and the surface arrives in the chat.
+The table is closed and the match exact — 「設定を変えたい理由なんだけど」 is
+a sentence about settings, not a request to open them — and anything
+unmatched falls through untouched.
+
+### Documents are offered, never taken
+
+Attaching a file asks: 「…を Vera-a に入れますか?」 「はい」 ingests it;
+anything else leaves it in the conversation only. An attachment is a file you
+wanted the conversation to see, which is not the same as a document you want
+the store to hold forever.
+
+### Screen presence
+
+Two independent switches, because their costs differ. **Always in front** is
+for you — the window you are reading should not sink under the apps Vera
+opens. **Excluded from screenshots** is for Vera — its own window was landing
+on top of every screenshot it took of other apps. `NSWindow.sharingType =
+.none` keeps the window visible to you and invisible to the window server's
+capture, verified two ways.
+
 ## Growth — what the system does not know
 
 A dedicated screen for the typed unknowns: the failure histogram, recurring
