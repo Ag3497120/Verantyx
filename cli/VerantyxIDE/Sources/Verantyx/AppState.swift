@@ -1102,7 +1102,6 @@ final class AppState: ObservableObject {
     /// The surface the person summoned by name. Nil is the resting
     /// state: chrome is gone, so nothing is on screen that was not
     /// asked for.
-    @Published var summonedPanel: VeraSummon.Panel? = nil
 
     @Published var veraEngineMode: VeraEngineMode = .council {
         didSet { applyVeraAOperatingDefaults()
@@ -1646,11 +1645,19 @@ final class AppState: ObservableObject {
             inputText = ""
             if let mode = r.mode {
                 veraEngineMode = mode
+                messages.append(ChatMessage(role: .user, content: text))
                 addSystemMessage("<think>\n▸ モード: \(mode.rawValue)\n</think>")
             }
             if let panel = r.panel {
-                summonedPanel = (summonedPanel == panel) ? nil : panel
-                addSystemMessage("<think>\n▸ 召喚: \(panel.title)\n</think>")
+                // Your line, then the panel under it — the same shape as
+                // asking anything else here. Opening 設定 twice leaves two
+                // in the log rather than moving one; the older copy is a
+                // record of what you asked, and VeraBotTranscript makes it
+                // read-only so there is never a question of which one your
+                // typing lands in.
+                messages.append(ChatMessage(role: .user, content: text))
+                messages.append(ChatMessage(role: .system,
+                                            content: VeraSummon.marker(panel)))
             }
             // The rail and the header buttons are gone; these are the
             // words that reach what they used to reach. Saying the name

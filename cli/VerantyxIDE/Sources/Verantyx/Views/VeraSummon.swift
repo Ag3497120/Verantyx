@@ -99,6 +99,25 @@ enum VeraSummon {
         }
     }
 
+    /// A panel written into the conversation.
+    ///
+    /// Bot mode is a chat, so what it produces belongs in the log: you
+    /// asked for 設定, so 設定 is what sits under your line, and 記憶
+    /// lands under the next one instead of replacing it. Storing the
+    /// panel AS a message means the ordering, the scrollback and the
+    /// history all come from the same place the text does — there is no
+    /// second timeline to keep in step.
+    ///
+    /// The marker is a system message, so every other transcript already
+    /// hides it (`visibleMessages` filters system by default) and no
+    /// path can print it as text.
+    static func marker(_ panel: Panel) -> String { "⟦panel:\(panel.rawValue)⟧" }
+
+    static func panel(fromMarker content: String) -> Panel? {
+        guard content.hasPrefix("⟦panel:"), content.hasSuffix("⟧") else { return nil }
+        return Panel(rawValue: String(content.dropFirst(7).dropLast()))
+    }
+
     struct Resolution {
         var panel: Panel?
         var mode: AppState.VeraEngineMode?

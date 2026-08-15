@@ -73,20 +73,13 @@ struct VeraSovereignLayout<Content: View>: View {
                 // drawing of a feature is worse than no pane, in a product
                 // whose whole claim is that what is on screen was measured.
                 HStack(spacing: 10) {
-                    VStack(spacing: 8) {
-                        content()
-                            .frame(maxWidth: .infinity, maxHeight: .infinity)
-                        // The summoned surface sits under what was just
-                        // read and over the line about to be typed —
-                        // where the person was already looking.
-                        if let panel = app.summonedPanel {
-                            VeraSummonedPanel(panel: panel)
-                                .environmentObject(app)
-                                .transition(.opacity)
-                        }
-                    }
-                    .frame(maxWidth: .infinity, maxHeight: .infinity)
-                    .animation(.easeInOut(duration: 0.2), value: app.summonedPanel)
+                    // The summoned panel used to hang here, one at a
+                    // time, above the composer — which meant asking for
+                    // 記憶 after 設定 threw the first one away. Panels are
+                    // turns in the conversation now (VeraBotTranscript),
+                    // so they stack the way the questions did.
+                    content()
+                        .frame(maxWidth: .infinity, maxHeight: .infinity)
                 }
                 .padding(10)
 
