@@ -2,7 +2,7 @@ import SwiftUI
 
 // MARK: - GitPanelView
 // Source Control panel: unstaged/staged changes, commit UI, push/pull.
-// Lives in the Activity Bar's "Version Control" section.
+// Summoned by 「git」; opens beside the editor.
 
 struct GitPanelView: View {
     @EnvironmentObject var app: AppState

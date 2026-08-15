@@ -10,11 +10,7 @@ import UniformTypeIdentifiers
 
 struct MainSplitView: View {
     @EnvironmentObject var app: AppState
-    @State private var activitySection: ActivityBarView.ActivitySection? = .explorer
-
-    @State private var showSettings     = false
     @State private var showMCPQuick     = false
-    @State private var showExtensionStore = false
 
     /// True once any non-system message exists — locks the mode toggle
     private var chatStarted: Bool {
@@ -42,38 +38,14 @@ struct MainSplitView: View {
             }
             .animation(.easeInOut(duration: 0.25), value: app.operationMode)
 
-            // ── Settings overlay ──────────────────────────────────────────
-            if showSettings {
-                // Dim background — tap to close
-                Color.black.opacity(0.55)
-                    .ignoresSafeArea()
-                    .onTapGesture { withAnimation(.easeOut(duration: 0.18)) { showSettings = false } }
-                    .transition(.opacity)
+            // The Settings and Extension Store overlays lived here. Both
+            // were opened by `activitySection == .settings` and by nothing
+            // else, and the rail that set it is gone — they had become
+            // screens with no door. Settings itself is not lost: the live
+            // one is HumanPriorityModeView's, raised by
+            // `app.showSettingsRequested`, which is what every caller
+            // already used.
 
-                // Settings panel — centered, FIXED size, no resize
-                SettingsView(onDismiss: {
-                    withAnimation(.easeOut(duration: 0.18)) { showSettings = false }
-                })
-                .environmentObject(app)
-                .transition(.scale(scale: 0.96).combined(with: .opacity))
-                .zIndex(10)
-            }
-            
-            // ── Extension Store overlay ───────────────────────────────────
-            if showExtensionStore {
-                Color.black.opacity(0.55)
-                    .ignoresSafeArea()
-                    .onTapGesture { withAnimation(.easeOut(duration: 0.18)) { showExtensionStore = false } }
-                    .transition(.opacity)
-                
-                ExtensionStoreView(onDismiss: {
-                    withAnimation(.easeOut(duration: 0.18)) { showExtensionStore = false }
-                })
-                .environmentObject(app)
-                .transition(.scale(scale: 0.96).combined(with: .opacity))
-                .zIndex(15)
-            }
-            
             // ── VS Code Extension UI Overlay ──────────────────────────────
             ExtensionUIPanelView()
                 .zIndex(105)
@@ -90,22 +62,6 @@ struct MainSplitView: View {
         }
         .toolbar { toolbarContent }
         .onAppear { app.connectOllama() }
-        // ── Open Settings when gear is tapped ──────────────────────────────
-        .onChange(of: activitySection) { _, section in
-            if section == .settings {
-                withAnimation(.easeOut(duration: 0.18)) { showSettings = true }
-                DispatchQueue.main.asyncAfter(deadline: .now() + 0.05) {
-                    activitySection = .explorer
-                }
-            }
-        }
-        // ── "フル MCP パネルを開く" ボタンから送られる通知を受け取る ──────────
-        .onReceive(NotificationCenter.default.publisher(for: Notification.Name("OpenMCPPanel"))) { _ in
-            withAnimation(.easeOut(duration: 0.18)) {
-                showSettings = false
-                activitySection = .mcp
-            }
-        }
         // ── Human Mode: file write approval sheet ────────────────────────────
         .sheet(item: $app.pendingFileApproval) { req in
             FileApprovalView(req: req)
@@ -130,103 +86,12 @@ struct MainSplitView: View {
     } // end body
 
 
-    // MARK: - Human Mode (4-pane IDE)
-
-
-
-    // MARK: - Human Mode (4-pane IDE)
-
-    private var humanModeLayout: some View {
-        VStack(spacing: 0) {
-            HStack(spacing: 0) {
-
-                // ① Activity bar (fixed 48pt)
-                ActivityBarView(selectedSection: $activitySection)
-                    .frame(width: 48)
-
-                // ② Left + Center + Right
-                if let section = activitySection {
-                    ResizableHSplit(
-                        minLeft: 50, maxLeft: 99999, minRight: 100, initialLeft: 240
-                    ) {
-                        // ── Left pane ─────────────────────────────────────
-                        Group {
-                            switch section {
-                            case .mcp:       MCPView()
-                            case .vera:      VeraFeatureDock().environmentObject(app)
-                            case .growth:    GrowthConsolePanel()
-                            case .evolution: SelfEvolutionView().environmentObject(app)
-                            case .search:    GlobalSearchView().environmentObject(app)
-                            case .git:       GitPanelView().environmentObject(app)
-                            // VRBridgePanelView's source was never committed
-                            // to this repo (dead reference, unrelated to
-                            // this change) -- falls through to the default.
-                            default:         MultiPurposePanel().environmentObject(app)
-                            }
-                        }
-                        .frame(maxHeight: .infinity)
-                    } right: {
-                        centerAndRightPanes
-                    }
-                } else {
-                    centerAndRightPanes
-                }
-            }
-            .frame(maxWidth: .infinity, maxHeight: .infinity)
-
-            // ── Human Mode: pending approval banner ──────────────────
-            if app.operationMode == .gatekeeper, let diff = app.pendingDiff {
-                humanApprovalBanner(diff: diff)
-            }
-
-
-
-            Divider().opacity(0.4)
-            StatusBarView(terminal: app.terminal)
-        }
-        .background(Color(red: 0.11, green: 0.11, blue: 0.14))
-        .toastOverlay()
-    }
-
-    @ViewBuilder
-    private var centerAndRightPanes: some View {
-        ResizableHSplit(
-            // minRight was 100 -- well below what the chat pane's own
-            // toolbar/input/bubble layout needs before elements start
-            // visibly crushing together. Raised to match
-            // ResizableHSplit's own sensible default (300).
-            minLeft: 100, maxLeft: 99999, minRight: 300, initialLeft: 420
-        ) {
-            // ── Center: Chat ───────────────────────────────
-            VStack(spacing: 0) {
-                AgentChatView()
-                    .frame(maxWidth: .infinity, maxHeight: .infinity)
-
-                if app.showProcessLog {
-                    ResizableVSplit(
-                        minTop: 50, maxTop: 99999, minBottom: 50, initialTop: 9999
-                    ) {
-                        EmptyView()
-                    } bottom: {
-                        ThinkingLogView()
-                    }
-                    .frame(height: 180)
-                }
-            }
-        } right: {
-            // ── Right: Artifact/Diff (top) + Terminal (bottom) ──
-            ResizableVSplit(
-                minTop: 50, maxTop: 99999, minBottom: 50, initialTop: 400
-            ) {
-                // Artifact panel — has Diff tab built-in
-                ArtifactPanelView()
-                    .environmentObject(app)
-            } bottom: {
-                TerminalPanelView(terminal: app.terminal)
-                    .environmentObject(app)
-            }
-        }
-    }
+    // `humanModeLayout` lived here: the 4-pane IDE with the 48pt activity
+    // rail. It had no call sites — this view has rendered
+    // HumanPriorityModeView unconditionally for a long time — but it still
+    // carried working routes into the docked MCP / Vera / growth panes, so
+    // a stray notification could open a screen out of a layout nobody
+    // mounts. Deleted rather than left as a trap.
 
     // MARK: - Human Mode: approval banner
 

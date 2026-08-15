@@ -1827,8 +1827,8 @@ struct SettingsView: View {
             sectionHeader("MCP Servers", icon: "network")
 
             infoBlock(app.t(
-                "Manage Model Context Protocol servers. Full configuration is available in the Activity Bar \"🔗\" panel.",
-                "Model Context Protocol サーバーを管理します。詳細な設定は左のアクティビティバー「🔗」から開けます。"
+                "Manage Model Context Protocol servers. Full configuration is in the external-operation surface below.",
+                "Model Context Protocol サーバーを管理します。詳細な設定は下の外部運用の画面から開けます。"
             ))
 
             // ── Server list ──────────────────────────────────────────────
@@ -1852,17 +1852,22 @@ struct SettingsView: View {
                         Text(app.t("Open Full MCP Panel", "フル MCP パネルを開く"))
                             .font(.system(size: 12, weight: .semibold)).foregroundStyle(.white)
                         Text(app.t(
-                            "Add/edit servers and browse tools in the Activity Bar MCP section.",
-                            "サーバーの追加・編集・ツール一覧はアクティビティバーの MCP セクションから操作できます"
+                            "Memory stores, the JGEN picker and the raw server "
+                            + "list, in one full-window surface.",
+                            "記憶ストア・JGENの選択・サーバー一覧を、"
+                            + "ひとつの全画面にまとめた画面です"
                         ))
                             .font(.system(size: 10)).foregroundStyle(.secondary).lineSpacing(2)
                     }
                     Spacer()
+                    // Was: post OpenMCPPanel, which docked the raw server list
+                    // as a left column — a surface reached through an activity
+                    // bar that no longer exists, describing itself in terms of
+                    // that bar. Straight to the hub now, and no 0.3s sleep
+                    // hoping the sheet has finished closing.
                     Button(app.t("Close & Open", "設定を閉じて開く")) {
                         onDismiss?()
-                        DispatchQueue.main.asyncAfter(deadline: .now() + 0.3) {
-                            NotificationCenter.default.post(name: Notification.Name("OpenMCPPanel"), object: nil)
-                        }
+                        app.fullSurface = .mcp
                     }
                     .buttonStyle(.borderedProminent)
                     .controlSize(.small)
@@ -1910,7 +1915,7 @@ struct SettingsView: View {
                     .foregroundStyle(.tertiary)
                 Text(app.t("No MCP servers registered", "MCPサーバーが未登録です"))
                     .font(.system(size: 12)).foregroundStyle(.secondary)
-                Text(app.t("Add servers from the MCP panel in the Activity Bar.", "アクティビティバーの MCP パネルから追加できます"))
+                Text(app.t("Add servers from the external-operation surface.", "外部運用の画面から追加できます"))
                     .font(.system(size: 10)).foregroundStyle(.tertiary)
             }
             .padding(.vertical, 24)

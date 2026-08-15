@@ -4,7 +4,7 @@ import Highlightr
 
 // MARK: - HumanPriorityModeView
 // VS Code / Antigravity style layout:
-//   [Activity Bar 48pt] | [File Tree 240pt] | [Code Editor flex] | [AI Chat 340pt]
+//   [Chat, full width] — the editor half arrives only when named
 //
 // The human writes code directly in the editor.
 // The AI chat panel sits on the right as a co-pilot assistant.
@@ -183,20 +183,14 @@ struct HumanPriorityModeView: View {
         }
         .animation(.easeOut(duration: 0.18), value: showSettings)
         .toastOverlay()
-        .onReceive(NotificationCenter.default.publisher(for: Notification.Name("OpenMCPPanel"))) { _ in
-            activitySection = .mcp
-        }
-        // The Gatekeeper chip's menu (ModelSelectorBarView) opens surfaces
-        // in the center pane through these — same pattern as OpenMCPPanel.
-        .onReceive(NotificationCenter.default.publisher(for: Notification.Name("OpenVeraDock"))) { _ in
-            activitySection = .vera
-        }
-        .onReceive(NotificationCenter.default.publisher(for: Notification.Name("OpenGrowthPanel"))) { _ in
-            activitySection = .growth
-        }
-        .onReceive(NotificationCenter.default.publisher(for: Notification.Name("OpenEvolutionPanel"))) { _ in
-            activitySection = .evolution
-        }
+        // The OpenMCPPanel / OpenVeraDock / OpenGrowthPanel /
+        // OpenEvolutionPanel receivers are gone. Each opened a SECOND copy
+        // of a screen that already had a home: MCP as a docked server list
+        // beside the hub, the Vera dock beside the full-window one, and so
+        // on. Three of the four had no poster left at all — they were doors
+        // standing in a field. Everything routes through `app.fullSurface`
+        // now, which is the one the Gatekeeper menu, the menu bar and the
+        // summon table all already used.
         // ── 名前で呼ばれた画面 ────────────────────────────────────────
         // Posted by VeraSummon when the person types the word. The rail
         // that used to post these is gone; the destinations are not.
@@ -499,17 +493,16 @@ struct HumanPriorityModeView: View {
             // Activity sections render here full-size instead of as a
             // docked side column; Explorer (or deselecting) shows the
             // stage.
+            // Only the three that belong BESIDE the editor: what you are
+            // looking at, what changed, what you are looking for. MCP, the
+            // Vera dock, growth and self-evolution used to be listed here
+            // too — full-window screens rendered a second time in a 600pt
+            // column. One home each; theirs is `app.fullSurface`.
             if let section = activitySection, section != .explorer {
                 Group {
                     switch section {
-                    case .mcp:       MCPView()
-                    case .vera:      VeraFeatureDock().environmentObject(app)
-                    case .growth:    GrowthConsolePanel()
-                    case .evolution: SelfEvolutionView().environmentObject(app)
                     case .search:    GlobalSearchView().environmentObject(app)
                     case .git:       GitPanelView().environmentObject(app)
-                    // VRBridgePanelView's source was never committed to
-                    // this repo (dead reference) -- default covers it.
                     default:         codeEditorPanel
                     }
                 }
@@ -1728,7 +1721,7 @@ struct IsolatedPipelineHeaderButton: View {
 
 /// The panels the pre-audit Vera-a layout carried (記憶 / 成長 / 失敗の型 /
 /// 2台構成 / 設定 / モード / 立体十字 / ミラー / ベクトルラボ), reachable
-/// from the NORMAL layout's activity bar. When Vera-a mode became a single
+/// by name (「vera-a設定」). When Vera-a mode became a single
 /// conversation, these screens lost their only home; they belong beside the
 /// editor anyway — configuring memory or the two-Mac split is something you
 /// do while working, not something worth switching modes for.

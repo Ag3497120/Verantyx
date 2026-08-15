@@ -126,8 +126,9 @@ struct ModelSelectorBarView: View {
                 // surface: a menu whose picks swap the CENTER surface
                 // (MCP/model settings, Vera-a settings, growth,
                 // self-evolution) — plus the Vera-a mode switch it always
-                // carried. Selections land in HumanPriorityModeView via
-                // the same notification pattern OpenMCPPanel already used.
+                // carried. Selections land in HumanPriorityModeView
+                // through `app.fullSurface`, the one route these screens
+                // have.
                 Menu {
                     Button(app.isVeraAMode
                            ? app.t("Leave Vera-a mode", "Vera-aモードを終了")
