@@ -439,6 +439,23 @@ struct HumanPriorityModeView: View {
 
     @ViewBuilder
     private var centerAndRightPanes: some View {
+        Group {
+            if app.veraEngineMode == .veraModel {
+                // Vera mode IS the surface. The editor half is not
+                // hidden to make room for a picture — the sovereign
+                // layout already carries a 自由ウィンドウ, so keeping the
+                // split would put two editors on one screen and squeeze
+                // the three columns into a stack at every width.
+                VeraSovereignLayout()
+                    .environmentObject(app)
+                    .frame(maxWidth: .infinity, maxHeight: .infinity)
+            } else {
+                splitPanes
+            }
+        }
+    }
+
+    private var splitPanes: some View {
         // ③ Inner split: [surface] | [AI Chat]
         ResizableHSplit(
             // minRight raised from 100 -- same reasoning as MainSplitView's
@@ -874,9 +891,19 @@ struct HumanPriorityModeView: View {
 
             Divider().opacity(0.25)
 
-            // Chat view
-            AgentChatView()
-                .frame(maxWidth: .infinity, maxHeight: .infinity)
+            // Vera mode is the sovereign layout: 記憶 / 自由ウィンドウ
+            // down the left, the cross in the middle, the chat on the
+            // right — and the cross reflows into the left stack, then
+            // in with the chat, as the pane narrows. Every other mode
+            // keeps the plain transcript.
+            if app.veraEngineMode == .veraModel {
+                VeraSovereignLayout()
+                    .environmentObject(app)
+                    .frame(maxWidth: .infinity, maxHeight: .infinity)
+            } else {
+                AgentChatView()
+                    .frame(maxWidth: .infinity, maxHeight: .infinity)
+            }
         }
         .background(Color(red: 0.10, green: 0.10, blue: 0.14))
         .sheet(isPresented: $showPipelineSheet) {

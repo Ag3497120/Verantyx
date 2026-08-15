@@ -278,8 +278,9 @@ struct AgentChatView: View {
                 // arrived in. Still when nothing is asked; lit by the
                 // real call when one is. It reports and never decides —
                 // no gate reads this, exactly like the grain band.
-                if app.veraEngineMode == .veraModel
-                    || app.veraEngineMode == .standalone {
+                // Vera mode has the cross as its own pane; only the
+                // dual path (Vera-a) needs the band over the transcript.
+                if app.veraEngineMode == .standalone {
                     VeraRouteBand()
                         .padding(.leading, 14)
                 }
