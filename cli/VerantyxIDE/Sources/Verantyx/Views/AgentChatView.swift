@@ -8,6 +8,8 @@ struct AgentChatView: View {
     @EnvironmentObject var app: AppState
     @State private var showingHistory: Bool = false
     @State private var inputText: String = ""
+    /// Laid-out height of the input's content, reported back from AppKit.
+    @State private var composerContentHeight: CGFloat = 0
 
     /// Drives the composer glow. Eases out after the state settles.
     @State private var glowPulse: Bool = false
@@ -807,32 +809,7 @@ struct AgentChatView: View {
                 // Placeholder padding must match NSTextView's internal insets:
                 //   lineFragmentPadding ≈ 5pt (leading)
                 //   textContainerInset.y ≈ 5-7pt (top)
-                ZStack(alignment: .topLeading) {
-                    if inputText.isEmpty {
-                        Text(app.selfFixMode
-                             ? app.t("Fix this IDE… (Self Fix Mode)", "このIDEを修正… (Self Fix モード)")
-                             : (app.selectedFile == nil
-                                ? app.t("Ask VerantyxAgent anything…", "Ask VerantyxAgent anything…")
-                                : app.t("Describe the changes you want…", "Describe the changes you want…")))
-                            .font(.system(size: 13))
-                            .foregroundStyle(
-                                app.selfFixMode
-                                    ? Color(red: 1.0, green: 0.65, blue: 0.15).opacity(0.55)
-                                    : Color(red: 0.38, green: 0.38, blue: 0.45)
-                            )
-                            // Matches NSTextView's default lineFragmentPadding (5) + inset (~6)
-                            .padding(.leading, 5)
-                            .padding(.top, 6)
-                            // No pointer interaction so clicks pass through to TextEditor
-                            .allowsHitTesting(false)
-                    }
-                    ChatInputTextView(
-                        text: $inputText,
-                        onSend: { sendMessage() },
-                        isFocused: $inputFocused
-                    )
-                    .frame(maxWidth: .infinity, minHeight: 44, maxHeight: 110)
-                }
+                composerTextField
             }
             .padding(.horizontal, 10).padding(.vertical, 6)
         }
@@ -977,6 +954,58 @@ struct AgentChatView: View {
 
     // MARK: - Helpers
 
+    /// Extracted from the composer's body on purpose: inline, the surrounding
+    /// expression grew past what the type checker will solve in reasonable
+    /// time, and adding the growth modifiers tipped it over. Splitting is the
+    /// fix SwiftUI actually wants here.
+    @ViewBuilder
+    private var composerTextField: some View {
+        ZStack(alignment: .topLeading) {
+            if inputText.isEmpty {
+                Text(app.selfFixMode
+                     ? app.t("Fix this IDE… (Self Fix Mode)", "このIDEを修正… (Self Fix モード)")
+                     : (app.selectedFile == nil
+                        ? app.t("Ask VerantyxAgent anything…", "Ask VerantyxAgent anything…")
+                        : app.t("Describe the changes you want…", "Describe the changes you want…")))
+                    .font(.system(size: 13))
+                    .foregroundStyle(
+                        app.selfFixMode
+                            ? Color(red: 1.0, green: 0.65, blue: 0.15).opacity(0.55)
+                            : Color(red: 0.38, green: 0.38, blue: 0.45)
+                    )
+                    // Matches NSTextView's default lineFragmentPadding (5) + inset (~6)
+                    .padding(.leading, 5)
+                    .padding(.top, 6)
+                    // No pointer interaction so clicks pass through to TextEditor
+                    .allowsHitTesting(false)
+            }
+            ChatInputTextView(
+                text: $inputText,
+                onSend: { sendMessage() },
+                isFocused: $inputFocused,
+                measuredHeight: $composerContentHeight
+            )
+            // One line to start, growing with the text, and past the
+            // cap it stops growing and scrolls instead — the NSScrollView
+            // underneath already has its scroller, it was simply never
+            // reached because the frame never changed.
+            .frame(maxWidth: .infinity,
+                   minHeight: composerHeight, maxHeight: composerHeight)
+            .animation(.spring(response: 0.24, dampingFraction: 0.9),
+                       value: composerHeight)
+        }
+    }
+
+    /// One line at rest, capped before it eats the transcript.
+    ///
+    /// The floor is a single line rather than the old 44pt minimum, so an empty
+    /// composer is as small as it can honestly be. The ceiling is where growth
+    /// stops and scrolling starts: past roughly eight lines a taller box stops
+    /// helping and starts hiding the conversation it is about.
+    private var composerHeight: CGFloat {
+        min(max(composerContentHeight, 24), 200)
+    }
+
     private func sendMessage() {
         let text = inputText.trimmingCharacters(in: .whitespacesAndNewlines)
         guard !text.isEmpty, !app.isGenerating else { return }
@@ -1079,6 +1108,26 @@ struct ChatInputTextView: NSViewRepresentable {
     @Binding var text: String
     var onSend: () -> Void
     var isFocused: FocusState<Bool>.Binding
+    /// How tall the text actually is once laid out.
+    ///
+    /// The composer was not fixed by choice — the frame already said
+    /// `minHeight: 44, maxHeight: 110`. It never moved because an
+    /// NSViewRepresentable has no intrinsic size to give SwiftUI, so the layout
+    /// resolved to the minimum and stayed there no matter how much was typed.
+    /// The height has to be measured on the AppKit side and handed back.
+    @Binding var measuredHeight: CGFloat
+
+    /// The laid-out height of the content, insets included.
+    static func contentHeight(of textView: NSTextView) -> CGFloat {
+        guard let manager = textView.layoutManager,
+              let container = textView.textContainer else { return 0 }
+        // usedRect is only meaningful after layout has actually been done, and
+        // typing invalidates it — asking without ensuring returns the height
+        // from before the keystroke.
+        manager.ensureLayout(for: container)
+        return manager.usedRect(for: container).height
+            + textView.textContainerInset.height * 2
+    }
 
     func makeCoordinator() -> Coordinator {
         Coordinator(parent: self)
@@ -1141,6 +1190,7 @@ struct ChatInputTextView: NSViewRepresentable {
         if textView.string != text {
             coordinator.isSyncingFromBinding = true
             textView.string = text
+            coordinator.reportHeight(textView)
             textView.setSelectedRange(NSRange(location: textView.string.count, length: 0))
             coordinator.isSyncingFromBinding = false
         }
@@ -1174,6 +1224,18 @@ struct ChatInputTextView: NSViewRepresentable {
             isSyncingToBinding = true
             parent.text = textView.string
             isSyncingToBinding = false
+            reportHeight(textView)
+        }
+
+        /// Publishing height during a view update is what SwiftUI warns about,
+        /// so it lands on the next runloop pass. Unchanged values are dropped
+        /// to avoid a redraw on every keystroke that stays on one line.
+        func reportHeight(_ textView: NSTextView) {
+            let height = ChatInputTextView.contentHeight(of: textView)
+            guard abs(height - parent.measuredHeight) > 0.5 else { return }
+            DispatchQueue.main.async { [weak self] in
+                self?.parent.measuredHeight = height
+            }
         }
 
         func textDidBeginEditing(_ notification: Notification) {
