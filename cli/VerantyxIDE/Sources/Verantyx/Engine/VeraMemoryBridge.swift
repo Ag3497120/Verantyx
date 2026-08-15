@@ -280,6 +280,10 @@ enum VeraMemoryBridge {
     }
 
     private static func performSave(_ req: VeraSaveApprovalRequest) async {
+        // A claim travelling to memory takes the same road: the cross
+        // reads 記憶へ while it lands, then goes still. Nothing is
+        // inserted into memory from the side of the picture.
+        await MainActor.run { VeraRouteState.shared.stored() }
         // Collect the REAL core keys the store actually saved under (as
         // returned by `remember`/`record_code_change`), not a guess derived
         // from the raw prompt text -- graph_snapshot ranks cores by pour
@@ -867,10 +871,25 @@ enum VeraMemoryBridge {
     /// the Vera side pins that attaching it changes no verdict), older
     /// servers simply omit it and every path here tolerates its absence.
     private static func askRaw(_ query: String) async -> AskResult {
+        // The verdict path lights the cross like every other door: the
+        // question enters the routing, and only then does an answer
+        // reach the transcript.
+        await MainActor.run { VeraRouteState.shared.began(door: "ask") }
+        defer { }
         let raw = await MCPEngine.shared.callTool(
             serverName: serverName, toolName: "ask",
             arguments: ["query": query], mode: .human
         )
+        if let d = raw.data(using: .utf8),
+           let o = try? JSONSerialization.jsonObject(with: d) as? [String: Any] {
+            await MainActor.run {
+                VeraRouteState.shared.finished(door: "ask", payload: o)
+            }
+        } else {
+            await MainActor.run {
+                VeraRouteState.shared.finished(door: "ask", payload: nil)
+            }
+        }
         guard
             let data = raw.data(using: .utf8),
             let obj = try? JSONSerialization.jsonObject(with: data) as? [String: Any],
@@ -954,6 +973,20 @@ enum VeraMemoryBridge {
     /// output and every band tolerates that as nil — a band that errors
     /// is worse than no band.
     static func callDoor(
+        _ tool: String, _ args: [String: Any]
+    ) async -> [String: Any]? {
+        // The cross is lit from HERE, the one road every Vera door
+        // takes — so the light on screen and the work in the engine
+        // are the same event, never a timer imitating one.
+        await MainActor.run { VeraRouteState.shared.began(door: tool) }
+        let obj = await callDoorRaw(tool, args)
+        await MainActor.run {
+            VeraRouteState.shared.finished(door: tool, payload: obj)
+        }
+        return obj
+    }
+
+    private static func callDoorRaw(
         _ tool: String, _ args: [String: Any]
     ) async -> [String: Any]? {
         if let native = await VeraModelProcess.shared.call(tool, args) {

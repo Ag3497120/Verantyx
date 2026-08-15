@@ -273,6 +273,16 @@ struct AgentChatView: View {
     private var logToggleChip: some View {
         VStack {
             HStack {
+                // ── 立体十字ルーティング ─────────────────────────
+                // The route the answer took, over the transcript it
+                // arrived in. Still when nothing is asked; lit by the
+                // real call when one is. It reports and never decides —
+                // no gate reads this, exactly like the grain band.
+                if app.veraEngineMode == .veraModel
+                    || app.veraEngineMode == .standalone {
+                    VeraRouteBand()
+                        .padding(.leading, 14)
+                }
                 Spacer()
                 Button {
                     withAnimation(.easeInOut(duration: 0.15)) {

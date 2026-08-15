@@ -238,6 +238,8 @@
 		D3A00B8FC26D5F97539D5871 /* AXVisionBridge.swift in Sources */ = {isa = PBXBuildFile; fileRef = B9FC275F1E0EB46297742664 /* AXVisionBridge.swift */; };
 		D859626ADD63FE4C3A654464 /* L25IndexEngine.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2CAFC26D99D4C6ED1948D362 /* L25IndexEngine.swift */; };
 		DCE174A0A5C275ADA7206152 /* CortexEngine.swift in Sources */ = {isa = PBXBuildFile; fileRef = DC25A03DB54A65B9B740D72A /* CortexEngine.swift */; };
+		1458FEECB64E4F6F89C19E0A /* StereoCrossView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0AE7353AA3D84DB8B9798B44 /* StereoCrossView.swift */; };
+		E9E3BB376BA946A6A304C5C3 /* VeraRouteState.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5CB1F19BE03647139918B4AE /* VeraRouteState.swift */; };
 		09102F8BF469CE0499CE5993 /* StereoCrossGraphView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F1B6C6E77D87695E9301243A /* StereoCrossGraphView.swift */; };
 		945C548D2AF147669FED993C /* MemoryLayerInspectorView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A50B5F7BDC9140D2A949A8B1 /* MemoryLayerInspectorView.swift */; };
 		AF6DB78C6C3A0BDCBC55930C /* JCrossSwarmRunner.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7CD56C73912B6F627FB42759 /* JCrossSwarmRunner.swift */; };
@@ -523,6 +525,8 @@
 		D73DBEC823822E319BD7F8F8 /* GitPanelView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GitPanelView.swift; sourceTree = "<group>"; };
 		DB2086AF6524710D69F75F11 /* JCrossIRPatcher.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = JCrossIRPatcher.swift; sourceTree = "<group>"; };
 		DC25A03DB54A65B9B740D72A /* CortexEngine.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CortexEngine.swift; sourceTree = "<group>"; };
+		0AE7353AA3D84DB8B9798B44 /* StereoCrossView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StereoCrossView.swift; sourceTree = "<group>"; };
+		5CB1F19BE03647139918B4AE /* VeraRouteState.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VeraRouteState.swift; sourceTree = "<group>"; };
 		F1B6C6E77D87695E9301243A /* StereoCrossGraphView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StereoCrossGraphView.swift; sourceTree = "<group>"; };
 		A50B5F7BDC9140D2A949A8B1 /* MemoryLayerInspectorView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MemoryLayerInspectorView.swift; sourceTree = "<group>"; };
 		7CD56C73912B6F627FB42759 /* JCrossSwarmRunner.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = JCrossSwarmRunner.swift; sourceTree = "<group>"; };
@@ -704,6 +708,7 @@
 				11B59AAFEB592888A37115C3 /* SelfEvolutionView.swift */,
 				CC4FB3FBAD54427CA94924A2 /* WebModuleHost.swift */,
 				8DF2C2D7BE640032534C82B6 /* SessionHistoryView.swift */,
+				0AE7353AA3D84DB8B9798B44 /* StereoCrossView.swift */,
 				F1B6C6E77D87695E9301243A /* StereoCrossGraphView.swift */,
 				A9C32260F6774C4C93FBDA96 /* HiddenWindowMirrorView.swift */,
 				0A6820690E9749F989927A71 /* JGenSettingsSection.swift */,
@@ -791,6 +796,7 @@
 				B8C9D0E1F20314253647586B /* VeraRuntimeEvent.swift */,
 				DC25A03DB54A65B9B740D72A /* CortexEngine.swift */,
 				7CD56C73912B6F627FB42759 /* JCrossSwarmRunner.swift */,
+				5CB1F19BE03647139918B4AE /* VeraRouteState.swift */,
 				1368F7D4BD6464D1EBD8C201 /* VeraMemoryBridge.swift */,
 				2B2EBE704F994785AB9B8D34 /* CapabilityRegistry.swift */,
 				A3A75195818E4D40ADBF55E7 /* VectorGrowthHooks.swift */,
@@ -1209,6 +1215,7 @@
 				A7B8C9D0E1F2031425364759 /* VeraRuntimeEvent.swift in Sources */,
 				DCE174A0A5C275ADA7206152 /* CortexEngine.swift in Sources */,
 				AF6DB78C6C3A0BDCBC55930C /* JCrossSwarmRunner.swift in Sources */,
+				E9E3BB376BA946A6A304C5C3 /* VeraRouteState.swift in Sources */,
 				FEC444BED0006C5B2F3B258B /* VeraMemoryBridge.swift in Sources */,
 				B7A68088DD5EA071EE6C4E9F /* VeraSkillForge.swift in Sources */,
 				A1C0FF33D0E7B41ACB120001 /* ClaimGrounding.swift in Sources */,
@@ -1396,6 +1403,7 @@
 				1E0E1CD5FAC0427BA33FC1A5 /* WebModuleHost.swift in Sources */,
 				267FE0D64902DB5A8D3945CB /* SelfUpdater.swift in Sources */,
 				56C84CFCE34DEB7E57B8F7A6 /* SessionHistoryView.swift in Sources */,
+				1458FEECB64E4F6F89C19E0A /* StereoCrossView.swift in Sources */,
 				09102F8BF469CE0499CE5993 /* StereoCrossGraphView.swift in Sources */,
 				945C548D2AF147669FED993C /* MemoryLayerInspectorView.swift in Sources */,
 				366AB5DCC22873E89270811E /* VeraSaveApprovalView.swift in Sources */,
