@@ -52,15 +52,25 @@ struct VeraSummonedPanel: View {
         case .settings:
             SettingsView().environmentObject(app)
         case .memory:
-            MemoryConsoleView().environmentObject(app)
+            // Both halves of memory in one place: the ledger that was
+            // parked in the left column (with its 承認 buttons) over the
+            // console's capacity proposals.
+            VStack(spacing: 0) {
+                MemoryLedgerList().frame(maxHeight: 150)
+                Divider().opacity(0.3)
+                MemoryConsoleView().environmentObject(app)
+            }
         case .audit:
-            // AuditRibbonView renders one run's summary; without a run
-            // there is nothing to show, and inventing a summary here
-            // would be the first fabricated evidence on the screen.
-            Text("直近の監査サマリはありません。実行後に現れます。")
-                .font(.system(size: 11))
-                .foregroundStyle(.secondary)
-                .padding(12)
+            // The strip that used to sit above every conversation. Its
+            // numbers are real (nodes, evidence, conflicts, gaps) — they
+            // just do not need to be on screen while you type.
+            VStack(alignment: .leading, spacing: 0) {
+                AuditSummonHeader()
+                Text("直近の監査サマリはありません。実行後に現れます。")
+                    .font(.system(size: 11))
+                    .foregroundStyle(.secondary)
+                    .padding(12)
+            }
         case .cross:
             StereoCrossView(span: 300, showsLabels: true)
                 .frame(maxWidth: .infinity)
@@ -135,5 +145,16 @@ struct VeraSummonedPanel: View {
         case .veraBot:    return "ぼっと"
         case .localLLM:   return "llm"
         }
+    }
+}
+
+
+/// The old VERA-A strip, given a home instead of a residence.
+private struct AuditSummonHeader: View {
+    @StateObject private var status = VeraStatusModel()
+
+    var body: some View {
+        VeraStatusStrip(status: status)
+            .task { await status.load() }
     }
 }

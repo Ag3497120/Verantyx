@@ -128,11 +128,14 @@ struct HumanPriorityModeView: View {
             VStack(spacing: 0) {
                 HStack(spacing: 0) {
 
-                    // ① Activity bar (fixed 48pt)
-                    ActivityBarView(selectedSection: $activitySection)
-                        .frame(width: 48)
+                    // The 48pt icon rail is gone. It was five permanent
+                    // glyphs standing for five screens, and a person who
+                    // wants git says "git" — the rail asked them to learn
+                    // which drawing meant it instead. Every section it
+                    // opened is now summoned by name (VeraSummon), and the
+                    // sections still render exactly where they did.
 
-                    // ② One surface + chat. An activity selection used to
+                    // One surface + chat. An activity selection used to
                     // dock as a THIRD column with its own divider, showing
                     // (for example) memory beside the stage's own memory
                     // tab. Now the selection opens IN the single center
@@ -194,12 +197,39 @@ struct HumanPriorityModeView: View {
         .onReceive(NotificationCenter.default.publisher(for: Notification.Name("OpenEvolutionPanel"))) { _ in
             activitySection = .evolution
         }
+        // ── 名前で呼ばれた画面 ────────────────────────────────────────
+        // Posted by VeraSummon when the person types the word. The rail
+        // that used to post these is gone; the destinations are not.
+        .onReceive(NotificationCenter.default.publisher(
+            for: VeraSummon.Command.files.notification)) { _ in
+            activitySection = (activitySection == .explorer) ? nil : .explorer
+        }
+        .onReceive(NotificationCenter.default.publisher(
+            for: VeraSummon.Command.git.notification)) { _ in
+            activitySection = (activitySection == .git) ? nil : .git
+        }
+        .onReceive(NotificationCenter.default.publisher(
+            for: VeraSummon.Command.search.notification)) { _ in
+            activitySection = (activitySection == .search) ? nil : .search
+        }
+        // A map is built, not shown: saying マップ starts the L2.5 index
+        // over the open workspace, which is what the header button did.
+        .onReceive(NotificationCenter.default.publisher(
+            for: VeraSummon.Command.projectMap.notification)) { _ in
+            if let ws = app.workspaceURL {
+                Task { await L25IndexEngine.shared.loadAndIncrementalUpdate(workspaceURL: ws) }
+            }
+        }
+        .onReceive(NotificationCenter.default.publisher(
+            for: VeraSummon.Command.pipeline.notification)) { _ in
+            showPipelineSheet = true
+        }
         // ── Settings を開く ──────────────────────────────────────────────────
         .onChange(of: activitySection) { _, section in
             if section == .settings {
                 withAnimation(.easeOut(duration: 0.18)) { showSettings = true }
                 DispatchQueue.main.asyncAfter(deadline: .now() + 0.05) {
-                    activitySection = .explorer
+                    activitySection = nil
                 }
             }
         }
@@ -439,16 +469,20 @@ struct HumanPriorityModeView: View {
 
     @ViewBuilder
     private var centerAndRightPanes: some View {
-        // Vera mode takes the whole surface (no editor half — the
-        // sovereign layout carries its own 自由ウィンドウ), but it goes
-        // inside the AI pane's own chrome, because that chrome is where
-        // the mode switches, the attachments and the model readout live.
-        // Replacing the pane wholesale is what made them disappear.
+        // One screen, every mode. Vera mode already took the whole
+        // surface; the others kept a permanent editor half beside the
+        // chat, which meant the app looked like two different products
+        // depending on a pull-down. It is the same conversation in all
+        // five — only the reply differs — so it gets the same window.
+        //
+        // The editor is not deleted, it is asked for: 「ファイル」「git」
+        // 「検索」 open it beside the chat, and saying the word again
+        // closes it. Nothing is reachable only by having been left open.
         Group {
-            if app.veraEngineMode == .veraModel {
-                aiChatPanel
-            } else {
+            if activitySection != nil {
                 splitPanes
+            } else {
+                aiChatPanel
             }
         }
     }
@@ -796,131 +830,11 @@ struct HumanPriorityModeView: View {
 
     private var aiChatPanel: some View {
         VStack(spacing: 0) {
-            // Chat header. Title and the action buttons are two separate
-            // layers (ZStack), not one HStack -- when the pane is narrow,
-            // an HStack would force either the title to truncate mid-word
-            // or the buttons to get squeezed/clipped. Here the title has
-            // room to fill the whole row and, if the buttons don't fit
-            // beside it, they overlay on top (with a background fade so
-            // it reads as an intentional overlap, not broken layout)
-            // instead of the row itself getting crushed.
-            ZStack(alignment: .trailing) {
-                HStack(spacing: 8) {
-                    Image(systemName: "sparkles")
-                        .font(.system(size: 12))
-                        .foregroundStyle(Color(red: 0.55, green: 1.0, blue: 0.65))
-
-                    Text("AI Assistant")
-                        .font(.system(size: 12, weight: .semibold))
-                        .foregroundStyle(Color(red: 0.80, green: 0.80, blue: 0.92))
-                        .lineLimit(1)
-
-                    // ── エンジン切替: jgen 合議 ⇄ 単体 Vera-a ──────────
-                    // ヘッダに置くのは、いま読んでいる答えがどちらの性格か
-                    // (LLM 合議か、決定論の型付き判定か)が常に見えるべき
-                    // だからです。
-                    Picker("", selection: Binding(
-                        get: { app.veraEngineMode },
-                        set: { app.veraEngineMode = $0 })) {
-                        Text(app.t("Council (jgen)", "jgen 合議"))
-                            .tag(AppState.VeraEngineMode.council)
-                        Text("Vera-a")
-                            .tag(AppState.VeraEngineMode.standalone)
-                        Text("Vera")
-                            .tag(AppState.VeraEngineMode.veraModel)
-                        Text("LLM")
-                            .tag(AppState.VeraEngineMode.localLLM)
-                    }
-                    // The mode picker stays. Everything else can be
-                    // summoned by name, but the mode decides WHICH
-                    // vocabulary is deterministic — and a control you
-                    // must already be in the right mode to reach is a
-                    // control that can strand you.
-                    Picker("", selection: Binding(
-                        get: { app.veraEngineMode },
-                        set: { app.veraEngineMode = $0 })) {
-                        Text(app.t("Council (jgen)", "jgen 合議"))
-                            .tag(AppState.VeraEngineMode.council)
-                        Text("Vera-a").tag(AppState.VeraEngineMode.standalone)
-                        Text("Vera").tag(AppState.VeraEngineMode.veraModel)
-                        Text(app.t("Bot", "ぼっと"))
-                            .tag(AppState.VeraEngineMode.veraBot)
-                        Text("LLM").tag(AppState.VeraEngineMode.localLLM)
-                    }
-                    .pickerStyle(.segmented)
-                    .frame(width: 380)
-                    .frame(width: 340)
-                    .help(app.t(
-                        "Council routes through jgen/LLM agents. Vera-a is the "
-                        + "dual path: the store's typed verdict first (verbatim), "
-                        + "eternal recall injected, and your active chat model "
-                        + "(LM Studio / Ollama / JGEN) composes under it; the "
-                        + "turn ends with the save gate.",
-                        "合議は jgen/LLM エージェント経路。Vera-a は併用経路: "
-                        + "型付き判定を原文のまま先頭に、永遠記憶を注入し、"
-                        + "会話中のモデル(LM Studio / Ollama / JGEN)がその下で"
-                        + "回答を合成。最後に保存ゲートが走ります。"))
-
-                    // ── Vera model picker: which stamped release answers ──
-                    // Same menu as the 3D page's toggle (versions/index.json).
-                    if app.veraEngineMode == .veraModel {
-                        Picker("", selection: Binding(
-                            get: { app.selectedVeraVersionId },
-                            set: { id in Task { await app.selectVeraModelVersion(id) } })) {
-                            Text(app.t("local build", "ローカル")).tag("local")
-                            ForEach(app.veraModelVersions) { v in
-                                Text(v.id).tag(v.id)
-                            }
-                        }
-                        .pickerStyle(.menu)
-                        .frame(maxWidth: 190)
-                        .disabled(app.veraVersionBusy)
-                        .task { await app.refreshVeraModelVersions() }
-                        .help(app.t(
-                            "Which stamped Vera release answers. Switching "
-                            + "downloads the version and restarts the engine "
-                            + "process — never a silent reload.",
-                            "どの版のVeraが答えるか。切替は版の取得とエンジン"
-                            + "プロセスの再起動 — 静かな差し替えはしません。"))
-                        if app.veraVersionBusy {
-                            ProgressView().controlSize(.small)
-                        }
-                    }
-
-                    Spacer(minLength: 0)
-                }
-
-                HStack(spacing: 8) {
-                    // ── L2.5 地図生成ボタン ────────────────────────
-                    IsolatedL25HeaderButton()
-
-                    Divider().frame(height: 14).opacity(0.3)
-
-                    // ── ▶ Run Pipeline ボタン ───────────────────────────
-                    IsolatedPipelineHeaderButton(showPipelineSheet: $showPipelineSheet)
-                }
-                .padding(.leading, 10)
-                .background(
-                    LinearGradient(
-                        colors: [Color(red: 0.11, green: 0.11, blue: 0.15).opacity(0),
-                                 Color(red: 0.11, green: 0.11, blue: 0.15)],
-                        startPoint: .leading, endPoint: .trailing
-                    )
-                    .frame(width: 40)
-                    .offset(x: -40),
-                    alignment: .leading
-                )
-            }
-            .padding(.horizontal, 12)
-            .padding(.vertical, 9)
-            .background(Color(red: 0.11, green: 0.11, blue: 0.15))
-            .overlay(
-                Rectangle()
-                    .fill(Color(red: 0.55, green: 1.0, blue: 0.65).opacity(0.25))
-                    .frame(height: 1),
-                alignment: .top
-            )
-
+            // The chat header band is gone. It held one pull-down and two
+            // buttons; the pull-down moved into the row directly below it
+            // (which was already there), and the buttons became words. A
+            // 34pt band for a single control is a band that exists because
+            // it used to hold five.
             Divider().opacity(0.25)
 
             // Vera mode is the sovereign layout: 記憶 / 自由ウィンドウ
@@ -1738,6 +1652,9 @@ struct IsolatedCPUPill: View {
 }
 
 struct IsolatedL25HeaderButton: View {
+    /// Show the run's progress, but never the button that starts it —
+    /// that word lives in the composer now.
+    var progressOnly = false
     @EnvironmentObject var app: AppState
     @ObservedObject private var l25Engine = L25IndexEngine.shared
     
@@ -1753,6 +1670,8 @@ struct IsolatedL25HeaderButton: View {
             Label("\(l25Engine.projectMap?.fileCount ?? 0) files mapped", systemImage: "map.fill")
                 .font(.system(size: 9, weight: .medium))
                 .foregroundStyle(Color(red: 0.4, green: 0.85, blue: 0.6))
+        } else if progressOnly {
+            EmptyView()
         } else {
             Button {
                 if let ws = app.workspaceURL {
@@ -1771,6 +1690,7 @@ struct IsolatedL25HeaderButton: View {
 struct IsolatedPipelineHeaderButton: View {
     @ObservedObject private var pipeline = TranspilationPipeline.shared
     @Binding var showPipelineSheet: Bool
+    var progressOnly = false
     
     var body: some View {
         if pipeline.isRunning {
@@ -1780,6 +1700,8 @@ struct IsolatedPipelineHeaderButton: View {
                     .font(.system(size: 9, design: .monospaced))
                     .foregroundStyle(Color(red: 1.0, green: 0.75, blue: 0.3))
             }
+        } else if progressOnly {
+            EmptyView()
         } else {
             Button {
                 showPipelineSheet = true

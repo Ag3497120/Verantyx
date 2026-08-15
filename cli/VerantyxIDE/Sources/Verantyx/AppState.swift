@@ -1646,6 +1646,22 @@ final class AppState: ObservableObject {
                 summonedPanel = (summonedPanel == panel) ? nil : panel
                 addSystemMessage("<think>\n▸ 召喚: \(panel.title)\n</think>")
             }
+            // The rail and the header buttons are gone; these are the
+            // words that reach what they used to reach. Saying the name
+            // again closes it, so the same word is both doors.
+            if let s = r.surface {
+                isVeraAMode = false
+                fullSurface = (fullSurface == s) ? nil : s
+                addSystemMessage("<think>\n▸ 召喚: \(s.rawValue)\n</think>")
+            }
+            if r.opensSettings {
+                showSettingsRequested = true
+                addSystemMessage("<think>\n▸ 召喚: 設定\n</think>")
+            }
+            if let c = r.command {
+                NotificationCenter.default.post(name: c.notification, object: nil)
+                addSystemMessage("<think>\n▸ 召喚: \(c.rawValue)\n</think>")
+            }
             return
         }
         inputText = ""

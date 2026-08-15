@@ -28,7 +28,6 @@ struct VeraSovereignLayout<Content: View>: View {
 
     @EnvironmentObject var app: AppState
     @ObservedObject private var route = VeraRouteState.shared
-    @StateObject private var ledger = MemoryLedgerModel()
 
     /// Where the cross lives at this width.
     private enum Fold { case column, leftStack, withChat }
@@ -50,14 +49,12 @@ struct VeraSovereignLayout<Content: View>: View {
         min(260, max(96, w * 0.19))
     }
 
-    @StateObject private var status = VeraStatusModel()
-
     var body: some View {
-        VStack(spacing: 0) {
-            VeraStatusStrip(status: status)
-            layout
-        }
-        .task { await status.load() }
+        // VeraStatusStrip (VERA-A / READY / NODES / EVIDENCE …) is off the
+        // chat. It reported real numbers, which is why it earns a place —
+        // but not a permanent band above every conversation. It is the 監査
+        // panel's header now, summoned by 監査.
+        layout
     }
 
     private var layout: some View {
@@ -67,16 +64,15 @@ struct VeraSovereignLayout<Content: View>: View {
             // pane actually has. Below this even a 180pt rail would push
             // the transcript under a readable line length, and then the
             // watermark alone carries the structure.
-            let showsColumn = geo.size.width >= 470
             ZStack {
+                // The left column is gone. 記憶 was a real pane and it
+                // moved into the summoned 記憶 panel — the ledger with its
+                // 承認 buttons is the same object, just called by name.
+                // 自由ウィンドウ was a mock: four tab labels and three lines
+                // of code that never came from anywhere. A pane holding a
+                // drawing of a feature is worse than no pane, in a product
+                // whose whole claim is that what is on screen was measured.
                 HStack(spacing: 10) {
-                    if showsColumn {
-                        VStack(spacing: 10) {
-                            memoryPane
-                            freeWindowPane
-                        }
-                        .frame(width: max(180, min(300, geo.size.width * 0.26)))
-                    }
                     VStack(spacing: 8) {
                         content()
                             .frame(maxWidth: .infinity, maxHeight: .infinity)
@@ -110,61 +106,12 @@ struct VeraSovereignLayout<Content: View>: View {
                 .allowsHitTesting(false)
                 .animation(.easeInOut(duration: 0.6), value: route.phase)
             }
-            .animation(.easeInOut(duration: 0.28), value: showsColumn)
         }
     }
 
     // MARK: - 記憶
 
-    private var memoryPane: some View {
-        pane(title: "記憶", trailing: "\(ledger.rows.count)件") {
-            ScrollView {
-                VStack(alignment: .leading, spacing: 6) {
-                    ForEach(ledger.rows) { row in
-                        MemoryRowView(row: row) {
-                            Task { await ledger.approve(row) }
-                        }
-                    }
-                    if ledger.rows.isEmpty {
-                        Text(ledger.loaded ? "まだ何も保持していません" : "読み込み中…")
-                            .font(.system(size: 10))
-                            .foregroundStyle(.tertiary)
-                    }
-                }
-            }
-        }
-    }
 
-    // MARK: - 自由ウィンドウ
-
-    private var freeWindowPane: some View {
-        pane(title: "自由ウィンドウ", trailing: nil) {
-            VStack(alignment: .leading, spacing: 8) {
-                HStack(spacing: 5) {
-                    ForEach(["エディタ", "3D", "台帳", "端末"], id: \.self) { name in
-                        Text(name)
-                            .font(.system(size: 10, design: .monospaced))
-                            .padding(.horizontal, 6).padding(.vertical, 2)
-                            .overlay(RoundedRectangle(cornerRadius: 3)
-                                .strokeBorder(name == "エディタ"
-                                              ? VeraInk.verified.opacity(0.8)
-                                              : Color.white.opacity(0.12),
-                                              lineWidth: 0.8))
-                            .foregroundStyle(name == "エディタ"
-                                             ? VeraInk.verified : Color.secondary)
-                    }
-                }
-                Text("""
-                def ask(q):
-                    lang = route(q)
-                    band = grain(q)
-                """)
-                    .font(.system(size: 10, design: .monospaced))
-                    .foregroundStyle(.tertiary)
-                Spacer(minLength: 0)
-            }
-        }
-    }
 
     // MARK: - shared chrome
 
@@ -296,3 +243,31 @@ private struct MemoryRowView: View {
 }
 
 
+
+
+// MARK: - 記憶台帳, now summoned rather than parked
+
+/// The left column's 記憶 pane, lifted out so it can appear inside the
+/// summoned 記憶 panel. Same model, same 承認 action — moving a control
+/// is only safe if it is the same control.
+struct MemoryLedgerList: View {
+    @StateObject private var ledger = MemoryLedgerModel()
+
+    var body: some View {
+        ScrollView {
+            VStack(alignment: .leading, spacing: 6) {
+                ForEach(ledger.rows) { row in
+                    MemoryRowView(row: row) {
+                        Task { await ledger.approve(row) }
+                    }
+                }
+                if ledger.rows.isEmpty {
+                    Text(ledger.loaded ? "まだ何も保持していません" : "読み込み中…")
+                        .font(.system(size: 10))
+                        .foregroundStyle(.tertiary)
+                }
+            }
+            .padding(10)
+        }
+    }
+}

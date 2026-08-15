@@ -50,6 +50,26 @@ enum VeraSummon {
         "モデル": .model, "model": .model, "モデル切替": .model,
     ]
 
+    /// Full-window surfaces, formerly the rail's icons.
+    private static let surfaces: [String: AppState.FullSurface] = [
+        "mcp": .mcp, "外部運用": .mcp, "外部": .mcp,
+        "vera-a設定": .veraSettings, "vera設定": .veraSettings,
+        "jgen設定": .veraSettings, "ドック": .veraSettings,
+        "成長": .growth, "学習": .growth, "growth": .growth,
+        "進化": .evolution, "自己進化": .evolution, "evolution": .evolution,
+    ]
+
+    /// Actions. `設定` is here rather than in `surfaces` because model
+    /// and API settings open as a sheet, not as a surface.
+    private static let commands: [String: Command] = [
+        "ファイル": .files, "files": .files, "エクスプローラ": .files,
+        "explorer": .files,
+        "git": .git, "ギット": .git, "差分": .git,
+        "検索": .search, "search": .search,
+        "マップ": .projectMap, "地図": .projectMap, "map": .projectMap,
+        "パイプライン": .pipeline, "pipeline": .pipeline,
+    ]
+
     /// Switching the engine mode by name. Same closed discipline.
     private static let modes: [String: AppState.VeraEngineMode] = [
         "veraモード": .veraModel, "vera": .veraModel,
@@ -60,9 +80,31 @@ enum VeraSummon {
         "verabot": .veraBot, "vera bot": .veraBot,
     ]
 
+    /// A surface that takes the whole window. These used to be the left
+    /// icon rail's job. The rail was five permanent icons teaching a
+    /// sixth vocabulary, and four of them opened screens nobody visits
+    /// mid-sentence — so they are named now, like everything else.
+    /// The ones that stayed reachable are the ones you actually reach
+    /// for: files, git, search.
+
+    /// Something to DO rather than a surface to show. Kept separate
+    /// because "パイプライン" starting a run and "設定" opening a panel
+    /// are different promises, and one table hiding both would make the
+    /// safe half unsafe.
+    enum Command: String {
+        case files, git, search, projectMap, pipeline
+
+        var notification: Notification.Name {
+            Notification.Name("VeraSummon." + rawValue)
+        }
+    }
+
     struct Resolution {
         var panel: Panel?
         var mode: AppState.VeraEngineMode?
+        var surface: AppState.FullSurface?
+        var opensSettings = false
+        var command: Command?
     }
 
     /// Exact match on the trimmed line, case-folded, with a trailing
@@ -78,8 +120,13 @@ enum VeraSummon {
             if s.hasSuffix(tail) { s = String(s.dropLast(tail.count)); break }
         }
         s = s.trimmingCharacters(in: .whitespaces)
-        if let m = modes[s] { return Resolution(panel: nil, mode: m) }
-        if let p = table[s] { return Resolution(panel: p, mode: nil) }
+        if let m = modes[s] { return Resolution(mode: m) }
+        if let f = surfaces[s] { return Resolution(surface: f) }
+        if let c = commands[s] { return Resolution(command: c) }
+        if s == "モデル設定" || s == "api設定" || s == "api" {
+            return Resolution(opensSettings: true)
+        }
+        if let p = table[s] { return Resolution(panel: p) }
         return nil
     }
 }

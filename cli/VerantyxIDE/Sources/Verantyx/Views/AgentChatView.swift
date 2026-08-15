@@ -232,8 +232,71 @@ struct AgentChatView: View {
         }
         .padding(.vertical, 8)
         .background(Color(red: 0.15, green: 0.15, blue: 0.19))
+        .overlay(alignment: .leading) {
+            veraModeControls.padding(.leading, 12)
+        }
         .overlay(alignment: .trailing) {
             overflowMenu.padding(.trailing, 12)
+        }
+    }
+
+    // MARK: - Which engine answers
+    //
+    // Moved here from the band above, which existed only to hold it. It
+    // stays visible rather than becoming a summon, because the mode
+    // decides what KIND of answer the next reply is — a typed verdict or
+    // an LLM's prose — and that is not a setting, it is the label on what
+    // you are reading.
+    private var veraModeControls: some View {
+        HStack(spacing: 6) {
+            Picker("", selection: Binding(
+                get: { app.veraEngineMode },
+                set: { app.veraEngineMode = $0 })) {
+                Text(app.t("Council (jgen)", "jgen 合議"))
+                    .tag(AppState.VeraEngineMode.council)
+                Text("Vera-a").tag(AppState.VeraEngineMode.standalone)
+                Text("Vera").tag(AppState.VeraEngineMode.veraModel)
+                Text(app.t("Bot", "ぼっと")).tag(AppState.VeraEngineMode.veraBot)
+                Text("LLM").tag(AppState.VeraEngineMode.localLLM)
+            }
+            .frame(width: 140)
+            .help(app.t(
+                "Council routes through jgen/LLM agents. Vera-a is the dual "
+                + "path: the store's typed verdict first (verbatim), eternal "
+                + "recall injected, and your active chat model composes under "
+                + "it; the turn ends with the save gate.",
+                "合議は jgen/LLM エージェント経路。Vera-a は併用経路: "
+                + "型付き判定を原文のまま先頭に、永遠記憶を注入し、"
+                + "会話中のモデルがその下で回答を合成。最後に保存ゲート。"))
+
+            // Which stamped Vera release answers — only when one does.
+            if app.veraEngineMode == .veraModel {
+                Picker("", selection: Binding(
+                    get: { app.selectedVeraVersionId },
+                    set: { id in Task { await app.selectVeraModelVersion(id) } })) {
+                    Text(app.t("local build", "ローカル")).tag("local")
+                    ForEach(app.veraModelVersions) { v in
+                        Text(v.id).tag(v.id)
+                    }
+                }
+                .pickerStyle(.menu)
+                .frame(maxWidth: 170)
+                .disabled(app.veraVersionBusy)
+                .task { await app.refreshVeraModelVersions() }
+                .help(app.t(
+                    "Switching downloads the version and restarts the engine "
+                    + "process — never a silent reload.",
+                    "切替は版の取得とエンジンプロセスの再起動 — "
+                    + "静かな差し替えはしません。"))
+                if app.veraVersionBusy { ProgressView().controlSize(.small) }
+            }
+
+            // Progress only: these two used to be buttons that started long
+            // jobs. The words 「マップ」「パイプライン」 start them now; what
+            // is left here is the part worth watching.
+            IsolatedL25HeaderButton(progressOnly: true)
+            IsolatedPipelineHeaderButton(showPipelineSheet: .constant(false),
+                                         progressOnly: true)
         }
     }
 
@@ -534,8 +597,15 @@ struct AgentChatView: View {
                     app.attachedFiles.append(contentsOf: AttachmentManager.pickFiles())
                 },
             ], japanese: AppLanguage.shared.isJapanese)
-            Spacer(minLength: 6)
-            modelPill
+            // The full picker, back where it was: every backend (MLX,
+            // Ollama, BitNet, JGEN, LM Studio, cloud, Agent SDK), the
+            // auditor toggle and the backend badge. The compact pill that
+            // replaced it listed Ollama and nothing else, so a model
+            // loaded from any other backend could be running with no way
+            // on screen to change it.
+            ModelSelectorBarView()
+                .environmentObject(app)
+                .layoutPriority(1)
             JCrossSendButton(enabled: canSend) { sendMessage() }
         }
     }
