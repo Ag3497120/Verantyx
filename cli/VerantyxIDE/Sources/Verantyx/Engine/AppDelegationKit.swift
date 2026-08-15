@@ -57,13 +57,14 @@ import CryptoKit
 // MARK: - The apps Vera may command
 
 enum DelegatedApp: String, CaseIterable, Codable, Identifiable, Sendable {
-    case terminal, finder, editor, browser, preview, notes, xcode
+    case terminal, automation, finder, editor, browser, preview, notes, xcode
 
     var id: String { rawValue }
 
     var displayName: String {
         switch self {
         case .terminal: return "Terminal"
+        case .automation: return AppLanguage.shared.t("App automation", "アプリ自動操作")
         case .finder:   return "Finder"
         case .editor:   return "VS Code"
         case .browser:  return "Safari"
@@ -77,7 +78,7 @@ enum DelegatedApp: String, CaseIterable, Codable, Identifiable, Sendable {
     /// command has no bundle; the Finder rung used here is NSWorkspace).
     var bundleId: String? {
         switch self {
-        case .terminal: return nil
+        case .terminal, .automation: return nil
         case .finder:   return "com.apple.finder"
         case .editor:   return "com.microsoft.VSCode"
         case .browser:  return "com.apple.Safari"
@@ -93,6 +94,11 @@ enum DelegatedApp: String, CaseIterable, Codable, Identifiable, Sendable {
     var verbs: [LicenceVerb] {
         switch self {
         case .terminal: return [.run]
+        // AppleScript can reach any scriptable app on the machine, which is
+        // strictly wider than any single app grant here. It gets its own,
+        // so a grant for running a build does not also buy "tell Mail to
+        // delete every message".
+        case .automation: return [.run]
         case .finder:   return [.read, .open, .move]
         case .editor:   return [.open]
         case .browser:  return [.open, .read]
@@ -135,8 +141,8 @@ enum LicenceVerb: String, CaseIterable, Codable, Sendable {
             "Vera may hand a file or URL to this app, bringing it forward.",
             "ファイルやURLをこのアプリに渡します。アプリが前面に出ます。")
         case .run:   return AppLanguage.shared.t(
-            "Vera may execute shell commands. This is the widest one here.",
-            "シェルコマンドを実行します。ここで最も広い許可です。")
+            "Vera may execute commands. The widest grant on this screen.",
+            "コマンドを実行します。この画面で最も広い許可です。")
         case .move:  return AppLanguage.shared.t(
             "Vera may move or rename files. Existing files are never overwritten.",
             "ファイルの移動・改名をします。既存ファイルの上書きはしません。")

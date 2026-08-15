@@ -29,6 +29,7 @@ struct AppLicenceView: View {
             ScrollView {
                 VStack(alignment: .leading, spacing: 14) {
                     if let pending = delegation.pendingGrant { request(pending) }
+                    toolCheck
                     licenceTable
                     Divider().opacity(0.2)
                     record
@@ -103,6 +104,39 @@ struct AppLicenceView: View {
             .fill(Color(red: 1.0, green: 0.72, blue: 0.35).opacity(0.08)))
         .overlay(RoundedRectangle(cornerRadius: 8)
             .strokeBorder(Color(red: 1.0, green: 0.72, blue: 0.35).opacity(0.3), lineWidth: 1))
+    }
+
+    // MARK: Do the tool declarations still hold together
+
+    /// Shown because the launch self-check wrote only to NSLog, which on an
+    /// ad-hoc build nobody reads. A green line here is the difference
+    /// between "the check ran" and "the check ran and I know what it said".
+    private var toolCheck: some View {
+        let problems = ToolSpecRegistry.lastSelfCheck
+        let ran = ToolSpecRegistry.selfCheckRan
+        return HStack(spacing: 6) {
+            Circle()
+                .fill(!ran ? Color.secondary
+                      : (problems.isEmpty ? Color(red: 0.35, green: 0.85, blue: 0.6)
+                                          : Color(red: 1.0, green: 0.45, blue: 0.4)))
+                .frame(width: 5, height: 5)
+            if !ran {
+                Text(t("Tool self-check has not run.", "ツール自己検査は未実行です"))
+                    .font(.system(size: 10)).foregroundStyle(.tertiary)
+            } else if problems.isEmpty {
+                Text(t("Tool declarations round-trip through their own parser.",
+                       "ツール宣言は自分のパーサを往復できています"))
+                    .font(.system(size: 10)).foregroundStyle(.tertiary)
+            } else {
+                VStack(alignment: .leading, spacing: 2) {
+                    ForEach(problems, id: \.self) { p in
+                        Text(p).font(.system(size: 10))
+                            .foregroundStyle(Color(red: 1.0, green: 0.45, blue: 0.4))
+                    }
+                }
+            }
+            Spacer(minLength: 0)
+        }
     }
 
     // MARK: What Vera may do

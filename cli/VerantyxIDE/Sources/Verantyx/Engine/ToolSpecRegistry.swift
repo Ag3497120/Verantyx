@@ -14,7 +14,88 @@ import Foundation
 // as they are touched, without a flag day.
 enum ToolSpecRegistry {
 
+    /// The delegation catalogue, GENERATED from the licence book.
+    ///
+    /// This is the same argument the file already makes about docs and
+    /// parsers, applied one level out: what the model may ask for and what
+    /// the user may grant are two hand-written lists that have to agree,
+    /// and nothing would check that they did. Deriving both from
+    /// `DelegatedApp` means a new app becomes callable and grantable in one
+    /// edit, and a verb that exists in only one of the two places cannot be
+    /// expressed.
+    ///
+    /// `.run` is excluded on purpose: [RUN:] and [OSASCRIPT:] already carry
+    /// it, and two ways to do one thing is how a model ends up choosing by
+    /// coin-flip.
+    private static var delegationVerbs: [VerbSpec] {
+        DelegatedApp.allCases.flatMap { app in
+            app.verbs.filter { $0 != .run }.map { verb -> VerbSpec in
+                VerbSpec(verb: "\(app.rawValue).\(verb.rawValue)",
+                         argument: Self.delegationArgument(app: app, verb: verb),
+                         ja: Self.delegationHint(app: app, verb: verb))
+            }
+        }
+    }
+
+    private static func delegationArgument(app: DelegatedApp,
+                                           verb: LicenceVerb) -> ArgShape {
+        switch (app, verb) {
+        case (.browser, .open): return .freeText(ja: "URL", en: "URL")
+        case (.browser, .read): return .none
+        default:                return .path(ja: "ファイルの場所", en: "path")
+        }
+    }
+
+    private static func delegationHint(app: DelegatedApp,
+                                       verb: LicenceVerb) -> String {
+        switch (app, verb) {
+        case (.finder, .read):  return "フォルダの中身を一覧する"
+        case (.finder, .open):  return "Finderで場所を表示する"
+        case (.finder, .move):  return "ファイルを移動する"
+        case (.editor, .open):  return "コードやテキストをVS Codeで開く"
+        case (.browser, .open): return "URLをSafariで開く"
+        case (.browser, .read): return "いま開いているページの本文を読む"
+        case (.preview, .open): return "PDFや画像をプレビューで開く"
+        case (.notes, .open):   return "メモで開く"
+        case (.xcode, .open):   return "Xcodeで開く"
+        default:                return "\(app.displayName)に渡す"
+        }
+    }
+
     static let specs: [ToolSpec] = [
+
+        // The tool the whole app-delegation design exists for: Vera does not
+        // reimplement Preview, it hands the PDF to Preview. What the model
+        // decides is WHICH app, and it says so in the argument.
+        ToolSpec(
+            name: "DELEGATE",
+            shape: .verbs(Self.delegationVerbs),
+            ja: "そのファイルを扱えるアプリに渡す（免許が要る・結果は証拠として残る）",
+            build: { arg in
+                let payload = Self.unwrapVerbPayload(arg)
+                let parts = arg.trimmingCharacters(in: .whitespaces)
+                    .split(separator: " ", maxSplits: 1).map(String.init)
+                guard let head = parts.first else { return nil }
+                let pair = head.split(separator: ".").map(String.init)
+                guard pair.count == 2,
+                      let app = DelegatedApp(rawValue: pair[0]),
+                      let verb = LicenceVerb(rawValue: pair[1]),
+                      app.verbs.contains(verb) else { return nil }
+                let target = parts.count > 1
+                    ? Placeholder.unwrap(parts[1]).trimmingCharacters(in: .whitespaces)
+                    : ""
+                // Read needs no target; everything else without one would
+                // be Vera choosing the file, which is the one inference
+                // this design refuses to make.
+                if target.isEmpty && !(app == .browser && verb == .read) {
+                    return nil
+                }
+                _ = payload
+                return .delegate(app: app, verb: verb,
+                                 target: (target as NSString).expandingTildeInPath)
+            }
+        ),
+
 
         // The tool that produced the "type text" bug. Its verbs are data now,
         // so the rendered documentation cannot contain a word the parser does
@@ -138,6 +219,34 @@ enum ToolSpecRegistry {
         specs.map(\.docLine).joined(separator: "\n    ")
     }
 
+    /// What is licensed RIGHT NOW, generated from the same book the grants
+    /// are kept in.
+    ///
+    /// The model is told, rather than left to discover it by being refused,
+    /// because those produce different behaviour: a model that knows asks
+    /// the person for the licence, and a model that finds out asks the
+    /// machine again. The line is generated for the same reason the tool
+    /// docs are — a hand-written summary of a live set is a summary that
+    /// will be wrong on the day it matters.
+    @MainActor
+    static func licenceBlock() -> String {
+        let store = AppLicenceStore.shared
+        var lines: [String] = []
+        for app in DelegatedApp.allCases {
+            let granted = app.verbs.filter { store.isGranted(app, $0) }
+            guard !granted.isEmpty else { continue }
+            lines.append("    \(app.rawValue): "
+                         + granted.map(\.rawValue).joined(separator: ", "))
+        }
+        if lines.isEmpty {
+            return "    （現在ゼロ。アプリを動かす操作はすべて拒否されます。"
+                 + "必要なら、ユーザーに「免許」と入力して許可するよう頼んでください。）"
+        }
+        return lines.joined(separator: "\n")
+            + "\n    上に無いものは拒否されます。必要なら、ユーザーに「免許」と入力して"
+            + "許可するよう頼んでください — 自分で回避しようとしないでください。"
+    }
+
     // MARK: - Parsing, from the same declarations
 
     /// Read one line. Returns a verdict, never a silent nothing.
@@ -232,6 +341,14 @@ enum ToolSpecRegistry {
     /// accepts is always something the docs can express. Run at launch, so a
     /// broken tool is loud immediately rather than after a user watches it
     /// type a placeholder into a browser.
+    /// The last result, kept so the check is READABLE rather than merely
+    /// performed. It ran at launch and wrote to NSLog, which on an ad-hoc
+    /// build reaches nobody — a check whose outcome you cannot see is a
+    /// check you have to take on faith, which is the thing this project is
+    /// against.
+    nonisolated(unsafe) static var lastSelfCheck: [String] = []
+    nonisolated(unsafe) static var selfCheckRan = false
+
     static func selfCheck() -> [String] {
         var problems: [String] = []
 
@@ -260,6 +377,8 @@ enum ToolSpecRegistry {
         if names.count != Set(names).count {
             problems.append("重複したツール名があります: \(names)")
         }
+        lastSelfCheck = problems
+        selfCheckRan = true
         return problems
     }
 }

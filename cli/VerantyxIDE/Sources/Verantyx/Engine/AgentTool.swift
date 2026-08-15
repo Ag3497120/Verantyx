@@ -25,6 +25,14 @@ enum AgentTool {
                    endLine: Int,
                    newContent: String)
     // ── GUI Automation ───────────────────────────────────────────────────────
+    /// Hand a target to the app that can deal with it, under a licence.
+    ///
+    /// One tool rather than seven, because the judgement the model has to
+    /// make is "which app can do this" — and a flat list of seven tools
+    /// makes that judgement implicitly, by whichever name it recognises
+    /// first. Here the choice is the ARGUMENT, so the model states which
+    /// app it picked and the record says whether that was right.
+    case delegate(app: DelegatedApp, verb: LicenceVerb, target: String)
     case osascript(script: String)                // NEW: execute AppleScript via osascript
     case openApp(name: String)                    // NEW: execute open -a "App Name"
     case verifiedURLLookup(name: String)          // NEW: deterministic Vera-registered URL lookup
@@ -126,7 +134,7 @@ extension AgentTool {
             return .web_full
         case .osascript, .openApp, .registerUIElement, .desktopSnapshot,
              .useApp, .menu, .keys, .appCaps, .readScreen, .desktopAct,
-             .axAct, .pastePayload, .waitUntilStable:
+             .axAct, .pastePayload, .waitUntilStable, .delegate:
             return .desktop
         case .jcrossQuery, .jcrossStore, .osAssetQuery:
             return .jcross
@@ -176,6 +184,7 @@ struct AgentToolCall: Identifiable {
         case .makeDir(let p):               return "mkdir \(p)"
         case .writeFile(let p, _):          return "write → \(p)"
         case .runCommand(let cmd):          return "$ \(cmd)"
+        case .delegate(let a, let v, let t): return "→ \(a.displayName) \(v.rawValue) \(t)"
         case .runCognitive(let cmd, _, _):  return "🧠$ \(cmd)"
         case .setWorkspace(let p):          return "workspace: \(p)"
         case .done(let m):                  return "✓ \(m)"
@@ -277,6 +286,9 @@ struct AgentToolParser {
 
     ── §ツール TOOLS ─────────────────────────────────────────────────────────
     \(ToolSpecRegistry.docBlock())
+
+    現在の免許（アプリを動かす許可）:
+    \(MainActor.assumeIsolated { ToolSpecRegistry.licenceBlock() })
     [READ: path]              読: ファイル内容取得 (.html/.svg → Artifactパネル自動表示)
     [LIST_DIR: path]          木: ディレクトリツリー表示
     [WRITE: path]```content```[/WRITE]    書: ファイル全体を書く
@@ -1979,6 +1991,34 @@ actor AgentToolExecutor {
                 }
             }
 
+        // Hand it to the app that can deal with it. The licence check, the
+        // rung choice and the evidence all live in AppDelegation — this is
+        // only the seam between the model's sentence and that machinery.
+        case .delegate(let app, let verb, let target):
+            let request = DelegationRequest(
+                app: app, verb: verb, payload: target,
+                goal: target, origin: .model)
+            let evidence = await MainActor.run { AppDelegation.shared }
+                .perform(request)
+            var reply = "[DELEGATE: \(app.rawValue).\(verb.rawValue)]\n\(evidence.verdict)"
+            if !evidence.head.isEmpty { reply += "\n\n\(evidence.head)" }
+            switch evidence.outcome {
+            case .refusedNoLicence:
+                // Told plainly, and told not to retry. A model that keeps
+                // asking turns a permission model into a nag.
+                reply += "\n\nユーザーに「免許」と入力してもらい、"
+                    + "\(app.displayName) の「\(verb.displayName)」を許可してもらってください。"
+                    + "許可されるまで同じ操作を繰り返さないでください。"
+            case .handedOff:
+                // The distinction that makes this record worth keeping.
+                reply += "\n\nこれは「渡した」までの事実です。"
+                    + "アプリ側で実際に表示されたかどうかは、ここからは分かりません。"
+                    + "確認が要るなら本人に尋ねてください。"
+            default:
+                break
+            }
+            return reply
+
         case .runCommand(let cmd):
             let shellOut = await runShell(cmd, workingDir: workspaceURL)
             // A build or test invocation that worked here is expensive to
@@ -2235,7 +2275,10 @@ actor AgentToolExecutor {
         case .osascript(let script):
             let escaped = script.replacingOccurrences(of: "'", with: "'\\''")
             let ownBundleID = Bundle.main.bundleIdentifier
-            let result = await runShell("osascript -e '\(escaped)'", workingDir: workspaceURL)
+            let result = await runShell("osascript -e '\(escaped)'",
+                                        workingDir: workspaceURL,
+                                        as: .automation,
+                                        goal: script)
 
             // A model can bring another app to the front via raw AppleScript
             // instead of [OPEN_APP]. Adopt that app as the Act session target
@@ -3772,9 +3815,39 @@ actor AgentToolExecutor {
         return URL(fileURLWithPath: "/tmp").appendingPathComponent(path.hasPrefix("~/") ? String(path.dropFirst(2)) : path)
     }
 
-    private func runShell(_ command: String, workingDir: URL?) async -> String {
+    /// The model's shell path. It was a SECOND executor beside
+    /// TerminalRunner, so licensing the built-in terminal left this one —
+    /// the one the model actually uses — wide open. Exactly the "fifth
+    /// caller" the funnel argument is about, already present.
+    ///
+    /// `as` names which licence covers the call, because these are not the
+    /// same act in the user's mind: `[RUN: pytest]` is running a command,
+    /// and `[OSASCRIPT: tell application "Mail" to delete …]` is driving
+    /// another app. Gating both as "terminal" would let one grant buy the
+    /// other.
+    private func runShell(_ command: String,
+                          workingDir: URL?,
+                          as app: DelegatedApp = .terminal,
+                          goal: String = "") async -> String {
+        let request = DelegationRequest(
+            app: app, verb: .run, payload: command,
+            goal: goal.isEmpty ? command : goal,
+            origin: .model, directory: workingDir)
+
+        if let refusal = await MainActor.run(body: {
+            AppDelegation.shared.authorise(request)
+        }) {
+            // Returned to the model as a result, not an error: it must be
+            // able to say "I was refused" to the user rather than retry.
+            return "✗ \(refusal.verdict)\n"
+                 + "この操作には免許が要ります。ユーザーに「免許」と入力してもらい、"
+                 + "\(app.displayName) の「\(LicenceVerb.run.displayName)」を許可してもらってください。"
+                 + "許可されるまで、この操作は繰り返さないでください。"
+        }
+
+        let started = Date()
         let fallbackDir = await MainActor.run { AppState.shared?.cortexWorkspacePath.map { URL(fileURLWithPath: $0) } } ?? URL(fileURLWithPath: "/tmp")
-        return await Task.detached(priority: .userInitiated) {
+        let output = await Task.detached(priority: .userInitiated) {
             let process = Process()
             process.executableURL = URL(fileURLWithPath: "/bin/zsh")
             process.arguments = ["-c", command]
@@ -3831,6 +3904,23 @@ actor AgentToolExecutor {
             result += "\n[VISCERAL_METADATA: {\"execution_time_ms\": \(executionTimeMs), \"cpu_spike\": \(executionTimeMs > 200 ? "true" : "false")}]"
             return result
         }.value
+
+        // The witness. This path renders the exit code into the text it
+        // returns, so the code is recovered from there rather than being
+        // guessed from whether the output "looks like" an error — the
+        // measured number is the only one worth recording.
+        let measuredExit: Int32? = {
+            guard let r = output.range(of: "[exit: ", options: .backwards) else { return nil }
+            let tail = output[r.upperBound...].prefix(while: { $0 != "]" })
+            return Int32(tail)
+        }()
+        await MainActor.run {
+            AppDelegation.shared.finish(
+                request, rung: .native,
+                outcome: measuredExit == 0 ? .ok : .failed,
+                exitCode: measuredExit, output: output, started: started)
+        }
+        return output
     }
 
     // MARK: - IDE Build
