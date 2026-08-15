@@ -988,9 +988,18 @@ enum VeraMemoryBridge {
         guard !a.isEmpty, !b.isEmpty, a.count <= 12, b.count <= 12
         else { return nil }
 
-        guard let obj = await callDoor("vera_diff", ["a": a, "b": b]),
-              obj["verdict"] as? String == "DIFF"
+        guard let obj = await callDoor("vera_diff", ["a": a, "b": b])
         else { return nil }
+        // A diff that abstains has a BETTER refusal than the generic one
+        // the ask path would give: it names which side was ambiguous and
+        // lists the senses the encyclopedia itself wrote down. Throwing
+        // that away and letting UNKNOWN_NOT_PRESENT win was a wiring bug
+        // — 「りんごとみかんの違い」 got a wall where it should have got
+        // a menu. The abstention is still a refusal; it just says enough
+        // for the asker's next question to succeed.
+        if obj["verdict"] as? String != "DIFF" {
+            return renderDiffAbstention(a: a, b: b, obj: obj)
+        }
 
         func bundle(_ key: String) -> [String] {
             guard let rows = obj[key] as? [[String: Any]] else { return [] }
@@ -1019,6 +1028,50 @@ enum VeraMemoryBridge {
         }
         lines.append("")
         lines.append("(Vera structural diff — 構成的比較・証言ではない — no LLM call was made)")
+        return lines.joined(separator: "\n")
+    }
+
+    /// A diff abstention, rendered so the next question can succeed:
+    /// which side stopped it, the senses Wikipedia itself lists, and
+    /// the bare-title target when the surface hopped to a 曖昧さ回避
+    /// page. Nil for abstentions with nothing useful to say — then the
+    /// ask path's own refusal is the honest one.
+    private static func renderDiffAbstention(
+        a: String, b: String, obj: [String: Any]
+    ) -> String? {
+        let verdict = (obj["verdict"] as? String) ?? ""
+        guard let senses = obj["senses"] as? [String: Any] else { return nil }
+        var lines: [String] = ["🚫 \(verdict) — \(a) と \(b) の比較は成立しません"]
+        var said = false
+        for (key, label) in [("a", a), ("b", b)] {
+            guard let side = senses[key] as? [String: Any],
+                  (side["verdict"] as? String) == "AMBIGUOUS_SENSE"
+            else { continue }
+            said = true
+            lines.append("「\(label)」は曖昧さ回避 — どの語義かが決まりません。")
+            if let list = side["senses"] as? [[String: Any]] {
+                let names = list.compactMap { $0["core"] as? String }
+                if !names.isEmpty {
+                    lines.append("候補: " + names.prefix(5).joined(separator: "・"))
+                }
+            }
+            if let base = side["base_target"] as? String {
+                lines.append("素の見出し語の行き先: \(base)(この名前で訊けば比較できます)")
+            }
+        }
+        if !said, let cov = obj["coverage"] as? [String: Any] {
+            // Thin side: say which one and how thin, not just "no".
+            for (key, label) in [("a", a), ("b", b)] {
+                if let c = cov[key] as? [String: Any],
+                   let p = c["predicates"] as? Int, p == 0 {
+                    lines.append("「\(label)」は述語プロファイルが空 — 比べる面がありません。")
+                    said = true
+                }
+            }
+        }
+        guard said else { return nil }
+        lines.append("")
+        lines.append("(型付き拒否 — 実測のない差異は作りません)")
         return lines.joined(separator: "\n")
     }
 
