@@ -448,6 +448,18 @@ struct AgentChatView: View {
     /// typing.
     private var composerChrome: some View {
         HStack(spacing: 8) {
+            // The rarely-reached actions live behind the mark rather than
+            // spending permanent width on the row.
+            JCrossMenu(items: [
+                JCrossMenuItem(icon: "photo.badge.plus",
+                               title: app.t("Add a photo", "写真を追加")) {
+                    app.attachedImages.append(contentsOf: AttachmentManager.pickImages())
+                },
+                JCrossMenuItem(icon: "paperclip",
+                               title: app.t("Add a file", "ファイルを追加")) {
+                    app.attachedFiles.append(contentsOf: AttachmentManager.pickFiles())
+                },
+            ], japanese: AppLanguage.shared.isJapanese)
             composerTools
             Spacer(minLength: 8)
             modelSelectorBar
