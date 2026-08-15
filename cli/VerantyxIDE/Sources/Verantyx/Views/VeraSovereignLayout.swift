@@ -62,7 +62,12 @@ struct VeraSovereignLayout<Content: View>: View {
 
     private var layout: some View {
         GeometryReader { geo in
-            let showsColumn = geo.size.width >= 620
+            // The editor half leaves the AI pane narrow in the LLM and
+            // council modes, so the column has to survive a width the
+            // pane actually has. Below this even a 180pt rail would push
+            // the transcript under a readable line length, and then the
+            // watermark alone carries the structure.
+            let showsColumn = geo.size.width >= 470
             ZStack {
                 HStack(spacing: 10) {
                     if showsColumn {
@@ -70,7 +75,7 @@ struct VeraSovereignLayout<Content: View>: View {
                             memoryPane
                             freeWindowPane
                         }
-                        .frame(width: max(220, min(300, geo.size.width * 0.24)))
+                        .frame(width: max(180, min(300, geo.size.width * 0.26)))
                     }
                     content()
                         .frame(maxWidth: .infinity, maxHeight: .infinity)
