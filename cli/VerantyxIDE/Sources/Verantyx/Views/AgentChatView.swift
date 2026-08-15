@@ -12,6 +12,7 @@ struct AgentChatView: View {
     @State private var composerContentHeight: CGFloat = 0
     /// Raised by what is being typed. Nothing here keeps a permanent seat.
     @State private var surface: VeraSurface?
+    @State private var showingModelPill = false
 
     /// Drives the composer glow. Eases out after the state settles.
     @State private var glowPulse: Bool = false
@@ -468,6 +469,77 @@ struct AgentChatView: View {
     /// Box + chrome. The tools, the model and the send action sit BELOW the
     /// text box rather than inside it: inside, they competed with the text for
     /// the same row and won, and every one of them stole width the text needed.
+    /// A compact model pill, not a bar.
+    ///
+    /// The bar it replaces carried a label, a picker, a layers button, an
+    /// auditor toggle, an error badge and a mode stepper — six controls on a
+    /// permanent row above the text. The picker is the only one someone reaches
+    /// for while writing; the rest are settings, and settings are summoned now.
+    private var modelPill: some View {
+        // A Button with a popover rather than a Menu: Menu draws its own
+        // indicator wherever its style decides, and on screen that landed to
+        // the LEFT of the label — an arrow pointing away from the thing it
+        // opens.
+        Button { showingModelPill.toggle() } label: {
+            HStack(spacing: 4) {
+                Text(app.activeModelName ?? AppLanguage.shared.t("no model", "未読込"))
+                    .font(.system(size: 11.5))
+                    .lineLimit(1)
+                Image(systemName: "chevron.down").font(.system(size: 8, weight: .semibold))
+            }
+            .foregroundStyle(.secondary)
+            .padding(.horizontal, 9).padding(.vertical, 4)
+            .background(Capsule().fill(Color.white.opacity(0.07)))
+            .contentShape(Capsule())
+        }
+        .buttonStyle(.plain)
+        .popover(isPresented: $showingModelPill, arrowEdge: .top) {
+            VStack(alignment: .leading, spacing: 2) {
+                if app.ollamaModels.isEmpty {
+                    Text(AppLanguage.shared.t("No local model is reachable.",
+                                              "到達できるローカルモデルがありません。"))
+                        .font(.system(size: 11)).foregroundStyle(.secondary)
+                        .padding(8)
+                } else {
+                    ForEach(app.ollamaModels, id: \.self) { name in
+                        Button {
+                            app.modelStatus = .ollamaReady(model: name)
+                            showingModelPill = false
+                        } label: {
+                            Text(name).font(.system(size: 12, design: .monospaced))
+                                .frame(maxWidth: .infinity, alignment: .leading)
+                                .padding(.horizontal, 9).padding(.vertical, 5)
+                                .contentShape(Rectangle())
+                        }
+                        .buttonStyle(.plain)
+                    }
+                }
+            }
+            .padding(5)
+            .frame(minWidth: 190)
+        }
+    }
+
+    /// The three controls that belong beside what is being written, on their
+    /// own line inside the box. Everything else moved behind the mark.
+    private var composerControls: some View {
+        HStack(spacing: 7) {
+            JCrossMenu(items: [
+                JCrossMenuItem(icon: "photo.badge.plus",
+                               title: app.t("Add a photo", "写真を追加")) {
+                    app.attachedImages.append(contentsOf: AttachmentManager.pickImages())
+                },
+                JCrossMenuItem(icon: "paperclip",
+                               title: app.t("Add a file", "ファイルを追加")) {
+                    app.attachedFiles.append(contentsOf: AttachmentManager.pickFiles())
+                },
+            ], japanese: AppLanguage.shared.isJapanese)
+            Spacer(minLength: 6)
+            modelPill
+            JCrossSendButton(enabled: canSend) { sendMessage() }
+        }
+    }
+
     private var inputBar: some View {
         VStack(spacing: 7) {
             if let surface {
@@ -480,7 +552,6 @@ struct AgentChatView: View {
                 .transition(.opacity)
             }
             composerBox
-            composerChrome
         }
     }
 
@@ -587,20 +658,11 @@ struct AgentChatView: View {
             }
 
             // ── Text input + action buttons ───────────────────────────
-            HStack(alignment: .bottom, spacing: 6) {
-
-                // ── TextEditor + placeholder ───────────────────────────
-                // Placeholder padding must match NSTextView's internal insets:
-                //   lineFragmentPadding ≈ 5pt (leading)
-                //   textContainerInset.y ≈ 5-7pt (top)
+            VStack(alignment: .leading, spacing: 6) {
                 composerTextField
-
-                // Send lives inside the box, against the text it sends —
-                // the shortest possible distance between writing and sending.
-                JCrossSendButton(enabled: canSend) { sendMessage() }
-                    .padding(.bottom, 1)
+                composerControls
             }
-            .padding(.leading, 10).padding(.trailing, 6).padding(.vertical, 6)
+            .padding(.horizontal, 11).padding(.top, 8).padding(.bottom, 7)
         }
         .background(
             app.selfFixMode

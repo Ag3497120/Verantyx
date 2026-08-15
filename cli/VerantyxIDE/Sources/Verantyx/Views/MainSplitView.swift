@@ -79,7 +79,11 @@ struct MainSplitView: View {
                 .zIndex(105)
                 
             // ── Floating Action Button (Expert Bot) ───────────────────────
-            ExpertBotFloatingView()
+            // The floating assistant is gone. In an app whose entire surface
+            // is a conversation, a second place to ask questions is a strange
+            // thing to keep — and it sat on top of the send control, which is
+            // the one button that must never be covered. Guidance belongs in
+            // the chat that is already there.
                 .zIndex(200)
                 
             // Removed Mode Selector Overlay
