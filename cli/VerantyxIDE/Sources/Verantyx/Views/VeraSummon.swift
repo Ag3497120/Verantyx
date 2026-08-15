@@ -21,7 +21,7 @@ import Foundation
 /// discipline — closed inventory, exact match, silent fall-through.
 enum VeraSummon {
     enum Panel: String, Identifiable, CaseIterable {
-        case settings, memory, cross, audit, modes, model, licences
+        case settings, memory, cross, audit, modes, model, licences, screen, jgen
         var id: String { rawValue }
 
         var title: String {
@@ -33,6 +33,8 @@ enum VeraSummon {
             case .modes:    return "モード"
             case .model:    return "モデル"
             case .licences: return "免許"
+            case .screen:   return "画面"
+            case .jgen:     return "JGEN"
             }
         }
     }
@@ -55,13 +57,19 @@ enum VeraSummon {
         "免許": .licences, "めんきょ": .licences, "licence": .licences,
         "license": .licences, "権限": .licences, "アプリ": .licences,
         "許可": .licences,
+        "画面": .screen, "がめん": .screen, "screen": .screen,
+        "前面": .screen, "スクショ": .screen, "window": .screen,
+        // 「jgen」単体は合議モードが取る（modes が先に照合される）ので、
+        // パネルには衝突しない語だけを与える。
+        "jgen設定": .jgen, "エンジン": .jgen, "層": .jgen, "レイヤ": .jgen,
+        "engine": .jgen, "layers": .jgen, "jgen options": .jgen,
     ]
 
     /// Full-window surfaces, formerly the rail's icons.
     private static let surfaces: [String: AppState.FullSurface] = [
         "mcp": .mcp, "外部運用": .mcp, "外部": .mcp,
         "vera-a設定": .veraSettings, "vera設定": .veraSettings,
-        "jgen設定": .veraSettings, "ドック": .veraSettings,
+        "ドック": .veraSettings,
         "成長": .growth, "学習": .growth, "growth": .growth,
         "進化": .evolution, "自己進化": .evolution, "evolution": .evolution,
     ]

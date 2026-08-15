@@ -266,6 +266,11 @@ struct VerantyxApp: App {
                 .agentPerimeterGlow()
                 .environmentObject(appState)
                 .onAppear {
+                    // Applied before anything else can capture the screen:
+                    // the window must already be excluded the first time
+                    // Vera takes a screenshot, not after someone notices it
+                    // in one.
+                    VeraWindowPresence.shared.apply()
                     AppState.shared = appState
                     delegate.appState = appState
 
