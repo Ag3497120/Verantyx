@@ -48,6 +48,13 @@ final class VeraRouteState: ObservableObject {
     @Published private(set) var origins: [String] = []
     /// Structural arms the answer actually touched. Never inferred.
     @Published private(set) var arms: Set<CrossArm> = []
+    /// The answer's own text, the gaps it named, and what would close
+    /// them — the console renders these as sections, not as a bubble.
+    @Published private(set) var answerText: String = ""
+    @Published private(set) var subject: String = ""
+    @Published private(set) var gaps: [String] = []
+    @Published private(set) var remedy: String = ""
+    @Published private(set) var contested: Bool = false
     /// Rises once per completed call so a view can run one pulse and
     /// then go quiet, instead of animating continuously.
     @Published private(set) var pulse: Int = 0
@@ -85,6 +92,7 @@ final class VeraRouteState: ObservableObject {
         verdict = ""
         grainAgree = nil; grainOf = nil; witnesses = nil
         origins = []; arms = []
+        answerText = ""; gaps = []; remedy = ""; contested = false
     }
 
     /// Read the door's own JSON. Nothing is invented: a field that is
@@ -116,6 +124,14 @@ final class VeraRouteState: ObservableObject {
             }
             origins = named.sorted().prefix(4).map { $0 }
         }
+        answerText = (obj["text"] as? String) ?? ""
+        subject = (obj["core"] as? String) ?? (obj["subject"] as? String) ?? ""
+        gaps = (obj["known_gap"] as? [String]) ?? []
+        remedy = (obj["remedy"] as? String) ?? ""
+        // A contested core is the polarity gate's own downgrade: both
+        // poles of one aspect hold mass. It is not an error — it is the
+        // structure reporting a dispute, with the sides named.
+        contested = (obj["contested"] as? Bool) ?? (v == "UNKNOWN_UNRESOLVED_CONTRADICTION")
         arms = Self.armsTouched(obj)
         bump()
     }

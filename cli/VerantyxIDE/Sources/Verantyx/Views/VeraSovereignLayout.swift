@@ -43,7 +43,17 @@ struct VeraSovereignLayout: View {
         min(260, max(96, w * 0.19))
     }
 
+    @StateObject private var status = VeraStatusModel()
+
     var body: some View {
+        VStack(spacing: 0) {
+            VeraStatusStrip(status: status)
+            layout
+        }
+        .task { await status.load() }
+    }
+
+    private var layout: some View {
         GeometryReader { geo in
             let f = fold(geo.size.width)
             HStack(spacing: 10) {
@@ -67,7 +77,7 @@ struct VeraSovereignLayout: View {
                         crossPane(span: crossSpan(geo.size.width), compact: true)
                             .padding(.bottom, 8)
                     }
-                    AgentChatView()
+                    VeraConsolePane()
                         .environmentObject(app)
                 }
                 .frame(maxWidth: f == .column ? geo.size.width * 0.33 : .infinity)
@@ -75,7 +85,6 @@ struct VeraSovereignLayout: View {
             .padding(10)
             .animation(.easeInOut(duration: 0.28), value: f)
         }
-        .background(Color(red: 0.04, green: 0.05, blue: 0.06))
         .task { await ledger.load() }
     }
 
@@ -112,11 +121,11 @@ struct VeraSovereignLayout: View {
                             .padding(.horizontal, 6).padding(.vertical, 2)
                             .overlay(RoundedRectangle(cornerRadius: 3)
                                 .strokeBorder(name == "エディタ"
-                                              ? Color.accentTeal.opacity(0.7)
+                                              ? VeraInk.verified.opacity(0.8)
                                               : Color.white.opacity(0.12),
                                               lineWidth: 0.8))
                             .foregroundStyle(name == "エディタ"
-                                             ? Color.accentTeal : Color.secondary)
+                                             ? VeraInk.verified : Color.secondary)
                     }
                 }
                 Text("""
@@ -248,7 +257,7 @@ private struct MemoryRowView: View {
                     .foregroundStyle(tint)
                 Text(row.core)
                     .font(.system(size: 11, weight: .medium))
-                    .foregroundStyle(row.isProofed ? Color.accentTeal : .primary)
+                    .foregroundStyle(row.isProofed ? VeraInk.verified : .primary)
                     .lineLimit(1)
                 Spacer(minLength: 0)
                 if !row.isProofed {
@@ -257,7 +266,7 @@ private struct MemoryRowView: View {
                             .font(.system(size: 9, design: .monospaced))
                     }
                     .buttonStyle(.plain)
-                    .foregroundStyle(Color.accentTeal)
+                    .foregroundStyle(VeraInk.verified)
                     .help("この記憶に「ユーザーの校正」ラベルを付け、エージェントに渡す")
                 }
             }
@@ -276,11 +285,8 @@ private struct MemoryRowView: View {
     }
 
     private var tint: Color {
-        row.isProofed ? Color.accentTeal : Color.secondary.opacity(0.6)
+        row.isProofed ? VeraInk.verified : Color.secondary.opacity(0.6)
     }
 }
 
-extension Color {
-    /// The one signal colour: conduction. Everything else is neutral.
-    static let accentTeal = Color(red: 0.34, green: 0.90, blue: 0.81)
-}
+
