@@ -131,7 +131,7 @@ struct VeraSummonedPanel: View {
         case .council:    return "jgen 合議"
         case .standalone: return "Vera-a(併用)"
         case .veraModel:  return "Vera(単体・LLM不使用)"
-        case .veraBot:    return "Veraぼっと(設定・UIの案内)"
+        case .veraBot:    return "Vera Bot(設定・UIの案内)"
         case .localLLM:   return "LLM"
         }
     }
@@ -142,7 +142,7 @@ struct VeraSummonedPanel: View {
         case .council:    return "合議"
         case .standalone: return "vera-a"
         case .veraModel:  return "vera"
-        case .veraBot:    return "ぼっと"
+        case .veraBot:    return "bot"
         case .localLLM:   return "llm"
         }
     }

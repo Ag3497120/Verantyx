@@ -256,7 +256,7 @@ struct AgentChatView: View {
                     .tag(AppState.VeraEngineMode.council)
                 Text("Vera-a").tag(AppState.VeraEngineMode.standalone)
                 Text("Vera").tag(AppState.VeraEngineMode.veraModel)
-                Text(app.t("Bot", "ぼっと")).tag(AppState.VeraEngineMode.veraBot)
+                Text("Bot").tag(AppState.VeraEngineMode.veraBot)
                 Text("LLM").tag(AppState.VeraEngineMode.localLLM)
             }
             .frame(width: 140)
@@ -910,7 +910,11 @@ struct AgentChatView: View {
             // call arrives late, and one that appears because a model guessed
             // appears wrongly.
             .onChange(of: inputText) { _, text in
-                let next = VeraSurface.recognise(text)
+                // Bot mode only, for the same reason the send path is:
+                // this one fires WHILE typing, so outside Bot it would
+                // interrupt a sentence before it was finished.
+                let next = app.veraEngineMode == .veraBot
+                    ? VeraSurface.recognise(text) : nil
                 guard next != surface else { return }
                 withAnimation(.spring(response: 0.38, dampingFraction: 0.85)) {
                     surface = next

@@ -1636,7 +1636,13 @@ final class AppState: ObservableObject {
         // and the turn ENDS — no model is asked, because summoning is
         // not a question. Everything else falls through untouched: the
         // fall-through is what makes the table safe to have.
-        if !text.isEmpty, let r = VeraSummon.resolve(text) {
+        // …but only in Bot mode. Everywhere else 「設定」 is a word in a
+        // sentence, and a panel that opens because the first two
+        // characters matched a table is a panel that interrupts the
+        // question being asked. Bot mode is the mode you are in when the
+        // app itself is the subject, so that is where its names work.
+        if !text.isEmpty, veraEngineMode == .veraBot,
+           let r = VeraSummon.resolve(text) {
             inputText = ""
             if let mode = r.mode {
                 veraEngineMode = mode

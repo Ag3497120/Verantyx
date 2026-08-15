@@ -760,7 +760,7 @@ struct HumanPriorityModeView: View {
                             .tag(AppState.VeraEngineMode.council)
                         Text("Vera-a").tag(AppState.VeraEngineMode.standalone)
                         Text("Vera").tag(AppState.VeraEngineMode.veraModel)
-                        Text(app.t("Bot", "ぼっと"))
+                        Text("Bot")
                             .tag(AppState.VeraEngineMode.veraBot)
                         Text("LLM").tag(AppState.VeraEngineMode.localLLM)
                     }

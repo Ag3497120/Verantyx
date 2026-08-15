@@ -107,6 +107,11 @@ enum VeraSummon {
         var command: Command?
     }
 
+    /// Called only from Bot mode (see AppState.sendMessage). The table
+    /// keeps every mode name so the way OUT of Bot is a word too — you
+    /// should never have to reach for the pull-down to leave the mode
+    /// that exists for reaching things by name.
+    ///
     /// Exact match on the trimmed line, case-folded, with a trailing
     /// 「を開いて」/「を出して」 allowed because those are the same
     /// request said politely — and nothing else. No prefix matching, no
