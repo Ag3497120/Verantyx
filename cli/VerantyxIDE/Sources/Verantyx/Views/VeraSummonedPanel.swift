@@ -101,6 +101,8 @@ struct VeraSummonedPanel: View {
             StereoCrossView(span: 300, showsLabels: true)
                 .frame(maxWidth: .infinity)
                 .padding(.vertical, 14)
+        case .licences:
+            AppLicenceView()
         case .modes:
             modeList
         case .model:

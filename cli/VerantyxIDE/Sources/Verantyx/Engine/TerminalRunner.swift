@@ -57,22 +57,66 @@ final class TerminalRunner: ObservableObject {
 
     /// Run a shell command. Returns (stdout, stderr, exitCode).
     /// The output is also appended to `history` for UI display.
+    /// Every command in the app funnels through here, which is why the
+    /// licence check lives here and not at the four call sites: a check you
+    /// have to remember to write is a check that will be missing from the
+    /// fifth caller.
+    ///
+    /// The command runs as a child process rather than being typed into
+    /// Terminal.app on purpose. Terminal.app would look more like "using the
+    /// user's terminal" and would leave us with pixels — no exit code, no
+    /// stream boundary. `exit 0` is the thing worth having, so the rung that
+    /// can witness it wins. See AppDelegationKit's rule 3.
     @discardableResult
     func run(
         _ command: String,
         in directory: URL? = nil,
-        initiatedByAI: Bool = false
+        initiatedByAI: Bool = false,
+        origin: RequestOrigin? = nil,
+        goal: String = ""
     ) async -> TerminalResult {
         let fallbackPath = AppState.shared?.cortexWorkspacePath ?? AppState.shared?.workspaceURL?.path
         let dir = directory ?? workingDirectory ?? (fallbackPath != nil ? URL(fileURLWithPath: fallbackPath!) : URL(fileURLWithPath: "/tmp"))
+
+        // `initiatedByAI` already carried this distinction; naming it as an
+        // origin is what lets a future caller say the third thing — that the
+        // command came out of a file it read, which is never allowed to run.
+        let requestOrigin = origin ?? (initiatedByAI ? .model : .user)
+        let request = DelegationRequest(
+            app: .terminal, verb: .run, payload: command,
+            goal: goal.isEmpty ? command : goal,
+            origin: requestOrigin, directory: dir)
+
+        if let refusal = AppDelegation.shared.authorise(request) {
+            append(text: "[\(dir.lastPathComponent)] \(command)",
+                   kind: initiatedByAI ? .aiAction : .command)
+            append(text: refusal.verdict, kind: .stderr)
+            append(text: AppLanguage.shared.t(
+                "Say 「licence」 to grant Terminal / run.",
+                "「免許」と入力すると Terminal の「実行」を許可できます。"), kind: .info)
+            // -77 rather than -1: a refusal is not a launch failure, and a
+            // caller retrying on "the process died" would retry forever.
+            return TerminalResult(command: command, stdout: "",
+                                  stderr: refusal.verdict, exitCode: -77)
+        }
 
         // Log the command
         let cmdString = "[\(dir.lastPathComponent)] \(command)"
         append(text: cmdString, kind: initiatedByAI ? .aiAction : .command)
 
         isRunning = true
+        let started = Date()
         let result = await executeProcess(command: command, workingDir: dir)
         isRunning = false
+
+        // The witness. exit code is measured, not inferred from whether the
+        // output "looks like" an error.
+        AppDelegation.shared.finish(
+            request, rung: .native,
+            outcome: result.exitCode == 0 ? .ok : .failed,
+            exitCode: result.exitCode,
+            output: result.stdout + (result.stderr.isEmpty ? "" : "\n" + result.stderr),
+            started: started)
 
         // Log output
         if !result.stdout.isEmpty {

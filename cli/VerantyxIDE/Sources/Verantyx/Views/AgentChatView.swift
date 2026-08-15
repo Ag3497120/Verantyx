@@ -600,14 +600,15 @@ struct AgentChatView: View {
                     app.attachedFiles.append(contentsOf: AttachmentManager.pickFiles())
                 },
             ], japanese: AppLanguage.shared.isJapanese)
-            // The full picker, back where it was: every backend (MLX,
-            // Ollama, BitNet, JGEN, LM Studio, cloud, Agent SDK), the
-            // auditor toggle and the backend badge. The compact pill that
-            // replaced it listed Ollama and nothing else, so a model
-            // loaded from any other backend could be running with no way
-            // on screen to change it.
-            ModelSelectorBarView()
-                .environmentObject(app)
+            // `modelSelectorBar`, not the bare `ModelSelectorBarView`:
+            // the wrapper carries the STOP button, and its only call site
+            // (`composerChrome`) had been unmounted — so a run in flight
+            // could not be cancelled from the composer at all, and an
+            // `isGenerating` that never cleared was both invisible and
+            // unrecoverable. That is the shape of the dropped sends: the
+            // guard at the top of `sendMessage` returns on `isGenerating`,
+            // and with no Stop and no message there was nothing to see.
+            modelSelectorBar
                 .layoutPriority(1)
             JCrossSendButton(enabled: canSend) { sendMessage() }
         }
@@ -621,34 +622,6 @@ struct AgentChatView: View {
             // different answers to one action, half a second apart.
             composerBox
         }
-    }
-
-    /// Bottom row. Tools left, model and send right — the corner Claude and
-    /// Cursor both put them in, and the corner the eye already goes to after
-    /// typing.
-    private var composerChrome: some View {
-        HStack(spacing: 8) {
-            // The rarely-reached actions live behind the mark rather than
-            // spending permanent width on the row.
-            JCrossMenu(items: [
-                JCrossMenuItem(icon: "photo.badge.plus",
-                               title: app.t("Add a photo", "写真を追加")) {
-                    app.attachedImages.append(contentsOf: AttachmentManager.pickImages())
-                },
-                JCrossMenuItem(icon: "paperclip",
-                               title: app.t("Add a file", "ファイルを追加")) {
-                    app.attachedFiles.append(contentsOf: AttachmentManager.pickFiles())
-                },
-            ], japanese: AppLanguage.shared.isJapanese)
-            composerTools
-            Spacer(minLength: 8)
-            modelSelectorBar
-        }
-        .padding(.leading, 18)
-        // The assistant button floats over this corner. Without room reserved
-        // for it the row runs underneath and the last control is clipped —
-        // which is what "自動" was doing.
-        .padding(.trailing, 62)
     }
 
     private var composerBox: some View {
@@ -1228,6 +1201,13 @@ struct AgentChatView: View {
         // a warning, not a lock — the user decides.
         if needsScreenContentionWarning, !confirmScreenContention() { return }
 
+        // Checked BEFORE clearing the box. AppState guards this too, but by
+        // then the text is already gone — and a dropped send that also
+        // eats what you typed is worse than one that merely says no.
+        guard !app.isGenerating else {
+            app.addSystemMessage("⏳ 生成中のため送信していません。停止してから送ってください。")
+            return
+        }
         inputText = ""          // ローカル state を即時クリア（@Published を触る前）
         app.sendMessage(with: text)
     }

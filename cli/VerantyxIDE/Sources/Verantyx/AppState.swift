@@ -1627,7 +1627,51 @@ final class AppState: ObservableObject {
     func sendMessage(with overrideText: String? = nil, forceBypassGatekeeper: Bool = false, isSpotlight: Bool = false) {
         let text = (overrideText ?? inputText).trimmingCharacters(in: .whitespacesAndNewlines)
         let hasAttachments = !attachedImages.isEmpty || !attachedFiles.isEmpty
-        guard !text.isEmpty || hasAttachments, !isGenerating else { return }
+        guard !text.isEmpty || hasAttachments else { return }
+        // A send dropped in silence is the worst version of this: the box
+        // clears, nothing appears, and there is no way to tell a busy app
+        // from a broken one. `isGenerating` is cleared at twenty-eight
+        // different exits, so one missed path strands it — say so, and
+        // leave what was typed where it was.
+        guard !isGenerating else {
+            addSystemMessage("⏳ 生成中のため送信していません。停止してから送ってください。")
+            return
+        }
+
+        // ── Command an app by name ────────────────────────────────────
+        // Works in every mode, because this is work rather than UI
+        // navigation. Safety comes from the three-part requirement in
+        // VeraSummon.resolveDelegation and from the licence, not from
+        // which mode happens to be selected.
+        if !text.isEmpty,
+           let request = VeraSummon.resolveDelegation(text, goal: text) {
+            inputText = ""
+            messages.append(ChatMessage(role: .user, content: text))
+            let pending = ChatMessage(role: .assistant,
+                                      content: "▸ \(request.app.displayName) / "
+                                             + "\(request.verb.displayName) …")
+            messages.append(pending)
+            Task { @MainActor in
+                let evidence = await AppDelegation.shared.perform(request)
+                // What is reported is what the rung could witness. A
+                // hand-off says so rather than borrowing the word for a
+                // measured success.
+                var body = "▸ \(evidence.app.displayName) / \(evidence.verb.displayName)\n"
+                    + "\(evidence.payload)\n\(evidence.verdict)"
+                if !evidence.head.isEmpty {
+                    body += "\n\n" + evidence.head
+                }
+                if evidence.outcome == .refusedNoLicence {
+                    body += "\n\n" + AppLanguage.shared.t(
+                        "Say 「licence」 to grant it.",
+                        "「免許」と入力すると許可できます。")
+                }
+                if let i = self.messages.firstIndex(where: { $0.id == pending.id }) {
+                    self.messages[i].content = body
+                }
+            }
+            return
+        }
 
         // ── Summon by name ────────────────────────────────────────────
         // The chrome is gone, so the words are the controls. An exact
