@@ -56,7 +56,18 @@ struct AgentChatView: View {
 
             // ── Content ─────────────────────────────────────────────
             ZStack {
-                chatTranscriptArea
+                // Vera mode replaces the TRANSCRIPT with the three
+                // columns — never the pane. The tab bar above and the
+                // input bar below carry the mode switches, the
+                // attachments and the model readout, and swapping the
+                // whole pane is what made them disappear.
+                Group {
+                    if app.veraEngineMode == .veraModel {
+                        VeraSovereignLayout().environmentObject(app)
+                    } else {
+                        chatTranscriptArea
+                    }
+                }
                     .opacity(showingHistory ? 0 : 1)
                     .offset(x: showingHistory ? 20 : 0)
                 

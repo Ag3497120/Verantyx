@@ -43,8 +43,6 @@ struct VeraConsolePane: View {
                 .frame(maxWidth: .infinity, alignment: .leading)
             }
 
-            Divider().opacity(0.35)
-            composer
         }
         .background(.background.opacity(0.35))
     }

@@ -439,16 +439,14 @@ struct HumanPriorityModeView: View {
 
     @ViewBuilder
     private var centerAndRightPanes: some View {
+        // Vera mode takes the whole surface (no editor half — the
+        // sovereign layout carries its own 自由ウィンドウ), but it goes
+        // inside the AI pane's own chrome, because that chrome is where
+        // the mode switches, the attachments and the model readout live.
+        // Replacing the pane wholesale is what made them disappear.
         Group {
             if app.veraEngineMode == .veraModel {
-                // Vera mode IS the surface. The editor half is not
-                // hidden to make room for a picture — the sovereign
-                // layout already carries a 自由ウィンドウ, so keeping the
-                // split would put two editors on one screen and squeeze
-                // the three columns into a stack at every width.
-                VeraSovereignLayout()
-                    .environmentObject(app)
-                    .frame(maxWidth: .infinity, maxHeight: .infinity)
+                aiChatPanel
             } else {
                 splitPanes
             }
@@ -896,14 +894,8 @@ struct HumanPriorityModeView: View {
             // right — and the cross reflows into the left stack, then
             // in with the chat, as the pane narrows. Every other mode
             // keeps the plain transcript.
-            if app.veraEngineMode == .veraModel {
-                VeraSovereignLayout()
-                    .environmentObject(app)
-                    .frame(maxWidth: .infinity, maxHeight: .infinity)
-            } else {
-                AgentChatView()
-                    .frame(maxWidth: .infinity, maxHeight: .infinity)
-            }
+            AgentChatView()
+                .frame(maxWidth: .infinity, maxHeight: .infinity)
         }
         .background(Color(red: 0.10, green: 0.10, blue: 0.14))
         .sheet(isPresented: $showPipelineSheet) {
