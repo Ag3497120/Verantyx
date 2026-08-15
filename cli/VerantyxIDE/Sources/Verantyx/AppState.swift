@@ -403,7 +403,6 @@ final class AppState: ObservableObject {
     /// Shows the live mirror of whatever window HiddenWindowAutomation has
     /// parked off-screen, so the user can watch autonomous OS-agent
     /// operation without it visually stealing focus or covering the IDE.
-    @Published var showHiddenWindowMirror: Bool = false
 
     /// Shows the JGEN Vector Lab: text-in/text-out exploration of
     /// JCrossEngine's raw hidden-state operations (encode, resynthesize,
@@ -1105,7 +1104,6 @@ final class AppState: ObservableObject {
     /// notions of "the window" in play.
     private func applyVeraAOperatingDefaults() {
         guard veraEngineMode == .standalone else { return }
-        showHiddenWindowMirror = false
         Task { @MainActor in await HiddenWindowAutomation.shared.endOffscreenSession() }
     }
 

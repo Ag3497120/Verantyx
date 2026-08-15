@@ -303,7 +303,7 @@ struct HumanPriorityModeView: View {
     private enum VeraAPanelTab: String, CaseIterable, Identifiable {
         // Memory first: this screen exists for the qwen + JGEN memory workflow,
         // and the console is the only tab that shows what memory actually did.
-        case memory, growth, research, distributed, settings, modes, stereoCross, mirror, vectorLab
+        case memory, growth, research, distributed, settings, modes, stereoCross, vectorLab
         var id: String { rawValue }
         @MainActor
         func title(_ app: AppState) -> String {
@@ -315,7 +315,6 @@ struct HumanPriorityModeView: View {
             case .settings:    return app.t("Settings", "設定")
             case .modes:       return app.t("Modes", "モード")
             case .stereoCross: return app.t("3D Graph", "立体十字構造体")
-            case .mirror:      return app.t("Mirror", "ミラー")
             case .vectorLab:   return app.t("Vector Lab", "ベクトルラボ")
             }
         }
@@ -330,7 +329,6 @@ struct HumanPriorityModeView: View {
             case .settings:    return "slider.horizontal.3"
             case .modes:       return "square.grid.2x2"
             case .stereoCross: return "cube.transparent"
-            case .mirror:      return "macwindow.on.rectangle"
             case .vectorLab:   return "waveform.path"
             }
         }
@@ -456,8 +454,6 @@ struct HumanPriorityModeView: View {
                     ModesOverviewView()
                 case .stereoCross:
                     StereoCrossGraphView()
-                case .mirror:
-                    HiddenWindowMirrorView()
                 case .vectorLab:
                     VectorLabView()
                 }
@@ -621,9 +617,6 @@ struct HumanPriorityModeView: View {
         if app.showStereoCrossGraph {
             StereoCrossGraphView()
                 .frame(maxWidth: .infinity, maxHeight: .infinity)
-        } else if app.showHiddenWindowMirror {
-            HiddenWindowMirrorView()
-                .frame(maxWidth: .infinity, maxHeight: .infinity)
         } else if app.showVectorLab {
             VectorLabView()
                 .frame(maxWidth: .infinity, maxHeight: .infinity)
@@ -711,34 +704,12 @@ struct HumanPriorityModeView: View {
             // Save button / status
             HStack(spacing: 8) {
 
-                Button {
-                    withAnimation(.easeInOut(duration: 0.2)) {
-                        app.showHiddenWindowMirror.toggle()
-                    }
-                } label: {
-                    HStack(spacing: 4) {
-                        Image(systemName: "eye.trianglebadge.exclamationmark")
-                            .font(.system(size: 11))
-                        Text(app.t("Hidden Window", "非表示ウィンドウ"))
-                            .font(.system(size: 11, weight: .medium))
-                    }
-                    .foregroundStyle(app.showHiddenWindowMirror
-                        ? Color(red: 1.0, green: 0.75, blue: 0.4)
-                        : Color(red: 0.6, green: 0.6, blue: 0.7))
-                    .padding(.horizontal, 10)
-                    .padding(.vertical, 4)
-                    .contentShape(Rectangle())
-                    .background(
-                        RoundedRectangle(cornerRadius: 5)
-                            .fill(app.showHiddenWindowMirror
-                                ? Color(red: 0.38, green: 0.28, blue: 0.12).opacity(0.9)
-                                : Color.white.opacity(0.04))
-                    )
-                }
-                .contentShape(Rectangle())
-                .buttonStyle(.plain)
-                .help(app.t("Watch the window the agent parked off-screen", "エージェントがオフスクリーンに退避させたウィンドウを表示"))
-
+                // 「非表示ウィンドウ」 (the mirror) is gone. It was a human
+                // preview of an offscreen window — a picture of what the
+                // agent was looking at, next to the agent already telling
+                // you. The automation it previewed
+                // (HiddenWindowAutomation) is untouched; only the window
+                // showing it to a person is removed.
 
                 Divider().frame(height: 16).opacity(0.4)
 
@@ -1745,7 +1716,7 @@ struct VeraFeatureDock: View {
         // view — showing it here too meant two memory readouts at once.
         // .growth removed likewise: growth lives in the Vera-a audit
         // screen's right panel now.
-        case research, distributed, settings, modes, stereoCross, mirror, vectorLab
+        case research, distributed, settings, modes, stereoCross, vectorLab
         var id: String { rawValue }
         @MainActor
         func title(_ app: AppState) -> String {
@@ -1755,7 +1726,6 @@ struct VeraFeatureDock: View {
             case .settings:    return app.t("Settings", "設定")
             case .modes:       return app.t("Modes", "モード")
             case .stereoCross: return app.t("3D Graph", "立体十字")
-            case .mirror:      return app.t("Mirror", "ミラー")
             case .vectorLab:   return app.t("Vector Lab", "ベクトルラボ")
             }
         }
@@ -1790,7 +1760,6 @@ struct VeraFeatureDock: View {
                         showReasoningTimeline: $showReasoningTimeline)
                 case .modes:       ModesOverviewView()
                 case .stereoCross: StereoCrossGraphView()
-                case .mirror:      HiddenWindowMirrorView()
                 case .vectorLab:   VectorLabView()
                 }
             }
