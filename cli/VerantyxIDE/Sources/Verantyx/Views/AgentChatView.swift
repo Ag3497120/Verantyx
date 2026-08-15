@@ -72,11 +72,6 @@ struct AgentChatView: View {
 
             Divider().opacity(0.3)
 
-            // ── Model selector bar ───────────────────────────────────
-            modelSelectorBar
-
-            Divider().opacity(0.3)
-
             // ── Puzzle Overlay ───────────────────────────────────────
             if app.requiresHumanPuzzle {
                 HumanProofPuzzleView { entropy, duration, frames in
@@ -453,7 +448,33 @@ struct AgentChatView: View {
 
     // MARK: - Input bar
 
+    /// Box + chrome. The tools, the model and the send action sit BELOW the
+    /// text box rather than inside it: inside, they competed with the text for
+    /// the same row and won, and every one of them stole width the text needed.
     private var inputBar: some View {
+        VStack(spacing: 7) {
+            composerBox
+            composerChrome
+        }
+    }
+
+    /// Bottom row. Tools left, model and send right — the corner Claude and
+    /// Cursor both put them in, and the corner the eye already goes to after
+    /// typing.
+    private var composerChrome: some View {
+        HStack(spacing: 8) {
+            composerTools
+            Spacer(minLength: 8)
+            modelSelectorBar
+        }
+        .padding(.leading, 18)
+        // The assistant button floats over this corner. Without room reserved
+        // for it the row runs underneath and the last control is clipped —
+        // which is what "自動" was doing.
+        .padding(.trailing, 62)
+    }
+
+    private var composerBox: some View {
         VStack(spacing: 0) {
             // ── Attachment preview strip ──────────────────────────────
             if !app.attachedImages.isEmpty || !app.attachedFiles.isEmpty {
@@ -529,281 +550,6 @@ struct AgentChatView: View {
 
             // ── Text input + action buttons ───────────────────────────
             HStack(alignment: .bottom, spacing: 8) {
-
-                // ── Fixed-width action button group ──────────────────────
-                // IMPORTANT: fixed frame prevents Self Fix toggle from
-                // shifting the TextEditor to the right
-                HStack(spacing: 2) {
-                    // Attach image
-                    Button {
-                        let picked = AttachmentManager.pickImages()
-                        app.attachedImages.append(contentsOf: picked)
-                    } label: {
-                        Image(systemName: "photo.badge.plus")
-                            .font(.system(size: 15))
-                            .foregroundStyle(
-                                app.isMultimodalModel
-                                ? Color(red: 0.6, green: 0.8, blue: 1.0)
-                                : Color(red: 0.35, green: 0.35, blue: 0.45)
-                            )
-                            .frame(width: 26, height: 26)
-                    }
-                    .contentShape(Rectangle())
-                    .buttonStyle(.plain)
-                    .disabled(!app.isMultimodalModel)
-                    .help(app.isMultimodalModel ? app.t("Attach image", "画像を添付") : app.t("Multimodal not supported by this model", "このモデルはマルチモーダル非対応です"))
-
-                    // Attach file
-                    Button {
-                        let picked = AttachmentManager.pickFiles()
-                        app.attachedFiles.append(contentsOf: picked)
-                    } label: {
-                        Image(systemName: "paperclip")
-                            .font(.system(size: 15))
-                            .foregroundStyle(Color(red: 0.6, green: 0.7, blue: 0.85))
-                            .frame(width: 26, height: 26)
-                    }
-                    .contentShape(Rectangle())
-                    .buttonStyle(.plain)
-                    .help(app.t("Attach file", "ファイルを添付"))
-                    
-                    // ── Visual Anchor Insertion ──
-                    Button {
-                        showVisualAnchorPrompt = true
-                    } label: {
-                        ZStack(alignment: .topTrailing) {
-                            Image(systemName: "exclamationmark.lock.fill")
-                                .font(.system(size: 15))
-                                .foregroundStyle(app.persistentTaskAnchor.isEmpty ? Color(red: 0.9, green: 0.3, blue: 0.3) : Color.orange)
-                                .frame(width: 26, height: 26)
-                            
-                            if !app.persistentTaskAnchor.isEmpty {
-                                Circle().fill(Color.orange).frame(width: 6, height: 6).offset(x: -2, y: 2)
-                            }
-                        }
-                    }
-                    .contentShape(Rectangle())
-                    .buttonStyle(.plain)
-                    .help(app.t(
-                        "Insert Anchor (Critical Directive or User Instruction framing)",
-                        "アンカーを注入(Critical DirectiveまたはUser Instruction枠)"
-                    ))
-                    .popover(isPresented: $showVisualAnchorPrompt) {
-                        VStack(alignment: .leading, spacing: 10) {
-                            Text(app.t("Anchor Injection", "アンカー注入"))
-                                .font(.headline)
-                            Text(app.t(
-                                "Inject once, or every turn automatically (Persistent Task). Set Persistent with an empty field to clear it.",
-                                "1回のみ注入するか、毎ターン自動注入（Persistent Task）するか選択できます。\n空欄でSet Persistentを押すと解除されます。"
-                            ))
-                                .font(.caption)
-                                .foregroundStyle(.secondary)
-
-                            Picker("", selection: $anchorFramingStyle) {
-                                Text(app.t("Critical Directive", "Critical Directive")).tag(AnchorFramingStyle.criticalDirective)
-                                Text(app.t("User Instruction", "User Instruction")).tag(AnchorFramingStyle.userInstruction)
-                            }
-                            .pickerStyle(.segmented)
-                            .labelsHidden()
-
-                            TextEditor(text: $visualAnchorText)
-                                .frame(width: 300, height: 100)
-                                .font(.system(size: 12, design: .monospaced))
-                                .border(Color.gray.opacity(0.3))
-
-                            HStack {
-                                Spacer()
-                                Button("Cancel") {
-                                    showVisualAnchorPrompt = false
-                                }
-                                Button(app.persistentTaskAnchor.isEmpty ? "Set Persistent" : "Clear Persistent") {
-                                    app.persistentTaskAnchor = visualAnchorText
-                                    showVisualAnchorPrompt = false
-                                    visualAnchorText = ""
-                                }
-                                .buttonStyle(.bordered)
-                                .tint(app.persistentTaskAnchor.isEmpty ? .orange : .gray)
-
-                                Button("Inject Once") {
-                                    guard !visualAnchorText.isEmpty else { return }
-                                    let anchorBase64 = anchorFramingStyle == .criticalDirective
-                                        ? CognitiveAnchorEngine.shared.getCustomAnchor(text: visualAnchorText)
-                                        : CognitiveAnchorEngine.shared.getUserPromptAnchor(text: visualAnchorText)
-                                    // Base64からローカルファイルに書き出して添付する
-                                    if let data = Data(base64Encoded: anchorBase64),
-                                       let img = NSImage(data: data) {
-                                        let tempUrl = FileManager.default.temporaryDirectory.appendingPathComponent("anchor_\(UUID().uuidString).png")
-                                        if let tiff = img.tiffRepresentation,
-                                           let bitmap = NSBitmapImageRep(data: tiff),
-                                           let png = bitmap.representation(using: .png, properties: [:]) {
-                                            try? png.write(to: tempUrl)
-                                            let attached = AttachedImage(name: "VisualAnchor.png", url: tempUrl, nsImage: img)
-                                            app.attachedImages.append(attached)
-                                        }
-                                    }
-                                    showVisualAnchorPrompt = false
-                                    visualAnchorText = ""
-                                }
-                                .buttonStyle(.borderedProminent)
-                                .tint(anchorFramingStyle == .criticalDirective ? .red : .blue)
-                            }
-                        }
-                        .padding()
-                    }
-
-                    // ── Auto Visual Anchor images on/off ──
-                    // Toggles whether the automatic per-turn Cognitive Anchor
-                    // images (searchForce/doubt/logic/etc, rendered every turn
-                    // for multimodal-classified models) are actually attached.
-                    // Kept as a runtime switch rather than removed outright, so
-                    // it can be flipped off for a quick A/B test (e.g. does a
-                    // model's output quality change without these images) and
-                    // back on again without a rebuild.
-                    Button {
-                        app.autoVisualAnchorImagesEnabled.toggle()
-                    } label: {
-                        Image(systemName: app.autoVisualAnchorImagesEnabled ? "eye.fill" : "eye.slash.fill")
-                            .font(.system(size: 15))
-                            .foregroundStyle(
-                                app.autoVisualAnchorImagesEnabled
-                                ? Color(red: 0.6, green: 0.8, blue: 1.0)
-                                : Color(red: 0.5, green: 0.5, blue: 0.55)
-                            )
-                            .frame(width: 26, height: 26)
-                    }
-                    .contentShape(Rectangle())
-                    .buttonStyle(.plain)
-                    .help(app.autoVisualAnchorImagesEnabled
-                        ? app.t("Auto Visual Anchor images: ON (click to disable)", "自動Visual Anchor画像: ON（クリックで無効化）")
-                        : app.t("Auto Visual Anchor images: OFF (click to enable)", "自動Visual Anchor画像: OFF（クリックで有効化）"))
-
-                    // ── Context usage indicator ──
-                    ContextUsageIndicator()
-
-                    // ── Verified URL registry ──
-                    // Lets the user directly pin a confirmed URL for a
-                    // named destination (e.g. "Gemini") into Vera, rather
-                    // than relying only on the organic save-approval flow
-                    // after a conversation. CRITICAL RULE 8 has the agent
-                    // check this via [VERIFIED_URL_LOOKUP: name] before
-                    // navigating to a named site, instead of guessing a
-                    // URL from its own (possibly stale) internal knowledge.
-                    Button {
-                        showVerifiedURLPrompt = true
-                    } label: {
-                        Image(systemName: "link.badge.plus")
-                            .font(.system(size: 15))
-                            .foregroundStyle(Color(red: 0.5, green: 0.9, blue: 0.6))
-                            .frame(width: 26, height: 26)
-                    }
-                    .contentShape(Rectangle())
-                    .buttonStyle(.plain)
-                    .help(app.t("Register a verified URL", "検証済みURLを登録"))
-                    .popover(isPresented: $showVerifiedURLPrompt) {
-                        VStack(alignment: .leading, spacing: 10) {
-                            Text(app.t("Register Verified URL", "検証済みURLの登録"))
-                                .font(.headline)
-                            Text(app.t(
-                                "Pin a confirmed URL for a named site (e.g. \"Gemini\") into Vera, so the agent checks it instead of guessing.",
-                                "「Gemini」のような名前付きサイトの確認済みURLをVeraに固定登録します。エージェントは推測する前にこれを確認します。"
-                            ))
-                                .font(.caption)
-                                .foregroundStyle(.secondary)
-
-                            TextField(app.t("Name (e.g. Gemini)", "名前（例: Gemini）"), text: $verifiedURLName)
-                                .textFieldStyle(.roundedBorder)
-                                .frame(width: 280)
-                            TextField(app.t("URL (e.g. https://gemini.google.com/)", "URL（例: https://gemini.google.com/）"), text: $verifiedURLValue)
-                                .textFieldStyle(.roundedBorder)
-                                .frame(width: 280)
-
-                            if !verifiedURLStatus.isEmpty {
-                                Text(verifiedURLStatus)
-                                    .font(.caption)
-                                    .foregroundStyle(Color(red: 0.5, green: 0.9, blue: 0.6))
-                            }
-
-                            HStack {
-                                Spacer()
-                                Button(app.t("Cancel", "キャンセル")) {
-                                    showVerifiedURLPrompt = false
-                                    verifiedURLStatus = ""
-                                }
-                                Button(app.t("Register", "登録")) {
-                                    let name = verifiedURLName
-                                    let url = verifiedURLValue
-                                    Task {
-                                        let ok = await VeraMemoryBridge.recordVerifiedURL(name: name, url: url)
-                                        await MainActor.run {
-                                            verifiedURLStatus = ok
-                                                ? app.t("✓ Registered", "✓ 登録しました")
-                                                : app.t("✗ Failed — check vera-memory connection", "✗ 失敗 — vera-memory接続を確認してください")
-                                            if ok {
-                                                verifiedURLName = ""
-                                                verifiedURLValue = ""
-                                            }
-                                        }
-                                    }
-                                }
-                                .buttonStyle(.borderedProminent)
-                                .tint(.green)
-                                .disabled(verifiedURLName.trimmingCharacters(in: .whitespaces).isEmpty
-                                    || verifiedURLValue.trimmingCharacters(in: .whitespaces).isEmpty)
-                            }
-                        }
-                        .padding()
-                    }
-
-                    // ── Self Fix — icon-only, fixed frame ────────────────
-                    // Using just the icon + background color (no expanding text)
-                    // so width never changes and TextEditor stays in place.
-                    Button {
-                        app.selfFixMode.toggle()
-                    } label: {
-                        Image(systemName: app.selfFixMode
-                              ? "wrench.and.screwdriver.fill"
-                              : "wrench.and.screwdriver")
-                            .font(.system(size: 13))
-                            .foregroundStyle(app.selfFixMode
-                                             ? Color.black
-                                             : Color(red: 0.55, green: 0.55, blue: 0.65))
-                            .frame(width: 26, height: 26)
-                            .background(
-                                app.selfFixMode
-                                    ? Color(red: 1.0, green: 0.65, blue: 0.15)
-                                    : Color.white.opacity(0.06),
-                                in: RoundedRectangle(cornerRadius: 5)
-                            )
-                    }
-                    .contentShape(Rectangle())
-                    .buttonStyle(.plain)
-                    .help(app.selfFixMode
-                          ? app.t("Self Fix Mode ON — tap to disable", "Self Fix モード ON — タップで解除")
-                          : app.t("Self Fix: auto-fix IDE source", "Self Fix: IDEソースを自己修正"))
-                    // ── L3.5 OS Asset Build Button ──
-                    @ObservedObject var assetVault = OSAssetMemoryVault.shared
-                    
-                    Button {
-                        app.addSystemMessage(app.t("🔄 Starting L3.5 PC Asset Map generation...", "🔄 L3.5 PC資産マップの生成を開始します..."))
-                        assetVault.scanBackground()
-                    } label: {
-                        Image(systemName: "macwindow.badge.plus")
-                            .font(.system(size: 13))
-                            .foregroundStyle(assetVault.isScanning ? Color.gray : Color(red: 0.35, green: 0.75, blue: 0.9))
-                            .frame(width: 26, height: 26)
-                    }
-                    .contentShape(Rectangle())
-                    .buttonStyle(.plain)
-                    .disabled(assetVault.isScanning)
-                    .help(app.t("Generate L3.5 PC Asset Map", "PC内資産マップ(L3.5)を生成する"))
-                    .onChange(of: assetVault.scanProgress) { newValue in
-                        if !newValue.isEmpty {
-                            app.addSystemMessage(newValue)
-                        }
-                    }
-                }
-                // FIXED width — never changes regardless of selfFixMode
-                .frame(width: 142, alignment: .leading)
 
                 // ── TextEditor + placeholder ───────────────────────────
                 // Placeholder padding must match NSTextView's internal insets:
@@ -994,6 +740,295 @@ struct AgentChatView: View {
             .animation(.spring(response: 0.24, dampingFraction: 0.9),
                        value: composerHeight)
         }
+    }
+
+    /// The composer's tools, OUTSIDE the text box.
+    ///
+    /// They used to sit in the same row as the text, held to `width: 142` so a
+    /// mode toggle could not shift the field sideways. The icons need about
+    /// 190, so they always overflowed that clamp — invisibly, because the box
+    /// was tall enough that they sat at the bottom while the placeholder sat at
+    /// the top. The moment the composer collapsed to one line they landed on
+    /// the same line and the placeholder ran underneath them.
+    ///
+    /// Below the box there is no clamp to overflow and nothing to collide with,
+    /// and the text field gets the full width — which is what the box is for.
+    @ViewBuilder
+    private var composerTools: some View {
+        // ── Fixed-width action button group ──────────────────────
+        // IMPORTANT: fixed frame prevents Self Fix toggle from
+        // shifting the TextEditor to the right
+        HStack(spacing: 2) {
+            // Attach image
+            Button {
+                let picked = AttachmentManager.pickImages()
+                app.attachedImages.append(contentsOf: picked)
+            } label: {
+                Image(systemName: "photo.badge.plus")
+                    .font(.system(size: 15))
+                    .foregroundStyle(
+                        app.isMultimodalModel
+                        ? Color(red: 0.6, green: 0.8, blue: 1.0)
+                        : Color(red: 0.35, green: 0.35, blue: 0.45)
+                    )
+                    .frame(width: 26, height: 26)
+            }
+            .contentShape(Rectangle())
+            .buttonStyle(.plain)
+            .disabled(!app.isMultimodalModel)
+            .help(app.isMultimodalModel ? app.t("Attach image", "画像を添付") : app.t("Multimodal not supported by this model", "このモデルはマルチモーダル非対応です"))
+
+            // Attach file
+            Button {
+                let picked = AttachmentManager.pickFiles()
+                app.attachedFiles.append(contentsOf: picked)
+            } label: {
+                Image(systemName: "paperclip")
+                    .font(.system(size: 15))
+                    .foregroundStyle(Color(red: 0.6, green: 0.7, blue: 0.85))
+                    .frame(width: 26, height: 26)
+            }
+            .contentShape(Rectangle())
+            .buttonStyle(.plain)
+            .help(app.t("Attach file", "ファイルを添付"))
+            
+            // ── Visual Anchor Insertion ──
+            Button {
+                showVisualAnchorPrompt = true
+            } label: {
+                ZStack(alignment: .topTrailing) {
+                    Image(systemName: "exclamationmark.lock.fill")
+                        .font(.system(size: 15))
+                        .foregroundStyle(app.persistentTaskAnchor.isEmpty ? Color(red: 0.9, green: 0.3, blue: 0.3) : Color.orange)
+                        .frame(width: 26, height: 26)
+                    
+                    if !app.persistentTaskAnchor.isEmpty {
+                        Circle().fill(Color.orange).frame(width: 6, height: 6).offset(x: -2, y: 2)
+                    }
+                }
+            }
+            .contentShape(Rectangle())
+            .buttonStyle(.plain)
+            .help(app.t(
+                "Insert Anchor (Critical Directive or User Instruction framing)",
+                "アンカーを注入(Critical DirectiveまたはUser Instruction枠)"
+            ))
+            .popover(isPresented: $showVisualAnchorPrompt) {
+                VStack(alignment: .leading, spacing: 10) {
+                    Text(app.t("Anchor Injection", "アンカー注入"))
+                        .font(.headline)
+                    Text(app.t(
+                        "Inject once, or every turn automatically (Persistent Task). Set Persistent with an empty field to clear it.",
+                        "1回のみ注入するか、毎ターン自動注入（Persistent Task）するか選択できます。\n空欄でSet Persistentを押すと解除されます。"
+                    ))
+                        .font(.caption)
+                        .foregroundStyle(.secondary)
+
+                    Picker("", selection: $anchorFramingStyle) {
+                        Text(app.t("Critical Directive", "Critical Directive")).tag(AnchorFramingStyle.criticalDirective)
+                        Text(app.t("User Instruction", "User Instruction")).tag(AnchorFramingStyle.userInstruction)
+                    }
+                    .pickerStyle(.segmented)
+                    .labelsHidden()
+
+                    TextEditor(text: $visualAnchorText)
+                        .frame(width: 300, height: 100)
+                        .font(.system(size: 12, design: .monospaced))
+                        .border(Color.gray.opacity(0.3))
+
+                    HStack {
+                        Spacer()
+                        Button("Cancel") {
+                            showVisualAnchorPrompt = false
+                        }
+                        Button(app.persistentTaskAnchor.isEmpty ? "Set Persistent" : "Clear Persistent") {
+                            app.persistentTaskAnchor = visualAnchorText
+                            showVisualAnchorPrompt = false
+                            visualAnchorText = ""
+                        }
+                        .buttonStyle(.bordered)
+                        .tint(app.persistentTaskAnchor.isEmpty ? .orange : .gray)
+
+                        Button("Inject Once") {
+                            guard !visualAnchorText.isEmpty else { return }
+                            let anchorBase64 = anchorFramingStyle == .criticalDirective
+                                ? CognitiveAnchorEngine.shared.getCustomAnchor(text: visualAnchorText)
+                                : CognitiveAnchorEngine.shared.getUserPromptAnchor(text: visualAnchorText)
+                            // Base64からローカルファイルに書き出して添付する
+                            if let data = Data(base64Encoded: anchorBase64),
+                               let img = NSImage(data: data) {
+                                let tempUrl = FileManager.default.temporaryDirectory.appendingPathComponent("anchor_\(UUID().uuidString).png")
+                                if let tiff = img.tiffRepresentation,
+                                   let bitmap = NSBitmapImageRep(data: tiff),
+                                   let png = bitmap.representation(using: .png, properties: [:]) {
+                                    try? png.write(to: tempUrl)
+                                    let attached = AttachedImage(name: "VisualAnchor.png", url: tempUrl, nsImage: img)
+                                    app.attachedImages.append(attached)
+                                }
+                            }
+                            showVisualAnchorPrompt = false
+                            visualAnchorText = ""
+                        }
+                        .buttonStyle(.borderedProminent)
+                        .tint(anchorFramingStyle == .criticalDirective ? .red : .blue)
+                    }
+                }
+                .padding()
+            }
+
+            // ── Auto Visual Anchor images on/off ──
+            // Toggles whether the automatic per-turn Cognitive Anchor
+            // images (searchForce/doubt/logic/etc, rendered every turn
+            // for multimodal-classified models) are actually attached.
+            // Kept as a runtime switch rather than removed outright, so
+            // it can be flipped off for a quick A/B test (e.g. does a
+            // model's output quality change without these images) and
+            // back on again without a rebuild.
+            Button {
+                app.autoVisualAnchorImagesEnabled.toggle()
+            } label: {
+                Image(systemName: app.autoVisualAnchorImagesEnabled ? "eye.fill" : "eye.slash.fill")
+                    .font(.system(size: 15))
+                    .foregroundStyle(
+                        app.autoVisualAnchorImagesEnabled
+                        ? Color(red: 0.6, green: 0.8, blue: 1.0)
+                        : Color(red: 0.5, green: 0.5, blue: 0.55)
+                    )
+                    .frame(width: 26, height: 26)
+            }
+            .contentShape(Rectangle())
+            .buttonStyle(.plain)
+            .help(app.autoVisualAnchorImagesEnabled
+                ? app.t("Auto Visual Anchor images: ON (click to disable)", "自動Visual Anchor画像: ON（クリックで無効化）")
+                : app.t("Auto Visual Anchor images: OFF (click to enable)", "自動Visual Anchor画像: OFF（クリックで有効化）"))
+
+            // ── Context usage indicator ──
+            ContextUsageIndicator()
+
+            // ── Verified URL registry ──
+            // Lets the user directly pin a confirmed URL for a
+            // named destination (e.g. "Gemini") into Vera, rather
+            // than relying only on the organic save-approval flow
+            // after a conversation. CRITICAL RULE 8 has the agent
+            // check this via [VERIFIED_URL_LOOKUP: name] before
+            // navigating to a named site, instead of guessing a
+            // URL from its own (possibly stale) internal knowledge.
+            Button {
+                showVerifiedURLPrompt = true
+            } label: {
+                Image(systemName: "link.badge.plus")
+                    .font(.system(size: 15))
+                    .foregroundStyle(Color(red: 0.5, green: 0.9, blue: 0.6))
+                    .frame(width: 26, height: 26)
+            }
+            .contentShape(Rectangle())
+            .buttonStyle(.plain)
+            .help(app.t("Register a verified URL", "検証済みURLを登録"))
+            .popover(isPresented: $showVerifiedURLPrompt) {
+                VStack(alignment: .leading, spacing: 10) {
+                    Text(app.t("Register Verified URL", "検証済みURLの登録"))
+                        .font(.headline)
+                    Text(app.t(
+                        "Pin a confirmed URL for a named site (e.g. \"Gemini\") into Vera, so the agent checks it instead of guessing.",
+                        "「Gemini」のような名前付きサイトの確認済みURLをVeraに固定登録します。エージェントは推測する前にこれを確認します。"
+                    ))
+                        .font(.caption)
+                        .foregroundStyle(.secondary)
+
+                    TextField(app.t("Name (e.g. Gemini)", "名前（例: Gemini）"), text: $verifiedURLName)
+                        .textFieldStyle(.roundedBorder)
+                        .frame(width: 280)
+                    TextField(app.t("URL (e.g. https://gemini.google.com/)", "URL（例: https://gemini.google.com/）"), text: $verifiedURLValue)
+                        .textFieldStyle(.roundedBorder)
+                        .frame(width: 280)
+
+                    if !verifiedURLStatus.isEmpty {
+                        Text(verifiedURLStatus)
+                            .font(.caption)
+                            .foregroundStyle(Color(red: 0.5, green: 0.9, blue: 0.6))
+                    }
+
+                    HStack {
+                        Spacer()
+                        Button(app.t("Cancel", "キャンセル")) {
+                            showVerifiedURLPrompt = false
+                            verifiedURLStatus = ""
+                        }
+                        Button(app.t("Register", "登録")) {
+                            let name = verifiedURLName
+                            let url = verifiedURLValue
+                            Task {
+                                let ok = await VeraMemoryBridge.recordVerifiedURL(name: name, url: url)
+                                await MainActor.run {
+                                    verifiedURLStatus = ok
+                                        ? app.t("✓ Registered", "✓ 登録しました")
+                                        : app.t("✗ Failed — check vera-memory connection", "✗ 失敗 — vera-memory接続を確認してください")
+                                    if ok {
+                                        verifiedURLName = ""
+                                        verifiedURLValue = ""
+                                    }
+                                }
+                            }
+                        }
+                        .buttonStyle(.borderedProminent)
+                        .tint(.green)
+                        .disabled(verifiedURLName.trimmingCharacters(in: .whitespaces).isEmpty
+                            || verifiedURLValue.trimmingCharacters(in: .whitespaces).isEmpty)
+                    }
+                }
+                .padding()
+            }
+
+            // ── Self Fix — icon-only, fixed frame ────────────────
+            // Using just the icon + background color (no expanding text)
+            // so width never changes and TextEditor stays in place.
+            Button {
+                app.selfFixMode.toggle()
+            } label: {
+                Image(systemName: app.selfFixMode
+                      ? "wrench.and.screwdriver.fill"
+                      : "wrench.and.screwdriver")
+                    .font(.system(size: 13))
+                    .foregroundStyle(app.selfFixMode
+                                     ? Color.black
+                                     : Color(red: 0.55, green: 0.55, blue: 0.65))
+                    .frame(width: 26, height: 26)
+                    .background(
+                        app.selfFixMode
+                            ? Color(red: 1.0, green: 0.65, blue: 0.15)
+                            : Color.white.opacity(0.06),
+                        in: RoundedRectangle(cornerRadius: 5)
+                    )
+            }
+            .contentShape(Rectangle())
+            .buttonStyle(.plain)
+            .help(app.selfFixMode
+                  ? app.t("Self Fix Mode ON — tap to disable", "Self Fix モード ON — タップで解除")
+                  : app.t("Self Fix: auto-fix IDE source", "Self Fix: IDEソースを自己修正"))
+            // ── L3.5 OS Asset Build Button ──
+            @ObservedObject var assetVault = OSAssetMemoryVault.shared
+            
+            Button {
+                app.addSystemMessage(app.t("🔄 Starting L3.5 PC Asset Map generation...", "🔄 L3.5 PC資産マップの生成を開始します..."))
+                assetVault.scanBackground()
+            } label: {
+                Image(systemName: "macwindow.badge.plus")
+                    .font(.system(size: 13))
+                    .foregroundStyle(assetVault.isScanning ? Color.gray : Color(red: 0.35, green: 0.75, blue: 0.9))
+                    .frame(width: 26, height: 26)
+            }
+            .contentShape(Rectangle())
+            .buttonStyle(.plain)
+            .disabled(assetVault.isScanning)
+            .help(app.t("Generate L3.5 PC Asset Map", "PC内資産マップ(L3.5)を生成する"))
+            .onChange(of: assetVault.scanProgress) { newValue in
+                if !newValue.isEmpty {
+                    app.addSystemMessage(newValue)
+                }
+            }
+        }
+        // FIXED width — never changes regardless of selfFixMode
+        .frame(width: 142, alignment: .leading)
     }
 
     /// One line at rest, capped before it eats the transcript.
