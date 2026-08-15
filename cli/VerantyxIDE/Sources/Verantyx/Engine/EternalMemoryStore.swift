@@ -986,6 +986,35 @@ actor EternalMemoryStore {
         var autonomous: Bool { human >= Self.enoughForAutonomy }
     }
 
+    // MARK: - What the library actually holds
+    //
+    // Counted, never estimated. A surface that reports the size of a memory is
+    // the last place to show a plausible number: the whole claim of this
+    // architecture is that what it says is backed, and a mocked figure on that
+    // panel would be the product contradicting itself in its own UI.
+    struct LibraryStats: Sendable {
+        let nodes: Int
+        let actEpisodes: Int
+        let humanDemonstrations: Int
+        let visualGrounds: Int
+    }
+
+    func libraryStats() -> LibraryStats {
+        try? ensureDB()
+        func count(_ sql: String) -> Int {
+            var stmt: OpaquePointer?
+            guard sqlite3_prepare_v2(db, sql, -1, &stmt, nil) == SQLITE_OK else { return 0 }
+            defer { sqlite3_finalize(stmt) }
+            guard sqlite3_step(stmt) == SQLITE_ROW else { return 0 }
+            return Int(sqlite3_column_int64(stmt, 0))
+        }
+        return LibraryStats(
+            nodes: count("SELECT COUNT(*) FROM nodes"),
+            actEpisodes: count("SELECT COUNT(*) FROM act_episode"),
+            humanDemonstrations: count("SELECT COUNT(*) FROM mouse_trace WHERE source = 'human'"),
+            visualGrounds: count("SELECT COUNT(*) FROM visual_ground"))
+    }
+
     func demonstrationStats() -> DemonstrationStats {
         try? ensureDB()
         var human = 0, agent = 0

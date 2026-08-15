@@ -10,6 +10,8 @@ struct AgentChatView: View {
     @State private var inputText: String = ""
     /// Laid-out height of the input's content, reported back from AppKit.
     @State private var composerContentHeight: CGFloat = 0
+    /// Raised by what is being typed. Nothing here keeps a permanent seat.
+    @State private var surface: VeraSurface?
 
     /// Drives the composer glow. Eases out after the state settles.
     @State private var glowPulse: Bool = false
@@ -468,6 +470,15 @@ struct AgentChatView: View {
     /// the same row and won, and every one of them stole width the text needed.
     private var inputBar: some View {
         VStack(spacing: 7) {
+            if let surface {
+                VeraSurfaceView(surface: surface,
+                                japanese: AppLanguage.shared.isJapanese) {
+                    self.surface = nil
+                }
+                .environmentObject(app)
+                .padding(.horizontal, 16)
+                .transition(.opacity)
+            }
             composerBox
             composerChrome
         }
@@ -763,6 +774,16 @@ struct AgentChatView: View {
                 isFocused: $inputFocused,
                 measuredHeight: $composerContentHeight
             )
+            // Deterministic and immediate. A surface that waits on a model
+            // call arrives late, and one that appears because a model guessed
+            // appears wrongly.
+            .onChange(of: inputText) { _, text in
+                let next = VeraSurface.recognise(text)
+                guard next != surface else { return }
+                withAnimation(.spring(response: 0.38, dampingFraction: 0.85)) {
+                    surface = next
+                }
+            }
             // One line to start, growing with the text, and past the
             // cap it stops growing and scrolls instead — the NSScrollView
             // underneath already has its scroller, it was simply never
