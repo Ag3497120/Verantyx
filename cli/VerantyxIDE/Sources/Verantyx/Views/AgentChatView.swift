@@ -61,13 +61,21 @@ struct AgentChatView: View {
                 // input bar below carry the mode switches, the
                 // attachments and the model readout, and swapping the
                 // whole pane is what made them disappear.
-                Group {
+                // Every mode gets the same screen: memory and the free
+                // window down the left, the cross as a watermark over
+                // all of it, and the main area filled by whatever this
+                // mode actually answers with — Vera's structured console
+                // in Vera mode, the transcript in the LLM and dual-path
+                // modes. Vera runs under all three; only the reply
+                // differs.
+                VeraSovereignLayout {
                     if app.veraEngineMode == .veraModel {
-                        VeraSovereignLayout().environmentObject(app)
+                        VeraConsolePane().environmentObject(app)
                     } else {
                         chatTranscriptArea
                     }
                 }
+                .environmentObject(app)
                     .opacity(showingHistory ? 0 : 1)
                     .offset(x: showingHistory ? 20 : 0)
                 

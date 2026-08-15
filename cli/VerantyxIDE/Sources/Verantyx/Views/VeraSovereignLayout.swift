@@ -18,7 +18,14 @@ import SwiftUI
 /// with the chat. Nothing is hidden without moving somewhere a reader
 /// can still find it — a control that vanishes at a breakpoint is a
 /// control the reader stops trusting.
-struct VeraSovereignLayout: View {
+struct VeraSovereignLayout<Content: View>: View {
+    /// What fills the main area — Vera's console in Vera mode, the
+    /// ordinary transcript in the LLM and dual-path modes. The frame is
+    /// shared because Vera runs under all three; only the reply differs,
+    /// and pretending an LLM's answer is a structured verdict would be
+    /// the one dishonesty this screen exists to avoid.
+    @ViewBuilder var content: () -> Content
+
     @EnvironmentObject var app: AppState
     @ObservedObject private var route = VeraRouteState.shared
     @StateObject private var ledger = MemoryLedgerModel()
@@ -55,37 +62,39 @@ struct VeraSovereignLayout: View {
 
     private var layout: some View {
         GeometryReader { geo in
-            let f = fold(geo.size.width)
-            HStack(spacing: 10) {
-                if f != .withChat {
-                    VStack(spacing: 10) {
-                        memoryPane
-                        if f == .leftStack { crossPane(span: crossSpan(geo.size.width),
-                                                       compact: true) }
-                        freeWindowPane
+            let showsColumn = geo.size.width >= 620
+            ZStack {
+                HStack(spacing: 10) {
+                    if showsColumn {
+                        VStack(spacing: 10) {
+                            memoryPane
+                            freeWindowPane
+                        }
+                        .frame(width: max(220, min(300, geo.size.width * 0.24)))
                     }
-                    .frame(width: max(220, min(300, geo.size.width * 0.24)))
+                    content()
+                        .frame(maxWidth: .infinity, maxHeight: .infinity)
                 }
+                .padding(10)
 
-                if f == .column {
-                    crossPane(span: crossSpan(geo.size.width), compact: false)
-                        .frame(maxWidth: .infinity)
-                }
-
-                VStack(spacing: 0) {
-                    if f == .withChat {
-                        crossPane(span: crossSpan(geo.size.width), compact: true)
-                            .padding(.bottom, 8)
-                    }
-                    VeraConsolePane()
-                        .environmentObject(app)
-                }
-                .frame(maxWidth: f == .column ? geo.size.width * 0.33 : .infinity)
+                // ── 立体十字, as a watermark ──────────────────────
+                // A whole column for the instrument was the wrong trade:
+                // the structure is the ground everything else sits on,
+                // not a neighbour competing for width. It reads across
+                // the panes at a weight you notice only when it moves,
+                // takes no clicks, and brightens a little while a call
+                // is out — so the route is still visible without the
+                // screen spending a third of itself on it.
+                StereoCrossView(
+                    span: min(geo.size.width, geo.size.height) * 0.66,
+                    showsLabels: true
+                )
+                .opacity(route.phase == .idle ? 0.07 : 0.16)
+                .allowsHitTesting(false)
+                .animation(.easeInOut(duration: 0.6), value: route.phase)
             }
-            .padding(10)
-            .animation(.easeInOut(duration: 0.28), value: f)
+            .animation(.easeInOut(duration: 0.28), value: showsColumn)
         }
-        .task { await ledger.load() }
     }
 
     // MARK: - 記憶
@@ -136,26 +145,6 @@ struct VeraSovereignLayout: View {
                     .font(.system(size: 10, design: .monospaced))
                     .foregroundStyle(.tertiary)
                 Spacer(minLength: 0)
-            }
-        }
-    }
-
-    // MARK: - 立体十字
-
-    private func crossPane(span: CGFloat, compact: Bool) -> some View {
-        pane(title: "立体十字構造体",
-             trailing: route.phase == .idle ? "静止" : "導通",
-             dashed: true) {
-            VStack(spacing: 8) {
-                Spacer(minLength: 0)
-                StereoCrossView(span: compact ? min(span, 120) : span,
-                                showsLabels: !compact)
-                Spacer(minLength: 0)
-                Text(compact ? route.summary
-                             : "6腕 = 支持/反論・原因/結果・一般/実例")
-                    .font(.system(size: 9.5, design: .monospaced))
-                    .foregroundStyle(.tertiary)
-                    .lineLimit(1)
             }
         }
     }
