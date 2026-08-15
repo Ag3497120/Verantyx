@@ -58,70 +58,85 @@ struct StereoCrossView: View {
         (.effect,   CGPoint(x: 0.88,  y: 0.48)),
     ]
 
+    // The body was one expression — a Canvas closure of CGPoint/CGRect
+    // arithmetic plus a GeometryReader of the same — and the type checker
+    // gave up on it. Locally that meant a slow build; on CI it meant
+    // "unable to type-check this expression in reasonable time", which is
+    // an ERROR, so every release build has been failing on it.
+    //
+    // Split into three, with the arithmetic given explicit types. The
+    // drawing is a method rather than a closure because a method's
+    // parameter types are declared instead of inferred, which is most of
+    // what the checker was searching for.
     var body: some View {
         ZStack {
-            Canvas { ctx, size in
-                let c = CGPoint(x: size.width / 2, y: size.height / 2)
-                let r = min(size.width, size.height) / 2 - (showsLabels ? 26 : 3)
-
-                // evidence orbit — one mark per named source
-                if showsLabels, !route.origins.isEmpty {
-                    let ring = r + 14
-                    var circle = Path()
-                    circle.addEllipse(in: CGRect(x: c.x - ring, y: c.y - ring,
-                                                 width: ring * 2, height: ring * 2))
-                    ctx.stroke(circle, with: .color(VeraInk.structure.opacity(0.5)),
-                               lineWidth: 0.5)
-                    for (i, _) in route.origins.enumerated() {
-                        let a = (-Double.pi / 2) + (Double(i) / 8.0) * 2 * .pi
-                        let p = CGPoint(x: c.x + ring * cos(a), y: c.y + ring * sin(a))
-                        ctx.fill(Path(ellipseIn: CGRect(x: p.x - 2.2, y: p.y - 2.2,
-                                                        width: 4.4, height: 4.4)),
-                                 with: .color(VeraInk.verified))
-                    }
-                }
-
-                for (arm, v) in Self.vectors {
-                    let end = CGPoint(x: c.x + v.x * r, y: c.y + v.y * r)
-                    var path = Path()
-                    path.move(to: c)
-                    path.addLine(to: end)
-                    let lit = active && route.arms.contains(arm)
-                    ctx.stroke(path,
-                               with: .color(lit ? tint : VeraInk.structure),
-                               lineWidth: lit ? 1.6 : 0.9)
-                    if lit {
-                        ctx.fill(Path(ellipseIn: CGRect(x: end.x - 2.6, y: end.y - 2.6,
-                                                        width: 5.2, height: 5.2)),
-                                 with: .color(tint))
-                    }
-                }
-
-                let hub = CGRect(x: c.x - 3.4, y: c.y - 3.4, width: 6.8, height: 6.8)
-                ctx.fill(Path(ellipseIn: hub),
-                         with: .color(active ? tint : VeraInk.quiet))
-            }
-
-            if showsLabels {
-                GeometryReader { geo in
-                    let c = CGPoint(x: geo.size.width / 2, y: geo.size.height / 2)
-                    let r = min(geo.size.width, geo.size.height) / 2 - 26
-                    ForEach(Self.vectors, id: \.0) { arm, v in
-                        Text(arm.label)
-                            .font(.system(size: 10, weight: .medium))
-                            .monospacedDigit()
-                            .foregroundStyle(active && route.arms.contains(arm)
-                                             ? tint : Color.secondary)
-                            .position(x: c.x + v.x * (r + 24),
-                                      y: c.y + v.y * (r + 24))
-                    }
-                }
-            }
+            Canvas { ctx, size in draw(ctx, size: size) }
+            if showsLabels { labels }
         }
         .frame(width: span, height: span)
         .animation(.easeInOut(duration: 0.4), value: route.pulse)
         .animation(.easeInOut(duration: 0.4), value: route.phase)
         .accessibilityLabel("立体十字 — \(route.summary)")
+    }
+
+    // MARK: - The instrument itself
+
+    private func draw(_ ctx: GraphicsContext, size: CGSize) {
+        let c = CGPoint(x: size.width / 2, y: size.height / 2)
+        let inset: CGFloat = showsLabels ? 26 : 3
+        let r: CGFloat = min(size.width, size.height) / 2 - inset
+
+        // evidence orbit — one mark per named source
+        if showsLabels, !route.origins.isEmpty {
+            let ring: CGFloat = r + 14
+            var circle = Path()
+            circle.addEllipse(in: CGRect(x: c.x - ring, y: c.y - ring,
+                                         width: ring * 2, height: ring * 2))
+            ctx.stroke(circle, with: .color(VeraInk.structure.opacity(0.5)),
+                       lineWidth: 0.5)
+            for i in route.origins.indices {
+                let a: Double = (-Double.pi / 2) + (Double(i) / 8.0) * 2 * Double.pi
+                let px: CGFloat = c.x + ring * CGFloat(cos(a))
+                let py: CGFloat = c.y + ring * CGFloat(sin(a))
+                let dot = CGRect(x: px - 2.2, y: py - 2.2, width: 4.4, height: 4.4)
+                ctx.fill(Path(ellipseIn: dot), with: .color(VeraInk.verified))
+            }
+        }
+
+        for (arm, v) in Self.vectors {
+            let end = CGPoint(x: c.x + v.x * r, y: c.y + v.y * r)
+            var path = Path()
+            path.move(to: c)
+            path.addLine(to: end)
+            let lit: Bool = active && route.arms.contains(arm)
+            ctx.stroke(path,
+                       with: .color(lit ? tint : VeraInk.structure),
+                       lineWidth: lit ? 1.6 : 0.9)
+            if lit {
+                let cap = CGRect(x: end.x - 2.6, y: end.y - 2.6,
+                                 width: 5.2, height: 5.2)
+                ctx.fill(Path(ellipseIn: cap), with: .color(tint))
+            }
+        }
+
+        let hub = CGRect(x: c.x - 3.4, y: c.y - 3.4, width: 6.8, height: 6.8)
+        ctx.fill(Path(ellipseIn: hub), with: .color(active ? tint : VeraInk.quiet))
+    }
+
+    private var labels: some View {
+        GeometryReader { geo in
+            let c = CGPoint(x: geo.size.width / 2, y: geo.size.height / 2)
+            let r: CGFloat = min(geo.size.width, geo.size.height) / 2 - 26
+            let reach: CGFloat = r + 24
+            ForEach(Self.vectors, id: \.0) { arm, v in
+                Text(arm.label)
+                    .font(.system(size: 10, weight: .medium))
+                    .monospacedDigit()
+                    .foregroundStyle(active && route.arms.contains(arm)
+                                     ? tint : Color.secondary)
+                    .position(x: c.x + v.x * reach, y: c.y + v.y * reach)
+            }
+        }
     }
 }
 
