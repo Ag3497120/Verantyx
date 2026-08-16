@@ -2884,7 +2884,48 @@ enum ModelTier: String, Sendable {
     // that ASK_HUMAN was disabled, concluded it should "just ask in plain
     // text", and prose does not end a turn. The loop ran to turn 9 asking
     // the same question nobody could answer, because the door was removed.
-    static let fixedHarness: Set<ToolCategory> = [.filesystem, .web_simple, .done, .human]
+    //
+    // ── 7dcdcacbb の適用範囲を戻す ──────────────────────────────
+    //
+    // This set was [.filesystem, .web_simple, .done] and it is one day old.
+    // Until 7dcdcacbb (2026-08-14) `enabledToolCategories` was declared and
+    // never consumed, so every backend received every parsed tag. That commit
+    // consumed it for the first time — and in doing so took desktop, browser
+    // and vision away from every backend that is not JGEN, which is every
+    // model a person can actually pick from the composer.
+    //
+    // What that cost is on record. Before it, a claude-opus-5 run opened
+    // Teams, found the AX tree empty, hit -25205 on AXManualAccessibility,
+    // installed PyObjC, wrote a Vision OCR reader, clicked through CGEvent
+    // and came back with the real assignment list — then audited its own
+    // report for the three places it had tidied OCR output into guesses.
+    // After it, four models in a row explained, correctly and at length,
+    // that they had no way to open anything.
+    //
+    // The intent behind the gate — only an engine whose hidden state we can
+    // audit should roam freely — is not wrong, but it was enforced against
+    // the wrong thing. "Which backend is this" is not a safety property. The
+    // licence book and the evidence record gate by ACT and say afterwards
+    // what was actually run, which is the question that was being asked.
+    //
+    // ── 分割の理由 ──────────────────────────────────────────
+    //
+    // The regression 7dcdcacbb caused, and the evidence above, are about
+    // desktop / browser / vision. `.selffix` ([APPLY_PATCH:], [BUILD_IDE])
+    // and `.admin` ([MCP_CALL:], [SET_SETTING:], [USE_SKILL:]) are not in
+    // that story: nothing measured says a model was wrongly denied the
+    // ability to rewrite this app and rebuild it, or to change the very
+    // settings the licence book is kept in. Restoring them here would let
+    // the Teams evidence carry a grant it never spoke to, and the record
+    // afterwards would show only that evidence.
+    //
+    // So they are left out. Adding them is a separate decision with its
+    // own reasons, and it should be made where those reasons are written
+    // down rather than as a side effect of fixing a one-day-old regression.
+    static let fixedHarness: Set<ToolCategory> = [
+        .filesystem, .web_simple, .web_full, .done, .human,
+        .desktop, .jcross, .git,
+    ]
 
     var enabledToolCategories: Set<ToolCategory> {
         switch self {

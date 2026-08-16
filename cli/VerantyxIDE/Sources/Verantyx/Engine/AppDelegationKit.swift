@@ -199,6 +199,56 @@ enum DelegationRung: String, Codable, Sendable {
     }
 }
 
+// MARK: - Who the act is for
+//
+// The IDE is kept plain on purpose: it does not need to out-design Preview or
+// out-feature Finder, because those exist and are better. What it needs is to
+// DEFINE them as tools — and a tool is used for one of two quite different
+// reasons, which the evidence has to tell apart.
+//
+// Vera opening a PDF so it can read the text is not the same act as Vera
+// opening a PDF so the PERSON can look at it, even though both are
+// `preview.open` and both end in the same `handedOff`. For the first,
+// handed-off is a dead end: nothing came back, so nothing was learned. For
+// the second, handed-off IS the result — the file is in front of them in the
+// app built to show it, which is exactly what was wanted.
+//
+// Without this distinction the record grades the second kind as an
+// incomplete version of the first, and an agent reading its own log learns to
+// stop doing the thing that worked.
+// This is a CLASSIFICATION RESULT, not a switch the caller flips.
+//
+// The first version of this enum had two cases and the caller picked one,
+// which is the same mistake as the app list one level down: a closed set
+// somebody hand-wrote, that cannot grow to cover a machine with 88 surveyed
+// assets on it. Deciding "is this for Vera or for the person" from the words
+// of the request is a judgement, and judgement is what the engine is for.
+//
+// So the third case is the important one. `unknown` is not a failure to
+// classify — it is Vera declining to guess, and it is graded strictly, which
+// means an unclassified act is held to the harder standard rather than the
+// convenient one. Refusals that cost something are the only kind that hold.
+enum DelegationPurpose: String, Codable, Sendable {
+    /// Vera needs the result. A rung that cannot witness one has failed.
+    case forVera
+    /// The person needs to see it. Reaching the app is the whole deliverable.
+    case forHuman
+    /// Not classified. Graded as `.forVera` — strict is the safe direction.
+    case unknown
+
+    var displayName: String {
+        switch self {
+        case .forVera:  return AppLanguage.shared.t("for Vera", "Veraが使う")
+        case .forHuman: return AppLanguage.shared.t("to show you", "あなたに見せる")
+        case .unknown:  return AppLanguage.shared.t("unclassified", "未分類")
+        }
+    }
+
+    /// True when reaching the app is itself the result. Only an affirmative
+    /// classification earns the lenient reading; `unknown` does not.
+    var handOffIsTheResult: Bool { self == .forHuman }
+}
+
 // MARK: - Request and evidence
 
 struct DelegationRequest: Sendable {
@@ -210,6 +260,10 @@ struct DelegationRequest: Sendable {
     /// answers "what was this for" and not only "what ran".
     let goal: String
     let origin: RequestOrigin
+    /// Filled by `AppDelegation.classify`, not by the caller. Defaults to
+    /// `.unknown` so a path that never asks is graded strictly rather than
+    /// quietly inheriting whichever reading the author found convenient.
+    var purpose: DelegationPurpose = .unknown
     /// Where a command runs, or the destination of a move.
     var directory: URL? = nil
 }
@@ -236,6 +290,9 @@ struct DelegationEvidence: Identifiable, Sendable {
     let payload: String
     let goal: String
     let origin: RequestOrigin
+    /// Who the act was for. Changes how `handedOff` reads, and nothing else —
+    /// the measurement is identical, the standard it is held to is not.
+    let purpose: DelegationPurpose
     let rung: DelegationRung
     let outcome: Outcome
     /// Present only for the native rung. Its absence is information.
@@ -258,9 +315,23 @@ struct DelegationEvidence: Identifiable, Sendable {
             if let exitCode { return "exit \(exitCode) — 失敗（実測）" }
             return AppLanguage.shared.t("failed", "失敗")
         case .handedOff:
+            // Same measurement, two standards. Reaching the app IS the
+            // deliverable when the app was the point; it is a dead end when
+            // Vera needed something back.
+            if purpose.handOffIsTheResult {
+                return AppLanguage.shared.t(
+                    "\(app.displayName) has it and is in front of you — "
+                    + "whether you looked is yours to say",
+                    "\(app.displayName) が受け取り、前面に出ています — "
+                    + "見たかどうかはこちらからは分かりません")
+            }
             return AppLanguage.shared.t(
-                "handed to \(app.displayName) — its result is not observable here",
-                "\(app.displayName) に渡した — その先の結果はここからは観測できません")
+                "handed to \(app.displayName) — nothing came back, so nothing "
+                + "was learned here"
+                + (purpose == .unknown ? " (purpose unclassified)" : ""),
+                "\(app.displayName) に渡しただけです — 何も返っていないので、"
+                + "ここからは何も分かっていません"
+                + (purpose == .unknown ? "（用途は未分類）" : ""))
         case .refusedNoLicence:
             return AppLanguage.shared.t(
                 "refused — no licence for \(app.displayName) / \(verb.displayName)",
@@ -291,8 +362,31 @@ final class AppLicenceStore: ObservableObject {
         granted = Set(saved)
     }
 
+    /// One switch that stops the book BLOCKING without stopping it RECORDING.
+    ///
+    /// The instinct, after a run where nothing could be opened, is to delete
+    /// the licence layer. That would take the evidence with it — the rung,
+    /// the exit code, the digest, the refusals — which is the one thing this
+    /// product actually sells. So the obstruction goes and the instrument
+    /// stays: every act is still filed and still shown on the licence screen.
+    ///
+    /// The individual switches underneath are untouched, so turning this off
+    /// restores exactly the grants that were there before, rather than
+    /// starting from nothing.
+    /// Off until the person turns it on, and deliberately not defaulted for
+    /// them. A blanket permission that arrives pre-granted is a permission
+    /// nobody gave; the switch is one click away on the 免許 screen, and the
+    /// click is the point.
+    @Published var allowAll: Bool
+        = UserDefaults.standard.bool(forKey: "vera_app_licences_allow_all") {
+        didSet { UserDefaults.standard.set(allowAll, forKey: Self.allowAllKey) }
+    }
+
+    private static let allowAllKey = "vera_app_licences_allow_all"
+
     func isGranted(_ app: DelegatedApp, _ verb: LicenceVerb) -> Bool {
-        granted.contains("\(app.rawValue).\(verb.rawValue)")
+        if allowAll { return true }
+        return granted.contains("\(app.rawValue).\(verb.rawValue)")
     }
 
     func set(_ on: Bool, app: DelegatedApp, verb: LicenceVerb) {
@@ -368,6 +462,33 @@ final class AppDelegation: ObservableObject {
         refusals["\(app.rawValue).\(verb.rawValue)"] = nil
     }
 
+    // MARK: Classification, asked of Vera rather than written here
+    //
+    // Which app suits a need, and whether an act is for Vera or for the
+    // person, are both judgements — and a judgement hard-coded as a table in
+    // this file covers exactly the cases its author thought of. The engine
+    // already holds the general form of both:
+    //
+    //   assets_for(need)          88 surveyed assets, answered in two lists
+    //                             that must not be mixed — `witnessed` (a run
+    //                             vouched for it) and `present_untried`
+    //                             (it exists and nothing more is claimed)
+    //   vera_intent               47 verbs x 28 operations, closed, refuses
+    //                             outside the table instead of guessing
+    //
+    // Neither is called from the IDE yet — that is the known gap, and it is
+    // the same gap for both. Until it is wired, this returns `.unknown`,
+    // which grades strictly. It does NOT fall back to a keyword table: a
+    // guessed classification that looks like an answer is worse than an
+    // honest blank, because the record would then carry a judgement nobody
+    // made and no door can be pointed at.
+    func classify(_ request: DelegationRequest) async -> DelegationPurpose {
+        // TODO(next): ask vera_intent whether `request.goal` names an act
+        // whose product is a screen for the person or a result for Vera, and
+        // keep `.unknown` for anything the closed table does not cover.
+        .unknown
+    }
+
     /// nil when the act may proceed. Otherwise the refusal, already filed.
     func authorise(_ request: DelegationRequest) -> DelegationEvidence? {
         if request.origin == .observedContent {
@@ -387,7 +508,7 @@ final class AppDelegation: ObservableObject {
                       for r: DelegationRequest) -> DelegationEvidence {
         let e = DelegationEvidence(
             app: r.app, verb: r.verb, payload: r.payload, goal: r.goal,
-            origin: r.origin, rung: .none, outcome: refusal,
+            origin: r.origin, purpose: r.purpose, rung: .none, outcome: refusal,
             exitCode: nil, outputBytes: 0, outputDigest: "", head: "",
             duration: 0)
         record(e)
@@ -552,7 +673,7 @@ final class AppDelegation: ObservableObject {
                 started: Date) -> DelegationEvidence {
         let e = DelegationEvidence(
             app: r.app, verb: r.verb, payload: r.payload, goal: r.goal,
-            origin: r.origin, rung: rung, outcome: outcome,
+            origin: r.origin, purpose: r.purpose, rung: rung, outcome: outcome,
             exitCode: exitCode,
             outputBytes: output.utf8.count,
             outputDigest: output.isEmpty ? "" : Self.digest(output),
