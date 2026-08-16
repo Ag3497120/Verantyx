@@ -1228,7 +1228,7 @@ enum VeraMemoryBridge {
     /// (typo evidence, constructed explanation, the remedy). This is the
     /// IDE's version of the 3D page's ASK, and like it, it never guesses.
     static func veraModelTurn(
-        for query: String, trail: String? = nil
+        for query: String, trail: String? = nil, storeFirst: Bool = false
     ) async -> (reply: String, core: String?) {
         // One door. This function used to hold the ordering itself — the
         // diff short-circuit, then `vera_ask`, then a context retry — and
@@ -1241,9 +1241,17 @@ enum VeraMemoryBridge {
         //
         // What stays here is presentation, which is genuinely this side's
         // job: what a reader sees beside a verdict.
+        // `storeFirst` picks which of the two spaces gets to be THE
+        // answer when both have one: the documents loaded on this machine,
+        // or the published federation. They are never merged. Measured on
+        // a contest PDF: 「入力フォームとは」 answers from jawiki's privacy
+        // article under the federation and from the loaded PDF under the
+        // store — both true about different things, which is exactly why
+        // the person chooses rather than a score.
         guard let obj = await callDoor(
             "vera_engine",
-            ["query": query, "last_core": trail ?? "", "domain": ""])
+            ["query": query, "last_core": trail ?? "", "domain": "",
+             "store_first": storeFirst])
         else {
             return ("⚠️ vera-memory サーバに接続できません(設定 › MCP を確認してください)", nil)
         }
@@ -1271,7 +1279,7 @@ enum VeraMemoryBridge {
             }
             var footer: [String] = ["verdict: \(verdict)"]
             if let door = obj["door"] as? String, !door.isEmpty {
-                footer.append("扉: \(door)")
+                footer.append(door == "store" ? "扉: 端末の文書" : "扉: \(door)")
             }
             if let core = obj["core"] as? String, !core.isEmpty {
                 footer.append("core: \(core)")

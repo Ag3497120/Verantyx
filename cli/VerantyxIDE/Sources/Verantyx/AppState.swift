@@ -1918,8 +1918,10 @@ final class AppState: ObservableObject {
         // VeraMemoryBridge.veraModelTurn.
         if veraEngineMode == .veraModel && !isSpotlight {
             let trail = veraTrailCore
+            let only = veraDomainOnly
             inferenceTask = Task {
-                let r = await VeraMemoryBridge.veraModelTurn(for: text, trail: trail)
+                let r = await VeraMemoryBridge.veraModelTurn(
+                    for: text, trail: trail, storeFirst: only)
                 await MainActor.run {
                     if let c = r.core { self.veraTrailCore = c }
                     self.messages.append(ChatMessage(
