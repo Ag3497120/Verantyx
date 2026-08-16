@@ -542,6 +542,21 @@ enum VeraMemoryBridge {
     /// what a disputed claim gets cited to, so it must be something a
     /// reader can act on (outlet, agency, URL), not "doc1".
     @discardableResult
+    /// Same as `registerDomain`, for text that arrived without a file —
+    /// a paste wrapped in ⟨verantyx⟩ tags. It goes through the same door
+    /// and the same gates, so a paste cannot enter on easier terms than a
+    /// document.
+    static func registerDomainText(_ name: String, text: String) async -> String {
+        let obj = await callDoor("vera_domain_text",
+                                 ["name": name, "text": text])
+        guard let obj else { return "登録できませんでした(扉が応答しません)。" }
+        if let v = obj["verdict"] as? String, v != "WROTE" {
+            return "🚫 \(v) — \(obj["note"] as? String ?? "")"
+        }
+        return "🗂 分野「\(name)」として登録(動詞 \(obj["verbs"] as? Int ?? 0)"
+            + "・枠 \(obj["slots"] as? Int ?? 0))。文法は共有のまま、語彙だけ。"
+    }
+
     /// Register a document's vocabulary as a domain — words, not facts.
     ///
     /// Measured across an encyclopedia, the Civil Code, the Labour

@@ -251,6 +251,21 @@ struct VerantyxApp: App {
         // is two places to look for the same thing; its actions moved into
         // that panel, which is also where the run state already lives.
 
+        // Vera in one window with a mode switch, branched from the menu
+        // bar. Four modes — 対話 / 投入 / 設定 / 構造 — because those are
+        // the four things Vera is, and switching between them is the same
+        // gesture the app already uses at the top of its other surfaces.
+        //
+        // It inherits none of the IDE's view tree: everything inside talks
+        // to `VeraMemoryBridge` (the doors) and to nothing else, so the
+        // engine is not migrated and the tangle is not entered.
+        Window("Vera", id: "vera") {
+            VeraStandaloneWindow()
+                .frame(minWidth: 720, minHeight: 520)
+                .environmentObject(appState)
+        }
+        .commands { VeraWindowCommands() }
+
         // Main IDE Window
         Window("Verantyx IDE", id: "main-ide") {
             MainSplitView()

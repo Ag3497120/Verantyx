@@ -8,6 +8,8 @@ struct AgentChatView: View {
     @EnvironmentObject var app: AppState
     @State private var showingHistory: Bool = false
     @State private var inputText: String = ""
+    /// 0 = 「Vera に質問」, 1 = 「<verantyx> 〜 </verantyx> で投入」.
+    @State private var placeholderPhase: Int = 0
     /// Laid-out height of the input's content, reported back from AppKit.
     @State private var composerContentHeight: CGFloat = 0
     @State private var showingModelPill = false
@@ -863,6 +865,21 @@ struct AgentChatView: View {
     /// expression grew past what the type checker will solve in reasonable
     /// time, and adding the growth modifiers tipped it over. Splitting is the
     /// fix SwiftUI actually wants here.
+    /// Two things can be typed here and only one of them was ever named.
+    /// The field alternates so the second is discoverable without a manual:
+    /// a question goes to Vera, and a document wrapped in ⟨verantyx⟩ …
+    /// ⟨/verantyx⟩ goes INTO it as that document's vocabulary.
+    ///
+    /// Five seconds because a hint that changes while you are reading it is
+    /// worse than one that never changes. It stops the moment there is text,
+    /// which is the existing behaviour and stays.
+    private var placeholderRotation: String {
+        placeholderPhase == 0
+            ? app.t("Ask Vera…", "Vera に質問")
+            : app.t("<verantyx> … </verantyx> to load a document",
+                    "<verantyx> 〜 </verantyx> で投入")
+    }
+
     @ViewBuilder
     private var composerTextField: some View {
         ZStack(alignment: .topLeading) {
@@ -870,7 +887,7 @@ struct AgentChatView: View {
                 Text(app.selfFixMode
                      ? app.t("Fix this IDE… (Self Fix Mode)", "このIDEを修正… (Self Fix モード)")
                      : (app.selectedFile == nil
-                        ? app.t("Ask VerantyxAgent anything…", "Ask VerantyxAgent anything…")
+                        ? placeholderRotation
                         : app.t("Describe the changes you want…", "Describe the changes you want…")))
                     .font(.system(size: 13))
                     .foregroundStyle(
@@ -880,6 +897,10 @@ struct AgentChatView: View {
                     )
                     // Matches NSTextView's default lineFragmentPadding (5) + inset (~6)
                     .padding(.leading, 5)
+                    .task(id: placeholderPhase) {
+                        try? await Task.sleep(nanoseconds: 5_000_000_000)
+                        if !Task.isCancelled { placeholderPhase ^= 1 }
+                    }
                     .padding(.top, 6)
                     // No pointer interaction so clicks pass through to TextEditor
                     .allowsHitTesting(false)

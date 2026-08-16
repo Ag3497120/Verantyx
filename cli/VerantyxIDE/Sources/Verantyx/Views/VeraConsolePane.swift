@@ -18,29 +18,73 @@ struct VeraConsolePane: View {
     @EnvironmentObject var app: AppState
     @ObservedObject private var route = VeraRouteState.shared
     @State private var draft: String = ""
+    @State private var history: [Entry] = []
+
+    /// One settled turn. Deliberately small: the console re-reads the live
+    /// detail from `VeraRouteState`, and keeping a full copy of every
+    /// payload would make the pane a second store.
+    struct Entry: Identifiable {
+        let id = UUID()
+        let subject: String
+        let verdict: String
+        let text: String
+        let refused: Bool
+    }
 
     var body: some View {
         VStack(alignment: .leading, spacing: 0) {
             header
             Divider().opacity(0.35)
 
+            ScrollViewReader { proxy in
             ScrollView {
                 VStack(alignment: .leading, spacing: 14) {
-                    if route.verdict.isEmpty {
+                    if history.isEmpty && route.verdict.isEmpty {
                         Text("問いを入力してください。")
                             .font(.system(size: 12))
                             .foregroundStyle(.tertiary)
                             .padding(.top, 6)
-                    } else if route.phase == .refused || route.verdict.hasPrefix("UNKNOWN") {
-                        gapSection
-                    } else {
-                        answerSection
-                        evidenceSection
                     }
-                    if route.contested { conflictSection }
+                    // Answers accumulate. The console used to render one
+                    // verdict and replace it, so a second question erased
+                    // the first — and a refusal that names what is missing
+                    // is exactly the thing a person wants to keep beside
+                    // the answer that followed it.
+                    ForEach(history) { past in
+                        pastEntry(past)
+                        Divider().opacity(0.2)
+                    }
+                    if !route.verdict.isEmpty {
+                        if route.phase == .refused || route.verdict.hasPrefix("UNKNOWN") {
+                            gapSection
+                        } else {
+                            answerSection
+                            evidenceSection
+                        }
+                        if route.contested { conflictSection }
+                    }
+                    Color.clear.frame(height: 1).id("tail")
                 }
                 .padding(14)
                 .frame(maxWidth: .infinity, alignment: .leading)
+            }
+            .onChange(of: route.verdict) { _, new in
+                // A settled verdict is pushed back before the next one
+                // arrives; the live section always shows the newest.
+                if !new.isEmpty, route.phase != .routing {
+                    let e = Entry(subject: route.subject,
+                                  verdict: route.verdict,
+                                  text: route.answerText,
+                                  refused: route.phase == .refused
+                                           || new.hasPrefix("UNKNOWN"))
+                    if history.last?.verdict != e.verdict
+                        || history.last?.subject != e.subject {
+                        history.append(e)
+                        if history.count > 40 { history.removeFirst() }
+                    }
+                }
+                withAnimation { proxy.scrollTo("tail", anchor: .bottom) }
+            }
             }
 
         }
@@ -139,6 +183,20 @@ struct VeraConsolePane: View {
             Text("同一の相に両極が質量を持っています。どちらの側も出典つきで保持され、判定は降格されました。")
                 .font(.system(size: 11))
                 .foregroundStyle(.secondary)
+        }
+    }
+
+    @ViewBuilder
+    private func pastEntry(_ e: Entry) -> some View {
+        section(e.refused ? "GAP" : "ANSWER",
+                tint: e.refused ? VeraInk.unsettled : VeraInk.verified) {
+            VStack(alignment: .leading, spacing: 4) {
+                Text(e.text.isEmpty ? e.subject : e.text)
+                    .font(.system(size: 12))
+                    .foregroundStyle(.secondary)
+                    .textSelection(.enabled)
+                reading(e.verdict)
+            }
         }
     }
 

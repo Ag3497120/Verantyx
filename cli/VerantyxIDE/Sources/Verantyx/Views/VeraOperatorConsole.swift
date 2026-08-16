@@ -59,6 +59,17 @@ struct VeraOperatorConsole: View {
             .pickerStyle(.segmented)
             .frame(width: 240)
             Spacer()
+            // The settings button people asked for. It does not open a
+            // second surface — it moves this one, because a console with a
+            // modal on top of it is two places to look for one thing.
+            Button {
+                section = .settings
+            } label: {
+                Label("設定", systemImage: "slider.horizontal.3")
+                    .font(.system(size: 11))
+            }
+            .buttonStyle(.bordered)
+            .help("Vera の永続設定をすべて表示")
             TextField("絞り込み", text: $filter)
                 .textFieldStyle(.roundedBorder)
                 .frame(width: 180)
