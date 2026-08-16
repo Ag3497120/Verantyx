@@ -542,6 +542,26 @@ enum VeraMemoryBridge {
     /// what a disputed claim gets cited to, so it must be something a
     /// reader can act on (outlet, agency, URL), not "doc1".
     @discardableResult
+    /// Register a document's vocabulary as a domain — words, not facts.
+    ///
+    /// Measured across an encyclopedia, the Civil Code, the Labour
+    /// Standards Act and a two-page brief, grammar transfers (0.735–0.857
+    /// agreement against a 0.28 control) while vocabulary does not. So a
+    /// domain costs its nouns and the shared map is left alone; nothing
+    /// here votes, and `frames` is never written.
+    static func registerDomain(_ name: String, path: String) async -> String {
+        let obj = await callDoor("vera_domain",
+                                 ["name": name, "path": path])
+        guard let obj else { return "登録できませんでした(扉が応答しません)。" }
+        if let v = obj["verdict"] as? String, v != "WROTE" {
+            return "🚫 \(v) — \(obj["note"] as? String ?? "")"
+        }
+        let verbs = obj["verbs"] as? Int ?? 0
+        let slots = obj["slots"] as? Int ?? 0
+        return "🗂 分野「\(name)」として登録しました(動詞 \(verbs)・枠 \(slots))。"
+            + "文法は共有のまま、この文書の語彙だけが足されています。"
+    }
+
     static func ingestDocuments(_ documents: [(source: String, text: String)]) async -> String {
         let payload = documents.map { ["source": $0.source, "text": $0.text] }
         guard let data = try? JSONSerialization.data(withJSONObject: payload),

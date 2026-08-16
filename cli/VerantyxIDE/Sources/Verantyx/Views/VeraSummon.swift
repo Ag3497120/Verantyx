@@ -296,7 +296,13 @@ enum VeraSummon {
         return Panel(rawValue: String(content.dropFirst(7).dropLast()))
     }
 
-    enum Consent { case yes, no, unrelated }
+    /// `.domain` is a THIRD answer, not a flavour of yes. Ingesting a
+    /// document into the store and registering its vocabulary as a domain
+    /// are different acts with different consequences: the first adds
+    /// facts that vote, the second adds words that only speak. Folding
+    /// them into one 「はい」 would make the cheaper answer carry the
+    /// heavier one.
+    enum Consent { case yes, no, domain, unrelated }
 
     /// Consent read from a closed table, like everything else here. A
     /// document entering the store forever is exactly the decision that
@@ -307,6 +313,10 @@ enum VeraSummon {
             "yes", "y", "ok", "お願い", "おねがい"].contains(s) { return .yes }
         if ["いいえ", "いや", "やめる", "入れない", "no", "n",
             "不要", "けっこう"].contains(s) { return .no }
+        // Exact match, like every other table here: 「分野にしたいんだけど」
+        // is a sentence ABOUT registering, not a request to register.
+        if ["分野", "ぶんや", "語彙", "domain", "分野にする",
+            "分野として"].contains(s) { return .domain }
         return .unrelated
     }
 

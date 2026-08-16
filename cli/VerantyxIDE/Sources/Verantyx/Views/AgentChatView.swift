@@ -76,7 +76,20 @@ struct AgentChatView: View {
                         // Bot's replies are screens, and an NSTextView
                         // cannot hold one. Same messages, rendered as
                         // views.
-                        VeraBotTranscript().environmentObject(app)
+                        //
+                        // The console sits above them because this is the
+                        // one mode whose subject is the machine: naming a
+                        // screen still summons it into the transcript, and
+                        // the settings that never had a control are now
+                        // simply visible. Chrome stays absent everywhere
+                        // the work is a conversation; here the work is
+                        // operating the thing.
+                        VSplitView {
+                            VeraOperatorConsole().environmentObject(app)
+                                .frame(minHeight: 180, idealHeight: 300)
+                            VeraBotTranscript().environmentObject(app)
+                                .frame(minHeight: 160)
+                        }
                     } else {
                         chatTranscriptArea
                     }

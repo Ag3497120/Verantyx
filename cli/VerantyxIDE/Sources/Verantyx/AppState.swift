@@ -261,6 +261,21 @@ final class AppState: ObservableObject {
     /// same as a document they want the store to hold forever, and
     /// deciding that for them is exactly the invisible ingest this
     /// engine refuses everywhere else.
+    /// Which registered document vocabulary speaks. Empty = the shared
+    /// map only. Persisted because an operator sets it once for a
+    /// deployment, not once per launch.
+    @Published var veraDomain: String = UserDefaults.standard
+        .string(forKey: "vera_domain") ?? "" {
+        didSet { UserDefaults.standard.set(veraDomain, forKey: "vera_domain") }
+    }
+    /// Refuse rather than fall through to the shared vocabulary. The safe
+    /// side for a deployment: 「知らない」 beats an encyclopedia's sense of
+    /// a term of art, and nothing on screen would have shown the swap.
+    @Published var veraDomainOnly: Bool = UserDefaults.standard
+        .bool(forKey: "vera_domain_only") {
+        didSet { UserDefaults.standard.set(veraDomainOnly,
+                                           forKey: "vera_domain_only") }
+    }
     @Published var pendingIngest: [URL] = []
 
     // Inference task handle (for cancellation)
@@ -1711,6 +1726,36 @@ final class AppState: ObservableObject {
                 }
                 return
             }
+            if answer == .domain {
+                let files = pendingIngest
+                pendingIngest = []
+                inputText = ""
+                messages.append(ChatMessage(role: .user, content: text))
+                inferenceTask = Task {
+                    var lines: [String] = []
+                    for url in files {
+                        // The domain name comes from the file, not from a
+                        // guess about what the document is about — a table
+                        // name that was inferred is a table nobody can find
+                        // again.
+                        let stem = url.deletingPathExtension().lastPathComponent
+                        let name = stem.lowercased().map {
+                            $0.isLetter || $0.isNumber ? String($0) : "_"
+                        }.joined().prefix(32)
+                        lines.append(await VeraMemoryBridge.registerDomain(
+                            String(name), path: url.path))
+                    }
+                    let reply = lines.isEmpty
+                        ? "🚫 登録できる文書がありません。"
+                        : lines.joined(separator: "\n")
+                    await MainActor.run {
+                        self.messages.append(ChatMessage(
+                            role: .assistant, content: reply))
+                        self.isGenerating = false
+                    }
+                }
+                return
+            }
             if answer == .no {
                 pendingIngest = []
                 addSystemMessage("<think>\n▸ 取り込みません。会話の中だけで扱います。\n</think>")
@@ -1726,8 +1771,10 @@ final class AppState: ObservableObject {
             pendingIngest = attachedFiles
             let names = attachedFiles.map { $0.lastPathComponent }
                 .prefix(3).joined(separator: "・")
-            addSystemMessage("<think>\n▸ \(names) を Vera-a に入れますか?"
-                + "「はい」で取り込み、それ以外は会話の中だけで扱います。\n</think>")
+            addSystemMessage("<think>\n▸ \(names) をどうしますか?"
+                + "「はい」で Vera-a に取り込み(事実として)、"
+                + "「分野」でこの文書の語彙として登録(言葉だけ)、"
+                + "それ以外は会話の中だけで扱います。\n</think>")
         }
 
         // ── Summon by name ────────────────────────────────────────────
