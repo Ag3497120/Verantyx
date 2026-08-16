@@ -1230,71 +1230,61 @@ enum VeraMemoryBridge {
     static func veraModelTurn(
         for query: String, trail: String? = nil
     ) async -> (reply: String, core: String?) {
-        if let diffAnswer = await tryDiffAnswer(for: query) {
-            return (diffAnswer, nil)
-        }
-
-        guard var obj = await callDoor("vera_ask", ["query": query]) else {
+        // One door. This function used to hold the ordering itself — the
+        // diff short-circuit, then `vera_ask`, then a context retry — and
+        // `VeraDialogueScreen` held a second copy of the same three steps.
+        // Two compositions of one engine drift, and the one that drifts
+        // behind quietly becomes a smaller product. The order now lives in
+        // `engine.ask`, which also runs the organs neither copy called:
+        // typo repair, arithmetic, the mathlib witness, the gap ledger,
+        // frame composition.
+        //
+        // What stays here is presentation, which is genuinely this side's
+        // job: what a reader sees beside a verdict.
+        guard let obj = await callDoor(
+            "vera_engine",
+            ["query": query, "last_core": trail ?? "", "domain": ""])
+        else {
             return ("⚠️ vera-memory サーバに接続できません(設定 › MCP を確認してください)", nil)
         }
-        var verdict = (obj["verdict"] as? String) ?? "UNKNOWN"
-        var contextNote: String? = nil
-        // Context as a VISIBLE operation: a refused follow-up whose shape
-        // says "about the last thing" (deictic head, or just short) is
-        // re-asked with the trail core as an added condition — and the
-        // completion is printed, because an invisible context resolution
-        // is the same shape of lie as an invisible ingest (the 3D page's
-        // bubble rule). The trail core is always the LAST ANSWERED core,
-        // so resolution stays deterministic and auditable.
-        let deictic = ["その", "それ", "この", "あの"]
-        if verdict.hasPrefix("UNKNOWN"), let last = trail,
-           (query.count <= 10 || deictic.contains(where: query.hasPrefix)) {
-            var stripped = query
-            for d in deictic where stripped.hasPrefix(d) {
-                stripped = String(stripped.dropFirst(d.count))
-            }
-            if let retry = await callDoor(
-                "vera_ask", ["query": "\(last) \(stripped)"]),
-               let rv = retry["verdict"] as? String, !rv.hasPrefix("UNKNOWN") {
-                obj = retry
-                verdict = rv
-                contextNote = "文脈解決: 直近の核「\(last)」を条件に補完(可視・決定論)"
-            }
-        }
-        var lines: [String] = []
-        if let note = contextNote { lines.append("🧭 \(note)") }
+        let verdict = (obj["verdict"] as? String) ?? "UNKNOWN"
+        let refused = verdict.hasPrefix("UNKNOWN")
+            || verdict.hasPrefix("ABSTAIN") || verdict.hasPrefix("AMBIGUOUS")
 
-        let answering = !verdict.hasPrefix("UNKNOWN")
-        if answering {
+        var lines: [String] = []
+
+        // Every stage that CHANGED the question is printed. An invisible
+        // context resolution is the same shape of lie as an invisible
+        // ingest — and now typo repair and staging become visible on the
+        // same rule, rather than only the one step this file implemented.
+        let stages = (obj["stages"] as? [[String: Any]]) ?? []
+        for st in stages where (st["changed"] as? Bool) == true {
+            guard let name = st["stage"] as? String,
+                  let note = st["note"] as? String, !note.isEmpty
+            else { continue }
+            lines.append("🧭 \(name): \(note)")
+        }
+
+        if !refused {
             if let t = obj["text"] as? String, !t.isEmpty {
                 lines.append("🧩 \(t)")
             }
-            if let written = obj["written"] as? [String: Any],
-               let sents = written["sentences"] as? [[String: Any]] {
-                for s in sents.prefix(3) {
-                    if let st = s["text"] as? String, !st.isEmpty {
-                        lines.append(st)
-                    }
-                }
-            }
             var footer: [String] = ["verdict: \(verdict)"]
-            if let core = obj["core"] as? String { footer.append("core: \(core)") }
-            if let tier = obj["tier"] as? String { footer.append("tier: \(tier)") }
-            if let g = obj["grain"] as? [String: Any],
-               let a = g["agree"] as? Int, let of = g["of"] as? Int {
-                footer.append("grain \(a)/\(of)")
+            if let door = obj["door"] as? String, !door.isEmpty {
+                footer.append("扉: \(door)")
             }
-            if let w = obj["witnesses"] as? [String: Any],
-               let a = w["agree"] as? Int { footer.append("witnesses \(a)") }
-            if let ss = obj["stage_split"] as? [String: Any],
-               let chain = ss["chain"] as? String {
-                footer.append("導出鎖: \(chain)")
+            if let core = obj["core"] as? String, !core.isEmpty {
+                footer.append("core: \(core)")
             }
-            if let origin = obj["facet_origin"] as? [String: Any], !origin.isEmpty {
-                let sources = Set(origin.values.compactMap { ($0 as? [String]) }.flatMap { $0 })
-                if !sources.isEmpty {
-                    footer.append("出典: " + sources.sorted().prefix(3).joined(separator: ", "))
-                }
+            // The engine gathers these under one key, from whichever
+            // convention the answering door uses.
+            if let r = obj["readings"] as? [String: Any] {
+                if let tier = r["tier"] as? String { footer.append("tier: \(tier)") }
+                if let g = r["grain"] as? String { footer.append("grain \(g)") }
+                if let w = r["witnesses"] as? Int { footer.append("witnesses \(w)") }
+            }
+            if let origins = obj["origins"] as? [String], !origins.isEmpty {
+                footer.append("出典: " + origins.prefix(3).joined(separator: ", "))
             }
             lines.append("(\(footer.joined(separator: " · ")) — Vera単体・LLM不使用)")
         } else {
@@ -1303,15 +1293,12 @@ enum VeraMemoryBridge {
             if let missing = obj["missing"] as? String, !missing.isEmpty {
                 lines.append("欠けているもの: \(missing)")
             }
-            if let gap = obj["known_gap"] as? [String], !gap.isEmpty {
-                lines.append("既知の欠落: " + gap.prefix(4).joined(separator: "・"))
-            }
-            // Honest hand-offs beside the refusal — never instead of it.
-            if let typo = await typoBand(for: query) {
-                lines.append(typo.trimmingCharacters(in: .whitespacesAndNewlines))
-            }
-            if let explain = await explainBand(for: query) {
-                lines.append(explain)
+            // The gap ledger is consulted by the engine on every refusal
+            // now, so a known ticket appears without this side asking.
+            for st in stages where (st["stage"] as? String) == "gaps" {
+                if let n = st["note"] as? String, n.hasPrefix("既知の欠落") {
+                    lines.append(n)
+                }
             }
             if let remedy = obj["remedy"] as? String, !remedy.isEmpty {
                 lines.append("解消するには: \(remedy)")
@@ -1319,8 +1306,7 @@ enum VeraMemoryBridge {
             lines.append("(型付き拒否 — Vera単体は知らないことを推測しません)")
         }
         let core = obj["core"] as? String
-        return (lines.joined(separator: "\n\n"),
-                verdict.hasPrefix("UNKNOWN") ? nil : core)
+        return (lines.joined(separator: "\n\n"), refused ? nil : core)
     }
 
     /// Veraぼっと: the app answering about itself.

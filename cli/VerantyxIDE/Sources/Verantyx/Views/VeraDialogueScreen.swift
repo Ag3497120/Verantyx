@@ -74,6 +74,14 @@ struct VeraDialogueScreen: View {
         var door: String
         var runs: Int = 1
         var held: Bool = true          // every re-run agreed
+        var core: String = ""
+        /// What would close the gap. The engine returns it and the earlier
+        /// draft of this screen threw it away, which left a refusal with
+        /// nothing to do about it.
+        var remedy: String = ""
+        /// `vera_explain` keeps its provenance per unit, not in
+        /// `facet_origin`.
+        var origins: [String] = []
         var refused: Bool { verdict.hasPrefix("UNKNOWN")
                             || verdict.hasPrefix("AMBIGUOUS") }
     }
@@ -187,6 +195,21 @@ struct VeraDialogueScreen: View {
             if e.refused {
                 Text("これは失敗ではありません。証拠が無いことを、型を付けて述べています。")
                     .font(.system(size: 10)).foregroundStyle(.secondary)
+                if !e.remedy.isEmpty {
+                    Text("閉じるには: \(e.remedy)")
+                        .font(.system(size: 10)).foregroundStyle(.secondary)
+                }
+            }
+            if !e.origins.isEmpty {
+                ForEach(e.origins.prefix(4), id: \.self) { o in
+                    HStack(spacing: 5) {
+                        Image(systemName: "checkmark")
+                            .font(.system(size: 8, weight: .semibold))
+                            .foregroundStyle(VeraInk.verified)
+                        Text(o).font(.system(size: 10, design: .monospaced))
+                            .foregroundStyle(.secondary).lineLimit(1)
+                    }
+                }
             }
 
             // The tokens the answer was built from, beside the answer
@@ -264,6 +287,23 @@ struct VeraDialogueScreen: View {
         }
     }
 
+    private func plain(_ door: String, _ args: [String: Any],
+                       _ q: String, _ n: Int) async -> Entry {
+        guard let obj = await VeraMemoryBridge.callDoor(door, args) else {
+            return Entry(n: n, question: q, verdict: "UNKNOWN_ENGINE_SILENT",
+                         answer: "", tokens: [], agree: nil, eMin: nil,
+                         layer: "", door: door)
+        }
+        return Entry(n: n, question: q,
+                     verdict: (obj["verdict"] as? String) ?? "UNKNOWN",
+                     answer: (obj["text"] as? String) ?? "",
+                     tokens: (obj["tokens"] as? [String]) ?? [],
+                     agree: obj["agree_frac"] as? Double,
+                     eMin: obj["e_min"] as? Int,
+                     layer: "会話" + (carry == "A" ? "" : " carry:" + carry),
+                     door: door)
+    }
+
     private func rerun(_ e: Entry) {
         guard !running else { return }
         running = true
@@ -288,28 +328,73 @@ struct VeraDialogueScreen: View {
         }
     }
 
+    /// One door. The ordering lives in the engine, not here.
+    ///
+    /// This function used to BE the composition: it called `vera_ask`,
+    /// decided in Swift when a follow-up needed the last core, and fell
+    /// through to `vera_explain` when the census had nothing. That worked,
+    /// and it was still wrong — every other client had to re-derive the
+    /// same four steps, and each one that derived fewer made the same
+    /// engine look like a smaller product. Measured: the answering path
+    /// used three of a hundred doors, leaving seventeen organs outside
+    /// every question anyone asked here.
+    ///
+    /// `vera_engine` now carries that order, plus the organs Swift never
+    /// called — typo repair, arithmetic, the mathlib witness, the
+    /// difference short-circuit, the gap ledger, frame composition. What
+    /// stays on this side is presentation: which stages to show a reader,
+    /// and how.
     private func query(_ q: String, n: Int) async -> Entry {
-        let door = source == .store ? "vera_ask" : "recall_conversation"
-        let args: [String: Any] = source == .store
-            ? ["query": q]
-            : ["query": q, "carry": carry]
-        let obj = await VeraMemoryBridge.callDoor(door, args)
+        if source == .conversation {
+            return await plain("recall_conversation",
+                               ["query": q, "carry": carry], q, n)
+        }
+        let lastCore = entries.last(where: { !$0.refused })?.core ?? ""
+        let obj = await VeraMemoryBridge.callDoor(
+            "vera_engine",
+            ["query": q, "last_core": lastCore, "domain": app.veraDomain])
+
         guard let obj else {
             return Entry(n: n, question: q, verdict: "UNKNOWN_ENGINE_SILENT",
                          answer: "", tokens: [], agree: nil, eMin: nil,
-                         layer: "", door: door)
+                         layer: "", door: "vera_engine")
         }
-        let e = Entry(
+
+        // The stages that CHANGED the question are printed. An invisible
+        // context resolution is the same shape of lie as an invisible
+        // ingest, and the engine now reports typo repair and staging in
+        // the same place — so all of them become visible at once instead
+        // of only the one this screen happened to implement.
+        let stages = (obj["stages"] as? [[String: Any]]) ?? []
+        let acted = stages.filter { ($0["changed"] as? Bool) == true }
+            .compactMap { st -> String? in
+                guard let name = st["stage"] as? String,
+                      let note = st["note"] as? String, !note.isEmpty
+                else { return nil }
+                return "\(name): \(note)"
+            }
+
+        var body = (obj["text"] as? String) ?? ""
+        if !acted.isEmpty {
+            body = "🧭 " + acted.joined(separator: " / ") + "\n" + body
+        }
+
+        var e = Entry(
             n: n, question: q,
             verdict: (obj["verdict"] as? String) ?? "UNKNOWN",
-            answer: (obj["text"] as? String) ?? "",
+            answer: body,
             tokens: (obj["tokens"] as? [String]) ?? [],
             agree: obj["agree_frac"] as? Double,
             eMin: obj["e_min"] as? Int,
-            layer: source == .conversation
-                ? "会話" + (carry == "A" ? "" : " carry:" + carry)
-                : (app.veraDomain.isEmpty ? "共有" : app.veraDomain),
-            door: door)
+            layer: app.veraDomain.isEmpty ? "共有" : app.veraDomain,
+            door: (obj["door"] as? String) ?? "vera_engine")
+        e.core = (obj["core"] as? String) ?? ""
+        e.remedy = (obj["remedy"] as? String) ?? ""
+        // The engine gathers provenance from every door's own convention
+        // (`facet_origin` for the census, per-unit `source` for a
+        // descent). Reading only one of them is why a console once showed
+        // 「出典の記録なし」 over an answer that named its source.
+        e.origins = (obj["origins"] as? [String]) ?? []
 
         // The turn goes into the conversation's space either way, so what
         // was asked here is consultable later. It is stored as an
