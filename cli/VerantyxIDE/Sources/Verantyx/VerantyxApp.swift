@@ -251,20 +251,19 @@ struct VerantyxApp: App {
         // is two places to look for the same thing; its actions moved into
         // that panel, which is also where the run state already lives.
 
-        // Vera in one window with a mode switch, branched from the menu
-        // bar. Four modes — 対話 / 投入 / 設定 / 構造 — because those are
-        // the four things Vera is, and switching between them is the same
-        // gesture the app already uses at the top of its other surfaces.
+        // A standalone Vera window used to live here, with its own five
+        // modes. It is gone, and the reason is worth keeping: it was a
+        // SECOND surface for one product. Everything it offered already
+        // existed on the Vera mode of the main screen — the console
+        // answers, the stereo cross draws the route the answer took, the
+        // operator console opens from the agent screen, and
+        // `<verantyx>…</verantyx>` injects a document mid-conversation.
+        // Only 投入 was genuinely missing, and it is now a summoned panel
+        // (say 「投入」) beside 記憶 and 監査.
         //
-        // It inherits none of the IDE's view tree: everything inside talks
-        // to `VeraMemoryBridge` (the doors) and to nothing else, so the
-        // engine is not migrated and the tangle is not entered.
-        Window("Vera", id: "vera") {
-            VeraStandaloneWindow()
-                .frame(minWidth: 720, minHeight: 520)
-                .environmentObject(appState)
-        }
-        .commands { VeraWindowCommands() }
+        // Two surfaces for one engine drift, and the one that drifts
+        // behind quietly becomes a smaller product — the same defect that
+        // had three copies of the answering composition in Swift.
 
         // Main IDE Window
         Window("Verantyx IDE", id: "main-ide") {
