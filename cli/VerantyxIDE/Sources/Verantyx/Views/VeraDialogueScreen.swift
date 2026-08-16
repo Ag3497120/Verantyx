@@ -63,7 +63,13 @@ struct VeraDialogueScreen: View {
         let question: String
         var verdict: String
         var answer: String
-        var origins: [String]
+        /// The tokens the verdict stood on. `vera_ask` has no `origins`
+        /// field — measured against the live engine, it returns `tokens`
+        /// plus two readings, and calling those "sources" would dress a
+        /// quorum up as a citation.
+        var tokens: [String]
+        var agree: Double?
+        var eMin: Int?
         var layer: String
         var door: String
         var runs: Int = 1
@@ -154,6 +160,21 @@ struct VeraDialogueScreen: View {
                         .padding(.horizontal, 5).padding(.vertical, 1)
                         .background(.quaternary.opacity(0.5), in: Capsule())
                 }
+                // The two readings the engine actually returns. `agree` is
+                // how much of the federation agreed; `e_min` is the
+                // thinnest evidence any of them stood on. Both are shown
+                // because a high agreement over thin evidence is a
+                // different thing from the same number over thick.
+                if let a = e.agree {
+                    Text("一致 " + String(format: "%.0f%%", a * 100))
+                        .font(.system(size: 9, design: .monospaced))
+                        .foregroundStyle(.tertiary)
+                }
+                if let m = e.eMin {
+                    Text("証拠 \(m)")
+                        .font(.system(size: 9, design: .monospaced))
+                        .foregroundStyle(.tertiary)
+                }
             }
 
             if !e.answer.isEmpty {
@@ -168,23 +189,20 @@ struct VeraDialogueScreen: View {
                     .font(.system(size: 10)).foregroundStyle(.secondary)
             }
 
-            // Origins sit with the claim rather than behind a disclosure —
-            // a source you have to open is a source most readers never see.
-            if !e.origins.isEmpty {
-                VStack(alignment: .leading, spacing: 2) {
-                    ForEach(e.origins.prefix(6), id: \.self) { o in
-                        HStack(spacing: 5) {
-                            Image(systemName: "checkmark")
-                                .font(.system(size: 8, weight: .semibold))
-                                .foregroundStyle(VeraInk.verified)
-                            Text(o)
-                                .font(.system(size: 10, design: .monospaced))
-                                .foregroundStyle(.secondary)
-                                .lineLimit(1)
-                        }
+            // The tokens the answer was built from, beside the answer
+            // rather than behind a disclosure — evidence you have to open
+            // is evidence most readers never see.
+            if !e.tokens.isEmpty {
+                HStack(spacing: 5) {
+                    ForEach(e.tokens.prefix(8), id: \.self) { t in
+                        Text(t)
+                            .font(.system(size: 10, design: .monospaced))
+                            .padding(.horizontal, 5).padding(.vertical, 1)
+                            .background(.quaternary.opacity(0.4),
+                                        in: RoundedRectangle(cornerRadius: 3))
                     }
-                    if e.origins.count > 6 {
-                        Text("ほか \(e.origins.count - 6) 件")
+                    if e.tokens.count > 8 {
+                        Text("+\(e.tokens.count - 8)")
                             .font(.system(size: 9)).foregroundStyle(.tertiary)
                     }
                 }
@@ -260,7 +278,9 @@ struct VeraDialogueScreen: View {
                     entries[i].runs += 1
                     entries[i].verdict = fresh.verdict
                     entries[i].answer = fresh.answer
-                    entries[i].origins = fresh.origins
+                    entries[i].tokens = fresh.tokens
+                    entries[i].agree = fresh.agree
+                    entries[i].eMin = fresh.eMin
                     entries[i].layer = fresh.layer
                 }
                 running = false
@@ -276,15 +296,16 @@ struct VeraDialogueScreen: View {
         let obj = await VeraMemoryBridge.callDoor(door, args)
         guard let obj else {
             return Entry(n: n, question: q, verdict: "UNKNOWN_ENGINE_SILENT",
-                         answer: "", origins: [], layer: "", door: door)
+                         answer: "", tokens: [], agree: nil, eMin: nil,
+                         layer: "", door: door)
         }
         let e = Entry(
             n: n, question: q,
             verdict: (obj["verdict"] as? String) ?? "UNKNOWN",
-            answer: (obj["answer"] as? String)
-                ?? (obj["text"] as? String) ?? "",
-            origins: (obj["origins"] as? [String])
-                ?? (obj["witnesses"] as? [String]) ?? [],
+            answer: (obj["text"] as? String) ?? "",
+            tokens: (obj["tokens"] as? [String]) ?? [],
+            agree: obj["agree_frac"] as? Double,
+            eMin: obj["e_min"] as? Int,
             layer: source == .conversation
                 ? "会話" + (carry == "A" ? "" : " carry:" + carry)
                 : (app.veraDomain.isEmpty ? "共有" : app.veraDomain),

@@ -174,15 +174,21 @@ struct VeraOperatorConsole: View {
 
     private var engineBody: some View {
         VStack(alignment: .leading, spacing: 8) {
-            row("扉", model.doors.map { "\($0) 本" } ?? "—")
-            row("核", model.cores.map(String.init) ?? "—")
-            row("面", model.facets.map(String.init) ?? "—")
+            row("核", model.cores.map { fmt($0) } ?? "—")
+            row("面リンク", model.facets.map { fmt($0) } ?? "—")
+            row("文", model.sentences.map { fmt($0) } ?? "—")
+            row("出所", model.source.isEmpty ? "—" : model.source)
             row("モード", String(describing: app.veraEngineMode))
             Text(model.note).font(.system(size: 10))
                 .foregroundStyle(.secondary).padding(.top, 6)
         }
         .padding(14)
         .frame(maxWidth: .infinity, alignment: .leading)
+    }
+
+    private func fmt(_ n: Int) -> String {
+        let f = NumberFormatter(); f.numberStyle = .decimal
+        return f.string(from: NSNumber(value: n)) ?? String(n)
     }
 
     private func row(_ k: String, _ v: String) -> some View {
@@ -213,6 +219,8 @@ final class OperatorConsoleModel: ObservableObject {
     @Published private(set) var doors: Int?
     @Published private(set) var cores: Int?
     @Published private(set) var facets: Int?
+    @Published private(set) var sentences: Int?
+    @Published private(set) var source: String = ""
     @Published private(set) var note: String = ""
 
     /// Substrings that mark a value as a secret. Closed and matched on the
@@ -226,9 +234,15 @@ final class OperatorConsoleModel: ObservableObject {
             domains = list
         }
         if let obj = await VeraMemoryBridge.callDoor("stats", [:]) {
-            cores = obj["cores"] as? Int
-            facets = obj["facets"] as? Int
-            note = (obj["note"] as? String) ?? ""
+            // Measured against the live engine: the door returns
+            // n_cores / n_facet_links / n_sentences / source. Reading
+            // "cores" and "facets" got nil and rendered as 「—」, which
+            // looked exactly like an engine that had not answered.
+            cores = obj["n_cores"] as? Int
+            facets = obj["n_facet_links"] as? Int
+            sentences = obj["n_sentences"] as? Int
+            source = (obj["source"] as? String) ?? ""
+            note = ""
         } else {
             note = "エンジンが応答しません。数値は表示しません（0とは書きません）。"
         }
