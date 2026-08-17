@@ -1248,13 +1248,31 @@ enum VeraMemoryBridge {
         // article under the federation and from the loaded PDF under the
         // store — both true about different things, which is exactly why
         // the person chooses rather than a score.
-        guard let obj = await callDoor(
-            "vera_engine",
-            ["query": query, "last_core": trail ?? "", "domain": "",
-             "store_first": storeFirst])
-        else {
+        // vera_chat is vera_engine plus what a CONVERSATION needs, held on
+        // the server so every client shares one memory: the turn enters the
+        // conversation space (recallable later, no window), last_core rides
+        // server-side so 「その刑は」 resolves without this file keeping a
+        // trail, and every reply is audited beside the answer — covenants
+        // set in this conversation, and drift against what it already
+        // settled. No model is called anywhere in the turn, and MCP
+        // sampling is never requested — there is nothing to sample.
+        //
+        // The older binary has no vera_chat; falling back to vera_engine
+        // keeps the mode alive there, minus memory and audits.
+        var obj0 = await callDoor(
+            "vera_chat",
+            ["text": query, "store_first": storeFirst])
+        if obj0 == nil {
+            obj0 = await callDoor(
+                "vera_engine",
+                ["query": query, "last_core": trail ?? "", "domain": "",
+                 "store_first": storeFirst])
+        }
+        guard var obj = obj0 else {
             return ("⚠️ vera-memory サーバに接続できません(設定 › MCP を確認してください)", nil)
         }
+        // vera_chat speaks in `reply`; the presentation below reads `text`.
+        if obj["text"] == nil, let rep = obj["reply"] { obj["text"] = rep }
         let verdict = (obj["verdict"] as? String) ?? "UNKNOWN"
         let refused = verdict.hasPrefix("UNKNOWN")
             || verdict.hasPrefix("ABSTAIN") || verdict.hasPrefix("AMBIGUOUS")
@@ -1312,6 +1330,23 @@ enum VeraMemoryBridge {
                 lines.append("解消するには: \(remedy)")
             }
             lines.append("(型付き拒否 — Vera単体は知らないことを推測しません)")
+        }
+        // The audits ride BESIDE the reply, never as a gate — display the
+        // ones that actually fired and stay silent otherwise.
+        if let audits = obj["audits"] as? [String: Any] {
+            if let cov = audits["covenants"] as? [String: Any],
+               (cov["verdict"] as? String) == "BROKEN",
+               let broken = cov["violations"] as? [[String: Any]] {
+                for v in broken.prefix(2) {
+                    if let name = v["covenant"] as? String {
+                        lines.append("⚖️ 誓約違反の疑い: \(name)")
+                    }
+                }
+            }
+            if let drift = audits["context_drift"] as? [String: Any],
+               (drift["verdict"] as? String) == "COLLAPSED" {
+                lines.append("🌀 文脈崩れの疑い — この会話で確定済みの内容と接続がありません")
+            }
         }
         let core = obj["core"] as? String
         return (lines.joined(separator: "\n\n"), refused ? nil : core)
