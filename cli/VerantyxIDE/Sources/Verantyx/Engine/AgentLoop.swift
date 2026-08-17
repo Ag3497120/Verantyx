@@ -2828,13 +2828,28 @@ SYS.ENFORCE("logical_verification_before_acceptance")
     private func buildConversationPrompt(modelName: String, conversation: [(role: String, content: String)]) -> String {
         let model = modelName.lowercased()
         let isChatML = model.contains("qwen") || model.contains("talkie") || model.contains("chatml")
-        let isGemma = model.contains("gemma")
+        // gemma-4 does NOT use <start_of_turn>. Its markers are <|turn> and
+        // <turn|>, and `contains("gemma")` alone sends it down the gemma-2
+        // branch and produces a prompt it cannot parse.
+        //
+        // This path is MLX-only, where there is no JGEN sidecar to read, so
+        // the family really is being guessed from the name here. The version
+        // that does not guess is JCrossChatManager.formatConversation, which
+        // asks the loaded engine for markers the converter took out of the
+        // model's own vocabulary.
+        let isGemma4 = model.contains("gemma-4") || model.contains("gemma4")
+        let isGemma = !isGemma4 && model.contains("gemma")
         let isLlama3 = model.contains("llama-3") || model.contains("llama3") || model.contains("phi-4")
         
         if isChatML {
             return conversation.map { turn in
                 return "<|im_start|>\(turn.role)\n\(turn.content)<|im_end|>"
             }.joined(separator: "\n") + "\n<|im_start|>assistant\n"
+        } else if isGemma4 {
+            return "<bos>" + conversation.map { turn in
+                let role = turn.role == "assistant" ? "model" : turn.role
+                return "<|turn>\(role)\n\(turn.content)<turn|>"
+            }.joined(separator: "\n") + "\n<|turn>model\n<|channel>thought\n<channel|>"
         } else if isGemma {
             return conversation.map { turn in
                 let role = turn.role == "assistant" ? "model" : turn.role

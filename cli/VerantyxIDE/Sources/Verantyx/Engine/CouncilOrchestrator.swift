@@ -267,19 +267,52 @@ actor CouncilOrchestrator {
         }
         let roles = Array(Self.fullRoleCast.prefix(roleCount))
 
-        func rolePrompt(_ role: (name: String, directive: String)) -> String {
-            // Directive + memory + question already individually capped; keep
-            // the assembled ChatML under a single encode-friendly char budget.
-            let assembled =
-                "<|im_start|>system\n\(memoryPrefix)\(role.directive)<|im_end|>\n" +
-                "<|im_start|>user\n\(question)<|im_end|>\n" +
-                "<|im_start|>assistant\nThe answer is"
-            return PromptBudget.truncateForModel(
+        // Every role's prompt is fully determined by `question`, `memoryPrefix`
+        // and the cast, so they are assembled once here — up front rather than
+        // inside `rolePrompt`, because the model's turn markers come off its
+        // sidecar through the actor and `rolePrompt` is handed to
+        // `runDeepRounds` as a synchronous closure.
+        //
+        // ChatML used to be written out here. It is right for Qwen and wrong
+        // for both gemma families: gemma2 sees <|im_start|> as eight literal
+        // characters and votes on nothing, and gemma4's markers (<|turn> /
+        // <turn|>) appear nowhere in this file. A council whose members were
+        // never actually asked the question still produces a consensus.
+        let chatFamily = await chat.chatFamily()
+        var rolePrompts: [String: String] = [:]
+        var wrappedAll = true
+        for role in roles {
+            let system = "\(memoryPrefix)\(role.directive)"
+            let assembled: String
+            if let wrapped = await chat.chatWrap(system: system, user: question) {
+                // The generation prefix is already on the end; the cue rides
+                // after it for every family.
+                assembled = wrapped + "The answer is"
+            } else {
+                wrappedAll = false
+                assembled =
+                    "<|im_start|>system\n\(system)<|im_end|>\n" +
+                    "<|im_start|>user\n\(question)<|im_end|>\n" +
+                    "<|im_start|>assistant\nThe answer is"
+            }
+            rolePrompts[role.name] = PromptBudget.truncateForModel(
                 assembled,
                 maxChars: PromptBudget.maxQuestionChars + PromptBudget.maxMemoryPrefixChars,
                 headChars: 2_400,
                 tailChars: 800
             )
+        }
+        if wrappedAll {
+            await tick("memory", "会話形式: \(chatFamily.isEmpty ? "既定" : chatFamily)（モデル自身のもの）")
+        } else {
+            // Named, not silent. A substituted template can make every role
+            // agree on garbage, and that reads exactly like consensus.
+            await tick("memory", "会話形式が不明のため ChatML で代用しました。"
+                               + "このモデルの合議結果は信頼できない可能性があります")
+        }
+
+        func rolePrompt(_ role: (name: String, directive: String)) -> String {
+            rolePrompts[role.name] ?? question
         }
 
         var roundsCap = config.roundsCap
