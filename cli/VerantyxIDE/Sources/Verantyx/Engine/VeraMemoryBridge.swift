@@ -1526,8 +1526,18 @@ enum VeraMemoryBridge {
         // vera_chat speaks in `reply`; the presentation below reads `text`.
         if obj["text"] == nil, let rep = obj["reply"] { obj["text"] = rep }
         // 文書だけの面。構成も連合も通らないので、引用か型付きの沈黙しか出ない。
-        if await MainActor.run(body: { AppState.shared?.veraDocumentsOnly }) == true,
-           let only = await callDoor("vera_ask_documents", ["question": query]) {
+        //
+        // `if let only = …` だけだと、扉呼び出しがここで失敗した(nilが
+        // 返った)時に obj が上の一般エンジンの答えのままになる —
+        // トグルは「文書だけ」を約束しているのに、その扉が落ちた回だけ
+        // 静かに一般知識へ抜けてしまう。契約の切替（本パネルの注記の
+        // 通り）である以上、失敗は一般回答への抜け道ではなく、失敗と
+        // して見せる。
+        if await MainActor.run(body: { AppState.shared?.veraDocumentsOnly }) == true {
+            guard let only = await callDoor("vera_ask_documents", ["question": query]) else {
+                return ("⚠️ 「文書だけで答える」が有効ですが、文書面の扉に接続できません"
+                        + "(一般知識へは切り替えません。設定 › MCP を確認してください)", nil)
+            }
             obj = only
             if obj["text"] == nil, let rep = obj["reply"] { obj["text"] = rep }
         }
