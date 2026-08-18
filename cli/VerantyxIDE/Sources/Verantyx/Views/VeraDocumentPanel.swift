@@ -85,6 +85,15 @@ struct VeraDocumentPanel: View {
                 }
             }
 
+            Toggle("文書だけで答える（算術も一般知識も落ちる）",
+                   isOn: $app.veraDocumentsOnly)
+                .toggleStyle(.checkbox)
+                .font(.system(size: 10))
+            Text("入れた文書の行を引くか、書かれていないと型で言うか、その二つだけになります。"
+                 + "品質の切替ではなく契約の切替です。")
+                .font(.system(size: 9)).foregroundStyle(.tertiary)
+                .fixedSize(horizontal: false, vertical: true)
+
             // 分野の棚に文書は現れない。二つは別の店で、合体させないと
             // 決めてある — だが見えないのは別物であることの帰結ではなく、
             // 棚を出していないだけだった。これがその棚。

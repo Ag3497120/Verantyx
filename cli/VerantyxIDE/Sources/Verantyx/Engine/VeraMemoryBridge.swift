@@ -1525,6 +1525,12 @@ enum VeraMemoryBridge {
         }
         // vera_chat speaks in `reply`; the presentation below reads `text`.
         if obj["text"] == nil, let rep = obj["reply"] { obj["text"] = rep }
+        // 文書だけの面。構成も連合も通らないので、引用か型付きの沈黙しか出ない。
+        if await MainActor.run(body: { AppState.shared?.veraDocumentsOnly }) == true,
+           let only = await callDoor("vera_ask_documents", ["question": query]) {
+            obj = only
+            if obj["text"] == nil, let rep = obj["reply"] { obj["text"] = rep }
+        }
         let verdict = (obj["verdict"] as? String) ?? "UNKNOWN"
         let refused = verdict.hasPrefix("UNKNOWN")
             || verdict.hasPrefix("ABSTAIN") || verdict.hasPrefix("AMBIGUOUS")
@@ -1543,9 +1549,26 @@ enum VeraMemoryBridge {
             lines.append("🧭 \(name): \(note)")
         }
 
+        // エンジンは既に「どう辿り着いたか」を型で言っている。vera.py:
+        // 「ANSWER は問いのまま核が収束したもの。SEEDED は階段が主語を
+        // 先に名指す必要があったもの」— stacked.py はさらに念を押す:
+        // 「SEEDED は ANSWER ではない」。この面はその区別を潰していて、
+        // 割り引いて読むための事実が読み手に届いていなかった。実測
+        // 2026-08-18: 「正当防衛とは」に SEEDED で同じ節が3つ並び、
+        // ANSWER と同じ 🧩 で出ていた。
+        let discounted = ["SEEDED", "UNITS", "CONTAINMENT"]
+        let isDiscounted = discounted.contains(verdict)
+            || (obj["constructed"] as? Bool) == true
         if !refused {
             if let t = obj["text"] as? String, !t.isEmpty {
-                lines.append("🧩 \(t)")
+                lines.append(isDiscounted ? "🪤 \(t)" : "🧩 \(t)")
+            }
+            if isDiscounted {
+                lines.append(verdict == "SEEDED"
+                    ? "↑ 問いのままでは届かず、主語を先に名指してから辿った答え。"
+                      + "証言ではないので、そのまま引用しないこと。"
+                    : "↑ 問いのままでは届かず、近い語から辿った答え。"
+                      + "証言ではないので、そのまま引用しないこと。")
             }
             var footer: [String] = ["verdict: \(verdict)"]
             if let door = obj["door"] as? String, !door.isEmpty {
