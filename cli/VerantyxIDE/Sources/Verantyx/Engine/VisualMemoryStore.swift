@@ -40,6 +40,10 @@ actor VisualMemoryStore {
         var label: String
         var changedRegion: [Double]?   // [x, y, width, height], same shape as UITestVectorTrace.Moment
         var nearbyElements: [String]   // e.g. "SettingsButton@(420,610)"
+        /// 画面に実際に書かれていた語。省略可能なのは、この欄より前に
+        /// 書かれた JSONL を今も読めなければならないため — 古い節点は
+        /// nil のまま、ベクトルだけで従来どおり引ける。
+        var screenText: [String]?
         var accessCount: Int
         var lastAccess: Double
     }
@@ -115,9 +119,13 @@ actor VisualMemoryStore {
         }
 
         let region = changedRegion.map { [Double($0.origin.x), Double($0.origin.y), Double($0.width), Double($0.height)] }
+        // 画面の語を一緒に残す。ベクトルは「違う画面だ」までしか言えず、
+        // 「何と書いてあったか」は落ちていた（実測 7/12 → 12/12）。
+        let read = VisualFeaturePrintEmbedder.readText(base64Image: base64Image)
         let node = Node(
             id: nodes.count, ts: Date().timeIntervalSince1970, label: label,
             changedRegion: region, nearbyElements: nearbyElements,
+            screenText: read.isEmpty ? nil : Array(read.prefix(40)),
             accessCount: 0, lastAccess: Date().timeIntervalSince1970
         )
         nodes.append(node)
@@ -179,6 +187,10 @@ actor VisualMemoryStore {
             throw VisualMemoryError.embeddingFailed
         }
         let qv = Self.fitVec(Self.l2Normalize(raw))
+        // 問いの画面の語。節点側に語が無ければ(古い節点)一致は 0 になり、
+        // 重みが 1.0 のまま — つまり従来どおりベクトルだけで順位が決まる。
+        let qText = VisualFeaturePrintEmbedder.bigrams(
+            VisualFeaturePrintEmbedder.readText(base64Image: base64Image))
 
         var scored: [(index: Int, eff: Float, sim: Float)] = []
         let now = Date().timeIntervalSince1970
@@ -188,7 +200,16 @@ actor VisualMemoryStore {
             for j in 0..<Self.dim { dot += vec[j] * qv[j] }
             let daysSince = max((now - node.lastAccess) / 86400.0, 0)
             let grav = Float(gravity(daysSinceAccess: daysSince, accessCount: node.accessCount))
-            let eff = dot * (0.7 + 0.3 * grav)
+            // 語の重なりで持ち上げる。同じ配置で文言だけ違う画面が並ぶと
+            // ベクトルは取り違える(実測 5/12 誤り)ので、書かれていた語が
+            // 決め手になる。重なりが無ければ 1.0 倍で何も起こらない。
+            var lift: Float = 1.0
+            if !qText.isEmpty, let nt = node.screenText, !nt.isEmpty {
+                let mt = VisualFeaturePrintEmbedder.bigrams(nt)
+                let uni = max(1, qText.union(mt).count)
+                lift += 0.9 * Float(qText.intersection(mt).count) / Float(uni)
+            }
+            let eff = dot * (0.7 + 0.3 * grav) * lift
             scored.append((i, eff, dot))
         }
         scored.sort { $0.eff > $1.eff }
@@ -203,7 +224,8 @@ actor VisualMemoryStore {
         return top.map { hit in
             let n = nodes[hit.index]
             return (NodeSummary(label: n.label, changedRegion: n.changedRegion,
-                                nearbyElements: n.nearbyElements, lastAccess: n.lastAccess),
+                                nearbyElements: n.nearbyElements,
+                                screenText: n.screenText ?? [], lastAccess: n.lastAccess),
                     hit.sim)
         }
     }
@@ -212,6 +234,9 @@ actor VisualMemoryStore {
         let label: String
         let changedRegion: [Double]?
         let nearbyElements: [String]
+        /// 画面に書かれていた語そのもの。要約ではないので、読み手は
+        /// 「そう書いてあった」以上のことを受け取らない。
+        let screenText: [String]
         let lastAccess: Double
     }
 
@@ -229,7 +254,10 @@ actor VisualMemoryStore {
                 "region (\(Int($0[0])),\(Int($0[1])) \(Int($0[2]))x\(Int($0[3])))"
             } ?? "unknown region"
             let nearby = n.nearbyElements.isEmpty ? "" : " near " + n.nearbyElements.joined(separator: ", ")
-            return "  👁️ \(n.label) — \(regionDesc)\(nearby), seen \(ago) (score: \(String(format: "%.2f", hit.score)))"
+            let head = "  👁️ \(n.label) — \(regionDesc)\(nearby), seen \(ago) (score: \(String(format: "%.2f", hit.score)))"
+            guard !n.screenText.isEmpty else { return head }
+            // 読めた語をそのまま並べる。並べ替えも言い換えもしない。
+            return head + "\n      画面の文字: " + n.screenText.prefix(8).joined(separator: " / ")
         }.joined(separator: "\n")
         return "\n[VISUAL MEMORY — Vision feature-print recall]\n\(lines)\n[/VISUAL MEMORY]\n"
     }
@@ -245,7 +273,9 @@ actor VisualMemoryStore {
         let lines = recent.map { n -> String in
             let ago = Self.humanElapsed(max(now - n.lastAccess, 0))
             let nearby = n.nearbyElements.isEmpty ? "" : " near " + n.nearbyElements.prefix(4).joined(separator: ", ")
-            return "  👁️ \(n.label)\(nearby), seen \(ago)"
+            let head = "  👁️ \(n.label)\(nearby), seen \(ago)"
+            guard let txt = n.screenText, !txt.isEmpty else { return head }
+            return head + "\n      画面の文字: " + txt.prefix(6).joined(separator: " / ")
         }.joined(separator: "\n")
         return "\n[VISUAL MEMORY — recent labels]\n\(lines)\n[/VISUAL MEMORY]\n"
     }

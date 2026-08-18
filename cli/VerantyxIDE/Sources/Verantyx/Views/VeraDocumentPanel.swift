@@ -31,11 +31,13 @@ struct VeraDocumentPanel: View {
     @State private var picked: URL?
     @State private var result = ""
     @State private var working = false
+    @State private var compareTopic = ""
 
     var body: some View {
         VStack(alignment: .leading, spacing: 12) {
-            Text("語彙として入れると、この文書の言葉でVeraが話せるようになります。"
-                 + "文法は共有のまま、票は持ちません。")
+            Text("入れ方は二つ。**語彙**はこの文書の言葉で話せるようになるもの"
+                 + "(文法は共有のまま・票は持たない)。**文書**は原文をそのまま"
+                 + "引用して答えられるようになるもの — 規程や仕様の窓口はこちら。")
                 .font(.system(size: 11))
                 .foregroundStyle(.secondary)
                 .fixedSize(horizontal: false, vertical: true)
@@ -69,12 +71,25 @@ struct VeraDocumentPanel: View {
                 Button(working ? "登録中…" : "語彙として登録") { register() }
                     .disabled(working || name.isEmpty
                               || (picked == nil && text.count < 40))
+                // 逐語引用の経路。語彙登録とは別の扉で、こちらが「宿泊費の
+                // 上限は」に原文の行を返す側。ファイルが要る — 構造索引は
+                // 見出しと行を読むので、貼り付け本文には出典が無い。
+                Button(working ? "取り込み中…" : "文書として取り込む") { ingest() }
+                    .disabled(working || picked == nil)
                 Spacer()
                 if !app.veraDomain.isEmpty {
                     Toggle("この分野だけで答える", isOn: $app.veraDomainOnly)
                         .toggleStyle(.checkbox)
                         .font(.system(size: 10))
                 }
+            }
+
+            Divider()
+            HStack(spacing: 8) {
+                TextField("主題（社内文書と一般知識を比べる）", text: $compareTopic)
+                    .textFieldStyle(.roundedBorder)
+                Button("比較") { compare() }
+                    .disabled(working || compareTopic.isEmpty)
             }
 
             if !result.isEmpty {
@@ -105,6 +120,24 @@ struct VeraDocumentPanel: View {
                     .replacingOccurrences(of: "[^a-z0-9_]",
                                           with: "_", options: .regularExpression)
             }
+        }
+    }
+
+    private func ingest() {
+        guard let url = picked else { return }
+        working = true
+        Task {
+            let r = await VeraMemoryBridge.loadDocuments(paths: [url.path])
+            await MainActor.run { result = r; working = false }
+        }
+    }
+
+    private func compare() {
+        working = true
+        let t = compareTopic
+        Task {
+            let r = await VeraMemoryBridge.compareSpaces(topic: t)
+            await MainActor.run { result = r; working = false }
         }
     }
 

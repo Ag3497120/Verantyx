@@ -577,6 +577,74 @@ enum VeraMemoryBridge {
             + "文法は共有のまま、この文書の語彙だけが足されています。"
     }
 
+    /// 文書として取り込む — 語彙登録とは別の扉。
+    ///
+    /// `vera_domain` はこの文書の**言葉**を足す(票は持たない)。こちらは
+    /// 文書そのものを二重に索引する: 文取り込みで店へ、構造索引で側車へ。
+    /// 結果として「宿泊費の上限は」に原文の行がそのまま返り、書かれて
+    /// いない語には DOCUMENT_NOT_SPECIFIED が返る — 企業の規程窓口が
+    /// 要求するのはこちらで、語彙登録では逐語引用に届かない。
+    ///
+    /// 文書は提示されるだけで自動では入らない、という規則はここでも同じ:
+    /// 呼ぶのは人が押したときだけ。
+    static func loadDocuments(paths: [String]) async -> String {
+        guard let obj = await callDoor("load_documents",
+                                       ["paths": paths.joined(separator: ","),
+                                        "ingest": true])
+        else { return "取り込めませんでした(扉が応答しません)。" }
+        let loaded = (obj["loaded"] as? Int) ?? 0
+        var lines: [String] = []
+        if let ing = obj["ingested"] as? [String: Any] {
+            let sents = (ing["sentences"] as? Int) ?? 0
+            let seen = (ing["sentences_seen"] as? Int) ?? 0
+            let cores = (ing["cores"] as? [Any])?.count ?? 0
+            lines.append("📄 \(loaded)件を取り込みました(文 \(sents)/\(seen)・核 \(cores))。")
+        } else {
+            lines.append("📄 \(loaded)件を取り込みました。")
+        }
+        // 読めなかったものは名前と理由で必ず出す。黙って減った corpus を
+        // 全体として報告するのが、この経路で最も避けたい失敗。
+        if let skipped = obj["skipped"] as? [[String: Any]], !skipped.isEmpty {
+            for s in skipped.prefix(3) {
+                let name = (s["path"] as? String) ?? "?"
+                let why = (s["verdict"] as? String) ?? "UNKNOWN"
+                lines.append("⚠️ 読めず: \((name as NSString).lastPathComponent) — \(why)")
+            }
+        }
+        lines.append("この文書について聞くと、原文の行がそのまま引用されます。"
+                     + "書かれていない語は「明記なし」と型で返ります。")
+        return lines.joined(separator: "\n")
+    }
+
+    /// この端末の文書と、公開連合(一般知識)が同じ主題について何を言うか。
+    /// 「この規程は一般的な考え方と比べて特殊か」が立つ場所で、二空間は
+    /// 合流しない — 並べて読めるようにするだけ。
+    static func compareSpaces(topic: String) async -> String {
+        guard let obj = await callDoor("vera_compare_spaces", ["topic": topic])
+        else { return "比較できませんでした(扉が応答しません)。" }
+        let verdict = (obj["verdict"] as? String) ?? ""
+        let cov = obj["coverage"] as? [String: Any]
+        let dn = (cov?["document"] as? Int) ?? 0
+        let bn = (cov?["base"] as? Int) ?? 0
+        if verdict == "INSUFFICIENT_PROFILE" {
+            let thin = (obj["thin_side"] as? [String])?.joined(separator: "・") ?? "?"
+            return "🚫 比較は立ちません(薄い側: \(thin)。文書\(dn)/一般\(bn))。"
+                + "\n薄い側が信頼度を決めます — 基礎データか文書が育つと立ちます。"
+        }
+        func bucket(_ key: String) -> String {
+            guard let b = obj[key] as? [String: Any],
+                  let items = b["items"] as? [String] else { return "—" }
+            let more = (b["more"] as? Int) ?? 0
+            return items.joined(separator: "・") + (more > 0 ? " ほか\(more)件" : "")
+        }
+        return ["⚖️ 「\(topic)」の二空間比較(文書\(dn)/一般\(bn))",
+                "共通: \(bucket("shared"))",
+                "文書のみ: \(bucket("doc_only"))",
+                "一般のみ: \(bucket("base_only"))",
+                "(実測あり/なしの対比のみ。可否や優劣は判断していません)"]
+            .joined(separator: "\n")
+    }
+
     static func ingestDocuments(_ documents: [(source: String, text: String)]) async -> String {
         let payload = documents.map { ["source": $0.source, "text": $0.text] }
         guard let data = try? JSONSerialization.data(withJSONObject: payload),
@@ -1234,13 +1302,105 @@ enum VeraMemoryBridge {
     /// 会話にも一行も書かずに消える — 「最新を取り、必要以上に取り込ま
     /// ない」の実装。破棄は方針でなく構造で、直後に同じ主題を聞けば
     /// ABSENT が返ることで追試できる。
+    /// 検索結果の一片。どう取ったかが本文と同じ重さを持つ。
+    private struct FreshPage {
+        let url: String, title: String, text: String, source: BrowseSource
+    }
+
+    private static func fetchHow(_ s: BrowseSource) -> String {
+        switch s {
+        case .safari:        return "Safariを操作して読取"
+        case .chrome:        return "Chromeを操作して読取"
+        case .arc:           return "Arcを操作して読取"
+        case .firefoxBridge: return "Firefoxブリッジで読取"
+        case .fetch:         return "直接取得(JS未実行)"
+        }
+    }
+
+    private static func freshURLs(in text: String, limit: Int) -> [String] {
+        let pattern = #"https?://[^\s\]<"')>]+"#
+        guard let re = try? NSRegularExpression(pattern: pattern) else { return [] }
+        var out: [String] = []
+        var seen = Set<String>()
+        for m in re.matches(in: text, range: NSRange(text.startIndex..., in: text)) {
+            guard let r = Range(m.range, in: text) else { continue }
+            let u = String(text[r])
+            // 検索エンジン自身のURLを引用元にしても、読者は原典に辿り着けない。
+            guard !u.contains("duckduckgo.com"), !u.contains("google.co"),
+                  !seen.contains(u) else { continue }
+            seen.insert(u); out.append(u)
+            if out.count >= limit { break }
+        }
+        return out
+    }
+
+    /// 一時知識の取得。他モードのウェブ検索と同じ道を通る。
+    ///
+    /// 検索結果ページ(SERP)の抜粋だけでは逐語引用に足りない — 抜粋は
+    /// 検索エンジンが切った断片で、原典の文ではない。だから他モードの
+    /// SEARCH_MULTI と同じく、上位URLをブラウザ経路で開いて本文まで取り、
+    /// 出典ごとに「どこから・どう取ったか」を添えて構造へ渡す。
+    /// 渡すだけで、書き込み経路は無い。
     static func veraFreshTurn(for query: String) async -> String? {
-        let result = await WebSearchEngine.shared.search(query: query)
-        let text = String(result.markdown.prefix(18_000))
-        guard !text.trimmingCharacters(in: .whitespacesAndNewlines).isEmpty else { return nil }
-        let sources: [[String: String]] = [[
-            "url": result.url, "title": result.query, "text": text,
-        ]]
+        var used = query
+        var primary = await WebSearchEngine.shared.search(
+            query: query, engine: .duckduckgoHTML)
+
+        // 0件なら、人がやり直すように一度だけ一般化して引き直す。
+        if case .noRelevantResults = primary.verdict {
+            let retry = QueryReformulator.deterministic(query: query, rung: 2)
+            if retry != query {
+                let again = await WebSearchEngine.shared.search(
+                    query: retry, engine: .duckduckgoHTML)
+                if case .ok = again.verdict { primary = again; used = retry }
+            }
+        }
+
+        let serp = primary.contextSnippet
+        var pages: [FreshPage] = []
+
+        // 上位2件を並列に開く。ここが自動UI操作の経路(既定は Safari)。
+        let targets = freshURLs(in: serp, limit: 2)
+        if !targets.isEmpty {
+            await withTaskGroup(of: FreshPage?.self) { group in
+                for u in targets {
+                    group.addTask {
+                        let r = await WebSearchEngine.shared.browse(
+                            url: u, preferredSource: .safari, originalQuery: used)
+                        let t = String(r.markdown.prefix(9_000))
+                        guard !r.isFailure,
+                              !t.trimmingCharacters(in: .whitespacesAndNewlines).isEmpty
+                        else { return nil }
+                        return FreshPage(url: r.url, title: u,
+                                         text: t, source: r.source)
+                    }
+                }
+                for await p in group { if let p { pages.append(p) } }
+            }
+        }
+
+        // SERP は文書ではなく案内板である。実測: 3出典で問うと
+        // 「育児休業 期間 - 検索結果。厚生労働省 ほか」が本文の
+        // 「原則として子が1歳に達する日まで」に勝って引用された。
+        // 検索エンジンの見出し行を出典として引くと、読者は原典に辿り
+        // 着けないまま引用符付きの答えを受け取る。本文が1つでも取れて
+        // いれば案内板は捨て、取れなかったときだけ最後の頼りにする。
+        if pages.isEmpty,
+           !serp.trimmingCharacters(in: .whitespacesAndNewlines).isEmpty {
+            pages.append(FreshPage(url: primary.url, title: used,
+                                   text: serp, source: primary.source))
+        }
+
+        // 検索したのに何も無かった、という事実は黙って落とさない。
+        // nil を返すと、呼び手は検索が走ったことすら知らないまま拒否を出す。
+        guard !pages.isEmpty else {
+            return "🌐 「\(used)」で検索しましたが、本文を取得できませんでした。"
+                 + "\n(⏳ 一時知識 — 何も構造には入っていません)"
+        }
+
+        let sources: [[String: String]] = pages.map {
+            ["url": $0.url, "title": $0.title, "text": $0.text]
+        }
         guard let data = try? JSONSerialization.data(withJSONObject: sources),
               let json = String(data: data, encoding: .utf8),
               let obj = await callDoor("vera_fresh",
@@ -1248,11 +1408,25 @@ enum VeraMemoryBridge {
         else { return nil }
         let verdict = (obj["verdict"] as? String) ?? ""
         guard verdict.hasPrefix("DOCUMENT") else { return nil }
+
         var lines: [String] = []
         if let t = obj["reply"] as? String, !t.isEmpty { lines.append("🌐 \(t)") }
+        // 出典はURLだけでは足りない。同じURLでも、ブラウザを操作して読んだ
+        // 本文と、URLSessionで取ったHTMLとでは見えているものが違う
+        // (JS描画・ログイン状態・地域)。どう取ったかまで書いて初めて
+        // 引用が追試可能になる。
         if let src = obj["source"] as? String, !src.isEmpty {
-            lines.append("出典: \(src)")
+            let how = pages.first { $0.url == src }.map { fetchHow($0.source) }
+                ?? fetchHow(pages[0].source)
+            lines.append("出典: \(src)（\(how)）")
         }
+        if pages.count > 1 {
+            let others = pages.dropFirst().map {
+                "  ・\($0.url)（\(fetchHow($0.source))）"
+            }.joined(separator: "\n")
+            lines.append("同時に読んだ頁:\n\(others)")
+        }
+        if used != query { lines.append("※ 「\(used)」で引き直しています") }
         lines.append("(⏳ 一時知識 — 検索結果は返答と同時に破棄されました。店には入っていません)")
         return lines.joined(separator: "\n")
     }
