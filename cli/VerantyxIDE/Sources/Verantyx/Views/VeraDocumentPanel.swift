@@ -32,6 +32,7 @@ struct VeraDocumentPanel: View {
     @State private var result = ""
     @State private var working = false
     @State private var compareTopic = ""
+    @State private var shelf: [(source: String, sections: Int, labels: Int, lines: Int)] = []
 
     var body: some View {
         VStack(alignment: .leading, spacing: 12) {
@@ -84,6 +85,41 @@ struct VeraDocumentPanel: View {
                 }
             }
 
+            // 分野の棚に文書は現れない。二つは別の店で、合体させないと
+            // 決めてある — だが見えないのは別物であることの帰結ではなく、
+            // 棚を出していないだけだった。これがその棚。
+            Divider()
+            HStack(spacing: 6) {
+                Text("取り込み済みの文書")
+                    .font(.system(size: 10, weight: .semibold))
+                    .foregroundStyle(.secondary)
+                Spacer()
+                Button("更新") { Task { shelf = await VeraMemoryBridge.documentShelf() } }
+                    .font(.system(size: 10))
+            }
+            if shelf.isEmpty {
+                Text("まだありません。上の「文書として取り込む」で入れたものがここに残ります。")
+                    .font(.system(size: 10)).foregroundStyle(.tertiary)
+            } else {
+                ForEach(shelf, id: \.source) { d in
+                    HStack(spacing: 8) {
+                        Text(d.source)
+                            .font(.system(size: 11, design: .monospaced))
+                            .lineLimit(1).truncationMode(.middle)
+                        Text("節\(d.sections)・項目\(d.labels)・行\(d.lines)")
+                            .font(.system(size: 9)).foregroundStyle(.tertiary)
+                        Spacer()
+                        Button("外す") {
+                            Task {
+                                result = await VeraMemoryBridge.forgetDocument(d.source)
+                                shelf = await VeraMemoryBridge.documentShelf()
+                            }
+                        }
+                        .font(.system(size: 10))
+                    }
+                }
+            }
+
             Divider()
             HStack(spacing: 8) {
                 TextField("主題（社内文書と一般知識を比べる）", text: $compareTopic)
@@ -103,6 +139,7 @@ struct VeraDocumentPanel: View {
             }
         }
         .padding(14)
+        .task { shelf = await VeraMemoryBridge.documentShelf() }
     }
 
     private func choose() {

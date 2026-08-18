@@ -1,4 +1,5 @@
 import Foundation
+import PDFKit
 
 /// The Vera model's own engine process — NATIVE, owned by the mode.
 ///
@@ -587,9 +588,35 @@ enum VeraMemoryBridge {
     ///
     /// 文書は提示されるだけで自動では入らない、という規則はここでも同じ:
     /// 呼ぶのは人が押したときだけ。
+    /// PDF を、CID を解ける読取器で本文にしてから渡す。
+    ///
+    /// エンジン側の pypdf は、埋め込みフォントに ToUnicode 対応表が無い
+    /// PDF を字ごとに別のブロックへ写して返す。実測: 12,336行の日本語PDFが
+    /// 「ϒϥϯν」(=ブランチ)「ϦϞʔτ」(=リモート) として出てきて、失敗を
+    /// 名乗らないまま 10,191文・2,032核が店に入り、連合の核 2,140 のうち
+    /// 937 が化けになった。PDFKit は同じ PDF を正しく読む。だから読取は
+    /// こちら側で済ませ、エンジンには読めるテキストだけを渡す。
+    private static func legiblePath(_ path: String) -> (path: String, note: String?) {
+        guard path.lowercased().hasSuffix(".pdf") else { return (path, nil) }
+        let url = URL(fileURLWithPath: path)
+        guard let doc = PDFDocument(url: url), let text = doc.string,
+              !text.trimmingCharacters(in: .whitespacesAndNewlines).isEmpty
+        else { return (path, "\(url.lastPathComponent): PDFKit が本文を取り出せず、そのまま渡します") }
+        let dir = FileManager.default.temporaryDirectory
+            .appendingPathComponent("vera-pdf-\(UUID().uuidString)", isDirectory: true)
+        let out = dir.appendingPathComponent(url.deletingPathExtension().lastPathComponent + ".txt")
+        do {
+            try FileManager.default.createDirectory(at: dir, withIntermediateDirectories: true)
+            try text.write(to: out, atomically: true, encoding: .utf8)
+        } catch { return (path, "\(url.lastPathComponent): 一時ファイルを書けませんでした") }
+        return (out.path, "\(url.lastPathComponent) は PDFKit で本文にしてから渡しました")
+    }
+
     static func loadDocuments(paths: [String]) async -> String {
+        let prepared = paths.map { legiblePath($0) }
+        let notes = prepared.compactMap { $0.note }
         guard let obj = await callDoor("load_documents",
-                                       ["paths": paths.joined(separator: ","),
+                                       ["paths": prepared.map(\.path).joined(separator: ","),
                                         "ingest": true])
         else { return "取り込めませんでした(扉が応答しません)。" }
         let loaded = (obj["loaded"] as? Int) ?? 0
@@ -611,9 +638,30 @@ enum VeraMemoryBridge {
                 lines.append("⚠️ 読めず: \((name as NSString).lastPathComponent) — \(why)")
             }
         }
+        for n in notes { lines.append("🔎 \(n)") }
         lines.append("この文書について聞くと、原文の行がそのまま引用されます。"
                      + "書かれていない語は「明記なし」と型で返ります。")
         return lines.joined(separator: "\n")
+    }
+
+    /// この端末が抱えている文書の棚。分野(語彙)の棚とは別物で、合体しない。
+    static func documentShelf() async -> [(source: String, sections: Int,
+                                           labels: Int, lines: Int)] {
+        guard let obj = await callDoor("vera_documents", [:]),
+              let docs = obj["documents"] as? [[String: Any]] else { return [] }
+        return docs.map { (($0["source"] as? String) ?? "?",
+                           ($0["sections"] as? Int) ?? 0,
+                           ($0["labels"] as? Int) ?? 0,
+                           ($0["lines"] as? Int) ?? 0) }
+    }
+
+    static func forgetDocument(_ source: String) async -> String {
+        guard let obj = await callDoor("vera_documents", ["forget": source]) else {
+            return "扉が応答しません。"
+        }
+        let v = (obj["verdict"] as? String) ?? ""
+        if v == "FORGOT" { return "「\(source)」を棚から外しました。" }
+        return "外せませんでした(\(v))。"
     }
 
     /// この端末の文書と、公開連合(一般知識)が同じ主題について何を言うか。
