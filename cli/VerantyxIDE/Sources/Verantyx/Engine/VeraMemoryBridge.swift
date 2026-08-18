@@ -1227,6 +1227,36 @@ enum VeraMemoryBridge {
     /// route, or a typed refusal wearing whatever honest hand-offs apply
     /// (typo evidence, constructed explanation, the remedy). This is the
     /// IDE's version of the 3D page's ASK, and like it, it never guesses.
+    /// 検索 → 一時空間で引用 → 破棄。
+    ///
+    /// IDE が持つ検索(WebSearchEngine)で頁を取り、vera_fresh に渡す。
+    /// サーバ側は関数の中だけに索引して逐語引用で答え、店にも文書にも
+    /// 会話にも一行も書かずに消える — 「最新を取り、必要以上に取り込ま
+    /// ない」の実装。破棄は方針でなく構造で、直後に同じ主題を聞けば
+    /// ABSENT が返ることで追試できる。
+    static func veraFreshTurn(for query: String) async -> String? {
+        let result = await WebSearchEngine.shared.search(query: query)
+        let text = String(result.markdown.prefix(18_000))
+        guard !text.trimmingCharacters(in: .whitespacesAndNewlines).isEmpty else { return nil }
+        let sources: [[String: String]] = [[
+            "url": result.url, "title": result.query, "text": text,
+        ]]
+        guard let data = try? JSONSerialization.data(withJSONObject: sources),
+              let json = String(data: data, encoding: .utf8),
+              let obj = await callDoor("vera_fresh",
+                                       ["query": query, "sources_json": json])
+        else { return nil }
+        let verdict = (obj["verdict"] as? String) ?? ""
+        guard verdict.hasPrefix("DOCUMENT") else { return nil }
+        var lines: [String] = []
+        if let t = obj["reply"] as? String, !t.isEmpty { lines.append("🌐 \(t)") }
+        if let src = obj["source"] as? String, !src.isEmpty {
+            lines.append("出典: \(src)")
+        }
+        lines.append("(⏳ 一時知識 — 検索結果は返答と同時に破棄されました。店には入っていません)")
+        return lines.joined(separator: "\n")
+    }
+
     static func veraModelTurn(
         for query: String, trail: String? = nil, storeFirst: Bool = false
     ) async -> (reply: String, core: String?) {
@@ -1330,6 +1360,14 @@ enum VeraMemoryBridge {
                 lines.append("解消するには: \(remedy)")
             }
             lines.append("(型付き拒否 — Vera単体は知らないことを推測しません)")
+            // 店が知らないときだけ、検索の一時知識を隣に置く。推測では
+            // なく出典つきの引用で、返答と同時に破棄される。ユーザーの
+            // 検索トグルが門 — 黙って外に出ることはない。
+            if await MainActor.run(body: { AppState.shared?.toolWebSearchEnabled ?? false }) {
+                if let fresh = await veraFreshTurn(for: query) {
+                    lines.append(fresh)
+                }
+            }
         }
         // The audits ride BESIDE the reply, never as a gate — display the
         // ones that actually fired and stay silent otherwise.
