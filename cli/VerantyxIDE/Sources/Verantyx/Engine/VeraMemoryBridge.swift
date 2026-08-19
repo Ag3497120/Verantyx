@@ -1573,6 +1573,22 @@ enum VeraMemoryBridge {
             if let t = obj["text"] as? String, !t.isEmpty {
                 lines.append(isDiscounted ? "🪤 \(t)" : "🧩 \(t)")
             }
+            // 文書の引用に添う下書き(2026-08-19)。エンジンの written は
+            // 引用行の言葉**だけ**で紡いだ constructed な文で、引用とは
+            // 別物として raw に乗る。連合側の written は engine が text に
+            // 昇格させるが、文書側は引用が text を占めるので、ここで
+            // 「下書き」と名指しして隣に出す — 引用と混ざらない形で。
+            let writtenObj = (obj["written"] as? [String: Any])
+                ?? ((obj["raw"] as? [String: Any])?["written"] as? [String: Any])
+            if let w = writtenObj,
+               (w["constructed"] as? Bool) == true,
+               let sents = w["sentences"] as? [[String: Any]], !sents.isEmpty {
+                let texts = sents.compactMap { $0["text"] as? String }
+                if !texts.isEmpty {
+                    lines.append("📝 下書き(引用行の言葉のみ・構成): "
+                                 + texts.joined(separator: " "))
+                }
+            }
             if isDiscounted {
                 lines.append(verdict == "SEEDED"
                     ? "↑ 問いのままでは届かず、主語を先に名指してから辿った答え。"
