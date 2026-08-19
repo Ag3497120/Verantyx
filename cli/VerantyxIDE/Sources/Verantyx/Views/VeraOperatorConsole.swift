@@ -91,6 +91,8 @@ struct VeraOperatorConsole: View {
 
     private var domainsBody: some View {
         VStack(alignment: .leading, spacing: 12) {
+            docDomainExplainer
+            ingestForm
             // The switch an enterprise deployment actually sets. Layering
             // lets the shared vocabulary answer whenever a domain is
             // silent, which is right for reach and wrong the moment a
@@ -142,6 +144,118 @@ struct VeraOperatorConsole: View {
         .frame(maxWidth: .infinity, alignment: .leading)
     }
 
+    // MARK: - 共通の投入フォーム (文書/分野の両タブに同じものを置く)
+    //
+    // 投入面はこれ一つ(2026-08-19、ユーザ指示で集約)。旧経路 — 召喚
+    // 「投入」、dockの投入タブ、<verantyx>タグ — は全て廃止した。
+    // どちらへ入れるかはトグル: 文書のみ・分野のみ・両方。
+
+    @State private var ingestURL: URL?
+    @State private var ingestName = ""
+    @State private var ingestToDocs = true
+    @State private var ingestToDomain = false
+    @State private var ingestWorking = false
+    @State private var ingestNote = ""
+
+    private var ingestForm: some View {
+        VStack(alignment: .leading, spacing: 8) {
+            Text("投入")
+                .font(.system(size: 11, weight: .semibold))
+            HStack(spacing: 8) {
+                Button("ファイルを選ぶ…") {
+                    let p = NSOpenPanel()
+                    p.allowsMultipleSelection = false
+                    p.canChooseDirectories = false
+                    if p.runModal() == .OK, let u = p.url {
+                        ingestURL = u
+                        if ingestName.isEmpty {
+                            ingestName = u.deletingPathExtension().lastPathComponent
+                                .lowercased()
+                                .replacingOccurrences(of: "[^a-z0-9_]", with: "_",
+                                                      options: .regularExpression)
+                        }
+                    }
+                }.font(.system(size: 11))
+                if let u = ingestURL {
+                    Text(u.lastPathComponent)
+                        .font(.system(size: 10, design: .monospaced))
+                        .lineLimit(1).truncationMode(.middle)
+                        .foregroundStyle(.secondary)
+                }
+            }
+            HStack(spacing: 14) {
+                Toggle("文書に入れる（逐語引用の棚）", isOn: $ingestToDocs)
+                    .toggleStyle(.checkbox).font(.system(size: 10))
+                Toggle("分野に入れる（Writerの語彙）", isOn: $ingestToDomain)
+                    .toggleStyle(.checkbox).font(.system(size: 10))
+            }
+            if ingestToDomain {
+                TextField("分野名（英数字と _ のみ）", text: $ingestName)
+                    .textFieldStyle(.roundedBorder)
+                    .font(.system(size: 11))
+                    .frame(maxWidth: 260)
+            }
+            Button(ingestWorking ? "投入中…" : "投入する") {
+                guard let u = ingestURL else { return }
+                ingestWorking = true
+                let name = ingestName
+                let toDocs = ingestToDocs, toDomain = ingestToDomain
+                Task {
+                    var out: [String] = []
+                    if toDocs {
+                        out.append(await VeraMemoryBridge.loadDocuments(paths: [u.path]))
+                    }
+                    if toDomain, !name.isEmpty {
+                        out.append(await VeraMemoryBridge.registerDomain(name, path: u.path))
+                    }
+                    await MainActor.run {
+                        ingestNote = out.joined(separator: "\n")
+                        ingestWorking = false
+                        Task {
+                            docs = await VeraMemoryBridge.documentShelfFull()
+                            await model.refresh()
+                        }
+                    }
+                }
+            }
+            .disabled(ingestWorking || ingestURL == nil
+                      || (!ingestToDocs && !ingestToDomain)
+                      || (ingestToDomain && ingestName.isEmpty))
+            .font(.system(size: 11))
+            if !ingestNote.isEmpty {
+                Text(ingestNote).font(.system(size: 10))
+                    .foregroundStyle(.secondary)
+                    .fixedSize(horizontal: false, vertical: true)
+            }
+        }
+        .padding(10)
+        .background(.quaternary.opacity(0.15),
+                    in: RoundedRectangle(cornerRadius: 6))
+    }
+
+    /// 文書と分野の違い — 両タブに同じ説明を置く(日本語)。
+    private var docDomainExplainer: some View {
+        VStack(alignment: .leading, spacing: 3) {
+            Text("文書と分野の違い")
+                .font(.system(size: 10, weight: .semibold))
+            Text("""
+            ・文書 = 原文をそのまま保つ棚。質問には文書の行を逐語で引用して答え、\
+            書かれていないことは「明記なし」と型で断ります。節・行・辺(同じ行に\
+            書かれた語の対)の構造で保持され、判定に使われます。
+            ・分野 = 文書から言葉だけを取り出した語彙。Veraが文を紡ぐときの\
+            言葉になります(文法は共有のまま)。事実としては数えられず、票も\
+            持ちません — 内容の根拠は常に文書側です。
+            同じファイルを両方に入れられます: 文書に入れると「引用できる」、\
+            分野に入れると「その言葉で話せる」ようになります。
+            """)
+                .font(.system(size: 9.5)).foregroundStyle(.secondary)
+                .fixedSize(horizontal: false, vertical: true)
+        }
+        .padding(8)
+        .background(.quaternary.opacity(0.1),
+                    in: RoundedRectangle(cornerRadius: 6))
+    }
+
     // MARK: - 文書 (棚と配線 — 分野の画面と同じ作法)
 
     @State private var docs: [VeraMemoryBridge.DocumentInfo] = []
@@ -149,6 +263,8 @@ struct VeraOperatorConsole: View {
 
     private var documentsBody: some View {
         VStack(alignment: .leading, spacing: 12) {
+            docDomainExplainer
+            ingestForm
             Text("一度取り込んだ文書はここに残ります。「切断」は接続を切る"
                  + "だけでデータは保持され、いつでも再接続できます。優先度が"
                  + "高い文書から先に照合されます(企業の複数文書の配線)。"

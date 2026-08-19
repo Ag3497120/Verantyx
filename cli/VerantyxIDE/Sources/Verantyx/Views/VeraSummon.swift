@@ -104,10 +104,9 @@ enum VeraSettingsRegistry {
                blurbJa: "直近の実行の要約と、証拠・矛盾・欠落の数",
                words: ["監査", "audit"],
                destination: .panel(.audit)),
-        Screen(id: "document", ja: "投入", en: "Document",
-               blurbJa: "文書を語彙として入れる。文法は共有のまま、票は持たない",
-               words: ["投入", "文書", "資料", "語彙", "分野", "document"],
-               destination: .panel(.document)),
+        // 「投入」の召喚は廃止(2026-08-19): 投入は OPERATOR の文書/分野
+        // 画面の共通フォーム一つに集約された。言葉で開く入口が別に残ると
+        // 投入面が二つになり、二つの面は漂流する。
 
         // ── 全画面を取るもの ──────────────────────────────────────
         Screen(id: "mcp", ja: "外部運用", en: "External operation",
@@ -218,12 +217,8 @@ enum VeraSummon {
         "十字": .cross, "立体十字": .cross, "立体十字構造体": .cross,
         "構造": .cross, "cross": .cross,
         "監査": .audit, "audit": .audit,
-        // 投入 — the document entry, folded in from the standalone Vera
-        // window when that window was retired. It is the only thing that
-        // window had which this screen did not.
-        "投入": .document, "とうにゅう": .document, "文書": .document,
-        "資料": .document, "document": .document, "ingest": .document,
-        "語彙": .document, "分野": .document,
+        // 「投入」系の語は表から外した(2026-08-19) — 投入は OPERATOR の
+        // 文書/分野画面の共通フォームだけが行う。
         "モード": .modes, "モード切替": .modes, "modes": .modes,
         "モデル": .model, "model": .model, "モデル切替": .model,
         // The app-delegation licence book. Named 免許 because that is what

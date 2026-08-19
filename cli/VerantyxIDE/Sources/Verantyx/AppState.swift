@@ -1782,42 +1782,10 @@ final class AppState: ObservableObject {
 
         // ── ⟨verantyx⟩ … ⟨/verantyx⟩ pastes a document straight in ──────
         //
-        // The attachment path asks first because a file arriving on screen
-        // is not yet a decision. A wrapped paste IS the decision — the
-        // person typed the tag around the text — so it registers without a
-        // second question, and it registers as VOCABULARY, never as facts
-        // that vote. Nothing here can put a claim into the census.
-        if let open = text.range(of: "<verantyx>"),
-           let close = text.range(of: "</verantyx>"),
-           open.upperBound < close.lowerBound {
-            let body = String(text[open.upperBound..<close.lowerBound])
-            let label = text[..<open.lowerBound]
-                .trimmingCharacters(in: .whitespacesAndNewlines)
-            let name = (label.isEmpty ? "pasted" : label).lowercased()
-                .map { $0.isLetter || $0.isNumber ? String($0) : "_" }
-                .joined().prefix(32)
-            inputText = ""
-            // The tags are a command, not content. They are stripped from
-            // what goes in AND from what is shown, so the transcript reads
-            // as the document it was — a person scrolling back should see
-            // what they loaded, not the syntax they used to load it.
-            let shown = (String(text[..<open.lowerBound])
-                         + body
-                         + String(text[close.upperBound...]))
-                .trimmingCharacters(in: .whitespacesAndNewlines)
-            messages.append(ChatMessage(role: .user, content: shown))
-            isGenerating = true
-            inferenceTask = Task {
-                let reply = await VeraMemoryBridge.registerDomainText(
-                    String(name), text: body)
-                await MainActor.run {
-                    self.messages.append(ChatMessage(
-                        role: .assistant, content: reply))
-                    self.isGenerating = false
-                }
-            }
-            return
-        }
+        // <verantyx>…</verantyx> のタグ投入は廃止(2026-08-19、ユーザ指示)。
+        // 語彙(分野)側にしか入らない片道の入口で、文書側と入れ違う。
+        // 投入は OPERATOR の文書/分野画面の共通フォーム一つに集約 —
+        // そこは文書・分野・両方をトグルで選べる。
 
         // ── A new attachment asks first ───────────────────────────────
         if !attachedFiles.isEmpty {
