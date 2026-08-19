@@ -61,7 +61,14 @@ struct MainSplitView: View {
             // Removed Mode Selector Overlay
         }
         .toolbar { toolbarContent }
-        .onAppear { app.connectOllama() }
+        // 自動接続は LLM を使うモードだけ(2026-08-19)。Vera 単体/ぼっとで
+        // Ollama の接続警告が出るのは説明と矛盾する。
+        .onAppear { if app.usesLLMBackend { app.connectOllama() } }
+        .onChange(of: app.veraEngineMode) { _, _ in
+            // モードを LLM 側へ戻したらそこで繋ぐ — 起動時に諦めたままに
+            // しない。
+            if app.usesLLMBackend { app.connectOllama() }
+        }
         // ── Human Mode: file write approval sheet ────────────────────────────
         .sheet(item: $app.pendingFileApproval) { req in
             FileApprovalView(req: req)
