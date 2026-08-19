@@ -25,6 +25,7 @@ struct VeraOperatorConsole: View {
 
     enum Section: String, CaseIterable, Identifiable {
         case domains = "分野"
+        case documents = "文書"
         case settings = "設定"
         case engine = "エンジン"
         var id: String { rawValue }
@@ -36,9 +37,10 @@ struct VeraOperatorConsole: View {
             Divider().opacity(0.35)
             ScrollView {
                 switch section {
-                case .domains:  domainsBody
-                case .settings: settingsBody
-                case .engine:   engineBody
+                case .domains:   domainsBody
+                case .documents: documentsBody
+                case .settings:  settingsBody
+                case .engine:    engineBody
                 }
             }
         }
@@ -110,15 +112,26 @@ struct VeraOperatorConsole: View {
                      + "その語彙が登録されます（文法は共有のまま）。")
                     .font(.system(size: 11)).foregroundStyle(.secondary)
             } else {
+                // 複数分野の同時接続(2026-08-19)。カンマ区切りで持ち、
+                // エンジン側は「順に試して最初の当たり」の層 — 表は
+                // 混ぜない。並び順=優先順。
+                let active = app.veraDomain.split(separator: ",").map(String.init)
                 ForEach(model.domains, id: \.self) { d in
                     HStack {
                         Circle()
-                            .fill(app.veraDomain == d ? VeraInk.verified : .clear)
+                            .fill(active.contains(d) ? VeraInk.verified : .clear)
                             .frame(width: 5, height: 5)
                         Text(d).font(.system(size: 12, design: .monospaced))
+                        if let idx = active.firstIndex(of: d), active.count > 1 {
+                            Text("優先\(idx + 1)")
+                                .font(.system(size: 9)).foregroundStyle(.tertiary)
+                        }
                         Spacer()
-                        Button(app.veraDomain == d ? "解除" : "使う") {
-                            app.veraDomain = (app.veraDomain == d) ? "" : d
+                        Button(active.contains(d) ? "解除" : "接続") {
+                            var a = active
+                            if let i = a.firstIndex(of: d) { a.remove(at: i) }
+                            else { a.append(d) }
+                            app.veraDomain = a.joined(separator: ",")
                         }
                         .buttonStyle(.link).font(.system(size: 11))
                     }
@@ -127,6 +140,108 @@ struct VeraOperatorConsole: View {
         }
         .padding(14)
         .frame(maxWidth: .infinity, alignment: .leading)
+    }
+
+    // MARK: - 文書 (棚と配線 — 分野の画面と同じ作法)
+
+    @State private var docs: [VeraMemoryBridge.DocumentInfo] = []
+    @State private var docNote = ""
+
+    private var documentsBody: some View {
+        VStack(alignment: .leading, spacing: 12) {
+            Text("一度取り込んだ文書はここに残ります。「切断」は接続を切る"
+                 + "だけでデータは保持され、いつでも再接続できます。優先度が"
+                 + "高い文書から先に照合されます(企業の複数文書の配線)。"
+                 + "本当に消すのは「削除」だけです。")
+                .font(.system(size: 10)).foregroundStyle(.secondary)
+                .fixedSize(horizontal: false, vertical: true)
+
+            HStack {
+                Text("取り込み済み \(docs.count) 件"
+                     + "（接続中 \(docs.filter { !$0.detached }.count)）")
+                    .font(.system(size: 11, weight: .semibold))
+                Spacer()
+                Button("更新") { Task { docs = await VeraMemoryBridge.documentShelfFull() } }
+                    .font(.system(size: 10))
+            }
+
+            if docs.isEmpty {
+                Text("まだありません。投入タブの「文書として取り込む」で"
+                     + "入れたものがここに現れます。")
+                    .font(.system(size: 11)).foregroundStyle(.secondary)
+            }
+            ForEach(docs) { d in
+                VStack(alignment: .leading, spacing: 4) {
+                    HStack(spacing: 8) {
+                        Circle()
+                            .fill(d.detached ? Color.secondary.opacity(0.3)
+                                             : VeraInk.verified)
+                            .frame(width: 6, height: 6)
+                        Text(d.source)
+                            .font(.system(size: 12, design: .monospaced))
+                            .foregroundStyle(d.detached ? .secondary : .primary)
+                            .lineLimit(1).truncationMode(.middle)
+                        Text("節\(d.sections)・行\(d.lines)"
+                             + (d.priority != 0 ? "・優先\(d.priority)" : ""))
+                            .font(.system(size: 9)).foregroundStyle(.tertiary)
+                        Spacer()
+                        Button("▲") { Task {
+                            await VeraMemoryBridge.setDocumentPriority(d.source, d.priority + 1)
+                            docs = await VeraMemoryBridge.documentShelfFull()
+                        } }.buttonStyle(.plain).font(.system(size: 9))
+                            .help("優先度を上げる — 先に照合される")
+                        Button("▼") { Task {
+                            await VeraMemoryBridge.setDocumentPriority(d.source, d.priority - 1)
+                            docs = await VeraMemoryBridge.documentShelfFull()
+                        } }.buttonStyle(.plain).font(.system(size: 9))
+                            .help("優先度を下げる — 判断を弱める")
+                        Button(d.detached ? "再接続" : "切断") { Task {
+                            docNote = d.detached
+                                ? await VeraMemoryBridge.attachDocument(d.source)
+                                : await VeraMemoryBridge.forgetDocument(d.source)
+                            docs = await VeraMemoryBridge.documentShelfFull()
+                        } }.buttonStyle(.link).font(.system(size: 11))
+                        Button("削除") { Task {
+                            docNote = await VeraMemoryBridge.purgeDocument(d.source)
+                            docs = await VeraMemoryBridge.documentShelfFull()
+                        } }.buttonStyle(.link).font(.system(size: 11))
+                            .foregroundStyle(.red)
+                            .help("完全削除 — こちらだけが本当に消します")
+                    }
+                    // 階層の可視化: 文書 → 節(行数・辺数)。モデルが実際に
+                    // 保持している構造そのもの — 辺は同一文共起の実測。
+                    DisclosureGroup {
+                        VStack(alignment: .leading, spacing: 2) {
+                            ForEach(Array(d.tree.enumerated()), id: \.offset) { _, s in
+                                HStack(spacing: 6) {
+                                    Text("└")
+                                        .font(.system(size: 9))
+                                        .foregroundStyle(.tertiary)
+                                    Text(s.heading)
+                                        .font(.system(size: 10, design: .monospaced))
+                                        .lineLimit(1)
+                                    Text("行\(s.lines)・辺\(s.edges)")
+                                        .font(.system(size: 9))
+                                        .foregroundStyle(.tertiary)
+                                }
+                            }
+                        }.padding(.leading, 14)
+                    } label: {
+                        Text("構造(\(d.sections)節)")
+                            .font(.system(size: 9)).foregroundStyle(.secondary)
+                    }
+                }
+                .padding(8)
+                .background(.quaternary.opacity(d.detached ? 0.08 : 0.18),
+                            in: RoundedRectangle(cornerRadius: 6))
+            }
+            if !docNote.isEmpty {
+                Text(docNote).font(.system(size: 10)).foregroundStyle(.secondary)
+            }
+        }
+        .padding(14)
+        .frame(maxWidth: .infinity, alignment: .leading)
+        .task { docs = await VeraMemoryBridge.documentShelfFull() }
     }
 
     // MARK: - 設定

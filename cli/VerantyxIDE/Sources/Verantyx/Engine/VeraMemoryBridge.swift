@@ -644,24 +644,78 @@ enum VeraMemoryBridge {
         return lines.joined(separator: "\n")
     }
 
-    /// この端末が抱えている文書の棚。分野(語彙)の棚とは別物で、合体しない。
-    static func documentShelf() async -> [(source: String, sections: Int,
-                                           labels: Int, lines: Int)] {
-        guard let obj = await callDoor("vera_documents", [:]),
-              let docs = obj["documents"] as? [[String: Any]] else { return [] }
-        return docs.map { (($0["source"] as? String) ?? "?",
-                           ($0["sections"] as? Int) ?? 0,
-                           ($0["labels"] as? Int) ?? 0,
-                           ($0["lines"] as? Int) ?? 0) }
+    /// 文書棚の一項目 — 階層(節ごとの行数・辺数)と接続状態を運ぶ。
+    struct DocumentInfo: Identifiable {
+        var id: String { source }
+        let source: String
+        let sections: Int
+        let labels: Int
+        let lines: Int
+        let detached: Bool
+        let priority: Int
+        let tree: [(heading: String, lines: Int, edges: Int)]
     }
 
+    /// この端末が抱えている文書の棚。分野(語彙)の棚とは別物で、合体しない。
+    /// 「外す」は切断であって削除ではない — detached の文書もここに残り、
+    /// 再接続できる(2026-08-19、削除だった仕様をユーザ報告で変更)。
+    static func documentShelfFull() async -> [DocumentInfo] {
+        guard let obj = await callDoor("vera_documents", [:]),
+              let docs = obj["documents"] as? [[String: Any]] else { return [] }
+        return docs.map { d in
+            DocumentInfo(
+                source: (d["source"] as? String) ?? "?",
+                sections: (d["sections"] as? Int) ?? 0,
+                labels: (d["labels"] as? Int) ?? 0,
+                lines: (d["lines"] as? Int) ?? 0,
+                detached: (d["detached"] as? Bool) ?? false,
+                priority: (d["priority"] as? Int) ?? 0,
+                tree: ((d["tree"] as? [[String: Any]]) ?? []).map {
+                    (($0["heading"] as? String) ?? "",
+                     ($0["lines"] as? Int) ?? 0,
+                     ($0["edges"] as? Int) ?? 0)
+                })
+        }
+    }
+
+    static func documentShelf() async -> [(source: String, sections: Int,
+                                           labels: Int, lines: Int)] {
+        await documentShelfFull().map { ($0.source, $0.sections,
+                                         $0.labels, $0.lines) }
+    }
+
+    /// 切断(データは残る)。
     static func forgetDocument(_ source: String) async -> String {
         guard let obj = await callDoor("vera_documents", ["forget": source]) else {
             return "扉が応答しません。"
         }
         let v = (obj["verdict"] as? String) ?? ""
-        if v == "FORGOT" { return "「\(source)」を棚から外しました。" }
-        return "外せませんでした(\(v))。"
+        if v == "SET" { return "「\(source)」を切断しました(削除ではありません)。" }
+        return "切断できませんでした(\(v))。"
+    }
+
+    /// 再接続。
+    static func attachDocument(_ source: String) async -> String {
+        guard let obj = await callDoor("vera_documents", ["attach": source]) else {
+            return "扉が応答しません。"
+        }
+        return ((obj["verdict"] as? String) == "SET")
+            ? "「\(source)」を再接続しました。" : "再接続できませんでした。"
+    }
+
+    /// 完全削除 — こちらだけが本当に消す。
+    static func purgeDocument(_ source: String) async -> String {
+        guard let obj = await callDoor("vera_documents", ["purge": source]) else {
+            return "扉が応答しません。"
+        }
+        return ((obj["verdict"] as? String) == "PURGED")
+            ? "「\(source)」を完全に削除しました。" : "削除できませんでした。"
+    }
+
+    /// 優先度(高いほど先に照合) — 「この文書を優先して判断」の配線。
+    static func setDocumentPriority(_ source: String, _ p: Int) async {
+        _ = await callDoor("vera_documents",
+                           ["priority_source": source, "priority": p])
     }
 
     /// この端末の文書と、公開連合(一般知識)が同じ主題について何を言うか。
