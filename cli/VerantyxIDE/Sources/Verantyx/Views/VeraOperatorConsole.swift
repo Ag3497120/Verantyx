@@ -27,6 +27,8 @@ struct VeraOperatorConsole: View {
         case domains = "分野"
         case documents = "文書"
         case ingest = "投入"
+        case approvals = "承認"
+        case gaps = "欠落"
         case settings = "設定"
         case engine = "エンジン"
         var id: String { rawValue }
@@ -41,6 +43,8 @@ struct VeraOperatorConsole: View {
                 case .domains:   domainsBody
                 case .documents: documentsBody
                 case .ingest:    ingestBody
+                case .approvals: approvalsBody
+                case .gaps:      gapsBody
                 case .settings:  settingsBody
                 case .engine:    engineBody
                 }
@@ -61,7 +65,7 @@ struct VeraOperatorConsole: View {
                 ForEach(Section.allCases) { Text($0.rawValue).tag($0) }
             }
             .pickerStyle(.segmented)
-            .frame(width: 240)
+            .frame(width: 360)
             Spacer()
             // The settings button people asked for. It does not open a
             // second surface — it moves this one, because a console with a
@@ -427,6 +431,114 @@ struct VeraOperatorConsole: View {
         .padding(.bottom, 10)
     }
 
+    // MARK: - 承認
+
+    /// ウェブ検索の提案と AI 由来の事実は隔離キューに入り、ここで人が
+    /// 昇格するまで一切回答に使われない。今日までこのキューには MCP の
+    /// 扉しか無く、「提案は溜まるが誰も昇格できない」状態だった —
+    /// 配線した機能の出口。
+    private var approvalsBody: some View {
+        VStack(alignment: .leading, spacing: 12) {
+            VStack(alignment: .leading, spacing: 4) {
+                Text("承認待ちの知識").font(.system(size: 12, weight: .semibold))
+                Text("ウェブ検索の抜粋提案や AI 由来の事実はまずここに隔離されます。"
+                     + "承認するまで回答には一切使われません。承認=ストア本文へ昇格、"
+                     + "却下=破棄。出典を確かめてから承認してください。")
+                    .font(.system(size: 10)).foregroundStyle(.secondary)
+            }
+            if model.pendingFacts.isEmpty {
+                Text("承認待ちはありません。")
+                    .font(.system(size: 11)).foregroundStyle(.secondary)
+            } else {
+                ForEach(model.pendingFacts) { f in
+                    VStack(alignment: .leading, spacing: 4) {
+                        Text(f.text)
+                            .font(.system(size: 11))
+                            .textSelection(.enabled)
+                        HStack(spacing: 8) {
+                            if !f.source.isEmpty {
+                                Text("出典: \(f.source)")
+                                    .font(.system(size: 9.5))
+                                    .foregroundStyle(.secondary)
+                                    .lineLimit(1)
+                            }
+                            if !f.timestamp.isEmpty {
+                                Text(f.timestamp)
+                                    .font(.system(size: 9.5))
+                                    .foregroundStyle(.tertiary)
+                            }
+                            Spacer()
+                            Button("承認") {
+                                Task { await model.acceptFact(index: f.index) }
+                            }
+                            .buttonStyle(.borderedProminent)
+                            .controlSize(.small)
+                            Button("却下") {
+                                Task { await model.rejectFact(index: f.index) }
+                            }
+                            .buttonStyle(.bordered)
+                            .controlSize(.small)
+                        }
+                    }
+                    .padding(8)
+                    .background(.quaternary.opacity(0.2),
+                                in: RoundedRectangle(cornerRadius: 6))
+                }
+            }
+            if !model.approvalNote.isEmpty {
+                Text(model.approvalNote)
+                    .font(.system(size: 10)).foregroundStyle(.secondary)
+            }
+        }
+        .padding(14)
+        .task { await model.refreshApprovals() }
+    }
+
+    // MARK: - 欠落
+
+    /// 不足知識の台帳。拒否のたびにエンジンが「どの語が無かったか」を
+    /// 登録する — ここは人がそれを見て、文書を入れるか、不要と判断して
+    /// 解決済みにする場所。
+    private var gapsBody: some View {
+        VStack(alignment: .leading, spacing: 12) {
+            VStack(alignment: .leading, spacing: 4) {
+                Text("不足知識の台帳").font(.system(size: 12, weight: .semibold))
+                Text("答えられなかった問いから、足りなかった語をエンジンが名指しで"
+                     + "記録します。文書を投入して埋めるか、不要なら解決済みに。"
+                     + "台帳から消えることはありません。")
+                    .font(.system(size: 10)).foregroundStyle(.secondary)
+            }
+            if model.gaps.isEmpty {
+                Text("記録された欠落はありません。")
+                    .font(.system(size: 11)).foregroundStyle(.secondary)
+            } else {
+                ForEach(model.gaps) { gp in
+                    HStack(spacing: 8) {
+                        VStack(alignment: .leading, spacing: 2) {
+                            Text(gp.subject).font(.system(size: 11))
+                                .textSelection(.enabled)
+                            Text("\(gp.failureType) ・ \(gp.status)")
+                                .font(.system(size: 9))
+                                .foregroundStyle(.secondary)
+                        }
+                        Spacer()
+                        if gp.status != "RESOLVED" {
+                            Button("解決済みに") {
+                                Task { await model.resolveGap(id: gp.id) }
+                            }
+                            .buttonStyle(.bordered).controlSize(.small)
+                        }
+                    }
+                    .padding(6)
+                    .background(.quaternary.opacity(0.15),
+                                in: RoundedRectangle(cornerRadius: 5))
+                }
+            }
+        }
+        .padding(14)
+        .task { await model.refreshGaps() }
+    }
+
     private var settingsBody: some View {
         VStack(alignment: .leading, spacing: 0) {
             usageTutorial
@@ -560,6 +672,59 @@ final class OperatorConsoleModel: ObservableObject {
     @Published private(set) var sentences: Int?
     @Published private(set) var source: String = ""
     @Published private(set) var note: String = ""
+    struct GapRow: Identifiable {
+        let id: String
+        let subject: String
+        let status: String
+        let failureType: String
+    }
+
+    @Published private(set) var gaps: [GapRow] = []
+
+    @MainActor
+    func refreshGaps() async {
+        guard let obj = await VeraMemoryBridge.callDoor(
+            "list_gaps", ["limit": 60]) else { gaps = []; return }
+        let arr = (obj["gaps"] as? [[String: Any]]) ?? []
+        gaps = arr.compactMap { e in
+            guard let gid = e["gap_id"] as? String,
+                  let subj = e["subject"] as? String, !subj.isEmpty
+            else { return nil }
+            return GapRow(id: gid, subject: subj,
+                          status: (e["status"] as? String) ?? "",
+                          failureType: (e["failure_type"] as? String) ?? "")
+        }
+    }
+
+    @MainActor
+    func resolveGap(id: String) async {
+        _ = await VeraMemoryBridge.callDoor("resolve_gap", ["gap_id": id])
+        await refreshGaps()
+    }
+
+    @Published private(set) var pendingFacts: [VeraMemoryBridge.PendingAiFact] = []
+    @Published private(set) var approvalNote: String = ""
+
+    @MainActor
+    func refreshApprovals() async {
+        pendingFacts = await VeraMemoryBridge.listPendingAiFacts()
+    }
+
+    @MainActor
+    func acceptFact(index: Int) async {
+        let ok = await VeraMemoryBridge.acceptAiFact(index: index)
+        approvalNote = ok ? "昇格しました（ストア本文へ）。"
+                          : "昇格に失敗しました — エンジンの応答を確認してください。"
+        await refreshApprovals()
+    }
+
+    @MainActor
+    func rejectFact(index: Int) async {
+        let ok = await VeraMemoryBridge.rejectAiFact(index: index)
+        approvalNote = ok ? "却下しました（破棄）。"
+                          : "却下に失敗しました — エンジンの応答を確認してください。"
+        await refreshApprovals()
+    }
 
     /// Substrings that mark a value as a secret. Closed and matched on the
     /// KEY, because a value that looks harmless today may not tomorrow.
