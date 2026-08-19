@@ -196,11 +196,24 @@ pub fn run_event_loop(visible: bool) -> anyhow::Result<()> {
                             let _ = webview.evaluate_script(&wrapped_js);
                         }
                     }
+                    // Swift 側(BrowserBridge.swift:373)が生存確認に送るが、
+                    // ここに分岐が無く**無音**だった — 呼び出し側は実装
+                    // 済み、受け側が欠けている死に口(2026-08-19実測)。
+                    // 待つ側はタイムアウトまで待つしかない。
+                    "ping" => {
+                        println!("{{\"status\":\"ok\",\"cmd\":\"ping\"}}");
+                        let _ = io::stdout().flush();
+                    }
                     "quit" => {
                         *control_flow = ControlFlow::Exit;
                         std::process::exit(0);
                     }
-                    _ => {}
+                    // 知らないコマンドも無音にしない。無音は「処理中」と
+                    // 区別が付かず、呼び出し側をタイムアウトまで待たせる。
+                    other => {
+                        println!("{{\"status\":\"error\",\"message\":\"unknown command: {}\"}}", other);
+                        let _ = io::stdout().flush();
+                    }
                 }
             }
             Event::WindowEvent { event: WindowEvent::CloseRequested, .. } => {

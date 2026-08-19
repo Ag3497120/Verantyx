@@ -1164,6 +1164,19 @@ final class AppState: ObservableObject {
     /// state: chrome is gone, so nothing is on screen that was not
     /// asked for.
 
+    /// LLM バックエンドをこのモードが使うか。
+    ///
+    /// veraModel / veraBot は turn の中で LLM を一切呼ばない(単体 Vera-a と
+    /// 設定案内)。それでも `MainSplitView.onAppear` が無条件に
+    /// `connectOllama()` を呼んでいたので、Ollama を起動していない利用者に
+    /// は Vera モードでも接続失敗の警告が出ていた — 動作に影響しないが、
+    /// 「LLM 不使用」を売りにする画面で LLM の警告が出るのは説明と矛盾する。
+    /// 明示操作(モデル選択バーの再接続ボタン)は従来どおり通す: 止めるのは
+    /// 自動接続だけ。
+    var usesLLMBackend: Bool {
+        veraEngineMode != .veraModel && veraEngineMode != .veraBot
+    }
+
     @Published var veraEngineMode: VeraEngineMode = .council {
         didSet { applyVeraAOperatingDefaults()
                  UserDefaults.standard.set(veraEngineMode.rawValue,
