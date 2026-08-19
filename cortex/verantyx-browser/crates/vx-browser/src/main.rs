@@ -27,6 +27,19 @@ struct Cli {
     #[arg(short, long)]
     visible: bool,
 
+    /// Run the OWN-ENGINE bridge (vx_dom + vx_layout + AiRenderer) instead
+    /// of the WKWebView one.
+    ///
+    /// `bridge.rs` was declared as a module and called from nowhere: its
+    /// click / submit / get_elements / get_spatial_map were implemented and
+    /// unreachable, so the only way to drive a page was `eval_js` through
+    /// the stealth bridge — OCR-shaped work on a structure that already
+    /// exists. Measured 2026-08-19: `mod bridge;` present, zero call sites.
+    /// This flag is the boot path; which bridge a caller wants is a
+    /// caller's decision, so the stealth one stays the default.
+    #[arg(long)]
+    own_engine: bool,
+
     /// Run JCross World Simulator Canvas
     #[arg(long)]
     simulator: bool,
@@ -42,6 +55,17 @@ struct Cli {
 
 fn main() -> Result<()> {
     let cli = Cli::parse();
+
+    if cli.own_engine {
+        // --- OWN ENGINE BRIDGE (vx_dom + vx_layout + AiRenderer) ---
+        // Structure instead of pixels: get_elements / get_spatial_map /
+        // click / submit read and act on the parsed document.
+        let rt = tokio::runtime::Runtime::new()?;
+        return rt.block_on(async {
+            let mut session = bridge::BridgeSession::new()?;
+            session.run_loop().await
+        });
+    }
 
     if cli.bridge {
         // --- STEALTH WRY WKWEBVIEW BRIDGE ---
