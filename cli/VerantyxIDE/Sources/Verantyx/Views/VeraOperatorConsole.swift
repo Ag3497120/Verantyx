@@ -377,8 +377,59 @@ struct VeraOperatorConsole: View {
 
     // MARK: - 設定
 
+    /// 使い分けチュートリアル — 場面から引ける形で設定画面に常置。
+    private var usageTutorial: some View {
+        DisclosureGroup {
+            VStack(alignment: .leading, spacing: 6) {
+                Group {
+                    Text("📄 文書に入れる場面").font(.system(size: 10, weight: .semibold))
+                    Text("""
+                    ・社内規程や契約書を入れて「第5条には何と書いてある?」と\
+                    条文どおりに引用してほしいとき
+                    ・「書かれていないことは書かれていないと言ってほしい」とき\
+                    (明記なしの型付き拒否が欲しい業務用途)
+                    ・複数の規程を入れて、どれが答えたか出典を確かめたいとき
+                    """).font(.system(size: 9.5)).foregroundStyle(.secondary)
+                }
+                Group {
+                    Text("🗣 分野に入れる場面").font(.system(size: 10, weight: .semibold))
+                    Text("""
+                    ・専門用語だらけの資料を読ませて、その言葉づかいで文を\
+                    紡いでほしいとき(医療・法務・社内略語など)
+                    ・引用は要らないが「その分野の語彙で話せる」状態にしたい\
+                    とき — 事実としては数えられず、票も持ちません
+                    """).font(.system(size: 9.5)).foregroundStyle(.secondary)
+                }
+                Group {
+                    Text("📄+🗣 両方に入れる場面(最も多い)").font(.system(size: 10, weight: .semibold))
+                    Text("""
+                    ・業務マニュアルを入れて「引用もしてほしいし、その用語で\
+                    自然に説明もしてほしい」とき → 投入タブで両方にチェック
+                    """).font(.system(size: 9.5)).foregroundStyle(.secondary)
+                }
+                Group {
+                    Text("迷ったら").font(.system(size: 10, weight: .semibold))
+                    Text("""
+                    まず文書だけに入れてください。引用と型付き拒否はそれで\
+                    全部動きます。話し方が固い・語彙が足りないと感じたら、\
+                    同じファイルを分野にも足すのが安全な順番です。\
+                    (分野を先に入れても内容の根拠は増えません — 根拠は常に文書側)
+                    """).font(.system(size: 9.5)).foregroundStyle(.secondary)
+                }
+            }.padding(.top, 4)
+        } label: {
+            Text("📖 文書と分野の使い分け(チュートリアル)")
+                .font(.system(size: 11, weight: .semibold))
+        }
+        .padding(10)
+        .background(.quaternary.opacity(0.15),
+                    in: RoundedRectangle(cornerRadius: 6))
+        .padding(.bottom, 10)
+    }
+
     private var settingsBody: some View {
         VStack(alignment: .leading, spacing: 0) {
+            usageTutorial
             // ── 不足知識時のウェブ検索(2026-08-19) ─────────────────
             // 発火条件は一つ: Veraモードで型付き拒否(UNKNOWN*)が出たとき
             // だけ。答えが立った質問で外に出ることは構造上ない。
