@@ -379,6 +379,47 @@ struct VeraOperatorConsole: View {
 
     private var settingsBody: some View {
         VStack(alignment: .leading, spacing: 0) {
+            // ── 不足知識時のウェブ検索(2026-08-19) ─────────────────
+            // 発火条件は一つ: Veraモードで型付き拒否(UNKNOWN*)が出たとき
+            // だけ。答えが立った質問で外に出ることは構造上ない。
+            VStack(alignment: .leading, spacing: 6) {
+                Text("ウェブ検索(不足知識のとき)")
+                    .font(.system(size: 11, weight: .semibold))
+                Toggle(isOn: $app.toolWebSearchEnabled) {
+                    VStack(alignment: .leading, spacing: 1) {
+                        Text("ウェブ検索を認める").font(.system(size: 11))
+                        Text("Veraが型付き拒否を出したときだけ発火。結果は"
+                             + "一時知識(出典つき・返答と同時に破棄)")
+                            .font(.system(size: 9)).foregroundStyle(.secondary)
+                    }
+                }.toggleStyle(.switch)
+                if app.toolWebSearchEnabled {
+                    Toggle(isOn: $app.veraWebAskFirst) {
+                        VStack(alignment: .leading, spacing: 1) {
+                            Text("実行前に確認する").font(.system(size: 11))
+                            Text("ONなら拒否時に案内だけ出し、「検索して」で実行")
+                                .font(.system(size: 9)).foregroundStyle(.secondary)
+                        }
+                    }.toggleStyle(.switch)
+                    Stepper(value: $app.veraWebMaxPages, in: 1...4) {
+                        Text("開くページ数の上限: \(app.veraWebMaxPages)")
+                            .font(.system(size: 11))
+                    }.frame(maxWidth: 280)
+                    Toggle(isOn: $app.veraWebPropose) {
+                        VStack(alignment: .leading, spacing: 1) {
+                            Text("抜粋を承認キューへ提案する").font(.system(size: 11))
+                            Text("人が accept するまで ask には見えない。"
+                                 + "黙って構造に入る経路は無い")
+                                .font(.system(size: 9)).foregroundStyle(.secondary)
+                        }
+                    }.toggleStyle(.switch)
+                }
+            }
+            .padding(10)
+            .background(.quaternary.opacity(0.15),
+                        in: RoundedRectangle(cornerRadius: 6))
+            .padding(.bottom, 10)
+
             Text("永続設定 \(shown.count) / \(model.settings.count) 件 — "
                  + "画面を持たないものも含めて全て")
                 .font(.system(size: 10)).foregroundStyle(.secondary)
