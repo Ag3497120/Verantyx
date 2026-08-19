@@ -644,24 +644,78 @@ enum VeraMemoryBridge {
         return lines.joined(separator: "\n")
     }
 
-    /// この端末が抱えている文書の棚。分野(語彙)の棚とは別物で、合体しない。
-    static func documentShelf() async -> [(source: String, sections: Int,
-                                           labels: Int, lines: Int)] {
-        guard let obj = await callDoor("vera_documents", [:]),
-              let docs = obj["documents"] as? [[String: Any]] else { return [] }
-        return docs.map { (($0["source"] as? String) ?? "?",
-                           ($0["sections"] as? Int) ?? 0,
-                           ($0["labels"] as? Int) ?? 0,
-                           ($0["lines"] as? Int) ?? 0) }
+    /// 文書棚の一項目 — 階層(節ごとの行数・辺数)と接続状態を運ぶ。
+    struct DocumentInfo: Identifiable {
+        var id: String { source }
+        let source: String
+        let sections: Int
+        let labels: Int
+        let lines: Int
+        let detached: Bool
+        let priority: Int
+        let tree: [(heading: String, lines: Int, edges: Int)]
     }
 
+    /// この端末が抱えている文書の棚。分野(語彙)の棚とは別物で、合体しない。
+    /// 「外す」は切断であって削除ではない — detached の文書もここに残り、
+    /// 再接続できる(2026-08-19、削除だった仕様をユーザ報告で変更)。
+    static func documentShelfFull() async -> [DocumentInfo] {
+        guard let obj = await callDoor("vera_documents", [:]),
+              let docs = obj["documents"] as? [[String: Any]] else { return [] }
+        return docs.map { d in
+            DocumentInfo(
+                source: (d["source"] as? String) ?? "?",
+                sections: (d["sections"] as? Int) ?? 0,
+                labels: (d["labels"] as? Int) ?? 0,
+                lines: (d["lines"] as? Int) ?? 0,
+                detached: (d["detached"] as? Bool) ?? false,
+                priority: (d["priority"] as? Int) ?? 0,
+                tree: ((d["tree"] as? [[String: Any]]) ?? []).map {
+                    (($0["heading"] as? String) ?? "",
+                     ($0["lines"] as? Int) ?? 0,
+                     ($0["edges"] as? Int) ?? 0)
+                })
+        }
+    }
+
+    static func documentShelf() async -> [(source: String, sections: Int,
+                                           labels: Int, lines: Int)] {
+        await documentShelfFull().map { ($0.source, $0.sections,
+                                         $0.labels, $0.lines) }
+    }
+
+    /// 切断(データは残る)。
     static func forgetDocument(_ source: String) async -> String {
         guard let obj = await callDoor("vera_documents", ["forget": source]) else {
             return "扉が応答しません。"
         }
         let v = (obj["verdict"] as? String) ?? ""
-        if v == "FORGOT" { return "「\(source)」を棚から外しました。" }
-        return "外せませんでした(\(v))。"
+        if v == "SET" { return "「\(source)」を切断しました(削除ではありません)。" }
+        return "切断できませんでした(\(v))。"
+    }
+
+    /// 再接続。
+    static func attachDocument(_ source: String) async -> String {
+        guard let obj = await callDoor("vera_documents", ["attach": source]) else {
+            return "扉が応答しません。"
+        }
+        return ((obj["verdict"] as? String) == "SET")
+            ? "「\(source)」を再接続しました。" : "再接続できませんでした。"
+    }
+
+    /// 完全削除 — こちらだけが本当に消す。
+    static func purgeDocument(_ source: String) async -> String {
+        guard let obj = await callDoor("vera_documents", ["purge": source]) else {
+            return "扉が応答しません。"
+        }
+        return ((obj["verdict"] as? String) == "PURGED")
+            ? "「\(source)」を完全に削除しました。" : "削除できませんでした。"
+    }
+
+    /// 優先度(高いほど先に照合) — 「この文書を優先して判断」の配線。
+    static func setDocumentPriority(_ source: String, _ p: Int) async {
+        _ = await callDoor("vera_documents",
+                           ["priority_source": source, "priority": p])
     }
 
     /// この端末の文書と、公開連合(一般知識)が同じ主題について何を言うか。
@@ -1389,7 +1443,8 @@ enum VeraMemoryBridge {
     /// SEARCH_MULTI と同じく、上位URLをブラウザ経路で開いて本文まで取り、
     /// 出典ごとに「どこから・どう取ったか」を添えて構造へ渡す。
     /// 渡すだけで、書き込み経路は無い。
-    static func veraFreshTurn(for query: String) async -> String? {
+    static func veraFreshTurn(for query: String, maxPages: Int = 2,
+                              propose: Bool = false) async -> String? {
         var used = query
         var primary = await WebSearchEngine.shared.search(
             query: query, engine: .duckduckgoHTML)
@@ -1407,8 +1462,8 @@ enum VeraMemoryBridge {
         let serp = primary.contextSnippet
         var pages: [FreshPage] = []
 
-        // 上位2件を並列に開く。ここが自動UI操作の経路(既定は Safari)。
-        let targets = freshURLs(in: serp, limit: 2)
+        // 上位N件を並列に開く(設定の上限)。自動UI操作の経路(既定は Safari)。
+        let targets = freshURLs(in: serp, limit: max(1, min(maxPages, 4)))
         if !targets.isEmpty {
             await withTaskGroup(of: FreshPage?.self) { group in
                 for u in targets {
@@ -1459,6 +1514,19 @@ enum VeraMemoryBridge {
 
         var lines: [String] = []
         if let t = obj["reply"] as? String, !t.isEmpty { lines.append("🌐 \(t)") }
+        // 承認キューへの提案(設定でON時のみ)。propose_web_evidence は
+        // 生の抜粋を1件そのまま隔離キューに置く扉 — 人が accept する
+        // まで ask() からは見えない。黙って構造に入る経路は無い。
+        if propose, let first = pages.first {
+            let body = String(first.text.prefix(2_000))
+            if let pr = await callDoor("propose_web_evidence",
+                                       ["text": body, "source": first.url]),
+               (pr["proposed"] as? String) != nil {
+                lines.append("⏳ 抜粋を承認キューに提案しました"
+                             + "(list_pending_ai_facts → accept_ai_fact で昇格。"
+                             + "それまで ask には見えません)")
+            }
+        }
         // 出典はURLだけでは足りない。同じURLでも、ブラウザを操作して読んだ
         // 本文と、URLSessionで取ったHTMLとでは見えているものが違う
         // (JS描画・ログイン状態・地域)。どう取ったかまで書いて初めて
@@ -1482,6 +1550,27 @@ enum VeraMemoryBridge {
     static func veraModelTurn(
         for query: String, trail: String? = nil, storeFirst: Bool = false
     ) async -> (reply: String, core: String?) {
+        // 「検索して」— 実行前確認ONのときの実行トリガ(2026-08-19)。
+        // 対象は直近で拒否された質問に閉じている。それが無ければ普通の
+        // 質問として流れる。
+        let trimmed = query.trimmingCharacters(in: .whitespacesAndNewlines)
+        if trimmed == "検索して" || trimmed == "検索する" {
+            let (pending, webOn, maxP, propose) = await MainActor.run {
+                (AppState.shared?.veraLastRefusedQuery,
+                 AppState.shared?.toolWebSearchEnabled ?? false,
+                 AppState.shared?.veraWebMaxPages ?? 2,
+                 AppState.shared?.veraWebPropose ?? false)
+            }
+            if webOn, let q0 = pending, !q0.isEmpty {
+                await MainActor.run { AppState.shared?.veraLastRefusedQuery = nil }
+                if let fresh = await veraFreshTurn(for: q0, maxPages: maxP,
+                                                   propose: propose) {
+                    return ("🔎 「\(q0)」を検索しました。\n" + fresh, nil)
+                }
+                return ("🌐 「\(q0)」を検索しましたが、"
+                        + "本文を取得できませんでした。", nil)
+            }
+        }
         // One door. This function used to hold the ordering itself — the
         // diff short-circuit, then `vera_ask`, then a context retry — and
         // `VeraDialogueScreen` held a second copy of the same three steps.
@@ -1633,9 +1722,25 @@ enum VeraMemoryBridge {
             lines.append("(型付き拒否 — Vera単体は知らないことを推測しません)")
             // 店が知らないときだけ、検索の一時知識を隣に置く。推測では
             // なく出典つきの引用で、返答と同時に破棄される。ユーザーの
-            // 検索トグルが門 — 黙って外に出ることはない。
-            if await MainActor.run(body: { AppState.shared?.toolWebSearchEnabled ?? false }) {
-                if let fresh = await veraFreshTurn(for: query) {
+            // 検索トグルが門 — 黙って外に出ることはない。細粒度(2026-08-19):
+            // 実行前確認ON なら案内だけ出し「検索して」で実行、ページ数
+            // 上限、承認キューへの提案は各設定。発火は型付き拒否のみ。
+            let (webOn, askFirst, maxP, propose) = await MainActor.run {
+                (AppState.shared?.toolWebSearchEnabled ?? false,
+                 AppState.shared?.veraWebAskFirst ?? true,
+                 AppState.shared?.veraWebMaxPages ?? 2,
+                 AppState.shared?.veraWebPropose ?? false)
+            }
+            if webOn {
+                if askFirst {
+                    await MainActor.run {
+                        AppState.shared?.veraLastRefusedQuery = query
+                    }
+                    lines.append("🔎 ウェブ検索が許可されています。"
+                                 + "「検索して」と送ると出典つきで検索します"
+                                 + "(実行前確認: ON — 設定で外せます)")
+                } else if let fresh = await veraFreshTurn(
+                        for: query, maxPages: maxP, propose: propose) {
                     lines.append(fresh)
                 }
             }

@@ -659,6 +659,30 @@ final class AppState: ObservableObject {
     @Published var toolWebSearchEnabled: Bool = true {
         didSet { UserDefaults.standard.set(toolWebSearchEnabled, forKey: "tool_web_search") }
     }
+    // ── 不足知識時ウェブ検索の細粒度制御(2026-08-19) ──────────────────
+    // 発火条件は一つに固定: Veraモードで型付き拒否(UNKNOWN*)が出たとき
+    // だけ。答えが立った質問で外に出ることは構造上ない。以下はその上の
+    // ダイヤル。
+    /// 実行前に確認する — ONなら拒否時に案内だけ出し、「検索して」で実行。
+    @Published var veraWebAskFirst: Bool = UserDefaults.standard
+        .object(forKey: "vera_web_ask_first") as? Bool ?? true {
+        didSet { UserDefaults.standard.set(veraWebAskFirst, forKey: "vera_web_ask_first") }
+    }
+    /// 開くページ数の上限(1〜4)。
+    @Published var veraWebMaxPages: Int = {
+        let v = UserDefaults.standard.integer(forKey: "vera_web_max_pages")
+        return v == 0 ? 2 : min(max(v, 1), 4)
+    }() {
+        didSet { UserDefaults.standard.set(veraWebMaxPages, forKey: "vera_web_max_pages") }
+    }
+    /// 取得した抜粋を承認キュー(propose_web_evidence)へ提案する。
+    /// 提案されても人が accept するまで ask() からは見えない。
+    @Published var veraWebPropose: Bool = UserDefaults.standard
+        .bool(forKey: "vera_web_propose") {
+        didSet { UserDefaults.standard.set(veraWebPropose, forKey: "vera_web_propose") }
+    }
+    /// 「検索して」の対象 — 直近で拒否された質問(非永続)。
+    var veraLastRefusedQuery: String?
     @Published var toolTerminalEnabled: Bool = true {
         didSet { UserDefaults.standard.set(toolTerminalEnabled, forKey: "tool_terminal") }
     }
@@ -1782,42 +1806,10 @@ final class AppState: ObservableObject {
 
         // ── ⟨verantyx⟩ … ⟨/verantyx⟩ pastes a document straight in ──────
         //
-        // The attachment path asks first because a file arriving on screen
-        // is not yet a decision. A wrapped paste IS the decision — the
-        // person typed the tag around the text — so it registers without a
-        // second question, and it registers as VOCABULARY, never as facts
-        // that vote. Nothing here can put a claim into the census.
-        if let open = text.range(of: "<verantyx>"),
-           let close = text.range(of: "</verantyx>"),
-           open.upperBound < close.lowerBound {
-            let body = String(text[open.upperBound..<close.lowerBound])
-            let label = text[..<open.lowerBound]
-                .trimmingCharacters(in: .whitespacesAndNewlines)
-            let name = (label.isEmpty ? "pasted" : label).lowercased()
-                .map { $0.isLetter || $0.isNumber ? String($0) : "_" }
-                .joined().prefix(32)
-            inputText = ""
-            // The tags are a command, not content. They are stripped from
-            // what goes in AND from what is shown, so the transcript reads
-            // as the document it was — a person scrolling back should see
-            // what they loaded, not the syntax they used to load it.
-            let shown = (String(text[..<open.lowerBound])
-                         + body
-                         + String(text[close.upperBound...]))
-                .trimmingCharacters(in: .whitespacesAndNewlines)
-            messages.append(ChatMessage(role: .user, content: shown))
-            isGenerating = true
-            inferenceTask = Task {
-                let reply = await VeraMemoryBridge.registerDomainText(
-                    String(name), text: body)
-                await MainActor.run {
-                    self.messages.append(ChatMessage(
-                        role: .assistant, content: reply))
-                    self.isGenerating = false
-                }
-            }
-            return
-        }
+        // <verantyx>…</verantyx> のタグ投入は廃止(2026-08-19、ユーザ指示)。
+        // 語彙(分野)側にしか入らない片道の入口で、文書側と入れ違う。
+        // 投入は OPERATOR の文書/分野画面の共通フォーム一つに集約 —
+        // そこは文書・分野・両方をトグルで選べる。
 
         // ── A new attachment asks first ───────────────────────────────
         if !attachedFiles.isEmpty {

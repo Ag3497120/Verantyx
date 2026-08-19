@@ -892,10 +892,9 @@ struct AgentChatView: View {
     /// worse than one that never changes. It stops the moment there is text,
     /// which is the existing behaviour and stays.
     private var placeholderRotation: String {
-        placeholderPhase == 0
-            ? app.t("Ask Vera…", "Vera に質問")
-            : app.t("<verantyx> … </verantyx> to load a document",
-                    "<verantyx> 〜 </verantyx> で投入")
+        // <verantyx>タグ投入は廃止(2026-08-19) — 投入は OPERATOR の
+        // 文書/分野画面の共通フォームだけ。案内も消す。
+        app.t("Ask Vera…", "Vera に質問")
     }
 
     @ViewBuilder
