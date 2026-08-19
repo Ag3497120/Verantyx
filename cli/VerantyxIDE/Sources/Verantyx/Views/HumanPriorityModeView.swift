@@ -1716,7 +1716,15 @@ struct VeraFeatureDock: View {
         // view — showing it here too meant two memory readouts at once.
         // .growth removed likewise: growth lives in the Vera-a audit
         // screen's right panel now.
-        case research, distributed, settings, modes, stereoCross, vectorLab
+        // .document added back: VeraDocumentPanel (投入 — the whole document
+        // ingest surface Task #7 asked to be verified) had no live path to
+        // reach it. Its old container, VeraSummonedPanel, is never
+        // instantiated anywhere, and the summon table (VeraSummon.swift)
+        // still lists 「投入」「文書」 as words that should land here — but
+        // nothing wired the summon into this dock, so typing them just sent
+        // them to Vera as an ordinary question instead. Found live,
+        // 2026-08-18, while checking the dock's tabs one by one.
+        case research, distributed, settings, modes, stereoCross, vectorLab, document
         var id: String { rawValue }
         @MainActor
         func title(_ app: AppState) -> String {
@@ -1727,6 +1735,7 @@ struct VeraFeatureDock: View {
             case .modes:       return app.t("Modes", "モード")
             case .stereoCross: return app.t("3D Graph", "立体十字")
             case .vectorLab:   return app.t("Vector Lab", "ベクトルラボ")
+            case .document:    return app.t("Documents", "投入")
             }
         }
     }
@@ -1761,6 +1770,7 @@ struct VeraFeatureDock: View {
                 case .modes:       ModesOverviewView()
                 case .stereoCross: StereoCrossGraphView()
                 case .vectorLab:   VectorLabView()
+                case .document:    VeraDocumentPanel()
                 }
             }
             .frame(maxWidth: .infinity, maxHeight: .infinity)

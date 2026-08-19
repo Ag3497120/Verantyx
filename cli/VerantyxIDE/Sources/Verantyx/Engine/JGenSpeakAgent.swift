@@ -179,9 +179,11 @@ actor JGenSpeakAgent {
                 .map(\.text)
                 .joined(separator: " ")
         }
-        let probe = try await chat.tokenize(
-            "<|im_start|>user\n\(question)<|im_end|>\n<|im_start|>assistant\n"
-        )
+        // The model's own turn markers, not ChatML. A probe asked in a format
+        // the model does not use steers on a prompt it never parsed.
+        let probeText = await chat.chatWrap(system: "", user: question)
+            ?? "<|im_start|>user\n\(question)<|im_end|>\n<|im_start|>assistant\n"
+        let probe = try await chat.tokenize(probeText)
         let steered = try await chat.encodeSoftTokens(softVectors: soft, tokens: probe)
         let steeredDist = try await chat.topKDistributionText(vector: steered, k: 8)
         let words = SoftSequence.sharpenDist(steeredDist, topN: 6).map(\.text)

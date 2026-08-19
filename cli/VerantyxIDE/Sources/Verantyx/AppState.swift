@@ -276,6 +276,20 @@ final class AppState: ObservableObject {
         didSet { UserDefaults.standard.set(veraDomainOnly,
                                            forKey: "vera_domain_only") }
     }
+    /// 取り込んだ文書だけを引く面に切り替える。
+    ///
+    /// 品質の改善ではなく契約の宣言である。実測 2026-08-18、核2,779の店で
+    /// 7問を両面に当てたところ、文書に載っている4問は返答が完全に一致し、
+    /// 分かれたのは2問だけ — 「正当防衛とは」は文書面が拒否して chat が
+    /// SEEDED の空虚な節を3つ返し(文書面が優る)、「3たす4は」は chat が
+    /// 正しく 7 を返して文書面が拒否した(文書面が劣る)。だから既定は off。
+    /// 「社内文書に書いてあることしか答えない」が要件である配備でだけ、
+    /// 算術も一般知識も落ちることを承知の上で入れる。
+    @Published var veraDocumentsOnly: Bool = UserDefaults.standard
+        .bool(forKey: "vera_documents_only") {
+        didSet { UserDefaults.standard.set(veraDocumentsOnly,
+                                           forKey: "vera_documents_only") }
+    }
     @Published var pendingIngest: [URL] = []
 
     // Inference task handle (for cancellation)
@@ -1918,8 +1932,10 @@ final class AppState: ObservableObject {
         // VeraMemoryBridge.veraModelTurn.
         if veraEngineMode == .veraModel && !isSpotlight {
             let trail = veraTrailCore
+            let only = veraDomainOnly
             inferenceTask = Task {
-                let r = await VeraMemoryBridge.veraModelTurn(for: text, trail: trail)
+                let r = await VeraMemoryBridge.veraModelTurn(
+                    for: text, trail: trail, storeFirst: only)
                 await MainActor.run {
                     if let c = r.core { self.veraTrailCore = c }
                     self.messages.append(ChatMessage(

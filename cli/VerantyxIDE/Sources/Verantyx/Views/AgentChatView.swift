@@ -59,22 +59,28 @@ struct AgentChatView: View {
 
             // ── Content ─────────────────────────────────────────────
             ZStack {
-                // Vera mode replaces the TRANSCRIPT with the three
-                // columns — never the pane. The tab bar above and the
-                // input bar below carry the mode switches, the
-                // attachments and the model readout, and swapping the
-                // whole pane is what made them disappear.
+                // Vera mode used to replace the TRANSCRIPT with
+                // VeraConsolePane's stacked ANSWER/GAP sections — no
+                // turn-by-turn history, because that view reads
+                // VeraRouteState directly and never looks at
+                // app.messages. Turned out to read as "vera mode has no
+                // history" (user report, 2026-08-19): the question WAS
+                // being recorded (sendMessage appends role:.user for
+                // every mode before branching), the console pane just
+                // never showed it. Requested to look like Vera-a's
+                // You/Verantyx history instead — chatTranscriptArea
+                // already renders app.messages turn by turn and needs
+                // no Vera-specific handling, since Vera's replies are
+                // already plain ChatMessage(role:.assistant, content:)
+                // like every other mode.
                 // Every mode gets the same screen: memory and the free
                 // window down the left, the cross as a watermark over
                 // all of it, and the main area filled by whatever this
-                // mode actually answers with — Vera's structured console
-                // in Vera mode, the transcript in the LLM and dual-path
-                // modes. Vera runs under all three; only the reply
-                // differs.
+                // mode actually answers with — the transcript in every
+                // mode except Bot. Vera runs under all three; only the
+                // reply differs.
                 VeraSovereignLayout {
-                    if app.veraEngineMode == .veraModel {
-                        VeraConsolePane().environmentObject(app)
-                    } else if app.veraEngineMode == .veraBot {
+                    if app.veraEngineMode == .veraBot {
                         // Bot's replies are screens, and an NSTextView
                         // cannot hold one. Same messages, rendered as
                         // views.
@@ -508,9 +514,21 @@ struct AgentChatView: View {
 
     // MARK: - Model selector bar
 
+    /// ModelSelectorBarView is entirely about LLM backends: which one is
+    /// loaded (Gatekeeper chip), the 監視(Auditor)/ERROR badge, the
+    /// 自動/手動 execution-mode stepper. None of it means anything in Vera
+    /// mode — no LLM ever enters that turn (see AppState.sendMessage's
+    /// veraModel branch) — so showing it there was showing controls for a
+    /// backend the mode never calls. Requested 2026-08-19. The engine-mode
+    /// picker and, when Vera mode is active, the version picker ("ローカル"
+    /// / a stamped release) already live in the top bar's veraModeControls
+    /// — that is where Vera's own "which model answers" question is
+    /// answered, so nothing is lost by hiding this bar here.
     private var modelSelectorBar: some View {
         HStack(spacing: 8) {
-            ModelSelectorBarView()
+            if app.veraEngineMode != .veraModel {
+                ModelSelectorBarView()
+            }
 
             Spacer()
 

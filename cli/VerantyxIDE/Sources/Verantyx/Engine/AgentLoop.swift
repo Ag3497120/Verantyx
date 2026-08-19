@@ -187,13 +187,35 @@ actor AgentLoop {
             return
         }
 
-        // ── Vera-α: structural-diff fast path ─────────────────────────────
-        // 「AとBの違い」-shaped questions are a selection-and-compare task
-        // Vera does without inventing — shared / A-only / B-only, marked
-        // 構成的, abstained layers named. Same contract as the direct
-        // answer above: high-confidence hand-off or silent fall-through.
-        if memoryLayer == .vera, let diffAnswer = await VeraMemoryBridge.tryDiffAnswer(for: instruction) {
-            await onProgress(.done(message: diffAnswer, workspace: currentWorkspace))
+        // ── Vera-α: answer without the model where Vera is exact ─────────
+        // This was a diff-only fast path: 「AとBの違い」 short-circuited and
+        // nothing else did, so arithmetic, a mathlib witness and a meaning
+        // descent all went to the model even though the engine holds an
+        // exact answer for each. The path now goes through `vera_engine`,
+        // which carries the whole composition.
+        //
+        // **The strength gate is unchanged and deliberately narrow.** Only
+        // verdicts that stand on their own short-circuit. SEEDED, UNITS and
+        // CONTAINMENT do NOT — they are the weaker verdicts the model is
+        // here for, and a hand-off contract that quietly widened to include
+        // them would be reported as "Vera answers more" when what actually
+        // happened is that worse answers stopped being improved.
+        if memoryLayer == .vera,
+           let obj = await VeraMemoryBridge.callDoor(
+               "vera_engine", ["query": instruction, "last_core": "",
+                               "domain": ""]),
+           let verdict = obj["verdict"] as? String,
+           ["ANSWER", "DIFF", "EXPLAINED_BY_UNIT_DEFS",
+            "VERIFIED"].contains(verdict),
+           let body = obj["text"] as? String, !body.isEmpty {
+            let door = (obj["door"] as? String) ?? "vera_engine"
+            let origins = (obj["origins"] as? [String]) ?? []
+            var msg = body + "\n\n(\(verdict) · 扉: \(door)"
+            if !origins.isEmpty {
+                msg += " · 出典: " + origins.prefix(3).joined(separator: ", ")
+            }
+            msg += " — Vera単体・LLM不使用)"
+            await onProgress(.done(message: msg, workspace: currentWorkspace))
             return
         }
 
@@ -2806,13 +2828,28 @@ SYS.ENFORCE("logical_verification_before_acceptance")
     private func buildConversationPrompt(modelName: String, conversation: [(role: String, content: String)]) -> String {
         let model = modelName.lowercased()
         let isChatML = model.contains("qwen") || model.contains("talkie") || model.contains("chatml")
-        let isGemma = model.contains("gemma")
+        // gemma-4 does NOT use <start_of_turn>. Its markers are <|turn> and
+        // <turn|>, and `contains("gemma")` alone sends it down the gemma-2
+        // branch and produces a prompt it cannot parse.
+        //
+        // This path is MLX-only, where there is no JGEN sidecar to read, so
+        // the family really is being guessed from the name here. The version
+        // that does not guess is JCrossChatManager.formatConversation, which
+        // asks the loaded engine for markers the converter took out of the
+        // model's own vocabulary.
+        let isGemma4 = model.contains("gemma-4") || model.contains("gemma4")
+        let isGemma = !isGemma4 && model.contains("gemma")
         let isLlama3 = model.contains("llama-3") || model.contains("llama3") || model.contains("phi-4")
         
         if isChatML {
             return conversation.map { turn in
                 return "<|im_start|>\(turn.role)\n\(turn.content)<|im_end|>"
             }.joined(separator: "\n") + "\n<|im_start|>assistant\n"
+        } else if isGemma4 {
+            return "<bos>" + conversation.map { turn in
+                let role = turn.role == "assistant" ? "model" : turn.role
+                return "<|turn>\(role)\n\(turn.content)<turn|>"
+            }.joined(separator: "\n") + "\n<|turn>model\n<|channel>thought\n<channel|>"
         } else if isGemma {
             return conversation.map { turn in
                 let role = turn.role == "assistant" ? "model" : turn.role

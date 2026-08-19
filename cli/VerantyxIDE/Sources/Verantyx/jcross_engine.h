@@ -42,6 +42,22 @@ int32_t jcross_engine_hidden_dim(void *engine);
 // Returns the number of transformer layers.
 int32_t jcross_engine_num_layers(void *engine);
 
+// Wrap system+question in THIS MODEL'S turn markers, taken from its sidecar.
+// Returns bytes written, -1 bad pointer, -2 buffer too small, -3 the
+// converter did not recognise this model's markers. -3 is an answer: the
+// caller must supply the format rather than fall back to ChatML, which is
+// right for Qwen and silently wrong for both gemma families.
+int32_t jcross_engine_chat_wrap(void *engine, const char *system,
+                                const char *user, char *out, int32_t out_cap);
+
+// Whole-conversation variant. turns_json is
+// [{"role":"user","content":"…"}, …]. Same return codes.
+int32_t jcross_engine_chat_wrap_json(void *engine, const char *turns_json,
+                                     char *out, int32_t out_cap);
+
+// "gemma4" | "gemma" | "chatml" | "" when unknown.
+int32_t jcross_engine_chat_family(void *engine, char *out, int32_t out_cap);
+
 // Greedy-generates up to max_tokens token ids continuing prompt_ptr/prompt_len,
 // writing into out_ptr (capacity out_len). Returns the number of tokens
 // actually written (>= 0), or a negative error code.

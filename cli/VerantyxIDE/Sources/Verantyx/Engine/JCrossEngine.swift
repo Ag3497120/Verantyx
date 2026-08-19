@@ -88,6 +88,63 @@ final class JCrossEngine {
         jcross_engine_reset(handle)
     }
 
+    /// This model's turn-marker family — "gemma4", "gemma", "chatml", or ""
+    /// when the converter did not recognise it.
+    func chatFamily() -> String {
+        var buf = [CChar](repeating: 0, count: 64)
+        let n = buf.withUnsafeMutableBufferPointer {
+            jcross_engine_chat_family(handle, $0.baseAddress, Int32($0.count))
+        }
+        return n > 0 ? String(cString: buf) : ""
+    }
+
+    /// Wraps `system` + `user` in THIS MODEL'S turn markers.
+    ///
+    /// Returns nil when the converter did not recognise the markers (-3).
+    /// Callers must then decide what to do with that fact rather than be
+    /// handed ChatML, which is right for Qwen and silently wrong for both
+    /// gemma families — gemma2 answered a ChatML prompt with blank lines.
+    func chatWrap(system: String, user: String) -> String? {
+        var cap = max(4096, (system.utf8.count + user.utf8.count) * 2 + 512)
+        for _ in 0..<3 {
+            var buf = [CChar](repeating: 0, count: cap)
+            let n = buf.withUnsafeMutableBufferPointer { out in
+                system.withCString { sysPtr in
+                    user.withCString { usrPtr in
+                        jcross_engine_chat_wrap(handle, sysPtr, usrPtr,
+                                                out.baseAddress, Int32(out.count))
+                    }
+                }
+            }
+            if n > 0 { return String(cString: buf) }
+            if n == -2 { cap *= 4; continue }
+            return nil
+        }
+        return nil
+    }
+
+    /// Wraps a whole conversation in THIS MODEL'S turn markers.
+    /// nil when the markers are unknown — same contract as `chatWrap`.
+    func chatWrap(conversation: [(role: String, content: String)]) -> String? {
+        let payload = conversation.map { ["role": $0.role, "content": $0.content] }
+        guard let data = try? JSONSerialization.data(withJSONObject: payload),
+              let json = String(data: data, encoding: .utf8) else { return nil }
+        var cap = max(4096, json.utf8.count * 2 + 512)
+        for _ in 0..<3 {
+            var buf = [CChar](repeating: 0, count: cap)
+            let n = buf.withUnsafeMutableBufferPointer { out in
+                json.withCString { jsonPtr in
+                    jcross_engine_chat_wrap_json(handle, jsonPtr,
+                                                 out.baseAddress, Int32(out.count))
+                }
+            }
+            if n > 0 { return String(cString: buf) }
+            if n == -2 { cap *= 4; continue }
+            return nil
+        }
+        return nil
+    }
+
     /// Releases composed weight caches + KV-cache, dropping RAM back to
     /// ~mmap only. Weights recompose lazily on next use.
     func trim() {

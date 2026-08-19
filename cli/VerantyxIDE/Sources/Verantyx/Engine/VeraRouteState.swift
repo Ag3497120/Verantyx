@@ -124,6 +124,15 @@ final class VeraRouteState: ObservableObject {
             }
             origins = named.sorted().prefix(4).map { $0 }
         }
+        // `vera_explain` carries its provenance inside each unit rather
+        // than in `facet_origin`, so the console showed
+        // 「出典の記録なし」 over an answer that named
+        // 「jawiki:リンゴ ← りんご」. A screen whose whole claim is that it
+        // shows sources must not be the thing that drops one.
+        if origins.isEmpty, let units = obj["units"] as? [[String: Any]] {
+            origins = units.compactMap { $0["source"] as? String }
+                .filter { !$0.isEmpty }
+        }
         answerText = (obj["text"] as? String) ?? ""
         subject = (obj["core"] as? String) ?? (obj["subject"] as? String) ?? ""
         gaps = (obj["known_gap"] as? [String]) ?? []

@@ -104,6 +104,10 @@ enum VeraSettingsRegistry {
                blurbJa: "直近の実行の要約と、証拠・矛盾・欠落の数",
                words: ["監査", "audit"],
                destination: .panel(.audit)),
+        Screen(id: "document", ja: "投入", en: "Document",
+               blurbJa: "文書を語彙として入れる。文法は共有のまま、票は持たない",
+               words: ["投入", "文書", "資料", "語彙", "分野", "document"],
+               destination: .panel(.document)),
 
         // ── 全画面を取るもの ──────────────────────────────────────
         Screen(id: "mcp", ja: "外部運用", en: "External operation",
@@ -185,6 +189,7 @@ enum VeraSettingsRegistry {
 enum VeraSummon {
     enum Panel: String, Identifiable, CaseIterable {
         case settings, memory, cross, audit, modes, model, licences, screen, jgen
+        case document
         var id: String { rawValue }
 
         var title: String {
@@ -198,6 +203,7 @@ enum VeraSummon {
             case .licences: return "免許"
             case .screen:   return "画面"
             case .jgen:     return "JGEN"
+            case .document: return "投入"
             }
         }
     }
@@ -212,6 +218,12 @@ enum VeraSummon {
         "十字": .cross, "立体十字": .cross, "立体十字構造体": .cross,
         "構造": .cross, "cross": .cross,
         "監査": .audit, "audit": .audit,
+        // 投入 — the document entry, folded in from the standalone Vera
+        // window when that window was retired. It is the only thing that
+        // window had which this screen did not.
+        "投入": .document, "とうにゅう": .document, "文書": .document,
+        "資料": .document, "document": .document, "ingest": .document,
+        "語彙": .document, "分野": .document,
         "モード": .modes, "モード切替": .modes, "modes": .modes,
         "モデル": .model, "model": .model, "モデル切替": .model,
         // The app-delegation licence book. Named 免許 because that is what

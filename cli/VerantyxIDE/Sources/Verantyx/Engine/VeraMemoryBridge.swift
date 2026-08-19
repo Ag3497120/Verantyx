@@ -1,4 +1,5 @@
 import Foundation
+import PDFKit
 
 /// The Vera model's own engine process — NATIVE, owned by the mode.
 ///
@@ -575,6 +576,121 @@ enum VeraMemoryBridge {
         let slots = obj["slots"] as? Int ?? 0
         return "🗂 分野「\(name)」として登録しました(動詞 \(verbs)・枠 \(slots))。"
             + "文法は共有のまま、この文書の語彙だけが足されています。"
+    }
+
+    /// 文書として取り込む — 語彙登録とは別の扉。
+    ///
+    /// `vera_domain` はこの文書の**言葉**を足す(票は持たない)。こちらは
+    /// 文書そのものを二重に索引する: 文取り込みで店へ、構造索引で側車へ。
+    /// 結果として「宿泊費の上限は」に原文の行がそのまま返り、書かれて
+    /// いない語には DOCUMENT_NOT_SPECIFIED が返る — 企業の規程窓口が
+    /// 要求するのはこちらで、語彙登録では逐語引用に届かない。
+    ///
+    /// 文書は提示されるだけで自動では入らない、という規則はここでも同じ:
+    /// 呼ぶのは人が押したときだけ。
+    /// PDF を、CID を解ける読取器で本文にしてから渡す。
+    ///
+    /// エンジン側の pypdf は、埋め込みフォントに ToUnicode 対応表が無い
+    /// PDF を字ごとに別のブロックへ写して返す。実測: 12,336行の日本語PDFが
+    /// 「ϒϥϯν」(=ブランチ)「ϦϞʔτ」(=リモート) として出てきて、失敗を
+    /// 名乗らないまま 10,191文・2,032核が店に入り、連合の核 2,140 のうち
+    /// 937 が化けになった。PDFKit は同じ PDF を正しく読む。だから読取は
+    /// こちら側で済ませ、エンジンには読めるテキストだけを渡す。
+    private static func legiblePath(_ path: String) -> (path: String, note: String?) {
+        guard path.lowercased().hasSuffix(".pdf") else { return (path, nil) }
+        let url = URL(fileURLWithPath: path)
+        guard let doc = PDFDocument(url: url), let text = doc.string,
+              !text.trimmingCharacters(in: .whitespacesAndNewlines).isEmpty
+        else { return (path, "\(url.lastPathComponent): PDFKit が本文を取り出せず、そのまま渡します") }
+        let dir = FileManager.default.temporaryDirectory
+            .appendingPathComponent("vera-pdf-\(UUID().uuidString)", isDirectory: true)
+        let out = dir.appendingPathComponent(url.deletingPathExtension().lastPathComponent + ".txt")
+        do {
+            try FileManager.default.createDirectory(at: dir, withIntermediateDirectories: true)
+            try text.write(to: out, atomically: true, encoding: .utf8)
+        } catch { return (path, "\(url.lastPathComponent): 一時ファイルを書けませんでした") }
+        return (out.path, "\(url.lastPathComponent) は PDFKit で本文にしてから渡しました")
+    }
+
+    static func loadDocuments(paths: [String]) async -> String {
+        let prepared = paths.map { legiblePath($0) }
+        let notes = prepared.compactMap { $0.note }
+        guard let obj = await callDoor("load_documents",
+                                       ["paths": prepared.map(\.path).joined(separator: ","),
+                                        "ingest": true])
+        else { return "取り込めませんでした(扉が応答しません)。" }
+        let loaded = (obj["loaded"] as? Int) ?? 0
+        var lines: [String] = []
+        if let ing = obj["ingested"] as? [String: Any] {
+            let sents = (ing["sentences"] as? Int) ?? 0
+            let seen = (ing["sentences_seen"] as? Int) ?? 0
+            let cores = (ing["cores"] as? [Any])?.count ?? 0
+            lines.append("📄 \(loaded)件を取り込みました(文 \(sents)/\(seen)・核 \(cores))。")
+        } else {
+            lines.append("📄 \(loaded)件を取り込みました。")
+        }
+        // 読めなかったものは名前と理由で必ず出す。黙って減った corpus を
+        // 全体として報告するのが、この経路で最も避けたい失敗。
+        if let skipped = obj["skipped"] as? [[String: Any]], !skipped.isEmpty {
+            for s in skipped.prefix(3) {
+                let name = (s["path"] as? String) ?? "?"
+                let why = (s["verdict"] as? String) ?? "UNKNOWN"
+                lines.append("⚠️ 読めず: \((name as NSString).lastPathComponent) — \(why)")
+            }
+        }
+        for n in notes { lines.append("🔎 \(n)") }
+        lines.append("この文書について聞くと、原文の行がそのまま引用されます。"
+                     + "書かれていない語は「明記なし」と型で返ります。")
+        return lines.joined(separator: "\n")
+    }
+
+    /// この端末が抱えている文書の棚。分野(語彙)の棚とは別物で、合体しない。
+    static func documentShelf() async -> [(source: String, sections: Int,
+                                           labels: Int, lines: Int)] {
+        guard let obj = await callDoor("vera_documents", [:]),
+              let docs = obj["documents"] as? [[String: Any]] else { return [] }
+        return docs.map { (($0["source"] as? String) ?? "?",
+                           ($0["sections"] as? Int) ?? 0,
+                           ($0["labels"] as? Int) ?? 0,
+                           ($0["lines"] as? Int) ?? 0) }
+    }
+
+    static func forgetDocument(_ source: String) async -> String {
+        guard let obj = await callDoor("vera_documents", ["forget": source]) else {
+            return "扉が応答しません。"
+        }
+        let v = (obj["verdict"] as? String) ?? ""
+        if v == "FORGOT" { return "「\(source)」を棚から外しました。" }
+        return "外せませんでした(\(v))。"
+    }
+
+    /// この端末の文書と、公開連合(一般知識)が同じ主題について何を言うか。
+    /// 「この規程は一般的な考え方と比べて特殊か」が立つ場所で、二空間は
+    /// 合流しない — 並べて読めるようにするだけ。
+    static func compareSpaces(topic: String) async -> String {
+        guard let obj = await callDoor("vera_compare_spaces", ["topic": topic])
+        else { return "比較できませんでした(扉が応答しません)。" }
+        let verdict = (obj["verdict"] as? String) ?? ""
+        let cov = obj["coverage"] as? [String: Any]
+        let dn = (cov?["document"] as? Int) ?? 0
+        let bn = (cov?["base"] as? Int) ?? 0
+        if verdict == "INSUFFICIENT_PROFILE" {
+            let thin = (obj["thin_side"] as? [String])?.joined(separator: "・") ?? "?"
+            return "🚫 比較は立ちません(薄い側: \(thin)。文書\(dn)/一般\(bn))。"
+                + "\n薄い側が信頼度を決めます — 基礎データか文書が育つと立ちます。"
+        }
+        func bucket(_ key: String) -> String {
+            guard let b = obj[key] as? [String: Any],
+                  let items = b["items"] as? [String] else { return "—" }
+            let more = (b["more"] as? Int) ?? 0
+            return items.joined(separator: "・") + (more > 0 ? " ほか\(more)件" : "")
+        }
+        return ["⚖️ 「\(topic)」の二空間比較(文書\(dn)/一般\(bn))",
+                "共通: \(bucket("shared"))",
+                "文書のみ: \(bucket("doc_only"))",
+                "一般のみ: \(bucket("base_only"))",
+                "(実測あり/なしの対比のみ。可否や優劣は判断していません)"]
+            .joined(separator: "\n")
     }
 
     static func ingestDocuments(_ documents: [(source: String, text: String)]) async -> String {
@@ -1227,74 +1343,259 @@ enum VeraMemoryBridge {
     /// route, or a typed refusal wearing whatever honest hand-offs apply
     /// (typo evidence, constructed explanation, the remedy). This is the
     /// IDE's version of the 3D page's ASK, and like it, it never guesses.
-    static func veraModelTurn(
-        for query: String, trail: String? = nil
-    ) async -> (reply: String, core: String?) {
-        if let diffAnswer = await tryDiffAnswer(for: query) {
-            return (diffAnswer, nil)
+    /// 検索 → 一時空間で引用 → 破棄。
+    ///
+    /// IDE が持つ検索(WebSearchEngine)で頁を取り、vera_fresh に渡す。
+    /// サーバ側は関数の中だけに索引して逐語引用で答え、店にも文書にも
+    /// 会話にも一行も書かずに消える — 「最新を取り、必要以上に取り込ま
+    /// ない」の実装。破棄は方針でなく構造で、直後に同じ主題を聞けば
+    /// ABSENT が返ることで追試できる。
+    /// 検索結果の一片。どう取ったかが本文と同じ重さを持つ。
+    private struct FreshPage {
+        let url: String, title: String, text: String, source: BrowseSource
+    }
+
+    private static func fetchHow(_ s: BrowseSource) -> String {
+        switch s {
+        case .safari:        return "Safariを操作して読取"
+        case .chrome:        return "Chromeを操作して読取"
+        case .arc:           return "Arcを操作して読取"
+        case .firefoxBridge: return "Firefoxブリッジで読取"
+        case .fetch:         return "直接取得(JS未実行)"
+        }
+    }
+
+    private static func freshURLs(in text: String, limit: Int) -> [String] {
+        let pattern = #"https?://[^\s\]<"')>]+"#
+        guard let re = try? NSRegularExpression(pattern: pattern) else { return [] }
+        var out: [String] = []
+        var seen = Set<String>()
+        for m in re.matches(in: text, range: NSRange(text.startIndex..., in: text)) {
+            guard let r = Range(m.range, in: text) else { continue }
+            let u = String(text[r])
+            // 検索エンジン自身のURLを引用元にしても、読者は原典に辿り着けない。
+            guard !u.contains("duckduckgo.com"), !u.contains("google.co"),
+                  !seen.contains(u) else { continue }
+            seen.insert(u); out.append(u)
+            if out.count >= limit { break }
+        }
+        return out
+    }
+
+    /// 一時知識の取得。他モードのウェブ検索と同じ道を通る。
+    ///
+    /// 検索結果ページ(SERP)の抜粋だけでは逐語引用に足りない — 抜粋は
+    /// 検索エンジンが切った断片で、原典の文ではない。だから他モードの
+    /// SEARCH_MULTI と同じく、上位URLをブラウザ経路で開いて本文まで取り、
+    /// 出典ごとに「どこから・どう取ったか」を添えて構造へ渡す。
+    /// 渡すだけで、書き込み経路は無い。
+    static func veraFreshTurn(for query: String) async -> String? {
+        var used = query
+        var primary = await WebSearchEngine.shared.search(
+            query: query, engine: .duckduckgoHTML)
+
+        // 0件なら、人がやり直すように一度だけ一般化して引き直す。
+        if case .noRelevantResults = primary.verdict {
+            let retry = QueryReformulator.deterministic(query: query, rung: 2)
+            if retry != query {
+                let again = await WebSearchEngine.shared.search(
+                    query: retry, engine: .duckduckgoHTML)
+                if case .ok = again.verdict { primary = again; used = retry }
+            }
         }
 
-        guard var obj = await callDoor("vera_ask", ["query": query]) else {
-            return ("⚠️ vera-memory サーバに接続できません(設定 › MCP を確認してください)", nil)
-        }
-        var verdict = (obj["verdict"] as? String) ?? "UNKNOWN"
-        var contextNote: String? = nil
-        // Context as a VISIBLE operation: a refused follow-up whose shape
-        // says "about the last thing" (deictic head, or just short) is
-        // re-asked with the trail core as an added condition — and the
-        // completion is printed, because an invisible context resolution
-        // is the same shape of lie as an invisible ingest (the 3D page's
-        // bubble rule). The trail core is always the LAST ANSWERED core,
-        // so resolution stays deterministic and auditable.
-        let deictic = ["その", "それ", "この", "あの"]
-        if verdict.hasPrefix("UNKNOWN"), let last = trail,
-           (query.count <= 10 || deictic.contains(where: query.hasPrefix)) {
-            var stripped = query
-            for d in deictic where stripped.hasPrefix(d) {
-                stripped = String(stripped.dropFirst(d.count))
-            }
-            if let retry = await callDoor(
-                "vera_ask", ["query": "\(last) \(stripped)"]),
-               let rv = retry["verdict"] as? String, !rv.hasPrefix("UNKNOWN") {
-                obj = retry
-                verdict = rv
-                contextNote = "文脈解決: 直近の核「\(last)」を条件に補完(可視・決定論)"
-            }
-        }
-        var lines: [String] = []
-        if let note = contextNote { lines.append("🧭 \(note)") }
+        let serp = primary.contextSnippet
+        var pages: [FreshPage] = []
 
-        let answering = !verdict.hasPrefix("UNKNOWN")
-        if answering {
-            if let t = obj["text"] as? String, !t.isEmpty {
-                lines.append("🧩 \(t)")
-            }
-            if let written = obj["written"] as? [String: Any],
-               let sents = written["sentences"] as? [[String: Any]] {
-                for s in sents.prefix(3) {
-                    if let st = s["text"] as? String, !st.isEmpty {
-                        lines.append(st)
+        // 上位2件を並列に開く。ここが自動UI操作の経路(既定は Safari)。
+        let targets = freshURLs(in: serp, limit: 2)
+        if !targets.isEmpty {
+            await withTaskGroup(of: FreshPage?.self) { group in
+                for u in targets {
+                    group.addTask {
+                        let r = await WebSearchEngine.shared.browse(
+                            url: u, preferredSource: .safari, originalQuery: used)
+                        let t = String(r.markdown.prefix(9_000))
+                        guard !r.isFailure,
+                              !t.trimmingCharacters(in: .whitespacesAndNewlines).isEmpty
+                        else { return nil }
+                        return FreshPage(url: r.url, title: u,
+                                         text: t, source: r.source)
                     }
                 }
+                for await p in group { if let p { pages.append(p) } }
+            }
+        }
+
+        // SERP は文書ではなく案内板である。実測: 3出典で問うと
+        // 「育児休業 期間 - 検索結果。厚生労働省 ほか」が本文の
+        // 「原則として子が1歳に達する日まで」に勝って引用された。
+        // 検索エンジンの見出し行を出典として引くと、読者は原典に辿り
+        // 着けないまま引用符付きの答えを受け取る。本文が1つでも取れて
+        // いれば案内板は捨て、取れなかったときだけ最後の頼りにする。
+        if pages.isEmpty,
+           !serp.trimmingCharacters(in: .whitespacesAndNewlines).isEmpty {
+            pages.append(FreshPage(url: primary.url, title: used,
+                                   text: serp, source: primary.source))
+        }
+
+        // 検索したのに何も無かった、という事実は黙って落とさない。
+        // nil を返すと、呼び手は検索が走ったことすら知らないまま拒否を出す。
+        guard !pages.isEmpty else {
+            return "🌐 「\(used)」で検索しましたが、本文を取得できませんでした。"
+                 + "\n(⏳ 一時知識 — 何も構造には入っていません)"
+        }
+
+        let sources: [[String: String]] = pages.map {
+            ["url": $0.url, "title": $0.title, "text": $0.text]
+        }
+        guard let data = try? JSONSerialization.data(withJSONObject: sources),
+              let json = String(data: data, encoding: .utf8),
+              let obj = await callDoor("vera_fresh",
+                                       ["query": query, "sources_json": json])
+        else { return nil }
+        let verdict = (obj["verdict"] as? String) ?? ""
+        guard verdict.hasPrefix("DOCUMENT") else { return nil }
+
+        var lines: [String] = []
+        if let t = obj["reply"] as? String, !t.isEmpty { lines.append("🌐 \(t)") }
+        // 出典はURLだけでは足りない。同じURLでも、ブラウザを操作して読んだ
+        // 本文と、URLSessionで取ったHTMLとでは見えているものが違う
+        // (JS描画・ログイン状態・地域)。どう取ったかまで書いて初めて
+        // 引用が追試可能になる。
+        if let src = obj["source"] as? String, !src.isEmpty {
+            let how = pages.first { $0.url == src }.map { fetchHow($0.source) }
+                ?? fetchHow(pages[0].source)
+            lines.append("出典: \(src)（\(how)）")
+        }
+        if pages.count > 1 {
+            let others = pages.dropFirst().map {
+                "  ・\($0.url)（\(fetchHow($0.source))）"
+            }.joined(separator: "\n")
+            lines.append("同時に読んだ頁:\n\(others)")
+        }
+        if used != query { lines.append("※ 「\(used)」で引き直しています") }
+        lines.append("(⏳ 一時知識 — 検索結果は返答と同時に破棄されました。店には入っていません)")
+        return lines.joined(separator: "\n")
+    }
+
+    static func veraModelTurn(
+        for query: String, trail: String? = nil, storeFirst: Bool = false
+    ) async -> (reply: String, core: String?) {
+        // One door. This function used to hold the ordering itself — the
+        // diff short-circuit, then `vera_ask`, then a context retry — and
+        // `VeraDialogueScreen` held a second copy of the same three steps.
+        // Two compositions of one engine drift, and the one that drifts
+        // behind quietly becomes a smaller product. The order now lives in
+        // `engine.ask`, which also runs the organs neither copy called:
+        // typo repair, arithmetic, the mathlib witness, the gap ledger,
+        // frame composition.
+        //
+        // What stays here is presentation, which is genuinely this side's
+        // job: what a reader sees beside a verdict.
+        // `storeFirst` picks which of the two spaces gets to be THE
+        // answer when both have one: the documents loaded on this machine,
+        // or the published federation. They are never merged. Measured on
+        // a contest PDF: 「入力フォームとは」 answers from jawiki's privacy
+        // article under the federation and from the loaded PDF under the
+        // store — both true about different things, which is exactly why
+        // the person chooses rather than a score.
+        // vera_chat is vera_engine plus what a CONVERSATION needs, held on
+        // the server so every client shares one memory: the turn enters the
+        // conversation space (recallable later, no window), last_core rides
+        // server-side so 「その刑は」 resolves without this file keeping a
+        // trail, and every reply is audited beside the answer — covenants
+        // set in this conversation, and drift against what it already
+        // settled. No model is called anywhere in the turn, and MCP
+        // sampling is never requested — there is nothing to sample.
+        //
+        // The older binary has no vera_chat; falling back to vera_engine
+        // keeps the mode alive there, minus memory and audits.
+        var obj0 = await callDoor(
+            "vera_chat",
+            ["text": query, "store_first": storeFirst])
+        if obj0 == nil {
+            obj0 = await callDoor(
+                "vera_engine",
+                ["query": query, "last_core": trail ?? "", "domain": "",
+                 "store_first": storeFirst])
+        }
+        guard var obj = obj0 else {
+            return ("⚠️ vera-memory サーバに接続できません(設定 › MCP を確認してください)", nil)
+        }
+        // vera_chat speaks in `reply`; the presentation below reads `text`.
+        if obj["text"] == nil, let rep = obj["reply"] { obj["text"] = rep }
+        // 文書だけの面。構成も連合も通らないので、引用か型付きの沈黙しか出ない。
+        //
+        // `if let only = …` だけだと、扉呼び出しがここで失敗した(nilが
+        // 返った)時に obj が上の一般エンジンの答えのままになる —
+        // トグルは「文書だけ」を約束しているのに、その扉が落ちた回だけ
+        // 静かに一般知識へ抜けてしまう。契約の切替（本パネルの注記の
+        // 通り）である以上、失敗は一般回答への抜け道ではなく、失敗と
+        // して見せる。
+        if await MainActor.run(body: { AppState.shared?.veraDocumentsOnly }) == true {
+            guard let only = await callDoor("vera_ask_documents", ["question": query]) else {
+                return ("⚠️ 「文書だけで答える」が有効ですが、文書面の扉に接続できません"
+                        + "(一般知識へは切り替えません。設定 › MCP を確認してください)", nil)
+            }
+            obj = only
+            if obj["text"] == nil, let rep = obj["reply"] { obj["text"] = rep }
+        }
+        let verdict = (obj["verdict"] as? String) ?? "UNKNOWN"
+        let refused = verdict.hasPrefix("UNKNOWN")
+            || verdict.hasPrefix("ABSTAIN") || verdict.hasPrefix("AMBIGUOUS")
+
+        var lines: [String] = []
+
+        // Every stage that CHANGED the question is printed. An invisible
+        // context resolution is the same shape of lie as an invisible
+        // ingest — and now typo repair and staging become visible on the
+        // same rule, rather than only the one step this file implemented.
+        let stages = (obj["stages"] as? [[String: Any]]) ?? []
+        for st in stages where (st["changed"] as? Bool) == true {
+            guard let name = st["stage"] as? String,
+                  let note = st["note"] as? String, !note.isEmpty
+            else { continue }
+            lines.append("🧭 \(name): \(note)")
+        }
+
+        // エンジンは既に「どう辿り着いたか」を型で言っている。vera.py:
+        // 「ANSWER は問いのまま核が収束したもの。SEEDED は階段が主語を
+        // 先に名指す必要があったもの」— stacked.py はさらに念を押す:
+        // 「SEEDED は ANSWER ではない」。この面はその区別を潰していて、
+        // 割り引いて読むための事実が読み手に届いていなかった。実測
+        // 2026-08-18: 「正当防衛とは」に SEEDED で同じ節が3つ並び、
+        // ANSWER と同じ 🧩 で出ていた。
+        let discounted = ["SEEDED", "UNITS", "CONTAINMENT"]
+        let isDiscounted = discounted.contains(verdict)
+            || (obj["constructed"] as? Bool) == true
+        if !refused {
+            if let t = obj["text"] as? String, !t.isEmpty {
+                lines.append(isDiscounted ? "🪤 \(t)" : "🧩 \(t)")
+            }
+            if isDiscounted {
+                lines.append(verdict == "SEEDED"
+                    ? "↑ 問いのままでは届かず、主語を先に名指してから辿った答え。"
+                      + "証言ではないので、そのまま引用しないこと。"
+                    : "↑ 問いのままでは届かず、近い語から辿った答え。"
+                      + "証言ではないので、そのまま引用しないこと。")
             }
             var footer: [String] = ["verdict: \(verdict)"]
-            if let core = obj["core"] as? String { footer.append("core: \(core)") }
-            if let tier = obj["tier"] as? String { footer.append("tier: \(tier)") }
-            if let g = obj["grain"] as? [String: Any],
-               let a = g["agree"] as? Int, let of = g["of"] as? Int {
-                footer.append("grain \(a)/\(of)")
+            if let door = obj["door"] as? String, !door.isEmpty {
+                footer.append(door == "store" ? "扉: 端末の文書" : "扉: \(door)")
             }
-            if let w = obj["witnesses"] as? [String: Any],
-               let a = w["agree"] as? Int { footer.append("witnesses \(a)") }
-            if let ss = obj["stage_split"] as? [String: Any],
-               let chain = ss["chain"] as? String {
-                footer.append("導出鎖: \(chain)")
+            if let core = obj["core"] as? String, !core.isEmpty {
+                footer.append("core: \(core)")
             }
-            if let origin = obj["facet_origin"] as? [String: Any], !origin.isEmpty {
-                let sources = Set(origin.values.compactMap { ($0 as? [String]) }.flatMap { $0 })
-                if !sources.isEmpty {
-                    footer.append("出典: " + sources.sorted().prefix(3).joined(separator: ", "))
-                }
+            // The engine gathers these under one key, from whichever
+            // convention the answering door uses.
+            if let r = obj["readings"] as? [String: Any] {
+                if let tier = r["tier"] as? String { footer.append("tier: \(tier)") }
+                if let g = r["grain"] as? String { footer.append("grain \(g)") }
+                if let w = r["witnesses"] as? Int { footer.append("witnesses \(w)") }
+            }
+            if let origins = obj["origins"] as? [String], !origins.isEmpty {
+                footer.append("出典: " + origins.prefix(3).joined(separator: ", "))
             }
             lines.append("(\(footer.joined(separator: " · ")) — Vera単体・LLM不使用)")
         } else {
@@ -1303,24 +1604,45 @@ enum VeraMemoryBridge {
             if let missing = obj["missing"] as? String, !missing.isEmpty {
                 lines.append("欠けているもの: \(missing)")
             }
-            if let gap = obj["known_gap"] as? [String], !gap.isEmpty {
-                lines.append("既知の欠落: " + gap.prefix(4).joined(separator: "・"))
-            }
-            // Honest hand-offs beside the refusal — never instead of it.
-            if let typo = await typoBand(for: query) {
-                lines.append(typo.trimmingCharacters(in: .whitespacesAndNewlines))
-            }
-            if let explain = await explainBand(for: query) {
-                lines.append(explain)
+            // The gap ledger is consulted by the engine on every refusal
+            // now, so a known ticket appears without this side asking.
+            for st in stages where (st["stage"] as? String) == "gaps" {
+                if let n = st["note"] as? String, n.hasPrefix("既知の欠落") {
+                    lines.append(n)
+                }
             }
             if let remedy = obj["remedy"] as? String, !remedy.isEmpty {
                 lines.append("解消するには: \(remedy)")
             }
             lines.append("(型付き拒否 — Vera単体は知らないことを推測しません)")
+            // 店が知らないときだけ、検索の一時知識を隣に置く。推測では
+            // なく出典つきの引用で、返答と同時に破棄される。ユーザーの
+            // 検索トグルが門 — 黙って外に出ることはない。
+            if await MainActor.run(body: { AppState.shared?.toolWebSearchEnabled ?? false }) {
+                if let fresh = await veraFreshTurn(for: query) {
+                    lines.append(fresh)
+                }
+            }
+        }
+        // The audits ride BESIDE the reply, never as a gate — display the
+        // ones that actually fired and stay silent otherwise.
+        if let audits = obj["audits"] as? [String: Any] {
+            if let cov = audits["covenants"] as? [String: Any],
+               (cov["verdict"] as? String) == "BROKEN",
+               let broken = cov["violations"] as? [[String: Any]] {
+                for v in broken.prefix(2) {
+                    if let name = v["covenant"] as? String {
+                        lines.append("⚖️ 誓約違反の疑い: \(name)")
+                    }
+                }
+            }
+            if let drift = audits["context_drift"] as? [String: Any],
+               (drift["verdict"] as? String) == "COLLAPSED" {
+                lines.append("🌀 文脈崩れの疑い — この会話で確定済みの内容と接続がありません")
+            }
         }
         let core = obj["core"] as? String
-        return (lines.joined(separator: "\n\n"),
-                verdict.hasPrefix("UNKNOWN") ? nil : core)
+        return (lines.joined(separator: "\n\n"), refused ? nil : core)
     }
 
     /// Veraぼっと: the app answering about itself.

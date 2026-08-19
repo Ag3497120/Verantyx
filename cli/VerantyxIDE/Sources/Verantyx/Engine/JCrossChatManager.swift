@@ -171,6 +171,21 @@ actor JCrossChatManager {
         JGenGPUSafety.clearRemembered()
     }
 
+    /// The loaded model's own turn markers, falling back to ChatML only when
+    /// the converter did not recognise them.
+    ///
+    /// `formatChatML` below is kept as that fallback and nothing more. It was
+    /// the only formatter, which is why gemma2 answered blank lines: it reads
+    /// <|im_start|> as eight literal characters. gemma4's markers (<|turn> /
+    /// <turn|>) appear in no hand-written prompt anywhere in this codebase,
+    /// so the 31B would have done the same thing.
+    private func formatConversation(_ bounded: [(role: String, content: String)]) -> String {
+        if let engine, let wrapped = engine.chatWrap(conversation: bounded) {
+            return wrapped
+        }
+        return Self.formatChatML(bounded)
+    }
+
     /// ChatML (Qwen / many instruct models). Plain `role: content` caused
     /// small JGENs to ignore turn boundaries and fall into greedy phrase
     /// loops (`お元気ですか?` × N) on Japanese greetings.
@@ -312,7 +327,7 @@ actor JCrossChatManager {
         let bounded = PromptBudget.boundConversation(conversation)
         let requested = isReasoningModel ? Self.expandedThinkingBudget(maxTokens) : maxTokens
         let cappedMax = JGenGPUSafety.cappedMaxTokens(requested)
-        let prompt = Self.formatChatML(bounded)
+        let prompt = formatConversation(bounded)
         let promptTokens = tokenizer.encode(text: prompt).map { UInt32($0) }
         return try withCapturePaused {
             engine.reset()
@@ -371,7 +386,7 @@ actor JCrossChatManager {
         let bounded = PromptBudget.boundConversation(conversation)
         let requested = isReasoningModel ? Self.expandedThinkingBudget(maxTokens) : maxTokens
         let cappedMax = JGenGPUSafety.cappedMaxTokens(requested)
-        let prompt = Self.formatChatML(bounded)
+        let prompt = formatConversation(bounded)
         let promptTokens = tokenizer.encode(text: prompt).map { UInt32($0) }
 
         return try withCapturePaused {
@@ -637,6 +652,25 @@ actor JCrossChatManager {
     /// used by `role_tokens()`-style prompt construction and by
     /// `dist_to_soft_sequence`, which needs to tokenize candidate strings to
     /// look up their embedding rows.
+    /// Wraps a system prompt and a question in THE LOADED MODEL'S turn
+    /// markers, read from its sidecar by the converter.
+    ///
+    /// Returns nil when the model's markers are unknown. Callers must handle
+    /// that rather than reach for `formatChatML`: ChatML is right for Qwen,
+    /// and gemma2 answered it with blank lines because it sees <|im_start|>
+    /// as eight literal characters. gemma4 uses <|turn> / <turn|>, which
+    /// appears in no hand-written prompt in this codebase.
+    func chatWrap(system: String, user: String) -> String? {
+        guard let engine else { return nil }
+        return engine.chatWrap(system: system, user: user)
+    }
+
+    /// "gemma4" | "gemma" | "chatml" | "" — for showing which format a run
+    /// actually used instead of assuming.
+    func chatFamily() -> String {
+        engine?.chatFamily() ?? ""
+    }
+
     func tokenize(_ text: String) throws -> [UInt32] {
         guard let tokenizer else { throw ChatError.notLoaded }
         return tokenizer.encode(text: text).map { UInt32($0) }
@@ -763,7 +797,7 @@ actor JCrossChatManager {
     /// distributed run and a single-machine run start from identical ids.
     func promptTokens(conversation: [(role: String, content: String)]) throws -> [UInt32] {
         guard let tokenizer else { throw ChatError.notLoaded }
-        return tokenizer.encode(text: Self.formatChatML(PromptBudget.boundConversation(conversation)))
+        return tokenizer.encode(text: formatConversation(PromptBudget.boundConversation(conversation)))
             .map { UInt32($0) }
     }
 

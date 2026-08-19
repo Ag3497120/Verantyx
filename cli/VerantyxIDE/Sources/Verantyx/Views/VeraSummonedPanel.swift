@@ -87,6 +87,8 @@ struct VeraSummonedPanel: View {
                 Divider().opacity(0.3)
                 MemoryConsoleView().environmentObject(app)
             }
+        case .document:
+            VeraDocumentPanel().environmentObject(app)
         case .audit:
             // The strip that used to sit above every conversation. Its
             // numbers are real (nodes, evidence, conflicts, gaps) — they
