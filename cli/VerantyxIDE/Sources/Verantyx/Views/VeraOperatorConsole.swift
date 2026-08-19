@@ -26,6 +26,7 @@ struct VeraOperatorConsole: View {
     enum Section: String, CaseIterable, Identifiable {
         case domains = "分野"
         case documents = "文書"
+        case ingest = "投入"
         case settings = "設定"
         case engine = "エンジン"
         var id: String { rawValue }
@@ -39,6 +40,7 @@ struct VeraOperatorConsole: View {
                 switch section {
                 case .domains:   domainsBody
                 case .documents: documentsBody
+                case .ingest:    ingestBody
                 case .settings:  settingsBody
                 case .engine:    engineBody
                 }
@@ -92,7 +94,6 @@ struct VeraOperatorConsole: View {
     private var domainsBody: some View {
         VStack(alignment: .leading, spacing: 12) {
             docDomainExplainer
-            ingestForm
             // The switch an enterprise deployment actually sets. Layering
             // lets the shared vocabulary answer whenever a domain is
             // silent, which is right for reach and wrong the moment a
@@ -233,6 +234,21 @@ struct VeraOperatorConsole: View {
                     in: RoundedRectangle(cornerRadius: 6))
     }
 
+    /// 投入タブ — 投入画面はここ一つ(2026-08-19、ユーザ指示で独立タブに)。
+    /// チェックで行き先を選ぶ: 文書のみ・分野のみ・両方。
+    private var ingestBody: some View {
+        VStack(alignment: .leading, spacing: 12) {
+            docDomainExplainer
+            ingestForm
+            Text("投入した後は、文書タブ(接続・優先度・構造)と分野タブ"
+                 + "(接続)でそれぞれ配線を確認できます。")
+                .font(.system(size: 10)).foregroundStyle(.secondary)
+                .fixedSize(horizontal: false, vertical: true)
+        }
+        .padding(14)
+        .frame(maxWidth: .infinity, alignment: .leading)
+    }
+
     /// 文書と分野の違い — 両タブに同じ説明を置く(日本語)。
     private var docDomainExplainer: some View {
         VStack(alignment: .leading, spacing: 3) {
@@ -264,7 +280,6 @@ struct VeraOperatorConsole: View {
     private var documentsBody: some View {
         VStack(alignment: .leading, spacing: 12) {
             docDomainExplainer
-            ingestForm
             Text("一度取り込んだ文書はここに残ります。「切断」は接続を切る"
                  + "だけでデータは保持され、いつでも再接続できます。優先度が"
                  + "高い文書から先に照合されます(企業の複数文書の配線)。"
