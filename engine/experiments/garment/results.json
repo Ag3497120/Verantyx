@@ -47,7 +47,9 @@
      "confirmed": 3,
      "contested": 1,
      "inferred": 1,
-     "open": 18
+     "open": 18,
+     "proposed": 2,
+     "unobserved": 16
     },
     "confirmed_states": [
      "OBSERVED"
@@ -67,7 +69,83 @@
      "how_to_close": "collar の material が映るカットを探す / 依頼者に確認"
     }
    }
+  },
+  "V58_a_proposal_closes_nothing": {
+   "pass": true,
+   "detail": {
+    "before": {
+     "confirmed": 3,
+     "contested": 1,
+     "inferred": 1,
+     "open": 18,
+     "proposed": 2,
+     "unobserved": 16
+    },
+    "after": {
+     "confirmed": 3,
+     "contested": 1,
+     "inferred": 1,
+     "open": 18,
+     "proposed": 3,
+     "unobserved": 15
+    }
+   }
+  },
+  "V59_open_splits_into_proposed_and_unobserved": {
+   "pass": true,
+   "detail": {
+    "counts": {
+     "confirmed": 3,
+     "contested": 1,
+     "inferred": 1,
+     "open": 18,
+     "proposed": 3,
+     "unobserved": 15
+    }
+   }
+  },
+  "V60_adoption_without_a_name_changes_nothing": {
+   "pass": true,
+   "detail": {
+    "ledger_unchanged": true,
+    "raised": [
+     true,
+     true,
+     true
+    ]
+   }
+  },
+  "V61_adoption_keeps_the_origin": {
+   "pass": true,
+   "detail": {
+    "row": {
+     "state": "OBSERVED",
+     "part": "collar",
+     "aspect": "material",
+     "value": "メルトンウール",
+     "sources": [
+      "類似品検索03"
+     ],
+     "agreed": 1,
+     "adopted_by": "担当:西小田",
+     "proposals": []
+    }
+   }
+  },
+  "V62_proposal_order_does_not_move_the_verdict": {
+   "pass": true,
+   "detail": {
+    "same": true,
+    "counts": {
+     "confirmed": 3,
+     "contested": 1,
+     "inferred": 1,
+     "open": 18,
+     "proposed": 4,
+     "unobserved": 14
+    }
+   }
   }
  },
- "summary": "5/5 passed"
+ "summary": "10/10 passed"
 }

@@ -28,6 +28,7 @@
 from __future__ import annotations
 
 import json
+import re
 from dataclasses import asdict, dataclass, field
 from pathlib import Path
 from typing import Any, Dict, List, Optional
@@ -64,6 +65,7 @@ class Entry:
     source: str               # カット番号・URL・人・モデル名
     note: str = ""            # モデルの点数などはここ(事実の欄ではない)
     adopted_by: str = ""      # 採用した人。提案が事実になる唯一の道
+    at: str = ""              # 映像上の時刻 "0:12:05"。証拠の時系列に使う
 
 
 @dataclass
@@ -94,12 +96,22 @@ class Ledger:
 
         採用しても提案の出所は消えない — 後から「誰の提案を誰が通したか」
         を辿れないと、裁断後に責任の所在が消える。
+
+        **名前の無い採用は受け付けない。** これを扉(mcp_server)と画面
+        (Atelier)だけで止めていた版があり、測定 V60 で落ちた: 台帳を
+        直接呼べば匿名で通せてしまう。責任の所在は表面の作法ではなく
+        台帳の性質なので、ここで閉じる。
         """
+        who = (by or "").strip()
+        if not who:
+            raise ValueError(
+                "UNKNOWN_NO_ADOPTER: 採用者の名前が要る。"
+                "誰が通したか辿れない採用は、間違いの責任が消える")
         for e in self.entries:
             if (e.part == part and e.aspect == aspect and e.value == value
                     and e.kind == "proposal" and not e.adopted_by):
                 e.kind = "observation"
-                e.adopted_by = by
+                e.adopted_by = who
                 return e
         return None
 
@@ -169,10 +181,89 @@ class Ledger:
             "contested": contested,       # 割れている。人が決める
             "inferred": inferred,         # 推論。確認を要する
             "open": open_items,           # 未確定 = そのまま作業指示
+            # proposed は open の**内訳**で、open から引かない。提案は
+            # 何も閉じないので、引くと閉じたように見える。
             "counts": {"confirmed": len(confirmed), "contested": len(contested),
-                       "inferred": len(inferred), "open": len(open_items)},
+                       "inferred": len(inferred), "open": len(open_items),
+                       "proposed": sum(1 for o in open_items
+                                       if o.get("state") == PROPOSED),
+                       "unobserved": sum(1 for o in open_items
+                                         if o.get("state") != PROPOSED)},
             "note": "confirmed 以外を裁断の根拠にしないこと。"
                     "inferred と proposal は観測ではない",
+        }
+
+    def timeline(self) -> List[Dict[str, Any]]:
+        """証拠を映像の時刻順に並べる。**時刻を持たないものも落とさない** —
+        検索や人の証言は時刻を持たないが、証拠であることは変わらない。
+        """
+        def key(e: Entry) -> tuple:
+            t = _timecode(e.at or e.source)
+            return (0, t) if t is not None else (1, 0)
+
+        rows = []
+        for e in sorted(self.entries, key=key):
+            t = _timecode(e.at or e.source)
+            rows.append({"at": _fmt(t) if t is not None else "",
+                         "seconds": t, "part": e.part, "aspect": e.aspect,
+                         "value": e.value, "kind": e.kind,
+                         "source": e.source, "note": e.note,
+                         "adopted_by": e.adopted_by})
+        return rows
+
+    def techpack(self) -> Dict[str, Any]:
+        """縫製師に渡す資料。**未確定は消さず、独立した節にする。**
+
+        AI の内部構造を見せない — 見せるのは服飾設計の資料として読める形。
+        ただし「何が根拠か」は各項目に残す。裁った後に遡れないと、
+        間違いの原因が永久に分からない。
+        """
+        spec = self.spec()
+        by_part: Dict[str, List[Dict[str, Any]]] = {}
+        for s_ in spec["confirmed"] + spec["contested"] + spec["inferred"]:
+            by_part.setdefault(s_["part"], []).append(s_)
+        return {
+            "verdict": "ANSWER",
+            "title": self.title or "(無題)",
+            "sections": [
+                {"no": "01", "name": "Overview",
+                 "rows": [{"label": "確定した項目",
+                           "value": str(spec["counts"]["confirmed"])},
+                          {"label": "割れている項目",
+                           "value": str(spec["counts"]["contested"])},
+                          {"label": "推論(要確認)",
+                           "value": str(spec["counts"]["inferred"])},
+                          {"label": "未確定",
+                           "value": str(spec["counts"]["open"])},
+                          {"label": "うち提案あり(未採用)",
+                           "value": str(spec["counts"]["proposed"])}]},
+                {"no": "02", "name": "Front", "parts":
+                 {k: by_part.get(k, []) for k in ("collar", "body", "detail")}},
+                {"no": "03", "name": "Back", "parts":
+                 {k: by_part.get(k, []) for k in ("back",)}},
+                {"no": "04", "name": "Sleeve & Pocket", "parts":
+                 {k: by_part.get(k, []) for k in ("sleeve", "pocket")}},
+                {"no": "05", "name": "Materials", "parts":
+                 {k: by_part.get(k, []) for k in ("fabric", "lining")}},
+                {"no": "06", "name": "Construction",
+                 "rows": [{"label": f"{s_['part']} / {s_['aspect']}",
+                           "value": s_.get("value", ""),
+                           "state": s_["state"]}
+                          for s_ in spec["inferred"]]},
+                {"no": "07", "name": "Contested — 人が決めること",
+                 "rows": [{"label": f"{s_['part']} / {s_['aspect']}",
+                           "value": " / ".join(x["value"]
+                                               for x in s_.get("sides", [])),
+                           "state": s_["state"]}
+                          for s_ in spec["contested"]]},
+                {"no": "08", "name": "Evidence",
+                 "timeline": self.timeline()},
+                {"no": "09", "name": "Unknowns — 裁断前に潰すこと",
+                 "rows": [{"label": f"{w['part']} / {w['aspect']}",
+                           "value": w["how_to_close"], "state": w["state"]}
+                          for w in self.worklist()]},
+            ],
+            "note": "01-05 の確定欄以外は裁断の根拠にしないこと",
         }
 
     def worklist(self) -> List[Dict[str, str]]:
@@ -204,6 +295,25 @@ class Ledger:
         led = cls(title=d.get("title", ""))
         led.entries = [Entry(**row) for row in d.get("entries", [])]
         return led
+
+
+_TC = re.compile(r"(\d{1,2}):(\d{2})(?::(\d{2}))?")
+
+
+def _timecode(text: str) -> Optional[int]:
+    """"cut 0:12:05" から秒を取る。無ければ None(時刻の不在は隠さない)。"""
+    m = _TC.search(str(text or ""))
+    if not m:
+        return None
+    a, b, c = m.group(1), m.group(2), m.group(3)
+    return (int(a) * 3600 + int(b) * 60 + int(c)) if c else (
+        int(a) * 60 + int(b))
+
+
+def _fmt(sec: int) -> str:
+    h, rem = divmod(int(sec), 3600)
+    m, s = divmod(rem, 60)
+    return f"{h}:{m:02d}:{s:02d}" if h else f"{m}:{s:02d}"
 
 
 def _brief(rows: List[Entry]) -> List[Dict[str, str]]:

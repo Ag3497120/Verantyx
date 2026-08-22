@@ -168,6 +168,48 @@ def _papers(root: Path) -> List[Dict[str, str]]:
     return out
 
 
+#: リポジトリの外に置かれた資産(2026-08-22)。索引がここを見ていなかった
+#: ために、日本語 Wikipedia のコーパス本体(build/ の 6.1GB)が公開から
+#: 丸ごと漏れた。**在るのに索引に無い資産は、無いのと同じ扱いを受ける** —
+#: それが今回の実測。場所は環境変数 VERA_ASSET_ROOTS で足せる。
+_ASSET_ROOTS = ["~/Projects/vera-corpus/build", "~/Projects/vera-corpus/corpora",
+                "~/Projects/vera-corpus/dumps"]
+
+
+def external_assets(min_bytes: int = 1_000_000) -> Dict[str, Any]:
+    """リポジトリの外にある大きな資産を数える(中身は読まない)。
+
+    索引はソースから導出できるが、**別ディレクトリに置かれた成果物は
+    ソースに現れない**。だから場所だけを閉じた表で持ち、stat で確かめる。
+    無ければ「無い」と言う — 推測でパスを出さない。
+    """
+    import os
+
+    roots = [r for r in os.environ.get("VERA_ASSET_ROOTS", "").split(":") if r]
+    rows: List[Dict[str, Any]] = []
+    for rel in (roots or _ASSET_ROOTS):
+        base = Path(rel).expanduser()
+        if not base.is_dir():
+            rows.append({"root": str(base), "state": "MISSING"})
+            continue
+        files = []
+        total = 0
+        for f in base.rglob("*"):
+            try:
+                if f.is_file() and f.stat().st_size >= min_bytes:
+                    total += f.stat().st_size
+                    files.append({"file": f.name,
+                                  "bytes": f.stat().st_size})
+            except Exception:
+                continue
+        files.sort(key=lambda r: -r["bytes"])
+        rows.append({"root": str(base), "state": "OK", "files": len(files),
+                     "bytes": total, "largest": files[:8]})
+    return {"verdict": "ANSWER", "roots": rows,
+            "note": "assets outside the repository: the index derives itself "
+                    "from source, and these do not appear in source"}
+
+
 def build(root: Any = None) -> Dict[str, Any]:
     """索引を今つくる。手書きの一覧は持たない(構成上ずれない)。"""
     r = Path(root) if root else _resolve_root()

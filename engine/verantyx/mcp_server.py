@@ -3640,6 +3640,117 @@ def build(store_path: str):
             {**res, "url": f"https://huggingface.co/datasets/{target}"},
             ensure_ascii=False)
 
+    # ---- 服飾台帳 ------------------------------------------------------
+    # 情報整理はここを通る。クラウドの AI も、ローカルの LLM も、IDE の
+    # 画面も、**同じ扉**しか持たない。モデルが直接「事実」を書ける道を
+    # 作らないのがこの配線の全て — 観測でないものは提案にしかならず、
+    # 採用は人の行為で、採用者の名前が残る。
+    def _garment():
+        from .garment import Ledger
+
+        return Ledger.load(_garment_path())
+
+    def _garment_path():
+        return Path.home() / ".vera_garment" / "ledger.json"
+
+    @mcp.tool()
+    def garment_spec() -> str:
+        """服の台帳を、確定 / 割れている / 推論 / 未確定に分けて返す。
+
+        confirmed 以外は裁断の根拠にならない。四つを混ぜて返さないのは、
+        混ぜた瞬間に「裁ってよいか」が読めなくなるため。"""
+        return json.dumps(_garment().spec(), ensure_ascii=False)
+
+    @mcp.tool()
+    def garment_observe(part: str, aspect: str, value: str, source: str,
+                        note: str = "") -> str:
+        """映像や実物で**見えた**ことを置く。出典(カット・時刻)は必須。
+
+        見ていないことをここに入れてはいけない。推した値は
+        `garment_infer`、モデルや検索が言ったことは `garment_propose`。"""
+        led = _garment()
+        if not (value.strip() and source.strip()):
+            return json.dumps({"verdict": "UNKNOWN_NEEDS_VALUE_AND_SOURCE"},
+                              ensure_ascii=False)
+        e = led.observe(part, aspect, value, source, note)
+        led.save(_garment_path())
+        return json.dumps({"verdict": "ANSWER", "entry": e.__dict__},
+                          ensure_ascii=False)
+
+    @mcp.tool()
+    def garment_infer(part: str, aspect: str, value: str, basis: str) -> str:
+        """構造から**推した**ことを置く。観測欄には決して入らない。"""
+        led = _garment()
+        e = led.infer(part, aspect, value, basis)
+        led.save(_garment_path())
+        return json.dumps({"verdict": "ANSWER", "entry": e.__dict__},
+                          ensure_ascii=False)
+
+    @mcp.tool()
+    def garment_propose(part: str, aspect: str, value: str, source: str,
+                        note: str = "") -> str:
+        """外から来たもの(画像検索・視覚モデル・クラウドAI・人の意見)。
+
+        **未採用**として置かれ、確定欄には出ない。モデルの自己申告
+        (0.71 等)は `note` に入れる — 点数は出典の一部であって、
+        布の性質ではない。"""
+        led = _garment()
+        e = led.propose(part, aspect, value, source, note)
+        led.save(_garment_path())
+        return json.dumps({"verdict": "ANSWER", "entry": e.__dict__,
+                           "note": "未採用。採用は人の行為 (garment_adopt)"},
+                          ensure_ascii=False)
+
+    @mcp.tool()
+    def garment_adopt(part: str, aspect: str, value: str, by: str) -> str:
+        """提案を採用する。**採用者の名前が無い採用は受け付けない。**
+
+        裁った後に「誰が通したか」を辿れないと、間違いの責任が消える。
+        採用しても提案の出所は消さない。"""
+        if not by.strip():
+            return json.dumps({"verdict": "UNKNOWN_NO_ADOPTER"},
+                              ensure_ascii=False)
+        led = _garment()
+        e = led.adopt(part, aspect, value, by=by)
+        if e is None:
+            return json.dumps({"verdict": "UNKNOWN_NO_SUCH_PROPOSAL"},
+                              ensure_ascii=False)
+        led.save(_garment_path())
+        return json.dumps({"verdict": "ANSWER", "entry": e.__dict__},
+                          ensure_ascii=False)
+
+    @mcp.tool()
+    def garment_timeline() -> str:
+        """証拠を映像の時刻順に。**時刻を持たない証拠も落とさない** —
+        検索や人の証言は時刻を持たないが、証拠であることは変わらない。"""
+        return json.dumps({"verdict": "ANSWER",
+                           "timeline": _garment().timeline()},
+                          ensure_ascii=False)
+
+    @mcp.tool()
+    def garment_parts() -> str:
+        """部位と、その部位について決めるべき側面の表。
+
+        「何をまだ聞かれていないか」が分かるのは、聞くべきことが先に
+        決まっているからで、これが無いと未観測を数えられない。"""
+        from .garment import PARTS
+
+        return json.dumps({"verdict": "ANSWER", "parts": PARTS},
+                          ensure_ascii=False)
+
+    @mcp.tool()
+    def garment_worklist() -> str:
+        """未確定の一覧 = 裁断前に潰すことの一覧。各項目に閉じ方が付く。
+
+        UNKNOWN は失敗ではなく、次に探すもの。"""
+        return json.dumps({"verdict": "ANSWER", "worklist":
+                           _garment().worklist()}, ensure_ascii=False)
+
+    @mcp.tool()
+    def garment_techpack() -> str:
+        """縫製師に渡す資料(9節)。未確定は消さず独立した節で出る。"""
+        return json.dumps(_garment().techpack(), ensure_ascii=False)
+
     @mcp.tool()
     def vera_doctor() -> str:
         """この機械で今、保証が成り立つかを実演して答える。

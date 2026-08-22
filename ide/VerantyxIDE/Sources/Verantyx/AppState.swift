@@ -981,6 +981,10 @@ final class AppState: ObservableObject {
     // 二つを「モデルの設定」ではなくモードにしたのは、答えの性格が変わる
     // からで、いま読んでいる答えがどちらの性格かは常に見えるべきだからです。
     enum VeraEngineMode: String, CaseIterable {
+        // 服飾のワークベンチ。作業面がチャットではなく「服の状態」になる。
+        // 背景のパイプ(モデル登録・ローカルLLM・MCP)はそのまま使い、
+        // 情報整理だけが必ず Vera の台帳を通る。
+        case atelier = "atelier"        // Vera Atelier (服飾)
         case council = "council"        // jgen 合議 (LLM/エージェント)
         case standalone = "standalone"  // 単体 Vera-a (決定論のみ)
         // Named `localLLM` for its stored value only — the mode is "just an

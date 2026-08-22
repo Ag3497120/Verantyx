@@ -134,8 +134,85 @@ def v57():
             "example": work[0] if work else None})
 
 
+# ---------------------------------------------------------------- V58
+def v58():
+    """提案は何も閉じない。確定は増えず、未確定も減らない。"""
+    led = fixture()
+    before = led.spec()["counts"]
+    led.propose("collar", "material", "メルトンウール", "類似品検索03")
+    after = led.spec()["counts"]
+    ok = (after["confirmed"] == before["confirmed"]
+          and after["open"] == before["open"])
+    record("V58_a_proposal_closes_nothing", ok,
+           {"before": before, "after": after})
+
+
+# ---------------------------------------------------------------- V59
+def v59():
+    """open の内訳は open をちょうど割る。提案を引かない。"""
+    led = fixture()
+    led.propose("collar", "material", "メルトンウール", "類似品検索03")
+    c = led.spec()["counts"]
+    ok = (c["proposed"] + c["unobserved"] == c["open"] and c["proposed"] >= 1)
+    record("V59_open_splits_into_proposed_and_unobserved", ok, {"counts": c})
+
+
+# ---------------------------------------------------------------- V60
+def v60():
+    """名前の無い採用は通らない。台帳は一切変わらない。"""
+    led = fixture()
+    led.propose("collar", "material", "メルトンウール", "類似品検索03")
+    before = json.dumps(led.spec(), ensure_ascii=False, sort_keys=True)
+    refused = []
+    for name in ("", "   ", "\t"):
+        try:
+            led.adopt("collar", "material", "メルトンウール", name)
+            refused.append(False)
+        except Exception:
+            refused.append(True)
+    after = json.dumps(led.spec(), ensure_ascii=False, sort_keys=True)
+    ok = (before == after)
+    record("V60_adoption_without_a_name_changes_nothing", ok,
+           {"ledger_unchanged": before == after, "raised": refused})
+
+
+# ---------------------------------------------------------------- V61
+def v61():
+    """採用しても出所は消えない。誰の言い分だったかが残る。"""
+    led = fixture()
+    led.propose("collar", "material", "メルトンウール", "類似品検索03")
+    led.adopt("collar", "material", "メルトンウール", "担当:西小田")
+    row = next(r for r in led.spec()["confirmed"]
+               if r["part"] == "collar" and r["aspect"] == "material")
+    ok = ("類似品検索03" in row.get("sources", [])
+          and row.get("adopted_by") == "担当:西小田")
+    record("V61_adoption_keeps_the_origin", ok, {"row": row})
+
+
+# ---------------------------------------------------------------- V62
+def v62():
+    """提案を置く順は結論を動かさない。"""
+    a = fixture()
+    a.propose("collar", "material", "メルトンウール", "類似品検索03")
+    a.propose("lining", "kind", "キュプラ", "類似品検索07")
+    b = fixture()
+    b.propose("lining", "kind", "キュプラ", "類似品検索07")
+    b.propose("collar", "material", "メルトンウール", "類似品検索03")
+
+    def shape(led):
+        sp = led.spec()
+        return (sorted((r["part"], r["aspect"], r.get("value", ""))
+                       for r in sp["confirmed"]),
+                sorted((r["part"], r["aspect"]) for r in sp["contested"]),
+                sp["counts"])
+
+    ok = shape(a) == shape(b)
+    record("V62_proposal_order_does_not_move_the_verdict", ok,
+           {"same": ok, "counts": shape(a)[2]})
+
+
 if __name__ == "__main__":
-    for f in (v53, v54, v55, v56, v57):
+    for f in (v53, v54, v55, v56, v57, v58, v59, v60, v61, v62):
         f()
     n = len(RESULTS["checks"])
     p = sum(1 for c in RESULTS["checks"].values() if c["pass"])

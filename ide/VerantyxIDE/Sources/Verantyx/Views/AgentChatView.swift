@@ -80,7 +80,13 @@ struct AgentChatView: View {
                 // mode except Bot. Vera runs under all three; only the
                 // reply differs.
                 VeraSovereignLayout {
-                    if app.veraEngineMode == .veraBot {
+                    if app.veraEngineMode == .atelier {
+                        // 服飾の作業面。ここだけは会話が主役ではない —
+                        // 見るのは服の状態で、Vera はその裏で台帳を持つ。
+                        // 上のモデル選択は、のちに「どの AI に解析させるか」
+                        // を選ぶ場所になる。
+                        AtelierView().environmentObject(app)
+                    } else if app.veraEngineMode == .veraBot {
                         // Bot's replies are screens, and an NSTextView
                         // cannot hold one. Same messages, rendered as
                         // views.
@@ -280,6 +286,7 @@ struct AgentChatView: View {
                     .tag(AppState.VeraEngineMode.council)
                 Text("Vera-a").tag(AppState.VeraEngineMode.standalone)
                 Text("Vera").tag(AppState.VeraEngineMode.veraModel)
+                Text("Atelier").tag(AppState.VeraEngineMode.atelier)
                 Text("Bot").tag(AppState.VeraEngineMode.veraBot)
                 Text("LLM").tag(AppState.VeraEngineMode.localLLM)
             }

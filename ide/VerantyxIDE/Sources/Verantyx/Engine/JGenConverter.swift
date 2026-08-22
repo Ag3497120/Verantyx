@@ -368,6 +368,20 @@ final class JGenConverter: ObservableObject {
         return ["standard", "moe_standard", "hybrid_ssm"].contains(arch)
     }
 
+    /// 前向きに走らせられるか。骨格だけでなく**トークナイザの実体**まで
+    /// 見る。jgen_forge は本物の HF トークナイザが見つからないと GGUF の
+    /// 語彙だけを書くので、骨格は通るのに読み込みで落ちる — 選ばせてから
+    /// 落とすのが一番たちが悪いので、選択肢を作る側で判る形にしておく。
+    /// (JCrossChatManager.load の判定と同じ二つを、同じ順で見ている)
+    func canRunForward(_ modelFileName: String) -> Bool {
+        guard isArchSupported(modelFileName) else { return false }
+        guard let meta = metaJSON(for: modelFileName) else { return true }
+        guard let tok = meta["tokenizer"] as? String else { return false }
+        let folder = URL(fileURLWithPath: tok).deletingLastPathComponent()
+        return FileManager.default.fileExists(
+            atPath: folder.appendingPathComponent("config.json").path)
+    }
+
     func archBadge(for modelFileName: String) -> String? {
         guard let meta = metaJSON(for: modelFileName) else { return nil }
         if let parts = meta["parts"] as? String, parts == "lexicon" { return "Lexicon" }
