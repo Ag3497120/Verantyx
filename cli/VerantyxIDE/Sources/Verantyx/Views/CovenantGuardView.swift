@@ -91,8 +91,35 @@ struct CovenantGuardView: View {
                 .foregroundStyle(.secondary)
             Text(err).font(.system(size: 9, design: .monospaced))
                 .foregroundStyle(.secondary).textSelection(.enabled)
+            // 実地で踏んだ: ビルドで実体が入れ替わった瞬間に接続が失敗すると、
+            // その失敗が残り続ける。画面から繋ぎ直せないと、動いている
+            // エンジンを前にして「壊れている」ようにしか見えない。
+            HStack(spacing: 8) {
+                Button(app.t("Reconnect vera-memory", "vera-memory に接続し直す")) {
+                    Task { await reconnect() }
+                }
+                .font(.system(size: 10))
+                .disabled(busy != nil)
+                if busy == "reconnect" { ProgressView().controlSize(.small) }
+            }
+            .padding(.top, 4)
         }
         .padding(14)
+    }
+
+    /// 繋ぎ直して読み直す。落ちたままの接続は、engine の故障と区別が
+    /// つかない見え方をするので、ここで一手で解けるようにしておく。
+    private func reconnect() async {
+        busy = "reconnect"
+        defer { busy = nil }
+        let engine = MCPEngine.shared
+        if let server = engine.servers.first(where: {
+            $0.name == "vera-memory"
+        }) {
+            engine.disconnect(serverId: server.id)
+            await engine.connect(server: server)
+        }
+        await load()
     }
 
     private func section<T: View>(_ title: String, _ subtitle: String,
