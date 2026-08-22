@@ -1,165 +1,276 @@
 <div align="center">
-  <h1>🛡️ Verantyx</h1>
-  <p><b>An engine that refuses to guess — and a macOS IDE built around it</b></p>
-  <p>
-    <a href="#what-this-is">What it is</a> ·
-    <a href="#the-guarantee">The guarantee</a> ·
-    <a href="#run-it">Run it</a> ·
-    <a href="#repository-map">Map</a> ·
-    <a href="#where-to-start-contributing">Contribute</a>
-  </p>
+
+# 🛡️ Verantyx
+
+**An engine that answers only from what it holds — and says so, in a type, when it does not.**
+
+No embeddings. No sampling. No network. The same question returns the same answer,
+and the order you loaded the documents in cannot change it.
+
+<img src="docs/images/03-vera-cross.png" width="820" alt="Vera answering from its store, with the stereo cross behind it">
+
+*One question, one typed verdict, the door it came through, and the core it answered from — `LLM不使用`.*
+
 </div>
 
 ---
 
-## What this is
+## The one-line version
 
-**Vera-a** is a deterministic knowledge engine. You pour documents in, you ask
-it things, and it answers **only from what it holds** — or says, in a typed
-verdict, that it does not know. No embeddings, no sampling, no network. The
-same question returns the same answer, and the order you loaded the documents
-in does not change it.
+Every other part of this repository is optional. **This is the part that is different:**
 
-On top of that sits the **covenant guard**: a ledger of what you told an
-assistant to do and not do, checked against every reply, with the promises
-whose compliance is *dropping* named by number. It runs as Claude Code hooks in
-0.04 s per check, or as a panel in the IDE.
-
-Everything claimed here is backed by a pre-registered measurement in this
-repository. You can re-run all of it in 45 seconds:
-
-```bash
-python3.11 engine/experiments/guard/verify_all.py
-# forks 89/89 / 測定 50/50 — 全て緑
-```
-
-## The guarantee
-
-These eight properties are re-run **on your machine, at the moment you ask**,
-by `vera doctor`. If one fails, the command exits non-zero.
-
-| | The guard | The standalone device |
+| | Vera-a | An LLM (or an embedding RAG) |
 |---|---|---|
-| 1 | A covenant you registered catches a reply that breaks it | What you poured in gets answered, with its source |
-| 2 | Nothing you did **not** register can ever block a reply | What was never poured in is **refused**, typed, with a reason |
-| 3 | Deterministic; registration order cannot change a verdict | The same question survives every ingestion order |
-| 4 | Retiring a covenant is an entry in the ledger, never a deletion | The answer is built only from words the store holds |
+| Asked something it never read | **`UNKNOWN_NO_EVIDENCE`, with a reason** | returns the nearest paragraph, fluently |
+| Asked twice | identical answer, always | varies |
+| Documents loaded in another order | identical answer (6-permutation check) | n/a |
+| Where the answer came from | the core, the door, the source | not recoverable |
+| Its own drift from your instructions | named by number (`kept_before → kept_recently`) | cannot see it |
+| Cost | 0.04 s, offline, on a laptop | a call |
 
-Row 2 is the one an embedding+LLM stack cannot promise: nearest-neighbour
-search always returns *something*, and generation always mixes in outside
-words. Here, absence is an answer.
+<img src="docs/images/01-guard.png" width="820" alt="The covenant guard panel showing health OK and the registration form">
 
-### What it is honestly not
+*The covenant guard: what you settled, checked against every reply. `番人 OK・単体 OK・配線 WIRED` is re-run **on your machine at the moment you look**, not a stored badge.*
 
-Named, measured, and deliberately **not** on the roadmap — see
-[`engine/experiments/guard/PREREG5_FREEZE.md`](engine/experiments/guard/PREREG5_FREEZE.md):
+---
 
-* It does not read natural-language instructions reliably. Measured: of 20
-  realistic instructions, 3 were read correctly, 13 produced nothing, 4 picked
-  the wrong term. Anything a rule reads therefore lands in **quarantine** and
-  can never block; only what a person registers is enforceable.
-* It does not catch literal evasion (TODO → FIXME) unless the corpus already
-  puts the two side by side.
-* It does not generate prose. It returns the words it holds.
-* Widening the rules does not fix any of this — measured three ways
-  (645/661 negations outside a 39-word vocabulary; no frequency threshold
-  separates content words from function words; a corpus buys inventory, not
-  reading).
+## 立体十字 — what the structure is, and what it was measured to do
 
-## Run it
+Vera's store is not a vector index. Each **core** sits at the centre of a stereo
+cross: **6 arms × 4 faces**, arms paired into three dualities —
+支持/反論 (supports / opposes), 原因/結果 (cause / effect),
+一般/実例 (general / instance). A question enters from an edge, the faces
+converge, and the words along the surviving path *are* the answer.
 
-Two ways to get a store. **Nothing is downloaded implicitly** — if a store is
-missing the engine says so and names the command that would fix it:
+Everything below is a measurement from this project's own logs, not a design claim.
 
-```json
-{"verdict": "UNKNOWN_NO_STORE", "how_to_close": "vera fetch-store --repo kofdai/Verantyx-Vera-base-store"}
+### 1. A node holds exactly 24 words, and that forces the layers
+
+`6 arms × 4 faces = 24`. Words that do not land on a face are **unreachable**,
+and no amount of adding helps:
+
+| words per arm | path selection correct |
+|---|---|
+| 4 (= the faces) | 20/24 |
+| 8 | 3/8 |
+| 16 | 1/8 |
+| 32 | 0/8 |
+| 60 | 0/8 |
+
+So depth ≈ **log₆(V/4)**. Nesting (マトリョーシカ) is not a design preference —
+it is what the geometry demands once vocabulary grows.
+
+### 2. Placement cannot add information — so it can detect fabrication
+
+If moving the same facts to different faces changes the answer, the answer came
+from the arrangement, not the evidence. Perturbing **only the tie-breaks** and
+keeping what survives:
+
+| method | fabrication rate |
+|---|---|
+| frequency rule alone | 30.9% |
+| + placement pre-simulation | 13.2% |
+| + re-check under a changed placement | **7.4%** |
+| frequency rule + re-check | **0.0%** |
+
+The price is honest and stated: legitimate answers fall from 3 to 1 in that
+last column. It is a precision dial, and it is set conservatively.
+
+### 3. Ties abstain, because a deterministic tie-break invents agreement
+
+| tie handling | all-layer agreement | accuracy |
+|---|---|---|
+| insertion order | 86 cases | 73.3% |
+| dictionary order | 321 cases | 23.7% |
+| **abstain** | 77 cases | **100%** |
+
+A deterministic system does not have to answer. Returning `UNKNOWN`
+deterministically is the safer property.
+
+### 4. The same knowledge, seen at several resolutions, grades its own confidence
+
+Hold one corpus at several grain sizes (1 char / 2 chars / word) and several
+knowledge amounts, then ask all of them the same question:
+
+| how many layers agreed | accuracy |
+|---|---|
+| 3–4 layers, unanimous | **100%** (77 cases) |
+| 2 layers | 31.1% |
+| single best layer alone | 29.8% |
+| no layer had grounds | — (383 of 600: it says so) |
+
+Two axes (grain × knowledge) give 16 rungs and a usable middle band (88.6%).
+**Do not mix the axes**: agreement across *different data* is evidence,
+agreement across *different cuts of the same data* is structure — pooled, they
+let 8 out-of-corpus answers through where the unpooled version let 0.
+
+### 5. Layer, never pool
+
+Measured six times each way: **pooling two signals into one vote made things
+worse 6/6; layering one as input to the next improved things 5/5.**
+
+| pooled | result | layered | result |
+|---|---|---|---|
+| two languages in one store | wrong answers in both | vocabulary → synthesis | real-word rate 73% → **100%** |
+| cut-variants into one census | 0 → 8 out-of-corpus reached | ladder → inference core | 0 → **185/200** answered |
+
+### 6. A refusal says what would close it
+
+Not a dead end — a work queue with a type:
+
+```
+UNKNOWN_NOT_PRESENT     → register 3 sentences  → ANSWER (1.4 s over 54,244 cores)
+UNKNOWN_SUBJECT_TOO_THIN → 1 fact is not enough → 4 facts → ANSWER
+UNKNOWN_NO_CITATION      → supply 1 document    → ANSWER
+UNKNOWN_LANGUAGE_NOT_HELD → build that language's sovereign → ANSWER
+UNKNOWN_TIME_DEPENDENT   → needs_registration: false  ← registering will NOT fix this
+UNKNOWN_NO_SUBJECT       → needs_registration: false
 ```
 
-**A. Pour your own** (what real work needs):
+The last two matter as much as the first four: the system says when *not* to
+feed it, so a queue never fills with items that can never close.
+
+---
+
+## Try it in five minutes
+
+<img src="docs/images/02-store.png" width="820" alt="The store tab: what is loaded, and how to get one">
+
+Install the app, open **取得**, and it answers three things in order: is there a
+store here, what is published, and how to pour your own. **Nothing downloads
+implicitly** — 209 MB moves because you pressed a button.
+
+Or from a terminal:
 
 ```bash
-python3.11 -m verantyx.cli --store ~/vera_store.json documents ~/your-docs/
+git clone https://github.com/Ag3497120/Verantyx.git && cd Verantyx/engine
+python3.11 -m verantyx.cli fetch-store            # published store, or:
+python3.11 -m verantyx.cli --store ~/s.json documents ~/your-docs/
+python3.11 -m verantyx.cli --store ~/s.json ask "交際費"
 ```
 
-**B. Fetch the published base store** — ~209 MB, hosted as a dataset on
-Hugging Face: [`kofdai/Verantyx-Vera-base-store`](https://huggingface.co/datasets/kofdai/Verantyx-Vera-base-store)
+Everything published — three stores and twelve ingestion corpora — lives here:
+**[huggingface.co/datasets/kofdai/Verantyx-Vera-base-store](https://huggingface.co/datasets/kofdai/Verantyx-Vera-base-store)**
+
+Prove the claims on your own machine, in 45 seconds:
 
 ```bash
-python3.11 -m verantyx.cli --store ~/vera_store.json fetch-store
-python3.11 -m verantyx.cli --store ~/vera_store.json fetch-store --status   # is one here?
+python3.11 -m verantyx.cli doctor                    # 8 guarantees, re-run here and now
+python3.11 engine/experiments/guard/verify_all.py    # forks 89/89 · measurements 50/50
 ```
 
-Read that dataset card before judging the answers: the base store is **English
-film and biography prose** (889,241 cores), which is enough to watch the
-engine refuse honestly and stay order-invariant — and measurably useless as
-domain knowledge (`print` there means *printed matter*). The card states this
-in its own words, with the numbers.
+---
 
-```bash
-python3.11 -m verantyx.cli --store ~/vera_store.json ask "交際費"
-```
+## Where Vera beats an LLM, where it is still incomplete, and where it loses badly
 
-Ask for something that was never loaded and it answers
-`UNKNOWN_NO_EVIDENCE` with a reason, instead of the nearest paragraph.
+Contributors deserve this straight. All three lists are measured.
 
-```bash
-python3.11 -m verantyx.cli doctor          # prove the eight properties here, now
-python3.11 -m verantyx.cli index search "約束 破棄"   # does this already exist?
-```
+### ✅ Genuinely ahead (an LLM cannot do these by construction)
 
-The guard as Claude Code hooks: point `~/.claude/settings.json` at
-[`engine/tools/guard/settings.snippet.json`](engine/tools/guard/settings.snippet.json),
-then run `doctor` — it checks the wiring, not just the engine, because a guard
-that fails open looks exactly like a quiet day.
+- **Typed refusal.** Absence returns `UNKNOWN_*` with a reason. Neighbour search
+  always returns something; generation always mixes in outside words.
+- **Determinism and order-invariance.** Same input → same verdict, always.
+- **Provenance.** Every answer names its core, its door and its source.
+- **Drift detection.** `kept_before → kept_recently` names the promise you are
+  no longer keeping — the failure an LLM structurally cannot notice about itself.
+- **Cost.** 0.04 s per check, offline, no account.
+
+### 🟡 Ahead in principle, still incomplete in practice
+
+- **The prohibition nobody wrote.** Registering "use TypeScript" catches
+  `javascript` **without listing it** — but only where the corpus put the two
+  side by side. Measured recovery on technical pairs: **1 of 6**; on statutes,
+  which do list alternatives: 11 of 14.
+- **Contradiction detection.** 858 junctions typed, 189 flagged as contradiction
+  *candidates* (22%) — candidates, not findings: it does not yet check the two
+  sources were talking about the same occasion.
+- **Confidence grading.** The 100% band is real but costs coverage: 383 of 600
+  questions got no grounds at all.
+- **Required-side promises.** "Always run the tests" is enforced by witnessing a
+  real tool execution — but only when the required thing is a program name.
+  Japanese generic nouns (「テスト」) cannot be witnessed. [#56](https://github.com/Ag3497120/Verantyx/issues/56)
+
+### ❌ Losing badly to an LLM — and measured to be unfixable by more rules
+
+- **Reading instructions.** Of 20 realistic instructions, 3 were read correctly,
+  13 produced nothing, 4 picked the wrong term. Anything a rule reads therefore
+  lands in quarantine and **can never block** a reply.
+- **Writing prose.** Vera returns the words it holds. Of 184 answers with a
+  path, 51 (28%) became sentences; the rest stopped because the centre "is not a
+  word". It does not invent sentences, by design and by limitation.
+- **Generalising meaning.** TODO → FIXME is not caught unless the corpus wrote
+  the pair down.
+- **Polarity.** Forbid vs require from vocabulary alone: **54.8%** — a coin flip.
+- **Framing a novel task.** An LLM invents a procedure for an unseen problem.
+  Vera handles the shapes it was given.
+
+Three separate attempts to widen the rules all failed, measured:
+645/661 negations fell outside a 39-word vocabulary; **no frequency threshold
+separates content words from function words** (`pytest` 0.1709% sits *above*
+`is` 0.1641%, and `eslint` 0.0274% *equals* `are` 0.0274%); and pouring
+4.9 M characters of technical prose changed the reading of instructions by
+exactly nothing (8/20 byte-identical before and after).
+
+**This is why the architecture is what it is.** The model reads; Vera enforces,
+records, and refuses. Neither half is asked to do the other's job.
+
+---
 
 ## Repository map
 
 ```
-engine/     Vera-a — the deterministic engine (Python). Everything above lives here.
+engine/   Vera-a — the deterministic engine (Python), including the MCP server
   verantyx/            the package; mcp_server.py is the ONLY interface the IDE uses
-  experiments/         pre-registrations and measurements (74 preregs, 37 results)
-  tools/guard/         the Claude Code hooks
-ide/        the macOS app (Swift) + packaging. Talks to the engine over MCP only.
-  VerantyxIDE/Sources/Verantyx/Views/   screens, incl. CovenantGuardView
-docs/       architecture and archives
-attic/      old debug scripts, kept rather than deleted
+  experiments/         75 pre-registrations, 37 result documents, all re-runnable
+  tools/guard/         Claude Code hooks
+ide/      the macOS app (Swift). Talks to the engine over MCP only.
+docs/     ARCHITECTURE.md — a table of "what you want to change → what to edit"
+attic/    old debug scripts, kept rather than deleted
 ```
 
-**The seam is MCP.** The IDE calls 130 named doors by name and never imports
-Python; the engine never imports Swift. If you are changing a screen you only
-touch `ide/`; if you are changing what a door answers you only touch
-`engine/verantyx/`. `capability_index` will tell you which door already does
-what you are about to build.
+**The seam is MCP.** 132 named doors. Change a screen → touch only `ide/`.
+Change a verdict → touch only `engine/verantyx/`. Nothing in between.
 
-## Where to start contributing
+## Contributing
 
-Read [`engine/CLAUDE.md`](engine/CLAUDE.md) first — it is short, and it names
-the measured lines that a change must not cross (pre-register before measuring;
-ties abstain; absence is not denial; nothing is deleted, only archived).
-
-Then run the index before writing code:
+Run this before writing any code — it is why the project stopped building the
+same thing twice:
 
 ```bash
 python3.11 -m verantyx.cli index search "<what you are about to build>"
 ```
 
-It exists because this repository is larger than any working memory — 67k
-lines, 130 doors, 89 forks, 75 pre-registrations — and capabilities were
-genuinely being built twice.
+Then read [`engine/CLAUDE.md`](engine/CLAUDE.md) (short) for the lines a change
+must not cross: pre-register before measuring, ties abstain, absence is not
+denial, nothing is deleted — only archived.
 
-Issues tagged as good starting points are scoped so that "done" means *a
-measurement passes*, not *the code looks right*.
+Issues are scoped so that **"done" means a measurement passes**, not that the
+code looks right. Good first ones:
+[#59 glossary](https://github.com/Ag3497120/Verantyx/issues/59) ·
+[#55 character classes](https://github.com/Ag3497120/Verantyx/issues/55) ·
+[#57 onedir freeze](https://github.com/Ag3497120/Verantyx/issues/57) ·
+[#60 a contrast corpus](https://github.com/Ag3497120/Verantyx/issues/60)
 
-## The other engines
+---
 
-The IDE also ships **Gatekeeper** (local small models convert code to an
-intermediate form so a cloud model never sees proprietary semantics) and
-**JGEN** (quantized GGUF inference on Metal/NEON, two-Mac layer split over
-Thunderbolt). They work, and they are not what this project claims to be
-different at — that space has strong, well-funded competitors. Vera-a is the
-part with a property nobody else offers: **a typed refusal you can trust, and
-a promise ledger that notices when a model drifts.** Judge the project on that.
+## 🧸 The rest of the app is a toy shelf — including the parts that look serious
+
+The IDE ships five modes. **One of them is the product; treat the others as toys**,
+because that is what the measurements say they are.
+
+| mode | what it is | honest status |
+|---|---|---|
+| **Bot** | the OPERATOR console — documents, domains, covenants, gaps, the store | **the real one.** Everything above lives here |
+| Vera | 3D stereo-cross chat over the store | a beautiful demo. It answers, and it can also sit spinning for a minute waiting on a local model — **toy** |
+| Vera-a / jgen 合議 | multi-model council over local LLMs | **toy.** The council's single-token consensus is known to break on reasoning models, unfixed and documented in the code |
+| LLM | a plain chat with a local or cloud model | **toy.** Everyone has one of these |
+| Gatekeeper (setting) | local small models rewrite code into an intermediate form so a cloud model never sees proprietary semantics | works; **strong competitors exist.** Do not judge this project here |
+| JGEN (setting) | quantized GGUF inference on Metal/NEON, two-Mac layer split over Thunderbolt | works; **strong competitors exist.** Same |
+
+The reason for saying so plainly: a reader who benchmarks the toys concludes the
+project is mediocre. A reader who tests the typed refusal and the covenant
+ledger sees the one thing here that nobody else offers. **Judge it there.**
 
 ## Licence
 
-See [LICENSE](LICENSE).
+[LICENSE](LICENSE)

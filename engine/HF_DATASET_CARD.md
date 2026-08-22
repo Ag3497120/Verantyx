@@ -80,6 +80,20 @@ Pouring is measured to be **non-interfering**: adding documents does not change
 answers that were already grounded, and the ingestion order does not change any
 answer (6-permutation check, part of the repository's 50-measurement suite).
 
+## Everything published here
+
+| file | what it is | size |
+|---|---|---|
+| `vera_store.json` | the base store — English film/biography prose (`hf:imdb`), 889,241 cores | 209 MB |
+| `stores/guard_store_technical_ja_en.json` | a technical ja+en store built from 549 local documents (4.9 M chars), used to measure whether a domain corpus fixes instruction reading — **it does not**, and that negative result is the point | 55 MB |
+| `stores/guard_store_manifest.json` | exactly which files went in, so the store can be rebuilt or disputed | 142 KB |
+| `stores/ide_default_store.json` | the small store the macOS app ships against (ja definitions) | 6 MB |
+| `corpora/*.json` | the ingestion corpora: e-gov statutes, Japanese/English Wikipedia field sets, Aozora speech, disaster-domain probes | 1.1 MB |
+
+Every one of them is an artifact of a measurement written up in the code
+repository, not a curated dataset. The manifest exists so a reader can dispute
+the corpus rather than take the numbers on faith.
+
 ## Provenance and licence
 
 The store is a structural index derived from the public `imdb` dataset on this
