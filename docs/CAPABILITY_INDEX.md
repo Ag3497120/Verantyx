@@ -1,0 +1,588 @@
+# 能力の索引(生成物 — `vera index build` で作り直す)
+
+| 種類 | 数 |
+|---|---|
+| command | 36 |
+| door | 130 |
+| fork | 89 |
+| measured | 1 |
+| module | 188 |
+| prereg | 75 |
+| results | 37 |
+
+## door (130)
+
+- `accept_ai_fact` — Promote one pending AI-proposed fact (by index from
+- `accept_capacity_limit` — Apply one pending limit increase (by index) to VeraConfig. The
+- `accept_domain_module` — Promote one pending domain module (by index from
+- `accept_pack_verdict` — Write one pending verdict into the overlay pack directory and
+- `accept_tool_call` — Actually RUN one pending tool call (by index from
+- `add_conversation_turn` — Ingest one utterance into the conversation's SPACE (not a window).
+- `adopt_covenant` — Adopt a quarantined candidate into enforcement — the gate.
+- `arc_observe_transition` — Milestone R1: feed one action->observation step from a 2D
+- `arm_completeness` — The six-question checklist for a topic: which arms hold knowledge
+- `ask` — Ask the knowledge store. Returns a typed verdict — ANSWER with
+- `assess_field_reports` — Turn structured field reports into typed findings.
+- `assets_for` — Which assets on this machine could close a stated need.
+- `attest_claim` — Judge whether THIS store supports what a claim says about a
+- `audit_required` — Required-side audit by WITNESS, not by wording. 「必ずテストを
+- `bootstrap_unknown_task` — Milestone R2: turn an unfamiliar task (ARC-AGI-3, an unknown CLI/
+- `capability_index` — **Ask this before building anything.** Does the capability
+- `check_context_drift` — Is the reply about something this conversation already settled,
+- `check_drift` — Compare the store against a recorded baseline.
+- `check_reply` — Does this reply still honour what the user settled?
+- `code_ingest` — Ingest a Python repo (AST): one cross per function with
+- `code_query` — Code reasoning: 'who calls X' | 'what does X call' | 'impact of X'.
+- `conversation_stats` — Turns, layers, total cores, speakers.
+- `deep_report` — What is actually known about a topic, in three UNBLENDED parts:
+- `explain_placement` — Where would this sentence land, and why — core, facets, poles,
+- `export_failure_pack` — The pack as editable JSON — the exact on-disk form. Edit it and
+- `extract_covenants` — Instruction text → covenant CANDIDATES, by closed surface rules
+- `fading_covenants` — Which rules have STARTED being broken — the only ones worth
+- `failure_stats` — Histogram of typed failures across all recorded UNKNOWN buckets,
+- `field_report_categories` — The posting categories and their closed status sets, with how many
+- `field_report_needs` — What someone might need, and which categories answer it.
+- `find_similar_gaps` — Structural (not text/vector) similarity against other GapNodes'
+- `forget` — Delete a core cross entirely. Deletion is real and immediate —
+- `goal_recipe` — Turn "what I want to do" into the ordered settings that get there.
+- `grammar_status` — The Japanese grammar currently in force: bundled counts, which
+- `graph_snapshot` — Structural snapshot of the store for visualization -- NOT for
+- `harness_ask_back` — The run is underdetermined — the question to put to a PERSON.
+- `harness_begin` — Start a run. The engine reads the instruction and owns the loop.
+- `harness_deliver` — Hand back what was actually seen. Progress is arms placed.
+- `harness_next` — What the engine wants done next. The model does not choose.
+- `harness_vary` — One success, several methods — by single change, for attribution.
+- `heartbeat` — Milestone M's autonomous growth tick (closed-domain modules,
+- `how_to_resolve` — What an expert should register so a refusal becomes an answer.
+- `ingest_documents` — Ingest several source documents about one event and PRESERVE their
+- `list_baselines` — Every baseline recorded beside this store.
+- `list_covenants` — Every covenant in force, with the turn it came from.
+- `list_failure_domains` — The registered failure-domain packs: name, maturity (verified =
+- `list_gaps` — 欠落台帳の一覧(2026-08-19)。拒否のたびに登録される「どの知識が
+- `list_goals` — Every task recipe available — the "what can I actually do with
+- `list_modes` — Every mode family in the IDE, in one list.
+- `list_pending_ai_facts` — List AI-proposed facts awaiting human review (index, text,
+- `list_pending_capacity_limits` — List calibrated limit increases awaiting human review. Each entry
+- `list_pending_domain_modules` — List LLM-drafted domain modules awaiting human review (index,
+- `list_pending_pack_verdicts` — Proposed failure-pack verdicts awaiting review. Each carries the
+- `list_pending_tool_calls` — Milestone R4: mutating tool calls the Vera-harness chat (IDE)
+- `list_transfer_outcomes` — The raw log this milestone exists to build up — every recorded
+- `list_verified_ui_elements` — Lists every UI element registered for `app` via
+- `load_documents` — Read files (or a folder) into the store — PDF, Word, HTML, CSV,
+- `locate_conversation_topic` — Is a topic still in context? The typed answer an LLM cannot give:
+- `log_transfer_attempt` — Milestone R3: record that a structurally-matched resolution
+- `lookup_verified_ui_element` — Deterministic lookup for a UI element registered via
+- `lookup_verified_url` — Deterministic lookup for a URL registered via
+- `math` — Exact wire arithmetic / typed equation solving (never approximate:
+- `memory_ledger` — The memory as a LEDGER a person can read and act on.
+- `memory_review` — Mark a memory as reviewed by a person, or edit it.
+- `observe` — Place an observation on the six arms. This is not a gate.
+- `own_ai_guide` — The build-your-own-AI guide: how placement works (core / facet /
+- `pending_decisions` — 人の判断を待っているものを、**1つの窓**にまとめて返す。
+- `propose_ai_facts` — Quarantine sentence-level fact candidates split out of an
+- `propose_covenant` — Put a covenant CANDIDATE in quarantine. Meant for the LLM-handoff
+- `propose_domain_module` — Manually quarantine a hand- or externally-drafted domain module
+- `propose_failure_verdict` — Add a new typed verdict to a failure pack FROM EXAMPLES, not from
+- `propose_web_evidence` — Quarantine ONE raw web-search excerpt, verbatim, for human review
+- `rebake_inference` — Re-read the store ONCE and refresh baked inferred_forbids,
+- `recall` — Recall the accumulated facets (with counts) for a core.
+- `recall_conversation` — Answer from the conversation's own memory across every layer,
+- `record_asset_outcome` — What happened when an asset was used for a need — and, when
+- `record_baseline` — Record what the store holds now, to compare against later.
+- `record_build_failure` — Classify a build/CI/conversion failure into a typed verdict
+- `record_code_change` — Record a code change (file path + what changed) as a structured
+- `record_refusal_outcome` — A typed refusal was handed to an action branch (gather-evidence,
+- `record_tool_witness` — An external tool's run, kept as a witness — not as a log line.
+- `record_transfer_result` — Explicitly judge a previously-logged transfer attempt
+- `record_typed_failure` — Classify failure evidence through the named domain pack (see
+- `record_ui_transition` — Milestone S: the IDE's Swift side calls this once per recorded
+- `record_verified_ui_element` — Register a confirmed UI element location within `app`'s window,
+- `record_verified_url` — Register a human- or agent-confirmed URL for a named destination
+- `reject_ai_fact` — Discard one pending AI-proposed fact (by index) — it is marked
+- `reject_capacity_limit` — Discard one pending limit increase (by index).
+- `reject_domain_module` — Discard one pending domain module (by index) — marked rejected,
+- `reject_pack_verdict` — Discard one pending verdict proposal.
+- `reject_tool_call` — Discard one pending tool call (by index) — never runs.
+- `remember` — Teach one English sentence. It is classified into core + facets
+- `resolve_gap` — 欠落を人手で解決済みにする(文書を入れた・不要と判断した等)。
+- `retire_covenant` — Retire a covenant — not delete it. 「もう絵文字使っていいよ」
+- `review_candidates` — Which quarantined candidates have earned adoption — a
+- `set_covenant` — Register something the user settled, so a later reply can be
+- `settings_guide` — The settings guide as Markdown, generated from the same registry
+- `settings_lookup` — Find which Verantyx setting a question is about.
+- `settings_search` — Ranked near-matches for a settings question — use when
+- `stats` — Store statistics (cores, facet links, sentences ingested).
+- `survey_assets` — What this machine actually has — presence only, never ability.
+- `test_failure_pack` — Run a pack over real log samples (one per line) and report what it
+- `vera_ask` — Ask the full stack: language, staircase, inference core, reach.
+- `vera_ask_documents` — Answer from the loaded documents only — quote, or say nothing.
+- `vera_chat` — Talk with the whole engine — stateful, model-free, audited.
+- `vera_cli` — CLI にしか無い機能を IDE から使う橋(閉じた許可表つき)。
+- `vera_compare_spaces` — この端末の文書と、公開連合（一般知識）が、同じ主題について何を
+- `vera_compose` — Build one clause for a verb from its observed frame. No model.
+- `vera_diff` — Structural difference of two subjects — shared / A-only / B-only.
+- `vera_doctor` — この機械で今、保証が成り立つかを実演して答える。
+- `vera_documents` — What documents this terminal has loaded, and a way to drop one.
+- `vera_domain` — Register one document's vocabulary as a domain. Words, not facts.
+- `vera_domain_text` — Register pasted text as a domain's vocabulary. Same gates.
+- `vera_domains` — Which document vocabularies are registered, and what is shared.
+- `vera_engine` — Everything the engine knows how to bring, for one question.
+- `vera_experience` — The experience ledger, read-only: everything this system has
+- `vera_explain` — Meaning descent: the term's units grounded in definition
+- `vera_fresh` — 検索で得た一般知識を、一時空間で引用し、毎回破棄する。
+- `vera_intent` — Frame an instruction structurally, or refuse with UNKNOWN_INTENT.
+- `vera_math` — Is this theorem verified? The mathlib witness store answers.
+- `vera_multi_party` — Split a multi-actor sentence into events, and look up each
+- `vera_prove` — Prove an equation, refute it with a counterexample, or refuse.
+- `vera_prove_sections` — The stereo cross reading of a proof: derive from each section.
+- `vera_read_at` — 分野ごとの読みを、併合せずに並べて返す(2026-08-19配線)。
+- `vera_sovereigns` — Which sovereigns are loaded, and how big each is.
+- `vera_summarize` — Edge-licensed compression over n held subjects (space-separated).
+- `vera_transfer` — Which of this system's learned facts survived a change of
+- `vera_typo` — Typed hand-off for an out-of-vocabulary term. Never rewrites.
+- `wake_summary` — Milestone O: 'what changed while you were away' — GapNodes whose
+- `what_would_close` — Which document, from which shelf, would close this refusal.
+
+## command (36)
+
+- `agent` — agent mode: tools + ReAct + approvals
+- `ask` — one-shot question (typed verdict)
+- `audit` — drop documents in a browser and read what the engine did
+- `chat` — interactive REPL (lab | hybrid)
+- `code` — code reasoning: ingest / ask
+- `deobfuscate` — restore original names
+- `doctor` — self-check both faces on THIS machine: the covenant guard (G1-G4) and the standalone device (S1-S4). Exit 1 if broken
+- `documents` — load documents into the store from the CLI — PDF, Word, HTML, CSV, JSON, text; a directory is walked
+- `domain` — register/inspect domain vocabularies
+- `field` — the full local app for a municipal desk (127.0.0.1, no network)
+- `forget` — delete a core (really deletes)
+- `guard` — covenant guard fast path: no federation load, covenants.json only — for Claude Code hooks (stdin: JSON payload)
+- `heartbeat` — Milestone M: scan growth signals, draft+verify candidate domain modules, queue for human review (never auto-activates)
+- `index` — does this already exist? one search over doors, commands, modules, forks and every prereg/result — derived, never listed
+- `lab` — run fork self-test suites
+- `lexicon` — ask the configured static dictionary about a word
+- `math` — wire arithmetic / typed equations
+- `mcp` — start MCP server (stdio)
+- `mcp-config` — print (or install) the MCP snippet pointing a client at this binary and this store
+- `obfuscate` — reversible identifier obfuscation, mapping encrypted with a key derived from your store's personal state
+- `placement` — simulate which facts go on the faces, before shipping a store
+- `pour` — stream a corpus into the store
+- `propose-ai-facts` — quarantine sentence candidates from an AI's FINAL text (never thinking/chain-of-thought)
+- `push-store` — upload the store to HuggingFace
+- `remember` — teach one sentence
+- `review-ai-facts` — review quarantined AI-proposed facts (arrow-key accept/reject)
+- `self-audit` — find structural signals of defects, with no person reading
+- `self-evolve` — prove defects from the documents themselves, repair, and keep
+- `serve` — Milestone N: HTTP+SSE daemon (Vera as harness, not an MCP tool) — POST /agent/run, GET /events?run_id=, GET /agent/run/<id>
+- `setup` — interactive settings (LLM, allocation)
+- `simplify` — term rewriting (algebra rules)
+- `sovereign` — build one federated node from documents, stage by stage
+- `stats` — store statistics
+- `tool` — call any of the MCP doors from the CLI (same doors, second entrance — nothing is rewritten per command)
+- `watermark` — leak attribution: register an owner's naming-variant, or identify candidate owners of an obfuscated file (evidence, not proof — see docs/WATERMARK.md)
+- `wizard` — guided data-placement (arrow keys)
+
+## module (188)
+
+- `__init__` — Verantyx Vera α — deterministic cross-structure knowledge & reasoning engine.
+- `agent` — Agent mode — a ReAct loop where Vera is the controller.
+- `agent_forks` — Forks for agent tools, approval gating, ReAct loop, config allocation.
+- `agent_tools` — Agent tools — the hands and feet (手足) of agent mode.
+- `ai_ingest` — AI-output ingestion — passive memory from an assistant's final text,
+- `ai_ingest_forks` — Forks for AI-output quarantine (hedge/meta filtering, accept/reject).
+- `arc_env_adapter` — Milestone R1 — ARC-AGI-3 environment adapter: turn a 2D dynamic-puzzle
+- `arm_schema` — The three dualities — every claim gets the same six questions.
+- `ask_back` — The mouth. Typed refusals already hold the candidates — this returns them.
+- `assembled` — Every organ on one road, so what this engine actually is can be seen.
+- `attest_llm` — Check a sentence somebody else wrote against what the store holds.
+- `audit_app` — Drop documents in, read what the engine actually did — offline, no deps.
+- `axis_summary` — Selection by cross-field agreement — a summary the store can defend.
+- `boundary` — Boundary detector (Direction B) — decides what a recurring UNKNOWN bucket
+- `boundary_eval` — Is the boundary detector assigning the right type to a failure?
+- `build_en` — Build the English sovereign to a durable path — the builder that was missing.
+- `build_failure` — Typed classification of build / CI / conversion failures.
+- `build_failure_eval` — Does the build-failure classifier type real failures correctly?
+- `build_ja` — Build the Japanese federation and writer once, to a durable path.
+- `capacity_calibration` — What to do about a bucket classified `needs_more_capacity`.
+- `capacity_ingest` — Capacity-limit quarantine — the third sibling of AiFactQuarantine and
+- `card_numbers` — Every number on the published card, measured against the published file.
+- `catalog` — A catalogue of a body of work — every entry traceable, the whole thing reproducible.
+- `cli` — vera — CLI for Verantyx Vera α (lab + chat in one binary).
+- `code_ingest` — Code reasoning ingest — Python repos as cross networks (deterministic AST).
+- `cognitive_interventions` — Milestone P5 — automatic closed-loop hidden-state intervention.
+- `compose` — Long-form prose from the store — grammatical, not fluent, and never invented.
+- `compose_frame` — Build a sentence from a frame, a pattern and its fillers. No model.
+- `compose_ja` — Sentences, by recombining forms and contents that were both written down.
+- `conduct_tree` — A second tree, routed by surface conduction — beside `hierarchy`, not over it.
+- `config` — User configuration — LLM choice, store path, Vera↔LLM allocation dial.
+- `connective_render` — Connective-licensed skeleton sentences over a structural diff.
+- `consensus` — Multi-frontier consensus search — 最初の構想の推論核.
+- `consensus_ab_eval` — Effect measurement for the conception's three tuning axes, on one field.
+- `consensus_forks` — Forks for multi-frontier consensus search (typed verdicts, carry modes).
+- `consensus_store` — Retrieval → consensus bridge: CrossStore の候補十字を殻に載せて合意探索.
+- `constellation` — Sovereigns in parallel, with nothing above them.
+- `conversation` — Conversation context as space, not as a window.
+- `corpus_aozora` — Spoken Japanese, from public-domain fiction — the register nothing else had.
+- `corpus_audit` — Measure a real corpus — and be strict about what a real corpus cannot measure.
+- `corpus_en` — English corpus streaming for large-scale reconstitution (LM-free store).
+- `corpus_fetch` — Fetch, verify and record a corpus by manifest — never by redistribution.
+- `corpus_wikipedia` — Reconstruct a Wikipedia corpus from a manifest that recorded no URLs.
+- `covenant` — What the user already settled, and whether the reply still honours it.
+- `coverage` — Which shelf would close this refusal — the atlas read for humans.
+- `cross`
+- `cross_geometry_forks` — Forks for the three unbuilt pieces of the original conception:
+- `cross_store` — CrossStore — core ごとに1つの十字を累積する多十字ネットワークの土台.
+- `debug_consensus` — Debug consensus — bug localization by multi-section agreement.
+- `defect_gaps` — Defect reports become GapNodes, and the same defect twice becomes one.
+- `defect_report` — Report a defect without sending the document.
+- `dialogue_context`
+- `doctor` — 二つの顔の自己検査 — 番人(G1〜G4)と単体の装置(S1〜S4)。
+- `document_ingest` — Documents in, disagreement out — multi-source ingestion for deep search.
+- `document_loaders` — Files in, `Document`s out — with a typed refusal when a format is beyond us.
+- `document_structure` — A document has sections and labels. The answer usually lives in one.
+- `domain_ingest` — A document becomes a domain's vocabulary. The grammar is not rebuilt.
+- `drift` — What the store held then, and what it holds now.
+- `egov` — e-Gov 法令XML → a store you can cite from.
+- `en_decompose` — Elementary English grammatical decompose (deterministic, LM-free).
+- `engine` — One boundary. The composition lives here, not in whoever is calling.
+- `events` — Events as cores — how a three-place fact fits a two-place store.
+- `experience` — 経験のコンパイル — 散在する在庫を9状態型に写す読み出し層(束ねない)。
+- `experience_cross` — 経験十字 — 経験のコンパイルを立体十字の上に置く(PREREG: experience_cross)。
+- `explain` — A constructed explanation for a term the store never held.
+- `export_sqlite` — The federation as one SQLite file — the form it can actually be published in.
+- `export_view3d` — Lay the federation out in 3D as the crosses it actually is.
+- `face_roles` — Per-arm face roles (original stereo-cross vision).
+- `failure_domains` — Failure-domain packs — the plugin boundary of the typed-failure loop.
+- `failure_domains_eval` — Structural and behavioural checks over every registered failure domain.
+- `field_app` — The local web application, built to field-software rules rather than to taste.
+- `field_reports` — Field reports — structured status, chosen not written, and honest about age.
+- `field_reports_eval` — Does a field report reach a verdict someone can act on — or safely not?
+- `field_session` — What a field officer needs between one shift and the next.
+- `full_sovereign` — A sovereign with every stage in it, not just the ladder.
+- `fusion` — Where independently-built fields meet — and how much a change moves it.
+- `gap_graph` — Milestone O — GapNode: a persistent, typed "this is missing" state.
+- `gap_severity` — Milestone O2 — severity classification for a detected gap.
+- `gapnode` — Gap nodes: what a sovereign lacks, held as crosses it can read.
+- `generalization_eval` — Planted ground truth on corpora the pipeline was never tuned on.
+- `graded` — Quantize the VERDICT, not only the index.
+- `granularity` — Composition across granularities — where a closed system stops being closed.
+- `grow` — The refusal log as a standing work queue — growth where questions failed.
+- `growth_signals` — Growth-signal log — Vera's own record of where it keeps failing or drifting.
+- `hf_store` — HuggingFace Hub — publish and auto-fetch the base store.
+- `hierarchy` — Nodes that contain nodes — the tree the geometry forces you to build.
+- `index` — 能力の索引 — 「それは既に在るか」に1コマンドで答える。
+- `ingest_coherence` — Ingest-time coherence check — a ledger, never a censor.
+- `intake_quality` — Did the system understand what was poured in? It says so itself, in types.
+- `intent_chain` — A framed instruction as a chain that circulates, not a list that drains.
+- `intent_frames` — Closed intent frames — verb→operation table plus case-particle arms.
+- `ja_grammar` — Japanese grammatical data — bundled, validated, and extensible without code.
+- `ja_morph` — Query-side word-form bridging — 傷害罪 must reach 傷害.
+- `jgen_lexicon` — A language model's embedding table, used as the static dictionary it is.
+- `kripke` — Kripke finite model checking — 世界=十字、R=接合、□=合意ゲート、◇=wire 到達.
+- `kripke_rewrite_forks` — Forks for Kripke model checking + term rewriting kernel.
+- `lang` — Multilingual front-end — deterministic, rule-based, honest about depth.
+- `lang_router_forks` — Forks for the multilingual front-end and the control-allocation router.
+- `lattice` — The vocabulary as a lattice — atoms to compounds, kin by shared units.
+- `layer_stack` — Layered memory — the missing half of the matryoshka.
+- `lean_witness` — Lean as a witness type — derivation outside, memory and audit here.
+- `lean_witness_forks` — Forks for the Lean witness type — the sorry catch above all.
+- `lex_filters` — Lexical hygiene for mass pour: junk filters, proper-noun compounding,
+- `links` — Connections a source does not print — held apart from what it does.
+- `llm_local` — Local LLM client (Ollama) — the language surface Vera controls.
+- `math_sim` — Math simulation on the stereo cross — 構造の物理を計算にする.
+- `math_sim_forks` — Forks for math simulation (wire arithmetic / matryoshka eval / typed equations).
+- `mathlib_witness` — Is this theorem verified? The mathlib witness store answers.
+- `mcp_server` — MCP server — hallucination-free memory & knowledge tools over stdio.
+- `meaning_assets` — Lazy, cached loaders for the meaning-layer sidecars the MCP doors need.
+- `meaning_descent` — Meaning descent — lattice units wired to shelf definition sentences.
+- `meaning_index` — The meaning sidecars as an INDEX, not as resident dictionaries.
+- `metamorphic` — Prove a defect from inside, with no answer key and nobody reading.
+- `module_forge` — LLM module drafting (Direction A) — asks the local LLM to write ONE
+- `module_ingest` — Domain-module quarantine — the sister of ai_ingest.py's AiFactQuarantine,
+- `module_verify` — Verification harness for LLM-drafted domain modules (Milestone M6).
+- `multi_party` — 複数の当事者にまたがる出来事を分解し、行為ごとに文書の罪を引く。
+- `multilingual_eval` — Does the Japanese path actually carry a claim from a file to a verdict?
+- `obfuscate` — Reversible code obfuscation, keyed by a store's personal accumulated state.
+- `obfuscate_forks` — Forks for store-keyed reversible obfuscation.
+- `observation` — An observation is a cross. Nothing here is a check.
+- `own_ai_guide` — The build-your-own-AI guide — how data placement works and how to adjust it.
+- `pack_authoring` — Authoring failure-domain knowledge from EXAMPLES, not from regular
+- `pack_ingest` — Failure-pack quarantine — the fourth sibling of AiFactQuarantine,
+- `paths` — コーパスの根の一元化 — 移植の前提修理(2026-08-19)。
+- `phase2_forks` — Forks for phase 2: debug consensus, memory provenance/contradiction,
+- `placement` — Placement simulation — decide what goes on the faces BEFORE shipping.
+- `placement_explain` — Where would this sentence land, and why — the placement inspector.
+- `polarity` — Evidence polarity — the opposition axis, awake.
+- `polyglot` — One sovereign per language, and a question goes to exactly one.
+- `pour_forks` — Forks for mass pour → CrossStore → retrieval consensus.
+- `predicate_profile` — Predicate profiles — which predicates co-occur with each subject.
+- `preregistration` — Stop conditions that live in the code, not only in the document.
+- `procedure` — Milestone Q — Procedure: hand-written functions lifted into data.
+- `procedure_exec` — Milestone Q2 — closed instruction-set interpreter for Procedure.
+- `procedure_ingest` — Milestone Q4 — Procedure quarantine, the sister of module_ingest.py's
+- `procedure_vary` — One success, many candidate methods — by variation, not by inference.
+- `proof_ledger` — 証明の台帳 — 補題・試行・未証明目標を、器官に永続で刻む。
+- `proposal` — What approving a proposal would actually do — measured, before approving.
+- `proposal_verify` — Three states for a vocabulary proposal, so a person reads fewer of them.
+- `prover` — 立体十字エネルギー証明器(器官) — 候補補題を腕に置き、エネルギーが経路を決める。
+- `puzzle` — Inference by intersection, which is the half of the early idea that lives.
+- `reach` — Reaching a word the store does not hold, by taking it apart.
+- `release` — One command from approved suggestions to a switchable published model.
+- `remedy` — What to register so a refusal becomes an answer.
+- `resolution` — A ladder of resolutions over one corpus — agreement as calibrated doubt.
+- `rewrite_core` — Term rewriting — the generalisation of procedure_exec's closed instruction
+- `rewrite_eval` — Does the rule-data version of digit addition agree with wire_add?
+- `rewrite_kernel` — Term rewriting kernel — 規則を十字に格納する数学の共通基盤.
+- `rewrite_math` — Digit addition as rule DATA over rewrite_core — the proof that the
+- `rotation_signature` — Rotation-canonical shape signatures — the 24 symmetries, awake.
+- `router` — Router — Vera as the controller that allocates work between itself and
+- `rule_synthesis` — Derive a reading rule from a gap, then measure whether it breaks anything.
+- `segmented` — Sovereigns that were BUILT differently, not indexed differently.
+- `self_audit` — Generate gaps from structure alone — no person, no network, no model.
+- `self_evolve` — Read documents, prove a defect, repair it, and keep the repair — alone.
+- `self_harness` — 自分のハーネスを自分で測る — 作業ログ→ハーネス項→単一変更の変分。
+- `sense_split` — Facet co-occurrence sense clustering — 「軸ずらしでニュアンス選択」の実体.
+- `serve_view3d` — Serve the 3D view next to the engine and stream what a query touches.
+- `settings_guide` — The operator's guide, generated from the registry rather than written.
+- `settings_registry` — One place that knows what every setting and mode is — and can prove it.
+- `settings_registry_eval` — Does the settings registry answer, refuse, and stay in sync?
+- `sovereign` — Documents in, one sovereign node out — the whole procedure, run for real.
+- `stacked` — The staircase feeds the inference core. Layered, never pooled.
+- `stage_split` — Deterministic stage-boundary split — the arrow that `staged` cannot guess.
+- `store_sqlite` — SQLite persistence for CrossStore — 増分保存で規模の天井を外す.
+- `structural_diff` — Structural difference — A vs B as three observed bundles.
+- `structural_similarity` — Milestone O extension — structural similarity between GapNodes.
+- `structure_forks` — Forks for the three woken structural properties: polarity, the arm
+- `summarize` — Compression over n paths — the staged junction generalized, hand-over only.
+- `surface` — Surface conduction: flow between arms, and the word where it converges.
+- `task_bootstrap` — Milestone R2 — bootstrap_unknown_task(): a domain-agnostic entry point
+- `task_recipes` — Goals, not settings — the path from "what I want" to "which switches".
+- `tool_call_quarantine` — Milestone R4 — mutating-tool approval for the Vera-harness (HTTP) path,
+- `trace` — The path a walk took, kept outside the stores it walked through.
+- `transfer_outcomes` — Milestone R3 — the minimal log this session agreed to build first:
+- `transfer_reading` — 転移の読む層 — transfer_outcomes が意図的に保留した較正段。
+- `tree_witness` — Tree replication: the witness law lifted to the tree's scale.
+- `tui` — Tiny terminal UI — arrow-key selection with a dumb-terminal fallback.
+- `typo_recovery` — Typo recovery as a typed hand-off — never a silent correction.
+- `ui_transition` — Milestone S — the first wire between the IDE's "body" (Swift-side UI
+- `vera` — One entry point: a question in, a typed answer with its route out.
+- `vera_server` — Milestone N — Vera-as-harness HTTP+SSE daemon.
+- `vocab_growth` — Grow the vocabulary from the documents' own narrative — as proposals.
+- `vocabulary` — Which facets are words — a separate layer, for a separate job.
+- `watermark` — Software watermarking via the obfuscation naming-variant, not the key.
+- `watermark_forks` — Forks for the fingerprint-derived naming-variant watermark.
+- `writer` — The generation stack, assembled — and kept away from the answer path.
+
+## fork (89)
+
+- `a_chain_decays_and_stacking_nodes_does_not_stop_it_fork` — Chains stay far above chance and lose half their context by step two.
+- `a_character_window_is_a_japanese_technique_fork` — Coarsening by character collides in latin script and not in kanji.
+- `a_citation_is_listed_not_chosen_fork` — Three readings from one ask, kept apart because merging destroys them.
+- `a_coarser_cut_recovers_words_the_word_reader_buried_fork` — Segmentation is not only a matching trick; it finds real vocabulary.
+- `a_covenant_binds_the_exchange_not_the_wording_fork` — Catch a forgotten instruction without crying on every turn.
+- `a_polite_imperative_still_needs_a_licence_fork` — 「〜してください」 read straight past the licence.
+- `a_promise_to_act_needs_a_witness_fork` — 行為の約束は証人で見る・候補は隔離席から採用される(fork 174本目)。
+- `a_puzzle_narrows_where_a_chain_decays_fork` — The early idea had two halves and only one of them survives.
+- `a_question_goes_to_one_language_sovereign_fork` — Two tokenizers reaching the same string have collided, not agreed.
+- `a_refusal_says_what_would_close_it_fork` — Four of six refusals close by registration; two must not.
+- `a_reloaded_writer_is_the_same_writer_fork` — Restoring must bring back the slot tables, not just the vocabulary.
+- `a_rule_a_regex_read_is_a_candidate_fork` — 規則が読んだ約束は候補であって執行ではない(fork 176本目)。
+- `a_rule_that_just_started_breaking_is_the_one_to_resend_fork` — Re-injecting everything every turn is what already fails.
+- `a_store_must_be_asked_the_way_it_was_read_fork` — A federation that holds a greeting could not be asked for one.
+- `a_template_cut_inside_a_word_is_caught_at_the_seam_fork` — The break shows at the fill, not at the harvest, so test it there.
+- `a_timeless_store_must_refuse_a_question_about_now_fork` — The store answered 「今日の天気は」 with 今日.
+- `a_wholesale_replacement_is_not_no_change_fork` — Drift has to name what moved, because a count cannot see the worst case.
+- `a_witness_must_have_been_invoked_fork` — 呼ばれた道具だけが証人・推薦は採用ではない・推論は焼き直せる
+- `attest_polarity_fork` — 主張の採点は、肯定と否定を同じ点にしてはならない(fork 170本目)。
+- `axis_lock_fork` — ロックできるのは、同点崩しで勝っていない腕だけ(fork 172本目)。
+- `coarsening_adds_a_reading_and_never_overturns_one_fork` — The verdict is quantized like the index, and typed so it cannot lie.
+- `concord_is_not_coverage_fork` — Agreement about a leaf is not evidence the question was answered.
+- `concord_rides_alongside_the_list_fork` — Confidence is reported BESIDE the destinations, never instead of them.
+- `constellation_beats_one_sovereign_fork` — Parallel sovereigns at different settings, with nothing above them.
+- `conversation_overflow_is_typed_fork` — Context overflow must be FROZEN, never silence.
+- `conversation_speaker_attribution_fork` — Who said it, and when, survives ingestion. Without attribution a
+- `covenant_lifecycle_fork` — 約束は生まれ、執行され、退役する — 削除はされない(fork 173本目)。
+- `cross_field_agreement_selects_but_barely_applies_fork` — Axis contrast is a real selection rule over a very small share.
+- `cut_agreement_is_not_evidence_and_must_not_be_pooled_fork` — Two axes of sovereign, and pooling their votes destroys the gate.
+- `direction_invariance_fork` — 向きの不変性: 読む向きを変えると消える当選は立ってはならない。
+- `document_draft_is_licensed_fork` — 文書の下書きは引用行の言葉しか使えない — 使えなければ黙る。
+- `edge_fallback_routes_off_face_fork` — 面が知らない語は、辺語彙の一意所有でだけ枝に届く — 共有なら棄権。
+- `egov_article_is_a_citation_key_fork` — An article must be retrievable by the string a reader types.
+- `event_extractor_refuses_statute_prose_fork` — The event reader must read a fact pattern and REFUSE statute prose.
+- `every_manifest_can_rebuild_its_corpus_fork` — A manifest that cannot rebuild its corpus is a receipt, not a backup.
+- `explanation_bare_suffix_abstains_at_the_split_fork` — A one-character head abstains AT THE SPLIT, not at the gate.
+- `explanation_constructed_and_typed_fork` — A UNITS landing explains only through the vocabulary gate, typed.
+- `explanation_never_on_answer_path_fork` — Constructed explanations must not be able to arrive at a verdict.
+- `form_may_not_assert_more_than_content_licenses_fork` — Closure stops invented symbols. It does not stop invented relations.
+- `fusion_is_not_monotonic_fork` — A field arriving can DISSOLVE a bridge between two others.
+- `geometric_pole_invisibility_fork` — Ring windows contain the opposite pole; geometric ones never do.
+- `geometric_rotation_reaches_all_fork` — Geometric visibility must not orphan any axis: across all rotations,
+- `granularity_composes_fork` — Two granularities over one corpus can form what one cannot.
+- `ja_coverage_gate_fork` — The Japanese path must refuse a question it did not address.
+- `kin_neighbourhood_is_a_weaker_typed_claim_fork` — NO_REACH with lattice kin becomes a NEIGHBOURHOOD, typed apart.
+- `latin_is_a_content_word_in_japanese_prose_fork` — A tool name is what the sentence is about, not punctuation.
+- `lattice_nodes_attested_and_kin_positional_fork` — Every lattice node is an attested word or its atom; kin is positional.
+- `layer_stack_growth_fork` — Capacity 2, five distinct cores: layers must stack (2,2,1), lower
+- `layered_ask_stability_fork` — Two layers that both know the answer must converge and halt early
+- `layered_carry_drift_fork` — The telephone game, constructed on purpose.
+- `layered_recovers_where_pooled_destroys_fork` — Every combination measured this session divides on one line.
+- `linked_is_not_printed_fork` — A doctrinal connection must never look like something the source said.
+- `long_form_drifts_and_lists_fork` — Chained read-out is not prose, and it loses its subject in two steps.
+- `norm_vs_record_fork` — 規範と記録は、極性が逆でも矛盾ではない — その枝が実際に動くこと。
+- `not_knowing_is_not_disagreeing_fork` — A verifier must refuse a subject it never learned, not fail it.
+- `nothing_measured_moves_unknown_word_reach_fork` — Four ways to reach further into unheld words. None of them reaches.
+- `one_root_saturates_at_capacity_fork` — A single root routes CAPACITY terms and never more, at any depth.
+- `only_data_varied_sovereigns_can_dissent_fork` — Two sovereigns agreeing means different things on the two axes.
+- `placement_cannot_manufacture_confidence_fork` — A question that cannot distinguish its candidates must stay AMBIGUOUS,
+- `placement_granularity_fork` — The same information, poured two ways, is not the same knowledge.
+- `placement_invariance_fork` — An answer that depends on an arbitrary tie-break must not stand.
+- `placement_is_backward_compatible_fork` — A store with no baked placement must answer exactly as it always did.
+- `placement_simulation_fork` — Pre-simulation must beat frequency when demand is concentrated,
+- `presence_in_the_corpus_is_not_support_fork` — A verification layer must check the SUBJECT's link, not the vocabulary.
+- `promotion_pyramid_fork` — A freezing layer distils its heaviest cores into the new top layer.
+- `prover_three_outcomes_fork` — 証明器の扉は、証明・反駁・拒否の三つを混ぜない(fork 169本目)。
+- `quote_is_substring_fork` — 引用として出す行は、必ず原文の部分文字列である。
+- `read_at_shows_both_sides_fork` — 食い違う二分野は、併合されずに両方返る。
+- `reified_event_fork` — A three-place fact fits a two-place store when the EVENT is the core.
+- `resolution_ladder_grades_doubt_fork` — A tied rung abstains, and unanimity therefore means something.
+- `reverse_specific_fork` — 帯割れの特定性裁定は、孤立した核だけを、根拠ごと名乗って立てる。
+- `reverse_unique_fork` — 逆方向の唯一候補は、順方向の棄権の後ろでだけ、名乗って立つ。
+- `sovereign_build_fork` — The whole procedure, end to end, on a miniature federation.
+- `sovereigns_cut_differently_are_not_one_store_reindexed_fork` — A different cut changes what a document is ABOUT, not how it is found.
+- `staged_intersection_chains_n_stages_fork` — Any number of arrows chains; only the final stage elects.
+- `summary_edge_licence_and_group_drops_fork` — A summary may only say what an edge licenses, and drops in groups.
+- `the_finest_staircase_is_not_the_best_one_fork` — Three axes, all measured to carry signal, and more steps still costs.
+- `the_grammar_axis_earns_its_place_on_mismatched_forms_fork` — The third axis was measured neutral by a probe that could not show it.
+- `the_path_is_the_content_and_the_writer_only_supplies_form_fork` — Generation is query-driven once the walk is replaced by the path.
+- `the_polite_register_was_invisible_to_the_harvester_fork` — こんにちは could only be answered in statute voice, and not for a
+- `the_staircase_grades_doubt_and_finds_none_to_grade_fork` — More rungs help where the answer is in doubt, and CORE identity is not.
+- `the_store_infers_the_prohibition_nobody_wrote_fork` — Siblings come from the geometry, and only after the hubs are removed.
+- `the_structure_is_deterministic_fork` — Same store, same question, same answer — checked, not assumed.
+- `the_vocabulary_is_not_the_lever_fork` — Growing the vocabulary does not make a path centre speakable.
+- `trace_is_memory_outside_the_store_fork` — The path is a value, kept beside the stores, and it resumes a walk.
+- `transfer_reading_fork` — 転移は数える。なぜ転移したかは主張しない(fork 171本目)。
+- `unknown_word_reach_and_new_word_creation_are_one_operation_fork` — The mechanism that coins words is the one that reaches unheld ones.
+- `word_form_is_a_fallback_fork` — Widen the query only when the printed word found nothing.
+- `writer_never_reaches_the_answer_path_fork` — A generated sentence must not be able to arrive where a citation is.
+
+## prereg (75)
+
+- `PREREG` — 事前登録: 軸のロック — 構想の中核で、席だけあって未到達だった機構
+- `PREREG` — 事前登録: 双方向の重ね(順方向×逆方向の相殺)
+- `PREREG` — 事前登録: 分岐のある書き換えで、構造は正規形に至れるか
+- `PREREG` — 事前登録: 完備化は新しい等式法則を導けるか
+- `PREREG` — 事前登録: 立体十字エネルギー証明器 — 梯子の発明の確認
+- `PREREG` — 事前登録: 辞書辺(定義文の反復共起×共有区切り)で同義語の壁を渡す
+- `PREREG` — 事前登録: 経験十字 — 経験のコンパイルを立体十字の上に置く
+- `PREREG` — 事前登録: 帯割れの特定性裁定 (REVERSE_SPECIFIC)
+- `PREREG` — 事前登録: 汎化 — 命題を強めないと帰納が通らない場合
+- `PREREG` — 事前登録: 番人 — 10時間の実地試験が名指した限界を、エンジン側で塞ぐ
+- `PREREG` — 事前登録: ハーネス代数 v0 — 呼び出し言語を数学で組み、実行で馴染ませる
+- `PREREG` — 事前登録: 帰納法は書き換えで実行できるか
+- `PREREG` — 事前登録: 道筋はどこで止まるか — 帰納法の壁
+- `PREREG` — 事前登録: 発明の予算門 — 反例の記憶と、型付きの打ち切り
+- `PREREG` — 事前登録: junk門を役割タガーへ繋ぎ、逆方向の帯にも適用する
+- `PREREG` — 事前登録: 辞書定義1.4Mの多量投入(ベース連合の言葉固め)
+- `PREREG` — 事前登録: mathlib の文構造つき再抽出 — 名前だけの店に文を取り戻す
+- `PREREG` — 事前登録: 文書スケールでの非干渉(配布用初期知識の害調査)
+- `PREREG` — 事前登録: 向き付けは完全性を回復するか(閉包を破らずに)
+- `PREREG` — 事前登録: 候補到達の補完(facet重なりの追記)
+- `PREREG` — 事前登録: 探索 — 人の指示を全部外したらどこまで行くか
+- `PREREG` — 事前登録: 自分のハーネスを自分で測る — 作業ログ→変分→台帳
+- `PREREG` — 事前登録: 構造→Lean の閉ループ(既知の結果を再導出できるか)
+- `PREREG` — 事前登録: 転移の読む層 — 保留されていた較正段を、実データで埋める
+- `PREREG` — 事前登録: 空虚な証明を、構造的に作れなくする
+- `PREREG10` — 事前登録10: 手渡しの席を全検査に統一(直接検査にも供給)
+- `PREREG10_INDEX` — 事前登録10: 能力の索引 — 「それは既に在るか」に1コマンドで答える
+- `PREREG11` — 事前登録11: リスト署名の mathlib 断片 — 完了基準5点で測る
+- `PREREG12` — 事前登録12: 条件付き書き換えと不等式 — 完了基準5点で測る
+- `PREREG13` — 事前登録13: AC正準化と書き換えの不動点 + 補題への完了基準5点の常時適用
+- `PREREG14` — 事前登録14: min/max 署名 + 十字の性質の本格投入(断面合意・表面伝導)
+- `PREREG2` — 事前登録2: 抽象化の単一変更 — 新鮮定数入りの構成子項も変数にできる
+- `PREREG2` — 事前登録2: 特定性裁定のしきい値 5.0(3.0 は P1 違反で不採択)
+- `PREREG2` — 事前登録2: 番人の第二段 — 証人・隔離席・書かれていない禁止
+- `PREREG2` — 事前登録2: 実LLMでの経験則 earn — ハーネス代数を本物のモデルに当てる
+- `PREREG2_WIKT_JAWIKI` — 事前登録2: Wiktionary類義語+jawiki本文の投入
+- `PREREG3` — 事前登録3: 同時抽象(極小異質項の一括変数化)+ 目標台帳のバッテリー
+- `PREREG3` — 事前登録3: 番人の第三段 — RESULTS2 が名指した残り3つの限界
+- `PREREG3` — 事前登録3: 課題集合 12→24 — 採択線をノイズ床の上に持ち上げる
+- `PREREG3_SPECIFICITY` — 事前登録3: 候補追記を質量順から特定性順へ
+- `PREREG4` — 事前登録4: 改名のみ候補(抽象ゼロ + 新鮮定数の変数化)
+- `PREREG4` — 事前登録4: 規則が読んだ約束を執行に入れない — 誤遮断を止める
+- `PREREG4` — 事前登録4: 第3のモデル(gemma-2-9b) — 採否の輪郭は「科」で変わるか
+- `PREREG5` — 事前登録5: 目標集合の不動点 — 証明済みが次の目標の規則在庫になる
+- `PREREG5` — 事前登録5: 課題の難度 — 天井を外して大モデルの輪郭を見る
+- `PREREG5_FREEZE` — 事前登録5: 凍結 — 「これ以上直さなくてよい」の定義
+- `PREREG6` — 事前登録6: LPO — 昇格規則の向きを項の構造で決める
+- `PREREG6_STANDALONE` — 事前登録6: 単体 Vera — 決定論的に聞ける装置としての保証
+- `PREREG7` — 事前登録7: mathlib断片の手渡し — 在庫は投票せず、詰まりの文脈にだけ届く
+- `PREREG7_CLI_PARITY` — 事前登録7: IDE から CLI へ — 文書・分野・扉・設定
+- `PREREG8` — 事前登録8: クラスフィールドの抽出 — 断片の供給の欠けを埋める
+- `PREREG8_WIRING_AND_WINDOW` — 事前登録8: 静かに壊れないこと(①配線)と、欠けを1つの窓に出すこと
+- `PREREG9` — 事前登録9: AC冗長規則の除去 — 「一致」の意味を二重化しない(最後の変分)
+- `PREREG9_LEDGER_AND_REACH` — 事前登録9: 台帳の有界化(L)と、IDE から全機能に届くこと(E)
+- `PREREGISTERED_2026-08-14_tree_and_shelf` — 事前登録 — 木への主経路移行と浅層棚建設の判定基準
+- `PREREGISTERED_2026-08-16_bake_placement` — Pre-registration — bake the placement that was measured and never applied
+- `PREREGISTERED_2026-08-16_case_frames` — Pre-registration — case frames as the base model
+- `PREREGISTERED_2026-08-16_case_frames_c1` — Pre-registration — C1′, with path-を and a floor on the test set
+- `PREREGISTERED_2026-08-16_filler_mass` — Pre-registration — discounting ubiquitous fillers
+- `PREREGISTERED_2026-08-16_frame_fillers` — Pre-registration — what fills each case slot
+- `PREREGISTERED_2026-08-16_japanese_arms` — Pre-registration — arms for Japanese facts
+- `PREREGISTERED_2026-08-16_polarity_gate_context` — Pre-registration — Gate B′, decided by what precedes the verb
+- `PREREGISTERED_2026-08-16_polarity_gate_joint` — Pre-registration — B″3, the joint measured against the verb's own surface
+- `PREREGISTERED_2026-08-16_polarity_gate_repair` — Pre-registration — repairing the existence gate (second attempt)
+- `PREREGISTERED_2026-08-16_polarity_ingest` — Pre-registration — wiring observed negation into ingest
+- `PREREGISTERED_2026-08-16_rephrase_gate` — Pre-registration — a rephrasing must be certified, not merely accepted
+- `PREREGISTERED_2026-08-16_sahen` — Pre-registration — restoring サ変動詞, test set unchanged
+- `PREREGISTERED_2026-08-16_structured_ingest` — Pre-registration — a document has structure, and the answer lives in it
+- `PREREGISTERED_2026-08-16_subject_identity` — Pre-registration — the SUBJECT must be certified, not any shared word
+- `PREREGISTERED_2026-08-16_suspend_resume` — Pre-registration — the engine suspends and asks for language
+- `PREREGISTERED_2026-08-17_lexicon_heading_alias` — Pre-registration — a jgen embed table as a heading dictionary
+- `PREREGISTERED_2026-08-20_attest_polarity` — 事前登録: attest_claim の極性配線 — 否定盲の修理
+- `PREREG_CORPUS` — 事前登録: 分野コーパスを入れると番人の語彙は変わるか
+- `PREREG_PROMOTION` — 事前登録: 逆方向の回答チャネル昇格(REVERSE_UNIQUE)
+- `PREREG_PROMOTION2` — 事前登録2: 問いの枠語を被覆から外す(昇格の再挑戦)
+
+## results (37)
+
+- `RESULTS` — 実測結果: attest_claim の否定盲を修理(5点全合格)
+- `RESULTS` — 実測結果: 軸のロック — 構想の中核が、席だけあって未到達だった
+- `RESULTS` — 実測結果: 双方向の重ね(向き不変の門)
+- `RESULTS` — 実測結果: 分岐のある書き換え — 健全だが、完全性は規則の形で決まる
+- `RESULTS` — 実測結果: 完備化は新しい等式法則を導く(12本、Lean 12/12)
+- `RESULTS` — 実測結果: 立体十字エネルギー証明器 — 梯子の発明が初めて動いた
+- `RESULTS` — 実測結果: 辞書辺+メモ大量投入の最終テスト
+- `RESULTS` — 実測結果: 経験十字 — 経験のコンパイルを立体十字に置いた
+- `RESULTS` — 実測結果: 順方向合意が正解を選べない機序と、帯割れの特定性裁定
+- `RESULTS` — 実測結果: 汎化 — 手で与えれば通る。自動化はまだ届かない
+- `RESULTS` — 結果: 番人 — 実地試験の限界を塞いだあとの実測
+- `RESULTS` — 実測結果: ハーネス代数 v0 — 数学で組み、実行で馴染む(全基準クリア)
+- `RESULTS` — 実測結果: 帰納法は書き換えで実行できる — 前回の断定は誤りだった
+- `RESULTS` — 実測結果: 道筋はここで止まる — 壁は帰納法ではなく「目標」
+- `RESULTS` — 実測結果: 発明の予算門 — 無駄の形を測ってから直した(判定不変)
+- `RESULTS` — 実測結果: junk門 — Aは採用(中立)、Bは棄却(実害)
+- `RESULTS` — 実測結果: 辞書定義1.4Mの多量投入
+- `RESULTS` — 実測結果: mathlib の文構造つき再抽出 — 名前の店が在庫になった
+- `RESULTS` — 実測結果: 文書スケールでの非干渉(60文書)
+- `RESULTS` — 実測結果: 多者間の言語形(2026-08-19)
+- `RESULTS` — 実測結果: 向き付けは完全性を回復し、正規化を強化する
+- `RESULTS` — 実測結果: 文型の旧仮名(2026-08-19)
+- `RESULTS` — 到達性の棚卸し(2026-08-19) — 「実装済み未到達」の体系的検査
+- `RESULTS` — 実測結果: 転置索引化で入れた回帰と、fork契約の更新(2026-08-19)
+- `RESULTS` — 実測結果: facet重なり補完の追記
+- `RESULTS` — 実測結果: 探索は動く — 変数選択・補題順序・補題発見のすべて
+- `RESULTS` — 実測結果: 自分のハーネスを自分で測った(5点全合格)
+- `RESULTS` — 実測結果: 構造→Lean の閉ループは成立する(2026-08-19)
+- `RESULTS` — 実測結果: P4 類似題名の選択(2026-08-19、修理)
+- `RESULTS` — 実測結果: 「どの道具を使うか」は半分できる — 残り半分はデータが無い
+- `RESULTS` — 実測結果: 転移の読む層 — 保留されていた較正段が埋まった(5点全合格)
+- `RESULTS` — 実測結果: 空虚な証明の番犬 — 二度の強化で働くようになった
+- `RESULTS2` — 結果2: 番人の第二段 — 証人・隔離席・書かれていない禁止
+- `RESULTS3` — 結果3: 番人の第三段 — RESULTS2 の残り3限界を塞いだ実測
+- `RESULTS4` — 結果4: 規則が読んだ約束を執行に入れない — 誤遮断が止まった実測
+- `RESULTS_CORPUS` — 結果: 分野コーパスを店に入れて、何がどれだけ変わったか
+- `RESULTS_JAWIKI` — 実測結果: jawiki 本文の投入は**棄却**(2026-08-19)
+
+## measured (1)
+
+- `MEASURED_2026-08-21_polarity_regex_not_the_wall` — 実測: 共有否定正規表現の拡張は、測ったら効かないと分かった

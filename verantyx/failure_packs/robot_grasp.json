@@ -1,0 +1,93 @@
+{
+ "name": "robot_grasp",
+ "maturity": "seeded",
+ "description": "Manipulation failures typed so the failure names the next action: look again, move, or regrip.",
+ "fallback": "UNKNOWN_UNCLASSIFIED",
+ "verdicts": [
+  {
+   "verdict": "UNKNOWN_OBJECT",
+   "pattern": "(object|target) not (found|detected|visible)|occlud|no detection above threshold",
+   "note": "perception cannot see it -> move the camera / change viewpoint",
+   "provenance": "claude_seeded",
+   "remedy": {
+    "kind": "add_data_source",
+    "owner": "perception",
+    "verify": "rerun",
+    "auto_calibratable": false,
+    "note": "the remedy is another viewpoint, i.e. more observation, not more force"
+   }
+  },
+  {
+   "verdict": "UNKNOWN_REACH",
+   "pattern": "out of (reach|workspace)|ik (failed|no solution)|joint limit",
+   "note": "kinematics cannot get there -> reposition the base",
+   "provenance": "claude_seeded",
+   "remedy": {
+    "kind": "fix_upstream",
+    "owner": "base planner",
+    "verify": "rerun",
+    "auto_calibratable": false,
+    "note": ""
+   }
+  },
+  {
+   "verdict": "UNKNOWN_GRIP",
+   "pattern": "grasp (failed|slipped)|slip detected|force closure failed",
+   "note": "contact made and lost -> try another grasp pose",
+   "provenance": "claude_seeded",
+   "remedy": {
+    "kind": "fix_content",
+    "owner": "grasp library",
+    "verify": "rerun",
+    "auto_calibratable": false,
+    "note": "a new grasp candidate is content; propose -> quarantine -> trial"
+   }
+  },
+  {
+   "verdict": "UNKNOWN_COLLISION",
+   "pattern": "collision (detected|predicted)|path blocked",
+   "note": "the path, not the grasp, is the problem",
+   "provenance": "claude_seeded",
+   "remedy": {
+    "kind": "fix_upstream",
+    "owner": "motion planner",
+    "verify": "rerun",
+    "auto_calibratable": false,
+    "note": ""
+   }
+  },
+  {
+   "verdict": "UNKNOWN_PAYLOAD",
+   "pattern": "(over|exceeds) payload|torque limit|too heavy",
+   "note": "a hardware capacity, not a software gap",
+   "provenance": "claude_seeded",
+   "remedy": {
+    "kind": "human_judgment",
+    "owner": "operator",
+    "verify": "manual",
+    "auto_calibratable": false,
+    "note": "hardware limits are the robot's N_ARMS — design decisions, not knobs"
+   }
+  }
+ ],
+ "fixtures": [
+  {
+   "name": "occluded cup",
+   "expect": "UNKNOWN_OBJECT",
+   "evidence": "pick aborted: target 'cup_3' not detected, occluded by box_1 from current viewpoint",
+   "provenance": "synthetic"
+  },
+  {
+   "name": "too far",
+   "expect": "UNKNOWN_REACH",
+   "evidence": "ik failed: no solution for grasp pose, target out of reach by 0.31m",
+   "provenance": "synthetic"
+  },
+  {
+   "name": "slipped",
+   "expect": "UNKNOWN_GRIP",
+   "evidence": "grasp failed: slip detected 0.4s after lift, object returned to bin",
+   "provenance": "synthetic"
+  }
+ ]
+}

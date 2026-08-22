@@ -1,0 +1,594 @@
+{
+ "confirm": [
+  {
+   "name": "C1",
+   "goal": "rev(app(x, y)) = app(rev(y), rev(x))",
+   "verdict": "proved",
+   "how": "direct",
+   "cited": [
+    "ml:list.list.reverse_append"
+   ],
+   "cond_fired": [],
+   "nodes": 1,
+   "seconds": 0.0
+  },
+  {
+   "name": "C2",
+   "goal": "len(rev(x)) = len(x)",
+   "verdict": "proved",
+   "how": "direct",
+   "cited": [
+    "ml:list.list.length_reverse"
+   ],
+   "cond_fired": [],
+   "nodes": 1,
+   "seconds": 0.0
+  },
+  {
+   "name": "C3",
+   "goal": "app(app(x, y), z) = app(x, app(y, z))",
+   "verdict": "proved",
+   "how": "direct",
+   "cited": [
+    "ml:list.list.append_assoc"
+   ],
+   "cond_fired": [],
+   "nodes": 1,
+   "seconds": 0.0
+  },
+  {
+   "name": "C4",
+   "goal": "mul(a, add(b, c)) = add(mul(a, b), mul(a, c))",
+   "verdict": "proved",
+   "how": "direct",
+   "cited": [
+    "ml:left_distrib"
+   ],
+   "cond_fired": [],
+   "nodes": 1,
+   "seconds": 0.0
+  }
+ ],
+ "regress": [
+  {
+   "name": "R1",
+   "goal": "add(0, a) = a",
+   "verdict": "proved",
+   "how": "direct",
+   "cited": [
+    "ml:one_mul.to_additive"
+   ],
+   "cond_fired": [],
+   "nodes": 1,
+   "seconds": 0.0
+  },
+  {
+   "name": "R2",
+   "goal": "add(s(a), b) = s(add(a, b))",
+   "verdict": "proved",
+   "how": "induction on b",
+   "cited": [],
+   "cond_fired": [],
+   "nodes": 3,
+   "seconds": 0.0
+  },
+  {
+   "name": "R3",
+   "goal": "add(a, b) = add(b, a)",
+   "verdict": "proved",
+   "how": "direct",
+   "cited": [],
+   "cond_fired": [],
+   "nodes": 1,
+   "seconds": 0.0
+  },
+  {
+   "name": "R4",
+   "goal": "add(add(a, b), c) = add(a, add(b, c))",
+   "verdict": "proved",
+   "how": "direct",
+   "cited": [],
+   "cond_fired": [],
+   "nodes": 1,
+   "seconds": 0.0
+  },
+  {
+   "name": "R5",
+   "goal": "mul(0, a) = 0",
+   "verdict": "proved",
+   "how": "direct",
+   "cited": [
+    "ml:mulzeroclass.zero_mul"
+   ],
+   "cond_fired": [],
+   "nodes": 1,
+   "seconds": 0.0
+  },
+  {
+   "name": "R6",
+   "goal": "mul(a, 0) = 0",
+   "verdict": "proved",
+   "how": "direct",
+   "cited": [],
+   "cond_fired": [],
+   "nodes": 1,
+   "seconds": 0.0
+  },
+  {
+   "name": "R7",
+   "goal": "mul(s(a), b) = add(mul(a, b), b)",
+   "verdict": "proved",
+   "how": "induction on b",
+   "cited": [
+    "ml:one_mul.to_additive"
+   ],
+   "cond_fired": [],
+   "nodes": 3,
+   "seconds": 0.0
+  },
+  {
+   "name": "R8",
+   "goal": "mul(a, b) = mul(b, a)",
+   "verdict": "proved",
+   "how": "direct",
+   "cited": [],
+   "cond_fired": [],
+   "nodes": 1,
+   "seconds": 0.0
+  }
+ ],
+ "battery": [
+  {
+   "name": "B1",
+   "goal": "len(app(x, y)) = len(app(y, x))",
+   "verdict": "proved",
+   "how": "direct",
+   "cited": [
+    "ml:list.list.length_append"
+   ],
+   "cond_fired": [],
+   "nodes": 1,
+   "seconds": 0.0
+  },
+  {
+   "name": "B2",
+   "goal": "rev(app(x, y)) = app(rev(y), rev(x))",
+   "verdict": "proved",
+   "how": "direct",
+   "cited": [
+    "ml:list.list.reverse_append"
+   ],
+   "cond_fired": [],
+   "nodes": 1,
+   "seconds": 0.0
+  },
+  {
+   "name": "B3",
+   "goal": "len(rev(x)) = len(x)",
+   "verdict": "proved",
+   "how": "direct",
+   "cited": [
+    "ml:list.list.length_reverse"
+   ],
+   "cond_fired": [],
+   "nodes": 1,
+   "seconds": 0.0
+  },
+  {
+   "name": "B4",
+   "goal": "app(rev(x), nil) = rev(x)",
+   "verdict": "proved",
+   "how": "direct",
+   "cited": [
+    "ml:list.list.append_nil"
+   ],
+   "cond_fired": [],
+   "nodes": 1,
+   "seconds": 0.0
+  },
+  {
+   "name": "B5",
+   "goal": "rev(app(rev(x), nil)) = x",
+   "verdict": "proved",
+   "how": "direct",
+   "cited": [
+    "ml:list.list.append_nil",
+    "ml:list.list.reverse_reverse"
+   ],
+   "cond_fired": [],
+   "nodes": 1,
+   "seconds": 0.0
+  },
+  {
+   "name": "B6",
+   "goal": "len(app(x, cons(a, nil))) = s(len(x))",
+   "verdict": "proved",
+   "how": "direct",
+   "cited": [
+    "ml:list.list.length_append"
+   ],
+   "cond_fired": [],
+   "nodes": 1,
+   "seconds": 0.0
+  },
+  {
+   "name": "B7",
+   "goal": "mul(a, s(0)) = a",
+   "verdict": "proved",
+   "how": "direct",
+   "cited": [
+    "ml:one_mul.to_additive"
+   ],
+   "cond_fired": [],
+   "nodes": 1,
+   "seconds": 0.0
+  },
+  {
+   "name": "B8",
+   "goal": "mul(s(0), a) = a",
+   "verdict": "proved",
+   "how": "induction on a",
+   "cited": [],
+   "cond_fired": [],
+   "nodes": 2,
+   "seconds": 0.0
+  },
+  {
+   "name": "B9",
+   "goal": "mul(add(a, b), c) = add(mul(a, c), mul(b, c))",
+   "verdict": "proved",
+   "how": "direct",
+   "cited": [
+    "ml:right_distrib"
+   ],
+   "cond_fired": [],
+   "nodes": 1,
+   "seconds": 0.0
+  },
+  {
+   "name": "B10",
+   "goal": "len(app(app(x, y), z)) = add(add(len(x), len(y)), len(z))",
+   "verdict": "proved",
+   "how": "direct",
+   "cited": [
+    "ml:list.list.append_assoc",
+    "ml:list.list.length_append"
+   ],
+   "cond_fired": [],
+   "nodes": 1,
+   "seconds": 0.0
+  },
+  {
+   "name": "B11",
+   "goal": "rev(cons(a, nil)) = cons(a, nil)",
+   "verdict": "proved",
+   "how": "direct",
+   "cited": [],
+   "cond_fired": [],
+   "nodes": 1,
+   "seconds": 0.0
+  },
+  {
+   "name": "B12",
+   "goal": "mul(a, mul(b, c)) = mul(mul(a, b), c)",
+   "verdict": "proved",
+   "how": "direct",
+   "cited": [],
+   "cond_fired": [],
+   "nodes": 1,
+   "seconds": 0.0
+  }
+ ],
+ "poly": [
+  {
+   "name": "P1",
+   "goal": "add(mul(a, b), mul(a, c)) = mul(a, add(b, c))",
+   "verdict": "proved",
+   "how": "direct",
+   "cited": [
+    "ml:left_distrib"
+   ],
+   "cond_fired": [],
+   "nodes": 1,
+   "seconds": 0.0
+  },
+  {
+   "name": "P2",
+   "goal": "mul(add(a, b), c) = add(mul(a, c), mul(b, c))",
+   "verdict": "proved",
+   "how": "direct",
+   "cited": [
+    "ml:right_distrib"
+   ],
+   "cond_fired": [],
+   "nodes": 1,
+   "seconds": 0.0
+  },
+  {
+   "name": "P3",
+   "goal": "mul(add(a, b), add(a, b)) = add(mul(a, a), add(mul(a, b), add(mul(b, a), mul(b, b))))",
+   "verdict": "proved",
+   "how": "direct",
+   "cited": [
+    "ml:left_distrib",
+    "ml:right_distrib"
+   ],
+   "cond_fired": [],
+   "nodes": 1,
+   "seconds": 0.0
+  },
+  {
+   "name": "P4",
+   "goal": "mul(a, add(b, add(c, n))) = add(mul(a, b), add(mul(a, c), mul(a, n)))",
+   "verdict": "proved",
+   "how": "direct",
+   "cited": [
+    "ml:left_distrib"
+   ],
+   "cond_fired": [],
+   "nodes": 1,
+   "seconds": 0.0
+  },
+  {
+   "name": "P5",
+   "goal": "mul(mul(a, add(b, c)), n) = add(mul(mul(a, b), n), mul(mul(a, c), n))",
+   "verdict": "proved",
+   "how": "direct",
+   "cited": [
+    "ml:left_distrib",
+    "ml:right_distrib"
+   ],
+   "cond_fired": [],
+   "nodes": 1,
+   "seconds": 0.0
+  },
+  {
+   "name": "P6",
+   "goal": "add(mul(add(a, b), c), mul(add(a, b), n)) = mul(add(a, b), add(c, n))",
+   "verdict": "proved",
+   "how": "direct",
+   "cited": [
+    "ml:right_distrib",
+    "ml:left_distrib"
+   ],
+   "cond_fired": [],
+   "nodes": 1,
+   "seconds": 0.0
+  }
+ ],
+ "lists": [
+  {
+   "name": "L1",
+   "goal": "rev(app(app(x, y), z)) = app(rev(z), app(rev(y), rev(x)))",
+   "verdict": "proved",
+   "how": "direct",
+   "cited": [
+    "ml:list.list.append_assoc",
+    "ml:list.list.reverse_append"
+   ],
+   "cond_fired": [],
+   "nodes": 1,
+   "seconds": 0.0
+  },
+  {
+   "name": "L2",
+   "goal": "len(app(x, app(y, z))) = add(len(x), add(len(y), len(z)))",
+   "verdict": "proved",
+   "how": "direct",
+   "cited": [
+    "ml:list.list.length_append"
+   ],
+   "cond_fired": [],
+   "nodes": 1,
+   "seconds": 0.0
+  },
+  {
+   "name": "L3",
+   "goal": "len(rev(app(x, y))) = add(len(y), len(x))",
+   "verdict": "proved",
+   "how": "direct",
+   "cited": [
+    "ml:list.list.reverse_append",
+    "ml:list.list.length_append",
+    "ml:list.list.length_reverse"
+   ],
+   "cond_fired": [],
+   "nodes": 1,
+   "seconds": 0.0
+  },
+  {
+   "name": "L4",
+   "goal": "rev(rev(app(x, y))) = app(x, y)",
+   "verdict": "proved",
+   "how": "direct",
+   "cited": [
+    "ml:list.list.reverse_append",
+    "ml:list.list.reverse_reverse"
+   ],
+   "cond_fired": [],
+   "nodes": 1,
+   "seconds": 0.0
+  }
+ ],
+ "false": [
+  {
+   "name": "F1",
+   "goal": "app(x, y) = app(y, x)",
+   "verdict": "refuted",
+   "how": "REFUTED:{'x': 'cons(0, nil)', 'y': 'cons(s(0), nil)'}",
+   "cited": [],
+   "cond_fired": [],
+   "nodes": 1,
+   "seconds": 0.0
+  },
+  {
+   "name": "F2",
+   "goal": "rev(x) = x",
+   "verdict": "refuted",
+   "how": "REFUTED:{'x': 'cons(0, cons(s(0), nil))'}",
+   "cited": [],
+   "cond_fired": [],
+   "nodes": 1,
+   "seconds": 0.0
+  },
+  {
+   "name": "F3",
+   "goal": "len(app(x, y)) = len(x)",
+   "verdict": "refuted",
+   "how": "REFUTED:{'x': 'nil', 'y': 'cons(0, nil)'}",
+   "cited": [],
+   "cond_fired": [],
+   "nodes": 1,
+   "seconds": 0.0
+  },
+  {
+   "name": "F4",
+   "goal": "rev(app(x, y)) = app(rev(x), rev(y))",
+   "verdict": "refuted",
+   "how": "REFUTED:{'x': 'cons(0, nil)', 'y': 'cons(s(0), nil)'}",
+   "cited": [],
+   "cond_fired": [],
+   "nodes": 1,
+   "seconds": 0.0
+  }
+ ],
+ "ineq": [
+  {
+   "name": "Q1",
+   "goal": "le(0, a) = true",
+   "verdict": "proved",
+   "how": "direct",
+   "cited": [],
+   "cond_fired": [],
+   "nodes": 1,
+   "seconds": 0.0
+  },
+  {
+   "name": "Q2",
+   "goal": "le(a, a) = true",
+   "verdict": "proved",
+   "how": "induction on a",
+   "cited": [],
+   "cond_fired": [],
+   "nodes": 2,
+   "seconds": 0.0
+  },
+  {
+   "name": "Q3",
+   "goal": "le(a, add(a, b)) = true",
+   "verdict": "refused",
+   "how": "no_induction_closed",
+   "cited": [],
+   "cond_fired": [],
+   "nodes": 3135,
+   "seconds": 543.7
+  },
+  {
+   "name": "Q4",
+   "goal": "le(a, s(a)) = true",
+   "verdict": "proved",
+   "how": "induction on a",
+   "cited": [],
+   "cond_fired": [],
+   "nodes": 2,
+   "seconds": 0.0
+  },
+  {
+   "name": "Q5",
+   "goal": "monus(a, a) = 0",
+   "verdict": "proved",
+   "how": "direct+cond:R_le0",
+   "cited": [],
+   "cond_fired": [
+    "R_le0"
+   ],
+   "nodes": 3,
+   "seconds": 0.0
+  },
+  {
+   "name": "Q6",
+   "goal": "monus(a, add(a, b)) = 0",
+   "verdict": "proved",
+   "how": "induction on a + cond",
+   "cited": [
+    "ml:one_mul.to_additive"
+   ],
+   "cond_fired": [
+    "R_le0"
+   ],
+   "nodes": 520,
+   "seconds": 153.9
+  },
+  {
+   "name": "Q7",
+   "goal": "monus(add(a, b), b) = a",
+   "verdict": "proved",
+   "how": "induction on b",
+   "cited": [],
+   "cond_fired": [
+    "R_le0"
+   ],
+   "nodes": 494,
+   "seconds": 46.6
+  }
+ ],
+ "ineq_false": [
+  {
+   "name": "QF1",
+   "goal": "le(s(a), a) = true",
+   "verdict": "refuted",
+   "how": "REFUTED:{'a': '0'}",
+   "cited": [],
+   "cond_fired": [],
+   "nodes": 1,
+   "seconds": 0.0
+  },
+  {
+   "name": "QF2",
+   "goal": "monus(a, b) = 0",
+   "verdict": "refuted",
+   "how": "REFUTED:{'a': 's(0)', 'b': '0'}",
+   "cited": [],
+   "cond_fired": [],
+   "nodes": 1,
+   "seconds": 0.0
+  },
+  {
+   "name": "QF3",
+   "goal": "le(add(a, b), a) = true",
+   "verdict": "refuted",
+   "how": "REFUTED:{'a': '0', 'b': 's(0)'}",
+   "cited": [],
+   "cond_fired": [],
+   "nodes": 1,
+   "seconds": 0.0
+  }
+ ],
+ "safety_probe": {
+  "term": "monus(add(a, s(0)), a)",
+  "fired": false,
+  "cond_refused": 1,
+  "note": "発火したら即失格(条件 le(a+1,a)=true は偽)"
+ },
+ "lean_verified_targets": 40,
+ "unsound": 0,
+ "unsound_detail": [],
+ "order_invariance_mismatch": [],
+ "cond": {
+  "fired": [
+   "R_le0",
+   "R_le0",
+   "R_le0"
+  ],
+  "refused": 131
+ },
+ "ledger_summary": {
+  "lemmas": 56,
+  "lemmas_lean_verified": 0,
+  "trials": 196,
+  "open_goals": 8,
+  "resolved_goals": 0
+ },
+ "seconds": 1517.4,
+ "note_checker_fix": "初回集計の『不健全10』は治具辞書の渡し忘れ(NO_FIXTURE)。confirm11と同じ自動翻訳フォールバックで検査を完了 — 目標・証明は不変、検査ハーネスの修理。"
+}

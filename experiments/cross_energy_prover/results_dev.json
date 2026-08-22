@@ -1,0 +1,42 @@
+{
+ "goals": [
+  {
+   "name": "D1",
+   "goal": "app(x, nil) = x",
+   "proved": true,
+   "how": "induction on x",
+   "lemmas": [],
+   "nodes": 2,
+   "invented": 0,
+   "cross_waves": 0,
+   "seconds": 0.0
+  },
+  {
+   "name": "D2",
+   "goal": "len(app(x, y)) = add(len(x), len(y))",
+   "proved": true,
+   "how": "induction on x",
+   "lemmas": [
+    "L10: add(0, a) = a",
+    "L11: s(add(a, len(y))) = add(s(a), len(y))"
+   ],
+   "nodes": 22,
+   "invented": 9,
+   "cross_waves": 11,
+   "seconds": 2.6
+  },
+  {
+   "name": "D3",
+   "goal": "rev(rev(x)) = x",
+   "proved": true,
+   "how": "induction on x + L10",
+   "lemmas": [
+    "L10: rev(app(x, cons(c, nil))) = cons(c, rev(x))"
+   ],
+   "nodes": 4,
+   "invented": 4,
+   "cross_waves": 1,
+   "seconds": 1.0
+  }
+ ]
+}

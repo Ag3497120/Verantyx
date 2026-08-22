@@ -1,0 +1,499 @@
+{
+ "confirm": [
+  {
+   "name": "C1",
+   "proved": false,
+   "how": "no_induction_closed",
+   "lemmas": [
+    "L10: rev(app(x, cons(c, nil))) = cons(c, rev(x))",
+    "L11: app(x, nil) = rev(rev(x))",
+    "L12: rev(rev(x)) = x",
+    "L13: app(app(z, cons(c, nil)), x) = app(z, cons(c, x))",
+    "L14: app(app(x, cons(c, nil)), rev(x)) = app(x, cons(c, rev(x)))"
+   ],
+   "nodes": 19,
+   "invented": 13,
+   "lemma_terms": [
+    [
+     "rev(app(x, cons(c, nil)))",
+     "cons(c, rev(x))"
+    ],
+    [
+     "app(x, nil)",
+     "rev(rev(x))"
+    ],
+    [
+     "rev(rev(x))",
+     "x"
+    ],
+    [
+     "app(app(z, cons(c, nil)), x)",
+     "app(z, cons(c, x))"
+    ],
+    [
+     "app(app(x, cons(c, nil)), rev(x))",
+     "app(x, cons(c, rev(x)))"
+    ]
+   ],
+   "seconds": 5.9
+  },
+  {
+   "name": "C2",
+   "proved": true,
+   "how": "induction on x + L10",
+   "lemmas": [
+    "L10: len(app(x, cons(c, nil))) = add(len(x), s(0))"
+   ],
+   "nodes": 4,
+   "invented": 4,
+   "lemma_terms": [
+    [
+     "len(app(x, cons(c, nil)))",
+     "add(len(x), s(0))"
+    ]
+   ],
+   "seconds": 0.9
+  },
+  {
+   "name": "C3",
+   "proved": true,
+   "how": "induction on x",
+   "lemmas": [],
+   "nodes": 2,
+   "invented": 0,
+   "lemma_terms": [],
+   "seconds": 0.0
+  },
+  {
+   "name": "C4",
+   "proved": true,
+   "how": "induction on c",
+   "lemmas": [
+    "L10: add(0, a) = a",
+    "L11: add(0, a) = add(a, 0)",
+    "L12: add(a, mul(0, c)) = a",
+    "L13: add(mul(0, b), a) = a",
+    "L14: add(a, mul(0, c)) = add(0, a)",
+    "L15: add(a, mul(0, c)) = add(a, 0)",
+    "L16: add(mul(0, b), a) = add(0, a)",
+    "L17: add(a, mul(0, c)) = add(a, len(nil))"
+   ],
+   "nodes": 16,
+   "invented": 26,
+   "lemma_terms": [
+    [
+     "add(0, a)",
+     "a"
+    ],
+    [
+     "add(0, a)",
+     "add(a, 0)"
+    ],
+    [
+     "add(a, mul(0, c))",
+     "a"
+    ],
+    [
+     "add(mul(0, b), a)",
+     "a"
+    ],
+    [
+     "add(a, mul(0, c))",
+     "add(0, a)"
+    ],
+    [
+     "add(a, mul(0, c))",
+     "add(a, 0)"
+    ],
+    [
+     "add(mul(0, b), a)",
+     "add(0, a)"
+    ],
+    [
+     "add(a, mul(0, c))",
+     "add(a, len(nil))"
+    ]
+   ],
+   "seconds": 2.2
+  }
+ ],
+ "regress": [
+  {
+   "name": "R1",
+   "proved": true,
+   "how": "induction on a",
+   "lemmas": [],
+   "nodes": 2,
+   "invented": 0,
+   "lemma_terms": [],
+   "seconds": 0.0
+  },
+  {
+   "name": "R2",
+   "proved": true,
+   "how": "induction on b",
+   "lemmas": [],
+   "nodes": 3,
+   "invented": 0,
+   "lemma_terms": [],
+   "seconds": 0.0
+  },
+  {
+   "name": "R3",
+   "proved": true,
+   "how": "direct",
+   "lemmas": [],
+   "nodes": 1,
+   "invented": 0,
+   "lemma_terms": [],
+   "seconds": 0.0
+  },
+  {
+   "name": "R4",
+   "proved": true,
+   "how": "direct",
+   "lemmas": [],
+   "nodes": 1,
+   "invented": 0,
+   "lemma_terms": [],
+   "seconds": 0.0
+  },
+  {
+   "name": "R5",
+   "proved": true,
+   "how": "induction on a",
+   "lemmas": [],
+   "nodes": 2,
+   "invented": 0,
+   "lemma_terms": [],
+   "seconds": 0.0
+  },
+  {
+   "name": "R6",
+   "proved": true,
+   "how": "direct",
+   "lemmas": [],
+   "nodes": 1,
+   "invented": 0,
+   "lemma_terms": [],
+   "seconds": 0.0
+  },
+  {
+   "name": "R7",
+   "proved": true,
+   "how": "induction on b",
+   "lemmas": [],
+   "nodes": 3,
+   "invented": 0,
+   "lemma_terms": [],
+   "seconds": 0.0
+  },
+  {
+   "name": "R8",
+   "proved": true,
+   "how": "direct",
+   "lemmas": [],
+   "nodes": 1,
+   "invented": 0,
+   "lemma_terms": [],
+   "seconds": 0.0
+  }
+ ],
+ "lean_verified_targets": 11,
+ "unsound": 0,
+ "unsound_detail": [],
+ "lemma_audit": [
+  {
+   "goal": "C1",
+   "lemma": "rev(app(x, cons(c, nil))) = cons(c, rev(x))",
+   "ground": "PASSED",
+   "lean": "VERIFIED",
+   "tactic": "simp"
+  },
+  {
+   "goal": "C1",
+   "lemma": "app(x, nil) = rev(rev(x))",
+   "ground": "PASSED",
+   "lean": "VERIFIED",
+   "tactic": "simp"
+  },
+  {
+   "goal": "C1",
+   "lemma": "rev(rev(x)) = x",
+   "ground": "PASSED",
+   "lean": "VERIFIED",
+   "tactic": "simp"
+  },
+  {
+   "goal": "C1",
+   "lemma": "app(app(z, cons(c, nil)), x) = app(z, cons(c, x))",
+   "ground": "PASSED",
+   "lean": "VERIFIED",
+   "tactic": "simp"
+  },
+  {
+   "goal": "C1",
+   "lemma": "app(app(x, cons(c, nil)), rev(x)) = app(x, cons(c, rev(x)))",
+   "ground": "PASSED",
+   "lean": "VERIFIED",
+   "tactic": "simp"
+  },
+  {
+   "goal": "C2",
+   "lemma": "len(app(x, cons(c, nil))) = add(len(x), s(0))",
+   "ground": "PASSED",
+   "lean": "VERIFIED",
+   "tactic": "simp"
+  },
+  {
+   "goal": "C4",
+   "lemma": "add(0, a) = a",
+   "ground": "PASSED",
+   "lean": "VERIFIED",
+   "tactic": "simp"
+  },
+  {
+   "goal": "C4",
+   "lemma": "add(0, a) = add(a, 0)",
+   "ground": "PASSED",
+   "lean": "VERIFIED",
+   "tactic": "simp"
+  },
+  {
+   "goal": "C4",
+   "lemma": "add(a, mul(0, c)) = a",
+   "ground": "PASSED",
+   "lean": "VERIFIED",
+   "tactic": "simp"
+  },
+  {
+   "goal": "C4",
+   "lemma": "add(mul(0, b), a) = a",
+   "ground": "PASSED",
+   "lean": "VERIFIED",
+   "tactic": "simp"
+  },
+  {
+   "goal": "C4",
+   "lemma": "add(a, mul(0, c)) = add(0, a)",
+   "ground": "PASSED",
+   "lean": "VERIFIED",
+   "tactic": "simp"
+  },
+  {
+   "goal": "C4",
+   "lemma": "add(a, mul(0, c)) = add(a, 0)",
+   "ground": "PASSED",
+   "lean": "VERIFIED",
+   "tactic": "simp"
+  },
+  {
+   "goal": "C4",
+   "lemma": "add(mul(0, b), a) = add(0, a)",
+   "ground": "PASSED",
+   "lean": "VERIFIED",
+   "tactic": "simp"
+  },
+  {
+   "goal": "C4",
+   "lemma": "add(a, mul(0, c)) = add(a, len(nil))",
+   "ground": "PASSED",
+   "lean": "VERIFIED",
+   "tactic": "simp"
+  }
+ ],
+ "lemma_refuted": 0,
+ "ablation_no_energy": {
+  "confirm": [
+   {
+    "name": "C1",
+    "proved": false,
+    "how": "no_induction_closed",
+    "lemmas": [
+     "L10: app(x, nil) = x",
+     "L11: app(app(z, cons(c, nil)), x) = app(z, cons(c, x))",
+     "L12: app(app(x, cons(c, nil)), rev(x)) = app(x, cons(c, rev(x)))"
+    ],
+    "nodes": 15,
+    "invented": 13,
+    "lemma_terms": [
+     [
+      "app(x, nil)",
+      "x"
+     ],
+     [
+      "app(app(z, cons(c, nil)), x)",
+      "app(z, cons(c, x))"
+     ],
+     [
+      "app(app(x, cons(c, nil)), rev(x))",
+      "app(x, cons(c, rev(x)))"
+     ]
+    ],
+    "seconds": 3.9
+   },
+   {
+    "name": "C2",
+    "proved": true,
+    "how": "induction on x + L10",
+    "lemmas": [
+     "L10: len(app(x, cons(c, nil))) = len(cons(0, x))"
+    ],
+    "nodes": 4,
+    "invented": 4,
+    "lemma_terms": [
+     [
+      "len(app(x, cons(c, nil)))",
+      "len(cons(0, x))"
+     ]
+    ],
+    "seconds": 0.3
+   },
+   {
+    "name": "C3",
+    "proved": true,
+    "how": "induction on x",
+    "lemmas": [],
+    "nodes": 2,
+    "invented": 0,
+    "lemma_terms": [],
+    "seconds": 0.0
+   },
+   {
+    "name": "C4",
+    "proved": true,
+    "how": "induction on c",
+    "lemmas": [
+     "L10: add(0, a) = a",
+     "L11: add(0, a) = add(a, 0)",
+     "L12: add(a, mul(0, c)) = a",
+     "L13: add(a, mul(0, c)) = add(0, a)",
+     "L14: add(a, mul(0, c)) = add(a, 0)",
+     "L15: add(a, mul(0, c)) = add(a, len(nil))",
+     "L16: add(a, mul(0, c)) = add(len(nil), a)",
+     "L17: add(a, mul(0, c)) = add(0, add(0, a))"
+    ],
+    "nodes": 15,
+    "invented": 26,
+    "lemma_terms": [
+     [
+      "add(0, a)",
+      "a"
+     ],
+     [
+      "add(0, a)",
+      "add(a, 0)"
+     ],
+     [
+      "add(a, mul(0, c))",
+      "a"
+     ],
+     [
+      "add(a, mul(0, c))",
+      "add(0, a)"
+     ],
+     [
+      "add(a, mul(0, c))",
+      "add(a, 0)"
+     ],
+     [
+      "add(a, mul(0, c))",
+      "add(a, len(nil))"
+     ],
+     [
+      "add(a, mul(0, c))",
+      "add(len(nil), a)"
+     ],
+     [
+      "add(a, mul(0, c))",
+      "add(0, add(0, a))"
+     ]
+    ],
+    "seconds": 0.9
+   }
+  ],
+  "regress": [
+   {
+    "name": "R1",
+    "proved": true,
+    "how": "induction on a",
+    "lemmas": [],
+    "nodes": 2,
+    "invented": 0,
+    "lemma_terms": [],
+    "seconds": 0.0
+   },
+   {
+    "name": "R2",
+    "proved": true,
+    "how": "induction on b",
+    "lemmas": [],
+    "nodes": 3,
+    "invented": 0,
+    "lemma_terms": [],
+    "seconds": 0.0
+   },
+   {
+    "name": "R3",
+    "proved": true,
+    "how": "direct",
+    "lemmas": [],
+    "nodes": 1,
+    "invented": 0,
+    "lemma_terms": [],
+    "seconds": 0.0
+   },
+   {
+    "name": "R4",
+    "proved": true,
+    "how": "direct",
+    "lemmas": [],
+    "nodes": 1,
+    "invented": 0,
+    "lemma_terms": [],
+    "seconds": 0.0
+   },
+   {
+    "name": "R5",
+    "proved": true,
+    "how": "induction on a",
+    "lemmas": [],
+    "nodes": 2,
+    "invented": 0,
+    "lemma_terms": [],
+    "seconds": 0.0
+   },
+   {
+    "name": "R6",
+    "proved": true,
+    "how": "direct",
+    "lemmas": [],
+    "nodes": 1,
+    "invented": 0,
+    "lemma_terms": [],
+    "seconds": 0.0
+   },
+   {
+    "name": "R7",
+    "proved": true,
+    "how": "induction on b",
+    "lemmas": [],
+    "nodes": 3,
+    "invented": 0,
+    "lemma_terms": [],
+    "seconds": 0.0
+   },
+   {
+    "name": "R8",
+    "proved": true,
+    "how": "direct",
+    "lemmas": [],
+    "nodes": 1,
+    "invented": 0,
+    "lemma_terms": [],
+    "seconds": 0.0
+   }
+  ]
+ },
+ "seconds": 18.7
+}

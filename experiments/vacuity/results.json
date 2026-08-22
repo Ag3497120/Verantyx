@@ -1,0 +1,74 @@
+{
+ "checks": [
+  {
+   "stage": "定義のみ",
+   "barked": []
+  },
+  {
+   "stage": "G1 昇格後",
+   "barked": []
+  },
+  {
+   "stage": "G2 昇格後",
+   "barked": []
+  },
+  {
+   "stage": "G3 昇格後",
+   "barked": []
+  },
+  {
+   "stage": "G4 昇格後",
+   "barked": []
+  },
+  {
+   "stage": "G5 昇格後",
+   "barked": []
+  },
+  {
+   "stage": "G6 昇格後",
+   "barked": []
+  },
+  {
+   "stage": "G7 昇格後",
+   "barked": []
+  },
+  {
+   "stage": "G8 昇格後",
+   "barked": []
+  }
+ ],
+ "proved": [
+  "G1",
+  "G2",
+  "G3",
+  "G4",
+  "G5",
+  "G6",
+  "G7",
+  "G8"
+ ],
+ "normal_barks": 0,
+ "broken_barks": [
+  "add(x, y) = 0",
+  "mul(x, y) = 0"
+ ],
+ "mul_broken_barks": [
+  "mul(x, y) = 0"
+ ],
+ "collapse_barks": [
+  "0 = s(0)",
+  "s(0) = s(s(0))",
+  "0 = s(s(0))",
+  "s(0) = 0",
+  "add(s(0), 0) = 0",
+  "add(0, s(0)) = 0",
+  "add(s(0), s(0)) = s(0)",
+  "mul(s(0), s(0)) = 0",
+  "mul(s(s(0)), s(0)) = 0",
+  "mul(x, y) = 0",
+  "add(x, y) = x",
+  "s(x) = x",
+  "s(x) = 0"
+ ],
+ "seconds": 0.0
+}

@@ -1,0 +1,41 @@
+[build-system]
+requires = ["setuptools>=68"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "verantyx-vera"
+version = "0.1.0a1"
+description = "Verantyx Vera α — deterministic cross-structure knowledge & reasoning engine (no LM, typed refusal)"
+readme = "README.md"
+requires-python = ">=3.9"
+license = { text = "MIT" }
+authors = [{ name = "Verantyx" }]
+keywords = ["knowledge-graph", "symbolic", "deterministic", "mcp", "hallucination-free"]
+
+[project.optional-dependencies]
+hf = ["datasets", "huggingface_hub"]
+mcp = ["mcp[cli]>=1.2,<2"]
+obfuscate = ["cryptography"]
+docs = ["pypdf"]
+all = ["datasets", "huggingface_hub", "mcp[cli]>=1.2,<2", "cryptography", "pypdf"]
+
+[project.scripts]
+vera = "verantyx.cli:main"
+
+[tool.setuptools]
+# Every subpackage, not just the top level. `packages = ["verantyx"]` shipped
+# a wheel that raised ImportError on `verantyx.domains` the moment anyone
+# installed it — the source tree worked because the directories were simply
+# there. Caught by installing the wheel into a clean venv and importing it,
+# which is now the only way this is checked before publishing.
+packages = ["verantyx", "verantyx.domains", "verantyx.failure_packs"]
+
+# The field app's page ships INSIDE the package rather than being generated in
+# Python. It has to be one file a person can read and audit — a municipal IT
+# reviewer should be able to open it and confirm for themselves that nothing
+# loads from anywhere — and a page assembled from string fragments cannot be
+# read that way.
+[tool.setuptools.package-data]
+verantyx = ["lang_data/*.json", "*.html"]
+"verantyx.failure_packs" = ["*.json"]
+"verantyx.domains" = ["*.json"]

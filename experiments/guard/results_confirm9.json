@@ -1,0 +1,75 @@
+{
+ "prereg": "experiments/guard/PREREG9_LEDGER_AND_REACH.md",
+ "checks": {
+  "V39_trimming_history_keeps_the_counts": {
+   "pass": true,
+   "detail": {
+    "rows_before": 9000,
+    "rows_after": 1500,
+    "folded_into_totals": 7500,
+    "kept_before": 8700,
+    "kept_now_plus_totals": 8700
+   }
+  },
+  "V40_nothing_vanishes_it_moves_to_the_archive": {
+   "pass": true,
+   "detail": {
+    "live": 300,
+    "archived": 700,
+    "union_equals_original": true,
+    "reasons": [
+     "never_adopted"
+    ]
+   }
+  },
+  "V41_adopted_covenants_are_never_moved": {
+   "pass": true,
+   "detail": {
+    "adopted_before": 40,
+    "adopted_after": 40,
+    "live_total": 100
+   }
+  },
+  "V42_after_pruning_it_stays_inside_the_bar": {
+   "pass": true,
+   "detail": {
+    "check_ms": {
+     "before": 2.549,
+     "after": 0.767
+    },
+    "save_ms": {
+     "before": 6.13,
+     "after": 1.813
+    },
+    "bar_ms": 5.0,
+    "ledger_kb": 492.7
+   }
+  },
+  "V43_the_ide_reaches_cli_only_features": {
+   "pass": true,
+   "detail": {
+    "simplify_via_bridge": "x",
+    "doctor_via_door": "OK",
+    "refused_dangerous": [
+     "UNKNOWN_NOT_ALLOWED",
+     "UNKNOWN_NOT_ALLOWED",
+     "UNKNOWN_NOT_ALLOWED"
+    ]
+   }
+  },
+  "V44_the_bridge_runs_nothing_outside_the_table": {
+   "pass": true,
+   "detail": {
+    "verdicts": [
+     "UNKNOWN_NOT_ALLOWED",
+     "UNKNOWN_NOT_ALLOWED",
+     "UNKNOWN_NOT_ALLOWED",
+     "UNKNOWN_NOT_ALLOWED",
+     "UNKNOWN_NOT_ALLOWED"
+    ],
+    "side_effect_file": false
+   }
+  }
+ },
+ "summary": "6/6 passed"
+}

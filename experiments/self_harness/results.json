@@ -1,0 +1,123 @@
+{
+ "battery": "prover_goals48@2026-08-21",
+ "n_goals": 41,
+ "n_false": 7,
+ "parent_knobs": {
+  "wave": 6,
+  "max_depth": 3,
+  "invention_budget": 4000,
+  "handoff": true,
+  "energy": true
+ },
+ "parent": {
+  "proved": 41,
+  "refuted": 7
+ },
+ "lift": {
+  "terms": {
+   "hact(0)": 35,
+   "hseq(hact(1), hact(2))": 2,
+   "hseq(hseq(hact(1), hact(2)), hact(3))": 2,
+   "hseq(hact(0), hact(4))": 2
+  },
+  "unmapped": {},
+  "n_lifted": 41,
+  "n_unmapped": 0
+ },
+ "variations": [
+  {
+   "name": "wave1",
+   "changed": "wave",
+   "from": 6,
+   "to": 1,
+   "establishes": "十字の腕を1本に絞っても足りる(=6本は過剰)",
+   "proved": 41,
+   "delta": 0,
+   "refuted": 7,
+   "verdict": "abstain",
+   "witness": "verified:run:prover@prover_goals48@2026-08-21"
+  },
+  {
+   "name": "wave12",
+   "changed": "wave",
+   "from": 6,
+   "to": 12,
+   "establishes": "腕を増やすと届く詰まりがある(=6本は不足)",
+   "proved": 41,
+   "delta": 0,
+   "refuted": 7,
+   "verdict": "abstain",
+   "witness": "verified:run:prover@prover_goals48@2026-08-21"
+  },
+  {
+   "name": "depth2",
+   "changed": "max_depth",
+   "from": 3,
+   "to": 2,
+   "establishes": "補題の再帰は2段で足りる",
+   "proved": 41,
+   "delta": 0,
+   "refuted": 7,
+   "verdict": "abstain",
+   "witness": "verified:run:prover@prover_goals48@2026-08-21"
+  },
+  {
+   "name": "depth4",
+   "changed": "max_depth",
+   "from": 3,
+   "to": 4,
+   "establishes": "3段では届かない補題の梯子がある",
+   "proved": 41,
+   "delta": 0,
+   "refuted": 7,
+   "verdict": "abstain",
+   "witness": "verified:run:prover@prover_goals48@2026-08-21"
+  },
+  {
+   "name": "budget500",
+   "changed": "invention_budget",
+   "from": 4000,
+   "to": 500,
+   "establishes": "発明の予算を絞っても証明数が落ちない",
+   "proved": 41,
+   "delta": 0,
+   "refuted": 7,
+   "verdict": "abstain",
+   "witness": "verified:run:prover@prover_goals48@2026-08-21"
+  },
+  {
+   "name": "no_handoff",
+   "changed": "handoff",
+   "from": true,
+   "to": false,
+   "establishes": "手渡し在庫が無くても証明数が落ちない(=参照は効いていない)",
+   "proved": 33,
+   "delta": -8,
+   "refuted": 7,
+   "verdict": "harmful",
+   "witness": "verified:run:prover@prover_goals48@2026-08-21"
+  },
+  {
+   "name": "no_energy",
+   "changed": "energy",
+   "from": true,
+   "to": false,
+   "establishes": "エネルギーの順序づけは証明数に効いていない",
+   "proved": 41,
+   "delta": 0,
+   "refuted": 7,
+   "verdict": "abstain",
+   "witness": "verified:run:prover@prover_goals48@2026-08-21"
+  }
+ ],
+ "order_mismatch": [],
+ "adopted": [],
+ "unsound_in_adopted": [],
+ "Q1_ok": true,
+ "Q2_ok": true,
+ "Q3_ok": true,
+ "Q4_ok": true,
+ "Q5_ok": true,
+ "all_pass": true,
+ "seconds": 2011.5
+}

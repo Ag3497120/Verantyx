@@ -1,0 +1,143 @@
+{
+ "start_rules": 3,
+ "derived": 12,
+ "completed": false,
+ "verified": 12,
+ "unproven": 0,
+ "seconds": 1.8,
+ "derived_rules": [
+  {
+   "rule": "kb1",
+   "lhs": "i(?x2) * (?x2 * ?z1)",
+   "rhs": "?z1",
+   "from": [
+    "assoc",
+    "inv"
+   ],
+   "int_form": "(-(x2)) + (x2 + z1) = z1",
+   "lean": "VERIFIED"
+  },
+  {
+   "rule": "kb2",
+   "lhs": "i(?x2 * ?y2) * (?x2 * (?y2 * ?z2))",
+   "rhs": "?z2",
+   "from": [
+    "kb1",
+    "assoc"
+   ],
+   "int_form": "(-(x2 + y2)) + (x2 + (y2 + z2)) = z2",
+   "lean": "VERIFIED"
+  },
+  {
+   "rule": "kb3",
+   "lhs": "i(e) * ?x2",
+   "rhs": "?x2",
+   "from": [
+    "kb1",
+    "unit"
+   ],
+   "int_form": "(-(0)) + x2 = x2",
+   "lean": "VERIFIED"
+  },
+  {
+   "rule": "kb4",
+   "lhs": "i(i(?x2)) * e",
+   "rhs": "?x2",
+   "from": [
+    "kb1",
+    "inv"
+   ],
+   "int_form": "(-((-(x2)))) + 0 = x2",
+   "lean": "VERIFIED"
+  },
+  {
+   "rule": "kb5",
+   "lhs": "i(i(?x22)) * ?z1",
+   "rhs": "?x22 * ?z1",
+   "from": [
+    "assoc",
+    "kb4"
+   ],
+   "int_form": "(-((-(x22)))) + z1 = x22 + z1",
+   "lean": "VERIFIED"
+  },
+  {
+   "rule": "kb6",
+   "lhs": "?x222 * i(?x222)",
+   "rhs": "e",
+   "from": [
+    "inv",
+    "kb5"
+   ],
+   "int_form": "x222 + (-(x222)) = 0",
+   "lean": "VERIFIED"
+  },
+  {
+   "rule": "kb7",
+   "lhs": "?x1 * (?y1 * i(?x1 * ?y1))",
+   "rhs": "e",
+   "from": [
+    "assoc",
+    "kb6"
+   ],
+   "int_form": "x1 + (y1 + (-(x1 + y1))) = 0",
+   "lean": "VERIFIED"
+  },
+  {
+   "rule": "kb8",
+   "lhs": "?x2222 * (i(?x2222) * ?z1)",
+   "rhs": "?z1",
+   "from": [
+    "assoc",
+    "kb6"
+   ],
+   "int_form": "x2222 + ((-(x2222)) + z1) = z1",
+   "lean": "VERIFIED"
+  },
+  {
+   "rule": "kb9",
+   "lhs": "?x1 * (?y1 * (?y12 * i(?x1 * (?y1 * ?y12))))",
+   "rhs": "e",
+   "from": [
+    "assoc",
+    "kb7"
+   ],
+   "int_form": "x1 + (y1 + (y12 + (-(x1 + (y1 + y12))))) = 0",
+   "lean": "VERIFIED"
+  },
+  {
+   "rule": "kb10",
+   "lhs": "?x12 * (?y12 * (i(?x12 * ?y12) * ?z1))",
+   "rhs": "?z1",
+   "from": [
+    "assoc",
+    "kb7"
+   ],
+   "int_form": "x12 + (y12 + ((-(x12 + y12)) + z1)) = z1",
+   "lean": "VERIFIED"
+  },
+  {
+   "rule": "kb11",
+   "lhs": "?x1 * (?y1 * (?y12 * (?y122 * i(?x1 * (?y1 * (?y12 * ?y122))))))",
+   "rhs": "e",
+   "from": [
+    "assoc",
+    "kb9"
+   ],
+   "int_form": "x1 + (y1 + (y12 + (y122 + (-(x1 + (y1 + (y12 + y122))))))) = 0",
+   "lean": "VERIFIED"
+  },
+  {
+   "rule": "kb12",
+   "lhs": "?x12 * (?y12 * (?y122 * (i(?x12 * (?y12 * ?y122)) * ?z1)))",
+   "rhs": "?z1",
+   "from": [
+    "assoc",
+    "kb9"
+   ],
+   "int_form": "x12 + (y12 + (y122 + ((-(x12 + (y12 + y122))) + z1))) = z1",
+   "lean": "VERIFIED"
+  }
+ ],
+ "unproven_examples": []
+}

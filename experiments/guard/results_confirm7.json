@@ -1,0 +1,59 @@
+{
+ "prereg": "experiments/guard/PREREG7_CLI_PARITY.md",
+ "checks": {
+  "V31_documents_go_in_from_the_cli": {
+   "pass": true,
+   "detail": {
+    "loaded": 2,
+    "sources": [
+     "tech.md",
+     "規程.txt"
+    ],
+    "in_stock": [
+     "ANSWER",
+     "交際費",
+     "交際費 上限 月5万円 第4条"
+    ],
+    "out_of_stock": "UNKNOWN_NO_EVIDENCE",
+    "exit_codes": [
+     0,
+     0,
+     0
+    ]
+   }
+  },
+  "V32_domains_reachable_from_the_cli": {
+   "pass": true,
+   "detail": {
+    "exit_code": 0,
+    "keys": [
+     "domains",
+     "note",
+     "shared",
+     "verdict"
+    ]
+   }
+  },
+  "V33_every_door_is_reachable_and_absence_is_typed": {
+   "pass": true,
+   "detail": {
+    "cli_doors": 126,
+    "mcp_doors": 126,
+    "missing_verdict": "UNKNOWN_NO_SUCH_DOOR",
+    "missing_exit_code": 1
+   }
+  },
+  "V34_config_is_shown_by_default_and_merges_on_install": {
+   "pass": true,
+   "detail": {
+    "default_wrote_nothing": true,
+    "after_install_servers": [
+     "other-server",
+     "vera-memory"
+    ],
+    "installed_to": "/T/tmpp13njfxx/.mcp.json"
+   }
+  }
+ },
+ "summary": "4/4 passed"
+}

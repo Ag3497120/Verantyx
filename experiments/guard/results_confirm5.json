@@ -1,0 +1,61 @@
+{
+ "prereg": "experiments/guard/PREREG5_FREEZE.md",
+ "checks": {
+  "V25_doctor_reports_broken_when_broken": {
+   "pass": true,
+   "detail": {
+    "healthy": "OK",
+    "silent_guard": [
+     "BROKEN",
+     [
+      "G1_registered_covenant_blocks",
+      "G2_regex_read_never_blocks",
+      "G4_retire_is_an_entry_not_a_deletion"
+     ]
+    ],
+    "eager_guard": [
+     "BROKEN",
+     [
+      "G2_regex_read_never_blocks"
+     ]
+    ],
+    "deleting_guard": [
+     "BROKEN",
+     [
+      "G4_retire_is_an_entry_not_a_deletion"
+     ]
+    ]
+   }
+  },
+  "V26_doctor_never_touches_the_ledger": {
+   "pass": true,
+   "detail": {
+    "sha_unchanged": true,
+    "verdict_with_ledger": "OK",
+    "in_force_seen": 1,
+    "verdict_fresh_machine": "OK",
+    "exit_codes": [
+     0,
+     0
+    ]
+   }
+  },
+  "V27_verification_does_not_call_red_green": {
+   "pass": true,
+   "detail": {
+    "green_run": [
+     0,
+     "2/2"
+    ],
+    "red_run": [
+     1,
+     "3/4"
+    ],
+    "named_failure": [
+     "run_fake_failing.py: deliberately_failing_check: {}"
+    ]
+   }
+  }
+ },
+ "summary": "3/3 passed"
+}

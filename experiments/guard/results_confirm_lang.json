@@ -1,0 +1,89 @@
+{
+ "prereg": "experiments/guard/PREREG2.md (言語対称の追補)",
+ "checks": {
+  "V11_extract_symmetry": {
+   "pass": true,
+   "detail": {
+    "pairs": [
+     {
+      "ja": [
+       "絵文字を使わないで",
+       1
+      ],
+      "en": [
+       "Never use emojis",
+       1
+      ]
+     },
+     {
+      "ja": [
+       "TODOを書かないで",
+       1
+      ],
+      "en": [
+       "Stop using TODO",
+       1
+      ]
+     },
+     {
+      "ja": [
+       "必ずテストを実行して",
+       1
+      ],
+      "en": [
+       "Always run pytest",
+       1
+      ]
+     }
+    ],
+    "vague": [
+     0,
+     0
+    ]
+   }
+  },
+  "V12_release_symmetry": {
+   "pass": true,
+   "detail": {
+    "ja": [
+     "絵文字"
+    ],
+    "en": [
+     "emojis"
+    ],
+    "en_fine_now": [
+     "TODO"
+    ],
+    "en_go_ahead": [
+     "print"
+    ],
+    "unreadable": [
+     [],
+     []
+    ],
+    "retire_path": [
+     "BROKEN",
+     "KEPT"
+    ]
+   }
+  },
+  "V13_enforcement_language_neutral": {
+   "pass": true,
+   "detail": {
+    "emoji_class_en": [
+     "BROKEN",
+     true
+    ],
+    "witness_en": [
+     "REQUIRED_UNWITNESSED",
+     "REQUIRED_WITNESSED"
+    ],
+    "quarantine_en": [
+     "KEPT",
+     "BROKEN"
+    ]
+   }
+  }
+ },
+ "summary": "3/3 passed"
+}

@@ -1,0 +1,55 @@
+{
+ "prereg": "experiments/guard/PREREG8_WIRING_AND_WINDOW.md",
+ "checks": {
+  "V35_broken_wiring_is_named": {
+   "pass": true,
+   "detail": {
+    "broken": [
+     "PARTIAL",
+     [
+      "hook: MISSING_SCRIPT",
+      "mcp_server: MISSING_COMMAND"
+     ]
+    ],
+    "healthy_rows": {
+     "hook": "OK",
+     "mcp_server": "OK"
+    },
+    "healthy_verdict_not_false_alarm": true,
+    "frozen_binary_false_alarm": []
+   }
+  },
+  "V36_not_installed_is_not_broken": {
+   "pass": true,
+   "detail": {
+    "fresh_machine": "NOT_WIRED",
+    "whole_doctor": "OK",
+    "guarantees_failed": []
+   }
+  },
+  "V37_one_window_counts_real_waiting_items": {
+   "pass": true,
+   "detail": {
+    "before_total": 0,
+    "after_total": 2,
+    "covenant_candidates": 1,
+    "web_evidence_landed_in": "ai_facts",
+    "modes": [
+     "manual",
+     "assisted",
+     "autonomous"
+    ]
+   }
+  },
+  "V38_the_window_changes_nothing": {
+   "pass": true,
+   "detail": {
+    "files_watched": [
+     "store.covenants.json"
+    ],
+    "identical": true
+   }
+  }
+ },
+ "summary": "4/4 passed"
+}

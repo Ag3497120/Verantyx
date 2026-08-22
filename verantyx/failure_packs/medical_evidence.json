@@ -1,0 +1,74 @@
+{
+ "name": "medical_evidence",
+ "maturity": "seeded",
+ "description": "Why an assessment cannot be made — evidence gaps only, never diagnosis. The verdict names the missing input.",
+ "fallback": "UNKNOWN_UNCLASSIFIED",
+ "verdicts": [
+  {
+   "verdict": "UNKNOWN_MISSING_TEST",
+   "pattern": "(mri|ct|x-?ray|blood (panel|test)|biopsy|lab result).*(missing|not (available|performed|ordered))",
+   "note": "a specific examination has not been done",
+   "provenance": "claude_seeded",
+   "remedy": {
+    "kind": "request_input",
+    "owner": "ordering clinician",
+    "verify": "manual",
+    "auto_calibratable": false,
+    "note": "the verdict says WHICH test; ordering it is always the clinician's call"
+   }
+  },
+  {
+   "verdict": "UNKNOWN_HISTORY_GAP",
+   "pattern": "(history|record)s? (incomplete|unavailable|missing)|prior (imaging|results) not available",
+   "note": "the record is incomplete, not the patient undiagnosable",
+   "provenance": "claude_seeded",
+   "remedy": {
+    "kind": "request_input",
+    "owner": "records office",
+    "verify": "manual",
+    "auto_calibratable": false,
+    "note": ""
+   }
+  },
+  {
+   "verdict": "UNKNOWN_RESULT_CONFLICT",
+   "pattern": "(results?|findings) (conflict|inconsistent|contradict)",
+   "note": "the evidence disagrees with itself",
+   "provenance": "claude_seeded",
+   "remedy": {
+    "kind": "human_judgment",
+    "owner": "clinician",
+    "verify": "manual",
+    "auto_calibratable": false,
+    "note": "conflicting clinical evidence is never automation's call — permanent boundary"
+   }
+  },
+  {
+   "verdict": "UNKNOWN_QUALITY",
+   "pattern": "(image|sample|scan) quality (insufficient|poor|degraded)|motion artifact",
+   "note": "evidence exists but is unusable — repeat the acquisition",
+   "provenance": "claude_seeded",
+   "remedy": {
+    "kind": "request_input",
+    "owner": "imaging/lab",
+    "verify": "manual",
+    "auto_calibratable": false,
+    "note": ""
+   }
+  }
+ ],
+ "fixtures": [
+  {
+   "name": "no MRI yet",
+   "expect": "UNKNOWN_MISSING_TEST",
+   "evidence": "assessment blocked: MRI not performed; clinical picture requires it",
+   "provenance": "synthetic"
+  },
+  {
+   "name": "artifacted scan",
+   "expect": "UNKNOWN_QUALITY",
+   "evidence": "assessment blocked: CT image quality insufficient, motion artifact over region of interest",
+   "provenance": "synthetic"
+  }
+ ]
+}

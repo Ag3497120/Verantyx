@@ -1,0 +1,89 @@
+{
+  "gap_a7c9b872": {
+    "gap_id": "gap_a7c9b872",
+    "gap_type": "UNPROVED_GOAL",
+    "subject": "len(app(x, y)) = len(app(y, x))",
+    "scope": "math:goal:B1",
+    "severity": "QUALITY",
+    "status": "DETECTED",
+    "blocks": [],
+    "caused_by": [],
+    "required_for": [
+      "math_track"
+    ],
+    "acquisition_methods": [
+      "signature_extension",
+      "lpo_kbo"
+    ],
+    "allowed_sources": [],
+    "max_depth": 1,
+    "resolution": null,
+    "verified_by": [],
+    "created_at": 1787191967.068995,
+    "updated_at": 1787191967.068995,
+    "role": null,
+    "failure_type": "no_induction_closed",
+    "input_type": null,
+    "output_type": null,
+    "expected_transition": null,
+    "observed_transition": null
+  },
+  "gap_f9786373": {
+    "gap_id": "gap_f9786373",
+    "gap_type": "UNPROVED_GOAL",
+    "subject": "len(app(app(x, y), z)) = add(add(len(x), len(y)), len(z))",
+    "scope": "math:goal:B10",
+    "severity": "QUALITY",
+    "status": "DETECTED",
+    "blocks": [],
+    "caused_by": [],
+    "required_for": [
+      "math_track"
+    ],
+    "acquisition_methods": [
+      "signature_extension",
+      "lpo_kbo"
+    ],
+    "allowed_sources": [],
+    "max_depth": 1,
+    "resolution": null,
+    "verified_by": [],
+    "created_at": 1787192151.010206,
+    "updated_at": 1787192151.010206,
+    "role": null,
+    "failure_type": "no_induction_closed",
+    "input_type": null,
+    "output_type": null,
+    "expected_transition": null,
+    "observed_transition": null
+  },
+  "gap_a43c2c66": {
+    "gap_id": "gap_a43c2c66",
+    "gap_type": "UNPROVED_GOAL",
+    "subject": "mul(add(a, b), add(a, b)) = add(mul(a, a), add(mul(a, b), add(mul(b, a), mul(b, b))))",
+    "scope": "math:goal:P3",
+    "severity": "QUALITY",
+    "status": "DETECTED",
+    "blocks": [],
+    "caused_by": [],
+    "required_for": [
+      "math_track"
+    ],
+    "acquisition_methods": [
+      "signature_extension",
+      "lpo_kbo"
+    ],
+    "allowed_sources": [],
+    "max_depth": 1,
+    "resolution": null,
+    "verified_by": [],
+    "created_at": 1787192151.023073,
+    "updated_at": 1787192151.023073,
+    "role": null,
+    "failure_type": "no_induction_closed",
+    "input_type": null,
+    "output_type": null,
+    "expected_transition": null,
+    "observed_transition": null
+  }
+}

@@ -1,0 +1,234 @@
+{
+  "gap_70e16934": {
+    "gap_id": "gap_70e16934",
+    "gap_type": "UNPROVED_GOAL",
+    "subject": "len(app(x, y)) = len(app(y, x))",
+    "scope": "math:goal:B1",
+    "severity": "QUALITY",
+    "status": "DETECTED",
+    "blocks": [],
+    "caused_by": [],
+    "required_for": [
+      "math_track"
+    ],
+    "acquisition_methods": [
+      "signature_extension",
+      "lpo_kbo"
+    ],
+    "allowed_sources": [],
+    "max_depth": 1,
+    "resolution": null,
+    "verified_by": [],
+    "created_at": 1787191678.789139,
+    "updated_at": 1787191678.789139,
+    "role": null,
+    "failure_type": "no_induction_closed",
+    "input_type": null,
+    "output_type": null,
+    "expected_transition": null,
+    "observed_transition": null
+  },
+  "gap_8d73a6c8": {
+    "gap_id": "gap_8d73a6c8",
+    "gap_type": "UNPROVED_GOAL",
+    "subject": "mul(add(a, b), c) = add(mul(a, c), mul(b, c))",
+    "scope": "math:goal:B9",
+    "severity": "QUALITY",
+    "status": "DETECTED",
+    "blocks": [],
+    "caused_by": [],
+    "required_for": [
+      "math_track"
+    ],
+    "acquisition_methods": [
+      "signature_extension",
+      "lpo_kbo"
+    ],
+    "allowed_sources": [],
+    "max_depth": 1,
+    "resolution": null,
+    "verified_by": [],
+    "created_at": 1787191711.065217,
+    "updated_at": 1787191711.065217,
+    "role": null,
+    "failure_type": "no_induction_closed",
+    "input_type": null,
+    "output_type": null,
+    "expected_transition": null,
+    "observed_transition": null
+  },
+  "gap_6fb2f929": {
+    "gap_id": "gap_6fb2f929",
+    "gap_type": "UNPROVED_GOAL",
+    "subject": "len(app(app(x, y), z)) = add(add(len(x), len(y)), len(z))",
+    "scope": "math:goal:B10",
+    "severity": "QUALITY",
+    "status": "DETECTED",
+    "blocks": [],
+    "caused_by": [],
+    "required_for": [
+      "math_track"
+    ],
+    "acquisition_methods": [
+      "signature_extension",
+      "lpo_kbo"
+    ],
+    "allowed_sources": [],
+    "max_depth": 1,
+    "resolution": null,
+    "verified_by": [],
+    "created_at": 1787191762.291699,
+    "updated_at": 1787191762.291699,
+    "role": null,
+    "failure_type": "no_induction_closed",
+    "input_type": null,
+    "output_type": null,
+    "expected_transition": null,
+    "observed_transition": null
+  },
+  "gap_2b07d4d5": {
+    "gap_id": "gap_2b07d4d5",
+    "gap_type": "UNPROVED_GOAL",
+    "subject": "mul(add(a, b), c) = add(mul(a, c), mul(b, c))",
+    "scope": "math:goal:P2",
+    "severity": "QUALITY",
+    "status": "DETECTED",
+    "blocks": [],
+    "caused_by": [],
+    "required_for": [
+      "math_track"
+    ],
+    "acquisition_methods": [
+      "signature_extension",
+      "lpo_kbo"
+    ],
+    "allowed_sources": [],
+    "max_depth": 1,
+    "resolution": null,
+    "verified_by": [],
+    "created_at": 1787191762.87554,
+    "updated_at": 1787191762.87554,
+    "role": null,
+    "failure_type": "no_induction_closed",
+    "input_type": null,
+    "output_type": null,
+    "expected_transition": null,
+    "observed_transition": null
+  },
+  "gap_cdcb15b9": {
+    "gap_id": "gap_cdcb15b9",
+    "gap_type": "UNPROVED_GOAL",
+    "subject": "mul(add(a, b), add(a, b)) = add(mul(a, a), add(mul(a, b), add(mul(b, a), mul(b, b))))",
+    "scope": "math:goal:P3",
+    "severity": "QUALITY",
+    "status": "DETECTED",
+    "blocks": [],
+    "caused_by": [],
+    "required_for": [
+      "math_track"
+    ],
+    "acquisition_methods": [
+      "signature_extension",
+      "lpo_kbo"
+    ],
+    "allowed_sources": [],
+    "max_depth": 1,
+    "resolution": null,
+    "verified_by": [],
+    "created_at": 1787191763.38909,
+    "updated_at": 1787191763.38909,
+    "role": null,
+    "failure_type": "no_induction_closed",
+    "input_type": null,
+    "output_type": null,
+    "expected_transition": null,
+    "observed_transition": null
+  },
+  "gap_ce9f6552": {
+    "gap_id": "gap_ce9f6552",
+    "gap_type": "UNPROVED_GOAL",
+    "subject": "mul(a, add(b, add(c, n))) = add(mul(a, b), add(mul(a, c), mul(a, n)))",
+    "scope": "math:goal:P4",
+    "severity": "QUALITY",
+    "status": "DETECTED",
+    "blocks": [],
+    "caused_by": [],
+    "required_for": [
+      "math_track"
+    ],
+    "acquisition_methods": [
+      "signature_extension",
+      "lpo_kbo"
+    ],
+    "allowed_sources": [],
+    "max_depth": 1,
+    "resolution": null,
+    "verified_by": [],
+    "created_at": 1787191763.8478138,
+    "updated_at": 1787191763.8478138,
+    "role": null,
+    "failure_type": "no_induction_closed",
+    "input_type": null,
+    "output_type": null,
+    "expected_transition": null,
+    "observed_transition": null
+  },
+  "gap_7ad00607": {
+    "gap_id": "gap_7ad00607",
+    "gap_type": "UNPROVED_GOAL",
+    "subject": "mul(mul(a, add(b, c)), n) = add(mul(mul(a, b), n), mul(mul(a, c), n))",
+    "scope": "math:goal:P5",
+    "severity": "QUALITY",
+    "status": "DETECTED",
+    "blocks": [],
+    "caused_by": [],
+    "required_for": [
+      "math_track"
+    ],
+    "acquisition_methods": [
+      "signature_extension",
+      "lpo_kbo"
+    ],
+    "allowed_sources": [],
+    "max_depth": 1,
+    "resolution": null,
+    "verified_by": [],
+    "created_at": 1787191765.101295,
+    "updated_at": 1787191765.101295,
+    "role": null,
+    "failure_type": "no_induction_closed",
+    "input_type": null,
+    "output_type": null,
+    "expected_transition": null,
+    "observed_transition": null
+  },
+  "gap_91730337": {
+    "gap_id": "gap_91730337",
+    "gap_type": "UNPROVED_GOAL",
+    "subject": "add(mul(add(a, b), c), mul(add(a, b), n)) = mul(add(a, b), add(c, n))",
+    "scope": "math:goal:P6",
+    "severity": "QUALITY",
+    "status": "DETECTED",
+    "blocks": [],
+    "caused_by": [],
+    "required_for": [
+      "math_track"
+    ],
+    "acquisition_methods": [
+      "signature_extension",
+      "lpo_kbo"
+    ],
+    "allowed_sources": [],
+    "max_depth": 1,
+    "resolution": null,
+    "verified_by": [],
+    "created_at": 1787191765.948245,
+    "updated_at": 1787191765.948245,
+    "role": null,
+    "failure_type": "no_induction_closed",
+    "input_type": null,
+    "output_type": null,
+    "expected_transition": null,
+    "observed_transition": null
+  }
+}

@@ -1,0 +1,407 @@
+{
+ "n_cores": 14625,
+ "C2b_threshold_arithmetic": {
+  "ordinary_sorted_pct": [
+   [
+    "code",
+    2.4684
+   ],
+   [
+    "file",
+    2.3932
+   ],
+   [
+    "use",
+    2.0103
+   ],
+   [
+    "new",
+    1.7778
+   ],
+   [
+    "run",
+    1.4222
+   ],
+   [
+    "name",
+    1.3333
+   ],
+   [
+    "必要",
+    0.7385
+   ],
+   [
+    "time",
+    0.6359
+   ],
+   [
+    "set",
+    0.5949
+   ],
+   [
+    "the",
+    0.5538
+   ],
+   [
+    "using",
+    0.5128
+   ],
+   [
+    "get",
+    0.4034
+   ],
+   [
+    "make",
+    0.2598
+   ],
+   [
+    "使用",
+    0.253
+   ],
+   [
+    "part",
+    0.1983
+   ],
+   [
+    "used",
+    0.1846
+   ],
+   [
+    "is",
+    0.1641
+   ],
+   [
+    "方法",
+    0.1573
+   ],
+   [
+    "all",
+    0.0342
+   ],
+   [
+    "are",
+    0.0274
+   ],
+   [
+    "one",
+    0.0205
+   ],
+   [
+    "can",
+    0.0137
+   ],
+   [
+    "will",
+    0.0068
+   ],
+   [
+    "場合",
+    0.0
+   ],
+   [
+    "以下",
+    0.0
+   ],
+   [
+    "内容",
+    0.0
+   ]
+  ],
+  "content_sorted_pct": [
+   [
+    "pytest",
+    0.1709
+   ],
+   [
+    "typescript",
+    0.1436
+   ],
+   [
+    "docstring",
+    0.1299
+   ],
+   [
+    "emoji",
+    0.0752
+   ],
+   [
+    "javascript",
+    0.041
+   ],
+   [
+    "絵文字",
+    0.041
+   ],
+   [
+    "eslint",
+    0.0274
+   ],
+   [
+    "mypy",
+    0.0137
+   ],
+   [
+    "prettier",
+    0.0068
+   ],
+   [
+    "ruff",
+    0.0068
+   ],
+   [
+    "箇条書き",
+    0.0068
+   ],
+   [
+    "unittest",
+    0.0
+   ],
+   [
+    "型注釈",
+    0.0
+   ],
+   [
+    "敬語",
+    0.0
+   ]
+  ],
+  "threshold_to_drop_21_of_26_pct": 0.0205,
+  "21st_ordinary_word": "one",
+  "content_words_killed_at_that_threshold": [
+   [
+    "pytest",
+    0.1709
+   ],
+   [
+    "typescript",
+    0.1436
+   ],
+   [
+    "docstring",
+    0.1299
+   ],
+   [
+    "emoji",
+    0.0752
+   ],
+   [
+    "javascript",
+    0.041
+   ],
+   [
+    "絵文字",
+    0.041
+   ],
+   [
+    "eslint",
+    0.0274
+   ]
+  ],
+  "content_killed_n": 7,
+  "content_surviving": [
+   [
+    "mypy",
+    0.0137
+   ],
+   [
+    "prettier",
+    0.0068
+   ],
+   [
+    "ruff",
+    0.0068
+   ],
+   [
+    "箇条書き",
+    0.0068
+   ]
+  ],
+  "highest_content": [
+   "pytest",
+   0.0017094017094017094
+  ],
+  "lowest_nonzero_ordinary": [
+   "will",
+   0.0068
+  ],
+  "ordinary_words_below_highest_content": [
+   [
+    "is",
+    0.1641
+   ],
+   [
+    "方法",
+    0.1573
+   ],
+   [
+    "all",
+    0.0342
+   ],
+   [
+    "are",
+    0.0274
+   ],
+   [
+    "one",
+    0.0205
+   ],
+   [
+    "can",
+    0.0137
+   ],
+   [
+    "will",
+    0.0068
+   ]
+  ]
+ },
+ "C3b_cooccurrence": [
+  {
+   "pair": [
+    "typescript",
+    "javascript"
+   ],
+   "cores_holding_both_facets": 4,
+   "example_cores": [
+    "elif",
+    "eslint#p",
+    "jest#p",
+    "prettier#p"
+   ],
+   "corpus_files_containing_both": 8,
+   "corpus_lines_containing_both": 6,
+   "a_cores": 21,
+   "b_cores": 6
+  },
+  {
+   "pair": [
+    "pytest",
+    "unittest"
+   ],
+   "cores_holding_both_facets": 0,
+   "example_cores": [],
+   "corpus_files_containing_both": 1,
+   "corpus_lines_containing_both": 0,
+   "a_cores": 25,
+   "b_cores": 0
+  },
+  {
+   "pair": [
+    "テスト",
+    "pytest"
+   ],
+   "cores_holding_both_facets": 4,
+   "example_cores": [
+    "ターミナル",
+    "必",
+    "案",
+    "道具"
+   ],
+   "corpus_files_containing_both": 5,
+   "corpus_lines_containing_both": 2,
+   "a_cores": 91,
+   "b_cores": 25
+  },
+  {
+   "pair": [
+    "print",
+    "console"
+   ],
+   "cores_holding_both_facets": 4,
+   "example_cores": [
+    "check#p",
+    "log",
+    "md",
+    "name"
+   ],
+   "corpus_files_containing_both": 10,
+   "corpus_lines_containing_both": 3,
+   "a_cores": 49,
+   "b_cores": 34
+  },
+  {
+   "pair": [
+    "eslint",
+    "prettier"
+   ],
+   "cores_holding_both_facets": 1,
+   "example_cores": [
+    "json"
+   ],
+   "corpus_files_containing_both": 2,
+   "corpus_lines_containing_both": 0,
+   "a_cores": 4,
+   "b_cores": 1
+  },
+  {
+   "pair": [
+    "絵文字",
+    "emoji"
+   ],
+   "cores_holding_both_facets": 1,
+   "example_cores": [
+    "字面照合"
+   ],
+   "corpus_files_containing_both": 3,
+   "corpus_lines_containing_both": 2,
+   "a_cores": 6,
+   "b_cores": 11
+  },
+  {
+   "pair": [
+    "print",
+    "logging"
+   ],
+   "cores_holding_both_facets": 0,
+   "example_cores": [],
+   "corpus_files_containing_both": 5,
+   "corpus_lines_containing_both": 1,
+   "a_cores": 49,
+   "b_cores": 23
+  }
+ ],
+ "C3c_bake_inferred_readonly": {
+  "TypeScript": {
+   "inferred_forbids": [
+    "javascript",
+    "auto",
+    "config",
+    "edit",
+    "language",
+    "intelephense"
+   ],
+   "verdict": "ANSWER"
+  },
+  "pytest": {
+   "inferred_forbids": [
+    "echo",
+    "実行",
+    "部分文字列",
+    "記録",
+    "素",
+    "証人"
+   ],
+   "verdict": "ANSWER"
+  },
+  "テスト": {
+   "inferred_forbids": [
+    "実行",
+    "推論",
+    "行い",
+    "実装",
+    "生成",
+    "起動"
+   ],
+   "verdict": "ANSWER"
+  },
+  "絵文字": {
+   "inferred_forbids": [
+    "文字クラス",
+    "閉",
+    "語",
+    "en"
+   ],
+   "verdict": "ANSWER"
+  }
+ }
+}

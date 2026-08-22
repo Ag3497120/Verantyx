@@ -1,0 +1,87 @@
+{
+ "prereg": "experiments/guard/PREREG6_STANDALONE.md",
+ "checks": {
+  "V28_standalone_guarantees_hold": {
+   "pass": true,
+   "detail": {
+    "verdict": "OK",
+    "in_stock": {
+     "出張費": [
+      "ANSWER",
+      "出張費"
+     ],
+     "交際費": [
+      "ANSWER",
+      "交際費"
+     ],
+     "在宅勤務": [
+      "ANSWER",
+      "在宅勤務"
+     ]
+    },
+    "absence": {
+     "ゾルタクスゼイアン": [
+      "UNKNOWN_NO_EVIDENCE",
+      "no_candidate_cross"
+     ],
+     "深海探査船の定員": [
+      "UNKNOWN_NO_EVIDENCE",
+      "no_candidate_cross"
+     ],
+     "quantum flux capacitor": [
+      "UNKNOWN_NO_EVIDENCE",
+      "no_candidate_cross"
+     ]
+    },
+    "fabricated_answers": [],
+    "strangers": "none"
+   }
+  },
+  "V29_doctor_reports_broken_when_broken": {
+   "pass": true,
+   "detail": {
+    "mute": [
+     "BROKEN",
+     [
+      "S1_in_stock_answers"
+     ]
+    ],
+    "fabricating": [
+     "BROKEN",
+     [
+      "S2_absence_is_refused",
+      "S4_answer_uses_only_stored_words"
+     ]
+    ],
+    "order_dependent": [
+     "BROKEN",
+     [
+      "S1_in_stock_answers",
+      "S2_absence_is_refused",
+      "S3_ingest_order_invariant"
+     ]
+    ]
+   }
+  },
+  "V30_one_command_covers_both_faces": {
+   "pass": true,
+   "detail": {
+    "healthy": "OK",
+    "one_face_broken": [
+     "BROKEN",
+     "OK",
+     [
+      "G1_registered_covenant_blocks"
+     ]
+    ],
+    "cli": [
+     "OK",
+     0,
+     4,
+     4
+    ]
+   }
+  }
+ },
+ "summary": "3/3 passed"
+}

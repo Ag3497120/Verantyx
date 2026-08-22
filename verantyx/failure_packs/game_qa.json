@@ -1,0 +1,93 @@
+{
+ "name": "game_qa",
+ "maturity": "seeded",
+ "description": "Automated playtest failures: why the agent could not finish the level.",
+ "fallback": "UNKNOWN_UNCLASSIFIED",
+ "verdicts": [
+  {
+   "verdict": "UNKNOWN_SOFTLOCK",
+   "pattern": "softlock|no available actions|progression blocked.*no path",
+   "note": "state reached from which no action progresses",
+   "provenance": "claude_seeded",
+   "remedy": {
+    "kind": "fix_content",
+    "owner": "level design",
+    "verify": "replay",
+    "auto_calibratable": false,
+    "note": ""
+   }
+  },
+  {
+   "verdict": "UNKNOWN_UNREACHABLE",
+   "pattern": "unreachable|navmesh.*(fail|gap|island)|no path to target",
+   "note": "goal exists but geometry/navigation cannot reach it",
+   "provenance": "claude_seeded",
+   "remedy": {
+    "kind": "fix_content",
+    "owner": "level design / navmesh",
+    "verify": "replay",
+    "auto_calibratable": false,
+    "note": ""
+   }
+  },
+  {
+   "verdict": "UNKNOWN_MISSING_ITEM",
+   "pattern": "(key|item|trigger).*(never spawned|not found|missing)|spawn table.*empty",
+   "note": "a progression-gating entity never appeared",
+   "provenance": "claude_seeded",
+   "remedy": {
+    "kind": "fix_content",
+    "owner": "spawn tables",
+    "verify": "replay",
+    "auto_calibratable": false,
+    "note": ""
+   }
+  },
+  {
+   "verdict": "UNKNOWN_STUCK_GEOMETRY",
+   "pattern": "clipped (into|through)|stuck in collider|fell (out of|through) (the )?(world|map)",
+   "note": "physics/collision defect",
+   "provenance": "claude_seeded",
+   "remedy": {
+    "kind": "fix_code",
+    "owner": "physics/collision",
+    "verify": "replay",
+    "auto_calibratable": false,
+    "note": ""
+   }
+  },
+  {
+   "verdict": "UNKNOWN_TIMING",
+   "pattern": "frame[- ]dependent|race condition|only fails at \\d+ ?fps|timing window",
+   "note": "outcome depends on frame timing",
+   "provenance": "claude_seeded",
+   "remedy": {
+    "kind": "fix_code",
+    "owner": "game loop",
+    "verify": "replay",
+    "auto_calibratable": false,
+    "note": "widen the tolerance or decouple from frame rate; a replay at multiple frame rates is the verification"
+   }
+  }
+ ],
+ "fixtures": [
+  {
+   "name": "locked door, key never spawned",
+   "expect": "UNKNOWN_MISSING_ITEM",
+   "evidence": "bot gave up at door_12: required key_red not found; spawn table for room_7 returned empty",
+   "provenance": "synthetic"
+  },
+  {
+   "name": "navmesh island",
+   "expect": "UNKNOWN_UNREACHABLE",
+   "evidence": "pathfinder: no path to target waypoint_9; navmesh gap detected between platform_3 and platform_4",
+   "provenance": "synthetic"
+  },
+  {
+   "name": "fell through floor",
+   "expect": "UNKNOWN_STUCK_GEOMETRY",
+   "evidence": "agent fell through the world at (312, -5, 88) after landing on slope_17",
+   "provenance": "synthetic"
+  }
+ ]
+}

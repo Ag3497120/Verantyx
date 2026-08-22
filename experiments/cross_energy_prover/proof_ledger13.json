@@ -1,0 +1,607 @@
+{
+ "votes": "none",
+ "note": "proof lemmas + trials; not federation",
+ "lemmas": [
+  {
+   "lhs": "rev(app(x, y))",
+   "rhs": "app(rev(y), rev(x))",
+   "how": "direct",
+   "origin_goal": "C1",
+   "ground_passed": -1,
+   "lean_verdict": null,
+   "lean_tactic": null,
+   "ts": 1787207112.074832,
+   "cited": [
+    "ml:list.list.reverse_append"
+   ]
+  },
+  {
+   "lhs": "len(rev(x))",
+   "rhs": "len(x)",
+   "how": "direct",
+   "origin_goal": "C2",
+   "ground_passed": -1,
+   "lean_verdict": null,
+   "lean_tactic": null,
+   "ts": 1787207112.0773199,
+   "cited": [
+    "ml:list.list.length_reverse"
+   ]
+  },
+  {
+   "lhs": "app(app(x, y), z)",
+   "rhs": "app(x, app(y, z))",
+   "how": "direct",
+   "origin_goal": "C3",
+   "ground_passed": -1,
+   "lean_verdict": null,
+   "lean_tactic": null,
+   "ts": 1787207112.101697,
+   "cited": [
+    "ml:list.list.append_assoc"
+   ]
+  },
+  {
+   "lhs": "mul(a, add(b, c))",
+   "rhs": "add(mul(a, b), mul(a, c))",
+   "how": "direct",
+   "origin_goal": "C4",
+   "ground_passed": -1,
+   "lean_verdict": null,
+   "lean_tactic": null,
+   "ts": 1787207112.146115,
+   "cited": [
+    "ml:left_distrib"
+   ]
+  },
+  {
+   "lhs": "add(0, a)",
+   "rhs": "a",
+   "how": "direct",
+   "origin_goal": "R1",
+   "ground_passed": -1,
+   "lean_verdict": null,
+   "lean_tactic": null,
+   "ts": 1787207112.147464,
+   "cited": [
+    "ml:one_mul.to_additive"
+   ]
+  },
+  {
+   "lhs": "add(s(a), b)",
+   "rhs": "s(add(a, b))",
+   "how": "direct",
+   "origin_goal": "R2",
+   "ground_passed": -1,
+   "lean_verdict": null,
+   "lean_tactic": null,
+   "ts": 1787207112.152559
+  },
+  {
+   "lhs": "add(a, b)",
+   "rhs": "add(b, a)",
+   "how": "direct",
+   "origin_goal": "R3",
+   "ground_passed": -1,
+   "lean_verdict": null,
+   "lean_tactic": null,
+   "ts": 1787207112.1571999
+  },
+  {
+   "lhs": "add(add(a, b), c)",
+   "rhs": "add(a, add(b, c))",
+   "how": "direct",
+   "origin_goal": "R4",
+   "ground_passed": -1,
+   "lean_verdict": null,
+   "lean_tactic": null,
+   "ts": 1787207112.181628
+  },
+  {
+   "lhs": "mul(0, a)",
+   "rhs": "0",
+   "how": "direct",
+   "origin_goal": "R5",
+   "ground_passed": -1,
+   "lean_verdict": null,
+   "lean_tactic": null,
+   "ts": 1787207112.1828952,
+   "cited": [
+    "ml:mulzeroclass.zero_mul"
+   ]
+  },
+  {
+   "lhs": "mul(a, 0)",
+   "rhs": "0",
+   "how": "direct",
+   "origin_goal": "R6",
+   "ground_passed": -1,
+   "lean_verdict": null,
+   "lean_tactic": null,
+   "ts": 1787207112.184078
+  },
+  {
+   "lhs": "mul(s(a), b)",
+   "rhs": "add(mul(a, b), b)",
+   "how": "direct",
+   "origin_goal": "R7",
+   "ground_passed": -1,
+   "lean_verdict": null,
+   "lean_tactic": null,
+   "ts": 1787207112.191744
+  },
+  {
+   "lhs": "mul(a, b)",
+   "rhs": "mul(b, a)",
+   "how": "direct",
+   "origin_goal": "R8",
+   "ground_passed": -1,
+   "lean_verdict": null,
+   "lean_tactic": null,
+   "ts": 1787207112.197619
+  },
+  {
+   "lhs": "len(app(x, y))",
+   "rhs": "len(app(y, x))",
+   "how": "direct",
+   "origin_goal": "B1",
+   "ground_passed": -1,
+   "lean_verdict": null,
+   "lean_tactic": null,
+   "ts": 1787207112.216993,
+   "cited": [
+    "ml:list.list.length_append"
+   ]
+  },
+  {
+   "lhs": "app(rev(x), nil)",
+   "rhs": "rev(x)",
+   "how": "direct",
+   "origin_goal": "B4",
+   "ground_passed": -1,
+   "lean_verdict": null,
+   "lean_tactic": null,
+   "ts": 1787207112.2533839,
+   "cited": [
+    "ml:list.list.append_nil"
+   ]
+  },
+  {
+   "lhs": "rev(app(rev(x), nil))",
+   "rhs": "x",
+   "how": "direct",
+   "origin_goal": "B5",
+   "ground_passed": -1,
+   "lean_verdict": null,
+   "lean_tactic": null,
+   "ts": 1787207112.256236,
+   "cited": [
+    "ml:list.list.append_nil",
+    "ml:list.list.reverse_reverse"
+   ]
+  },
+  {
+   "lhs": "len(app(x, cons(a, nil)))",
+   "rhs": "s(len(x))",
+   "how": "direct",
+   "origin_goal": "B6",
+   "ground_passed": -1,
+   "lean_verdict": null,
+   "lean_tactic": null,
+   "ts": 1787207112.26541,
+   "cited": [
+    "ml:list.list.length_append"
+   ]
+  },
+  {
+   "lhs": "mul(a, s(0))",
+   "rhs": "a",
+   "how": "direct",
+   "origin_goal": "B7",
+   "ground_passed": -1,
+   "lean_verdict": null,
+   "lean_tactic": null,
+   "ts": 1787207112.2668061,
+   "cited": [
+    "ml:one_mul.to_additive"
+   ]
+  },
+  {
+   "lhs": "mul(s(0), a)",
+   "rhs": "a",
+   "how": "direct",
+   "origin_goal": "B8",
+   "ground_passed": -1,
+   "lean_verdict": null,
+   "lean_tactic": null,
+   "ts": 1787207112.268299,
+   "cited": [
+    "ml:one_mul.to_additive"
+   ]
+  },
+  {
+   "lhs": "mul(add(a, b), c)",
+   "rhs": "add(mul(a, c), mul(b, c))",
+   "how": "direct",
+   "origin_goal": "B9",
+   "ground_passed": -1,
+   "lean_verdict": null,
+   "lean_tactic": null,
+   "ts": 1787207112.310498,
+   "cited": [
+    "ml:right_distrib"
+   ]
+  },
+  {
+   "lhs": "len(app(app(x, y), z))",
+   "rhs": "add(add(len(x), len(y)), len(z))",
+   "how": "direct",
+   "origin_goal": "B10",
+   "ground_passed": -1,
+   "lean_verdict": null,
+   "lean_tactic": null,
+   "ts": 1787207112.338629,
+   "cited": [
+    "ml:list.list.append_assoc",
+    "ml:list.list.length_append"
+   ]
+  },
+  {
+   "lhs": "rev(cons(a, nil))",
+   "rhs": "cons(a, nil)",
+   "how": "direct",
+   "origin_goal": "B11",
+   "ground_passed": -1,
+   "lean_verdict": null,
+   "lean_tactic": null,
+   "ts": 1787207112.3401759
+  },
+  {
+   "lhs": "mul(a, mul(b, c))",
+   "rhs": "mul(mul(a, b), c)",
+   "how": "direct",
+   "origin_goal": "B12",
+   "ground_passed": -1,
+   "lean_verdict": null,
+   "lean_tactic": null,
+   "ts": 1787207112.3835
+  },
+  {
+   "lhs": "add(mul(a, b), mul(a, c))",
+   "rhs": "mul(a, add(b, c))",
+   "how": "direct",
+   "origin_goal": "P1",
+   "ground_passed": -1,
+   "lean_verdict": null,
+   "lean_tactic": null,
+   "ts": 1787207112.428064,
+   "cited": [
+    "ml:left_distrib"
+   ]
+  },
+  {
+   "lhs": "mul(add(a, b), add(a, b))",
+   "rhs": "add(mul(a, a), add(mul(a, b), add(mul(b, a), mul(b, b))))",
+   "how": "direct",
+   "origin_goal": "P3",
+   "ground_passed": -1,
+   "lean_verdict": null,
+   "lean_tactic": null,
+   "ts": 1787207112.5103219,
+   "cited": [
+    "ml:left_distrib",
+    "ml:right_distrib"
+   ]
+  },
+  {
+   "lhs": "mul(a, add(b, add(c, n)))",
+   "rhs": "add(mul(a, b), add(mul(a, c), mul(a, n)))",
+   "how": "direct",
+   "origin_goal": "P4",
+   "ground_passed": -1,
+   "lean_verdict": null,
+   "lean_tactic": null,
+   "ts": 1787207112.543183,
+   "cited": [
+    "ml:left_distrib"
+   ]
+  },
+  {
+   "lhs": "mul(mul(a, add(b, c)), n)",
+   "rhs": "add(mul(mul(a, b), n), mul(mul(a, c), n))",
+   "how": "direct",
+   "origin_goal": "P5",
+   "ground_passed": -1,
+   "lean_verdict": null,
+   "lean_tactic": null,
+   "ts": 1787207112.573664,
+   "cited": [
+    "ml:left_distrib",
+    "ml:right_distrib"
+   ]
+  },
+  {
+   "lhs": "add(mul(add(a, b), c), mul(add(a, b), n))",
+   "rhs": "mul(add(a, b), add(c, n))",
+   "how": "direct",
+   "origin_goal": "P6",
+   "ground_passed": -1,
+   "lean_verdict": null,
+   "lean_tactic": null,
+   "ts": 1787207112.625419,
+   "cited": [
+    "ml:right_distrib",
+    "ml:left_distrib"
+   ]
+  },
+  {
+   "lhs": "rev(app(app(x, y), z))",
+   "rhs": "app(rev(z), app(rev(y), rev(x)))",
+   "how": "direct",
+   "origin_goal": "L1",
+   "ground_passed": -1,
+   "lean_verdict": null,
+   "lean_tactic": null,
+   "ts": 1787207112.6713018,
+   "cited": [
+    "ml:list.list.append_assoc",
+    "ml:list.list.reverse_append"
+   ]
+  },
+  {
+   "lhs": "len(app(x, app(y, z)))",
+   "rhs": "add(len(x), add(len(y), len(z)))",
+   "how": "direct",
+   "origin_goal": "L2",
+   "ground_passed": -1,
+   "lean_verdict": null,
+   "lean_tactic": null,
+   "ts": 1787207112.701225,
+   "cited": [
+    "ml:list.list.length_append"
+   ]
+  },
+  {
+   "lhs": "len(rev(app(x, y)))",
+   "rhs": "add(len(y), len(x))",
+   "how": "direct",
+   "origin_goal": "L3",
+   "ground_passed": -1,
+   "lean_verdict": null,
+   "lean_tactic": null,
+   "ts": 1787207112.728632,
+   "cited": [
+    "ml:list.list.reverse_append",
+    "ml:list.list.length_append",
+    "ml:list.list.length_reverse"
+   ]
+  },
+  {
+   "lhs": "rev(rev(app(x, y)))",
+   "rhs": "app(x, y)",
+   "how": "direct",
+   "origin_goal": "L4",
+   "ground_passed": -1,
+   "lean_verdict": null,
+   "lean_tactic": null,
+   "ts": 1787207112.761253,
+   "cited": [
+    "ml:list.list.reverse_append",
+    "ml:list.list.reverse_reverse"
+   ]
+  },
+  {
+   "lhs": "le(0, a)",
+   "rhs": "true",
+   "how": "direct",
+   "origin_goal": "Q1",
+   "ground_passed": -1,
+   "lean_verdict": null,
+   "lean_tactic": null,
+   "ts": 1787207112.770049
+  },
+  {
+   "lhs": "le(a, a)",
+   "rhs": "true",
+   "how": "induction on a",
+   "origin_goal": "Q2",
+   "ground_passed": -1,
+   "lean_verdict": null,
+   "lean_tactic": null,
+   "ts": 1787207112.772486
+  },
+  {
+   "lhs": "le(c, add(b, c))",
+   "rhs": "true",
+   "how": "induction on c",
+   "origin_goal": "le(kn, add(b, kn)) = true",
+   "ground_passed": 16,
+   "lean_verdict": null,
+   "lean_tactic": null,
+   "ts": 1787207115.11282
+  },
+  {
+   "lhs": "le(a, add(a, b))",
+   "rhs": "true",
+   "how": "induction on a + L16",
+   "origin_goal": "Q3",
+   "ground_passed": -1,
+   "lean_verdict": null,
+   "lean_tactic": null,
+   "ts": 1787207115.114069,
+   "cited": [
+    "ml:one_mul.to_additive"
+   ]
+  },
+  {
+   "lhs": "le(a, s(a))",
+   "rhs": "true",
+   "how": "induction on a",
+   "origin_goal": "Q4",
+   "ground_passed": -1,
+   "lean_verdict": null,
+   "lean_tactic": null,
+   "ts": 1787207115.116586
+  },
+  {
+   "lhs": "monus(a, a)",
+   "rhs": "0",
+   "how": "direct+cond:R_le0",
+   "origin_goal": "Q5",
+   "ground_passed": -1,
+   "lean_verdict": null,
+   "lean_tactic": null,
+   "ts": 1787207115.119872
+  },
+  {
+   "lhs": "monus(a, add(a, b))",
+   "rhs": "0",
+   "how": "direct+cond:R_le0",
+   "origin_goal": "Q6",
+   "ground_passed": -1,
+   "lean_verdict": null,
+   "lean_tactic": null,
+   "ts": 1787207115.255262,
+   "cited": [
+    "ml:one_mul.to_additive"
+   ]
+  },
+  {
+   "lhs": "le(b, b)",
+   "rhs": "true",
+   "how": "induction on b",
+   "origin_goal": "le(b, b) = true",
+   "ground_passed": 4,
+   "lean_verdict": null,
+   "lean_tactic": null,
+   "ts": 1787207116.0765288
+  },
+  {
+   "lhs": "le(s(add(c, b)), b)",
+   "rhs": "false",
+   "how": "induction on b",
+   "origin_goal": "le(s(add(c, kn)), kn) = false",
+   "ground_passed": 16,
+   "lean_verdict": null,
+   "lean_tactic": null,
+   "ts": 1787207118.576225
+  },
+  {
+   "lhs": "le(s(add(b, c)), b)",
+   "rhs": "false",
+   "how": "induction on b + L17",
+   "origin_goal": "le(s(add(b, kn)), b) = true",
+   "ground_passed": 16,
+   "lean_verdict": null,
+   "lean_tactic": null,
+   "ts": 1787207118.577488
+  },
+  {
+   "lhs": "monus(b, b)",
+   "rhs": "0",
+   "how": "direct+cond:R_le0",
+   "origin_goal": "monus(b, b) = 0",
+   "ground_passed": 4,
+   "lean_verdict": null,
+   "lean_tactic": null,
+   "ts": 1787207120.225187
+  },
+  {
+   "lhs": "le(s(b), b)",
+   "rhs": "false",
+   "how": "induction on b",
+   "origin_goal": "le(s(b), b) = true",
+   "ground_passed": 4,
+   "lean_verdict": null,
+   "lean_tactic": null,
+   "ts": 1787207120.2413802
+  },
+  {
+   "lhs": "le(s(b), b)",
+   "rhs": "le(s(0), 0)",
+   "how": "direct",
+   "origin_goal": "le(s(b), b) = true",
+   "ground_passed": 4,
+   "lean_verdict": null,
+   "lean_tactic": null,
+   "ts": 1787207120.242579
+  },
+  {
+   "lhs": "le(s(b), b)",
+   "rhs": "le(s(b), 0)",
+   "how": "direct",
+   "origin_goal": "le(s(b), b) = true",
+   "ground_passed": 4,
+   "lean_verdict": null,
+   "lean_tactic": null,
+   "ts": 1787207120.243784
+  },
+  {
+   "lhs": "monus(s(b), b)",
+   "rhs": "s(0)",
+   "how": "induction on b",
+   "origin_goal": "monus(s(b), b) = s(0)",
+   "ground_passed": 4,
+   "lean_verdict": null,
+   "lean_tactic": null,
+   "ts": 1787207122.967268
+  },
+  {
+   "lhs": "monus(s(add(c, b)), b)",
+   "rhs": "s(c)",
+   "how": "induction on b",
+   "origin_goal": "monus(s(add(c, kn)), kn) = s(c)",
+   "ground_passed": 16,
+   "lean_verdict": null,
+   "lean_tactic": null,
+   "ts": 1787207123.487045
+  },
+  {
+   "lhs": "monus(s(add(b, c)), b)",
+   "rhs": "s(c)",
+   "how": "induction on b + L24",
+   "origin_goal": "monus(s(add(b, kn)), b) = s(kn)",
+   "ground_passed": 16,
+   "lean_verdict": null,
+   "lean_tactic": null,
+   "ts": 1787207123.488532
+  },
+  {
+   "lhs": "monus(add(a, b), b)",
+   "rhs": "a",
+   "how": "induction on a + L25",
+   "origin_goal": "Q7",
+   "ground_passed": -1,
+   "lean_verdict": null,
+   "lean_tactic": null,
+   "ts": 1787207123.490029,
+   "cited": [
+    "ml:one_mul.to_additive"
+   ]
+  }
+ ],
+ "trials": {
+  "app(x, y) = app(y, x)": "refuted",
+  "rev(x) = x": "refuted",
+  "len(app(x, y)) = len(x)": "refuted",
+  "rev(app(x, y)) = app(rev(x), rev(y))": "refuted",
+  "le(c, add(b, c)) = true": "proved",
+  "le(b, b) = true": "proved",
+  "le(s(add(c, b)), b) = false": "proved",
+  "le(s(add(b, c)), b) = false": "proved",
+  "le(add(a, b), b) = true": "failed",
+  "monus(b, b) = 0": "proved",
+  "le(s(b), b) = false": "proved",
+  "le(s(b), b) = le(s(0), 0)": "proved",
+  "le(s(b), b) = le(s(b), 0)": "proved",
+  "le(s(add(b, c)), b) = true": "failed",
+  "le(s(add(c, b)), b) = true": "failed",
+  "monus(s(b), b) = s(0)": "proved",
+  "le(s(s(add(b, c))), b) = true": "failed",
+  "monus(s(add(c, b)), b) = s(c)": "proved",
+  "monus(s(add(b, c)), b) = s(c)": "proved",
+  "le(s(a), a) = true": "refuted",
+  "monus(a, b) = 0": "refuted",
+  "le(add(a, b), a) = true": "refuted"
+ }
+}
