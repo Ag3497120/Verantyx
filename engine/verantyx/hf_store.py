@@ -7,8 +7,31 @@ of the box.
 """
 from __future__ import annotations
 
+import os
 from pathlib import Path
 from typing import Any, Dict, Optional
+
+#: 既定の配布元。設定を持たない新規クローンでも取りに行ける場所が要る
+#: (2026-08-22)。環境変数 VERA_BASE_REPO と設定 hf_store_repo が優先。
+#: **黙って 208MB を落とさない** — 取りに行くのは `vera fetch-store` を
+#: 打った人の行為で、不在は不在として型で答える(この装置の線)。
+DEFAULT_BASE_REPO = "kofdai/Verantyx-Vera-base-store"
+
+
+def default_base_repo() -> str:
+    """配布元の解決順: 環境変数 → 設定 → 同梱の既定。"""
+    env = os.environ.get("VERA_BASE_REPO", "").strip()
+    if env:
+        return env
+    try:
+        from .config import VeraConfig
+
+        cfg = getattr(VeraConfig.load(), "hf_store_repo", "") or ""
+        if cfg.strip():
+            return cfg.strip()
+    except Exception:
+        pass
+    return DEFAULT_BASE_REPO
 
 
 def upload_store(
@@ -64,3 +87,24 @@ def ensure_store(
         return {"ok": False, "source": "none",
                 "note": "no local store and no base repo configured"}
     return {"source": "hub", **fetch_store(base_repo, store_path)}
+
+
+def store_status(store_path: str) -> Dict[str, Any]:
+    """店が在るか、無いなら**どうすれば手に入るか**を型で答える。
+
+    黙って落とさないので、代わりに次の一手を名指しする。不在を不在と
+    言い、閉じ方を添える — 欠けの扱いはこの装置全体で同じ形。
+    """
+    p = Path(store_path)
+    if p.is_file():
+        return {"verdict": "ANSWER", "source": "local", "path": str(p),
+                "bytes": p.stat().st_size}
+    repo = default_base_repo()
+    return {
+        "verdict": "UNKNOWN_NO_STORE",
+        "path": str(p),
+        "base_repo": repo,
+        "how_to_close": f"vera fetch-store --repo {repo}",
+        "alternative": "vera documents <あなたの文書>  # 自分で注ぐ",
+        "url": f"https://huggingface.co/datasets/{repo}",
+    }

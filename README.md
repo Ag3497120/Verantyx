@@ -68,9 +68,32 @@ Named, measured, and deliberately **not** on the roadmap — see
 
 ## Run it
 
+Two ways to get a store. **Nothing is downloaded implicitly** — if a store is
+missing the engine says so and names the command that would fix it:
+
+```json
+{"verdict": "UNKNOWN_NO_STORE", "how_to_close": "vera fetch-store --repo kofdai/Verantyx-Vera-base-store"}
+```
+
+**A. Pour your own** (what real work needs):
+
 ```bash
 python3.11 -m verantyx.cli --store ~/vera_store.json documents ~/your-docs/
 ```
+
+**B. Fetch the published base store** — ~209 MB, hosted as a dataset on
+Hugging Face: [`kofdai/Verantyx-Vera-base-store`](https://huggingface.co/datasets/kofdai/Verantyx-Vera-base-store)
+
+```bash
+python3.11 -m verantyx.cli --store ~/vera_store.json fetch-store
+python3.11 -m verantyx.cli --store ~/vera_store.json fetch-store --status   # is one here?
+```
+
+Read that dataset card before judging the answers: the base store is **English
+film and biography prose** (889,241 cores), which is enough to watch the
+engine refuse honestly and stay order-invariant — and measurably useless as
+domain knowledge (`print` there means *printed matter*). The card states this
+in its own words, with the numbers.
 
 ```bash
 python3.11 -m verantyx.cli --store ~/vera_store.json ask "交際費"
