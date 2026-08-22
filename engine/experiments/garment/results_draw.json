@@ -1,0 +1,56 @@
+{
+ "prereg": "experiments/garment/PREREG7_DRAW.md",
+ "checks": {
+  "VW1_no_line_without_a_confirmed_aspect": {
+   "pass": true,
+   "detail": {
+    "drawn": [
+     "body",
+     "collar"
+    ],
+    "skipped": [
+     "sleeve",
+     "pocket",
+     "back"
+    ]
+   }
+  },
+  "VW2_the_same_ledger_always_draws_the_same_figure": {
+   "pass": true,
+   "detail": {
+    "identical": true,
+    "bytes": 702
+   }
+  },
+  "VW3_what_was_not_drawn_is_written_on_the_figure": {
+   "pass": true,
+   "detail": {
+    "named_on_figure": [
+     "sleeve",
+     "pocket",
+     "back"
+    ]
+   }
+  },
+  "VW4_the_drawing_cannot_be_read_back_as_evidence": {
+   "pass": true,
+   "detail": {
+    "marked": true,
+    "observe_refused": true
+   }
+  },
+  "VW5_measurements_change_the_figure_and_defaults_are_labelled": {
+   "pass": true,
+   "detail": {
+    "without": 100.0,
+    "with": 96.0,
+    "defaulted_without": [
+     "body_length",
+     "chest",
+     "hem_width"
+    ]
+   }
+  }
+ },
+ "summary": "5/5 passed"
+}

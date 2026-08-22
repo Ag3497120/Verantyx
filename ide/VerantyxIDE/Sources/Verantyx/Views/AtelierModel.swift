@@ -53,6 +53,20 @@ final class AtelierModel: ObservableObject {
     @Published var crossAgree: Bool?
     @Published var crossOriginSplit: [String] = []
 
+    // -- 設計図。**作図であって生成ではない** --------------------------
+    @Published var drawSVG = ""
+    /// 画面に描くための図形。**SVG と同じ数字から作られている** —
+    /// macOS の NSImage が SVG の viewBox を再現しないことがあるので、
+    /// 表示は自前で描き、SVG は書き出しの原本として持つ。
+    @Published var drawShapes: [DrawShape] = []
+    @Published var drawCanvas = CGSize(width: 1, height: 1)
+    /// 図に載る文字。**SVG と同じ配列から作る** — 別々に書くと、
+    /// 書き出した図と画面の図が違うものになる。
+    @Published var drawLabels: [DrawLabel] = []
+    @Published var drawSkipped: [String] = []
+    @Published var drawDefaulted: [String] = []
+    @Published var drawUnit = "cm"
+
     // -- 設計。観測とは別の台帳 ---------------------------------------
     @Published var designRows: [DesignRow] = []
     @Published var designCounts: [String: Int] = [:]
@@ -108,6 +122,20 @@ final class AtelierModel: ObservableObject {
         var spot = ""; var name = ""; var state = ""
         var value: Double?
         var unit = ""; var from = ""; var howToClose = ""; var source = ""
+    }
+
+    struct DrawShape: Identifiable {
+        let id = UUID()
+        var part = ""
+        var points: [CGPoint] = []
+    }
+
+    struct DrawLabel: Identifiable {
+        let id = UUID()
+        var x: CGFloat = 0
+        var y: CGFloat = 0
+        var text = ""
+        var tone = "ink"          // ink / warn / quiet
     }
 
     struct CrossArm {
@@ -405,6 +433,37 @@ final class AtelierModel: ObservableObject {
         crossOriginSplit = ((split["cross"] as? [[Any]]) ?? []).map {
             $0.map { "\($0)" }.joined(separator: "/")
         }
+    }
+
+    /// 設計図を作る。**モデルは呼ばない** — 台帳にある確定項目と
+    /// 寸法だけを決定的に描く。
+    func loadDrawing() async {
+        let d = await call("garment_draw")
+        drawSVG = d["svg"] as? String ?? ""
+        drawShapes = (d["shapes"] as? [[String: Any]] ?? []).map { row in
+            DrawShape(part: row["part"] as? String ?? "",
+                      points: (row["points"] as? [[Double]] ?? [])
+                        .map { CGPoint(x: $0.first ?? 0, y: $0.count > 1 ? $0[1] : 0) })
+        }
+        drawLabels = (d["labels"] as? [[String: Any]] ?? []).map {
+            DrawLabel(x: ($0["x"] as? Double) ?? 0,
+                      y: ($0["y"] as? Double) ?? 0,
+                      text: $0["text"] as? String ?? "",
+                      tone: $0["tone"] as? String ?? "ink")
+        }
+        if let c = d["canvas"] as? [String: Any] {
+            drawCanvas = CGSize(width: (c["width"] as? Double) ?? 1,
+                                height: (c["height"] as? Double) ?? 1)
+        }
+        drawSkipped = (d["skipped"] as? [[String: Any]] ?? [])
+            .compactMap { $0["part"] as? String }
+        drawDefaulted = d["defaulted"] as? [String] ?? []
+        drawUnit = d["unit"] as? String ?? "cm"
+    }
+
+    func saveDrawing(to path: String) async -> String {
+        let d = await call("garment_draw_save", ["path": path])
+        return (d["verdict"] as? String) ?? "UNKNOWN_NO_ANSWER"
     }
 
     func loadDesign() async {

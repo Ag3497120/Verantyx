@@ -3908,6 +3908,35 @@ def build(store_path: str):
         return json.dumps(_measures().sheet(), ensure_ascii=False)
 
     @mcp.tool()
+    def garment_draw() -> str:
+        """設計図を**作図する**。生成モデルは呼ばない。
+
+        事前登録: experiments/garment/PREREG7_DRAW.md
+
+        モデルに「このコートを描いて」と言うと、台帳に無いものが絵に
+        入る — 袖の形、ボタンの数、丈。その絵を縫製師が見れば、台帳に
+        無いものまで指示として読む。
+
+        描くのは**確定した項目と寸法だけ**で、決定的に描く。同じ台帳
+        からは必ず同じ図が出る。未確定の部位は線を引かず、図の中に
+        名前だけ残す — 想像で線を引くのがこの段で一番危ない。"""
+        from .garment_draw import draw as _draw
+
+        return json.dumps(_draw(_garment(), _measures()),
+                          ensure_ascii=False)
+
+    @mcp.tool()
+    def garment_draw_save(path: str) -> str:
+        """設計図をファイルに書き、**生成物の印を付ける**。
+
+        印が付いた画像から `garment_observe` はできない。描いた図を
+        後から読み直すと、台帳の中身が観測の顔をして戻ってくる。"""
+        from .garment_draw import save as _save
+
+        return json.dumps(_save(_garment(), path, _measures()),
+                          ensure_ascii=False)
+
+    @mcp.tool()
     def garment_cross() -> str:
         """服飾台帳を**立体十字に載せた像**を返す。
 

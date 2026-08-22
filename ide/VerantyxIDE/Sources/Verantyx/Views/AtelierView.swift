@@ -161,6 +161,7 @@ struct AtelierView: View {
         case "Provenance": ProvenancePanel(m: m).environmentObject(app)
         case "Re-design":  DesignPanel(m: m).environmentObject(app)
         case "Pattern":    MeasurePanel(m: m).environmentObject(app)
+        case "Garments":   DrawingPanel(m: m).environmentObject(app)
         default:           figureWorkspace
         }
     }
@@ -1979,4 +1980,154 @@ private struct MeasurePanel: View {
             .background(Capsule().stroke(colour, lineWidth: 1))
             .foregroundStyle(colour)
     }
+}
+
+// MARK: - 設計図
+
+/// 設計図の面。**作図であって生成ではない。**
+///
+/// モデルに「このコートを描いて」と言うと、台帳に無いものが絵に入る。
+/// その絵を縫製師が見れば、台帳に無いものまで指示として読む。ここが
+/// 描くのは確定した項目と寸法だけで、同じ台帳からは必ず同じ図が出る。
+private struct DrawingPanel: View {
+    @ObservedObject var m: AtelierModel
+    @EnvironmentObject var app: AppState
+    @State private var said = ""
+
+    var body: some View {
+        VStack(alignment: .leading, spacing: 0) {
+            VStack(alignment: .leading, spacing: 6) {
+                HStack(spacing: 10) {
+                    Text(app.t("Technical flat", "設計図"))
+                        .font(.system(size: 13, weight: .semibold))
+                    Spacer()
+                    Button(app.t("Redraw", "描き直す")) {
+                        Task { await m.loadDrawing() }
+                    }.font(.system(size: 11))
+                    Button(app.t("Save…", "書き出す…")) { saveSVG() }
+                        .font(.system(size: 11))
+                        .disabled(m.drawSVG.isEmpty)
+                }
+                Text(app.t("Drawn from the ledger, not generated. The same "
+                           + "ledger always draws the same figure.",
+                           "台帳から作図しています。生成ではありません。"
+                           + "同じ台帳からは必ず同じ図が出ます。"))
+                    .font(.system(size: 10)).foregroundStyle(AT.faint)
+                if !m.drawSkipped.isEmpty {
+                    // **描かなかったものを、図の外でも言う。**
+                    Text(app.t("not drawn (nothing confirmed): ",
+                               "未確定のため描いていない: ")
+                         + m.drawSkipped.joined(separator: "、"))
+                        .font(.system(size: 10)).foregroundStyle(AT.bad)
+                }
+                if !m.drawDefaulted.isEmpty {
+                    Text(app.t("drawn from default ratios: ",
+                               "既定の比率で描いた寸法: ")
+                         + m.drawDefaulted.joined(separator: "、"))
+                        .font(.system(size: 10)).foregroundStyle(AT.warn)
+                }
+                if !said.isEmpty {
+                    Text(said).font(.system(size: 10, design: .monospaced))
+                        .foregroundStyle(said == "ANSWER" ? AT.ok : AT.bad)
+                }
+            }
+            .padding(14)
+            .frame(maxWidth: .infinity, alignment: .leading)
+            .background(AT.panel)
+            Divider().opacity(0.25)
+
+            ScrollView {
+                if m.drawShapes.isEmpty {
+                    Text(app.t("Nothing confirmed yet — nothing to draw.",
+                               "確定した項目がまだありません。"))
+                        .font(.system(size: 11)).foregroundStyle(AT.faint)
+                        .padding(24)
+                } else {
+                    // **白い紙の上の黒い線。** 設計図は印刷して使う。
+                    VStack(alignment: .leading, spacing: 6) {
+                        // 画面の図は**プレビュー**。原本は書き出す SVG
+                        // なので、注記まで一画面に収まる大きさにする。
+                        // 図だけ大きくして注記が枠外に出ると、「未確定の
+                        // ため描いていない」が読まれない — それが読まれ
+                        // ないと、空白が完成した設計に見える。
+                        FlatFigure(shapes: m.drawShapes,
+                                   canvas: m.drawCanvas)
+                            .frame(width: 150, height: 150
+                                   * m.drawCanvas.height
+                                   / max(m.drawCanvas.width, 1))
+                            .frame(maxWidth: .infinity)
+                        // 図に載る文字。**紙と同じ順で、同じ紙の上に。**
+                        // 絶対座標で置いた版は画面に出なかった(実地)。
+                        ForEach(m.drawLabels) { lab in
+                            Text(lab.text)
+                                .font(.system(size: 11))
+                                .foregroundStyle(labelColour(lab.tone))
+                                .fixedSize(horizontal: false, vertical: true)
+                        }
+                    }
+                    .padding(14)
+                    .background(RoundedRectangle(cornerRadius: 4)
+                        .fill(Color.white))
+                    .padding(12)
+                }
+            }
+            .frame(maxWidth: .infinity, maxHeight: .infinity)
+        }
+        .background(AT.bg)
+        .task { await m.loadDrawing() }
+    }
+
+    /// SVG を描画する。**元の SVG を保持したまま**表示だけ画像にする —
+    /// 書き出すのは画像ではなく SVG で、そちらが原本。
+    private func image(from svg: String) -> NSImage? {
+        guard let data = svg.data(using: .utf8) else { return nil }
+        return NSImage(data: data)
+    }
+
+    private func labelColour(_ tone: String) -> Color {
+        switch tone {
+        case "warn": return Color(red: 0.69, green: 0.05, blue: 0.27)
+        case "quiet": return Color(white: 0.40)
+        default: return .black
+        }
+    }
+
+    private func saveSVG() {
+        let panel = NSSavePanel()
+        panel.nameFieldStringValue = "technical-flat.svg"
+        panel.message = AppLanguage.shared.t(
+            "Save the flat (marked as generated — it cannot be read back "
+            + "as evidence)",
+            "設計図を保存する（生成物の印が付き、観測の出典にはできません）")
+        guard panel.runModal() == .OK, let url = panel.url else { return }
+        Task { said = await m.saveDrawing(to: url.path) }
+    }
+}
+
+/// 設計図の線を描く。**エンジンが返した座標をそのまま引く** — ここで
+/// 形を足したり整えたりしない。足した線は誰も観測していない線になる。
+private struct FlatFigure: View {
+    let shapes: [AtelierModel.DrawShape]
+    let canvas: CGSize
+
+    var body: some View {
+        GeometryReader { g in
+            let s = min(g.size.width / max(canvas.width, 1),
+                        g.size.height / max(canvas.height, 1))
+            ZStack {
+                ForEach(shapes) { shape in
+                    Path { p in
+                        guard let first = shape.points.first else { return }
+                        p.move(to: CGPoint(x: first.x * s, y: first.y * s))
+                        for pt in shape.points.dropFirst() {
+                            p.addLine(to: CGPoint(x: pt.x * s, y: pt.y * s))
+                        }
+                        p.closeSubpath()
+                    }
+                    .stroke(Color.black, lineWidth: 1.4)
+                }
+            }
+        }
+    }
+
 }
