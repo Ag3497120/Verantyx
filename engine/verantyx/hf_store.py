@@ -9,13 +9,20 @@ from __future__ import annotations
 
 import os
 from pathlib import Path
-from typing import Any, Dict, Optional
+from typing import Any, Dict, List, Optional
 
 #: 既定の配布元。設定を持たない新規クローンでも取りに行ける場所が要る
 #: (2026-08-22)。環境変数 VERA_BASE_REPO と設定 hf_store_repo が優先。
 #: **黙って 208MB を落とさない** — 取りに行くのは `vera fetch-store` を
 #: 打った人の行為で、不在は不在として型で答える(この装置の線)。
 DEFAULT_BASE_REPO = "kofdai/Verantyx-Vera-base-store"
+#: 配布元のアカウント。ここを固定しておくと、**後から出したデータセットが
+#: そのまま IDE の一覧に現れる**(版を出すたびにアプリを直さなくてよい)。
+#: 環境変数 VERA_STORE_AUTHOR で差し替えられる。
+STORE_AUTHOR = "kofdai"
+#: 一覧に載せる名前の条件(閉じた規則)。関係ないデータセットを店として
+#: 出さないため。名前で選ぶだけなので、中身の確認は verify が行う。
+STORE_NAME_HINTS = ("vera", "verantyx")
 
 
 def default_base_repo() -> str:
@@ -87,6 +94,60 @@ def ensure_store(
         return {"ok": False, "source": "none",
                 "note": "no local store and no base repo configured"}
     return {"source": "hub", **fetch_store(base_repo, store_path)}
+
+
+def list_stores(author: str = "", *, verify: bool = True,
+                limit: int = 20) -> Dict[str, Any]:
+    """配布元アカウントにある「店」を一覧する。
+
+    版を増やすたびにアプリを直さなくて済むよう、固定するのは**アカウント**
+    だけにして、そこにあるものを毎回読む。名前で候補を絞り(閉じた規則)、
+    ``verify`` のときだけ実際に ``vera_store.json`` を持つかを確かめる —
+    持っていないものを店として見せるのは、無いものを在ると言うのと同じ。
+
+    網につながらない機械では、空一覧ではなく型で断る。
+    """
+    who = (author or os.environ.get("VERA_STORE_AUTHOR", "") or
+           STORE_AUTHOR).strip()
+    try:
+        from huggingface_hub import HfApi
+    except ImportError:
+        return {"verdict": "UNKNOWN_NO_HUB_CLIENT",
+                "how_to_close": "pip install huggingface_hub"}
+    api = HfApi()
+    try:
+        found = list(api.list_datasets(author=who))[:limit * 3]
+    except Exception as e:
+        return {"verdict": "UNKNOWN_OFFLINE", "author": who,
+                "error": f"{type(e).__name__}: {e}"[:160],
+                "note": "一覧は網が要る。既に手元に店があるなら要らない"}
+    rows: List[Dict[str, Any]] = []
+    for d in found:
+        rid = getattr(d, "id", "")
+        if not any(h in rid.lower() for h in STORE_NAME_HINTS):
+            continue
+        row: Dict[str, Any] = {"repo": rid,
+                               "url": f"https://huggingface.co/datasets/{rid}"}
+        last = getattr(d, "lastModified", None)
+        if last is not None:
+            row["last_modified"] = str(last)
+        if verify:
+            try:
+                info = api.repo_info(rid, repo_type="dataset",
+                                     files_metadata=True)
+                sib = {f.rfilename: (getattr(f, "size", 0) or 0)
+                       for f in info.siblings}
+                if "vera_store.json" not in sib:
+                    continue          # 店でないものは一覧に載せない
+                row["bytes"] = sib["vera_store.json"]
+            except Exception:
+                row["bytes"] = None   # 確かめられなかった、を空と混ぜない
+        rows.append(row)
+        if len(rows) >= limit:
+            break
+    rows.sort(key=lambda r: r["repo"])
+    return {"verdict": "ANSWER" if rows else "UNKNOWN_NONE_PUBLISHED",
+            "author": who, "stores": rows, "default": default_base_repo()}
 
 
 def store_status(store_path: str) -> Dict[str, Any]:
