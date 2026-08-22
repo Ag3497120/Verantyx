@@ -1,0 +1,49 @@
+{
+ "prereg": "experiments/garment/PREREG3_SOURCE_POINTER.md",
+ "checks": {
+  "V71_every_confirmed_row_says_if_it_can_be_rechecked": {
+   "pass": true,
+   "detail": {
+    "confirmed": 2,
+    "verifiable_count": 1,
+    "reasons": [
+     "",
+     "開き直す参照が付いていない"
+    ]
+   }
+  },
+  "V72_missing_here_is_not_missing_everywhere": {
+   "pass": true,
+   "detail": {
+    "present": "VERIFIABLE",
+    "unplugged": "UNKNOWN_SOURCE_NOT_FOUND",
+    "no_ref": "UNKNOWN_UNVERIFIABLE_SOURCE",
+    "url": "VERIFIABLE"
+   }
+  },
+  "V73_independence_is_counted_by_reference": {
+   "pass": true,
+   "detail": {
+    "same_frame_twice": 1,
+    "entries": 2,
+    "after_a_second_frame": 2
+   }
+  },
+  "V74_references_survive_adoption_and_saving": {
+   "pass": true,
+   "detail": {
+    "ref_path_kept": true,
+    "mark_kept": "f182",
+    "origin_kept": "視覚モデルv2"
+   }
+  },
+  "V75_order_does_not_change_the_count": {
+   "pass": true,
+   "detail": {
+    "same": true,
+    "agreed": 3
+   }
+  }
+ },
+ "summary": "5/5 passed"
+}

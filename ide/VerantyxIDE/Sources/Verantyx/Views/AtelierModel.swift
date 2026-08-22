@@ -10,7 +10,8 @@ import SwiftUI
 @MainActor
 final class AtelierModel: ObservableObject {
     static let steps = ["Sources", "Garments", "Evidence", "Structure",
-                        "Materials", "Pattern", "Tech Pack"]
+                        "Materials", "Provenance", "Re-design",
+                        "Pattern", "Tech Pack"]
     /// 図に描ける部位。ここに無い部位は場所を持たないので、図ではなく
     /// チップで出す。**表に出ない部位を作らない**ための境目で、
     /// engine が部位を増やしても自動でチップ側に回る。
@@ -35,6 +36,17 @@ final class AtelierModel: ObservableObject {
     /// 同じ 0 に見える。不在と故障は違うものなので、別に持つ。
     @Published var engineError: String?
 
+    // -- 由来。**「オリジナル」という状態は無い** ---------------------
+    @Published var rights: [String: RightsState] = [:]     // "part/aspect"
+    @Published var rightsCounts: [String: Int] = [:]
+    @Published var rightsWorklist: [RightsState] = []
+    @Published var intent = "personal"
+    @Published var legalAnswer = ""
+
+    // -- 設計。観測とは別の台帳 ---------------------------------------
+    @Published var designRows: [DesignRow] = []
+    @Published var designCounts: [String: Int] = [:]
+
     @Published var showTechPack = false
     @Published var techPack: [TechSection] = []
     @Published var techPackNote = ""
@@ -48,10 +60,38 @@ final class AtelierModel: ObservableObject {
         var agreed = 0
         var adoptedBy = ""
         var howToClose = ""
+        /// 後からこの行を**見に行けるか**。参照が付いていなければ false。
+        /// false は「見ていない」ではなく「開き直せない」。
+        var verifiable = false
+        var unverifiableReason = ""
+        var refs: [Ref] = []
         var sides: [Side] = []
         var proposals: [Proposal] = []
+        struct Ref {
+            var status = ""   // VERIFIABLE / UNKNOWN_SOURCE_NOT_FOUND / …
+            var path = ""; var mark = ""; var url = ""; var source = ""
+        }
         struct Side { var value = ""; var sources: [String] = [] }
         struct Proposal { var value = ""; var source = ""; var note = "" }
+    }
+
+    struct RightsState {
+        var part = ""; var aspect = ""
+        var state = "UNKNOWN_RIGHTS_NOT_CHECKED"
+        var howToClose = ""
+        var why = ""
+        var genericSources: [String] = []
+        var specificSources: [String] = []
+        var searchedScopes: [String] = []
+        var declaredBy: [String] = []
+    }
+
+    struct DesignRow {
+        var part = ""; var aspect = ""; var value = ""
+        var kind = ""              // kept / changed / new
+        var derivedFrom = ""
+        var originalValue = ""
+        var by = ""
     }
 
     struct Evidence {
@@ -179,6 +219,16 @@ final class AtelierModel: ObservableObject {
                 s.agreed = row["agreed"] as? Int ?? 0
                 s.adoptedBy = row["adopted_by"] as? String ?? ""
                 s.howToClose = row["how_to_close"] as? String ?? ""
+                s.verifiable = row["verifiable"] as? Bool ?? false
+                s.unverifiableReason =
+                    row["unverifiable_reason"] as? String ?? ""
+                s.refs = (row["refs"] as? [[String: Any]] ?? []).map {
+                    .init(status: $0["status"] as? String ?? "",
+                          path: $0["path"] as? String ?? "",
+                          mark: $0["mark"] as? String ?? "",
+                          url: $0["url"] as? String ?? "",
+                          source: $0["source"] as? String ?? "")
+                }
                 s.sides = (row["sides"] as? [[String: Any]] ?? []).map {
                     .init(value: $0["value"] as? String ?? "",
                           sources: $0["sources"] as? [String] ?? [])
@@ -192,6 +242,8 @@ final class AtelierModel: ObservableObject {
             }
         }
         states = next
+        await loadRights()
+        await loadDesign()
         let tl = await call("garment_timeline")
         timeline = (tl["timeline"] as? [[String: Any]] ?? []).map {
             .init(at: $0["at"] as? String ?? "",
@@ -203,8 +255,105 @@ final class AtelierModel: ObservableObject {
         }
     }
 
+    private func rightsRow(_ o: [String: Any]) -> RightsState {
+        var r = RightsState()
+        r.part = o["part"] as? String ?? ""
+        r.aspect = o["aspect"] as? String ?? ""
+        r.state = o["state"] as? String ?? "UNKNOWN_RIGHTS_NOT_CHECKED"
+        r.howToClose = o["how_to_close"] as? String ?? ""
+        r.why = o["why"] as? String ?? ""
+        r.genericSources = o["generic_sources"] as? [String] ?? []
+        r.specificSources = o["specific_sources"] as? [String] ?? []
+        r.searchedScopes = o["searched_scopes"] as? [String] ?? []
+        r.declaredBy = o["declared_by"] as? String != nil
+            ? [o["declared_by"] as! String]
+            : (o["declared_by"] as? [String] ?? [])
+        return r
+    }
+
+    func loadRights() async {
+        let d = await call("rights_report")
+        if let i = d["intent"] as? String { intent = i }
+        rightsCounts = (d["counts"] as? [String: Int]) ?? [:]
+        var next: [String: RightsState] = [:]
+        for o in (d["rows"] as? [[String: Any]] ?? []) {
+            let r = rightsRow(o)
+            next["\(r.part)/\(r.aspect)"] = r
+        }
+        rights = next
+        rightsWorklist = (d["worklist"] as? [[String: Any]] ?? [])
+            .map(rightsRow)
+    }
+
+    func rightsState(_ part: String, _ aspect: String) -> RightsState {
+        rights["\(part)/\(aspect)"] ?? RightsState(part: part, aspect: aspect)
+    }
+
+    /// 由来の申し立てを置く。claim は generic / specific / no_match /
+    /// declared。**出典や範囲や名前が無いものは扉が断る** — ここで
+    /// 補わない。
+    func addRights(part: String, aspect: String, claim: String,
+                   text: String, note: String) async -> String {
+        let tool = ["generic": "rights_generic", "specific": "rights_specific",
+                    "no_match": "rights_no_match",
+                    "declared": "rights_declare"][claim] ?? "rights_generic"
+        var args: [String: Any] = ["part": part, "aspect": aspect,
+                                   "note": note]
+        switch claim {
+        case "no_match": args["scope"] = text
+        case "declared": args["by"] = text
+        default: args["source"] = text
+        }
+        let d = await call(tool, args)
+        await loadRights()
+        return (d["verdict"] as? String) ?? "UNKNOWN_NO_ANSWER"
+    }
+
+    func setIntent(_ value: String) async {
+        _ = await call("rights_intent", ["intent": value])
+        await loadRights()
+    }
+
+    /// 「作ってよいか」を訊く口。**答えは常に断り**で、それが仕様。
+    func askLegal() async {
+        let d = await call("rights_may_i_make_this")
+        let v = (d["verdict"] as? String) ?? ""
+        let why = (d["why"] as? String) ?? ""
+        let how = (d["how_to_close"] as? String) ?? ""
+        legalAnswer = "\(v)\n\(why)\n→ \(how)"
+    }
+
+    func loadDesign() async {
+        let d = await call("design_sheet")
+        designCounts = (d["counts"] as? [String: Int]) ?? [:]
+        designRows = (d["rows"] as? [[String: Any]] ?? []).map { o in
+            var r = DesignRow()
+            r.part = o["part"] as? String ?? ""
+            r.aspect = o["aspect"] as? String ?? ""
+            r.value = o["value"] as? String ?? ""
+            r.kind = o["kind"] as? String ?? ""
+            r.derivedFrom = o["derived_from"] as? String ?? ""
+            r.originalValue = o["original_value"] as? String ?? ""
+            r.by = o["by"] as? String ?? ""
+            return r
+        }
+    }
+
+    func design(_ action: String, part: String, aspect: String,
+                value: String, by: String, note: String) async -> String {
+        let tool = ["keep": "design_keep", "change": "design_change",
+                    "new": "design_create"][action] ?? "design_keep"
+        var args: [String: Any] = ["part": part, "aspect": aspect, "by": by]
+        if action != "keep" { args["value"] = value; args["note"] = note }
+        let d = await call(tool, args)
+        await loadDesign()
+        return (d["verdict"] as? String) ?? "UNKNOWN_NO_ANSWER"
+    }
+
     func add(part: String, aspect: String, kind: String, value: String,
-             source: String, note: String) async {
+             source: String, note: String,
+             refPath: String = "", refMark: String = "",
+             refURL: String = "") async {
         let tool = ["observation": "garment_observe",
                     "inference": "garment_infer",
                     "proposal": "garment_propose"][kind] ?? "garment_propose"
@@ -216,6 +365,13 @@ final class AtelierModel: ObservableObject {
             args.removeValue(forKey: "note")
         } else {
             args["source"] = source.isEmpty ? "(出典なし)" : source
+        }
+        // 参照は観測にだけ意味がある。推論や提案に付けても、
+        // 「その推論を見に行く」ことはできない。
+        if tool == "garment_observe" {
+            args["ref_path"] = refPath
+            args["ref_mark"] = refMark
+            args["ref_url"] = refURL
         }
         _ = await call(tool, args)
         await load()

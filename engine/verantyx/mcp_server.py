@@ -3663,16 +3663,27 @@ def build(store_path: str):
 
     @mcp.tool()
     def garment_observe(part: str, aspect: str, value: str, source: str,
-                        note: str = "") -> str:
+                        note: str = "", ref_path: str = "",
+                        ref_mark: str = "", ref_url: str = "") -> str:
         """映像や実物で**見えた**ことを置く。出典(カット・時刻)は必須。
 
         見ていないことをここに入れてはいけない。推した値は
-        `garment_infer`、モデルや検索が言ったことは `garment_propose`。"""
+        `garment_infer`、モデルや検索が言ったことは `garment_propose`。
+
+        `ref_path` にファイル、`ref_mark` にその中の位置("0:12:05" /
+        "f182" / "p.12")を添えると、後から**同じものを見に行ける**。
+        手元に置けないものは `ref_url`。添えなくても観測は観測だが、
+        確定の各行には「再確認できるか」が付く。
+
+        同じファイルの同じ位置からの二つの観測は一つに数える —
+        同じコマを二度読んで確度は上がらない。"""
         led = _garment()
         if not (value.strip() and source.strip()):
             return json.dumps({"verdict": "UNKNOWN_NEEDS_VALUE_AND_SOURCE"},
                               ensure_ascii=False)
-        e = led.observe(part, aspect, value, source, note)
+        e = led.observe(part, aspect, value, source, note,
+                        ref_path=ref_path, ref_mark=ref_mark,
+                        ref_url=ref_url)
         led.save(_garment_path())
         return json.dumps({"verdict": "ANSWER", "entry": e.__dict__},
                           ensure_ascii=False)
@@ -3736,6 +3747,190 @@ def build(store_path: str):
         from .garment import PARTS
 
         return json.dumps({"verdict": "ANSWER", "parts": PARTS},
+                          ensure_ascii=False)
+
+    # ---------------------------------------------------------------
+    #  由来と設計 — 「オリジナルかどうか」をこの装置は決めない
+    # ---------------------------------------------------------------
+    #  事前登録: experiments/garment/PREREG2_PROVENANCE.md
+    #
+    #  観測台帳(garment_*)が「何が見えたか」を持つのに対し、ここは
+    #  「どこから来たか」と「何を作るか」を持つ。三つを別の扉にして
+    #  あるのは、混ぜた瞬間に「作ってよい」が観測の顔をして出てくる
+    #  からである。
+
+    def _rights():
+        from .garment_rights import RightsLedger
+
+        return RightsLedger.load(_rights_path())
+
+    def _rights_path():
+        return Path.home() / ".vera_garment" / "rights.json"
+
+    def _design():
+        from .garment_rights import Design
+
+        return Design.load(_design_path())
+
+    def _design_path():
+        return Path.home() / ".vera_garment" / "design.json"
+
+    def _refused(exc) -> str:
+        text = str(exc)
+        code = text.split(":", 1)[0] if ":" in text else "UNKNOWN_REFUSED"
+        return json.dumps({"verdict": code, "why": text}, ensure_ascii=False)
+
+    @mcp.tool()
+    def rights_specific(part: str, aspect: str, source: str,
+                        note: str = "") -> str:
+        """「この側面は特定の作品に辿れる」という申し立て。出典が要る。
+
+        立体十字の**実例**の側。名前の付いた一つの作品に辿れるものは、
+        一般構造とは別に数える。"""
+        led = _rights()
+        try:
+            o = led.specific(part, aspect, source, note)
+        except ValueError as e:
+            return _refused(e)
+        led.save(_rights_path())
+        return json.dumps({"verdict": "ANSWER", "origin": o.__dict__,
+                           "state": led.state(part, aspect)},
+                          ensure_ascii=False)
+
+    @mcp.tool()
+    def rights_generic(part: str, aspect: str, source: str,
+                       note: str = "") -> str:
+        """「この側面は一般構造だ」という申し立て。出典が要る。
+
+        立体十字の**一般**の側。独立した出典が2本揃うまで状態は変わら
+        ない — 出典の無い「みんなやっている」が一番危ないため。"""
+        led = _rights()
+        try:
+            o = led.generic(part, aspect, source, note)
+        except ValueError as e:
+            return _refused(e)
+        led.save(_rights_path())
+        return json.dumps({"verdict": "ANSWER", "origin": o.__dict__,
+                           "state": led.state(part, aspect)},
+                          ensure_ascii=False)
+
+    @mcp.tool()
+    def rights_no_match(part: str, aspect: str, scope: str,
+                        note: str = "") -> str:
+        """探したが見つからなかった。**何を探したか(範囲)が本体。**
+
+        見つからなかったことは結論を持たない。範囲の外は分からない。"""
+        led = _rights()
+        try:
+            o = led.no_match(part, aspect, scope, note)
+        except ValueError as e:
+            return _refused(e)
+        led.save(_rights_path())
+        return json.dumps({"verdict": "ANSWER", "origin": o.__dict__,
+                           "state": led.state(part, aspect)},
+                          ensure_ascii=False)
+
+    @mcp.tool()
+    def rights_declare(part: str, aspect: str, by: str,
+                       note: str = "") -> str:
+        """「これは自分の設計だ」と名乗る。**名前が要る。**
+
+        名乗りは他の申し立てを消さない。先行作品に辿れる証拠があるなら、
+        名乗りと並べて割れたままにする。"""
+        led = _rights()
+        try:
+            o = led.declare(part, aspect, by, note)
+        except ValueError as e:
+            return _refused(e)
+        led.save(_rights_path())
+        return json.dumps({"verdict": "ANSWER", "origin": o.__dict__,
+                           "state": led.state(part, aspect)},
+                          ensure_ascii=False)
+
+    @mcp.tool()
+    def rights_intent(intent: str) -> str:
+        """用途を決める (personal / cosplay / study / costume / commercial)。
+
+        **許可証ではない。** どの側面の由来も変わらず、変わるのは
+        宿題の一覧だけ。商用にしても宿題は増えるだけで減らない。"""
+        led = _rights()
+        try:
+            led.set_intent(intent)
+        except ValueError as e:
+            return _refused(e)
+        led.save(_rights_path())
+        return json.dumps({"verdict": "ANSWER", "intent": led.intent},
+                          ensure_ascii=False)
+
+    @mcp.tool()
+    def rights_report() -> str:
+        """由来の一覧と宿題。**判定は返さない。**"""
+        from .garment import PARTS
+
+        led = _rights()
+        confirmed = _garment().spec()["confirmed"]
+        return json.dumps(led.report(PARTS, confirmed=confirmed),
+                          ensure_ascii=False)
+
+    @mcp.tool()
+    def rights_may_i_make_this() -> str:
+        """「作ってよいか」。**この装置は判定を返さない。**
+
+        この扉があるのは、無いと別のどこかで誰かが判定を作ってしまう
+        からで、型のついた断りにここで集約している。"""
+        return json.dumps(_rights().may_i_make_this(), ensure_ascii=False)
+
+    @mcp.tool()
+    def design_keep(part: str, aspect: str, by: str) -> str:
+        """観測をそのまま設計に持ち込む。確定した値だけが通る。"""
+        led = _design()
+        try:
+            e = led.keep(_garment(), part, aspect, by)
+        except ValueError as ex:
+            return _refused(ex)
+        led.save(_design_path())
+        return json.dumps({"verdict": "ANSWER", "entry": e.__dict__},
+                          ensure_ascii=False)
+
+    @mcp.tool()
+    def design_change(part: str, aspect: str, value: str, by: str,
+                      note: str = "") -> str:
+        """観測から**変える**。元の値と派生元は残る。
+
+        「雰囲気は残すが同じものにはしない」はここ。変えた事実自体が
+        由来なので、消さない。"""
+        led = _design()
+        try:
+            e = led.change(_garment(), part, aspect, value, by, note)
+        except ValueError as ex:
+            return _refused(ex)
+        led.save(_design_path())
+        return json.dumps({"verdict": "ANSWER", "entry": e.__dict__},
+                          ensure_ascii=False)
+
+    @mcp.tool()
+    def design_create(part: str, aspect: str, value: str, by: str,
+                      note: str = "") -> str:
+        """観測に由来しない、新しく決めた項目。"""
+        led = _design()
+        try:
+            e = led.create(part, aspect, value, by, note)
+        except ValueError as ex:
+            return _refused(ex)
+        led.save(_design_path())
+        return json.dumps({"verdict": "ANSWER", "entry": e.__dict__},
+                          ensure_ascii=False)
+
+    @mcp.tool()
+    def design_sheet() -> str:
+        """設計の一覧。kept / changed / new と派生元が各行に付く。"""
+        return json.dumps(_design().sheet(), ensure_ascii=False)
+
+    @mcp.tool()
+    def design_history(part: str, aspect: str) -> str:
+        """原作品 → 観測 → 設計 の履歴。値を変えた後も派生元が残る。"""
+        return json.dumps({"verdict": "ANSWER",
+                           "history": _design().history(part, aspect)},
                           ensure_ascii=False)
 
     @mcp.tool()

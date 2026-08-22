@@ -1,0 +1,76 @@
+{
+ "prereg": "experiments/garment/PREREG2_PROVENANCE.md",
+ "checks": {
+  "V63_absence_of_match_is_not_originality": {
+   "pass": true,
+   "detail": {
+    "state": "UNKNOWN_NO_MATCH_IN",
+    "scopes": [
+     "手持ちの既製品カタログ3社分"
+    ],
+    "banned_words_found": []
+   }
+  },
+  "V64_no_legal_verdict_is_ever_returned": {
+   "pass": true,
+   "detail": {
+    "verdict": "UNKNOWN_NOT_A_LEGAL_JUDGMENT",
+    "has_closer": true
+   }
+  },
+  "V65_generic_needs_two_independent_sources": {
+   "pass": true,
+   "detail": {
+    "one": "UNKNOWN_RIGHTS_NOT_CHECKED",
+    "same_source_twice": "UNKNOWN_RIGHTS_NOT_CHECKED",
+    "two": "GENERIC_CONSTRUCTION",
+    "sourceless_refused": true
+   }
+  },
+  "V66_intent_is_not_a_permit": {
+   "pass": true,
+   "detail": {
+    "states_unchanged": true,
+    "changed": []
+   }
+  },
+  "V67_design_never_rewrites_the_observation": {
+   "pass": true,
+   "detail": {
+    "observation_unchanged": true,
+    "design_rows": 3
+   }
+  },
+  "V68_changing_a_value_keeps_where_it_came_from": {
+   "pass": true,
+   "detail": {
+    "row": {
+     "part": "collar",
+     "aspect": "shape",
+     "value": "ショールカラー",
+     "kind": "changed",
+     "derived_from": "collar/shape",
+     "original_value": "ノッチドラペル",
+     "by": "担当:西小田",
+     "note": ""
+    }
+   }
+  },
+  "V69_commercial_only_adds_homework": {
+   "pass": true,
+   "detail": {
+    "personal": 1,
+    "commercial": 3,
+    "superset": true
+   }
+  },
+  "V70_order_of_evidence_does_not_move_the_state": {
+   "pass": true,
+   "detail": {
+    "same": true,
+    "collar_shape": "CONTESTED_ORIGIN"
+   }
+  }
+ },
+ "summary": "8/8 passed"
+}

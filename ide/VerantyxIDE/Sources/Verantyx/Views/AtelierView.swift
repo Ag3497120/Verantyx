@@ -148,7 +148,20 @@ struct AtelierView: View {
 
     // MARK: - 中央: 服そのもの
 
+    /// 中央。工程によって何を見せるかが変わる。由来と再設計を figure と
+    /// 同じ面に重ねないのは、**見た事**と**どこから来たか**と**作る事**が
+    /// 別の台帳だからで、一枚に混ぜると設計を触った瞬間に観測が
+    /// 書き換わったように見える。
+    @ViewBuilder
     private var workspace: some View {
+        switch m.step {
+        case "Provenance": ProvenancePanel(m: m).environmentObject(app)
+        case "Re-design":  DesignPanel(m: m).environmentObject(app)
+        default:           figureWorkspace
+        }
+    }
+
+    private var figureWorkspace: some View {
         VStack(spacing: 0) {
             HStack(spacing: 6) {
                 ForEach(["Film", "Search", "3D"], id: \.self) { t in
@@ -319,6 +332,18 @@ struct AtelierView: View {
             Divider().opacity(0.25)
             VStack(alignment: .leading, spacing: 7) {
                 bar("OBSERVED", m.counts["confirmed"] ?? 0, AT.ok)
+                // 裁つ前に**どれを確かめ直せるか**。確定の本数だけでは、
+                // 誰も開けない出典と、開ける出典が同じ顔になる。
+                HStack(spacing: 4) {
+                    Text(app.t("of which re-openable",
+                               "うち見に行けるもの"))
+                        .font(.system(size: 9)).foregroundStyle(AT.faint)
+                    Spacer(minLength: 0)
+                    Text("\(m.counts["verifiable"] ?? 0)")
+                        .font(.system(size: 9, design: .monospaced))
+                        .foregroundStyle(AT.faint)
+                }
+                .padding(.horizontal, 14).padding(.bottom, 4)
                 bar("CONTESTED", m.counts["contested"] ?? 0, AT.bad)
                 bar("INFERRED", m.counts["inferred"] ?? 0, AT.warn)
                 // 提案は open の内訳。別の帯にするのは、提案が
@@ -395,6 +420,30 @@ private struct AspectRow: View {
                 Text(s.sources.joined(separator: " · "))
                     .font(.system(size: 10, design: .monospaced))
                     .foregroundStyle(AT.faint)
+                // 裁つ前に**どれを確かめ直せるか**。付いていないことは
+                // 見ていないことではないので、そう書く。
+                HStack(spacing: 5) {
+                    Text(s.verifiable ? "◉" : "○").font(.system(size: 9))
+                        .foregroundStyle(s.verifiable ? AT.ok : AT.faint)
+                    Text(s.verifiable
+                         ? app.t("can be re-opened", "見に行ける")
+                         : (s.unverifiableReason.isEmpty
+                            ? app.t("no pointer attached", "参照なし")
+                            : s.unverifiableReason))
+                        .font(.system(size: 9))
+                        .foregroundStyle(s.verifiable ? AT.ok : AT.faint)
+                }
+                ForEach(Array(s.refs.enumerated()), id: \.offset) { _, r in
+                    if !r.path.isEmpty || !r.url.isEmpty {
+                        Text("↳ "
+                             + (r.path.isEmpty ? r.url
+                                : (r.path as NSString).lastPathComponent)
+                             + (r.mark.isEmpty ? "" : " @ \(r.mark)"))
+                            .font(.system(size: 9, design: .monospaced))
+                            .foregroundStyle(
+                                r.status == "VERIFIABLE" ? AT.dim : AT.warn)
+                    }
+                }
             case "CONTESTED":
                 ForEach(Array(s.sides.enumerated()), id: \.offset) { _, side in
                     HStack(spacing: 6) {
@@ -475,6 +524,8 @@ private struct RecordForm: View {
     @State private var note = ""
     @State private var aspect = ""
     @State private var kind = "observation"
+    @State private var refPath = ""
+    @State private var refMark = ""
 
     var body: some View {
         VStack(alignment: .leading, spacing: 5) {
@@ -500,6 +551,30 @@ private struct RecordForm: View {
             TextField(app.t("note (a model's score goes here)",
                             "注記(モデルの点数はここ)"), text: $note)
                 .textFieldStyle(.roundedBorder).font(.system(size: 11))
+            // 参照は観測にだけ付ける。推論を「見に行く」ことはできない。
+            if kind == "observation" {
+                HStack(spacing: 6) {
+                    Button(refPath.isEmpty
+                           ? app.t("attach file…", "参照ファイル…")
+                           : (refPath as NSString).lastPathComponent) {
+                        pickFile()
+                    }
+                    .font(.system(size: 10)).lineLimit(1)
+                    TextField(app.t("mark (0:12:05 / f182 / p.12)",
+                                    "位置 (0:12:05 / f182 / p.12)"),
+                              text: $refMark)
+                        .textFieldStyle(.roundedBorder)
+                        .font(.system(size: 10))
+                    if !refPath.isEmpty {
+                        Button("×") { refPath = "" }.font(.system(size: 10))
+                    }
+                }
+                Text(app.t("Attaching one lets anyone re-open it later. "
+                           + "The same frame read twice still counts once.",
+                           "付けると後から誰でも同じものを開けます。"
+                           + "同じコマを二度読んでも1件のままです。"))
+                    .font(.system(size: 9)).foregroundStyle(AT.faint)
+            }
             Button(app.t("Place", "置く")) {
                 Task {
                     await m.add(part: m.selected,
@@ -507,8 +582,10 @@ private struct RecordForm: View {
                                     ? (m.aspects(of: m.selected).first ?? "")
                                     : aspect,
                                 kind: kind, value: value, source: source,
-                                note: note)
+                                note: note, refPath: refPath,
+                                refMark: refMark)
                     value = ""; source = ""; note = ""
+                    refMark = ""
                 }
             }
             .font(.system(size: 11))
@@ -519,6 +596,21 @@ private struct RecordForm: View {
             aspect = m.aspects(of: m.selected).first ?? "" } }
         .onChange(of: m.selected) { _ in
             aspect = m.aspects(of: m.selected).first ?? "" }
+    }
+
+    /// 参照するファイルを選ぶ。**コピーしない** — 元の場所を指すだけで、
+    /// 台帳が素材を抱え込むと、後から本物と写しの区別がつかなくなる。
+    private func pickFile() {
+        let panel = NSOpenPanel()
+        panel.canChooseFiles = true
+        panel.canChooseDirectories = false
+        panel.allowsMultipleSelection = false
+        panel.message = AppLanguage.shared.t(
+            "Pick the film, photo or document this observation came from",
+            "この観測の元になった映像・写真・資料を選ぶ")
+        if panel.runModal() == .OK, let url = panel.url {
+            refPath = url.path
+        }
     }
 }
 
@@ -937,5 +1029,455 @@ private struct AnalystSheet: View {
         .background(on ? AT.panel2 : .clear)
         .contentShape(Rectangle())
         .onTapGesture { an.pick = p }
+    }
+}
+
+// MARK: - 由来
+
+/// 由来の面。**この面に「作ってよい」は出ない。**
+///
+/// 出せるのは、何を見たか・何を見ていないか・どこから来たか まで。
+/// 一番効いているのは一般/実例の線引きで、「ノッチドラペル」のような
+/// 何千着に共通する構造と、一つの作品に辿れる組み合わせを分けて数える。
+private struct ProvenancePanel: View {
+    @ObservedObject var m: AtelierModel
+    @EnvironmentObject var app: AppState
+    @State private var claim = "specific"
+    @State private var text = ""
+    @State private var note = ""
+    @State private var aspect = ""
+    @State private var said = ""
+
+    private static let intents = [
+        ("personal", "自分用"), ("cosplay", "コスプレ"),
+        ("study", "学習・研究"), ("costume", "衣装制作"),
+        ("commercial", "商用利用")]
+
+    var body: some View {
+        VStack(alignment: .leading, spacing: 0) {
+            header
+            Divider().opacity(0.25)
+            ScrollView {
+                VStack(alignment: .leading, spacing: 0) {
+                    worklist
+                    Divider().opacity(0.2)
+                    rows
+                }
+            }
+            Divider().opacity(0.25)
+            recorder
+        }
+        .background(AT.bg)
+        .task { await m.loadRights() }
+    }
+
+    private var header: some View {
+        VStack(alignment: .leading, spacing: 7) {
+            HStack(spacing: 10) {
+                Text(app.t("Provenance", "由来")).font(
+                    .system(size: 13, weight: .semibold))
+                Spacer()
+                Button(app.t("May I make this?", "作ってよいか訊く")) {
+                    Task { await m.askLegal() }
+                }.font(.system(size: 11))
+            }
+            HStack(spacing: 6) {
+                Text(app.t("use", "用途")).font(.system(size: 10))
+                    .foregroundStyle(AT.faint)
+                ForEach(Self.intents, id: \.0) { key, label in
+                    Text(label).font(.system(size: 11))
+                        .padding(.horizontal, 9).padding(.vertical, 2)
+                        .background(Capsule().stroke(
+                            m.intent == key ? AT.sel : AT.line, lineWidth: 1))
+                        .foregroundStyle(m.intent == key ? AT.fg : AT.dim)
+                        .onTapGesture { Task { await m.setIntent(key) } }
+                }
+            }
+            // 用途を切り替えても由来は変わらない。ここを書いておかないと
+            // 「自分用にすれば消える」と読まれる。
+            Text(app.t("Choosing a use is not a permit: no origin changes, "
+                       + "only the homework list does.",
+                       "用途は許可証ではありません。どの由来も変わらず、"
+                       + "変わるのは宿題の一覧だけです。"))
+                .font(.system(size: 10)).foregroundStyle(AT.faint)
+            if !m.legalAnswer.isEmpty {
+                Text(m.legalAnswer).font(.system(size: 10, design: .monospaced))
+                    .foregroundStyle(AT.warn).textSelection(.enabled)
+                    .padding(8)
+                    .frame(maxWidth: .infinity, alignment: .leading)
+                    .background(RoundedRectangle(cornerRadius: 5)
+                        .fill(AT.warn.opacity(0.10)))
+            }
+        }
+        .padding(14)
+        .background(AT.panel)
+    }
+
+    private var worklist: some View {
+        VStack(alignment: .leading, spacing: 0) {
+            HStack {
+                Text(app.t("HOMEWORK", "宿題")).railHead()
+                Spacer()
+                Text("\(m.rightsWorklist.count)")
+                    .font(.system(size: 10, design: .monospaced))
+                    .foregroundStyle(AT.faint).padding(.trailing, 14)
+            }
+            if m.rightsWorklist.isEmpty {
+                Text(app.t("nothing flagged — which is not the same as clear",
+                           "挙がっているものはありません（問題が無いという"
+                           + "意味ではありません）"))
+                    .font(.system(size: 11)).foregroundStyle(AT.faint)
+                    .padding(.horizontal, 14).padding(.bottom, 8)
+            }
+            ForEach(Array(m.rightsWorklist.enumerated()), id: \.offset) { _, r in
+                VStack(alignment: .leading, spacing: 2) {
+                    HStack(spacing: 8) {
+                        Text("\(r.part) / \(r.aspect)")
+                            .font(.system(size: 11, design: .monospaced))
+                        stateChip(r.state)
+                        Spacer(minLength: 0)
+                    }
+                    Text(r.why).font(.system(size: 10))
+                        .foregroundStyle(AT.dim)
+                }
+                .padding(.horizontal, 14).padding(.vertical, 5)
+                .contentShape(Rectangle())
+                .onTapGesture { m.selected = r.part; aspect = r.aspect }
+            }
+        }
+        .padding(.top, 8)
+    }
+
+    private var rows: some View {
+        VStack(alignment: .leading, spacing: 0) {
+            Text(app.t("EVERY ASPECT", "全側面")).railHead().padding(.top, 10)
+            ForEach(m.rights.keys.sorted(), id: \.self) { key in
+                let r = m.rights[key]!
+                VStack(alignment: .leading, spacing: 3) {
+                    HStack(spacing: 8) {
+                        Text(key).font(.system(size: 11, design: .monospaced))
+                            .foregroundStyle(AT.dim)
+                        stateChip(r.state)
+                        Spacer(minLength: 0)
+                    }
+                    if !r.specificSources.isEmpty {
+                        line("実例", r.specificSources, AT.bad)
+                    }
+                    if !r.genericSources.isEmpty {
+                        line("一般", r.genericSources, AT.ok)
+                    }
+                    if !r.searchedScopes.isEmpty {
+                        line("探した範囲", r.searchedScopes, AT.dim)
+                    }
+                    if !r.declaredBy.isEmpty {
+                        line("名乗り", r.declaredBy, AT.sel)
+                    }
+                    if !r.howToClose.isEmpty {
+                        Text("→ " + r.howToClose).font(.system(size: 10))
+                            .foregroundStyle(AT.warn)
+                    }
+                }
+                .padding(.horizontal, 14).padding(.vertical, 6)
+                .frame(maxWidth: .infinity, alignment: .leading)
+                .background(m.selected == r.part ? AT.panel2 : .clear)
+                .contentShape(Rectangle())
+                .onTapGesture { m.selected = r.part; aspect = r.aspect }
+                Divider().opacity(0.12)
+            }
+        }
+    }
+
+    private func line(_ label: String, _ items: [String],
+                      _ colour: Color) -> some View {
+        HStack(alignment: .top, spacing: 6) {
+            Text(label).font(.system(size: 9)).foregroundStyle(AT.faint)
+                .frame(width: 56, alignment: .leading)
+            Text(items.joined(separator: " / "))
+                .font(.system(size: 10, design: .monospaced))
+                .foregroundStyle(colour)
+        }
+    }
+
+    private var recorder: some View {
+        VStack(alignment: .leading, spacing: 5) {
+            HStack(spacing: 6) {
+                Text(app.t("record for", "記録する"))
+                    .font(.system(size: 10)).foregroundStyle(AT.faint)
+                Text(m.selected).font(.system(size: 11, weight: .semibold))
+                Picker("", selection: $aspect) {
+                    ForEach(m.aspects(of: m.selected), id: \.self) {
+                        Text($0).tag($0)
+                    }
+                }.labelsHidden().frame(width: 130)
+                Picker("", selection: $claim) {
+                    Text(app.t("traceable to one work", "実例（作品に辿れる）"))
+                        .tag("specific")
+                    Text(app.t("common construction", "一般構造")).tag("generic")
+                    Text(app.t("searched, no match", "探したが無かった"))
+                        .tag("no_match")
+                    Text(app.t("declared mine", "自分の設計だと名乗る"))
+                        .tag("declared")
+                }.labelsHidden().frame(width: 200)
+                Spacer(minLength: 0)
+            }
+            TextField(fieldHint, text: $text)
+                .textFieldStyle(.roundedBorder).font(.system(size: 11))
+            HStack(spacing: 8) {
+                TextField(app.t("note", "注記"), text: $note)
+                    .textFieldStyle(.roundedBorder).font(.system(size: 11))
+                Button(app.t("Place", "置く")) {
+                    Task {
+                        let a = aspect.isEmpty
+                            ? (m.aspects(of: m.selected).first ?? "") : aspect
+                        said = await m.addRights(
+                            part: m.selected, aspect: a, claim: claim,
+                            text: text, note: note)
+                        if said == "ANSWER" { text = ""; note = "" }
+                    }
+                }
+                .font(.system(size: 11))
+                .disabled(text.trimmingCharacters(in: .whitespaces).isEmpty)
+            }
+            if !said.isEmpty && said != "ANSWER" {
+                Text(said).font(.system(size: 10, design: .monospaced))
+                    .foregroundStyle(AT.bad)
+            }
+            // 一般は2本要る、という規律を押す前に出しておく。
+            Text(app.t("A construction counts as common only with two "
+                       + "independent named sources.",
+                       "「一般構造」は、名前の付いた独立した出典が2本"
+                       + "揃って初めて成立します。"))
+                .font(.system(size: 9)).foregroundStyle(AT.faint)
+        }
+        .padding(13)
+        .background(AT.panel)
+        .onAppear { if aspect.isEmpty {
+            aspect = m.aspects(of: m.selected).first ?? "" } }
+        .onChange(of: m.selected) { _ in
+            aspect = m.aspects(of: m.selected).first ?? "" }
+    }
+
+    private var fieldHint: String {
+        switch claim {
+        case "no_match": return app.t("what you searched (the scope)",
+                                      "探した範囲（これが本体）")
+        case "declared": return app.t("who is declaring", "名乗る人の名前")
+        default: return app.t("source (work, page, URL)",
+                              "出典（作品名・資料・URL）")
+        }
+    }
+
+    private func stateChip(_ state: String) -> some View {
+        Text(RIGHTS.short(state)).font(.system(size: 9, weight: .semibold))
+            .padding(.horizontal, 6).padding(.vertical, 1)
+            .background(Capsule().stroke(RIGHTS.colour(state), lineWidth: 1))
+            .foregroundStyle(RIGHTS.colour(state))
+    }
+}
+
+enum RIGHTS {
+    static func colour(_ s: String) -> Color {
+        switch s {
+        case "SPECIFIC_TO_SOURCE": return AT.bad
+        case "CONTESTED_ORIGIN": return AT.bad
+        case "GENERIC_CONSTRUCTION": return AT.ok
+        case "DECLARED_BY": return AT.sel
+        case "UNKNOWN_NO_MATCH_IN": return AT.warn
+        default: return AT.dim
+        }
+    }
+
+    /// **「オリジナル」に相当する短縮形は無い。** 探した範囲の中に
+    /// 無かったことは、無いことではない。
+    static func short(_ s: String) -> String {
+        switch s {
+        case "SPECIFIC_TO_SOURCE": return "実例"
+        case "CONTESTED_ORIGIN": return "割れている"
+        case "GENERIC_CONSTRUCTION": return "一般"
+        case "DECLARED_BY": return "名乗りのみ"
+        case "UNKNOWN_NO_MATCH_IN": return "範囲内に無し"
+        default: return "未調査"
+        }
+    }
+}
+
+// MARK: - 再設計
+
+/// 作る面。**観測台帳を書き換える手段をこの面は持たない。**
+///
+/// kept はそのまま、changed は観測から変えた、new は観測に由来しない。
+/// 値を変えた後も派生元は消えない — 「Xから変えた」ことが由来である。
+private struct DesignPanel: View {
+    @ObservedObject var m: AtelierModel
+    @EnvironmentObject var app: AppState
+    @State private var action = "change"
+    @State private var value = ""
+    @State private var by = ""
+    @State private var note = ""
+    @State private var aspect = ""
+    @State private var said = ""
+
+    var body: some View {
+        VStack(alignment: .leading, spacing: 0) {
+            VStack(alignment: .leading, spacing: 5) {
+                Text(app.t("Re-design", "再設計"))
+                    .font(.system(size: 13, weight: .semibold))
+                Text(app.t("The source stays as observed. What you build is "
+                           + "a separate ledger, and each row says where it "
+                           + "came from.",
+                           "原作品は観測されたまま動きません。作る側は別の"
+                           + "台帳で、各行にどこから来たかが付きます。"))
+                    .font(.system(size: 10)).foregroundStyle(AT.faint)
+                HStack(spacing: 12) {
+                    counter("そのまま", m.designCounts["kept"] ?? 0, AT.dim)
+                    counter("変えた", m.designCounts["changed"] ?? 0, AT.warn)
+                    counter("新しく決めた", m.designCounts["new"] ?? 0, AT.ok)
+                }
+            }
+            .padding(14)
+            .background(AT.panel)
+            Divider().opacity(0.25)
+
+            ScrollView {
+                VStack(alignment: .leading, spacing: 0) {
+                    if m.designRows.isEmpty {
+                        Text(app.t("Nothing designed yet.",
+                                   "まだ何も設計していません。"))
+                            .font(.system(size: 11))
+                            .foregroundStyle(AT.faint).padding(14)
+                    }
+                    ForEach(Array(m.designRows.enumerated()),
+                            id: \.offset) { _, r in
+                        VStack(alignment: .leading, spacing: 2) {
+                            HStack(spacing: 8) {
+                                Text("\(r.part) / \(r.aspect)")
+                                    .font(.system(size: 11,
+                                                  design: .monospaced))
+                                    .foregroundStyle(AT.dim)
+                                Text(kindLabel(r.kind))
+                                    .font(.system(size: 9, weight: .semibold))
+                                    .padding(.horizontal, 6)
+                                    .padding(.vertical, 1)
+                                    .background(Capsule()
+                                        .stroke(kindColour(r.kind),
+                                                lineWidth: 1))
+                                    .foregroundStyle(kindColour(r.kind))
+                                Spacer(minLength: 0)
+                                Text(r.by).font(.system(size: 9))
+                                    .foregroundStyle(AT.faint)
+                            }
+                            Text(r.value)
+                                .font(.system(size: 12, weight: .semibold))
+                            if !r.originalValue.isEmpty {
+                                // 変えた事実が由来。消さない。
+                                Text("← \(r.originalValue)  (\(r.derivedFrom))")
+                                    .font(.system(size: 10,
+                                                  design: .monospaced))
+                                    .foregroundStyle(AT.faint)
+                            } else if !r.derivedFrom.isEmpty {
+                                Text("← \(r.derivedFrom)")
+                                    .font(.system(size: 10,
+                                                  design: .monospaced))
+                                    .foregroundStyle(AT.faint)
+                            }
+                        }
+                        .padding(.horizontal, 14).padding(.vertical, 6)
+                        .frame(maxWidth: .infinity, alignment: .leading)
+                        Divider().opacity(0.12)
+                    }
+                }
+            }
+
+            Divider().opacity(0.25)
+            VStack(alignment: .leading, spacing: 5) {
+                HStack(spacing: 6) {
+                    Text(m.selected).font(.system(size: 11, weight: .semibold))
+                    Picker("", selection: $aspect) {
+                        ForEach(m.aspects(of: m.selected), id: \.self) {
+                            Text($0).tag($0)
+                        }
+                    }.labelsHidden().frame(width: 130)
+                    Picker("", selection: $action) {
+                        Text(app.t("keep as observed", "観測のまま"))
+                            .tag("keep")
+                        Text(app.t("change it", "変える")).tag("change")
+                        Text(app.t("new, not derived", "新しく決める"))
+                            .tag("new")
+                    }.labelsHidden().frame(width: 150)
+                    Spacer(minLength: 0)
+                }
+                if action != "keep" {
+                    TextField(app.t("new value", "新しい値"), text: $value)
+                        .textFieldStyle(.roundedBorder)
+                        .font(.system(size: 11))
+                }
+                HStack(spacing: 8) {
+                    TextField(app.t("who decides (kept in the ledger)",
+                                    "決めた人の名前（台帳に残ります）"),
+                              text: $by)
+                        .textFieldStyle(.roundedBorder)
+                        .font(.system(size: 11))
+                    Button(app.t("Place", "置く")) {
+                        Task {
+                            let a = aspect.isEmpty
+                                ? (m.aspects(of: m.selected).first ?? "")
+                                : aspect
+                            said = await m.design(action, part: m.selected,
+                                                  aspect: a, value: value,
+                                                  by: by, note: note)
+                            if said == "ANSWER" { value = ""; note = "" }
+                        }
+                    }
+                    .font(.system(size: 11))
+                    .disabled(by.trimmingCharacters(in: .whitespaces).isEmpty
+                              || (action != "keep"
+                                  && value.trimmingCharacters(
+                                      in: .whitespaces).isEmpty))
+                }
+                if !said.isEmpty && said != "ANSWER" {
+                    Text(said).font(.system(size: 10, design: .monospaced))
+                        .foregroundStyle(AT.bad)
+                }
+                Text(app.t("Only confirmed observations can be kept or "
+                           + "changed — an uncertain value must not be cut.",
+                           "そのまま／変える は確定した観測にしか使えません。"
+                           + "定まっていない値を裁つことになるためです。"))
+                    .font(.system(size: 9)).foregroundStyle(AT.faint)
+            }
+            .padding(13)
+            .background(AT.panel)
+        }
+        .background(AT.bg)
+        .task { await m.loadDesign() }
+        .onAppear { if aspect.isEmpty {
+            aspect = m.aspects(of: m.selected).first ?? "" } }
+        .onChange(of: m.selected) { _ in
+            aspect = m.aspects(of: m.selected).first ?? "" }
+    }
+
+    private func counter(_ label: String, _ n: Int,
+                         _ colour: Color) -> some View {
+        HStack(spacing: 5) {
+            Text("\(n)").font(.system(size: 13, weight: .semibold,
+                                      design: .monospaced))
+                .foregroundStyle(colour)
+            Text(label).font(.system(size: 10)).foregroundStyle(AT.dim)
+        }
+    }
+
+    private func kindLabel(_ k: String) -> String {
+        switch k {
+        case "kept": return "そのまま"
+        case "changed": return "変えた"
+        default: return "新規"
+        }
+    }
+
+    private func kindColour(_ k: String) -> Color {
+        switch k {
+        case "kept": return AT.dim
+        case "changed": return AT.warn
+        default: return AT.ok
+        }
     }
 }

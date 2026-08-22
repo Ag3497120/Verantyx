@@ -47,6 +47,11 @@ PARTS: Dict[str, List[str]] = {
     "detail": ["button", "stitch", "trim"],
 }
 
+#: 参照の状態。**「参照が無い」は「見ていない」ではない。**
+REF_NONE = "UNKNOWN_UNVERIFIABLE_SOURCE"     # 開き直す手がかりが無い
+REF_MISSING = "UNKNOWN_SOURCE_NOT_FOUND"     # 手元からは開けない
+REF_OK = "VERIFIABLE"
+
 OBSERVED = "OBSERVED"
 CONTESTED = "CONTESTED"
 INFERRED = "INFERRED"
@@ -66,6 +71,44 @@ class Entry:
     note: str = ""            # モデルの点数などはここ(事実の欄ではない)
     adopted_by: str = ""      # 採用した人。提案が事実になる唯一の道
     at: str = ""              # 映像上の時刻 "0:12:05"。証拠の時系列に使う
+    # -- 後から同じものを見に行くための参照 ----------------------------
+    # 出典が文字列なだけだと、書いた本人以外は確かめられない。
+    # **見る役は誰でもよい**が、見に行けることは要る。
+    ref_path: str = ""        # 手元のファイル(映像・画像・PDF)
+    ref_mark: str = ""        # そのファイルの中の位置 "0:12:05" / "f182" / "p.12"
+    ref_url: str = ""         # 手元に置けないもの
+
+
+def ref_status(e: "Entry") -> str:
+    """その項目を今この機体から開き直せるか。
+
+    **手元に無いことは、存在しないことではない。** 外付けを繋げば開ける
+    ものを「無い」と書くと、後で本当に失われたものと区別できなくなる。
+    """
+    if e.ref_path:
+        return REF_OK if Path(e.ref_path).exists() else REF_MISSING
+    if e.ref_url:
+        # URL は手元では確かめない。開き直す手がかりはある。
+        return REF_OK
+    return REF_NONE
+
+
+def ref_key(e: "Entry") -> str:
+    """独立して数えてよいかの同一性。
+
+    同じファイルの同じコマを二度読んでも、証拠は一つである。参照が
+    無いものは出典の文字列で数える — それしか手がかりが無いため。
+    """
+    if e.ref_path:
+        return f"file:{e.ref_path}#{e.ref_mark}"
+    if e.ref_url:
+        return f"url:{e.ref_url}#{e.ref_mark}"
+    return f"text:{e.source}"
+
+
+def ref_brief(e: "Entry") -> Dict[str, Any]:
+    return {"status": ref_status(e), "path": e.ref_path,
+            "mark": e.ref_mark, "url": e.ref_url, "source": e.source}
 
 
 @dataclass
@@ -77,8 +120,15 @@ class Ledger:
 
     # -- 置く ------------------------------------------------------------
     def observe(self, part: str, aspect: str, value: str, source: str,
-                note: str = "") -> "Entry":
-        return self._add(part, aspect, value, "observation", source, note)
+                note: str = "", ref_path: str = "", ref_mark: str = "",
+                ref_url: str = "") -> "Entry":
+        """観測を置く。参照(ファイル+位置 / URL)を添えると、後から
+        **同じものを見に行ける**。添えなくても観測は観測で、確定欄には
+        出る — ファイルを付けていないことは、見ていないことではない。
+        ただし各行は「再確認できるか」を必ず伴う。"""
+        return self._add(part, aspect, value, "observation", source, note,
+                         ref_path=ref_path, ref_mark=ref_mark,
+                         ref_url=ref_url)
 
     def infer(self, part: str, aspect: str, value: str, source: str,
               note: str = "") -> "Entry":
@@ -115,9 +165,12 @@ class Ledger:
                 return e
         return None
 
-    def _add(self, part, aspect, value, kind, source, note) -> Entry:
+    def _add(self, part, aspect, value, kind, source, note,
+             ref_path="", ref_mark="", ref_url="") -> Entry:
         e = Entry(part=str(part), aspect=str(aspect), value=str(value),
-                  kind=kind, source=str(source), note=str(note))
+                  kind=kind, source=str(source), note=str(note),
+                  ref_path=str(ref_path or ""), ref_mark=str(ref_mark or ""),
+                  ref_url=str(ref_url or ""))
         self.entries.append(e)
         return e
 
@@ -138,14 +191,30 @@ class Ledger:
                 return {"state": CONTESTED, "part": part, "aspect": aspect,
                         "sides": [{"value": v,
                                    "sources": [e.source for e in obs
-                                               if e.value == v]}
+                                               if e.value == v],
+                                   "refs": [ref_brief(e) for e in obs
+                                            if e.value == v]}
                                   for v in sorted(values)],
                         "proposals": _brief(pro)}
             e0 = obs[0]
+            # **同じコマを二度読んでも証拠は一つ。** 数えるのは項目では
+            # なく参照で、これをしないと同じ画面を繰り返し見るだけで
+            # 確度が上がって見える。
+            keys = {ref_key(e) for e in obs}
+            refs = [ref_brief(e) for e in obs]
             return {"state": OBSERVED, "part": part, "aspect": aspect,
                     "value": e0.value,
                     "sources": [e.source for e in obs],
-                    "agreed": len(obs),
+                    "agreed": len(keys),
+                    "entries": len(obs),
+                    "refs": refs,
+                    # 確定の各行は「再確認できるか」を必ず伴う。
+                    "verifiable": any(r["status"] == REF_OK for r in refs),
+                    "unverifiable_reason": (
+                        "" if any(r["status"] == REF_OK for r in refs)
+                        else ("参照先が手元に無い"
+                              if any(r["status"] == REF_MISSING for r in refs)
+                              else "開き直す参照が付いていない")),
                     "adopted_by": e0.adopted_by or "",
                     "proposals": _brief(pro)}
         if inf:
@@ -185,6 +254,10 @@ class Ledger:
             # 何も閉じないので、引くと閉じたように見える。
             "counts": {"confirmed": len(confirmed), "contested": len(contested),
                        "inferred": len(inferred), "open": len(open_items),
+                       # 確定のうち、後から見に行ける本数。裁つ前に
+                       # どれを確かめ直せるかが、これで判る。
+                       "verifiable": sum(1 for c in confirmed
+                                         if c.get("verifiable")),
                        "proposed": sum(1 for o in open_items
                                        if o.get("state") == PROPOSED),
                        "unobserved": sum(1 for o in open_items
