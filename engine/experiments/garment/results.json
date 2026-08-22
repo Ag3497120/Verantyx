@@ -1,0 +1,73 @@
+{
+ "prereg": "experiments/garment/PREREG.md",
+ "checks": {
+  "V53_a_proposal_enters_only_by_adoption": {
+   "pass": true,
+   "detail": {
+    "before": "PROPOSED",
+    "after": "OBSERVED",
+    "adopted_by": "担当:西小田",
+    "source_kept": [
+     "視覚モデルv2"
+    ]
+   }
+  },
+  "V54_split_observations_do_not_pick_a_winner": {
+   "pass": true,
+   "detail": {
+    "state": "CONTESTED",
+    "sides": {
+     "2つ": [
+      "cut 0:12:06"
+     ],
+     "3つ": [
+      "cut 0:12:17"
+     ]
+    },
+    "in_confirmed": 0
+   }
+  },
+  "V55_absent_is_not_the_same_as_unobserved": {
+   "pass": true,
+   "detail": {
+    "observed_none": [
+     "OBSERVED",
+     "無し"
+    ],
+    "never_observed": [
+     "UNKNOWN_NOT_OBSERVED",
+     "裾・袖口の返りが映るカットを探す"
+    ]
+   }
+  },
+  "V56_the_three_sections_never_blend": {
+   "pass": true,
+   "detail": {
+    "counts": {
+     "confirmed": 3,
+     "contested": 1,
+     "inferred": 1,
+     "open": 18
+    },
+    "confirmed_states": [
+     "OBSERVED"
+    ],
+    "inference_in_its_own_section": true
+   }
+  },
+  "V57_every_open_item_says_how_to_close": {
+   "pass": true,
+   "detail": {
+    "open_items": 18,
+    "all_have_closers": true,
+    "example": {
+     "part": "collar",
+     "aspect": "material",
+     "state": "UNKNOWN_NOT_OBSERVED",
+     "how_to_close": "collar の material が映るカットを探す / 依頼者に確認"
+    }
+   }
+  }
+ },
+ "summary": "5/5 passed"
+}

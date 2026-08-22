@@ -656,6 +656,18 @@ def cmd_mcp(args) -> int:
     return serve(args.store)
 
 
+def cmd_garment(args) -> int:
+    """服飾台帳 — 一つの実体で Mac / Windows / Web / 電話を賄う。
+
+    枠を四つ作らない。ブラウザが客体なので、127.0.0.1 の HTTP を出せば
+    Mac も Windows も Web も同じ画面になり、`--lan` で電話からも読める。
+    """
+    from .garment_app import serve
+
+    return serve(port=args.port, open_browser=not args.no_browser,
+                 lan=args.lan)
+
+
 def cmd_field(args) -> int:
     """The whole thing on one screen, for somebody with a phone ringing.
 
@@ -1367,6 +1379,16 @@ def main(argv: Optional[list] = None) -> int:
 
     p = sub.add_parser("mcp", help="start MCP server (stdio)")
     p.set_defaults(fn=cmd_mcp)
+
+    p = sub.add_parser(
+        "garment",
+        help="the garment ledger: what is CONFIRMED vs inferred vs proposed "
+             "vs never observed, in a form a tailor can act on")
+    p.add_argument("--port", type=int, default=8910)
+    p.add_argument("--no-browser", action="store_true")
+    p.add_argument("--lan", action="store_true",
+                   help="open to this LAN so a phone can read the same screen")
+    p.set_defaults(fn=cmd_garment)
 
     p = sub.add_parser(
         "field",
