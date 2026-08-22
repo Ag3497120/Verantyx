@@ -1,0 +1,69 @@
+{
+ "prereg": "experiments/garment/PREREG8_SOLID.md",
+ "checks": {
+  "VS1_no_surface_without_a_confirmed_aspect": {
+   "pass": true,
+   "detail": {
+    "made": [
+     "body",
+     "collar"
+    ],
+    "skipped": [
+     "sleeve"
+    ]
+   }
+  },
+  "VS2_the_same_ledger_always_builds_the_same_solid": {
+   "pass": true,
+   "detail": {
+    "identical": true,
+    "vertices": 144,
+    "faces": 192
+   }
+  },
+  "VS3_what_was_not_built_is_named": {
+   "pass": true,
+   "detail": {
+    "skipped": [
+     "sleeve"
+    ],
+    "named_in_obj": true
+   }
+  },
+  "VS4_the_solid_cannot_be_read_back_as_evidence": {
+   "pass": true,
+   "detail": {
+    "marked": true,
+    "observe_refused": true
+   }
+  },
+  "VS5_measurements_shape_the_solid_and_defaults_are_named": {
+   "pass": true,
+   "detail": {
+    "without": 100.0,
+    "with": 96.0,
+    "still_defaulted": [
+     "chest",
+     "hem_width",
+     "shoulder",
+     "sleeve_length"
+    ]
+   }
+  },
+  "VS6_the_assumed_depth_is_declared_as_assumed": {
+   "pass": true,
+   "detail": {
+    "ratio": 0.62,
+    "declared_in_obj": true
+   }
+  },
+  "VS7_it_does_not_claim_to_be_a_drape_simulation": {
+   "pass": true,
+   "detail": {
+    "claiming_words_found": [],
+    "disclaimer": "これはプロポーションの立体です。型紙を身体に着せたものではなく、布の落ち方は一切"
+   }
+  }
+ },
+ "summary": "7/7 passed"
+}

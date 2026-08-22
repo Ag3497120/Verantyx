@@ -3937,6 +3937,78 @@ def build(store_path: str):
                           ensure_ascii=False)
 
     @mcp.tool()
+    def body_reference(size: str = "M") -> str:
+        """基準体の寸法 (S/M/L/XL)。**これは着用者ではありません。**
+
+        寸法を比べる相手であって、この服を着る人ではない。誰もその人を
+        観測していない。"""
+        from .garment_body import body as _body
+
+        try:
+            return json.dumps(_body(size), ensure_ascii=False)
+        except ValueError as e:
+            return _refused(e)
+
+    @mcp.tool()
+    def body_ease(size: str = "M") -> str:
+        """ゆとり = 服の寸法 − 体の寸法。**引き算であって着装計算ではない。**
+
+        型紙が無く `fabric/weight` も未取得なので、布の落ち方も着心地も
+        計算していません。片方が未取得ならゆとりも出ません。負のゆとりは
+        丸めません — 入らない服は入らないと言います。"""
+        from .garment_body import ease as _ease
+
+        try:
+            return json.dumps(_ease(_measures(), size), ensure_ascii=False)
+        except ValueError as e:
+            return _refused(e)
+
+    @mcp.tool()
+    def body_grade(base_size: str = "M", sizes: str = "") -> str:
+        """サイズ展開。**振り分けで出た寸法は実測ではない。**
+
+        `GRADED` として別の欄に立ち、基準サイズと振り分け量が残ります。
+        何サイズ作っても基準の実測は一つも変わりません。"""
+        from .garment_body import grade as _grade
+
+        want = [x.strip() for x in sizes.split(",") if x.strip()] or None
+        try:
+            return json.dumps(_grade(_measures(), base_size, want),
+                              ensure_ascii=False)
+        except ValueError as e:
+            return _refused(e)
+
+    @mcp.tool()
+    def garment_solid() -> str:
+        """立体を**組み立てる**。生成モデルは呼ばない。
+
+        事前登録: experiments/garment/PREREG8_SOLID.md
+
+        **着装シミュレーションではありません。** 型紙を身体に着せたもの
+        ではなく、布の落ち方は一切主張していません。作れるのは寸法から
+        起こしたプロポーションの立体まで。
+
+        奥行きは**仮定の比**です。胸囲は周囲であって幅ではなく、幅と
+        奥行きに分けるには比が要りますが、奥行きの実測は台帳にありま
+        せん。仮定した比の値も一緒に返します。"""
+        from .garment_solid import build as _build
+
+        return json.dumps(_build(_garment(), _measures()),
+                          ensure_ascii=False)
+
+    @mcp.tool()
+    def garment_solid_save(path: str) -> str:
+        """立体を OBJ で書き出し、**生成物の印を付ける**。
+
+        注記(生成物であること・仮定した奥行き・作らなかった部位)を
+        ファイルの先頭に残します。形だけ渡ると、受け取った側は測った
+        ものだと思います。"""
+        from .garment_solid import save as _save
+
+        return json.dumps(_save(_garment(), path, _measures()),
+                          ensure_ascii=False)
+
+    @mcp.tool()
     def garment_cross() -> str:
         """服飾台帳を**立体十字に載せた像**を返す。
 

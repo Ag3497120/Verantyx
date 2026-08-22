@@ -1,3 +1,4 @@
+import SceneKit
 import SwiftUI
 
 /// Vera Atelier — 服飾のワークベンチ。IDE の作業面をこれに替える。
@@ -165,6 +166,7 @@ struct AtelierView: View {
         case "Garments":   DrawingPanel(m: m).environmentObject(app)
         case "Evidence":   EvidencePanel(m: m).environmentObject(app)
         case "Materials":  MaterialsPanel(m: m).environmentObject(app)
+        case "Solid":      SolidPanel(m: m).environmentObject(app)
         default:           figureWorkspace
         }
     }
@@ -184,15 +186,14 @@ struct AtelierView: View {
                         .foregroundStyle(m.tab == t ? AT.fg : AT.dim)
                         .onTapGesture {
                             if t == "Search" { m.step = "Sources" }
+                            else if t == "3D" { m.step = "Solid" }
                             else { m.tab = t }
                         }
                 }
                 Spacer()
                 if m.tab == "3D" {
-                    // 無いものを「準備中」と言わない。まだ観測が要る段だと言う。
-                    Text(app.t("no 3D yet — evidence first, then "
-                               + "measurements",
-                               "3Dはまだ。先に証拠、次に寸法の段です"))
+                    Text(app.t("solid & ease live in 09-ish — press to go",
+                               "立体とゆとりは別の面です。押すと移動します"))
                         .font(.system(size: 10)).foregroundStyle(AT.faint)
                 }
             }
@@ -2460,5 +2461,271 @@ private struct MaterialsPanel: View {
         .padding(.horizontal, 14).padding(.vertical, 7)
         .frame(maxWidth: .infinity, alignment: .leading)
         .sheet(item: $m.pendingAdopt) { req in AdoptSheet(m: m, req: req) }
+    }
+}
+
+// MARK: - 立体・ゆとり・サイズ展開
+
+/// 立体の面。**着せない。比べる。**
+///
+/// 本当の着装は型紙を裁って縫い、生地の重さと曲げ剛性で落とす計算です。
+/// 台帳には型紙が無く、生地の重さも未取得です。その状態で人台に巻きつけた
+/// 絵を出せば、それは生成された見た目で、「こう着られる」と読まれます。
+///
+/// 代わりに引き算を出します。ゆとり = 服の周囲 − 体の周囲。作り手が実際に
+/// 見る数字で、布の挙動を一切主張しません。
+private struct SolidPanel: View {
+    @ObservedObject var m: AtelierModel
+    @EnvironmentObject var app: AppState
+    @State private var said = ""
+
+    private static let sizes = ["S", "M", "L", "XL"]
+
+    var body: some View {
+        VStack(alignment: .leading, spacing: 0) {
+            header
+            Divider().opacity(0.25)
+            HStack(spacing: 0) {
+                solid.frame(width: 260)
+                Divider().opacity(0.2)
+                ScrollView {
+                    VStack(alignment: .leading, spacing: 0) {
+                        easeSection
+                        Divider().opacity(0.2)
+                        gradeSection
+                    }
+                }
+            }
+        }
+        .background(AT.bg)
+        .task {
+            await m.loadSolid()
+            await m.loadEase()
+            await m.loadGrade()
+        }
+    }
+
+    private var header: some View {
+        VStack(alignment: .leading, spacing: 6) {
+            HStack(spacing: 10) {
+                Text(app.t("Solid & ease", "立体とゆとり"))
+                    .font(.system(size: 13, weight: .semibold))
+                Spacer()
+                Text(app.t("reference body", "基準体"))
+                    .font(.system(size: 10)).foregroundStyle(AT.faint)
+                ForEach(Self.sizes, id: \.self) { s in
+                    Text(s).font(.system(size: 11))
+                        .padding(.horizontal, 9).padding(.vertical, 2)
+                        .background(Capsule().stroke(
+                            m.bodySize == s ? AT.sel : AT.line, lineWidth: 1))
+                        .foregroundStyle(m.bodySize == s ? AT.fg : AT.dim)
+                        .onTapGesture {
+                            m.bodySize = s
+                            Task { await m.loadEase() }
+                        }
+                }
+                Button(app.t("Export OBJ…", "OBJで書き出す…")) { saveOBJ() }
+                    .font(.system(size: 11))
+                    .disabled(m.solidVertices.isEmpty)
+            }
+            // **知らないことを言わない。** ここが一番効く一行。
+            if !m.solidDisclaimer.isEmpty {
+                Text(m.solidDisclaimer).font(.system(size: 10))
+                    .foregroundStyle(AT.warn)
+            }
+            if !said.isEmpty {
+                Text(said).font(.system(size: 10, design: .monospaced))
+                    .foregroundStyle(said == "ANSWER" ? AT.ok : AT.bad)
+            }
+        }
+        .padding(14)
+        .frame(maxWidth: .infinity, alignment: .leading)
+        .background(AT.panel)
+    }
+
+    @ViewBuilder
+    private var solid: some View {
+        VStack(alignment: .leading, spacing: 8) {
+            if m.solidVertices.isEmpty {
+                Text(app.t("Nothing confirmed — no surface to build.",
+                           "確定した項目がありません。面を作れません。"))
+                    .font(.system(size: 11)).foregroundStyle(AT.faint)
+                    .padding(14)
+            } else {
+                SolidView(vertices: m.solidVertices, faces: m.solidFaces)
+                    .frame(height: 300)
+                VStack(alignment: .leading, spacing: 4) {
+                    if !m.solidSkipped.isEmpty {
+                        Text(app.t("not built (nothing confirmed): ",
+                                   "確定が無いため作っていない: ")
+                             + m.solidSkipped.joined(separator: "、"))
+                            .font(.system(size: 10)).foregroundStyle(AT.bad)
+                    }
+                    // **仮定を黙って形にしない。**
+                    Text(app.t("depth is an assumed ratio of ",
+                               "奥行きは仮定の比 ")
+                         + String(format: "%.2f", m.solidAssumedDepth)
+                         + app.t(" — not measured", "（実測ではない）"))
+                        .font(.system(size: 10)).foregroundStyle(AT.warn)
+                    Text(m.solidAssumedWhy).font(.system(size: 9))
+                        .foregroundStyle(AT.faint)
+                }
+                .padding(.horizontal, 14)
+            }
+            Spacer(minLength: 0)
+        }
+    }
+
+    private var easeSection: some View {
+        VStack(alignment: .leading, spacing: 0) {
+            Text(app.t("EASE — garment minus body", "ゆとり — 服 − 体"))
+                .railHead().padding(.top, 10)
+            Text(m.easeDisclaimer).font(.system(size: 10))
+                .foregroundStyle(AT.warn)
+                .padding(.horizontal, 14).padding(.bottom, 6)
+            ForEach(m.easeRows) { r in
+                HStack(spacing: 10) {
+                    Text(r.spot).font(.system(size: 11, design: .monospaced))
+                        .foregroundStyle(AT.dim)
+                        .frame(width: 110, alignment: .leading)
+                    if let e = r.ease, let g = r.garment {
+                        Text(String(format: "%.1f − %.1f", g, r.body))
+                            .font(.system(size: 10, design: .monospaced))
+                            .foregroundStyle(AT.faint)
+                        Text(String(format: "%+.1f%@", e, r.unit))
+                            .font(.system(size: 13, weight: .semibold))
+                            // 負のゆとりは丸めない。入らない服は入らない。
+                            .foregroundStyle(e < 0 ? AT.bad : AT.ok)
+                        if r.fromDerived {
+                            Text(app.t("(from a derived length)",
+                                       "（計算値の上のゆとり）"))
+                                .font(.system(size: 9))
+                                .foregroundStyle(AT.warn)
+                        }
+                    } else {
+                        Text(app.t("no basis", "基準なし"))
+                            .font(.system(size: 11)).foregroundStyle(AT.faint)
+                        Text("→ " + r.howToClose).font(.system(size: 10))
+                            .foregroundStyle(AT.warn)
+                    }
+                    Spacer(minLength: 0)
+                }
+                .padding(.horizontal, 14).padding(.vertical, 5)
+                Divider().opacity(0.12)
+            }
+        }
+    }
+
+    private var gradeSection: some View {
+        VStack(alignment: .leading, spacing: 0) {
+            Text(app.t("GRADED SIZES — not measurements",
+                       "サイズ展開 — 実測ではない")).railHead().padding(.top, 12)
+            ForEach(m.gradeSizes, id: \.self) { size in
+                VStack(alignment: .leading, spacing: 3) {
+                    HStack(spacing: 8) {
+                        Text(size).font(.system(size: 12, weight: .semibold))
+                        if size == m.gradeBase {
+                            Text(app.t("base (measured)", "基準（実測）"))
+                                .font(.system(size: 9))
+                                .foregroundStyle(AT.ok)
+                        }
+                        Spacer(minLength: 0)
+                    }
+                    ForEach(m.gradeTable[size] ?? []) { r in
+                        HStack(spacing: 8) {
+                            Text(r.name.isEmpty ? r.spot : r.name)
+                                .font(.system(size: 10))
+                                .foregroundStyle(AT.dim)
+                                .frame(width: 90, alignment: .leading)
+                            if let v = r.value {
+                                Text(String(format: "%.1f%@", v, r.unit))
+                                    .font(.system(size: 11,
+                                                  weight: .semibold))
+                                    .foregroundStyle(r.state == "MEASURED"
+                                                     ? AT.fg : AT.warn)
+                                Text(AT.symbol(r.state))
+                                    .font(.system(size: 9))
+                                    .foregroundStyle(AT.color(r.state))
+                                if !r.from.isEmpty {
+                                    Text("← " + r.from)
+                                        .font(.system(size: 9,
+                                                      design: .monospaced))
+                                        .foregroundStyle(AT.faint)
+                                }
+                            } else {
+                                Text("→ " + r.howToClose)
+                                    .font(.system(size: 10))
+                                    .foregroundStyle(AT.warn)
+                            }
+                            Spacer(minLength: 0)
+                        }
+                    }
+                }
+                .padding(.horizontal, 14).padding(.vertical, 6)
+                Divider().opacity(0.12)
+            }
+        }
+        .padding(.bottom, 14)
+    }
+
+    private func saveOBJ() {
+        let panel = NSSavePanel()
+        panel.nameFieldStringValue = "proportion-block.obj"
+        panel.message = AppLanguage.shared.t(
+            "Save the block (marked as generated; not a drape simulation)",
+            "立体を保存する（生成物の印が付きます。着装計算ではありません）")
+        guard panel.runModal() == .OK, let url = panel.url else { return }
+        Task { said = await m.saveSolid(to: url.path) }
+    }
+}
+
+/// 立体を描く。**エンジンが返した頂点と面をそのまま置く。**
+/// ここで滑らかにしたり穴を塞いだりしない — 足した面は誰も観測していない面。
+private struct SolidView: NSViewRepresentable {
+    let vertices: [[Double]]
+    let faces: [[Int]]
+
+    func makeNSView(context: Context) -> SCNView {
+        let v = SCNView()
+        v.allowsCameraControl = true
+        v.autoenablesDefaultLighting = true
+        v.backgroundColor = .clear
+        return v
+    }
+
+    func updateNSView(_ v: SCNView, context: Context) {
+        let scene = SCNScene()
+        if let node = node() { scene.rootNode.addChildNode(node) }
+        v.scene = scene
+    }
+
+    private func node() -> SCNNode? {
+        guard !vertices.isEmpty, !faces.isEmpty else { return nil }
+        let points = vertices.map {
+            SCNVector3(CGFloat($0[0]), CGFloat($0[1]), CGFloat($0[2]))
+        }
+        var indices: [Int32] = []
+        for f in faces where f.count == 3 {
+            indices.append(contentsOf: f.map { Int32($0) })
+        }
+        let source = SCNGeometrySource(vertices: points)
+        let element = SCNGeometryElement(
+            data: Data(bytes: indices,
+                       count: indices.count * MemoryLayout<Int32>.size),
+            primitiveType: .triangles,
+            primitiveCount: indices.count / 3,
+            bytesPerIndex: MemoryLayout<Int32>.size)
+        let geometry = SCNGeometry(sources: [source], elements: [element])
+        let mat = SCNMaterial()
+        mat.diffuse.contents = NSColor(white: 0.72, alpha: 1)
+        mat.isDoubleSided = true          // 服は筒。裏からも見える
+        geometry.materials = [mat]
+        let node = SCNNode(geometry: geometry)
+        // 原点まわりに収める。**形は変えない** — 見る位置を変えるだけ。
+        let ys = vertices.map { $0[1] }
+        node.position = SCNVector3(0, CGFloat(-(ys.min()! + ys.max()!) / 2), 0)
+        let scale = 2.4 / CGFloat(max(ys.max()! - ys.min()!, 1))
+        node.scale = SCNVector3(scale, scale, scale)
+        return node
     }
 }

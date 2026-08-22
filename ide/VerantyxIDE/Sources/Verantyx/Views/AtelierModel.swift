@@ -11,7 +11,7 @@ import SwiftUI
 final class AtelierModel: ObservableObject {
     static let steps = ["Sources", "Garments", "Evidence", "Structure",
                         "Materials", "Provenance", "Re-design",
-                        "Pattern", "Tech Pack"]
+                        "Pattern", "Solid", "Tech Pack"]
     /// 図に描ける部位。ここに無い部位は場所を持たないので、図ではなく
     /// チップで出す。**表に出ない部位を作らない**ための境目で、
     /// engine が部位を増やしても自動でチップ側に回る。
@@ -66,6 +66,23 @@ final class AtelierModel: ObservableObject {
     @Published var drawSkipped: [String] = []
     @Published var drawDefaulted: [String] = []
     @Published var drawUnit = "cm"
+
+    // -- 立体・ゆとり・サイズ展開。**着せない。比べる。** --------------
+    @Published var solidVertices: [[Double]] = []
+    @Published var solidFaces: [[Int]] = []
+    @Published var solidGroups: [SolidGroup] = []
+    @Published var solidSkipped: [String] = []
+    @Published var solidAssumedDepth: Double = 0
+    @Published var solidAssumedWhy = ""
+    @Published var solidDisclaimer = ""
+
+    @Published var bodySize = "M"
+    @Published var easeRows: [EaseRow] = []
+    @Published var easeNegative: [String] = []
+    @Published var easeDisclaimer = ""
+    @Published var gradeSizes: [String] = []
+    @Published var gradeBase = "M"
+    @Published var gradeTable: [String: [GradeRow]] = [:]
 
     // -- 設計。観測とは別の台帳 ---------------------------------------
     @Published var designRows: [DesignRow] = []
@@ -136,6 +153,27 @@ final class AtelierModel: ObservableObject {
         var y: CGFloat = 0
         var text = ""
         var tone = "ink"          // ink / warn / quiet
+    }
+
+    struct SolidGroup { var part = ""; var firstFace = 0; var faces = 0 }
+
+    struct EaseRow: Identifiable {
+        let id = UUID()
+        var spot = ""; var state = ""
+        var garment: Double?
+        var body: Double = 0
+        var ease: Double?
+        var unit = "cm"
+        var fromDerived = false
+        var howToClose = ""
+    }
+
+    struct GradeRow: Identifiable {
+        let id = UUID()
+        var spot = ""; var name = ""; var state = ""
+        var value: Double?
+        var unit = "cm"; var from = ""
+        var howToClose = ""
     }
 
     struct CrossArm {
@@ -478,6 +516,65 @@ final class AtelierModel: ObservableObject {
     func saveDrawing(to path: String) async -> String {
         let d = await call("garment_draw_save", ["path": path])
         return (d["verdict"] as? String) ?? "UNKNOWN_NO_ANSWER"
+    }
+
+    /// 立体を組む。**着装シミュレーションではない。**
+    func loadSolid() async {
+        let d = await call("garment_solid")
+        solidVertices = d["vertices"] as? [[Double]] ?? []
+        solidFaces = d["faces"] as? [[Int]] ?? []
+        solidGroups = (d["groups"] as? [[String: Any]] ?? []).map {
+            SolidGroup(part: $0["part"] as? String ?? "",
+                       firstFace: $0["first_face"] as? Int ?? 0,
+                       faces: $0["faces"] as? Int ?? 0)
+        }
+        solidSkipped = (d["skipped"] as? [[String: Any]] ?? [])
+            .compactMap { $0["part"] as? String }
+        let a = d["assumed"] as? [String: Any] ?? [:]
+        solidAssumedDepth = (a["depth_ratio"] as? Double) ?? 0
+        solidAssumedWhy = a["why"] as? String ?? ""
+        solidDisclaimer = d["not_a_simulation"] as? String ?? ""
+    }
+
+    func saveSolid(to path: String) async -> String {
+        let d = await call("garment_solid_save", ["path": path])
+        return (d["verdict"] as? String) ?? "UNKNOWN_NO_ANSWER"
+    }
+
+    /// ゆとり。**引き算であって着装計算ではない。**
+    func loadEase() async {
+        let d = await call("body_ease", ["size": bodySize])
+        easeRows = (d["rows"] as? [[String: Any]] ?? []).map { r in
+            EaseRow(spot: r["spot"] as? String ?? "",
+                    state: r["state"] as? String ?? "",
+                    garment: r["garment"] as? Double,
+                    body: (r["body"] as? Double) ?? 0,
+                    ease: r["ease"] as? Double,
+                    unit: r["unit"] as? String ?? "cm",
+                    fromDerived: (r["from_derived"] as? Bool) ?? false,
+                    howToClose: r["how_to_close"] as? String ?? "")
+        }
+        easeNegative = d["negative"] as? [String] ?? []
+        easeDisclaimer = d["not_a_fit_calculation"] as? String ?? ""
+    }
+
+    /// サイズ展開。**振り分けで出た寸法は実測ではない。**
+    func loadGrade() async {
+        let d = await call("body_grade", ["base_size": gradeBase])
+        gradeSizes = d["sizes"] as? [String] ?? []
+        var out: [String: [GradeRow]] = [:]
+        for (size, rows) in (d["table"] as? [String: [[String: Any]]] ?? [:]) {
+            out[size] = rows.map { r in
+                GradeRow(spot: r["spot"] as? String ?? "",
+                         name: r["name"] as? String ?? "",
+                         state: r["state"] as? String ?? "",
+                         value: r["value"] as? Double,
+                         unit: r["unit"] as? String ?? "cm",
+                         from: r["from"] as? String ?? "",
+                         howToClose: r["how_to_close"] as? String ?? "")
+            }
+        }
+        gradeTable = out
     }
 
     func loadDesign() async {

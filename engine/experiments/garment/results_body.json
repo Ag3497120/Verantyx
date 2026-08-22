@@ -1,0 +1,62 @@
+{
+ "prereg": "experiments/garment/PREREG9_BODY.md",
+ "checks": {
+  "VB1_the_reference_body_is_not_an_observation": {
+   "pass": true,
+   "detail": {
+    "kind": "reference_body",
+    "is_garment_aspect": false
+   }
+  },
+  "VB2_ease_is_a_subtraction_and_needs_both_sides": {
+   "pass": true,
+   "detail": {
+    "chest_ease": 12.0,
+    "waist": "UNKNOWN_NO_BASIS"
+   }
+  },
+  "VB3_negative_ease_is_not_rounded_away": {
+   "pass": true,
+   "detail": {
+    "ease": -8.0,
+    "flagged": [
+     "chest"
+    ]
+   }
+  },
+  "VB4_graded_sizes_are_not_measurements": {
+   "pass": true,
+   "detail": {
+    "M": "MEASURED",
+    "S": "GRADED",
+    "S_from": "M の 104.0cm − 4.0"
+   }
+  },
+  "VB5_grading_never_rewrites_the_base_measurements": {
+   "pass": true,
+   "detail": {
+    "unchanged": true
+   }
+  },
+  "VB6_deterministic": {
+   "pass": true,
+   "detail": {
+    "grade_same": true,
+    "ease_same": true
+   }
+  },
+  "VB7_it_never_claims_the_garment_was_worn": {
+   "pass": true,
+   "detail": {
+    "claiming_words_found": []
+   }
+  },
+  "VB8_it_says_there_is_no_pattern_behind_this": {
+   "pass": true,
+   "detail": {
+    "disclaimer": "これは引き算です。型紙による着装計算ではなく、生地の落ち方も着心地も計算していません。型紙と"
+   }
+  }
+ },
+ "summary": "8/8 passed"
+}
