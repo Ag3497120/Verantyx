@@ -52,6 +52,13 @@ REF_NONE = "UNKNOWN_UNVERIFIABLE_SOURCE"     # 開き直す手がかりが無い
 REF_MISSING = "UNKNOWN_SOURCE_NOT_FOUND"     # 手元からは開けない
 REF_OK = "VERIFIABLE"
 
+#: 生成物の印。**自分が描いた絵を後から証拠として読み直さない**ため。
+#: 一周回ると、モデルの出力がコマ由来の観測の顔をして戻ってくる。
+GENERATED_MARK = ".vera-generated"
+
+#: 素材の由来。割ったコマだけが残って元が分からない状態を作らない。
+INTAKE_INDEX = "intake.json"
+
 OBSERVED = "OBSERVED"
 CONTESTED = "CONTESTED"
 INFERRED = "INFERRED"
@@ -77,6 +84,28 @@ class Entry:
     ref_path: str = ""        # 手元のファイル(映像・画像・PDF)
     ref_mark: str = ""        # そのファイルの中の位置 "0:12:05" / "f182" / "p.12"
     ref_url: str = ""         # 手元に置けないもの
+
+
+def mark_generated(path: Any) -> Path:
+    """描かせた画像に印を付ける。印はファイルの隣に置く — 画像自体を
+    書き換えると、印だけ剥がして証拠に化けさせられる。"""
+    p = Path(path)
+    stamp = p.with_name(p.name + GENERATED_MARK)
+    stamp.write_text("generated, not observed\n", encoding="utf-8")
+    return stamp
+
+
+def is_generated(path: Any) -> bool:
+    """その画像が**この装置が描いたもの**か。
+
+    印が無ければ生成物ではない、とは言い切れない(外から持ち込まれた
+    生成画像は分からない)。ここで塞げるのは自分が描いたものだけで、
+    それ以上を主張しない。
+    """
+    if not path:
+        return False
+    p = Path(str(path))
+    return p.with_name(p.name + GENERATED_MARK).exists()
 
 
 def ref_status(e: "Entry") -> str:
@@ -125,7 +154,18 @@ class Ledger:
         """観測を置く。参照(ファイル+位置 / URL)を添えると、後から
         **同じものを見に行ける**。添えなくても観測は観測で、確定欄には
         出る — ファイルを付けていないことは、見ていないことではない。
-        ただし各行は「再確認できるか」を必ず伴う。"""
+        ただし各行は「再確認できるか」を必ず伴う。
+
+        **生成された画像からは観測できない。** 設計図を描かせた絵を
+        後から読み直すと、モデルの出力がコマ由来の観測の顔をして戻って
+        くる。一周回ると誰も出所を辿れないので、ここで断る。
+        """
+        if is_generated(ref_path):
+            raise ValueError(
+                "UNKNOWN_GENERATED_NOT_EVIDENCE: "
+                f"{Path(ref_path).name} は生成された画像。"
+                "描いたものを見て観測したことにはできない / "
+                "元のコマか実物を出典にする")
         return self._add(part, aspect, value, "observation", source, note,
                          ref_path=ref_path, ref_mark=ref_mark,
                          ref_url=ref_url)
@@ -136,9 +176,25 @@ class Ledger:
         return self._add(part, aspect, value, "inference", source, note)
 
     def propose(self, part: str, aspect: str, value: str, source: str,
-                note: str = "") -> "Entry":
-        """外から来たもの(画像検索・視覚モデル・人の意見)。未採用。"""
-        return self._add(part, aspect, value, "proposal", source, note)
+                note: str = "", ref_path: str = "", ref_mark: str = "",
+                ref_url: str = "") -> "Entry":
+        """外から来たもの(画像検索・視覚モデル・人の意見)。未採用。
+
+        コマから出た提案は、そのコマを参照に持てる。**同じコマを同じ
+        モデルに二度読ませても積まない** — 同じ絵を見直して確度は
+        上がらないので、重複は既存の項目を返すだけにする。
+        """
+        key = (str(part), str(aspect), str(value), str(source),
+               str(ref_path or ""), str(ref_mark or ""))
+        for e in self.entries:
+            if e.kind != "proposal" or e.adopted_by:
+                continue
+            if (e.part, e.aspect, e.value, e.source,
+                    e.ref_path, e.ref_mark) == key:
+                return e
+        return self._add(part, aspect, value, "proposal", source, note,
+                         ref_path=ref_path, ref_mark=ref_mark,
+                         ref_url=ref_url)
 
     def adopt(self, part: str, aspect: str, value: str,
               by: str) -> Optional[Entry]:
@@ -389,9 +445,11 @@ def _fmt(sec: int) -> str:
     return f"{h}:{m:02d}:{s:02d}" if h else f"{m}:{s:02d}"
 
 
-def _brief(rows: List[Entry]) -> List[Dict[str, str]]:
-    return [{"value": e.value, "source": e.source, "note": e.note}
-            for e in rows]
+def _brief(rows: List[Entry]) -> List[Dict[str, Any]]:
+    # 提案にも参照を付けて出す。どのコマを見て言ったのかが分からないと、
+    # 採用するかどうかを人が判断できない。
+    return [{"value": e.value, "source": e.source, "note": e.note,
+             "ref": ref_brief(e)} for e in rows]
 
 
 #: 閉じ方の閉じた表。分からないものに「調べてください」とだけ返すのは、
@@ -409,3 +467,101 @@ _CLOSERS = {
 def _how_to_close(part: str, aspect: str) -> str:
     return _CLOSERS.get((part, aspect),
                         f"{part} の {aspect} が映るカットを探す / 依頼者に確認")
+
+
+# ======================================================================
+#  取り込み台帳 — 割ったコマの出所
+# ======================================================================
+#
+# 動画をコマに割るのは計算であって判断ではない。ただし**割った跡が
+# 残らないと**、コマだけが手元にあって元の映像が分からない状態になる。
+# そうなるとコマ由来の観測は、出典を持っているように見えて辿れない。
+
+
+@dataclass
+class Clip:
+    """元の素材から取り出した一枚。"""
+
+    path: str          # 取り出したコマの場所
+    mark: str          # "f182" / "0:12:05"
+    seconds: float = 0.0
+
+
+@dataclass
+class Source:
+    """取り込んだ素材ひとつ。"""
+
+    path: str          # 元ファイル
+    kind: str          # video / image / document
+    at: str = ""       # 取り込んだ時刻
+    bytes: int = 0
+    clips: List[Clip] = field(default_factory=list)
+    note: str = ""
+
+
+@dataclass
+class Intake:
+    """何を入れて、どう割ったか。"""
+
+    sources: List[Source] = field(default_factory=list)
+
+    def register(self, path: Any, kind: str, at: str = "",
+                 note: str = "") -> Source:
+        p = Path(str(path))
+        existing = next((s for s in self.sources if s.path == str(p)), None)
+        if existing:
+            return existing
+        s = Source(path=str(p), kind=kind, at=at, note=note,
+                   bytes=(p.stat().st_size if p.exists() else 0))
+        self.sources.append(s)
+        return s
+
+    def add_clip(self, source_path: Any, clip_path: Any, mark: str,
+                 seconds: float = 0.0) -> Clip:
+        s = next((x for x in self.sources if x.path == str(source_path)), None)
+        if s is None:
+            raise ValueError(
+                "UNKNOWN_SOURCE_NOT_REGISTERED: 元の素材が登録されていない。"
+                "コマだけ残ると、出典があるように見えて辿れない")
+        for c in s.clips:
+            if c.mark == mark:
+                return c
+        c = Clip(path=str(clip_path), mark=mark, seconds=seconds)
+        s.clips.append(c)
+        return c
+
+    def origin_of(self, clip_path: Any) -> Optional[Dict[str, Any]]:
+        """このコマがどの素材のどこから来たか。"""
+        for s in self.sources:
+            for c in s.clips:
+                if c.path == str(clip_path):
+                    return {"source": s.path, "kind": s.kind,
+                            "mark": c.mark, "seconds": c.seconds,
+                            "ingested_at": s.at}
+        return None
+
+    def report(self) -> Dict[str, Any]:
+        return {"verdict": "ANSWER",
+                "sources": [asdict(s) for s in self.sources],
+                "counts": {"sources": len(self.sources),
+                           "clips": sum(len(s.clips) for s in self.sources)}}
+
+    def save(self, path: Any) -> Dict[str, Any]:
+        p = Path(path)
+        p.parent.mkdir(parents=True, exist_ok=True)
+        p.write_text(json.dumps({"sources": [asdict(s) for s in self.sources]},
+                                ensure_ascii=False, indent=1),
+                     encoding="utf-8")
+        return {"verdict": "ANSWER", "path": str(p)}
+
+    @classmethod
+    def load(cls, path: Any) -> "Intake":
+        p = Path(path)
+        if not p.is_file():
+            return cls()
+        d = json.loads(p.read_text(encoding="utf-8"))
+        out = cls()
+        for row in d.get("sources", []):
+            clips = [Clip(**c) for c in row.pop("clips", [])]
+            out.sources.append(Source(clips=clips, **row))
+        return out

@@ -3681,9 +3681,12 @@ def build(store_path: str):
         if not (value.strip() and source.strip()):
             return json.dumps({"verdict": "UNKNOWN_NEEDS_VALUE_AND_SOURCE"},
                               ensure_ascii=False)
-        e = led.observe(part, aspect, value, source, note,
-                        ref_path=ref_path, ref_mark=ref_mark,
-                        ref_url=ref_url)
+        try:
+            e = led.observe(part, aspect, value, source, note,
+                            ref_path=ref_path, ref_mark=ref_mark,
+                            ref_url=ref_url)
+        except ValueError as ex:
+            return _refused(ex)
         led.save(_garment_path())
         return json.dumps({"verdict": "ANSWER", "entry": e.__dict__},
                           ensure_ascii=False)
@@ -3699,14 +3702,17 @@ def build(store_path: str):
 
     @mcp.tool()
     def garment_propose(part: str, aspect: str, value: str, source: str,
-                        note: str = "") -> str:
+                        note: str = "", ref_path: str = "",
+                        ref_mark: str = "", ref_url: str = "") -> str:
         """外から来たもの(画像検索・視覚モデル・クラウドAI・人の意見)。
 
         **未採用**として置かれ、確定欄には出ない。モデルの自己申告
         (0.71 等)は `note` に入れる — 点数は出典の一部であって、
         布の性質ではない。"""
         led = _garment()
-        e = led.propose(part, aspect, value, source, note)
+        e = led.propose(part, aspect, value, source, note,
+                        ref_path=ref_path, ref_mark=ref_mark,
+                        ref_url=ref_url)
         led.save(_garment_path())
         return json.dumps({"verdict": "ANSWER", "entry": e.__dict__,
                            "note": "未採用。採用は人の行為 (garment_adopt)"},
@@ -3779,6 +3785,78 @@ def build(store_path: str):
         text = str(exc)
         code = text.split(":", 1)[0] if ":" in text else "UNKNOWN_REFUSED"
         return json.dumps({"verdict": code, "why": text}, ensure_ascii=False)
+
+    # ---------------------------------------------------------------
+    #  取り込みと生成物 — 出所を溶かさないための二枚
+    # ---------------------------------------------------------------
+    #  事前登録: experiments/garment/PREREG4_PIPELINE.md
+
+    def _intake():
+        from .garment import Intake
+
+        return Intake.load(_intake_path())
+
+    def _intake_path():
+        return Path.home() / ".vera_garment" / "intake.json"
+
+    @mcp.tool()
+    def intake_register(path: str, kind: str = "video", at: str = "",
+                        note: str = "") -> str:
+        """取り込んだ素材を登録する (video / image / document)。
+
+        コマだけが残って元の映像が分からない状態にしないための台帳。
+        出典があるように見えて辿れない、が一番たちが悪い。"""
+        ink = _intake()
+        s_ = ink.register(path, kind, at=at, note=note)
+        ink.save(_intake_path())
+        return json.dumps({"verdict": "ANSWER", "source": s_.__dict__},
+                          ensure_ascii=False, default=lambda o: o.__dict__)
+
+    @mcp.tool()
+    def intake_add_clip(source_path: str, clip_path: str, mark: str,
+                        seconds: float = 0.0) -> str:
+        """割り出したコマを、元の素材に紐づけて登録する。
+
+        同じ位置を二度割っても増えない。"""
+        ink = _intake()
+        try:
+            c = ink.add_clip(source_path, clip_path, mark, seconds)
+        except ValueError as e:
+            return _refused(e)
+        ink.save(_intake_path())
+        return json.dumps({"verdict": "ANSWER", "clip": c.__dict__},
+                          ensure_ascii=False)
+
+    @mcp.tool()
+    def intake_report() -> str:
+        """何を入れて、どう割ったか。"""
+        return json.dumps(_intake().report(), ensure_ascii=False)
+
+    @mcp.tool()
+    def intake_origin(clip_path: str) -> str:
+        """このコマがどの素材のどこから来たか。"""
+        o = _intake().origin_of(clip_path)
+        if o is None:
+            return json.dumps(
+                {"verdict": "UNKNOWN_CLIP_NOT_REGISTERED",
+                 "how_to_close": "intake_add_clip でコマを元の素材に紐づける"},
+                ensure_ascii=False)
+        return json.dumps({"verdict": "ANSWER", "origin": o},
+                          ensure_ascii=False)
+
+    @mcp.tool()
+    def mark_generated(path: str) -> str:
+        """描かせた画像に**生成物の印**を付ける。
+
+        印が付いた画像から `garment_observe` はできない。自分が描いた
+        絵を後から読み直すと、モデルの出力がコマ由来の観測の顔をして
+        戻ってくる。一周回ると誰も出所を辿れない。"""
+        from .garment import mark_generated as _mark
+
+        stamp = _mark(path)
+        return json.dumps({"verdict": "ANSWER", "stamp": str(stamp),
+                           "note": "この画像は観測の出典にできない"},
+                          ensure_ascii=False)
 
     @mcp.tool()
     def rights_specific(part: str, aspect: str, source: str,

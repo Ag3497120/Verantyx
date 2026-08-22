@@ -17,6 +17,7 @@ struct AtelierView: View {
     @EnvironmentObject var app: AppState
     @StateObject private var m = AtelierModel()
     @StateObject private var an = AtelierAnalyst()
+    @StateObject private var intake = AtelierIntake()
     @State private var showAnalyst = false
 
     var body: some View {
@@ -155,6 +156,8 @@ struct AtelierView: View {
     @ViewBuilder
     private var workspace: some View {
         switch m.step {
+        case "Sources":    SourcesPanel(m: m, an: an, intake: intake)
+                               .environmentObject(app)
         case "Provenance": ProvenancePanel(m: m).environmentObject(app)
         case "Re-design":  DesignPanel(m: m).environmentObject(app)
         default:           figureWorkspace
@@ -1479,5 +1482,211 @@ private struct DesignPanel: View {
         case "changed": return AT.warn
         default: return AT.ok
         }
+    }
+}
+
+// MARK: - 素材を入れる
+
+/// 入れる → 割る → 読ませる → 照らす。
+///
+/// 四つを別の操作にしてあるのは、それぞれ性質が違うからです。割るのは
+/// 計算、読むのはモデル(出力は提案)、照らすのは距離(判断ではない)、
+/// 記録するのは Vera(どの扉から来たかで決まる)。ひとつのボタンに
+/// まとめると、どこで推測が入ったのかが後から見えなくなります。
+private struct SourcesPanel: View {
+    @ObservedObject var m: AtelierModel
+    @ObservedObject var an: AtelierAnalyst
+    @ObservedObject var intake: AtelierIntake
+    @EnvironmentObject var app: AppState
+    @State private var simPart = "collar"
+    @State private var simAspect = "shape"
+
+    var body: some View {
+        VStack(alignment: .leading, spacing: 0) {
+            header
+            Divider().opacity(0.25)
+            HSplit
+            Divider().opacity(0.25)
+            logStrip
+        }
+        .background(AT.bg)
+    }
+
+    private var header: some View {
+        VStack(alignment: .leading, spacing: 7) {
+            HStack(spacing: 10) {
+                Text(app.t("Sources", "素材")).font(
+                    .system(size: 13, weight: .semibold))
+                if intake.busy {
+                    ProgressView().controlSize(.small)
+                    Text(intake.stage).font(.system(size: 10))
+                        .foregroundStyle(AT.dim)
+                }
+                Spacer()
+                Text(app.t("frames", "コマ数")).font(.system(size: 10))
+                    .foregroundStyle(AT.faint)
+                Stepper(value: $intake.frameCount, in: 1...60) {
+                    Text("\(intake.frameCount)")
+                        .font(.system(size: 11, design: .monospaced))
+                }.labelsHidden().frame(width: 60)
+                Button(app.t("Add film or photo…", "映像・写真を入れる…")) {
+                    Task { await intake.pickAndIngest() }
+                }
+                .font(.system(size: 11)).disabled(intake.busy)
+            }
+            Text(app.t("Splitting is arithmetic. Reading is a model, and "
+                       + "whatever it reads becomes a proposal. Matching is "
+                       + "a distance, not a verdict.",
+                       "割るのは計算です。読むのはモデルで、何を読んでも"
+                       + "提案にしかなりません。照らすのは距離であって"
+                       + "判断ではありません。"))
+                .font(.system(size: 10)).foregroundStyle(AT.faint)
+        }
+        .padding(14)
+        .background(AT.panel)
+    }
+
+    @ViewBuilder
+    private var HSplit: some View {
+        HStack(spacing: 0) {
+            clipList.frame(width: 210)
+            Divider().opacity(0.2)
+            detail.frame(maxWidth: .infinity)
+        }
+    }
+
+    private var clipList: some View {
+        ScrollView {
+            VStack(alignment: .leading, spacing: 0) {
+                if intake.clips.isEmpty {
+                    Text(app.t("No material yet.", "まだ素材がありません。"))
+                        .font(.system(size: 11)).foregroundStyle(AT.faint)
+                        .padding(14)
+                }
+                ForEach(intake.clips) { c in
+                    HStack(spacing: 8) {
+                        thumb(c.path, side: 34)
+                        VStack(alignment: .leading, spacing: 1) {
+                            Text(c.mark)
+                                .font(.system(size: 10, design: .monospaced))
+                            Text(String(format: "%.2f s", c.seconds))
+                                .font(.system(size: 9))
+                                .foregroundStyle(AT.faint)
+                        }
+                        Spacer(minLength: 0)
+                    }
+                    .padding(.horizontal, 10).padding(.vertical, 4)
+                    .background(intake.selectedClip?.path == c.path
+                                ? AT.panel2 : .clear)
+                    .contentShape(Rectangle())
+                    .onTapGesture { intake.selectedClip = c }
+                }
+            }
+            .padding(.vertical, 6)
+        }
+        .background(AT.panel)
+    }
+
+    @ViewBuilder
+    private var detail: some View {
+        if let c = intake.selectedClip {
+            ScrollView {
+                VStack(alignment: .leading, spacing: 10) {
+                    thumb(c.path, side: 260)
+                        .frame(maxWidth: .infinity, alignment: .center)
+                    HStack(spacing: 8) {
+                        Button(app.t("Read this frame", "このコマを読ませる")) {
+                            Task { await intake.read(clip: c, model: an.pick,
+                                                     into: m) }
+                        }.font(.system(size: 11)).disabled(intake.busy)
+                        Text(an.pick.label).font(.system(size: 10))
+                            .foregroundStyle(AT.dim).lineLimit(1)
+                        Spacer(minLength: 0)
+                    }
+                    Button(app.t("Find similar frames", "似ているコマを照らす")) {
+                        Task { await intake.findSimilar(to: c,
+                                                        among: intake.clips) }
+                    }.font(.system(size: 11)).disabled(intake.busy)
+
+                    if !intake.matches.isEmpty {
+                        Text(app.t("CLOSEST FIRST — a distance, not a verdict",
+                                   "距離順 — 判断ではありません")).railHead()
+                        HStack(spacing: 6) {
+                            Picker("", selection: $simPart) {
+                                ForEach(m.parts.keys.sorted(), id: \.self) {
+                                    Text($0).tag($0)
+                                }
+                            }.labelsHidden().frame(width: 110)
+                            Picker("", selection: $simAspect) {
+                                ForEach(m.aspects(of: simPart), id: \.self) {
+                                    Text($0).tag($0)
+                                }
+                            }.labelsHidden().frame(width: 130)
+                            Spacer(minLength: 0)
+                        }
+                        ForEach(intake.matches) { mt in
+                            HStack(spacing: 8) {
+                                thumb(mt.path, side: 44)
+                                VStack(alignment: .leading, spacing: 1) {
+                                    Text(mt.mark)
+                                        .font(.system(size: 10,
+                                                      design: .monospaced))
+                                    Text(String(format: "距離 %.3f",
+                                                mt.distance))
+                                        .font(.system(size: 9))
+                                        .foregroundStyle(AT.faint)
+                                }
+                                Spacer(minLength: 0)
+                                Button(app.t("propose", "提案として置く")) {
+                                    Task {
+                                        await intake.proposeSimilarity(
+                                            mt, part: simPart,
+                                            aspect: simAspect, into: m)
+                                    }
+                                }.font(.system(size: 10))
+                            }
+                            .padding(.vertical, 3)
+                        }
+                    }
+                }
+                .padding(14)
+            }
+        } else {
+            VStack {
+                Spacer()
+                Text(app.t("Pick a frame on the left.",
+                           "左でコマを選んでください。"))
+                    .font(.system(size: 11)).foregroundStyle(AT.faint)
+                Spacer()
+            }
+            .frame(maxWidth: .infinity)
+        }
+    }
+
+    private var logStrip: some View {
+        ScrollView {
+            VStack(alignment: .leading, spacing: 1) {
+                ForEach(Array(intake.log.enumerated().reversed()),
+                        id: \.offset) { _, line in
+                    Text(line).font(.system(size: 10, design: .monospaced))
+                        .foregroundStyle(AT.dim)
+                        .frame(maxWidth: .infinity, alignment: .leading)
+                }
+            }
+            .padding(.horizontal, 14).padding(.vertical, 6)
+        }
+        .frame(height: 84)
+        .background(AT.panel)
+    }
+
+    private func thumb(_ path: String, side: CGFloat) -> some View {
+        Group {
+            if let img = NSImage(contentsOfFile: path) {
+                Image(nsImage: img).resizable().scaledToFit()
+            } else {
+                RoundedRectangle(cornerRadius: 3).fill(AT.panel2)
+            }
+        }
+        .frame(maxWidth: side, maxHeight: side)
     }
 }
