@@ -1,0 +1,80 @@
+{
+ "name": "search_zero",
+ "maturity": "seeded",
+ "description": "Zero-result searches decomposed by cause, because the three causes belong to three different teams.",
+ "fallback": "UNKNOWN_UNCLASSIFIED",
+ "verdicts": [
+  {
+   "verdict": "UNKNOWN_OVERFILTER",
+   "pattern": "results_unfiltered=[1-9]\\d*",
+   "note": "results exist without the active filters — the constraint is the cause",
+   "provenance": "claude_seeded",
+   "remedy": {
+    "kind": "fix_content",
+    "owner": "search UI",
+    "verify": "rerun",
+    "auto_calibratable": false,
+    "note": "suggest relaxing the binding filter; re-run the query without it as the check"
+   }
+  },
+  {
+   "verdict": "UNKNOWN_TYPO",
+   "pattern": "nearest_term_distance=[12]\\b|did_you_mean=\\S+",
+   "note": "query is an edit away from a known term",
+   "provenance": "claude_seeded",
+   "remedy": {
+    "kind": "fix_content",
+    "owner": "spell layer",
+    "verify": "rerun",
+    "auto_calibratable": false,
+    "note": ""
+   }
+  },
+  {
+   "verdict": "UNKNOWN_VOCABULARY",
+   "pattern": "term_in_index=false.*category_match=true|synonym_miss=true",
+   "note": "the concept exists in the catalogue under other words",
+   "provenance": "claude_seeded",
+   "remedy": {
+    "kind": "fix_content",
+    "owner": "synonym dictionary",
+    "verify": "rerun",
+    "auto_calibratable": false,
+    "note": "draft the synonym entry -> quarantine -> human accept — the same three-step every other content fix takes"
+   }
+  },
+  {
+   "verdict": "UNKNOWN_INVENTORY",
+   "pattern": "category_match=false|no_products_in_category",
+   "note": "nothing of this kind is stocked — a business gap, not a search gap",
+   "provenance": "claude_seeded",
+   "remedy": {
+    "kind": "fix_upstream",
+    "owner": "assortment/buying",
+    "verify": "manual",
+    "auto_calibratable": false,
+    "note": ""
+   }
+  }
+ ],
+ "fixtures": [
+  {
+   "name": "filter kills results",
+   "expect": "UNKNOWN_OVERFILTER",
+   "evidence": "query=laufschuhe results=0 results_unfiltered=44 active_filters=size:49,color:green",
+   "provenance": "synthetic"
+  },
+  {
+   "name": "synonym gap",
+   "expect": "UNKNOWN_VOCABULARY",
+   "evidence": "query=trainers results=0 term_in_index=false category_match=true synonym_miss=true",
+   "provenance": "synthetic"
+  },
+  {
+   "name": "true assortment gap",
+   "expect": "UNKNOWN_INVENTORY",
+   "evidence": "query=snowshoes results=0 category_match=false",
+   "provenance": "synthetic"
+  }
+ ]
+}

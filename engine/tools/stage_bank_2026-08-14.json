@@ -1,0 +1,438 @@
+{
+  "registered": "2026-08-14T21:20:00+09:00",
+  "protocol": "Preregistered before the first verantyx.stage_split.split call. Expected chains are handwritten from the frozen head-noun table and the 「の」-split rule stated below — not read from a prior splitter run.",
+  "tokenizer": "surface-rules",
+  "head_nouns": ["場所", "者", "物", "先", "日", "年", "罪", "刑", "額", "数"],
+  "rel_predicates": ["された", "する"],
+  "no_split_rule": "A 「の」 is a stage boundary only when the left interval (from the previous cut) contains a closed relative predicate (された/する) or its rightmost content run carries a frozen head-noun suffix, AND the first content run of the right interval also carries a frozen head-noun suffix. Otherwise the 「の」 is a modifier. Relative-clause cuts are された/する immediately followed by a headed run. Unheaded or unlicensed relatives, mid-clause は/が, coordination, and question words abstain as UNKNOWN_UNSEGMENTED.",
+  "n": 30,
+  "items": [
+    {
+      "id": "M01",
+      "kind": "multihop",
+      "q": "背任罪の刑の上限を科された者の再審請求先",
+      "expected": {
+        "verdict": "STAGED",
+        "stages": [
+          {"condition": "背任", "head": "罪"},
+          {"condition": "刑の上限を科された", "head": "者"},
+          {"condition": "再審請求", "head": "先"}
+        ]
+      }
+    },
+    {
+      "id": "M02",
+      "kind": "multihop",
+      "q": "収賄罪の刑を科された者の仮釈放先",
+      "expected": {
+        "verdict": "STAGED",
+        "stages": [
+          {"condition": "収賄", "head": "罪"},
+          {"condition": "刑を科された", "head": "者"},
+          {"condition": "仮釈放", "head": "先"}
+        ]
+      }
+    },
+    {
+      "id": "M03",
+      "kind": "multihop",
+      "q": "殺人罪の刑を科された者の収容先",
+      "expected": {
+        "verdict": "STAGED",
+        "stages": [
+          {"condition": "殺人", "head": "罪"},
+          {"condition": "刑を科された", "head": "者"},
+          {"condition": "収容", "head": "先"}
+        ]
+      }
+    },
+    {
+      "id": "M04",
+      "kind": "multihop",
+      "q": "建築確認を受理された物の検査日",
+      "expected": {
+        "verdict": "STAGED",
+        "stages": [
+          {"condition": "建築確認を受理された", "head": "物"},
+          {"condition": "検査", "head": "日"}
+        ]
+      }
+    },
+    {
+      "id": "M05",
+      "kind": "multihop",
+      "q": "労働基準法違反で送検された者の処分先",
+      "expected": {
+        "verdict": "STAGED",
+        "stages": [
+          {"condition": "労働基準法違反で送検された", "head": "者"},
+          {"condition": "処分", "head": "先"}
+        ]
+      }
+    },
+    {
+      "id": "M06",
+      "kind": "multihop",
+      "q": "所得税の控除額を決定する者の届出先",
+      "expected": {
+        "verdict": "STAGED",
+        "stages": [
+          {"condition": "所得税の控除額を決定する", "head": "者"},
+          {"condition": "届出", "head": "先"}
+        ]
+      }
+    },
+    {
+      "id": "M07",
+      "kind": "multihop",
+      "q": "固定資産税の課税額を決定する年の見直し先",
+      "expected": {
+        "verdict": "STAGED",
+        "stages": [
+          {"condition": "固定資産税の課税額を決定する", "head": "年"},
+          {"condition": "見直し", "head": "先"}
+        ]
+      }
+    },
+    {
+      "id": "M08",
+      "kind": "multihop",
+      "q": "特許権を侵害された者の救済先",
+      "expected": {
+        "verdict": "STAGED",
+        "stages": [
+          {"condition": "特許権を侵害された", "head": "者"},
+          {"condition": "救済", "head": "先"}
+        ]
+      }
+    },
+    {
+      "id": "M09",
+      "kind": "multihop",
+      "q": "道路交通法違反で免許を取り消された者の再取得先",
+      "expected": {
+        "verdict": "STAGED",
+        "stages": [
+          {"condition": "道路交通法違反で免許を取り消された", "head": "者"},
+          {"condition": "再取得", "head": "先"}
+        ]
+      }
+    },
+    {
+      "id": "M10",
+      "kind": "multihop",
+      "q": "罰金の額を科された者の納付先",
+      "expected": {
+        "verdict": "STAGED",
+        "stages": [
+          {"condition": "罰金の額を科された", "head": "者"},
+          {"condition": "納付", "head": "先"}
+        ]
+      }
+    },
+    {
+      "id": "S01",
+      "kind": "nosplit",
+      "q": "東京の人口",
+      "expected": {
+        "verdict": "STAGED",
+        "stages": [
+          {"condition": "東京の", "head": "人口"}
+        ]
+      }
+    },
+    {
+      "id": "S02",
+      "kind": "nosplit",
+      "q": "富士山の高さ",
+      "expected": {
+        "verdict": "STAGED",
+        "stages": [
+          {"condition": "富士山の", "head": "高さ"}
+        ]
+      }
+    },
+    {
+      "id": "S03",
+      "kind": "nosplit",
+      "q": "日本の首都",
+      "expected": {
+        "verdict": "STAGED",
+        "stages": [
+          {"condition": "日本の", "head": "首都"}
+        ]
+      }
+    },
+    {
+      "id": "S04",
+      "kind": "nosplit",
+      "q": "地球の半径",
+      "expected": {
+        "verdict": "STAGED",
+        "stages": [
+          {"condition": "地球の", "head": "半径"}
+        ]
+      }
+    },
+    {
+      "id": "S05",
+      "kind": "nosplit",
+      "q": "水の沸点",
+      "expected": {
+        "verdict": "STAGED",
+        "stages": [
+          {"condition": "水の", "head": "沸点"}
+        ]
+      }
+    },
+    {
+      "id": "S06",
+      "kind": "nosplit",
+      "q": "円周率の値",
+      "expected": {
+        "verdict": "STAGED",
+        "stages": [
+          {"condition": "円周率の", "head": "値"}
+        ]
+      }
+    },
+    {
+      "id": "S07",
+      "kind": "nosplit",
+      "q": "新幹線の速度",
+      "expected": {
+        "verdict": "STAGED",
+        "stages": [
+          {"condition": "新幹線の", "head": "速度"}
+        ]
+      }
+    },
+    {
+      "id": "S08",
+      "kind": "nosplit",
+      "q": "桜の開花",
+      "expected": {
+        "verdict": "STAGED",
+        "stages": [
+          {"condition": "桜の", "head": "開花"}
+        ]
+      }
+    },
+    {
+      "id": "S09",
+      "kind": "nosplit",
+      "q": "太陽の質量",
+      "expected": {
+        "verdict": "STAGED",
+        "stages": [
+          {"condition": "太陽の", "head": "質量"}
+        ]
+      }
+    },
+    {
+      "id": "S10",
+      "kind": "nosplit",
+      "q": "憲法の前文",
+      "expected": {
+        "verdict": "STAGED",
+        "stages": [
+          {"condition": "憲法の", "head": "前文"}
+        ]
+      }
+    },
+    {
+      "id": "H01",
+      "kind": "hard",
+      "q": "上限を科された場合の手続",
+      "expected": {"verdict": "UNKNOWN_UNSEGMENTED"},
+      "why": "された + 場合 — 場合 is outside the head table; guessing the relative head is refused"
+    },
+    {
+      "id": "H02",
+      "kind": "hard",
+      "q": "殺人罪と傷害罪の刑の上限",
+      "expected": {"verdict": "UNKNOWN_UNSEGMENTED"},
+      "why": "coordination と — two possible first stages, order is not written"
+    },
+    {
+      "id": "H03",
+      "kind": "hard",
+      "q": "申請した人の提出先",
+      "expected": {"verdict": "UNKNOWN_UNSEGMENTED"},
+      "why": "した / 人 are outside the closed predicate pair and head table"
+    },
+    {
+      "id": "H04",
+      "kind": "hard",
+      "q": "未成年者が締結する契約の取消先",
+      "expected": {"verdict": "UNKNOWN_UNSEGMENTED"},
+      "why": "mid-clause が opens a clause the surface rules do not order"
+    },
+    {
+      "id": "H05",
+      "kind": "hard",
+      "q": "特許権の存続期間が満了する日の更新先",
+      "expected": {"verdict": "UNKNOWN_UNSEGMENTED"},
+      "why": "mid-clause が; する+日 would otherwise look licensed and invent a cut around the clause"
+    },
+    {
+      "id": "H06",
+      "kind": "hard",
+      "q": "起訴された後に釈放された者の再審請求先",
+      "expected": {"verdict": "UNKNOWN_UNSEGMENTED"},
+      "why": "された + 後 is an unheaded relative; two された would guess nesting order"
+    },
+    {
+      "id": "H07",
+      "kind": "hard",
+      "q": "再審は請求先のどこか",
+      "expected": {"verdict": "UNKNOWN_UNSEGMENTED"},
+      "why": "topic は plus question word どこ"
+    },
+    {
+      "id": "H08",
+      "kind": "hard",
+      "q": "科せられた者の収容先",
+      "expected": {"verdict": "UNKNOWN_UNSEGMENTED"},
+      "why": "せられた is not the closed predicate された"
+    },
+    {
+      "id": "H09",
+      "kind": "hard",
+      "q": "APIのrate limitを超えた者の届出先",
+      "expected": {"verdict": "UNKNOWN_UNSEGMENTED"},
+      "why": "超えた+者 is an unlicensed past relative; mixed Latin is not parsed"
+    },
+    {
+      "id": "H10",
+      "kind": "hard",
+      "q": "するものの提出先",
+      "expected": {"verdict": "UNKNOWN_UNSEGMENTED"},
+      "why": "する+もの is a nominalizer, not する+物"
+    }
+  ],
+  "registered_amendment": "2026-08-14T21:26:00+09:00",
+  "amendment_protocol": "Appended before the first split call on these amendment items. Existing items[] and the original Measured numbers stay untouched. Expected chains are handwritten from the temporal-noun exclusion (a bare temporal left does not license a 「の」 cut) plus the original head table — not read from a prior splitter run.",
+  "temporal_nouns": [
+    "一昨日", "一昨年",
+    "今日", "昨日", "明日",
+    "今年", "昨年", "来年", "本年", "毎年", "翌年", "前年",
+    "毎日",
+    "今月", "先月", "来月",
+    "本日", "当日", "翌日"
+  ],
+  "amendment_items": [
+    {
+      "id": "A-S01",
+      "kind": "nosplit",
+      "q": "今年の予算額",
+      "expected": {
+        "verdict": "STAGED",
+        "stages": [
+          {"condition": "今年の予算", "head": "額"}
+        ]
+      }
+    },
+    {
+      "id": "A-S02",
+      "kind": "nosplit",
+      "q": "昨日の提出先",
+      "expected": {
+        "verdict": "STAGED",
+        "stages": [
+          {"condition": "昨日の提出", "head": "先"}
+        ]
+      }
+    },
+    {
+      "id": "A-S03",
+      "kind": "nosplit",
+      "q": "来年の予定",
+      "expected": {
+        "verdict": "STAGED",
+        "stages": [
+          {"condition": "来年の", "head": "予定"}
+        ]
+      }
+    },
+    {
+      "id": "A-S04",
+      "kind": "nosplit",
+      "q": "毎年の行事",
+      "expected": {
+        "verdict": "STAGED",
+        "stages": [
+          {"condition": "毎年の", "head": "行事"}
+        ]
+      }
+    },
+    {
+      "id": "A-S05",
+      "kind": "nosplit",
+      "q": "先月の売上額",
+      "expected": {
+        "verdict": "STAGED",
+        "stages": [
+          {"condition": "先月の売上", "head": "額"}
+        ]
+      }
+    },
+    {
+      "id": "A-S06",
+      "kind": "nosplit",
+      "q": "本日の議題",
+      "expected": {
+        "verdict": "STAGED",
+        "stages": [
+          {"condition": "本日の", "head": "議題"}
+        ]
+      }
+    },
+    {
+      "id": "A-S07",
+      "kind": "nosplit",
+      "q": "翌年の税額",
+      "expected": {
+        "verdict": "STAGED",
+        "stages": [
+          {"condition": "翌年の税", "head": "額"}
+        ]
+      }
+    },
+    {
+      "id": "A-S08",
+      "kind": "nosplit",
+      "q": "当日の場所",
+      "expected": {
+        "verdict": "STAGED",
+        "stages": [
+          {"condition": "当日の", "head": "場所"}
+        ]
+      }
+    },
+    {
+      "id": "A-M01",
+      "kind": "multihop",
+      "q": "殺人罪の刑の上限",
+      "expected": {
+        "verdict": "STAGED",
+        "stages": [
+          {"condition": "殺人", "head": "罪"},
+          {"condition": "刑の", "head": "上限"}
+        ]
+      }
+    },
+    {
+      "id": "A-M02",
+      "kind": "multihop",
+      "q": "収賄罪の刑の上限",
+      "expected": {
+        "verdict": "STAGED",
+        "stages": [
+          {"condition": "収賄", "head": "罪"},
+          {"condition": "刑の", "head": "上限"}
+        ]
+      }
+    }
+  ]
+}

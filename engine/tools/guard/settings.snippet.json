@@ -1,0 +1,10 @@
+{
+  "hooks": {
+    "UserPromptSubmit": [{"hooks": [{"type": "command",
+      "command": "python3 <GUARD_DIR>/hook_prompt.py"}]}],
+    "Stop": [{"hooks": [{"type": "command",
+      "command": "python3 <GUARD_DIR>/hook_stop.py"}]}],
+    "PostToolUse": [{"matcher": "*", "hooks": [{"type": "command",
+      "command": "python3 <GUARD_DIR>/hook_posttool.py"}]}]
+  }
+}

@@ -1,0 +1,103 @@
+{
+ "arms": [
+  {
+   "label": "G3単独(加法可換のみ)",
+   "proved": [
+    "G3"
+   ],
+   "how": {
+    "G3": "induction on x + 推測補題"
+   },
+   "oriented": [
+    "G3"
+   ],
+   "unproved": [],
+   "nodes": 6,
+   "speculated": 2,
+   "discovered": [
+    "add(0, y) = y",
+    "add(s(k), y) = s(add(y, k))"
+   ]
+  },
+  {
+   "label": "G8単独(乗法可換のみ)",
+   "proved": [
+    "G8"
+   ],
+   "how": {
+    "G8": "induction on x + 推測補題"
+   },
+   "oriented": [
+    "G8"
+   ],
+   "unproved": [],
+   "nodes": 6,
+   "speculated": 2,
+   "discovered": [
+    "mul(0, y) = 0",
+    "mul(s(k), y) = add(mul(y, k), y)"
+   ]
+  },
+  {
+   "label": "可換律2本のみ",
+   "proved": [
+    "G3",
+    "G8"
+   ],
+   "how": {
+    "G3": "induction on x + 推測補題",
+    "G8": "induction on x + 推測補題"
+   },
+   "oriented": [
+    "G3",
+    "G8"
+   ],
+   "unproved": [],
+   "nodes": 12,
+   "speculated": 4,
+   "discovered": [
+    "add(0, y) = y",
+    "add(s(k), y) = s(add(y, k))",
+    "mul(0, y) = 0",
+    "mul(s(k), y) = add(mul(y, k), y)"
+   ]
+  },
+  {
+   "label": "全8本",
+   "proved": [
+    "G1",
+    "G2",
+    "G3",
+    "G4",
+    "G5",
+    "G6"
+   ],
+   "how": {
+    "G1": "induction on x (depth 0)",
+    "G2": "induction on x + 推測補題",
+    "G3": "induction on x (depth 0)",
+    "G4": "induction on x (depth 0)",
+    "G5": "induction on x (depth 0)",
+    "G6": "direct"
+   },
+   "oriented": [
+    "G3"
+   ],
+   "unproved": [
+    "G7",
+    "G8"
+   ],
+   "nodes": 27,
+   "speculated": 5,
+   "discovered": [
+    "add(s(0), y) = s(y)",
+    "add(s(s(k)), y) = s(s(add(k, y)))",
+    "mul(s(0), y) = y"
+   ]
+  }
+ ],
+ "lean_verified": 10,
+ "unsound": 0,
+ "unsound_detail": [],
+ "seconds": 1.6
+}

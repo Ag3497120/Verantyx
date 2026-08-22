@@ -1,0 +1,59 @@
+{
+ "prereg": "experiments/guard/PREREG2.md",
+ "checks": {
+  "V6_witness_and_boundary": {
+   "pass": true,
+   "detail": {
+    "no_witness": "REQUIRED_UNWITNESSED",
+    "witnessed": "REQUIRED_WITNESSED",
+    "after_boundary": "REQUIRED_UNWITNESSED",
+    "unrelated_tool": "REQUIRED_UNWITNESSED"
+   }
+  },
+  "V7_quarantine_shadow_then_gate": {
+   "pass": true,
+   "detail": {
+    "candidate": [
+     "KEPT",
+     1
+    ],
+    "adopted": "BROKEN",
+    "retired": "KEPT"
+   }
+  },
+  "V8_refusals": {
+   "pass": true,
+   "detail": {
+    "audit_no_requires": "NO_REQUIREMENTS",
+    "empty_propose": "UNKNOWN_EMPTY_CANDIDATE"
+   }
+  },
+  "V9_order_invariance": {
+   "pass": true,
+   "detail": {
+    "permutations": 36,
+    "identical": true,
+    "audit": "REQUIRED_UNWITNESSED"
+   }
+  },
+  "V10_baked_inference": {
+   "pass": true,
+   "detail": {
+    "baked": [
+     "罰金"
+    ],
+    "inferred_hit": [
+     "罰金"
+    ],
+    "plain": "KEPT",
+    "unknown_term_baked": [],
+    "check_s_200": {
+     "literal": 0.0005,
+     "baked": 0.0006,
+     "ratio": 1.11
+    }
+   }
+  }
+ },
+ "summary": "5/5 passed"
+}

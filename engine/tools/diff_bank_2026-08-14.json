@@ -1,0 +1,243 @@
+{
+  "registered": "2026-08-14T19:40:00+09:00",
+  "protocol": "Preregistered before the first structural_diff.diff call. Axis keywords are the human distinction a reader would name first; scoring looks for them as substrings in the top 3 items of the named bucket. Near-synonym pairs expect the shared bucket.",
+  "seed_note": "Bank contents are world-knowledge pairs, not read from a prior diff run.",
+  "n": 30,
+  "pairs": [
+    {
+      "a": "リンゴ",
+      "b": "電気",
+      "expected_axis": "食用/果実 vs 流れる/エネルギー",
+      "expect_bucket": "exclusive",
+      "axis_a": ["食", "果実"],
+      "axis_b": ["流", "電", "エネルギー"]
+    },
+    {
+      "a": "りんご",
+      "b": "電気",
+      "expected_axis": "食用/果実 vs 流れる/エネルギー (alias りんご→リンゴ)",
+      "expect_bucket": "exclusive",
+      "axis_a": ["食", "果実"],
+      "axis_b": ["流", "電", "エネルギー"]
+    },
+    {
+      "a": "水",
+      "b": "音",
+      "expected_axis": "液体/飲む vs 聞こえる/振動",
+      "expect_bucket": "exclusive",
+      "axis_a": ["液", "飲", "水"],
+      "axis_b": ["音", "聞", "振動"]
+    },
+    {
+      "a": "石",
+      "b": "風",
+      "expected_axis": "固体/岩石 vs 吹く/大気",
+      "expect_bucket": "exclusive",
+      "axis_a": ["岩", "石", "固"],
+      "axis_b": ["吹", "大気", "風"]
+    },
+    {
+      "a": "米",
+      "b": "光",
+      "expected_axis": "食用/穀物 vs 照らす/電磁",
+      "expect_bucket": "exclusive",
+      "axis_a": ["食", "穀", "米"],
+      "axis_b": ["照", "光", "電磁"]
+    },
+    {
+      "a": "金",
+      "b": "熱",
+      "expected_axis": "金属/貨幣 vs 温度/エネルギー",
+      "expect_bucket": "exclusive",
+      "axis_a": ["金属", "貨幣", "金"],
+      "axis_b": ["温", "熱", "エネルギー"]
+    },
+    {
+      "a": "犬",
+      "b": "包丁",
+      "expected_axis": "動物/哺乳 vs 切る/刃物",
+      "expect_bucket": "exclusive",
+      "axis_a": ["動物", "哺乳", "犬"],
+      "axis_b": ["切", "刃", "包丁"]
+    },
+    {
+      "a": "猫",
+      "b": "時計",
+      "expected_axis": "動物/哺乳 vs 時刻/機械",
+      "expect_bucket": "exclusive",
+      "axis_a": ["動物", "哺乳", "猫"],
+      "axis_b": ["時", "機械", "時計"]
+    },
+    {
+      "a": "馬",
+      "b": "自転車",
+      "expected_axis": "動物/乗用 vs 車輪/車両",
+      "expect_bucket": "exclusive",
+      "axis_a": ["動物", "馬", "乗"],
+      "axis_b": ["車", "輪", "車両"]
+    },
+    {
+      "a": "鳥",
+      "b": "ハンマー",
+      "expected_axis": "飛ぶ/動物 vs 打つ/工具",
+      "expect_bucket": "exclusive",
+      "axis_a": ["飛", "動物", "鳥"],
+      "axis_b": ["打", "工具", "ハンマー"]
+    },
+    {
+      "a": "魚",
+      "b": "ナイフ",
+      "expected_axis": "水生/泳ぐ vs 刃/切る",
+      "expect_bucket": "exclusive",
+      "axis_a": ["泳", "魚", "水"],
+      "axis_b": ["刃", "切", "ナイフ"]
+    },
+    {
+      "a": "東京",
+      "b": "戦争",
+      "expected_axis": "都市/首都 vs 戦闘/紛争",
+      "expect_bucket": "exclusive",
+      "axis_a": ["都市", "首都", "東京"],
+      "axis_b": ["戦", "紛争", "戦闘"]
+    },
+    {
+      "a": "山",
+      "b": "地震",
+      "expected_axis": "地形/高峰 vs 揺れ/災害",
+      "expect_bucket": "exclusive",
+      "axis_a": ["地形", "山", "峰"],
+      "axis_b": ["揺", "災害", "地震"]
+    },
+    {
+      "a": "学校",
+      "b": "選挙",
+      "expected_axis": "教育/学習 vs 投票/政治",
+      "expect_bucket": "exclusive",
+      "axis_a": ["教育", "学習", "学校"],
+      "axis_b": ["投票", "政治", "選挙"]
+    },
+    {
+      "a": "海",
+      "b": "祭り",
+      "expected_axis": "水域/海洋 vs 行事/祝",
+      "expect_bucket": "exclusive",
+      "axis_a": ["海", "水域", "海洋"],
+      "axis_b": ["祭", "行事", "祝"]
+    },
+    {
+      "a": "図書館",
+      "b": "火災",
+      "expected_axis": "施設/書 vs 燃える/災害",
+      "expect_bucket": "exclusive",
+      "axis_a": ["図書", "書", "館"],
+      "axis_b": ["燃", "火災", "災害"]
+    },
+    {
+      "a": "自由",
+      "b": "机",
+      "expected_axis": "権利/抽象 vs 家具/木材",
+      "expect_bucket": "exclusive",
+      "axis_a": ["権利", "自由", "抽象"],
+      "axis_b": ["家具", "机", "木"]
+    },
+    {
+      "a": "愛",
+      "b": "パン",
+      "expected_axis": "感情/抽象 vs 食用/小麦",
+      "expect_bucket": "exclusive",
+      "axis_a": ["感情", "愛"],
+      "axis_b": ["食", "パン", "小麦"]
+    },
+    {
+      "a": "時間",
+      "b": "橋",
+      "expected_axis": "経過/抽象 vs 構造/渡る",
+      "expect_bucket": "exclusive",
+      "axis_a": ["時間", "経過"],
+      "axis_b": ["橋", "渡"]
+    },
+    {
+      "a": "正義",
+      "b": "靴",
+      "expected_axis": "倫理/抽象 vs 履く/衣",
+      "expect_bucket": "exclusive",
+      "axis_a": ["正義", "倫理"],
+      "axis_b": ["靴", "履"]
+    },
+    {
+      "a": "平和",
+      "b": "鉛筆",
+      "expected_axis": "抽象/争い vs 筆記/文具",
+      "expect_bucket": "exclusive",
+      "axis_a": ["平和", "争"],
+      "axis_b": ["鉛筆", "筆記", "文具"]
+    },
+    {
+      "a": "火",
+      "b": "氷",
+      "expected_axis": "燃える/高温 vs 凍る/低温",
+      "expect_bucket": "exclusive",
+      "axis_a": ["燃", "火", "高温"],
+      "axis_b": ["凍", "氷", "低温"]
+    },
+    {
+      "a": "車",
+      "b": "飛行機",
+      "expected_axis": "道路/車輪 vs 空/翼",
+      "expect_bucket": "exclusive",
+      "axis_a": ["車", "道路", "輪"],
+      "axis_b": ["飛行", "翼", "空"]
+    },
+    {
+      "a": "医者",
+      "b": "教師",
+      "expected_axis": "医療/治療 vs 教育/学校",
+      "expect_bucket": "exclusive",
+      "axis_a": ["医", "治療"],
+      "axis_b": ["教育", "教師", "学校"]
+    },
+    {
+      "a": "塩",
+      "b": "砂糖",
+      "expected_axis": "塩味/鉱 vs 甘味/糖",
+      "expect_bucket": "exclusive",
+      "axis_a": ["塩"],
+      "axis_b": ["砂糖", "糖", "甘"]
+    },
+    {
+      "a": "川",
+      "b": "河川",
+      "expected_axis": "共有: 水流/地理",
+      "expect_bucket": "shared",
+      "axis_shared": ["川", "河", "水", "流"]
+    },
+    {
+      "a": "山",
+      "b": "山地",
+      "expected_axis": "共有: 地形/高峰",
+      "expect_bucket": "shared",
+      "axis_shared": ["山", "地", "峰"]
+    },
+    {
+      "a": "海",
+      "b": "海洋",
+      "expected_axis": "共有: 水域/塩",
+      "expect_bucket": "shared",
+      "axis_shared": ["海", "水", "洋"]
+    },
+    {
+      "a": "森",
+      "b": "森林",
+      "expected_axis": "共有: 樹木/植生",
+      "expect_bucket": "shared",
+      "axis_shared": ["森", "林", "樹"]
+    },
+    {
+      "a": "町",
+      "b": "街",
+      "expected_axis": "共有: 集落/都市",
+      "expect_bucket": "shared",
+      "axis_shared": ["町", "街", "都市"]
+    }
+  ]
+}

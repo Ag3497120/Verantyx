@@ -1,0 +1,60 @@
+{
+ "T_direct": {
+  "proved": false,
+  "base": [
+   "nil",
+   "nil"
+  ],
+  "step": [
+   "app(revacc(t, nil), cons(h, nil))",
+   "revacc(t, cons(h, nil))"
+  ],
+  "ih": "rev(?t) -> revacc(?t, nil)"
+ },
+ "Tprime": {
+  "proved": true,
+  "base": [
+   "a",
+   "a"
+  ],
+  "step": [
+   "revacc(t, cons(h, a))",
+   "revacc(t, cons(h, a))"
+  ]
+ },
+ "T_from_Tprime": {
+  "without_app_nil_r": [
+   "rev(l)",
+   "revacc(l, nil)",
+   false
+  ],
+  "with_app_nil_r": [
+   "rev(l)",
+   "revacc(l, nil)",
+   false
+  ]
+ },
+ "auto_generalise": {
+  "from_step": [
+   "app(revacc(t, nil), cons(h, nil))",
+   "revacc(t, cons(h, nil))"
+  ],
+  "candidate": [
+   "app(revacc(t, a), cons(h, a))",
+   "revacc(t, cons(h, a))"
+  ],
+  "proved": false,
+  "trace": {
+   "base": [
+    "app(revacc(t, a), cons(h, a))",
+    "revacc(t, cons(h, a))"
+   ],
+   "step": null
+  }
+ },
+ "lean": {
+  "T": "VERIFIED",
+  "Tprime": "VERIFIED"
+ },
+ "seconds": 0.3
+}

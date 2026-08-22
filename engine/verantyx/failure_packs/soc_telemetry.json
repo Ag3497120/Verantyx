@@ -1,0 +1,74 @@
+{
+ "name": "soc_telemetry",
+ "maturity": "seeded",
+ "description": "Why an alert could not be attributed — observability gaps only, never attack taxonomy.",
+ "fallback": "UNKNOWN_UNCLASSIFIED",
+ "verdicts": [
+  {
+   "verdict": "UNKNOWN_TELEMETRY",
+   "pattern": "no (logs?|telemetry) (from|for)|log source (missing|not onboarded)",
+   "note": "the deciding evidence was never collected",
+   "provenance": "claude_seeded",
+   "remedy": {
+    "kind": "add_data_source",
+    "owner": "log onboarding",
+    "verify": "rerun",
+    "auto_calibratable": false,
+    "note": ""
+   }
+  },
+  {
+   "verdict": "UNKNOWN_RETENTION",
+   "pattern": "logs? (aged out|expired|rotated)|outside retention",
+   "note": "was collected, no longer exists — a capacity-shaped gap",
+   "provenance": "claude_seeded",
+   "remedy": {
+    "kind": "raise_limit",
+    "owner": "retention window",
+    "verify": "rerun_larger_limit",
+    "auto_calibratable": false,
+    "note": "calibratable in shape; stays manual until verified, and retention costs money — the human gate matters here"
+   }
+  },
+  {
+   "verdict": "UNKNOWN_ENCRYPTED",
+   "pattern": "tls.*no (decrypt|inspection)|payload encrypted",
+   "note": "visible but opaque",
+   "provenance": "claude_seeded",
+   "remedy": {
+    "kind": "add_data_source",
+    "owner": "inspection policy",
+    "verify": "manual",
+    "auto_calibratable": false,
+    "note": "a policy decision with privacy weight, not a toggle"
+   }
+  },
+  {
+   "verdict": "UNKNOWN_IOC_CONFLICT",
+   "pattern": "(feed|source)s? disagree|conflicting (verdict|reputation)",
+   "note": "evidence exists and contradicts itself",
+   "provenance": "claude_seeded",
+   "remedy": {
+    "kind": "add_facts",
+    "owner": "threat intel curation",
+    "verify": "rerun",
+    "auto_calibratable": false,
+    "note": ""
+   }
+  }
+ ],
+ "fixtures": [
+  {
+   "name": "host not onboarded",
+   "expect": "UNKNOWN_TELEMETRY",
+   "evidence": "cannot attribute lateral movement: no logs from host db-prod-3, log source not onboarded",
+   "provenance": "synthetic"
+  },
+  {
+   "name": "aged out",
+   "expect": "UNKNOWN_RETENTION",
+   "evidence": "initial access window logs aged out (retention 30d, incident began ~45d ago)",
+   "provenance": "synthetic"
+  }
+ ]
+}

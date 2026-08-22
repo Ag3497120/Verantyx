@@ -1,0 +1,60 @@
+{
+  "gap_5f6aaead": {
+    "gap_id": "gap_5f6aaead",
+    "gap_type": "UNPROVED_GOAL",
+    "subject": "len(app(x, y)) = len(app(y, x))",
+    "scope": "math:goal:B1",
+    "severity": "QUALITY",
+    "status": "DETECTED",
+    "blocks": [],
+    "caused_by": [],
+    "required_for": [
+      "math_track"
+    ],
+    "acquisition_methods": [
+      "lpo_kbo",
+      "general_ac"
+    ],
+    "allowed_sources": [],
+    "max_depth": 1,
+    "resolution": null,
+    "verified_by": [],
+    "created_at": 1787187277.524352,
+    "updated_at": 1787187277.524352,
+    "role": null,
+    "failure_type": "no_induction_closed",
+    "input_type": null,
+    "output_type": null,
+    "expected_transition": null,
+    "observed_transition": null
+  },
+  "gap_4a5d1871": {
+    "gap_id": "gap_4a5d1871",
+    "gap_type": "UNPROVED_GOAL",
+    "subject": "mul(add(a, b), c) = add(mul(a, c), mul(b, c))",
+    "scope": "math:goal:B9",
+    "severity": "QUALITY",
+    "status": "DETECTED",
+    "blocks": [],
+    "caused_by": [],
+    "required_for": [
+      "math_track"
+    ],
+    "acquisition_methods": [
+      "lpo_kbo",
+      "general_ac"
+    ],
+    "allowed_sources": [],
+    "max_depth": 1,
+    "resolution": null,
+    "verified_by": [],
+    "created_at": 1787187277.52436,
+    "updated_at": 1787187277.52436,
+    "role": null,
+    "failure_type": "no_induction_closed",
+    "input_type": null,
+    "output_type": null,
+    "expected_transition": null,
+    "observed_transition": null
+  }
+}

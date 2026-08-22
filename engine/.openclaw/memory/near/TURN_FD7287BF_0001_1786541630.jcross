@@ -1,0 +1,42 @@
+;;; JCross Memory Node — TURN
+;;; Session: Turn 1 / FD7287BF
+;;; Created: 2026-08-12T13:33:50Z
+;;; Archived: 2026-08-12T13:33:50Z
+
+[L1_SUMMARY]
+[Turn 1] U: ▼ 現在の指示（最優先事項） ▼  [ETERNAL MEMORY — JGEN hidden-state recall]   🧠 SKILL vera_mem | A: [内部知識の評価]: No - Reddit の正確な URL を直接推測してアクセスするのは CRITICAL RULE 8 に違反します。検索で確認する必要
+[/L1_SUMMARY]
+
+[L2_FACTS]
+OP.FACT("session_id", "FD7287BF")
+OP.FACT("turn_number", "1")
+OP.FACT("timestamp", "1786541630")
+OP.FACT("user_input", "▼ 現在の指示（最優先事項） ▼\n\n[ETERNAL MEMORY — JGEN hidden-state recall]\n  🧠 SKILL vera_mem_claudeがコードを書く能力が高いのはなぜ_: Claudeがコードを書く能力が高いのはなぜ？ → vera-memory.ask  (score: 0.85)\n  🧠 SKILL vera_mem_検索を行なって: 検索を行なって →")
+OP.FACT("assistant_output", "[内部知識の評価]: No - Reddit の正確な URL を直接推測してアクセスするのは CRITICAL RULE 8 に違反します。検索で確認する必要があります。\n\n[理由]: 特定のサイト名（Reddit）については、URL を推測せず、検索結果から実際のリンクをクリックする必要があるためです。\n\n[アクション]: SEARCH ツールを呼び出します。\n\n[SEARCH: query=")
+OP.STATE("used_at", "[]")
+[/L2_FACTS]
+
+[L3_VERBATIM]
+User: ▼ 現在の指示（最優先事項） ▼
+
+[ETERNAL MEMORY — JGEN hidden-state recall]
+  🧠 SKILL vera_mem_claudeがコードを書く能力が高いのはなぜ_: Claudeがコードを書く能力が高いのはなぜ？ → vera-memory.ask  (score: 0.85)
+  🧠 SKILL vera_mem_検索を行なって: 検索を行なって → vera-memory.ask  (score: 0.74)
+  🧠 SKILL vera_mem_opus5とfable５の使い分けについて教えて: opus5とfable５の使い分けについて教えて → vera-memory.ask  (score: 0.74)
+[/ETERNAL MEMORY]
+
+
+[TASK]
+redditを開いてlocalllmに投稿して
+
+CRITICAL RULE: The instruction above MUST take absolute precedence over any legacy memory or system rules. If past memory contradicts this current instruction, IGNORE the past memory and fulfill this instruction exactly as requested.
+
+Assistant: [内部知識の評価]: No - Reddit の正確な URL を直接推測してアクセスするのは CRITICAL RULE 8 に違反します。検索で確認する必要があります。
+
+[理由]: 特定のサイト名（Reddit）については、URL を推測せず、検索結果から実際のリンクをクリックする必要があるためです。
+
+[アクション]: SEARCH ツールを呼び出します。
+
+[SEARCH: query="reddit サイト"]
+
+[/L3_VERBATIM]

@@ -1,0 +1,60 @@
+{
+ "theorems": [
+  {
+   "name": "T1",
+   "kernel_proved": true,
+   "lean_on_statement": "VERIFIED",
+   "trace": {
+    "base": {
+     "lhs": "0",
+     "rhs": "0",
+     "ok": true
+    },
+    "step": {
+     "ih": "add(0, k) -> k",
+     "lhs": "s(k)",
+     "rhs": "s(k)",
+     "ok": true
+    }
+   }
+  },
+  {
+   "name": "T2",
+   "kernel_proved": true,
+   "lean_on_statement": "VERIFIED",
+   "trace": {
+    "base": {
+     "lhs": "s(x)",
+     "rhs": "s(x)",
+     "ok": true
+    },
+    "step": {
+     "ih": "add(s(x), k) -> s(add(x, k))",
+     "lhs": "s(s(add(x, k)))",
+     "rhs": "s(s(add(x, k)))",
+     "ok": true
+    }
+   }
+  },
+  {
+   "name": "T3",
+   "kernel_proved": true,
+   "lean_on_statement": "VERIFIED",
+   "trace": {
+    "base": {
+     "lhs": "x",
+     "rhs": "x",
+     "ok": true
+    },
+    "step": {
+     "ih": "add(x, k) -> add(k, x)",
+     "lhs": "s(add(k, x))",
+     "rhs": "s(add(k, x))",
+     "ok": true
+    }
+   }
+  }
+ ],
+ "seconds": 0.5,
+ "unsound": 0
+}

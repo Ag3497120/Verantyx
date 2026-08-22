@@ -1,0 +1,112 @@
+{
+ "prereg": "experiments/guard/PREREG3.md",
+ "checks": {
+  "V14_pretend_vs_real_run": {
+   "pass": true,
+   "detail": {
+    "echo_pytest": [
+     "REQUIRED_UNWITNESSED",
+     "MENTIONED"
+    ],
+    "real_forms": {
+     "python3 -m pytest -q": "INVOKED",
+     "pytest -q": "INVOKED",
+     "uv run pytest": "INVOKED",
+     "cd /tmp && python3.11 -m pytest tests/": "INVOKED"
+    },
+    "npx_eslint": "INVOKED",
+    "note_only": "REQUIRED_UNWITNESSED",
+    "programs_sample": [
+     "git",
+     "npm",
+     "lint"
+    ]
+   }
+  },
+  "V15_exit_status_three_valued": {
+   "pass": true,
+   "detail": {
+    "ok_true": "REQUIRED_WITNESSED",
+    "ok_unknown": "REQUIRED_WITNESSED_UNVERIFIED",
+    "ok_false": "REQUIRED_FAILED",
+    "mixed_same_turn": [
+     "REQUIRED_FAILED",
+     "REQUIRED_FAILED"
+    ]
+   }
+  },
+  "V16_promotion_is_a_recommendation": {
+   "pass": true,
+   "detail": {
+    "verdicts": {
+     "good": "PROMOTABLE",
+     "loud": "REFUSED_OVERFIRING",
+     "silent": "REFUSED_NEVER_FIRED",
+     "young2": "UNKNOWN_TOO_FEW_CHECKS"
+    },
+    "promotable": [
+     "good"
+    ],
+    "criteria": {
+     "min_checks": 8,
+     "max_fire_rate": 0.5
+    },
+    "all_still_candidates": true
+   }
+  },
+  "V17_staleness_by_stat_and_rebake": {
+   "pass": true,
+   "detail": {
+    "baked_first": [
+     "罰金"
+    ],
+    "after_dry_run": [
+     "罰金"
+    ],
+    "after_rebake": [
+     "科料",
+     "罰金"
+    ],
+    "added": [
+     "科料"
+    ],
+    "stale_s": 1e-05,
+    "fresh_s": 1e-05,
+    "verdicts": [
+     "FRESH",
+     "STALE",
+     "FRESH"
+    ]
+   }
+  },
+  "V18_order_invariance": {
+   "pass": true,
+   "detail": {
+    "permutations": 36,
+    "identical": true,
+    "verdict": "REQUIRED_FAILED",
+    "rows": [
+     [
+      "g",
+      "git",
+      "UNVERIFIED",
+      "INVOKED"
+     ],
+     [
+      "l",
+      "eslint",
+      "FAILED",
+      "INVOKED"
+     ],
+     [
+      "t",
+      "pytest",
+      "WITNESSED",
+      "INVOKED"
+     ]
+    ]
+   }
+  }
+ },
+ "summary": "5/5 passed"
+}

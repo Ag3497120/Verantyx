@@ -1,0 +1,210 @@
+{
+ "laws": [
+  {
+   "name": "A1",
+   "law": "hseq(hseq(f, g), h) = hseq(f, hseq(g, h))",
+   "verdict": "PASSED",
+   "passed": 800
+  },
+  {
+   "name": "A2",
+   "law": "hretry(hretry(f, a), b) = hretry(f, mul(a, b))",
+   "verdict": "PASSED",
+   "passed": 144
+  },
+  {
+   "name": "A3",
+   "law": "htrunc(htrunc(f, a), b) = htrunc(f, min(a, b))",
+   "verdict": "PASSED",
+   "passed": 144
+  },
+  {
+   "name": "A4",
+   "law": "hretry(f, s(0)) = f",
+   "verdict": "PASSED",
+   "passed": 16
+  },
+  {
+   "name": "A5",
+   "law": "hjudge(hjudge(f)) = hjudge(f)",
+   "verdict": "PASSED",
+   "passed": 16
+  }
+ ],
+ "false_laws": [
+  {
+   "name": "F1",
+   "law": "hseq(f, g) = hseq(g, f)",
+   "verdict": "REFUTED",
+   "passed": 3,
+   "model": "mockB",
+   "assignment": {
+    "f": "hact(0)",
+    "g": "hact(s(0))"
+   },
+   "input": "",
+   "lhs_obs": [
+    true,
+    2,
+    "o1(o0())"
+   ],
+   "rhs_obs": [
+    true,
+    2,
+    "o0(o1())"
+   ]
+  },
+  {
+   "name": "F2",
+   "law": "hretry(f, s(s(0))) = f",
+   "verdict": "REFUTED",
+   "passed": 0,
+   "model": "mockA",
+   "assignment": {
+    "f": "hact(0)"
+   },
+   "input": "",
+   "lhs_obs": [
+    true,
+    2,
+    "o0()"
+   ],
+   "rhs_obs": [
+    false,
+    1,
+    ""
+   ]
+  },
+  {
+   "name": "F3",
+   "law": "htrunc(f, s(s(s(s(0))))) = f",
+   "verdict": "REFUTED",
+   "passed": 1,
+   "model": "mockB",
+   "assignment": {
+    "f": "hact(0)"
+   },
+   "input": "xxxxxx",
+   "lhs_obs": [
+    true,
+    1,
+    "o0(xxxx)"
+   ],
+   "rhs_obs": [
+    true,
+    1,
+    "o0(xxxxxx)"
+   ]
+  }
+ ],
+ "undecided": [
+  {
+   "name": "X1",
+   "law": "htrunc(hretry(f, a), b) = hretry(htrunc(f, b), a)",
+   "verdict": "UNTESTED",
+   "passed": 144
+  }
+ ],
+ "lean_budget": {
+  "min_idem": {
+   "verdict": "VERIFIED",
+   "tactic": "simp",
+   "witness": "verified:lean4:local"
+  },
+  "mul_one": {
+   "verdict": "VERIFIED",
+   "tactic": "simp",
+   "witness": "verified:lean4:local"
+  }
+ },
+ "compression": {
+  "terms": 180,
+  "canonical_forms": 144,
+  "sample_collapse": [
+   {
+    "canonical": "htrunc(hact(0), 0)",
+    "collapsed": 8
+   },
+   {
+    "canonical": "htrunc(hretry(hact(0), s(s(0))), 0)",
+    "collapsed": 8
+   },
+   {
+    "canonical": "htrunc(hact(0), s(s(s(s(0)))))",
+    "collapsed": 6
+   },
+   {
+    "canonical": "htrunc(hretry(hact(0), s(s(0))), s(s(s(s(0)))))",
+    "collapsed": 6
+   },
+   {
+    "canonical": "htrunc(hact(0), s(s(s(s(s(s(0)))))))",
+    "collapsed": 4
+   }
+  ]
+ },
+ "order_invariance": {
+  "forward_forms": 144,
+  "reversed_forms": 144,
+  "identical": true
+ },
+ "empirical": {
+  "rates": {
+   "plain": {
+    "mockA": "0/6",
+    "mockB": "4/6"
+   },
+   "retry2": {
+    "mockA": "6/6",
+    "mockB": "4/6"
+   },
+   "trunc6": {
+    "mockA": "0/6",
+    "mockB": "6/6"
+   }
+  },
+  "facts": [
+   {
+    "fact": "retry2_helps",
+    "model": "mockA",
+    "base": "0/6",
+    "variant": "6/6",
+    "adopted": true,
+    "witness": "verified:run:mockA@2026-08-20"
+   },
+   {
+    "fact": "retry2_helps",
+    "model": "mockB",
+    "base": "4/6",
+    "variant": "4/6",
+    "adopted": false,
+    "witness": "verified:run:mockB@2026-08-20"
+   },
+   {
+    "fact": "trunc6_helps",
+    "model": "mockA",
+    "base": "0/6",
+    "variant": "0/6",
+    "adopted": false,
+    "witness": "verified:run:mockA@2026-08-20"
+   },
+   {
+    "fact": "trunc6_helps",
+    "model": "mockB",
+    "base": "4/6",
+    "variant": "6/6",
+    "adopted": true,
+    "witness": "verified:run:mockB@2026-08-20"
+   }
+  ],
+  "model_specific": true
+ },
+ "transfer": [
+  {
+   "fact": "retry2_helps",
+   "mockA": "adopted",
+   "mockB": "NOT_TRANSFERRED"
+  }
+ ],
+ "seconds": 1.8
+}

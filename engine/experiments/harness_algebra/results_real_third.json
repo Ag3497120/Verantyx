@@ -1,0 +1,119 @@
+{
+ "temp": 0.7,
+ "n_tasks": 24,
+ "models": {
+  "third": {
+   "scores": {
+    "pass1": {
+     "plain": 24,
+     "retry3": 24,
+     "trunc400": 24,
+     "trunc64": 18
+    },
+    "pass2": {
+     "plain": 24,
+     "retry3": 24,
+     "trunc400": 24,
+     "trunc64": 18
+    },
+    "reverse": {
+     "plain": 24,
+     "retry3": 24,
+     "trunc400": 24,
+     "trunc64": 18
+    }
+   },
+   "facts": [
+    {
+     "fact": "retry3_helps",
+     "model": "third",
+     "pass1": "24->24 (+0)",
+     "pass2": "24->24 (+0)",
+     "verdict1": "abstain",
+     "reproduced": true,
+     "order_reversed_verdict": "abstain",
+     "order_consistent": true,
+     "witness": null
+    },
+    {
+     "fact": "trunc400_helps",
+     "model": "third",
+     "pass1": "24->24 (+0)",
+     "pass2": "24->24 (+0)",
+     "verdict1": "abstain",
+     "reproduced": true,
+     "order_reversed_verdict": "abstain",
+     "order_consistent": true,
+     "witness": null
+    },
+    {
+     "fact": "trunc64_helps",
+     "model": "third",
+     "pass1": "24->18 (-6)",
+     "pass2": "24->18 (-6)",
+     "verdict1": "harmful",
+     "reproduced": true,
+     "order_reversed_verdict": "harmful",
+     "order_consistent": true,
+     "witness": null
+    }
+   ],
+   "infra_errors": 0,
+   "sample_log": [
+    {
+     "kind": "arith",
+     "variant": "plain",
+     "ok": true,
+     "out": "95"
+    },
+    {
+     "kind": "arith",
+     "variant": "retry3",
+     "ok": true,
+     "out": "95"
+    },
+    {
+     "kind": "arith",
+     "variant": "trunc400",
+     "ok": true,
+     "out": "95"
+    },
+    {
+     "kind": "arith",
+     "variant": "trunc64",
+     "ok": true,
+     "out": "95"
+    },
+    {
+     "kind": "arith",
+     "variant": "plain",
+     "ok": true,
+     "out": "55 \n"
+    },
+    {
+     "kind": "arith",
+     "variant": "retry3",
+     "ok": true,
+     "out": "55 \n"
+    },
+    {
+     "kind": "arith",
+     "variant": "trunc400",
+     "ok": true,
+     "out": "55"
+    },
+    {
+     "kind": "arith",
+     "variant": "trunc64",
+     "ok": true,
+     "out": "55"
+    }
+   ]
+  }
+ },
+ "H1_model_split": "3モデル比較は集計側で",
+ "H2_reproduced": true,
+ "H3_no_silent": true,
+ "H4_order": true,
+ "seconds": 211.6
+}

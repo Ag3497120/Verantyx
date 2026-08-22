@@ -1,0 +1,74 @@
+{
+ "name": "support_kb",
+ "maturity": "seeded",
+ "description": "Support-bot escalations by cause.",
+ "fallback": "UNKNOWN_UNCLASSIFIED",
+ "verdicts": [
+  {
+   "verdict": "UNKNOWN_POLICY_EXCEPTION",
+   "pattern": "policy exception|goodwill|refund outside (policy|window)",
+   "note": "requires a judgment call automation must not make",
+   "provenance": "claude_seeded",
+   "remedy": {
+    "kind": "human_judgment",
+    "owner": "support lead",
+    "verify": "manual",
+    "auto_calibratable": false,
+    "note": "a permanent boundary, not a gap to close — same class as boundary.py's copyright short-circuit"
+   }
+  },
+  {
+   "verdict": "UNKNOWN_ACCOUNT",
+   "pattern": "(cannot|could not) (verify|access) account|entitlement (check )?failed|not authori[sz]ed",
+   "note": "blocked on identity/entitlement, not on knowledge",
+   "provenance": "claude_seeded",
+   "remedy": {
+    "kind": "request_input",
+    "owner": "customer/identity",
+    "verify": "rerun",
+    "auto_calibratable": false,
+    "note": ""
+   }
+  },
+  {
+   "verdict": "UNKNOWN_STALE_KB",
+   "pattern": "article .*(outdated|deprecated|old version)|ui changed since article",
+   "note": "an article exists and is wrong about the current product",
+   "provenance": "claude_seeded",
+   "remedy": {
+    "kind": "fix_content",
+    "owner": "knowledge base",
+    "verify": "rerun",
+    "auto_calibratable": false,
+    "note": ""
+   }
+  },
+  {
+   "verdict": "UNKNOWN_KB",
+   "pattern": "no (kb )?article (matched|found)|knowledge base miss",
+   "note": "nothing written covers this — the growable gap",
+   "provenance": "claude_seeded",
+   "remedy": {
+    "kind": "fix_content",
+    "owner": "knowledge base",
+    "verify": "rerun",
+    "auto_calibratable": false,
+    "note": "draft article -> quarantine -> human accept; the prose sibling of module_forge"
+   }
+  }
+ ],
+ "fixtures": [
+  {
+   "name": "no article",
+   "expect": "UNKNOWN_KB",
+   "evidence": "escalated: no kb article matched query 'export ledger to csv on legacy plan'",
+   "provenance": "synthetic"
+  },
+  {
+   "name": "goodwill refund",
+   "expect": "UNKNOWN_POLICY_EXCEPTION",
+   "evidence": "escalated: customer requests refund outside policy window, agent flagged goodwill decision",
+   "provenance": "synthetic"
+  }
+ ]
+}

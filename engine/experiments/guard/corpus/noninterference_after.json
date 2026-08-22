@@ -1,0 +1,74 @@
+{
+ "phase": "after",
+ "prereg": "PREREG_CORPUS.md C4",
+ "vera_store_fingerprint": {
+  "size": 208807708,
+  "mtime": 1786873593.3107324,
+  "head64k_sha256": "c7b4bb494b4b5adf18dded584f224c82ed8eb32cff65db8b2e1c1ab4bc73e55a"
+ },
+ "forks": {
+  "passed": 89,
+  "total": 89,
+  "seconds": 5.83,
+  "failed": []
+ },
+ "confirms": [
+  {
+   "script": "run_confirm.py",
+   "expected": "7/7",
+   "got": "6/7",
+   "ok": false,
+   "returncode": 0,
+   "seconds": 21.0,
+   "stderr_tail": ""
+  },
+  {
+   "script": "run_confirm2.py",
+   "expected": "5/5",
+   "got": "5/5",
+   "ok": true,
+   "returncode": 0,
+   "seconds": 0.1,
+   "stderr_tail": ""
+  },
+  {
+   "script": "run_confirm3.py",
+   "expected": "5/5",
+   "got": "5/5",
+   "ok": true,
+   "returncode": 0,
+   "seconds": 0.06,
+   "stderr_tail": ""
+  },
+  {
+   "script": "run_confirm_lang.py",
+   "expected": "3/3",
+   "got": "3/3",
+   "ok": true,
+   "returncode": 0,
+   "seconds": 0.05,
+   "stderr_tail": ""
+  }
+ ],
+ "guard_dir_restored": {
+  "results_confirm.json": {
+   "restored_sha_matches_backup": true
+  },
+  "results_confirm2.json": {
+   "restored_sha_matches_backup": true
+  },
+  "results_confirm3.json": {
+   "restored_sha_matches_backup": true
+  },
+  "results_confirm_lang.json": {
+   "restored_sha_matches_backup": true
+  }
+ },
+ "vera_store_fingerprint_after": {
+  "size": 208807708,
+  "mtime": 1786873593.3107324,
+  "head64k_sha256": "c7b4bb494b4b5adf18dded584f224c82ed8eb32cff65db8b2e1c1ab4bc73e55a"
+ },
+ "vera_store_unchanged": true,
+ "all_green": false
+}

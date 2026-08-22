@@ -1,0 +1,88 @@
+{
+ "prereg": "experiments/guard/PREREG.md",
+ "checks": {
+  "V1a_extract_ja_en": {
+   "pass": true,
+   "detail": {
+    "candidates": 4,
+    "ja_forbid": true,
+    "en_forbid": true,
+    "ja_require": true,
+    "en_require": true
+   }
+  },
+  "V1b_retire_stops_check_keeps_list": {
+   "pass": true,
+   "detail": {
+    "hits_before": 2,
+    "hits_after": 1,
+    "todo_after_retire": false,
+    "retired_in_list": true
+   }
+  },
+  "V2_emoji_class_catches_glyph": {
+   "pass": true,
+   "detail": {
+    "caught": true,
+    "found_chars": [
+     "🎉",
+     "⭐"
+    ],
+    "false_positive_on_plain": false
+   }
+  },
+  "V3a_unreadable_yields_nothing": {
+   "pass": true,
+   "detail": {
+    "candidates": []
+   }
+  },
+  "V3b_retired_absent_from_fading": {
+   "pass": true,
+   "detail": {
+    "fading": [
+     "a"
+    ],
+    "verdict": "FADING"
+   }
+  },
+  "V4_registration_order_invariant": {
+   "pass": true,
+   "detail": {
+    "permutations": 6,
+    "texts": 4,
+    "identical": true
+   }
+  },
+  "V5_guard_cli_speed": {
+   "pass": true,
+   "detail": {
+    "frozen": {
+     "set_s": 3.886,
+     "check_s": [
+      4.075,
+      4.004
+     ],
+     "verdicts": [
+      "BROKEN",
+      "KEPT"
+     ],
+     "note": "onefile展開が毎回かかる — 2秒超は正直に記録"
+    },
+    "source_cli": {
+     "check_s": [
+      0.052,
+      0.046
+     ],
+     "verdicts": [
+      "BROKEN",
+      "KEPT"
+     ]
+    },
+    "limit_s": 2.0,
+    "hook_path": "tools/guard/_common.py はソース直呼びを優先、凍結バイナリはリポジトリ不在時の控え"
+   }
+  }
+ },
+ "summary": "7/7 passed"
+}

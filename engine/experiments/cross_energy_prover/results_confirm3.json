@@ -1,0 +1,294 @@
+{
+ "confirm": [
+  {
+   "name": "C1",
+   "goal": "rev(app(x, y)) = app(rev(y), rev(x))",
+   "proved": true,
+   "how": "induction on x",
+   "lemmas": [
+    "L10: rev(app(x, cons(c, nil))) = cons(c, rev(x))",
+    "L11: app(x, nil) = rev(rev(x))",
+    "L12: rev(rev(y)) = y",
+    "L13: app(app(y, z), l) = app(y, app(z, l))"
+   ],
+   "nodes": 16,
+   "seconds": 3.6
+  },
+  {
+   "name": "C2",
+   "goal": "len(rev(x)) = len(x)",
+   "proved": true,
+   "how": "induction on x + L10",
+   "lemmas": [
+    "L10: len(app(x, cons(c, nil))) = add(len(x), s(0))"
+   ],
+   "nodes": 4,
+   "seconds": 1.3
+  },
+  {
+   "name": "C3",
+   "goal": "app(app(x, y), z) = app(x, app(y, z))",
+   "proved": true,
+   "how": "induction on x",
+   "lemmas": [],
+   "nodes": 2,
+   "seconds": 0.0
+  },
+  {
+   "name": "C4",
+   "goal": "mul(a, add(b, c)) = add(mul(a, b), mul(a, c))",
+   "proved": true,
+   "how": "induction on c",
+   "lemmas": [
+    "L10: add(0, a) = a",
+    "L11: add(0, a) = add(a, 0)",
+    "L12: add(a, mul(0, c)) = a",
+    "L13: add(mul(0, b), a) = a",
+    "L14: add(a, mul(0, c)) = add(0, a)",
+    "L15: add(a, mul(0, c)) = add(a, 0)",
+    "L16: add(mul(0, b), a) = add(0, a)",
+    "L17: add(a, mul(0, c)) = add(a, len(nil))"
+   ],
+   "nodes": 16,
+   "seconds": 5.3
+  }
+ ],
+ "regress": [
+  {
+   "name": "R1",
+   "goal": "add(0, a) = a",
+   "proved": true,
+   "how": "induction on a",
+   "lemmas": [],
+   "nodes": 2,
+   "seconds": 0.0
+  },
+  {
+   "name": "R2",
+   "goal": "add(s(a), b) = s(add(a, b))",
+   "proved": true,
+   "how": "induction on b",
+   "lemmas": [],
+   "nodes": 3,
+   "seconds": 0.0
+  },
+  {
+   "name": "R3",
+   "goal": "add(a, b) = add(b, a)",
+   "proved": true,
+   "how": "direct",
+   "lemmas": [],
+   "nodes": 1,
+   "seconds": 0.0
+  },
+  {
+   "name": "R4",
+   "goal": "add(add(a, b), c) = add(a, add(b, c))",
+   "proved": true,
+   "how": "direct",
+   "lemmas": [],
+   "nodes": 1,
+   "seconds": 0.0
+  },
+  {
+   "name": "R5",
+   "goal": "mul(0, a) = 0",
+   "proved": true,
+   "how": "induction on a",
+   "lemmas": [],
+   "nodes": 2,
+   "seconds": 0.0
+  },
+  {
+   "name": "R6",
+   "goal": "mul(a, 0) = 0",
+   "proved": true,
+   "how": "direct",
+   "lemmas": [],
+   "nodes": 1,
+   "seconds": 0.0
+  },
+  {
+   "name": "R7",
+   "goal": "mul(s(a), b) = add(mul(a, b), b)",
+   "proved": true,
+   "how": "induction on b",
+   "lemmas": [],
+   "nodes": 3,
+   "seconds": 0.0
+  },
+  {
+   "name": "R8",
+   "goal": "mul(a, b) = mul(b, a)",
+   "proved": true,
+   "how": "direct",
+   "lemmas": [],
+   "nodes": 1,
+   "seconds": 0.0
+  }
+ ],
+ "battery": [
+  {
+   "name": "B1",
+   "goal": "len(app(x, y)) = len(app(y, x))",
+   "proved": false,
+   "how": "no_induction_closed",
+   "lemmas": [],
+   "nodes": 3,
+   "seconds": 0.1
+  },
+  {
+   "name": "B2",
+   "goal": "rev(app(x, y)) = app(rev(y), rev(x))",
+   "proved": true,
+   "how": "induction on x",
+   "lemmas": [
+    "L10: rev(app(x, cons(c, nil))) = cons(c, rev(x))",
+    "L11: app(x, nil) = rev(rev(x))",
+    "L12: rev(rev(y)) = y",
+    "L13: app(app(y, z), l) = app(y, app(z, l))"
+   ],
+   "nodes": 16,
+   "seconds": 1.1
+  },
+  {
+   "name": "B3",
+   "goal": "len(rev(x)) = len(x)",
+   "proved": true,
+   "how": "induction on x + L10",
+   "lemmas": [
+    "L10: len(app(x, cons(c, nil))) = add(len(x), s(0))"
+   ],
+   "nodes": 4,
+   "seconds": 0.2
+  },
+  {
+   "name": "B4",
+   "goal": "app(rev(x), nil) = rev(x)",
+   "proved": true,
+   "how": "induction on x + L10",
+   "lemmas": [
+    "L10: app(app(x, cons(c, nil)), nil) = app(x, cons(c, rev(nil)))"
+   ],
+   "nodes": 4,
+   "seconds": 0.6
+  },
+  {
+   "name": "B5",
+   "goal": "rev(app(rev(x), nil)) = x",
+   "proved": true,
+   "how": "induction on x + L10+L20",
+   "lemmas": [
+    "L10: app(app(x, cons(c, nil)), nil) = app(x, cons(c, rev(nil)))",
+    "L11: rev(app(x, cons(c, nil))) = cons(c, rev(x))",
+    "L12: app(x, nil) = rev(rev(x))",
+    "L13: app(rev(rev(rev(x))), z) = app(rev(x), app(nil, z))",
+    "L14: rev(rev(y)) = y",
+    "L15: app(rev(rev(rev(x))), z) = app(rev(x), app(z, nil))",
+    "L16: app(rev(rev(rev(x))), z) = app(rev(x), z)",
+    "L17: app(x, app(z, l)) = app(app(x, z), l)",
+    "L18: rev(rev(x)) = app(nil, x)",
+    "L19: rev(rev(rev(x))) = app(nil, rev(x))",
+    "L20: app(app(x, cons(c, nil)), nil) = app(x, cons(c, nil))"
+   ],
+   "nodes": 26,
+   "seconds": 6.0
+  },
+  {
+   "name": "B6",
+   "goal": "len(app(x, cons(a, nil))) = s(len(x))",
+   "proved": true,
+   "how": "induction on x",
+   "lemmas": [],
+   "nodes": 2,
+   "seconds": 0.0
+  },
+  {
+   "name": "B7",
+   "goal": "mul(a, s(0)) = a",
+   "proved": false,
+   "how": "no_induction_closed",
+   "lemmas": [],
+   "nodes": 2,
+   "seconds": 0.0
+  },
+  {
+   "name": "B8",
+   "goal": "mul(s(0), a) = a",
+   "proved": true,
+   "how": "induction on a",
+   "lemmas": [],
+   "nodes": 2,
+   "seconds": 0.0
+  },
+  {
+   "name": "B9",
+   "goal": "mul(add(a, b), c) = add(mul(a, c), mul(b, c))",
+   "proved": true,
+   "how": "induction on c",
+   "lemmas": [
+    "L10: add(mul(0, c), a) = add(0, a)",
+    "L11: add(mul(0, c), a) = add(len(nil), a)",
+    "L12: add(0, b) = b",
+    "L13: add(mul(0, c), a) = add(0, add(0, a))"
+   ],
+   "nodes": 35,
+   "seconds": 4.0
+  },
+  {
+   "name": "B10",
+   "goal": "len(app(app(x, y), z)) = add(add(len(x), len(y)), len(z))",
+   "proved": false,
+   "how": "no_induction_closed",
+   "lemmas": [
+    "L10: add(0, add(0, a)) = add(a, len(nil))",
+    "L11: add(0, a) = a",
+    "L12: add(0, add(a, len(z))) = add(a, len(z))",
+    "L13: add(0, add(a, len(z))) = add(len(z), a)",
+    "L14: add(0, add(a, len(z))) = add(add(a, 0), len(z))",
+    "L15: add(0, add(a, len(z))) = add(len(z), add(a, 0))",
+    "L16: add(0, add(a, b)) = add(a, b)",
+    "L17: add(0, add(a, b)) = add(b, a)",
+    "L18: len(app(z, nil)) = add(0, len(z))",
+    "L19: len(app(z, nil)) = add(len(z), 0)",
+    "L20: len(app(z, nil)) = len(z)",
+    "L21: len(app(x, cons(c, nil))) = add(len(x), s(0))",
+    "L22: len(app(x, cons(c, nil))) = len(cons(0, x))",
+    "L23: len(app(x, cons(c, nil))) = len(cons(c, x))",
+    "L24: app(z, nil) = z",
+    "L25: len(app(z, nil)) = len(app(nil, z))"
+   ],
+   "nodes": 52,
+   "seconds": 4.4
+  },
+  {
+   "name": "B11",
+   "goal": "rev(cons(a, nil)) = cons(a, nil)",
+   "proved": true,
+   "how": "direct",
+   "lemmas": [],
+   "nodes": 1,
+   "seconds": 0.0
+  },
+  {
+   "name": "B12",
+   "goal": "mul(a, mul(b, c)) = mul(mul(a, b), c)",
+   "proved": true,
+   "how": "direct",
+   "lemmas": [],
+   "nodes": 1,
+   "seconds": 0.0
+  }
+ ],
+ "lean_verified_targets": 21,
+ "unsound": 0,
+ "unsound_detail": [],
+ "ledger_summary": {
+  "lemmas": 57,
+  "lemmas_lean_verified": 57,
+  "trials": 59,
+  "open_goals": 3,
+  "resolved_goals": 0
+ },
+ "seconds": 44.0
+}

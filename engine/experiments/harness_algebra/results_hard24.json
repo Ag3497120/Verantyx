@@ -1,0 +1,337 @@
+{
+ "temp": 0.7,
+ "n_tasks": 24,
+ "models": {
+  "small": {
+   "scores": {
+    "pass1": {
+     "plain": 7,
+     "retry3": 7,
+     "trunc400": 1,
+     "trunc64": 1
+    },
+    "pass2": {
+     "plain": 8,
+     "retry3": 7,
+     "trunc400": 0,
+     "trunc64": 1
+    },
+    "reverse": {
+     "plain": 6,
+     "retry3": 6,
+     "trunc400": 0,
+     "trunc64": 1
+    }
+   },
+   "facts": [
+    {
+     "fact": "retry3_helps",
+     "model": "small",
+     "pass1": "7->7 (+0)",
+     "pass2": "8->7 (-1)",
+     "verdict1": "abstain",
+     "reproduced": true,
+     "order_reversed_verdict": "abstain",
+     "order_consistent": true,
+     "witness": null
+    },
+    {
+     "fact": "trunc400_helps",
+     "model": "small",
+     "pass1": "7->1 (-6)",
+     "pass2": "8->0 (-8)",
+     "verdict1": "harmful",
+     "reproduced": true,
+     "order_reversed_verdict": "harmful",
+     "order_consistent": true,
+     "witness": null
+    },
+    {
+     "fact": "trunc64_helps",
+     "model": "small",
+     "pass1": "7->1 (-6)",
+     "pass2": "8->1 (-7)",
+     "verdict1": "harmful",
+     "reproduced": true,
+     "order_reversed_verdict": "harmful",
+     "order_consistent": true,
+     "witness": null
+    }
+   ],
+   "infra_errors": 0,
+   "sample_log": [
+    {
+     "kind": "arith",
+     "variant": "plain",
+     "ok": false,
+     "out": "この問題の解法は、数値だけで答えです。\n\nまず、37 + 58 = 95\n\n次に、95 * 3 = 285\n\n最後に、2"
+    },
+    {
+     "kind": "arith",
+     "variant": "retry3",
+     "ok": false,
+     "out": "この計算式を数字で解くには、以下のように計算します:\n\n\\((37 + 58) \\times 3 - 14 = 95 \\"
+    },
+    {
+     "kind": "arith",
+     "variant": "trunc400",
+     "ok": false,
+     "out": "まず、数字を直接計算する方法は以下の通りです:\n\n\\[ (37+58) \\times 3 - 14 = 95 \\time"
+    },
+    {
+     "kind": "arith",
+     "variant": "trunc64",
+     "ok": false,
+     "out": "これは数学の基本的な問題です。数字を入力して計算してみましょう。\n\nまず、数字を入力してください:\n37 + 58 = "
+    },
+    {
+     "kind": "arith",
+     "variant": "plain",
+     "ok": false,
+     "out": "この式を解くためには、それぞれの部分で数を計算する必要があります。\n\nまず、式内側の括弧から出る式が:\n\\[ (84 -"
+    },
+    {
+     "kind": "arith",
+     "variant": "retry3",
+     "ok": false,
+     "out": "(84 - 29) * 4 + 17 = 53 * 4 + 17 = 212 + 17 = 229\n\nこの計算は、以下の"
+    },
+    {
+     "kind": "arith",
+     "variant": "trunc400",
+     "ok": false,
+     "out": "この問題の解法を教えてください。\n\nまず、数式を整えます：\n\n(84 - 29) * 4 + 17\n\n次のステップで、先"
+    },
+    {
+     "kind": "arith",
+     "variant": "trunc64",
+     "ok": false,
+     "out": "この問題の解き方を説明します：\n\nまず、数字の組み合わせを考える。  \n最初に、84 - 29 = 55になります。\n\n"
+    }
+   ]
+  },
+  "mid": {
+   "scores": {
+    "pass1": {
+     "plain": 12,
+     "retry3": 12,
+     "trunc400": 3,
+     "trunc64": 6
+    },
+    "pass2": {
+     "plain": 11,
+     "retry3": 11,
+     "trunc400": 3,
+     "trunc64": 5
+    },
+    "reverse": {
+     "plain": 11,
+     "retry3": 11,
+     "trunc400": 3,
+     "trunc64": 7
+    }
+   },
+   "facts": [
+    {
+     "fact": "retry3_helps",
+     "model": "mid",
+     "pass1": "12->12 (+0)",
+     "pass2": "11->11 (+0)",
+     "verdict1": "abstain",
+     "reproduced": true,
+     "order_reversed_verdict": "abstain",
+     "order_consistent": true,
+     "witness": null
+    },
+    {
+     "fact": "trunc400_helps",
+     "model": "mid",
+     "pass1": "12->3 (-9)",
+     "pass2": "11->3 (-8)",
+     "verdict1": "harmful",
+     "reproduced": true,
+     "order_reversed_verdict": "harmful",
+     "order_consistent": true,
+     "witness": null
+    },
+    {
+     "fact": "trunc64_helps",
+     "model": "mid",
+     "pass1": "12->6 (-6)",
+     "pass2": "11->5 (-6)",
+     "verdict1": "harmful",
+     "reproduced": true,
+     "order_reversed_verdict": "harmful",
+     "order_consistent": true,
+     "witness": null
+    }
+   ],
+   "infra_errors": 0,
+   "sample_log": [
+    {
+     "kind": "arith",
+     "variant": "plain",
+     "ok": false,
+     "out": "260"
+    },
+    {
+     "kind": "arith",
+     "variant": "retry3",
+     "ok": false,
+     "out": "236"
+    },
+    {
+     "kind": "arith",
+     "variant": "trunc400",
+     "ok": false,
+     "out": "281"
+    },
+    {
+     "kind": "arith",
+     "variant": "trunc64",
+     "ok": false,
+     "out": "266"
+    },
+    {
+     "kind": "arith",
+     "variant": "plain",
+     "ok": false,
+     "out": "233"
+    },
+    {
+     "kind": "arith",
+     "variant": "retry3",
+     "ok": false,
+     "out": "115"
+    },
+    {
+     "kind": "arith",
+     "variant": "trunc400",
+     "ok": false,
+     "out": "107"
+    },
+    {
+     "kind": "arith",
+     "variant": "trunc64",
+     "ok": false,
+     "out": "105"
+    }
+   ]
+  },
+  "third": {
+   "scores": {
+    "pass1": {
+     "plain": 11,
+     "retry3": 10,
+     "trunc400": 1,
+     "trunc64": 4
+    },
+    "pass2": {
+     "plain": 10,
+     "retry3": 9,
+     "trunc400": 1,
+     "trunc64": 4
+    },
+    "reverse": {
+     "plain": 10,
+     "retry3": 9,
+     "trunc400": 1,
+     "trunc64": 3
+    }
+   },
+   "facts": [
+    {
+     "fact": "retry3_helps",
+     "model": "third",
+     "pass1": "11->10 (-1)",
+     "pass2": "10->9 (-1)",
+     "verdict1": "abstain",
+     "reproduced": true,
+     "order_reversed_verdict": "abstain",
+     "order_consistent": true,
+     "witness": null
+    },
+    {
+     "fact": "trunc400_helps",
+     "model": "third",
+     "pass1": "11->1 (-10)",
+     "pass2": "10->1 (-9)",
+     "verdict1": "harmful",
+     "reproduced": true,
+     "order_reversed_verdict": "harmful",
+     "order_consistent": true,
+     "witness": null
+    },
+    {
+     "fact": "trunc64_helps",
+     "model": "third",
+     "pass1": "11->4 (-7)",
+     "pass2": "10->4 (-6)",
+     "verdict1": "harmful",
+     "reproduced": true,
+     "order_reversed_verdict": "harmful",
+     "order_consistent": true,
+     "witness": null
+    }
+   ],
+   "infra_errors": 0,
+   "sample_log": [
+    {
+     "kind": "arith",
+     "variant": "plain",
+     "ok": false,
+     "out": "95"
+    },
+    {
+     "kind": "arith",
+     "variant": "retry3",
+     "ok": false,
+     "out": "95 \n"
+    },
+    {
+     "kind": "arith",
+     "variant": "trunc400",
+     "ok": false,
+     "out": "95*3-14=285-14=271 \n\n\n"
+    },
+    {
+     "kind": "arith",
+     "variant": "trunc64",
+     "ok": false,
+     "out": "95*3-14 = 285-14 = 271 \n\n\n"
+    },
+    {
+     "kind": "arith",
+     "variant": "plain",
+     "ok": false,
+     "out": "265 \n"
+    },
+    {
+     "kind": "arith",
+     "variant": "retry3",
+     "ok": false,
+     "out": "235 \n"
+    },
+    {
+     "kind": "arith",
+     "variant": "trunc400",
+     "ok": false,
+     "out": "256 \n"
+    },
+    {
+     "kind": "arith",
+     "variant": "trunc64",
+     "ok": false,
+     "out": "235 \n"
+    }
+   ]
+  }
+ },
+ "H1_model_split": [],
+ "P1_ceiling_broken": true,
+ "P2_large_models_differ": false,
+ "H2_reproduced": true,
+ "H3_no_silent": true,
+ "H4_order": true,
+ "seconds": 828.1
+}

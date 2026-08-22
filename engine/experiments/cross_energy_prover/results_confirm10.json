@@ -1,0 +1,398 @@
+{
+ "ml_rules": 24,
+ "confirm": [
+  {
+   "name": "C1",
+   "goal": "rev(app(x, y)) = app(rev(y), rev(x))",
+   "proved": true,
+   "how": "induction on x + L13",
+   "lemmas": [
+    "L10: app(app(x, cons(c, nil)), nil) = app(x, cons(c, rev(nil)))",
+    "L11: app(app(rev(z), cons(c, nil)), nil) = rev(cons(c, z))",
+    "L12: app(rev(y), nil) = rev(y)",
+    "L13: app(app(x, z), l) = app(x, app(z, l))"
+   ],
+   "cited": [],
+   "nodes": 10,
+   "seconds": 11.3
+  },
+  {
+   "name": "C2",
+   "goal": "len(rev(x)) = len(x)",
+   "proved": true,
+   "how": "induction on x + L14",
+   "lemmas": [
+    "L10: len(app(x, cons(c, nil))) = add(len(x), s(0))",
+    "L11: len(app(x, cons(c, nil))) = len(cons(0, x))",
+    "L12: len(app(x, cons(c, nil))) = len(cons(c, x))",
+    "L13: s(len(rev(z))) = s(len(z))",
+    "L14: len(app(rev(z), cons(c, nil))) = add(len(z), s(0))"
+   ],
+   "cited": [],
+   "nodes": 14,
+   "seconds": 5.1
+  },
+  {
+   "name": "C3",
+   "goal": "app(app(x, y), z) = app(x, app(y, z))",
+   "proved": true,
+   "how": "induction on x",
+   "lemmas": [],
+   "cited": [],
+   "nodes": 2,
+   "seconds": 0.0
+  },
+  {
+   "name": "C4",
+   "goal": "mul(a, add(b, c)) = add(mul(a, b), mul(a, c))",
+   "proved": true,
+   "how": "direct",
+   "lemmas": [],
+   "cited": [
+    "ml:left_distrib"
+   ],
+   "nodes": 1,
+   "seconds": 0.0
+  }
+ ],
+ "regress": [
+  {
+   "name": "R1",
+   "goal": "add(0, a) = a",
+   "proved": true,
+   "how": "direct",
+   "lemmas": [],
+   "cited": [
+    "ml:one_mul.to_additive"
+   ],
+   "nodes": 1,
+   "seconds": 0.0
+  },
+  {
+   "name": "R2",
+   "goal": "add(s(a), b) = s(add(a, b))",
+   "proved": true,
+   "how": "induction on b",
+   "lemmas": [],
+   "cited": [],
+   "nodes": 3,
+   "seconds": 0.0
+  },
+  {
+   "name": "R3",
+   "goal": "add(a, b) = add(b, a)",
+   "proved": true,
+   "how": "direct",
+   "lemmas": [],
+   "cited": [],
+   "nodes": 1,
+   "seconds": 0.0
+  },
+  {
+   "name": "R4",
+   "goal": "add(add(a, b), c) = add(a, add(b, c))",
+   "proved": true,
+   "how": "direct",
+   "lemmas": [],
+   "cited": [],
+   "nodes": 1,
+   "seconds": 0.0
+  },
+  {
+   "name": "R5",
+   "goal": "mul(0, a) = 0",
+   "proved": true,
+   "how": "direct",
+   "lemmas": [],
+   "cited": [
+    "ml:mulzeroclass.zero_mul"
+   ],
+   "nodes": 1,
+   "seconds": 0.0
+  },
+  {
+   "name": "R6",
+   "goal": "mul(a, 0) = 0",
+   "proved": true,
+   "how": "direct",
+   "lemmas": [],
+   "cited": [],
+   "nodes": 1,
+   "seconds": 0.0
+  },
+  {
+   "name": "R7",
+   "goal": "mul(s(a), b) = add(mul(a, b), b)",
+   "proved": true,
+   "how": "induction on b",
+   "lemmas": [],
+   "cited": [
+    "ml:one_mul.to_additive"
+   ],
+   "nodes": 3,
+   "seconds": 0.0
+  },
+  {
+   "name": "R8",
+   "goal": "mul(a, b) = mul(b, a)",
+   "proved": true,
+   "how": "direct",
+   "lemmas": [],
+   "cited": [],
+   "nodes": 1,
+   "seconds": 0.0
+  }
+ ],
+ "battery": [
+  {
+   "name": "B1",
+   "goal": "len(app(x, y)) = len(app(y, x))",
+   "proved": false,
+   "how": "no_induction_closed",
+   "lemmas": [
+    "L10: len(app(y, nil)) = len(y)"
+   ],
+   "cited": [],
+   "nodes": 175,
+   "seconds": 40.4
+  },
+  {
+   "name": "B2",
+   "goal": "rev(app(x, y)) = app(rev(y), rev(x))",
+   "proved": true,
+   "how": "induction on x + L13",
+   "lemmas": [
+    "L10: app(app(x, cons(c, nil)), nil) = app(x, cons(c, rev(nil)))",
+    "L11: app(app(rev(z), cons(c, nil)), nil) = rev(cons(c, z))",
+    "L12: app(rev(y), nil) = rev(y)",
+    "L13: app(app(x, z), l) = app(x, app(z, l))"
+   ],
+   "cited": [],
+   "nodes": 10,
+   "seconds": 4.6
+  },
+  {
+   "name": "B3",
+   "goal": "len(rev(x)) = len(x)",
+   "proved": true,
+   "how": "induction on x + L14",
+   "lemmas": [
+    "L10: len(app(x, cons(c, nil))) = add(len(x), s(0))",
+    "L11: len(app(x, cons(c, nil))) = len(cons(0, x))",
+    "L12: len(app(x, cons(c, nil))) = len(cons(c, x))",
+    "L13: s(len(rev(z))) = s(len(z))",
+    "L14: len(app(rev(z), cons(c, nil))) = add(len(z), s(0))"
+   ],
+   "cited": [],
+   "nodes": 14,
+   "seconds": 1.8
+  },
+  {
+   "name": "B4",
+   "goal": "app(rev(x), nil) = rev(x)",
+   "proved": true,
+   "how": "induction on x + L11",
+   "lemmas": [
+    "L10: app(app(x, cons(c, nil)), nil) = app(x, cons(c, rev(nil)))",
+    "L11: app(app(rev(z), cons(c, nil)), nil) = rev(cons(c, z))"
+   ],
+   "cited": [],
+   "nodes": 6,
+   "seconds": 2.6
+  },
+  {
+   "name": "B5",
+   "goal": "rev(app(rev(x), nil)) = x",
+   "proved": true,
+   "how": "induction on x + L20",
+   "lemmas": [
+    "L10: app(app(x, cons(c, nil)), nil) = app(x, cons(c, rev(nil)))",
+    "L11: app(app(x, cons(c, nil)), nil) = app(x, cons(c, nil))",
+    "L12: app(app(x, cons(c, nil)), nil) = app(app(nil, x), cons(c, nil))",
+    "L13: app(app(x, cons(c, nil)), nil) = app(x, app(cons(c, nil), nil))",
+    "L14: rev(app(x, cons(c, nil))) = cons(c, rev(x))",
+    "L15: rev(app(x, cons(c, nil))) = app(cons(c, nil), rev(x))",
+    "L16: rev(app(x, cons(c, nil))) = cons(add(0, c), rev(x))",
+    "L17: rev(app(x, cons(c, nil))) = cons(add(c, 0), rev(x))",
+    "L18: cons(b, rev(rev(z))) = cons(b, z)",
+    "L19: rev(app(app(app(rev(z), cons(b, nil)), cons(c, nil)), nil)) = cons(c, cons(b, z))",
+    "L20: rev(app(app(rev(z), cons(c, nil)), nil)) = cons(c, z)"
+   ],
+   "cited": [
+    "ml:one_mul.to_additive"
+   ],
+   "nodes": 35,
+   "seconds": 22.2
+  },
+  {
+   "name": "B6",
+   "goal": "len(app(x, cons(a, nil))) = s(len(x))",
+   "proved": true,
+   "how": "induction on x",
+   "lemmas": [],
+   "cited": [],
+   "nodes": 2,
+   "seconds": 0.0
+  },
+  {
+   "name": "B7",
+   "goal": "mul(a, s(0)) = a",
+   "proved": true,
+   "how": "direct",
+   "lemmas": [],
+   "cited": [
+    "ml:one_mul.to_additive"
+   ],
+   "nodes": 1,
+   "seconds": 0.0
+  },
+  {
+   "name": "B8",
+   "goal": "mul(s(0), a) = a",
+   "proved": true,
+   "how": "induction on a",
+   "lemmas": [],
+   "cited": [],
+   "nodes": 2,
+   "seconds": 0.0
+  },
+  {
+   "name": "B9",
+   "goal": "mul(add(a, b), c) = add(mul(a, c), mul(b, c))",
+   "proved": true,
+   "how": "direct",
+   "lemmas": [],
+   "cited": [
+    "ml:right_distrib"
+   ],
+   "nodes": 1,
+   "seconds": 0.0
+  },
+  {
+   "name": "B10",
+   "goal": "len(app(app(x, y), z)) = add(add(len(x), len(y)), len(z))",
+   "proved": false,
+   "how": "no_induction_closed",
+   "lemmas": [
+    "L10: len(app(z, nil)) = len(z)",
+    "L11: add(len(y), len(z)) = len(app(z, y))",
+    "L12: len(app(app(x, nil), z)) = len(app(x, z))",
+    "L13: len(app(app(x, nil), z)) = add(len(z), len(x))",
+    "L14: len(app(app(x, nil), z)) = add(0, len(app(x, z)))"
+   ],
+   "cited": [
+    "ml:one_mul.to_additive"
+   ],
+   "nodes": 632,
+   "seconds": 151.7
+  },
+  {
+   "name": "B11",
+   "goal": "rev(cons(a, nil)) = cons(a, nil)",
+   "proved": true,
+   "how": "direct",
+   "lemmas": [],
+   "cited": [],
+   "nodes": 1,
+   "seconds": 0.0
+  },
+  {
+   "name": "B12",
+   "goal": "mul(a, mul(b, c)) = mul(mul(a, b), c)",
+   "proved": true,
+   "how": "direct",
+   "lemmas": [],
+   "cited": [],
+   "nodes": 1,
+   "seconds": 0.0
+  }
+ ],
+ "poly": [
+  {
+   "name": "P1",
+   "goal": "add(mul(a, b), mul(a, c)) = mul(a, add(b, c))",
+   "proved": true,
+   "how": "direct",
+   "lemmas": [],
+   "cited": [
+    "ml:left_distrib"
+   ],
+   "nodes": 1,
+   "seconds": 0.0
+  },
+  {
+   "name": "P2",
+   "goal": "mul(add(a, b), c) = add(mul(a, c), mul(b, c))",
+   "proved": true,
+   "how": "direct",
+   "lemmas": [],
+   "cited": [
+    "ml:right_distrib"
+   ],
+   "nodes": 1,
+   "seconds": 0.0
+  },
+  {
+   "name": "P3",
+   "goal": "mul(add(a, b), add(a, b)) = add(mul(a, a), add(mul(a, b), add(mul(b, a), mul(b, b))))",
+   "proved": true,
+   "how": "direct",
+   "lemmas": [],
+   "cited": [
+    "ml:left_distrib",
+    "ml:right_distrib"
+   ],
+   "nodes": 1,
+   "seconds": 0.0
+  },
+  {
+   "name": "P4",
+   "goal": "mul(a, add(b, add(c, n))) = add(mul(a, b), add(mul(a, c), mul(a, n)))",
+   "proved": true,
+   "how": "direct",
+   "lemmas": [],
+   "cited": [
+    "ml:left_distrib"
+   ],
+   "nodes": 1,
+   "seconds": 0.0
+  },
+  {
+   "name": "P5",
+   "goal": "mul(mul(a, add(b, c)), n) = add(mul(mul(a, b), n), mul(mul(a, c), n))",
+   "proved": true,
+   "how": "direct",
+   "lemmas": [],
+   "cited": [
+    "ml:left_distrib",
+    "ml:right_distrib"
+   ],
+   "nodes": 1,
+   "seconds": 0.0
+  },
+  {
+   "name": "P6",
+   "goal": "add(mul(add(a, b), c), mul(add(a, b), n)) = mul(add(a, b), add(c, n))",
+   "proved": true,
+   "how": "direct",
+   "lemmas": [],
+   "cited": [
+    "ml:right_distrib",
+    "ml:left_distrib"
+   ],
+   "nodes": 1,
+   "seconds": 0.0
+  }
+ ],
+ "lean_verified_targets": 28,
+ "unsound": 0,
+ "unsound_detail": [],
+ "ledger_summary": {
+  "lemmas": 50,
+  "lemmas_lean_verified": 49,
+  "trials": 42,
+  "open_goals": 2,
+  "resolved_goals": 0
+ },
+ "seconds": 259.8
+}

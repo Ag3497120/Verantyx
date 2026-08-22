@@ -1,0 +1,16 @@
+{
+  "registered": "2026-08-16T00:00:00+09:00",
+  "registered_before": "any ConceptNet download, any import-route measurement, any reading of ConceptNet ja content beyond knowing it exists",
+  "source": "ConceptNet 5.7 assertions, /c/ja/ rows only (CC-BY-SA 4.0)",
+  "structure": "isolated sovereign (CrossStore sidecar), NEVER in census, hand-off only, every answer carries source label conceptnet5.7 and the relation name",
+  "bank": "tools/commonsense_bank_2026-08-14.json (unchanged, 50 items)",
+  "baseline_to_beat": {"route": "連邦(修理後)", "correct": 9, "wrong": 0, "refusal": 41},
+  "adopt_if": {
+    "correct_min": 18,
+    "wrong_max": 2,
+    "note": "correct >= 2x baseline AND wrong <= 2. 誤答 is the enemy: a wrong assertion from an imported KB is worse than silence because it wears a source label."
+  },
+  "park_if": "anything else — the sovereign stays built but wired to nothing, verdict burned into the commit like W3a",
+  "scoring": "identical to measure_commonsense_baseline.py: ANSWERED_CORRECT if an axis token (or the property) appears in the route's answer; TYPED_REFUSAL for typed silence; WRONG for an asserting answer without the axis",
+  "not_allowed": ["editing the bank", "editing axis_tokens", "moving these thresholds after any import measurement", "letting the imported sovereign vote in any census"]
+}

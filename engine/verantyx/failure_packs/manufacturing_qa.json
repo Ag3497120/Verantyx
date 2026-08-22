@@ -1,0 +1,74 @@
+{
+ "name": "manufacturing_qa",
+ "maturity": "seeded",
+ "description": "Inspection failures typed by what the measurement can and cannot say.",
+ "fallback": "UNKNOWN_UNCLASSIFIED",
+ "verdicts": [
+  {
+   "verdict": "UNKNOWN_SENSOR_GAP",
+   "pattern": "sensor (offline|missing|no reading)|measurement not (taken|available)",
+   "note": "the part may be fine; the eye was shut",
+   "provenance": "claude_seeded",
+   "remedy": {
+    "kind": "add_data_source",
+    "owner": "instrumentation",
+    "verify": "rerun",
+    "auto_calibratable": false,
+    "note": ""
+   }
+  },
+  {
+   "verdict": "UNKNOWN_GAUGE_DRIFT",
+   "pattern": "(gauge|calibration) (drift|overdue|expired)|reference standard",
+   "note": "the measuring device is the suspect",
+   "provenance": "claude_seeded",
+   "remedy": {
+    "kind": "fix_upstream",
+    "owner": "metrology",
+    "verify": "rerun",
+    "auto_calibratable": false,
+    "note": "re-measure with a calibrated gauge; that re-measurement is the verification"
+   }
+  },
+  {
+   "verdict": "UNKNOWN_LOT_PATTERN",
+   "pattern": "(supplier|lot|batch) [A-Za-z0-9_-]+ (recurr|cluster|concentrat)",
+   "note": "failures cluster by lot — upstream material, not our process",
+   "provenance": "claude_seeded",
+   "remedy": {
+    "kind": "fix_upstream",
+    "owner": "supplier quality",
+    "verify": "manual",
+    "auto_calibratable": false,
+    "note": ""
+   }
+  },
+  {
+   "verdict": "UNKNOWN_TOLERANCE_EDGE",
+   "pattern": "within tolerance but trending|approaching (limit|tolerance)|cpk below",
+   "note": "not yet a defect; stop treating it as pass/fail",
+   "provenance": "claude_seeded",
+   "remedy": {
+    "kind": "add_facts",
+    "owner": "process engineering",
+    "verify": "manual",
+    "auto_calibratable": false,
+    "note": "the honest verdict is 'drifting', which pass/fail cannot express"
+   }
+  }
+ ],
+ "fixtures": [
+  {
+   "name": "dead sensor",
+   "expect": "UNKNOWN_SENSOR_GAP",
+   "evidence": "inspection incomplete: bore diameter sensor offline, measurement not taken",
+   "provenance": "synthetic"
+  },
+  {
+   "name": "lot cluster",
+   "expect": "UNKNOWN_LOT_PATTERN",
+   "evidence": "defect review: failures cluster by lot HK-2231 recurring across three shifts",
+   "provenance": "synthetic"
+  }
+ ]
+}

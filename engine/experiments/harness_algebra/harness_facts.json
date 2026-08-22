@@ -1,0 +1,168 @@
+{
+ "votes": "none",
+ "note": "実LLMハーネス経験則 — モデル名・日付・条件つき。確率の主張ではなく記録",
+ "conditions": {
+  "temperature": 0.7,
+  "battery": "24課題(算術12/JSON6/抽出6)",
+  "adoption_line": "+2問",
+  "runs": "本走+再現走+順序反転走",
+  "infra": "LM Studio @ M1 Max via Thunderbolt/SSHトンネル",
+  "batteries": {
+   "easy24": "算術12/JSON6/抽出6、邪魔文~500字、事実は末尾寄り",
+   "hard24": "多段算術8/入れ子JSON8/抽出8、邪魔文2,043字、事実は中央"
+  }
+ },
+ "facts": [
+  {
+   "fact": "hretry(f,3) が成功を増やす",
+   "model": "qwen2.5-0.5b-instruct",
+   "measured": "6→9 (+3)、再現 9→10 (+1)、反転 5→10 (+5)",
+   "verdict": "ADOPTED",
+   "witness": "verified:run:qwen2.5-0.5b@2026-08-20",
+   "battery": "easy24"
+  },
+  {
+   "fact": "htrunc(f,400) が成功を増やす",
+   "model": "qwen2.5-0.5b-instruct",
+   "measured": "6→8 (+2)、再現 +1、反転 +3",
+   "verdict": "ADOPTED",
+   "witness": "verified:run:qwen2.5-0.5b@2026-08-20",
+   "battery": "easy24"
+  },
+  {
+   "fact": "hretry(f,3)",
+   "model": "qwen2.5-coder-7b-instruct",
+   "measured": "24→24 (+0) 全走",
+   "verdict": "ABSTAIN(天井)",
+   "witness": "verified:run:qwen2.5-coder-7b@2026-08-20",
+   "battery": "easy24"
+  },
+  {
+   "fact": "htrunc(f,400)",
+   "model": "qwen2.5-coder-7b-instruct",
+   "measured": "24→24 (+0) 全走",
+   "verdict": "ABSTAIN(天井)",
+   "witness": "verified:run:qwen2.5-coder-7b@2026-08-20",
+   "battery": "easy24"
+  },
+  {
+   "fact": "htrunc(f,64) は害",
+   "model": "qwen2.5-coder-7b-instruct",
+   "measured": "24→18 (−6) 全走一致",
+   "verdict": "HARMFUL",
+   "witness": "verified:run:qwen2.5-coder-7b@2026-08-20",
+   "battery": "easy24"
+  },
+  {
+   "fact": "htrunc(f,64) は害",
+   "model": "qwen2.5-0.5b-instruct",
+   "measured": "6→2 (−4)、再現 −4、反転 0(abstain) — ラベル不安定",
+   "verdict": "HARMFUL_UNSTABLE",
+   "witness": null,
+   "battery": "easy24"
+  },
+  {
+   "fact": "hretry(f,3)",
+   "model": "gemma-2-9b",
+   "measured": "24→24 (+0) 全走",
+   "verdict": "ABSTAIN(天井)",
+   "witness": "verified:run:gemma-2-9b@2026-08-20",
+   "battery": "easy24"
+  },
+  {
+   "fact": "htrunc(f,400)",
+   "model": "gemma-2-9b",
+   "measured": "24→24 (+0) 全走",
+   "verdict": "ABSTAIN(天井)",
+   "witness": "verified:run:gemma-2-9b@2026-08-20",
+   "battery": "easy24"
+  },
+  {
+   "fact": "htrunc(f,64) は害",
+   "model": "gemma-2-9b",
+   "measured": "24→18 (−6) 全走一致",
+   "verdict": "HARMFUL",
+   "witness": "verified:run:gemma-2-9b@2026-08-20",
+   "battery": "easy24"
+  },
+  {
+   "fact": "hretry(f,3)",
+   "model": "qwen2.5-0.5b-instruct",
+   "battery": "hard24",
+   "measured": "7->7 (+0)、再現 8->7 (-1)",
+   "verdict": "ABSTAIN",
+   "witness": "verified:run:qwen2.5-0.5b-instruct@2026-08-21"
+  },
+  {
+   "fact": "htrunc(f,400)",
+   "model": "qwen2.5-0.5b-instruct",
+   "battery": "hard24",
+   "measured": "7->1 (-6)、再現 8->0 (-8)",
+   "verdict": "HARMFUL",
+   "witness": "verified:run:qwen2.5-0.5b-instruct@2026-08-21"
+  },
+  {
+   "fact": "htrunc(f,64)",
+   "model": "qwen2.5-0.5b-instruct",
+   "battery": "hard24",
+   "measured": "7->1 (-6)、再現 8->1 (-7)",
+   "verdict": "HARMFUL",
+   "witness": "verified:run:qwen2.5-0.5b-instruct@2026-08-21"
+  },
+  {
+   "fact": "hretry(f,3)",
+   "model": "qwen2.5-coder-7b-instruct",
+   "battery": "hard24",
+   "measured": "12->12 (+0)、再現 11->11 (+0)",
+   "verdict": "ABSTAIN",
+   "witness": "verified:run:qwen2.5-coder-7b-instruct@2026-08-21"
+  },
+  {
+   "fact": "htrunc(f,400)",
+   "model": "qwen2.5-coder-7b-instruct",
+   "battery": "hard24",
+   "measured": "12->3 (-9)、再現 11->3 (-8)",
+   "verdict": "HARMFUL",
+   "witness": "verified:run:qwen2.5-coder-7b-instruct@2026-08-21"
+  },
+  {
+   "fact": "htrunc(f,64)",
+   "model": "qwen2.5-coder-7b-instruct",
+   "battery": "hard24",
+   "measured": "12->6 (-6)、再現 11->5 (-6)",
+   "verdict": "HARMFUL",
+   "witness": "verified:run:qwen2.5-coder-7b-instruct@2026-08-21"
+  },
+  {
+   "fact": "hretry(f,3)",
+   "model": "gemma-2-9b",
+   "battery": "hard24",
+   "measured": "11->10 (-1)、再現 10->9 (-1)",
+   "verdict": "ABSTAIN",
+   "witness": "verified:run:gemma-2-9b@2026-08-21"
+  },
+  {
+   "fact": "htrunc(f,400)",
+   "model": "gemma-2-9b",
+   "battery": "hard24",
+   "measured": "11->1 (-10)、再現 10->1 (-9)",
+   "verdict": "HARMFUL",
+   "witness": "verified:run:gemma-2-9b@2026-08-21"
+  },
+  {
+   "fact": "htrunc(f,64)",
+   "model": "gemma-2-9b",
+   "battery": "hard24",
+   "measured": "11->4 (-7)、再現 10->4 (-6)",
+   "verdict": "HARMFUL",
+   "witness": "verified:run:gemma-2-9b@2026-08-21"
+  }
+ ],
+ "transfer": "小で採択の2事実は中では棄権(天井) — モデル縛りの実証",
+ "ts": 1787267425.582796,
+ "contour_3models": {
+  "retry3/trunc400": "0.5Bのみ採択。7B(Qwen科)・9B(gemma科)は天井で棄権 — 輪郭は科でなく能力の天井で決まる(この課題集合では)",
+  "trunc64": "7B −6 / 9B −6 全走一致(同数!)。0.5B も害方向 — 情報破壊由来の害はモデルを跨いで生き残り、モデルの弱さ由来の利得は跨がない"
+ },
+ "contour_note": "天井を外すと**モデル別の輪郭が消えた** — easy24 で 0.5B だけ採択だった retry/trunc400 が、hard24 では 3モデルとも abstain/harmful で一致。文脈はモデルだけではなく**課題集合**でもある"
+}

@@ -1,0 +1,873 @@
+<!doctype html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Vera field — documents never leave this machine</title>
+<style>
+/* Field-software rules, not decoration.
+   - system fonts only: nothing loads from anywhere
+   - high contrast: a laptop on a folding table, in daylight
+   - large targets: gloves, haste, a trackpad on a hard surface
+   - no colour-only meaning: every state is also a word            */
+:root{
+  --bg:#ffffff; --ink:#111418; --ink-2:#3c444d; --ink-3:#69727c;
+  --line:#c9d0d8; --line-2:#e4e9ee; --panel:#f5f7f9;
+  --ok:#0b6b3a; --ok-bg:#e6f4ec;
+  --warn:#8a5300; --warn-bg:#fdf1dc;
+  --stop:#a11212; --stop-bg:#fbeaea;
+  --pick:#0b4f9e; --pick-bg:#e8f0fb;
+}
+@media (prefers-color-scheme: dark){
+  :root{
+    --bg:#12161b; --ink:#f2f5f8; --ink-2:#c3ccd6; --ink-3:#8b96a2;
+    --line:#39424d; --line-2:#252c34; --panel:#1a2027;
+    --ok:#5fd39a; --ok-bg:#12301f; --warn:#ecb45a; --warn-bg:#332614;
+    --stop:#f28b8b; --stop-bg:#331818;
+    --pick:#7db3f0; --pick-bg:#14263c;
+  }
+}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--ink);
+  font:16px/1.7 -apple-system,BlinkMacSystemFont,"Hiragino Sans","Yu Gothic UI",
+       "Noto Sans JP",Meiryo,system-ui,sans-serif}
+header{position:sticky;top:0;z-index:20;background:var(--bg);
+  border-bottom:2px solid var(--line);padding:.6rem 1rem}
+.bar{display:flex;flex-wrap:wrap;gap:.4rem;align-items:center;
+  max-width:1180px;margin:0 auto}
+.brand{font-weight:800;font-size:1.05rem;margin-right:.5rem;white-space:nowrap}
+.brand small{display:block;font-weight:400;font-size:.72rem;color:var(--ink-3)}
+nav{display:flex;flex-wrap:wrap;gap:.3rem;flex:1}
+/* Words, not icons: an icon means something different in every agency. */
+nav button{font:inherit;font-size:.9rem;padding:.55rem .8rem;cursor:pointer;
+  background:transparent;color:var(--ink-2);border:1px solid transparent;
+  border-radius:.4rem;min-height:44px}
+nav button:hover{background:var(--panel)}
+nav button[aria-current="true"]{background:var(--pick-bg);color:var(--pick);
+  border-color:var(--pick);font-weight:700}
+/* The language switch sits in the chrome, not in a settings screen: an
+   operator who cannot read the interface cannot navigate to settings. */
+#lang{font:inherit;font-size:.82rem;min-height:44px;padding:.4rem .7rem;
+  cursor:pointer;background:transparent;color:var(--ink-2);
+  border:1px solid var(--line);border-radius:.4rem;white-space:nowrap}
+main{max-width:1180px;margin:0 auto;padding:1rem 1rem 5rem}
+section[hidden]{display:none}
+h2{font-size:1.25rem;margin:.2rem 0 .3rem}
+h3{font-size:1rem}
+.lede{color:var(--ink-2);font-size:.92rem;margin:0 0 1rem;max-width:66ch}
+/* Guidance sits where the question is, not in a manual somebody has to find. */
+.guide{background:var(--panel);border-left:4px solid var(--line);
+  padding:.7rem .9rem;border-radius:0 .4rem .4rem 0;margin:0 0 1rem;
+  font-size:.88rem;color:var(--ink-2);max-width:78ch}
+.guide b{color:var(--ink)}
+.drop{border:2px dashed var(--line);border-radius:.5rem;padding:1.6rem 1rem;
+  text-align:center;background:var(--panel)}
+.drop.over{border-color:var(--pick);background:var(--pick-bg)}
+/* The primary action is always on screen and never behind a menu. */
+.run{position:sticky;bottom:0;background:var(--bg);border-top:2px solid var(--line);
+  padding:.7rem 1rem;display:flex;gap:.6rem;align-items:center;flex-wrap:wrap;
+  margin:1rem -1rem -5rem}
+button.primary{font:inherit;font-weight:700;font-size:1rem;min-height:52px;
+  padding:.7rem 1.5rem;border-radius:.45rem;cursor:pointer;
+  background:var(--pick);color:#fff;border:2px solid var(--pick)}
+button.primary:disabled{opacity:.45;cursor:not-allowed}
+button.plain{font:inherit;min-height:44px;padding:.5rem 1rem;cursor:pointer;
+  background:transparent;color:var(--ink);border:1px solid var(--line);
+  border-radius:.4rem}
+/* Every state is named in words. A bare spinner does not say whether to wait. */
+.state{font-size:.9rem;color:var(--ink-2)}
+.state.busy{color:var(--pick);font-weight:700}
+.tag{display:inline-block;font-size:.76rem;font-weight:700;padding:.12rem .5rem;
+  border-radius:.28rem;border:1px solid currentColor;white-space:nowrap}
+.t-ok{color:var(--ok);background:var(--ok-bg)}
+.t-warn{color:var(--warn);background:var(--warn-bg)}
+.t-stop{color:var(--stop);background:var(--stop-bg)}
+.t-pick{color:var(--pick);background:var(--pick-bg)}
+/* The quiet number comes before the findings, never beside them. */
+.quiet{border:2px solid var(--line);border-radius:.5rem;padding:.8rem 1rem;
+  margin:0 0 1rem}
+.quiet.bad{border-color:var(--warn);background:var(--warn-bg)}
+.big{font-size:1.5rem;font-weight:800}
+.grid{display:grid;gap:.6rem;grid-template-columns:repeat(auto-fit,minmax(160px,1fr))}
+table{border-collapse:collapse;width:100%;font-size:.9rem}
+th,td{border:1px solid var(--line-2);padding:.5rem .6rem;text-align:left;
+  vertical-align:top}
+th{background:var(--panel);font-weight:700}
+.wrap{overflow-x:auto;-webkit-overflow-scrolling:touch}
+.card{border:1px solid var(--line);border-radius:.5rem;padding:.8rem 1rem;
+  margin:0 0 .7rem}
+.card h3{margin:.1rem 0 .4rem}
+.ev{font-size:.84rem;color:var(--ink-2);background:var(--panel);
+  padding:.35rem .5rem;border-radius:.3rem;margin:.25rem 0}
+input[type=search],input[type=text]{font:inherit;padding:.65rem .8rem;
+  border:2px solid var(--line);border-radius:.4rem;background:var(--bg);
+  color:var(--ink);width:100%;max-width:32rem;min-height:48px}
+.kbd{font:inherit;font-size:.76rem;border:1px solid var(--line);
+  border-bottom-width:2px;border-radius:.25rem;padding:0 .3rem;color:var(--ink-3)}
+.row{display:flex;gap:.5rem;align-items:center;flex-wrap:wrap}
+/* A refusal carries the procedure, not just the failure. */
+.advice{border:2px solid var(--stop);background:var(--stop-bg);color:var(--ink);
+  border-radius:.5rem;padding:.8rem 1rem;margin:0 0 1rem}
+.advice b{color:var(--stop)}
+.muted{color:var(--ink-3);font-size:.85rem}
+footer{max-width:1180px;margin:0 auto;padding:0 1rem 2rem;color:var(--ink-3);
+  font-size:.82rem}
+</style>
+</head>
+<body>
+<header>
+  <div class="bar">
+    <div class="brand"><span data-t="brand"></span><small data-t="brandSub"></small></div>
+    <nav id="nav">
+      <button data-s="read"  aria-current="true" data-t="navRead"></button>
+      <button data-s="board" data-t="navBoard"></button>
+      <button data-s="find"  data-t="navFind"></button>
+      <button data-s="self"  data-t="navSelf"></button>
+      <button data-s="vocab" data-t="navVocab"></button>
+      <button data-s="log"   data-t="navLog"></button>
+      <button data-s="help"  data-t="navHelp"></button>
+    </nav>
+    <button id="lang" type="button"></button>
+  </div>
+</header>
+
+<main>
+<!-- 1 ─────────────────────────────────────────────────────────── -->
+<section id="s-read">
+  <h2 data-t="readH"></h2>
+  <p class="lede" data-t="readLede"></p>
+  <div class="guide" data-t="readGuide"></div>
+  <div class="drop" id="drop">
+    <p data-t="dropHint"></p>
+    <input type="file" id="files" multiple>
+    <p class="muted" id="picked"></p>
+  </div>
+  <div id="read-out"></div>
+</section>
+
+<!-- 2 ─────────────────────────────────────────────────────────── -->
+<section id="s-board" hidden>
+  <h2 data-t="boardH"></h2>
+  <p class="lede" data-t="boardLede"></p>
+  <div class="guide" data-t="boardGuide"></div>
+  <div id="board-out"></div>
+</section>
+
+<!-- 3 ─────────────────────────────────────────────────────────── -->
+<section id="s-find" hidden>
+  <h2 data-t="findH"></h2>
+  <p class="lede" data-t="findLede"></p>
+  <div class="guide" data-t="findGuide"></div>
+  <div class="row">
+    <input type="search" id="q" autocomplete="off">
+    <button class="plain" id="go" data-t="findBtn"></button>
+    <span class="muted"><span class="kbd">/</span> <span data-t="findKey"></span></span>
+  </div>
+  <div id="find-out"></div>
+</section>
+
+<!-- 4 ─────────────────────────────────────────────────────────── -->
+<section id="s-self" hidden>
+  <h2 data-t="selfH"></h2>
+  <p class="lede" data-t="selfLede"></p>
+  <div class="guide" data-t="selfGuide"></div>
+  <div id="self-out"></div>
+  <div class="row" style="margin-top:.8rem">
+    <button class="plain" id="loop" disabled data-t="loopBtn"></button>
+    <span class="state" id="loop-state"></span>
+  </div>
+  <div id="loop-out"></div>
+</section>
+
+<!-- 5 ─────────────────────────────────────────────────────────── -->
+<section id="s-vocab" hidden>
+  <h2 data-t="vocabH"></h2>
+  <p class="lede" data-t="vocabLede"></p>
+  <div class="guide" data-t="vocabGuide"></div>
+  <div id="vocab-out"></div>
+  <h3 style="margin-top:1.4rem" data-t="lexH"></h3>
+  <p class="muted" id="lex-status"></p>
+  <div class="row" id="lex-row" hidden>
+    <input type="text" id="lexq">
+    <button class="plain" id="lexgo" data-t="lexBtn"></button>
+  </div>
+  <div id="lex-out"></div>
+</section>
+
+<!-- 6 ─────────────────────────────────────────────────────────── -->
+<section id="s-log" hidden>
+  <h2 data-t="logH"></h2>
+  <p class="lede" data-t="logLede"></p>
+  <div class="guide" data-t="logGuide"></div>
+  <div id="log-out"></div>
+</section>
+
+<!-- help ───────────────────────────────────────────────────────── -->
+<section id="s-help" hidden>
+  <h2 data-t="helpH"></h2>
+  <div class="guide" data-t="helpGuide"></div>
+  <div class="wrap"><table id="help-tasks"></table></div>
+  <h3 style="margin-top:1.4rem" data-t="helpKeysH"></h3>
+  <div class="wrap"><table id="help-keys"></table></div>
+  <h3 style="margin-top:1.4rem" data-t="helpStoreH"></h3>
+  <p class="muted" data-t="helpStore"></p>
+</section>
+</main>
+
+<div class="run">
+  <button class="primary" id="run" disabled data-t="runBtn"></button>
+  <span class="state" id="run-state"></span>
+</div>
+
+<footer data-t="footer"></footer>
+
+<script>
+/* ── Language ──────────────────────────────────────────────────────────
+   Detected in the browser from navigator.languages, overridable, and
+   remembered. No geo-IP: this app makes no network call at all, and phoning
+   a third party to pick a font would be a different promise entirely.
+
+   Everything an operator can see is in this table, INCLUDING the refusals.
+   The server sends typed codes and never prose — it used to return Japanese
+   remedy text, which made the whole application monolingual from the API
+   outward: English chrome with a Japanese explanation of what went wrong is
+   worse than either language alone.                                     */
+const STR = {
+  ja: {
+    brand:'Vera 現場版', brandSub:'資料はこの機械から出ません',
+    navRead:'1. 読み込む', navBoard:'2. 食い違い', navFind:'3. 調べる',
+    navSelf:'4. 自己点検', navVocab:'5. 語彙の承認', navLog:'6. 記録',
+    navHelp:'使い方', langBtn:'English',
+
+    readH:'1. 資料を読み込む',
+    readLede:'PDF・Word・HTML・CSV・テキスト。この画面は外部に一切接続しません。資料はこの機械の中だけで処理され、送信も保存もされません。',
+    readGuide:'<b>最初にすること。</b> 同じ対象について書かれた資料を <b>2件以上</b> 入れてください。1件だけだと食い違いは原理的に検出できません（比べる相手がいないため）。第1報と第5報、県の発表と事業者の発表、といった組み合わせが向いています。',
+    dropHint:'<b>ここにドラッグ</b>、または',
+    noneChosen:'まだ選ばれていません',
+    runBtn:'資料を読み込む', runIdle:'資料が選ばれていません',
+    nChosen:n=>`${n} 件を読み込めます`,
+    chosen:(n,names)=>`${n} 件: ${names}`,
+    preparing:(i,n)=>`読み取り準備中 (${i}/${n})`,
+    reading:'読み取り中… そのままお待ちください',
+    loaded:names=>`読み込みました: ${names}。上のタブで内容を見られます。`,
+    unreadable:'読めなかったファイル',
+
+    qRead:'読み取れた文', qCoverage:'被覆率',
+    qPairs:'比べられる組み合わせ', qDetections:'食い違いの検出',
+
+    boardH:'2. 食い違いと更新',
+    boardLede:'出典が食い違っている点と、時刻で順序がつく更新を分けて出します。混ぜません。',
+    boardGuide:'<b>読み方。</b> <span class="tag t-stop">係争</span> は出典が食い違い、どちらも現役 — 現地確認が要ります。<span class="tag t-pick">更新</span> は同じ話が2度語られただけで、新しい方が現在です。<b>検出0件は「矛盾がない」ではありません。</b>「比べられる組み合わせが無かった」場合も0件になります。上の数字を先に見てください。',
+    notRead:'まだ読み込まれていません。',
+    contested:'係争', updated:'更新',
+    nFindings:n=>`食い違い ${n} 件`,
+    nowIs:(claim,src,when)=>`現在は ${claim}（${src}・${when} 時点）`,
+    noSources:'出典不明',
+    boardEmpty:'係争・更新は検出されませんでした。上の「比べられる組み合わせ」が 0 なら、それは矛盾が無かったのではなく比較対象が無かったという意味です。',
+
+    findH:'3. 一つの対象について調べる',
+    findLede:'市町村名・施設名・路線名で、読み込んだ資料の中から分かっていることを出典付きで出します。',
+    findGuide:'<b>部分一致します。</b>「天草」で 天草市 も 上天草市 も出ます。出てこない場合、その語がまだ読み取れていない可能性があります —「4. 自己点検」に原因が出ていることがあります。',
+    findPlaceholder:'例: 天草市 / 中央公民館 / 国道9号',
+    findBtn:'調べる', findKey:'でここに移動',
+    findFirst:'先に「1. 読み込む」で資料を入れてください。',
+    findNone:q=>`「${q}」は見つかりませんでした。別の書き方（市を付ける・外す）を試すか、「4. 自己点検」で読み取りの欠陥を確認してください。`,
+    noState:'状態の記載はありませんでした。',
+
+    selfH:'4. 自己点検 — 読み取りの欠陥',
+    selfLede:'エンジンが自分の読み取りの誤りを、答え合わせなしで見つけます。直せるものはその場で直せます。',
+    selfGuide:'<b>なぜ答え合わせなしで分かるのか。</b> 同じ資料を、<b>意味を変えられない変換</b>（PDF が入れた空白を詰めるなど）を通して二度読みます。読み方が変わったなら、どちらかが誤りです。空白は情報を運ばないので、空白のある読みにだけ出た主張は<b>偽</b>です。<br><b>修復を実行すると</b>、あなたの手元の設定ファイルにだけ書かれます。受理は「確定した検出を1件も壊さない」「植え込み検査に通る」を満たしたときだけです。',
+    proveH:'レイアウトが作り出した誤り（証明済み）',
+    proveCols:['変換','誤ったコア','面','証拠（内容語は伏せ字）'],
+    conflictH:'エンジン自身の規則との食い違い',
+    conflictCols:['コア','面','一致した文法'],
+    none:'ありません。',
+    loopBtn:'修復を試して測る',
+    loopBusy:'測定中… 数十秒かかることがあります',
+    loopNone:'この資料では修復候補がありませんでした。',
+    loopH:'修復の測定結果',
+    accepted:'受理', rejected:'却下',
+    loopNote:'受理されたものは手元の設定にだけ書かれます。確定した検出を1件も壊さないことを測ってから受理しています。',
+
+    vocabH:'5. 語彙の承認',
+    vocabLede:'資料に出てきたエンジンが知らない状態語の候補です。承認するかどうかは、機械には決められません。',
+    vocabGuide:'<b>ここだけは人が決めます。</b> どんな資料変換も「その語が何を意味するか」は教えてくれません。機械にできるのは、<span class="tag t-ok">裏付けあり</span>（複数の出典が同じ形で使っている）と <span class="tag t-warn">判定不能</span>（1出典のみ）を分けることまでです。<b>裏付けは正しさの証明ではありません</b> — 2つの資料が同じ間違いをすることもあります。<br><b>承認すると</b>その語がこの機械の語彙に加わり、以後の読み取りに使われます。<b>取り消すには</b>設定ファイル <code>~/.verantyx-audit/grammar.json</code> から該当行を消します。',
+    noCandidates:'候補はありません。',
+    verified:'裏付けあり', unverified:'判定不能',
+    guessed:(aspect,side,anchor)=>`推定: ${aspect} の「${side}」側（${anchor} と同じ位置）`,
+    sideCleared:'解消した', sideHeld:'続いている',
+    sources:'出典',
+    likeness:v=>`状態語らしさ ${v}（正なら状態を表す語、負なら場所や組織の名前）`,
+    approve:'承認する（語彙に加える）', refuse:'見送る',
+    saving:'記録中…', savedAccept:'承認しました。以後の読み取りで使われます。',
+    savedRefuse:'見送りました。次回から出ません。', saveFailed:'記録できませんでした',
+
+    lexH:'辞書で調べる（任意）',
+    lexOn:'jgen 静的辞書が使えます。極性（どちらの側か）は出しません — 実測でほぼコイン投げのためです。',
+    lexOff:path=>`辞書は未設定です（任意）。${path} に jgen とトークナイザの場所を書くと使えます。`,
+    lexPlaceholder:'例: 冠水 滞留 孤立', lexBtn:'辞書を引く',
+    lexCols:['語','状態語らしさ','近い既知語'],
+
+    logH:'6. 記録 — これまでの読み込み',
+    logLede:'読み込むたびに結果だけが自動で記録されます（資料そのものは残りません）。新しい順に並びます。',
+    logGuide:'<b>勤務交代のために。</b> <span class="tag t-pick">この勤務</span> は12時間以内、<span class="tag t-ok">直近7日</span>、<span class="tag t-warn">保管</span> はそれ以前です。交代する相手に伝えることは、いちばん上の記録の<b>申し送り</b>欄に書いてください。次の人がこの画面を開くと最初に目に入ります。',
+    logEmpty:'まだ記録はありません。「1. 読み込む」で資料を読むと自動で残ります。',
+    zoneFront:'この勤務', zoneRecent:'直近7日', zoneArchive:'保管',
+    logStat:(cov,n)=>`被覆率 ${cov} ・ 食い違い ${n} 件`,
+    notePrefix:'申し送り: ', notePlaceholder:'申し送りを書く（次の担当者への伝言）',
+    save:'保存', savingNote:'保存中…', savedNote:'保存しました',
+    saveNoteFailed:'保存できませんでした',
+
+    helpH:'使い方',
+    helpGuide:'<b>この道具が答えないこと。</b> 文章を書きません。要約も翻訳もしません。推測もしません。分からないときは「分からない」と、その理由の名前つきで返します。それがこの道具の性質で、直す予定の欠点ではありません。',
+    helpTaskCols:['やりたいこと','手順'],
+    helpTasks:[
+      ['今の状況を把握する','1で資料を2件以上読み込む → 2で係争と更新を見る'],
+      ['特定の市町村を調べる','3で名前を入れる。部分一致します'],
+      ['検出が0件だった','2の上の「比べられる組み合わせ」を見る。0なら矛盾が無いのではなく、比較対象が無い'],
+      ['読み取れていない語がある','4で原因を見る。5に候補が出ていれば承認できる'],
+      ['資料が読めなかった','画像スキャンのPDFは文字を取り出せません。文字が選択できるPDFか、Word/HTML/CSVで'],
+      ['作業を翌日に引き継ぐ','6の記録のいちばん上に申し送りを書く。承認した語彙と修復も残ります'],
+      ['昨日なにを読んだか確かめる','6の記録。読み込みごとに結果が自動で残っています'],
+    ],
+    helpKeysH:'キーボード',
+    helpKeys:[['Ctrl / ⌘ + Enter','読み込みを実行'],['/','「3. 調べる」の入力欄へ'],['1 – 6','その番号の画面へ']],
+    helpStoreH:'保存先',
+    helpStore:'承認した語彙・修復・記録は ~/.verantyx-audit/ に置かれます。読み込んだ資料そのものは保存されません。',
+    footer:'外部接続なし・モデル不使用・同じ資料からは必ず同じ結果。',
+
+    UNKNOWN_NO_DOCUMENTS:'資料を選ぶか、この枠にドラッグしてください。',
+    UNKNOWN_NO_READABLE_DOCUMENTS:'どのファイルも読めませんでした。PDF が画像スキャンだと文字が取り出せません。テキストが選択できる PDF か、Word・HTML・CSV でお試しください。',
+    UNKNOWN_EMPTY_DOCUMENT:'開けましたが文字がありませんでした。スキャン画像の可能性があります。',
+    UNKNOWN_UNREADABLE:'処理中に問題が起きました。他のファイルはそのまま処理されています。',
+    UNKNOWN_BAD_REQUEST:'送信データを読めませんでした。この画面を再読み込みしてください。',
+    UNKNOWN_TOO_LARGE:mb=>`一度に送れるのは ${mb}MB までです。分けて読み込んでください。`,
+    UNKNOWN_NO_SUCH_SESSION:'この記録は見つかりませんでした。',
+    UNKNOWN_NO_LEXICON:path=>`辞書が設定されていません。${path} に jgen とトークナイザの場所を書くと使えます。`,
+    LOW_COVERAGE:'文の多くが読み取れていません。表組みの多い資料でよく起きます。この状態の検出結果は、件数が少なく出ます（見逃しが増えます）。',
+    NO_OPPOSABLE_PAIRS:'食い違いを検出できる組み合わせが 0 件でした。検出 0 件は「矛盾がなかった」ではなく「比べられるものが無かった」という意味です。同じ対象について書かれた別の資料を足してください。',
+    NO_LOADER:'この形式に対応する読み取りがありません',
+    UNDECODABLE:'デコードできませんでした',
+    disconnected:'画面と処理の接続が切れました。この画面を再読み込みしてください。',
+  },
+
+  en: {
+    brand:'Vera field', brandSub:'documents never leave this machine',
+    navRead:'1. Read', navBoard:'2. Disagreements', navFind:'3. Look up',
+    navSelf:'4. Self-check', navVocab:'5. Approve words', navLog:'6. Records',
+    navHelp:'Help', langBtn:'日本語',
+
+    readH:'1. Read your documents',
+    readLede:'PDF, Word, HTML, CSV, plain text. This screen makes no network call at all. Documents are processed on this machine only — never sent, never stored.',
+    readGuide:'<b>Start here.</b> Put in <b>two or more</b> documents about the same subject. With only one, disagreement cannot be detected at all — there is nothing to compare against. Bulletin #1 and bulletin #5, or a prefectural notice and an operator’s notice, are good pairs.',
+    dropHint:'<b>Drag files here</b>, or',
+    noneChosen:'nothing chosen yet',
+    runBtn:'Read the documents', runIdle:'no documents chosen',
+    nChosen:n=>`${n} ready to read`,
+    chosen:(n,names)=>`${n}: ${names}`,
+    preparing:(i,n)=>`Preparing (${i}/${n})`,
+    reading:'Reading… please wait',
+    loaded:names=>`Read: ${names}. Use the tabs above to see what is in them.`,
+    unreadable:'Files that could not be read',
+
+    qRead:'sentences read', qCoverage:'coverage',
+    qPairs:'comparable pairs', qDetections:'disagreements found',
+
+    boardH:'2. Disagreements and updates',
+    boardLede:'What the sources disagree about, and what simply changed over time — kept apart, never blended.',
+    boardGuide:'<b>How to read this.</b> <span class="tag t-stop">contested</span> means sources disagree and both still stand — someone has to check on the ground. <span class="tag t-pick">updated</span> means one story told twice, and the later one is current. <b>Zero findings does not mean “no contradiction”.</b> It is also what you get when there was nothing comparable. Read the numbers above first.',
+    notRead:'Nothing has been read yet.',
+    contested:'contested', updated:'updated',
+    nFindings:n=>`${n} disagreement${n===1?'':'s'}`,
+    nowIs:(claim,src,when)=>`now ${claim} (${src}, as of ${when})`,
+    noSources:'source unknown',
+    boardEmpty:'No contested or updated items. If “comparable pairs” above is 0, that means there was nothing to compare — not that the sources agreed.',
+
+    findH:'3. Look up one subject',
+    findLede:'By municipality, facility or route name: what the documents you loaded say about it, with the source of each claim.',
+    findGuide:'<b>Partial matches work.</b> “天草” finds both 天草市 and 上天草市. If nothing comes back, the word may not have been read correctly — section 4 sometimes shows why.',
+    findPlaceholder:'e.g. 天草市 / community centre / Route 9',
+    findBtn:'Look up', findKey:'jumps here',
+    findFirst:'Load documents in “1. Read” first.',
+    findNone:q=>`Nothing found for “${q}”. Try another spelling (with or without the suffix), or check section 4 for reading defects.`,
+    noState:'No state was recorded for this.',
+
+    selfH:'4. Self-check — defects in its own reading',
+    selfLede:'The engine finds errors in its own reading, with no answer key. What it can repair, it repairs here.',
+    selfGuide:'<b>How it can know without an answer key.</b> It reads the same documents twice, through a <b>transform that cannot change meaning</b> (closing up spaces a PDF inserted, for instance). If the reading changed, one of the two is wrong. Layout carries no information, so a claim that appears only in the spaced reading is <b>false</b>.<br><b>Running a repair</b> writes to your own configuration file and nowhere else. It is accepted only when it breaks none of the confirmed findings and the planted suite still passes.',
+    proveH:'Claims manufactured by layout (proven)',
+    proveCols:['transform','wrong core','aspect','evidence (content redacted)'],
+    conflictH:'Disagreements with the engine’s own rules',
+    conflictCols:['core','aspect','grammar that matched'],
+    none:'None.',
+    loopBtn:'Try repairs and measure',
+    loopBusy:'Measuring… this can take tens of seconds',
+    loopNone:'No repair candidates for these documents.',
+    loopH:'What the repairs measured',
+    accepted:'accepted', rejected:'rejected',
+    loopNote:'Accepted repairs are written to your own configuration only, and only after measuring that they break none of the confirmed findings.',
+
+    vocabH:'5. Approve vocabulary',
+    vocabLede:'State words that appeared in your documents and the engine does not know. Whether to approve them is not something a machine can decide.',
+    vocabGuide:'<b>This part is yours.</b> No transformation of a document reveals what a word means. All a machine can do is separate <span class="tag t-ok">corroborated</span> (several sources use it the same way) from <span class="tag t-warn">unverified</span> (one source only). <b>Corroboration is not proof</b> — two documents can make the same mistake.<br><b>Approving</b> adds the word to this machine’s vocabulary, and later readings use it. <b>To undo</b>, delete the line from <code>~/.verantyx-audit/grammar.json</code>.',
+    noCandidates:'No candidates.',
+    verified:'corroborated', unverified:'unverified',
+    guessed:(aspect,side,anchor)=>`Inferred: the “${side}” side of ${aspect} (same position as ${anchor})`,
+    sideCleared:'cleared', sideHeld:'still holding',
+    sources:'sources',
+    likeness:v=>`state-likeness ${v} (positive = a word for a state, negative = a place or an organisation)`,
+    approve:'Approve (add to vocabulary)', refuse:'Skip',
+    saving:'Recording…', savedAccept:'Approved. Later readings will use it.',
+    savedRefuse:'Skipped. It will not be offered again.', saveFailed:'Could not record it',
+
+    lexH:'Ask the dictionary (optional)',
+    lexOn:'The jgen static dictionary is available. It does not answer which pole a word is — measured, that is close to a coin flip.',
+    lexOff:path=>`No dictionary configured (optional). Write the jgen and tokenizer paths into ${path} to use one.`,
+    lexPlaceholder:'e.g. 冠水 滞留 孤立', lexBtn:'Ask',
+    lexCols:['word','state-likeness','nearest known'],
+
+    logH:'6. Records — what has been read',
+    logLede:'Every read leaves a record of its RESULT automatically (never the documents). Newest first.',
+    logGuide:'<b>For the handover.</b> <span class="tag t-pick">this shift</span> is under 12 hours, then <span class="tag t-ok">last 7 days</span>, then <span class="tag t-warn">archived</span>. Write anything the next person needs in the <b>handover note</b> on the top record — it is the first thing they see when they open this screen.',
+    logEmpty:'No records yet. Reading documents in section 1 leaves one automatically.',
+    zoneFront:'this shift', zoneRecent:'last 7 days', zoneArchive:'archived',
+    logStat:(cov,n)=>`coverage ${cov} · ${n} disagreement${n===1?'':'s'}`,
+    notePrefix:'Handover: ', notePlaceholder:'Write a handover note for the next person',
+    save:'Save', savingNote:'Saving…', savedNote:'Saved',
+    saveNoteFailed:'Could not save',
+
+    helpH:'How to use this',
+    helpGuide:'<b>What this tool does not answer.</b> It does not write prose. It does not summarise or translate. It does not guess. When it does not know, it says so, with a name for the reason. That is what the tool is, not a defect awaiting repair.',
+    helpTaskCols:['What you want','What to do'],
+    helpTasks:[
+      ['See the current picture','Read two or more documents in 1 → look at contested and updated in 2'],
+      ['Check one municipality','Type its name in 3. Partial matches work'],
+      ['Zero findings came back','Look at “comparable pairs” above section 2. Zero there means nothing to compare, not agreement'],
+      ['A word was not read','Section 4 shows why. If a candidate appears in 5, you can approve it'],
+      ['A document could not be read','A scanned PDF is a picture of text. Use a PDF where you can select the text, or the Word/HTML original'],
+      ['Hand over to tomorrow','Write a handover note on the top record in 6. Approved words and repairs persist too'],
+      ['Check what was read yesterday','Section 6. Every read leaves a record automatically'],
+    ],
+    helpKeysH:'Keyboard',
+    helpKeys:[['Ctrl / ⌘ + Enter','Read the documents'],['/','Jump to “3. Look up”'],['1 – 6','Go to that section']],
+    helpStoreH:'Where things are kept',
+    helpStore:'Approved vocabulary, repairs and records live in ~/.verantyx-audit/. The documents themselves are not stored.',
+    footer:'No network · no model · the same documents always give the same result.',
+
+    UNKNOWN_NO_DOCUMENTS:'Choose documents, or drag them into the box.',
+    UNKNOWN_NO_READABLE_DOCUMENTS:'None of the files could be read. A scanned PDF is a picture of text and no letters can be pulled out of it. Try a PDF where the text can be selected, or Word / HTML / CSV.',
+    UNKNOWN_EMPTY_DOCUMENT:'It opened but contained no text — most likely a scanned image.',
+    UNKNOWN_UNREADABLE:'Something went wrong while processing. The other files were processed normally.',
+    UNKNOWN_BAD_REQUEST:'The request could not be read. Reload this page.',
+    UNKNOWN_TOO_LARGE:mb=>`Up to ${mb}MB can be sent at once. Load them in smaller batches.`,
+    UNKNOWN_NO_SUCH_SESSION:'That record could not be found.',
+    UNKNOWN_NO_LEXICON:path=>`No dictionary is configured. Write the jgen and tokenizer paths into ${path} to use one.`,
+    LOW_COVERAGE:'Most sentences could not be read. This is common with heavily tabulated documents. Findings from a run in this state come back thin — more will be missed.',
+    NO_OPPOSABLE_PAIRS:'There were 0 comparable pairs. Zero findings here does not mean “no contradiction”; it means there was nothing to compare. Add another document about the same subjects.',
+    NO_LOADER:'no loader for this format',
+    UNDECODABLE:'could not be decoded',
+    disconnected:'The connection to the processing side was lost. Reload this page.',
+  },
+};
+
+const KEY = 'verantyx.field.lang';
+function detect(){
+  const list = (navigator.languages && navigator.languages.length
+    ? navigator.languages : [navigator.language]).filter(Boolean);
+  for (const tag of list){
+    const base = String(tag).toLowerCase().split('-')[0];
+    if (base === 'ja') return 'ja';
+    if (base) return 'en';
+  }
+  return 'ja';
+}
+let LANG = (() => {
+  try { const v = localStorage.getItem(KEY); if (v === 'ja' || v === 'en') return v; }
+  catch (e) {}
+  return detect();
+})();
+const T = k => STR[LANG][k];
+
+const $ = s => document.querySelector(s);
+const el = (t, c, x) => { const n = document.createElement(t);
+  if (c) n.className = c; if (x !== undefined) n.textContent = x; return n; };
+let FILES = [], STORE = {}, READY = false, LAST = null, LEX = null;
+
+function applyLang(){
+  document.documentElement.lang = LANG;
+  document.title = LANG === 'ja'
+    ? 'Vera 現場版 — 資料はこの機械から出ません'
+    : 'Vera field — documents never leave this machine';
+  for (const node of document.querySelectorAll('[data-t]')){
+    const v = STR[LANG][node.dataset.t];
+    if (typeof v === 'string') node.innerHTML = v;
+  }
+  $('#lang').textContent = T('langBtn');
+  $('#q').placeholder = T('findPlaceholder');
+  $('#lexq').placeholder = T('lexPlaceholder');
+  $('#picked').textContent = FILES.length
+    ? T('chosen')(FILES.length, FILES.map(f => f.name).join(', '))
+    : T('noneChosen');
+  $('#run-state').textContent = FILES.length ? T('nChosen')(FILES.length) : T('runIdle');
+  renderHelp();
+  /* Re-render whatever is already on screen, so switching language does not
+     leave findings in the language they were produced in. */
+  if (LAST) { const keep = [...document.querySelectorAll('main > section')]
+                .find(s => !s.hidden)?.id.slice(2);
+              render(LAST); if (keep) show(keep); }
+  if (!$('#s-log').hidden) renderLog();
+  lexStatus();
+}
+
+/* ── navigation: seven sections, one bar, never nested ─────────────── */
+function show(name){
+  for (const b of $('#nav').children)
+    b.setAttribute('aria-current', String(b.dataset.s === name));
+  for (const s of document.querySelectorAll('main > section'))
+    s.hidden = s.id !== 's-' + name;
+  if (name === 'find') setTimeout(() => $('#q').focus(), 30);
+  if (name === 'log') renderLog();
+}
+$('#nav').addEventListener('click', e => {
+  const b = e.target.closest('button'); if (b) show(b.dataset.s);
+});
+$('#lang').addEventListener('click', () => {
+  LANG = LANG === 'ja' ? 'en' : 'ja';
+  try { localStorage.setItem(KEY, LANG); } catch (e) {}
+  applyLang();
+});
+
+/* ── picking documents ─────────────────────────────────────────────── */
+function setFiles(list){
+  FILES = [...list];
+  $('#picked').textContent = FILES.length
+    ? T('chosen')(FILES.length, FILES.map(f => f.name).join(', '))
+    : T('noneChosen');
+  $('#run').disabled = !FILES.length;
+  $('#run-state').textContent = FILES.length ? T('nChosen')(FILES.length) : T('runIdle');
+}
+$('#files').addEventListener('change', e => setFiles(e.target.files));
+const drop = $('#drop');
+['dragenter','dragover'].forEach(t => drop.addEventListener(t, e => {
+  e.preventDefault(); drop.classList.add('over'); }));
+['dragleave','drop'].forEach(t => drop.addEventListener(t, e => {
+  e.preventDefault(); drop.classList.remove('over'); }));
+drop.addEventListener('drop', e => setFiles(e.dataTransfer.files));
+
+const b64 = f => new Promise(res => { const r = new FileReader();
+  r.onload = () => res(String(r.result).split(',')[1] || '');
+  r.readAsDataURL(f); });
+
+async function payload(){
+  const out = [];
+  for (let i = 0; i < FILES.length; i++){
+    $('#run-state').textContent = T('preparing')(i + 1, FILES.length);
+    out.push({name: FILES[i].name, b64: await b64(FILES[i])});
+  }
+  return out;
+}
+
+/* ── the primary action ────────────────────────────────────────────── */
+$('#run').addEventListener('click', run);
+document.addEventListener('keydown', e => {
+  if ((e.metaKey || e.ctrlKey) && e.key === 'Enter'){ e.preventDefault(); run(); }
+  else if (e.key === '/' && !/INPUT|TEXTAREA/.test(document.activeElement.tagName)){
+    e.preventDefault(); show('find');
+  } else if (/^[1-6]$/.test(e.key) && !/INPUT|TEXTAREA/.test(document.activeElement.tagName)){
+    show(['read','board','find','self','vocab','log'][+e.key - 1]);
+  }
+});
+
+async function post(path, body){
+  const r = await fetch(path, {method:'POST',
+    headers:{'Content-Type':'application/json'}, body: JSON.stringify(body)});
+  return r.json();
+}
+
+/* A refusal carries the procedure. The server sends only the code, so the
+   wording follows the chosen language like everything else. */
+function advice(d){
+  const box = el('div','advice');
+  let msg = STR[LANG][d.verdict];
+  if (typeof msg === 'function') msg = msg(d.limit_mb ?? d.config ?? '');
+  box.append(el('b', null, d.verdict), document.createTextNode(' — '));
+  box.append(document.createTextNode(msg || d.detail || ''));
+  if (msg && d.detail) box.append(el('div','ev', d.detail));
+  return box;
+}
+
+async function run(){
+  if (!FILES.length) return;
+  const btn = $('#run'), st = $('#run-state');
+  btn.disabled = true; st.className = 'state busy';
+  st.textContent = T('reading');
+  try {
+    const d = await post('/api/read', {files: await payload()});
+    LAST = d; render(d);
+  } catch (err) {
+    $('#read-out').replaceChildren(
+      advice({verdict:'UNKNOWN_UNREADABLE', detail: T('disconnected')}));
+  } finally {
+    btn.disabled = false; st.className = 'state';
+    st.textContent = T('nChosen')(FILES.length);
+  }
+}
+
+/* ── rendering ─────────────────────────────────────────────────────── */
+function render(d){
+  const out = $('#read-out'); out.replaceChildren();
+  if (d.verdict !== 'ANSWER'){ out.append(advice(d)); return; }
+  READY = true; STORE = d.store || {}; $('#loop').disabled = false;
+
+  const q = d.quiet, box = el('div', 'quiet' + (q.quiet ? ' bad' : ''));
+  const g = el('div','grid');
+  [[T('qRead'), q.read + ' / ' + q.seen],
+   [T('qCoverage'), (q.coverage*100).toFixed(1) + '%'],
+   [T('qPairs'), String(q.opposable_pairs)],
+   [T('qDetections'), String((d.detections||[]).length)]].forEach(([k,v]) => {
+    const c = el('div'); c.append(el('div','muted',k), el('div','big',v)); g.append(c);
+  });
+  box.append(g);
+  (q.flags || []).forEach(f => {
+    const p = el('p'); p.style.margin = '.6rem 0 0';
+    p.append(el('span','tag t-warn', f.code),
+             document.createTextNode(' ' + (STR[LANG][f.code] || '')));
+    box.append(p);
+  });
+  out.append(box);
+
+  if (d.refused?.length){
+    const r = el('div','card');
+    r.append(el('h3', null, T('unreadable')));
+    d.refused.forEach(x => r.append(
+      el('div','ev', x.name + ' — ' + (STR[LANG][x.reason] || x.reason))));
+    out.append(r);
+  }
+  out.append(el('p','muted', T('loaded')((d.accepted||[]).join(', '))));
+
+  renderBoard(d); renderSelf(d); renderVocab(d);
+  show('board');
+}
+
+function renderBoard(d){
+  const out = $('#board-out'); out.replaceChildren();
+  const dets = d.detections || [];
+  if (dets.length){
+    const c = el('div','card');
+    c.append(el('h3', null, T('nFindings')(dets.length)));
+    dets.forEach(x => {
+      const row = el('div'); row.style.margin = '.5rem 0';
+      row.append(el('span','tag t-stop', T('contested')),
+                 document.createTextNode(' ' + x.topic + ' / ' + x.aspect));
+      (x.evidence || []).forEach(e => row.append(el('div','ev', e)));
+      c.append(row);
+    });
+    out.append(c);
+  }
+  (d.board || []).forEach(b => {
+    if (!b.disputed.length && !b.updated.length) return;
+    const c = el('div','card'); c.append(el('h3', null, b.core));
+    b.disputed.forEach(e => {
+      const p = el('div'); p.append(el('span','tag t-stop', T('contested')));
+      p.append(document.createTextNode(' ' + e.sides.map(s =>
+        s.claim + ' (' + (s.sources.join(', ') || T('noSources')) + ')').join(' / ')));
+      c.append(p);
+    });
+    b.updated.forEach(e => {
+      const p = el('div'); p.append(el('span','tag t-pick', T('updated')));
+      p.append(document.createTextNode(' ' + T('nowIs')(
+        e.current.claim, e.current.sources.join(', '), e.current.when)));
+      c.append(p);
+    });
+    out.append(c);
+  });
+  if (!out.children.length) out.append(el('p','muted', T('boardEmpty')));
+}
+
+function renderSelf(d){
+  const out = $('#self-out'); out.replaceChildren();
+  const mk = (title, rows, cols, pick) => {
+    const c = el('div','card'); c.append(el('h3', null, title));
+    if (!rows.length){ c.append(el('p','muted', T('none'))); return c; }
+    const w = el('div','wrap'), t = el('table'), h = el('tr');
+    cols.forEach(x => h.append(el('th', null, x)));
+    t.append(h);
+    rows.forEach(r => { const tr = el('tr');
+      pick(r).forEach(v => tr.append(el('td', null, v))); t.append(tr); });
+    w.append(t); c.append(w); return c;
+  };
+  out.append(mk(T('proveH'), d.proven || [], T('proveCols'),
+    r => [r.perturbation, r.core, r.facet, r.shape || '—']));
+  out.append(mk(T('conflictH'), d.conflicts || [], T('conflictCols'),
+    r => [r.core, r.facet, r.detail || '—']));
+}
+
+function renderVocab(d){
+  const out = $('#vocab-out'); out.replaceChildren();
+  const q = d.queue || [];
+  if (!q.length){ out.append(el('p','muted', T('noCandidates'))); return; }
+  q.forEach(r => {
+    const c = el('div','card');
+    const head = el('div','row');
+    head.append(el('h3', null, r.word));
+    head.append(el('span', 'tag ' + (r.state === 'verified' ? 't-ok' : 't-warn'),
+      r.state === 'verified' ? T('verified') : T('unverified')));
+    c.append(head);
+    c.append(el('div', null, T('guessed')(r.aspect,
+      r.polarity === '+' ? T('sideCleared') : T('sideHeld'), r.anchor)));
+    c.append(el('div','muted', r.why + (r.sources?.length
+      ? ' — ' + T('sources') + ': ' + r.sources.join(', ') : '')));
+    if (r.state_likeness !== undefined)
+      c.append(el('div','muted', T('likeness')(r.state_likeness.toFixed(3))));
+    (r.shapes || []).slice(0,2).forEach(s => c.append(el('div','ev', s)));
+    const row = el('div','row'); row.style.marginTop = '.5rem';
+    const yes = el('button','plain', T('approve'));
+    const no  = el('button','plain', T('refuse'));
+    const st  = el('span','state');
+    yes.onclick = () => judge(r.word, 'accept', st, row);
+    no.onclick  = () => judge(r.word, 'refuse', st, row);
+    row.append(yes, no, st); c.append(row);
+    out.append(c);
+  });
+}
+
+async function judge(word, verdict, st, row){
+  st.className = 'state busy'; st.textContent = T('saving');
+  const d = await post('/api/decide', {word, verdict});
+  st.className = 'state';
+  if (d.verdict !== 'ANSWER'){ st.textContent = T('saveFailed'); return; }
+  row.querySelectorAll('button').forEach(b => b.disabled = true);
+  st.textContent = d.status === 'accepted' ? T('savedAccept') : T('savedRefuse');
+}
+
+/* ── search ────────────────────────────────────────────────────────── */
+async function find(){
+  const q = $('#q').value.trim(), out = $('#find-out');
+  out.replaceChildren();
+  if (!READY){ out.append(el('p','muted', T('findFirst'))); return; }
+  if (!q) return;
+  const d = await post('/api/search', {store: STORE, q});
+  if (!d.hits.length){ out.append(el('p','muted', T('findNone')(q))); return; }
+  d.hits.forEach(h => {
+    const c = el('div','card'); c.append(el('h3', null, h.core));
+    if (!h.claims.length) c.append(el('p','muted', T('noState')));
+    h.claims.forEach(cl => {
+      const p = el('div');
+      p.append(el('span', 'tag ' + (cl.pole === '+' ? 't-ok' : 't-stop'),
+        cl.aspect + ': ' + cl.value));
+      c.append(p);
+      if (cl.evidence) c.append(el('div','ev', cl.evidence));
+    });
+    out.append(c);
+  });
+}
+$('#go').addEventListener('click', find);
+$('#q').addEventListener('keydown', e => { if (e.key === 'Enter') find(); });
+
+/* ── the loop ──────────────────────────────────────────────────────── */
+$('#loop').addEventListener('click', async () => {
+  const st = $('#loop-state'), out = $('#loop-out');
+  st.className = 'state busy'; st.textContent = T('loopBusy');
+  out.replaceChildren();
+  const d = await post('/api/loop', {files: await payload()});
+  st.className = 'state'; st.textContent = '';
+  if (d.verdict !== 'ANSWER'){ out.append(advice(d)); return; }
+  if (!d.repairs.length){ out.append(el('p','muted', T('loopNone'))); return; }
+  const c = el('div','card'); c.append(el('h3', null, T('loopH')));
+  d.repairs.forEach(r => {
+    const p = el('div'); p.style.margin = '.5rem 0';
+    p.append(el('span','tag ' + (r.accepted ? 't-ok' : 't-warn'),
+      r.accepted ? T('accepted') : T('rejected')));
+    p.append(document.createTextNode(' ' + r.candidate + ' — ' + r.reason));
+    c.append(p);
+  });
+  c.append(el('p','muted', T('loopNote')));
+  out.append(c);
+});
+
+/* ── the shift log ─────────────────────────────────────────────────── */
+async function renderLog(){
+  const out = $('#log-out'); out.replaceChildren();
+  const d = await (await fetch('/api/sessions')).json();
+  const rows = d.sessions || [];
+  if (!rows.length){ out.append(el('p','muted', T('logEmpty'))); return; }
+  const ZONE = {front:['zoneFront','t-pick'], recent:['zoneRecent','t-ok'],
+                archive:['zoneArchive','t-warn']};
+  rows.forEach((s, i) => {
+    const c = el('div','card');
+    const head = el('div','row');
+    const [zk, zc] = ZONE[s.zone] || ['zoneArchive','t-warn'];
+    head.append(el('span','tag ' + zc, T(zk)));
+    head.append(el('b', null, (s.updated || '').replace('T',' ')));
+    head.append(el('span','muted', s.label || (s.documents||[]).join(', ')));
+    c.append(head);
+    c.append(el('div','muted', T('logStat')(
+      s.coverage != null ? (s.coverage*100).toFixed(1)+'%' : '—',
+      (s.detections||[]).length)));
+    (s.detections || []).forEach(x => {
+      const p = el('div');
+      p.append(el('span','tag t-stop', T('contested')),
+               document.createTextNode(' ' + x.topic + ' / ' + x.aspect));
+      c.append(p);
+      (x.evidence || []).slice(0,2).forEach(e => c.append(el('div','ev', e)));
+    });
+    /* Only the newest record takes a note: that is where the next person
+       looks, and a handover edited after the fact has stopped being one. */
+    if (s.note) c.append(el('div','ev', T('notePrefix') + s.note));
+    if (i === 0){
+      const row = el('div','row'); row.style.marginTop = '.5rem';
+      const ta = el('input'); ta.type = 'text';
+      ta.placeholder = T('notePlaceholder'); ta.value = s.note || '';
+      const btn = el('button','plain', T('save'));
+      const st = el('span','state');
+      btn.onclick = async () => {
+        st.className = 'state busy'; st.textContent = T('savingNote');
+        const r = await post('/api/note', {session_id: s.session_id, note: ta.value});
+        st.className = 'state';
+        st.textContent = r.verdict === 'ANSWER' ? T('savedNote') : T('saveNoteFailed');
+      };
+      row.append(ta, btn, st); c.append(row);
+    }
+    out.append(c);
+  });
+}
+
+/* ── help tables ───────────────────────────────────────────────────── */
+function renderHelp(){
+  const mk = (node, cols, rows) => {
+    node.replaceChildren();
+    if (cols){ const h = el('tr'); cols.forEach(c => h.append(el('th', null, c))); node.append(h); }
+    rows.forEach(r => { const tr = el('tr');
+      r.forEach((c, i) => { const td = el('td', null, c);
+        if (i === 0) td.style.width = '13rem'; tr.append(td); });
+      node.append(tr); });
+  };
+  mk($('#help-tasks'), T('helpTaskCols'), T('helpTasks'));
+  mk($('#help-keys'), null, T('helpKeys'));
+}
+
+/* ── lexicon (optional) ────────────────────────────────────────────── */
+async function lexStatus(){
+  if (!LEX) LEX = await (await fetch('/api/lexicon-status')).json();
+  $('#lex-status').textContent = LEX.loaded ? T('lexOn') : T('lexOff')(LEX.config);
+  $('#lex-row').hidden = !LEX.loaded;
+}
+$('#lexgo').addEventListener('click', async () => {
+  const d = await post('/api/lexicon', {words: $('#lexq').value});
+  const out = $('#lex-out'); out.replaceChildren();
+  if (d.verdict !== 'ANSWER'){ out.append(advice(d)); return; }
+  const w = el('div','wrap'), t = el('table'), h = el('tr');
+  T('lexCols').forEach(x => h.append(el('th', null, x)));
+  t.append(h);
+  d.words.forEach(x => { const tr = el('tr');
+    tr.append(el('td', null, x.word));
+    tr.append(el('td', null, x.state_likeness === null ? '—' : x.state_likeness.toFixed(4)));
+    tr.append(el('td', null, (x.nearest||[]).map(n => n[0]+'('+n[1]+')').join(', ')));
+    t.append(tr); });
+  w.append(t); out.append(w);
+});
+
+applyLang();
+</script>
+</body>
+</html>

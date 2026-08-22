@@ -1,0 +1,30 @@
+;;; JCross Memory Node — SKILL [FULL]
+;;; Session: Skill: vera_mem_search
+;;; Created: 2026-08-12T07:57:52Z
+;;; Archived: 2026-08-12T07:57:52Z
+;;; ID: skill-vera_mem_search
+;;; Store: full
+
+[L1_SUMMARY]
+[Skill] vera_mem_search v1 — Proposed by Vera-α from an approved memory save: answers 'SEARCH' from Vera's st
+[/L1_SUMMARY]
+
+[L2_FACTS]
+OP.FACT("skill_name", "vera_mem_search")
+OP.FACT("skill_version", "v1")
+OP.FACT("skill_added", "2026-08-12")
+OP.FACT("skill_desc", "Proposed by Vera-α from an approved memory save: answers 'SEARCH' from Vera's store first, no LLM call.")
+OP.FACT("skill_type", "macro")
+OP.FACT("skill_tags", "vera-propose, jgen")
+OP.FACT("skill_stats", "success=0 fail=0")
+[/L2_FACTS]
+
+[L3_VERBATIM]
+[SkillNode: vera_mem_search]
+description: Proposed by Vera-α from an approved memory save: answers 'SEARCH' from Vera's store first, no LLM call.
+version: 1 | type: macro
+tags: vera-propose, jgen | source: vera-propose
+updatedAt: 2026-08-12T07:57:52Z
+payload (1 step(s)):
+[MCP_CALL: vera-memory.ask]{"query": "SEARCH"}[/MCP_CALL]
+[/L3_VERBATIM]

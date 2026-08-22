@@ -1,0 +1,74 @@
+{
+ "name": "education_assess",
+ "maturity": "seeded",
+ "description": "Why a learner's response could not be assessed — or what kind of gap the failure indicates. The hardest classifier in this registry; treat verdicts as hypotheses.",
+ "fallback": "UNKNOWN_UNCLASSIFIED",
+ "verdicts": [
+  {
+   "verdict": "UNKNOWN_PREREQUISITE",
+   "pattern": "prerequisite (missing|gap)|assumes? (a )?(concept|skill)\\b.* not (yet )?(taught|mastered)",
+   "note": "the failure is upstream of this lesson",
+   "provenance": "claude_seeded+pattern_fix",
+   "remedy": {
+    "kind": "fix_content",
+    "owner": "curriculum sequence",
+    "verify": "manual",
+    "auto_calibratable": false,
+    "note": "route back to the prerequisite unit; mastery there is the verification"
+   }
+  },
+  {
+   "verdict": "UNKNOWN_MISCONCEPTION",
+   "pattern": "consistent (with|pattern of) misconception|systematic error",
+   "note": "wrong in a structured way — the most teachable failure",
+   "provenance": "claude_seeded",
+   "remedy": {
+    "kind": "fix_content",
+    "owner": "instruction design",
+    "verify": "manual",
+    "auto_calibratable": false,
+    "note": ""
+   }
+  },
+  {
+   "verdict": "UNKNOWN_AMBIGUOUS_TASK",
+   "pattern": "(question|task|prompt) (ambiguous|unclear)|multiple valid readings",
+   "note": "the item, not the learner",
+   "provenance": "claude_seeded",
+   "remedy": {
+    "kind": "fix_content",
+    "owner": "item authoring",
+    "verify": "manual",
+    "auto_calibratable": false,
+    "note": ""
+   }
+  },
+  {
+   "verdict": "UNKNOWN_OFF_CONSTRUCT",
+   "pattern": "(language|reading) barrier|answered a different question",
+   "note": "measured something other than the target skill",
+   "provenance": "claude_seeded",
+   "remedy": {
+    "kind": "human_judgment",
+    "owner": "educator",
+    "verify": "manual",
+    "auto_calibratable": false,
+    "note": ""
+   }
+  }
+ ],
+ "fixtures": [
+  {
+   "name": "fractions before ratios",
+   "expect": "UNKNOWN_PREREQUISITE",
+   "evidence": "assessment note: errors assume concept not yet mastered (fraction equivalence) required by this ratio unit",
+   "provenance": "synthetic"
+  },
+  {
+   "name": "classic sign error",
+   "expect": "UNKNOWN_MISCONCEPTION",
+   "evidence": "response pattern consistent with misconception: subtracting smaller from larger digit regardless of position",
+   "provenance": "synthetic"
+  }
+ ]
+}

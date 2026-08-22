@@ -1,0 +1,89 @@
+{
+  "gap_390f0e73": {
+    "gap_id": "gap_390f0e73",
+    "gap_type": "UNPROVED_GOAL",
+    "subject": "len(app(x, y)) = len(app(y, x))",
+    "scope": "math:goal:B1",
+    "severity": "QUALITY",
+    "status": "DETECTED",
+    "blocks": [],
+    "caused_by": [],
+    "required_for": [
+      "math_track"
+    ],
+    "acquisition_methods": [
+      "lpo_kbo",
+      "general_ac"
+    ],
+    "allowed_sources": [],
+    "max_depth": 1,
+    "resolution": null,
+    "verified_by": [],
+    "created_at": 1787187801.148793,
+    "updated_at": 1787187801.148793,
+    "role": null,
+    "failure_type": "no_induction_closed",
+    "input_type": null,
+    "output_type": null,
+    "expected_transition": null,
+    "observed_transition": null
+  },
+  "gap_fe7c54e1": {
+    "gap_id": "gap_fe7c54e1",
+    "gap_type": "UNPROVED_GOAL",
+    "subject": "mul(add(a, b), c) = add(mul(a, c), mul(b, c))",
+    "scope": "math:goal:B9",
+    "severity": "QUALITY",
+    "status": "DETECTED",
+    "blocks": [],
+    "caused_by": [],
+    "required_for": [
+      "math_track"
+    ],
+    "acquisition_methods": [
+      "lpo_kbo",
+      "general_ac"
+    ],
+    "allowed_sources": [],
+    "max_depth": 1,
+    "resolution": null,
+    "verified_by": [],
+    "created_at": 1787187801.148801,
+    "updated_at": 1787187801.148801,
+    "role": null,
+    "failure_type": "no_induction_closed",
+    "input_type": null,
+    "output_type": null,
+    "expected_transition": null,
+    "observed_transition": null
+  },
+  "gap_2dba42f8": {
+    "gap_id": "gap_2dba42f8",
+    "gap_type": "UNPROVED_GOAL",
+    "subject": "len(app(app(x, y), z)) = add(add(len(x), len(y)), len(z))",
+    "scope": "math:goal:B10",
+    "severity": "QUALITY",
+    "status": "DETECTED",
+    "blocks": [],
+    "caused_by": [],
+    "required_for": [
+      "math_track"
+    ],
+    "acquisition_methods": [
+      "lpo_kbo",
+      "general_ac"
+    ],
+    "allowed_sources": [],
+    "max_depth": 1,
+    "resolution": null,
+    "verified_by": [],
+    "created_at": 1787187801.1488059,
+    "updated_at": 1787187801.1488059,
+    "role": null,
+    "failure_type": "no_induction_closed",
+    "input_type": null,
+    "output_type": null,
+    "expected_transition": null,
+    "observed_transition": null
+  }
+}

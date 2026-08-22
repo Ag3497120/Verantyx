@@ -1,0 +1,166 @@
+name: verify
+
+# Every check here is deterministic and offline: no network, no LLM, no
+# model weights. That is a property of the system under test, not a CI
+# convenience — the deterministic core is what makes "state the expectation,
+# re-run, compare" possible, and a suite that needed a model would be
+# testing the model instead.
+on:
+  push:
+    branches: ["**"]
+  pull_request:
+  workflow_dispatch:
+
+jobs:
+  verify:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+
+      - name: Import every module
+        # Deliberately run BEFORE any pip install: the base package depends
+        # on nothing outside the standard library, and this step is what
+        # keeps that true. A module that starts importing a third-party
+        # package at module level fails here, where the cause is obvious.
+        run: |
+          python -c "
+          import importlib, pkgutil, sys, verantyx
+          bad = []
+          for m in pkgutil.iter_modules(verantyx.__path__):
+              try:
+                  importlib.import_module('verantyx.' + m.name)
+              except Exception as e:
+                  bad.append((m.name, type(e).__name__ + ': ' + str(e)[:120]))
+          for name, err in bad:
+              print('FAIL import', name, err)
+          sys.exit(1 if bad else 0)
+          "
+
+      - name: Install Lean toolchain (for LEAN_WITNESS_TYPES)
+        # The Lean fork checks three things a proof engine must keep apart:
+        # VERIFIED carries a toolchain-versioned witness, a failing proof
+        # lands in UNPROVEN, and `sorry` — which the kernel accepts with
+        # exit 0 — is caught by name. It needs a bare `lean`, NOT mathlib,
+        # so elan is a ~30s install rather than a multi-GB cache. Until
+        # 2026-08-19 this check ran only on the author's machine and CI
+        # allowed the skip by name; an allowance is not a measurement.
+        # `continue-on-error` keeps a Lean outage from turning the whole
+        # suite red — the named-skip allowance below still covers that case.
+        continue-on-error: true
+        run: |
+          curl -sSf https://raw.githubusercontent.com/leanprover/elan/master/elan-init.sh \
+            -o elan-init.sh
+          sh elan-init.sh -y --default-toolchain leanprover/lean4:stable
+          echo "$HOME/.elan/bin" >> "$GITHUB_PATH"
+
+      - name: Install optional extras
+        # Only the extras the suite actually exercises. `hf` and `mcp` are
+        # left out because nothing offline and deterministic needs them.
+        run: pip install -e ".[obfuscate]"
+
+      - name: Fork suite (vera lab)
+        # The behavioural suite: every fork states its expected outcome and
+        # returns evidence. all_pass is the gate — and so is n_skipped, since
+        # a suite that silently drops checks when an extra is missing reports
+        # a green tick for coverage it no longer has.
+        run: |
+          python -m verantyx.cli lab > lab.json
+          python -c "
+          import json, sys
+          d = json.load(open('lab.json'))
+          failed = [k for k, v in d['forks'].items() if not v]
+          print(f\"{d['n_forks'] - len(failed)}/{d['n_forks']} forks pass\")
+          for f in failed:
+              print('FAIL', f)
+          # A pip extra that is installed must not skip — that rule stands.
+          # But LEAN_WITNESS_TYPES needs the Lean TOOLCHAIN (elan/lake), a
+          # system install no pip extra provides, and this runner does not
+          # have one. Treating that as a bug turned every push red since
+          # 2026-08-15 while 153/153 forks passed — a gate that is always
+          # red gates nothing. The skip is allowed BY NAME with its reason
+          # checked, so a new silent skip still fails loudly.
+          # elan is installed a step earlier, so this fork should now RUN.
+          # The allowance stays as the fallback for a Lean outage
+          # (continue-on-error on that step) — a suite that goes red because
+          # leanprover.github.io is down gates nothing either.
+          allowed = {'LEAN_WITNESS_TYPES': 'no lean toolchain'}
+          bad_skips = {}
+          for f, why in d.get('skipped', {}).items():
+              if f in allowed and allowed[f] in str(why):
+                  print('SKIPPED(allowed)', f, why, '- system toolchain, not a pip extra')
+              else:
+                  bad_skips[f] = why
+                  print('SKIPPED', f, why, '- extras are installed, so this is a bug')
+          sys.exit(0 if d['all_pass'] and not bad_skips else 1)
+          "
+
+      - name: Structural and classifier evals
+        run: |
+          set -e
+          for m in boundary_eval rewrite_eval build_failure_eval \
+                   failure_domains_eval consensus_ab_eval \
+                   settings_registry_eval multilingual_eval \
+                   generalization_eval field_reports_eval; do
+            echo "--- $m ---"
+            python -m verantyx.$m
+          done
+
+      - name: Failure-pack maturity contract
+        # Restated as its own step because it is the safety property, not a
+        # test: a seeded pack must never acquire the power to propose limit
+        # changes, and a pack an expert edited into an invalid state must be
+        # loud rather than silently absent.
+        run: |
+          python -c "
+          import sys
+          from verantyx.failure_domains import all_domains, load_errors, validate
+          errs = list(load_errors())
+          for d in all_domains():
+              errs += [f'{d.name}: {e}' for e in validate(d)]
+          for e in errs:
+              print('FAIL', e)
+          print(f'{len(all_domains())} packs validated')
+          sys.exit(1 if errs else 0)
+          "
+
+      - name: The wheel a person would actually install
+        # The source tree is not the artifact. `packages = ["verantyx"]`
+        # produced a wheel that raised ImportError on verantyx.domains the
+        # instant anyone installed it — every test passed, because the tests
+        # import from a checkout where the directory is simply there. Building
+        # it and importing it from a clean venv is the only thing that would
+        # have caught that, so it runs on every push.
+        run: |
+          python -m pip install -q build
+          rm -rf dist
+          python -m build --wheel
+          python -m venv /tmp/wheelcheck
+          /tmp/wheelcheck/bin/pip install -q dist/*.whl
+          /tmp/wheelcheck/bin/python -c "
+          import sys
+          import verantyx
+          from verantyx.field_app import _PAGE_PATH
+          from verantyx.cross_store import CrossStore
+          from verantyx.document_ingest import Document, ingest_documents
+          from verantyx.failure_domains import all_domains
+          assert _PAGE_PATH.exists(), 'field_app.html did not ship'
+          assert all_domains(), 'failure packs did not ship'
+          s = CrossStore(track_provenance=True)
+          ingest_documents(s, [Document('A', '国道9号は通行止です。'),
+                               Document('B', '国道9号は通行可能になりました。')])
+          got = {f for c in s.crosses for f in s.crosses[c] if ':' in f}
+          assert got == {'通行可能:通行止', '通行可能:通行可能'}, got
+          print('installed wheel reads documents:', sorted(got))
+          "
+          /tmp/wheelcheck/bin/vera --help > /dev/null
+
+      - name: Upload lab results
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: lab-results
+          path: lab.json

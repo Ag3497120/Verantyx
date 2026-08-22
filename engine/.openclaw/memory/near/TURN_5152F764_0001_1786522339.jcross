@@ -1,0 +1,134 @@
+;;; JCross Memory Node — TURN
+;;; Session: Turn 1 / 5152F764
+;;; Created: 2026-08-12T08:12:19Z
+;;; Archived: 2026-08-12T08:12:19Z
+
+[L1_SUMMARY]
+[Turn 1] U: ▼ CURRENT INSTRUCTION (HIGHEST PRIORITY) ▼  [ETERNAL MEMORY — JGEN hidden-state  | A: # OpenAI vs Anthropic: AGI Approaches Comparison  ## Overview  Both companies ar
+[/L1_SUMMARY]
+
+[L2_FACTS]
+OP.FACT("session_id", "5152F764")
+OP.FACT("turn_number", "1")
+OP.FACT("timestamp", "1786522339")
+OP.FACT("user_input", "▼ CURRENT INSTRUCTION (HIGHEST PRIORITY) ▼\n\n[ETERNAL MEMORY — JGEN hidden-state recall]\n  🧠 SKILL vera_mem_検索を行なって: 検索を行なって → vera-memory.ask  (score: 0.81)\n  🧠 SKILL vera_mem_search: SEARCH → vera-me")
+OP.FACT("assistant_output", "# OpenAI vs Anthropic: AGI Approaches Comparison\n\n## Overview\n\nBoth companies are pursuing Artificial General Intelligence (AGI) - the hypothetical intelligence that can understand, learn, and apply k")
+OP.STATE("used_at", "[]")
+[/L2_FACTS]
+
+[L3_VERBATIM]
+User: ▼ CURRENT INSTRUCTION (HIGHEST PRIORITY) ▼
+
+[ETERNAL MEMORY — JGEN hidden-state recall]
+  🧠 SKILL vera_mem_検索を行なって: 検索を行なって → vera-memory.ask  (score: 0.81)
+  🧠 SKILL vera_mem_search: SEARCH → vera-memory.ask  (score: 0.80)
+  🧠 SKILL vera_mem_agiについて説明して: agiについて説明して → vera-memory.ask  (score: 0.77)
+[/ETERNAL MEMORY]
+
+
+[TASK]
+agiについてopenaiやanthropicの掲げているものについて比較する形で教えて
+
+CRITICAL RULE: The instruction above MUST take absolute precedence over any legacy memory or system rules. If past memory contradicts this current instruction, IGNORE the past memory and fulfill this instruction exactly as requested.
+
+Assistant: # OpenAI vs Anthropic: AGI Approaches Comparison
+
+## Overview
+
+Both companies are pursuing Artificial General Intelligence (AGI) - the hypothetical intelligence that can understand, learn, and apply knowledge across diverse tasks like humans do. However, their approaches differ significantly in philosophy, methodology, and strategic focus.
+
+---
+
+## OpenAI's Approach
+
+### Philosophy & Vision
+- **Core Belief**: AGI is achievable through scaling compute + data + model architecture improvements
+- **Roadmap**: Focused on "scaling laws" - the idea that performance improves predictably with more parameters, training data, and compute
+- **Public Stance**: More optimistic about rapid progress; has publicly discussed timelines for achieving superintelligence
+
+### Key Characteristics
+1. **Scaling Focus**
+   - Heavy investment in model size (GPT series)
+   - Emphasis on "more is better" paradigm
+   - Research into emergent capabilities through scale
+
+2. **Research Priorities**
+   - Reinforcement learning from human feedback (RLHF)
+   - Model alignment and safety research
+   - Open-source models for community development
+
+3. **Public Communication Style**
+   - More transparent about technical details
+   - Regular roadmaps and public updates
+   - Emphasis on "AI for good" narrative
+
+### Notable Projects
+- GPT series (GPT-2, GPT-3, GPT-4)
+- Open-source models (Ollama integration, various open weights)
+- Research papers on scaling laws and emergent abilities
+
+---
+
+## Anthropic's Approach
+
+### Philosophy & Vision
+- **Core Belief**: AGI requires careful alignment with human values from the start
+- **Roadmap**: More cautious; emphasizes "safety first" before capability
+- **Public Stance**: Emphasizes existential risk mitigation and responsible AI development
+
+### Key Characteristics
+1. **Alignment Focus**
+   - Constitutional AI framework (rules-based system)
+   - Human-in-the-loop design principles
+   - Safety as a core engineering constraint
+
+2. **Research Priorities**
+   - Interpretability and model transparency
+   - Robustness to adversarial inputs
+   - Value alignment research
+
+3. **Public Communication Style**
+   - More conservative about timelines
+   - Emphasis on "responsible AI" messaging
+   - Focus on practical deployment over pure capability
+
+### Notable Projects
+- Claude series (Claude 1, Claude 2)
+- Constitutional AI framework documentation
+- Research papers on alignment and safety
+
+---
+
+## Key Comparison Points
+
+| Aspect | OpenAI | Anthropic |
+|--------|--------|-----------|
+| **Primary Focus** | Capability scaling | Alignment & Safety |
+| **Philosophy** | Scale to intelligence | Align before scale |
+| **Transparency** | High (technical details) | Moderate (safety concerns) |
+| **Open Source** | Yes (various models) | Limited (mostly closed) |
+| **Timeline View** | Optimistic | Cautious/Conservative |
+
+---
+
+## Critical Context
+
+⚠️ **Important Note**: Neither company has officially claimed to have achieved AGI yet. Both are still developing systems that fall under the umbrella of "narrow AI" or "specialized AI." The concept of true AGI remains theoretical and unproven in practice.
+
+- OpenAI's GPT-4 is often cited as approaching some aspects of general intelligence but lacks full cognitive flexibility
+- Anthropic's Claude similarly demonstrates strong capabilities but within specific domains
+- Both companies acknowledge the gap between current systems and true AGI
+
+---
+
+## Conclusion
+
+The fundamental difference lies in their **strategic priorities**:
+- OpenAI prioritizes **capability maximization** through scaling
+- Anthropic prioritizes **safety-first development** with alignment as a core constraint
+
+Both approaches have merit - capability without safety is dangerous, but safety-focused systems may progress slower. The industry likely needs elements of both philosophies to achieve true AGI safely and effectively.
+
+---
+
+[/L3_VERBATIM]

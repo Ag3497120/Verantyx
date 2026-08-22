@@ -1,0 +1,225 @@
+{
+  "registered": "2026-08-14T21:45:00+09:00",
+  "protocol": "Preregistered BEFORE the first verantyx.sense_split.resolve call. Sense lists are the jawiki parenthetical titles (and the unmarked base article, plus one alias hop) observed in profiles+aliases at registration; extras the dump still holds are allowed. Ambiguous surfaces must abstain with the named list. Unambiguous surfaces must RESOLVE and must not emit AMBIGUOUS_SENSE.",
+  "seed_note": "Bank contents are title-inventory expectations, not read from a prior resolve run.",
+  "n": 10,
+  "surfaces": [
+    {
+      "surface": "馬",
+      "expect_verdict": "AMBIGUOUS_SENSE",
+      "context_tokens": [],
+      "must_include_cores": [
+        "ウマ",
+        "ウマ (麻雀)",
+        "馬 (映画)",
+        "馬 (姓)",
+        "馬 (シャンチー)"
+      ],
+      "must_include_tags": ["麻雀", "映画", "姓", "シャンチー"],
+      "note": "animal article is ウマ (馬 redirects). 麻雀 enters as ウマ (麻雀), not as a facet of 馬."
+    },
+    {
+      "surface": "ウマ",
+      "expect_verdict": "AMBIGUOUS_SENSE",
+      "context_tokens": [],
+      "must_include_cores": ["ウマ", "ウマ (麻雀)"],
+      "must_include_tags": ["麻雀"]
+    },
+    {
+      "surface": "水",
+      "expect_verdict": "AMBIGUOUS_SENSE",
+      "context_tokens": [],
+      "must_include_cores": ["水", "水 (姓)"],
+      "must_include_tags": ["姓"]
+    },
+    {
+      "surface": "平和",
+      "expect_verdict": "AMBIGUOUS_SENSE",
+      "context_tokens": [],
+      "must_include_cores": [
+        "平和",
+        "平和 (麻雀)",
+        "平和 (パチンコ)",
+        "平和 (アリストパネス)",
+        "平和 (札幌市)",
+        "平和 (名古屋市)",
+        "平和 (福岡市)",
+        "平和 (随筆)"
+      ],
+      "must_include_tags": ["麻雀", "パチンコ", "アリストパネス", "札幌市", "名古屋市", "福岡市", "随筆"]
+    },
+    {
+      "surface": "愛",
+      "expect_verdict": "AMBIGUOUS_SENSE",
+      "context_tokens": [],
+      "must_include_cores": [
+        "愛",
+        "愛 (テレビドラマ)",
+        "愛 (曖昧さ回避)",
+        "愛 (タレント)",
+        "愛 (1946年の映画)"
+      ],
+      "must_include_tags": ["テレビドラマ", "曖昧さ回避", "タレント", "1946年の映画"]
+    },
+    {
+      "surface": "リンゴ",
+      "expect_verdict": "AMBIGUOUS_SENSE",
+      "context_tokens": [],
+      "must_include_cores": [
+        "リンゴ",
+        "リンゴ (アルバム)",
+        "リンゴ (お笑い芸人)"
+      ],
+      "must_include_tags": ["アルバム", "お笑い芸人"]
+    },
+    {
+      "surface": "包丁",
+      "expect_verdict": "RESOLVED",
+      "context_tokens": [],
+      "expect_core": "包丁",
+      "note": "unambiguous: no parenthetical titles in jawiki inventory. Must not abstain."
+    },
+    {
+      "surface": "鉛筆",
+      "expect_verdict": "RESOLVED",
+      "context_tokens": [],
+      "expect_core": "鉛筆",
+      "note": "unambiguous. Must not abstain."
+    },
+    {
+      "surface": "机",
+      "expect_verdict": "RESOLVED",
+      "context_tokens": [],
+      "expect_core": "机",
+      "note": "unambiguous: no parenthetical titles after the dump title inventory. Must not abstain. Replaced 火 before first resolve (火 (曖昧さ回避) exists)."
+    },
+    {
+      "surface": "靴",
+      "expect_verdict": "RESOLVED",
+      "context_tokens": [],
+      "expect_core": "靴",
+      "note": "unambiguous. Must not abstain. Replaced 砂糖 before first resolve (砂糖 (曖昧さ回避) exists)."
+    }
+  ],
+  "context_cases": [
+    {
+      "surface": "馬",
+      "context_tokens": ["麻雀"],
+      "expect_verdict": "RESOLVED",
+      "expect_core": "ウマ (麻雀)",
+      "note": "exactly one domain_tag match."
+    },
+    {
+      "surface": "馬",
+      "context_tokens": ["映画", "麻雀"],
+      "expect_verdict": "AMBIGUOUS_SENSE",
+      "note": "two tags match: abstain, do not pick."
+    },
+    {
+      "surface": "包丁",
+      "context_tokens": ["切"],
+      "expect_verdict": "RESOLVED",
+      "expect_core": "包丁",
+      "note": "unambiguous stays resolved even with unused context."
+    }
+  ],
+  "registered_amendment": {
+    "registered": "2026-08-14T22:05:00+09:00",
+    "protocol": "Primary-sense default. Context-free resolve returns RESOLVED_PRIMARY (base article / redirect target) with other_senses named. AMBIGUOUS_SENSE only when the bare title is a 曖昧さ回避 page. Context-given unique match stays RESOLVED. Written BEFORE the amendment re-run. Old surfaces and context_cases untouched.",
+    "surfaces": [
+      {
+        "surface": "馬",
+        "expect_verdict": "RESOLVED_PRIMARY",
+        "context_tokens": [],
+        "expect_core": "ウマ",
+        "must_include_other_cores": [
+          "ウマ (麻雀)",
+          "馬 (映画)",
+          "馬 (姓)",
+          "馬 (シャンチー)"
+        ],
+        "must_include_other_tags": ["麻雀", "映画", "姓", "シャンチー"]
+      },
+      {
+        "surface": "ウマ",
+        "expect_verdict": "RESOLVED_PRIMARY",
+        "context_tokens": [],
+        "expect_core": "ウマ",
+        "must_include_other_cores": ["ウマ (麻雀)"],
+        "must_include_other_tags": ["麻雀"]
+      },
+      {
+        "surface": "水",
+        "expect_verdict": "RESOLVED_PRIMARY",
+        "context_tokens": [],
+        "expect_core": "水",
+        "must_include_other_cores": ["水 (姓)"],
+        "must_include_other_tags": ["姓"]
+      },
+      {
+        "surface": "平和",
+        "expect_verdict": "RESOLVED_PRIMARY",
+        "context_tokens": [],
+        "expect_core": "平和",
+        "must_include_other_cores": [
+          "平和 (麻雀)",
+          "平和 (パチンコ)",
+          "平和 (アリストパネス)",
+          "平和 (札幌市)",
+          "平和 (名古屋市)",
+          "平和 (福岡市)",
+          "平和 (随筆)"
+        ],
+        "must_include_other_tags": ["麻雀", "パチンコ", "アリストパネス", "札幌市", "名古屋市", "福岡市", "随筆"]
+      },
+      {
+        "surface": "愛",
+        "expect_verdict": "RESOLVED_PRIMARY",
+        "context_tokens": [],
+        "expect_core": "愛",
+        "must_include_other_cores": [
+          "愛 (テレビドラマ)",
+          "愛 (曖昧さ回避)",
+          "愛 (タレント)",
+          "愛 (1946年の映画)"
+        ],
+        "must_include_other_tags": ["テレビドラマ", "曖昧さ回避", "タレント", "1946年の映画"]
+      },
+      {
+        "surface": "リンゴ",
+        "expect_verdict": "RESOLVED_PRIMARY",
+        "context_tokens": [],
+        "expect_core": "リンゴ",
+        "must_include_other_cores": [
+          "リンゴ (アルバム)",
+          "リンゴ (お笑い芸人)"
+        ],
+        "must_include_other_tags": ["アルバム", "お笑い芸人"]
+      },
+      {
+        "surface": "包丁",
+        "expect_verdict": "RESOLVED",
+        "context_tokens": [],
+        "expect_core": "包丁"
+      },
+      {
+        "surface": "鉛筆",
+        "expect_verdict": "RESOLVED",
+        "context_tokens": [],
+        "expect_core": "鉛筆"
+      },
+      {
+        "surface": "机",
+        "expect_verdict": "RESOLVED",
+        "context_tokens": [],
+        "expect_core": "机"
+      },
+      {
+        "surface": "靴",
+        "expect_verdict": "RESOLVED",
+        "context_tokens": [],
+        "expect_core": "靴"
+      }
+    ]
+  }
+}

@@ -1,0 +1,72 @@
+{
+  "db": "/Users/motonishikoudai/Projects/vera-corpus/build/vera.db",
+  "margin": 3.0,
+  "families": {
+    "bare": {
+      "counts": {
+        "asked": 300,
+        "unique_correct": 180,
+        "unique_wrong": 1,
+        "specific_correct": 48,
+        "specific_wrong": 1,
+        "abstain": 70
+      },
+      "wrong_margins": [
+        4.25
+      ],
+      "wrong_cases": [
+        {
+          "q": "児童誘拐年1万人 価値観 人間",
+          "want": "中国政府",
+          "picked": "環境人文学",
+          "margin": 4.25
+        }
+      ],
+      "report_only": {
+        "1.5": {
+          "correct": 56,
+          "wrong": 8
+        },
+        "2.0": {
+          "correct": 54,
+          "wrong": 4
+        },
+        "5.0": {
+          "correct": 43,
+          "wrong": 0
+        }
+      }
+    },
+    "wrapped": {
+      "counts": {
+        "asked": 300,
+        "unique_correct": 188,
+        "unique_wrong": 0,
+        "specific_correct": 48,
+        "specific_wrong": 0,
+        "abstain": 64
+      },
+      "wrong_margins": [],
+      "wrong_cases": [],
+      "report_only": {
+        "1.5": {
+          "correct": 58,
+          "wrong": 5
+        },
+        "2.0": {
+          "correct": 54,
+          "wrong": 2
+        },
+        "5.0": {
+          "correct": 43,
+          "wrong": 0
+        }
+      }
+    }
+  },
+  "name_form": {
+    "asked": 100,
+    "forward_answer_correct": 0
+  },
+  "elapsed_s": 30.7
+}

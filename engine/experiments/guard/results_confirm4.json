@@ -1,0 +1,180 @@
+{
+ "prereg": "experiments/guard/PREREG4.md",
+ "checks": {
+  "V19_regex_read_rules_do_not_block": {
+   "pass": true,
+   "detail": {
+    "before_fix": "BROKEN",
+    "after_fix": "KEPT",
+    "violations": 0,
+    "shadow_one": [
+     [
+      "No new dependencies",
+      [
+       "new"
+      ]
+     ]
+    ],
+    "shadow_all_three": [
+     [
+      "No new dependencies",
+      [
+       "new"
+      ],
+      []
+     ],
+     [
+      "Always run the tests before committing",
+      [],
+      [
+       "the"
+      ]
+     ]
+    ],
+    "misreads": {
+     "No new dependencies": {
+      "forbids": [
+       "new"
+      ],
+      "requires": []
+     },
+     "Always run the tests before committing": {
+      "forbids": [],
+      "requires": [
+       "the"
+      ]
+     },
+     "Stop using console": {
+      "forbids": [
+       "console"
+      ],
+      "requires": []
+     }
+    },
+    "adopted": [],
+    "in_force_all": 0
+   }
+  },
+  "V20_explicit_registration_still_blocks": {
+   "pass": true,
+   "detail": {
+    "explicit": [
+     "BROKEN",
+     1,
+     1
+    ],
+    "emoji_class": [
+     "BROKEN",
+     "KEPT"
+    ],
+    "shadow_empty": true
+   }
+  },
+  "V21_adoption_enters_enforcement": {
+   "pass": true,
+   "detail": {
+    "before": [
+     "KEPT",
+     0
+    ],
+    "after": [
+     "BROKEN",
+     1
+    ],
+    "violations_after": [
+     [
+      "new"
+     ]
+    ],
+    "origin_after_adopt": [
+     "regex"
+    ]
+   }
+  },
+  "V22_order_invariance": {
+   "pass": true,
+   "detail": {
+    "permutations": 6,
+    "identical": true,
+    "verdict": "BROKEN",
+    "in_force": 1,
+    "violations": [
+     [
+      "explicit",
+      [
+       "new"
+      ]
+     ]
+    ],
+    "shadow": [
+     [
+      "cand_a",
+      [
+       "new"
+      ]
+     ],
+     [
+      "cand_b",
+      [
+       "helper"
+      ]
+     ]
+    ]
+   }
+  },
+  "V23_hook_wiring_end_to_end": {
+   "pass": true,
+   "detail": {
+    "after_prompt_hook": {
+     "seats": 1,
+     "statuses": [
+      "candidate"
+     ],
+     "adopted": 0
+    },
+    "stop_before_adopt": {
+     "blocked": false,
+     "told": true,
+     "message": "Vera 隔離席(遮断していない): 「No new dependencies」の禁止語 ['new'] を使っている — 良ければ `guard adopt`、誤読なら `guard retire`"
+    },
+    "stop_after_adopt": {
+     "decision": "block",
+     "reason": "Vera が約束との矛盾を検出した: 「No new dependencies」の禁止語 ['new'] を使っている"
+    },
+    "backstop_set_with_origin": {
+     "routed": true,
+     "statuses": [
+      "candidate"
+     ]
+    },
+    "plain_set_still_enforces": 1,
+    "recommendation": {
+     "shown": "<vera-covenant-reminder>\n・規則が読んだ候補「No new dependencies」が実績を積んだ(10回中1回発火)。中身を見て良ければ `vera-memory guard adopt` で執行に入る(こちらでは採用しない)\n</vera-covenant-reminder>",
+     "statuses_after": [
+      "candidate"
+     ]
+    }
+   }
+  },
+  "V24_regression_all_green": {
+   "pass": true,
+   "detail": {
+    "scripts": {
+     "run_confirm.py": "7/7",
+     "run_confirm2.py": "5/5",
+     "run_confirm3.py": "5/5",
+     "run_confirm_lang.py": "3/3"
+    },
+    "expected": {
+     "run_confirm.py": "7/7",
+     "run_confirm2.py": "5/5",
+     "run_confirm3.py": "5/5",
+     "run_confirm_lang.py": "3/3"
+    },
+    "forks": "89/89",
+    "failed_forks": []
+   }
+  }
+ },
+ "summary": "6/6 passed"
+}

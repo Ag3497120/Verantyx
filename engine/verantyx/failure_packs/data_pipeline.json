@@ -1,0 +1,87 @@
+{
+ "name": "data_pipeline",
+ "maturity": "seeded",
+ "description": "ETL / warehouse load failures by cause.",
+ "fallback": "UNKNOWN_UNCLASSIFIED",
+ "verdicts": [
+  {
+   "verdict": "UNKNOWN_SCHEMA_DRIFT",
+   "pattern": "column .*(added|removed|renamed)|type mismatch.*expected|schema (change|drift)",
+   "note": "the upstream contract changed shape",
+   "provenance": "claude_seeded",
+   "remedy": {
+    "kind": "fix_content",
+    "owner": "data contract",
+    "verify": "rerun",
+    "auto_calibratable": false,
+    "note": "draft the contract update -> quarantine -> accept"
+   }
+  },
+  {
+   "verdict": "UNKNOWN_UPSTREAM",
+   "pattern": "upstream.*(5\\d\\d|unavailable|refused)|source api (timeout|error)",
+   "note": "the source system failed; nothing local to fix",
+   "provenance": "claude_seeded",
+   "remedy": {
+    "kind": "fix_upstream",
+    "owner": "source system",
+    "verify": "rerun",
+    "auto_calibratable": false,
+    "note": ""
+   }
+  },
+  {
+   "verdict": "UNKNOWN_LATE_DATA",
+   "pattern": "late[- ]arriving|watermark exceeded|partition .* empty at deadline",
+   "note": "data exists but missed the window",
+   "provenance": "claude_seeded",
+   "remedy": {
+    "kind": "raise_limit",
+    "owner": "ingestion window",
+    "verify": "rerun_larger_limit",
+    "auto_calibratable": false,
+    "note": "the window is calibratable once this pack is verified — the flag stays False until then, by rule"
+   }
+  },
+  {
+   "verdict": "UNKNOWN_NULL_SPIKE",
+   "pattern": "null (rate|fraction) [0-9.]+ exceeds|not_null violation",
+   "note": "values arrived but are empty",
+   "provenance": "claude_seeded",
+   "remedy": {
+    "kind": "fix_upstream",
+    "owner": "source data quality",
+    "verify": "rerun",
+    "auto_calibratable": false,
+    "note": ""
+   }
+  },
+  {
+   "verdict": "UNKNOWN_DUPLICATE_KEYS",
+   "pattern": "duplicate key|unique(ness)? violation",
+   "note": "grain broken upstream or in the join",
+   "provenance": "claude_seeded",
+   "remedy": {
+    "kind": "fix_code",
+    "owner": "the transform",
+    "verify": "rerun",
+    "auto_calibratable": false,
+    "note": ""
+   }
+  }
+ ],
+ "fixtures": [
+  {
+   "name": "renamed column",
+   "expect": "UNKNOWN_SCHEMA_DRIFT",
+   "evidence": "load failed: column customer_id renamed to customerId in source export",
+   "provenance": "synthetic"
+  },
+  {
+   "name": "late partition",
+   "expect": "UNKNOWN_LATE_DATA",
+   "evidence": "partition dt=2026-08-04 empty at deadline; watermark exceeded by 3h",
+   "provenance": "synthetic"
+  }
+ ]
+}
