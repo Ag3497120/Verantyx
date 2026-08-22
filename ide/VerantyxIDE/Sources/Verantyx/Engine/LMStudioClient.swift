@@ -205,6 +205,62 @@ actor LMStudioClient {
     /// Returns the locally accumulated string rather than a separate final field
     /// because the OpenAI streaming shape has no authoritative "full text" event
     /// — the deltas *are* the answer.
+    /// 一枚の画像と一つの問いを送って、返事を丸ごと受け取る。
+    ///
+    /// 既存の `generateConversation` は content を文字列で送るので画像を
+    /// 運べない。OpenAI 互換の視覚形式は content が配列になるため、
+    /// 既存の経路を触らず別の口として足してある(共有の経路を書き換えると、
+    /// 画像と関係ない会話まで形が変わる)。
+    ///
+    /// 流さないのは、呼び手が一回分の答えしか要らないため。
+    func generateWithImage(
+        model: String,
+        systemPrompt: String,
+        userText: String,
+        imageBase64: String,
+        mimeType: String = "image/jpeg",
+        temperature: Double = 0.15
+    ) async -> String? {
+        guard let url = URL(string: "\(await baseURL())/chat/completions")
+        else { return nil }
+        var req = URLRequest(url: url)
+        req.httpMethod = "POST"
+        req.setValue("application/json", forHTTPHeaderField: "Content-Type")
+        req.timeoutInterval = 300
+        let content: [[String: Any]] = [
+            ["type": "text", "text": userText],
+            ["type": "image_url",
+             "image_url": ["url": "data:\(mimeType);base64,\(imageBase64)"]],
+        ]
+        var messages: [[String: Any]] = []
+        if !systemPrompt.isEmpty {
+            messages.append(["role": "system", "content": systemPrompt])
+        }
+        messages.append(["role": "user", "content": content])
+        req.httpBody = try? JSONSerialization.data(withJSONObject: [
+            "model": model, "messages": messages,
+            "max_tokens": -1, "temperature": temperature, "stream": false,
+        ])
+
+        guard let (data, response) = try? await session.data(for: req) else {
+            return nil
+        }
+        if let http = response as? HTTPURLResponse, http.statusCode != 200 {
+            // 視覚に対応していないモデルを選ぶと 400 が返る。黙って空を
+            // 返すと「モデルが何も言わなかった」と読めてしまうので、
+            // 何が起きたかをそのまま渡す。
+            let body = String(data: data, encoding: .utf8) ?? ""
+            return "LM Studio error: HTTP \(http.statusCode) "
+                + body.prefix(300)
+        }
+        guard let json = try? JSONSerialization.jsonObject(with: data)
+                as? [String: Any],
+              let choices = json["choices"] as? [[String: Any]],
+              let msg = choices.first?["message"] as? [String: Any],
+              let text = msg["content"] as? String else { return nil }
+        return text
+    }
+
     func generateConversation(
         model: String,
         messages: [(role: String, content: String)],

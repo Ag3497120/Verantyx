@@ -20,6 +20,7 @@ final class AtelierAnalyst: ObservableObject {
         case vera
         case ollama(String)
         case jgen(String)
+        case lmStudio(String)
         case cloud(CloudProvider, String)
 
         var label: String {
@@ -27,6 +28,7 @@ final class AtelierAnalyst: ObservableObject {
             case .vera: return "Vera (構造のみ・モデルを呼ばない)"
             case .ollama(let m): return "Ollama: \(m)"
             case .jgen(let m): return "JGEN: \(m)"
+            case .lmStudio(let m): return "LM Studio: \(m)"
             case .cloud(let p, let m): return "\(p.rawValue): \(m)"
             }
         }
@@ -36,6 +38,7 @@ final class AtelierAnalyst: ObservableObject {
             case .vera: return "vera"
             case .ollama(let m): return "ollama:\(m)"
             case .jgen(let m): return "jgen:\(m)"
+            case .lmStudio(let m): return "lmstudio:\(m)"
             case .cloud(let p, let m): return "cloud:\(p.rawValue)|\(m)"
             }
         }
@@ -47,6 +50,7 @@ final class AtelierAnalyst: ObservableObject {
             case .vera: return "vera-structure"
             case .ollama(let m): return "ollama:\(m)"
             case .jgen(let m): return "jgen:\(m)"
+            case .lmStudio(let m): return "lmstudio:\(m)"
             case .cloud(let p, let m): return "cloud:\(p.rawValue)/\(m)"
             }
         }
@@ -54,6 +58,9 @@ final class AtelierAnalyst: ObservableObject {
         static func from(_ s: String) -> Pick {
             if s.hasPrefix("ollama:") { return .ollama(String(s.dropFirst(7))) }
             if s.hasPrefix("jgen:") { return .jgen(String(s.dropFirst(5))) }
+            if s.hasPrefix("lmstudio:") {
+                return .lmStudio(String(s.dropFirst(9)))
+            }
             if s.hasPrefix("cloud:") {
                 let rest = String(s.dropFirst(6)).split(separator: "|",
                                                         maxSplits: 1)
@@ -73,6 +80,10 @@ final class AtelierAnalyst: ObservableObject {
     }
     @Published var ollamaModels: [String] = []
     @Published var jgenModels: [String] = []
+    /// LM Studio が今出しているもの。**表を持たない** — 何が入って
+    /// いるかは向こうが知っている。別の機体を指していても同じ。
+    @Published var lmStudioModels: [String] = []
+    @Published var lmStudioEndpoint = ""
     @Published var cloudModels: [CloudProvider: [String]] = [:]
     @Published var busy = false
     @Published var lastRun = ""
@@ -96,6 +107,9 @@ final class AtelierAnalyst: ObservableObject {
         jgenModels = conv.convertedModels
             .filter { conv.canRunForward($0) }.sorted()
 
+        lmStudioModels = await LMStudioClient.shared.listModels()
+        lmStudioEndpoint = app.lmStudioEndpoint
+
         var out: [CloudProvider: [String]] = [:]
         for p in CloudProvider.allCases
         where await CloudAPIClient.shared.hasAPIKey(for: p) {
@@ -117,6 +131,7 @@ final class AtelierAnalyst: ObservableObject {
         case .vera: alive = true
         case .ollama(let m): alive = ollamaModels.contains(m)
         case .jgen(let m): alive = jgenModels.contains(m)
+        case .lmStudio(let m): alive = lmStudioModels.contains(m)
         case .cloud(let p, let m): alive = (cloudModels[p] ?? []).contains(m)
         }
         guard !alive else { return }
@@ -191,6 +206,10 @@ final class AtelierAnalyst: ObservableObject {
             raw = try? await mgr.generate(
                 conversation: [("user", prompt)], maxTokens: 1200,
                 keepThinking: false)
+        case .lmStudio(let name):
+            raw = await LMStudioClient.shared.generateConversation(
+                model: name, messages: [("user", prompt)],
+                maxTokens: 1200, temperature: 0.15)
         case .cloud(let p, let name):
             let r = await CloudAPIClient.shared.send(
                 systemPrompt: "服飾解析。JSON 配列のみを返す。",

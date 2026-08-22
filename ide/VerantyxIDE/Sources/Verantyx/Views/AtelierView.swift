@@ -902,6 +902,7 @@ private struct AnalystSheet: View {
     @ObservedObject var m: AtelierModel
     @EnvironmentObject var app: AppState
     @Environment(\.dismiss) private var dismiss
+    @State private var lmHost = ""
 
     var body: some View {
         VStack(alignment: .leading, spacing: 0) {
@@ -944,6 +945,35 @@ private struct AnalystSheet: View {
                             ForEach(an.ollamaModels, id: \.self) { name in
                                 row(.ollama(name), app.t("on this machine",
                                                          "この機体の中"))
+                            }
+                        }
+                    }
+                    group("LM Studio") {
+                        // **別の機体を指せる。** 手元のRAMで載らないものを
+                        // 隣の機体に載せて、結果だけ台帳に入れる — 出所は
+                        // どちらで走らせても同じように残る。
+                        HStack(spacing: 6) {
+                            TextField("http://127.0.0.1:1234/v1",
+                                      text: $lmHost)
+                                .textFieldStyle(.roundedBorder)
+                                .font(.system(size: 10, design: .monospaced))
+                            Button(app.t("Point here", "ここに向ける")) {
+                                let v = lmHost.trimmingCharacters(
+                                    in: .whitespaces)
+                                guard !v.isEmpty else { return }
+                                app.lmStudioEndpoint = v
+                                Task { await an.refresh(app: app) }
+                            }.font(.system(size: 10))
+                        }
+                        .padding(.horizontal, 14).padding(.bottom, 4)
+                        if an.lmStudioModels.isEmpty {
+                            empty(app.t("LM Studio's server is not answering "
+                                        + "at \(an.lmStudioEndpoint)",
+                                        "LM Studio のサーバーが答えません "
+                                        + "(\(an.lmStudioEndpoint))"))
+                        } else {
+                            ForEach(an.lmStudioModels, id: \.self) { name in
+                                row(.lmStudio(name), an.lmStudioEndpoint)
                             }
                         }
                     }
@@ -996,8 +1026,9 @@ private struct AnalystSheet: View {
             .padding(14)
             .background(AT.panel)
         }
-        .frame(width: 560, height: 520)
+        .frame(width: 560, height: 560)
         .background(AT.bg)
+        .onAppear { if lmHost.isEmpty { lmHost = app.lmStudioEndpoint } }
     }
 
     private func group<T: View>(_ title: String,

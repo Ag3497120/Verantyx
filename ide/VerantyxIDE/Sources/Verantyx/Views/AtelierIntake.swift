@@ -220,6 +220,11 @@ final class AtelierIntake: ObservableObject {
         case .jgen:
             say("JGEN は画像を受け取りません。Ollama かクラウドを選んでください")
             return
+        case .lmStudio(let name):
+            raw = await LMStudioClient.shared.generateWithImage(
+                model: name,
+                systemPrompt: "服飾の視覚解析。JSON 配列のみを返す。",
+                userText: prompt, imageBase64: b64)
         case .cloud(let p, let name):
             let r = await CloudAPIClient.shared.send(
                 systemPrompt: "服飾の視覚解析。JSON 配列のみを返す。",
