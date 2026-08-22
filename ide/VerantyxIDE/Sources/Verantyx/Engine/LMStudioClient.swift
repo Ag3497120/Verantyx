@@ -219,7 +219,8 @@ actor LMStudioClient {
         userText: String,
         imageBase64: String,
         mimeType: String = "image/jpeg",
-        temperature: Double = 0.15
+        temperature: Double = 0.15,
+        maxTokens: Int = 900
     ) async -> String? {
         guard let url = URL(string: "\(await baseURL())/chat/completions")
         else { return nil }
@@ -237,9 +238,14 @@ actor LMStudioClient {
             messages.append(["role": "system", "content": systemPrompt])
         }
         messages.append(["role": "user", "content": content])
+        // **上限を外さない。** 会話用の経路は -1(モデルが止まるまで)で
+        // よいが、ここは推論するモデルに一枚の絵を渡す口で、実測では
+        // 上限なしだと考え続けて15分経っても返らなかった。求めているのは
+        // 短い JSON 配列一つなので、届かない長さで切る。
         req.httpBody = try? JSONSerialization.data(withJSONObject: [
             "model": model, "messages": messages,
-            "max_tokens": -1, "temperature": temperature, "stream": false,
+            "max_tokens": maxTokens, "temperature": temperature,
+            "stream": false,
         ])
 
         guard let (data, response) = try? await session.data(for: req) else {
