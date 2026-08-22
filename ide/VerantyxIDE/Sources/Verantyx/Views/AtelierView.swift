@@ -162,6 +162,8 @@ struct AtelierView: View {
         case "Re-design":  DesignPanel(m: m).environmentObject(app)
         case "Pattern":    MeasurePanel(m: m).environmentObject(app)
         case "Garments":   DrawingPanel(m: m).environmentObject(app)
+        case "Evidence":   EvidencePanel(m: m).environmentObject(app)
+        case "Materials":  MaterialsPanel(m: m).environmentObject(app)
         default:           figureWorkspace
         }
     }
@@ -2130,4 +2132,279 @@ private struct FlatFigure: View {
         }
     }
 
+}
+
+// MARK: - 証拠
+
+/// 証拠の面。**開けるものは開ける。**
+///
+/// 台帳は「◉ 見に行ける」と出しているのに、押しても行けなかった。
+/// 確かめられると言って確かめさせないのは、確かめられないより悪い —
+/// 読み手は確かめた気になる。ここは参照を実際に開く。
+private struct EvidencePanel: View {
+    @ObservedObject var m: AtelierModel
+    @EnvironmentObject var app: AppState
+    @State private var onlyOpenable = false
+
+    private var rows: [AtelierModel.Evidence] {
+        onlyOpenable ? m.timeline.filter { $0.refStatus == "VERIFIABLE" }
+                     : m.timeline
+    }
+
+    var body: some View {
+        VStack(alignment: .leading, spacing: 0) {
+            VStack(alignment: .leading, spacing: 6) {
+                HStack(spacing: 10) {
+                    Text(app.t("Evidence", "証拠"))
+                        .font(.system(size: 13, weight: .semibold))
+                    Text("\(m.timeline.count)")
+                        .font(.system(size: 11, design: .monospaced))
+                        .foregroundStyle(AT.faint)
+                    Spacer()
+                    Toggle(app.t("only what can be re-opened",
+                                 "見に行けるものだけ"),
+                           isOn: $onlyOpenable)
+                        .toggleStyle(.checkbox).font(.system(size: 11))
+                }
+                Text(app.t("Every reading is kept — nothing is deleted. "
+                           + "Repeated reads of one frame are folded only in "
+                           + "the pack handed to the maker.",
+                           "読みは全部残しています（何も消しません）。"
+                           + "同じコマの繰り返しを畳むのは、縫製師に渡す"
+                           + "資料の中だけです。"))
+                    .font(.system(size: 10)).foregroundStyle(AT.faint)
+            }
+            .padding(14)
+            .frame(maxWidth: .infinity, alignment: .leading)
+            .background(AT.panel)
+            Divider().opacity(0.25)
+
+            ScrollView {
+                VStack(alignment: .leading, spacing: 0) {
+                    if rows.isEmpty {
+                        Text(app.t("Nothing recorded yet.",
+                                   "まだ何も記録されていません。"))
+                            .font(.system(size: 11))
+                            .foregroundStyle(AT.faint).padding(14)
+                    }
+                    ForEach(rows) { r in
+                        VStack(alignment: .leading, spacing: 3) {
+                            HStack(spacing: 8) {
+                                Text(r.at.isEmpty ? "—" : r.at)
+                                    .font(.system(size: 11,
+                                                  design: .monospaced))
+                                    .foregroundStyle(AT.dim)
+                                    .frame(width: 52, alignment: .leading)
+                                Text("\(r.part) / \(r.aspect)")
+                                    .font(.system(size: 11,
+                                                  design: .monospaced))
+                                    .foregroundStyle(AT.dim)
+                                Text(r.value)
+                                    .font(.system(size: 12, weight: .semibold))
+                                Spacer(minLength: 0)
+                                kindChip(r.kind)
+                            }
+                            HStack(spacing: 8) {
+                                Text(r.source)
+                                    .font(.system(size: 10,
+                                                  design: .monospaced))
+                                    .foregroundStyle(AT.faint)
+                                if !r.adoptedBy.isEmpty {
+                                    Text(app.t("adopted by ", "採用: ")
+                                         + r.adoptedBy)
+                                        .font(.system(size: 10))
+                                        .foregroundStyle(AT.ok)
+                                }
+                                Spacer(minLength: 0)
+                                reference(r)
+                            }
+                            if !r.note.isEmpty {
+                                Text(r.note).font(.system(size: 10))
+                                    .foregroundStyle(AT.faint)
+                            }
+                        }
+                        .padding(.horizontal, 14).padding(.vertical, 7)
+                        .frame(maxWidth: .infinity, alignment: .leading)
+                        Divider().opacity(0.12)
+                    }
+                }
+            }
+        }
+        .background(AT.bg)
+        .task { await m.load() }
+    }
+
+    @ViewBuilder
+    private func reference(_ r: AtelierModel.Evidence) -> some View {
+        switch r.refStatus {
+        case "VERIFIABLE":
+            Button {
+                open(r)
+            } label: {
+                HStack(spacing: 4) {
+                    Text("◉").font(.system(size: 9))
+                    Text(shortRef(r)).font(.system(size: 10,
+                                                   design: .monospaced))
+                }
+            }
+            .buttonStyle(.link)
+            .foregroundStyle(AT.ok)
+        case "UNKNOWN_SOURCE_NOT_FOUND":
+            // **「手元に無い」であって「無い」ではない。** 外付けを
+            // 繋げば開ける。消えたものと同じ顔にしない。
+            HStack(spacing: 4) {
+                Text("○").font(.system(size: 9))
+                Text(app.t("not on this machine", "この機体には無い"))
+                    .font(.system(size: 10))
+            }
+            .foregroundStyle(AT.warn)
+            .help(r.refPath)
+        default:
+            Text(app.t("no pointer", "参照なし"))
+                .font(.system(size: 10)).foregroundStyle(AT.faint)
+        }
+    }
+
+    private func shortRef(_ r: AtelierModel.Evidence) -> String {
+        let name = r.refPath.isEmpty
+            ? r.refURL : (r.refPath as NSString).lastPathComponent
+        return r.refMark.isEmpty ? name : "\(name) @ \(r.refMark)"
+    }
+
+    /// 参照を開く。**その場所を指すだけで、複製は作らない。**
+    private func open(_ r: AtelierModel.Evidence) {
+        if !r.refPath.isEmpty {
+            NSWorkspace.shared.activateFileViewerSelecting(
+                [URL(fileURLWithPath: r.refPath)])
+        } else if let u = URL(string: r.refURL), !r.refURL.isEmpty {
+            NSWorkspace.shared.open(u)
+        }
+    }
+
+    private func kindChip(_ kind: String) -> some View {
+        let (label, colour): (String, Color) = {
+            switch kind {
+            case "observation": return (app.t("observed", "観測"), AT.ok)
+            case "inference": return (app.t("inferred", "推論"), AT.warn)
+            default: return (app.t("proposal", "提案"), AT.sel)
+            }
+        }()
+        return Text(label).font(.system(size: 9, weight: .semibold))
+            .padding(.horizontal, 6).padding(.vertical, 1)
+            .background(Capsule().stroke(colour, lineWidth: 1))
+            .foregroundStyle(colour)
+    }
+}
+
+// MARK: - 素材
+
+/// 素材の面。**場所を持たないものを、図の上に置かない。**
+///
+/// fabric と lining は身体のどこかにあるものではないので、コートの図に
+/// 印を打てない。図に載せると、読み手は「そこを見た」と誤解する。
+/// ここは素材だけを、由来と一緒に並べる面。
+///
+/// 由来を隣に置くのは、素材が**最も外から来やすい**側面だからです。
+/// 生地は映像から読めないことが多く、類似品検索やモデルの推測が
+/// 入りやすい。どこから来た値かが同じ画面に無いと、採用の判断ができない。
+private struct MaterialsPanel: View {
+    @ObservedObject var m: AtelierModel
+    @EnvironmentObject var app: AppState
+
+    private var materialParts: [String] { m.nonSpatial }
+
+    var body: some View {
+        VStack(alignment: .leading, spacing: 0) {
+            VStack(alignment: .leading, spacing: 6) {
+                Text(app.t("Materials", "素材"))
+                    .font(.system(size: 13, weight: .semibold))
+                Text(app.t("Materials have no place on the body, so they are "
+                           + "not marked on the figure. Where a value came "
+                           + "from sits next to it — fabric is the aspect "
+                           + "most often supplied from outside.",
+                           "素材は身体のどこかにあるものではないので、図に"
+                           + "印を打ちません。どこから来た値かを隣に置いて"
+                           + "います — 生地は外から入りやすい側面です。"))
+                    .font(.system(size: 10)).foregroundStyle(AT.faint)
+            }
+            .padding(14)
+            .frame(maxWidth: .infinity, alignment: .leading)
+            .background(AT.panel)
+            Divider().opacity(0.25)
+
+            ScrollView {
+                VStack(alignment: .leading, spacing: 0) {
+                    ForEach(materialParts, id: \.self) { part in
+                        Text(part.uppercased()).railHead().padding(.top, 8)
+                        ForEach(m.aspects(of: part), id: \.self) { aspect in
+                            row(part, aspect)
+                            Divider().opacity(0.12)
+                        }
+                    }
+                    if materialParts.isEmpty {
+                        Text(app.t("The engine has not answered yet.",
+                                   "engine がまだ答えていません。"))
+                            .font(.system(size: 11))
+                            .foregroundStyle(AT.faint).padding(14)
+                    }
+                }
+                .padding(.bottom, 12)
+            }
+        }
+        .background(AT.bg)
+        .task { await m.load() }
+    }
+
+    private func row(_ part: String, _ aspect: String) -> some View {
+        let s = m.state(part, aspect)
+        let o = m.rightsState(part, aspect)
+        return VStack(alignment: .leading, spacing: 3) {
+            HStack(spacing: 8) {
+                Text(aspect).font(.system(size: 11, design: .monospaced))
+                    .foregroundStyle(AT.dim)
+                Text(AT.symbol(s.state)).font(.system(size: 10))
+                    .foregroundStyle(AT.color(s.state))
+                Text(s.value.isEmpty ? "—" : s.value)
+                    .font(.system(size: 13, weight: .semibold))
+                Spacer(minLength: 0)
+                // 由来を同じ行に。**外から来た値ほどここが要る。**
+                Text(RIGHTS.short(o.state))
+                    .font(.system(size: 9, weight: .semibold))
+                    .padding(.horizontal, 6).padding(.vertical, 1)
+                    .background(Capsule().stroke(RIGHTS.colour(o.state),
+                                                 lineWidth: 1))
+                    .foregroundStyle(RIGHTS.colour(o.state))
+            }
+            if !s.sources.isEmpty {
+                Text(s.sources.joined(separator: " · "))
+                    .font(.system(size: 10, design: .monospaced))
+                    .foregroundStyle(AT.faint)
+            }
+            if !s.adoptedBy.isEmpty {
+                Text(app.t("adopted by ", "採用: ") + s.adoptedBy)
+                    .font(.system(size: 10)).foregroundStyle(AT.ok)
+            }
+            ForEach(Array(s.proposals.enumerated()), id: \.offset) { _, p in
+                HStack(spacing: 6) {
+                    Text(app.t("proposal", "提案")).font(.system(size: 9))
+                        .foregroundStyle(AT.faint)
+                    Text(p.value).font(.system(size: 11))
+                    Text(p.source).font(.system(size: 9,
+                                                design: .monospaced))
+                        .foregroundStyle(AT.faint)
+                    Button(app.t("adopt", "採用")) {
+                        m.pendingAdopt = .init(part: part, aspect: aspect,
+                                               value: p.value)
+                    }.font(.system(size: 9))
+                }
+            }
+            if !s.howToClose.isEmpty {
+                Text("→ " + s.howToClose).font(.system(size: 10))
+                    .foregroundStyle(AT.warn)
+            }
+        }
+        .padding(.horizontal, 14).padding(.vertical, 7)
+        .frame(maxWidth: .infinity, alignment: .leading)
+        .sheet(item: $m.pendingAdopt) { req in AdoptSheet(m: m, req: req) }
+    }
 }

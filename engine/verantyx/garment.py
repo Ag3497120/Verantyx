@@ -428,7 +428,11 @@ class Ledger:
                          "seconds": t, "part": e.part, "aspect": e.aspect,
                          "value": e.value, "kind": e.kind,
                          "source": e.source, "note": e.note,
-                         "adopted_by": e.adopted_by})
+                         "adopted_by": e.adopted_by,
+                         # **開くための情報を持たせる。** 「見に行ける」と
+                         # 画面に出しながら開く手段が無いのは、確かめられる
+                         # と言って確かめさせないのと同じ。
+                         "ref": ref_brief(e)})
         return rows
 
     def techpack(self, measures: Any = None,

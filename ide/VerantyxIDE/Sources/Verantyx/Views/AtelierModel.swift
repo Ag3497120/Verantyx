@@ -142,9 +142,15 @@ final class AtelierModel: ObservableObject {
         var part = ""; var aspect = ""; var sources = 0
     }
 
-    struct Evidence {
+    struct Evidence: Identifiable {
+        let id = UUID()
         var at = ""; var part = ""; var aspect = ""
         var value = ""; var kind = ""; var source = ""
+        var note = ""; var adoptedBy = ""
+        /// **開くための情報。** 「見に行ける」と出しながら開けないのは、
+        /// 確かめられると言って確かめさせないのと同じ。
+        var refStatus = ""; var refPath = ""; var refMark = ""
+        var refURL = ""
     }
 
     struct TechSection {
@@ -295,13 +301,21 @@ final class AtelierModel: ObservableObject {
         await loadMeasures()
         await loadCross()
         let tl = await call("garment_timeline")
-        timeline = (tl["timeline"] as? [[String: Any]] ?? []).map {
-            .init(at: $0["at"] as? String ?? "",
-                  part: $0["part"] as? String ?? "",
-                  aspect: $0["aspect"] as? String ?? "",
-                  value: $0["value"] as? String ?? "",
-                  kind: $0["kind"] as? String ?? "",
-                  source: $0["source"] as? String ?? "")
+        timeline = (tl["timeline"] as? [[String: Any]] ?? []).map { row in
+            let r = row["ref"] as? [String: Any] ?? [:]
+            return Evidence(
+                at: row["at"] as? String ?? "",
+                part: row["part"] as? String ?? "",
+                aspect: row["aspect"] as? String ?? "",
+                value: row["value"] as? String ?? "",
+                kind: row["kind"] as? String ?? "",
+                source: row["source"] as? String ?? "",
+                note: row["note"] as? String ?? "",
+                adoptedBy: row["adopted_by"] as? String ?? "",
+                refStatus: r["status"] as? String ?? "",
+                refPath: r["path"] as? String ?? "",
+                refMark: r["mark"] as? String ?? "",
+                refURL: r["url"] as? String ?? "")
         }
     }
 
