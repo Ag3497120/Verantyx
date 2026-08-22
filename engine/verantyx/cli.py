@@ -665,7 +665,8 @@ def cmd_field(args) -> int:
     """
     from .field_app import serve
 
-    return serve(port=args.port, open_browser=not args.no_browser)
+    return serve(port=args.port, open_browser=not args.no_browser,
+                 lan=getattr(args, "lan", False))
 
 
 def cmd_lexicon(args) -> int:
@@ -1372,6 +1373,9 @@ def main(argv: Optional[list] = None) -> int:
         help="the full local app for a municipal desk (127.0.0.1, no network)")
     p.add_argument("--port", type=int, default=8900)
     p.add_argument("--no-browser", action="store_true")
+    p.add_argument("--lan", action="store_true",
+                   help="open to this LAN so a phone or tablet can read the "
+                        "same screen (default is this machine only)")
     p.set_defaults(fn=cmd_field)
 
     p = sub.add_parser(

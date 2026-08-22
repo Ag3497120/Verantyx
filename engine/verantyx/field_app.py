@@ -462,15 +462,35 @@ class _Handler(BaseHTTPRequestHandler):
                         "detail": f"{type(exc).__name__}: {exc}"})
 
 
-def serve(port: int = _PORT, open_browser: bool = True) -> int:
+def serve(port: int = _PORT, open_browser: bool = True,
+          lan: bool = False) -> int:
+    """既定は 127.0.0.1 のまま。``lan`` のときだけ同一LANに開く。
+
+    電話やタブレットから同じ画面を見たい、は現場の当然の要求だが、
+    束縛先を広げるのは**この道具の一番強い保証を緩める行為**なので、
+    既定では絶対にやらない。開くときは、どの住所で開いたかを画面に
+    出す(黙って開いているのが一番危ない)。外の網には出さない —
+    LAN は「この機械から出ません」ではなく「この場所から出ません」。
+    """
+    import socket
     import webbrowser
 
     HOME.mkdir(parents=True, exist_ok=True)
-    server = ThreadingHTTPServer(("127.0.0.1", port), _Handler)
+    host = "0.0.0.0" if lan else "127.0.0.1"
+    server = ThreadingHTTPServer((host, port), _Handler)
     url = f"http://127.0.0.1:{port}/"
     print(f"Vera field — {url}")
+    if lan:
+        try:
+            addr = socket.gethostbyname(socket.gethostname())
+        except Exception:
+            addr = "(この機械のLAN住所)"
+        print(f"LAN 公開中 — 同じネットワークの端末から http://{addr}:{port}/")
+        print("  この LAN にいる人は誰でも読めます。外の網には出ません。")
     print("No network. Documents never leave this machine. / "
-          "外部接続なし。資料はこの機械から出ません。")
+          "外部接続なし。資料はこの機械から出ません。"
+          if not lan else
+          "外の網には出ません。資料はこの LAN の外へは出ません。")
     print("Ctrl+C to stop. / 止めるには Ctrl+C。")
     if open_browser:
         try:
