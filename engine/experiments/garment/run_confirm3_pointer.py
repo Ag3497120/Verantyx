@@ -137,8 +137,39 @@ def v75():
                {"same": a == b == c, "agreed": a[0]})
 
 
+# ---------------------------------------------------------------- V76b
+def v76b():
+    """指示書は同じ参照の繰り返しを畳む。**台帳は畳まない。**
+
+    同じコマを9回読んだ記録を指示書に9行並べると、受け取った側は
+    9本の独立した証拠として読む。台帳自身は agreed で正しく数えて
+    いるので、指示書だけが台帳より自信を持つことになる。
+    """
+    with tempfile.TemporaryDirectory() as d:
+        film = Path(d) / "f.jpg"
+        film.write_bytes(b"x")
+        led = Ledger(title="t")
+        for i in range(3):
+            led.observe("pocket", "existence", "箱ポケット有り", f"read{i}",
+                        ref_path=str(film), ref_mark="f182")
+        led.observe("pocket", "existence", "箱ポケット有り", "別コマ",
+                    ref_path=str(film), ref_mark="f231")
+        ev = next(x for x in led.techpack()["sections"]
+                  if x["no"] == "08")["timeline"]
+        folded = next(r for r in ev if r["reads"] > 1)
+        ok = (len(led.entries) == 4          # 台帳は何も消さない
+              and len(led.timeline()) == 4   # 台帳の時系列も畳まない
+              and len(ev) == 2               # 指示書は畳む
+              and folded["reads"] == 3
+              and "独立した証拠は1件" in folded.get("note", "")
+              and led.state("pocket", "existence")["agreed"] == 2)
+    record("V76b_the_pack_folds_repeat_reads_but_the_ledger_does_not", ok,
+           {"ledger_entries": 4, "pack_rows": len(ev),
+            "folded_reads": folded["reads"], "agreed": 2})
+
+
 if __name__ == "__main__":
-    for f in (v71, v72, v73, v74, v75):
+    for f in (v71, v72, v73, v74, v75, v76b):
         f()
     n = len(RESULTS["checks"])
     p = sum(1 for c in RESULTS["checks"].values() if c["pass"])

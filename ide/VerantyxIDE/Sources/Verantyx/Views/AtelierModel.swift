@@ -495,12 +495,16 @@ final class AtelierModel: ObservableObject {
             }
             for e in (sec["timeline"] as? [[String: Any]] ?? []) {
                 let at = e["at"] as? String ?? ""
+                // 「同じ参照を N 回読んだ」を落とさない。落とすと、
+                // 畳んだ行が最初から1回だけの観測に見える。
+                let note = e["note"] as? String ?? ""
                 out.rows.append(.init(
                     label: at.isEmpty ? "—" : at,
                     value: "\(e["part"] as? String ?? "") / "
                         + "\(e["aspect"] as? String ?? "") — "
                         + "\(e["value"] as? String ?? "")  "
-                        + "\(e["source"] as? String ?? "")",
+                        + "\(e["source"] as? String ?? "")"
+                        + (note.isEmpty ? "" : "  [\(note)]"),
                     state: ""))
             }
             return out

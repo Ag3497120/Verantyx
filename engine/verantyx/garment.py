@@ -322,6 +322,97 @@ class Ledger:
                     "inferred と proposal は観測ではない",
         }
 
+    def _measures_section(self, measures: Any) -> Dict[str, Any]:
+        """寸法の節。**寸法の無い指示書では裁てない。**
+
+        状態には寸法の語彙を使う。`UNKNOWN_NOT_OBSERVED`(映像に映って
+        いない)を流用すると、**「まだ測っていない」と「映っていない」が
+        同じ札になる** — 前者は巻尺を当てれば済み、後者は別のカットを
+        探す仕事で、縫製師が次にやることが変わる。測定 VD6/VD7 で
+        自分が踏んだ。
+        """
+        from .garment_measure import NOT_TAKEN as _NOT_TAKEN
+
+        if measures is None:
+            return {"no": "05b", "name": "Measurements",
+                    "rows": [{"label": "寸法",
+                              "value": "まだ渡していない（未取得ではない）",
+                              "state": _NOT_TAKEN}]}
+        sheet = measures.sheet()
+        rows = []
+        for r in sheet["measured"]:
+            rows.append({"label": f"{r['name']} ({r['spot']})",
+                         "value": f"{r['value']}{r['unit']}",
+                         "state": "MEASURED"})
+        for r in sheet["derived"]:
+            # **計算値と実測を同じ行の顔にしない。** 裁つ前に確かめる。
+            rows.append({"label": f"{r['name']} ({r['spot']})",
+                         "value": f"{r['value']}{r['unit']}  ← {r.get('from','')}"
+                                  f"  ※計算値。裁つ前に実測で確かめる",
+                         "state": "DERIVED"})
+        for r in sheet["open"]:
+            rows.append({"label": f"{r['name']} ({r['spot']})",
+                         "value": f"未取得 — {r.get('how_to_close','')}",
+                         "state": r.get("state", _NOT_TAKEN)})
+        return {"no": "05b", "name": "Measurements", "rows": rows}
+
+    def _rights_section(self, rights: Any) -> Dict[str, Any]:
+        """由来の節。**由来の分からない指示書は商用で使えない。**
+
+        こちらも由来の語彙を使う。観測の未知と由来の未調査は別の話。
+        """
+        from .garment_rights import UNCHECKED as _UNCHECKED
+
+        if rights is None:
+            return {"no": "05c", "name": "Provenance",
+                    "rows": [{"label": "由来",
+                              "value": "まだ渡していない（調べた結果ゼロ、"
+                                       "ではない）", "state": _UNCHECKED}]}
+        rep = rights.report(PARTS, confirmed=self.spec()["confirmed"])
+        rows = [{"label": "用途", "value": rep.get("intent_ja", "")},
+                {"label": "特定の作品に辿れる項目",
+                 "value": str(rep["counts"]["specific"])},
+                {"label": "申し立てが割れている項目",
+                 "value": str(rep["counts"]["contested"])},
+                {"label": "由来を調べていない項目",
+                 "value": str(rep["counts"]["unchecked"])}]
+        for w in rep["worklist"]:
+            rows.append({"label": f"{w['part']} / {w['aspect']}",
+                         "value": w.get("why", ""), "state": w["state"]})
+        rows.append({"label": "注意",
+                     "value": "この節は判断の材料であって判断ではない。"
+                              "作ってよいかは人が決める"})
+        return {"no": "05c", "name": "Provenance", "rows": rows}
+
+    def _evidence_timeline(self) -> List[Dict[str, Any]]:
+        """指示書に載せる証拠。**同じ参照の繰り返しを畳む。**
+
+        台帳は何も消さない(全ての読みを残す)。しかし指示書で同じコマを
+        9行並べると、受け取った側は**9本の独立した証拠**として読む。
+        実際は2コマを繰り返し読んだだけで、台帳自身は agreed=2 と
+        正しく数えている。畳まないと、指示書だけが台帳より自信を持つ。
+
+        畳んでも**消さない** — 何回読んだかは行に残す。
+        """
+        out: List[Dict[str, Any]] = []
+        seen: Dict[tuple, Dict[str, Any]] = {}
+        for row, e in zip(self.timeline(), sorted(
+                self.entries,
+                key=lambda x: (0, _timecode(x.at or x.source))
+                if _timecode(x.at or x.source) is not None else (1, 0))):
+            key = (e.part, e.aspect, e.value, ref_key(e))
+            if key in seen:
+                seen[key]["reads"] += 1
+                seen[key]["note"] = (
+                    f"同じ参照を {seen[key]['reads']} 回読んだ"
+                    "（独立した証拠は1件）")
+                continue
+            row = dict(row)
+            row["reads"] = 1
+            seen[key] = row
+            out.append(row)
+        return out
+
     def timeline(self) -> List[Dict[str, Any]]:
         """証拠を映像の時刻順に並べる。**時刻を持たないものも落とさない** —
         検索や人の証言は時刻を持たないが、証拠であることは変わらない。
@@ -340,12 +431,19 @@ class Ledger:
                          "adopted_by": e.adopted_by})
         return rows
 
-    def techpack(self) -> Dict[str, Any]:
+    def techpack(self, measures: Any = None,
+                 rights: Any = None) -> Dict[str, Any]:
         """縫製師に渡す資料。**未確定は消さず、独立した節にする。**
 
         AI の内部構造を見せない — 見せるのは服飾設計の資料として読める形。
         ただし「何が根拠か」は各項目に残す。裁った後に遡れないと、
         間違いの原因が永久に分からない。
+
+        `measures` と `rights` を渡すと、**寸法**と**由来の宿題**が節に
+        加わる。実地で気付いた: 寸法の無い指示書では裁てず、由来の
+        分からない指示書は商用で使えない。渡さなければその節は出ないが、
+        **「無い」ではなく「まだ渡していない」と書く** — 空欄は
+        「調べた結果ゼロ」と読まれる。
         """
         spec = self.spec()
         by_part: Dict[str, List[Dict[str, Any]]] = {}
@@ -374,6 +472,8 @@ class Ledger:
                  {k: by_part.get(k, []) for k in ("sleeve", "pocket")}},
                 {"no": "05", "name": "Materials", "parts":
                  {k: by_part.get(k, []) for k in ("fabric", "lining")}},
+                self._measures_section(measures),
+                self._rights_section(rights),
                 {"no": "06", "name": "Construction",
                  "rows": [{"label": f"{s_['part']} / {s_['aspect']}",
                            "value": s_.get("value", ""),
@@ -386,7 +486,7 @@ class Ledger:
                            "state": s_["state"]}
                           for s_ in spec["contested"]]},
                 {"no": "08", "name": "Evidence",
-                 "timeline": self.timeline()},
+                 "timeline": self._evidence_timeline()},
                 {"no": "09", "name": "Unknowns — 裁断前に潰すこと",
                  "rows": [{"label": f"{w['part']} / {w['aspect']}",
                            "value": w["how_to_close"], "state": w["state"]}

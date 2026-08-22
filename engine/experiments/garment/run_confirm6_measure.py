@@ -119,8 +119,56 @@ def vd5():
            {"same": a == b == c})
 
 
+# ---------------------------------------------------------------- VD6
+def vd6():
+    """指示書に寸法が入る。計算値は**注意付きで**、実測と別の札で出る。"""
+    from verantyx.garment import Ledger
+
+    m = Measures()
+    m.measured("body_length", 96.0, "cm", source="採寸", by="担当")
+    m.ratio("sleeve_length", 0.62, "body_length", source="比率")
+    led = Ledger(title="t")
+    led.observe("collar", "shape", "ノッチ", "cut1")
+    sec = next(x for x in led.techpack(measures=m)["sections"]
+               if x["no"] == "05b")
+    rows = {r["label"].split(" (")[0]: r for r in sec["rows"]}
+    derived = rows["袖丈"]
+    ok = (rows["着丈"]["state"] == "MEASURED"
+          and derived["state"] == "DERIVED"
+          and "計算値" in derived["value"]
+          and "実測で確かめる" in derived["value"]
+          and rows["胸囲"]["state"] == NOT_TAKEN)
+    record("VD6_the_tech_pack_carries_measurements_and_flags_derived", ok,
+           {"measured": rows["着丈"]["value"],
+            "derived": derived["value"][:60],
+            "open_kept": rows["胸囲"]["state"]})
+
+
+# ---------------------------------------------------------------- VD7
+def vd7():
+    """寸法を渡していない指示書は、**ゼロではなく「渡していない」**と書く。
+
+    空欄や 0 は「調べた結果ゼロ」と読まれる。裁つ人にとって、
+    「まだ無い」と「無いと分かった」は別の話。
+    """
+    from verantyx.garment import Ledger
+
+    led = Ledger(title="t")
+    led.observe("collar", "shape", "ノッチ", "cut1")
+    tp = led.techpack()
+    mrow = next(x for x in tp["sections"]
+                if x["no"] == "05b")["rows"][0]
+    rrow = next(x for x in tp["sections"]
+                if x["no"] == "05c")["rows"][0]
+    ok = ("まだ渡していない" in mrow["value"]
+          and "まだ渡していない" in rrow["value"]
+          and mrow["state"] == NOT_TAKEN)
+    record("VD7_absent_is_written_as_absent_not_as_zero", ok,
+           {"measures": mrow["value"], "rights": rrow["value"]})
+
+
 if __name__ == "__main__":
-    for f in (vd1, vd2, vd3, vd4, vd5):
+    for f in (vd1, vd2, vd3, vd4, vd5, vd6, vd7):
         f()
     n = len(RESULTS["checks"])
     p = sum(1 for c in RESULTS["checks"].values() if c["pass"])

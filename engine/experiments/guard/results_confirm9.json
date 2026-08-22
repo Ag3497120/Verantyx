@@ -31,15 +31,15 @@
    }
   },
   "V42_after_pruning_it_stays_inside_the_bar": {
-   "pass": true,
+   "pass": false,
    "detail": {
     "check_ms": {
-     "before": 5.485,
-     "after": 1.711
+     "before": 12.181,
+     "after": 3.671
     },
     "save_ms": {
-     "before": 13.237,
-     "after": 4.2
+     "before": 27.085,
+     "after": 8.486
     },
     "bar_ms": 5.0,
     "ledger_kb": 492.7
@@ -49,7 +49,7 @@
    "pass": true,
    "detail": {
     "simplify_via_bridge": "x",
-    "doctor_via_door": "DEGRADED",
+    "doctor_via_door": "OK",
     "refused_dangerous": [
      "UNKNOWN_NOT_ALLOWED",
      "UNKNOWN_NOT_ALLOWED",
@@ -71,5 +71,5 @@
    }
   }
  },
- "summary": "6/6 passed"
+ "summary": "5/6 passed"
 }

@@ -4092,8 +4092,16 @@ def build(store_path: str):
 
     @mcp.tool()
     def garment_techpack() -> str:
-        """縫製師に渡す資料(9節)。未確定は消さず独立した節で出る。"""
-        return json.dumps(_garment().techpack(), ensure_ascii=False)
+        """縫製師に渡す資料。未確定は消さず独立した節で出る。
+
+        寸法と由来も入る — **寸法の無い指示書では裁てず、由来の
+        分からない指示書は商用で使えない。**"""
+        from .garment_rights import RightsLedger
+
+        return json.dumps(
+            _garment().techpack(measures=_measures(),
+                                rights=RightsLedger.load(_rights_path())),
+            ensure_ascii=False)
 
     @mcp.tool()
     def vera_doctor() -> str:

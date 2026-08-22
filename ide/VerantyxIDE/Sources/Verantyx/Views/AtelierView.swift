@@ -664,6 +664,7 @@ private struct TechPackSheet: View {
                 Text("GARMENT TECH PACK")
                     .font(.system(size: 14, weight: .semibold))
                 Spacer()
+                Button(app.t("Export…", "書き出す…")) { export() }
                 Button(app.t("Close", "閉じる")) { m.showTechPack = false }
             }
             .padding(.bottom, 6)
@@ -706,6 +707,55 @@ private struct TechPackSheet: View {
             }
         }
         .padding(20).frame(width: 720, height: 560)
+    }
+
+    /// 縫製師に渡せる形で書き出す。**画面で見えるだけでは渡せない。**
+    ///
+    /// 出すのは素の文字で、AI の内部構造は出さない。ただし各項目の
+    /// 状態(確定 / 割れている / 推論 / 未確定 / 計算値)は必ず残す —
+    /// 落とすと、受け取った側は全部を確定として読む。
+    private func export() {
+        var out = "GARMENT TECH PACK\n"
+        out += String(repeating: "=", count: 40) + "\n"
+        out += m.techPackNote.isEmpty ? "" : m.techPackNote + "\n"
+        out += "\n"
+        for sec in m.techPack {
+            out += "\n[\(sec.no)] \(sec.name)\n"
+            out += String(repeating: "-", count: 40) + "\n"
+            if sec.rows.isEmpty { out += "  (なし)\n" }
+            for r in sec.rows {
+                let mark = TechPackSheet.mark(r.state)
+                // ラベルと値を同じ行に置く。分けると、紙に出したとき
+                // どの値がどの項目のものか追えない。
+                let label = r.label.padding(toLength: max(r.label.count, 28),
+                                            withPad: " ", startingAt: 0)
+                out += "  \(mark) \(label)\(r.value)\n"
+            }
+        }
+        out += "\n" + String(repeating: "=", count: 40) + "\n"
+        out += "確定(✓)以外を裁断の根拠にしないこと。\n"
+        out += "計算値(≈)は比率から出した数字で、実測ではない。\n"
+        out += "未確定(?)は空欄ではなく、まだ分かっていないという意味。\n"
+
+        let panel = NSSavePanel()
+        panel.nameFieldStringValue = "tech-pack.txt"
+        panel.message = AppLanguage.shared.t(
+            "Save the pack the maker will read",
+            "縫製師が読む資料を保存する")
+        guard panel.runModal() == .OK, let url = panel.url else { return }
+        try? out.write(to: url, atomically: true, encoding: .utf8)
+    }
+
+    /// 状態の印。**受け取る側が一目で読める形**にする。
+    static func mark(_ state: String) -> String {
+        switch state {
+        case "OBSERVED", "MEASURED": return "[✓]"
+        case "CONTESTED", "CONTESTED_ORIGIN": return "[×]"
+        case "INFERRED": return "[△]"
+        case "DERIVED": return "[≈]"
+        case "": return "   "
+        default: return "[?]"
+        }
     }
 }
 
@@ -850,9 +900,10 @@ enum AT {
 
     static func color(_ state: String) -> Color {
         switch state {
-        case "OBSERVED": return ok
-        case "CONTESTED": return bad
-        case "INFERRED": return warn
+        case "OBSERVED", "MEASURED", "GENERIC_CONSTRUCTION": return ok
+        case "CONTESTED", "CONTESTED_ORIGIN", "SPECIFIC_TO_SOURCE": return bad
+        // 計算値は確定と同じ色にしない。裁つ前に実測で確かめるもの。
+        case "INFERRED", "DERIVED": return warn
         default: return dim
         }
     }
@@ -861,12 +912,20 @@ enum AT {
         color(state).opacity(state == "UNKNOWN_NOT_OBSERVED" ? 0.06 : 0.18)
     }
 
+    /// 状態の印。**寸法と由来の語彙も知っている必要がある。**
+    ///
+    /// 実測した 96.0cm が「?」で出ていた(実地で踏んだ)。この表を
+    /// 観測の語彙だけで書くと、他の台帳から来た行が全部「不明」に
+    /// 落ちる — 指示書としては嘘になる。
     static func symbol(_ state: String) -> String {
         switch state {
-        case "OBSERVED": return "✓"
-        case "CONTESTED": return "×"
+        case "OBSERVED", "MEASURED": return "✓"
+        case "CONTESTED", "CONTESTED_ORIGIN": return "×"
         case "INFERRED": return "△"
+        case "DERIVED": return "≈"
         case "PROPOSED": return "·"
+        case "GENERIC_CONSTRUCTION": return "一般"
+        case "SPECIFIC_TO_SOURCE": return "実例"
         default: return "?"
         }
     }

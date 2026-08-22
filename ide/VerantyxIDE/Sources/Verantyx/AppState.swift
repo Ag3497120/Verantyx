@@ -457,8 +457,21 @@ final class AppState: ObservableObject {
     @Published var operationMode: OperationMode = .automatic {
         didSet {
             UserDefaults.standard.set(operationMode.rawValue, forKey: "operation_mode")
-            // Sync MCPEngine execution mode
-            Task { MCPEngine.shared.setMode(.ai) }
+            // Sync MCPEngine execution mode.
+            //
+            // **遅延初期化されるシングルトンに、初期化中に走る監視から
+            // 触らない。** この didSet は AppState が保存済みのモードを
+            // 読み込む時点で走る。そこで `MCPEngine.shared` に触ると、
+            // その `once` が進行中の場合に同じ once を待って再入し、
+            // `_dispatch_once_wait` で落ちる(2026-08-22、起動時
+            // EXC_BREAKPOINT のクラッシュログで確認)。
+            //
+            // 1ティック譲ってから触る。譲った先では init は必ず
+            // 終わっているので、待ちも再入も起きない。
+            Task { @MainActor in
+                await Task.yield()
+                MCPEngine.shared.setMode(.ai)
+            }
             
             // Auto-toggle JCross view and Gatekeeper State
             if operationMode == .gatekeeper {
