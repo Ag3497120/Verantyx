@@ -217,7 +217,7 @@ def installation_check(repo_root: Any = None,
     else:
         rows.append({"what": "source", "where": str(root),
                      "state": "OK" if src_ok else "MISSING"})
-    vendor = Path.home() / "Projects/Verantyx/cli/VerantyxIDE/Vendor/vera-memory"
+    vendor = Path.home() / "Projects/Verantyx/ide/VerantyxIDE/Vendor/vera-memory"
     # 鮮度は**ソースがある機械でしか判定できない**(比べる相手が要る)。
     # 無い機械で「古いかもしれない」と言うのは推測なので言わない。
     if vendor.exists() and src_ok:

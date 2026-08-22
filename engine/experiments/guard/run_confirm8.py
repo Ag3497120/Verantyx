@@ -64,7 +64,7 @@ def v35():
 
     # 凍結バイナリの中では repo が無いのが正常。そこで「ソースが無い」と
     # 言うのは誤警報(停止条件)。実物があるなら実物で確かめる。
-    vendor = Path.home() / "Projects/Verantyx/cli/VerantyxIDE/Vendor/vera-memory"
+    vendor = Path.home() / "Projects/Verantyx/ide/VerantyxIDE/Vendor/vera-memory"
     frozen_alarm = None
     if vendor.exists():
         r = subprocess.run([str(vendor), "doctor"], capture_output=True,

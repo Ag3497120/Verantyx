@@ -271,7 +271,7 @@ def _vera_binary() -> List[str]:
     import shutil
     import sys as _s
 
-    vendor = Path.home() / ("Projects/Verantyx/cli/VerantyxIDE/Vendor/"
+    vendor = Path.home() / ("Projects/Verantyx/ide/VerantyxIDE/Vendor/"
                             "vera-memory")
     if getattr(_s, "frozen", False):
         return [_s.executable]

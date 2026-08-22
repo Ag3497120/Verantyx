@@ -1,0 +1,62 @@
+{
+ "prereg": "experiments/state_reconciliation/PREREG2_ABSENCE.md",
+ "checks": {
+  "V49_absence_is_a_different_answer": {
+   "pass": true,
+   "detail": {
+    "confidence": {
+     "県道1号": "contested",
+     "避難所2": "supported",
+     "倉庫3": "supported",
+     "浄水場99": "unknown_not_held"
+    },
+    "held": {
+     "県道1号": true,
+     "避難所2": true,
+     "倉庫3": true,
+     "浄水場99": false
+    }
+   }
+  },
+  "V50_prose_path_unchanged": {
+   "pass": true,
+   "detail": {
+    "confidence": "contested",
+    "held": true,
+    "sources": [
+     [
+      "県"
+     ],
+     [
+      "市役所"
+     ]
+    ]
+   }
+  },
+  "V51_structured_state_keeps_its_sources": {
+   "pass": true,
+   "detail": {
+    "sides": {
+     "通行可能": [
+      "県道路課"
+     ],
+     "通行止": [
+      "市災害対策本部"
+     ]
+    }
+   }
+  },
+  "V52_a_sentence_is_not_a_source_label": {
+   "pass": true,
+   "detail": {
+    "sides": {
+     "通行可能": [],
+     "通行止": [
+      "県"
+     ]
+    }
+   }
+  }
+ },
+ "summary": "4/4 passed"
+}

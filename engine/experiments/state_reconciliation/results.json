@@ -1,0 +1,62 @@
+{
+ "prereg": "experiments/state_reconciliation/PREREG.md",
+ "checks": {
+  "S1_conflicts_found_and_no_false_alarms": {
+   "pass": true,
+   "detail": {
+    "planted": 15,
+    "found": 15,
+    "missed": [],
+    "false_alarms": [],
+    "synonym_pairs_not_flagged": "none"
+   }
+  },
+  "S2_absence_vs_no_conflict": {
+   "pass": true,
+   "detail": {
+    "entity": "浄水場15",
+    "held_in_store": false,
+    "contradictions_returns": [],
+    "engine_distinguishes_by_itself": false,
+    "note": "contradictions() は両方 [] を返す。区別は core の 在否で外から付けるしかない — 構造の欠落として記録"
+   }
+  },
+  "S3_size_follows_entities_not_reports": {
+   "pass": true,
+   "detail": {
+    "bytes_x1": 9159,
+    "bytes_reports_x10": 9277,
+    "ratio_reports_x10": 1.013,
+    "bytes_entities_x10": 92622,
+    "ratio_entities_x10": 10.11,
+    "bar": "reports<1.5x, entities>5x"
+   }
+  },
+  "S4_source_order_invariant": {
+   "pass": true,
+   "detail": {
+    "orders": 4,
+    "distinct_outcomes": 1,
+    "conflicts": 15
+   }
+  },
+  "S5_each_conflict_names_its_sources": {
+   "pass": true,
+   "detail": {
+    "checked": 3,
+    "with_provenance": 3,
+    "example": {
+     "values": [
+      "通行:通行可能",
+      "通行:通行止"
+     ],
+     "sources": {
+      "通行:通行可能": "現地パトロール",
+      "通行:通行止": "市災害対策本部"
+     }
+    }
+   }
+  }
+ },
+ "summary": "5/5 passed"
+}

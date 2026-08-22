@@ -17,7 +17,7 @@ import sys
 _CANDIDATES = [
     os.environ.get("VERA_MEMORY_BIN", ""),
     os.path.expanduser(
-        "~/Projects/Verantyx/cli/VerantyxIDE/Vendor/vera-memory"),
+        "~/Projects/Verantyx/ide/VerantyxIDE/Vendor/vera-memory"),
     shutil.which("vera-memory") or "",
 ]
 

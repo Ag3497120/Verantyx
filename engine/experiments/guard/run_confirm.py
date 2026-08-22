@@ -157,7 +157,7 @@ def v4():
 # 基準: check 1回 ≤ 2秒。超えたら「橋がまだ要る」と正直に記録して落とす。
 
 def v5():
-    binp = Path.home() / "Projects/Verantyx/cli/VerantyxIDE/Vendor/vera-memory"
+    binp = Path.home() / "Projects/Verantyx/ide/VerantyxIDE/Vendor/vera-memory"
     if not binp.exists():
         record("V5_guard_cli_speed", False,
                {"error": f"frozen binary not found: {binp}"})

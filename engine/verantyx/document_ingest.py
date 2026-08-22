@@ -379,13 +379,30 @@ def _side_when(store: CrossStore, sources: List[str]) -> Optional[tuple]:
 
 
 def _sources_for(store: CrossStore, core: str, facet: str) -> List[str]:
-    """Which reports backed one facet, read out of the store's provenance."""
+    """Which reports backed one facet, read out of the store's provenance.
+
+    二つの入れ方がある。文章として取り込んだものは `ingest_documents` が
+    「(reported by X)」を末尾に付けるので、そこから読む。**状態として
+    直接置いたもの**(`store.add(core, facts, source=...)`)は、出所の
+    ラベルがそのまま残る — こちらを読んでいなかったので、構造化して
+    入れた状態の食い違いは「誰が言ったか」を失っていた(2026-08-22実測)。
+    出典の無い食い違いは、現場では使えない。
+
+    ラベルとみなすのは**短くて文でない**もの(40字以内・句点なし)。
+    文をそのまま出所名として出すと、報告が読めなくなる。
+    """
     prov = store.provenance.get(core, {}) if store.track_provenance else {}
     slot = prov.get(facet)
     if not slot or len(slot) < 3:
         return []
-    m = re.search(r"reported by ([^)]+)\)", str(slot[2]))
-    return [m.group(1)] if m else []
+    snippet = str(slot[2] or "")
+    m = re.search(r"reported by ([^)]+)\)", snippet)
+    if m:
+        return [m.group(1)]
+    label = snippet.strip()
+    if label and len(label) <= 40 and "。" not in label and "." not in label:
+        return [label]
+    return []
 
 
 def deep_report(store: CrossStore, core: str,
@@ -481,8 +498,16 @@ def deep_report(store: CrossStore, core: str,
             missing.append({"arm": arm, "verdict": verdict,
                             "next_query": _gap_query(core, arm)})
 
+    # 「持っていない」と「持っているが確定が無い」を分ける(2026-08-22)。
+    # 現場では意味が逆に近い: 前者は「その避難所は誰も報告していない —
+    # 見に行け」、後者は「見たが言うことが無い」。同じ顔で返すのは、この
+    # 企てが番人でも単体でも禁じてきた「不在と否定を混ぜる」形そのもの。
+    # **在る核の判定は一切変えない** — 報告の意味を静かに変えると、
+    # 過去の測定が嘘になる。
+    held = str(core).casefold().strip() in store.crosses
     return {
         "core": core,
+        "held": held,
         "settled": settled,
         "disputed": disputed,
         "updated": updated,
@@ -490,7 +515,8 @@ def deep_report(store: CrossStore, core: str,
         # The headline number a responder actually reads first.
         "confidence": ("contested" if disputed
                        else "updated" if updated
-                       else "supported" if settled else "unknown"),
+                       else "supported" if settled
+                       else "unknown" if held else "unknown_not_held"),
     }
 
 
