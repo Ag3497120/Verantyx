@@ -220,7 +220,8 @@ actor LMStudioClient {
         imageBase64: String,
         mimeType: String = "image/jpeg",
         temperature: Double = 0.15,
-        maxTokens: Int = 900
+        maxTokens: Int = 900,
+        noThink: Bool = true
     ) async -> String? {
         guard let url = URL(string: "\(await baseURL())/chat/completions")
         else { return nil }
@@ -242,11 +243,19 @@ actor LMStudioClient {
         // よいが、ここは推論するモデルに一枚の絵を渡す口で、実測では
         // 上限なしだと考え続けて15分経っても返らなかった。求めているのは
         // 短い JSON 配列一つなので、届かない長さで切る。
-        req.httpBody = try? JSONSerialization.data(withJSONObject: [
+        var payload: [String: Any] = [
             "model": model, "messages": messages,
             "max_tokens": maxTokens, "temperature": temperature,
             "stream": false,
-        ])
+        ]
+        if noThink {
+            // 推論するモデルは上限を思考で使い切り、本文を出さずに終わる
+            // (実測: Qwen3.8-27B が 200 秒かけて JSON 無し)。ここで
+            // 欲しいのは短い配列一つで、途中の考えではない。
+            // この鍵を解さないモデルは無視するだけなので、付けて損はない。
+            payload["chat_template_kwargs"] = ["enable_thinking": false]
+        }
+        req.httpBody = try? JSONSerialization.data(withJSONObject: payload)
 
         guard let (data, response) = try? await session.data(for: req) else {
             return nil

@@ -3859,6 +3859,28 @@ def build(store_path: str):
                           ensure_ascii=False)
 
     @mcp.tool()
+    def garment_cross() -> str:
+        """服飾台帳を**立体十字に載せた像**を返す。
+
+        事前登録: experiments/garment/PREREG5_CROSS.md
+
+        `ARMS` の三つの双対に、服飾の主張がそのまま乗る。観測は
+        support+、推論は cause+、そして**一般構造の主張は kind+、
+        特定の作品に辿れる主張は kind-** — 一般/実例は比喩ではなく、
+        この装置に実在するアームである。
+
+        返すのは照合まで。台帳が「割れている」と言う側面と、十字が
+        矛盾として拾う側面が一致するかを出す。食い違えば、どちらかが
+        間違っている。**十字は台帳の像であって台帳ではない** —
+        ここから台帳が書き換わることはない。"""
+        from .garment_cross import report as _cross_report
+        from .garment_rights import RightsLedger
+
+        led = _garment()
+        rights = RightsLedger.load(_rights_path())
+        return json.dumps(_cross_report(led, rights), ensure_ascii=False)
+
+    @mcp.tool()
     def rights_specific(part: str, aspect: str, source: str,
                         note: str = "") -> str:
         """「この側面は特定の作品に辿れる」という申し立て。出典が要る。

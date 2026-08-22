@@ -48,7 +48,7 @@ _NEGATIVE = ("無", "なし", "ない", "見当たら", "確認できない", "�
              "not visible", "no pocket", "none", "absent")
 
 
-def ask(base, model, path, timeout, max_tokens):
+def ask(base, model, path, timeout, max_tokens, no_think=False):
     b64 = base64.b64encode(Path(path).read_bytes()).decode()
     body = {
         "model": model,
@@ -63,6 +63,11 @@ def ask(base, model, path, timeout, max_tokens):
         ],
         "max_tokens": max_tokens, "temperature": 0.1, "stream": False,
     }
+    if no_think:
+        # 推論するモデルは、上限を思考で使い切って本文を出さずに終わる
+        # (実測: Qwen3.8-27B が 200 秒で JSON 無し)。ここで欲しいのは
+        # 短い配列一つで、途中の考えではない。
+        body["chat_template_kwargs"] = {"enable_thinking": False}
     req = urllib.request.Request(
         f"{base}/chat/completions", data=json.dumps(body).encode(),
         headers={"Content-Type": "application/json"})
@@ -70,7 +75,15 @@ def ask(base, model, path, timeout, max_tokens):
     try:
         with urllib.request.urlopen(req, timeout=timeout) as r:
             d = json.loads(r.read())
-        return d["choices"][0]["message"]["content"], time.time() - t0, None
+        msg = d["choices"][0]["message"]
+        content = msg.get("content") or ""
+        # **空の本文は「答えなかった」ではない。** 推論モデルは思考を
+        # reasoning_content に分けて入れるので、上限を思考で使い切ると
+        # content だけが空で返る。ここを見ずに「JSONを返せない」と
+        # 判定して、実測でモデルを2本落としかけた(2026-08-22)。
+        think = msg.get("reasoning_content") or ""
+        return content, time.time() - t0, ("__EMPTY_THOUGHT__" + think[:400]
+                                           if not content and think else None)
     except Exception as e:
         return None, time.time() - t0, str(e)[:200]
 
@@ -117,16 +130,27 @@ def main():
     ap.add_argument("--clips", required=True)
     ap.add_argument("--timeout", type=int, default=900)
     ap.add_argument("--max-tokens", type=int, default=1200)
+    ap.add_argument("--no-think", action="store_true",
+                    help="推論を止めて本文だけを出させる")
     a = ap.parse_args()
 
     results = {"prereg": "experiments/garment_vision/PREREG.md",
-               "base": a.base, "models": {}}
+               "base": a.base, "no_think": a.no_think,
+               "max_tokens": a.max_tokens, "models": {}}
     for model in a.models:
         print(f"\n===== {model} =====", flush=True)
         per = []
         for fn, sec, truth_pocket, truth_button in TRUTH:
             path = os.path.join(os.path.expanduser(a.clips), fn)
-            text, dt, err = ask(a.base, model, path, a.timeout, a.max_tokens)
+            text, dt, err = ask(a.base, model, path, a.timeout,
+                                a.max_tokens, a.no_think)
+            if err and err.startswith("__EMPTY_THOUGHT__"):
+                print(f"  {fn} {dt:6.1f}s  本文が空(思考で上限を使い切り)",
+                      flush=True)
+                per.append({"frame": fn, "sec": dt, "json": False,
+                            "empty_content_thought_only": True,
+                            "thought": err[len("__EMPTY_THOUGHT__"):]})
+                continue
             if err:
                 print(f"  {fn} {dt:6.1f}s  失敗: {err}", flush=True)
                 per.append({"frame": fn, "error": err, "sec": dt})
@@ -150,20 +174,31 @@ def main():
         results["models"][model] = per
 
         graded = [p for p in per if p.get("json")]
-        vm1 = all(not (p["judged"]["pocket"] is True and not p["truth"]["pocket"])
-                  for p in graded) and bool(graded)
-        vm2 = all(not p["judged"]["fabric_claimed"] for p in graded) and bool(graded)
-        seen = {p["judged"]["button"] for p in graded
-                if isinstance(p["judged"]["button"], int)}
-        vm3 = len(seen) >= 2
-        vm4 = len(graded) == len(TRUTH)
+        # **測れなかったことを「落ちた」と書かない。** 本文が返って
+        # いなければ捏造の有無は分からず、False と書けば「捏造した」と
+        # 読まれる。判定器が不在と否定を混ぜていた(2026-08-22 実測)。
+        U = "UNMEASURED"
+        if graded:
+            vm1 = all(not (p["judged"]["pocket"] is True
+                           and not p["truth"]["pocket"]) for p in graded)
+            vm2 = all(not p["judged"]["fabric_claimed"] for p in graded)
+            seen = {p["judged"]["button"] for p in graded
+                    if isinstance(p["judged"]["button"], int)}
+            # 区別できたかは、値の違うコマを2枚以上読めて初めて言える。
+            vm3 = (len(seen) >= 2 if len({p["truth"]["button"]
+                                          for p in graded}) >= 2 else U)
+        else:
+            vm1 = vm2 = vm3 = U
+        empty = sum(1 for p in per if p.get("empty_content_thought_only"))
+        vm4 = f"{len(graded)}/{len(TRUTH)}"
         results["models"][model + "__verdict"] = {
             "VM1_no_fabrication": vm1, "VM2_no_unseen_claim": vm2,
             "VM3_discriminates": vm3, "VM4_json": vm4,
+            "empty_content": empty,
             "median_sec": (sorted(p["sec"] for p in per)[len(per) // 2]
                            if per else None)}
         print(f"  → VM1捏造なし={vm1} VM2断言なし={vm2} "
-              f"VM3区別={vm3} VM4JSON={vm4}", flush=True)
+              f"VM3区別={vm3} VM4JSON={vm4} 本文空={empty}", flush=True)
 
     out = Path(__file__).with_name("results.json")
     out.write_text(json.dumps(results, ensure_ascii=False, indent=1),

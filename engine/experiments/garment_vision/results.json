@@ -1,0 +1,204 @@
+{
+ "prereg": "experiments/garment_vision/PREREG.md",
+ "base": "http://10.0.0.1:1234/v1",
+ "models": {
+  "qwen/qwen3.8-27b": [
+   {
+    "frame": "t000.38.jpg",
+    "sec": 200.31108903884888,
+    "json": false,
+    "raw": ""
+   },
+   {
+    "frame": "t002.62.jpg",
+    "sec": 157.16780185699463,
+    "json": true,
+    "judged": {
+     "pocket": null,
+     "button": 2,
+     "fabric_claimed": false,
+     "rows": 3
+    },
+    "truth": {
+     "pocket": false,
+     "button": 2
+    },
+    "items": [
+     {
+      "part": "detail",
+      "aspect": "button",
+      "value": "2",
+      "why": "前立ての中央に丸いボタンが2つ描かれている"
+     },
+     {
+      "part": "collar",
+      "aspect": "shape",
+      "value": "V字に開いた襟",
+      "why": "首元に青い線でV字に開いた襟の輪郭が描かれている"
+     },
+     {
+      "part": "sleeve",
+      "aspect": "length",
+      "value": "長袖",
+      "why": "両側に肩から手首まで伸びる長い袖が描かれている"
+     }
+    ]
+   },
+   {
+    "frame": "t003.38.jpg",
+    "sec": 157.478333234787,
+    "json": true,
+    "judged": {
+     "pocket": true,
+     "button": 2,
+     "fabric_claimed": false,
+     "rows": 4
+    },
+    "truth": {
+     "pocket": true,
+     "button": 2
+    },
+    "items": [
+     {
+      "part": "pocket",
+      "aspect": "existence",
+      "value": "present",
+      "why": "左腰（観察者の左）に長方形のフラップ付きポケットが1つ線描で描かれている"
+     },
+     {
+      "part": "detail",
+      "aspect": "button",
+      "value": "2",
+      "why": "前立ての中央に円形のボタンが2つ描かれている"
+     },
+     {
+      "part": "collar",
+      "aspect": "shape",
+      "value": "notched lapel (V-shape)",
+      "why": "首元に青い線でV字型の襟が描かれ、襟の端に切り込み（ノッチ）が見える"
+     },
+     {
+      "part": "sleeve",
+      "aspect": "length",
+      "value": "long",
+      "why": "両肩から腕に沿って下まで伸びる袖が描かれている"
+     }
+    ]
+   },
+   {
+    "frame": "t004.88.jpg",
+    "sec": 128.01141715049744,
+    "json": true,
+    "judged": {
+     "pocket": true,
+     "button": 3,
+     "fabric_claimed": false,
+     "rows": 4
+    },
+    "truth": {
+     "pocket": true,
+     "button": 3
+    },
+    "items": [
+     {
+      "part": "pocket",
+      "aspect": "existence",
+      "value": "有",
+      "why": "左腰の位置に長方形のポケットの線が描かれている"
+     },
+     {
+      "part": "detail",
+      "aspect": "button",
+      "value": "3",
+      "why": "前立ての中央に円形のボタンが縦に3つ見える"
+     },
+     {
+      "part": "collar",
+      "aspect": "shape",
+      "value": "V字",
+      "why": "首元に青い線でV字型の襟が描かれている"
+     },
+     {
+      "part": "sleeve",
+      "aspect": "length",
+      "value": "長袖",
+      "why": "両袖が体側を下がって手首付近まで伸びている"
+     }
+    ]
+   }
+  ],
+  "qwen/qwen3.8-27b__verdict": {
+   "VM1_no_fabrication": true,
+   "VM2_no_unseen_claim": true,
+   "VM3_discriminates": true,
+   "VM4_json": false,
+   "median_sec": 157.478333234787
+  },
+  "meta/muse-glimmer": [
+   {
+    "frame": "t000.38.jpg",
+    "sec": 162.99839282035828,
+    "json": false,
+    "raw": ""
+   },
+   {
+    "frame": "t002.62.jpg",
+    "sec": 156.67556476593018,
+    "json": false,
+    "raw": ""
+   },
+   {
+    "frame": "t003.38.jpg",
+    "sec": 162.61968302726746,
+    "json": false,
+    "raw": ""
+   },
+   {
+    "frame": "t004.88.jpg",
+    "sec": 170.01444029808044,
+    "json": false,
+    "raw": ""
+   }
+  ],
+  "meta/muse-glimmer__verdict": {
+   "VM1_no_fabrication": false,
+   "VM2_no_unseen_claim": false,
+   "VM3_discriminates": false,
+   "VM4_json": false,
+   "median_sec": 162.99839282035828
+  },
+  "google/gemma-4-26b-a4b-qat": [
+   {
+    "frame": "t000.38.jpg",
+    "sec": 42.193427085876465,
+    "json": false,
+    "raw": ""
+   },
+   {
+    "frame": "t002.62.jpg",
+    "sec": 28.848177194595337,
+    "json": false,
+    "raw": ""
+   },
+   {
+    "frame": "t003.38.jpg",
+    "sec": 28.98978304862976,
+    "json": false,
+    "raw": ""
+   },
+   {
+    "frame": "t004.88.jpg",
+    "sec": 28.808380842208862,
+    "json": false,
+    "raw": ""
+   }
+  ],
+  "google/gemma-4-26b-a4b-qat__verdict": {
+   "VM1_no_fabrication": false,
+   "VM2_no_unseen_claim": false,
+   "VM3_discriminates": false,
+   "VM4_json": false,
+   "median_sec": 28.98978304862976
+  }
+ }
+}

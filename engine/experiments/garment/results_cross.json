@@ -1,0 +1,87 @@
+{
+ "prereg": "experiments/garment/PREREG5_CROSS.md",
+ "checks": {
+  "VC1_ledger_and_cross_agree_on_what_is_split": {
+   "pass": true,
+   "detail": {
+    "observations_agree": true,
+    "observed_split": [
+     [
+      "detail",
+      "button"
+     ]
+    ],
+    "origin_split_rights": [
+     [
+      "collar",
+      "shape"
+     ]
+    ],
+    "origin_split_cross": [
+     [
+      "collar",
+      "shape"
+     ]
+    ],
+    "origins_agree": true
+   }
+  },
+  "VC2_placement_order_does_not_change_the_cross": {
+   "pass": true,
+   "detail": {
+    "same": true,
+    "contradictions": [
+     [
+      "detail",
+      "button"
+     ]
+    ]
+   }
+  },
+  "VC3_general_and_instance_sit_on_opposite_arms": {
+   "pass": true,
+   "detail": {
+    "kind+": [
+     {
+      "part": "collar",
+      "aspect": "shape",
+      "sources": 2
+     }
+    ],
+    "kind-": [
+     {
+      "part": "collar",
+      "aspect": "shape",
+      "sources": 1
+     }
+    ],
+    "collar_has_both": true,
+    "generic_sources_counted": 2
+   }
+  },
+  "VC4_proposals_do_not_add_mass_to_the_confirmed_side": {
+   "pass": true,
+   "detail": {
+    "mass_before": 0.0,
+    "mass_after": 0.0,
+    "proposals_kept_on_their_own_core": true
+   }
+  },
+  "VC5_the_cross_never_writes_back_to_the_ledger": {
+   "pass": true,
+   "detail": {
+    "ledger_unchanged": true,
+    "rights_unchanged": true
+   }
+  },
+  "VC6_an_empty_ledger_yields_no_contradiction": {
+   "pass": true,
+   "detail": {
+    "ledger": [],
+    "cross": [],
+    "cores": 0
+   }
+  }
+ },
+ "summary": "6/6 passed"
+}
