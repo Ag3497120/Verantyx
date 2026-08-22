@@ -1,0 +1,82 @@
+{
+ "votes": "none",
+ "note": "証明器が自分のハーネスを測った記録 — 条件つき、予測ではない",
+ "conditions": {
+  "battery": "prover_goals48@2026-08-21",
+  "parent": {
+   "wave": 6,
+   "max_depth": 3,
+   "invention_budget": 4000,
+   "handoff": true,
+   "energy": true
+  },
+  "adoption_line": "+2目標",
+  "runs": "順方向+順序反転"
+ },
+ "facts": [
+  {
+   "fact": "wave=1",
+   "model": "prover",
+   "battery": "prover_goals48",
+   "measured": "証明41→41 (+0)",
+   "verdict": "ABSTAIN",
+   "establishes": "十字の腕を1本に絞っても足りる(=6本は過剰)",
+   "witness": "verified:run:prover@prover_goals48@2026-08-21"
+  },
+  {
+   "fact": "wave=12",
+   "model": "prover",
+   "battery": "prover_goals48",
+   "measured": "証明41→41 (+0)",
+   "verdict": "ABSTAIN",
+   "establishes": "腕を増やすと届く詰まりがある(=6本は不足)",
+   "witness": "verified:run:prover@prover_goals48@2026-08-21"
+  },
+  {
+   "fact": "max_depth=2",
+   "model": "prover",
+   "battery": "prover_goals48",
+   "measured": "証明41→41 (+0)",
+   "verdict": "ABSTAIN",
+   "establishes": "補題の再帰は2段で足りる",
+   "witness": "verified:run:prover@prover_goals48@2026-08-21"
+  },
+  {
+   "fact": "max_depth=4",
+   "model": "prover",
+   "battery": "prover_goals48",
+   "measured": "証明41→41 (+0)",
+   "verdict": "ABSTAIN",
+   "establishes": "3段では届かない補題の梯子がある",
+   "witness": "verified:run:prover@prover_goals48@2026-08-21"
+  },
+  {
+   "fact": "invention_budget=500",
+   "model": "prover",
+   "battery": "prover_goals48",
+   "measured": "証明41→41 (+0)",
+   "verdict": "ABSTAIN",
+   "establishes": "発明の予算を絞っても証明数が落ちない",
+   "witness": "verified:run:prover@prover_goals48@2026-08-21"
+  },
+  {
+   "fact": "handoff=False",
+   "model": "prover",
+   "battery": "prover_goals48",
+   "measured": "証明41→33 (-8)",
+   "verdict": "HARMFUL",
+   "establishes": "手渡し在庫が無くても証明数が落ちない(=参照は効いていない)",
+   "witness": "verified:run:prover@prover_goals48@2026-08-21"
+  },
+  {
+   "fact": "energy=False",
+   "model": "prover",
+   "battery": "prover_goals48",
+   "measured": "証明41→41 (+0)",
+   "verdict": "ABSTAIN",
+   "establishes": "エネルギーの順序づけは証明数に効いていない",
+   "witness": "verified:run:prover@prover_goals48@2026-08-21"
+  }
+ ],
+ "ts": 1787269816.256572
+}

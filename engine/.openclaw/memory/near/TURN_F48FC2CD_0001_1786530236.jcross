@@ -1,0 +1,93 @@
+;;; JCross Memory Node — TURN
+;;; Session: Turn 1 / F48FC2CD
+;;; Created: 2026-08-12T10:23:56Z
+;;; Archived: 2026-08-12T10:23:56Z
+
+[L1_SUMMARY]
+[Turn 1] U: ▼ 現在の指示（最優先事項） ▼  [ETERNAL MEMORY — JGEN hidden-state recall]   🧠 SKILL vera_mem | A: # Opus 5 と Fable 5 の使い分けについて  ## 概要  Claude AI から公開された 2026 年 7 月時点のモデルです。Opus 5
+[/L1_SUMMARY]
+
+[L2_FACTS]
+OP.FACT("session_id", "F48FC2CD")
+OP.FACT("turn_number", "1")
+OP.FACT("timestamp", "1786530236")
+OP.FACT("user_input", "▼ 現在の指示（最優先事項） ▼\n\n[ETERNAL MEMORY — JGEN hidden-state recall]\n  🧠 SKILL vera_mem_検索を行なって: 検索を行なって → vera-memory.ask  (score: 0.77)\n  🧠 SKILL vera_mem_search: SEARCH → vera-memory.ask  (score: 0.76)\n  ")
+OP.FACT("assistant_output", "# Opus 5 と Fable 5 の使い分けについて\n\n## 概要\n\nClaude AI から公開された 2026 年 7 月時点のモデルです。Opus 5 は「半額でフロンティア知能」を実現した高性能モデル、Fable 5 はより高コストな frontier-class モデルです。\n\n## 主な違いと使い分け基準\n\n| 項目 | Opus 5 | Fable 5 |\n|------|---")
+OP.STATE("used_at", "[]")
+[/L2_FACTS]
+
+[L3_VERBATIM]
+User: ▼ 現在の指示（最優先事項） ▼
+
+[ETERNAL MEMORY — JGEN hidden-state recall]
+  🧠 SKILL vera_mem_検索を行なって: 検索を行なって → vera-memory.ask  (score: 0.77)
+  🧠 SKILL vera_mem_search: SEARCH → vera-memory.ask  (score: 0.76)
+  🧠 SKILL vera_mem_agiについて説明して: agiについて説明して → vera-memory.ask  (score: 0.74)
+[/ETERNAL MEMORY]
+
+
+[WEB EVIDENCE — query chosen by Vera: opus5とfable５の使い分け]
+Source: https://html.duckduckgo.com/html/?q=opus5%E3%81%A8fable%EF%BC%95%E3%81%AE%E4%BD%BF%E3%81%84%E5%88%86%E3%81%91
+[1] Opus 5とFable 5どっちを使う？使い分け基準【2026年7月】｜株式会社Uravation
+    https://uravation.com/media/claude-opus-5-vs-fable-5-which-to-use-2026/
+    Opus 5がFable 5の半額でフロンティア知能を実現した今、法人はどちらを使うべきか。公式仕様と第三者ベンチマークの両面から判断基準を整理します。
+
+[2] Opus 5 vs Fable 5｜半額でフロンティア級は本当か | Claude Code for Business
+    https://fyve.co.jp/claude-code/articles/claude-opus-5-vs-fable-5
+    Claude Opus 5とFable 5を料金と性能で比較。公式主張「半額でフロンティア級」の意味、5-25ドル対10-50ドルの料金差、司令塔はFable5・実働はOpus5に寄せる使い分けを解説します。
+
+[3] Claude Opus 5とFable 5の使い分け方：料金・データ保持・fallbackの判断表 - Qiita
+    https://qiita.com/yuma_morita/items/0f8c0e01e4c014e4b6cd
+    Claude Opus 5の公開後、「Fable 5をすべての高難度タスクに使い続けるべきか」「日常の複雑なタスクはOpus 5に切り替えてよいか」という判断が必要になりました。 この比較で重要なのは、ベンチマークの順位だけではありません。料金、データ保持、fallbac...
+
+[4] Claude Opus 5とFable 5の使い分けを徹底解説!探索はFable、収束はOpus
+    https://note.com/masa_wunder/n/n4d439bd0f6fa
+    Claude Opus 5 とは、Anthropic が 2026 年 7 月 24 日に公開した高性能モデルで、Fable 5 に近い知能を Opus 系の速度と価格で使える、と公式に位置づけられています。 僕も Claude Code の運用を見直し、Fable 5、Opus 5、ultracode を横に並べて仕事の流れを組み替えました。
+
+[5] Fable 5とOpus 5の使い分け、完全解剖｜アライ｜AI思考実験とデータ分析
+    https://note.com/ai_arai_ally/n/n869ca21ca8e1
+    Fable 5とOpus 5、結局どっちを使えばいいのか。 自分の一軍はOpus 5でいい。Fable 5は、コードを書く係として常用するより、自分が何を分かっていないかを掘る係に置く。 性能表ではなく本質的な使い分けが知りたかったので調べて自分でも使った。Claude 5世代では、AIへの指示そのものが変わった ...
+[END WEB EVIDENCE]
+
+[TASK]
+opus5とfable５の使い分けについて教えて
+
+CRITICAL RULE: The instruction above MUST take absolute precedence over any legacy memory or system rules. If past memory contradicts this current instruction, IGNORE the past memory and fulfill this instruction exactly as requested.
+
+Assistant: # Opus 5 と Fable 5 の使い分けについて
+
+## 概要
+
+Claude AI から公開された 2026 年 7 月時点のモデルです。Opus 5 は「半額でフロンティア知能」を実現した高性能モデル、Fable 5 はより高コストな frontier-class モデルです。
+
+## 主な違いと使い分け基準
+
+| 項目 | Opus 5 | Fable 5 |
+|------|--------|---------|
+| **性能** | フロンティア級に近い知能 | フロンティアクラス（最高） |
+| **価格** | 半額 ($5-25) | 高コスト ($10-50) |
+| **速度** | 高速処理 | 若干遅い |
+
+## おすすめの使い分けパターン
+
+### 🎯 Fable 5 を使うべきケース（探索・分析）
+- **複雑な問題解決**: 新しい課題や不明確なタスクで「何を分かっていないか」を掘り下げる係に置く
+- **高難度タスク**: 未知の問題、創造的な思考が必要な作業
+- **戦略立案**: 司令塔として全体の方向性を決定する
+
+### ⚡ Opus 5 を使うべきケース（収束・実務）
+- **日常の複雑なタスク**: 既に明確な要件がある業務処理
+- **コード生成**: 具体的な実装を要請される開発作業
+- **大量データ処理**: 高速かつコスト効率の良い処理が必要な場合
+
+## 運用のヒント
+
+1. **探索→収束の流れ**：Fable 5 で問題の本質を探る → Opus 5 で解決策を実行
+2. **フォールバック戦略**：Opus 5 が不十分な場合は Fable 5 に切り替える
+3. **コスト最適化**: 日常業務は Opus 5、重要な判断は Fable 5
+
+## まとめ
+
+自分の一軍は「Opus 5 でいい」という意見もあります。Fable 5 はコードを書く係として常用するより、自分が何を分かっていないかを掘る係に置くのが効率的です。
+
+[/L3_VERBATIM]

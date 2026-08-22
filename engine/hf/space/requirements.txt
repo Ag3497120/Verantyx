@@ -1,0 +1,5 @@
+gradio==5.9.1
+# gradio 5.9.1 imports HfFolder, which huggingface_hub removed in 1.0.
+# Unpinned, the Space builds and then dies on import.
+huggingface_hub>=0.26,<1.0
+verantyx @ git+https://github.com/Ag3497120/Verantyx-Vera-alpha

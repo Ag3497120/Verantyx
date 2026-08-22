@@ -1,0 +1,93 @@
+{
+ "name": "web_agent",
+ "maturity": "seeded",
+ "description": "Browser-automation task failures: why the agent could not complete the web task.",
+ "fallback": "UNKNOWN_UNCLASSIFIED",
+ "verdicts": [
+  {
+   "verdict": "UNKNOWN_BOT_CHALLENGE",
+   "pattern": "cloudflare|captcha|challenge[- ]page|are you a robot|cf-chl",
+   "note": "an anti-bot gate, not a page defect",
+   "provenance": "claude_seeded",
+   "remedy": {
+    "kind": "human_judgment",
+    "owner": "operator",
+    "verify": "manual",
+    "auto_calibratable": false,
+    "note": "never automate around bot checks; hand to the person"
+   }
+  },
+  {
+   "verdict": "UNKNOWN_AUTH_EXPIRED",
+   "pattern": "session (expired|invalid)|logged? out|sign.?in required|401",
+   "note": "credentials lapsed mid-task",
+   "provenance": "claude_seeded",
+   "remedy": {
+    "kind": "request_input",
+    "owner": "operator",
+    "verify": "rerun",
+    "auto_calibratable": false,
+    "note": ""
+   }
+  },
+  {
+   "verdict": "UNKNOWN_DOM_CHANGED",
+   "pattern": "selector .*(not found|stale)|element .*(missing|detached)|xpath.*no match",
+   "note": "the page changed shape since the flow was recorded",
+   "provenance": "claude_seeded",
+   "remedy": {
+    "kind": "fix_content",
+    "owner": "selector registry",
+    "verify": "rerun",
+    "auto_calibratable": false,
+    "note": "re-record the element; the IDE's verified-UI-element registry is the fix path"
+   }
+  },
+  {
+   "verdict": "UNKNOWN_RATE_LIMITED",
+   "pattern": "429|rate.?limit|too many requests",
+   "note": "the site is throttling us",
+   "provenance": "claude_seeded",
+   "remedy": {
+    "kind": "raise_limit",
+    "owner": "request pacing",
+    "verify": "rerun_larger_limit",
+    "auto_calibratable": false,
+    "note": "calibratable in shape (slow down, retry later); stays manual until verified"
+   }
+  },
+  {
+   "verdict": "UNKNOWN_NETWORK",
+   "pattern": "dns|connection (refused|reset|timed out)|net::ERR|ssl error",
+   "note": "transport failed before the page existed",
+   "provenance": "claude_seeded",
+   "remedy": {
+    "kind": "fix_upstream",
+    "owner": "network/site",
+    "verify": "rerun",
+    "auto_calibratable": false,
+    "note": ""
+   }
+  }
+ ],
+ "fixtures": [
+  {
+   "name": "cloudflare wall",
+   "expect": "UNKNOWN_BOT_CHALLENGE",
+   "evidence": "navigation blocked: Cloudflare challenge-page detected on target site",
+   "provenance": "synthetic"
+  },
+  {
+   "name": "stale selector",
+   "expect": "UNKNOWN_DOM_CHANGED",
+   "evidence": "click failed: selector #checkout-button not found; DOM snapshot differs from recording",
+   "provenance": "synthetic"
+  },
+  {
+   "name": "session died",
+   "expect": "UNKNOWN_AUTH_EXPIRED",
+   "evidence": "form submit returned 401: session expired, sign-in required",
+   "provenance": "synthetic"
+  }
+ ]
+}

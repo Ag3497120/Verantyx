@@ -1,0 +1,39 @@
+;;; JCross Memory Node — SKILL [FULL]
+;;; Session: Skill: ask_web_ai_via_safari
+;;; Created: 2026-08-16T12:29:02Z
+;;; Archived: 2026-08-16T12:29:02Z
+;;; ID: skill-ask_web_ai_via_safari
+;;; Store: full
+
+[L1_SUMMARY]
+[Skill] ask_web_ai_via_safari v2 — Safariで外部Web AI(Gemini等)を開き、質問を送信して回答本文を取得する汎用手順。contenteditable対策の実キー入力とosascri
+[/L1_SUMMARY]
+
+[L2_FACTS]
+OP.FACT("skill_name", "ask_web_ai_via_safari")
+OP.FACT("skill_version", "v2")
+OP.FACT("skill_added", "2026-08-13")
+OP.FACT("skill_desc", "Safariで外部Web AI(Gemini等)を開き、質問を送信して回答本文を取得する汎用手順。contenteditable対策の実キー入力とosascriptによる本文抽出を含む")
+OP.FACT("skill_type", "macro")
+OP.FACT("skill_tags", "browser, ai, safari, automation")
+OP.FACT("skill_stats", "success=0 fail=0")
+[/L2_FACTS]
+
+[L3_VERBATIM]
+[SkillNode: ask_web_ai_via_safari]
+description: Safariで外部Web AI(Gemini等)を開き、質問を送信して回答本文を取得する汎用手順。contenteditable対策の実キー入力とosascriptによる本文抽出を含む
+version: 2 | type: macro
+tags: browser, ai, safari, automation | source: user
+updatedAt: 2026-08-13T10:43:24Z
+payload (10 step(s)):
+[VERIFIED_URL_LOOKUP: {{service}}]
+[SEARCH_PAGE: {{service}}]
+[SCROLL_FIND: {{service}}]
+[CLICK_LINK: {{service}}]
+[DESKTOP_SNAPSHOT]
+[AX_ACT: #elem4 click]
+[DESKTOP_ACT: type {{question}}]
+[KEYS: return]
+[DESKTOP_SNAPSHOT]
+[OSASCRIPT: tell application "Safari" to do JavaScript "document.body.innerText" in current tab of front window]
+[/L3_VERBATIM]

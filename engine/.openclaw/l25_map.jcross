@@ -1,0 +1,319 @@
+;;; L2.5 PROJECT MAP
+;;; GENERATED_AT: 1784953738.77756
+;;; WORKSPACE: /Users/motonishikoudai/Projects/Verantyx-Vera-alpha
+;;; GLOBAL: [蛇:35][験:12][並:12][網:9][蔵:4][視:1] [py×35]
+
+■ NODE L25 verantyx/agent_tools.py
+LANG: py
+KANJI: [蛇:1.0][網:0.8] agent_tools
+TOKENS: Tool
+DEPS: urllib.request,re,html,json,subprocess,urllib.parse
+METRICS: L225 F0 C3
+DATE: 1784953738.768063
+INDEX: [蛇:1.0][網:0.8] agent | "agent_tools.py: Tool" L225F0
+
+■ NODE L25 verantyx/agent.py
+LANG: py
+KANJI: [蛇:1.0] agent
+TOKENS: Agent
+DEPS: re,json
+METRICS: L153 F0 C2
+DATE: 1784953738.748874
+INDEX: [蛇:1.0] agent | "agent.py: Agent" L153F0
+
+■ NODE L25 verantyx/ai_ingest.py
+LANG: py
+KANJI: [蛇:1.0][並:0.8] ai_ingest
+TOKENS: QuarantineEntry,AiFactQuarantine
+DEPS: time,json,re
+METRICS: L157 F0 C2
+DATE: 1784953738.725233
+INDEX: [蛇:1.0][並:0.8] ai_in | "ai_ingest.py: QuarantineEntry+AiFactQuarantine" L157F0
+
+■ NODE L25 verantyx/consensus.py
+LANG: py
+KANJI: [蛇:1.0][並:0.8] consensus
+TOKENS: ConsensusConfig,SearchState,Metrics,ConsensusResult
+DEPS: 
+METRICS: L571 F0 C4
+DATE: 1784953738.7454739
+INDEX: [蛇:1.0][並:0.8] conse | "consensus.py: ConsensusConfig+SearchState+Metrics" L571F0
+
+■ NODE L25 verantyx/cross_store.py
+LANG: py
+KANJI: [蛇:1.0][蔵:0.8][並:0.8] cross_store
+TOKENS: CrossStore
+DEPS: json,time
+METRICS: L278 F0 C3
+DATE: 1784953738.761922
+INDEX: [蛇:1.0][蔵:0.8][並:0.8 | "cross_store.py: CrossStore" L278F0
+
+■ NODE L25 verantyx/lex_filters.py
+LANG: py
+KANJI: [蛇:1.0][験:0.8] lex_filters
+TOKENS: 
+DEPS: re
+METRICS: L191 F0 C2
+DATE: 1784953738.750809
+INDEX: [蛇:1.0][験:0.8] lex_f | "lex_filters.py: " L191F0
+
+■ NODE L25 verantyx/pour_forks.py
+LANG: py
+KANJI: [蛇:1.0][験:0.8] pour_forks
+TOKENS: 
+DEPS: tempfile
+METRICS: L316 F0 C3
+DATE: 1784953738.728013
+INDEX: [蛇:1.0][験:0.8] pour_ | "pour_forks.py: " L316F0
+
+■ NODE L25 verantyx/__init__.py
+LANG: py
+KANJI: [蛇:1.0] __init__
+TOKENS: 
+DEPS: 
+METRICS: L84 F0 C2
+DATE: 1784953738.72156
+INDEX: [蛇:1.0] __init__ | "__init__.py: " L84F0
+
+■ NODE L25 verantyx/consensus_store.py
+LANG: py
+KANJI: [蛇:1.0][蔵:0.8][験:0.8] consensus_store
+TOKENS: _MassView
+DEPS: math,re
+METRICS: L334 F0 C3
+DATE: 1784953738.7307281
+INDEX: [蛇:1.0][蔵:0.8][験:0.8 | "consensus_store.py: _MassView" L334F0
+
+■ NODE L25 verantyx/mcp_server.py
+LANG: py
+KANJI: [蛇:1.0][並:0.8] mcp_server
+TOKENS: 
+DEPS: json
+METRICS: L157 F0 C2
+DATE: 1784953738.7698011
+INDEX: [蛇:1.0][並:0.8] mcp_s | "mcp_server.py: " L157F0
+
+■ NODE L25 verantyx/lang.py
+LANG: py
+KANJI: [蛇:1.0] lang
+TOKENS: 
+DEPS: re
+METRICS: L207 F0 C3
+DATE: 1784953738.6879148
+INDEX: [蛇:1.0] lang | "lang.py: " L207F0
+
+■ NODE L25 verantyx/kripke_rewrite_forks.py
+LANG: py
+KANJI: [蛇:1.0] kripke_rewrite_forks
+TOKENS: 
+DEPS: 
+METRICS: L168 F0 C2
+DATE: 1784953738.694839
+INDEX: [蛇:1.0] kripke_rewri | "kripke_rewrite_forks.py: " L168F0
+
+■ NODE L25 verantyx/phase2_forks.py
+LANG: py
+KANJI: [蛇:1.0][験:0.8] phase2_forks
+TOKENS: 
+DEPS: tempfile
+METRICS: L171 F0 C2
+DATE: 1784953738.759237
+INDEX: [蛇:1.0][験:0.8] phase | "phase2_forks.py: " L171F0
+
+■ NODE L25 verantyx/math_sim_forks.py
+LANG: py
+KANJI: [蛇:1.0] math_sim_forks
+TOKENS: 
+DEPS: random
+METRICS: L174 F0 C2
+DATE: 1784953738.7033072
+INDEX: [蛇:1.0] math_sim_for | "math_sim_forks.py: " L174F0
+
+■ NODE L25 verantyx/router.py
+LANG: py
+KANJI: [蛇:1.0] router
+TOKENS: 
+DEPS: 
+METRICS: L160 F0 C2
+DATE: 1784953738.7574248
+INDEX: [蛇:1.0] router | "router.py: " L160F0
+
+■ NODE L25 verantyx/math_sim.py
+LANG: py
+KANJI: [蛇:1.0] math_sim
+TOKENS: 
+DEPS: re
+METRICS: L320 F0 C3
+DATE: 1784953738.6933641
+INDEX: [蛇:1.0] math_sim | "math_sim.py: " L320F0
+
+■ NODE L25 verantyx/config.py
+LANG: py
+KANJI: [蛇:1.0][並:0.8][網:0.8] config
+TOKENS: VeraConfig
+DEPS: json as _json,urllib.request,json
+METRICS: L103 F0 C2
+DATE: 1784953738.696052
+INDEX: [蛇:1.0][並:0.8][網:0.8 | "config.py: VeraConfig" L103F0
+
+■ NODE L25 verantyx/consensus_forks.py
+LANG: py
+KANJI: [蛇:1.0][並:0.8] consensus_forks
+TOKENS: 
+DEPS: 
+METRICS: L217 F0 C3
+DATE: 1784953738.697901
+INDEX: [蛇:1.0][並:0.8] conse | "consensus_forks.py: " L217F0
+
+■ NODE L25 verantyx/rewrite_kernel.py
+LANG: py
+KANJI: [蛇:1.0][並:0.8] rewrite_kernel
+TOKENS: _P,Rule,RuleStore
+DEPS: json,re
+METRICS: L330 F0 C3
+DATE: 1784953738.701555
+INDEX: [蛇:1.0][並:0.8] rewri | "rewrite_kernel.py: _P+Rule+RuleStore" L330F0
+
+■ NODE L25 verantyx/code_ingest.py
+LANG: py
+KANJI: [蛇:1.0][並:0.8][網:0.8] code_ingest
+TOKENS: =,=,=
+DEPS: ast
+METRICS: L144 F3 C2
+DATE: 1784953738.712878
+INDEX: [蛇:1.0][並:0.8][網:0.8 | "code_ingest.py: =+=+=" L144F3
+
+■ NODE L25 verantyx/tui.py
+LANG: py
+KANJI: [蛇:1.0][視:0.9][験:0.8] tui
+TOKENS: 
+DEPS: termios,sys,tty
+METRICS: L224 F0 C3
+DATE: 1784953738.752606
+INDEX: [蛇:1.0][視:0.9][験:0.8 | "tui.py: " L224F0
+
+■ NODE L25 verantyx/cli.py
+LANG: py
+KANJI: [蛇:1.0][網:0.8][験:0.8] cli
+TOKENS: 
+DEPS: argparse,sys,json
+METRICS: L559 F0 C4
+DATE: 1784953738.735342
+INDEX: [蛇:1.0][網:0.8][験:0.8 | "cli.py: " L559F0
+
+■ NODE L25 verantyx/face_roles.py
+LANG: py
+KANJI: [蛇:1.0][網:0.8][験:0.8] face_roles
+TOKENS: 
+DEPS: 
+METRICS: L186 F0 C2
+DATE: 1784953738.74689
+INDEX: [蛇:1.0][網:0.8][験:0.8 | "face_roles.py: " L186F0
+
+■ NODE L25 verantyx/ai_ingest_forks.py
+LANG: py
+KANJI: [蛇:1.0][験:0.8] ai_ingest_forks
+TOKENS: 
+DEPS: tempfile
+METRICS: L100 F0 C2
+DATE: 1784953738.736611
+INDEX: [蛇:1.0][験:0.8] ai_in | "ai_ingest_forks.py: " L100F0
+
+■ NODE L25 verantyx/cross.py
+LANG: py
+KANJI: [蛇:1.0][並:0.8] cross
+TOKENS: LinearCross,ShellCross
+DEPS: 
+METRICS: L61 F0 C2
+DATE: 1784953738.6904058
+INDEX: [蛇:1.0][並:0.8] cross | "cross.py: LinearCross+ShellCross" L61F0
+
+■ NODE L25 verantyx/lang_router_forks.py
+LANG: py
+KANJI: [蛇:1.0] lang_router_forks
+TOKENS: 
+DEPS: 
+METRICS: L135 F0 C2
+DATE: 1784953738.723113
+INDEX: [蛇:1.0] lang_router_ | "lang_router_forks.py: " L135F0
+
+■ NODE L25 verantyx/sense_split.py
+LANG: py
+KANJI: [蛇:1.0] sense_split
+TOKENS: 
+DEPS: 
+METRICS: L154 F0 C2
+DATE: 1784953738.714421
+INDEX: [蛇:1.0] sense_split | "sense_split.py: " L154F0
+
+■ NODE L25 verantyx/kripke.py
+LANG: py
+KANJI: [蛇:1.0][並:0.8][験:0.8] kripke
+TOKENS: KripkeModel,_Parser
+DEPS: re
+METRICS: L236 F0 C3
+DATE: 1784953738.7549229
+INDEX: [蛇:1.0][並:0.8][験:0.8 | "kripke.py: KripkeModel+_Parser" L236F0
+
+■ NODE L25 verantyx/hf_store.py
+LANG: py
+KANJI: [蛇:1.0][蔵:0.8][網:0.8] hf_store
+TOKENS: 
+DEPS: shutil
+METRICS: L67 F0 C2
+DATE: 1784953738.755677
+INDEX: [蛇:1.0][蔵:0.8][網:0.8 | "hf_store.py: " L67F0
+
+■ NODE L25 verantyx/store_sqlite.py
+LANG: py
+KANJI: [蛇:1.0][蔵:0.8][網:0.8] store_sqlite
+TOKENS: SqliteSync
+DEPS: sqlite3
+METRICS: L180 F0 C2
+DATE: 1784953738.764347
+INDEX: [蛇:1.0][蔵:0.8][網:0.8 | "store_sqlite.py: SqliteSync" L180F0
+
+■ NODE L25 verantyx/en_decompose.py
+LANG: py
+KANJI: [蛇:1.0][並:0.8] en_decompose
+TOKENS: DecomposeRecord,ClassifiedToken,ClassifiedSentence
+DEPS: re
+METRICS: L1077 F0 C5
+DATE: 1784953738.7208529
+INDEX: [蛇:1.0][並:0.8] en_de | "en_decompose.py: DecomposeRecord+ClassifiedToken+ClassifiedSentence" L1077F0
+
+■ NODE L25 verantyx/debug_consensus.py
+LANG: py
+KANJI: [蛇:1.0][験:0.8] debug_consensus
+TOKENS: 
+DEPS: re
+METRICS: L155 F0 C2
+DATE: 1784953738.765799
+INDEX: [蛇:1.0][験:0.8] debug | "debug_consensus.py: " L155F0
+
+■ NODE L25 verantyx/corpus_en.py
+LANG: py
+KANJI: [蛇:1.0][並:0.8][網:0.8][験:0.8] corpus_en
+TOKENS: CorpusLoad
+DEPS: os,re,warnings
+METRICS: L442 F0 C3
+DATE: 1784953738.7769132
+INDEX: [蛇:1.0][並:0.8][網:0.8 | "corpus_en.py: CorpusLoad" L442F0
+
+■ NODE L25 verantyx/agent_forks.py
+LANG: py
+KANJI: [蛇:1.0][験:0.8] agent_forks
+TOKENS: 
+DEPS: sys,tempfile,io
+METRICS: L195 F0 C2
+DATE: 1784953738.689832
+INDEX: [蛇:1.0][験:0.8] agent | "agent_forks.py: " L195F0
+
+■ NODE L25 verantyx/llm_local.py
+LANG: py
+KANJI: [蛇:1.0][網:0.8] llm_local
+TOKENS: 
+DEPS: urllib.request,json,urllib.error
+METRICS: L78 F0 C2
+DATE: 1784953738.698618
+INDEX: [蛇:1.0][網:0.8] llm_l | "llm_local.py: " L78F0

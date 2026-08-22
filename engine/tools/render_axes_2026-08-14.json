@@ -1,0 +1,38 @@
+{
+  "registered": "2026-08-14T22:10:00+09:00",
+  "protocol": "Preregistered BEFORE the first verantyx.connective_render.render_diff call. Five readability axes for designer eyeball of three verbatim renders (hit pair / abstention pair / pair with 一方). Gold is this file; the renderer is not consulted while this block is authored. Scoring is 1 or 0 per axis; fluency is out of scope.",
+  "seed_note": "Axes are the contract's audit questions, not read from a prior render.",
+  "n_axes": 5,
+  "axes": [
+    {
+      "id": "subject_named",
+      "label": "subject named",
+      "check": "Both query subjects appear in the render text by name (the asked A and B, not a paraphrase)."
+    },
+    {
+      "id": "buckets_distinguishable",
+      "label": "buckets distinguishable",
+      "check": "A reader can tell the three bundles apart: exclusive items carry 実測あり on one side and 実測なし on the other; shared items carry 実測あり on both; そして stays inside a bucket; 一方 marks only_a→only_b; また introduces shared. A typed abstention names the silence instead of assembling a fake DIFF."
+    },
+    {
+      "id": "no_negation_assembled",
+      "label": "no negation assembled",
+      "check": "Outside 「」 quotes the renderer did not build でない / ではない / られない / しない. A ¬-prefixed token quoted verbatim is testimony, not assembly."
+    },
+    {
+      "id": "coverage_spoken_on_abstention",
+      "label": "coverage spoken on abstention",
+      "check": "INSUFFICIENT_PROFILE and AMBIGUOUS_SENSE texts speak both sides' predicate count and both sides' facet count. A DIFF/RENDER text is exempt (coverage rides the dict)."
+    },
+    {
+      "id": "connectives_licensed",
+      "label": "connectives licensed",
+      "check": "Every そして / また / 一方 / しかし in the text has a matching license record. No connective is placed where the diff structure (or an observed ¬ pair) does not license it."
+    }
+  ],
+  "eyeball_slots": [
+    "hit pair (リンゴ/電気)",
+    "abstention pair (INSUFFICIENT_PROFILE or AMBIGUOUS_SENSE)",
+    "pair whose text contains 一方"
+  ]
+}

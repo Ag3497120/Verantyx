@@ -1,0 +1,88 @@
+{
+ "K1": [
+  {
+   "label": "正しい",
+   "verdict": "ANSWER",
+   "support": 1.0,
+   "unjudged": []
+  },
+  {
+   "label": "否定",
+   "verdict": "UNKNOWN_POLARITY_UNJUDGED",
+   "support": 1.0,
+   "unjudged": [
+    "支給"
+   ]
+  },
+  {
+   "label": "正しい2",
+   "verdict": "ANSWER",
+   "support": 0.5,
+   "unjudged": []
+  },
+  {
+   "label": "否定2",
+   "verdict": "UNKNOWN_POLARITY_UNJUDGED",
+   "support": 0.5,
+   "unjudged": [
+    "支給"
+   ]
+  }
+ ],
+ "K1_split": true,
+ "K2": [
+  {
+   "label": "店=否定/主張=肯定",
+   "verdict": "CONTRADICTED_BY_CORPUS",
+   "contradictions": [
+    [
+     "復旧",
+     "+",
+     "-",
+     "復旧:not_復旧"
+    ]
+   ]
+  },
+  {
+   "label": "店=肯定/主張=否定",
+   "verdict": "CONTRADICTED_BY_CORPUS",
+   "contradictions": [
+    [
+     "開設",
+     "-",
+     "+",
+     "開設:開設"
+    ]
+   ]
+  },
+  {
+   "label": "一致(肯定)",
+   "verdict": "ANSWER",
+   "contradictions": []
+  }
+ ],
+ "K2_ok": true,
+ "K3": {
+  "no_polarity_dispute": "ANSWER",
+  "unjudged_when_negated": "UNKNOWN_POLARITY_UNJUDGED"
+ },
+ "K3_ok": true,
+ "K4": {
+  "forward": "UNKNOWN_POLARITY_UNJUDGED",
+  "reversed": "UNKNOWN_POLARITY_UNJUDGED"
+ },
+ "K4_ok": true,
+ "K5": [
+  {
+   "label": "未保持の主題",
+   "verdict": "UNKNOWN_SUBJECT_NOT_HELD"
+  },
+  {
+   "label": "薄い主題",
+   "verdict": "UNKNOWN_SUBJECT_NOT_HELD"
+  }
+ ],
+ "K5_ok": true,
+ "all_pass": true,
+ "seconds": 0.0
+}

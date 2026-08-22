@@ -1,0 +1,334 @@
+{
+  "db": "/Users/motonishikoudai/Projects/vera-corpus/build/vera.db",
+  "counts": {
+    "asked": 298,
+    "want_in_cands": 275,
+    "fw_answer": 0,
+    "fw_wrong": 258,
+    "fw_correct": 17,
+    "fw_refuse": 23
+  },
+  "want_in_cands_outcomes": {
+    "wrong": 236,
+    "correct": 17,
+    "refuse": 22
+  },
+  "want_shell_overlap_dist": {
+    "3": 24,
+    "1": 95,
+    "2": 131,
+    "0": 25
+  },
+  "want_full_overlap_dist": {
+    "3": 264,
+    "2": 11
+  },
+  "wrong_winner_energy_source": {
+    "name": 190,
+    "name+shell_ov": 15,
+    "shell_ov": 31
+  },
+  "energy_ratio_winner_over_want": {
+    "median": 2.81,
+    "max": 11.1
+  },
+  "counterfactual_full_overlap_want_wins": {
+    "of_wrong_with_want_in_cands": 236,
+    "want_would_win": 8
+  },
+  "elapsed_s": 51.2,
+  "samples": [
+    {
+      "query": "一種 芳香族炭化水素 subhsub12",
+      "want": "テトラヒドロナフタレン",
+      "outcome": "wrong",
+      "winner": "一種",
+      "want_rank": 1,
+      "want_arm": {
+        "core": "テトラヒドロナフタレン",
+        "axis": "-x",
+        "mass": 1.693,
+        "name_match": 0,
+        "shell_overlap": 3,
+        "full_overlap": 3,
+        "energy": 6.773
+      },
+      "winner_arm": {
+        "core": "一種",
+        "axis": "+x",
+        "mass": 2.386,
+        "name_match": 1,
+        "shell_overlap": 0,
+        "full_overlap": 1,
+        "energy": 7.159
+      }
+    },
+    {
+      "query": "他 システム 一般的",
+      "want": "l4マイクロカーネルファミリー",
+      "outcome": "wrong",
+      "winner": "他",
+      "want_rank": 1,
+      "want_arm": {
+        "core": "l4マイクロカーネルファミリー",
+        "axis": "-x",
+        "mass": 1.693,
+        "name_match": 0,
+        "shell_overlap": 1,
+        "full_overlap": 3,
+        "energy": 3.386
+      },
+      "winner_arm": {
+        "core": "他",
+        "axis": "+x",
+        "mass": 6.966,
+        "name_match": 1,
+        "shell_overlap": 0,
+        "full_overlap": 3,
+        "energy": 20.898
+      }
+    },
+    {
+      "query": "注釈 登山ガイドブック 定義",
+      "want": "大座礼山",
+      "outcome": "wrong",
+      "winner": "注釈",
+      "want_rank": 1,
+      "want_arm": {
+        "core": "大座礼山",
+        "axis": "-x",
+        "mass": 1.693,
+        "name_match": 0,
+        "shell_overlap": 2,
+        "full_overlap": 3,
+        "energy": 5.079
+      },
+      "winner_arm": {
+        "core": "注釈",
+        "axis": "+x",
+        "mass": 6.927,
+        "name_match": 1,
+        "shell_overlap": 0,
+        "full_overlap": 1,
+        "energy": 20.781
+      }
+    },
+    {
+      "query": "ヴィーン オーストリア ウィーン",
+      "want": "収集品",
+      "outcome": "wrong",
+      "winner": "ヴィーン",
+      "want_rank": 1,
+      "want_arm": {
+        "core": "収集品",
+        "axis": "-x",
+        "mass": 1.693,
+        "name_match": 0,
+        "shell_overlap": 1,
+        "full_overlap": 3,
+        "energy": 3.386
+      },
+      "winner_arm": {
+        "core": "ヴィーン",
+        "axis": "+x",
+        "mass": 2.792,
+        "name_match": 1,
+        "shell_overlap": 1,
+        "full_overlap": 3,
+        "energy": 11.167
+      }
+    },
+    {
+      "query": "本社 ミュンヘン 欧米",
+      "want": "フリックスモビリティ",
+      "outcome": "wrong",
+      "winner": "本社",
+      "want_rank": 1,
+      "want_arm": {
+        "core": "フリックスモビリティ",
+        "axis": "-x",
+        "mass": 1.693,
+        "name_match": 0,
+        "shell_overlap": 3,
+        "full_overlap": 3,
+        "energy": 6.773
+      },
+      "winner_arm": {
+        "core": "本社",
+        "axis": "+x",
+        "mass": 5.317,
+        "name_match": 1,
+        "shell_overlap": 0,
+        "full_overlap": 1,
+        "energy": 15.952
+      }
+    },
+    {
+      "query": "政治家 大将 ニコラエヴィチ",
+      "want": "セルジュコフ",
+      "outcome": "wrong",
+      "winner": "政治家",
+      "want_rank": 1,
+      "want_arm": {
+        "core": "セルジュコフ",
+        "axis": "-x",
+        "mass": 2.099,
+        "name_match": 0,
+        "shell_overlap": 2,
+        "full_overlap": 3,
+        "energy": 6.296
+      },
+      "winner_arm": {
+        "core": "政治家",
+        "axis": "+x",
+        "mass": 3.89,
+        "name_match": 1,
+        "shell_overlap": 0,
+        "full_overlap": 1,
+        "energy": 11.671
+      }
+    },
+    {
+      "query": "人 パリ ピーター",
+      "want": "サフラン",
+      "outcome": "wrong",
+      "winner": "人",
+      "want_rank": 1,
+      "want_arm": {
+        "core": "サフラン",
+        "axis": "-x",
+        "mass": 2.792,
+        "name_match": 0,
+        "shell_overlap": 2,
+        "full_overlap": 3,
+        "energy": 8.375
+      },
+      "winner_arm": {
+        "core": "人",
+        "axis": "+x",
+        "mass": 7.882,
+        "name_match": 1,
+        "shell_overlap": 0,
+        "full_overlap": 2,
+        "energy": 23.647
+      }
+    },
+    {
+      "query": "白髪 良一 name",
+      "want": "白髪良一",
+      "outcome": "correct",
+      "winner": "白髪良一",
+      "want_rank": 1,
+      "want_arm": {
+        "core": "白髪良一",
+        "axis": "-x",
+        "mass": 1.693,
+        "name_match": 0,
+        "shell_overlap": 3,
+        "full_overlap": 3,
+        "energy": 6.773
+      },
+      "winner_arm": null
+    },
+    {
+      "query": "曲 シングル moumoon",
+      "want": "pain",
+      "outcome": "wrong",
+      "winner": "曲",
+      "want_rank": 1,
+      "want_arm": {
+        "core": "pain",
+        "axis": "-x",
+        "mass": 2.099,
+        "name_match": 0,
+        "shell_overlap": 2,
+        "full_overlap": 3,
+        "energy": 6.296
+      },
+      "winner_arm": {
+        "core": "曲",
+        "axis": "+x",
+        "mass": 6.094,
+        "name_match": 1,
+        "shell_overlap": 0,
+        "full_overlap": 2,
+        "energy": 18.281
+      }
+    },
+    {
+      "query": "ガラコンサート オペラコンサート オペラ",
+      "want": "nhkニューイヤーオペラコンサート",
+      "outcome": "wrong",
+      "winner": "オペラ",
+      "want_rank": 1,
+      "want_arm": {
+        "core": "nhkニューイヤーオペラコンサート",
+        "axis": "-x",
+        "mass": 1.693,
+        "name_match": 0,
+        "shell_overlap": 3,
+        "full_overlap": 3,
+        "energy": 6.773
+      },
+      "winner_arm": {
+        "core": "オペラ",
+        "axis": "+x",
+        "mass": 4.091,
+        "name_match": 1,
+        "shell_overlap": 0,
+        "full_overlap": 1,
+        "energy": 12.273
+      }
+    },
+    {
+      "query": "第二次世界大戦後 放映 全23話",
+      "want": "シーズン",
+      "outcome": "wrong",
+      "winner": "第二次世界大戦後",
+      "want_rank": 1,
+      "want_arm": {
+        "core": "シーズン",
+        "axis": "-x",
+        "mass": 5.625,
+        "name_match": 0,
+        "shell_overlap": 0,
+        "full_overlap": 2,
+        "energy": 5.625
+      },
+      "winner_arm": {
+        "core": "第二次世界大戦後",
+        "axis": "+x",
+        "mass": 3.197,
+        "name_match": 1,
+        "shell_overlap": 0,
+        "full_overlap": 1,
+        "energy": 9.592
+      }
+    },
+    {
+      "query": "子供 児童性的虐待 買春",
+      "want": "児童買春ツアー",
+      "outcome": "wrong",
+      "winner": "子供",
+      "want_rank": 1,
+      "want_arm": {
+        "core": "児童買春ツアー",
+        "axis": "-x",
+        "mass": 1.693,
+        "name_match": 0,
+        "shell_overlap": 2,
+        "full_overlap": 3,
+        "energy": 5.079
+      },
+      "winner_arm": {
+        "core": "子供",
+        "axis": "+x",
+        "mass": 5.635,
+        "name_match": 1,
+        "shell_overlap": 0,
+        "full_overlap": 1,
+        "energy": 16.904
+      }
+    }
+  ]
+}

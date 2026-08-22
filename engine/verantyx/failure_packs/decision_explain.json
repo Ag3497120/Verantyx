@@ -1,0 +1,74 @@
+{
+ "name": "decision_explain",
+ "maturity": "seeded",
+ "description": "Credit / administrative decisions that cannot be made — typed for the mandatory explanation.",
+ "fallback": "UNKNOWN_UNCLASSIFIED",
+ "verdicts": [
+  {
+   "verdict": "UNKNOWN_MISSING_DOCUMENT",
+   "pattern": "(document|certificate|proof) .*(missing|not (submitted|provided))",
+   "note": "the file is incomplete",
+   "provenance": "claude_seeded",
+   "remedy": {
+    "kind": "request_input",
+    "owner": "applicant",
+    "verify": "rerun",
+    "auto_calibratable": false,
+    "note": "the typed verdict IS the legally required notice content"
+   }
+  },
+  {
+   "verdict": "UNKNOWN_REGISTRY_CONFLICT",
+   "pattern": "(registry|bureaus?|records?) (disagree|conflict|mismatch)",
+   "note": "authoritative sources contradict each other",
+   "provenance": "claude_seeded",
+   "remedy": {
+    "kind": "human_judgment",
+    "owner": "case officer",
+    "verify": "manual",
+    "auto_calibratable": false,
+    "note": "two authorities disagreeing is never automation's call"
+   }
+  },
+  {
+   "verdict": "UNKNOWN_THIN_FILE",
+   "pattern": "thin file|insufficient history|no (credit|transaction) history",
+   "note": "not enough history to decide either way",
+   "provenance": "claude_seeded",
+   "remedy": {
+    "kind": "request_input",
+    "owner": "applicant",
+    "verify": "rerun",
+    "auto_calibratable": false,
+    "note": ""
+   }
+  },
+  {
+   "verdict": "UNKNOWN_STALE_RECORD",
+   "pattern": "(record|data) (older than|stale|expired)",
+   "note": "evidence exists but is too old to rely on",
+   "provenance": "claude_seeded",
+   "remedy": {
+    "kind": "request_input",
+    "owner": "applicant",
+    "verify": "rerun",
+    "auto_calibratable": false,
+    "note": ""
+   }
+  }
+ ],
+ "fixtures": [
+  {
+   "name": "missing certificate",
+   "expect": "UNKNOWN_MISSING_DOCUMENT",
+   "evidence": "application incomplete: residence certificate not submitted",
+   "provenance": "synthetic"
+  },
+  {
+   "name": "bureaus disagree",
+   "expect": "UNKNOWN_REGISTRY_CONFLICT",
+   "evidence": "credit bureaus disagree: bureau A reports account closed, bureau B reports 90d delinquent",
+   "provenance": "synthetic"
+  }
+ ]
+}

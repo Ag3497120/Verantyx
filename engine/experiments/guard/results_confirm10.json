@@ -1,0 +1,77 @@
+{
+ "prereg": "experiments/guard/PREREG10_INDEX.md",
+ "checks": {
+  "V45_the_index_matches_the_real_thing": {
+   "pass": true,
+   "detail": {
+    "door": [
+     130,
+     130
+    ],
+    "fork": [
+     89,
+     89
+    ],
+    "prereg": [
+     75,
+     75
+    ],
+    "module": [
+     188,
+     188
+    ]
+   }
+  },
+  "V46_real_assets_come_back_named": {
+   "pass": true,
+   "detail": {
+    "約束 破棄": [
+     "retire_covenant",
+     "RESULTS",
+     "RESULTS2"
+    ],
+    "文書 投入": [
+     "ingest_documents",
+     "document_ingest",
+     "load_documents"
+    ],
+    "配置": [
+     "explain_placement",
+     "placement",
+     "placement"
+    ],
+    "証人": [
+     "record_tool_witness",
+     "lean_witness",
+     "lean_witness_forks"
+    ],
+    "欠け 保留": [
+     "pending_decisions",
+     "defect_gaps",
+     "gap_graph"
+    ]
+   }
+  },
+  "V47_absence_is_answered_not_guessed": {
+   "pass": true,
+   "detail": {
+    "潮汐発電": "UNKNOWN_NOT_FOUND",
+    "オルニチン": "UNKNOWN_NOT_FOUND",
+    "cassoulet": "UNKNOWN_NOT_FOUND",
+    "peregrine falcon": "UNKNOWN_NOT_FOUND"
+   }
+  },
+  "V48_the_index_is_derived_not_listed": {
+   "pass": true,
+   "detail": {
+    "synthetic_root": {
+     "door": 1,
+     "fork": 1,
+     "module": 3
+    },
+    "real_doors": 130
+   }
+  }
+ },
+ "summary": "4/4 passed"
+}

@@ -1,0 +1,43 @@
+;;; JCross Memory Node — TURN
+;;; Session: Turn 1 / 429C4C6C
+;;; Created: 2026-08-12T08:20:11Z
+;;; Archived: 2026-08-12T08:20:11Z
+
+[L1_SUMMARY]
+[Turn 1] U: ▼ CURRENT INSTRUCTION (HIGHEST PRIORITY) ▼  [ETERNAL MEMORY — JGEN hidden-state  | A: [内部知識の評価]: Yes [理由]: 新鮮なサカナフグ（生魚）についての一般的な知識として回答できます。外部検索は不要です。 [アクション]: Genera
+[/L1_SUMMARY]
+
+[L2_FACTS]
+OP.FACT("session_id", "429C4C6C")
+OP.FACT("turn_number", "1")
+OP.FACT("timestamp", "1786522811")
+OP.FACT("user_input", "▼ CURRENT INSTRUCTION (HIGHEST PRIORITY) ▼\n\n[ETERNAL MEMORY — JGEN hidden-state recall]\n  🧠 SKILL vera_mem_検索を行なって: 検索を行なって → vera-memory.ask  (score: 0.81)\n  🧠 SKILL vera_mem_search: SEARCH → vera-me")
+OP.FACT("assistant_output", "[内部知識の評価]: Yes\n[理由]: 新鮮なサカナフグ（生魚）についての一般的な知識として回答できます。外部検索は不要です。\n[アクション]: Generate the answer directly without searching")
+OP.STATE("used_at", "[]")
+[/L2_FACTS]
+
+[L3_VERBATIM]
+User: ▼ CURRENT INSTRUCTION (HIGHEST PRIORITY) ▼
+
+[ETERNAL MEMORY — JGEN hidden-state recall]
+  🧠 SKILL vera_mem_検索を行なって: 検索を行なって → vera-memory.ask  (score: 0.81)
+  🧠 SKILL vera_mem_search: SEARCH → vera-memory.ask  (score: 0.79)
+  🧠 SKILL vera_mem_agiについて説明して: agiについて説明して → vera-memory.ask  (score: 0.75)
+[/ETERNAL MEMORY]
+
+
+[WEB EVIDENCE — query chosen by Vera: 最近でたsakana fuguについてどのようなものかについて他のものと比較して教えて]
+Source: https://www.google.com/search?q=%E6%9C%80%E8%BF%91%E3%81%A7%E3%81%9Fsakana%20fugu%E3%81%AB%E3%81%A4%E3%81%84%E3%81%A6%E3%81%A9%E3%81%AE%E3%82%88%E3%81%86%E3%81%AA%E3%82%82%E3%81%AE%E3%81%8B%E3%81%AB%E3%81%A4%E3%81%84%E3%81%A6%E4%BB%96%E3%81%AE%E3%82%82%E3%81%AE%E3%81%A8%E6%AF%94%E8%BC%83%E3%81%97%E3%81%A6%E6%95%99%E3%81%88%E3%81%A6
+❌ Safari error: AppleScript error: 37:126: execution error: Safariでエラーが起きました: You must enable 'Allow JavaScript from Apple Events' in the Developer section of Safari Settings to use 'do JavaScript'. (8)
+[END WEB EVIDENCE]
+
+[TASK]
+最近でたsakana fuguについてどのようなものかについて他のものと比較して教えて
+
+CRITICAL RULE: The instruction above MUST take absolute precedence over any legacy memory or system rules. If past memory contradicts this current instruction, IGNORE the past memory and fulfill this instruction exactly as requested.
+
+Assistant: [内部知識の評価]: Yes
+[理由]: 新鮮なサカナフグ（生魚）についての一般的な知識として回答できます。外部検索は不要です。
+[アクション]: Generate the answer directly without searching
+
+[/L3_VERBATIM]

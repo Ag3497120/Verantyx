@@ -1,0 +1,74 @@
+{
+ "name": "lab_automation",
+ "maturity": "seeded",
+ "description": "Assay/instrument failures in automated experiments.",
+ "fallback": "UNKNOWN_UNCLASSIFIED",
+ "verdicts": [
+  {
+   "verdict": "UNKNOWN_REAGENT",
+   "pattern": "reagent\\b.*(expired|depleted|lot mismatch)|out of (reagent|consumable)",
+   "note": "consumables, not chemistry",
+   "provenance": "claude_seeded+pattern_fix",
+   "remedy": {
+    "kind": "request_input",
+    "owner": "lab inventory",
+    "verify": "rerun",
+    "auto_calibratable": false,
+    "note": ""
+   }
+  },
+  {
+   "verdict": "UNKNOWN_CALIBRATION",
+   "pattern": "(instrument|device) calibration (due|failed|drift)|baseline drift",
+   "note": "the instrument's zero moved",
+   "provenance": "claude_seeded",
+   "remedy": {
+    "kind": "fix_upstream",
+    "owner": "instrument maintenance",
+    "verify": "rerun",
+    "auto_calibratable": false,
+    "note": ""
+   }
+  },
+  {
+   "verdict": "UNKNOWN_CONTAMINATION",
+   "pattern": "contaminat|unexpected peak|blank (failed|not clean)",
+   "note": "the signal includes something that should not exist",
+   "provenance": "claude_seeded",
+   "remedy": {
+    "kind": "human_judgment",
+    "owner": "lab scientist",
+    "verify": "manual",
+    "auto_calibratable": false,
+    "note": "root-causing contamination is investigation, not retry"
+   }
+  },
+  {
+   "verdict": "UNKNOWN_SAMPLE_VOLUME",
+   "pattern": "(insufficient|low) (sample|volume)|aspiration (failed|short)",
+   "note": "not enough material to measure",
+   "provenance": "claude_seeded",
+   "remedy": {
+    "kind": "request_input",
+    "owner": "sample prep",
+    "verify": "rerun",
+    "auto_calibratable": false,
+    "note": ""
+   }
+  }
+ ],
+ "fixtures": [
+  {
+   "name": "expired reagent",
+   "expect": "UNKNOWN_REAGENT",
+   "evidence": "assay aborted: reagent R-114 expired 2026-07-01, lot mismatch with protocol",
+   "provenance": "synthetic"
+  },
+  {
+   "name": "dirty blank",
+   "expect": "UNKNOWN_CONTAMINATION",
+   "evidence": "qc failed: blank not clean, unexpected peak at 4.2min",
+   "provenance": "synthetic"
+  }
+ ]
+}

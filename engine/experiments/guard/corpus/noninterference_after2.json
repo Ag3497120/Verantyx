@@ -1,0 +1,197 @@
+{
+ "phase": "after2",
+ "prereg": "PREREG_CORPUS.md C4",
+ "vera_store_fingerprint": {
+  "size": 208807708,
+  "mtime": 1786873593.3107324,
+  "head64k_sha256": "c7b4bb494b4b5adf18dded584f224c82ed8eb32cff65db8b2e1c1ab4bc73e55a"
+ },
+ "forks": {
+  "passed": 89,
+  "total": 89,
+  "seconds": 5.87,
+  "failed": [],
+  "names": [
+   "GEOMETRIC_POLE_INVISIBILITY",
+   "GEOMETRIC_ROTATION_REACHES_ALL",
+   "LAYER_STACK_GROWTH",
+   "LAYERED_ASK_STABILITY",
+   "LAYERED_CARRY_DRIFT",
+   "PLACEMENT_GRANULARITY",
+   "PLACEMENT_SIMULATION",
+   "PLACEMENT_CANNOT_MANUFACTURE_CONFIDENCE",
+   "PLACEMENT_INVARIANCE",
+   "DIRECTION_INVARIANCE",
+   "REVERSE_UNIQUE",
+   "REVERSE_SPECIFIC",
+   "PROVER_THREE_OUTCOMES",
+   "ATTEST_POLARITY",
+   "TRANSFER_READING",
+   "AXIS_LOCK",
+   "NORM_VS_RECORD",
+   "QUOTE_IS_SUBSTRING",
+   "READ_AT_SHOWS_BOTH_SIDES",
+   "JA_COVERAGE_GATE",
+   "REIFIED_EVENT",
+   "EVENT_EXTRACTOR_REFUSES_STATUTE_PROSE",
+   "EGOV_ARTICLE_IS_A_CITATION_KEY",
+   "SOVEREIGN_BUILD",
+   "DOCUMENT_DRAFT_IS_LICENSED",
+   "EDGE_FALLBACK_ROUTES_OFF_FACE",
+   "ONE_ROOT_SATURATES_AT_CAPACITY",
+   "FUSION_IS_NOT_MONOTONIC",
+   "WORD_FORM_IS_A_FALLBACK",
+   "LINKED_IS_NOT_PRINTED",
+   "GRANULARITY_COMPOSES",
+   "RESOLUTION_LADDER_GRADES_DOUBT",
+   "CONCORD_RIDES_ALONGSIDE_THE_LIST",
+   "LONG_FORM_DRIFTS_AND_LISTS",
+   "TRACE_IS_MEMORY_OUTSIDE_THE_STORE",
+   "CONSTELLATION_BEATS_ONE_SOVEREIGN",
+   "WRITER_NEVER_REACHES_THE_ANSWER_PATH",
+   "FORM_MAY_NOT_ASSERT_MORE_THAN_CONTENT_LICENSES",
+   "CONCORD_IS_NOT_COVERAGE",
+   "EVERY_MANIFEST_CAN_REBUILD_ITS_CORPUS",
+   "A_RELOADED_WRITER_IS_THE_SAME_WRITER",
+   "COARSENING_ADDS_A_READING_AND_NEVER_OVERTURNS_ONE",
+   "A_CITATION_IS_LISTED_NOT_CHOSEN",
+   "A_TEMPLATE_CUT_INSIDE_A_WORD_IS_CAUGHT_AT_THE_SEAM",
+   "PRESENCE_IN_THE_CORPUS_IS_NOT_SUPPORT",
+   "A_WHOLESALE_REPLACEMENT_IS_NOT_NO_CHANGE",
+   "NOT_KNOWING_IS_NOT_DISAGREEING",
+   "A_COVENANT_BINDS_THE_EXCHANGE_NOT_THE_WORDING",
+   "THE_STORE_INFERS_THE_PROHIBITION_NOBODY_WROTE",
+   "LATIN_IS_A_CONTENT_WORD_IN_JAPANESE_PROSE",
+   "MORE_GRAIN_DOES_NOT_REACH_FURTHER",
+   "THE_STRUCTURE_IS_DETERMINISTIC",
+   "THE_GRAMMAR_AXIS_EARNS_ITS_PLACE_ON_MISMATCHED_FORMS",
+   "THE_FINEST_STAIRCASE_IS_NOT_THE_BEST_ONE",
+   "SOVEREIGNS_CUT_DIFFERENTLY_ARE_NOT_ONE_STORE_REINDEXED",
+   "ONLY_DATA_VARIED_SOVEREIGNS_CAN_DISSENT",
+   "A_COARSER_CUT_RECOVERS_WORDS_THE_WORD_READER_BURIED",
+   "A_STORE_MUST_BE_ASKED_THE_WAY_IT_WAS_READ",
+   "A_TIMELESS_STORE_MUST_REFUSE_A_QUESTION_ABOUT_NOW",
+   "A_CHARACTER_WINDOW_IS_A_JAPANESE_TECHNIQUE",
+   "A_QUESTION_GOES_TO_ONE_LANGUAGE_SOVEREIGN",
+   "A_CHAIN_DECAYS_AND_STACKING_NODES_DOES_NOT_STOP_IT",
+   "A_PUZZLE_NARROWS_WHERE_A_CHAIN_DECAYS",
+   "LAYERED_RECOVERS_WHERE_POOLED_DESTROYS",
+   "THE_PATH_IS_THE_CONTENT_AND_THE_WRITER_ONLY_SUPPLIES_FORM",
+   "THE_VOCABULARY_IS_NOT_THE_LEVER",
+   "A_REFUSAL_SAYS_WHAT_WOULD_CLOSE_IT",
+   "THE_POLITE_REGISTER_WAS_INVISIBLE_TO_THE_HARVESTER",
+   "A_POLITE_IMPERATIVE_STILL_NEEDS_A_LICENCE",
+   "NOTHING_MEASURED_MOVES_UNKNOWN_WORD_REACH",
+   "UNKNOWN_WORD_REACH_AND_NEW_WORD_CREATION_ARE_ONE_OPERATION",
+   "EXPLANATION_CONSTRUCTED_AND_TYPED",
+   "EXPLANATION_BARE_SUFFIX_ABSTAINS_AT_THE_SPLIT",
+   "EXPLANATION_NEVER_ON_ANSWER_PATH",
+   "STAGED_INTERSECTION_CHAINS_N_STAGES",
+   "SUMMARY_EDGE_LICENCE_AND_GROUP_DROPS",
+   "LATTICE_NODES_ATTESTED_AND_KIN_POSITIONAL",
+   "KIN_NEIGHBOURHOOD_IS_A_WEAKER_TYPED_CLAIM",
+   "CROSS_FIELD_AGREEMENT_SELECTS_BUT_BARELY_APPLIES",
+   "CUT_AGREEMENT_IS_NOT_EVIDENCE_AND_MUST_NOT_BE_POOLED",
+   "A_RULE_THAT_JUST_STARTED_BREAKING_IS_THE_ONE_TO_RESEND",
+   "PLACEMENT_BACKWARD_COMPATIBLE",
+   "PROMOTION_PYRAMID",
+   "CONVERSATION_OVERFLOW_TYPED",
+   "CONVERSATION_SPEAKER_ATTRIBUTION",
+   "COVENANT_LIFECYCLE",
+   "A_PROMISE_TO_ACT_NEEDS_A_WITNESS",
+   "A_WITNESS_MUST_HAVE_BEEN_INVOKED",
+   "A_RULE_A_REGEX_READ_IS_A_CANDIDATE"
+  ]
+ },
+ "confirms": [
+  {
+   "script": "run_confirm.py",
+   "expected": "7/7",
+   "got": "7/7",
+   "ok": true,
+   "returncode": 0,
+   "seconds": 12.22,
+   "failed_checks": [],
+   "checks": [
+    "[PASS] V1a_extract_ja_en: {'candidates': 4, 'ja_forbid': True, 'en_forbid': True, 'ja_require': True, 'en_require': True}",
+    "[PASS] V1b_retire_stops_check_keeps_list: {'hits_before': 2, 'hits_after': 1, 'todo_after_retire': False, 'retired_in_list': True}",
+    "[PASS] V2_emoji_class_catches_glyph: {'caught': True, 'found_chars': ['🎉', '⭐'], 'false_positive_on_plain': False}",
+    "[PASS] V3a_unreadable_yields_nothing: {'candidates': []}",
+    "[PASS] V3b_retired_absent_from_fading: {'fading': ['a'], 'verdict': 'FADING'}",
+    "[PASS] V4_registration_order_invariant: {'permutations': 6, 'texts': 4, 'identical': True}",
+    "[PASS] V5_guard_cli_speed: {'frozen': {'set_s': 4.101, 'check_s': [4.024, 3.944], 'verdicts': ['BROKEN', 'KEPT'], 'note': 'onefile展開が毎回かかる — 2秒超は正直に記録'}, 'source_cli': {'check_s': [0.052, 0.046], 'verdicts': ['BROKEN', 'KEPT']}, 'limit_s': 2.0, 'hook_path': 'tools/guard/_common.py はソース直呼びを優先、凍結バイナリはリポジトリ不在時の控え'}"
+   ],
+   "stderr_tail": ""
+  },
+  {
+   "script": "run_confirm2.py",
+   "expected": "5/5",
+   "got": "5/5",
+   "ok": true,
+   "returncode": 0,
+   "seconds": 0.1,
+   "failed_checks": [],
+   "checks": [
+    "[PASS] V6_witness_and_boundary: {'no_witness': 'REQUIRED_UNWITNESSED', 'witnessed': 'REQUIRED_WITNESSED', 'after_boundary': 'REQUIRED_UNWITNESSED', 'unrelated_tool': 'REQUIRED_UNWITNESSED'}",
+    "[PASS] V7_quarantine_shadow_then_gate: {'candidate': ['KEPT', 1], 'adopted': 'BROKEN', 'retired': 'KEPT'}",
+    "[PASS] V8_refusals: {'audit_no_requires': 'NO_REQUIREMENTS', 'empty_propose': 'UNKNOWN_EMPTY_CANDIDATE'}",
+    "[PASS] V9_order_invariance: {'permutations': 36, 'identical': True, 'audit': 'REQUIRED_UNWITNESSED'}",
+    "[PASS] V10_baked_inference: {'baked': ['罰金'], 'inferred_hit': ['罰金'], 'plain': 'KEPT', 'unknown_term_baked': [], 'check_s_200': {'literal': 0.0006, 'baked': 0.0006, 'ratio': 0.92}}"
+   ],
+   "stderr_tail": ""
+  },
+  {
+   "script": "run_confirm3.py",
+   "expected": "5/5",
+   "got": "5/5",
+   "ok": true,
+   "returncode": 0,
+   "seconds": 0.06,
+   "failed_checks": [],
+   "checks": [
+    "[PASS] V14_pretend_vs_real_run: {'echo_pytest': ['REQUIRED_UNWITNESSED', 'MENTIONED'], 'real_forms': {'python3 -m pytest -q': 'INVOKED', 'pytest -q': 'INVOKED', 'uv run pytest': 'INVOKED', 'cd /tmp && python3.11 -m pytest tests/': 'INVOKED'}, 'npx_eslint': 'INVOKED', 'note_only': 'REQUIRED_UNWITNESSED', 'programs_sample': ['git', 'npm', 'lint']}",
+    "[PASS] V15_exit_status_three_valued: {'ok_true': 'REQUIRED_WITNESSED', 'ok_unknown': 'REQUIRED_WITNESSED_UNVERIFIED', 'ok_false': 'REQUIRED_FAILED', 'mixed_same_turn': ['REQUIRED_FAILED', 'REQUIRED_FAILED']}",
+    "[PASS] V16_promotion_is_a_recommendation: {'verdicts': {'good': 'PROMOTABLE', 'loud': 'REFUSED_OVERFIRING', 'silent': 'REFUSED_NEVER_FIRED', 'young2': 'UNKNOWN_TOO_FEW_CHECKS'}, 'promotable': ['good'], 'criteria': {'min_checks': 8, 'max_fire_rate': 0.5}, 'all_still_candidates': True}",
+    "[PASS] V17_staleness_by_stat_and_rebake: {'baked_first': ['罰金'], 'after_dry_run': ['罰金'], 'after_rebake': ['科料', '罰金'], 'added': ['科料'], 'stale_s': 1e-05, 'fresh_s': 1e-05, 'verdicts': ['FRESH', 'STALE', 'FRESH']}",
+    "[PASS] V18_order_invariance: {'permutations': 36, 'identical': True, 'verdict': 'REQUIRED_FAILED', 'rows': [['g', 'git', 'UNVERIFIED', 'INVOKED'], ['l', 'eslint', 'FAILED', 'INVOKED'], ['t', 'pytest', 'WITNESSED', 'INVOKED']]}"
+   ],
+   "stderr_tail": ""
+  },
+  {
+   "script": "run_confirm_lang.py",
+   "expected": "3/3",
+   "got": "3/3",
+   "ok": true,
+   "returncode": 0,
+   "seconds": 0.04,
+   "failed_checks": [],
+   "checks": [
+    "[PASS] V11_extract_symmetry: {'pairs': [{'ja': ['絵文字を使わないで', 1], 'en': ['Never use emojis', 1]}, {'ja': ['TODOを書かないで', 1], 'en': ['Stop using TODO', 1]}, {'ja': ['必ずテストを実行して', 1], 'en': ['Always run pytest', 1]}], 'vague': [0, 0]}",
+    "[PASS] V12_release_symmetry: {'ja': ['絵文字'], 'en': ['emojis'], 'en_fine_now': ['TODO'], 'en_go_ahead': ['print'], 'unreadable': [[], []], 'retire_path': ['BROKEN', 'KEPT']}",
+    "[PASS] V13_enforcement_language_neutral: {'emoji_class_en': ['BROKEN', True], 'witness_en': ['REQUIRED_UNWITNESSED', 'REQUIRED_WITNESSED'], 'quarantine_en': ['KEPT', 'BROKEN']}"
+   ],
+   "stderr_tail": ""
+  }
+ ],
+ "guard_dir_restored": {
+  "results_confirm.json": {
+   "restored_sha_matches_backup": true
+  },
+  "results_confirm2.json": {
+   "restored_sha_matches_backup": true
+  },
+  "results_confirm3.json": {
+   "restored_sha_matches_backup": true
+  },
+  "results_confirm_lang.json": {
+   "restored_sha_matches_backup": true
+  }
+ },
+ "vera_store_fingerprint_after": {
+  "size": 208807708,
+  "mtime": 1786873593.3107324,
+  "head64k_sha256": "c7b4bb494b4b5adf18dded584f224c82ed8eb32cff65db8b2e1c1ab4bc73e55a"
+ },
+ "vera_store_unchanged": true,
+ "all_green": true
+}

@@ -1,0 +1,60 @@
+{
+  "gap_df00dd72": {
+    "gap_id": "gap_df00dd72",
+    "gap_type": "UNPROVED_GOAL",
+    "subject": "len(app(x, y)) = len(app(y, x))",
+    "scope": "math:goal:B1",
+    "severity": "QUALITY",
+    "status": "DETECTED",
+    "blocks": [],
+    "caused_by": [],
+    "required_for": [
+      "math_track"
+    ],
+    "acquisition_methods": [
+      "signature_extension",
+      "lpo_kbo"
+    ],
+    "allowed_sources": [],
+    "max_depth": 1,
+    "resolution": null,
+    "verified_by": [],
+    "created_at": 1787194236.9799418,
+    "updated_at": 1787194236.9799418,
+    "role": null,
+    "failure_type": "no_induction_closed",
+    "input_type": null,
+    "output_type": null,
+    "expected_transition": null,
+    "observed_transition": null
+  },
+  "gap_0a0b0525": {
+    "gap_id": "gap_0a0b0525",
+    "gap_type": "UNPROVED_GOAL",
+    "subject": "len(app(app(x, y), z)) = add(add(len(x), len(y)), len(z))",
+    "scope": "math:goal:B10",
+    "severity": "QUALITY",
+    "status": "DETECTED",
+    "blocks": [],
+    "caused_by": [],
+    "required_for": [
+      "math_track"
+    ],
+    "acquisition_methods": [
+      "signature_extension",
+      "lpo_kbo"
+    ],
+    "allowed_sources": [],
+    "max_depth": 1,
+    "resolution": null,
+    "verified_by": [],
+    "created_at": 1787194419.8619661,
+    "updated_at": 1787194419.8619661,
+    "role": null,
+    "failure_type": "no_induction_closed",
+    "input_type": null,
+    "output_type": null,
+    "expected_transition": null,
+    "observed_transition": null
+  }
+}

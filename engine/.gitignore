@@ -1,0 +1,39 @@
+__pycache__/
+*.pyc
+*.egg-info/
+build/
+dist/
+vera_store.json
+*.local.json
+.DS_Store
+
+# Verantyx JCross Vault (local only)
+.openclaw/jcross_vault/
+
+.venv*/
+*.egg-info/
+
+# Truncated scratch file, unparseable and referenced nowhere; kept on disk
+# only because it is the user's to decide about.
+verantyx/dialogue_context.py
+
+# Fetched corpora. Manifests are committed; the documents are not — they are
+# third-party government publications, and a frozen copy would quietly diverge
+# from what the publisher is actually serving.
+corpora/*/
+!corpora/*.json
+
+# Built artifacts staged for publication — 150MB, and reproducible from the
+# manifests in corpora/ by build_ja + build_en + export_sqlite.
+hf/model/vera.db
+hf/model/writer.json
+hf/space_static/vera_web.db
+hf/space_static/writer.json
+hf/space_static/verantyx.zip
+
+# Regenerated from the federation by export_view3d; 6MB artifact.
+viewer/view3d.json
+
+# 番人の分野コーパス実験(2026-08-21): 生成物は再現可能なので置かない
+experiments/guard/corpus/guard_store.json
+experiments/guard/corpus/_nonint_backup/

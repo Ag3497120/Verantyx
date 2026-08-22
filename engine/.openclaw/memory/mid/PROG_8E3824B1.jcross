@@ -1,0 +1,55 @@
+;;; JCross Memory Node — Progressive
+;;; Session: 避難所
+;;; Created: 2026-08-01T05:18:47Z
+;;; Archived: 2026-08-07T06:31:31Z
+;;; ID: 8E3824B1-E8CB-42B6-86D9-A16F469F22D9
+
+[L1_SUMMARY]
+[会話:避難所] [日付:2026-08-01] 避難所
+[/L1_SUMMARY]
+
+[L2_FACTS]
+OP.FACT("user_intent_0", "避難所")
+OP.FACT("user_intent_1", "こんにちは")
+OP.FACT("user_intent_2", "x+12=25")
+OP.FACT("user_intent_3", "x+12=25")
+OP.FACT("user_intent_4", "x+12=25")
+OP.FACT("message_count", "18")
+OP.STATE("layer", "L2")
+[/L2_FACTS]
+
+[L3_VERBATIM]
+User: 避難所
+
+Agent: 🚫 **UNKNOWN_NO_EVIDENCE**
+no_candidate_cross
+単体 Vera-a は知らないことを推測しません。文書を投入するか、jgen 合議モードに切り替えてください。
+
+User: こんにちは
+
+Agent: 🚫 **UNKNOWN_NO_EVIDENCE**
+no_candidate_cross
+単体 Vera-a は知らないことを推測しません。文書を投入するか、jgen 合議モードに切り替えてください。
+
+User: x+12=25
+
+Agent: 🤖 Model Profile: huihui_ai/gemma-4-abliterated:e4b → Small (~7B) | Max tokens: 4096 | Temp: 0.1 | Context: 32000 (manual)
+
+User: x+12=25
+
+Agent: 🚫 **UNKNOWN_NO_EVIDENCE**
+no_candidate_cross
+単体 Vera-a は知らないことを推測しません。文書を投入するか、jgen 合議モードに切り替えてください。
+
+User: x+12=25
+
+Agent: {
+  "mode" : "equation",
+  "solutions" : [
+    13
+  ],
+  "verdict" : "ANSWER",
+  "x" : 13,
+  "route" : "math"
+}
+[/L3_VERBATIM]

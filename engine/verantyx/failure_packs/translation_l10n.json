@@ -1,0 +1,74 @@
+{
+ "name": "translation_l10n",
+ "maturity": "seeded",
+ "description": "Why a segment could not be translated confidently.",
+ "fallback": "UNKNOWN_UNCLASSIFIED",
+ "verdicts": [
+  {
+   "verdict": "UNKNOWN_TERMBASE",
+   "pattern": "term\\b.*(not in|missing from) (termbase|glossary)|no approved (term|translation) for",
+   "note": "the domain term has no approved rendering yet",
+   "provenance": "claude_seeded+pattern_fix",
+   "remedy": {
+    "kind": "fix_content",
+    "owner": "terminology management",
+    "verify": "rerun",
+    "auto_calibratable": false,
+    "note": "draft the term entry -> quarantine -> reviewer accepts; the glossary grows"
+   }
+  },
+  {
+   "verdict": "UNKNOWN_REFERENT",
+   "pattern": "ambiguous (referent|pronoun|antecedent)|unclear what .* refers to",
+   "note": "the source itself is ambiguous",
+   "provenance": "claude_seeded",
+   "remedy": {
+    "kind": "request_input",
+    "owner": "source author",
+    "verify": "manual",
+    "auto_calibratable": false,
+    "note": ""
+   }
+  },
+  {
+   "verdict": "UNKNOWN_CULTURAL",
+   "pattern": "(cultural|locale)[- ](specific|dependent)|no equivalent (concept|idiom)",
+   "note": "meaning transfers, form does not — a human localisation call",
+   "provenance": "claude_seeded",
+   "remedy": {
+    "kind": "human_judgment",
+    "owner": "localiser",
+    "verify": "manual",
+    "auto_calibratable": false,
+    "note": ""
+   }
+  },
+  {
+   "verdict": "UNKNOWN_PLACEHOLDER",
+   "pattern": "placeholder\\b.*(mismatch|missing)|variable .* not in target",
+   "note": "the mechanical structure broke, not the language",
+   "provenance": "claude_seeded+pattern_fix",
+   "remedy": {
+    "kind": "fix_code",
+    "owner": "extraction pipeline",
+    "verify": "rerun",
+    "auto_calibratable": false,
+    "note": ""
+   }
+  }
+ ],
+ "fixtures": [
+  {
+   "name": "new product term",
+   "expect": "UNKNOWN_TERMBASE",
+   "evidence": "segment blocked: term 'gatekeeper mode' not in termbase for ja-JP",
+   "provenance": "synthetic"
+  },
+  {
+   "name": "broken placeholder",
+   "expect": "UNKNOWN_PLACEHOLDER",
+   "evidence": "qa failed: placeholder {count} missing from target segment",
+   "provenance": "synthetic"
+  }
+ ]
+}

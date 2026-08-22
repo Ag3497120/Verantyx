@@ -1,0 +1,93 @@
+{
+ "name": "research_experiment",
+ "maturity": "seeded",
+ "description": "Experiment-run failures typed so the lab notebook structures itself.",
+ "fallback": "UNKNOWN_UNCLASSIFIED",
+ "verdicts": [
+  {
+   "verdict": "UNKNOWN_OOM",
+   "pattern": "out of memory|oom[- ]?kill|cuda.*memory|allocation failed",
+   "note": "the run wants more memory than exists",
+   "provenance": "claude_seeded",
+   "remedy": {
+    "kind": "raise_limit",
+    "owner": "batch size / model size",
+    "verify": "rerun_larger_limit",
+    "auto_calibratable": false,
+    "note": "calibratable in shape (smaller batch, gradient accumulation); manual until verified"
+   }
+  },
+  {
+   "verdict": "UNKNOWN_DATA",
+   "pattern": "(dataset|data) (missing|corrupt|not found)|checksum mismatch|empty split",
+   "note": "the input, not the method, failed",
+   "provenance": "claude_seeded",
+   "remedy": {
+    "kind": "fix_content",
+    "owner": "dataset preparation",
+    "verify": "rerun",
+    "auto_calibratable": false,
+    "note": ""
+   }
+  },
+  {
+   "verdict": "UNKNOWN_DIVERGENCE",
+   "pattern": "loss (diverged|is nan|exploded)|nan (loss|gradient)",
+   "note": "training left the stable region",
+   "provenance": "claude_seeded",
+   "remedy": {
+    "kind": "fix_code",
+    "owner": "training config",
+    "verify": "rerun",
+    "auto_calibratable": false,
+    "note": "usually learning rate / init; a config sweep is the verification"
+   }
+  },
+  {
+   "verdict": "UNKNOWN_SEED_VARIANCE",
+   "pattern": "(not|non.)reproduc|differs (across|between) seeds|variance exceeds",
+   "note": "the effect is smaller than the noise",
+   "provenance": "claude_seeded",
+   "remedy": {
+    "kind": "add_facts",
+    "owner": "experiment design",
+    "verify": "rerun",
+    "auto_calibratable": false,
+    "note": "more seeds/samples is the honest remedy; a bigger claim is not"
+   }
+  },
+  {
+   "verdict": "UNKNOWN_ENV",
+   "pattern": "(cuda|driver|library) version mismatch|import error|environment (differs|broken)",
+   "note": "the machine, not the experiment",
+   "provenance": "claude_seeded",
+   "remedy": {
+    "kind": "fix_upstream",
+    "owner": "environment management",
+    "verify": "rerun",
+    "auto_calibratable": false,
+    "note": ""
+   }
+  }
+ ],
+ "fixtures": [
+  {
+   "name": "cuda oom",
+   "expect": "UNKNOWN_OOM",
+   "evidence": "run aborted: CUDA out of memory allocating 2.1GiB on step 340",
+   "provenance": "synthetic"
+  },
+  {
+   "name": "nan loss",
+   "expect": "UNKNOWN_DIVERGENCE",
+   "evidence": "run aborted: loss is NaN at step 12, gradients exploded",
+   "provenance": "synthetic"
+  },
+  {
+   "name": "seed noise",
+   "expect": "UNKNOWN_SEED_VARIANCE",
+   "evidence": "result not reproducible: metric differs across seeds by more than the claimed effect",
+   "provenance": "synthetic"
+  }
+ ]
+}

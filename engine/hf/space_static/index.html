@@ -1,0 +1,1676 @@
+<!doctype html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Vera α — 型で拒否する知識構造</title>
+<style>
+:root{
+  --ink:#12161c; --ink-2:#3f4a58; --ink-3:#6b7787;
+  --ground:#f7f7f4; --panel:#ffffff; --rule:#dfe0da;
+  --accent:#1f6f6b; --accent-soft:#e2efed;
+  --held:#1f6f6b; --closes:#8a5a12; --final:#4a4676;
+  --held-bg:#e2efed; --closes-bg:#f6ecd9; --final-bg:#e9e8f2;
+  --mono:ui-monospace,SFMono-Regular,"SF Mono",Menlo,Consolas,monospace;
+  --jp:"Hiragino Sans","Hiragino Kaku Gothic ProN","Noto Sans JP","Yu Gothic Medium",sans-serif;
+  --body:ui-sans-serif,-apple-system,"Segoe UI",Roboto,var(--jp);
+}
+@media (prefers-color-scheme:dark){
+  :root{
+    --ink:#e8eaed; --ink-2:#a8b2be; --ink-3:#788392;
+    --ground:#0f1216; --panel:#171b21; --rule:#272d36;
+    --accent:#6ecfc6; --accent-soft:#16302e;
+    --held:#6ecfc6; --closes:#e0ac5c; --final:#a9a3e0;
+    --held-bg:#142b29; --closes-bg:#2e2415; --final-bg:#1f1d2e;
+  }
+}
+:root[data-theme="dark"]{
+  --ink:#e8eaed; --ink-2:#a8b2be; --ink-3:#788392;
+  --ground:#0f1216; --panel:#171b21; --rule:#272d36;
+  --accent:#6ecfc6; --accent-soft:#16302e;
+  --held:#6ecfc6; --closes:#e0ac5c; --final:#a9a3e0;
+  --held-bg:#142b29; --closes-bg:#2e2415; --final-bg:#1f1d2e;
+}
+:root[data-theme="light"]{
+  --ink:#12161c; --ink-2:#3f4a58; --ink-3:#6b7787;
+  --ground:#f7f7f4; --panel:#ffffff; --rule:#dfe0da;
+  --accent:#1f6f6b; --accent-soft:#e2efed;
+  --held:#1f6f6b; --closes:#8a5a12; --final:#4a4676;
+  --held-bg:#e2efed; --closes-bg:#f6ecd9; --final-bg:#e9e8f2;
+}
+*{box-sizing:border-box}
+body{margin:0;background:var(--ground);color:var(--ink);
+  font-family:var(--body);line-height:1.65;
+  -webkit-font-smoothing:antialiased}
+.wrap{max-width:960px;margin:0 auto;padding:0 20px}
+a{color:var(--accent)}
+
+/* ── header ─────────────────────────────────────────── */
+header{border-bottom:1px solid var(--rule);padding:56px 0 36px;margin-bottom:40px}
+.eyebrow{font-family:var(--mono);font-size:11px;letter-spacing:.14em;
+  text-transform:uppercase;color:var(--ink-3);margin:0 0 14px}
+h1{font-size:clamp(30px,5vw,46px);line-height:1.15;margin:0 0 16px;
+  font-weight:640;letter-spacing:-.02em;text-wrap:balance}
+h1 .mark{color:var(--accent)}
+.lede{font-size:17px;color:var(--ink-2);max-width:62ch;margin:0 0 26px}
+.lede strong{color:var(--ink);font-weight:600}
+
+.stats{display:grid;grid-template-columns:repeat(auto-fit,minmax(128px,1fr));
+  gap:1px;background:var(--rule);border:1px solid var(--rule);border-radius:8px;
+  overflow:hidden}
+.stat{background:var(--panel);padding:13px 15px}
+.stat b{display:block;font-family:var(--mono);font-size:19px;font-weight:600;
+  font-variant-numeric:tabular-nums;letter-spacing:-.01em}
+.stat span{display:block;font-size:11px;color:var(--ink-3);margin-top:3px}
+
+/* ── sections ───────────────────────────────────────── */
+section{margin-bottom:52px}
+h2{font-size:13px;font-family:var(--mono);letter-spacing:.1em;
+  text-transform:uppercase;color:var(--ink-3);font-weight:600;
+  margin:0 0 6px;padding-bottom:10px;border-bottom:1px solid var(--rule)}
+.sub{color:var(--ink-2);margin:14px 0 22px;max-width:66ch}
+
+/* ── filters ────────────────────────────────────────── */
+.bar{display:flex;flex-wrap:wrap;gap:8px;align-items:center;margin-bottom:20px}
+.chip{font-family:var(--mono);font-size:11px;padding:5px 11px;border-radius:999px;
+  border:1px solid var(--rule);background:var(--panel);color:var(--ink-2);
+  cursor:pointer;transition:.13s}
+.chip:hover{border-color:var(--accent);color:var(--ink)}
+.chip[aria-pressed="true"]{background:var(--accent);border-color:var(--accent);
+  color:var(--ground);font-weight:600}
+.chip:focus-visible{outline:2px solid var(--accent);outline-offset:2px}
+#q{flex:1;min-width:150px;padding:7px 12px;border:1px solid var(--rule);
+  border-radius:999px;background:var(--panel);color:var(--ink);
+  font-family:var(--body);font-size:13px}
+#q:focus{outline:none;border-color:var(--accent)}
+
+/* ── rows ───────────────────────────────────────────── */
+.rows{display:flex;flex-direction:column;gap:10px}
+.row{background:var(--panel);border:1px solid var(--rule);border-radius:9px;
+  padding:15px 17px;border-left:3px solid var(--tone,var(--rule))}
+.row.held{--tone:var(--held)} .row.closes{--tone:var(--closes)}
+.row.final{--tone:var(--final)}
+.rhead{display:flex;gap:12px;align-items:baseline;flex-wrap:wrap}
+.qq{font-size:16px;font-weight:600;font-family:var(--jp)}
+.vd{font-family:var(--mono);font-size:10.5px;padding:2px 8px;border-radius:4px;
+  letter-spacing:.03em;white-space:nowrap}
+.held .vd{background:var(--held-bg);color:var(--held)}
+.closes .vd{background:var(--closes-bg);color:var(--closes)}
+.final .vd{background:var(--final-bg);color:var(--final)}
+.meta{font-family:var(--mono);font-size:10.5px;color:var(--ink-3);
+  margin-left:auto;font-variant-numeric:tabular-nums}
+.path{margin-top:10px;font-family:var(--mono);font-size:12.5px;
+  color:var(--ink-2);overflow-x:auto;white-space:nowrap;padding-bottom:3px}
+.path b{color:var(--accent);font-weight:600}
+.path i{font-style:normal;color:var(--ink-3);padding:0 5px}
+.unord{font-size:10px;color:var(--ink-3);letter-spacing:.04em;margin-left:8px}
+.sentlabel{margin-top:11px;font-family:var(--mono);font-size:10px;
+  letter-spacing:.05em;color:var(--ink-3);text-transform:uppercase}
+.sent{margin-top:5px;padding-left:11px;border-left:2px solid var(--rule);
+  color:var(--ink-2);font-size:14px;font-family:var(--jp)}
+.note{margin-top:10px;font-size:12.5px;color:var(--ink-3)}
+.note b{color:var(--ink-2);font-weight:600}
+.empty{color:var(--ink-3);font-size:14px;padding:22px 0;text-align:center}
+
+/* ── callout ────────────────────────────────────────── */
+.callout{background:var(--panel);border:1px solid var(--rule);
+  border-radius:9px;padding:22px 24px}
+.callout h3{margin:0 0 12px;font-size:17px;font-weight:640}
+.callout p{color:var(--ink-2);margin:0 0 14px;max-width:64ch}
+.callout .demo{font-family:var(--mono);font-size:12.5px;background:var(--ground);
+  border:1px solid var(--rule);border-radius:6px;padding:13px 15px;
+  overflow-x:auto;white-space:pre;color:var(--ink-2);margin:0 0 14px}
+.big{font-family:var(--mono);font-size:34px;font-weight:600;color:var(--closes);
+  font-variant-numeric:tabular-nums;line-height:1.1}
+
+pre{background:var(--panel);border:1px solid var(--rule);border-radius:8px;
+  padding:15px 17px;overflow-x:auto;font-family:var(--mono);font-size:12.5px;
+  color:var(--ink-2);margin:0 0 16px}
+table{width:100%;border-collapse:collapse;font-size:14px;margin:0 0 16px}
+th,td{text-align:left;padding:9px 12px;border-bottom:1px solid var(--rule)}
+th{font-family:var(--mono);font-size:10.5px;letter-spacing:.06em;
+  text-transform:uppercase;color:var(--ink-3);font-weight:600}
+td.n{font-family:var(--mono);font-variant-numeric:tabular-nums;
+  text-align:right;white-space:nowrap}
+footer{border-top:1px solid var(--rule);padding:26px 0 60px;
+  color:var(--ink-3);font-size:13px}
+.prov{font-family:var(--mono);font-size:11px;color:var(--ink-3);
+  margin-top:20px;padding-top:14px;border-top:1px dashed var(--rule)}
+</style>
+</head>
+<body>
+
+<header>
+ <div class="wrap">
+  <p class="eyebrow">Verantyx · Vera α</p>
+  <h1>答えるより先に、<span class="mark">どの種類の「わからない」か</span>を言う。</h1>
+  <p class="lede">言語モデルではありません。重みも標本抽出もなく、同じ問いは常に同じ答えを返します。
+   1,200 の日本の法令と 2,591 の百科事典記事を立体十字のノード網に読み込んだ、
+   <strong>1 つの SQLite ファイル</strong>です。</p>
+  <div class="stats" id="stats"></div>
+ </div>
+</header>
+
+<div class="wrap">
+
+<section>
+ <h2>実際の判定</h2>
+ <p class="sub">下の全行は、公開されている <code>vera.db</code>（完全版）に対して
+  エンジンが実際に計算した出力を、そのまま焼き込んだものです — 日付と sha256 は末尾に記載。
+  自分の問いを訊きたい場合は<a href="#live">この場で走らせる</a>へ。</p>
+ <div class="bar">
+  <button class="chip" data-f="all" aria-pressed="true">すべて</button>
+  <button class="chip" data-f="held" aria-pressed="false">答えた</button>
+  <button class="chip" data-f="closes" aria-pressed="false">登録で閉じる</button>
+  <button class="chip" data-f="final" aria-pressed="false">登録では閉じない</button>
+  <input id="q" type="search" placeholder="絞り込み / filter…" aria-label="絞り込み">
+ </div>
+ <div class="rows" id="rows"></div>
+</section>
+
+<section>
+ <h2>保証と、その限界</h2>
+ <p class="sub"><b>閉包</b>により、ストアは保持しない記号を出力できません — 測定 60/60。
+  ただしこれは<b>主語については何も保証しません</b>。</p>
+ <div class="callout">
+  <div class="big">77% → 4%</div>
+  <h3>実在しない語への誤答を、主語検査で 4% まで下げた</h3>
+  <p>存在しない複合語を訊くと、階段は認識できた部分に種を落とし、それについて
+   答えていました — 未知の要素は一言も断らずに捨てられる。初版ではこれが
+   200 件中 77% でした。</p>
+  <div class="demo">ヴォルフガング粒子とは
+  初版:  SEEDED, 核 = ヴォルフガング（→ C60 フラーレンの経路）
+  現在:  UNKNOWN_NOT_PRESENT
+         主語: ヴォルフガング粒子 / 最寄りの保持語: ヴォルフガング</div>
+  <p>種は「主語そのもの・主語を含む・自分の面に主語を持つ」のいずれかでなければ
+   通らず、階段が見落とした保持主語は種を差し替えます。誤答 77%→4%
+   （残りは階段を通らないラテン部分文字列経路）。語尾付き質問の別主語誤答は
+   43–71%→0–7%、主語の正答率は全語尾で上昇。代償として境界例を失います —
+   <code>不法行為とは</code> は <code>不法</code> への指針付きで拒否になりました。</p></div>
+</section>
+
+<section>
+ <h2>この成果物で測った数値</h2>
+ <p class="sub"><code>python3 -m verantyx.card_numbers --db vera.db</code> で全て再現できます。</p>
+ <table>
+  <thead><tr><th>測定</th><th class="n">結果</th></tr></thead>
+  <tbody>
+   <tr><td>サイズ / 読み込み（CPU 1 コア）</td><td class="n">140.0 MB / 2.8 s</td></tr>
+   <tr><td>日本語ソブリン</td><td class="n">86,992 核 · 1,145,326 面</td></tr>
+   <tr><td>英語ソブリン</td><td class="n">15,268 核 · 133,389 面</td></tr>
+   <tr><td>閉包 — 出力した記号のうちストアが保持するもの</td><td class="n">60 / 60</td></tr>
+   <tr><td>決定性 — 同じ問い・順序を入れ替えて 3 巡</td><td class="n">34 / 34 一致</td></tr>
+   <tr><td>応答時間</td><td class="n">中央値 32.6 ms</td></tr>
+   <tr><td>自己検査フォーク</td><td class="n">141 / 141</td></tr>
+  </tbody>
+ </table>
+ <p class="sub">できないこと: 読んだことのない語の説明、要約、一段を超える推論の連鎖、流暢な散文。
+  最初のものは 60/60 を生む閉包そのものから従います。</p>
+</section>
+
+<section id="live">
+ <h2>この場で走らせる</h2>
+ <p class="sub">上は焼き込みですが、ここは違います。<b>本物のエンジンがブラウザの中で動きます</b> —
+  Pyodide 上の CPython で、同じ Python コードが、同じ SQLite を読みます。
+  サーバはありません。押した時点で約 30MB を取得します。</p>
+
+ <div class="callout">
+  <div class="bar" style="margin-bottom:0">
+   <button class="chip" id="boot" aria-pressed="false"
+     style="font-size:13px;padding:9px 18px">エンジンを起動 (~30MB)</button>
+   <span id="bootmsg" style="font-family:var(--mono);font-size:11.5px;color:var(--ink-3)"></span>
+  </div>
+  <div id="livebox" hidden style="margin-top:18px">
+   <div class="bar">
+    <input id="liveq" type="text" placeholder="何でも訊いてください / ask anything"
+      aria-label="問い" style="flex:1;font-size:15px;padding:9px 15px">
+    <button class="chip" id="liveask" style="font-size:13px;padding:9px 18px">訊く</button>
+   </div>
+   <div class="rows" id="liverows"></div>
+  </div>
+ </div>
+
+ <p class="sub" style="margin-top:20px">ブラウザ版は<b>核を一つも落とさず、面だけを 24 に切って</b>あります。
+  24 は十字の容量（6 腕 × 4 面）そのものなので、恣意的な間引きではありません。
+  上位 6,000 核に削る版も試しましたが、そちらは
+  <code>窃盗罪とは</code> が<b>殺人罪について</b>答え、full が正しく拒否する
+  <code>Wie geht es dir</code> が自信のある <code>ANSWER</code> になりました
+  — 索引を削ると、正しい拒否が誤答に化けます。面を切る方は 34 問で
+  <b>主語の一致 100%</b>、判定 97%（唯一の差も拒否→別種の拒否）。</p>
+
+ <p class="sub">手元で完全版（全面）を動かす場合:</p>
+<pre>pip install git+https://github.com/Ag3497120/Verantyx-Vera-alpha
+hf download kofdai/vera-alpha vera.db --local-dir .
+
+python3 -c "
+from verantyx.export_sqlite import vera
+v = vera('vera.db')
+print(v.ask('正当防衛とは'))"</pre>
+ <p class="sub">構造は直接監査できます。プロジェクトのコードは要りません:</p>
+<pre>sqlite3 vera.db "SELECT facet, count FROM facets
+                 WHERE core='正当防衛' ORDER BY count DESC LIMIT 5"
+# 成立|4  行為|4  防衛|4  他人|3  必要|3</pre>
+</section>
+
+<section>
+ <h2>出典とライセンス</h2>
+ <p class="sub"><b>コードは MIT。</b>
+  <b><code>vera.db</code> は CC BY-SA 4.0</b> — Wikipedia（日本語・英語、2,591 記事）の
+  二次的著作物であり、帰属と継承の義務を負うためです。
+  葉の 70% を占める e-Gov 法令 XML（1,200 法令）は
+  著作権法13条により権利の目的とならず、条件はありません。</p>
+ <p class="sub">3,958 文書すべての name / url / sha256 / バイト数を
+  <code>corpora/*.json</code> に固定し、選定規則も併記してあります。
+  上の数値が「引用できる」だけでなく「検証できる」のはそのためです。</p>
+</section>
+
+</div>
+
+<footer>
+ <div class="wrap">
+  <a href="https://huggingface.co/kofdai/vera-alpha">モデル / model</a> ·
+  <a href="https://github.com/Ag3497120/Verantyx-Vera-alpha">コード / code</a>
+  <div class="prov" id="prov"></div>
+ </div>
+</footer>
+
+<script id="data" type="application/json">{
+ "meta": {
+  "artifact": "kofdai/vera-alpha :: vera.db",
+  "sha256": "ba64b4eb2e7af603",
+  "mb": 144.1,
+  "computed_at": "2026-08-11",
+  "ja_cores": 89273,
+  "en_cores": 15268
+ },
+ "rows": [
+  {
+   "q": "正当防衛とは",
+   "verdict": "SEEDED",
+   "lang": "ja",
+   "ms": 72.1,
+   "core": "正当防衛",
+   "path": [
+    "正当防衛",
+    "行為",
+    "防衛",
+    "成立",
+    "他人"
+   ],
+   "sentences": [
+    "正当防衛と行為をとることもある。",
+    "正当防衛というのは行為の成立まりでもある。"
+   ],
+   "register": null,
+   "closes": false,
+   "why": null,
+   "order": "ranked",
+   "subject": null,
+   "nearest": null,
+   "witness": {
+    "agree": 2,
+    "answered": 2
+   },
+   "origin": [
+    "指名／正当防衛.txt",
+    "指名／緊急避難.txt",
+    "法学／正当防衛.txt"
+   ]
+  },
+  {
+   "q": "殺人罪の刑は",
+   "verdict": "SEEDED",
+   "lang": "ja",
+   "ms": 58.4,
+   "core": "殺人罪",
+   "path": [
+    "殺人罪",
+    "法定刑加重",
+    "罪刑法定主義違反",
+    "刑法219条",
+    "人"
+   ],
+   "sentences": [
+    "殺人罪にはいくつかの法定刑加重がある。",
+    "殺人罪にはこれに法定刑加重いものがある。"
+   ],
+   "register": null,
+   "closes": false,
+   "why": null,
+   "order": "aspect",
+   "subject": null,
+   "nearest": null,
+   "witness": {
+    "agree": 3,
+    "answered": 3
+   },
+   "origin": [
+    "指名／殺人罪.txt",
+    "法学／不作為犯.txt",
+    "法学／刑法 (日本).txt"
+   ]
+  },
+  {
+   "q": "契約の成立要件は",
+   "verdict": "SEEDED",
+   "lang": "ja",
+   "ms": 73.4,
+   "core": "契約",
+   "path": [
+    "契約",
+    "成立要件",
+    "成立",
+    "有効",
+    "有効:有効"
+   ],
+   "sentences": [
+    "契約に成立、有効がある。",
+    "契約に成立、有効となる。"
+   ],
+   "register": null,
+   "closes": false,
+   "why": null,
+   "order": "aspect",
+   "subject": null,
+   "nearest": null,
+   "witness": {
+    "agree": 4,
+    "answered": 4
+   },
+   "origin": [
+    "指名／債務不履行.txt",
+    "指名／契約.txt",
+    "指名／解除.txt"
+   ]
+  },
+  {
+   "q": "時効とは",
+   "verdict": "SEEDED",
+   "lang": "ja",
+   "ms": 83.0,
+   "core": "時効",
+   "path": [
+    "時効",
+    "援用",
+    "中断",
+    "成立",
+    "完成"
+   ],
+   "sentences": [
+    "時効に成立、完成がある。",
+    "時効に成立、完成となる。"
+   ],
+   "register": null,
+   "closes": false,
+   "why": null,
+   "order": "ranked",
+   "subject": null,
+   "nearest": null,
+   "witness": {
+    "agree": 3,
+    "answered": 3
+   },
+   "origin": [
+    "指名／公訴時効.txt",
+    "指名／時効.txt",
+    "指名／消滅時効.txt"
+   ]
+  },
+  {
+   "q": "過失相殺とは",
+   "verdict": "SEEDED",
+   "lang": "ja",
+   "ms": 67.2,
+   "core": "過失相殺",
+   "path": [
+    "過失相殺",
+    "主張",
+    "債務者",
+    "損益相殺",
+    "考慮"
+   ],
+   "sentences": [
+    "過失相殺に考慮されている。",
+    "過失相殺に考慮しい主張があります。"
+   ],
+   "register": null,
+   "closes": false,
+   "why": null,
+   "order": "arbitrary",
+   "subject": null,
+   "nearest": null,
+   "witness": {
+    "agree": 1,
+    "answered": 1
+   },
+   "origin": [
+    "指名／損害賠償.txt",
+    "指名／過失相殺.txt"
+   ]
+  },
+  {
+   "q": "所有権とは",
+   "verdict": "SEEDED",
+   "lang": "ja",
+   "ms": 69.7,
+   "core": "所有権",
+   "path": [
+    "所有権",
+    "性質",
+    "登記",
+    "全面的支配",
+    "処分"
+   ],
+   "sentences": [
+    "所有権は、登記により、性質とする。",
+    "所有権は、登記によるものとする。"
+   ],
+   "register": null,
+   "closes": false,
+   "why": null,
+   "order": "ranked",
+   "subject": null,
+   "nearest": null,
+   "witness": {
+    "agree": 4,
+    "answered": 4
+   },
+   "origin": [
+    "多分野／封建領主.txt",
+    "指名／所有権.txt",
+    "百科／不動産登記.txt"
+   ]
+  },
+  {
+   "q": "民法とは",
+   "verdict": "SEEDED",
+   "lang": "ja",
+   "ms": 84.0,
+   "core": "民法",
+   "path": [
+    "民法",
+    "記載",
+    "条数",
+    "日本",
+    "規定"
+   ],
+   "sentences": [
+    "民法の規定で記載されている。",
+    "民法の規定として、記載がある。"
+   ],
+   "register": null,
+   "closes": false,
+   "why": null,
+   "order": "ranked",
+   "subject": null,
+   "nearest": null,
+   "witness": {
+    "agree": 3,
+    "answered": 3
+   },
+   "origin": [
+    "指名／不法行為.txt",
+    "指名／先取特権.txt",
+    "指名／取消権.txt"
+   ]
+  },
+  {
+   "q": "相続とは",
+   "verdict": "SEEDED",
+   "lang": "ja",
+   "ms": 92.4,
+   "core": "相続",
+   "path": [
+    "相続",
+    "放棄",
+    "承認",
+    "被相続人",
+    "効果"
+   ],
+   "sentences": [
+    "相続の承認は，すべて効果（ｐＹ）とする。",
+    "相続の承認への効果である。"
+   ],
+   "register": null,
+   "closes": false,
+   "why": null,
+   "order": "ranked",
+   "subject": null,
+   "nearest": null,
+   "witness": {
+    "agree": 3,
+    "answered": 3
+   },
+   "origin": [
+    "指名／相続.txt",
+    "法学／家事事件手続法.txt",
+    "法学／相続.txt"
+   ]
+  },
+  {
+   "q": "抵当権とは",
+   "verdict": "SEEDED",
+   "lang": "ja",
+   "ms": 94.8,
+   "core": "抵当権",
+   "path": [
+    "抵当権",
+    "設定",
+    "実行",
+    "登記",
+    "債務"
+   ],
+   "sentences": [
+    "抵当権は、登記（がっきょうほう）である。",
+    "抵当権は、登記（けんぽほう）である。"
+   ],
+   "register": null,
+   "closes": false,
+   "why": null,
+   "order": "ranked",
+   "subject": null,
+   "nearest": null,
+   "witness": {
+    "agree": 2,
+    "answered": 3
+   },
+   "origin": [
+    "指名／抵当権.txt",
+    "百科／不動産登記.txt"
+   ]
+  },
+  {
+   "q": "不法行為とは",
+   "verdict": "SEEDED",
+   "lang": "ja",
+   "ms": 89.8,
+   "core": "不法行為",
+   "path": [
+    "不法行為",
+    "損害",
+    "成立",
+    "損害賠償請求権",
+    "時"
+   ],
+   "sentences": [
+    "不法行為は、成立（がっきょうほう）である。",
+    "不法行為は、成立（けんぽほう）である。"
+   ],
+   "register": null,
+   "closes": false,
+   "why": null,
+   "order": "ranked",
+   "subject": null,
+   "nearest": null,
+   "witness": {
+    "agree": 1,
+    "answered": 1
+   },
+   "origin": [
+    "指名／不法行為.txt",
+    "指名／名誉毀損.txt",
+    "指名／損害賠償.txt"
+   ]
+  },
+  {
+   "q": "詐欺罪とは",
+   "verdict": "SEEDED",
+   "lang": "ja",
+   "ms": 66.0,
+   "core": "詐欺罪",
+   "path": [
+    "詐欺罪",
+    "例",
+    "ケース",
+    "サービス",
+    "不法"
+   ],
+   "sentences": [
+    "詐欺罪のサービスへのケースである。",
+    "詐欺罪のサービスみがケースされている。"
+   ],
+   "register": null,
+   "closes": false,
+   "why": null,
+   "order": "ranked",
+   "subject": null,
+   "nearest": null,
+   "witness": {
+    "agree": 2,
+    "answered": 2
+   },
+   "origin": [
+    "指名／詐欺罪.txt"
+   ]
+  },
+  {
+   "q": "窃盗罪とは",
+   "verdict": "SEEDED",
+   "lang": "ja",
+   "ms": 69.5,
+   "core": "窃盗罪",
+   "path": [
+    "窃盗罪",
+    "クレプトマニア",
+    "不法領得",
+    "他人",
+    "使用"
+   ],
+   "sentences": [
+    "窃盗罪には使用とされる。",
+    "窃盗罪には使用のものがある。"
+   ],
+   "register": null,
+   "closes": false,
+   "why": null,
+   "order": "arbitrary",
+   "subject": null,
+   "nearest": null,
+   "witness": {
+    "agree": 2,
+    "answered": 3
+   },
+   "origin": [
+    "指名／窃盗罪.txt",
+    "法学／財産犯.txt"
+   ]
+  },
+  {
+   "q": "名誉毀損とは",
+   "verdict": "SEEDED",
+   "lang": "ja",
+   "ms": 75.7,
+   "core": "名誉毀損",
+   "path": [
+    "名誉毀損",
+    "成立",
+    "不法行為",
+    "法理",
+    "行為"
+   ],
+   "sentences": [
+    "名誉毀損での行為も成立である。",
+    "名誉毀損では行為が成立である。"
+   ],
+   "register": null,
+   "closes": false,
+   "why": null,
+   "order": "ranked",
+   "subject": null,
+   "nearest": null,
+   "witness": {
+    "agree": 1,
+    "answered": 1
+   },
+   "origin": [
+    "指名／名誉毀損.txt"
+   ]
+  },
+  {
+   "q": "労働基準法とは",
+   "verdict": "SEEDED",
+   "lang": "ja",
+   "ms": 92.8,
+   "core": "労働基準法",
+   "path": [
+    "労働基準法",
+    "e-gov",
+    "保護",
+    "労働条件",
+    "原則"
+   ],
+   "sentences": [
+    "労働基準法と原則をとることもある。",
+    "労働基準法として原則がある。"
+   ],
+   "register": null,
+   "closes": false,
+   "why": null,
+   "order": "arbitrary",
+   "subject": null,
+   "nearest": null,
+   "witness": {
+    "agree": 1,
+    "answered": 3
+   },
+   "origin": [
+    "百科／フレックスタイム制.txt",
+    "百科／労働基準法.txt"
+   ]
+  },
+  {
+   "q": "著作権とは",
+   "verdict": "SEEDED",
+   "lang": "ja",
+   "ms": 56.6,
+   "core": "著作権",
+   "path": [
+    "著作権",
+    "著作物",
+    "消滅",
+    "公開",
+    "存在"
+   ],
+   "sentences": [
+    "著作権の存在のための消滅もある。",
+    "著作権の存在は消滅にもある。"
+   ],
+   "register": null,
+   "closes": false,
+   "why": null,
+   "order": "ranked",
+   "subject": null,
+   "nearest": null,
+   "witness": {
+    "agree": 4,
+    "answered": 4
+   },
+   "origin": [
+    "多分野／Portal:建築／建築用語.txt",
+    "多分野／人工知能.txt",
+    "指名／抵当権.txt"
+   ]
+  },
+  {
+   "q": "超伝導とは",
+   "verdict": "SEEDED",
+   "lang": "ja",
+   "ms": 54.4,
+   "core": "超伝導",
+   "path": [
+    "超伝導",
+    "発見",
+    "現象",
+    "オンネス",
+    "カメルリング"
+   ],
+   "sentences": [
+    "超伝導が発見え現象です。",
+    "超伝導が発見して現象になる。"
+   ],
+   "register": null,
+   "closes": false,
+   "why": null,
+   "order": "ranked",
+   "subject": null,
+   "nearest": null,
+   "witness": {
+    "agree": 1,
+    "answered": 1
+   },
+   "origin": [
+    "多分野／超伝導.txt",
+    "多分野／超電導.txt",
+    "多分野／量子力学.txt"
+   ]
+  },
+  {
+   "q": "光合成とは",
+   "verdict": "SEEDED",
+   "lang": "ja",
+   "ms": 54.8,
+   "core": "光合成",
+   "path": [
+    "光合成",
+    "栄養",
+    "上",
+    "休眠",
+    "例"
+   ],
+   "sentences": [
+    "光合成は、栄養の休眠をもたらした。",
+    "光合成は、栄養のとおりである。"
+   ],
+   "register": null,
+   "closes": false,
+   "why": null,
+   "order": "ranked",
+   "subject": null,
+   "nearest": null,
+   "witness": {
+    "agree": 1,
+    "answered": 1
+   },
+   "origin": [
+    "多分野／化学反応.txt",
+    "多分野／固着性.txt",
+    "多分野／植物生理学.txt"
+   ]
+  },
+  {
+   "q": "量子力学とは",
+   "verdict": "SEEDED",
+   "lang": "ja",
+   "ms": 53.4,
+   "core": "量子力学",
+   "path": [
+    "量子力学",
+    "得",
+    "理論",
+    "記述",
+    "説明"
+   ],
+   "sentences": [
+    "量子力学 - 説明にある。",
+    "量子力学が説明である。"
+   ],
+   "register": null,
+   "closes": false,
+   "why": null,
+   "order": "ranked",
+   "subject": null,
+   "nearest": null,
+   "witness": {
+    "agree": 1,
+    "answered": 1
+   },
+   "origin": [
+    "多分野／ヤン–ミルズ方程式と質量ギャップ問題.txt",
+    "多分野／化学.txt",
+    "多分野／場.txt"
+   ]
+  },
+  {
+   "q": "民主主義とは",
+   "verdict": "SEEDED",
+   "lang": "ja",
+   "ms": 57.8,
+   "core": "民主主義",
+   "path": [
+    "民主主義",
+    "原則",
+    "アプリケーション",
+    "ヒーロー",
+    "リベラル"
+   ],
+   "sentences": [
+    "民主主義や原則はアプリケーションにします。",
+    "民主主義より原則である。"
+   ],
+   "register": null,
+   "closes": false,
+   "why": null,
+   "order": "ranked",
+   "subject": null,
+   "nearest": null,
+   "witness": {
+    "agree": 2,
+    "answered": 2
+   },
+   "origin": [
+    "多分野／クアドラティック・ボーティング.txt",
+    "多分野／ヒーロー.txt",
+    "多分野／プルラリティ.txt"
+   ]
+  },
+  {
+   "q": "インフレとは",
+   "verdict": "UNKNOWN_NO_EVIDENCE",
+   "lang": "ja",
+   "ms": 32.2,
+   "core": null,
+   "path": [],
+   "sentences": [],
+   "register": "sentences about the subject — the census found nothing to count",
+   "closes": true,
+   "why": null,
+   "order": null,
+   "subject": null,
+   "nearest": null,
+   "witness": null,
+   "origin": []
+  },
+  {
+   "q": "時効は援用が必要か",
+   "verdict": "ATTESTED",
+   "lang": "ja",
+   "ms": 50.6,
+   "core": "時効",
+   "path": [
+    "時効",
+    "援用",
+    "援用権者",
+    "必要"
+   ],
+   "sentences": [
+    "時効に必要、援用がある。",
+    "時効に必要、援用となる。"
+   ],
+   "register": null,
+   "closes": false,
+   "why": null,
+   "order": "aspect",
+   "subject": "時効",
+   "nearest": null,
+   "witness": {
+    "agree": 3,
+    "answered": 3
+   },
+   "origin": [
+    "指名／時効.txt",
+    "指名／消滅時効.txt"
+   ]
+  },
+  {
+   "q": "相続は放棄できるか",
+   "verdict": "ATTESTED",
+   "lang": "ja",
+   "ms": 59.6,
+   "core": "相続",
+   "path": [
+    "相続",
+    "放棄"
+   ],
+   "sentences": [
+    "相続の放棄をあげておきます。",
+    "相続の「放棄」にならいます。"
+   ],
+   "register": null,
+   "closes": false,
+   "why": null,
+   "order": "aspect",
+   "subject": "相続",
+   "nearest": null,
+   "witness": {
+    "agree": 3,
+    "answered": 3
+   },
+   "origin": [
+    "指名／相続.txt",
+    "法学／家事事件手続法.txt",
+    "法学／相続.txt"
+   ]
+  },
+  {
+   "q": "殺人罪は死刑があるか",
+   "verdict": "NOT_ATTESTED",
+   "lang": "ja",
+   "ms": 0.2,
+   "core": "殺人罪",
+   "path": [],
+   "sentences": [],
+   "register": "sentences connecting the subject to the asked condition, if the connection is in fact true",
+   "closes": true,
+   "why": null,
+   "order": null,
+   "subject": "殺人罪",
+   "nearest": null,
+   "witness": null,
+   "origin": []
+  },
+  {
+   "q": "労働時間 休憩 休日",
+   "verdict": "UNKNOWN_UNDERDETERMINED",
+   "lang": "ja",
+   "ms": 29.0,
+   "core": null,
+   "path": [],
+   "sentences": [],
+   "register": "nothing — supply another condition instead",
+   "closes": false,
+   "why": "the conditions given leave several cores standing and ties must abstain; a fourth condition narrows where registration would only thicken the tie",
+   "order": null,
+   "subject": null,
+   "nearest": null,
+   "witness": null,
+   "origin": []
+  },
+  {
+   "q": "時効 援用 中断",
+   "verdict": "UNKNOWN_UNDERDETERMINED",
+   "lang": "ja",
+   "ms": 29.4,
+   "core": null,
+   "path": [],
+   "sentences": [],
+   "register": "nothing — supply another condition instead",
+   "closes": false,
+   "why": "the conditions given leave several cores standing and ties must abstain; a fourth condition narrows where registration would only thicken the tie",
+   "order": null,
+   "subject": null,
+   "nearest": null,
+   "witness": null,
+   "origin": []
+  },
+  {
+   "q": "殺人罪の刑は",
+   "verdict": "SEEDED",
+   "lang": "ja",
+   "ms": 58.8,
+   "core": "殺人罪",
+   "path": [
+    "殺人罪",
+    "法定刑加重",
+    "罪刑法定主義違反",
+    "刑法219条",
+    "人"
+   ],
+   "sentences": [
+    "殺人罪にはいくつかの法定刑加重がある。",
+    "殺人罪にはこれに法定刑加重いものがある。"
+   ],
+   "register": null,
+   "closes": false,
+   "why": null,
+   "order": "aspect",
+   "subject": null,
+   "nearest": null,
+   "witness": {
+    "agree": 3,
+    "answered": 3
+   },
+   "origin": [
+    "指名／殺人罪.txt",
+    "法学／不作為犯.txt",
+    "法学／刑法 (日本).txt"
+   ]
+  },
+  {
+   "q": "時効の期間は",
+   "verdict": "SEEDED",
+   "lang": "ja",
+   "ms": 83.4,
+   "core": "時効",
+   "path": [
+    "時効",
+    "時効期間",
+    "期間",
+    "除斥期間",
+    "援用"
+   ],
+   "sentences": [
+    "時効に期間、援用がある。",
+    "時効に期間、援用となる。"
+   ],
+   "register": null,
+   "closes": false,
+   "why": null,
+   "order": "aspect",
+   "subject": null,
+   "nearest": null,
+   "witness": {
+    "agree": 3,
+    "answered": 3
+   },
+   "origin": [
+    "指名／時効.txt",
+    "指名／消滅時効.txt",
+    "百科／労働基準法.txt"
+   ]
+  },
+  {
+   "q": "相続の効果は",
+   "verdict": "SEEDED",
+   "lang": "ja",
+   "ms": 92.8,
+   "core": "相続",
+   "path": [
+    "相続",
+    "効果",
+    "一般的効果",
+    "放棄",
+    "承認"
+   ],
+   "sentences": [
+    "相続の承認は，すべて効果（ｐＹ）とする。",
+    "相続の承認への効果である。"
+   ],
+   "register": null,
+   "closes": false,
+   "why": null,
+   "order": "aspect",
+   "subject": null,
+   "nearest": null,
+   "witness": {
+    "agree": 3,
+    "answered": 3
+   },
+   "origin": [
+    "指名／相続.txt",
+    "法学／家事事件手続法.txt",
+    "法学／相続.txt"
+   ]
+  },
+  {
+   "q": "著作権の侵害は",
+   "verdict": "SEEDED",
+   "lang": "ja",
+   "ms": 56.6,
+   "core": "著作権",
+   "path": [
+    "著作権",
+    "侵害",
+    "著作権侵害罪",
+    "著作物",
+    "消滅"
+   ],
+   "sentences": [
+    "著作権の消滅のための侵害もある。",
+    "著作権の消滅は侵害にもある。"
+   ],
+   "register": null,
+   "closes": false,
+   "why": null,
+   "order": "aspect",
+   "subject": null,
+   "nearest": null,
+   "witness": {
+    "agree": 4,
+    "answered": 4
+   },
+   "origin": [
+    "指名／抵当権.txt",
+    "法学／オイヤー・アンド・ターミナー.txt",
+    "法学／旧著作権法 (日本).txt"
+   ]
+  },
+  {
+   "q": "negligence",
+   "verdict": "ANSWER",
+   "lang": "en",
+   "ms": 1.0,
+   "core": "negligence",
+   "path": [
+    "negligence",
+    "comparative",
+    "contributory",
+    "criminal",
+    "act"
+   ],
+   "sentences": [],
+   "register": null,
+   "closes": false,
+   "why": null,
+   "order": "ranked",
+   "subject": null,
+   "nearest": null,
+   "witness": null,
+   "origin": [
+    "en／english"
+   ]
+  },
+  {
+   "q": "consideration",
+   "verdict": "ANSWER",
+   "lang": "en",
+   "ms": 0.8,
+   "core": "consideration",
+   "path": [
+    "consideration",
+    "law",
+    "cannot",
+    "contract",
+    "english"
+   ],
+   "sentences": [],
+   "register": null,
+   "closes": false,
+   "why": null,
+   "order": "ranked",
+   "subject": null,
+   "nearest": null,
+   "witness": null,
+   "origin": [
+    "en／english"
+   ]
+  },
+  {
+   "q": "jurisdiction",
+   "verdict": "ANSWER",
+   "lang": "en",
+   "ms": 0.8,
+   "core": "jurisdiction",
+   "path": [
+    "jurisdiction",
+    "universal",
+    "depending",
+    "extraterritorial",
+    "law"
+   ],
+   "sentences": [],
+   "register": null,
+   "closes": false,
+   "why": null,
+   "order": "ranked",
+   "subject": null,
+   "nearest": null,
+   "witness": null,
+   "origin": [
+    "en／english"
+   ]
+  },
+  {
+   "q": "estoppel",
+   "verdict": "ANSWER",
+   "lang": "en",
+   "ms": 0.7,
+   "core": "estoppel",
+   "path": [
+    "estoppel",
+    "promissory",
+    "equitable",
+    "proprietary",
+    "law"
+   ],
+   "sentences": [],
+   "register": null,
+   "closes": false,
+   "why": null,
+   "order": "ranked",
+   "subject": null,
+   "nearest": null,
+   "witness": null,
+   "origin": [
+    "en／english"
+   ]
+  },
+  {
+   "q": "tort",
+   "verdict": "ANSWER",
+   "lang": "en",
+   "ms": 0.8,
+   "core": "tort",
+   "path": [
+    "tort",
+    "law",
+    "liability",
+    "civil",
+    "criminal"
+   ],
+   "sentences": [],
+   "register": null,
+   "closes": false,
+   "why": null,
+   "order": "ranked",
+   "subject": null,
+   "nearest": null,
+   "witness": null,
+   "origin": [
+    "en／english"
+   ]
+  },
+  {
+   "q": "due process",
+   "verdict": "UNKNOWN_INSUFFICIENT_EVIDENCE",
+   "lang": "en",
+   "ms": 2.3,
+   "core": null,
+   "path": [],
+   "sentences": [],
+   "register": null,
+   "closes": null,
+   "why": null,
+   "order": "ranked",
+   "subject": null,
+   "nearest": null,
+   "witness": null,
+   "origin": []
+  },
+  {
+   "q": "habeas corpus",
+   "verdict": "ANSWER",
+   "lang": "en",
+   "ms": 0.7,
+   "core": "habeas",
+   "path": [
+    "habeas",
+    "corpus"
+   ],
+   "sentences": [],
+   "register": null,
+   "closes": false,
+   "why": null,
+   "order": null,
+   "subject": null,
+   "nearest": null,
+   "witness": null,
+   "origin": [
+    "en／english"
+   ]
+  },
+  {
+   "q": "今日の天気は",
+   "verdict": "UNKNOWN_TIME_DEPENDENT",
+   "lang": "ja",
+   "ms": 0.0,
+   "core": null,
+   "path": [],
+   "sentences": [],
+   "register": "nothing here — resolve the deictic first",
+   "closes": false,
+   "why": "今日 is a property of the question and the store has no clock. Registering the fact does not change the verdict; asking with the date does. Ingest the tool result with its timestamp as the source label to make the answer citable",
+   "order": null,
+   "subject": null,
+   "nearest": null,
+   "witness": null,
+   "origin": []
+  },
+  {
+   "q": "明日の株価は",
+   "verdict": "UNKNOWN_TIME_DEPENDENT",
+   "lang": "ja",
+   "ms": 0.0,
+   "core": null,
+   "path": [],
+   "sentences": [],
+   "register": "nothing here — resolve the deictic first",
+   "closes": false,
+   "why": "今日 is a property of the question and the store has no clock. Registering the fact does not change the verdict; asking with the date does. Ingest the tool result with its timestamp as the source label to make the answer citable",
+   "order": null,
+   "subject": null,
+   "nearest": null,
+   "witness": null,
+   "origin": []
+  },
+  {
+   "q": "こんにちは",
+   "verdict": "UNKNOWN_NO_EVIDENCE",
+   "lang": "ja",
+   "ms": 31.2,
+   "core": null,
+   "path": [],
+   "sentences": [],
+   "register": "sentences about the subject — the census found nothing to count",
+   "closes": true,
+   "why": null,
+   "order": null,
+   "subject": null,
+   "nearest": null,
+   "witness": null,
+   "origin": []
+  },
+  {
+   "q": "ありがとう",
+   "verdict": "UNKNOWN_NO_EVIDENCE",
+   "lang": "ja",
+   "ms": 31.0,
+   "core": null,
+   "path": [],
+   "sentences": [],
+   "register": "sentences about the subject — the census found nothing to count",
+   "closes": true,
+   "why": null,
+   "order": null,
+   "subject": null,
+   "nearest": null,
+   "witness": null,
+   "origin": []
+  },
+  {
+   "q": "ヴォルフガング粒子とは",
+   "verdict": "UNKNOWN_NOT_PRESENT",
+   "lang": "ja",
+   "ms": 31.5,
+   "core": null,
+   "path": [],
+   "sentences": [],
+   "register": "sentences about the subject, in the register the corpus is judged in",
+   "closes": true,
+   "why": null,
+   "order": null,
+   "subject": "ヴォルフガング粒子",
+   "nearest": "ヴォルフガング",
+   "witness": null,
+   "origin": []
+  },
+  {
+   "q": "ズミルノフ環礁の面積は",
+   "verdict": "UNKNOWN_NOT_PRESENT",
+   "lang": "ja",
+   "ms": 36.5,
+   "core": null,
+   "path": [],
+   "sentences": [],
+   "register": "sentences about the subject, in the register the corpus is judged in",
+   "closes": true,
+   "why": null,
+   "order": null,
+   "subject": "ズミルノフ環礁",
+   "nearest": "面積",
+   "witness": null,
+   "origin": []
+  },
+  {
+   "q": "Wie geht es dir",
+   "verdict": "UNKNOWN_NO_EVIDENCE",
+   "lang": "en",
+   "ms": 10.9,
+   "core": null,
+   "path": [],
+   "sentences": [],
+   "register": "sentences about the subject — the census found nothing to count",
+   "closes": true,
+   "why": null,
+   "order": null,
+   "subject": null,
+   "nearest": null,
+   "witness": null,
+   "origin": []
+  }
+ ]
+}</script>
+<script>
+(function(){
+ var D = JSON.parse(document.getElementById("data").textContent);
+ var rows = D.rows, meta = D.meta;
+
+ document.getElementById("stats").innerHTML = [
+  ["86,992", "日本語の核"], ["15,268", "英語の核"],
+  ["6,038", "葉"], ["140 MB", "1 ファイル"],
+  ["32.6 ms", "応答中央値"], ["0", "重みの数"]
+ ].map(function(s){
+   return '<div class="stat"><b>'+s[0]+'</b><span>'+s[1]+'</span></div>';
+ }).join("");
+
+ document.getElementById("prov").textContent =
+   "焼き込み日 " + meta.computed_at + " · vera.db sha256:" + meta.sha256 +
+   " · " + meta.mb + "MB · 判定はすべてこのファイルに対する実出力";
+
+ // 三分類: 答えた / 登録で閉じる / 登録では閉じない。
+ // 「答えられない」を一色にまとめないのがこのシステムの主張そのもの。
+ function cls(r){
+   // NOT_ATTESTED は答えではなく「登録で閉じる欠落」— 色もそちら側。
+   if (r.verdict === "NOT_ATTESTED") return "closes";
+   if (r.verdict && r.verdict.indexOf("UNKNOWN") !== 0) return "held";
+   return r.closes === true ? "closes" : "final";
+ }
+ function esc(s){
+   return String(s == null ? "" : s).replace(/[&<>"]/g, function(c){
+     return {"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[c];
+   });
+ }
+ function render(list){ renderInto(document.getElementById("rows"), list); }
+ function renderInto(el, list){
+   if (!list.length){ el.innerHTML = '<p class="empty">該当なし</p>'; return; }
+   el.innerHTML = list.map(function(r){
+     var h = '<div class="row '+cls(r)+'">'
+       + '<div class="rhead"><span class="qq">'+esc(r.q)+'</span>'
+       + '<span class="vd">'+esc(r.verdict)+'</span>'
+       + (r.witness && r.witness.answered ? '<span class="vd" style="background:var(--held-bg);color:var(--held)">独立合議 '+r.witness.agree+'/'+r.witness.answered+'</span>' : '')
+       + (r.grain && r.grain.of ? '<span class="vd" style="background:var(--final-bg);color:var(--final)">粒度一致 '+r.grain.agree+'/'+r.grain.of+'</span>' : '')
+       + '<span class="meta">'+esc(r.lang)+' · '+r.ms+' ms</span></div>';
+     if (r.path && r.path.length){
+       // 証拠が順位を持たない核では、矢印は嘘になる。集合として見せる。
+       var arb = r.order === 'arbitrary';
+       var sep = arb ? '<i>・</i>' : '<i>→</i>';
+       h += '<div class="path">' + r.path.map(function(p,i){
+              return (i ? sep : '') + (i ? esc(p) : '<b>'+esc(p)+'</b>');
+            }).join("");
+       if (arb) h += ' <span class="unord">順不同 — 証拠は順位を持たない</span>';
+       if (r.order === 'aspect') h += ' <span class="unord">観点で選択 — 訊かれた面を先頭に</span>';
+       h += '</div>';
+     }
+     if (r.origin && r.origin.length){
+       h += '<div class="note">出所: '+r.origin.map(esc).join(' / ')+'</div>';
+     }
+     // 文は答えではなく、経路の描画。ここを「答え」として出すと、
+     // 流暢さが根拠の強さに見えてしまう — このシステムが避けている取り違えそのもの。
+     var ss = (r.sentences || []).filter(Boolean);
+     if (ss.length){
+       h += '<div class="sentlabel">構造から組んだ文 — 流暢さは保証しない。'
+          + '根拠は上の経路の方</div>';
+       ss.forEach(function(s){ h += '<div class="sent">'+esc(s)+'</div>'; });
+     }
+     if (r.subject && !r.path.length){
+       h += '<div class="note"><b>訊かれた主語</b> '+esc(r.subject);
+       if (r.nearest) h += ' <span style="opacity:.7">/ 最寄りの保持語: '+esc(r.nearest)+'</span>';
+       h += '</div>';
+     }
+     if (r.register){
+       h += '<div class="note"><b>次の一手</b> — '+esc(r.register)
+          + ' <span style="opacity:.7">('
+          + (r.closes ? '登録で閉じる' : '登録では閉じない') + ')</span>';
+       if (r.why) h += '<br>'+esc(r.why);
+       h += '</div>';
+     }
+     return h + '</div>';
+   }).join("");
+ }
+
+ // ── 生きたエンジン ──────────────────────────────────
+ // Pyodide 上の CPython が、公開しているのと同じ verantyx を、同じ SQLite に
+ // 対して走らせる。JS で推論核を書き直すと「二つの実装」が生まれ、どちらが
+ // 本物か言えなくなる — このプロジェクトが避け続けてきた形なので、動かすのは
+ // 本物の Python でなければならない。
+ var PY = null, booting = false;
+ var bootBtn = document.getElementById("boot");
+ var bootMsg = document.getElementById("bootmsg");
+
+ function say(s){ bootMsg.textContent = s; }
+
+ async function gunzip(buf){
+   const ds = new DecompressionStream("gzip");
+   const out = new Response(new Blob([buf]).stream().pipeThrough(ds));
+   return new Uint8Array(await out.arrayBuffer());
+ }
+ async function fetchBytes(url, label, done){
+   var res = await fetch(url);
+   if (!res.ok) throw new Error(label + " " + res.status);
+   var total = +(res.headers.get("content-length") || 0);
+   var reader = res.body.getReader(), chunks = [], got = 0;
+   for(;;){
+     var r = await reader.read();
+     if (r.done) break;
+     chunks.push(r.value); got += r.value.length;
+     say(label + " " + (got/1048576).toFixed(1) + (total ? " / " + (total/1048576).toFixed(1) : "") + " MB");
+   }
+   var buf = new Uint8Array(got), off = 0;
+   chunks.forEach(function(c){ buf.set(c, off); off += c.length; });
+   if (done) done(buf);
+   return buf;
+ }
+
+ async function boot(){
+   if (booting || PY) return;
+   booting = true; bootBtn.disabled = true;
+   try {
+     say("Pyodide を起動中…");
+     await new Promise(function(res, rej){
+       var s = document.createElement("script");
+       s.src = "https://cdn.jsdelivr.net/pyodide/v0.26.4/full/pyodide.js";
+       s.onload = res; s.onerror = function(){ rej(new Error("pyodide の取得に失敗")); };
+       document.head.appendChild(s);
+     });
+     PY = await loadPyodide({ indexURL: "https://cdn.jsdelivr.net/pyodide/v0.26.4/full/" });
+     // Pyodide は sqlite3 を標準ライブラリから外して別パッケージにしている。
+     // 構造そのものが SQLite なので、これが無いと import すら通らない。
+     say("sqlite3 を読み込み中…");
+     await PY.loadPackage("sqlite3");
+
+     var zip = await fetchBytes("verantyx.zip", "エンジン");
+     PY.unpackArchive(zip.buffer, "zip");
+     var db = await gunzip(await fetchBytes("vera_web.db.gz", "構造"));
+     PY.FS.writeFile("vera_web.db", db);
+     try {
+       PY.FS.writeFile("vera_edges.db",
+         await gunzip(await fetchBytes("vera_edges.db.gz", "辺")));
+     } catch(e){ /* 辺が無ければ同点核は沈黙のまま — 嘘にはならない */ }
+     try {
+       var wr = await gunzip(await fetchBytes("writer.json.gz", "文生成"));
+       PY.FS.writeFile("writer.json", wr);
+     } catch(e){ /* 文は出ないが判定は出る。落とすほどではない */ }
+
+     say("ソブリンを組み立て中…");
+     await PY.runPythonAsync([
+       "import sys, json",
+       "sys.path.insert(0, '/home/pyodide')",
+       "from verantyx.export_sqlite import vera as _vera",
+       "V = _vera('vera_web.db')",
+       "def ASK(q):",
+       "    import time",
+       "    t = time.time()",
+       "    r = V.ask(q)",
+       "    w = r.get('written') or {}",
+       "    rem = r.get('remedy') or {}",
+       "    return json.dumps({",
+       "      'q': q, 'verdict': r.get('verdict'), 'lang': r.get('language'),",
+       "      'ms': round((time.time()-t)*1000, 1), 'core': r.get('core'),",
+       "      'path': str(r.get('text') or '').split(),",
+       "      'sentences': [ (s.get('text') if isinstance(s, dict) else str(s))",
+       "                     for s in (w.get('sentences') or [])[:2] ],",
+       "      'register': rem.get('register'), 'closes': rem.get('needs_registration'),",
+       "      'order': r.get('order_evidence'),",
+       "      'grain': r.get('grain'),",
+       "      'subject': r.get('subject'), 'nearest': r.get('nearest_held'),",
+       "      'witness': ({'agree': (r.get('witnesses') or {}).get('agree'),",
+       "                   'answered': (r.get('witnesses') or {}).get('answered')}",
+       "                  if r.get('witnesses') else None),",
+       "      'origin': sorted({s for v2 in (r.get('facet_origin') or {}).values() for s in v2})[:3],",
+       "      'why': rem.get('why') }, ensure_ascii=False)"
+     ].join("\n"));
+
+     say("起動しました — ブラウザ内の CPython で動いています");
+     bootBtn.setAttribute("aria-pressed", "true");
+     bootBtn.textContent = "起動済み";
+     document.getElementById("livebox").hidden = false;
+     document.getElementById("liveq").focus();
+   } catch(err){
+     say("起動できませんでした: " + err.message);
+     bootBtn.disabled = false;
+   } finally { booting = false; }
+ }
+
+ async function liveAsk(){
+   var q = document.getElementById("liveq").value.trim();
+   if (!q || !PY) return;
+   var box = document.getElementById("liverows");
+   box.innerHTML = '<p class="empty">計算中…</p>';
+   try {
+     var raw = await PY.runPythonAsync("ASK(" + JSON.stringify(q) + ")");
+     var r = JSON.parse(raw);
+     box.innerHTML = "";
+     renderInto(box, [r]);
+   } catch(err){
+     box.innerHTML = '<p class="empty">' + esc(err.message) + '</p>';
+   }
+ }
+ bootBtn.addEventListener("click", boot);
+ document.getElementById("liveask").addEventListener("click", liveAsk);
+ document.getElementById("liveq").addEventListener("keydown", function(e){
+   if (e.key === "Enter") liveAsk();
+ });
+
+ var filter = "all", term = "";
+ function apply(){
+   render(rows.filter(function(r){
+     if (filter !== "all" && cls(r) !== filter) return false;
+     if (!term) return true;
+     var hay = (r.q+" "+r.verdict+" "+(r.core||"")+" "+(r.path||[]).join(" ")).toLowerCase();
+     return hay.indexOf(term) >= 0;
+   }));
+ }
+ var chips = [].slice.call(document.querySelectorAll(".chip"));
+ chips.forEach(function(c){
+   c.addEventListener("click", function(){
+     chips.forEach(function(o){ o.setAttribute("aria-pressed", String(o === c)); });
+     filter = c.dataset.f; apply();
+   });
+ });
+ document.getElementById("q").addEventListener("input", function(e){
+   term = e.target.value.trim().toLowerCase(); apply();
+ });
+ apply();
+})();
+</script>
+</body>
+</html>

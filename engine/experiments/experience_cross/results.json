@@ -1,0 +1,289 @@
+{
+ "view_rows": 1509,
+ "view_counts": {
+  "CLAIM": 192,
+  "EVIDENCE": 4,
+  "GAP": 153,
+  "FAILURE": 427,
+  "COUNTEREXAMPLE": 318,
+  "TRANSFER": 1,
+  "RULE": 414,
+  "PROCEDURE": 0,
+  "WITNESS": 0
+ },
+ "poured": 1318,
+ "untagged": 191,
+ "arm_totals": {
+  "cause-": 399,
+  "cause+": 848,
+  "kind+": 902,
+  "support-": 655,
+  "kind-": 1
+ },
+ "store": {
+  "cores": 818,
+  "links": 1799
+ },
+ "contested_real": {
+  "n": 9,
+  "sample": [
+   {
+    "core": "len(app(app(x, y), z)) = add(add(len(x), len(y)), len(z))",
+    "kind": "結果の矛盾",
+    "key": "結果",
+    "values": [
+     "結果:proved",
+     "結果:refused"
+    ],
+    "counts": {
+     "結果:refused": 6,
+     "結果:proved": 1
+    },
+    "provenance": {
+     "結果:refused": [
+      1787230997.93,
+      1787230997.93,
+      "/Users/motonishikoudai/Projects/Verantyx-Vera-alpha/experiments/cross_energy_prover/proof_ledger9.json"
+     ],
+     "結果:proved": [
+      1787230997.93,
+      1787231000.08,
+      "reevaluation@2026-08-20"
+     ]
+    }
+   },
+   {
+    "core": "mul(add(a, b), c) = add(mul(a, c), mul(b, c))",
+    "kind": "結果の矛盾",
+    "key": "結果",
+    "values": [
+     "結果:proved",
+     "結果:refused"
+    ],
+    "counts": {
+     "結果:proved": 3,
+     "結果:refused": 4
+    },
+    "provenance": {
+     "結果:proved": [
+      1787230997.93,
+      1787230997.93,
+      "/Users/motonishikoudai/Projects/Verantyx-Vera-alpha/experiments/cross_energy_prover/proof_ledger9.json"
+     ],
+     "結果:refused": [
+      1787230997.93,
+      1787230997.93,
+      "/Users/motonishikoudai/Projects/Verantyx-Vera-alpha/experiments/cross_energy_prover/proof_ledger8.json"
+     ]
+    }
+   },
+   {
+    "core": "mul(a, add(b, add(c, n))) = add(mul(a, b), add(mul(a, c), mul(a, n)))",
+    "kind": "結果の矛盾",
+    "key": "結果",
+    "values": [
+     "結果:proved",
+     "結果:refused"
+    ],
+    "counts": {
+     "結果:proved": 2,
+     "結果:refused": 2
+    },
+    "provenance": {
+     "結果:proved": [
+      1787230997.93,
+      1787230997.93,
+      "/Users/motonishikoudai/Projects/Verantyx-Vera-alpha/experiments/cross_energy_prover/proof_ledger9.json"
+     ],
+     "結果:refused": [
+      1787230997.93,
+      1787230997.93,
+      "/Users/motonishikoudai/Projects/Verantyx-Vera-alpha/experiments/cross_energy_prover/proof_ledger8.json"
+     ]
+    }
+   },
+   {
+    "core": "mul(mul(a, add(b, c)), n) = add(mul(mul(a, b), n), mul(mul(a, c), n))",
+    "kind": "結果の矛盾",
+    "key": "結果",
+    "values": [
+     "結果:proved",
+     "結果:refused"
+    ],
+    "counts": {
+     "結果:proved": 2,
+     "結果:refused": 2
+    },
+    "provenance": {
+     "結果:proved": [
+      1787230997.93,
+      1787230997.93,
+      "/Users/motonishikoudai/Projects/Verantyx-Vera-alpha/experiments/cross_energy_prover/proof_ledger9.json"
+     ],
+     "結果:refused": [
+      1787230997.93,
+      1787230997.93,
+      "/Users/motonishikoudai/Projects/Verantyx-Vera-alpha/experiments/cross_energy_prover/proof_ledger8.json"
+     ]
+    }
+   },
+   {
+    "core": "add(mul(add(a, b), c), mul(add(a, b), n)) = mul(add(a, b), add(c, n))",
+    "kind": "結果の矛盾",
+    "key": "結果",
+    "values": [
+     "結果:proved",
+     "結果:refused"
+    ],
+    "counts": {
+     "結果:proved": 2,
+     "結果:refused": 2
+    },
+    "provenance": {
+     "結果:proved": [
+      1787230997.93,
+      1787230997.93,
+      "/Users/motonishikoudai/Projects/Verantyx-Vera-alpha/experiments/cross_energy_prover/proof_ledger9.json"
+     ],
+     "結果:refused": [
+      1787230997.93,
+      1787230997.93,
+      "/Users/motonishikoudai/Projects/Verantyx-Vera-alpha/experiments/cross_energy_prover/proof_ledger8.json"
+     ]
+    }
+   }
+  ]
+ },
+ "contested_synthetic": {
+  "detected": true,
+  "detail": [
+   {
+    "key": "結果",
+    "values": [
+     "結果:proved",
+     "結果:refuted"
+    ],
+    "counts": {
+     "結果:proved": 1,
+     "結果:refuted": 1
+    },
+    "provenance": {
+     "結果:proved": [
+      1787230997.94,
+      1787230997.94,
+      "t1"
+     ],
+     "結果:refuted": [
+      1787230997.94,
+      1787230997.94,
+      "t2"
+     ]
+    }
+   }
+  ]
+ },
+ "order_invariant": true,
+ "gap_input": [
+  "len(app(x, y)) = len(app(y, x))",
+  "len(app(app(x, y), z)) = add(add(len(x), len(y)), len(z))",
+  "app(x, y) = app(y, x)",
+  "rev(x) = x",
+  "len(app(x, y)) = len(x)",
+  "rev(app(x, y)) = app(rev(x), rev(y))",
+  "le(s(a), a) = true",
+  "monus(a, b) = 0",
+  "le(add(a, b), a) = true",
+  "min(a, b) = min(b, a)",
+  "max(a, b) = max(b, a)",
+  "add(min(a, b), max(a, b)) = add(a, b)",
+  "min(a, b) = a",
+  "max(a, b) = add(a, b)",
+  "min(s(a), a) = s(a)"
+ ],
+ "reevaluation": [
+  {
+   "subject": "len(app(x, y)) = len(app(y, x))",
+   "reevaluated": "CLOSED",
+   "witness": "verified:lean4:local",
+   "cited": [
+    "ml:list.list.length_append"
+   ]
+  },
+  {
+   "subject": "len(app(app(x, y), z)) = add(add(len(x), len(y)), len(z))",
+   "reevaluated": "CLOSED",
+   "witness": "verified:lean4:local",
+   "cited": [
+    "ml:list.list.append_assoc",
+    "ml:list.list.length_append"
+   ]
+  },
+  {
+   "subject": "app(x, y) = app(y, x)",
+   "reevaluated": "STILL_REFUTED",
+   "reason": null
+  },
+  {
+   "subject": "rev(x) = x",
+   "reevaluated": "STILL_REFUTED",
+   "reason": null
+  },
+  {
+   "subject": "len(app(x, y)) = len(x)",
+   "reevaluated": "STILL_REFUTED",
+   "reason": null
+  },
+  {
+   "subject": "rev(app(x, y)) = app(rev(x), rev(y))",
+   "reevaluated": "STILL_REFUTED",
+   "reason": null
+  },
+  {
+   "subject": "le(s(a), a) = true",
+   "reevaluated": "STILL_REFUTED",
+   "reason": null
+  },
+  {
+   "subject": "monus(a, b) = 0",
+   "reevaluated": "STILL_REFUTED",
+   "reason": null
+  },
+  {
+   "subject": "le(add(a, b), a) = true",
+   "reevaluated": "STILL_REFUTED",
+   "reason": null
+  },
+  {
+   "subject": "min(a, b) = min(b, a)",
+   "reevaluated": "STILL_REFUSED",
+   "reason": "no_induction_closed"
+  },
+  {
+   "subject": "max(a, b) = max(b, a)",
+   "reevaluated": "STILL_REFUSED",
+   "reason": "no_induction_closed"
+  },
+  {
+   "subject": "add(min(a, b), max(a, b)) = add(a, b)",
+   "reevaluated": "STILL_REFUSED",
+   "reason": "no_induction_closed"
+  },
+  {
+   "subject": "min(a, b) = a",
+   "reevaluated": "STILL_REFUTED",
+   "reason": null
+  },
+  {
+   "subject": "max(a, b) = add(a, b)",
+   "reevaluated": "STILL_REFUTED",
+   "reason": null
+  },
+  {
+   "subject": "min(s(a), a) = s(a)",
+   "reevaluated": "STILL_REFUTED",
+   "reason": null
+  }
+ ],
+ "counts_consistent": true,
+ "seconds": 2519.5
+}

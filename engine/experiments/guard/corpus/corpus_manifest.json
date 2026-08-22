@@ -1,0 +1,4164 @@
+{
+ "files": 549,
+ "chars": 4935397,
+ "by_lang": {
+  "en": {
+   "files": 376,
+   "chars": 2591400
+  },
+  "ja": {
+   "files": 169,
+   "chars": 2338408
+  },
+  "zh": {
+   "files": 4,
+   "chars": 5589
+  }
+ },
+ "by_group": {
+  "repo_vera_alpha": {
+   "files": 135,
+   "chars": 353510
+  },
+  "repo_Vera": {
+   "files": 62,
+   "chars": 248050
+  },
+  "repo_Verantyx": {
+   "files": 55,
+   "chars": 271521
+  },
+  "repo_Verantyx-Vera-beta": {
+   "files": 2,
+   "chars": 18661
+  },
+  "repo_cart-mobility-poc": {
+   "files": 5,
+   "chars": 14212
+  },
+  "repo_vera-corpus": {
+   "files": 3,
+   "chars": 14925
+  },
+  "repo_verantyx-cli": {
+   "files": 51,
+   "chars": 2104644
+  },
+  "repo_verantyx-cli-work": {
+   "files": 1,
+   "chars": 1855
+  },
+  "claude_plugins": {
+   "files": 205,
+   "chars": 1335001
+  },
+  "claude_memory": {
+   "files": 29,
+   "chars": 70580
+  },
+  "claude_changelog": {
+   "files": 1,
+   "chars": 502438
+  }
+ },
+ "excluded": {
+  "secret": [
+   {
+    "path": "/Users/motonishikoudai/Projects/Vera/HANDOFF_jgen_verantyx_ide.md",
+    "matched": [
+     "email"
+    ]
+   },
+   {
+    "path": "/Users/motonishikoudai/Projects/Verantyx/cortex/SECURITY.md",
+    "matched": [
+     "email"
+    ]
+   },
+   {
+    "path": "/Users/motonishikoudai/Projects/Verantyx/cortex/docs/brave-search.md",
+    "matched": [
+     "assigned_secret"
+    ]
+   },
+   {
+    "path": "/Users/motonishikoudai/Projects/Verantyx/cortex/docs/tts.md",
+    "matched": [
+     "assigned_secret"
+    ]
+   },
+   {
+    "path": "/Users/motonishikoudai/Projects/Verantyx/cortex/verantyx.md",
+    "matched": [
+     "openai_key",
+     "email"
+    ]
+   },
+   {
+    "path": "/Users/motonishikoudai/Projects/verantyx-cli/SECURITY.md",
+    "matched": [
+     "email"
+    ]
+   },
+   {
+    "path": "/Users/motonishikoudai/Projects/verantyx-cli/cortex/SECURITY.md",
+    "matched": [
+     "email"
+    ]
+   },
+   {
+    "path": "/Users/motonishikoudai/Projects/verantyx-cli/cortex/docs/brave-search.md",
+    "matched": [
+     "assigned_secret"
+    ]
+   },
+   {
+    "path": "/Users/motonishikoudai/Projects/verantyx-cli/cortex/docs/tts.md",
+    "matched": [
+     "assigned_secret"
+    ]
+   },
+   {
+    "path": "/Users/motonishikoudai/Projects/verantyx-cli/cortex/verantyx.md",
+    "matched": [
+     "openai_key",
+     "email"
+    ]
+   },
+   {
+    "path": "/Users/motonishikoudai/Projects/verantyx-cli-work/verantyx-cli/SECURITY.md",
+    "matched": [
+     "email"
+    ]
+   },
+   {
+    "path": "/Users/motonishikoudai/Projects/verantyx-cli-work/verantyx-cli/cortex/SECURITY.md",
+    "matched": [
+     "email"
+    ]
+   },
+   {
+    "path": "/Users/motonishikoudai/Projects/verantyx-cli-work/verantyx-cli/cortex/verantyx.md",
+    "matched": [
+     "openai_key",
+     "email"
+    ]
+   },
+   {
+    "path": "/Users/motonishikoudai/.claude/plugins/marketplaces/claude-plugins-official/external_plugins/imessage/ACCESS.md",
+    "matched": [
+     "email"
+    ]
+   },
+   {
+    "path": "/Users/motonishikoudai/.claude/plugins/marketplaces/claude-plugins-official/external_plugins/imessage/README.md",
+    "matched": [
+     "email"
+    ]
+   },
+   {
+    "path": "/Users/motonishikoudai/.claude/plugins/marketplaces/claude-plugins-official/external_plugins/imessage/skills/access/SKILL.md",
+    "matched": [
+     "email"
+    ]
+   },
+   {
+    "path": "/Users/motonishikoudai/.claude/plugins/marketplaces/claude-plugins-official/external_plugins/imessage/skills/configure/SKILL.md",
+    "matched": [
+     "email"
+    ]
+   },
+   {
+    "path": "/Users/motonishikoudai/.claude/plugins/marketplaces/claude-plugins-official/plugins/agent-sdk-dev/README.md",
+    "matched": [
+     "email"
+    ]
+   },
+   {
+    "path": "/Users/motonishikoudai/.claude/plugins/marketplaces/claude-plugins-official/plugins/claude-code-setup/README.md",
+    "matched": [
+     "email"
+    ]
+   },
+   {
+    "path": "/Users/motonishikoudai/.claude/plugins/marketplaces/claude-plugins-official/plugins/claude-md-management/README.md",
+    "matched": [
+     "email"
+    ]
+   },
+   {
+    "path": "/Users/motonishikoudai/.claude/plugins/marketplaces/claude-plugins-official/plugins/code-review/README.md",
+    "matched": [
+     "email"
+    ]
+   },
+   {
+    "path": "/Users/motonishikoudai/.claude/plugins/marketplaces/claude-plugins-official/plugins/commit-commands/README.md",
+    "matched": [
+     "email"
+    ]
+   },
+   {
+    "path": "/Users/motonishikoudai/.claude/plugins/marketplaces/claude-plugins-official/plugins/feature-dev/README.md",
+    "matched": [
+     "email"
+    ]
+   },
+   {
+    "path": "/Users/motonishikoudai/.claude/plugins/marketplaces/claude-plugins-official/plugins/frontend-design/README.md",
+    "matched": [
+     "email"
+    ]
+   },
+   {
+    "path": "/Users/motonishikoudai/.claude/plugins/marketplaces/claude-plugins-official/plugins/mcp-server-dev/skills/build-mcp-server/references/auth.md",
+    "matched": [
+     "email"
+    ]
+   },
+   {
+    "path": "/Users/motonishikoudai/.claude/plugins/marketplaces/claude-plugins-official/plugins/mcp-tunnels/README.md",
+    "matched": [
+     "email"
+    ]
+   },
+   {
+    "path": "/Users/motonishikoudai/.claude/plugins/marketplaces/claude-plugins-official/plugins/plugin-dev/README.md",
+    "matched": [
+     "email"
+    ]
+   },
+   {
+    "path": "/Users/motonishikoudai/.claude/plugins/marketplaces/claude-plugins-official/plugins/plugin-dev/skills/command-development/references/documentation-patterns.md",
+    "matched": [
+     "email"
+    ]
+   },
+   {
+    "path": "/Users/motonishikoudai/.claude/plugins/marketplaces/claude-plugins-official/plugins/plugin-dev/skills/command-development/references/marketplace-considerations.md",
+    "matched": [
+     "email"
+    ]
+   },
+   {
+    "path": "/Users/motonishikoudai/.claude/plugins/marketplaces/claude-plugins-official/plugins/plugin-dev/skills/plugin-structure/SKILL.md",
+    "matched": [
+     "email"
+    ]
+   },
+   {
+    "path": "/Users/motonishikoudai/.claude/plugins/marketplaces/claude-plugins-official/plugins/plugin-dev/skills/plugin-structure/examples/advanced-plugin.md",
+    "matched": [
+     "email"
+    ]
+   },
+   {
+    "path": "/Users/motonishikoudai/.claude/plugins/marketplaces/claude-plugins-official/plugins/plugin-dev/skills/plugin-structure/examples/standard-plugin.md",
+    "matched": [
+     "email"
+    ]
+   },
+   {
+    "path": "/Users/motonishikoudai/.claude/plugins/marketplaces/claude-plugins-official/plugins/plugin-dev/skills/plugin-structure/references/manifest-reference.md",
+    "matched": [
+     "email"
+    ]
+   },
+   {
+    "path": "/Users/motonishikoudai/.claude/plugins/marketplaces/claude-plugins-official/plugins/pr-review-toolkit/README.md",
+    "matched": [
+     "email"
+    ]
+   }
+  ],
+  "duplicate": 94,
+  "duplicate_examples": [
+   {
+    "path": "/Users/motonishikoudai/Projects/Verantyx-Vera-alpha/hf/model/corpora/README.md",
+    "same_as": "/Users/motonishikoudai/Projects/Verantyx-Vera-alpha/corpora/README.md"
+   },
+   {
+    "path": "/Users/motonishikoudai/Projects/Vera/hub/vera-distilgpt2-join/README.md",
+    "same_as": "/Users/motonishikoudai/Projects/Vera/bundles/distilgpt2-join/README.md"
+   },
+   {
+    "path": "/Users/motonishikoudai/Projects/Vera/hub/vera-gpt2-matryoshka/README.md",
+    "same_as": "/Users/motonishikoudai/Projects/Vera/bundles/gpt2-matryoshka/README.md"
+   },
+   {
+    "path": "/Users/motonishikoudai/Projects/Vera/runs/smoke-gpt2/FORKS.md",
+    "same_as": "/Users/motonishikoudai/Projects/Vera/runs/qwen35_08b/FORKS.md"
+   },
+   {
+    "path": "/Users/motonishikoudai/Projects/Verantyx/cortex/CLAUDE.md",
+    "same_as": "/Users/motonishikoudai/Projects/Verantyx/cortex/AGENTS.md"
+   },
+   {
+    "path": "/Users/motonishikoudai/Projects/Verantyx-Vera-beta/HF_DATASET_CARD.md",
+    "same_as": "/Users/motonishikoudai/Projects/Verantyx-Vera-alpha/HF_DATASET_CARD.md"
+   },
+   {
+    "path": "/Users/motonishikoudai/Projects/Verantyx-Vera-beta/docs/ADDING_KNOWLEDGE.md",
+    "same_as": "/Users/motonishikoudai/Projects/Verantyx-Vera-alpha/docs/ADDING_KNOWLEDGE.md"
+   },
+   {
+    "path": "/Users/motonishikoudai/Projects/Verantyx-Vera-beta/docs/AGENT_MODE.md",
+    "same_as": "/Users/motonishikoudai/Projects/Verantyx-Vera-alpha/docs/AGENT_MODE.md"
+   },
+   {
+    "path": "/Users/motonishikoudai/Projects/Verantyx-Vera-beta/docs/CODE_REASONING.md",
+    "same_as": "/Users/motonishikoudai/Projects/Verantyx-Vera-alpha/docs/CODE_REASONING.md"
+   },
+   {
+    "path": "/Users/motonishikoudai/Projects/Verantyx-Vera-beta/docs/DESIGN.md",
+    "same_as": "/Users/motonishikoudai/Projects/Verantyx-Vera-alpha/docs/DESIGN.md"
+   }
+  ],
+  "too_short_or_unreadable": 2
+ },
+ "kept": [
+  {
+   "group": "repo_vera_alpha",
+   "path": "/Users/motonishikoudai/Projects/Verantyx-Vera-alpha/HF_DATASET_CARD.md",
+   "chars": 2638,
+   "lang": "en",
+   "sha1": "5a73157db683b3c1baa6f217bd48d31fd5a062d8"
+  },
+  {
+   "group": "repo_vera_alpha",
+   "path": "/Users/motonishikoudai/Projects/Verantyx-Vera-alpha/README.md",
+   "chars": 21522,
+   "lang": "en",
+   "sha1": "1540623a9d40678854a73d2bb0a550508b5845c5"
+  },
+  {
+   "group": "repo_vera_alpha",
+   "path": "/Users/motonishikoudai/Projects/Verantyx-Vera-alpha/corpora/README.md",
+   "chars": 2346,
+   "lang": "en",
+   "sha1": "ce73cbad1b18aadcbedb9842149a10e22380befd"
+  },
+  {
+   "group": "repo_vera_alpha",
+   "path": "/Users/motonishikoudai/Projects/Verantyx-Vera-alpha/demo/README.md",
+   "chars": 577,
+   "lang": "ja",
+   "sha1": "28dd14a4dc5f5bb677f6950e7bf54ee336774bab"
+  },
+  {
+   "group": "repo_vera_alpha",
+   "path": "/Users/motonishikoudai/Projects/Verantyx-Vera-alpha/docs/ADDING_KNOWLEDGE.md",
+   "chars": 3770,
+   "lang": "en",
+   "sha1": "fdc19dc7808bb4d077d5d0a097be132ae1582506"
+  },
+  {
+   "group": "repo_vera_alpha",
+   "path": "/Users/motonishikoudai/Projects/Verantyx-Vera-alpha/docs/AGENT_MODE.md",
+   "chars": 2844,
+   "lang": "en",
+   "sha1": "a92fb019bc7a7ebde23be276bb824b08d8db8b21"
+  },
+  {
+   "group": "repo_vera_alpha",
+   "path": "/Users/motonishikoudai/Projects/Verantyx-Vera-alpha/docs/CODE_REASONING.md",
+   "chars": 2037,
+   "lang": "en",
+   "sha1": "d2dafb308c73730715460f922e8acafe0a0884da"
+  },
+  {
+   "group": "repo_vera_alpha",
+   "path": "/Users/motonishikoudai/Projects/Verantyx-Vera-alpha/docs/CONSOLIDATION_2026-08-18.md",
+   "chars": 2997,
+   "lang": "ja",
+   "sha1": "6c73e99b28a24e4b719a602da1268921fb28edcb"
+  },
+  {
+   "group": "repo_vera_alpha",
+   "path": "/Users/motonishikoudai/Projects/Verantyx-Vera-alpha/docs/DESIGN.md",
+   "chars": 8147,
+   "lang": "en",
+   "sha1": "41c93b839c7e98fd798f1d96bb915be73f1fe469"
+  },
+  {
+   "group": "repo_vera_alpha",
+   "path": "/Users/motonishikoudai/Projects/Verantyx-Vera-alpha/docs/EXPERIENCE_LEDGER_INVENTORY.md",
+   "chars": 1774,
+   "lang": "ja",
+   "sha1": "05d92a5ba3af2775e847bf6dce96bd891a9e73e6"
+  },
+  {
+   "group": "repo_vera_alpha",
+   "path": "/Users/motonishikoudai/Projects/Verantyx-Vera-alpha/docs/MATRYOSHKA.md",
+   "chars": 2703,
+   "lang": "en",
+   "sha1": "48b80351995fff4a697cfeee5e0e44c36846705b"
+  },
+  {
+   "group": "repo_vera_alpha",
+   "path": "/Users/motonishikoudai/Projects/Verantyx-Vera-alpha/docs/MCP.md",
+   "chars": 2582,
+   "lang": "en",
+   "sha1": "90bd21df0a131d1c8dacdf66852b4c50ec675938"
+  },
+  {
+   "group": "repo_vera_alpha",
+   "path": "/Users/motonishikoudai/Projects/Verantyx-Vera-alpha/docs/MEASURED_2026-08-21_polarity_regex_not_the_wall.md",
+   "chars": 1263,
+   "lang": "ja",
+   "sha1": "2129095343a5c0f6b6e87b2ab8c5c3519bbd911c"
+  },
+  {
+   "group": "repo_vera_alpha",
+   "path": "/Users/motonishikoudai/Projects/Verantyx-Vera-alpha/docs/METAMORPHIC.md",
+   "chars": 9707,
+   "lang": "en",
+   "sha1": "2d89f7f969b6911fcd50a4311f2eafe0982575eb"
+  },
+  {
+   "group": "repo_vera_alpha",
+   "path": "/Users/motonishikoudai/Projects/Verantyx-Vera-alpha/docs/OBFUSCATE.md",
+   "chars": 4816,
+   "lang": "en",
+   "sha1": "c5c2dd945d2791381be57e2298ae8251b20ddd0c"
+  },
+  {
+   "group": "repo_vera_alpha",
+   "path": "/Users/motonishikoudai/Projects/Verantyx-Vera-alpha/docs/OBFUSCATE_V2_PLAN.md",
+   "chars": 10912,
+   "lang": "en",
+   "sha1": "ff8dd9ae8992cfabf5349a3f3bcca6a027f53ff7"
+  },
+  {
+   "group": "repo_vera_alpha",
+   "path": "/Users/motonishikoudai/Projects/Verantyx-Vera-alpha/docs/ONBOARDING.md",
+   "chars": 5615,
+   "lang": "en",
+   "sha1": "56e0f32602e28ffcfe60e5f0924b6e74c38b9563"
+  },
+  {
+   "group": "repo_vera_alpha",
+   "path": "/Users/motonishikoudai/Projects/Verantyx-Vera-alpha/docs/ONE_SOVEREIGN.md",
+   "chars": 2791,
+   "lang": "ja",
+   "sha1": "a1b5e3eed9d48e05d6801541d990e640f56aeb03"
+  },
+  {
+   "group": "repo_vera_alpha",
+   "path": "/Users/motonishikoudai/Projects/Verantyx-Vera-alpha/docs/OWN_AI_GUIDE.md",
+   "chars": 2662,
+   "lang": "ja",
+   "sha1": "559dc34a582b8287899ba8346bfcf23328a4137f"
+  },
+  {
+   "group": "repo_vera_alpha",
+   "path": "/Users/motonishikoudai/Projects/Verantyx-Vera-alpha/docs/PLACEMENT.md",
+   "chars": 11642,
+   "lang": "en",
+   "sha1": "3a3edd978010f5ee0f18b28e39ccd2d9f8315158"
+  },
+  {
+   "group": "repo_vera_alpha",
+   "path": "/Users/motonishikoudai/Projects/Verantyx-Vera-alpha/docs/PLATFORM.md",
+   "chars": 3353,
+   "lang": "ja",
+   "sha1": "9cbf707e1516109f6051856b1975b9d2bc0aace9"
+  },
+  {
+   "group": "repo_vera_alpha",
+   "path": "/Users/motonishikoudai/Projects/Verantyx-Vera-alpha/docs/PREREGISTERED_2026-08-14_tree_and_shelf.md",
+   "chars": 3590,
+   "lang": "ja",
+   "sha1": "8897fad6642e796a7c30a496d23afee32ae9c56c"
+  },
+  {
+   "group": "repo_vera_alpha",
+   "path": "/Users/motonishikoudai/Projects/Verantyx-Vera-alpha/docs/PREREGISTERED_2026-08-16_bake_placement.md",
+   "chars": 9148,
+   "lang": "en",
+   "sha1": "b9ea9c3b995b08d44aaafe577c68c0c6b3968fd1"
+  },
+  {
+   "group": "repo_vera_alpha",
+   "path": "/Users/motonishikoudai/Projects/Verantyx-Vera-alpha/docs/PREREGISTERED_2026-08-16_case_frames.md",
+   "chars": 4069,
+   "lang": "en",
+   "sha1": "53dae664571c087d35f7d2a9eb41d8a3b2366e1e"
+  },
+  {
+   "group": "repo_vera_alpha",
+   "path": "/Users/motonishikoudai/Projects/Verantyx-Vera-alpha/docs/PREREGISTERED_2026-08-16_case_frames_c1.md",
+   "chars": 3489,
+   "lang": "en",
+   "sha1": "ed50eae8b60df4d487997d4fd5b2d2c791d3f0ad"
+  },
+  {
+   "group": "repo_vera_alpha",
+   "path": "/Users/motonishikoudai/Projects/Verantyx-Vera-alpha/docs/PREREGISTERED_2026-08-16_filler_mass.md",
+   "chars": 3190,
+   "lang": "en",
+   "sha1": "ae1198e99dd4764404fae87b751d628430971091"
+  },
+  {
+   "group": "repo_vera_alpha",
+   "path": "/Users/motonishikoudai/Projects/Verantyx-Vera-alpha/docs/PREREGISTERED_2026-08-16_frame_fillers.md",
+   "chars": 3253,
+   "lang": "en",
+   "sha1": "581532ae0a57e227da85f624e117b5f75b4e5561"
+  },
+  {
+   "group": "repo_vera_alpha",
+   "path": "/Users/motonishikoudai/Projects/Verantyx-Vera-alpha/docs/PREREGISTERED_2026-08-16_japanese_arms.md",
+   "chars": 6203,
+   "lang": "en",
+   "sha1": "fbd46a113ce233e9c07a662deb5857555d560d4d"
+  },
+  {
+   "group": "repo_vera_alpha",
+   "path": "/Users/motonishikoudai/Projects/Verantyx-Vera-alpha/docs/PREREGISTERED_2026-08-16_polarity_gate_context.md",
+   "chars": 3903,
+   "lang": "en",
+   "sha1": "363a1b350c71e58506b79bfefd693c3a51877513"
+  },
+  {
+   "group": "repo_vera_alpha",
+   "path": "/Users/motonishikoudai/Projects/Verantyx-Vera-alpha/docs/PREREGISTERED_2026-08-16_polarity_gate_joint.md",
+   "chars": 3896,
+   "lang": "en",
+   "sha1": "e6f3aafe86f3755b3d1481175f76dfd60b7773fa"
+  },
+  {
+   "group": "repo_vera_alpha",
+   "path": "/Users/motonishikoudai/Projects/Verantyx-Vera-alpha/docs/PREREGISTERED_2026-08-16_polarity_gate_repair.md",
+   "chars": 4074,
+   "lang": "en",
+   "sha1": "d463b51700b96f87194543a3fb54398820d3e006"
+  },
+  {
+   "group": "repo_vera_alpha",
+   "path": "/Users/motonishikoudai/Projects/Verantyx-Vera-alpha/docs/PREREGISTERED_2026-08-16_polarity_ingest.md",
+   "chars": 4497,
+   "lang": "en",
+   "sha1": "467f4dc56bd1ba940a05a31c072cf3d91eedca6e"
+  },
+  {
+   "group": "repo_vera_alpha",
+   "path": "/Users/motonishikoudai/Projects/Verantyx-Vera-alpha/docs/PREREGISTERED_2026-08-16_rephrase_gate.md",
+   "chars": 3760,
+   "lang": "en",
+   "sha1": "f8d516430ce757d19e5de5e9db2ffbe558b9583a"
+  },
+  {
+   "group": "repo_vera_alpha",
+   "path": "/Users/motonishikoudai/Projects/Verantyx-Vera-alpha/docs/PREREGISTERED_2026-08-16_sahen.md",
+   "chars": 2787,
+   "lang": "en",
+   "sha1": "805b41c59b82ff84e7fe203de7a1e1fa6f48f042"
+  },
+  {
+   "group": "repo_vera_alpha",
+   "path": "/Users/motonishikoudai/Projects/Verantyx-Vera-alpha/docs/PREREGISTERED_2026-08-16_structured_ingest.md",
+   "chars": 6963,
+   "lang": "en",
+   "sha1": "4efde155345868d4799a150aeffe19b00ead82c0"
+  },
+  {
+   "group": "repo_vera_alpha",
+   "path": "/Users/motonishikoudai/Projects/Verantyx-Vera-alpha/docs/PREREGISTERED_2026-08-16_subject_identity.md",
+   "chars": 5399,
+   "lang": "en",
+   "sha1": "6e697495a8d3eb683b209ddbf2b617255f578fcc"
+  },
+  {
+   "group": "repo_vera_alpha",
+   "path": "/Users/motonishikoudai/Projects/Verantyx-Vera-alpha/docs/PREREGISTERED_2026-08-16_suspend_resume.md",
+   "chars": 3989,
+   "lang": "en",
+   "sha1": "d0ffd76429a2f96bcf658e59f25861c20a0d58a5"
+  },
+  {
+   "group": "repo_vera_alpha",
+   "path": "/Users/motonishikoudai/Projects/Verantyx-Vera-alpha/docs/PREREGISTERED_2026-08-17_lexicon_heading_alias.md",
+   "chars": 9154,
+   "lang": "en",
+   "sha1": "ae1f188b0d70f035522f1993d0e180d8b7a78cb1"
+  },
+  {
+   "group": "repo_vera_alpha",
+   "path": "/Users/motonishikoudai/Projects/Verantyx-Vera-alpha/docs/PREREGISTERED_2026-08-20_attest_polarity.md",
+   "chars": 1648,
+   "lang": "ja",
+   "sha1": "aca1c9a5d4fc324252be1bd540b8f8eab2d887da"
+  },
+  {
+   "group": "repo_vera_alpha",
+   "path": "/Users/motonishikoudai/Projects/Verantyx-Vera-alpha/docs/QUICKSTART.md",
+   "chars": 1604,
+   "lang": "en",
+   "sha1": "bf2be0f7f9aa0008c2569d76004c57bf7eec416c"
+  },
+  {
+   "group": "repo_vera_alpha",
+   "path": "/Users/motonishikoudai/Projects/Verantyx-Vera-alpha/docs/SETTINGS.md",
+   "chars": 7990,
+   "lang": "en",
+   "sha1": "94903a5f3aeba228c1301a490f918a6f14f35f8e"
+  },
+  {
+   "group": "repo_vera_alpha",
+   "path": "/Users/motonishikoudai/Projects/Verantyx-Vera-alpha/docs/SPEC_2026-08-14_eight_gaps.md",
+   "chars": 4205,
+   "lang": "ja",
+   "sha1": "0caa6a1edf231d17f78e292ba3bb02574acd46cc"
+  },
+  {
+   "group": "repo_vera_alpha",
+   "path": "/Users/motonishikoudai/Projects/Verantyx-Vera-alpha/docs/SPEC_2026-08-14_meaning_layers.md",
+   "chars": 2576,
+   "lang": "ja",
+   "sha1": "ec235a03171d3aafec144b9d5d6d6dd62f916c89"
+  },
+  {
+   "group": "repo_vera_alpha",
+   "path": "/Users/motonishikoudai/Projects/Verantyx-Vera-alpha/docs/WATERMARK.md",
+   "chars": 2929,
+   "lang": "en",
+   "sha1": "bdbe6c89d9d97ade9abad4bc7e59e0c8de65832d"
+  },
+  {
+   "group": "repo_vera_alpha",
+   "path": "/Users/motonishikoudai/Projects/Verantyx-Vera-alpha/experiments/attest_polarity/RESULTS.md",
+   "chars": 1711,
+   "lang": "ja",
+   "sha1": "97230f13443c19bc03ed671a91b43781ae2aed50"
+  },
+  {
+   "group": "repo_vera_alpha",
+   "path": "/Users/motonishikoudai/Projects/Verantyx-Vera-alpha/experiments/axis_locks/PREREG.md",
+   "chars": 1727,
+   "lang": "ja",
+   "sha1": "7a176cc25597db3fc554d8ddddde12e07deddf01"
+  },
+  {
+   "group": "repo_vera_alpha",
+   "path": "/Users/motonishikoudai/Projects/Verantyx-Vera-alpha/experiments/axis_locks/RESULTS.md",
+   "chars": 1491,
+   "lang": "ja",
+   "sha1": "8320639d78859fc8734f97a1f29578c3c8205694"
+  },
+  {
+   "group": "repo_vera_alpha",
+   "path": "/Users/motonishikoudai/Projects/Verantyx-Vera-alpha/experiments/bidirectional_consensus/PREREG.md",
+   "chars": 775,
+   "lang": "ja",
+   "sha1": "eb30f8b40a3e241ae23430ed71100750339e1da1"
+  },
+  {
+   "group": "repo_vera_alpha",
+   "path": "/Users/motonishikoudai/Projects/Verantyx-Vera-alpha/experiments/bidirectional_consensus/PREREG_PROMOTION.md",
+   "chars": 801,
+   "lang": "ja",
+   "sha1": "30f0ac0ba995e36813f05db72f03cfe253d80da0"
+  },
+  {
+   "group": "repo_vera_alpha",
+   "path": "/Users/motonishikoudai/Projects/Verantyx-Vera-alpha/experiments/bidirectional_consensus/PREREG_PROMOTION2.md",
+   "chars": 489,
+   "lang": "ja",
+   "sha1": "4d45b72016fb4b52bfe16e39a01acde58ce66b44"
+  },
+  {
+   "group": "repo_vera_alpha",
+   "path": "/Users/motonishikoudai/Projects/Verantyx-Vera-alpha/experiments/bidirectional_consensus/RESULTS.md",
+   "chars": 1893,
+   "lang": "ja",
+   "sha1": "33d0f79c999a15b66f507e9e4f6e7ec223602345"
+  },
+  {
+   "group": "repo_vera_alpha",
+   "path": "/Users/motonishikoudai/Projects/Verantyx-Vera-alpha/experiments/branching_rewrite/PREREG.md",
+   "chars": 826,
+   "lang": "ja",
+   "sha1": "284fbfc9bc7bcd58c6f4285db9ef04ecbb612196"
+  },
+  {
+   "group": "repo_vera_alpha",
+   "path": "/Users/motonishikoudai/Projects/Verantyx-Vera-alpha/experiments/branching_rewrite/RESULTS.md",
+   "chars": 1298,
+   "lang": "ja",
+   "sha1": "11895f2b13286a3a837c71476f14cd88e0170ed2"
+  },
+  {
+   "group": "repo_vera_alpha",
+   "path": "/Users/motonishikoudai/Projects/Verantyx-Vera-alpha/experiments/completion/PREREG.md",
+   "chars": 905,
+   "lang": "ja",
+   "sha1": "94fe69c53293afd3b28db4960a02797c96c1f690"
+  },
+  {
+   "group": "repo_vera_alpha",
+   "path": "/Users/motonishikoudai/Projects/Verantyx-Vera-alpha/experiments/completion/RESULTS.md",
+   "chars": 1400,
+   "lang": "ja",
+   "sha1": "047ffcdba534b1ef7c7d94243e8eeea9952e57e6"
+  },
+  {
+   "group": "repo_vera_alpha",
+   "path": "/Users/motonishikoudai/Projects/Verantyx-Vera-alpha/experiments/cross_energy_prover/PREREG.md",
+   "chars": 1213,
+   "lang": "ja",
+   "sha1": "e87ae0fb7858e4f97014daefbf858e181ff4b8c0"
+  },
+  {
+   "group": "repo_vera_alpha",
+   "path": "/Users/motonishikoudai/Projects/Verantyx-Vera-alpha/experiments/cross_energy_prover/PREREG10.md",
+   "chars": 418,
+   "lang": "ja",
+   "sha1": "271c1e79b8c276c6a62bfffcaf85c0e65985b67b"
+  },
+  {
+   "group": "repo_vera_alpha",
+   "path": "/Users/motonishikoudai/Projects/Verantyx-Vera-alpha/experiments/cross_energy_prover/PREREG11.md",
+   "chars": 1619,
+   "lang": "ja",
+   "sha1": "ac651054e25eb39f19261dc4034ad9475bb65f0f"
+  },
+  {
+   "group": "repo_vera_alpha",
+   "path": "/Users/motonishikoudai/Projects/Verantyx-Vera-alpha/experiments/cross_energy_prover/PREREG12.md",
+   "chars": 1535,
+   "lang": "ja",
+   "sha1": "ad21dd420ae5c2d892324277a6b99a9136f98d1b"
+  },
+  {
+   "group": "repo_vera_alpha",
+   "path": "/Users/motonishikoudai/Projects/Verantyx-Vera-alpha/experiments/cross_energy_prover/PREREG13.md",
+   "chars": 1056,
+   "lang": "ja",
+   "sha1": "392a3f0f93111dedd400b593b949f459ec384c69"
+  },
+  {
+   "group": "repo_vera_alpha",
+   "path": "/Users/motonishikoudai/Projects/Verantyx-Vera-alpha/experiments/cross_energy_prover/PREREG14.md",
+   "chars": 1332,
+   "lang": "ja",
+   "sha1": "89a79b9b95638f0084808e6904727e107cf2cd5a"
+  },
+  {
+   "group": "repo_vera_alpha",
+   "path": "/Users/motonishikoudai/Projects/Verantyx-Vera-alpha/experiments/cross_energy_prover/PREREG2.md",
+   "chars": 817,
+   "lang": "ja",
+   "sha1": "bf064c843e2e33e31982d6296da9d24d929ba9fe"
+  },
+  {
+   "group": "repo_vera_alpha",
+   "path": "/Users/motonishikoudai/Projects/Verantyx-Vera-alpha/experiments/cross_energy_prover/PREREG3.md",
+   "chars": 1594,
+   "lang": "ja",
+   "sha1": "8c73e252db1442d8e2e0c25100b034c3884df400"
+  },
+  {
+   "group": "repo_vera_alpha",
+   "path": "/Users/motonishikoudai/Projects/Verantyx-Vera-alpha/experiments/cross_energy_prover/PREREG4.md",
+   "chars": 553,
+   "lang": "ja",
+   "sha1": "c4fafc05d73f64b7901ac610cbe0972b8f3b81b2"
+  },
+  {
+   "group": "repo_vera_alpha",
+   "path": "/Users/motonishikoudai/Projects/Verantyx-Vera-alpha/experiments/cross_energy_prover/PREREG5.md",
+   "chars": 539,
+   "lang": "ja",
+   "sha1": "8c774f1a381686781954b418911d334ab0b9dfeb"
+  },
+  {
+   "group": "repo_vera_alpha",
+   "path": "/Users/motonishikoudai/Projects/Verantyx-Vera-alpha/experiments/cross_energy_prover/PREREG6.md",
+   "chars": 877,
+   "lang": "ja",
+   "sha1": "b8c770fe8a142fb7a716c945762ea24f38b80ca2"
+  },
+  {
+   "group": "repo_vera_alpha",
+   "path": "/Users/motonishikoudai/Projects/Verantyx-Vera-alpha/experiments/cross_energy_prover/PREREG7.md",
+   "chars": 1422,
+   "lang": "ja",
+   "sha1": "48cda01ea4bce9958777d3f1adb19ad98ac08970"
+  },
+  {
+   "group": "repo_vera_alpha",
+   "path": "/Users/motonishikoudai/Projects/Verantyx-Vera-alpha/experiments/cross_energy_prover/PREREG8.md",
+   "chars": 887,
+   "lang": "ja",
+   "sha1": "79816bfe56c34729b526c5b5b8fc5f9fba6a5e5b"
+  },
+  {
+   "group": "repo_vera_alpha",
+   "path": "/Users/motonishikoudai/Projects/Verantyx-Vera-alpha/experiments/cross_energy_prover/PREREG9.md",
+   "chars": 825,
+   "lang": "ja",
+   "sha1": "6328ba25fbbc5eb50483cbd36daaf44121986dd5"
+  },
+  {
+   "group": "repo_vera_alpha",
+   "path": "/Users/motonishikoudai/Projects/Verantyx-Vera-alpha/experiments/cross_energy_prover/RESULTS.md",
+   "chars": 9277,
+   "lang": "ja",
+   "sha1": "896ec7404a5f62f188284744af0554fbaca5295d"
+  },
+  {
+   "group": "repo_vera_alpha",
+   "path": "/Users/motonishikoudai/Projects/Verantyx-Vera-alpha/experiments/def_edges/PREREG.md",
+   "chars": 837,
+   "lang": "ja",
+   "sha1": "48fa0cacbab3506d891165c36a95eac29a33a006"
+  },
+  {
+   "group": "repo_vera_alpha",
+   "path": "/Users/motonishikoudai/Projects/Verantyx-Vera-alpha/experiments/def_edges/RESULTS.md",
+   "chars": 1128,
+   "lang": "ja",
+   "sha1": "41b58e219fa327247fb54e44ff5236a96f5e32e9"
+  },
+  {
+   "group": "repo_vera_alpha",
+   "path": "/Users/motonishikoudai/Projects/Verantyx-Vera-alpha/experiments/document_writing/DOC_WRITING.md",
+   "chars": 3213,
+   "lang": "ja",
+   "sha1": "26ad0f5241ff427b0d1145af9fe3132f48e103b1"
+  },
+  {
+   "group": "repo_vera_alpha",
+   "path": "/Users/motonishikoudai/Projects/Verantyx-Vera-alpha/experiments/edge_routing/EDGE_ROUTING.md",
+   "chars": 2172,
+   "lang": "ja",
+   "sha1": "5be692a33c942f904ed1b2dbe1e0192af72e21da"
+  },
+  {
+   "group": "repo_vera_alpha",
+   "path": "/Users/motonishikoudai/Projects/Verantyx-Vera-alpha/experiments/experience_cross/PREREG.md",
+   "chars": 1603,
+   "lang": "ja",
+   "sha1": "1161744b99cfb18a386acfa09c6e466ca5b1e933"
+  },
+  {
+   "group": "repo_vera_alpha",
+   "path": "/Users/motonishikoudai/Projects/Verantyx-Vera-alpha/experiments/experience_cross/RESULTS.md",
+   "chars": 1527,
+   "lang": "ja",
+   "sha1": "2d143ef23bce02c5b0fd4fdc5283ff2416d4dd7b"
+  },
+  {
+   "group": "repo_vera_alpha",
+   "path": "/Users/motonishikoudai/Projects/Verantyx-Vera-alpha/experiments/forward_win_mechanism/PREREG.md",
+   "chars": 1458,
+   "lang": "ja",
+   "sha1": "44b89cc3f1c6c8fcc3d3d51529cd298fe72d8da5"
+  },
+  {
+   "group": "repo_vera_alpha",
+   "path": "/Users/motonishikoudai/Projects/Verantyx-Vera-alpha/experiments/forward_win_mechanism/PREREG2.md",
+   "chars": 936,
+   "lang": "ja",
+   "sha1": "63776640c30ba4e62424365d1c88bd0d66a7faff"
+  },
+  {
+   "group": "repo_vera_alpha",
+   "path": "/Users/motonishikoudai/Projects/Verantyx-Vera-alpha/experiments/forward_win_mechanism/RESULTS.md",
+   "chars": 2148,
+   "lang": "ja",
+   "sha1": "8ebd2e128a9178b8bff36edcce5b4d8e58c80e74"
+  },
+  {
+   "group": "repo_vera_alpha",
+   "path": "/Users/motonishikoudai/Projects/Verantyx-Vera-alpha/experiments/generalisation/PREREG.md",
+   "chars": 1021,
+   "lang": "ja",
+   "sha1": "92645c959f1264fc7cc46986d57b86c3d2ac5383"
+  },
+  {
+   "group": "repo_vera_alpha",
+   "path": "/Users/motonishikoudai/Projects/Verantyx-Vera-alpha/experiments/generalisation/RESULTS.md",
+   "chars": 1745,
+   "lang": "ja",
+   "sha1": "55a0b2d4d4e21733367ab913a18096e2719bc8c1"
+  },
+  {
+   "group": "repo_vera_alpha",
+   "path": "/Users/motonishikoudai/Projects/Verantyx-Vera-alpha/experiments/guard/PREREG.md",
+   "chars": 1714,
+   "lang": "ja",
+   "sha1": "7b0f8c1245ea59042c8b1164cdb88bc94e6d7ccf"
+  },
+  {
+   "group": "repo_vera_alpha",
+   "path": "/Users/motonishikoudai/Projects/Verantyx-Vera-alpha/experiments/guard/PREREG2.md",
+   "chars": 1886,
+   "lang": "ja",
+   "sha1": "30c6d9d04c724884eaeca256c047bdfc64ba42db"
+  },
+  {
+   "group": "repo_vera_alpha",
+   "path": "/Users/motonishikoudai/Projects/Verantyx-Vera-alpha/experiments/guard/PREREG3.md",
+   "chars": 2519,
+   "lang": "ja",
+   "sha1": "6240e64b156502a8c763550db643e7585a41d81a"
+  },
+  {
+   "group": "repo_vera_alpha",
+   "path": "/Users/motonishikoudai/Projects/Verantyx-Vera-alpha/experiments/guard/RESULTS.md",
+   "chars": 2228,
+   "lang": "ja",
+   "sha1": "167d4e298581b5ea111431955347880f53e11719"
+  },
+  {
+   "group": "repo_vera_alpha",
+   "path": "/Users/motonishikoudai/Projects/Verantyx-Vera-alpha/experiments/guard/RESULTS2.md",
+   "chars": 3344,
+   "lang": "ja",
+   "sha1": "02eaa9985b868ab1bdb64f6bb0f5c10b42d0c665"
+  },
+  {
+   "group": "repo_vera_alpha",
+   "path": "/Users/motonishikoudai/Projects/Verantyx-Vera-alpha/experiments/guard/RESULTS3.md",
+   "chars": 3201,
+   "lang": "ja",
+   "sha1": "5896f9082da95c5e395bb88a2c6536c81b98a6b7"
+  },
+  {
+   "group": "repo_vera_alpha",
+   "path": "/Users/motonishikoudai/Projects/Verantyx-Vera-alpha/experiments/harness_algebra/PREREG.md",
+   "chars": 2352,
+   "lang": "ja",
+   "sha1": "a8e4149f49664edf0a49f9d96845eb8f0d8cb4d0"
+  },
+  {
+   "group": "repo_vera_alpha",
+   "path": "/Users/motonishikoudai/Projects/Verantyx-Vera-alpha/experiments/harness_algebra/PREREG2.md",
+   "chars": 1526,
+   "lang": "ja",
+   "sha1": "ee7d8fef58e01add54311be38d2d495792593342"
+  },
+  {
+   "group": "repo_vera_alpha",
+   "path": "/Users/motonishikoudai/Projects/Verantyx-Vera-alpha/experiments/harness_algebra/PREREG3.md",
+   "chars": 765,
+   "lang": "ja",
+   "sha1": "5b34be4b81afa6d85b010343c08486a3440fd2a1"
+  },
+  {
+   "group": "repo_vera_alpha",
+   "path": "/Users/motonishikoudai/Projects/Verantyx-Vera-alpha/experiments/harness_algebra/PREREG4.md",
+   "chars": 443,
+   "lang": "ja",
+   "sha1": "7b25b40f59bdf3afa493dfc38f85d518d34d1e9e"
+  },
+  {
+   "group": "repo_vera_alpha",
+   "path": "/Users/motonishikoudai/Projects/Verantyx-Vera-alpha/experiments/harness_algebra/PREREG5.md",
+   "chars": 1086,
+   "lang": "ja",
+   "sha1": "679af362c3fdf7b152bc31d1ac3ef8e81b4801a9"
+  },
+  {
+   "group": "repo_vera_alpha",
+   "path": "/Users/motonishikoudai/Projects/Verantyx-Vera-alpha/experiments/harness_algebra/RESULTS.md",
+   "chars": 4874,
+   "lang": "ja",
+   "sha1": "cbbd3801816b0b6a7b7a78b252fddb1c14069f2e"
+  },
+  {
+   "group": "repo_vera_alpha",
+   "path": "/Users/motonishikoudai/Projects/Verantyx-Vera-alpha/experiments/induction_by_rewriting/PREREG.md",
+   "chars": 1374,
+   "lang": "ja",
+   "sha1": "cc75988c7564c03d6cf8732d28fd5d3b697f7fd9"
+  },
+  {
+   "group": "repo_vera_alpha",
+   "path": "/Users/motonishikoudai/Projects/Verantyx-Vera-alpha/experiments/induction_by_rewriting/RESULTS.md",
+   "chars": 1615,
+   "lang": "ja",
+   "sha1": "4d95bc3dee03a1c35c3fb3cf37f51c8c883dcb04"
+  },
+  {
+   "group": "repo_vera_alpha",
+   "path": "/Users/motonishikoudai/Projects/Verantyx-Vera-alpha/experiments/induction_wall/PREREG.md",
+   "chars": 935,
+   "lang": "ja",
+   "sha1": "15df2d7b865570225fd3c1f23be9048a653c5eb4"
+  },
+  {
+   "group": "repo_vera_alpha",
+   "path": "/Users/motonishikoudai/Projects/Verantyx-Vera-alpha/experiments/induction_wall/RESULTS.md",
+   "chars": 1978,
+   "lang": "ja",
+   "sha1": "df855268b83d0070d6e4e2a6dde7f020b931bb58"
+  },
+  {
+   "group": "repo_vera_alpha",
+   "path": "/Users/motonishikoudai/Projects/Verantyx-Vera-alpha/experiments/invention_budget/PREREG.md",
+   "chars": 1122,
+   "lang": "ja",
+   "sha1": "a4fe2e124abc7d0a863696e9e964120b469716a6"
+  },
+  {
+   "group": "repo_vera_alpha",
+   "path": "/Users/motonishikoudai/Projects/Verantyx-Vera-alpha/experiments/invention_budget/RESULTS.md",
+   "chars": 1364,
+   "lang": "ja",
+   "sha1": "1349ac9e1f0b9b834cbf40cf1338503ebfe5592b"
+  },
+  {
+   "group": "repo_vera_alpha",
+   "path": "/Users/motonishikoudai/Projects/Verantyx-Vera-alpha/experiments/junk_gate/PREREG.md",
+   "chars": 1014,
+   "lang": "ja",
+   "sha1": "07f649ec1ff34bd7d973330272fc0061629d2cae"
+  },
+  {
+   "group": "repo_vera_alpha",
+   "path": "/Users/motonishikoudai/Projects/Verantyx-Vera-alpha/experiments/junk_gate/RESULTS.md",
+   "chars": 1209,
+   "lang": "ja",
+   "sha1": "c7316db3851bd85dafbe96bca41ee31b7fa94777"
+  },
+  {
+   "group": "repo_vera_alpha",
+   "path": "/Users/motonishikoudai/Projects/Verantyx-Vera-alpha/experiments/mass_defs_ingest/PREREG.md",
+   "chars": 521,
+   "lang": "ja",
+   "sha1": "d6c46ff1bd9daf9ed615ce424a2fdaedbb154c24"
+  },
+  {
+   "group": "repo_vera_alpha",
+   "path": "/Users/motonishikoudai/Projects/Verantyx-Vera-alpha/experiments/mass_defs_ingest/PREREG2_WIKT_JAWIKI.md",
+   "chars": 498,
+   "lang": "ja",
+   "sha1": "d140aa9bcc1656dd86936db91f4325df624538ad"
+  },
+  {
+   "group": "repo_vera_alpha",
+   "path": "/Users/motonishikoudai/Projects/Verantyx-Vera-alpha/experiments/mass_defs_ingest/PREREG3_SPECIFICITY.md",
+   "chars": 755,
+   "lang": "ja",
+   "sha1": "00bf23e0865132a6dd4d33d363802b0d225774a7"
+  },
+  {
+   "group": "repo_vera_alpha",
+   "path": "/Users/motonishikoudai/Projects/Verantyx-Vera-alpha/experiments/mass_defs_ingest/RESULTS.md",
+   "chars": 947,
+   "lang": "ja",
+   "sha1": "bed190fc77f89a6e8ba3ee28aa337acc7856c89d"
+  },
+  {
+   "group": "repo_vera_alpha",
+   "path": "/Users/motonishikoudai/Projects/Verantyx-Vera-alpha/experiments/mass_defs_ingest/RESULTS_JAWIKI.md",
+   "chars": 1953,
+   "lang": "ja",
+   "sha1": "0db8b4ceaa376c65be76cf9df8dae160edeacc53"
+  },
+  {
+   "group": "repo_vera_alpha",
+   "path": "/Users/motonishikoudai/Projects/Verantyx-Vera-alpha/experiments/mathlib_statements/PREREG.md",
+   "chars": 967,
+   "lang": "ja",
+   "sha1": "332e304cd9d4d92a7bf034ca34d1cd250f030bb2"
+  },
+  {
+   "group": "repo_vera_alpha",
+   "path": "/Users/motonishikoudai/Projects/Verantyx-Vera-alpha/experiments/mathlib_statements/RESULTS.md",
+   "chars": 1988,
+   "lang": "ja",
+   "sha1": "c7f373528ec2e6561f33c110a7a27584af8bbec8"
+  },
+  {
+   "group": "repo_vera_alpha",
+   "path": "/Users/motonishikoudai/Projects/Verantyx-Vera-alpha/experiments/multi_document_scale/PREREG.md",
+   "chars": 473,
+   "lang": "ja",
+   "sha1": "81a4dd78e7b9b5900e493455ea1749fe9c806626"
+  },
+  {
+   "group": "repo_vera_alpha",
+   "path": "/Users/motonishikoudai/Projects/Verantyx-Vera-alpha/experiments/multi_document_scale/RESULTS.md",
+   "chars": 934,
+   "lang": "ja",
+   "sha1": "c057623685a848d127d2fd036a974c8a03213e54"
+  },
+  {
+   "group": "repo_vera_alpha",
+   "path": "/Users/motonishikoudai/Projects/Verantyx-Vera-alpha/experiments/multi_party_forms/RESULTS.md",
+   "chars": 1338,
+   "lang": "ja",
+   "sha1": "41d7e285bab6b15af7d4d344064ec00ce7b4429a"
+  },
+  {
+   "group": "repo_vera_alpha",
+   "path": "/Users/motonishikoudai/Projects/Verantyx-Vera-alpha/experiments/ordered_rewrite/PREREG.md",
+   "chars": 805,
+   "lang": "ja",
+   "sha1": "bb141a3d7611b22b9b5e7bf438acf7213597d0cb"
+  },
+  {
+   "group": "repo_vera_alpha",
+   "path": "/Users/motonishikoudai/Projects/Verantyx-Vera-alpha/experiments/ordered_rewrite/RESULTS.md",
+   "chars": 2399,
+   "lang": "ja",
+   "sha1": "dbad19d5d89d5ec21d78a75197064674362451c5"
+  },
+  {
+   "group": "repo_vera_alpha",
+   "path": "/Users/motonishikoudai/Projects/Verantyx-Vera-alpha/experiments/orthography/RESULTS.md",
+   "chars": 1386,
+   "lang": "ja",
+   "sha1": "ec5956df861dfade0fcbeb99957243558a9ab216"
+  },
+  {
+   "group": "repo_vera_alpha",
+   "path": "/Users/motonishikoudai/Projects/Verantyx-Vera-alpha/experiments/placement_matryoshka_recheck/RECHECK.md",
+   "chars": 6165,
+   "lang": "ja",
+   "sha1": "6eb3654cdf824ea9d1fb9db34cc91d0601cf517e"
+  },
+  {
+   "group": "repo_vera_alpha",
+   "path": "/Users/motonishikoudai/Projects/Verantyx-Vera-alpha/experiments/reachability_audit/RESULTS.md",
+   "chars": 1571,
+   "lang": "ja",
+   "sha1": "f4cdc65c3ee5c1bcb3b9129e775dff444d29251b"
+  },
+  {
+   "group": "repo_vera_alpha",
+   "path": "/Users/motonishikoudai/Projects/Verantyx-Vera-alpha/experiments/reachability_audit/TRIAGE.md",
+   "chars": 2434,
+   "lang": "ja",
+   "sha1": "181cbddad6d2add7d459e912a365402bfcfe75c7"
+  },
+  {
+   "group": "repo_vera_alpha",
+   "path": "/Users/motonishikoudai/Projects/Verantyx-Vera-alpha/experiments/regression_index/RESULTS.md",
+   "chars": 1227,
+   "lang": "ja",
+   "sha1": "31ea9f4d523762140b0bdb078107ba9b96c1d688"
+  },
+  {
+   "group": "repo_vera_alpha",
+   "path": "/Users/motonishikoudai/Projects/Verantyx-Vera-alpha/experiments/retrieval_reach/PREREG.md",
+   "chars": 671,
+   "lang": "ja",
+   "sha1": "c16068e223559bb608a54c50c61c7d1bac1c2c82"
+  },
+  {
+   "group": "repo_vera_alpha",
+   "path": "/Users/motonishikoudai/Projects/Verantyx-Vera-alpha/experiments/retrieval_reach/RESULTS.md",
+   "chars": 636,
+   "lang": "ja",
+   "sha1": "36a77df9773311394ce54d6f721df6eb98cfd4b5"
+  },
+  {
+   "group": "repo_vera_alpha",
+   "path": "/Users/motonishikoudai/Projects/Verantyx-Vera-alpha/experiments/search/PREREG.md",
+   "chars": 1677,
+   "lang": "ja",
+   "sha1": "6231016580cc5c017f857f5bfbadf4675bcc4ad6"
+  },
+  {
+   "group": "repo_vera_alpha",
+   "path": "/Users/motonishikoudai/Projects/Verantyx-Vera-alpha/experiments/search/RESULTS.md",
+   "chars": 4951,
+   "lang": "ja",
+   "sha1": "619414d26f848ebedae927b9f33827fdb5796151"
+  },
+  {
+   "group": "repo_vera_alpha",
+   "path": "/Users/motonishikoudai/Projects/Verantyx-Vera-alpha/experiments/self_harness/PREREG.md",
+   "chars": 1386,
+   "lang": "ja",
+   "sha1": "b02e9d1e8070c2215699151b4c321e2c1d1b633b"
+  },
+  {
+   "group": "repo_vera_alpha",
+   "path": "/Users/motonishikoudai/Projects/Verantyx-Vera-alpha/experiments/self_harness/RESULTS.md",
+   "chars": 1530,
+   "lang": "ja",
+   "sha1": "5a3ce856af3e0294509fd529324254abafe96a89"
+  },
+  {
+   "group": "repo_vera_alpha",
+   "path": "/Users/motonishikoudai/Projects/Verantyx-Vera-alpha/experiments/structure_to_lean/PREREG.md",
+   "chars": 873,
+   "lang": "ja",
+   "sha1": "67db833e5baaca9cfd9ef9fafc2ee984cd3bfbe3"
+  },
+  {
+   "group": "repo_vera_alpha",
+   "path": "/Users/motonishikoudai/Projects/Verantyx-Vera-alpha/experiments/structure_to_lean/RESULTS.md",
+   "chars": 1410,
+   "lang": "ja",
+   "sha1": "adac5d5d47be97ccac9c4981273088c180b9141c"
+  },
+  {
+   "group": "repo_vera_alpha",
+   "path": "/Users/motonishikoudai/Projects/Verantyx-Vera-alpha/experiments/title_routing/RESULTS.md",
+   "chars": 806,
+   "lang": "ja",
+   "sha1": "2bb14766387644aa7d8c1beef62d3780b1ee78ef"
+  },
+  {
+   "group": "repo_vera_alpha",
+   "path": "/Users/motonishikoudai/Projects/Verantyx-Vera-alpha/experiments/tool_selection/RESULTS.md",
+   "chars": 1362,
+   "lang": "ja",
+   "sha1": "7c480b77ae8513fab222f4251f53d5bb13e74793"
+  },
+  {
+   "group": "repo_vera_alpha",
+   "path": "/Users/motonishikoudai/Projects/Verantyx-Vera-alpha/experiments/transfer_reading/PREREG.md",
+   "chars": 1648,
+   "lang": "ja",
+   "sha1": "9564e29d8fd1f34f2b3cffebdc9123ecccdd940a"
+  },
+  {
+   "group": "repo_vera_alpha",
+   "path": "/Users/motonishikoudai/Projects/Verantyx-Vera-alpha/experiments/transfer_reading/RESULTS.md",
+   "chars": 1423,
+   "lang": "ja",
+   "sha1": "f606c613d990f92c7589abd271a0d83d770c92f2"
+  },
+  {
+   "group": "repo_vera_alpha",
+   "path": "/Users/motonishikoudai/Projects/Verantyx-Vera-alpha/experiments/vacuity/PREREG.md",
+   "chars": 798,
+   "lang": "ja",
+   "sha1": "3a79659e5afed59b6598ccf6a28fb2be4a1d1f9e"
+  },
+  {
+   "group": "repo_vera_alpha",
+   "path": "/Users/motonishikoudai/Projects/Verantyx-Vera-alpha/experiments/vacuity/RESULTS.md",
+   "chars": 1232,
+   "lang": "ja",
+   "sha1": "c754e1a1012948c4bc8dc4390dfe40e14274a6a0"
+  },
+  {
+   "group": "repo_vera_alpha",
+   "path": "/Users/motonishikoudai/Projects/Verantyx-Vera-alpha/hf/model/README.md",
+   "chars": 4889,
+   "lang": "en",
+   "sha1": "a9272bfaeef1d4bcb9e2c3114c5d3dd64aa7ee74"
+  },
+  {
+   "group": "repo_vera_alpha",
+   "path": "/Users/motonishikoudai/Projects/Verantyx-Vera-alpha/hf/space/README.md",
+   "chars": 468,
+   "lang": "en",
+   "sha1": "bc1f4883b5e5111002549847000fb7e341f59795"
+  },
+  {
+   "group": "repo_vera_alpha",
+   "path": "/Users/motonishikoudai/Projects/Verantyx-Vera-alpha/hf/space_static/README.md",
+   "chars": 758,
+   "lang": "ja",
+   "sha1": "2c1607eab5a06799dd3de14f8e2a78c90c7576de"
+  },
+  {
+   "group": "repo_Vera",
+   "path": "/Users/motonishikoudai/Projects/Vera/HANDOFF_2026-08-16.md",
+   "chars": 4542,
+   "lang": "ja",
+   "sha1": "8edd7d63ec711e08ad1d6cb10c5b9d94cbcc6bab"
+  },
+  {
+   "group": "repo_Vera",
+   "path": "/Users/motonishikoudai/Projects/Vera/HANDOFF_autonomous_asset_exploration.md",
+   "chars": 4585,
+   "lang": "ja",
+   "sha1": "088004441da70cd47c50c1a7257b8d7587fa19ea"
+  },
+  {
+   "group": "repo_Vera",
+   "path": "/Users/motonishikoudai/Projects/Vera/HANDOFF_vera_a.md",
+   "chars": 6892,
+   "lang": "ja",
+   "sha1": "f511d596ed27bdb47673c441aeba597b6e8f24a6"
+  },
+  {
+   "group": "repo_Vera",
+   "path": "/Users/motonishikoudai/Projects/Vera/README.md",
+   "chars": 20482,
+   "lang": "ja",
+   "sha1": "760f2f7cc890454d3b14c0274c06dcefd64d26b9"
+  },
+  {
+   "group": "repo_Vera",
+   "path": "/Users/motonishikoudai/Projects/Vera/REPRODUCE.md",
+   "chars": 4368,
+   "lang": "ja",
+   "sha1": "42f6f486a3b0051ee75102646ecde53a16978b44"
+  },
+  {
+   "group": "repo_Vera",
+   "path": "/Users/motonishikoudai/Projects/Vera/STATUS_asset_exploration_loop.md",
+   "chars": 5527,
+   "lang": "ja",
+   "sha1": "4e60bcbf6a8e1678d3e73eeba882015e2b0456d0"
+  },
+  {
+   "group": "repo_Vera",
+   "path": "/Users/motonishikoudai/Projects/Vera/bundles/distilgpt2-join/README.md",
+   "chars": 2191,
+   "lang": "en",
+   "sha1": "0716376060e2c2303e52d556a5324c51b6bc5da3"
+  },
+  {
+   "group": "repo_Vera",
+   "path": "/Users/motonishikoudai/Projects/Vera/bundles/gpt2-matryoshka/README.md",
+   "chars": 2278,
+   "lang": "en",
+   "sha1": "6507f9f28d3f59f8a0c41931a0ceeee79c9a15d9"
+  },
+  {
+   "group": "repo_Vera",
+   "path": "/Users/motonishikoudai/Projects/Vera/demo/CALL_FOR_COLLABORATORS.md",
+   "chars": 3365,
+   "lang": "en",
+   "sha1": "fc2323bee72755871c4457ccc76654dadca377bb"
+  },
+  {
+   "group": "repo_Vera",
+   "path": "/Users/motonishikoudai/Projects/Vera/demo/README.md",
+   "chars": 1545,
+   "lang": "ja",
+   "sha1": "792039a023fd5a9dc41ffeba5f41198104b18172"
+  },
+  {
+   "group": "repo_Vera",
+   "path": "/Users/motonishikoudai/Projects/Vera/docs/CLI.md",
+   "chars": 4247,
+   "lang": "ja",
+   "sha1": "bee5305abae0244e3d56991143425f8307f4ae02"
+  },
+  {
+   "group": "repo_Vera",
+   "path": "/Users/motonishikoudai/Projects/Vera/docs/SCALEUP.md",
+   "chars": 4589,
+   "lang": "en",
+   "sha1": "99b38a9e98d3f7c25d03b38deb2a463243010173"
+  },
+  {
+   "group": "repo_Vera",
+   "path": "/Users/motonishikoudai/Projects/Vera/experiments/stereo_cross_activation/ACTIVATION_PROBE.md",
+   "chars": 5852,
+   "lang": "en",
+   "sha1": "cbf06123375ccd4d4bc964a03729ab617ba62e1b"
+  },
+  {
+   "group": "repo_Vera",
+   "path": "/Users/motonishikoudai/Projects/Vera/experiments/stereo_cross_activation/ANOMALY_VIABILITY.md",
+   "chars": 2051,
+   "lang": "en",
+   "sha1": "0674755b366013a3747e9201e3eba44cd23deac1"
+  },
+  {
+   "group": "repo_Vera",
+   "path": "/Users/motonishikoudai/Projects/Vera/experiments/stereo_cross_activation/COHABITATION_COUPLING.md",
+   "chars": 2071,
+   "lang": "ja",
+   "sha1": "18a5be0c71a4cad7845ebe894a6cc6a3f4927248"
+  },
+  {
+   "group": "repo_Vera",
+   "path": "/Users/motonishikoudai/Projects/Vera/experiments/stereo_cross_activation/COORD_MEMORY.md",
+   "chars": 4881,
+   "lang": "en",
+   "sha1": "276f68f064aa39cf92881d1bf019f4bcd22d36c9"
+  },
+  {
+   "group": "repo_Vera",
+   "path": "/Users/motonishikoudai/Projects/Vera/experiments/stereo_cross_activation/CROSS_MODEL_JOIN.md",
+   "chars": 5707,
+   "lang": "en",
+   "sha1": "6a6b800b076c68f0f8931f21607c91f77312ef93"
+  },
+  {
+   "group": "repo_Vera",
+   "path": "/Users/motonishikoudai/Projects/Vera/experiments/stereo_cross_activation/IMPROVEMENT_TRACK.md",
+   "chars": 3014,
+   "lang": "en",
+   "sha1": "e40519c55b3e5977eb4ac2798e5c8e3951d2a3c4"
+  },
+  {
+   "group": "repo_Vera",
+   "path": "/Users/motonishikoudai/Projects/Vera/experiments/stereo_cross_activation/KL_DISTILL.md",
+   "chars": 6733,
+   "lang": "en",
+   "sha1": "05686574897fa57f9f50e629620462de839b9c14"
+  },
+  {
+   "group": "repo_Vera",
+   "path": "/Users/motonishikoudai/Projects/Vera/experiments/stereo_cross_activation/KL_DISTILL_R256.md",
+   "chars": 7378,
+   "lang": "en",
+   "sha1": "2f99c09eb01cdb0cc77a8f6eabf22e7793b37d3a"
+  },
+  {
+   "group": "repo_Vera",
+   "path": "/Users/motonishikoudai/Projects/Vera/experiments/stereo_cross_activation/MATRYOSHKA.md",
+   "chars": 5921,
+   "lang": "en",
+   "sha1": "503a06678f4ce42bc5f41e11748aaf1d0f7e62ba"
+  },
+  {
+   "group": "repo_Vera",
+   "path": "/Users/motonishikoudai/Projects/Vera/experiments/stereo_cross_activation/MATRYOSHKA_DISTILL.md",
+   "chars": 5748,
+   "lang": "en",
+   "sha1": "8d6197d7902c4b0406ce0f044fb1620188d65c22"
+  },
+  {
+   "group": "repo_Vera",
+   "path": "/Users/motonishikoudai/Projects/Vera/experiments/stereo_cross_activation/OOD_MARGIN_GATE.md",
+   "chars": 1876,
+   "lang": "en",
+   "sha1": "ad99bdeeee04982795abd56e08e0ffbccc1257bb"
+  },
+  {
+   "group": "repo_Vera",
+   "path": "/Users/motonishikoudai/Projects/Vera/experiments/stereo_cross_activation/PRACTICAL_CHECKS.md",
+   "chars": 5258,
+   "lang": "en",
+   "sha1": "65628ea92b474c16666d0bd49892ed1a45477f63"
+  },
+  {
+   "group": "repo_Vera",
+   "path": "/Users/motonishikoudai/Projects/Vera/experiments/stereo_cross_activation/RESPONSE_MAP.md",
+   "chars": 13348,
+   "lang": "en",
+   "sha1": "aa69b3d561a1077d5d4385d565a2d8af20a251df"
+  },
+  {
+   "group": "repo_Vera",
+   "path": "/Users/motonishikoudai/Projects/Vera/experiments/stereo_cross_activation/SOFT_DISTILL.md",
+   "chars": 8495,
+   "lang": "en",
+   "sha1": "e661abc359f208a8b91de0612f5686c5f9035b81"
+  },
+  {
+   "group": "repo_Vera",
+   "path": "/Users/motonishikoudai/Projects/Vera/experiments/stereo_cross_activation/STEP1_CLOSED_LOOP_STEER.md",
+   "chars": 1642,
+   "lang": "en",
+   "sha1": "d6f1faa7f0b55174f3c9f14aa6f442b8cbc5a8ab"
+  },
+  {
+   "group": "repo_Vera",
+   "path": "/Users/motonishikoudai/Projects/Vera/experiments/stereo_cross_activation/STEP2_KEY_RETRAIN.md",
+   "chars": 1233,
+   "lang": "en",
+   "sha1": "0cc1aa0a760b84b9e9951784bd02d4ec9bc085ea"
+  },
+  {
+   "group": "repo_Vera",
+   "path": "/Users/motonishikoudai/Projects/Vera/experiments/stereo_cross_activation/WEIGHT_COMPRESS.md",
+   "chars": 6703,
+   "lang": "en",
+   "sha1": "1ccbc51176ee1796f787f09041a55751dcdbffa9"
+  },
+  {
+   "group": "repo_Vera",
+   "path": "/Users/motonishikoudai/Projects/Vera/experiments/stereo_cross_bridge/ATTN_COMPARE.md",
+   "chars": 1750,
+   "lang": "en",
+   "sha1": "ed32302e1b465aa34ef27886b6b4c68e348f9f12"
+  },
+  {
+   "group": "repo_Vera",
+   "path": "/Users/motonishikoudai/Projects/Vera/experiments/stereo_cross_bridge/DEPTH_COMPARE.md",
+   "chars": 2289,
+   "lang": "en",
+   "sha1": "b6fd735273edca240e4894875785c36737b58644"
+  },
+  {
+   "group": "repo_Vera",
+   "path": "/Users/motonishikoudai/Projects/Vera/experiments/stereo_cross_bridge/ENTRANCE_COMPARE.md",
+   "chars": 1107,
+   "lang": "en",
+   "sha1": "a8b064abd78e5a947385123d60df3107b895f792"
+  },
+  {
+   "group": "repo_Vera",
+   "path": "/Users/motonishikoudai/Projects/Vera/experiments/stereo_cross_bridge/MODULE_COMPARE.md",
+   "chars": 1601,
+   "lang": "en",
+   "sha1": "8897bdff413dc9da2166647033930234fd27b3d1"
+  },
+  {
+   "group": "repo_Vera",
+   "path": "/Users/motonishikoudai/Projects/Vera/experiments/stereo_cross_bridge/PER_HEAD_COMPARE.md",
+   "chars": 3147,
+   "lang": "en",
+   "sha1": "0e1c5c88fba2f969c83580626f09be2fefe66735"
+  },
+  {
+   "group": "repo_Vera",
+   "path": "/Users/motonishikoudai/Projects/Vera/experiments/stereo_cross_bridge/PROCRUSTES_COMPARE.md",
+   "chars": 5266,
+   "lang": "en",
+   "sha1": "0fcd46bf4acee57b47e06b4d1f2b0b2ab1935f2a"
+  },
+  {
+   "group": "repo_Vera",
+   "path": "/Users/motonishikoudai/Projects/Vera/experiments/stereo_cross_bridge/README.md",
+   "chars": 716,
+   "lang": "en",
+   "sha1": "068be2bd0495d06e96c06b161c71c772dd76107c"
+  },
+  {
+   "group": "repo_Vera",
+   "path": "/Users/motonishikoudai/Projects/Vera/experiments/stereo_cross_bridge/SUMMARY.md",
+   "chars": 3194,
+   "lang": "en",
+   "sha1": "cfd10a7e5da445f1d3fa1a3164ad4e28ebb168f6"
+  },
+  {
+   "group": "repo_Vera",
+   "path": "/Users/motonishikoudai/Projects/Vera/experiments/stereo_cross_bridge/TRAINED_BRIDGE.md",
+   "chars": 3783,
+   "lang": "en",
+   "sha1": "5dc29df699a6a43d102b2dcef4eba81881e0241a"
+  },
+  {
+   "group": "repo_Vera",
+   "path": "/Users/motonishikoudai/Projects/Vera/experiments/stereo_cross_structure/PATTERN1_ADAPT.md",
+   "chars": 1816,
+   "lang": "en",
+   "sha1": "aac294cfd3059afe0193b290e3332b46c46f5c41"
+  },
+  {
+   "group": "repo_Vera",
+   "path": "/Users/motonishikoudai/Projects/Vera/experiments/stereo_cross_structure/PATTERN1_CONSENSUS.md",
+   "chars": 2645,
+   "lang": "ja",
+   "sha1": "a2cd99949247ed021430e19fd8bc00790153d052"
+  },
+  {
+   "group": "repo_Vera",
+   "path": "/Users/motonishikoudai/Projects/Vera/experiments/stereo_cross_structure/PATTERN1_FULL.md",
+   "chars": 3080,
+   "lang": "en",
+   "sha1": "312d6dd04ce60e14fb0c40029f781841aeeac1c8"
+  },
+  {
+   "group": "repo_Vera",
+   "path": "/Users/motonishikoudai/Projects/Vera/experiments/stereo_cross_structure/PATTERN1_GENERATE.md",
+   "chars": 2074,
+   "lang": "en",
+   "sha1": "f25131f1ed1754652dec6094e9a52bdfefa81a58"
+  },
+  {
+   "group": "repo_Vera",
+   "path": "/Users/motonishikoudai/Projects/Vera/experiments/stereo_cross_structure/PATTERN1_INGEST.md",
+   "chars": 3040,
+   "lang": "en",
+   "sha1": "d6c73b1a44dc7dc5cb0807eaa9689335dba077c2"
+  },
+  {
+   "group": "repo_Vera",
+   "path": "/Users/motonishikoudai/Projects/Vera/experiments/stereo_cross_structure/PATTERN1_KRIPKE_REWRITE.md",
+   "chars": 2168,
+   "lang": "ja",
+   "sha1": "71fd5c08e1c43681463e925bfdf63d6ec1d79be3"
+  },
+  {
+   "group": "repo_Vera",
+   "path": "/Users/motonishikoudai/Projects/Vera/experiments/stereo_cross_structure/PATTERN1_MATH.md",
+   "chars": 12297,
+   "lang": "en",
+   "sha1": "bf45ff534d354ed6429e96bc1c597d27344a2edb"
+  },
+  {
+   "group": "repo_Vera",
+   "path": "/Users/motonishikoudai/Projects/Vera/experiments/stereo_cross_structure/PATTERN1_MATH_SIM.md",
+   "chars": 1710,
+   "lang": "ja",
+   "sha1": "7b448e201630b133ae2c0754305f383ada12cc67"
+  },
+  {
+   "group": "repo_Vera",
+   "path": "/Users/motonishikoudai/Projects/Vera/experiments/stereo_cross_structure/PATTERN1_NEXT.md",
+   "chars": 1651,
+   "lang": "en",
+   "sha1": "795d71bdf4cbe2fc26e86748ddc1dec60e5ef404"
+  },
+  {
+   "group": "repo_Vera",
+   "path": "/Users/motonishikoudai/Projects/Vera/experiments/stereo_cross_structure/PATTERN1_PLACE.md",
+   "chars": 2671,
+   "lang": "en",
+   "sha1": "81f77a0c3ec1e34ce83a209fa607c52302ec52ad"
+  },
+  {
+   "group": "repo_Vera",
+   "path": "/Users/motonishikoudai/Projects/Vera/experiments/stereo_cross_structure/PATTERN1_POUR.md",
+   "chars": 4873,
+   "lang": "ja",
+   "sha1": "bb619fbb78135b44c5d1138a4405d773f287c072"
+  },
+  {
+   "group": "repo_Vera",
+   "path": "/Users/motonishikoudai/Projects/Vera/experiments/stereo_cross_structure/PATTERN1_RECONSTITUTE.md",
+   "chars": 2732,
+   "lang": "en",
+   "sha1": "be3382ee5f3ed371f8a0c11647910c975f100d13"
+  },
+  {
+   "group": "repo_Vera",
+   "path": "/Users/motonishikoudai/Projects/Vera/experiments/stereo_cross_structure/PATTERN1_SCALE.md",
+   "chars": 4832,
+   "lang": "en",
+   "sha1": "6b124c25598b7849151ac75e7f52654cf5da8d84"
+  },
+  {
+   "group": "repo_Vera",
+   "path": "/Users/motonishikoudai/Projects/Vera/experiments/stereo_cross_structure/PATTERN1_SPEC.md",
+   "chars": 6576,
+   "lang": "en",
+   "sha1": "405b247f778bea55802b44df063ea54212a767c0"
+  },
+  {
+   "group": "repo_Vera",
+   "path": "/Users/motonishikoudai/Projects/Vera/experiments/stereo_cross_structure/PATTERN1_VISION.md",
+   "chars": 3399,
+   "lang": "en",
+   "sha1": "c61b381d85725a26953361ced280f22a0282679c"
+  },
+  {
+   "group": "repo_Vera",
+   "path": "/Users/motonishikoudai/Projects/Vera/experiments/stereo_cross_structure/README.md",
+   "chars": 2083,
+   "lang": "en",
+   "sha1": "d4bc2edaf8803714bc9da6f3c6f6fc8ec221f058"
+  },
+  {
+   "group": "repo_Vera",
+   "path": "/Users/motonishikoudai/Projects/Vera/harness/OPENCLAW.md",
+   "chars": 2263,
+   "lang": "en",
+   "sha1": "35c0a11a5541c43b707f944fcf38d6899e0b47f7"
+  },
+  {
+   "group": "repo_Vera",
+   "path": "/Users/motonishikoudai/Projects/Vera/harness/README.md",
+   "chars": 1760,
+   "lang": "en",
+   "sha1": "fa19593df7e96aebe8649e62bbd14b86ad428675"
+  },
+  {
+   "group": "repo_Vera",
+   "path": "/Users/motonishikoudai/Projects/Vera/runs/qwen35_08b/FORKS.md",
+   "chars": 1185,
+   "lang": "en",
+   "sha1": "3dff3eb414dc95e0b0cc65a7f6104b2f8634512c"
+  },
+  {
+   "group": "repo_Vera",
+   "path": "/Users/motonishikoudai/Projects/Vera/runs/qwen35_08b/NOTES.md",
+   "chars": 1936,
+   "lang": "en",
+   "sha1": "d70954bf5826dd665d0abaf4b15212866d1dc6e1"
+  },
+  {
+   "group": "repo_Vera",
+   "path": "/Users/motonishikoudai/Projects/Vera/runs/qwen35_08b/REPORT.md",
+   "chars": 3307,
+   "lang": "en",
+   "sha1": "c91b3a5f0fbfe5305733d0ca64472d6d914aee8d"
+  },
+  {
+   "group": "repo_Vera",
+   "path": "/Users/motonishikoudai/Projects/Vera/runs/qwen35_08b/STATUS.md",
+   "chars": 1532,
+   "lang": "en",
+   "sha1": "a4b312e6ed96c7d8c0541a191c4034821d9370e2"
+  },
+  {
+   "group": "repo_Vera",
+   "path": "/Users/motonishikoudai/Projects/Vera/runs/smoke-gpt2/REPORT.md",
+   "chars": 1499,
+   "lang": "en",
+   "sha1": "5c61419bcb1225ea30b0fe82128055a388290dfc"
+  },
+  {
+   "group": "repo_Vera",
+   "path": "/Users/motonishikoudai/Projects/Vera/vera/WEIGHTS_VS_HOOKS.md",
+   "chars": 1546,
+   "lang": "en",
+   "sha1": "bf1f5ea7f21eafa015cab5eeadac228d04882cd1"
+  },
+  {
+   "group": "repo_Verantyx",
+   "path": "/Users/motonishikoudai/Projects/Verantyx/.github/ISSUE_TEMPLATE/bug_report.md",
+   "chars": 831,
+   "lang": "en",
+   "sha1": "672c3f3b5e9923576c17c31cebc4f7e23a1dff40"
+  },
+  {
+   "group": "repo_Verantyx",
+   "path": "/Users/motonishikoudai/Projects/Verantyx/.github/ISSUE_TEMPLATE/feature_request.md",
+   "chars": 636,
+   "lang": "en",
+   "sha1": "6c30b35dd625040e11ffb6e0429aa709b918fa35"
+  },
+  {
+   "group": "repo_Verantyx",
+   "path": "/Users/motonishikoudai/Projects/Verantyx/.github/PULL_REQUEST_TEMPLATE.md",
+   "chars": 828,
+   "lang": "en",
+   "sha1": "83c8e3e47b6e00e7b912f391a791985782a76cd3"
+  },
+  {
+   "group": "repo_Verantyx",
+   "path": "/Users/motonishikoudai/Projects/Verantyx/CODE_OF_CONDUCT.md",
+   "chars": 2474,
+   "lang": "en",
+   "sha1": "6dc51e9520436c1ab3c8979fda1796950b590566"
+  },
+  {
+   "group": "repo_Verantyx",
+   "path": "/Users/motonishikoudai/Projects/Verantyx/CONTRIBUTING.md",
+   "chars": 1940,
+   "lang": "en",
+   "sha1": "56b0ea27aa3b5da11b8c8c05ce2f680fadc56326"
+  },
+  {
+   "group": "repo_Verantyx",
+   "path": "/Users/motonishikoudai/Projects/Verantyx/HANDOFF-cursor.md",
+   "chars": 1904,
+   "lang": "ja",
+   "sha1": "783329f52793cdd032f7c9a5c02f5e18e2398bb4"
+  },
+  {
+   "group": "repo_Verantyx",
+   "path": "/Users/motonishikoudai/Projects/Verantyx/README-ar.md",
+   "chars": 4273,
+   "lang": "en",
+   "sha1": "68c6f2118b30f4e8f96f3bd9dcba62baf1744b6a"
+  },
+  {
+   "group": "repo_Verantyx",
+   "path": "/Users/motonishikoudai/Projects/Verantyx/README-de.md",
+   "chars": 5187,
+   "lang": "en",
+   "sha1": "5659a277fabc9ce3b2e7763a23381a0c4eda6918"
+  },
+  {
+   "group": "repo_Verantyx",
+   "path": "/Users/motonishikoudai/Projects/Verantyx/README-es.md",
+   "chars": 4957,
+   "lang": "en",
+   "sha1": "fdae336835f520c3478e8772cab4080416149825"
+  },
+  {
+   "group": "repo_Verantyx",
+   "path": "/Users/motonishikoudai/Projects/Verantyx/README-fr.md",
+   "chars": 5110,
+   "lang": "en",
+   "sha1": "3563244267772038331227e0959600c84ba4bb4d"
+  },
+  {
+   "group": "repo_Verantyx",
+   "path": "/Users/motonishikoudai/Projects/Verantyx/README-ja.md",
+   "chars": 6781,
+   "lang": "ja",
+   "sha1": "b828ce4855560ad27bd12cecb925add6a3e50a03"
+  },
+  {
+   "group": "repo_Verantyx",
+   "path": "/Users/motonishikoudai/Projects/Verantyx/README-ko.md",
+   "chars": 3010,
+   "lang": "en",
+   "sha1": "3d0578dc3343ddc8bfe4032e4f83bb30e6a2802c"
+  },
+  {
+   "group": "repo_Verantyx",
+   "path": "/Users/motonishikoudai/Projects/Verantyx/README-pt-BR.md",
+   "chars": 4845,
+   "lang": "en",
+   "sha1": "9f38d3e1d0d9978582e52b5784400b8df920e9d8"
+  },
+  {
+   "group": "repo_Verantyx",
+   "path": "/Users/motonishikoudai/Projects/Verantyx/README-ru.md",
+   "chars": 5012,
+   "lang": "en",
+   "sha1": "3ee90d9a9de2d1c25e93caffe18a55e3ab6cc3f6"
+  },
+  {
+   "group": "repo_Verantyx",
+   "path": "/Users/motonishikoudai/Projects/Verantyx/README-tr.md",
+   "chars": 4642,
+   "lang": "en",
+   "sha1": "41b506f8ee8a69f6bb967ddf53c09533e052c2e8"
+  },
+  {
+   "group": "repo_Verantyx",
+   "path": "/Users/motonishikoudai/Projects/Verantyx/README-uk.md",
+   "chars": 4724,
+   "lang": "en",
+   "sha1": "922bf51bfb979fe9fb4fe746672c73dc54e66db1"
+  },
+  {
+   "group": "repo_Verantyx",
+   "path": "/Users/motonishikoudai/Projects/Verantyx/README-zh-CN.md",
+   "chars": 2448,
+   "lang": "zh",
+   "sha1": "d7d12fa74a9157ccc67ace97948956106463f1a9"
+  },
+  {
+   "group": "repo_Verantyx",
+   "path": "/Users/motonishikoudai/Projects/Verantyx/README-zh-TW.md",
+   "chars": 2431,
+   "lang": "zh",
+   "sha1": "ad24f516c5dbdb61133aa21e924c3483ac7fea7d"
+  },
+  {
+   "group": "repo_Verantyx",
+   "path": "/Users/motonishikoudai/Projects/Verantyx/README.md",
+   "chars": 15521,
+   "lang": "en",
+   "sha1": "5e31b33483927f1472567e3683c20888254d0428"
+  },
+  {
+   "group": "repo_Verantyx",
+   "path": "/Users/motonishikoudai/Projects/Verantyx/SECURITY.md",
+   "chars": 1057,
+   "lang": "en",
+   "sha1": "bba9d71f7bffe392974965e3fe4c1c6f826f9b36"
+  },
+  {
+   "group": "repo_Verantyx",
+   "path": "/Users/motonishikoudai/Projects/Verantyx/cli/README.md",
+   "chars": 15442,
+   "lang": "en",
+   "sha1": "182b0ad6d2379a2fd8989d61b2e2bb2ea8f824e3"
+  },
+  {
+   "group": "repo_Verantyx",
+   "path": "/Users/motonishikoudai/Projects/Verantyx/cli/VerantyxIDE/README.md",
+   "chars": 1868,
+   "lang": "ja",
+   "sha1": "4c742b205eafe20886192d636d84387f17c3e128"
+  },
+  {
+   "group": "repo_Verantyx",
+   "path": "/Users/motonishikoudai/Projects/Verantyx/cli/VerantyxIDE/SECURITY.md",
+   "chars": 896,
+   "lang": "ja",
+   "sha1": "3a2f4e682343a47e9857d1faa71848c71b95db66"
+  },
+  {
+   "group": "repo_Verantyx",
+   "path": "/Users/motonishikoudai/Projects/Verantyx/cli/VerantyxIDE/zenn_article_draft.md",
+   "chars": 2751,
+   "lang": "ja",
+   "sha1": "45693dcbe6a8291882f1d783f7159972db649a5e"
+  },
+  {
+   "group": "repo_Verantyx",
+   "path": "/Users/motonishikoudai/Projects/Verantyx/cli/verantyx-cli/README.md",
+   "chars": 2078,
+   "lang": "en",
+   "sha1": "9cdb6761f4d1fdafc83c2ad6233e8f2a7d334358"
+  },
+  {
+   "group": "repo_Verantyx",
+   "path": "/Users/motonishikoudai/Projects/Verantyx/cli/zenn_article_draft.md",
+   "chars": 2672,
+   "lang": "ja",
+   "sha1": "5aa30f3b57fce309da7a5667db075a45f827ce0b"
+  },
+  {
+   "group": "repo_Verantyx",
+   "path": "/Users/motonishikoudai/Projects/Verantyx/cortex/.github/pull_request_template.md",
+   "chars": 2297,
+   "lang": "en",
+   "sha1": "b7d6ffdbb83f6d886391ffe62d7706dfc2e3c1dc"
+  },
+  {
+   "group": "repo_Verantyx",
+   "path": "/Users/motonishikoudai/Projects/Verantyx/cortex/AGENTS.md",
+   "chars": 1304,
+   "lang": "en",
+   "sha1": "4bbb57337b7b93e1c0c690d98ed5347974524c59"
+  },
+  {
+   "group": "repo_Verantyx",
+   "path": "/Users/motonishikoudai/Projects/Verantyx/cortex/CHANGELOG.md",
+   "chars": 7614,
+   "lang": "en",
+   "sha1": "3481b88a432735681235a5e78fc74d7388a4d745"
+  },
+  {
+   "group": "repo_Verantyx",
+   "path": "/Users/motonishikoudai/Projects/Verantyx/cortex/CONTRIBUTING.md",
+   "chars": 3607,
+   "lang": "en",
+   "sha1": "f9507bb82d437470b1609243b8f3744552c741ce"
+  },
+  {
+   "group": "repo_Verantyx",
+   "path": "/Users/motonishikoudai/Projects/Verantyx/cortex/JCross_v4_Specification_JA.md",
+   "chars": 4133,
+   "lang": "ja",
+   "sha1": "668637f17f9e2c650f4ec470554512ef904293f9"
+  },
+  {
+   "group": "repo_Verantyx",
+   "path": "/Users/motonishikoudai/Projects/Verantyx/cortex/README.md",
+   "chars": 10630,
+   "lang": "en",
+   "sha1": "21fb8bff18c579451d73a55e4803be94aa8599b1"
+  },
+  {
+   "group": "repo_Verantyx",
+   "path": "/Users/motonishikoudai/Projects/Verantyx/cortex/RONIN.md",
+   "chars": 325,
+   "lang": "en",
+   "sha1": "8701d230fb3b373103df254e831d53a3c0ccb5f7"
+  },
+  {
+   "group": "repo_Verantyx",
+   "path": "/Users/motonishikoudai/Projects/Verantyx/cortex/USAGE_local.md",
+   "chars": 27259,
+   "lang": "en",
+   "sha1": "2300544c5961eb47a8a7f18d306c6d06f6c92c7f"
+  },
+  {
+   "group": "repo_Verantyx",
+   "path": "/Users/motonishikoudai/Projects/Verantyx/cortex/VISION.md",
+   "chars": 4637,
+   "lang": "en",
+   "sha1": "8c3807a7dc4d84c261f8fcc9e42a50a397c06f69"
+  },
+  {
+   "group": "repo_Verantyx",
+   "path": "/Users/motonishikoudai/Projects/Verantyx/cortex/docs/auth-credential-semantics.md",
+   "chars": 1703,
+   "lang": "en",
+   "sha1": "f2b2e831472aa838223da1befbad2c81b34f4d9e"
+  },
+  {
+   "group": "repo_Verantyx",
+   "path": "/Users/motonishikoudai/Projects/Verantyx/cortex/docs/ci.md",
+   "chars": 3189,
+   "lang": "en",
+   "sha1": "d963243a1d401e8b7b21d0ecd0e43ce0bab4a742"
+  },
+  {
+   "group": "repo_Verantyx",
+   "path": "/Users/motonishikoudai/Projects/Verantyx/cortex/docs/date-time.md",
+   "chars": 3540,
+   "lang": "en",
+   "sha1": "b5f62e6682108a0b7ebe1dc9e6daa0cff17a86e2"
+  },
+  {
+   "group": "repo_Verantyx",
+   "path": "/Users/motonishikoudai/Projects/Verantyx/cortex/docs/gemini_loop.md",
+   "chars": 7456,
+   "lang": "en",
+   "sha1": "e8b3a9a6dd6d5de2c5af3dec6b9e865498129314"
+  },
+  {
+   "group": "repo_Verantyx",
+   "path": "/Users/motonishikoudai/Projects/Verantyx/cortex/docs/index.md",
+   "chars": 6157,
+   "lang": "en",
+   "sha1": "d8cf42640926543519915c63097849d70cc332a4"
+  },
+  {
+   "group": "repo_Verantyx",
+   "path": "/Users/motonishikoudai/Projects/Verantyx/cortex/docs/logging.md",
+   "chars": 10970,
+   "lang": "en",
+   "sha1": "a6844aae81bd5df2c1e9a2d1e4e4b5f36f44f681"
+  },
+  {
+   "group": "repo_Verantyx",
+   "path": "/Users/motonishikoudai/Projects/Verantyx/cortex/docs/network.md",
+   "chars": 1601,
+   "lang": "en",
+   "sha1": "caa294832f377a70d1cb4e884fa3809372b77525"
+  },
+  {
+   "group": "repo_Verantyx",
+   "path": "/Users/motonishikoudai/Projects/Verantyx/cortex/docs/perplexity.md",
+   "chars": 5694,
+   "lang": "en",
+   "sha1": "f4a6021d97f6859b1a5c08ab096096287db3de8b"
+  },
+  {
+   "group": "repo_Verantyx",
+   "path": "/Users/motonishikoudai/Projects/Verantyx/cortex/docs/pi-dev.md",
+   "chars": 2350,
+   "lang": "en",
+   "sha1": "3e442211e8c4d32f8d2be9fdd901cea6a338379e"
+  },
+  {
+   "group": "repo_Verantyx",
+   "path": "/Users/motonishikoudai/Projects/Verantyx/cortex/docs/pi.md",
+   "chars": 20775,
+   "lang": "en",
+   "sha1": "da5b9c900ad33815367005e09507efca4262d35d"
+  },
+  {
+   "group": "repo_Verantyx",
+   "path": "/Users/motonishikoudai/Projects/Verantyx/cortex/docs/prose.md",
+   "chars": 3694,
+   "lang": "en",
+   "sha1": "df330ea16c2b647a1c023bca6b0c34a45d73b985"
+  },
+  {
+   "group": "repo_Verantyx",
+   "path": "/Users/motonishikoudai/Projects/Verantyx/cortex/docs/vps.md",
+   "chars": 3756,
+   "lang": "en",
+   "sha1": "f3537132fc3552414509a7d947db12fef49de54d"
+  },
+  {
+   "group": "repo_Verantyx",
+   "path": "/Users/motonishikoudai/Projects/Verantyx/cortex/docs.acp.md",
+   "chars": 11159,
+   "lang": "en",
+   "sha1": "010bf8940d111806880f993566e0a52a651cf030"
+  },
+  {
+   "group": "repo_Verantyx",
+   "path": "/Users/motonishikoudai/Projects/Verantyx/cortex/reddit_post_rrust.md",
+   "chars": 5347,
+   "lang": "en",
+   "sha1": "3ee9a3b49797acbb18ede551d60591c121b6fe50"
+  },
+  {
+   "group": "repo_Verantyx",
+   "path": "/Users/motonishikoudai/Projects/Verantyx/cortex/verantyx-browser/README.md",
+   "chars": 6950,
+   "lang": "en",
+   "sha1": "bd6376684198b4abf8dde3f6a14e0cb91febb648"
+  },
+  {
+   "group": "repo_Verantyx",
+   "path": "/Users/motonishikoudai/Projects/Verantyx/cortex/verantyx-browser/RONIN.md",
+   "chars": 344,
+   "lang": "en",
+   "sha1": "51dcdf143513293b096f84c0d692feea998cebce"
+  },
+  {
+   "group": "repo_Verantyx",
+   "path": "/Users/motonishikoudai/Projects/Verantyx/docs/README-Agent.md",
+   "chars": 1474,
+   "lang": "ja",
+   "sha1": "76fbcd64cfaaeb2df80d1ed2b81178559a9d2ab6"
+  },
+  {
+   "group": "repo_Verantyx",
+   "path": "/Users/motonishikoudai/Projects/Verantyx/docs/README-Gatekeeper.md",
+   "chars": 6288,
+   "lang": "ja",
+   "sha1": "d94ee8c316daf44b42ffabc6764560dff4a89cd6"
+  },
+  {
+   "group": "repo_Verantyx",
+   "path": "/Users/motonishikoudai/Projects/Verantyx/docs/jgen-vector-bus-acceptance.md",
+   "chars": 1558,
+   "lang": "en",
+   "sha1": "d03e971f74bc492fe3a199d06daaabdc8dcd50cb"
+  },
+  {
+   "group": "repo_Verantyx",
+   "path": "/Users/motonishikoudai/Projects/Verantyx/site/README.md",
+   "chars": 1392,
+   "lang": "ja",
+   "sha1": "3a36ce4dbcc05af4489cef0b713489421bad76f6"
+  },
+  {
+   "group": "repo_Verantyx-Vera-beta",
+   "path": "/Users/motonishikoudai/Projects/Verantyx-Vera-beta/README.md",
+   "chars": 13351,
+   "lang": "en",
+   "sha1": "51e07f78ba413185d339bc9c495903a0559745d9"
+  },
+  {
+   "group": "repo_Verantyx-Vera-beta",
+   "path": "/Users/motonishikoudai/Projects/Verantyx-Vera-beta/docs/OBFUSCATE.md",
+   "chars": 5310,
+   "lang": "en",
+   "sha1": "3df8de18f6267048a2c280337b39361d58acb12f"
+  },
+  {
+   "group": "repo_cart-mobility-poc",
+   "path": "/Users/motonishikoudai/Projects/cart-mobility-poc/README.md",
+   "chars": 4155,
+   "lang": "en",
+   "sha1": "8f84acff3b7e41962c36195dd045af9b8cabe72f"
+  },
+  {
+   "group": "repo_cart-mobility-poc",
+   "path": "/Users/motonishikoudai/Projects/cart-mobility-poc/docs/HN_POST_JA.md",
+   "chars": 1450,
+   "lang": "ja",
+   "sha1": "4838130d782723093de6646bb81b5a2bedcfc7ff"
+  },
+  {
+   "group": "repo_cart-mobility-poc",
+   "path": "/Users/motonishikoudai/Projects/cart-mobility-poc/docs/metrics.md",
+   "chars": 1122,
+   "lang": "en",
+   "sha1": "b84ab1c4bf77fcf1b548edd2d3b4389a40496704"
+  },
+  {
+   "group": "repo_cart-mobility-poc",
+   "path": "/Users/motonishikoudai/Projects/cart-mobility-poc/docs/poc-one-pager.md",
+   "chars": 1088,
+   "lang": "ja",
+   "sha1": "f1126b735de7c9c94e85b47d2b44182dbd1d3449"
+  },
+  {
+   "group": "repo_cart-mobility-poc",
+   "path": "/Users/motonishikoudai/Projects/cart-mobility-poc/docs/prototype-design.md",
+   "chars": 6397,
+   "lang": "ja",
+   "sha1": "f28fdfa3192935f73eab61e2d6260d88a8c45a08"
+  },
+  {
+   "group": "repo_vera-corpus",
+   "path": "/Users/motonishikoudai/Projects/vera-corpus/corpora/mathlib4/CITATION.md",
+   "chars": 677,
+   "lang": "en",
+   "sha1": "bdd04b9c01165684b461b94d8db6995bb6e1f5cf"
+  },
+  {
+   "group": "repo_vera-corpus",
+   "path": "/Users/motonishikoudai/Projects/vera-corpus/corpora/mathlib4/CODE_OF_CONDUCT.md",
+   "chars": 5319,
+   "lang": "en",
+   "sha1": "1fdcd0cd30927bd62501ca0cf2eedf9fe546fa73"
+  },
+  {
+   "group": "repo_vera-corpus",
+   "path": "/Users/motonishikoudai/Projects/vera-corpus/corpora/mathlib4/README.md",
+   "chars": 8929,
+   "lang": "en",
+   "sha1": "36dec8d5b6addd2c34d96a1cb8e70b8a71e959c5"
+  },
+  {
+   "group": "repo_verantyx-cli",
+   "path": "/Users/motonishikoudai/Projects/verantyx-cli/CONTRIBUTING.md",
+   "chars": 3343,
+   "lang": "en",
+   "sha1": "f83ced687ebd8f177e392ed2b0c540b34534687a"
+  },
+  {
+   "group": "repo_verantyx-cli",
+   "path": "/Users/motonishikoudai/Projects/verantyx-cli/PRIVACY.md",
+   "chars": 2188,
+   "lang": "en",
+   "sha1": "63008f7c6b4de8914acde683f5d821053272520c"
+  },
+  {
+   "group": "repo_verantyx-cli",
+   "path": "/Users/motonishikoudai/Projects/verantyx-cli/README-ar.md",
+   "chars": 392,
+   "lang": "en",
+   "sha1": "e86e038871ca657344d75bd4114fb400c8366e0e"
+  },
+  {
+   "group": "repo_verantyx-cli",
+   "path": "/Users/motonishikoudai/Projects/verantyx-cli/README-de.md",
+   "chars": 398,
+   "lang": "en",
+   "sha1": "3287f0aa069c5841a76c016aa835cfcfa0bb3bad"
+  },
+  {
+   "group": "repo_verantyx-cli",
+   "path": "/Users/motonishikoudai/Projects/verantyx-cli/README-es.md",
+   "chars": 418,
+   "lang": "en",
+   "sha1": "2e6dd6210fda07ad159b43433510b6cce0c3c0bd"
+  },
+  {
+   "group": "repo_verantyx-cli",
+   "path": "/Users/motonishikoudai/Projects/verantyx-cli/README-fr.md",
+   "chars": 409,
+   "lang": "en",
+   "sha1": "0692f721accaed71c4a9e6ef2fae6f0b298e0bed"
+  },
+  {
+   "group": "repo_verantyx-cli",
+   "path": "/Users/motonishikoudai/Projects/verantyx-cli/README-ko.md",
+   "chars": 367,
+   "lang": "en",
+   "sha1": "24a2c992e3cc717072966c8cbffc7da0c628ce32"
+  },
+  {
+   "group": "repo_verantyx-cli",
+   "path": "/Users/motonishikoudai/Projects/verantyx-cli/README-pt-BR.md",
+   "chars": 413,
+   "lang": "en",
+   "sha1": "63d495173d62cec65b74a0aaaf1d93a136e146a6"
+  },
+  {
+   "group": "repo_verantyx-cli",
+   "path": "/Users/motonishikoudai/Projects/verantyx-cli/README-ru.md",
+   "chars": 411,
+   "lang": "en",
+   "sha1": "6908912b471031dca10ffede4dd2040976d440b7"
+  },
+  {
+   "group": "repo_verantyx-cli",
+   "path": "/Users/motonishikoudai/Projects/verantyx-cli/README-tr.md",
+   "chars": 415,
+   "lang": "en",
+   "sha1": "e569030b3b63a20a44d4fdbe35bb705028617310"
+  },
+  {
+   "group": "repo_verantyx-cli",
+   "path": "/Users/motonishikoudai/Projects/verantyx-cli/README-uk.md",
+   "chars": 412,
+   "lang": "en",
+   "sha1": "e6bd5be3715a59daa0636b76df77ed0276bb4112"
+  },
+  {
+   "group": "repo_verantyx-cli",
+   "path": "/Users/motonishikoudai/Projects/verantyx-cli/README-zh-CN.md",
+   "chars": 355,
+   "lang": "zh",
+   "sha1": "b4534d3f7f034568aca994aa8a3baf995e1e3fed"
+  },
+  {
+   "group": "repo_verantyx-cli",
+   "path": "/Users/motonishikoudai/Projects/verantyx-cli/README-zh-TW.md",
+   "chars": 355,
+   "lang": "zh",
+   "sha1": "1b94962024dc07f75937c9d8b1e02b09c6ba39d4"
+  },
+  {
+   "group": "repo_verantyx-cli",
+   "path": "/Users/motonishikoudai/Projects/verantyx-cli/README.ja.md",
+   "chars": 4361,
+   "lang": "ja",
+   "sha1": "fe754577c8b37b5b67918c6c3208f443b5fb7fa0"
+  },
+  {
+   "group": "repo_verantyx-cli",
+   "path": "/Users/motonishikoudai/Projects/verantyx-cli/README.md",
+   "chars": 1316,
+   "lang": "en",
+   "sha1": "a9cf8d7e70c2ea4a9382478c116395d72f667be6"
+  },
+  {
+   "group": "repo_verantyx-cli",
+   "path": "/Users/motonishikoudai/Projects/verantyx-cli/README_hf.md",
+   "chars": 464,
+   "lang": "en",
+   "sha1": "8b0d0501a971a5c0df8ba372dcb368631b2f8acc"
+  },
+  {
+   "group": "repo_verantyx-cli",
+   "path": "/Users/motonishikoudai/Projects/verantyx-cli/benchmarks/README.md",
+   "chars": 24424,
+   "lang": "ja",
+   "sha1": "3fdbc7b64d64496e5a6095db9f7f45b15085e9f2"
+  },
+  {
+   "group": "repo_verantyx-cli",
+   "path": "/Users/motonishikoudai/Projects/verantyx-cli/benchmarks/datasets/concept_lexicon_schema.md",
+   "chars": 2547,
+   "lang": "en",
+   "sha1": "d13cd0e7d77f89835c5f279046692fa6f2c848be"
+  },
+  {
+   "group": "repo_verantyx-cli",
+   "path": "/Users/motonishikoudai/Projects/verantyx-cli/docs/ARCH_PRIORITY.md",
+   "chars": 3137,
+   "lang": "en",
+   "sha1": "9e8fb462861010bcccbc1bb78fe719205e2b264d"
+  },
+  {
+   "group": "repo_verantyx-cli",
+   "path": "/Users/motonishikoudai/Projects/verantyx-cli/docs/BRANCHING.md",
+   "chars": 2348,
+   "lang": "ja",
+   "sha1": "03073fb5f73b40f3e34e5144631a997bf39505dc"
+  },
+  {
+   "group": "repo_verantyx-cli",
+   "path": "/Users/motonishikoudai/Projects/verantyx-cli/docs/CAPTURE_SYNC.md",
+   "chars": 2185,
+   "lang": "ja",
+   "sha1": "b1bbbacbfdb1c9a4589002d74a0d5664c53f74c9"
+  },
+  {
+   "group": "repo_verantyx-cli",
+   "path": "/Users/motonishikoudai/Projects/verantyx-cli/docs/CROSS_MODEL_INTERLINGUA.md",
+   "chars": 4282,
+   "lang": "ja",
+   "sha1": "5427802b6c067c16cd54ebe4c8f99724a800d742"
+  },
+  {
+   "group": "repo_verantyx-cli",
+   "path": "/Users/motonishikoudai/Projects/verantyx-cli/docs/DEMO.md",
+   "chars": 1539,
+   "lang": "en",
+   "sha1": "013b0a034830abe0cba96ec7ca8be643be3d5322"
+  },
+  {
+   "group": "repo_verantyx-cli",
+   "path": "/Users/motonishikoudai/Projects/verantyx-cli/docs/GEMMA4_JGEN.md",
+   "chars": 3431,
+   "lang": "en",
+   "sha1": "7e936d4b6f79bf5410fb8960c69804cfee62edf2"
+  },
+  {
+   "group": "repo_verantyx-cli",
+   "path": "/Users/motonishikoudai/Projects/verantyx-cli/docs/GROWTH_SUBSTRATE.md",
+   "chars": 1694,
+   "lang": "en",
+   "sha1": "2a47988a21a14e84f8d8c91959dcbbd7252a8e53"
+  },
+  {
+   "group": "repo_verantyx-cli",
+   "path": "/Users/motonishikoudai/Projects/verantyx-cli/docs/JCROSS_CONVERSION_GUIDE.md",
+   "chars": 1427,
+   "lang": "ja",
+   "sha1": "4a946bcb6535ad032d024396f62a529cf4cca07d"
+  },
+  {
+   "group": "repo_verantyx-cli",
+   "path": "/Users/motonishikoudai/Projects/verantyx-cli/docs/OMNI_PROFILES.md",
+   "chars": 1333,
+   "lang": "ja",
+   "sha1": "a2089c53d7c6e97e10c85c0957e883964d9632e3"
+  },
+  {
+   "group": "repo_verantyx-cli",
+   "path": "/Users/motonishikoudai/Projects/verantyx-cli/docs/PITCH.md",
+   "chars": 2152,
+   "lang": "en",
+   "sha1": "24eaf8b0fcffabf4c64486d1c3b1180e4e71bc75"
+  },
+  {
+   "group": "repo_verantyx-cli",
+   "path": "/Users/motonishikoudai/Projects/verantyx-cli/docs/PREREGISTERED_2026-08-17_contrastive_steering.md",
+   "chars": 11993,
+   "lang": "en",
+   "sha1": "5f5652ad5afd987820370a50e395a40b69a1f4bc"
+  },
+  {
+   "group": "repo_verantyx-cli",
+   "path": "/Users/motonishikoudai/Projects/verantyx-cli/docs/PREREGISTERED_2026-08-17_contrastive_steering_v2.md",
+   "chars": 10259,
+   "lang": "en",
+   "sha1": "280670b2691e6df2cd2e13208b03621b72d1ab11"
+  },
+  {
+   "group": "repo_verantyx-cli",
+   "path": "/Users/motonishikoudai/Projects/verantyx-cli/docs/PREREGISTERED_2026-08-17_hidden_state_recall.md",
+   "chars": 9848,
+   "lang": "en",
+   "sha1": "9a25774c82f1ecaec4c0a6dbf95dbb9bddf636c1"
+  },
+  {
+   "group": "repo_verantyx-cli",
+   "path": "/Users/motonishikoudai/Projects/verantyx-cli/docs/PREREGISTERED_2026-08-17_projection_abliteration.md",
+   "chars": 6396,
+   "lang": "en",
+   "sha1": "224cc72947de1b40bc2ddfeaf81bc20bd67a082d"
+  },
+  {
+   "group": "repo_verantyx-cli",
+   "path": "/Users/motonishikoudai/Projects/verantyx-cli/docs/PREREGISTERED_2026-08-17_refusal_steering.md",
+   "chars": 10436,
+   "lang": "en",
+   "sha1": "66436cefaba59d1df53613fa9967ecdc7750b34f"
+  },
+  {
+   "group": "repo_verantyx-cli",
+   "path": "/Users/motonishikoudai/Projects/verantyx-cli/docs/PREREGISTERED_2026-08-17_soft_token_recall.md",
+   "chars": 9802,
+   "lang": "en",
+   "sha1": "41ef2f6b9158e1b67a817b3d6073f35f0a0251c8"
+  },
+  {
+   "group": "repo_verantyx-cli",
+   "path": "/Users/motonishikoudai/Projects/verantyx-cli/docs/PREREGISTERED_2026-08-17_steering_complete.md",
+   "chars": 10184,
+   "lang": "en",
+   "sha1": "f72d3aa3721b043085af1a2164ae45f1eaaaa8b2"
+  },
+  {
+   "group": "repo_verantyx-cli",
+   "path": "/Users/motonishikoudai/Projects/verantyx-cli/docs/QUICKSTART.md",
+   "chars": 1805,
+   "lang": "ja",
+   "sha1": "50b93566d3a02dc5190fb2bc315d3b681a42fa89"
+  },
+  {
+   "group": "repo_verantyx-cli",
+   "path": "/Users/motonishikoudai/Projects/verantyx-cli/docs/README-Gatekeeper.md",
+   "chars": 5994,
+   "lang": "ja",
+   "sha1": "259e066dc68633eeb349d9eafe0ae63eccf17066"
+  },
+  {
+   "group": "repo_verantyx-cli",
+   "path": "/Users/motonishikoudai/Projects/verantyx-cli/docs/README_CLAIM_AUDIT.md",
+   "chars": 3946,
+   "lang": "ja",
+   "sha1": "487ed5e7f4570ffb752070dc0e3c8e9f635d7a0b"
+  },
+  {
+   "group": "repo_verantyx-cli",
+   "path": "/Users/motonishikoudai/Projects/verantyx-cli/docs/README_FULL_AUDIT_AND_ROADMAP.md",
+   "chars": 4170,
+   "lang": "ja",
+   "sha1": "66e75b358426f3d738b35758b8883efb8bdf7bc6"
+  },
+  {
+   "group": "repo_verantyx-cli",
+   "path": "/Users/motonishikoudai/Projects/verantyx-cli/docs/RELEASES.md",
+   "chars": 1636,
+   "lang": "en",
+   "sha1": "7d864b6aa948ad90cd87fbda5d4f6be99ed39c3c"
+  },
+  {
+   "group": "repo_verantyx-cli",
+   "path": "/Users/motonishikoudai/Projects/verantyx-cli/docs/ROUTER_DIVERGENCE_PLAN.md",
+   "chars": 6196,
+   "lang": "ja",
+   "sha1": "fd60f16ec6ccedd1a48c98473c71693ae3f90011"
+  },
+  {
+   "group": "repo_verantyx-cli",
+   "path": "/Users/motonishikoudai/Projects/verantyx-cli/docs/chronicles/Vol1_The_Genesis_and_MPS_Trap.md",
+   "chars": 259789,
+   "lang": "ja",
+   "sha1": "3bf79d80b77bc68ab9c729e6f7868e4790e7bef8"
+  },
+  {
+   "group": "repo_verantyx-cli",
+   "path": "/Users/motonishikoudai/Projects/verantyx-cli/docs/chronicles/Vol2_Zero_RAM_Inference.md",
+   "chars": 187816,
+   "lang": "ja",
+   "sha1": "66453dba5324696761bfa08462fb5daaafadc4af"
+  },
+  {
+   "group": "repo_verantyx-cli",
+   "path": "/Users/motonishikoudai/Projects/verantyx-cli/docs/chronicles/Vol3_Multilingual_Madness_and_JCross.md",
+   "chars": 1313904,
+   "lang": "ja",
+   "sha1": "45a8b7dce9409606105347573ae03ee9e67aa481"
+  },
+  {
+   "group": "repo_verantyx-cli",
+   "path": "/Users/motonishikoudai/Projects/verantyx-cli/docs/chronicles/Vol4_The_Philosophical_Drift.md",
+   "chars": 177804,
+   "lang": "ja",
+   "sha1": "91ca8a14cc9b06a30a0f6f51da30537506e53584"
+  },
+  {
+   "group": "repo_verantyx-cli",
+   "path": "/Users/motonishikoudai/Projects/verantyx-cli/experiments/README.md",
+   "chars": 755,
+   "lang": "en",
+   "sha1": "c1a27a23527efe59a8cd0e115dcb5a07f83485be"
+  },
+  {
+   "group": "repo_verantyx-cli",
+   "path": "/Users/motonishikoudai/Projects/verantyx-cli/implementation_plan.md",
+   "chars": 1125,
+   "lang": "ja",
+   "sha1": "09527fd8dc61616c64478683709657c0bb623426"
+  },
+  {
+   "group": "repo_verantyx-cli",
+   "path": "/Users/motonishikoudai/Projects/verantyx-cli/jgen_converter_pack/README.md",
+   "chars": 1209,
+   "lang": "ja",
+   "sha1": "e741fb859f7ca053a831ce6556c5a5c0df6c62b8"
+  },
+  {
+   "group": "repo_verantyx-cli",
+   "path": "/Users/motonishikoudai/Projects/verantyx-cli/patches/README-jgen-only-council.md",
+   "chars": 1774,
+   "lang": "en",
+   "sha1": "304862599ade13fc3497641f0e15426930497baf"
+  },
+  {
+   "group": "repo_verantyx-cli",
+   "path": "/Users/motonishikoudai/Projects/verantyx-cli/scripts/legacy/README.md",
+   "chars": 400,
+   "lang": "en",
+   "sha1": "3010bdc840ae5e82034147d4ed68926e5e93c36d"
+  },
+  {
+   "group": "repo_verantyx-cli",
+   "path": "/Users/motonishikoudai/Projects/verantyx-cli/space/README.md",
+   "chars": 887,
+   "lang": "ja",
+   "sha1": "ace8390402218a2ec0c1f4900095efeffc821716"
+  },
+  {
+   "group": "repo_verantyx-cli-work",
+   "path": "/Users/motonishikoudai/Projects/verantyx-cli-work/verantyx-cli/docs/GEMMA4_JGEN.md",
+   "chars": 1855,
+   "lang": "ja",
+   "sha1": "a3d50749fbb438bc37b6be983282b7a022eda76f"
+  },
+  {
+   "group": "claude_plugins",
+   "path": "/Users/motonishikoudai/.claude/plugins/marketplaces/claude-plugins-official/README.md",
+   "chars": 3807,
+   "lang": "en",
+   "sha1": "365816217d2bed3d88f3bb2d50c196cac6e2598d"
+  },
+  {
+   "group": "claude_plugins",
+   "path": "/Users/motonishikoudai/.claude/plugins/marketplaces/claude-plugins-official/external_plugins/asana/README.md",
+   "chars": 3237,
+   "lang": "en",
+   "sha1": "68e22bab3e29f2c9af07865167547e49d34a532c"
+  },
+  {
+   "group": "claude_plugins",
+   "path": "/Users/motonishikoudai/.claude/plugins/marketplaces/claude-plugins-official/external_plugins/asana/commands/asana-setup.md",
+   "chars": 1928,
+   "lang": "en",
+   "sha1": "f38f13106d5f10a48b1c62560b2bcfce5dd604a2"
+  },
+  {
+   "group": "claude_plugins",
+   "path": "/Users/motonishikoudai/.claude/plugins/marketplaces/claude-plugins-official/external_plugins/context7/README.md",
+   "chars": 1859,
+   "lang": "en",
+   "sha1": "831a005c84c0f212b027611bc99bf0ae2ec66992"
+  },
+  {
+   "group": "claude_plugins",
+   "path": "/Users/motonishikoudai/.claude/plugins/marketplaces/claude-plugins-official/external_plugins/discord/ACCESS.md",
+   "chars": 6582,
+   "lang": "en",
+   "sha1": "81dd61c80b267c5e6bd8b88c1f8ac89d009546d7"
+  },
+  {
+   "group": "claude_plugins",
+   "path": "/Users/motonishikoudai/.claude/plugins/marketplaces/claude-plugins-official/external_plugins/discord/README.md",
+   "chars": 4854,
+   "lang": "en",
+   "sha1": "8f74c07bee8a38ae9020820283b6246a15596fa1"
+  },
+  {
+   "group": "claude_plugins",
+   "path": "/Users/motonishikoudai/.claude/plugins/marketplaces/claude-plugins-official/external_plugins/discord/skills/access/SKILL.md",
+   "chars": 4341,
+   "lang": "en",
+   "sha1": "aec8062119893931bde0c5b320095e54dc8d36d0"
+  },
+  {
+   "group": "claude_plugins",
+   "path": "/Users/motonishikoudai/.claude/plugins/marketplaces/claude-plugins-official/external_plugins/discord/skills/configure/SKILL.md",
+   "chars": 4272,
+   "lang": "en",
+   "sha1": "b401122bd4800b5d8c3168a446fd2b724a1fe2b4"
+  },
+  {
+   "group": "claude_plugins",
+   "path": "/Users/motonishikoudai/.claude/plugins/marketplaces/claude-plugins-official/external_plugins/fakechat/README.md",
+   "chars": 1304,
+   "lang": "en",
+   "sha1": "3ba255310d8d3cc0d1916de58c16b323b54e5587"
+  },
+  {
+   "group": "claude_plugins",
+   "path": "/Users/motonishikoudai/.claude/plugins/marketplaces/claude-plugins-official/external_plugins/greptile/README.md",
+   "chars": 1914,
+   "lang": "en",
+   "sha1": "d161a665d6ad0536b2ffad10932025ddc32c2c24"
+  },
+  {
+   "group": "claude_plugins",
+   "path": "/Users/motonishikoudai/.claude/plugins/marketplaces/claude-plugins-official/external_plugins/telegram/ACCESS.md",
+   "chars": 6830,
+   "lang": "en",
+   "sha1": "fec06c5bf40dad6346dadbefbc298325d3fdf601"
+  },
+  {
+   "group": "claude_plugins",
+   "path": "/Users/motonishikoudai/.claude/plugins/marketplaces/claude-plugins-official/external_plugins/telegram/README.md",
+   "chars": 4430,
+   "lang": "en",
+   "sha1": "1083ac092bca09ba9d21c0c8d98b22e2ffaced4a"
+  },
+  {
+   "group": "claude_plugins",
+   "path": "/Users/motonishikoudai/.claude/plugins/marketplaces/claude-plugins-official/external_plugins/telegram/skills/access/SKILL.md",
+   "chars": 4449,
+   "lang": "en",
+   "sha1": "86e970af14d77fd0dc4c2c85ba93f138a667dd76"
+  },
+  {
+   "group": "claude_plugins",
+   "path": "/Users/motonishikoudai/.claude/plugins/marketplaces/claude-plugins-official/external_plugins/telegram/skills/configure/SKILL.md",
+   "chars": 4262,
+   "lang": "en",
+   "sha1": "064c61a4fa57729058ad6ed3dc515f01912b4221"
+  },
+  {
+   "group": "claude_plugins",
+   "path": "/Users/motonishikoudai/.claude/plugins/marketplaces/claude-plugins-official/plugins/agent-sdk-dev/agents/agent-sdk-verifier-py.md",
+   "chars": 5206,
+   "lang": "en",
+   "sha1": "dc04275bf5650bb6a70d7875c7b5dc4659060af4"
+  },
+  {
+   "group": "claude_plugins",
+   "path": "/Users/motonishikoudai/.claude/plugins/marketplaces/claude-plugins-official/plugins/agent-sdk-dev/agents/agent-sdk-verifier-ts.md",
+   "chars": 5419,
+   "lang": "en",
+   "sha1": "b16f9ec5298689e2b84090684e36bf74604687fb"
+  },
+  {
+   "group": "claude_plugins",
+   "path": "/Users/motonishikoudai/.claude/plugins/marketplaces/claude-plugins-official/plugins/agent-sdk-dev/commands/new-sdk-app.md",
+   "chars": 7846,
+   "lang": "en",
+   "sha1": "d40bde67a00ddfb80c35d66290c92008c8a337b0"
+  },
+  {
+   "group": "claude_plugins",
+   "path": "/Users/motonishikoudai/.claude/plugins/marketplaces/claude-plugins-official/plugins/clangd-lsp/README.md",
+   "chars": 780,
+   "lang": "en",
+   "sha1": "c771cbf144bf017aff730bfde465508d7794dd1a"
+  },
+  {
+   "group": "claude_plugins",
+   "path": "/Users/motonishikoudai/.claude/plugins/marketplaces/claude-plugins-official/plugins/claude-code-setup/skills/claude-automation-recommender/SKILL.md",
+   "chars": 10976,
+   "lang": "en",
+   "sha1": "7e64b26465b5e06b5f264d2341d90d0e5e0b2d42"
+  },
+  {
+   "group": "claude_plugins",
+   "path": "/Users/motonishikoudai/.claude/plugins/marketplaces/claude-plugins-official/plugins/claude-code-setup/skills/claude-automation-recommender/references/hooks-patterns.md",
+   "chars": 6288,
+   "lang": "en",
+   "sha1": "d5191a7a7dbe77fef448e69e03411b24b5d57937"
+  },
+  {
+   "group": "claude_plugins",
+   "path": "/Users/motonishikoudai/.claude/plugins/marketplaces/claude-plugins-official/plugins/claude-code-setup/skills/claude-automation-recommender/references/mcp-servers.md",
+   "chars": 8292,
+   "lang": "en",
+   "sha1": "bf3afac7aa5f42be84430f62f0808e684bb2cc15"
+  },
+  {
+   "group": "claude_plugins",
+   "path": "/Users/motonishikoudai/.claude/plugins/marketplaces/claude-plugins-official/plugins/claude-code-setup/skills/claude-automation-recommender/references/plugins-reference.md",
+   "chars": 3014,
+   "lang": "en",
+   "sha1": "59bc5236980a17eb0ac3011b13c8cf6767672d29"
+  },
+  {
+   "group": "claude_plugins",
+   "path": "/Users/motonishikoudai/.claude/plugins/marketplaces/claude-plugins-official/plugins/claude-code-setup/skills/claude-automation-recommender/references/skills-reference.md",
+   "chars": 9442,
+   "lang": "en",
+   "sha1": "7c1f1678fd80bc2f979699aefb2e67390eba3853"
+  },
+  {
+   "group": "claude_plugins",
+   "path": "/Users/motonishikoudai/.claude/plugins/marketplaces/claude-plugins-official/plugins/claude-code-setup/skills/claude-automation-recommender/references/subagent-templates.md",
+   "chars": 5022,
+   "lang": "en",
+   "sha1": "bd44eefe46c9032f5ad4dd1da75c8f74e3772b8d"
+  },
+  {
+   "group": "claude_plugins",
+   "path": "/Users/motonishikoudai/.claude/plugins/marketplaces/claude-plugins-official/plugins/claude-md-management/commands/revise-claude-md.md",
+   "chars": 1357,
+   "lang": "en",
+   "sha1": "5c5325b012f789322c8c10b2248cc5979bb640d0"
+  },
+  {
+   "group": "claude_plugins",
+   "path": "/Users/motonishikoudai/.claude/plugins/marketplaces/claude-plugins-official/plugins/claude-md-management/skills/claude-md-improver/SKILL.md",
+   "chars": 6028,
+   "lang": "en",
+   "sha1": "159624e19a0384ad157c6983e8e4ca8c3a5d1e45"
+  },
+  {
+   "group": "claude_plugins",
+   "path": "/Users/motonishikoudai/.claude/plugins/marketplaces/claude-plugins-official/plugins/claude-md-management/skills/claude-md-improver/references/quality-criteria.md",
+   "chars": 2617,
+   "lang": "en",
+   "sha1": "e60a7c05742aca8e35f52a8d232db4d56e5f980e"
+  },
+  {
+   "group": "claude_plugins",
+   "path": "/Users/motonishikoudai/.claude/plugins/marketplaces/claude-plugins-official/plugins/claude-md-management/skills/claude-md-improver/references/templates.md",
+   "chars": 3687,
+   "lang": "en",
+   "sha1": "b0f2cd75ba9ca66177ee75233b2995f73833c116"
+  },
+  {
+   "group": "claude_plugins",
+   "path": "/Users/motonishikoudai/.claude/plugins/marketplaces/claude-plugins-official/plugins/claude-md-management/skills/claude-md-improver/references/update-guidelines.md",
+   "chars": 3197,
+   "lang": "en",
+   "sha1": "4e753b2c51bd16fef68933cd200e93471299702a"
+  },
+  {
+   "group": "claude_plugins",
+   "path": "/Users/motonishikoudai/.claude/plugins/marketplaces/claude-plugins-official/plugins/claude-security/README.md",
+   "chars": 8709,
+   "lang": "en",
+   "sha1": "49f2c0c6a44576ca5266aeb91758afd5a8681d0a"
+  },
+  {
+   "group": "claude_plugins",
+   "path": "/Users/motonishikoudai/.claude/plugins/marketplaces/claude-plugins-official/plugins/claude-security/SECURITY.md",
+   "chars": 2011,
+   "lang": "en",
+   "sha1": "803df39f036c766435270b1f67eab85b57019326"
+  },
+  {
+   "group": "claude_plugins",
+   "path": "/Users/motonishikoudai/.claude/plugins/marketplaces/claude-plugins-official/plugins/claude-security/agents/claude-security.md",
+   "chars": 3802,
+   "lang": "en",
+   "sha1": "7582bc4459998442a5c5145f040bf57465abcc1d"
+  },
+  {
+   "group": "claude_plugins",
+   "path": "/Users/motonishikoudai/.claude/plugins/marketplaces/claude-plugins-official/plugins/claude-security/agents/explore.md",
+   "chars": 2496,
+   "lang": "en",
+   "sha1": "3397f6a706a25524b323bd4414731b3d43410d13"
+  },
+  {
+   "group": "claude_plugins",
+   "path": "/Users/motonishikoudai/.claude/plugins/marketplaces/claude-plugins-official/plugins/claude-security/agents/patch-generator.md",
+   "chars": 4866,
+   "lang": "en",
+   "sha1": "5a7dc96ec1cfbf52ad041d1f090f6427413aa2e4"
+  },
+  {
+   "group": "claude_plugins",
+   "path": "/Users/motonishikoudai/.claude/plugins/marketplaces/claude-plugins-official/plugins/claude-security/agents/patch-verifier.md",
+   "chars": 7360,
+   "lang": "en",
+   "sha1": "aa297bb23ff28895cab1707cfba161f6188b3c7d"
+  },
+  {
+   "group": "claude_plugins",
+   "path": "/Users/motonishikoudai/.claude/plugins/marketplaces/claude-plugins-official/plugins/claude-security/agents/scan-inventory.md",
+   "chars": 4141,
+   "lang": "en",
+   "sha1": "cfe9e3d086195c861d241ea2bb3c5f7ede8929ed"
+  },
+  {
+   "group": "claude_plugins",
+   "path": "/Users/motonishikoudai/.claude/plugins/marketplaces/claude-plugins-official/plugins/claude-security/agents/scan-researcher.md",
+   "chars": 6413,
+   "lang": "en",
+   "sha1": "6ac6169d5f2aba262e2b8eebc76d9b24ea8792be"
+  },
+  {
+   "group": "claude_plugins",
+   "path": "/Users/motonishikoudai/.claude/plugins/marketplaces/claude-plugins-official/plugins/claude-security/agents/scan-verifier.md",
+   "chars": 4076,
+   "lang": "en",
+   "sha1": "d4df554ce240fe6b6b00e5f7b1017a8a649d3087"
+  },
+  {
+   "group": "claude_plugins",
+   "path": "/Users/motonishikoudai/.claude/plugins/marketplaces/claude-plugins-official/plugins/claude-security/skills/claude-security/SKILL.md",
+   "chars": 5106,
+   "lang": "en",
+   "sha1": "ffa856204784af7b936885b3add850b72ddeca5d"
+  },
+  {
+   "group": "claude_plugins",
+   "path": "/Users/motonishikoudai/.claude/plugins/marketplaces/claude-plugins-official/plugins/claude-security/skills/claude-security/jobs/scan-changes.md",
+   "chars": 20430,
+   "lang": "en",
+   "sha1": "71c904bfded744caf43bc2a98cd21581438f0bce"
+  },
+  {
+   "group": "claude_plugins",
+   "path": "/Users/motonishikoudai/.claude/plugins/marketplaces/claude-plugins-official/plugins/claude-security/skills/claude-security/jobs/scan-codebase.md",
+   "chars": 21752,
+   "lang": "en",
+   "sha1": "de596b32e93e187349f69b5e4631e4afbc28fe99"
+  },
+  {
+   "group": "claude_plugins",
+   "path": "/Users/motonishikoudai/.claude/plugins/marketplaces/claude-plugins-official/plugins/claude-security/skills/claude-security/jobs/suggest-patches.md",
+   "chars": 24047,
+   "lang": "en",
+   "sha1": "c0156daed1534e2b9ae12f031a803aa658cc9114"
+  },
+  {
+   "group": "claude_plugins",
+   "path": "/Users/motonishikoudai/.claude/plugins/marketplaces/claude-plugins-official/plugins/claude-security/skills/claude-security/role.md",
+   "chars": 9998,
+   "lang": "en",
+   "sha1": "89467f1f6b6007df531144a840e735426e72cfbc"
+  },
+  {
+   "group": "claude_plugins",
+   "path": "/Users/motonishikoudai/.claude/plugins/marketplaces/claude-plugins-official/plugins/claude-security/skills/claude-security/specs/patch-spec.md",
+   "chars": 8227,
+   "lang": "en",
+   "sha1": "e54bf4f1933c9b9b3581511029e390e8ef443c17"
+  },
+  {
+   "group": "claude_plugins",
+   "path": "/Users/motonishikoudai/.claude/plugins/marketplaces/claude-plugins-official/plugins/claude-security/skills/claude-security/specs/report-spec.md",
+   "chars": 7490,
+   "lang": "en",
+   "sha1": "5eaf3fc93bb03f6c8d8ca2da0d89f4977fab6304"
+  },
+  {
+   "group": "claude_plugins",
+   "path": "/Users/motonishikoudai/.claude/plugins/marketplaces/claude-plugins-official/plugins/code-modernization/README.md",
+   "chars": 12396,
+   "lang": "en",
+   "sha1": "d230c0bb12459e61ce403bb9fdcce2c7935636ca"
+  },
+  {
+   "group": "claude_plugins",
+   "path": "/Users/motonishikoudai/.claude/plugins/marketplaces/claude-plugins-official/plugins/code-modernization/agents/architecture-critic.md",
+   "chars": 3036,
+   "lang": "en",
+   "sha1": "adbff78e4a1cc9729bf0f1f6f71e96db5ac1ef3e"
+  },
+  {
+   "group": "claude_plugins",
+   "path": "/Users/motonishikoudai/.claude/plugins/marketplaces/claude-plugins-official/plugins/code-modernization/agents/business-rules-extractor.md",
+   "chars": 3738,
+   "lang": "en",
+   "sha1": "73c7347f5ce5edb424756240f6f8507460fba288"
+  },
+  {
+   "group": "claude_plugins",
+   "path": "/Users/motonishikoudai/.claude/plugins/marketplaces/claude-plugins-official/plugins/code-modernization/agents/legacy-analyst.md",
+   "chars": 3604,
+   "lang": "en",
+   "sha1": "dec4574f22b90f1e73d50f00cbe04ebd5023886b"
+  },
+  {
+   "group": "claude_plugins",
+   "path": "/Users/motonishikoudai/.claude/plugins/marketplaces/claude-plugins-official/plugins/code-modernization/agents/scaffolder.md",
+   "chars": 1906,
+   "lang": "en",
+   "sha1": "e611b608e088a5ef30574f34e65b515f181a2dbe"
+  },
+  {
+   "group": "claude_plugins",
+   "path": "/Users/motonishikoudai/.claude/plugins/marketplaces/claude-plugins-official/plugins/code-modernization/agents/security-auditor.md",
+   "chars": 4866,
+   "lang": "en",
+   "sha1": "3856ef3038df88047b9ac9cf4afa9a839acc516b"
+  },
+  {
+   "group": "claude_plugins",
+   "path": "/Users/motonishikoudai/.claude/plugins/marketplaces/claude-plugins-official/plugins/code-modernization/agents/test-engineer.md",
+   "chars": 2883,
+   "lang": "en",
+   "sha1": "e2f21f539256d3ae3fa0c90738c68758b06ce10d"
+  },
+  {
+   "group": "claude_plugins",
+   "path": "/Users/motonishikoudai/.claude/plugins/marketplaces/claude-plugins-official/plugins/code-modernization/agents/uplift-migrator.md",
+   "chars": 4752,
+   "lang": "en",
+   "sha1": "b6251a08b5f5be0930059405675918d23d3cb652"
+  },
+  {
+   "group": "claude_plugins",
+   "path": "/Users/motonishikoudai/.claude/plugins/marketplaces/claude-plugins-official/plugins/code-modernization/agents/version-delta-analyst.md",
+   "chars": 7453,
+   "lang": "en",
+   "sha1": "79a4a132872d5153aa35f308f6689554e48dfa63"
+  },
+  {
+   "group": "claude_plugins",
+   "path": "/Users/motonishikoudai/.claude/plugins/marketplaces/claude-plugins-official/plugins/code-modernization/commands/modernize-assess.md",
+   "chars": 11222,
+   "lang": "en",
+   "sha1": "3d21b2c5e65be2e9bf302dcddbde541a1886b3c6"
+  },
+  {
+   "group": "claude_plugins",
+   "path": "/Users/motonishikoudai/.claude/plugins/marketplaces/claude-plugins-official/plugins/code-modernization/commands/modernize-brief.md",
+   "chars": 8883,
+   "lang": "en",
+   "sha1": "e51e7cc831186fe0af6b12ac571bbf755a282d3b"
+  },
+  {
+   "group": "claude_plugins",
+   "path": "/Users/motonishikoudai/.claude/plugins/marketplaces/claude-plugins-official/plugins/code-modernization/commands/modernize-extract-rules.md",
+   "chars": 5798,
+   "lang": "en",
+   "sha1": "99432dbdf1ad9648e8ec61f77f19151d21f21cdd"
+  },
+  {
+   "group": "claude_plugins",
+   "path": "/Users/motonishikoudai/.claude/plugins/marketplaces/claude-plugins-official/plugins/code-modernization/commands/modernize-harden.md",
+   "chars": 7389,
+   "lang": "en",
+   "sha1": "0b69a9e4e0637f8ee6172071701f87662d7f4a4b"
+  },
+  {
+   "group": "claude_plugins",
+   "path": "/Users/motonishikoudai/.claude/plugins/marketplaces/claude-plugins-official/plugins/code-modernization/commands/modernize-map.md",
+   "chars": 8751,
+   "lang": "en",
+   "sha1": "e42154d1e9ab1ea21d1e9c24cf333de7f053043b"
+  },
+  {
+   "group": "claude_plugins",
+   "path": "/Users/motonishikoudai/.claude/plugins/marketplaces/claude-plugins-official/plugins/code-modernization/commands/modernize-preflight.md",
+   "chars": 12377,
+   "lang": "en",
+   "sha1": "b00896a3afe13436447b0ebf38a5fe41985b3036"
+  },
+  {
+   "group": "claude_plugins",
+   "path": "/Users/motonishikoudai/.claude/plugins/marketplaces/claude-plugins-official/plugins/code-modernization/commands/modernize-reimagine.md",
+   "chars": 6689,
+   "lang": "en",
+   "sha1": "0f85ee100777d335c46843e1a4a0a4c53fa28f72"
+  },
+  {
+   "group": "claude_plugins",
+   "path": "/Users/motonishikoudai/.claude/plugins/marketplaces/claude-plugins-official/plugins/code-modernization/commands/modernize-status.md",
+   "chars": 2960,
+   "lang": "en",
+   "sha1": "cf5c1e353d057f4a0aec2f545786a7c9bfdcd7dd"
+  },
+  {
+   "group": "claude_plugins",
+   "path": "/Users/motonishikoudai/.claude/plugins/marketplaces/claude-plugins-official/plugins/code-modernization/commands/modernize-transform.md",
+   "chars": 5832,
+   "lang": "en",
+   "sha1": "526caff74faef08cb5fd2e61aa60602ff1a31de9"
+  },
+  {
+   "group": "claude_plugins",
+   "path": "/Users/motonishikoudai/.claude/plugins/marketplaces/claude-plugins-official/plugins/code-modernization/commands/modernize-uplift.md",
+   "chars": 24197,
+   "lang": "en",
+   "sha1": "318c833fe5857083c361b33e71177d7ce7f26b78"
+  },
+  {
+   "group": "claude_plugins",
+   "path": "/Users/motonishikoudai/.claude/plugins/marketplaces/claude-plugins-official/plugins/code-review/commands/code-review.md",
+   "chars": 7410,
+   "lang": "en",
+   "sha1": "6f7a75db1eb7344564fd7392d22c0b1f56aee3dc"
+  },
+  {
+   "group": "claude_plugins",
+   "path": "/Users/motonishikoudai/.claude/plugins/marketplaces/claude-plugins-official/plugins/code-simplifier/agents/code-simplifier.md",
+   "chars": 3129,
+   "lang": "en",
+   "sha1": "a3d3b269f60b00d782a5c38157939d2e31698500"
+  },
+  {
+   "group": "claude_plugins",
+   "path": "/Users/motonishikoudai/.claude/plugins/marketplaces/claude-plugins-official/plugins/commit-commands/commands/clean_gone.md",
+   "chars": 1865,
+   "lang": "en",
+   "sha1": "0b25117c37ebdd6ff5f0bb927084f97ac5739ceb"
+  },
+  {
+   "group": "claude_plugins",
+   "path": "/Users/motonishikoudai/.claude/plugins/marketplaces/claude-plugins-official/plugins/commit-commands/commands/commit-push-pr.md",
+   "chars": 796,
+   "lang": "en",
+   "sha1": "12ba7895273f6bf43e8529fb0acc675e0e410340"
+  },
+  {
+   "group": "claude_plugins",
+   "path": "/Users/motonishikoudai/.claude/plugins/marketplaces/claude-plugins-official/plugins/commit-commands/commands/commit.md",
+   "chars": 624,
+   "lang": "en",
+   "sha1": "1340de71ee70c01c215c4ff3dc1ba705129d8fb9"
+  },
+  {
+   "group": "claude_plugins",
+   "path": "/Users/motonishikoudai/.claude/plugins/marketplaces/claude-plugins-official/plugins/csharp-lsp/README.md",
+   "chars": 486,
+   "lang": "en",
+   "sha1": "a6ce0139aa701553288d17e4c716b2d2fa819254"
+  },
+  {
+   "group": "claude_plugins",
+   "path": "/Users/motonishikoudai/.claude/plugins/marketplaces/claude-plugins-official/plugins/cwc-makers/README.md",
+   "chars": 1927,
+   "lang": "en",
+   "sha1": "b0ebbb4de0b13ea1807c68d29181103210be68d9"
+  },
+  {
+   "group": "claude_plugins",
+   "path": "/Users/motonishikoudai/.claude/plugins/marketplaces/claude-plugins-official/plugins/cwc-makers/commands/maker-setup.md",
+   "chars": 1390,
+   "lang": "en",
+   "sha1": "55047b2447999a03fe857f36d6932afa71ef2cc5"
+  },
+  {
+   "group": "claude_plugins",
+   "path": "/Users/motonishikoudai/.claude/plugins/marketplaces/claude-plugins-official/plugins/cwc-makers/skills/cardputer-buddy/SKILL.md",
+   "chars": 1841,
+   "lang": "en",
+   "sha1": "a85c4653c0bd85fcfdf9f421924f73bbacba34b9"
+  },
+  {
+   "group": "claude_plugins",
+   "path": "/Users/motonishikoudai/.claude/plugins/marketplaces/claude-plugins-official/plugins/cwc-makers/skills/m5-onboard/SKILL.md",
+   "chars": 23757,
+   "lang": "en",
+   "sha1": "8d784d26e79d848384e0ad94176cf5e8882e4ac2"
+  },
+  {
+   "group": "claude_plugins",
+   "path": "/Users/motonishikoudai/.claude/plugins/marketplaces/claude-plugins-official/plugins/example-plugin/README.md",
+   "chars": 1803,
+   "lang": "en",
+   "sha1": "634f50580370fd28f9abe00961265655050c0ecb"
+  },
+  {
+   "group": "claude_plugins",
+   "path": "/Users/motonishikoudai/.claude/plugins/marketplaces/claude-plugins-official/plugins/example-plugin/commands/example-command.md",
+   "chars": 1245,
+   "lang": "en",
+   "sha1": "2693c1b9d20471d4c8ee90745b579ce400fe3926"
+  },
+  {
+   "group": "claude_plugins",
+   "path": "/Users/motonishikoudai/.claude/plugins/marketplaces/claude-plugins-official/plugins/example-plugin/skills/example-command/SKILL.md",
+   "chars": 1224,
+   "lang": "en",
+   "sha1": "c644e984feb3bd6e043eb6fe758a989650b19a90"
+  },
+  {
+   "group": "claude_plugins",
+   "path": "/Users/motonishikoudai/.claude/plugins/marketplaces/claude-plugins-official/plugins/example-plugin/skills/example-skill/SKILL.md",
+   "chars": 2655,
+   "lang": "en",
+   "sha1": "afea9f68bd8edc0a4c9afed674ccf9523d82eaa9"
+  },
+  {
+   "group": "claude_plugins",
+   "path": "/Users/motonishikoudai/.claude/plugins/marketplaces/claude-plugins-official/plugins/explanatory-output-style/README.md",
+   "chars": 2296,
+   "lang": "en",
+   "sha1": "622321700465a6d44bd619b87c8aef01fb8a8186"
+  },
+  {
+   "group": "claude_plugins",
+   "path": "/Users/motonishikoudai/.claude/plugins/marketplaces/claude-plugins-official/plugins/feature-dev/agents/code-architect.md",
+   "chars": 2259,
+   "lang": "en",
+   "sha1": "1f24ecc3f08132d01a81cbfbcf5906c01dc22736"
+  },
+  {
+   "group": "claude_plugins",
+   "path": "/Users/motonishikoudai/.claude/plugins/marketplaces/claude-plugins-official/plugins/feature-dev/agents/code-explorer.md",
+   "chars": 2111,
+   "lang": "en",
+   "sha1": "64e659e7438f69e15f50d34a6ba8927037ac686c"
+  },
+  {
+   "group": "claude_plugins",
+   "path": "/Users/motonishikoudai/.claude/plugins/marketplaces/claude-plugins-official/plugins/feature-dev/agents/code-reviewer.md",
+   "chars": 2992,
+   "lang": "en",
+   "sha1": "f2a346be4999e40011cb1e28eb1c0cfd018e96eb"
+  },
+  {
+   "group": "claude_plugins",
+   "path": "/Users/motonishikoudai/.claude/plugins/marketplaces/claude-plugins-official/plugins/feature-dev/commands/feature-dev.md",
+   "chars": 5097,
+   "lang": "en",
+   "sha1": "19596763b5ef8f7d452cd47e53e248c220381c88"
+  },
+  {
+   "group": "claude_plugins",
+   "path": "/Users/motonishikoudai/.claude/plugins/marketplaces/claude-plugins-official/plugins/frontend-design/skills/frontend-design/SKILL.md",
+   "chars": 8250,
+   "lang": "en",
+   "sha1": "e4971c4ff27b7c8bce86a1c872462258e79b5658"
+  },
+  {
+   "group": "claude_plugins",
+   "path": "/Users/motonishikoudai/.claude/plugins/marketplaces/claude-plugins-official/plugins/gopls-lsp/README.md",
+   "chars": 473,
+   "lang": "en",
+   "sha1": "e769ab0f32dfaa06485f5305ba03885d66578529"
+  },
+  {
+   "group": "claude_plugins",
+   "path": "/Users/motonishikoudai/.claude/plugins/marketplaces/claude-plugins-official/plugins/hookify/README.md",
+   "chars": 7679,
+   "lang": "en",
+   "sha1": "8d4c1b285831d5816de3d7fb978c403abc2a1532"
+  },
+  {
+   "group": "claude_plugins",
+   "path": "/Users/motonishikoudai/.claude/plugins/marketplaces/claude-plugins-official/plugins/hookify/agents/conversation-analyzer.md",
+   "chars": 5621,
+   "lang": "en",
+   "sha1": "acdad82af1402f885ac9664d7e43f5fd8d1f60aa"
+  },
+  {
+   "group": "claude_plugins",
+   "path": "/Users/motonishikoudai/.claude/plugins/marketplaces/claude-plugins-official/plugins/hookify/commands/configure.md",
+   "chars": 2859,
+   "lang": "en",
+   "sha1": "797d69a0309076ffbab81779a006368f68bbfeb0"
+  },
+  {
+   "group": "claude_plugins",
+   "path": "/Users/motonishikoudai/.claude/plugins/marketplaces/claude-plugins-official/plugins/hookify/commands/help.md",
+   "chars": 4620,
+   "lang": "en",
+   "sha1": "c8e9a1700c23623634666aea677781fae936f38e"
+  },
+  {
+   "group": "claude_plugins",
+   "path": "/Users/motonishikoudai/.claude/plugins/marketplaces/claude-plugins-official/plugins/hookify/commands/hookify.md",
+   "chars": 7663,
+   "lang": "en",
+   "sha1": "16e3177d79dcab2e7aab607cac304ff69e5400f2"
+  },
+  {
+   "group": "claude_plugins",
+   "path": "/Users/motonishikoudai/.claude/plugins/marketplaces/claude-plugins-official/plugins/hookify/commands/list.md",
+   "chars": 2008,
+   "lang": "en",
+   "sha1": "14f6e980e74e40e4d6d3ff0f7ca7177c0ca067ed"
+  },
+  {
+   "group": "claude_plugins",
+   "path": "/Users/motonishikoudai/.claude/plugins/marketplaces/claude-plugins-official/plugins/hookify/examples/console-log-warning.local.md",
+   "chars": 312,
+   "lang": "en",
+   "sha1": "d823e729b92de34c3a0e4dad8be73845b1a368b6"
+  },
+  {
+   "group": "claude_plugins",
+   "path": "/Users/motonishikoudai/.claude/plugins/marketplaces/claude-plugins-official/plugins/hookify/examples/dangerous-rm.local.md",
+   "chars": 274,
+   "lang": "en",
+   "sha1": "7203c185cca2e281758f2c4f004863b7344d306e"
+  },
+  {
+   "group": "claude_plugins",
+   "path": "/Users/motonishikoudai/.claude/plugins/marketplaces/claude-plugins-official/plugins/hookify/examples/require-tests-stop.local.md",
+   "chars": 500,
+   "lang": "en",
+   "sha1": "bc4c6e700923e24aba37345877ce34a9ad463146"
+  },
+  {
+   "group": "claude_plugins",
+   "path": "/Users/motonishikoudai/.claude/plugins/marketplaces/claude-plugins-official/plugins/hookify/examples/sensitive-files-warning.local.md",
+   "chars": 418,
+   "lang": "en",
+   "sha1": "2824c65f212ed59fcc8fccb03af411db0efc3cb6"
+  },
+  {
+   "group": "claude_plugins",
+   "path": "/Users/motonishikoudai/.claude/plugins/marketplaces/claude-plugins-official/plugins/hookify/skills/writing-rules/SKILL.md",
+   "chars": 8413,
+   "lang": "en",
+   "sha1": "c859d0387e4391849acf861ddf09d98e931713f2"
+  },
+  {
+   "group": "claude_plugins",
+   "path": "/Users/motonishikoudai/.claude/plugins/marketplaces/claude-plugins-official/plugins/jdtls-lsp/README.md",
+   "chars": 811,
+   "lang": "en",
+   "sha1": "bbac68f97b473a3d97d566bddaa334ebe0a7161a"
+  },
+  {
+   "group": "claude_plugins",
+   "path": "/Users/motonishikoudai/.claude/plugins/marketplaces/claude-plugins-official/plugins/kotlin-lsp/README.md",
+   "chars": 306,
+   "lang": "en",
+   "sha1": "63854516214840b9af8b8e2b0afe3052e818cae3"
+  },
+  {
+   "group": "claude_plugins",
+   "path": "/Users/motonishikoudai/.claude/plugins/marketplaces/claude-plugins-official/plugins/learning-output-style/README.md",
+   "chars": 4513,
+   "lang": "en",
+   "sha1": "86774f83d535cdc027521abe1cf99641beeb10f3"
+  },
+  {
+   "group": "claude_plugins",
+   "path": "/Users/motonishikoudai/.claude/plugins/marketplaces/claude-plugins-official/plugins/lua-lsp/README.md",
+   "chars": 705,
+   "lang": "en",
+   "sha1": "a2958d3c5010f33cbfd58460009c08882f137b4d"
+  },
+  {
+   "group": "claude_plugins",
+   "path": "/Users/motonishikoudai/.claude/plugins/marketplaces/claude-plugins-official/plugins/math-olympiad/README.md",
+   "chars": 1191,
+   "lang": "en",
+   "sha1": "f9b18de93dc67a770b2b72f8711af430b2af3f07"
+  },
+  {
+   "group": "claude_plugins",
+   "path": "/Users/motonishikoudai/.claude/plugins/marketplaces/claude-plugins-official/plugins/math-olympiad/skills/math-olympiad/SKILL.md",
+   "chars": 19808,
+   "lang": "en",
+   "sha1": "3194b4eb541a59137756fdcaca21aba745f08cf4"
+  },
+  {
+   "group": "claude_plugins",
+   "path": "/Users/motonishikoudai/.claude/plugins/marketplaces/claude-plugins-official/plugins/math-olympiad/skills/math-olympiad/references/adversarial_prompts.md",
+   "chars": 12475,
+   "lang": "en",
+   "sha1": "7f9c1f17dc87ed3774ce9605c0b496ebe7c44b46"
+  },
+  {
+   "group": "claude_plugins",
+   "path": "/Users/motonishikoudai/.claude/plugins/marketplaces/claude-plugins-official/plugins/math-olympiad/skills/math-olympiad/references/attempt_agent.md",
+   "chars": 1953,
+   "lang": "en",
+   "sha1": "8b32b315ef9fa469000f4cbb7e5424450972fbbd"
+  },
+  {
+   "group": "claude_plugins",
+   "path": "/Users/motonishikoudai/.claude/plugins/marketplaces/claude-plugins-official/plugins/math-olympiad/skills/math-olympiad/references/known_constructions.md",
+   "chars": 2007,
+   "lang": "en",
+   "sha1": "11380554f84431ebf5b87c89b071f4f6695cac78"
+  },
+  {
+   "group": "claude_plugins",
+   "path": "/Users/motonishikoudai/.claude/plugins/marketplaces/claude-plugins-official/plugins/math-olympiad/skills/math-olympiad/references/model_tier_defaults.md",
+   "chars": 2958,
+   "lang": "en",
+   "sha1": "ecb05daa36da6363b5c3afa116e61b7ff7a6ce0f"
+  },
+  {
+   "group": "claude_plugins",
+   "path": "/Users/motonishikoudai/.claude/plugins/marketplaces/claude-plugins-official/plugins/math-olympiad/skills/math-olympiad/references/presentation_prompts.md",
+   "chars": 6105,
+   "lang": "en",
+   "sha1": "c0b7e5e4e02244178c61e12634039aa6474f511c"
+  },
+  {
+   "group": "claude_plugins",
+   "path": "/Users/motonishikoudai/.claude/plugins/marketplaces/claude-plugins-official/plugins/math-olympiad/skills/math-olympiad/references/solver_heuristics.md",
+   "chars": 5940,
+   "lang": "en",
+   "sha1": "4609cb502408aafa25f87c3539aa3d95452ffe4a"
+  },
+  {
+   "group": "claude_plugins",
+   "path": "/Users/motonishikoudai/.claude/plugins/marketplaces/claude-plugins-official/plugins/math-olympiad/skills/math-olympiad/references/verifier_patterns.md",
+   "chars": 8141,
+   "lang": "en",
+   "sha1": "03db8f21f6547825c61889cda86755cf430dda76"
+  },
+  {
+   "group": "claude_plugins",
+   "path": "/Users/motonishikoudai/.claude/plugins/marketplaces/claude-plugins-official/plugins/mcp-server-dev/README.md",
+   "chars": 1539,
+   "lang": "en",
+   "sha1": "1d6036e88f1b3b06dc79ab1948712355f80550e2"
+  },
+  {
+   "group": "claude_plugins",
+   "path": "/Users/motonishikoudai/.claude/plugins/marketplaces/claude-plugins-official/plugins/mcp-server-dev/skills/build-mcp-app/SKILL.md",
+   "chars": 18971,
+   "lang": "en",
+   "sha1": "d66f9b04a2233d54d2a0d88b2dde42da60364470"
+  },
+  {
+   "group": "claude_plugins",
+   "path": "/Users/motonishikoudai/.claude/plugins/marketplaces/claude-plugins-official/plugins/mcp-server-dev/skills/build-mcp-app/references/abuse-protection.md",
+   "chars": 2404,
+   "lang": "en",
+   "sha1": "4668effa5240b24591cf31ee5c1cf477a21d1033"
+  },
+  {
+   "group": "claude_plugins",
+   "path": "/Users/motonishikoudai/.claude/plugins/marketplaces/claude-plugins-official/plugins/mcp-server-dev/skills/build-mcp-app/references/apps-sdk-messages.md",
+   "chars": 8718,
+   "lang": "en",
+   "sha1": "ad1cb13dd3c0912f675c064f6dd7f72c5735979e"
+  },
+  {
+   "group": "claude_plugins",
+   "path": "/Users/motonishikoudai/.claude/plugins/marketplaces/claude-plugins-official/plugins/mcp-server-dev/skills/build-mcp-app/references/directory-checklist.md",
+   "chars": 1540,
+   "lang": "en",
+   "sha1": "cf4377b825f16a20374c505c69f71e6e2523ae1c"
+  },
+  {
+   "group": "claude_plugins",
+   "path": "/Users/motonishikoudai/.claude/plugins/marketplaces/claude-plugins-official/plugins/mcp-server-dev/skills/build-mcp-app/references/iframe-sandbox.md",
+   "chars": 5150,
+   "lang": "en",
+   "sha1": "b6725a2c9cda9299ac187f571ec251ccfc84eaac"
+  },
+  {
+   "group": "claude_plugins",
+   "path": "/Users/motonishikoudai/.claude/plugins/marketplaces/claude-plugins-official/plugins/mcp-server-dev/skills/build-mcp-app/references/payload-budgeting.md",
+   "chars": 2168,
+   "lang": "en",
+   "sha1": "dd1ee7764ed771eec3e4e1baf4c7fd5f8758bee8"
+  },
+  {
+   "group": "claude_plugins",
+   "path": "/Users/motonishikoudai/.claude/plugins/marketplaces/claude-plugins-official/plugins/mcp-server-dev/skills/build-mcp-app/references/widget-templates.md",
+   "chars": 8898,
+   "lang": "en",
+   "sha1": "4fa19968e51d9430956ac37a2644d942297b4599"
+  },
+  {
+   "group": "claude_plugins",
+   "path": "/Users/motonishikoudai/.claude/plugins/marketplaces/claude-plugins-official/plugins/mcp-server-dev/skills/build-mcp-server/SKILL.md",
+   "chars": 11942,
+   "lang": "en",
+   "sha1": "45791cdfb5c069441fb087032e586177a1944138"
+  },
+  {
+   "group": "claude_plugins",
+   "path": "/Users/motonishikoudai/.claude/plugins/marketplaces/claude-plugins-official/plugins/mcp-server-dev/skills/build-mcp-server/references/deploy-cloudflare-workers.md",
+   "chars": 3625,
+   "lang": "en",
+   "sha1": "3e2394dfa21719a463599bc6af48418c84d8af10"
+  },
+  {
+   "group": "claude_plugins",
+   "path": "/Users/motonishikoudai/.claude/plugins/marketplaces/claude-plugins-official/plugins/mcp-server-dev/skills/build-mcp-server/references/elicitation.md",
+   "chars": 4696,
+   "lang": "en",
+   "sha1": "d921462f435e3e57ce00fb58acb87a99b0ec396e"
+  },
+  {
+   "group": "claude_plugins",
+   "path": "/Users/motonishikoudai/.claude/plugins/marketplaces/claude-plugins-official/plugins/mcp-server-dev/skills/build-mcp-server/references/remote-http-scaffold.md",
+   "chars": 7018,
+   "lang": "en",
+   "sha1": "b762342b4499860d221149103dc89e21b1f368f4"
+  },
+  {
+   "group": "claude_plugins",
+   "path": "/Users/motonishikoudai/.claude/plugins/marketplaces/claude-plugins-official/plugins/mcp-server-dev/skills/build-mcp-server/references/resources-and-prompts.md",
+   "chars": 4074,
+   "lang": "en",
+   "sha1": "55d3516763e7d653ec3490a2dc789092f4c91d60"
+  },
+  {
+   "group": "claude_plugins",
+   "path": "/Users/motonishikoudai/.claude/plugins/marketplaces/claude-plugins-official/plugins/mcp-server-dev/skills/build-mcp-server/references/server-capabilities.md",
+   "chars": 4633,
+   "lang": "en",
+   "sha1": "2ba125b3a318e082fbbee6cbf14e1bf8fb4fa3cc"
+  },
+  {
+   "group": "claude_plugins",
+   "path": "/Users/motonishikoudai/.claude/plugins/marketplaces/claude-plugins-official/plugins/mcp-server-dev/skills/build-mcp-server/references/tool-design.md",
+   "chars": 7012,
+   "lang": "en",
+   "sha1": "28ab0348f25bbe40a218ea882e98b000f479eca6"
+  },
+  {
+   "group": "claude_plugins",
+   "path": "/Users/motonishikoudai/.claude/plugins/marketplaces/claude-plugins-official/plugins/mcp-server-dev/skills/build-mcp-server/references/versions.md",
+   "chars": 1105,
+   "lang": "en",
+   "sha1": "47be1a4d1542bfe12b5ae88478e12b50c10f30f1"
+  },
+  {
+   "group": "claude_plugins",
+   "path": "/Users/motonishikoudai/.claude/plugins/marketplaces/claude-plugins-official/plugins/mcp-server-dev/skills/build-mcpb/SKILL.md",
+   "chars": 7793,
+   "lang": "en",
+   "sha1": "96a999bce4af28d303b21ed64c5e43672951311b"
+  },
+  {
+   "group": "claude_plugins",
+   "path": "/Users/motonishikoudai/.claude/plugins/marketplaces/claude-plugins-official/plugins/mcp-server-dev/skills/build-mcpb/references/local-security.md",
+   "chars": 5358,
+   "lang": "en",
+   "sha1": "5a1cdf91a327df1b263ca8eebd07c48e1bb43033"
+  },
+  {
+   "group": "claude_plugins",
+   "path": "/Users/motonishikoudai/.claude/plugins/marketplaces/claude-plugins-official/plugins/mcp-server-dev/skills/build-mcpb/references/manifest-schema.md",
+   "chars": 5319,
+   "lang": "en",
+   "sha1": "d631d2d94310e99bd03ff4ccc3faa0784ff24022"
+  },
+  {
+   "group": "claude_plugins",
+   "path": "/Users/motonishikoudai/.claude/plugins/marketplaces/claude-plugins-official/plugins/mcp-tunnels/commands/create-docker-mcp-tunnel.md",
+   "chars": 16200,
+   "lang": "en",
+   "sha1": "372fb90fb8ca5fb40f6d828f4e473d1ab733b4fe"
+  },
+  {
+   "group": "claude_plugins",
+   "path": "/Users/motonishikoudai/.claude/plugins/marketplaces/claude-plugins-official/plugins/php-lsp/README.md",
+   "chars": 436,
+   "lang": "en",
+   "sha1": "726f528984cd9a99cea0133aa089b3851fc54a80"
+  },
+  {
+   "group": "claude_plugins",
+   "path": "/Users/motonishikoudai/.claude/plugins/marketplaces/claude-plugins-official/plugins/playground/README.md",
+   "chars": 1246,
+   "lang": "en",
+   "sha1": "fb2d839ae241c73b699abb5241c6e4d17e47fada"
+  },
+  {
+   "group": "claude_plugins",
+   "path": "/Users/motonishikoudai/.claude/plugins/marketplaces/claude-plugins-official/plugins/playground/skills/playground/SKILL.md",
+   "chars": 3796,
+   "lang": "en",
+   "sha1": "d2917333c61e09c3f0ea8be3187b719704ef41a6"
+  },
+  {
+   "group": "claude_plugins",
+   "path": "/Users/motonishikoudai/.claude/plugins/marketplaces/claude-plugins-official/plugins/playground/skills/playground/templates/code-map.md",
+   "chars": 6172,
+   "lang": "en",
+   "sha1": "bec8f21dc3e10e3cd12f957a4089e45229e38a9a"
+  },
+  {
+   "group": "claude_plugins",
+   "path": "/Users/motonishikoudai/.claude/plugins/marketplaces/claude-plugins-official/plugins/playground/skills/playground/templates/concept-map.md",
+   "chars": 3626,
+   "lang": "en",
+   "sha1": "1dcde231f82c6e6197a12f0a4575c91de3831aec"
+  },
+  {
+   "group": "claude_plugins",
+   "path": "/Users/motonishikoudai/.claude/plugins/marketplaces/claude-plugins-official/plugins/playground/skills/playground/templates/data-explorer.md",
+   "chars": 2793,
+   "lang": "en",
+   "sha1": "21bafa87bfb78d8b2e7fc17b5c7b73687d5d22a9"
+  },
+  {
+   "group": "claude_plugins",
+   "path": "/Users/motonishikoudai/.claude/plugins/marketplaces/claude-plugins-official/plugins/playground/skills/playground/templates/design-playground.md",
+   "chars": 2705,
+   "lang": "en",
+   "sha1": "fbfe1a326afbcb1416c9089cdc516c388b6ccdd9"
+  },
+  {
+   "group": "claude_plugins",
+   "path": "/Users/motonishikoudai/.claude/plugins/marketplaces/claude-plugins-official/plugins/playground/skills/playground/templates/diff-review.md",
+   "chars": 5721,
+   "lang": "en",
+   "sha1": "86eafeb365d50a2de5587f8c30fec5c18d616f69"
+  },
+  {
+   "group": "claude_plugins",
+   "path": "/Users/motonishikoudai/.claude/plugins/marketplaces/claude-plugins-official/plugins/playground/skills/playground/templates/document-critique.md",
+   "chars": 5146,
+   "lang": "en",
+   "sha1": "f98085e68a25bda39b420a7c3925b5c174c5a3e4"
+  },
+  {
+   "group": "claude_plugins",
+   "path": "/Users/motonishikoudai/.claude/plugins/marketplaces/claude-plugins-official/plugins/plugin-dev/agents/agent-creator.md",
+   "chars": 7488,
+   "lang": "en",
+   "sha1": "bd65b1bd60dd3900372de1b61bb475c1ea360b14"
+  },
+  {
+   "group": "claude_plugins",
+   "path": "/Users/motonishikoudai/.claude/plugins/marketplaces/claude-plugins-official/plugins/plugin-dev/agents/plugin-validator.md",
+   "chars": 6678,
+   "lang": "en",
+   "sha1": "14c185e4806c752a74ebeffaf54fdadf8520b1bf"
+  },
+  {
+   "group": "claude_plugins",
+   "path": "/Users/motonishikoudai/.claude/plugins/marketplaces/claude-plugins-official/plugins/plugin-dev/agents/skill-reviewer.md",
+   "chars": 6132,
+   "lang": "en",
+   "sha1": "d86da9dfb7b6c6c83e02c37f9cfaf472a5db2c9a"
+  },
+  {
+   "group": "claude_plugins",
+   "path": "/Users/motonishikoudai/.claude/plugins/marketplaces/claude-plugins-official/plugins/plugin-dev/commands/create-plugin.md",
+   "chars": 15835,
+   "lang": "en",
+   "sha1": "e2458ba4a492efff04bc14ee609b0304a7f16700"
+  },
+  {
+   "group": "claude_plugins",
+   "path": "/Users/motonishikoudai/.claude/plugins/marketplaces/claude-plugins-official/plugins/plugin-dev/skills/agent-development/SKILL.md",
+   "chars": 11108,
+   "lang": "en",
+   "sha1": "e8998e53c6789b732597797c4a2074165c716c80"
+  },
+  {
+   "group": "claude_plugins",
+   "path": "/Users/motonishikoudai/.claude/plugins/marketplaces/claude-plugins-official/plugins/plugin-dev/skills/agent-development/examples/agent-creation-prompt.md",
+   "chars": 9838,
+   "lang": "en",
+   "sha1": "db31e7e157cea036435814d2a128216db71f9cfa"
+  },
+  {
+   "group": "claude_plugins",
+   "path": "/Users/motonishikoudai/.claude/plugins/marketplaces/claude-plugins-official/plugins/plugin-dev/skills/agent-development/examples/complete-agent-examples.md",
+   "chars": 13916,
+   "lang": "en",
+   "sha1": "bd833b7bb9a7f6664dad863ae45d8ce04d0742d5"
+  },
+  {
+   "group": "claude_plugins",
+   "path": "/Users/motonishikoudai/.claude/plugins/marketplaces/claude-plugins-official/plugins/plugin-dev/skills/agent-development/references/agent-creation-system-prompt.md",
+   "chars": 9747,
+   "lang": "en",
+   "sha1": "974bb520113ba225682b8c31cc124c7069ddc87d"
+  },
+  {
+   "group": "claude_plugins",
+   "path": "/Users/motonishikoudai/.claude/plugins/marketplaces/claude-plugins-official/plugins/plugin-dev/skills/agent-development/references/system-prompt-design.md",
+   "chars": 9954,
+   "lang": "en",
+   "sha1": "07a9c51b0b8d8222e518dc1d86fa27944fdd4b21"
+  },
+  {
+   "group": "claude_plugins",
+   "path": "/Users/motonishikoudai/.claude/plugins/marketplaces/claude-plugins-official/plugins/plugin-dev/skills/agent-development/references/triggering-examples.md",
+   "chars": 8852,
+   "lang": "en",
+   "sha1": "b84af02aceef97ad1e6807a05c8dfa1b5a059eb2"
+  },
+  {
+   "group": "claude_plugins",
+   "path": "/Users/motonishikoudai/.claude/plugins/marketplaces/claude-plugins-official/plugins/plugin-dev/skills/command-development/README.md",
+   "chars": 7645,
+   "lang": "en",
+   "sha1": "67b324ca50bc7366e661c6d8b3d91f036fa4581d"
+  },
+  {
+   "group": "claude_plugins",
+   "path": "/Users/motonishikoudai/.claude/plugins/marketplaces/claude-plugins-official/plugins/plugin-dev/skills/command-development/SKILL.md",
+   "chars": 19061,
+   "lang": "en",
+   "sha1": "bfa93e25559419009c67aa17d54a78255b78e768"
+  },
+  {
+   "group": "claude_plugins",
+   "path": "/Users/motonishikoudai/.claude/plugins/marketplaces/claude-plugins-official/plugins/plugin-dev/skills/command-development/examples/plugin-commands.md",
+   "chars": 13989,
+   "lang": "en",
+   "sha1": "ca0429c53c7492827f011f878c99da8a80b0ea4d"
+  },
+  {
+   "group": "claude_plugins",
+   "path": "/Users/motonishikoudai/.claude/plugins/marketplaces/claude-plugins-official/plugins/plugin-dev/skills/command-development/examples/simple-commands.md",
+   "chars": 8675,
+   "lang": "en",
+   "sha1": "7647118b121b10ce90b88e3990aadfc95b2c6ac3"
+  },
+  {
+   "group": "claude_plugins",
+   "path": "/Users/motonishikoudai/.claude/plugins/marketplaces/claude-plugins-official/plugins/plugin-dev/skills/command-development/references/advanced-workflows.md",
+   "chars": 13606,
+   "lang": "en",
+   "sha1": "cd6fc76a7a86db7c024987b44c18809a6eab49cb"
+  },
+  {
+   "group": "claude_plugins",
+   "path": "/Users/motonishikoudai/.claude/plugins/marketplaces/claude-plugins-official/plugins/plugin-dev/skills/command-development/references/frontmatter-reference.md",
+   "chars": 9144,
+   "lang": "en",
+   "sha1": "aa51ff2c279de88ca5511e951b724fe00f1a09aa"
+  },
+  {
+   "group": "claude_plugins",
+   "path": "/Users/motonishikoudai/.claude/plugins/marketplaces/claude-plugins-official/plugins/plugin-dev/skills/command-development/references/interactive-commands.md",
+   "chars": 20978,
+   "lang": "en",
+   "sha1": "b0d7c484278874d0bab0286e94ddcdc3851e9abb"
+  },
+  {
+   "group": "claude_plugins",
+   "path": "/Users/motonishikoudai/.claude/plugins/marketplaces/claude-plugins-official/plugins/plugin-dev/skills/command-development/references/plugin-features-reference.md",
+   "chars": 14514,
+   "lang": "en",
+   "sha1": "d94032354a8349644a5110453a2e618a7e1bc64c"
+  },
+  {
+   "group": "claude_plugins",
+   "path": "/Users/motonishikoudai/.claude/plugins/marketplaces/claude-plugins-official/plugins/plugin-dev/skills/command-development/references/testing-strategies.md",
+   "chars": 14781,
+   "lang": "en",
+   "sha1": "310a996bb9f360be9ffa1f6a7b3a1b6ea393417d"
+  },
+  {
+   "group": "claude_plugins",
+   "path": "/Users/motonishikoudai/.claude/plugins/marketplaces/claude-plugins-official/plugins/plugin-dev/skills/hook-development/SKILL.md",
+   "chars": 16220,
+   "lang": "en",
+   "sha1": "834effaaa8ae1088a169266fb1917be625c7722e"
+  },
+  {
+   "group": "claude_plugins",
+   "path": "/Users/motonishikoudai/.claude/plugins/marketplaces/claude-plugins-official/plugins/plugin-dev/skills/hook-development/references/advanced.md",
+   "chars": 10128,
+   "lang": "en",
+   "sha1": "9915e46f9ca9a26c48e4beea2bf7bc6e7005a13e"
+  },
+  {
+   "group": "claude_plugins",
+   "path": "/Users/motonishikoudai/.claude/plugins/marketplaces/claude-plugins-official/plugins/plugin-dev/skills/hook-development/references/migration.md",
+   "chars": 8215,
+   "lang": "en",
+   "sha1": "e191facd31a128334e9f8587be2a62e13c577e3a"
+  },
+  {
+   "group": "claude_plugins",
+   "path": "/Users/motonishikoudai/.claude/plugins/marketplaces/claude-plugins-official/plugins/plugin-dev/skills/hook-development/references/patterns.md",
+   "chars": 7138,
+   "lang": "en",
+   "sha1": "f6a26ce2de522b4c7c9f347c749c411e085054a5"
+  },
+  {
+   "group": "claude_plugins",
+   "path": "/Users/motonishikoudai/.claude/plugins/marketplaces/claude-plugins-official/plugins/plugin-dev/skills/hook-development/scripts/README.md",
+   "chars": 3677,
+   "lang": "en",
+   "sha1": "0e557a5bcffceb5b8bb88dffce2745357ada5b4e"
+  },
+  {
+   "group": "claude_plugins",
+   "path": "/Users/motonishikoudai/.claude/plugins/marketplaces/claude-plugins-official/plugins/plugin-dev/skills/mcp-integration/SKILL.md",
+   "chars": 12486,
+   "lang": "en",
+   "sha1": "3a8c73fc7cadd07fd5a46b338f9961b308485b1f"
+  },
+  {
+   "group": "claude_plugins",
+   "path": "/Users/motonishikoudai/.claude/plugins/marketplaces/claude-plugins-official/plugins/plugin-dev/skills/mcp-integration/references/authentication.md",
+   "chars": 10135,
+   "lang": "en",
+   "sha1": "e47f6414c3d55ed386262638c777538d819b824d"
+  },
+  {
+   "group": "claude_plugins",
+   "path": "/Users/motonishikoudai/.claude/plugins/marketplaces/claude-plugins-official/plugins/plugin-dev/skills/mcp-integration/references/server-types.md",
+   "chars": 10585,
+   "lang": "en",
+   "sha1": "d8ac74c40584fe5ddfb3646a96901d1f06ed7281"
+  },
+  {
+   "group": "claude_plugins",
+   "path": "/Users/motonishikoudai/.claude/plugins/marketplaces/claude-plugins-official/plugins/plugin-dev/skills/mcp-integration/references/tool-usage.md",
+   "chars": 11670,
+   "lang": "en",
+   "sha1": "6492e04b11cb18739c5cf52e8f34dfdb92058e84"
+  },
+  {
+   "group": "claude_plugins",
+   "path": "/Users/motonishikoudai/.claude/plugins/marketplaces/claude-plugins-official/plugins/plugin-dev/skills/plugin-settings/SKILL.md",
+   "chars": 12073,
+   "lang": "en",
+   "sha1": "2fda9b9bc46d7766e913fd61a4cb3f19d61011ab"
+  },
+  {
+   "group": "claude_plugins",
+   "path": "/Users/motonishikoudai/.claude/plugins/marketplaces/claude-plugins-official/plugins/plugin-dev/skills/plugin-settings/examples/create-settings-command.md",
+   "chars": 2177,
+   "lang": "en",
+   "sha1": "90c4c40e403c68b5a286d490818036134d2c1798"
+  },
+  {
+   "group": "claude_plugins",
+   "path": "/Users/motonishikoudai/.claude/plugins/marketplaces/claude-plugins-official/plugins/plugin-dev/skills/plugin-settings/examples/example-settings.md",
+   "chars": 2930,
+   "lang": "en",
+   "sha1": "532b0cea6221cf5df385c3f3960813c33cd0be00"
+  },
+  {
+   "group": "claude_plugins",
+   "path": "/Users/motonishikoudai/.claude/plugins/marketplaces/claude-plugins-official/plugins/plugin-dev/skills/plugin-settings/references/parsing-techniques.md",
+   "chars": 11501,
+   "lang": "en",
+   "sha1": "c78c0f0f35692cb0403bd5cbedd70912ab6522a6"
+  },
+  {
+   "group": "claude_plugins",
+   "path": "/Users/motonishikoudai/.claude/plugins/marketplaces/claude-plugins-official/plugins/plugin-dev/skills/plugin-settings/references/real-world-examples.md",
+   "chars": 9471,
+   "lang": "en",
+   "sha1": "0dba54d51f12a17a2587f12150f17092edaa1db4"
+  },
+  {
+   "group": "claude_plugins",
+   "path": "/Users/motonishikoudai/.claude/plugins/marketplaces/claude-plugins-official/plugins/plugin-dev/skills/plugin-structure/README.md",
+   "chars": 3210,
+   "lang": "en",
+   "sha1": "34df1568f1bb5701b97663b0f96a7f949e51e8cb"
+  },
+  {
+   "group": "claude_plugins",
+   "path": "/Users/motonishikoudai/.claude/plugins/marketplaces/claude-plugins-official/plugins/plugin-dev/skills/plugin-structure/examples/minimal-plugin.md",
+   "chars": 1705,
+   "lang": "en",
+   "sha1": "a504d3deb46ceae50d7bbfca658d64ae67be79d6"
+  },
+  {
+   "group": "claude_plugins",
+   "path": "/Users/motonishikoudai/.claude/plugins/marketplaces/claude-plugins-official/plugins/plugin-dev/skills/plugin-structure/references/component-patterns.md",
+   "chars": 10960,
+   "lang": "en",
+   "sha1": "379cfa95de039c4ead8dc29f6d34d8837304fd97"
+  },
+  {
+   "group": "claude_plugins",
+   "path": "/Users/motonishikoudai/.claude/plugins/marketplaces/claude-plugins-official/plugins/plugin-dev/skills/skill-development/SKILL.md",
+   "chars": 22535,
+   "lang": "en",
+   "sha1": "0cb9072534764eb9178e3c69082b422657471bd2"
+  },
+  {
+   "group": "claude_plugins",
+   "path": "/Users/motonishikoudai/.claude/plugins/marketplaces/claude-plugins-official/plugins/plugin-dev/skills/skill-development/references/skill-creator-original.md",
+   "chars": 11477,
+   "lang": "en",
+   "sha1": "411ad1fdf82ea525e6617b2342a44e8041299c82"
+  },
+  {
+   "group": "claude_plugins",
+   "path": "/Users/motonishikoudai/.claude/plugins/marketplaces/claude-plugins-official/plugins/pr-review-toolkit/agents/code-reviewer.md",
+   "chars": 3633,
+   "lang": "en",
+   "sha1": "dc5824a9f33166caaafb624223d726bb35f57f8e"
+  },
+  {
+   "group": "claude_plugins",
+   "path": "/Users/motonishikoudai/.claude/plugins/marketplaces/claude-plugins-official/plugins/pr-review-toolkit/agents/code-simplifier.md",
+   "chars": 5292,
+   "lang": "en",
+   "sha1": "a9e63c4d84962267041d230c0480992e326d170c"
+  },
+  {
+   "group": "claude_plugins",
+   "path": "/Users/motonishikoudai/.claude/plugins/marketplaces/claude-plugins-official/plugins/pr-review-toolkit/agents/comment-analyzer.md",
+   "chars": 4925,
+   "lang": "en",
+   "sha1": "6acae48d465950929fb6ce5652a61e13a87cb38a"
+  },
+  {
+   "group": "claude_plugins",
+   "path": "/Users/motonishikoudai/.claude/plugins/marketplaces/claude-plugins-official/plugins/pr-review-toolkit/agents/pr-test-analyzer.md",
+   "chars": 4560,
+   "lang": "en",
+   "sha1": "52caa511f607cd6303aad68f05c6af3d2fa622e7"
+  },
+  {
+   "group": "claude_plugins",
+   "path": "/Users/motonishikoudai/.claude/plugins/marketplaces/claude-plugins-official/plugins/pr-review-toolkit/agents/silent-failure-hunter.md",
+   "chars": 7807,
+   "lang": "en",
+   "sha1": "690797713e682a128fb90aa4b0d7edf5b3ee60e4"
+  },
+  {
+   "group": "claude_plugins",
+   "path": "/Users/motonishikoudai/.claude/plugins/marketplaces/claude-plugins-official/plugins/pr-review-toolkit/agents/type-design-analyzer.md",
+   "chars": 4999,
+   "lang": "en",
+   "sha1": "d453bcc02cf15f45f42571ad0937ebf373c1339a"
+  },
+  {
+   "group": "claude_plugins",
+   "path": "/Users/motonishikoudai/.claude/plugins/marketplaces/claude-plugins-official/plugins/pr-review-toolkit/commands/review-pr.md",
+   "chars": 4997,
+   "lang": "en",
+   "sha1": "85b060d76bf459e46f2c770a9d9e371b81b8270d"
+  },
+  {
+   "group": "claude_plugins",
+   "path": "/Users/motonishikoudai/.claude/plugins/marketplaces/claude-plugins-official/plugins/project-artifact/README.md",
+   "chars": 2164,
+   "lang": "en",
+   "sha1": "7cace5fd6da52a05b68ae3f7e0667c13d5e7557e"
+  },
+  {
+   "group": "claude_plugins",
+   "path": "/Users/motonishikoudai/.claude/plugins/marketplaces/claude-plugins-official/plugins/project-artifact/skills/project-artifact/SKILL.md",
+   "chars": 20241,
+   "lang": "en",
+   "sha1": "28a2f02a8bced01c1b14fc72ab7d8cf80ad36943"
+  },
+  {
+   "group": "claude_plugins",
+   "path": "/Users/motonishikoudai/.claude/plugins/marketplaces/claude-plugins-official/plugins/project-artifact/skills/project-artifact/swe.md",
+   "chars": 5464,
+   "lang": "en",
+   "sha1": "ea18ffee39121a77306a6826d3ed032a84552282"
+  },
+  {
+   "group": "claude_plugins",
+   "path": "/Users/motonishikoudai/.claude/plugins/marketplaces/claude-plugins-official/plugins/pyright-lsp/README.md",
+   "chars": 564,
+   "lang": "en",
+   "sha1": "1da4f69a5cdf5ab666d916007c8c0e4b65be39eb"
+  },
+  {
+   "group": "claude_plugins",
+   "path": "/Users/motonishikoudai/.claude/plugins/marketplaces/claude-plugins-official/plugins/ralph-loop/README.md",
+   "chars": 6042,
+   "lang": "en",
+   "sha1": "71edb3aad277f8acc71612d6d5400d2a85c40f40"
+  },
+  {
+   "group": "claude_plugins",
+   "path": "/Users/motonishikoudai/.claude/plugins/marketplaces/claude-plugins-official/plugins/ralph-loop/commands/cancel-ralph.md",
+   "chars": 738,
+   "lang": "en",
+   "sha1": "7e417ff1aafa9ab439621c79caa629f01539ed6f"
+  },
+  {
+   "group": "claude_plugins",
+   "path": "/Users/motonishikoudai/.claude/plugins/marketplaces/claude-plugins-official/plugins/ralph-loop/commands/help.md",
+   "chars": 3227,
+   "lang": "en",
+   "sha1": "091b7e94dbfb59bc4f217ef06a9bc973f41c9b1a"
+  },
+  {
+   "group": "claude_plugins",
+   "path": "/Users/motonishikoudai/.claude/plugins/marketplaces/claude-plugins-official/plugins/ralph-loop/commands/ralph-loop.md",
+   "chars": 916,
+   "lang": "en",
+   "sha1": "e77d74926ac99426b2106ffb274f0a64d2e9b262"
+  },
+  {
+   "group": "claude_plugins",
+   "path": "/Users/motonishikoudai/.claude/plugins/marketplaces/claude-plugins-official/plugins/receipts/README.md",
+   "chars": 3622,
+   "lang": "en",
+   "sha1": "0510cd6e0226a8303f749ae816088fa5091ffbec"
+  },
+  {
+   "group": "claude_plugins",
+   "path": "/Users/motonishikoudai/.claude/plugins/marketplaces/claude-plugins-official/plugins/receipts/skills/receipts/SKILL.md",
+   "chars": 17129,
+   "lang": "en",
+   "sha1": "988fed05487c5e5585b209beca7d9fed4d21d3c3"
+  },
+  {
+   "group": "claude_plugins",
+   "path": "/Users/motonishikoudai/.claude/plugins/marketplaces/claude-plugins-official/plugins/ruby-lsp/README.md",
+   "chars": 535,
+   "lang": "en",
+   "sha1": "5d0841a674cc70bc426c97f04ba3ea2dcfa18bb5"
+  },
+  {
+   "group": "claude_plugins",
+   "path": "/Users/motonishikoudai/.claude/plugins/marketplaces/claude-plugins-official/plugins/rust-analyzer-lsp/README.md",
+   "chars": 701,
+   "lang": "en",
+   "sha1": "6eeb8700bdbb5c8abb6e75df38adade2cc1bb9d9"
+  },
+  {
+   "group": "claude_plugins",
+   "path": "/Users/motonishikoudai/.claude/plugins/marketplaces/claude-plugins-official/plugins/security-guidance/README.md",
+   "chars": 7176,
+   "lang": "en",
+   "sha1": "ab6769456ca294a52f42fb3f0b748556fa941a56"
+  },
+  {
+   "group": "claude_plugins",
+   "path": "/Users/motonishikoudai/.claude/plugins/marketplaces/claude-plugins-official/plugins/session-report/skills/session-report/SKILL.md",
+   "chars": 3136,
+   "lang": "en",
+   "sha1": "786892c24d60226bf51d68c9ff0baa1eaefb3728"
+  },
+  {
+   "group": "claude_plugins",
+   "path": "/Users/motonishikoudai/.claude/plugins/marketplaces/claude-plugins-official/plugins/skill-creator/README.md",
+   "chars": 264,
+   "lang": "en",
+   "sha1": "be57ebe950847d666b7856c87f778ead57196f2c"
+  },
+  {
+   "group": "claude_plugins",
+   "path": "/Users/motonishikoudai/.claude/plugins/marketplaces/claude-plugins-official/plugins/skill-creator/skills/skill-creator/SKILL.md",
+   "chars": 32987,
+   "lang": "en",
+   "sha1": "17e4755b392824bc348d4211f45de9e734ee9412"
+  },
+  {
+   "group": "claude_plugins",
+   "path": "/Users/motonishikoudai/.claude/plugins/marketplaces/claude-plugins-official/plugins/skill-creator/skills/skill-creator/agents/analyzer.md",
+   "chars": 10374,
+   "lang": "en",
+   "sha1": "d301e0ba2519af95c183a9d6bf57ce743c2f57c2"
+  },
+  {
+   "group": "claude_plugins",
+   "path": "/Users/motonishikoudai/.claude/plugins/marketplaces/claude-plugins-official/plugins/skill-creator/skills/skill-creator/agents/comparator.md",
+   "chars": 7281,
+   "lang": "en",
+   "sha1": "acc949f15a6cd41ce1268c80ec109786ee40b0ff"
+  },
+  {
+   "group": "claude_plugins",
+   "path": "/Users/motonishikoudai/.claude/plugins/marketplaces/claude-plugins-official/plugins/skill-creator/skills/skill-creator/agents/grader.md",
+   "chars": 9031,
+   "lang": "en",
+   "sha1": "53ecc3331ca4b438bbeaebc93c3bb722d61f48e2"
+  },
+  {
+   "group": "claude_plugins",
+   "path": "/Users/motonishikoudai/.claude/plugins/marketplaces/claude-plugins-official/plugins/skill-creator/skills/skill-creator/references/schemas.md",
+   "chars": 12058,
+   "lang": "en",
+   "sha1": "c49b7446c4b6f65146ea9f79de283ca34511129a"
+  },
+  {
+   "group": "claude_plugins",
+   "path": "/Users/motonishikoudai/.claude/plugins/marketplaces/claude-plugins-official/plugins/swift-lsp/README.md",
+   "chars": 602,
+   "lang": "en",
+   "sha1": "2713318a4badb636ba459e23e1c90dbbc18a5e63"
+  },
+  {
+   "group": "claude_plugins",
+   "path": "/Users/motonishikoudai/.claude/plugins/marketplaces/claude-plugins-official/plugins/typescript-lsp/README.md",
+   "chars": 692,
+   "lang": "en",
+   "sha1": "612a6de56779d592c393daf6f7b6fde37f46a8b1"
+  },
+  {
+   "group": "claude_memory",
+   "path": "/Users/motonishikoudai/.claude/projects/-Users-motonishikoudai-Projects-Vera/memory/MEMORY.md",
+   "chars": 2614,
+   "lang": "ja",
+   "sha1": "b31a656c711e8941bac6f2191ea849ec2807eda3"
+  },
+  {
+   "group": "claude_memory",
+   "path": "/Users/motonishikoudai/.claude/projects/-Users-motonishikoudai-Projects-Vera/memory/council-reasoning-model-incompatibility.md",
+   "chars": 3017,
+   "lang": "en",
+   "sha1": "8e90be0f95f647a2da5aa95df22a3b3eda19b4a9"
+  },
+  {
+   "group": "claude_memory",
+   "path": "/Users/motonishikoudai/.claude/projects/-Users-motonishikoudai-Projects-Vera/memory/jgen-lexicon-measured-range.md",
+   "chars": 1518,
+   "lang": "en",
+   "sha1": "65e5961894eeae485d0e4f48a66af61fd92787e3"
+  },
+  {
+   "group": "claude_memory",
+   "path": "/Users/motonishikoudai/.claude/projects/-Users-motonishikoudai-Projects-Vera/memory/jgen-quantblocks.md",
+   "chars": 1731,
+   "lang": "en",
+   "sha1": "983e98190841546f3db20d12f7dcd8dee8e0afc1"
+  },
+  {
+   "group": "claude_memory",
+   "path": "/Users/motonishikoudai/.claude/projects/-Users-motonishikoudai-Projects-Vera/memory/jgen-working-models.md",
+   "chars": 1211,
+   "lang": "ja",
+   "sha1": "5ea78242c6027717817fbd02fdd6ee3920a77d76"
+  },
+  {
+   "group": "claude_memory",
+   "path": "/Users/motonishikoudai/.claude/projects/-Users-motonishikoudai-Projects-Vera/memory/vera-a-only-directive.md",
+   "chars": 936,
+   "lang": "ja",
+   "sha1": "7c094f89ca267e8b6b00446a776c78d52755cb46"
+  },
+  {
+   "group": "claude_memory",
+   "path": "/Users/motonishikoudai/.claude/projects/-Users-motonishikoudai-Projects-Vera/memory/vera-compiler-runtime-split.md",
+   "chars": 1349,
+   "lang": "ja",
+   "sha1": "e875971eb16dae6a8b69ba7329d658a28d6577b5"
+  },
+  {
+   "group": "claude_memory",
+   "path": "/Users/motonishikoudai/.claude/projects/-Users-motonishikoudai-Projects-Vera/memory/vera-concept-completion-standard.md",
+   "chars": 734,
+   "lang": "ja",
+   "sha1": "d494e51321a7a7e1fbbb1c41f5a19455fe102ab7"
+  },
+  {
+   "group": "claude_memory",
+   "path": "/Users/motonishikoudai/.claude/projects/-Users-motonishikoudai-Projects-Vera/memory/vera-covenant-guard.md",
+   "chars": 3183,
+   "lang": "ja",
+   "sha1": "5564467be59cdff145a9d176f682337bbfee5a45"
+  },
+  {
+   "group": "claude_memory",
+   "path": "/Users/motonishikoudai/.claude/projects/-Users-motonishikoudai-Projects-Vera/memory/vera-cross-energy-prover.md",
+   "chars": 4952,
+   "lang": "ja",
+   "sha1": "0f774e8da2d73783dbb35bc89fb417309ffd5e52"
+  },
+  {
+   "group": "claude_memory",
+   "path": "/Users/motonishikoudai/.claude/projects/-Users-motonishikoudai-Projects-Vera/memory/vera-document-engine-8task-completion.md",
+   "chars": 2585,
+   "lang": "ja",
+   "sha1": "7de48826ce0dc575b4ae2acaff6d77c74b53516b"
+  },
+  {
+   "group": "claude_memory",
+   "path": "/Users/motonishikoudai/.claude/projects/-Users-motonishikoudai-Projects-Vera/memory/vera-experience-compilation.md",
+   "chars": 3248,
+   "lang": "ja",
+   "sha1": "41dfa2af30bc3b66ee3fcec0cefd5749604b1a83"
+  },
+  {
+   "group": "claude_memory",
+   "path": "/Users/motonishikoudai/.claude/projects/-Users-motonishikoudai-Projects-Vera/memory/vera-flat-federation-contamination.md",
+   "chars": 2380,
+   "lang": "ja",
+   "sha1": "a7763296c87b78e35bd6ae6ca7e11042d7344fbf"
+  },
+  {
+   "group": "claude_memory",
+   "path": "/Users/motonishikoudai/.claude/projects/-Users-motonishikoudai-Projects-Vera/memory/vera-harness-algebra.md",
+   "chars": 3048,
+   "lang": "ja",
+   "sha1": "886f855f6686a76319973249abd63609abc5fda8"
+  },
+  {
+   "group": "claude_memory",
+   "path": "/Users/motonishikoudai/.claude/projects/-Users-motonishikoudai-Projects-Vera/memory/vera-harness-memory-path.md",
+   "chars": 1709,
+   "lang": "ja",
+   "sha1": "37c95b24f858a475dacd828adcc50c2236f4a963"
+  },
+  {
+   "group": "claude_memory",
+   "path": "/Users/motonishikoudai/.claude/projects/-Users-motonishikoudai-Projects-Vera/memory/vera-internal-oracle.md",
+   "chars": 1292,
+   "lang": "en",
+   "sha1": "554053cb40e5e68cafc756b813aa25fb6fd942e7"
+  },
+  {
+   "group": "claude_memory",
+   "path": "/Users/motonishikoudai/.claude/projects/-Users-motonishikoudai-Projects-Vera/memory/vera-lattice-neighborhood-ceiling.md",
+   "chars": 1315,
+   "lang": "ja",
+   "sha1": "115feba0fe1cd3647354633d6e2faf2487dd4e7b"
+  },
+  {
+   "group": "claude_memory",
+   "path": "/Users/motonishikoudai/.claude/projects/-Users-motonishikoudai-Projects-Vera/memory/vera-math-inference-track.md",
+   "chars": 8022,
+   "lang": "ja",
+   "sha1": "3a430ae67d4140e5613ebaf15516169652951b2b"
+  },
+  {
+   "group": "claude_memory",
+   "path": "/Users/motonishikoudai/.claude/projects/-Users-motonishikoudai-Projects-Vera/memory/vera-math-track.md",
+   "chars": 1067,
+   "lang": "ja",
+   "sha1": "878abb961b0eb7310bfe9f551c8b98f5d6937fe8"
+  },
+  {
+   "group": "claude_memory",
+   "path": "/Users/motonishikoudai/.claude/projects/-Users-motonishikoudai-Projects-Vera/memory/vera-observation-is-placement.md",
+   "chars": 1273,
+   "lang": "ja",
+   "sha1": "fc214830c6b8b7d3a85cd888db3e9912643ef20b"
+  },
+  {
+   "group": "claude_memory",
+   "path": "/Users/motonishikoudai/.claude/projects/-Users-motonishikoudai-Projects-Vera/memory/vera-one-success-many-methods.md",
+   "chars": 1212,
+   "lang": "ja",
+   "sha1": "7576d10df14c42046e69bd6eedc8c08583a7d520"
+  },
+  {
+   "group": "claude_memory",
+   "path": "/Users/motonishikoudai/.claude/projects/-Users-motonishikoudai-Projects-Vera/memory/vera-philosophy-first-directive.md",
+   "chars": 834,
+   "lang": "ja",
+   "sha1": "f48d06367ca58473f81d2588fb77285899779c9d"
+  },
+  {
+   "group": "claude_memory",
+   "path": "/Users/motonishikoudai/.claude/projects/-Users-motonishikoudai-Projects-Vera/memory/vera-reverse-specific.md",
+   "chars": 1009,
+   "lang": "ja",
+   "sha1": "e44a5062199c8e4c8de51024f024cdfe94c348f1"
+  },
+  {
+   "group": "claude_memory",
+   "path": "/Users/motonishikoudai/.claude/projects/-Users-motonishikoudai-Projects-Vera/memory/vera-scale-and-reach-findings.md",
+   "chars": 6231,
+   "lang": "ja",
+   "sha1": "2cde787630e8fefb2c3329e7f2e3a418712c0890"
+  },
+  {
+   "group": "claude_memory",
+   "path": "/Users/motonishikoudai/.claude/projects/-Users-motonishikoudai-Projects-Vera/memory/vera-self-evolution-goal.md",
+   "chars": 1331,
+   "lang": "en",
+   "sha1": "8db5deec0532f5887ec270d033cd6a621940bc24"
+  },
+  {
+   "group": "claude_memory",
+   "path": "/Users/motonishikoudai/.claude/projects/-Users-motonishikoudai-Projects-Vera/memory/vera-three-walls-plan.md",
+   "chars": 5971,
+   "lang": "ja",
+   "sha1": "e50925272968476976cabafdf249a334313faeab"
+  },
+  {
+   "group": "claude_memory",
+   "path": "/Users/motonishikoudai/.claude/projects/-Users-motonishikoudai-Projects-Vera/memory/vera-tie-recheck-zero-fabrication.md",
+   "chars": 3736,
+   "lang": "ja",
+   "sha1": "150610e5130e2953c652015f619892f75494d5cf"
+  },
+  {
+   "group": "claude_memory",
+   "path": "/Users/motonishikoudai/.claude/projects/-Users-motonishikoudai-Projects-Vera/memory/verantyx-ide-checkout-twist.md",
+   "chars": 1605,
+   "lang": "ja",
+   "sha1": "6ba838d4acff01683951ae67b6c77f8ab63c364c"
+  },
+  {
+   "group": "claude_memory",
+   "path": "/Users/motonishikoudai/.claude/projects/-Users-motonishikoudai-Projects-Vera/memory/verantyx-vera-alpha-repo.md",
+   "chars": 1467,
+   "lang": "en",
+   "sha1": "e591c516051a0d4d1ac4ede206e93d938cbe5af5"
+  },
+  {
+   "group": "claude_changelog",
+   "path": "/Users/motonishikoudai/.claude/cache/changelog.md",
+   "chars": 502438,
+   "lang": "en",
+   "sha1": "357e94d3e57e81c0d2517891aefa5b10e63bde88"
+  }
+ ]
+}

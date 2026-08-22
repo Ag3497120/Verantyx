@@ -1,0 +1,80 @@
+{
+ "name": "disaster_info",
+ "maturity": "seeded",
+ "description": "Crisis-time information queries: why the answer is not known, so responders know what to do next.",
+ "fallback": "UNKNOWN_UNCLASSIFIED",
+ "verdicts": [
+  {
+   "verdict": "UNKNOWN_CONFLICT",
+   "pattern": "sources? (disagree|conflict)|(google|municipal|official).*(says|reports).*(open|closed).*(closed|open)",
+   "note": "two sources contradict — surfacing both beats picking one",
+   "provenance": "claude_seeded",
+   "remedy": {
+    "kind": "human_judgment",
+    "owner": "information desk",
+    "verify": "manual",
+    "auto_calibratable": false,
+    "note": "in a crisis, resolving a contradiction by algorithm is how rumours start"
+   }
+  },
+  {
+   "verdict": "UNKNOWN_STALE",
+   "pattern": "last (updated|confirmed) .*(day|week|hour)s? ago|information may be outdated",
+   "note": "an answer exists but is old — say how old, let the reader judge",
+   "provenance": "claude_seeded",
+   "remedy": {
+    "kind": "request_input",
+    "owner": "field confirmation",
+    "verify": "rerun",
+    "auto_calibratable": false,
+    "note": ""
+   }
+  },
+  {
+   "verdict": "UNKNOWN_SOURCE",
+   "pattern": "no (source|listing|information) (found|available)|not (covered|listed)",
+   "note": "nobody publishes this — a coverage gap, fixable by adding a source",
+   "provenance": "claude_seeded",
+   "remedy": {
+    "kind": "add_data_source",
+    "owner": "data partnerships",
+    "verify": "rerun",
+    "auto_calibratable": false,
+    "note": ""
+   }
+  },
+  {
+   "verdict": "UNKNOWN_UNREACHABLE_SOURCE",
+   "pattern": "(server|source|site) (unreachable|down|no response)|timeout contacting",
+   "note": "the publisher exists but cannot be reached right now",
+   "provenance": "claude_seeded",
+   "remedy": {
+    "kind": "fix_upstream",
+    "owner": "source operator",
+    "verify": "rerun",
+    "auto_calibratable": false,
+    "note": ""
+   }
+  }
+ ],
+ "fixtures": [
+  {
+   "name": "google vs municipality",
+   "expect": "UNKNOWN_CONFLICT",
+   "evidence": "store hours query: google says open, municipal shelter list reports closed",
+   "provenance": "synthetic"
+  },
+  {
+   "name": "nobody lists it",
+   "expect": "UNKNOWN_SOURCE",
+   "evidence": "pharmacy stock query: no source found covering this district",
+   "provenance": "synthetic"
+  },
+  {
+   "name": "site down",
+   "expect": "UNKNOWN_UNREACHABLE_SOURCE",
+   "evidence": "water station query: municipal server unreachable, timeout contacting after 3 retries",
+   "provenance": "synthetic"
+  }
+ ]
+}
