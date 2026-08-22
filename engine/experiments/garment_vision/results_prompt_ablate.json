@@ -1,0 +1,30 @@
+{
+ "prereg": "experiments/garment_vision/PREREG3_PROMPT.md",
+ "model": "qwen/qwen3.6-35b-a3b",
+ "variants": {
+  "BASE": {
+   "fabric_claims": 0,
+   "fabric_skips": 3,
+   "no_json": 6,
+   "observable": "6/6"
+  },
+  "VP4_note_removed": {
+   "fabric_claims": 0,
+   "fabric_skips": 9,
+   "no_json": 0,
+   "observable": "18/18"
+  },
+  "VP5_note_moved": {
+   "fabric_claims": 0,
+   "fabric_skips": 9,
+   "no_json": 0,
+   "observable": "18/18"
+  },
+  "VP6_strict_close_removed": {
+   "fabric_claims": 0,
+   "fabric_skips": 9,
+   "no_json": 0,
+   "observable": "18/18"
+  }
+ }
+}

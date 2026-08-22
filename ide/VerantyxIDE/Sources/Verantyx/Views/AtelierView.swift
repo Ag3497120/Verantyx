@@ -160,6 +160,7 @@ struct AtelierView: View {
                                .environmentObject(app)
         case "Provenance": ProvenancePanel(m: m).environmentObject(app)
         case "Re-design":  DesignPanel(m: m).environmentObject(app)
+        case "Pattern":    MeasurePanel(m: m).environmentObject(app)
         default:           figureWorkspace
         }
     }
@@ -1719,5 +1720,193 @@ private struct SourcesPanel: View {
             }
         }
         .frame(maxWidth: side, maxHeight: side)
+    }
+}
+
+// MARK: - 寸法
+
+/// 寸法の面。**映像から採寸はできない。**
+///
+/// 一枚の絵に長さの基準が映っていなければ袖丈は出ない。「肘下12cm相当」は
+/// 比率の読みであって観測ではなく、基準が実測で入るまで長さにならない。
+/// 計算された長さは `derived` に立ち、実測と同じ欄には入らない — 比率から
+/// 出した数字が実寸の顔で型紙に乗るのが、この段で一番起きやすい事故。
+private struct MeasurePanel: View {
+    @ObservedObject var m: AtelierModel
+    @EnvironmentObject var app: AppState
+    @State private var spot = "body_length"
+    @State private var kind = "measured"
+    @State private var value = ""
+    @State private var unit = "cm"
+    @State private var basis = "body_length"
+    @State private var source = ""
+    @State private var by = ""
+    @State private var said = ""
+
+    private var spots: [String] {
+        m.measureRows.map(\.spot)
+    }
+
+    var body: some View {
+        VStack(alignment: .leading, spacing: 0) {
+            VStack(alignment: .leading, spacing: 6) {
+                Text(app.t("Measurements", "寸法"))
+                    .font(.system(size: 13, weight: .semibold))
+                Text(app.t("A frame cannot be measured. Without a length of "
+                           + "known size in the shot, a ratio stays a ratio.",
+                           "映像から採寸はできません。長さの基準が映って"
+                           + "いなければ、比率は比率のままです。"))
+                    .font(.system(size: 10)).foregroundStyle(AT.faint)
+                HStack(spacing: 12) {
+                    counter(app.t("measured", "実測"),
+                            m.measureCounts["measured"] ?? 0, AT.ok)
+                    counter(app.t("derived", "計算値"),
+                            m.measureCounts["derived"] ?? 0, AT.warn)
+                    counter(app.t("not taken", "未取得"),
+                            m.measureCounts["open"] ?? 0, AT.dim)
+                }
+            }
+            .padding(14).background(AT.panel)
+            Divider().opacity(0.25)
+
+            ScrollView {
+                VStack(alignment: .leading, spacing: 0) {
+                    ForEach(Array(m.measureRows.enumerated()),
+                            id: \.offset) { _, r in
+                        VStack(alignment: .leading, spacing: 2) {
+                            HStack(spacing: 8) {
+                                Text(r.name).font(.system(size: 12))
+                                Text(r.spot)
+                                    .font(.system(size: 9,
+                                                  design: .monospaced))
+                                    .foregroundStyle(AT.faint)
+                                Spacer(minLength: 0)
+                                stateChip(r.state)
+                            }
+                            if let v = r.value {
+                                Text("\(v, specifier: "%.1f") \(r.unit)")
+                                    .font(.system(size: 14, weight: .semibold))
+                                    .foregroundStyle(r.state == "DERIVED"
+                                                     ? AT.warn : AT.fg)
+                            }
+                            if !r.from.isEmpty {
+                                // 計算値は、どこから出たかを必ず伴う。
+                                Text("← \(r.from)")
+                                    .font(.system(size: 10,
+                                                  design: .monospaced))
+                                    .foregroundStyle(AT.faint)
+                            }
+                            if !r.source.isEmpty {
+                                Text(r.source).font(.system(size: 9))
+                                    .foregroundStyle(AT.faint)
+                            }
+                            if !r.howToClose.isEmpty {
+                                Text("→ " + r.howToClose)
+                                    .font(.system(size: 10))
+                                    .foregroundStyle(AT.warn)
+                            }
+                        }
+                        .padding(.horizontal, 14).padding(.vertical, 6)
+                        .frame(maxWidth: .infinity, alignment: .leading)
+                        Divider().opacity(0.12)
+                    }
+                }
+            }
+
+            Divider().opacity(0.25)
+            recorder
+        }
+        .background(AT.bg)
+        .task { await m.loadMeasures() }
+    }
+
+    private var recorder: some View {
+        VStack(alignment: .leading, spacing: 5) {
+            HStack(spacing: 6) {
+                Picker("", selection: $spot) {
+                    ForEach(spots, id: \.self) { Text($0).tag($0) }
+                }.labelsHidden().frame(width: 150)
+                Picker("", selection: $kind) {
+                    Text(app.t("measured", "実測")).tag("measured")
+                    Text(app.t("ratio", "比率")).tag("ratio")
+                }.labelsHidden().frame(width: 90)
+                TextField(kind == "measured"
+                          ? app.t("length", "長さ")
+                          : app.t("×", "倍率"), text: $value)
+                    .textFieldStyle(.roundedBorder).font(.system(size: 11))
+                    .frame(width: 80)
+                if kind == "measured" {
+                    Picker("", selection: $unit) {
+                        ForEach(["cm", "mm", "inch"], id: \.self) {
+                            Text($0).tag($0)
+                        }
+                    }.labelsHidden().frame(width: 70)
+                } else {
+                    Picker("", selection: $basis) {
+                        ForEach(["body_length", "chest", "shoulder"],
+                                id: \.self) { Text($0).tag($0) }
+                    }.labelsHidden().frame(width: 120)
+                }
+                Spacer(minLength: 0)
+            }
+            HStack(spacing: 8) {
+                TextField(app.t("source", "出典"), text: $source)
+                    .textFieldStyle(.roundedBorder).font(.system(size: 11))
+                if kind == "measured" {
+                    TextField(app.t("who measured", "測った人"), text: $by)
+                        .textFieldStyle(.roundedBorder)
+                        .font(.system(size: 11)).frame(width: 130)
+                }
+                Button(app.t("Place", "置く")) {
+                    Task {
+                        guard let v = Double(value) else {
+                            said = "UNKNOWN_NOT_A_NUMBER"; return
+                        }
+                        said = kind == "measured"
+                            ? await m.addMeasure(spot: spot, value: v,
+                                                 unit: unit, source: source,
+                                                 by: by)
+                            : await m.addRatio(spot: spot, value: v,
+                                               basis: basis, source: source)
+                        if said == "ANSWER" { value = "" }
+                    }
+                }
+                .font(.system(size: 11))
+                .disabled(value.trimmingCharacters(in: .whitespaces).isEmpty)
+            }
+            if !said.isEmpty && said != "ANSWER" {
+                Text(said).font(.system(size: 10, design: .monospaced))
+                    .foregroundStyle(AT.bad)
+            }
+            Text(app.t("A ratio is not a length until its basis is measured.",
+                       "比率は、基準が実測で入るまで長さになりません。"))
+                .font(.system(size: 9)).foregroundStyle(AT.faint)
+        }
+        .padding(13).background(AT.panel)
+    }
+
+    private func counter(_ label: String, _ n: Int,
+                         _ colour: Color) -> some View {
+        HStack(spacing: 5) {
+            Text("\(n)").font(.system(size: 13, weight: .semibold,
+                                      design: .monospaced))
+                .foregroundStyle(colour)
+            Text(label).font(.system(size: 10)).foregroundStyle(AT.dim)
+        }
+    }
+
+    private func stateChip(_ state: String) -> some View {
+        let (label, colour): (String, Color) = {
+            switch state {
+            case "MEASURED": return ("実測", AT.ok)
+            case "DERIVED": return ("計算値", AT.warn)
+            case "UNKNOWN_NO_BASIS": return ("基準待ち", AT.warn)
+            default: return ("未取得", AT.dim)
+            }
+        }()
+        return Text(label).font(.system(size: 9, weight: .semibold))
+            .padding(.horizontal, 6).padding(.vertical, 1)
+            .background(Capsule().stroke(colour, lineWidth: 1))
+            .foregroundStyle(colour)
     }
 }

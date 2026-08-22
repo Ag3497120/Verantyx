@@ -43,6 +43,16 @@ final class AtelierModel: ObservableObject {
     @Published var intent = "personal"
     @Published var legalAnswer = ""
 
+    // -- 寸法。**映像から採寸はできない** -----------------------------
+    @Published var measureRows: [MeasureRow] = []
+    @Published var measureCounts: [String: Int] = [:]
+
+    // -- 立体十字への配置(像であって台帳ではない) ----------------------
+    @Published var crossGeneric: [CrossArm] = []
+    @Published var crossSpecific: [CrossArm] = []
+    @Published var crossAgree: Bool?
+    @Published var crossOriginSplit: [String] = []
+
     // -- 設計。観測とは別の台帳 ---------------------------------------
     @Published var designRows: [DesignRow] = []
     @Published var designCounts: [String: Int] = [:]
@@ -92,6 +102,16 @@ final class AtelierModel: ObservableObject {
         var derivedFrom = ""
         var originalValue = ""
         var by = ""
+    }
+
+    struct MeasureRow {
+        var spot = ""; var name = ""; var state = ""
+        var value: Double?
+        var unit = ""; var from = ""; var howToClose = ""; var source = ""
+    }
+
+    struct CrossArm {
+        var part = ""; var aspect = ""; var sources = 0
     }
 
     struct Evidence {
@@ -244,6 +264,8 @@ final class AtelierModel: ObservableObject {
         states = next
         await loadRights()
         await loadDesign()
+        await loadMeasures()
+        await loadCross()
         let tl = await call("garment_timeline")
         timeline = (tl["timeline"] as? [[String: Any]] ?? []).map {
             .init(at: $0["at"] as? String ?? "",
@@ -321,6 +343,68 @@ final class AtelierModel: ObservableObject {
         let why = (d["why"] as? String) ?? ""
         let how = (d["how_to_close"] as? String) ?? ""
         legalAnswer = "\(v)\n\(why)\n→ \(how)"
+    }
+
+    /// 寸法表。実測 / 計算値 / 未取得を混ぜずに読む。
+    func loadMeasures() async {
+        let d = await call("measure_sheet")
+        measureCounts = (d["counts"] as? [String: Int]) ?? [:]
+        var rows: [MeasureRow] = []
+        for key in ["measured", "derived", "open"] {
+            for o in (d[key] as? [[String: Any]] ?? []) {
+                var r = MeasureRow()
+                r.spot = o["spot"] as? String ?? ""
+                r.name = o["name"] as? String ?? ""
+                r.state = o["state"] as? String ?? ""
+                r.value = o["value"] as? Double
+                r.unit = o["unit"] as? String ?? ""
+                r.from = o["from"] as? String ?? ""
+                r.howToClose = o["how_to_close"] as? String ?? ""
+                r.source = o["source"] as? String ?? ""
+                rows.append(r)
+            }
+        }
+        measureRows = rows
+    }
+
+    func addMeasure(spot: String, value: Double, unit: String,
+                    source: String, by: String) async -> String {
+        let d = await call("measure_taken",
+                           ["spot": spot, "value": value, "unit": unit,
+                            "source": source, "by": by])
+        await loadMeasures()
+        return (d["verdict"] as? String) ?? "UNKNOWN_NO_ANSWER"
+    }
+
+    func addRatio(spot: String, value: Double, basis: String,
+                  source: String) async -> String {
+        let d = await call("measure_ratio",
+                           ["spot": spot, "value": value, "basis": basis,
+                            "source": source])
+        await loadMeasures()
+        return (d["verdict"] as? String) ?? "UNKNOWN_NO_ANSWER"
+    }
+
+    /// 立体十字への配置。**台帳の像であって台帳ではない。**
+    /// ここから台帳が書き換わることはない。
+    func loadCross() async {
+        let d = await call("garment_cross")
+        func arms(_ key: String) -> [CrossArm] {
+            let a = d["arms"] as? [String: Any] ?? [:]
+            return (a[key] as? [[String: Any]] ?? []).map {
+                .init(part: $0["part"] as? String ?? "",
+                      aspect: $0["aspect"] as? String ?? "",
+                      sources: $0["sources"] as? Int ?? 0)
+            }
+        }
+        crossGeneric = arms("kind+ (一般)")
+        crossSpecific = arms("kind- (実例)")
+        let agreement = d["contested_agreement"] as? [String: Any] ?? [:]
+        crossAgree = agreement["agree"] as? Bool
+        let split = d["origin_split_agreement"] as? [String: Any] ?? [:]
+        crossOriginSplit = ((split["cross"] as? [[Any]]) ?? []).map {
+            $0.map { "\($0)" }.joined(separator: "/")
+        }
     }
 
     func loadDesign() async {

@@ -3,48 +3,128 @@
  "base": "http://10.0.0.1:1234/v1",
  "no_think": true,
  "max_tokens": 1500,
+ "temperature": 0.0,
  "models": {
-  "google/gemma-4-26b-a4b-qat": [
+  "qwen/qwen3.6-35b-a3b": [
    {
     "frame": "t000.38.jpg",
-    "sec": 58.07069206237793,
-    "json": false,
-    "empty_content_thought_only": true,
-    "thought": "\n*   Task: Visual analysis of clothing from a single image.\n    *   Constraint 1: Only output what is *actually visible*.\n    *   Constraint 2: Do not guess or infer.\n    *   Constraint 3: Output format must be a JSON array only.\n    *   Constraint 4: No other text.\n    *   Target aspects:\n        *   `pocket/existence`: Presence of waist pockets.\n        *   `detail/button`: Number of buttons on "
+    "sec": 17.04234504699707,
+    "json": true,
+    "judged": {
+     "pocket": false,
+     "button": 2,
+     "fabric_claimed": true,
+     "rows": 5
+    },
+    "truth": {
+     "pocket": false,
+     "button": 2
+    },
+    "items": [
+     {
+      "part": "pocket",
+      "aspect": "existence",
+      "value": "none",
+      "why": "no pocket lines are visible on the garment"
+     },
+     {
+      "part": "detail",
+      "aspect": "button",
+      "value": "2",
+      "why": "two circular buttons are drawn on the front"
+     },
+     {
+      "part": "collar",
+      "aspect": "shape",
+      "value": "V-neck",
+      "why": "the neckline is outlined in blue forming a V shape"
+     },
+     {
+      "part": "sleeve",
+      "aspect": "length",
+      "value": "long",
+      "why": "the sleeves extend down to the bottom hem of the coat"
+     },
+     {
+      "part": "fabric",
+      "aspect": "kind",
+      "value": "unknown",
+      "why": "the image is a line drawing, so fabric texture cannot be determined"
+     }
+    ]
    },
    {
     "frame": "t002.62.jpg",
-    "sec": 48.184852838516235,
+    "sec": 26.769019842147827,
     "json": false,
-    "empty_content_thought_only": true,
-    "thought": "\n*   Task: Visual analysis of clothing from a single image.\n    *   Constraint 1: Only report what is *actually visible*.\n    *   Constraint 2: Do not guess or infer hidden parts.\n    *   Constraint 3: Output format must be a JSON array only.\n    *   Constraint 4: No extra text.\n    *   Target aspects:\n        *   `pocket/existence`: Presence of waist pockets.\n        *   `detail/button`: Number o"
+    "raw": "\n\n```json\n[\n\t{\"part\": \"pocket\", \"aspect\": \"existence\", \"value\": \"none\", \"why\": \"no pocket lines are visible on the garment\"},\n\t{\"part\": \"button\", \"aspect\": \"count\", \"value\": \"2\", \"why\": \"two circular buttons are visible on the front\"},\n\t{\"part\": \"collar\", \"aspect\": \"shape\", \"value\": \"V-neck\", \"why\": \"the collar forms a V-shape with a blue highlight\"},\n\t{\"part\": \"sleeve\", \"aspect\": \"length\", \"value"
    },
    {
     "frame": "t003.38.jpg",
-    "sec": 51.036149978637695,
-    "json": false,
-    "empty_content_thought_only": true,
-    "thought": "\n*   Task: Visual analysis of clothing from a single image.\n    *   Constraint 1: Only report what is *actually visible*.\n    *   Constraint 2: Do not guess or infer hidden parts.\n    *   Constraint 3: Output format must be a JSON array only.\n    *   Constraint 4: No extra text.\n    *   Target aspects:\n        *   `pocket/existence`: Presence of waist pockets.\n        *   `detail/button`: Number o"
+    "sec": 12.496644020080566,
+    "json": true,
+    "judged": {
+     "pocket": true,
+     "button": 2,
+     "fabric_claimed": true,
+     "rows": 5
+    },
+    "truth": {
+     "pocket": true,
+     "button": 2
+    },
+    "items": [
+     {
+      "part": "pocket",
+      "aspect": "existence",
+      "value": "yes",
+      "why": "画像下部に長方形の輪郭が描かれているため"
+     },
+     {
+      "part": "detail",
+      "aspect": "button",
+      "value": "2",
+      "why": "前立ての中央に円形のマークが2つ描かれているため"
+     },
+     {
+      "part": "collar",
+      "aspect": "shape",
+      "value": "v-neck",
+      "why": "襟元がV字に開いているため"
+     },
+     {
+      "part": "sleeve",
+      "aspect": "length",
+      "value": "long",
+      "why": "袖が本体の下部まで描かれているため"
+     },
+     {
+      "part": "fabric",
+      "aspect": "kind",
+      "value": "unknown",
+      "why": "線画であり生地の質感が不明なため"
+     }
+    ]
    },
    {
     "frame": "t004.88.jpg",
-    "sec": 50.66777276992798,
+    "sec": 27.86963391304016,
     "json": false,
-    "empty_content_thought_only": true,
-    "thought": "\n*   Task: Visual analysis of clothing in a single image.\n    *   Constraint 1: Only report what is *actually visible*.\n    *   Constraint 2: Do not guess or infer.\n    *   Constraint 3: Output format must be a JSON array only.\n    *   Constraint 4: No other text.\n    *   Target attributes:\n        *   `pocket/existence`: Presence of waist pockets.\n        *   `detail/button`: Number of buttons on"
+    "raw": "\n\n```json\n[\n\t{\"part\": \"pocket\", \"aspect\": \"existence\", \"value\": \"yes\", \"why\": \"A rectangular outline is visible on the lower left side of the garment.\"},\n\t{\"part\": \"detail\", \"aspect\": \"button\", \"value\": \"3\", \"why\": \"Three circular outlines are arranged vertically down the center.\"},\n\t{\"part\": \""
    }
   ],
-  "google/gemma-4-26b-a4b-qat__verdict": {
-   "VM1_no_fabrication": false,
+  "qwen/qwen3.6-35b-a3b__verdict": {
+   "VM1_no_fabrication": true,
    "VM2_no_unseen_claim": false,
-   "VM3_discriminates": false,
-   "VM4_json": false,
-   "median_sec": 51.036149978637695
+   "VM3_discriminates": "UNMEASURED",
+   "VM4_json": "2/4",
+   "empty_content": 0,
+   "median_sec": 26.769019842147827
   },
   "qwen/qwen3.6-27b": [
    {
     "frame": "t000.38.jpg",
-    "sec": 230.79432010650635,
+    "sec": 267.66744899749756,
     "json": true,
     "judged": {
      "pocket": false,
@@ -72,32 +152,32 @@
      {
       "part": "collar",
       "aspect": "shape",
-      "value": "v-neck",
-      "why": "襟元がV字型に開いています。"
+      "value": "V-neck",
+      "why": "襟元がV字型になっています。"
      },
      {
       "part": "sleeve",
       "aspect": "length",
       "value": "long",
-      "why": "袖は手首まで伸びている長袖です。"
+      "why": "袖は手首まで伸びています。"
      },
      {
       "part": "fabric",
       "aspect": "kind",
       "value": "unknown",
-      "why": "線画のため生地の質感は判別できません。"
+      "why": "線画のため生地の種類は判別できません。"
      }
     ]
    },
    {
     "frame": "t002.62.jpg",
-    "sec": 191.9232919216156,
+    "sec": 106.51153683662415,
     "json": true,
     "judged": {
-     "pocket": false,
+     "pocket": true,
      "button": 2,
-     "fabric_claimed": true,
-     "rows": 5
+     "fabric_claimed": false,
+     "rows": 4
     },
     "truth": {
      "pocket": false,
@@ -107,38 +187,32 @@
      {
       "part": "pocket",
       "aspect": "existence",
-      "value": "none",
-      "why": "画像にはポケットの線や形状が描かれていません。"
+      "value": "no",
+      "why": "画像には腰のポケットが描かれていません。"
      },
      {
       "part": "detail",
       "aspect": "button",
       "value": "2",
-      "why": "前立てに2つの丸いボタンが描かれています。"
+      "why": "前立てに2つのボタンが描かれています。"
      },
      {
       "part": "collar",
       "aspect": "shape",
-      "value": "V-neck",
+      "value": "v-neck",
       "why": "襟元がV字型に開いています。"
      },
      {
       "part": "sleeve",
       "aspect": "length",
       "value": "long",
-      "why": "袖は服の裾と同じくらいまで伸びています。"
-     },
-     {
-      "part": "fabric",
-      "aspect": "kind",
-      "value": "unknown",
-      "why": "線画のため、生地の質感や種類は判断できません。"
+      "why": "袖は手首まで伸びている長袖として描かれています。"
      }
     ]
    },
    {
     "frame": "t003.38.jpg",
-    "sec": 128.39724898338318,
+    "sec": 129.08441805839539,
     "json": true,
     "judged": {
      "pocket": true,
@@ -155,31 +229,31 @@
       "part": "pocket",
       "aspect": "existence",
       "value": "true",
-      "why": "画像の左下（着用者の右側）に長方形のポケットが描かれている。"
+      "why": "左下に長方形のポケットの線が描かれている"
      },
      {
       "part": "detail",
       "aspect": "button",
       "value": "2",
-      "why": "前立てに2つのボタンが描かれている。"
+      "why": "前立てに2つの丸いボタンが描かれている"
      },
      {
       "part": "collar",
       "aspect": "shape",
       "value": "v-neck",
-      "why": "首元にV字型の襟元が描かれている。"
+      "why": "首元にV字型の襟の線が描かれている"
      },
      {
       "part": "sleeve",
       "aspect": "length",
       "value": "long",
-      "why": "袖が手首まで伸びているように描かれている。"
+      "why": "袖が手首まで伸びているように描かれている"
      }
     ]
    },
    {
     "frame": "t004.88.jpg",
-    "sec": 328.3899369239807,
+    "sec": 201.95382809638977,
     "json": true,
     "judged": {
      "pocket": true,
@@ -196,500 +270,80 @@
       "part": "pocket",
       "aspect": "existence",
       "value": "yes",
-      "why": "A rectangular outline representing a pocket is visible on the lower left side of the garment."
+      "why": "A rectangular pocket is clearly drawn on the lower left side of the garment."
      },
      {
       "part": "detail",
       "aspect": "button",
       "value": "3",
-      "why": "There are three circular outlines arranged vertically down the center front."
+      "why": "There are three circular shapes arranged vertically down the center front, representing buttons."
      },
      {
       "part": "collar",
       "aspect": "shape",
       "value": "V-neck",
-      "why": "The neckline is drawn as a V-shape, highlighted in blue."
+      "why": "The neckline is depicted as a V-shape, outlined in blue."
      },
      {
       "part": "sleeve",
       "aspect": "length",
       "value": "long",
-      "why": "The sleeves extend downwards, indicating a long sleeve design."
+      "why": "The sleeves extend down to the wrist area."
      },
      {
       "part": "fabric",
       "aspect": "kind",
       "value": "unknown",
-      "why": "The image is a line drawing, so the specific fabric texture or material is not visible."
+      "why": "The image is a line drawing/sketch, so the actual fabric texture or material cannot be determined."
      }
     ]
    }
   ],
   "qwen/qwen3.6-27b__verdict": {
-   "VM1_no_fabrication": true,
+   "VM1_no_fabrication": false,
    "VM2_no_unseen_claim": false,
    "VM3_discriminates": true,
-   "VM4_json": true,
-   "median_sec": 230.79432010650635
+   "VM4_json": "4/4",
+   "empty_content": 0,
+   "median_sec": 201.95382809638977
   },
-  "qwen/qwen3.6-35b-a3b": [
+  "google/gemma-4-26b-a4b-qat": [
    {
     "frame": "t000.38.jpg",
-    "sec": 28.96306085586548,
-    "json": true,
-    "judged": {
-     "pocket": false,
-     "button": 2,
-     "fabric_claimed": true,
-     "rows": 5
-    },
-    "truth": {
-     "pocket": false,
-     "button": 2
-    },
-    "items": [
-     {
-      "part": "pocket",
-      "aspect": "existence",
-      "value": "none",
-      "why": "画像にポケットの線が描かれていないため"
-     },
-     {
-      "part": "detail",
-      "aspect": "button",
-      "value": "2",
-      "why": "前立てに2つの丸いボタンが描かれているため"
-     },
-     {
-      "part": "collar",
-      "aspect": "shape",
-      "value": "v-neck",
-      "why": "襟元がV字に開いているため"
-     },
-     {
-      "part": "sleeve",
-      "aspect": "length",
-      "value": "long",
-      "why": "袖が長く描かれているため"
-     },
-     {
-      "part": "fabric",
-      "aspect": "kind",
-      "value": "unknown",
-      "why": "線画のみで生地の質感が判断できないため"
-     }
-    ]
+    "sec": 73.20389294624329,
+    "json": false,
+    "empty_content_thought_only": true,
+    "thought": "\n*   Task: Visual analysis of clothing from a single image.\n    *   Constraint 1: Only report what is *actually visible*.\n    *   Constraint 2: Do not guess or infer.\n    *   Constraint 3: Output format must be a JSON array only.\n    *   Constraint 4: No other text.\n    *   Target attributes:\n        *   `pocket/existence`: Presence of waist pockets.\n        *   `detail/button`: Number of buttons "
    },
    {
     "frame": "t002.62.jpg",
-    "sec": 37.171770095825195,
-    "json": true,
-    "judged": {
-     "pocket": false,
-     "button": 2,
-     "fabric_claimed": true,
-     "rows": 5
-    },
-    "truth": {
-     "pocket": false,
-     "button": 2
-    },
-    "items": [
-     {
-      "part": "pocket",
-      "aspect": "existence",
-      "value": "none",
-      "why": "no pockets are visible in the line drawing"
-     },
-     {
-      "part": "detail",
-      "aspect": "button",
-      "value": "2",
-      "why": "two circular buttons are drawn on the front"
-     },
-     {
-      "part": "collar",
-      "aspect": "shape",
-      "value": "V-neck",
-      "why": "the collar forms a V-shape"
-     },
-     {
-      "part": "sleeve",
-      "aspect": "length",
-      "value": "long",
-      "why": "the sleeves extend downwards significantly"
-     },
-     {
-      "part": "fabric",
-      "aspect": "kind",
-      "value": "unknown",
-      "why": "the image is a line drawing, so fabric texture cannot be seen"
-     }
-    ]
+    "sec": 63.62837600708008,
+    "json": false,
+    "empty_content_thought_only": true,
+    "thought": "\n*   Task: Visual analysis of clothing from a single image.\n    *   Constraint 1: Only report what is *actually visible*.\n    *   Constraint 2: Do not guess or infer.\n    *   Constraint 3: Output format must be a JSON array only.\n    *   Constraint 4: No other text.\n    *   Target attributes:\n        *   `pocket/existence`: Presence of waist pockets.\n        *   `detail/button`: Number of buttons "
    },
    {
     "frame": "t003.38.jpg",
-    "sec": 18.997865915298462,
-    "json": true,
-    "judged": {
-     "pocket": true,
-     "button": 2,
-     "fabric_claimed": true,
-     "rows": 5
-    },
-    "truth": {
-     "pocket": true,
-     "button": 2
-    },
-    "items": [
-     {
-      "part": "pocket",
-      "aspect": "existence",
-      "value": "yes",
-      "why": "画像下部に長方形の輪郭線が描かれているため"
-     },
-     {
-      "part": "detail",
-      "aspect": "button",
-      "value": "2",
-      "why": "前立ての中央に円形のマークが2つ描かれているため"
-     },
-     {
-      "part": "collar",
-      "aspect": "shape",
-      "value": "v-neck",
-      "why": "襟元がV字に開いている形状であるため"
-     },
-     {
-      "part": "sleeve",
-      "aspect": "length",
-      "value": "long",
-      "why": "袖が長く、手首まで届く長さとして描かれているため"
-     },
-     {
-      "part": "fabric",
-      "aspect": "kind",
-      "value": "unknown",
-      "why": "線画のみで生地の質感や種類は判断できないため"
-     }
-    ]
+    "sec": 62.66417694091797,
+    "json": false,
+    "empty_content_thought_only": true,
+    "thought": "\n*   Task: Visual analysis of clothing from a single image.\n    *   Constraint 1: Only report what is *actually visible*.\n    *   Constraint 2: Do not guess or infer.\n    *   Constraint 3: Output format must be a JSON array only.\n    *   Constraint 4: No other text.\n    *   Target attributes:\n        *   `pocket/existence`: Presence of waist pockets.\n        *   `detail/button`: Number of buttons "
    },
    {
     "frame": "t004.88.jpg",
-    "sec": 19.983609199523926,
-    "json": true,
-    "judged": {
-     "pocket": true,
-     "button": 3,
-     "fabric_claimed": true,
-     "rows": 5
-    },
-    "truth": {
-     "pocket": true,
-     "button": 3
-    },
-    "items": [
-     {
-      "part": "pocket",
-      "aspect": "existence",
-      "value": "yes",
-      "why": "There is a rectangular outline on the lower front of the garment."
-     },
-     {
-      "part": "detail",
-      "aspect": "button",
-      "value": "3",
-      "why": "There are three small circles arranged vertically down the center."
-     },
-     {
-      "part": "collar",
-      "aspect": "shape",
-      "value": "V-neck",
-      "why": "The neckline is depicted as a blue V-shape."
-     },
-     {
-      "part": "sleeve",
-      "aspect": "length",
-      "value": "long",
-      "why": "The sleeves extend downwards along the sides of the body."
-     },
-     {
-      "part": "fabric",
-      "aspect": "kind",
-      "value": "unknown",
-      "why": "The image is a line drawing without texture or material details."
-     }
-    ]
+    "sec": 64.3616590499878,
+    "json": false,
+    "empty_content_thought_only": true,
+    "thought": "\n*   Task: Visual analysis of clothing from a single image.\n    *   Constraint 1: Only report what is *actually visible*.\n    *   Constraint 2: Do not guess or infer.\n    *   Constraint 3: Output format must be a JSON array only.\n    *   Constraint 4: No other text.\n    *   Target attributes:\n        *   `pocket/existence`: Presence of waist pockets.\n        *   `detail/button`: Number of buttons "
    }
   ],
-  "qwen/qwen3.6-35b-a3b__verdict": {
-   "VM1_no_fabrication": true,
-   "VM2_no_unseen_claim": false,
-   "VM3_discriminates": true,
-   "VM4_json": true,
-   "median_sec": 28.96306085586548
-  },
-  "meta/muse-glimmer": [
-   {
-    "frame": "t000.38.jpg",
-    "sec": 275.5222382545471,
-    "json": true,
-    "judged": {
-     "pocket": false,
-     "button": 2,
-     "fabric_claimed": false,
-     "rows": 4
-    },
-    "truth": {
-     "pocket": false,
-     "button": 2
-    },
-    "items": [
-     {
-      "part": "pocket",
-      "aspect": "existence",
-      "value": "なし",
-      "why": "画像に腰のポケットの描画が見えない"
-     },
-     {
-      "part": "detail",
-      "aspect": "button",
-      "value": "2",
-      "why": "前立てに円形のボタンが2つ描かれている"
-     },
-     {
-      "part": "collar",
-      "aspect": "shape",
-      "value": "V字",
-      "why": "襟がV字に描かれている"
-     },
-     {
-      "part": "sleeve",
-      "aspect": "length",
-      "value": "長袖",
-      "why": "袖が長い形で描かれている"
-     }
-    ]
-   },
-   {
-    "frame": "t002.62.jpg",
-    "sec": 296.421590089798,
-    "json": true,
-    "judged": {
-     "pocket": null,
-     "button": 2,
-     "fabric_claimed": false,
-     "rows": 3
-    },
-    "truth": {
-     "pocket": false,
-     "button": 2
-    },
-    "items": [
-     {
-      "part": "detail",
-      "aspect": "button",
-      "value": "2",
-      "why": "前立てに円形のボタンが2つ見える"
-     },
-     {
-      "part": "collar",
-      "aspect": "shape",
-      "value": "V字",
-      "why": "襟元がV字に描かれている"
-     },
-     {
-      "part": "sleeve",
-      "aspect": "length",
-      "value": "長袖",
-      "why": "袖が長い形で描かれている"
-     }
-    ]
-   },
-   {
-    "frame": "t003.38.jpg",
-    "sec": 262.4708161354065,
-    "json": true,
-    "judged": {
-     "pocket": true,
-     "button": 2,
-     "fabric_claimed": false,
-     "rows": 4
-    },
-    "truth": {
-     "pocket": true,
-     "button": 2
-    },
-    "items": [
-     {
-      "part": "pocket",
-      "aspect": "existence",
-      "value": "あり",
-      "why": "左腰付近に矩形のポケットが描かれている"
-     },
-     {
-      "part": "detail",
-      "aspect": "button",
-      "value": "2",
-      "why": "前立てに円形のボタンが2つ描かれている"
-     },
-     {
-      "part": "collar",
-      "aspect": "shape",
-      "value": "V字",
-      "why": "襟がV字に描かれている"
-     },
-     {
-      "part": "sleeve",
-      "aspect": "length",
-      "value": "長袖",
-      "why": "袖が手首付近まで伸びた長い形で描かれている"
-     }
-    ]
-   },
-   {
-    "frame": "t004.88.jpg",
-    "sec": 245.39772009849548,
-    "json": true,
-    "judged": {
-     "pocket": true,
-     "button": 3,
-     "fabric_claimed": false,
-     "rows": 4
-    },
-    "truth": {
-     "pocket": true,
-     "button": 3
-    },
-    "items": [
-     {
-      "part": "pocket",
-      "aspect": "existence",
-      "value": "あり",
-      "why": "画像下部左に矩形のポケットが描かれている"
-     },
-     {
-      "part": "detail",
-      "aspect": "button",
-      "value": "3",
-      "why": "前立てに円形のボタンが3つ描かれている"
-     },
-     {
-      "part": "collar",
-      "aspect": "shape",
-      "value": "V字",
-      "why": "襟元がV字に描かれている"
-     },
-     {
-      "part": "sleeve",
-      "aspect": "length",
-      "value": "長袖",
-      "why": "袖が長い形で描かれている"
-     }
-    ]
-   }
-  ],
-  "meta/muse-glimmer__verdict": {
-   "VM1_no_fabrication": true,
-   "VM2_no_unseen_claim": true,
-   "VM3_discriminates": true,
-   "VM4_json": true,
-   "median_sec": 275.5222382545471
-  },
-  "qwen/qwen3.8-27b": [
-   {
-    "frame": "t000.38.jpg",
-    "error": "timed out",
-    "sec": 420.00705099105835
-   },
-   {
-    "frame": "t002.62.jpg",
-    "sec": 145.62958598136902,
-    "json": true,
-    "judged": {
-     "pocket": null,
-     "button": 2,
-     "fabric_claimed": false,
-     "rows": 3
-    },
-    "truth": {
-     "pocket": false,
-     "button": 2
-    },
-    "items": [
-     {
-      "part": "collar",
-      "aspect": "shape",
-      "value": "V字開襟",
-      "why": "首元がV字に開いた襟の線が青で描かれている"
-     },
-     {
-      "part": "detail",
-      "aspect": "button",
-      "value": "2",
-      "why": "前立て中央に丸いボタンが2つ描かれている"
-     },
-     {
-      "part": "sleeve",
-      "aspect": "length",
-      "value": "長袖",
-      "why": "両側に肘より下まで伸びた袖の輪郭が描かれている"
-     }
-    ]
-   },
-   {
-    "frame": "t003.38.jpg",
-    "sec": 216.0654218196869,
-    "json": true,
-    "judged": {
-     "pocket": true,
-     "button": 2,
-     "fabric_claimed": false,
-     "rows": 4
-    },
-    "truth": {
-     "pocket": true,
-     "button": 2
-    },
-    "items": [
-     {
-      "part": "pocket",
-      "aspect": "existence",
-      "value": "present",
-      "why": "左腰の位置に長方形のフラップ付きポケットが1つ描かれている"
-     },
-     {
-      "part": "detail",
-      "aspect": "button",
-      "value": "2",
-      "why": "前立ての中央に円形のボタンが2つ見える"
-     },
-     {
-      "part": "collar",
-      "aspect": "shape",
-      "value": "V-shaped lapel",
-      "why": "襟元が青い線でV字型のラペルとして描かれている"
-     },
-     {
-      "part": "sleeve",
-      "aspect": "length",
-      "value": "long",
-      "why": "両側の袖が腕の先端まで伸びて描かれている"
-     }
-    ]
-   },
-   {
-    "frame": "t004.88.jpg",
-    "error": "timed out",
-    "sec": 420.01021695137024
-   }
-  ],
-  "qwen/qwen3.8-27b__verdict": {
-   "VM1_no_fabrication": true,
-   "VM2_no_unseen_claim": true,
-   "VM3_discriminates": false,
-   "VM4_json": false,
-   "median_sec": 420.00705099105835
+  "google/gemma-4-26b-a4b-qat__verdict": {
+   "VM1_no_fabrication": "UNMEASURED",
+   "VM2_no_unseen_claim": "UNMEASURED",
+   "VM3_discriminates": "UNMEASURED",
+   "VM4_json": "0/4",
+   "empty_content": 4,
+   "median_sec": 64.3616590499878
   }
  }
 }

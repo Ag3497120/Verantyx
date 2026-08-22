@@ -193,20 +193,10 @@ final class AtelierIntake: ObservableObject {
         }
         let open = m.states.filter { $0.value.state == "UNKNOWN_NOT_OBSERVED" }
             .keys.sorted()
-        let prompt = """
-        これは一着の服が映った一枚です。以下の側面のうち、**この一枚で
-        実際に見えているもの**だけを答えてください。
-
-        \(open.isEmpty ? "(全側面)" : open.joined(separator: "\n"))
-
-        見えないものは飛ばしてください。推測で埋めないでください。
-        あなたの出力は提案として記録され、人が採用するまで設計図には
-        入りません。断定の言い回しは意味を持ちません。
-
-        JSON 配列だけを返してください:
-        [{"part":"collar","aspect":"shape","value":"ノッチドラペル",
-          "why":"襟の返りが見える"}]
-        """
+        // **文面は設定であって文章ではない。** 実測で勝ったものを使う。
+        // 直書きすると、誰かが良かれと思って直した瞬間に捏造が戻る。
+        let measured = AtelierPrompts.readFrame(openAspects: open)
+        let prompt = measured.text
 
         var raw: String?
         switch model {

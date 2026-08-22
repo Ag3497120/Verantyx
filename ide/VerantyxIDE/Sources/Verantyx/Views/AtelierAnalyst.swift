@@ -170,24 +170,10 @@ final class AtelierAnalyst: ObservableObject {
 
         let known = m.states.filter { $0.value.state != "UNKNOWN_NOT_OBSERVED" }
             .map { "\($0.key) = \($0.value.value)" }.joined(separator: "\n")
-        let prompt = """
-        あなたは服飾の解析をしています。以下は、ある一着について
-        **今わかっていること**と、**まだ観測できていない側面**です。
-
-        わかっていること:
-        \(known.isEmpty ? "(まだ何もありません)" : known)
-
-        観測できていない側面:
-        \(open.joined(separator: "\n"))
-
-        それぞれについて、心当たりがあれば候補を挙げてください。
-        断定はしないでください。あなたの出力は**提案**として記録され、
-        人が採用するまで設計図には入りません。わからないものは
-        飛ばしてください。憶測で埋めないでください。
-
-        JSON 配列だけを返してください。他の文章は不要です:
-        [{"part":"collar","aspect":"material","value":"ウール","why":"根拠"}]
-        """
+        // こちらの文面はまだ測っていない(絵を見ない経路)。
+        // 測った文面と同じ顔をさせない。
+        let prompt = AtelierPrompts.askOpenAspects(known: known,
+                                                   open: open).text
 
         var raw: String?
         switch pick {

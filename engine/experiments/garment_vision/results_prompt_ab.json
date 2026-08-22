@@ -1,0 +1,150 @@
+{
+ "prereg": "experiments/garment_vision/PREREG3_PROMPT.md",
+ "model": "qwen/qwen3.6-35b-a3b",
+ "variants": {
+  "A_proposal_note": {
+   "fabric_claims": 0,
+   "observable_correct": "12/12",
+   "rows": [
+    {
+     "frame": "t000.38.jpg",
+     "sec": 27.7892107963562,
+     "fabric_claimed": false,
+     "pocket": false,
+     "button": 2
+    },
+    {
+     "frame": "t000.38.jpg",
+     "sec": 19.12174916267395,
+     "fabric_claimed": false,
+     "pocket": false,
+     "button": 2
+    },
+    {
+     "frame": "t002.62.jpg",
+     "sec": 19.48792338371277,
+     "fabric_claimed": false,
+     "pocket": false,
+     "button": 2
+    },
+    {
+     "frame": "t002.62.jpg",
+     "sec": 18.94252586364746,
+     "fabric_claimed": false,
+     "pocket": false,
+     "button": 2
+    },
+    {
+     "frame": "t004.88.jpg",
+     "sec": 22.970489978790283,
+     "fabric_claimed": false,
+     "pocket": true,
+     "button": 3
+    },
+    {
+     "frame": "t004.88.jpg",
+     "sec": 22.55821180343628,
+     "fabric_claimed": false,
+     "pocket": true,
+     "button": 3
+    }
+   ]
+  },
+  "B_removed": {
+   "fabric_claims": 0,
+   "observable_correct": "12/12",
+   "rows": [
+    {
+     "frame": "t000.38.jpg",
+     "sec": 17.259824991226196,
+     "fabric_claimed": false,
+     "pocket": false,
+     "button": 2
+    },
+    {
+     "frame": "t000.38.jpg",
+     "sec": 17.172935009002686,
+     "fabric_claimed": false,
+     "pocket": false,
+     "button": 2
+    },
+    {
+     "frame": "t002.62.jpg",
+     "sec": 18.656255960464478,
+     "fabric_claimed": false,
+     "pocket": false,
+     "button": 2
+    },
+    {
+     "frame": "t002.62.jpg",
+     "sec": 18.714322805404663,
+     "fabric_claimed": false,
+     "pocket": false,
+     "button": 2
+    },
+    {
+     "frame": "t004.88.jpg",
+     "sec": 20.61595106124878,
+     "fabric_claimed": false,
+     "pocket": true,
+     "button": 3
+    },
+    {
+     "frame": "t004.88.jpg",
+     "sec": 20.62069082260132,
+     "fabric_claimed": false,
+     "pocket": true,
+     "button": 3
+    }
+   ]
+  },
+  "C_cost_of_guessing": {
+   "fabric_claims": 0,
+   "observable_correct": "12/12",
+   "rows": [
+    {
+     "frame": "t000.38.jpg",
+     "sec": 32.24900507926941,
+     "fabric_claimed": false,
+     "pocket": false,
+     "button": 2
+    },
+    {
+     "frame": "t000.38.jpg",
+     "sec": 32.30212926864624,
+     "fabric_claimed": false,
+     "pocket": false,
+     "button": 2
+    },
+    {
+     "frame": "t002.62.jpg",
+     "sec": 17.237978219985962,
+     "fabric_claimed": false,
+     "pocket": false,
+     "button": 2
+    },
+    {
+     "frame": "t002.62.jpg",
+     "sec": 17.145216941833496,
+     "fabric_claimed": false,
+     "pocket": false,
+     "button": 2
+    },
+    {
+     "frame": "t004.88.jpg",
+     "sec": 20.164764881134033,
+     "fabric_claimed": false,
+     "pocket": true,
+     "button": 3
+    },
+    {
+     "frame": "t004.88.jpg",
+     "sec": 19.93694806098938,
+     "fabric_claimed": false,
+     "pocket": true,
+     "button": 3
+    }
+   ]
+  }
+ }
+}
