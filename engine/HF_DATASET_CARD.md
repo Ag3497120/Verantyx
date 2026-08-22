@@ -4,79 +4,109 @@ tags:
   - knowledge-graph
   - symbolic-ai
   - deterministic
-  - hallucination-free
-  - mcp
+  - retrieval
   - agent-memory
+  - mcp
 language:
   - en
 pretty_name: Verantyx Vera — Base Knowledge Store
 size_categories:
-  - 1M<n<10M
+  - 100M<n<1B
 ---
 
 # Verantyx Vera — Base Knowledge Store
 
-This is the **poured base knowledge store** for [Verantyx Vera](https://github.com/Ag3497120/Verantyx-Vera-alpha) —
-a deterministic, LM-free knowledge & reasoning engine that **refuses to answer
-rather than hallucinate**.
+The shippable artifact of a **deterministic** knowledge engine. Vera has no
+weights and no embeddings: what ships is the *store* — a stereo-cross index of
+cores and facets built by pouring text through the engine's own ingestion path.
 
-> **This is data, not a model.** Vera has no neural network and no weights.
-> This file is a JSON store of accumulated facts (`core → {facet: count}`,
-> ~889k concept nodes / 9.78M facet links), built by pouring WikiText-2,
-> WikiText-103, ag_news, DBpedia, SQuAD, and IMDB through Vera's deterministic
-> ingestion pipeline. There is nothing to fine-tune or run inference on here
-> in the ML sense — it's the memory, not the brain.
-
-## Get the engine and full docs
-
-**➡️ Code, CLI, MCP server, setup guides:
-[github.com/Ag3497120/Verantyx-Vera-alpha](https://github.com/Ag3497120/Verantyx-Vera-alpha)**
-
-## Use this store
+Code: **https://github.com/Ag3497120/Verantyx** (engine lives in `engine/`)
 
 ```bash
-pip install -e "git+https://github.com/Ag3497120/Verantyx-Vera-alpha#egg=verantyx-vera"
-vera setup   # set hf_store_repo = kofdai/Verantyx-Vera-base-store
-vera ask "what is football"    # auto-fetches this store on first use
+git clone https://github.com/Ag3497120/Verantyx.git
+cd Verantyx/engine
+python3.11 -m verantyx.cli fetch-store            # this dataset, ~209 MB
+python3.11 -m verantyx.cli --store vera_store.json ask "valkyria"
 ```
 
-Or directly in Python:
+Nothing is downloaded implicitly. If a store is missing, the engine says so and
+names the command that would fix it:
 
-```python
-from huggingface_hub import hf_hub_download
-from verantyx import CrossStore, consensus_over_store
-
-path = hf_hub_download("kofdai/Verantyx-Vera-base-store", "vera_store.json",
-                        repo_type="dataset")
-store = CrossStore.load(path)
-print(consensus_over_store(store, "what is football")["text"])
+```json
+{"verdict": "UNKNOWN_NO_STORE", "how_to_close": "vera fetch-store --repo kofdai/Verantyx-Vera-base-store"}
 ```
 
-## What's inside
+## What is actually in it
 
-| Corpus | Rows poured |
-|--------|------------:|
-| WikiText-2 (train) | 23,767 |
-| WikiText-103 (train) | ~1.8M |
-| ag_news | 120,000 |
-| DBpedia-14 | 560,000 |
-| SQuAD (contexts) | ~90,000 |
-| IMDB | 25,000 |
+| | |
+|---|---|
+| Source | `hf:imdb` — English film, biography and geography prose |
+| Cores | 889,241 |
+| Facet links | 9,778,919 |
+| Sentences ingested | 5,663,792 |
+| Size | ~209 MB JSON |
 
-Every fact is a **counted, deletable, auditable** entry — inspect any concept
-with `vera stats` / `vera --store ... ask "what is X"`, or delete it entirely
-with `vera forget X`. Nothing is compressed into opaque weights.
+## What it is good for, measured
 
-## Honest limitations
+Ask it about something the corpus holds and you get a typed `ANSWER` with the
+core it answered from. Ask about something it never read and you get
+`UNKNOWN_NO_EVIDENCE` **with a reason** — not the nearest paragraph. That
+refusal is the point: a neighbour search always returns something, and a
+generator always mixes in words the corpus never contained.
 
-- Facet extraction is a rule-based elementary grammar classifier, not a
-  full NLP pipeline — noisy source text yields noisy (but visible, deletable)
-  facets.
-- English only. Domains collide on ambiguous vocabulary (see
-  `docs/ADDING_KNOWLEDGE.md` in the repo for sense-channel disambiguation).
-- This is a **research artifact**, not a vetted knowledge base — verify
-  before relying on it for anything consequential.
+## What it is *not* good for — please read before judging it
 
-## License
+Measured on 2026-08-22, on this exact store:
 
-MIT — same as the engine.
+* **It is English film prose, not a technical or domain corpus.** Coverage of
+  a coding assistant's vocabulary: 絵文字 0, テスト 0, 型注釈 0, print文 0,
+  TypeScript 0, JavaScript 0. There is no Japanese in it at all.
+* **Several apparent hits are false friends.** `print` here means *printed
+  matter* — its structural siblings are online / magazine / newspaper.
+  `console` is a games console. `black` is a colour.
+* Sibling inference ("the substitution nobody wrote down") only works where
+  the corpus put two alternatives **side by side on the same line**. Statutes
+  do that; prose does not. Measured recovery on technical pairs: 1 of 6.
+
+So: use this store to see the engine's behaviour — typed refusals,
+order-invariance, provenance — not as domain knowledge. For real work, pour
+your own:
+
+```bash
+python3.11 -m verantyx.cli --store mine.json documents ~/your-docs/
+```
+
+Pouring is measured to be **non-interfering**: adding documents does not change
+answers that were already grounded, and the ingestion order does not change any
+answer (6-permutation check, part of the repository's 50-measurement suite).
+
+## Everything published here
+
+| file | what it is | size |
+|---|---|---|
+| `vera_store.json` | the base store — English film/biography prose (`hf:imdb`), 889,241 cores | 209 MB |
+| `stores/guard_store_technical_ja_en.json` | a technical ja+en store built from 549 local documents (4.9 M chars), used to measure whether a domain corpus fixes instruction reading — **it does not**, and that negative result is the point | 55 MB |
+| `stores/guard_store_manifest.json` | exactly which files went in, so the store can be rebuilt or disputed | 142 KB |
+| `stores/ide_default_store.json` | the small store the macOS app ships against (ja definitions) | 6 MB |
+| `corpora/*.json` | the ingestion corpora: e-gov statutes, Japanese/English Wikipedia field sets, Aozora speech, disaster-domain probes | 1.1 MB |
+
+Every one of them is an artifact of a measurement written up in the code
+repository, not a curated dataset. The manifest exists so a reader can dispute
+the corpus rather than take the numbers on faith.
+
+## Provenance and licence
+
+The store is a structural index derived from the public `imdb` dataset on this
+Hub. It contains cores and facet counts, not reproduced documents. The MIT
+licence above covers this derived index; the underlying corpus keeps its own
+terms.
+
+## Reproduce every claim on this page
+
+```bash
+python3.11 engine/experiments/guard/verify_all.py
+# forks 89/89 / 測定 50/50
+```
+
+Each number above traces to a pre-registered measurement in
+`engine/experiments/` — written **before** the measurement ran.

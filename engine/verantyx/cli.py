@@ -977,6 +977,28 @@ def cmd_watermark(args) -> int:
     return 0 if rep.get("ok") else 1
 
 
+def cmd_fetch_store(args) -> int:
+    """配布されている基礎の店を取ってくる(打った人の行為として)。
+
+    起動のたびに黙って 208MB を落とすのは、利用者の回線をこちらの都合で
+    使うこと。だから既定では取りに行かず、無いときは `--status` が
+    「どうすれば手に入るか」を型で名指しする。
+    """
+    from .hf_store import (default_base_repo, fetch_store, list_stores,
+                           store_status)
+
+    if args.list:
+        _print(list_stores())
+        return 0
+    if args.status:
+        _print(store_status(args.store))
+        return 0
+    repo = args.repo or default_base_repo()
+    res = fetch_store(repo, args.store)
+    _print({**res, "url": f"https://huggingface.co/datasets/{repo}"})
+    return 0 if res.get("ok") else 1
+
+
 def cmd_push_store(args) -> int:
     from .config import VeraConfig
     from .hf_store import upload_store
@@ -1209,6 +1231,18 @@ def main(argv: Optional[list] = None) -> int:
     p = sub.add_parser("ask", help="one-shot question (typed verdict)")
     p.add_argument("query")
     p.set_defaults(fn=cmd_ask)
+
+    p = sub.add_parser(
+        "fetch-store",
+        help="download the published base store (or --status: is one here, "
+             "and if not, how to get one)")
+    p.add_argument("--repo", default="",
+                   help="dataset repo; default resolves env -> config -> "
+                        "the shipped default")
+    p.add_argument("--status", action="store_true")
+    p.add_argument("--list", action="store_true",
+                   help="what is published for this engine right now")
+    p.set_defaults(fn=cmd_fetch_store)
 
     p = sub.add_parser(
         "index",

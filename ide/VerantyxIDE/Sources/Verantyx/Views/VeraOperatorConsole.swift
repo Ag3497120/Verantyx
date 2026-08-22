@@ -21,9 +21,11 @@ struct VeraOperatorConsole: View {
     @EnvironmentObject var app: AppState
     @StateObject private var model = OperatorConsoleModel()
     @State private var filter: String = ""
-    @State private var section: Section = .domains
+    // 店が無い機械では、最初に見えるべきは「どうやって知識を入れるか」。
+    @State private var section: Section = .store
 
     enum Section: String, CaseIterable, Identifiable {
+        case store = "取得"
         case domains = "分野"
         case documents = "文書"
         case ingest = "投入"
@@ -41,6 +43,7 @@ struct VeraOperatorConsole: View {
             Divider().opacity(0.35)
             ScrollView {
                 switch section {
+                case .store:     StoreBootstrapView().environmentObject(app)
                 case .domains:   domainsBody
                 case .documents: documentsBody
                 case .ingest:    ingestBody

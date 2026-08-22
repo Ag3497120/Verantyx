@@ -3599,6 +3599,48 @@ def build(store_path: str):
         return json.dumps(search(query, limit=limit), ensure_ascii=False)
 
     @mcp.tool()
+    def store_status() -> str:
+        """Is there a knowledge store on this machine, and if not, how to get
+        one? Absence is answered the way every absence is answered here:
+        `UNKNOWN_NO_STORE` with `how_to_close` and the alternative (pour your
+        own documents), never a silent empty result."""
+        from .hf_store import store_status as _status
+
+        return json.dumps(_status(str(path)), ensure_ascii=False)
+
+    @mcp.tool()
+    def list_base_stores(verify: bool = True) -> str:
+        """Which knowledge stores are published for this engine, read live
+        from the distributing account. The account is pinned, the list is
+        not — a store published tomorrow shows up here without an app
+        update. Names are filtered by a closed rule and, when `verify`,
+        each candidate is checked for an actual `vera_store.json`, because
+        listing something that is not a store is the same error as
+        answering a question you have no evidence for."""
+        from .hf_store import list_stores
+
+        return json.dumps(list_stores(verify=verify), ensure_ascii=False)
+
+    @mcp.tool()
+    def fetch_base_store(repo: str = "") -> str:
+        """Download the published base store (~209 MB) into this terminal's
+        store path. **Only ever call this because a person asked for it** —
+        nothing here downloads implicitly, since that would spend someone
+        else's connection on this project's convenience.
+
+        Read the dataset card first: the base store is English film and
+        biography prose, which is enough to watch the engine refuse honestly,
+        and measurably useless as domain knowledge. Real work pours its own
+        documents (`load_documents`)."""
+        from .hf_store import default_base_repo, fetch_store
+
+        target = repo.strip() or default_base_repo()
+        res = fetch_store(target, str(path))
+        return json.dumps(
+            {**res, "url": f"https://huggingface.co/datasets/{target}"},
+            ensure_ascii=False)
+
+    @mcp.tool()
     def vera_doctor() -> str:
         """この機械で今、保証が成り立つかを実演して答える。
 
