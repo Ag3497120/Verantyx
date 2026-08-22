@@ -48,7 +48,8 @@ _NEGATIVE = ("無", "なし", "ない", "見当たら", "確認できない", "�
              "not visible", "no pocket", "none", "absent")
 
 
-def ask(base, model, path, timeout, max_tokens, no_think=False):
+def ask(base, model, path, timeout, max_tokens, no_think=False,
+        temperature=0.1):
     b64 = base64.b64encode(Path(path).read_bytes()).decode()
     body = {
         "model": model,
@@ -61,7 +62,8 @@ def ask(base, model, path, timeout, max_tokens, no_think=False):
                  "image_url": {"url": f"data:image/jpeg;base64,{b64}"}},
             ]},
         ],
-        "max_tokens": max_tokens, "temperature": 0.1, "stream": False,
+        "max_tokens": max_tokens, "temperature": temperature,
+        "stream": False,
     }
     if no_think:
         # 推論するモデルは、上限を思考で使い切って本文を出さずに終わる
@@ -132,18 +134,22 @@ def main():
     ap.add_argument("--max-tokens", type=int, default=1200)
     ap.add_argument("--no-think", action="store_true",
                     help="推論を止めて本文だけを出させる")
+    # 実測(2026-08-22): 同じモデルが温度0.1で4回とも生地を断言し、
+    # 温度0.0では12回とも「不明」と答えた。**捏造は温度で動く。**
+    ap.add_argument("--temperature", type=float, default=0.1)
     a = ap.parse_args()
 
     results = {"prereg": "experiments/garment_vision/PREREG.md",
                "base": a.base, "no_think": a.no_think,
-               "max_tokens": a.max_tokens, "models": {}}
+               "max_tokens": a.max_tokens, "temperature": a.temperature,
+               "models": {}}
     for model in a.models:
         print(f"\n===== {model} =====", flush=True)
         per = []
         for fn, sec, truth_pocket, truth_button in TRUTH:
             path = os.path.join(os.path.expanduser(a.clips), fn)
             text, dt, err = ask(a.base, model, path, a.timeout,
-                                a.max_tokens, a.no_think)
+                                a.max_tokens, a.no_think, a.temperature)
             if err and err.startswith("__EMPTY_THOUGHT__"):
                 print(f"  {fn} {dt:6.1f}s  本文が空(思考で上限を使い切り)",
                       flush=True)

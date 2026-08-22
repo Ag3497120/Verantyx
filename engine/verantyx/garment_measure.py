@@ -1,0 +1,157 @@
+# -*- coding: utf-8 -*-
+"""寸法 — **推定しない。持つのは実測と比率と、欠けの名前だけ。**
+
+事前登録: experiments/garment/PREREG6_MEASURE.md
+
+一枚の絵に長さの基準が映っていなければ、袖丈は出ない。「肘下12cm相当」は
+観測ではなく比率の読みで、基準が入って初めて長さになる。ここを曖昧にすると、
+比率から出した数字が実寸の顔をして型紙に乗り、裁った後に気付く。
+
+三つを混ぜない:
+
+    measured   実物・資料から入った長さ。出典と単位が要る
+    ratio      基準に掛ける値。基準が無ければ長さにならない
+    derived    比率×基準で計算された長さ。**実測と同じ欄には入らない**
+"""
+from __future__ import annotations
+
+import json
+from dataclasses import asdict, dataclass, field
+from pathlib import Path
+from typing import Any, Dict, List, Optional
+
+UNITS = ("cm", "mm", "inch")
+
+#: 一着について決めるべき寸法(閉じた表)。閉じているから欠けを数えられる。
+SPOTS: Dict[str, str] = {
+    "body_length": "着丈",
+    "chest": "胸囲",
+    "waist": "胴囲",
+    "shoulder": "肩幅",
+    "sleeve_length": "袖丈",
+    "cuff_width": "袖口幅",
+    "collar_height": "襟の高さ",
+    "pocket_position": "ポケット位置(肩からの距離)",
+    "hem_width": "裾幅",
+}
+
+#: 比率が掛かる基準。ここに無いものを基準にはできない。
+BASES = ("body_length", "chest", "shoulder")
+
+NO_UNIT = "UNKNOWN_NO_UNIT"
+NO_BASIS = "UNKNOWN_NO_BASIS"
+NOT_TAKEN = "UNKNOWN_NOT_TAKEN"
+
+
+@dataclass
+class Measure:
+    spot: str
+    kind: str                # measured / ratio
+    value: float
+    unit: str = ""           # measured のとき必須
+    basis: str = ""          # ratio のとき、掛ける先
+    source: str = ""
+    by: str = ""
+
+
+@dataclass
+class Measures:
+    entries: List[Measure] = field(default_factory=list)
+
+    def measured(self, spot: str, value: float, unit: str, source: str,
+                 by: str = "") -> Measure:
+        """実測を置く。**単位の無い数字は受け取らない。**
+
+        cm と inch が混じった表は、裁った後にしか気付けない。
+        """
+        if unit not in UNITS:
+            raise ValueError(
+                f"{NO_UNIT}: 単位が要る ({'/'.join(UNITS)})。"
+                "単位の無い数字は、型紙の上で意味を持たない")
+        return self._add(Measure(spot=spot, kind="measured",
+                                 value=float(value), unit=unit,
+                                 source=source, by=by))
+
+    def ratio(self, spot: str, value: float, basis: str,
+              source: str = "") -> Measure:
+        """比率を置く。**これは長さではない。** 基準が入るまで長さにならない。"""
+        if basis not in BASES:
+            raise ValueError(
+                f"{NO_BASIS}: 基準は {'/'.join(BASES)} のいずれか。"
+                "基準の無い比率は、掛ける先が無い")
+        return self._add(Measure(spot=spot, kind="ratio", value=float(value),
+                                 basis=basis, source=source))
+
+    def _add(self, m: Measure) -> Measure:
+        if m.spot not in SPOTS:
+            raise ValueError(f"UNKNOWN_SPOT: {m.spot} は寸法の表にない")
+        self.entries.append(m)
+        return m
+
+    # -- 読む ------------------------------------------------------------
+    def _measured_of(self, spot: str) -> Optional[Measure]:
+        rows = [e for e in self.entries
+                if e.spot == spot and e.kind == "measured"]
+        return rows[0] if rows else None
+
+    def state(self, spot: str) -> Dict[str, Any]:
+        m = self._measured_of(spot)
+        if m:
+            return {"spot": spot, "name": SPOTS[spot], "state": "MEASURED",
+                    "value": m.value, "unit": m.unit, "source": m.source,
+                    "by": m.by}
+        ratios = [e for e in self.entries
+                  if e.spot == spot and e.kind == "ratio"]
+        if ratios:
+            r = ratios[0]
+            base = self._measured_of(r.basis)
+            if base is None:
+                return {"spot": spot, "name": SPOTS[spot], "state": NO_BASIS,
+                        "ratio": r.value, "basis": r.basis,
+                        "how_to_close": f"{SPOTS[r.basis]}を実測すれば"
+                                        f"長さになる"}
+            # **計算した長さは実測と同じ欄に入らない。**
+            return {"spot": spot, "name": SPOTS[spot], "state": "DERIVED",
+                    "value": round(r.value * base.value, 1),
+                    "unit": base.unit, "ratio": r.value, "basis": r.basis,
+                    "from": f"{SPOTS[r.basis]} {base.value}{base.unit}"
+                            f" × {r.value}",
+                    "note": "計算値。実測ではない"}
+        return {"spot": spot, "name": SPOTS[spot], "state": NOT_TAKEN,
+                "how_to_close": f"{SPOTS[spot]}を実物か資料から測る"}
+
+    def sheet(self) -> Dict[str, Any]:
+        """寸法表。**欠けを空欄で消さない。**"""
+        rows = [self.state(s) for s in SPOTS]
+        return {
+            "verdict": "ANSWER",
+            "measured": [r for r in rows if r["state"] == "MEASURED"],
+            "derived": [r for r in rows if r["state"] == "DERIVED"],
+            "open": [r for r in rows if r["state"] in (NOT_TAKEN, NO_BASIS)],
+            "counts": {
+                "measured": sum(1 for r in rows if r["state"] == "MEASURED"),
+                "derived": sum(1 for r in rows if r["state"] == "DERIVED"),
+                "open": sum(1 for r in rows
+                            if r["state"] in (NOT_TAKEN, NO_BASIS)),
+            },
+            "note": "derived は比率×基準の計算値で、実測ではない。"
+                    "裁つ前に実測で確かめる",
+        }
+
+    def save(self, path: Any) -> Dict[str, Any]:
+        p = Path(path)
+        p.parent.mkdir(parents=True, exist_ok=True)
+        p.write_text(json.dumps({"entries": [asdict(e) for e in self.entries]},
+                                ensure_ascii=False, indent=1),
+                     encoding="utf-8")
+        return {"verdict": "ANSWER", "path": str(p)}
+
+    @classmethod
+    def load(cls, path: Any) -> "Measures":
+        p = Path(path)
+        if not p.is_file():
+            return cls()
+        d = json.loads(p.read_text(encoding="utf-8"))
+        out = cls()
+        out.entries = [Measure(**row) for row in d.get("entries", [])]
+        return out

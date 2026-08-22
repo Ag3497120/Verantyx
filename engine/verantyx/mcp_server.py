@@ -3858,6 +3858,55 @@ def build(store_path: str):
                            "note": "この画像は観測の出典にできない"},
                           ensure_ascii=False)
 
+    def _measures():
+        from .garment_measure import Measures
+
+        return Measures.load(_measures_path())
+
+    def _measures_path():
+        return Path.home() / ".vera_garment" / "measures.json"
+
+    @mcp.tool()
+    def measure_taken(spot: str, value: float, unit: str, source: str,
+                      by: str = "") -> str:
+        """実測した長さを置く。**単位の無い数字は受け取らない。**
+
+        cm と inch が混じった表は、裁った後にしか気付けない。"""
+        m = _measures()
+        try:
+            e = m.measured(spot, value, unit, source, by)
+        except ValueError as ex:
+            return _refused(ex)
+        m.save(_measures_path())
+        return json.dumps({"verdict": "ANSWER", "entry": e.__dict__},
+                          ensure_ascii=False)
+
+    @mcp.tool()
+    def measure_ratio(spot: str, value: float, basis: str,
+                      source: str = "") -> str:
+        """比率を置く。**これは長さではない。**
+
+        「着丈の0.62」は基準が実測で入るまで長さにならない。映像から
+        採寸はできない — 一枚の絵に長さの基準が映っていなければ、
+        袖丈は出ない。"""
+        m = _measures()
+        try:
+            e = m.ratio(spot, value, basis, source)
+        except ValueError as ex:
+            return _refused(ex)
+        m.save(_measures_path())
+        return json.dumps({"verdict": "ANSWER", "entry": e.__dict__},
+                          ensure_ascii=False)
+
+    @mcp.tool()
+    def measure_sheet() -> str:
+        """寸法表。実測 / 計算値 / 未取得を混ぜない。
+
+        比率×基準で出した長さは `derived` に立ち、**実測と同じ欄には
+        入らない**。比率から出した数字が実寸の顔をして型紙に乗るのが、
+        この段で一番起きやすい事故。"""
+        return json.dumps(_measures().sheet(), ensure_ascii=False)
+
     @mcp.tool()
     def garment_cross() -> str:
         """服飾台帳を**立体十字に載せた像**を返す。

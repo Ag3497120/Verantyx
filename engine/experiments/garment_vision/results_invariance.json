@@ -1,0 +1,204 @@
+{
+ "prereg": "experiments/garment_vision/PREREG2_INVARIANCE.md",
+ "orders": [
+  [
+   0,
+   1,
+   2,
+   3
+  ],
+  [
+   0,
+   1,
+   3,
+   2
+  ],
+  [
+   0,
+   2,
+   1,
+   3
+  ],
+  [
+   0,
+   2,
+   3,
+   1
+  ]
+ ],
+ "models": {
+  "qwen/qwen3.6-35b-a3b": {
+   "t000.38.jpg": {
+    "answers": [
+     {
+      "pocket/existence": "none",
+      "detail/button": "2",
+      "collar/shape": "V-neck",
+      "fabric/kind": "unknown"
+     },
+     {
+      "pocket/existence": "none",
+      "detail/button": "2",
+      "fabric/kind": "unknown",
+      "collar/shape": "v-neck"
+     },
+     {
+      "pocket/existence": "none",
+      "collar/shape": "V-neck",
+      "detail/button": "2",
+      "fabric/kind": "unknown"
+     },
+     {
+      "pocket/existence": "none",
+      "collar/shape": "V-neck",
+      "fabric/kind": "unknown",
+      "detail/button": "2"
+     }
+    ],
+    "stability": {
+     "collar/shape": {
+      "stable": true,
+      "values": [
+       "vneck"
+      ]
+     },
+     "detail/button": {
+      "stable": true,
+      "values": [
+       "2"
+      ]
+     },
+     "fabric/kind": {
+      "stable": true,
+      "values": [
+       "<否定/不明>"
+      ]
+     },
+     "pocket/existence": {
+      "stable": true,
+      "values": [
+       "<否定/不明>"
+      ]
+     }
+    }
+   },
+   "t002.62.jpg": {
+    "answers": [
+     {
+      "pocket/existence": "none",
+      "detail/button": "2",
+      "collar/shape": "v-neck",
+      "fabric/kind": "unknown"
+     },
+     {
+      "pocket/existence": "none",
+      "detail/button": "2",
+      "fabric/kind": "unknown",
+      "collar/shape": "v-neck"
+     },
+     {
+      "pocket/existence": "none",
+      "collar/shape": "V-neck",
+      "detail/button": "2",
+      "fabric/kind": "unknown"
+     },
+     {
+      "pocket/existence": "none",
+      "collar/shape": "V-neck",
+      "fabric/kind": "unknown",
+      "detail/button": "2"
+     }
+    ],
+    "stability": {
+     "collar/shape": {
+      "stable": true,
+      "values": [
+       "vneck"
+      ]
+     },
+     "detail/button": {
+      "stable": true,
+      "values": [
+       "2"
+      ]
+     },
+     "fabric/kind": {
+      "stable": true,
+      "values": [
+       "<否定/不明>"
+      ]
+     },
+     "pocket/existence": {
+      "stable": true,
+      "values": [
+       "<否定/不明>"
+      ]
+     }
+    }
+   },
+   "t004.88.jpg": {
+    "answers": [
+     {
+      "pocket/existence": "存在する",
+      "button/count": "3",
+      "collar/shape": "Vネック"
+     },
+     {
+      "pocket/existence": "yes",
+      "detail/button": "3",
+      "fabric/kind": "unknown",
+      "collar/shape": "v-neck"
+     },
+     {
+      "pocket/existence": "存在する",
+      "collar/shape": "Vネック",
+      "detail/button": "3つ",
+      "fabric/kind": "不明"
+     },
+     {
+      "pocket/existence": "yes",
+      "collar/shape": "v-neck",
+      "fabric/kind": "unknown",
+      "detail/button": "3"
+     }
+    ],
+    "stability": {
+     "button/count": {
+      "stable": false,
+      "values": [
+       "3",
+       "欠落"
+      ]
+     },
+     "collar/shape": {
+      "stable": false,
+      "values": [
+       "vneck",
+       "vネック"
+      ]
+     },
+     "detail/button": {
+      "stable": false,
+      "values": [
+       "3",
+       "欠落"
+      ]
+     },
+     "fabric/kind": {
+      "stable": false,
+      "values": [
+       "<否定/不明>",
+       "欠落"
+      ]
+     },
+     "pocket/existence": {
+      "stable": true,
+      "values": [
+       "<肯定>"
+      ]
+     }
+    }
+   }
+  }
+ }
+}

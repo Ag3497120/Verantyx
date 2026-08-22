@@ -1,0 +1,55 @@
+{
+ "prereg": "experiments/garment/PREREG6_MEASURE.md",
+ "checks": {
+  "VD1_a_ratio_without_a_basis_is_not_a_length": {
+   "pass": true,
+   "detail": {
+    "state": "UNKNOWN_NO_BASIS",
+    "has_closer": true,
+    "leaked_into_measured": false,
+    "leaked_into_derived": false
+   }
+  },
+  "VD2_a_number_without_a_unit_is_refused": {
+   "pass": true,
+   "detail": {
+    "all_refused": true,
+    "ledger_empty": true
+   }
+  },
+  "VD3_a_derived_length_never_enters_the_measured_column": {
+   "pass": true,
+   "detail": {
+    "state": "DERIVED",
+    "value": 59.5,
+    "from": "着丈 96.0cm × 0.62",
+    "measured": [
+     "body_length"
+    ],
+    "derived": [
+     "sleeve_length"
+    ]
+   }
+  },
+  "VD4_the_sheet_does_not_hide_what_is_missing": {
+   "pass": true,
+   "detail": {
+    "total_rows": 9,
+    "spots": 9,
+    "counts": {
+     "measured": 1,
+     "derived": 0,
+     "open": 8
+    },
+    "every_open_says_how": true
+   }
+  },
+  "VD5_order_does_not_change_the_sheet": {
+   "pass": true,
+   "detail": {
+    "same": true
+   }
+  }
+ },
+ "summary": "5/5 passed"
+}

@@ -1,17 +1,479 @@
 {
  "prereg": "experiments/garment_vision/PREREG.md",
  "base": "http://10.0.0.1:1234/v1",
+ "no_think": true,
+ "max_tokens": 1500,
  "models": {
-  "qwen/qwen3.8-27b": [
+  "google/gemma-4-26b-a4b-qat": [
    {
     "frame": "t000.38.jpg",
-    "sec": 200.31108903884888,
+    "sec": 58.07069206237793,
     "json": false,
-    "raw": ""
+    "empty_content_thought_only": true,
+    "thought": "\n*   Task: Visual analysis of clothing from a single image.\n    *   Constraint 1: Only output what is *actually visible*.\n    *   Constraint 2: Do not guess or infer.\n    *   Constraint 3: Output format must be a JSON array only.\n    *   Constraint 4: No other text.\n    *   Target aspects:\n        *   `pocket/existence`: Presence of waist pockets.\n        *   `detail/button`: Number of buttons on "
    },
    {
     "frame": "t002.62.jpg",
-    "sec": 157.16780185699463,
+    "sec": 48.184852838516235,
+    "json": false,
+    "empty_content_thought_only": true,
+    "thought": "\n*   Task: Visual analysis of clothing from a single image.\n    *   Constraint 1: Only report what is *actually visible*.\n    *   Constraint 2: Do not guess or infer hidden parts.\n    *   Constraint 3: Output format must be a JSON array only.\n    *   Constraint 4: No extra text.\n    *   Target aspects:\n        *   `pocket/existence`: Presence of waist pockets.\n        *   `detail/button`: Number o"
+   },
+   {
+    "frame": "t003.38.jpg",
+    "sec": 51.036149978637695,
+    "json": false,
+    "empty_content_thought_only": true,
+    "thought": "\n*   Task: Visual analysis of clothing from a single image.\n    *   Constraint 1: Only report what is *actually visible*.\n    *   Constraint 2: Do not guess or infer hidden parts.\n    *   Constraint 3: Output format must be a JSON array only.\n    *   Constraint 4: No extra text.\n    *   Target aspects:\n        *   `pocket/existence`: Presence of waist pockets.\n        *   `detail/button`: Number o"
+   },
+   {
+    "frame": "t004.88.jpg",
+    "sec": 50.66777276992798,
+    "json": false,
+    "empty_content_thought_only": true,
+    "thought": "\n*   Task: Visual analysis of clothing in a single image.\n    *   Constraint 1: Only report what is *actually visible*.\n    *   Constraint 2: Do not guess or infer.\n    *   Constraint 3: Output format must be a JSON array only.\n    *   Constraint 4: No other text.\n    *   Target attributes:\n        *   `pocket/existence`: Presence of waist pockets.\n        *   `detail/button`: Number of buttons on"
+   }
+  ],
+  "google/gemma-4-26b-a4b-qat__verdict": {
+   "VM1_no_fabrication": false,
+   "VM2_no_unseen_claim": false,
+   "VM3_discriminates": false,
+   "VM4_json": false,
+   "median_sec": 51.036149978637695
+  },
+  "qwen/qwen3.6-27b": [
+   {
+    "frame": "t000.38.jpg",
+    "sec": 230.79432010650635,
+    "json": true,
+    "judged": {
+     "pocket": false,
+     "button": 2,
+     "fabric_claimed": true,
+     "rows": 5
+    },
+    "truth": {
+     "pocket": false,
+     "button": 2
+    },
+    "items": [
+     {
+      "part": "pocket",
+      "aspect": "existence",
+      "value": "none",
+      "why": "画像にはポケットの描写がありません。"
+     },
+     {
+      "part": "detail",
+      "aspect": "button",
+      "value": "2",
+      "why": "前立てに2つのボタンが描かれています。"
+     },
+     {
+      "part": "collar",
+      "aspect": "shape",
+      "value": "v-neck",
+      "why": "襟元がV字型に開いています。"
+     },
+     {
+      "part": "sleeve",
+      "aspect": "length",
+      "value": "long",
+      "why": "袖は手首まで伸びている長袖です。"
+     },
+     {
+      "part": "fabric",
+      "aspect": "kind",
+      "value": "unknown",
+      "why": "線画のため生地の質感は判別できません。"
+     }
+    ]
+   },
+   {
+    "frame": "t002.62.jpg",
+    "sec": 191.9232919216156,
+    "json": true,
+    "judged": {
+     "pocket": false,
+     "button": 2,
+     "fabric_claimed": true,
+     "rows": 5
+    },
+    "truth": {
+     "pocket": false,
+     "button": 2
+    },
+    "items": [
+     {
+      "part": "pocket",
+      "aspect": "existence",
+      "value": "none",
+      "why": "画像にはポケットの線や形状が描かれていません。"
+     },
+     {
+      "part": "detail",
+      "aspect": "button",
+      "value": "2",
+      "why": "前立てに2つの丸いボタンが描かれています。"
+     },
+     {
+      "part": "collar",
+      "aspect": "shape",
+      "value": "V-neck",
+      "why": "襟元がV字型に開いています。"
+     },
+     {
+      "part": "sleeve",
+      "aspect": "length",
+      "value": "long",
+      "why": "袖は服の裾と同じくらいまで伸びています。"
+     },
+     {
+      "part": "fabric",
+      "aspect": "kind",
+      "value": "unknown",
+      "why": "線画のため、生地の質感や種類は判断できません。"
+     }
+    ]
+   },
+   {
+    "frame": "t003.38.jpg",
+    "sec": 128.39724898338318,
+    "json": true,
+    "judged": {
+     "pocket": true,
+     "button": 2,
+     "fabric_claimed": false,
+     "rows": 4
+    },
+    "truth": {
+     "pocket": true,
+     "button": 2
+    },
+    "items": [
+     {
+      "part": "pocket",
+      "aspect": "existence",
+      "value": "true",
+      "why": "画像の左下（着用者の右側）に長方形のポケットが描かれている。"
+     },
+     {
+      "part": "detail",
+      "aspect": "button",
+      "value": "2",
+      "why": "前立てに2つのボタンが描かれている。"
+     },
+     {
+      "part": "collar",
+      "aspect": "shape",
+      "value": "v-neck",
+      "why": "首元にV字型の襟元が描かれている。"
+     },
+     {
+      "part": "sleeve",
+      "aspect": "length",
+      "value": "long",
+      "why": "袖が手首まで伸びているように描かれている。"
+     }
+    ]
+   },
+   {
+    "frame": "t004.88.jpg",
+    "sec": 328.3899369239807,
+    "json": true,
+    "judged": {
+     "pocket": true,
+     "button": 3,
+     "fabric_claimed": true,
+     "rows": 5
+    },
+    "truth": {
+     "pocket": true,
+     "button": 3
+    },
+    "items": [
+     {
+      "part": "pocket",
+      "aspect": "existence",
+      "value": "yes",
+      "why": "A rectangular outline representing a pocket is visible on the lower left side of the garment."
+     },
+     {
+      "part": "detail",
+      "aspect": "button",
+      "value": "3",
+      "why": "There are three circular outlines arranged vertically down the center front."
+     },
+     {
+      "part": "collar",
+      "aspect": "shape",
+      "value": "V-neck",
+      "why": "The neckline is drawn as a V-shape, highlighted in blue."
+     },
+     {
+      "part": "sleeve",
+      "aspect": "length",
+      "value": "long",
+      "why": "The sleeves extend downwards, indicating a long sleeve design."
+     },
+     {
+      "part": "fabric",
+      "aspect": "kind",
+      "value": "unknown",
+      "why": "The image is a line drawing, so the specific fabric texture or material is not visible."
+     }
+    ]
+   }
+  ],
+  "qwen/qwen3.6-27b__verdict": {
+   "VM1_no_fabrication": true,
+   "VM2_no_unseen_claim": false,
+   "VM3_discriminates": true,
+   "VM4_json": true,
+   "median_sec": 230.79432010650635
+  },
+  "qwen/qwen3.6-35b-a3b": [
+   {
+    "frame": "t000.38.jpg",
+    "sec": 28.96306085586548,
+    "json": true,
+    "judged": {
+     "pocket": false,
+     "button": 2,
+     "fabric_claimed": true,
+     "rows": 5
+    },
+    "truth": {
+     "pocket": false,
+     "button": 2
+    },
+    "items": [
+     {
+      "part": "pocket",
+      "aspect": "existence",
+      "value": "none",
+      "why": "画像にポケットの線が描かれていないため"
+     },
+     {
+      "part": "detail",
+      "aspect": "button",
+      "value": "2",
+      "why": "前立てに2つの丸いボタンが描かれているため"
+     },
+     {
+      "part": "collar",
+      "aspect": "shape",
+      "value": "v-neck",
+      "why": "襟元がV字に開いているため"
+     },
+     {
+      "part": "sleeve",
+      "aspect": "length",
+      "value": "long",
+      "why": "袖が長く描かれているため"
+     },
+     {
+      "part": "fabric",
+      "aspect": "kind",
+      "value": "unknown",
+      "why": "線画のみで生地の質感が判断できないため"
+     }
+    ]
+   },
+   {
+    "frame": "t002.62.jpg",
+    "sec": 37.171770095825195,
+    "json": true,
+    "judged": {
+     "pocket": false,
+     "button": 2,
+     "fabric_claimed": true,
+     "rows": 5
+    },
+    "truth": {
+     "pocket": false,
+     "button": 2
+    },
+    "items": [
+     {
+      "part": "pocket",
+      "aspect": "existence",
+      "value": "none",
+      "why": "no pockets are visible in the line drawing"
+     },
+     {
+      "part": "detail",
+      "aspect": "button",
+      "value": "2",
+      "why": "two circular buttons are drawn on the front"
+     },
+     {
+      "part": "collar",
+      "aspect": "shape",
+      "value": "V-neck",
+      "why": "the collar forms a V-shape"
+     },
+     {
+      "part": "sleeve",
+      "aspect": "length",
+      "value": "long",
+      "why": "the sleeves extend downwards significantly"
+     },
+     {
+      "part": "fabric",
+      "aspect": "kind",
+      "value": "unknown",
+      "why": "the image is a line drawing, so fabric texture cannot be seen"
+     }
+    ]
+   },
+   {
+    "frame": "t003.38.jpg",
+    "sec": 18.997865915298462,
+    "json": true,
+    "judged": {
+     "pocket": true,
+     "button": 2,
+     "fabric_claimed": true,
+     "rows": 5
+    },
+    "truth": {
+     "pocket": true,
+     "button": 2
+    },
+    "items": [
+     {
+      "part": "pocket",
+      "aspect": "existence",
+      "value": "yes",
+      "why": "画像下部に長方形の輪郭線が描かれているため"
+     },
+     {
+      "part": "detail",
+      "aspect": "button",
+      "value": "2",
+      "why": "前立ての中央に円形のマークが2つ描かれているため"
+     },
+     {
+      "part": "collar",
+      "aspect": "shape",
+      "value": "v-neck",
+      "why": "襟元がV字に開いている形状であるため"
+     },
+     {
+      "part": "sleeve",
+      "aspect": "length",
+      "value": "long",
+      "why": "袖が長く、手首まで届く長さとして描かれているため"
+     },
+     {
+      "part": "fabric",
+      "aspect": "kind",
+      "value": "unknown",
+      "why": "線画のみで生地の質感や種類は判断できないため"
+     }
+    ]
+   },
+   {
+    "frame": "t004.88.jpg",
+    "sec": 19.983609199523926,
+    "json": true,
+    "judged": {
+     "pocket": true,
+     "button": 3,
+     "fabric_claimed": true,
+     "rows": 5
+    },
+    "truth": {
+     "pocket": true,
+     "button": 3
+    },
+    "items": [
+     {
+      "part": "pocket",
+      "aspect": "existence",
+      "value": "yes",
+      "why": "There is a rectangular outline on the lower front of the garment."
+     },
+     {
+      "part": "detail",
+      "aspect": "button",
+      "value": "3",
+      "why": "There are three small circles arranged vertically down the center."
+     },
+     {
+      "part": "collar",
+      "aspect": "shape",
+      "value": "V-neck",
+      "why": "The neckline is depicted as a blue V-shape."
+     },
+     {
+      "part": "sleeve",
+      "aspect": "length",
+      "value": "long",
+      "why": "The sleeves extend downwards along the sides of the body."
+     },
+     {
+      "part": "fabric",
+      "aspect": "kind",
+      "value": "unknown",
+      "why": "The image is a line drawing without texture or material details."
+     }
+    ]
+   }
+  ],
+  "qwen/qwen3.6-35b-a3b__verdict": {
+   "VM1_no_fabrication": true,
+   "VM2_no_unseen_claim": false,
+   "VM3_discriminates": true,
+   "VM4_json": true,
+   "median_sec": 28.96306085586548
+  },
+  "meta/muse-glimmer": [
+   {
+    "frame": "t000.38.jpg",
+    "sec": 275.5222382545471,
+    "json": true,
+    "judged": {
+     "pocket": false,
+     "button": 2,
+     "fabric_claimed": false,
+     "rows": 4
+    },
+    "truth": {
+     "pocket": false,
+     "button": 2
+    },
+    "items": [
+     {
+      "part": "pocket",
+      "aspect": "existence",
+      "value": "なし",
+      "why": "画像に腰のポケットの描画が見えない"
+     },
+     {
+      "part": "detail",
+      "aspect": "button",
+      "value": "2",
+      "why": "前立てに円形のボタンが2つ描かれている"
+     },
+     {
+      "part": "collar",
+      "aspect": "shape",
+      "value": "V字",
+      "why": "襟がV字に描かれている"
+     },
+     {
+      "part": "sleeve",
+      "aspect": "length",
+      "value": "長袖",
+      "why": "袖が長い形で描かれている"
+     }
+    ]
+   },
+   {
+    "frame": "t002.62.jpg",
+    "sec": 296.421590089798,
     "json": true,
     "judged": {
      "pocket": null,
@@ -28,25 +490,156 @@
       "part": "detail",
       "aspect": "button",
       "value": "2",
-      "why": "前立ての中央に丸いボタンが2つ描かれている"
+      "why": "前立てに円形のボタンが2つ見える"
      },
      {
       "part": "collar",
       "aspect": "shape",
-      "value": "V字に開いた襟",
-      "why": "首元に青い線でV字に開いた襟の輪郭が描かれている"
+      "value": "V字",
+      "why": "襟元がV字に描かれている"
      },
      {
       "part": "sleeve",
       "aspect": "length",
       "value": "長袖",
-      "why": "両側に肩から手首まで伸びる長い袖が描かれている"
+      "why": "袖が長い形で描かれている"
      }
     ]
    },
    {
     "frame": "t003.38.jpg",
-    "sec": 157.478333234787,
+    "sec": 262.4708161354065,
+    "json": true,
+    "judged": {
+     "pocket": true,
+     "button": 2,
+     "fabric_claimed": false,
+     "rows": 4
+    },
+    "truth": {
+     "pocket": true,
+     "button": 2
+    },
+    "items": [
+     {
+      "part": "pocket",
+      "aspect": "existence",
+      "value": "あり",
+      "why": "左腰付近に矩形のポケットが描かれている"
+     },
+     {
+      "part": "detail",
+      "aspect": "button",
+      "value": "2",
+      "why": "前立てに円形のボタンが2つ描かれている"
+     },
+     {
+      "part": "collar",
+      "aspect": "shape",
+      "value": "V字",
+      "why": "襟がV字に描かれている"
+     },
+     {
+      "part": "sleeve",
+      "aspect": "length",
+      "value": "長袖",
+      "why": "袖が手首付近まで伸びた長い形で描かれている"
+     }
+    ]
+   },
+   {
+    "frame": "t004.88.jpg",
+    "sec": 245.39772009849548,
+    "json": true,
+    "judged": {
+     "pocket": true,
+     "button": 3,
+     "fabric_claimed": false,
+     "rows": 4
+    },
+    "truth": {
+     "pocket": true,
+     "button": 3
+    },
+    "items": [
+     {
+      "part": "pocket",
+      "aspect": "existence",
+      "value": "あり",
+      "why": "画像下部左に矩形のポケットが描かれている"
+     },
+     {
+      "part": "detail",
+      "aspect": "button",
+      "value": "3",
+      "why": "前立てに円形のボタンが3つ描かれている"
+     },
+     {
+      "part": "collar",
+      "aspect": "shape",
+      "value": "V字",
+      "why": "襟元がV字に描かれている"
+     },
+     {
+      "part": "sleeve",
+      "aspect": "length",
+      "value": "長袖",
+      "why": "袖が長い形で描かれている"
+     }
+    ]
+   }
+  ],
+  "meta/muse-glimmer__verdict": {
+   "VM1_no_fabrication": true,
+   "VM2_no_unseen_claim": true,
+   "VM3_discriminates": true,
+   "VM4_json": true,
+   "median_sec": 275.5222382545471
+  },
+  "qwen/qwen3.8-27b": [
+   {
+    "frame": "t000.38.jpg",
+    "error": "timed out",
+    "sec": 420.00705099105835
+   },
+   {
+    "frame": "t002.62.jpg",
+    "sec": 145.62958598136902,
+    "json": true,
+    "judged": {
+     "pocket": null,
+     "button": 2,
+     "fabric_claimed": false,
+     "rows": 3
+    },
+    "truth": {
+     "pocket": false,
+     "button": 2
+    },
+    "items": [
+     {
+      "part": "collar",
+      "aspect": "shape",
+      "value": "V字開襟",
+      "why": "首元がV字に開いた襟の線が青で描かれている"
+     },
+     {
+      "part": "detail",
+      "aspect": "button",
+      "value": "2",
+      "why": "前立て中央に丸いボタンが2つ描かれている"
+     },
+     {
+      "part": "sleeve",
+      "aspect": "length",
+      "value": "長袖",
+      "why": "両側に肘より下まで伸びた袖の輪郭が描かれている"
+     }
+    ]
+   },
+   {
+    "frame": "t003.38.jpg",
+    "sec": 216.0654218196869,
     "json": true,
     "judged": {
      "pocket": true,
@@ -63,142 +656,40 @@
       "part": "pocket",
       "aspect": "existence",
       "value": "present",
-      "why": "左腰（観察者の左）に長方形のフラップ付きポケットが1つ線描で描かれている"
+      "why": "左腰の位置に長方形のフラップ付きポケットが1つ描かれている"
      },
      {
       "part": "detail",
       "aspect": "button",
       "value": "2",
-      "why": "前立ての中央に円形のボタンが2つ描かれている"
+      "why": "前立ての中央に円形のボタンが2つ見える"
      },
      {
       "part": "collar",
       "aspect": "shape",
-      "value": "notched lapel (V-shape)",
-      "why": "首元に青い線でV字型の襟が描かれ、襟の端に切り込み（ノッチ）が見える"
+      "value": "V-shaped lapel",
+      "why": "襟元が青い線でV字型のラペルとして描かれている"
      },
      {
       "part": "sleeve",
       "aspect": "length",
       "value": "long",
-      "why": "両肩から腕に沿って下まで伸びる袖が描かれている"
+      "why": "両側の袖が腕の先端まで伸びて描かれている"
      }
     ]
    },
    {
     "frame": "t004.88.jpg",
-    "sec": 128.01141715049744,
-    "json": true,
-    "judged": {
-     "pocket": true,
-     "button": 3,
-     "fabric_claimed": false,
-     "rows": 4
-    },
-    "truth": {
-     "pocket": true,
-     "button": 3
-    },
-    "items": [
-     {
-      "part": "pocket",
-      "aspect": "existence",
-      "value": "有",
-      "why": "左腰の位置に長方形のポケットの線が描かれている"
-     },
-     {
-      "part": "detail",
-      "aspect": "button",
-      "value": "3",
-      "why": "前立ての中央に円形のボタンが縦に3つ見える"
-     },
-     {
-      "part": "collar",
-      "aspect": "shape",
-      "value": "V字",
-      "why": "首元に青い線でV字型の襟が描かれている"
-     },
-     {
-      "part": "sleeve",
-      "aspect": "length",
-      "value": "長袖",
-      "why": "両袖が体側を下がって手首付近まで伸びている"
-     }
-    ]
+    "error": "timed out",
+    "sec": 420.01021695137024
    }
   ],
   "qwen/qwen3.8-27b__verdict": {
    "VM1_no_fabrication": true,
    "VM2_no_unseen_claim": true,
-   "VM3_discriminates": true,
-   "VM4_json": false,
-   "median_sec": 157.478333234787
-  },
-  "meta/muse-glimmer": [
-   {
-    "frame": "t000.38.jpg",
-    "sec": 162.99839282035828,
-    "json": false,
-    "raw": ""
-   },
-   {
-    "frame": "t002.62.jpg",
-    "sec": 156.67556476593018,
-    "json": false,
-    "raw": ""
-   },
-   {
-    "frame": "t003.38.jpg",
-    "sec": 162.61968302726746,
-    "json": false,
-    "raw": ""
-   },
-   {
-    "frame": "t004.88.jpg",
-    "sec": 170.01444029808044,
-    "json": false,
-    "raw": ""
-   }
-  ],
-  "meta/muse-glimmer__verdict": {
-   "VM1_no_fabrication": false,
-   "VM2_no_unseen_claim": false,
    "VM3_discriminates": false,
    "VM4_json": false,
-   "median_sec": 162.99839282035828
-  },
-  "google/gemma-4-26b-a4b-qat": [
-   {
-    "frame": "t000.38.jpg",
-    "sec": 42.193427085876465,
-    "json": false,
-    "raw": ""
-   },
-   {
-    "frame": "t002.62.jpg",
-    "sec": 28.848177194595337,
-    "json": false,
-    "raw": ""
-   },
-   {
-    "frame": "t003.38.jpg",
-    "sec": 28.98978304862976,
-    "json": false,
-    "raw": ""
-   },
-   {
-    "frame": "t004.88.jpg",
-    "sec": 28.808380842208862,
-    "json": false,
-    "raw": ""
-   }
-  ],
-  "google/gemma-4-26b-a4b-qat__verdict": {
-   "VM1_no_fabrication": false,
-   "VM2_no_unseen_claim": false,
-   "VM3_discriminates": false,
-   "VM4_json": false,
-   "median_sec": 28.98978304862976
+   "median_sec": 420.00705099105835
   }
  }
 }
