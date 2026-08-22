@@ -1,0 +1,65 @@
+{
+ "prereg": "experiments/state_reconciliation/PREREG3_REAL_DATA.md",
+ "checks": {
+  "R1_real_conflicts_found": {
+   "pass": true,
+   "detail": {
+    "matched_facilities": 1033,
+    "contested": 114,
+    "supported": 919,
+    "other": 0,
+    "pref_flag_distribution": {
+     "1": 659,
+     "9": 260,
+     "0": 114
+    },
+    "example": "ひたちなか市|ワークプラザ勝田"
+   }
+  },
+  "R2_unknown_is_not_denial": {
+   "pass": true,
+   "detail": {
+    "flag_9_matched": 260,
+    "of_which_contested": 0
+   }
+  },
+  "R3_absence_is_typed_on_real_data": {
+   "pass": true,
+   "detail": {
+    "only_in_national": 958,
+    "only_in_pref": 1341,
+    "never_mentioned": "unknown_not_held",
+    "held_by_one_source_only": "supported"
+   }
+  },
+  "R4_size_follows_facilities": {
+   "pass": true,
+   "detail": {
+    "cores_all": 2583,
+    "bytes_all": 852677,
+    "cores_half": 1395,
+    "bytes_half": 468149,
+    "ratio": 1.821,
+    "bar": "1.6-2.4x for 2x facilities"
+   }
+  },
+  "R5_each_conflict_names_its_sources": {
+   "pass": true,
+   "detail": {
+    "checked": 20,
+    "with_sources": 20,
+    "example": {
+     "ひたちなか市|ワークプラザ勝田": {
+      "有効": [
+       "国の集約（指定緊急避難場所データ）"
+      ],
+      "無効": [
+       "ひたちなか市"
+      ]
+     }
+    }
+   }
+  }
+ },
+ "summary": "5/5 passed"
+}
