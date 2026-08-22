@@ -1,30 +1,430 @@
 {
  "prereg": "experiments/garment_vision/PREREG3_PROMPT.md",
  "model": "qwen/qwen3.6-35b-a3b",
- "variants": {
+ "warmup": [
+  {
+   "i": 0,
+   "frame": "t000.38.jpg",
+   "json": true,
+   "sec": 25.09495997428894
+  },
+  {
+   "i": 1,
+   "frame": "t002.62.jpg",
+   "json": true,
+   "sec": 15.6060950756073
+  },
+  {
+   "i": 2,
+   "frame": "t004.88.jpg",
+   "json": true,
+   "sec": 17.23631525039673
+  }
+ ],
+ "rows": [
+  {
+   "n": 1,
+   "round": 0,
+   "variant": "BASE",
+   "frame": "t000.38.jpg",
+   "sec": 25.6,
+   "json": true,
+   "fabric": false,
+   "pocket_ok": true,
+   "button_ok": true
+  },
+  {
+   "n": 2,
+   "round": 0,
+   "variant": "VP4_note_removed",
+   "frame": "t000.38.jpg",
+   "sec": 15.2,
+   "json": true,
+   "fabric": false,
+   "pocket_ok": true,
+   "button_ok": true
+  },
+  {
+   "n": 3,
+   "round": 0,
+   "variant": "VP5_note_moved",
+   "frame": "t000.38.jpg",
+   "sec": 16.2,
+   "json": true,
+   "fabric": false,
+   "pocket_ok": true,
+   "button_ok": true
+  },
+  {
+   "n": 4,
+   "round": 0,
+   "variant": "VP6_strict_close_removed",
+   "frame": "t000.38.jpg",
+   "sec": 19.6,
+   "json": true,
+   "fabric": false,
+   "pocket_ok": true,
+   "button_ok": true
+  },
+  {
+   "n": 5,
+   "round": 0,
+   "variant": "BASE",
+   "frame": "t002.62.jpg",
+   "sec": 40.0,
+   "json": false
+  },
+  {
+   "n": 6,
+   "round": 0,
+   "variant": "VP4_note_removed",
+   "frame": "t002.62.jpg",
+   "sec": 17.3,
+   "json": true,
+   "fabric": false,
+   "pocket_ok": true,
+   "button_ok": true
+  },
+  {
+   "n": 7,
+   "round": 0,
+   "variant": "VP5_note_moved",
+   "frame": "t002.62.jpg",
+   "sec": 16.0,
+   "json": true,
+   "fabric": false,
+   "pocket_ok": true,
+   "button_ok": true
+  },
+  {
+   "n": 8,
+   "round": 0,
+   "variant": "VP6_strict_close_removed",
+   "frame": "t002.62.jpg",
+   "sec": 18.5,
+   "json": true,
+   "fabric": false,
+   "pocket_ok": true,
+   "button_ok": true
+  },
+  {
+   "n": 9,
+   "round": 0,
+   "variant": "BASE",
+   "frame": "t004.88.jpg",
+   "sec": 42.4,
+   "json": false
+  },
+  {
+   "n": 10,
+   "round": 0,
+   "variant": "VP4_note_removed",
+   "frame": "t004.88.jpg",
+   "sec": 19.1,
+   "json": true,
+   "fabric": false,
+   "pocket_ok": true,
+   "button_ok": true
+  },
+  {
+   "n": 11,
+   "round": 0,
+   "variant": "VP5_note_moved",
+   "frame": "t004.88.jpg",
+   "sec": 19.9,
+   "json": true,
+   "fabric": false,
+   "pocket_ok": true,
+   "button_ok": true
+  },
+  {
+   "n": 12,
+   "round": 0,
+   "variant": "VP6_strict_close_removed",
+   "frame": "t004.88.jpg",
+   "sec": 20.8,
+   "json": true,
+   "fabric": false,
+   "pocket_ok": true,
+   "button_ok": true
+  },
+  {
+   "n": 13,
+   "round": 1,
+   "variant": "BASE",
+   "frame": "t000.38.jpg",
+   "sec": 29.6,
+   "json": true,
+   "fabric": false,
+   "pocket_ok": true,
+   "button_ok": true
+  },
+  {
+   "n": 14,
+   "round": 1,
+   "variant": "VP4_note_removed",
+   "frame": "t000.38.jpg",
+   "sec": 17.5,
+   "json": true,
+   "fabric": false,
+   "pocket_ok": true,
+   "button_ok": true
+  },
+  {
+   "n": 15,
+   "round": 1,
+   "variant": "VP5_note_moved",
+   "frame": "t000.38.jpg",
+   "sec": 18.2,
+   "json": true,
+   "fabric": false,
+   "pocket_ok": true,
+   "button_ok": true
+  },
+  {
+   "n": 16,
+   "round": 1,
+   "variant": "VP6_strict_close_removed",
+   "frame": "t000.38.jpg",
+   "sec": 21.7,
+   "json": true,
+   "fabric": false,
+   "pocket_ok": true,
+   "button_ok": true
+  },
+  {
+   "n": 17,
+   "round": 1,
+   "variant": "BASE",
+   "frame": "t002.62.jpg",
+   "sec": 43.9,
+   "json": false
+  },
+  {
+   "n": 18,
+   "round": 1,
+   "variant": "VP4_note_removed",
+   "frame": "t002.62.jpg",
+   "sec": 18.5,
+   "json": true,
+   "fabric": false,
+   "pocket_ok": true,
+   "button_ok": true
+  },
+  {
+   "n": 19,
+   "round": 1,
+   "variant": "VP5_note_moved",
+   "frame": "t002.62.jpg",
+   "sec": 17.1,
+   "json": true,
+   "fabric": false,
+   "pocket_ok": true,
+   "button_ok": true
+  },
+  {
+   "n": 20,
+   "round": 1,
+   "variant": "VP6_strict_close_removed",
+   "frame": "t002.62.jpg",
+   "sec": 19.4,
+   "json": true,
+   "fabric": false,
+   "pocket_ok": true,
+   "button_ok": true
+  },
+  {
+   "n": 21,
+   "round": 1,
+   "variant": "BASE",
+   "frame": "t004.88.jpg",
+   "sec": 44.2,
+   "json": false
+  },
+  {
+   "n": 22,
+   "round": 1,
+   "variant": "VP4_note_removed",
+   "frame": "t004.88.jpg",
+   "sec": 19.6,
+   "json": true,
+   "fabric": false,
+   "pocket_ok": true,
+   "button_ok": true
+  },
+  {
+   "n": 23,
+   "round": 1,
+   "variant": "VP5_note_moved",
+   "frame": "t004.88.jpg",
+   "sec": 20.6,
+   "json": true,
+   "fabric": false,
+   "pocket_ok": true,
+   "button_ok": true
+  },
+  {
+   "n": 24,
+   "round": 1,
+   "variant": "VP6_strict_close_removed",
+   "frame": "t004.88.jpg",
+   "sec": 21.0,
+   "json": true,
+   "fabric": false,
+   "pocket_ok": true,
+   "button_ok": true
+  },
+  {
+   "n": 25,
+   "round": 2,
+   "variant": "BASE",
+   "frame": "t000.38.jpg",
+   "sec": 30.2,
+   "json": true,
+   "fabric": false,
+   "pocket_ok": true,
+   "button_ok": true
+  },
+  {
+   "n": 26,
+   "round": 2,
+   "variant": "VP4_note_removed",
+   "frame": "t000.38.jpg",
+   "sec": 17.7,
+   "json": true,
+   "fabric": false,
+   "pocket_ok": true,
+   "button_ok": true
+  },
+  {
+   "n": 27,
+   "round": 2,
+   "variant": "VP5_note_moved",
+   "frame": "t000.38.jpg",
+   "sec": 18.7,
+   "json": true,
+   "fabric": false,
+   "pocket_ok": true,
+   "button_ok": true
+  },
+  {
+   "n": 28,
+   "round": 2,
+   "variant": "VP6_strict_close_removed",
+   "frame": "t000.38.jpg",
+   "sec": 22.0,
+   "json": true,
+   "fabric": false,
+   "pocket_ok": true,
+   "button_ok": true
+  },
+  {
+   "n": 29,
+   "round": 2,
+   "variant": "BASE",
+   "frame": "t002.62.jpg",
+   "sec": 44.5,
+   "json": false
+  },
+  {
+   "n": 30,
+   "round": 2,
+   "variant": "VP4_note_removed",
+   "frame": "t002.62.jpg",
+   "sec": 18.9,
+   "json": true,
+   "fabric": false,
+   "pocket_ok": true,
+   "button_ok": true
+  },
+  {
+   "n": 31,
+   "round": 2,
+   "variant": "VP5_note_moved",
+   "frame": "t002.62.jpg",
+   "sec": 17.3,
+   "json": true,
+   "fabric": false,
+   "pocket_ok": true,
+   "button_ok": true
+  },
+  {
+   "n": 32,
+   "round": 2,
+   "variant": "VP6_strict_close_removed",
+   "frame": "t002.62.jpg",
+   "sec": 19.9,
+   "json": true,
+   "fabric": false,
+   "pocket_ok": true,
+   "button_ok": true
+  },
+  {
+   "n": 33,
+   "round": 2,
+   "variant": "BASE",
+   "frame": "t004.88.jpg",
+   "sec": 44.3,
+   "json": false
+  },
+  {
+   "n": 34,
+   "round": 2,
+   "variant": "VP4_note_removed",
+   "frame": "t004.88.jpg",
+   "sec": 19.9,
+   "json": true,
+   "fabric": false,
+   "pocket_ok": true,
+   "button_ok": true
+  },
+  {
+   "n": 35,
+   "round": 2,
+   "variant": "VP5_note_moved",
+   "frame": "t004.88.jpg",
+   "sec": 20.7,
+   "json": true,
+   "fabric": false,
+   "pocket_ok": true,
+   "button_ok": true
+  },
+  {
+   "n": 36,
+   "round": 2,
+   "variant": "VP6_strict_close_removed",
+   "frame": "t004.88.jpg",
+   "sec": 21.3,
+   "json": true,
+   "fabric": false,
+   "pocket_ok": true,
+   "button_ok": true
+  }
+ ],
+ "summary": {
   "BASE": {
-   "fabric_claims": 0,
-   "fabric_skips": 3,
+   "reads": 9,
    "no_json": 6,
-   "observable": "6/6"
+   "fabric_claims": 0,
+   "observable_ok": 3
   },
   "VP4_note_removed": {
-   "fabric_claims": 0,
-   "fabric_skips": 9,
+   "reads": 9,
    "no_json": 0,
-   "observable": "18/18"
+   "fabric_claims": 0,
+   "observable_ok": 9
   },
   "VP5_note_moved": {
-   "fabric_claims": 0,
-   "fabric_skips": 9,
+   "reads": 9,
    "no_json": 0,
-   "observable": "18/18"
+   "fabric_claims": 0,
+   "observable_ok": 9
   },
   "VP6_strict_close_removed": {
-   "fabric_claims": 0,
-   "fabric_skips": 9,
+   "reads": 9,
    "no_json": 0,
-   "observable": "18/18"
+   "fabric_claims": 0,
+   "observable_ok": 9
   }
  }
 }

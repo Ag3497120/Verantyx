@@ -919,6 +919,7 @@ private struct AnalystSheet: View {
                     .font(.system(size: 11))
             }
             .padding(14)
+            .frame(maxWidth: .infinity, alignment: .leading)
             .background(AT.panel)
 
             Text(app.t("Whatever you pick can only write PROPOSED entries. "
@@ -1025,6 +1026,7 @@ private struct AnalystSheet: View {
                 Spacer(minLength: 0)
             }
             .padding(14)
+            .frame(maxWidth: .infinity, alignment: .leading)
             .background(AT.panel)
         }
         .frame(width: 560, height: 560)
@@ -1145,6 +1147,7 @@ private struct ProvenancePanel: View {
             }
         }
         .padding(14)
+        .frame(maxWidth: .infinity, alignment: .leading)
         .background(AT.panel)
     }
 
@@ -1285,6 +1288,7 @@ private struct ProvenancePanel: View {
                 .font(.system(size: 9)).foregroundStyle(AT.faint)
         }
         .padding(13)
+        .frame(maxWidth: .infinity, alignment: .leading)
         .background(AT.panel)
         .onAppear { if aspect.isEmpty {
             aspect = m.aspects(of: m.selected).first ?? "" } }
@@ -1370,6 +1374,7 @@ private struct DesignPanel: View {
                 }
             }
             .padding(14)
+            .frame(maxWidth: .infinity, alignment: .leading)
             .background(AT.panel)
             Divider().opacity(0.25)
 
@@ -1480,6 +1485,7 @@ private struct DesignPanel: View {
                     .font(.system(size: 9)).foregroundStyle(AT.faint)
             }
             .padding(13)
+            .frame(maxWidth: .infinity, alignment: .leading)
             .background(AT.panel)
         }
         .background(AT.bg)
@@ -1575,6 +1581,7 @@ private struct SourcesPanel: View {
                 .font(.system(size: 10)).foregroundStyle(AT.faint)
         }
         .padding(14)
+        .frame(maxWidth: .infinity, alignment: .leading)
         .background(AT.panel)
     }
 
@@ -1766,7 +1773,9 @@ private struct MeasurePanel: View {
                             m.measureCounts["open"] ?? 0, AT.dim)
                 }
             }
-            .padding(14).background(AT.panel)
+            .padding(14)
+            .frame(maxWidth: .infinity, alignment: .leading)
+            .background(AT.panel)
             Divider().opacity(0.25)
 
             ScrollView {
@@ -1882,7 +1891,9 @@ private struct MeasurePanel: View {
                        "比率は、基準が実測で入るまで長さになりません。"))
                 .font(.system(size: 9)).foregroundStyle(AT.faint)
         }
-        .padding(13).background(AT.panel)
+        .padding(13)
+        .frame(maxWidth: .infinity, alignment: .leading)
+        .background(AT.panel)
     }
 
     private func counter(_ label: String, _ n: Int,
