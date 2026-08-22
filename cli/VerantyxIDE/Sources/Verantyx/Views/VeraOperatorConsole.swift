@@ -27,6 +27,7 @@ struct VeraOperatorConsole: View {
         case domains = "分野"
         case documents = "文書"
         case ingest = "投入"
+        case covenant = "約束"
         case approvals = "承認"
         case gaps = "欠落"
         case settings = "設定"
@@ -43,6 +44,7 @@ struct VeraOperatorConsole: View {
                 case .domains:   domainsBody
                 case .documents: documentsBody
                 case .ingest:    ingestBody
+                case .covenant:  CovenantGuardView().environmentObject(app)
                 case .approvals: approvalsBody
                 case .gaps:      gapsBody
                 case .settings:  settingsBody

@@ -206,13 +206,16 @@ struct VeraAuditView: View {
     /// surfaces: the agent chat, growth, and MCP moved here from the
     /// activity bar / feature dock (which used to duplicate them).
     private enum RightTab: String, CaseIterable, Identifiable {
-        case chat, growth, mcp
+        // covenant = 番人。フックが端末の裏で回しているものを、人が見て
+        // 採用・退役できる面に出す(見えないものは信用されない)。
+        case chat, covenant, growth, mcp
         var id: String { rawValue }
         @MainActor func title(_ app: AppState) -> String {
             switch self {
-            case .chat:   return app.t("Chat", "チャット")
-            case .growth: return app.t("Growth", "成長")
-            case .mcp:    return "MCP"
+            case .chat:     return app.t("Chat", "チャット")
+            case .covenant: return app.t("Guard", "番人")
+            case .growth:   return app.t("Growth", "成長")
+            case .mcp:      return "MCP"
             }
         }
     }
@@ -273,9 +276,10 @@ struct VeraAuditView: View {
                 .padding(.horizontal, 8).padding(.vertical, 4)
                 Divider().opacity(0.25)
                 switch rightTab {
-                case .chat:   chatPanel
-                case .growth: GrowthDashboardView()
-                case .mcp:    MCPView().environmentObject(app)
+                case .chat:     chatPanel
+                case .covenant: CovenantGuardView().environmentObject(app)
+                case .growth:   GrowthDashboardView()
+                case .mcp:      MCPView().environmentObject(app)
                 }
             }
             .frame(width: 400)
