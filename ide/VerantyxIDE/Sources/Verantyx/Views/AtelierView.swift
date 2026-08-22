@@ -38,6 +38,7 @@ struct AtelierView: View {
         .background(AT.bg)
         .task {
             await m.load()
+            await intake.restore()
             await an.refresh(app: app)
         }
         .sheet(isPresented: $m.showTechPack) { TechPackSheet(m: m) }
@@ -171,19 +172,27 @@ struct AtelierView: View {
     private var figureWorkspace: some View {
         VStack(spacing: 0) {
             HStack(spacing: 6) {
+                // **押して何も起きないものを置かない。** Search は
+                // 実装が 01 Sources にあるので、そこへ連れて行く。
+                // 無言のタブは「壊れている」と「まだ無い」の区別が
+                // つかず、読み手は前者だと思う。
                 ForEach(["Film", "Search", "3D"], id: \.self) { t in
                     Text(t).font(.system(size: 11))
                         .padding(.horizontal, 12).padding(.vertical, 4)
                         .background(Capsule().stroke(
                             m.tab == t ? AT.sel : AT.line, lineWidth: 1))
                         .foregroundStyle(m.tab == t ? AT.fg : AT.dim)
-                        .onTapGesture { m.tab = t }
+                        .onTapGesture {
+                            if t == "Search" { m.step = "Sources" }
+                            else { m.tab = t }
+                        }
                 }
                 Spacer()
                 if m.tab == "3D" {
                     // 無いものを「準備中」と言わない。まだ観測が要る段だと言う。
-                    Text(app.t("no 3D yet — evidence first",
-                               "3Dはまだ。先に証拠を集める段です"))
+                    Text(app.t("no 3D yet — evidence first, then "
+                               + "measurements",
+                               "3Dはまだ。先に証拠、次に寸法の段です"))
                         .font(.system(size: 10)).foregroundStyle(AT.faint)
                 }
             }
@@ -236,30 +245,75 @@ struct AtelierView: View {
 
     /// アニメ: 原画 → 解釈 → 実現。**中央だけが Vera の持ち物**で、
     /// 左右はまだ無い/外にあるものだと分かるように薄くする。
+    /// 三面。**左は原作、中はVeraの構造、右は作ったもの。**
+    ///
+    /// ここは以前、三面とも Vera の図を透明度違いで並べ、左に
+    /// 「Original artwork / 設定画」と書いていた。**Veraの構造を
+    /// 原作の設定画と名乗る**のは、この製品が禁じてきたことそのもの。
+    /// 左は取り込んだコマの実物を出し、無ければ無いと言う。右は
+    /// 作図した設計図で、それも無ければ無いと言う。
     private var animeTriptych: some View {
-        HStack(spacing: 18) {
+        HStack(alignment: .top, spacing: 18) {
             VStack(spacing: 4) {
-                Text("Original artwork").font(.system(size: 10))
-                    .foregroundStyle(AT.faint)
-                figure(scale: 0.52).opacity(0.35)
-                Text(app.t("設定画 / screenshot", "設定画・スクリーンショット"))
-                    .font(.system(size: 9)).foregroundStyle(AT.faint)
+                Text(app.t("Original artwork", "原作"))
+                    .font(.system(size: 10)).foregroundStyle(AT.faint)
+                if let clip = intake.selectedClip ?? intake.clips.first,
+                   let img = NSImage(contentsOfFile: clip.path) {
+                    Image(nsImage: img).resizable().scaledToFit()
+                        .frame(maxWidth: 150, maxHeight: 190)
+                    Text(clip.mark).font(.system(size: 9,
+                                                 design: .monospaced))
+                        .foregroundStyle(AT.faint)
+                } else {
+                    placeholder(app.t("no material taken in yet",
+                                      "まだ素材を入れていません"),
+                                app.t("01 Sources", "01 Sources で入れる"))
+                }
             }
+            .frame(width: 170)
+
             VStack(spacing: 4) {
-                Text("Interpretation").font(.system(size: 10))
-                    .foregroundStyle(AT.dim)
+                Text(app.t("Interpretation", "Veraが持っている構造"))
+                    .font(.system(size: 10)).foregroundStyle(AT.dim)
                 figure(scale: 0.85)
-                Text(app.t("what Vera holds", "Veraが持っている構造"))
+                Text(app.t("observed / split / inferred / unknown",
+                           "確定・割れ・推論・未確定"))
                     .font(.system(size: 9)).foregroundStyle(AT.faint)
             }
+
             VStack(spacing: 4) {
-                Text("Realization").font(.system(size: 10))
-                    .foregroundStyle(AT.faint)
-                figure(scale: 0.52).opacity(0.22)
-                Text(app.t("not generated", "実際に作れる服(未生成)"))
-                    .font(.system(size: 9)).foregroundStyle(AT.faint)
+                Text(app.t("Realization", "作るもの"))
+                    .font(.system(size: 10)).foregroundStyle(AT.faint)
+                if m.drawShapes.isEmpty {
+                    placeholder(app.t("nothing drawn yet",
+                                      "まだ作図していません"),
+                                app.t("02 Garments", "02 Garments で描く"))
+                } else {
+                    FlatFigure(shapes: m.drawShapes, canvas: m.drawCanvas)
+                        .frame(width: 130,
+                               height: 130 * m.drawCanvas.height
+                                   / max(m.drawCanvas.width, 1))
+                        .padding(8)
+                        .background(RoundedRectangle(cornerRadius: 3)
+                            .fill(Color.white))
+                    Text(app.t("drafted, not generated", "作図。生成ではない"))
+                        .font(.system(size: 9)).foregroundStyle(AT.faint)
+                }
             }
+            .frame(width: 170)
         }
+        .task { await m.loadDrawing() }
+    }
+
+    /// 無いものを、他のもので埋めない。
+    private func placeholder(_ what: String, _ where_: String) -> some View {
+        VStack(spacing: 4) {
+            Text(what).font(.system(size: 10)).foregroundStyle(AT.faint)
+            Text(where_).font(.system(size: 9)).foregroundStyle(AT.warn)
+        }
+        .frame(maxWidth: .infinity, minHeight: 150)
+        .background(RoundedRectangle(cornerRadius: 4)
+            .stroke(AT.line, style: StrokeStyle(lineWidth: 1, dash: [3, 3])))
     }
 
     // MARK: - 右: 構造インスペクタ

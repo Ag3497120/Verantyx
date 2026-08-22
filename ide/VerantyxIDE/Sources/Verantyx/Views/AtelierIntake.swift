@@ -72,6 +72,36 @@ final class AtelierIntake: ObservableObject {
         return base
     }
 
+    /// 取り込み台帳から、前に割ったコマを読み直す。
+    ///
+    /// **エンジン側は覚えているのに画面が忘れる**、が起きていた。
+    /// アプリを再起動すると素材が消えたように見え、三面の左が
+    /// 「まだ素材を入れていません」になる — 入れたのに。
+    func restore() async {
+        let d = await call("intake_report")
+        var out: [Clip] = []
+        for src in (d["sources"] as? [[String: Any]] ?? []) {
+            let path = src["path"] as? String ?? ""
+            for c in (src["clips"] as? [[String: Any]] ?? []) {
+                let cp = c["path"] as? String ?? ""
+                // 手元から消えたコマは並べない。**開けないものを
+                // 開けるように見せない。**
+                guard FileManager.default.fileExists(atPath: cp) else {
+                    continue
+                }
+                out.append(Clip(path: cp,
+                                mark: c["mark"] as? String ?? "",
+                                seconds: (c["seconds"] as? Double) ?? 0,
+                                sourcePath: path))
+            }
+        }
+        clips = out.sorted { $0.seconds < $1.seconds }
+        if selectedClip == nil { selectedClip = clips.first }
+        if !clips.isEmpty {
+            say("前に割った \(clips.count) コマを読み直しました")
+        }
+    }
+
     // MARK: - 入れる
 
     func pickAndIngest() async {
